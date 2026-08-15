@@ -4036,6 +4036,33 @@ def _run_rolling_x_newsroom_cycle(
                         "semantic_routing_grants_authority": False,
                     }
         _write_json(output_dir / "rolling_x_story_routing_v1.json", story_routing)
+    ranked_clusters_for_activity = [
+        dict(row)
+        for row in (ranked_assignment.get("ranked_clusters") or [])
+        if isinstance(row, Mapping)
+    ]
+    cluster_by_id_for_activity = {
+        str(row.get("cluster_id") or ""): row for row in ranked_clusters_for_activity
+    }
+    base_evidence_acquirer = (
+        evidence_acquirer
+        or _default_rolling_x_evidence_acquirer(
+            capital_chronicle_root=capital_chronicle_root,
+            evaluation_as_of_utc=cutoff_utc,
+        )
+    )
+
+    def tracked_evidence_acquirer(request: Mapping[str, Any]) -> Any:
+        cluster = cluster_by_id_for_activity.get(str(request.get("cluster_id") or ""), {})
+        activity.record(
+            "GROUNDED_RESEARCH",
+            candidate_rank=int(request.get("rank") or 1),
+            candidate_count=len(ranked_clusters_for_activity),
+            story_label=safe_story_label(cluster),
+            grounding="latest-web source-bound research",
+        )
+        return base_evidence_acquirer(dict(request))
+
     viability_path = output_dir / "rolling_x_ranked_viability_v1.json"
     viability_checkpoint: Mapping[str, Any] | None = None
     if viability_path.exists():
@@ -4080,32 +4107,6 @@ def _run_rolling_x_newsroom_cycle(
             "rank_attempts": [],
         }
     else:
-        ranked_clusters_for_activity = [
-            dict(row) for row in (ranked_assignment.get("ranked_clusters") or [])
-            if isinstance(row, Mapping)
-        ]
-        cluster_by_id_for_activity = {
-            str(row.get("cluster_id") or ""): row for row in ranked_clusters_for_activity
-        }
-        base_evidence_acquirer = (
-            evidence_acquirer
-            or _default_rolling_x_evidence_acquirer(
-                capital_chronicle_root=capital_chronicle_root,
-                evaluation_as_of_utc=cutoff_utc,
-            )
-        )
-
-        def tracked_evidence_acquirer(request: Mapping[str, Any]) -> Any:
-            cluster = cluster_by_id_for_activity.get(str(request.get("cluster_id") or ""), {})
-            activity.record(
-                "GROUNDED_RESEARCH",
-                candidate_rank=int(request.get("rank") or 1),
-                candidate_count=len(ranked_clusters_for_activity),
-                story_label=safe_story_label(cluster),
-                grounding="latest-web source-bound research",
-            )
-            return base_evidence_acquirer(dict(request))
-
         viability = select_first_viable_rolling_x_cluster(
             assignment=ranked_assignment,
             acquire_evidence=tracked_evidence_acquirer,
@@ -4190,6 +4191,17 @@ def _run_rolling_x_newsroom_cycle(
             else article_telemetry.get("article_writer_semantic_calls") or 0
         )
         review_calls = int(editorial_telemetry.get("mandatory_semantic_review_calls") or 0)
+        walk_rows = list(
+            (evidence.get("candidate_walk") or {}).get("candidate_attempts") or []
+        )
+        if walk_rows:
+            writer_calls = sum(
+                int(row.get("writer_semantic_calls") or 0) for row in walk_rows
+            )
+            review_calls = sum(
+                int(row.get("mandatory_semantic_review_calls") or 0)
+                for row in walk_rows
+            )
         evidence["critical_path_telemetry"] = {
             "schema_version": "contentops.publication_critical_path_telemetry.v1",
             "elapsed_seconds": round(time.monotonic() - critical_path_started, 3),
@@ -4207,15 +4219,193 @@ def _run_rolling_x_newsroom_cycle(
             "story_type_semantic_calls": story_calls,
             "article_writer_semantic_calls": writer_calls,
             "mandatory_semantic_review_calls": review_calls,
+            "candidates_attempted": len(walk_rows),
             "routine_semantic_calls": assignment_calls + story_calls + writer_calls + review_calls,
             "public_write_performed": bool(evidence.get("public_write_performed")),
         }
         _write_json(evidence_path, evidence)
+    candidate_walk_attempts: list[dict[str, Any]] = []
+    aggregated_rank_attempts: list[dict[str, Any]] = []
+    ranked_candidate_count = max(
+        len(ranked_clusters_for_activity),
+        int(viability.get("ranked_candidate_count") or 0),
+        int(viability.get("selected_rank") or 0),
+    )
+
+    def _merge_viability_attempts(current: Mapping[str, Any]) -> dict[str, Any]:
+        existing_ranks = {int(row.get("rank") or 0) for row in aggregated_rank_attempts}
+        for raw_attempt in current.get("rank_attempts") or []:
+            attempt = dict(raw_attempt)
+            rank = int(attempt.get("rank") or 0)
+            if rank in existing_ranks:
+                continue
+            aggregated_rank_attempts.append(attempt)
+            existing_ranks.add(rank)
+            cluster = cluster_by_id_for_activity.get(str(attempt.get("cluster_id") or ""), {})
+            blockers = [str(value) for value in (attempt.get("blockers") or [])]
+            candidate_walk_attempts.append(
+                {
+                    "rank": rank,
+                    "cluster_id": attempt.get("cluster_id"),
+                    "story_label": safe_story_label(cluster),
+                    "candidate_title": str(
+                        cluster.get("why_now")
+                        or cluster.get("selection_case")
+                        or safe_story_label(cluster)
+                    ),
+                    "effective_article_mode": attempt.get("effective_article_mode"),
+                    "evidence_result": attempt.get("status"),
+                    "evidence_blockers": blockers,
+                    "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+                    if attempt.get("status") != "VIABLE"
+                    else "PENDING",
+                    "mandatory_semantic_review_calls": 0,
+                    "terminal_reason": (
+                        "EVIDENCE_BLOCKED:" + "|".join(blockers)
+                        if blockers
+                        else None
+                    ),
+                }
+            )
+        selected_rank = int(current.get("selected_rank") or 0)
+        if current.get("status") == "SUCCESS" and selected_rank not in existing_ranks:
+            selected_cluster = dict(current.get("selected_cluster") or {})
+            aggregated_rank_attempts.append(
+                {
+                    "rank": selected_rank,
+                    "cluster_id": current.get("selected_cluster_id"),
+                    "headline_ids": list(current.get("selected_headline_ids") or []),
+                    "status": "VIABLE",
+                    "blockers": [],
+                    "effective_article_mode": (
+                        (current.get("selected_evidence") or {}).get(
+                            "effective_article_mode"
+                        )
+                        or selected_cluster.get("resolved_article_mode")
+                    ),
+                    "injected_narrow_test_or_legacy_checkpoint": True,
+                }
+            )
+            candidate_walk_attempts.append(
+                {
+                    "rank": selected_rank,
+                    "cluster_id": current.get("selected_cluster_id"),
+                    "story_label": safe_story_label(selected_cluster),
+                    "candidate_title": str(
+                        selected_cluster.get("why_now")
+                        or selected_cluster.get("selection_case")
+                        or safe_story_label(selected_cluster)
+                    ),
+                    "effective_article_mode": selected_cluster.get(
+                        "resolved_article_mode"
+                    ),
+                    "evidence_result": "VIABLE",
+                    "evidence_blockers": [],
+                    "writer_invocation_result": "PENDING",
+                    "mandatory_semantic_review_calls": 0,
+                    "terminal_reason": None,
+                }
+            )
+        aggregated_rank_attempts.sort(key=lambda row: int(row.get("rank") or 0))
+        candidate_walk_attempts.sort(key=lambda row: int(row.get("rank") or 0))
+        merged = {
+            **dict(current),
+            "rank_attempts": aggregated_rank_attempts,
+            "ranked_candidate_count": ranked_candidate_count,
+            "attempted_candidate_count": len(aggregated_rank_attempts),
+            "unattempted_candidate_count": max(
+                0, ranked_candidate_count - len(aggregated_rank_attempts)
+            ),
+            "publishability_pool_exhausted": bool(
+                current.get("status") != "SUCCESS"
+                and len(aggregated_rank_attempts) == ranked_candidate_count
+                and not current.get("evidence_request_budget_exhausted")
+            ),
+        }
+        merged.pop("viability_logical_hash", None)
+        merged["viability_logical_hash"] = _json_sha256(merged)
+        evidence["ranked_viability"] = merged
+        _write_json(viability_path, merged)
+        return merged
+
+    def _candidate_walk_row(rank: int) -> dict[str, Any]:
+        return next(row for row in candidate_walk_attempts if row["rank"] == rank)
+
+    def _persist_candidate_walk(*, terminal_reason: str, selected_rank: int | None = None) -> None:
+        evidence["candidate_walk"] = {
+            "schema_version": "contentops.same_opportunity_candidate_walk.v1",
+            "ranked_candidate_count": ranked_candidate_count,
+            "attempted_candidate_count": len(candidate_walk_attempts),
+            "unattempted_candidate_count": max(
+                0, ranked_candidate_count - len(candidate_walk_attempts)
+            ),
+            "candidate_attempts": candidate_walk_attempts,
+            "selected_publication_candidate_rank": selected_rank,
+            "selected_publication_candidate": (
+                {
+                    "rank": selected_rank,
+                    "cluster_id": viability.get("selected_cluster_id"),
+                    "candidate_title": _candidate_walk_row(selected_rank).get(
+                        "article_title"
+                    )
+                    or _candidate_walk_row(selected_rank).get("candidate_title"),
+                }
+                if selected_rank is not None
+                else None
+            ),
+            "one_publication_max_per_opportunity": True,
+            "opportunity_terminal_reason": terminal_reason,
+            "publication_authority_granted": False,
+        }
+
+    def _next_viable_after(rank: int) -> dict[str, Any]:
+        if rank >= ranked_candidate_count:
+            return _merge_viability_attempts(
+                {
+                    "status": "NO_PUBLICATION",
+                    "decision": "NO_PUBLICATION",
+                    "reason_code": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+                    "selected_rank": None,
+                    "selected_cluster_id": None,
+                    "selected_headline_ids": [],
+                    "selected_cluster": None,
+                    "selected_evidence": None,
+                    "rank_attempts": [],
+                    "evidence_request_budget_exhausted": False,
+                    "publication_authority_granted": False,
+                }
+            )
+        next_result = select_first_viable_rolling_x_cluster(
+            assignment=ranked_assignment,
+            acquire_evidence=tracked_evidence_acquirer,
+            story_type_by_cluster=story_type_by_cluster,
+            start_after_rank=rank,
+        )
+        if (
+            next_result.get("status") == "SUCCESS"
+            and int(next_result.get("selected_rank") or 0) <= rank
+        ):
+            next_result = {
+                **dict(next_result),
+                "status": "BLOCKED",
+                "decision": None,
+                "reason_code": "CANDIDATE_WALK_FAILED_TO_ADVANCE_RANK",
+                "selected_rank": None,
+                "selected_cluster_id": None,
+                "selected_headline_ids": [],
+                "selected_cluster": None,
+                "selected_evidence": None,
+                "rank_attempts": [],
+            }
+        return _merge_viability_attempts(next_result)
+
+    viability = _merge_viability_attempts(viability)
     if viability.get("status") != "SUCCESS":
         evidence["classification"] = (
             "BLOCKED" if viability.get("status") == "BLOCKED" else "NO_PUBLICATION"
         )
         evidence["exact_next_blocker"] = viability.get("reason_code")
+        _persist_candidate_walk(terminal_reason=str(viability.get("reason_code") or ""))
         _persist_cycle_evidence()
         return evidence
 
@@ -4248,162 +4438,278 @@ def _run_rolling_x_newsroom_cycle(
     )
 
     built_checkpoint_path = output_dir / "rolling_x_grounded_article_media_v1.json"
-    activity.record(
-        "ARTICLE_WRITING",
-        candidate_rank=int(viability.get("selected_rank") or 1),
-        candidate_count=len(ranked_assignment.get("ranked_clusters") or []),
-        story_label=safe_story_label(viability.get("selected_cluster") or {}),
-        grounding="accepted source-bound evidence",
-    )
-    try:
-        if built_checkpoint_path.exists():
-            built = _read_json(built_checkpoint_path)
-            checkpoint_article = dict(built.get("article") or {})
-            checkpoint_assets = list((built.get("media") or {}).get("assets") or [])
-            checkpoint_context = extract_governed_story_context(viability)
-            checkpoint_blockers = validate_generated_article(
-                checkpoint_article,
-                context=checkpoint_context,
-                visual_asset_ids=[str(row.get("asset_id") or "") for row in checkpoint_assets],
-            )
-            if built.get("schema_version") != "contentops.rolling_x_grounded_article_media_builder.v1" or checkpoint_blockers:
-                raise GroundedArticleBuilderError(
-                    "grounded_article_checkpoint_binding_invalid:"
-                    + ",".join(checkpoint_blockers)
-                )
-            built = {
-                **built,
-                "critical_path_telemetry": {
-                    **dict(built.get("critical_path_telemetry") or {}),
-                    "grounded_article_checkpoint_reused": True,
-                    "article_writer_semantic_calls_this_resume": 0,
-                },
-            }
-        else:
-            built = article_builder(dict(viability))
-            if isinstance(built, Mapping):
-                _write_json(built_checkpoint_path, built)
-    except GroundedArticleBuilderError as exc:
-        evidence["classification"] = "NO_PUBLICATION"
-        evidence["exact_next_blocker"] = "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
-        evidence["grounded_article_builder_blockers"] = sorted(set(str(exc).split(";")))
-        evidence["article"] = None
-        evidence["media"] = None
-        _persist_cycle_evidence()
-        return evidence
-    if not isinstance(built, Mapping):
-        raise ValueError("rolling_x_article_builder_not_object")
-    article = dict(built.get("article") or {})
-    media = dict(built.get("media") or {})
-    evidence["article_build_telemetry"] = dict(
-        built.get("critical_path_telemetry") or {}
-    )
-    media_assets = list(media.get("assets") or [])
-    deterministic_outage_fallback = (
-        article.get("article_generation_method") == "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF"
-        or bool(article.get("article_generation_router_failure"))
-    )
-    if publication_enabled and deterministic_outage_fallback:
-        evidence["article"] = article
-        evidence["media"] = media
-        evidence["classification"] = "NO_PUBLICATION"
-        evidence["exact_next_blocker"] = (
-            "ARTICLE_GENERATION_ROUTER_FAILURE_NO_PUBLICATION_AUTHORITY"
+    while viability.get("status") == "SUCCESS":
+        selected_rank = int(viability.get("selected_rank") or 0)
+        walk_row = _candidate_walk_row(selected_rank)
+        activity.record(
+            "ARTICLE_WRITING",
+            candidate_rank=selected_rank,
+            candidate_count=ranked_candidate_count,
+            story_label=safe_story_label(viability.get("selected_cluster") or {}),
+            grounding="accepted source-bound evidence",
         )
-        evidence["article_generation_publication_eligible"] = False
+        candidate_checkpoint_path = output_dir / (
+            f"rolling_x_grounded_article_media_candidate_{selected_rank}_v1.json"
+        )
+        try:
+            built: Mapping[str, Any] | None = None
+            checkpoint_source: Path | None = None
+            if candidate_checkpoint_path.exists():
+                checkpoint_source = candidate_checkpoint_path
+            elif built_checkpoint_path.exists():
+                legacy_built = _read_json(built_checkpoint_path)
+                legacy_article = dict(legacy_built.get("article") or {})
+                if (
+                    str(legacy_article.get("cluster_id") or "")
+                    == str(viability.get("selected_cluster_id") or "")
+                    and set(str(value) for value in legacy_article.get("headline_ids") or [])
+                    == set(str(value) for value in viability.get("selected_headline_ids") or [])
+                ):
+                    checkpoint_source = built_checkpoint_path
+            if checkpoint_source is not None:
+                built = _read_json(checkpoint_source)
+                checkpoint_article = dict(built.get("article") or {})
+                checkpoint_assets = list((built.get("media") or {}).get("assets") or [])
+                checkpoint_context = extract_governed_story_context(viability)
+                checkpoint_blockers = validate_generated_article(
+                    checkpoint_article,
+                    context=checkpoint_context,
+                    visual_asset_ids=[
+                        str(row.get("asset_id") or "") for row in checkpoint_assets
+                    ],
+                )
+                if (
+                    built.get("schema_version")
+                    != "contentops.rolling_x_grounded_article_media_builder.v1"
+                    or checkpoint_blockers
+                ):
+                    raise GroundedArticleBuilderError(
+                        "grounded_article_checkpoint_binding_invalid:"
+                        + ",".join(checkpoint_blockers)
+                    )
+                built = {
+                    **built,
+                    "critical_path_telemetry": {
+                        **dict(built.get("critical_path_telemetry") or {}),
+                        "grounded_article_checkpoint_reused": True,
+                        "article_writer_semantic_calls_this_resume": 0,
+                    },
+                }
+            else:
+                built = article_builder(dict(viability))
+            if isinstance(built, Mapping):
+                _write_json(candidate_checkpoint_path, built)
+                _write_json(built_checkpoint_path, built)
+        except GroundedArticleBuilderError as exc:
+            walk_row.update(
+                {
+                    "writer_invocation_result": "FAIL_CLOSED",
+                    "writer_blockers": sorted(set(str(exc).split(";"))),
+                    "terminal_reason": "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED",
+                }
+            )
+            next_viability = _next_viable_after(selected_rank)
+            if next_viability.get("status") == "SUCCESS":
+                viability = next_viability
+                continue
+            evidence["classification"] = "NO_PUBLICATION"
+            evidence["exact_next_blocker"] = (
+                next_viability.get("reason_code")
+                if next_viability.get("evidence_request_budget_exhausted")
+                else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+            )
+            evidence["grounded_article_builder_blockers"] = walk_row["writer_blockers"]
+            evidence["article"] = None
+            evidence["media"] = None
+            _persist_candidate_walk(terminal_reason=str(evidence["exact_next_blocker"]))
+            _persist_cycle_evidence()
+            return evidence
+        if not isinstance(built, Mapping):
+            raise ValueError("rolling_x_article_builder_not_object")
+        article = dict(built.get("article") or {})
+        media = dict(built.get("media") or {})
+        article_telemetry = dict(built.get("critical_path_telemetry") or {})
+        evidence["article_build_telemetry"] = article_telemetry
+        writer_calls = int(
+            article_telemetry.get("article_writer_semantic_calls_this_resume")
+            if article_telemetry.get("grounded_article_checkpoint_reused")
+            else article_telemetry.get("article_writer_semantic_calls") or 0
+        )
+        walk_row.update(
+            {
+                "writer_invocation_result": "SUCCESS",
+                "writer_semantic_calls": writer_calls,
+                "article_title": article.get("title"),
+                "effective_article_mode": article.get("effective_article_mode"),
+            }
+        )
+        media_assets = list(media.get("assets") or [])
+        deterministic_outage_fallback = (
+            article.get("article_generation_method")
+            == "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF"
+            or bool(article.get("article_generation_router_failure"))
+        )
+        if publication_enabled and deterministic_outage_fallback:
+            walk_row["writer_invocation_result"] = "ROUTER_FAILURE_DEGRADED_COPY"
+            walk_row["terminal_reason"] = (
+                "ARTICLE_GENERATION_ROUTER_FAILURE_NO_PUBLICATION_AUTHORITY"
+            )
+            evidence["article"] = article
+            evidence["media"] = media
+            evidence["classification"] = "NO_PUBLICATION"
+            evidence["exact_next_blocker"] = walk_row["terminal_reason"]
+            evidence["article_generation_publication_eligible"] = False
+            evidence["publishing_adapter_called"] = False
+            evidence["public_write_performed"] = False
+            _persist_candidate_walk(terminal_reason=str(evidence["exact_next_blocker"]))
+            _persist_cycle_evidence()
+            return evidence
+        activity.record("FACTUAL_CHECK", story_label=article.get("title"))
+        editorial = _run_bounded_rolling_x_editorial_cycle(
+            article=article,
+            media_assets=media_assets,
+            editorial_reviewer=reviewer,
+            article_reviser=reviser,
+        )
+        evidence["article"] = editorial.get("article")
+        evidence["media"] = media
+        evidence["editorial_cycle"] = editorial
+        walk_row["mandatory_semantic_review_calls"] = int(
+            editorial.get("mandatory_semantic_review_calls") or 0
+        )
+        if editorial.get("status") != "PASS":
+            reason = str(editorial.get("reason_code") or "EDITORIAL_CANDIDATE_REJECTED")
+            walk_row["terminal_reason"] = reason
+            review_history = list(editorial.get("review_history") or [])
+            if review_history:
+                walk_row["reader_value_blockers"] = list(
+                    (
+                        (review_history[-1].get("deterministic_review") or {}).get(
+                            "reader_value_gate"
+                        )
+                        or {}
+                    ).get("blockers")
+                    or []
+                )
+            if reason in {
+                "EDITORIAL_REVIEW_ROUTER_FAILURE",
+                "EDITORIAL_REVISION_ROUTER_FAILURE",
+            }:
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = reason
+                _persist_candidate_walk(terminal_reason=reason)
+                _persist_cycle_evidence()
+                return evidence
+            next_viability = _next_viable_after(selected_rank)
+            if next_viability.get("status") == "SUCCESS":
+                viability = next_viability
+                continue
+            evidence["classification"] = "NO_PUBLICATION"
+            evidence["exact_next_blocker"] = (
+                next_viability.get("reason_code")
+                if next_viability.get("evidence_request_budget_exhausted")
+                else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+            )
+            _persist_candidate_walk(terminal_reason=str(evidence["exact_next_blocker"]))
+            _persist_cycle_evidence()
+            return evidence
+        activity.record(
+            "READER_VALUE_CHECK", story_label=(editorial.get("article") or {}).get("title")
+        )
+        readiness = (
+            dict(destination_readiness_override)
+            if destination_readiness_override is not None
+            else _rolling_x_destination_readiness(cdp_port=cdp_port)
+            if publication_enabled
+            else {
+                "schema_version": "contentops.destination_readiness.shadow.v1",
+                "destinations": {},
+                "fixture_bound": False,
+                "public_write_authority": False,
+            }
+        )
+        evidence["destination_readiness"] = readiness
+        final_article = dict(editorial.get("article") or {})
+        activity.record("PACKAGE_BUILD", story_label=final_article.get("title"))
+        preparation = _prepare_rolling_x_release_candidate(
+            run_id=run_id,
+            output_dir=output_dir,
+            intake=intake,
+            assignment=assignment,
+            viability=viability,
+            article=final_article,
+            media=media,
+            editorial_cycle=editorial,
+            destination_readiness=readiness,
+        )
+        evidence["release_candidate_preparation"] = preparation
+        evidence["platform_package_generated"] = bool(preparation.get("payloads"))
+        if (
+            preparation.get("classification")
+            != "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
+            or (preparation.get("release_candidate_lock_verification") or {}).get("status")
+            != "PASS_RELEASE_CANDIDATE_LOCK"
+        ):
+            reason = str(
+                (preparation.get("blockers") or [
+                    "CANONICAL_RELEASE_CANDIDATE_LOCK_NOT_READY"
+                ])[0]
+            )
+            walk_row["terminal_reason"] = reason
+            if reason == "INSUFFICIENT_READER_VALUE":
+                next_viability = _next_viable_after(selected_rank)
+                if next_viability.get("status") == "SUCCESS":
+                    viability = next_viability
+                    continue
+            evidence["classification"] = "NO_PUBLICATION"
+            evidence["exact_next_blocker"] = reason
+            if not publication_enabled:
+                evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
+                evidence["shadow_publication_plan_ready"] = False
+            _persist_candidate_walk(terminal_reason=reason)
+            _persist_cycle_evidence()
+            return evidence
+
+        # Final Daily App path: the newsroom never calls a publishing adapter. It returns one
+        # deterministic plan, then stops this opportunity's candidate walk.
+        plan = _build_rolling_x_publication_plan(
+            run_id=run_id,
+            output_dir=output_dir,
+            viability=viability,
+            preparation=preparation,
+            readiness=readiness,
+        )
+        evidence["publication_lifecycle_plan"] = plan
+        walk_row["terminal_reason"] = "PUBLICATION_QUALIFIED"
+        if not publication_enabled:
+            evidence["classification"] = "NO_PUBLICATION"
+            evidence["exact_next_blocker"] = "PUBLICATION_DISABLED_FOR_GOVERNED_CYCLE"
+            evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
+            evidence["shadow_publication_plan_ready"] = True
+            evidence["publishing_adapter_called"] = False
+            evidence["public_write_performed"] = False
+            _persist_candidate_walk(
+                terminal_reason="PUBLICATION_QUALIFIED_ZERO_WRITE_PLAN_READY",
+                selected_rank=selected_rank,
+            )
+            _persist_cycle_evidence()
+            return evidence
+        evidence["classification"] = "PASS_PUBLICATION_PLAN_READY"
         evidence["publishing_adapter_called"] = False
         evidence["public_write_performed"] = False
-        _persist_cycle_evidence()
-        return evidence
-    activity.record("FACTUAL_CHECK", story_label=article.get("title"))
-    editorial = _run_bounded_rolling_x_editorial_cycle(
-        article=article,
-        media_assets=media_assets,
-        editorial_reviewer=reviewer,
-        article_reviser=reviser,
-    )
-    evidence["article"] = editorial.get("article")
-    evidence["media"] = media
-    evidence["editorial_cycle"] = editorial
-    if editorial.get("status") != "PASS":
-        evidence["classification"] = "NO_PUBLICATION"
-        evidence["exact_next_blocker"] = editorial.get("reason_code")
-        _persist_cycle_evidence()
-        return evidence
-    activity.record("READER_VALUE_CHECK", story_label=(editorial.get("article") or {}).get("title"))
-    readiness = (
-        dict(destination_readiness_override)
-        if destination_readiness_override is not None
-        else _rolling_x_destination_readiness(cdp_port=cdp_port)
-        if publication_enabled
-        else {
-            "schema_version": "contentops.destination_readiness.shadow.v1",
-            "destinations": {},
-            "fixture_bound": False,
-            "public_write_authority": False,
-        }
-    )
-    evidence["destination_readiness"] = readiness
-    final_article = dict(editorial.get("article") or {})
-    activity.record("PACKAGE_BUILD", story_label=final_article.get("title"))
-    preparation = _prepare_rolling_x_release_candidate(
-        run_id=run_id,
-        output_dir=output_dir,
-        intake=intake,
-        assignment=assignment,
-        viability=viability,
-        article=final_article,
-        media=media,
-        editorial_cycle=editorial,
-        destination_readiness=readiness,
-    )
-    evidence["release_candidate_preparation"] = preparation
-    evidence["platform_package_generated"] = bool(preparation.get("payloads"))
-    if (
-        preparation.get("classification")
-        != "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
-        or (preparation.get("release_candidate_lock_verification") or {}).get("status")
-        != "PASS_RELEASE_CANDIDATE_LOCK"
-    ):
-        evidence["classification"] = "NO_PUBLICATION"
-        evidence["exact_next_blocker"] = (
-            (preparation.get("blockers") or ["CANONICAL_RELEASE_CANDIDATE_LOCK_NOT_READY"])[0]
+        evidence["unknown_write_detected"] = False
+        evidence["strict_readback_performed"] = False
+        evidence["automatic_retry_blocked"] = False
+        evidence["daily_app_newsroom_direct_write"] = False
+        evidence["exact_next_blocker"] = None
+        _persist_candidate_walk(
+            terminal_reason="FIRST_PUBLICATION_QUALIFIED_CANDIDATE_SELECTED",
+            selected_rank=selected_rank,
         )
-        if not publication_enabled:
-            evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
-            evidence["shadow_publication_plan_ready"] = False
         _persist_cycle_evidence()
         return evidence
 
-    # Final Daily App path: the newsroom never calls a publishing adapter.  It returns a
-    # deterministic plan which the one durable publication coordinator registers and owns.
-    plan = _build_rolling_x_publication_plan(
-        run_id=run_id,
-        output_dir=output_dir,
-        viability=viability,
-        preparation=preparation,
-        readiness=readiness,
-    )
-    evidence["publication_lifecycle_plan"] = plan
-    if not publication_enabled:
-        evidence["classification"] = "NO_PUBLICATION"
-        evidence["exact_next_blocker"] = "PUBLICATION_DISABLED_FOR_GOVERNED_CYCLE"
-        evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
-        evidence["shadow_publication_plan_ready"] = True
-        evidence["publishing_adapter_called"] = False
-        evidence["public_write_performed"] = False
-        _persist_cycle_evidence()
-        return evidence
-    evidence["classification"] = "PASS_PUBLICATION_PLAN_READY"
-    evidence["publishing_adapter_called"] = False
-    evidence["public_write_performed"] = False
-    evidence["unknown_write_detected"] = False
-    evidence["strict_readback_performed"] = False
-    evidence["automatic_retry_blocked"] = False
-    evidence["daily_app_newsroom_direct_write"] = False
-    evidence["exact_next_blocker"] = None
-    _persist_cycle_evidence()
-    return evidence
+    raise RuntimeError("rolling_x_candidate_walk_terminated_without_result")
 
 
 def _reconcile_public_substack_for_derivative_resume(

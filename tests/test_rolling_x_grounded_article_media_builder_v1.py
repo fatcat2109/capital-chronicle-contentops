@@ -664,7 +664,9 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
         }
     ]
     assert governed["evidence_substance"]["enough_for_useful_article"] is True
-    assert "at least 3 meaningful paragraphs and 90 words" in writer_calls[0]
+    assert "normally lands around 120-220 words" in writer_calls[0]
+    assert "three distinct kinds of value" in writer_calls[0]
+    assert "Do not chain source-title restatements" in writer_calls[0]
     assert built["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
     assert built["article"]["supported_claim_count"] == 1
     assert built["article"]["supported_claims"] == governed["supported_claims"]
@@ -950,7 +952,10 @@ def test_decision5_provider_outage_copy_cannot_become_canonical_product(
     )
 
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "INSUFFICIENT_READER_VALUE"
+    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
+        "INSUFFICIENT_READER_VALUE"
+    )
     assert result["public_write_performed"] is False
     assert result["unknown_write_detected"] is False
 
@@ -994,7 +999,10 @@ def test_builder_fail_closed_surfaces_as_no_publication_not_crash(monkeypatch, t
         publication_enabled=True,
     )
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
+    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
+        "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
+    )
     assert result["grounded_article_builder_blockers"] == [
         "article_untraceable_numeric_claim"
     ]

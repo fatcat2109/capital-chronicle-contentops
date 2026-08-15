@@ -336,6 +336,17 @@ def _cycle_display_summary(output_dir: Path) -> dict[str, Any]:
     article = article if isinstance(article, Mapping) else {}
     selected_evidence = viability.get("selected_evidence")
     selected_evidence = selected_evidence if isinstance(selected_evidence, Mapping) else {}
+    candidate_walk = evidence.get("candidate_walk")
+    candidate_walk = candidate_walk if isinstance(candidate_walk, Mapping) else {}
+    walk_attempts = [
+        row
+        for row in (candidate_walk.get("candidate_attempts") or [])
+        if isinstance(row, Mapping)
+    ]
+    selected_publication = candidate_walk.get("selected_publication_candidate")
+    selected_publication = (
+        selected_publication if isinstance(selected_publication, Mapping) else {}
+    )
     ranked = evidence.get("ranked_assignment")
     ranked = ranked if isinstance(ranked, Mapping) else {}
     story_label = (
@@ -345,8 +356,36 @@ def _cycle_display_summary(output_dir: Path) -> dict[str, Any]:
     )
     return {
         "story_label": story_label,
-        "candidate_rank": viability.get("selected_rank"),
-        "candidate_count": len(ranked.get("ranked_clusters") or []),
+        "candidate_rank": selected_publication.get("rank") or viability.get("selected_rank"),
+        "candidate_count": int(
+            candidate_walk.get("ranked_candidate_count")
+            or viability.get("ranked_candidate_count")
+            or len(ranked.get("ranked_clusters") or [])
+        ),
+        "candidates_attempted": int(candidate_walk.get("attempted_candidate_count") or 0),
+        "candidate_terminal_reasons": [
+            {
+                "rank": int(row.get("rank") or 0),
+                "title": _bounded_operator_text(
+                    row.get("article_title") or row.get("candidate_title"), limit=120
+                ),
+                "terminal_reason": _bounded_operator_text(
+                    row.get("terminal_reason"), limit=180
+                ),
+            }
+            for row in walk_attempts[:12]
+        ],
+        "selected_publication_candidate": {
+            "rank": selected_publication.get("rank"),
+            "title": _bounded_operator_text(
+                selected_publication.get("candidate_title"), limit=120
+            ),
+        }
+        if selected_publication
+        else None,
+        "opportunity_terminal_reason": _bounded_operator_text(
+            candidate_walk.get("opportunity_terminal_reason"), limit=180
+        ),
         "grounding": (
             "source-bound evidence"
             if selected_evidence.get("status") == "PASS"
@@ -1174,6 +1213,14 @@ def build_daily_app_snapshot(
             "story_label": summary.get("story_label"),
             "candidate_rank": summary.get("candidate_rank"),
             "candidate_count": summary.get("candidate_count"),
+            "candidates_attempted": summary.get("candidates_attempted"),
+            "candidate_terminal_reasons": summary.get("candidate_terminal_reasons"),
+            "selected_publication_candidate": summary.get(
+                "selected_publication_candidate"
+            ),
+            "opportunity_terminal_reason": summary.get(
+                "opportunity_terminal_reason"
+            ),
             "grounding": summary.get("grounding"),
             "research_result": summary.get("research_result"),
             "result": result,

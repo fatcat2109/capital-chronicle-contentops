@@ -345,6 +345,29 @@ def test_cockpit_latest_completed_no_publication_and_published_history(tmp_path)
                 "selected_evidence": {"status": "BLOCKED"},
             },
             "ranked_assignment": {"ranked_clusters": [{}, {}, {}]},
+            "candidate_walk": {
+                "ranked_candidate_count": 3,
+                "attempted_candidate_count": 3,
+                "candidate_attempts": [
+                    {
+                        "rank": 1,
+                        "candidate_title": "First candidate",
+                        "terminal_reason": "INSUFFICIENT_READER_VALUE",
+                    },
+                    {
+                        "rank": 2,
+                        "candidate_title": "Second candidate",
+                        "terminal_reason": "EVIDENCE_BLOCKED",
+                    },
+                    {
+                        "rank": 3,
+                        "candidate_title": "Third candidate",
+                        "terminal_reason": "EVIDENCE_BLOCKED",
+                    },
+                ],
+                "selected_publication_candidate": None,
+                "opportunity_terminal_reason": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+            },
         }),
         encoding="utf-8",
     )
@@ -380,6 +403,15 @@ def test_cockpit_latest_completed_no_publication_and_published_history(tmp_path)
     assert cockpit["last_completed_editorial"]["result"] == "NO_PUBLICATION"
     assert cockpit["last_completed_editorial"]["exact_reason"] == (
         "MINIMUM_TRUSTWORTHY_EVIDENCE_NOT_MET"
+    )
+    assert cockpit["last_completed_editorial"]["candidates_attempted"] == 3
+    assert cockpit["last_completed_editorial"]["candidate_terminal_reasons"][0] == {
+        "rank": 1,
+        "title": "First candidate",
+        "terminal_reason": "INSUFFICIENT_READER_VALUE",
+    }
+    assert cockpit["last_completed_editorial"]["opportunity_terminal_reason"] == (
+        "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
     )
     published_row = next(
         row for row in cockpit["recent_activity"] if row["work_item_id"] == published

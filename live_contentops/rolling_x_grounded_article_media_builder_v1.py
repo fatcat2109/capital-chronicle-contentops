@@ -939,14 +939,17 @@ def build_article_generation_prompt(
     )
     evidence_has_depth = bool(substance.get("enough_for_useful_article"))
     reader_value_scope = (
-        "The accepted evidence has sufficient writing depth. Produce at least 3 meaningful "
-        "paragraphs and 90 words, using only that evidence and supported claims; explain what "
-        "changed, the most useful directly evidenced detail, and why the release matters as a "
-        "news event. Do not use repetition or filler to reach the floor."
+        "The accepted evidence has sufficient writing depth. Write a compact professional brief "
+        "that normally lands around 120-220 words. Give readers three distinct kinds of value: "
+        "what changed, the most useful directly evidenced detail, and why the event matters or "
+        "what remains unresolved. Organize those ideas into natural paragraphs only when that "
+        "improves readability. Do not chain source-title restatements or use repetition, headings, "
+        "or filler merely to satisfy a format."
         if brief and evidence_has_depth
-        else "The accepted evidence has sufficient writing depth. Produce at least 4 meaningful "
-        "paragraphs and 180 words, using only that evidence and supported claims; do not use "
-        "repetition or filler to reach the floor."
+        else "The accepted evidence has sufficient writing depth. Write a coherent professional "
+        "report with distinct supported facts, context, and reader payoff. Natural structure is "
+        "welcome, but paragraph count, headings, and length are never substitutes for utility. "
+        "Do not repeat or pad the evidence."
         if evidence_has_depth
         else "Evidence depth is limited. Stay concise and do not invent, repeat, or pad material; "
         "the deterministic reader-value gate may abstain if a useful article cannot be supported."

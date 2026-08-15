@@ -2766,12 +2766,15 @@ def select_first_viable_rolling_x_cluster(
     acquire_evidence: Any,
     story_type_by_cluster: Mapping[str, str] | None = None,
     capability_registry: Mapping[str, Any] | None = None,
+    start_after_rank: int = 0,
 ) -> dict[str, Any]:
     """Acquire targeted evidence in rank order and select the first viable cluster.
 
     The assignment has already completed before this function can be called. The callback
     receives one ID-bound request at a time and cannot grant publication authority. A failed
-    rank is recorded before the next rank is attempted.
+    rank is recorded before the next rank is attempted. ``start_after_rank`` resumes the same
+    immutable ranked pool after a downstream candidate-local failure; it never reorders or
+    renumbers candidates.
     """
     if assignment.get("schema_version") != ROLLING_X_ASSIGNMENT_SCHEMA_VERSION:
         raise ValueError("rolling_x_assignment_schema_invalid")
@@ -2794,6 +2797,8 @@ def select_first_viable_rolling_x_cluster(
         return result
     if not callable(acquire_evidence):
         raise ValueError("rolling_x_evidence_acquirer_required")
+    if not isinstance(start_after_rank, int) or start_after_rank < 0:
+        raise ValueError("rolling_x_start_after_rank_invalid")
 
     from live_contentops.source_capability_registry_v2 import (
         capability_mode_for_product_mode,
@@ -2810,12 +2815,14 @@ def select_first_viable_rolling_x_cluster(
     seen_cluster_ids: set[str] = set()
     acquisition_budget_blockers: set[str] = set()
 
-    for expected_rank, cluster in enumerate(
-        sorted(clusters, key=lambda row: (int(row.get("rank") or 0), str(row.get("cluster_id") or ""))),
-        start=1,
-    ):
+    ordered_clusters = sorted(
+        clusters,
+        key=lambda row: (int(row.get("rank") or 0), str(row.get("cluster_id") or "")),
+    )
+    for absolute_index, cluster in enumerate(ordered_clusters, start=1):
         if not isinstance(cluster, Mapping):
             raise ValueError("rolling_x_ranked_cluster_not_object")
+        expected_rank = absolute_index
         cluster_id = str(cluster.get("cluster_id") or "")
         headline_ids = [str(value) for value in (cluster.get("headline_ids") or [])]
         if (
@@ -2826,6 +2833,8 @@ def select_first_viable_rolling_x_cluster(
         ):
             raise ValueError("rolling_x_ranked_cluster_binding_invalid")
         seen_cluster_ids.add(cluster_id)
+        if expected_rank <= start_after_rank:
+            continue
         story_type = resolve_rolling_x_story_type(
             cluster,
             story_type_by_cluster=configured_types,
@@ -3082,7 +3091,7 @@ def select_first_viable_rolling_x_cluster(
     pool_exhausted = (
         not viable
         and not acquisition_budget_blockers
-        and len(attempts) == len(clusters)
+        and len(attempts) == max(0, len(clusters) - start_after_rank)
     )
     reason_code = (
         "FIRST_VIABLE_RANKED_CLUSTER_SELECTED"
@@ -3104,7 +3113,10 @@ def select_first_viable_rolling_x_cluster(
         "rank_attempts": attempts,
         "ranked_candidate_count": len(clusters),
         "attempted_candidate_count": len(attempts),
-        "unattempted_candidate_count": max(0, len(clusters) - len(attempts)),
+        "unattempted_candidate_count": max(
+            0, len(clusters) - start_after_rank - len(attempts)
+        ),
+        "start_after_rank": start_after_rank,
         "publishability_pool_exhausted": pool_exhausted,
         "evidence_request_budget_exhausted": bool(acquisition_budget_blockers),
         "evidence_request_budget_blockers": sorted(acquisition_budget_blockers),

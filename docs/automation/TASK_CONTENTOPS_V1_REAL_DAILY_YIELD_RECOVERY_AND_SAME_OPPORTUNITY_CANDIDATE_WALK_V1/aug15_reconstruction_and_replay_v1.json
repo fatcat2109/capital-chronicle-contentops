@@ -1,0 +1,1140 @@
+{
+  "captured_at_jim_local": "2026-08-15T15:10:00+07:00",
+  "diagnosis_store_mode": "READ_ONLY",
+  "earlier_exact_replays": [
+    {
+      "attempted_candidate_count": 12,
+      "classification": "NO_PUBLICATION",
+      "public_write_performed": false,
+      "semantic_review_calls": 0,
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "unattempted_candidate_count": 0,
+      "window_id": "editorial-window-2c4c4a372ae1235d325354b4ab1d590e"
+    },
+    {
+      "attempted_candidate_count": 12,
+      "classification": "NO_PUBLICATION",
+      "public_write_performed": false,
+      "semantic_review_calls": 0,
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "unattempted_candidate_count": 0,
+      "window_id": "editorial-window-c583b92bb66b52e6ee6a1cf640463fef"
+    },
+    {
+      "attempted_candidate_count": 12,
+      "classification": "NO_PUBLICATION",
+      "public_write_performed": false,
+      "semantic_review_calls": 0,
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "unattempted_candidate_count": 0,
+      "window_id": "editorial-window-c3e095cc321005ad790b36b1e40f43f1"
+    }
+  ],
+  "exact_1400_replay": {
+    "candidate_walk": {
+      "attempted_candidate_count": 12,
+      "candidate_attempts": [
+        {
+          "article_title": "US Retail Sales Post First Decline in Nine Months in July",
+          "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [],
+          "evidence_result": "VIABLE",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 1,
+          "reader_value_blockers": [
+            "not_attribution_chain_copy"
+          ],
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "INSUFFICIENT_READER_VALUE",
+          "writer_invocation_result": "SUCCESS",
+          "writer_semantic_calls": 0
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-b29396ced711690f23f9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_source_synthesis_unavailable_or_unbound",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 2,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_source_synthesis_unavailable_or_unbound|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-de4f39be737aad0bc2ae",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_source_synthesis_unavailable_or_unbound",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 3,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_source_synthesis_unavailable_or_unbound|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 4,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-fcda690904ad07d3614c",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 5,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-c6920b43d7e20a94360e",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 6,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-f18e9ba010996773c50d",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 7,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-6e75e9b8e29e085978e2",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 8,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-4049ba2c5cfcaec6b7d0",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 9,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-ed4b6d5e90b4092280b9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 10,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-b082b691fe771d22fedb",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 11,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-d96530287b1ae85db57e",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "mandatory_semantic_review_calls": 0,
+          "rank": 12,
+          "story_label": "Fresh discovery item with a bounded public evidence path.",
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|grounded_research_query_planning_unavailable|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "one_publication_max_per_opportunity": true,
+      "opportunity_terminal_reason": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+      "publication_authority_granted": false,
+      "ranked_candidate_count": 12,
+      "schema_version": "contentops.same_opportunity_candidate_walk.v1",
+      "selected_publication_candidate": null,
+      "selected_publication_candidate_rank": null,
+      "unattempted_candidate_count": 0
+    },
+    "classification": "NO_PUBLICATION",
+    "critical_path_telemetry": {
+      "article_writer_semantic_calls": 0,
+      "assignment_semantic_calls": 0,
+      "candidates_attempted": 12,
+      "elapsed_seconds": 101.635,
+      "full_rolling_headline_count": 863,
+      "full_universe_semantic_assignment_on_critical_path": false,
+      "mandatory_semantic_review_calls": 0,
+      "prepared_candidate_count": 12,
+      "prepared_candidate_state_reused": true,
+      "public_write_performed": false,
+      "routine_semantic_calls": 0,
+      "schema_version": "contentops.publication_critical_path_telemetry.v1",
+      "story_type_semantic_calls": 0
+    },
+    "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-real-daily-yield-recovery-v1\\artifacts\\v1_yield_recovery\\aug15_1400_exact_replay_20260815_145700",
+    "public_write_performed": false,
+    "terminal_reason": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+    "unknown_write_detected": false
+  },
+  "natural_1400_reader_value_after_calibration": {
+    "attribution_chain_dominant": true,
+    "attribution_marker_count": 3,
+    "blockers": [
+      "not_attribution_chain_copy"
+    ],
+    "checks": {
+      "captions_and_source_metadata_not_dominant": true,
+      "mode_appropriate_structure": true,
+      "mode_appropriate_substance": true,
+      "multiple_meaningful_reader_paragraphs": true,
+      "native_rich_text_serializable": true,
+      "no_process_or_pipeline_language": true,
+      "no_repetitive_filler": true,
+      "not_attribution_chain_copy": false,
+      "professional_writer_output": true,
+      "reader_value_independent_of_media": true,
+      "title_not_body": true
+    },
+    "classification": "INSUFFICIENT_READER_VALUE",
+    "duplicated_sentence_count": 0,
+    "floor": {
+      "minimum_headings": 0,
+      "minimum_paragraphs": 3,
+      "minimum_words": 90
+    },
+    "floor_class": "CONCISE_UPDATE",
+    "formatting_targets": {
+      "heading_target_met": true,
+      "paragraph_target_met": false,
+      "word_target_met": false
+    },
+    "formatting_targets_are_advisory": true,
+    "heading_count": 0,
+    "list_item_count": 0,
+    "markup_findings": [],
+    "meaningful_paragraph_count": 1,
+    "paragraph_redundancy_findings": [],
+    "process_language_hits": [],
+    "publication_authority": false,
+    "reader_prose_word_count": 82,
+    "reader_sentence_count": 4,
+    "reason_code": "INSUFFICIENT_READER_VALUE",
+    "schema_version": "contentops.reader_value_release_gate.v1",
+    "utility_floor": {
+      "minimum_reader_sentences": 3,
+      "minimum_words": 60
+    },
+    "visual_count": 0,
+    "visual_quantity_is_fixed_quota": false
+  },
+  "natural_1400_reader_value_before": {
+    "blockers": [
+      "multiple_meaningful_reader_paragraphs",
+      "mode_appropriate_substance",
+      "reader_value_independent_of_media",
+      "captions_and_source_metadata_not_dominant"
+    ],
+    "checks": {
+      "captions_and_source_metadata_not_dominant": false,
+      "mode_appropriate_structure": true,
+      "mode_appropriate_substance": false,
+      "multiple_meaningful_reader_paragraphs": false,
+      "native_rich_text_serializable": true,
+      "no_repetitive_filler": true,
+      "professional_writer_output": true,
+      "reader_value_independent_of_media": false,
+      "title_not_body": true
+    },
+    "classification": "INSUFFICIENT_READER_VALUE",
+    "duplicated_sentence_count": 0,
+    "floor": {
+      "minimum_headings": 0,
+      "minimum_paragraphs": 3,
+      "minimum_words": 90
+    },
+    "floor_class": "CONCISE_UPDATE",
+    "heading_count": 0,
+    "list_item_count": 0,
+    "markup_findings": [],
+    "meaningful_paragraph_count": 1,
+    "paragraph_redundancy_findings": [],
+    "publication_authority": false,
+    "reader_prose_word_count": 82,
+    "reason_code": "INSUFFICIENT_READER_VALUE",
+    "schema_version": "contentops.reader_value_release_gate.v1",
+    "visual_count": 0,
+    "visual_quantity_is_fixed_quota": false
+  },
+  "opportunities": [
+    {
+      "another_ranked_candidate_existed_but_was_not_attempted": false,
+      "another_viable_candidate_proven_before_replay": false,
+      "article_mode": null,
+      "artifact_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\editorial-window-2c4c4a372ae1235d325354b4ab1d590e",
+      "attempted_candidate_count": 12,
+      "attempts": [
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 1,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "US Retail Sales July 2026 Report",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-50816741ae0c35370759",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 2,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Solid guess.",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-314ff2536ec8f3ecb252",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 3,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Oil Shocks Could Accelerate EV Adoption, WoodMac Says",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-5f1f3d978198d3707d44",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 4,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Trump admin marks 15 straight months with zero border releases as apprehensions plunge 94%: ( TS: Aug 14 2026, 1:27 PM ET )​​​​​​​​‍‌​​​‌‍​‌‌‌‍​​‍‍‍​‌‌‍‌‍​​​‌‌​​‍‍‍‌‌‌",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-30d0b059475d7e90a76d",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 5,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Prescription drug prices record sharpest drop in more than 60 years: ( TS: Aug 14 2026, 1:26 PM ET )​​​​​​​​‍‌​​​‌‍​‌‌‌‍​​‍‍‌​​​‍‌​​​​​​‌‌‍‍​​‍",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-d646d65915bc96fee9cf",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 6,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Panama Canal Fees Hit Record As El Nino, Hormuz Crisis Choke Global Shipping",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-1c2893e8346c6663eee5",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 7,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "There's that 11-week $XLF rally... @stockcharts",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-ac76999fcd4cb7eb0e66",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 8,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "LIVE: President Trump Heads to NYC as Law Enforcement Takes Center Stage | AC15",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-19764fada072bce59744",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 9,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Boeing Unveils Cheap Radar Seeker Built From Off-The-Shelf Parts",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-02904f2df2fb05af3115",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 10,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "More data doesn't always create better decisions. Hayek's knowledge problem is more relevant than ever as governments collect more information but understand less.",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-a13b6326e47dfc816ee1",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 11,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "From Spoos To Space: Goldman Traders Are Watching These Charts As Equity Continues To Outperform Credit",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-c87a8939e6f5f389cb77",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 12,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "\"We Do Bad Things To Bad People\": Hegseth Unveils New Motto For Counter Cartel Coalition",
+          "writer_invocation_result": "NOT_RUN"
+        }
+      ],
+      "classification": "NO_PUBLICATION",
+      "compact_headline_count": 64,
+      "headline_universe_count": 614,
+      "jim_local_start": "2026-08-15T01:00:00+07:00",
+      "window_start_utc": "2026-08-14T18:00:00Z",
+      "prepared_ranked_candidate_count": 12,
+      "selected_rank": null,
+      "selected_title": null,
+      "semantic_review_calls": 0,
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "trigger": "SCHEDULED",
+      "unattempted_candidate_count": 0,
+      "window_id": "editorial-window-2c4c4a372ae1235d325354b4ab1d590e",
+      "writer_invocations": 0
+    },
+    {
+      "another_ranked_candidate_existed_but_was_not_attempted": false,
+      "another_viable_candidate_proven_before_replay": false,
+      "article_mode": null,
+      "artifact_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\editorial-window-c583b92bb66b52e6ee6a1cf640463fef",
+      "attempted_candidate_count": 12,
+      "attempts": [
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_source_synthesis_unavailable_or_unbound",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 1,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "US Retail Sales July 2026 Report",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 2,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "The US-Iran situation is static - Politico citing a White House Official",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-fcda690904ad07d3614c",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 3,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "CFTC Positions in the Week Ended August 11th, 2026",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-c6920b43d7e20a94360e",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 4,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Monday FX Option Expiries",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-6e75e9b8e29e085978e2",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 5,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS...",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-50816741ae0c35370759",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 6,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Solid guess.",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-4f11e0d53d05be56c11c",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 7,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Flock Blinks: Surveillance Giant Slashes Data Retention After 50 Jurisdictions Walk, Cams Destroyed",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-31c8cd46e008f5541199",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 8,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Chinese DDR5 memory achieves 9000 MT/s speeds, now offers CL30/CL28 specs with ease on 6000 MT/s+ \"CXMT\" modules.",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-6b2e7cda6ec9b17b971a",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 9,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "America Enters FAFO-Land: Election Sabotage &amp; Blue-State Mutiny As Communist Jihad Escalates",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-3bca8163dc82af805775",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 10,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Stocks stop rallying after signs of consumer slowdown – US Market Wrap",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-5f1e1d54ea1aa46b45c9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 11,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Live Cattle futures plunged to nearly the lowest level of the year. Good news for this beef-eater #BrazilianSteakhouse @augurinfinity",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-68d75e5709cfe8130bac",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 12,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "'Goldi-Stocks' &amp; The Treasury Bears: Schizophrenic Cross-Asset Chaos Spread This Week",
+          "writer_invocation_result": "NOT_RUN"
+        }
+      ],
+      "classification": "NO_PUBLICATION",
+      "compact_headline_count": 64,
+      "headline_universe_count": 766,
+      "jim_local_start": "2026-08-15T04:00:00+07:00",
+      "window_start_utc": "2026-08-14T21:00:00Z",
+      "prepared_ranked_candidate_count": 12,
+      "selected_rank": null,
+      "selected_title": null,
+      "semantic_review_calls": 0,
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "trigger": "SCHEDULED",
+      "unattempted_candidate_count": 0,
+      "window_id": "editorial-window-c583b92bb66b52e6ee6a1cf640463fef",
+      "writer_invocations": 0
+    },
+    {
+      "another_ranked_candidate_existed_but_was_not_attempted": false,
+      "another_viable_candidate_proven_before_replay": false,
+      "article_mode": null,
+      "artifact_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\editorial-window-c3e095cc321005ad790b36b1e40f43f1",
+      "attempted_candidate_count": 12,
+      "attempts": [
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_source_synthesis_unavailable_or_unbound",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 1,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "US Retail Sales July 2026 Report",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_source_synthesis_unavailable_or_unbound",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 2,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "The US-Iran situation is static - Politico citing a White House Official",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-fcda690904ad07d3614c",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 3,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "CFTC Positions in the Week Ended August 11th, 2026",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-c6920b43d7e20a94360e",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 4,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Monday FX Option Expiries",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-f18e9ba010996773c50d",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 5,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "“.. There are some people arguing that the K-shaped economy is over,” said @DianeSwonk, chief US economist at KPMG .. .. Friday’s data emphasised “that is not the case”, she said. @FT",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-6e75e9b8e29e085978e2",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 6,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS...",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-4049ba2c5cfcaec6b7d0",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 7,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Escobar: The New Great Game, Revisited",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-ed4b6d5e90b4092280b9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 8,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Where The World Is Burning In 2026",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-b082b691fe771d22fedb",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 9,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "All ICE Enforcement Officers In Maine Equipped With Body-Worn Cameras, Sen. Collins Says",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-d96530287b1ae85db57e",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 10,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "DFW Airport scraps controversial Islamic foot-washing station plan as Texas Gov Abbott takes aim: ( TS: Aug 14 2026, 10:17 PM ET )​​​​​​​​‍‌​​​‌‍​‌‍‌​‌‌‌‌​​​​​‌​‍‌​​​​‌‌‌‍‍‍‌",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-feaec95d72250fbe6d95",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 11,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Forget Reminding Young People About 'Boat People': South America's Rejection Of Socialism Is Happening In Real Time",
+          "writer_invocation_result": "NOT_RUN"
+        },
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-837a6aab1b8e2a9fcdc1",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "grounded_research_query_planning_unavailable",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "rank": 12,
+          "semantic_review_calls": 0,
+          "terminal_reason": "EVIDENCE_BLOCKED",
+          "title": "Judge Drops Case Against 6 Nevada Republicans Accused Of Falsifying 2020 Election Result",
+          "writer_invocation_result": "NOT_RUN"
+        }
+      ],
+      "classification": "NO_PUBLICATION",
+      "compact_headline_count": 64,
+      "headline_universe_count": 875,
+      "jim_local_start": "2026-08-15T12:00:00+07:00",
+      "window_start_utc": "2026-08-15T05:00:00Z",
+      "prepared_ranked_candidate_count": 12,
+      "selected_rank": null,
+      "selected_title": null,
+      "semantic_review_calls": 0,
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "trigger": "SCHEDULED",
+      "unattempted_candidate_count": 0,
+      "window_id": "editorial-window-c3e095cc321005ad790b36b1e40f43f1",
+      "writer_invocations": 0
+    },
+    {
+      "another_ranked_candidate_existed_but_was_not_attempted": true,
+      "another_viable_candidate_proven_before_replay": false,
+      "article_mode": "BREAKING_BRIEF",
+      "artifact_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\editorial-window-860e89d6b52232334d768295ff02ee59",
+      "attempted_candidate_count": 1,
+      "attempts": [
+        {
+          "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [],
+          "evidence_result": "VIABLE",
+          "rank": 1,
+          "semantic_review_calls": 0,
+          "terminal_reason": "INSUFFICIENT_READER_VALUE",
+          "title": "US Retail Sales July 2026 Report",
+          "writer_invocation_result": "SUCCESS"
+        }
+      ],
+      "classification": "NO_PUBLICATION",
+      "compact_headline_count": 64,
+      "headline_universe_count": 863,
+      "jim_local_start": "2026-08-15T14:00:00+07:00",
+      "window_start_utc": "2026-08-15T07:00:00Z",
+      "prepared_ranked_candidate_count": 12,
+      "selected_rank": 1,
+      "selected_title": "US Retail Sales Post First Decline in Nine Months in July",
+      "semantic_review_calls": 0,
+      "terminal_reason": "INSUFFICIENT_READER_VALUE",
+      "trigger": "SCHEDULED",
+      "unattempted_candidate_count": 11,
+      "window_id": "editorial-window-860e89d6b52232334d768295ff02ee59",
+      "writer_invocations": 1
+    }
+  ],
+  "root_cause_classification": [
+    "GENUINELY_THIN_ATTRIBUTION_CHAIN_WRITER_OUTPUT",
+    "STRUCTURAL_FORMAT_QUOTAS_WERE_OVERWEIGHTED",
+    "FIRST_EVIDENCE_VIABLE_CANDIDATE_TERMINATED_WHOLE_OPPORTUNITY"
+  ],
+  "safety": {
+    "production_db_mutated_during_diagnosis": false,
+    "secret_or_session_exposure": 0,
+    "synthetic_public_writes": 0,
+    "synthetic_triggers": 0,
+    "v2_mutations": 0
+  },
+  "schema_version": "contentops.v1_real_daily_yield_recovery_evidence.v1",
+  "source_runtime_sha": "46a90a34143c99fc47bc77160bbf1bcbd6993252",
+  "starting_master": "70987dfe83e1c623a19b86e58ede20be6d584e09",
+  "task": "TASK_CONTENTOPS_V1_REAL_DAILY_YIELD_RECOVERY_AND_SAME_OPPORTUNITY_CANDIDATE_WALK_V1"
+}

@@ -54,6 +54,238 @@ def _story_routing(clusters, story_type="regulatory_fiscal_event", **_kwargs):
     }
 
 
+def _walk_viability(rank: int, *, status: str = "SUCCESS", blockers=None) -> dict:
+    cluster = {
+        "cluster_id": f"candidate-{rank}",
+        "rank": rank,
+        "headline_ids": [f"headline-{rank}"],
+        "resolved_article_mode": "BREAKING_BRIEF",
+    }
+    blocked = status != "SUCCESS"
+    attempt = {
+        "rank": rank,
+        "cluster_id": cluster["cluster_id"],
+        "headline_ids": cluster["headline_ids"],
+        "status": "BLOCKED" if blocked else "VIABLE",
+        "effective_article_mode": "BREAKING_BRIEF",
+        "blockers": list(blockers or []),
+    }
+    return {
+        "status": status,
+        "decision": "NO_PUBLICATION" if blocked else "SELECT_STORY",
+        "reason_code": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED" if blocked else "FIRST_VIABLE_RANKED_CLUSTER_SELECTED",
+        "ranked_candidate_count": 3,
+        "selected_rank": None if blocked else rank,
+        "selected_cluster_id": None if blocked else cluster["cluster_id"],
+        "selected_headline_ids": [] if blocked else cluster["headline_ids"],
+        "selected_cluster": None if blocked else cluster,
+        "selected_evidence": None if blocked else {"status": "PASS"},
+        "rank_attempts": [attempt],
+        "publication_authority_granted": False,
+    }
+
+
+def _configure_candidate_walk_cycle(monkeypatch, selector, editorial):
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: {
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "counts": {"accepted": 3},
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **kwargs: {
+            "status": "SUCCESS",
+            "decision": "SELECT_STORY",
+            "assignment_logical_hash": "candidate-walk-assignment",
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
+        selector,
+    )
+    monkeypatch.setattr(implementation, "_run_bounded_rolling_x_editorial_cycle", editorial)
+    monkeypatch.setattr(
+        implementation,
+        "_prepare_rolling_x_release_candidate",
+        lambda **kwargs: {
+            "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+            "release_candidate_lock_verification": {"status": "PASS_RELEASE_CANDIDATE_LOCK"},
+            "payloads": {"substack": {"title": kwargs["article"].get("title")}},
+        },
+    )
+    monkeypatch.setattr(
+        implementation,
+        "_build_rolling_x_publication_plan",
+        lambda **kwargs: {"schema_version": "test.plan.v1", "destinations": ["substack"]},
+    )
+
+
+def test_same_opportunity_reader_value_failure_advances_and_first_publishable_stops(
+    monkeypatch, tmp_path: Path
+):
+    selector_calls = []
+    builder_calls = []
+
+    def selector(**kwargs):
+        start = int(kwargs.get("start_after_rank") or 0)
+        selector_calls.append(start)
+        return _walk_viability(1 if start == 0 else 2)
+
+    def editorial(**kwargs):
+        article = dict(kwargs["article"])
+        if article["cluster_id"] == "candidate-1":
+            return {
+                "status": "NO_PUBLICATION",
+                "reason_code": "INSUFFICIENT_READER_VALUE",
+                "article": article,
+                "mandatory_semantic_review_calls": 0,
+                "review_history": [{
+                    "deterministic_review": {
+                        "reader_value_gate": {"blockers": ["mode_appropriate_substance"]}
+                    }
+                }],
+            }
+        return {
+            "status": "PASS",
+            "article": article,
+            "mandatory_semantic_review_calls": 0,
+            "review_history": [],
+        }
+
+    _configure_candidate_walk_cycle(monkeypatch, selector, editorial)
+
+    def builder(value):
+        rank = int(value["selected_rank"])
+        builder_calls.append(rank)
+        return {
+            "article": {
+                "title": f"Candidate {rank}",
+                "cluster_id": value["selected_cluster_id"],
+                "headline_ids": value["selected_headline_ids"],
+                "effective_article_mode": "BREAKING_BRIEF",
+            },
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+        }
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="candidate-walk-reader-value",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-15T07:00:00Z",
+        article_builder=builder,
+        destination_readiness_override={"destinations": {}},
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert builder_calls == [1, 2]
+    assert selector_calls == [0, 1]
+    assert result["candidate_walk"]["selected_publication_candidate_rank"] == 2
+    assert [row["terminal_reason"] for row in result["candidate_walk"]["candidate_attempts"]] == [
+        "INSUFFICIENT_READER_VALUE",
+        "PUBLICATION_QUALIFIED",
+    ]
+    assert result["critical_path_telemetry"]["mandatory_semantic_review_calls"] == 0
+
+
+def test_same_opportunity_evidence_failure_advances_before_writer(monkeypatch, tmp_path: Path):
+    builder_calls = []
+    viability = _walk_viability(2)
+    viability["rank_attempts"].insert(
+        0,
+        {
+            "rank": 1,
+            "cluster_id": "candidate-1",
+            "headline_ids": ["headline-1"],
+            "status": "BLOCKED",
+            "effective_article_mode": "BREAKING_BRIEF",
+            "blockers": ["minimum_trustworthy_evidence_missing"],
+        },
+    )
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        lambda **kwargs: viability,
+        lambda **kwargs: {
+            "status": "PASS",
+            "article": kwargs["article"],
+            "mandatory_semantic_review_calls": 0,
+            "review_history": [],
+        },
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="candidate-walk-evidence",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-15T07:00:00Z",
+        article_builder=lambda value: builder_calls.append(value["selected_rank"]) or {
+            "article": {
+                "title": "Candidate 2",
+                "cluster_id": value["selected_cluster_id"],
+                "headline_ids": value["selected_headline_ids"],
+                "effective_article_mode": "BREAKING_BRIEF",
+            },
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+        },
+        destination_readiness_override={"destinations": {}},
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert builder_calls == [2]
+    assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"].startswith(
+        "EVIDENCE_BLOCKED:"
+    )
+
+
+def test_all_candidate_exhaustion_returns_truthful_no_publication(monkeypatch, tmp_path: Path):
+    def selector(**kwargs):
+        start = int(kwargs.get("start_after_rank") or 0)
+        if start < 2:
+            return _walk_viability(start + 1)
+        return _walk_viability(
+            3,
+            status="NO_PUBLICATION",
+            blockers=["minimum_trustworthy_evidence_missing"],
+        )
+
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        selector,
+        lambda **kwargs: {
+            "status": "NO_PUBLICATION",
+            "reason_code": "INSUFFICIENT_READER_VALUE",
+            "article": kwargs["article"],
+            "mandatory_semantic_review_calls": 0,
+            "review_history": [],
+        },
+    )
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="candidate-walk-exhaustion",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-15T07:00:00Z",
+        article_builder=lambda value: {
+            "article": {
+                "title": f"Candidate {value['selected_rank']}",
+                "cluster_id": value["selected_cluster_id"],
+                "headline_ids": value["selected_headline_ids"],
+                "effective_article_mode": "BREAKING_BRIEF",
+            },
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+        },
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "NO_PUBLICATION"
+    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    assert result["candidate_walk"]["attempted_candidate_count"] == 3
+    assert result["candidate_walk"]["unattempted_candidate_count"] == 0
+    assert [row["rank"] for row in result["candidate_walk"]["candidate_attempts"]] == [1, 2, 3]
+
+
 def test_bounded_editorial_cycle_immediate_pass(monkeypatch):
     monkeypatch.setattr(
         "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",

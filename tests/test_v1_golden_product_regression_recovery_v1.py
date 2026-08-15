@@ -75,6 +75,74 @@ def test_clean_concise_ordinary_brief_can_pass_without_images() -> None:
     assert gate["checks"]["reader_value_independent_of_media"] is True
 
 
+def test_useful_concise_copy_is_not_blocked_by_paragraph_or_word_target_ceremony() -> None:
+    article = _concise_article()
+    article["substack_body_markdown"] = " ".join(
+        article["substack_body_markdown"].split()
+    )
+
+    gate = evaluate_reader_value(article)
+
+    assert gate["classification"] == "PASS"
+    assert gate["meaningful_paragraph_count"] == 1
+    assert gate["formatting_targets"]["paragraph_target_met"] is False
+    assert gate["formatting_targets_are_advisory"] is True
+
+
+def test_normal_and_analysis_copy_do_not_require_heading_ceremony() -> None:
+    normal = _concise_article()
+    normal["effective_article_mode"] = "QUICK_ANALYSIS"
+    normal["substack_body_markdown"] += (
+        " The public record also establishes a clear sequence for implementation. Readers can "
+        "therefore distinguish the confirmed change from any later market interpretation."
+    )
+    analysis = dict(normal)
+    analysis["editorial_mode"] = "analysis"
+    analysis["substack_body_markdown"] = normal["substack_body_markdown"] + (
+        " The timing matters because the official update replaces an older public baseline. "
+        "Implementation details will determine how quickly the confirmed change reaches users. "
+        "A later agency notice would confirm whether the schedule remains intact. A withdrawal "
+        "or amended record would challenge the current reading without changing what is known now. "
+        "That distinction keeps the analysis anchored to the public evidence readers can inspect. "
+        "It also leaves room for later reporting to add genuinely new information."
+    )
+
+    normal_gate = evaluate_reader_value(normal)
+    analysis_gate = evaluate_reader_value(analysis)
+
+    assert normal_gate["classification"] == "PASS"
+    assert normal_gate["heading_count"] == 0
+    assert normal_gate["formatting_targets"]["heading_target_met"] is False
+    assert analysis_gate["classification"] == "PASS"
+    assert analysis_gate["heading_count"] == 0
+    assert analysis_gate["formatting_targets"]["heading_target_met"] is False
+
+
+def test_title_only_repetitive_and_pipeline_copy_remain_hard_reader_value_failures() -> None:
+    title_only = {
+        **_concise_article(),
+        "substack_body_markdown": "Agency Publishes a New Energy Supply Update",
+    }
+    repeated_sentence = (
+        "The agency confirmed the public update and explained the implementation sequence."
+    )
+    filler = {
+        **_concise_article(),
+        "substack_body_markdown": " ".join([repeated_sentence] * 8),
+    }
+    pipeline = {
+        **_concise_article(),
+        "substack_body_markdown": (
+            _concise_article()["substack_body_markdown"]
+            + " The ContentOps pipeline and prompt completed the editorial task."
+        ),
+    }
+
+    assert evaluate_reader_value(title_only)["classification"] == "INSUFFICIENT_READER_VALUE"
+    assert evaluate_reader_value(filler)["checks"]["no_repetitive_filler"] is False
+    assert evaluate_reader_value(pipeline)["checks"]["no_process_or_pipeline_language"] is False
+
+
 def test_immutable_treasury_article_is_executable_golden_capability_fixture() -> None:
     article = json.loads((GOLDEN / "article_manifest_v1.json").read_text(encoding="utf-8"))
     media = json.loads((GOLDEN / "media_manifest_v1.json").read_text(encoding="utf-8"))["assets"]

@@ -225,12 +225,15 @@ def evaluate_reader_value(
     analytical = editorial_mode in READER_ANALYSIS_MODES
     if concise:
         floor = {"minimum_paragraphs": 3, "minimum_words": 90, "minimum_headings": 0}
+        utility_floor = {"minimum_words": 60, "minimum_reader_sentences": 3}
         floor_class = "CONCISE_UPDATE"
     elif analytical:
         floor = {"minimum_paragraphs": 6, "minimum_words": 350, "minimum_headings": 2}
+        utility_floor = {"minimum_words": 180, "minimum_reader_sentences": 6}
         floor_class = "DATA_RICH_OR_ANALYTICAL"
     else:
         floor = {"minimum_paragraphs": 4, "minimum_words": 180, "minimum_headings": 1}
+        utility_floor = {"minimum_words": 100, "minimum_reader_sentences": 4}
         floor_class = "NORMAL_REPORTING"
 
     markup_findings = reader_markup_findings(body)
@@ -249,6 +252,7 @@ def evaluate_reader_value(
         if _normalise(str(value or ""))
     }
     paragraphs: list[str] = []
+    excluded_metadata_words = 0
     heading_count = 0
     list_item_count = 0
     for block in blocks:
@@ -273,16 +277,25 @@ def evaluate_reader_value(
             )
             if not looks_like_caption and not looks_like_source_metadata:
                 paragraphs.append(text)
+            else:
+                excluded_metadata_words += len(
+                    re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", text)
+                )
 
     meaningful_paragraphs = [
         value for value in paragraphs
-        if len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", value)) >= 12
-        and len(value) >= 55
+        if len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", value)) >= 6
+        and len(value) >= 30
     ]
-    prose = " ".join(meaningful_paragraphs)
+    prose = " ".join(paragraphs)
     prose_words = len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", prose))
-    duplicate_sentences = _duplicate_sentence_count("\n\n".join(meaningful_paragraphs))
-    redundancy = _paragraph_redundancy("\n\n".join(meaningful_paragraphs))
+    reader_sentences = [
+        sentence
+        for sentence in _sentences("\n\n".join(paragraphs))
+        if len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", sentence)) >= 5
+    ]
+    duplicate_sentences = _duplicate_sentence_count("\n\n".join(paragraphs))
+    redundancy = _paragraph_redundancy("\n\n".join(paragraphs))
     title_only_body = bool(
         len(meaningful_paragraphs) <= 1
         and title
@@ -293,16 +306,34 @@ def evaluate_reader_value(
         "MINIMUM_EVIDENCE_NEWS_BRIEF",
         "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF",
     }
+    process_hits = _pattern_hits(prose, PROCESS_LANGUAGE_PATTERNS)
+    attribution_markers = len(re.findall(r"\(attribution\s*:", prose, re.I))
+    attribution_chain_dominant = bool(
+        attribution_markers >= 2
+        and attribution_markers >= max(1, len(reader_sentences) - 1)
+    )
+    useful_substance = bool(
+        prose_words >= utility_floor["minimum_words"]
+        and len(reader_sentences) >= utility_floor["minimum_reader_sentences"]
+    )
     checks = {
         "native_rich_text_serializable": not markup_findings and bool(blocks),
-        "multiple_meaningful_reader_paragraphs": len(meaningful_paragraphs) >= floor["minimum_paragraphs"],
-        "mode_appropriate_substance": prose_words >= floor["minimum_words"],
-        "mode_appropriate_structure": heading_count >= floor["minimum_headings"],
+        "multiple_meaningful_reader_paragraphs": bool(meaningful_paragraphs),
+        "mode_appropriate_substance": useful_substance,
+        "mode_appropriate_structure": bool(reader_sentences),
         "title_not_body": not title_only_body,
-        "reader_value_independent_of_media": prose_words >= floor["minimum_words"],
-        "captions_and_source_metadata_not_dominant": len(meaningful_paragraphs) >= floor["minimum_paragraphs"],
+        "reader_value_independent_of_media": useful_substance,
+        "captions_and_source_metadata_not_dominant": bool(prose_words)
+        and prose_words > excluded_metadata_words,
         "no_repetitive_filler": duplicate_sentences == 0 and not redundancy,
         "professional_writer_output": not degraded_copy,
+        "no_process_or_pipeline_language": not process_hits,
+        "not_attribution_chain_copy": not attribution_chain_dominant,
+    }
+    formatting_targets = {
+        "paragraph_target_met": len(meaningful_paragraphs) >= floor["minimum_paragraphs"],
+        "word_target_met": prose_words >= floor["minimum_words"],
+        "heading_target_met": heading_count >= floor["minimum_headings"],
     }
     blockers = [name for name, passed in checks.items() if not passed]
     return {
@@ -311,17 +342,24 @@ def evaluate_reader_value(
         "reason_code": None if not blockers else "INSUFFICIENT_READER_VALUE",
         "floor_class": floor_class,
         "floor": floor,
+        "utility_floor": utility_floor,
         "checks": checks,
+        "formatting_targets": formatting_targets,
+        "formatting_targets_are_advisory": True,
         "blockers": blockers,
         "markup_findings": markup_findings,
         "meaningful_paragraph_count": len(meaningful_paragraphs),
         "reader_prose_word_count": prose_words,
+        "reader_sentence_count": len(reader_sentences),
         "heading_count": heading_count,
         "list_item_count": list_item_count,
         "visual_count": len(media_assets),
         "visual_quantity_is_fixed_quota": False,
         "duplicated_sentence_count": duplicate_sentences,
         "paragraph_redundancy_findings": redundancy,
+        "process_language_hits": process_hits,
+        "attribution_marker_count": attribution_markers,
+        "attribution_chain_dominant": attribution_chain_dominant,
         "publication_authority": False,
     }
 

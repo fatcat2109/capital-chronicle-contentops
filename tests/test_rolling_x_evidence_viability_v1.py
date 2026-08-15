@@ -91,6 +91,27 @@ def test_first_viable_rank_stops_all_lower_rank_acquisition():
     assert [row["rank"] for row in result["rank_attempts"]] == [1]
 
 
+def test_rank_walk_can_resume_after_downstream_candidate_local_failure():
+    calls = []
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(
+            _cluster("one", 1), _cluster("two", 2), _cluster("three", 3)
+        ),
+        acquire_evidence=lambda request: calls.append(request) or _receipt(request),
+        story_type_by_cluster={
+            "one": "physical_event",
+            "two": "physical_event",
+            "three": "physical_event",
+        },
+        start_after_rank=1,
+    )
+
+    assert result["selected_rank"] == 2
+    assert [row["rank"] for row in calls] == [2]
+    assert [row["rank"] for row in result["rank_attempts"]] == [2]
+    assert result["start_after_rank"] == 1
+
+
 def test_non_market_factual_story_does_not_require_market_or_numeric_evidence():
     seen = []
 
