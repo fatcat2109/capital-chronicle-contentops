@@ -71,18 +71,28 @@ NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
 GROUNDED_RESEARCH_ROLE = "v1_grounded_researcher"
+ARTICLE_WRITING_CX_RESCUE_ROLE = "v1_article_writing_cx_utility_rescue"
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
 GEMINI_PRO_MODEL = ORDERED_MODEL_POOL[-1]
+CX_FINAL_FALLBACK_MODEL = "cx/gpt-5.6-sol(xhigh)"
 NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     NEWSROOM_LEAF_SCAN_MODEL,
     *ORDERED_MODEL_POOL,
 )
-ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = ORDERED_MODEL_POOL
+V1_HIGH_QUALITY_MODEL_POOL: tuple[str, ...] = (
+    *ORDERED_MODEL_POOL,
+    CX_FINAL_FALLBACK_MODEL,
+)
+ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = V1_HIGH_QUALITY_MODEL_POOL
+GROUNDED_RESEARCH_MODEL_POOL: tuple[str, ...] = V1_HIGH_QUALITY_MODEL_POOL
+ARTICLE_WRITING_CX_RESCUE_MODEL_POOL: tuple[str, ...] = (CX_FINAL_FALLBACK_MODEL,)
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
     # Article prose is final editorial work, so it uses the exact quality-first order. Flash
     # remains authorized only for the cheap semantic leaf role above.
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,
+    GROUNDED_RESEARCH_ROLE: GROUNDED_RESEARCH_MODEL_POOL,
+    ARTICLE_WRITING_CX_RESCUE_ROLE: ARTICLE_WRITING_CX_RESCUE_MODEL_POOL,
 }
 AUTHORIZED_MODELS = frozenset(
     model
@@ -139,6 +149,8 @@ def build_acceptance_gemini_incident(
 
 
 def _incident_model_pool_for_role(role_task_id: str, mode: str) -> tuple[str, ...]:
+    if str(role_task_id) == ARTICLE_WRITING_CX_RESCUE_ROLE:
+        return ARTICLE_WRITING_CX_RESCUE_MODEL_POOL
     if mode == "PRO_AND_FLASH":
         return (
             (NEWSROOM_LEAF_SCAN_MODEL,)
@@ -155,6 +167,7 @@ def _incident_model_pool_for_role(role_task_id: str, mode: str) -> tuple[str, ..
 PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
 NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1, 1)
 NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 2)
+V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 2, 2, 2)
 
 MAX_TOTAL_PROVIDER_ATTEMPTS = 6
 MAX_FALLBACK_TRANSITIONS = 3
@@ -163,6 +176,7 @@ MAX_STRUCTURED_OUTPUT_REPAIR_ATTEMPTS = 1
 MAX_CUMULATIVE_RETRY_SLEEP_SECONDS = 45.0
 DEFAULT_WALL_CLOCK_BUDGET_SECONDS = 300.0
 NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS = 4
+V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS = 4
 NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS = 1200.0
 NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS = 1200.0
 
@@ -265,6 +279,17 @@ def authority_packet() -> dict[str, Any]:
         "newsroom_leaf_scan_is_semantic_labor_only": True,
         "newsroom_global_editor_uses_quality_first_pool": True,
         "article_writing_uses_quality_first_pool": True,
+        "v1_cx_final_fallback_model": CX_FINAL_FALLBACK_MODEL,
+        "v1_cx_final_fallback_roles": [ARTICLE_WRITING_ROLE, GROUNDED_RESEARCH_ROLE],
+        "v1_cx_utility_rescue_is_separate_single_model_invocation": True,
+        "v1_high_quality_retry_policy": {
+            "max_total_provider_attempts": MAX_TOTAL_PROVIDER_ATTEMPTS,
+            "max_fallback_transitions": V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "per_model_max_attempts": list(V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS),
+            "bounded": True,
+        },
         "temporary_build_acceptance_gemini_incident_supported": True,
         "temporary_build_acceptance_gemini_incident_max_hours": 24,
         "temporary_build_acceptance_gemini_incident": incident,
@@ -326,6 +351,15 @@ def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
 
 def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
     """Allocate one immutable bounded budget appropriate to the canonical role pool."""
+    if str(role_task_id) == ARTICLE_WRITING_CX_RESCUE_ROLE:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=1,
+            max_fallback_transitions=0,
+            max_same_model_retries=0,
+            max_structured_output_repair_attempts=0,
+            per_model_max_attempts=(1,),
+        )
     if build_acceptance_gemini_incident() is not None:
         wall_clock_budget_seconds = DEFAULT_WALL_CLOCK_BUDGET_SECONDS
         if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
@@ -356,18 +390,17 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
             wall_clock_budget_seconds=NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
             per_model_max_attempts=NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
         )
-    if str(role_task_id) == GROUNDED_RESEARCH_ROLE:
-        # Grounded JSON has an unusually strict source-binding validator. Reserve one repair
-        # attempt for the final authorized model rather than spending same-model retries on
-        # earlier transport failures. The logical-call cap and six-attempt absolute ceiling stay
-        # unchanged.
+    if str(role_task_id) in {ARTICLE_WRITING_ROLE, GROUNDED_RESEARCH_ROLE}:
+        # One structured repair may be spent on whichever normal V1 quality model produced the
+        # malformed/defective output. Four infrastructure failures plus that one repair still
+        # leave the sixth and final slot for CX. Infrastructure never burns a same-model retry.
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=5,
-            max_fallback_transitions=3,
-            max_same_model_retries=1,
+            max_total_provider_attempts=6,
+            max_fallback_transitions=V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
+            max_same_model_retries=0,
             max_structured_output_repair_attempts=1,
-            per_model_max_attempts=(1, 1, 1, 2),
+            per_model_max_attempts=V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS,
         )
     return RetryBudget(logical_invocation_id=logical_invocation_id)
 

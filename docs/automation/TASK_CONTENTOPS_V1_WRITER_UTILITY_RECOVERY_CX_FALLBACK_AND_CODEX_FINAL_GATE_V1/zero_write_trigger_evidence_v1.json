@@ -1,0 +1,108 @@
+{
+  "schema_version": "contentops.v1_writer_utility_cx_final_gate_evidence.v1",
+  "created_at_utc": "2026-08-15T12:56:52.0564133Z",
+  "task": "TASK_CONTENTOPS_V1_WRITER_UTILITY_RECOVERY_CX_FALLBACK_AND_CODEX_FINAL_GATE_V1",
+  "classification": "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
+  "starting_master": "1a0029d0a01c77ae11b164904b0343489801dd25",
+  "accepted_research_integration_sha": "1c51487c40be4cc196f96fbf710e547e51d00e2e",
+  "protected_v1_tag_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "fixed_input": {
+    "path": "docs/automation/TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1/exact_1700_zero_write_replay_final/candidate_checkpoints/rank_01.json",
+    "sha256": "511688bf124bbcd703aa076d2bc90e0efee2c4bee54c71b84b91c7a1ce39e37c",
+    "rank": 1,
+    "publishers": ["Reuters", "MarketWatch", "CNN"],
+    "new_research_used_by_final_proof": false
+  },
+  "effective_v1_model_order": [
+    "new/claude-fable-5",
+    "new/gpt-5.6-sol-xhigh",
+    "new/claude-opus-5",
+    "vx/gemini-3.1-pro-preview(high)",
+    "cx/gpt-5.6-sol(xhigh)"
+  ],
+  "retry_policy": {
+    "before": {
+      "model_count": 4,
+      "max_total_provider_attempts": 6,
+      "max_fallback_transitions": 3,
+      "per_model_max_attempts": [2, 2, 1, 1]
+    },
+    "after_v1_high_quality": {
+      "model_count": 5,
+      "max_total_provider_attempts": 6,
+      "max_fallback_transitions": 4,
+      "max_same_model_retries": 0,
+      "max_structured_output_repairs": 1,
+      "per_model_max_attempts": [2, 2, 2, 2, 2],
+      "budget_resets_on_model_change": false,
+      "bounded": true
+    },
+    "cx_utility_rescue": {
+      "model_pool": ["cx/gpt-5.6-sol(xhigh)"],
+      "max_total_provider_attempts": 1,
+      "max_fallback_transitions": 0,
+      "max_structured_output_repairs": 0
+    }
+  },
+  "fixed_input_replay": {
+    "result": "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
+    "writer_logical_invocations": 2,
+    "provider_attempts": 6,
+    "accounted_tokens": 83186,
+    "logical_invocation_ids": [
+      "rolling_x_article_575667acd16b8f7add07",
+      "rolling_x_article_cx_rescue_575667acd16b8f7add07"
+    ],
+    "original_non_cx_writer_source_validation": "PASS_BEFORE_UTILITY_RESCUE",
+    "normal_repair_attempted": true,
+    "cx_provider_fallback_attempted": false,
+    "cx_utility_rescue_attempted": true,
+    "cx_utility_rescue_result": "NOT_ACCEPTED",
+    "exact_attempt_summary_persisted": false,
+    "exact_attempt_summary_note": "The fail-closed exception predated the telemetry-carrying exception correction added by this branch. No rejected raw output was retained and the fixed packet was not invoked again after the owner hard stop.",
+    "final_article": null,
+    "final_word_count": null,
+    "factual_safety_result": "NO_FINAL_ARTICLE_ACCEPTED",
+    "reader_value_result": "NO_FINAL_ARTICLE_ACCEPTED",
+    "release_plan_constructible": false,
+    "public_writes": 0,
+    "publishing_adapter_called": false,
+    "publication_coordinator_called": false,
+    "unknown_write": 0
+  },
+  "source_serialization": {
+    "before": "Publisher (attribution: full source title)",
+    "after": "Publisher",
+    "reader_link_preserved_when_available": true,
+    "google_news_discovery_url_exposed": false,
+    "source_title_and_document_id_retained_in_audit_metadata": true,
+    "adjacent_duplicate_publisher_collapsed": true
+  },
+  "validation": {
+    "focused_tests": "170 passed (116 router/article plus 54 adapter/candidate-walk/throughput)",
+    "python_compile": "PASS",
+    "public_test_writes": 0,
+    "synthetic_production_triggers": 0,
+    "synthetic_x_captures": 0,
+    "v2_runtime_or_product_mutations": 0,
+    "secret_or_session_exposure": 0
+  },
+  "production_readback": {
+    "process_id": 31792,
+    "supervisor_count": 1,
+    "primary_state": "RUNNING_IDLE",
+    "browser_state": "IDLE",
+    "capture_phase": "COMPLETE",
+    "active_editorial_cycle": false,
+    "publication_runtime_health": "HEALTHY",
+    "unknown_write_count": 0,
+    "pending_reconciliation_count": 0,
+    "pending_readback_count": 0,
+    "natural_publication_during_task": false
+  },
+  "operator_note": {
+    "discarded_misconfigured_standalone_replay": true,
+    "detail": "An initial checkpoint-seed path pointed one directory too high. It was stopped and its untracked outputs removed after one completed rank checkpoint; it did not trigger production, X capture, publication, or public write. The final proof used the committed fixed packet only."
+  },
+  "exact_next_action": "Implement the separately authorized fresh isolated Codex editorial-brain vertical slice; do not continue prompt tuning or add another model."
+}

@@ -442,10 +442,39 @@ def test_unresolved_discovery_url_serializes_truthful_attribution_without_link(t
         article_generator=_handle_generator(),
     )
     article = result["article"]
-    assert "Reuters (attribution: Treasury Stress Testing Rule)" in article["substack_body_markdown"]
+    assert "Source: Reuters" in article["substack_body_markdown"]
+    assert "Treasury Stress Testing Rule" not in article["substack_body_markdown"].split(
+        "Source: Reuters", 1
+    )[1]
     assert discovery_url not in article["substack_body_markdown"]
     assert article["source_trail"] == []
     assert article["source_attributions"][0]["reader_attribution_mode"] == "ATTRIBUTION_ONLY"
+    assert article["source_attributions"][0]["title"] == "Treasury Stress Testing Rule"
+
+
+def test_source_resolution_prevents_adjacent_duplicate_publisher_attribution():
+    document = _official_document()
+    document.update(
+        {
+            "publisher": "Reuters",
+            "source_identity": "reuters.com",
+            "source_authority_class": "reputable_secondary_source",
+            "secondary_listing_only": True,
+            "reader_source_url": None,
+        }
+    )
+    context = extract_governed_story_context(_viability(evidence=_evidence([document])))
+    resolved, source_ids, blockers = builder._resolve_generated_source_references(
+        "According to Reuters [[SOURCE:SOURCE_1]], the rule changed. Reuters "
+        "[[SOURCE:SOURCE_1]] reported the timetable.",
+        context=context,
+    )
+
+    assert blockers == []
+    assert source_ids
+    assert "Reuters Reuters" not in resolved
+    assert "According to Reuters, the rule changed" in resolved
+    assert "Reuters reported the timetable" in resolved
 
 
 def test_analytical_mode_blocks_without_capital_chronicle_authority(tmp_path):
@@ -952,9 +981,9 @@ def test_decision5_provider_outage_copy_cannot_become_canonical_product(
     )
 
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    assert result["exact_next_blocker"] == "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE"
     assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
-        "INSUFFICIENT_READER_VALUE"
+        "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE"
     )
     assert result["public_write_performed"] is False
     assert result["unknown_write_detected"] is False
@@ -1089,6 +1118,181 @@ def test_writer_validator_rejects_uncovered_connective_paragraph():
     assert builder._writer_response_source_coverage_blockers(
         article, governed_input
     ) == ["grounded_paragraph_source_coverage_incomplete:1"]
+
+
+def _useful_writer_output(handle="SOURCE_1"):
+    return {
+        "title": "Treasury Publishes Final Stress Testing Rule",
+        "subtitle": "The official document establishes a compliance sequence.",
+        "seo_title": "Treasury Stress Testing Rule Published",
+        "meta_description": "Treasury published the final rule and documented its compliance timetable.",
+        "market_mechanism": "",
+        "policy_context": "The official rule documents implementation.",
+        "cross_asset_implications": "",
+        "social_lede": "Treasury published the final stress testing rule.",
+        "social_mechanism_summary": "The document establishes the compliance sequence.",
+        "social_policy_summary": "Affected entities are covered by the final rule.",
+        "social_cross_asset_summary": "",
+        "substack_body_markdown": (
+            f"Treasury published a final stress testing rule, according to [[SOURCE:{handle}]]. "
+            "The official document says the rule takes effect after a compliance date and "
+            "applies to affected entities.\n\n"
+            "Capital Chronicle inference: the documented administrative sequence may give "
+            "affected entities a clearer order for planning implementation while they prepare "
+            "for the stated compliance date.\n\n"
+            "The official document says Treasury published the final stress testing rule, that "
+            "the rule takes effect after a compliance date, and that it applies to affected "
+            "entities. Reading those items together supplies the strongest supported detail.\n\n"
+            "Capital Chronicle inference: that sequence may help affected entities plan "
+            "implementation, while a superseding official notice would leave the timing and "
+            "compliance schedule unresolved. Until then, the published final rule is the "
+            "documented reference point for implementation."
+        ),
+    }
+
+
+def test_writer_utility_preflight_rejects_thin_copy_and_accepts_useful_copy():
+    context = extract_governed_story_context(_viability())
+    prompt = builder.build_article_generation_prompt(context, [])
+    governed = json.loads(prompt.split("GOVERNED_INPUT:\n", 1)[1])
+    governed["evidence_substance"] = {"enough_for_useful_article": True}
+    thin = {
+        "title": "Treasury Publishes Final Rule",
+        "substack_body_markdown": (
+            "Treasury published a final stress testing rule [[SOURCE:SOURCE_1]]."
+        ),
+    }
+
+    thin_codes = builder._writer_utility_preflight(thin, governed)
+    assert "WRITER_UTILITY_INSUFFICIENT_READER_SUBSTANCE" in thin_codes
+    assert "WRITER_UTILITY_NO_DISTINCT_READER_PAYOFF" in thin_codes
+    assert builder._writer_utility_preflight(_useful_writer_output(), governed) == []
+
+
+def test_default_writer_uses_one_repair_then_one_separate_cx_utility_rescue(
+    monkeypatch,
+):
+    from live_contentops import nine_router_llm_seam_v2 as seam
+    from live_contentops.nine_router_ordered_model_router_v2 import (
+        ACCEPTED,
+        CX_FINAL_FALLBACK_MODEL,
+        ORDERED_MODEL_POOL,
+    )
+
+    context = extract_governed_story_context(_viability())
+    prompt = builder.build_article_generation_prompt(context, [])
+    thin = {
+        "title": "Treasury Publishes Final Rule",
+        "substack_body_markdown": (
+            "Treasury published a final stress testing rule [[SOURCE:SOURCE_1]]."
+        ),
+    }
+    calls = []
+
+    def fake_routed(**kwargs):
+        calls.append(kwargs["role_task_id"])
+        if kwargs["role_task_id"] == seam.ROLE_ARTICLE_WRITING:
+            first = kwargs["validator"](json.dumps(thin))
+            assert first[0] is False
+            repaired_prompt = kwargs["repair_prompt_builder"](
+                kwargs["prompt"], json.dumps(thin), first[3]
+            )
+            assert json.dumps(thin) not in repaired_prompt
+            second = kwargs["validator"](json.dumps(thin))
+            assert second[0] is True
+            return {
+                "terminal_disposition": ACCEPTED,
+                "logical_invocation_id": kwargs["logical_invocation_id"],
+                "selected_model": ORDERED_MODEL_POOL[0],
+                "models_attempted_in_order": [ORDERED_MODEL_POOL[0]],
+                "total_attempts": 2,
+                "total_fallback_transitions": 0,
+                "total_structured_repair_attempts": 1,
+                "attempts": [],
+                "output": second[2],
+            }
+        accepted = kwargs["validator"](json.dumps(_useful_writer_output()))
+        assert accepted[0] is True
+        return {
+            "terminal_disposition": ACCEPTED,
+            "logical_invocation_id": kwargs["logical_invocation_id"],
+            "selected_model": CX_FINAL_FALLBACK_MODEL,
+            "models_attempted_in_order": [CX_FINAL_FALLBACK_MODEL],
+            "total_attempts": 1,
+            "total_fallback_transitions": 0,
+            "total_structured_repair_attempts": 0,
+            "attempts": [],
+            "output": accepted[2],
+        }
+
+    monkeypatch.setattr(seam, "routed_llm_invocation", fake_routed)
+    generated = builder._default_article_generator(prompt)
+
+    assert calls == [
+        seam.ROLE_ARTICLE_WRITING,
+        seam.ROLE_ARTICLE_WRITING_CX_RESCUE,
+    ]
+    telemetry = generated["_writer_router_telemetry"]
+    assert telemetry["normal_repair_attempted"] is True
+    assert telemetry["cx_utility_rescue_attempted"] is True
+    assert telemetry["logical_invocations"] == 2
+    assert generated["_writer_utility_preflight"]["classification"] == "PASS"
+
+
+def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):
+    from live_contentops import nine_router_llm_seam_v2 as seam
+    from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ORDERED_MODEL_POOL
+
+    context = extract_governed_story_context(_viability())
+    prompt = builder.build_article_generation_prompt(context, [])
+    thin = {
+        "title": "Treasury Publishes Final Rule",
+        "substack_body_markdown": (
+            "Treasury published a final stress testing rule [[SOURCE:SOURCE_1]]."
+        ),
+    }
+
+    def fake_routed(**kwargs):
+        if kwargs["role_task_id"] == seam.ROLE_ARTICLE_WRITING:
+            first = kwargs["validator"](json.dumps(thin))
+            kwargs["repair_prompt_builder"](kwargs["prompt"], json.dumps(thin), first[3])
+            second = kwargs["validator"](json.dumps(thin))
+            return {
+                "terminal_disposition": ACCEPTED,
+                "selected_model": ORDERED_MODEL_POOL[0],
+                "models_attempted_in_order": [ORDERED_MODEL_POOL[0]],
+                "total_attempts": 2,
+                "total_structured_repair_attempts": 1,
+                "attempts": [],
+                "output": second[2],
+            }
+        unsupported = _useful_writer_output()
+        unsupported["substack_body_markdown"] += (
+            "\n\nA newly discovered lunar bank guaranteed profits across every global market."
+        )
+        rejected = kwargs["validator"](json.dumps(unsupported))
+        assert rejected[0] is False
+        assert rejected[1] == "factual_validation_failure"
+        return {
+            "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+            "models_attempted_in_order": ["cx/gpt-5.6-sol(xhigh)"],
+            "total_attempts": 1,
+            "total_structured_repair_attempts": 0,
+            "attempts": [],
+            "output": None,
+        }
+
+    monkeypatch.setattr(seam, "routed_llm_invocation", fake_routed)
+    with pytest.raises(
+        GroundedArticleBuilderError,
+        match="TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
+    ) as raised:
+        builder._default_article_generator(prompt)
+    assert raised.value.writer_router_telemetry["logical_invocations"] == 2
+    assert raised.value.writer_router_telemetry["cx_utility_rescue_attempted"] is True
+    assert raised.value.writer_router_telemetry["cx_rescue"]["terminal_disposition"] == (
+        "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
+    )
 
 
 # --- Phase 2: media factual provenance (framing/X cannot become evidence facts) ---

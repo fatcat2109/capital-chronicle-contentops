@@ -44,6 +44,7 @@ SCHEMA_VERSION = "contentops.nine_router_llm_seam.v2"
 #: Role/task IDs for the call sites that genuinely invoke a model today. Recorded on every
 #: attempt so evidence can be grouped by newsroom stage.
 ROLE_ARTICLE_WRITING = "article_writing"
+ROLE_ARTICLE_WRITING_CX_RESCUE = "v1_article_writing_cx_utility_rescue"
 ROLE_PLATFORM_VARIANTS = "platform_native_variant_generation"
 ROLE_EDITORIAL_REVIEW = "tier1_editorial_review"
 ROLE_IDEA_RANKING = "substack_idea_ranking"
@@ -55,6 +56,7 @@ ROLE_STRUCTURED_REPAIR = "structured_output_repair"
 
 INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_ARTICLE_WRITING,
+    ROLE_ARTICLE_WRITING_CX_RESCUE,
     ROLE_PLATFORM_VARIANTS,
     ROLE_EDITORIAL_REVIEW,
     ROLE_IDEA_RANKING,
@@ -261,6 +263,9 @@ def integration_manifest() -> dict[str, Any]:
         "integrated_roles": list(INTEGRATED_ROLES),
         "integrated_call_sites": {
             ROLE_ARTICLE_WRITING: "ai_research_canonical_article_engine_v6.run_article_engine",
+            ROLE_ARTICLE_WRITING_CX_RESCUE: (
+                "rolling_x_grounded_article_media_builder_v1._default_article_generator"
+            ),
             ROLE_PLATFORM_VARIANTS: (
                 "platform_native_variant_generator_live_v6.generate_live_platform_variants"
             ),

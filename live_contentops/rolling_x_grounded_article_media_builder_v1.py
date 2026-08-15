@@ -33,6 +33,7 @@ from live_contentops.article_rich_text_v1 import (
 from live_contentops.visual_asset_discovery_v1 import build_visual_intent_plan
 
 SCHEMA_VERSION = "contentops.rolling_x_grounded_article_media_builder.v1"
+CODEX_EDITORIAL_BRAIN_TRIGGER = "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE"
 
 #: Provenance states recognised by the rolling-X release validator.
 ALLOWED_PROVENANCE_STATES = frozenset(
@@ -102,6 +103,12 @@ _QUANTITATIVE_PATTERNS = (
 
 class GroundedArticleBuilderError(ValueError):
     """Deterministic fail-closed builder violation (binding, authority, numeric traceability)."""
+
+    def __init__(
+        self, message: str, *, writer_router_telemetry: Mapping[str, Any] | None = None
+    ) -> None:
+        super().__init__(message)
+        self.writer_router_telemetry = dict(writer_router_telemetry or {})
 
 
 def _sha256_text(value: str) -> str:
@@ -1081,8 +1088,44 @@ def _source_reference_markdown(binding: Mapping[str, Any]) -> str:
     reader_url = str(binding.get("reader_source_url") or "")
     if reader_url:
         return f"[{publisher}]({reader_url})"
-    title = str(binding.get("title") or "Public report")
-    return f"{publisher} (attribution: {title})"
+    # The full source title and document identity remain in source_attributions/source_bindings.
+    # Repeating them inside every sentence produces source-title chains rather than prose.
+    return publisher
+
+
+def _deduplicate_adjacent_publisher_attribution(
+    body: str, bindings: Sequence[Mapping[str, Any]]
+) -> str:
+    """Collapse only exact adjacent publisher duplication introduced around source handles."""
+    resolved = str(body or "")
+    for binding in bindings:
+        publisher = " ".join(str(binding.get("publisher") or "").split())
+        if not publisher:
+            continue
+        label = re.escape(publisher)
+        reader_url = str(binding.get("reader_source_url") or "")
+        if reader_url:
+            linked = f"[{publisher}]({reader_url})"
+            linked_pattern = re.escape(linked)
+            resolved = re.sub(
+                rf"\b{label}\b\s*[,;:\-–—]?\s*{linked_pattern}",
+                linked,
+                resolved,
+                flags=re.IGNORECASE,
+            )
+            resolved = re.sub(
+                rf"{linked_pattern}\s*[,;:\-–—]?\s*\b{label}\b",
+                linked,
+                resolved,
+                flags=re.IGNORECASE,
+            )
+        resolved = re.sub(
+            rf"\b({label})\b\s*[,;:\-–—]?\s*\b{label}\b",
+            r"\1",
+            resolved,
+            flags=re.IGNORECASE,
+        )
+    return resolved
 
 
 def _resolve_generated_source_references(
@@ -1112,6 +1155,7 @@ def _resolve_generated_source_references(
         return _source_reference_markdown(binding)
 
     resolved = SOURCE_HANDLE_RE.sub(replace, str(body or ""))
+    resolved = _deduplicate_adjacent_publisher_attribution(resolved, bindings)
     for url in _BODY_URL_RE.findall(resolved):
         binding = by_reader_url.get(url)
         if binding is None:
@@ -1494,14 +1538,156 @@ def _writer_response_source_coverage_blockers(
     return list(dict.fromkeys(blockers))
 
 
+def _writer_utility_preflight(
+    article: Mapping[str, Any], governed_input: Mapping[str, Any]
+) -> list[str]:
+    """Return sanitized product-quality codes before writer output is accepted.
+
+    The existing reader-value gate remains the publication gate. This preflight gives the
+    writer one bounded opportunity to repair obvious utility defects without echoing rejected
+    prose. It deliberately treats length/paragraph targets as evidence, not standalone quotas.
+    """
+    from live_contentops.tier1_editorial_quality_v1 import evaluate_reader_value
+
+    body = str(article.get("substack_body_markdown") or "")
+    plain = SOURCE_HANDLE_RE.sub(" ", VISUAL_RE.sub(" ", body))
+    words = re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", plain)
+    sentence_texts = [
+        " ".join(value.split())
+        for value in re.split(r"(?<=[.!?])\s+|\n\s*\n", plain)
+        if len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", value)) >= 5
+    ]
+    codes: list[str] = []
+    if not str(article.get("title") or "").strip() or len(words) < 20 or not sentence_texts:
+        codes.append("WRITER_UTILITY_NEAR_EMPTY_OR_TITLE_ONLY")
+
+    normalized_body = " ".join(plain.casefold().split())
+    copied_titles = 0
+    for document in governed_input.get("evidence_documents") or []:
+        if not isinstance(document, Mapping):
+            continue
+        title = " ".join(str(document.get("title") or "").casefold().split())
+        if len(title.split()) >= 5:
+            copied_titles += normalized_body.count(title)
+    if copied_titles >= 2:
+        codes.append("WRITER_UTILITY_SOURCE_TITLE_CHAINING")
+
+    for document in governed_input.get("evidence_documents") or []:
+        if not isinstance(document, Mapping):
+            continue
+        publisher = " ".join(str(document.get("publisher") or "").split())
+        if publisher and re.search(
+            rf"\b{re.escape(publisher)}\b\s*[,;:\-–—]?\s*\b{re.escape(publisher)}\b",
+            plain,
+            re.IGNORECASE,
+        ):
+            codes.append("WRITER_UTILITY_DUPLICATE_PUBLISHER_ATTRIBUTION")
+            break
+
+    preflight_article = {
+        **dict(article),
+        "article_generation_method": "ROUTED_LLM_GROUNDED_ARTICLE",
+        "article_mode": governed_input.get("article_mode"),
+        "editorial_mode": governed_input.get("article_mode"),
+        "resolved_article_mode": governed_input.get("resolved_article_mode"),
+        "effective_article_mode": governed_input.get("effective_article_mode"),
+    }
+    reader_value = evaluate_reader_value(preflight_article, media_assets=())
+    for blocker in reader_value.get("blockers") or []:
+        if blocker == "no_repetitive_filler":
+            codes.append("WRITER_UTILITY_REPETITIVE_FILLER")
+        elif blocker in {
+            "mode_appropriate_substance",
+            "mode_appropriate_structure",
+            "reader_value_independent_of_media",
+            "multiple_meaningful_reader_paragraphs",
+            "title_not_body",
+        }:
+            codes.append("WRITER_UTILITY_INSUFFICIENT_READER_SUBSTANCE")
+        elif blocker == "not_attribution_chain_copy":
+            codes.append("WRITER_UTILITY_ATTRIBUTION_CHAIN")
+        elif blocker in {
+            "native_rich_text_serializable",
+            "professional_writer_output",
+            "no_process_or_pipeline_language",
+            "captions_and_source_metadata_not_dominant",
+        }:
+            codes.append("WRITER_UTILITY_UNPROFESSIONAL_OUTPUT")
+
+    claim_text = " ".join(
+        str(row.get("claim_text") or "")
+        for row in governed_input.get("supported_claims") or []
+        if isinstance(row, Mapping)
+    )
+    claim_tokens = {
+        token.casefold()
+        for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", claim_text)
+        if token.casefold() not in _AUDIT_STOPWORDS
+    }
+    opening_tokens = {
+        token.casefold()
+        for token in re.findall(
+            r"[A-Za-z][A-Za-z0-9'-]{2,}", " ".join(sentence_texts[:2])
+        )
+        if token.casefold() not in _AUDIT_STOPWORDS
+    }
+    if claim_tokens and len(claim_tokens.intersection(opening_tokens)) / len(claim_tokens) < 0.2:
+        codes.append("WRITER_UTILITY_NO_CLEAR_NEWS_PEG")
+
+    substance = governed_input.get("evidence_substance")
+    evidence_has_depth = bool(
+        isinstance(substance, Mapping) and substance.get("enough_for_useful_article")
+    )
+    payoff_language = bool(
+        re.search(
+            r"\b(?:matters?|means?|leaves?|remains?|unclear|unresolved|next|watch|because|"
+            r"implications?|impact|risks?|signals?|could|may|would|pressure|constraint|"
+            r"challenge|question|not yet)\b",
+            plain,
+            re.IGNORECASE,
+        )
+    )
+    if evidence_has_depth and (len(sentence_texts) < 3 or not payoff_language):
+        codes.append("WRITER_UTILITY_NO_DISTINCT_READER_PAYOFF")
+    return list(dict.fromkeys(codes))
+
+
+def _compact_writer_router_telemetry(summary: Mapping[str, Any]) -> dict[str, Any]:
+    attempts = list(summary.get("attempts") or [])
+    return {
+        "logical_invocation_id": summary.get("logical_invocation_id"),
+        "terminal_disposition": summary.get("terminal_disposition"),
+        "selected_model": summary.get("selected_model"),
+        "models_attempted_in_order": list(summary.get("models_attempted_in_order") or []),
+        "total_attempts": int(summary.get("total_attempts") or 0),
+        "total_fallback_transitions": int(summary.get("total_fallback_transitions") or 0),
+        "total_structured_repair_attempts": int(
+            summary.get("total_structured_repair_attempts") or 0
+        ),
+        "requested_effective_models": [
+            {
+                "requested_model": row.get("requested_model"),
+                "resolved_model": row.get("resolved_model"),
+                "failure_class": row.get("failure_class"),
+                "usage": row.get("usage"),
+            }
+            for row in attempts
+        ],
+    }
+
+
 def _default_article_generator(prompt: str) -> dict[str, Any]:
     """Route article generation through the canonical 9Router quality-first pool."""
     from live_contentops.nine_router_llm_seam_v2 import (
         ROLE_ARTICLE_WRITING,
+        ROLE_ARTICLE_WRITING_CX_RESCUE,
         RoutedInvocationError,
         routed_llm_invocation,
     )
-    from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED
+    from live_contentops.nine_router_ordered_model_router_v2 import (
+        ACCEPTED,
+        CX_FINAL_FALLBACK_MODEL,
+    )
 
     governed_input: dict[str, Any] = {}
     try:
@@ -1509,7 +1695,11 @@ def _default_article_generator(prompt: str) -> dict[str, Any]:
     except (IndexError, json.JSONDecodeError, TypeError, ValueError):
         pass
 
-    def validator(raw: str) -> tuple[bool, str | None, Any]:
+    repair_was_requested = False
+
+    def parse_and_validate(
+        raw: str, *, accept_utility_failure_after_repair: bool
+    ) -> tuple[bool, str | None, Any, str | None]:
         try:
             value = str(raw or "").strip()
             if value.startswith("```"):
@@ -1517,17 +1707,63 @@ def _default_article_generator(prompt: str) -> dict[str, Any]:
                 value = re.sub(r"\s*```$", "", value)
             parsed = json.loads(value[value.find("{") : value.rfind("}") + 1])
             if not isinstance(parsed, dict):
-                return False, "article_generation_not_object", None
+                return False, "structured_output_schema_invalid", None, "ARTICLE_NOT_OBJECT"
             if not str(parsed.get("title") or "").strip():
-                return False, "article_generation_title_missing", None
+                return False, "structured_output_schema_invalid", None, "ARTICLE_TITLE_MISSING"
             coverage_blockers = _writer_response_source_coverage_blockers(
                 parsed, governed_input
             )
             if coverage_blockers:
-                return False, ";".join(coverage_blockers), None
-            return True, None, parsed
+                return (
+                    False,
+                    "factual_validation_failure",
+                    None,
+                    "SOURCE_COVERAGE_INVALID",
+                )
+            utility_codes = _writer_utility_preflight(parsed, governed_input)
+            parsed["_writer_utility_preflight"] = {
+                "classification": "PASS" if not utility_codes else "FAIL",
+                "failure_codes": utility_codes,
+            }
+            if utility_codes and not accept_utility_failure_after_repair:
+                return (
+                    False,
+                    "structured_output_schema_invalid",
+                    None,
+                    ",".join(utility_codes),
+                )
+            return True, None, parsed, None
         except Exception as exc:  # noqa: BLE001 - classified by router
-            return False, f"article_generation_invalid:{type(exc).__name__}", None
+            return (
+                False,
+                "structured_output_malformed",
+                None,
+                f"ARTICLE_JSON_INVALID_{type(exc).__name__.upper()}",
+            )
+
+    def validator(raw: str) -> tuple[bool, str | None, Any, str | None]:
+        return parse_and_validate(
+            raw,
+            accept_utility_failure_after_repair=repair_was_requested,
+        )
+
+    def repair_prompt_builder(
+        _current_prompt: str, _rejected_raw: str, diagnostic_code: str | None
+    ) -> str:
+        nonlocal repair_was_requested
+        repair_was_requested = True
+        sanitized = re.sub(r"[^A-Z0-9_,:-]", "", str(diagnostic_code or ""))[:500]
+        return "\n".join(
+            [
+                prompt,
+                "WRITER_REPAIR_REQUIRED:",
+                sanitized or "WRITER_OUTPUT_CONTRACT_INVALID",
+                "Return a fresh JSON object from the same governed evidence. State what changed, "
+                "the strongest directly supported detail, and why it matters or what remains "
+                "unresolved. Use natural clean attribution; do not chain source titles or pad. "
+                "Do not add facts, numbers, URLs, source IDs, or evidence.",
+            ]
+        )
 
     cluster_id = "rolling-x-story"
     summary = routed_llm_invocation(
@@ -1540,12 +1776,97 @@ def _default_article_generator(prompt: str) -> dict[str, Any]:
         governed_input={"schema_version": SCHEMA_VERSION},
         prompt_template="rolling_x_grounded_article_generation",
         prompt_version="v1",
+        repair_prompt_builder=repair_prompt_builder,
     )
     if summary.get("terminal_disposition") != ACCEPTED or not isinstance(
         summary.get("output"), Mapping
     ):
         raise RoutedInvocationError(summary)
-    return dict(summary["output"])
+    generated = dict(summary["output"])
+    normal_telemetry = _compact_writer_router_telemetry(summary)
+    utility = dict(generated.get("_writer_utility_preflight") or {})
+    if utility.get("classification") == "PASS":
+        generated["_writer_router_telemetry"] = {
+            "logical_invocations": 1,
+            "normal": normal_telemetry,
+            "normal_repair_attempted": bool(
+                normal_telemetry["total_structured_repair_attempts"]
+            ),
+            "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
+            in normal_telemetry["models_attempted_in_order"],
+            "cx_utility_rescue_attempted": False,
+        }
+        return generated
+
+    if summary.get("selected_model") == CX_FINAL_FALLBACK_MODEL:
+        raise GroundedArticleBuilderError(
+            CODEX_EDITORIAL_BRAIN_TRIGGER,
+            writer_router_telemetry={
+                "logical_invocations": 1,
+                "normal": normal_telemetry,
+                "normal_repair_attempted": bool(
+                    normal_telemetry["total_structured_repair_attempts"]
+                ),
+                "cx_provider_fallback_attempted": True,
+                "cx_utility_rescue_attempted": False,
+            },
+        )
+
+    failure_codes = [str(value) for value in utility.get("failure_codes") or []]
+    rescue_prompt = "\n".join(
+        [
+            prompt,
+            "CX_WRITER_UTILITY_RESCUE_REQUIRED:",
+            ",".join(failure_codes)[:500] or "WRITER_UTILITY_FAILED",
+            "Produce a fresh article from the exact same governed evidence. Add no research, "
+            "URLs, facts, numbers, or source identities. Correct only reader utility and prose.",
+        ]
+    )
+
+    def rescue_validator(raw: str) -> tuple[bool, str | None, Any, str | None]:
+        return parse_and_validate(raw, accept_utility_failure_after_repair=False)
+
+    rescue_summary = routed_llm_invocation(
+        prompt=rescue_prompt,
+        role_task_id=ROLE_ARTICLE_WRITING_CX_RESCUE,
+        logical_invocation_id=f"rolling_x_article_cx_rescue_{_sha256_text(prompt)[:20]}",
+        work_item_id=cluster_id,
+        timeout_seconds=240.0,
+        validator=rescue_validator,
+        governed_input={"schema_version": SCHEMA_VERSION},
+        prompt_template="rolling_x_grounded_article_cx_utility_rescue",
+        prompt_version="v1",
+    )
+    if rescue_summary.get("terminal_disposition") != ACCEPTED or not isinstance(
+        rescue_summary.get("output"), Mapping
+    ):
+        raise GroundedArticleBuilderError(
+            CODEX_EDITORIAL_BRAIN_TRIGGER,
+            writer_router_telemetry={
+                "logical_invocations": 2,
+                "normal": normal_telemetry,
+                "cx_rescue": _compact_writer_router_telemetry(rescue_summary),
+                "normal_repair_attempted": bool(
+                    normal_telemetry["total_structured_repair_attempts"]
+                ),
+                "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
+                in normal_telemetry["models_attempted_in_order"],
+                "cx_utility_rescue_attempted": True,
+            },
+        )
+    rescued = dict(rescue_summary["output"])
+    rescued["_writer_router_telemetry"] = {
+        "logical_invocations": 2,
+        "normal": normal_telemetry,
+        "cx_rescue": _compact_writer_router_telemetry(rescue_summary),
+        "normal_repair_attempted": bool(
+            normal_telemetry["total_structured_repair_attempts"]
+        ),
+        "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
+        in normal_telemetry["models_attempted_in_order"],
+        "cx_utility_rescue_attempted": True,
+    }
+    return rescued
 
 
 def _deterministic_supported_claim_brief(
@@ -1772,11 +2093,25 @@ def build_rolling_x_grounded_article_and_media(
     )
     prompt = build_article_generation_prompt(context, visual_asset_ids)
     generator = article_generator or _default_article_generator
+    using_default_generator = article_generator is None
     try:
         generated = dict(generator(prompt))
     except Exception as exc:
         from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
 
+        if using_default_generator and isinstance(exc, RoutedInvocationError):
+            raise GroundedArticleBuilderError(
+                CODEX_EDITORIAL_BRAIN_TRIGGER,
+                writer_router_telemetry={
+                    "logical_invocations": 1,
+                    "normal": _compact_writer_router_telemetry(exc.summary),
+                    "normal_repair_attempted": bool(
+                        exc.summary.get("total_structured_repair_attempts")
+                    ),
+                    "cx_provider_fallback_attempted": False,
+                    "cx_utility_rescue_attempted": False,
+                },
+            ) from exc
         if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
             "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
         }:
@@ -1926,6 +2261,13 @@ def build_rolling_x_grounded_article_and_media(
     )
     if blockers:
         raise GroundedArticleBuilderError(";".join(blockers))
+    if using_default_generator:
+        from live_contentops.tier1_editorial_quality_v1 import evaluate_reader_value
+
+        writer_reader_value = evaluate_reader_value(article, media_assets=media_assets)
+        article["writer_reader_value_preflight"] = writer_reader_value
+        if writer_reader_value.get("classification") != "PASS":
+            raise GroundedArticleBuilderError(CODEX_EDITORIAL_BRAIN_TRIGGER)
     article["canonical_rich_text"] = markdown_to_rich_text(
         str(article.get("substack_body_markdown") or "")
     )
@@ -1972,10 +2314,15 @@ def build_rolling_x_grounded_article_and_media(
             "provided_evidence_capabilities": context["provided_evidence_capabilities"],
         },
         "critical_path_telemetry": {
-            "article_writer_semantic_calls": 1,
+            "article_writer_semantic_calls": int(
+                (generated.get("_writer_router_telemetry") or {}).get(
+                    "logical_invocations", 1
+                )
+            ),
             "ordinary_story": ordinary_story,
             "deterministic_outage_recovery_used": article_router_failure is not None,
             "mandatory_semantic_review_calls": 0 if ordinary_story else 1,
+            "writer_router": dict(generated.get("_writer_router_telemetry") or {}),
         },
         "publication_authority": False,
     }

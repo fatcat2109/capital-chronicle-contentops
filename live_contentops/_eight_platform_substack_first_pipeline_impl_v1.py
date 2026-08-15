@@ -4501,6 +4501,27 @@ def _run_rolling_x_newsroom_cycle(
                 _write_json(candidate_checkpoint_path, built)
                 _write_json(built_checkpoint_path, built)
         except GroundedArticleBuilderError as exc:
+            blocker_text = str(exc)
+            if blocker_text == "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE":
+                walk_row.update(
+                    {
+                        "writer_invocation_result": "FAIL_CLOSED",
+                        "writer_blockers": [blocker_text],
+                        "terminal_reason": blocker_text,
+                        "writer_router": dict(
+                            getattr(exc, "writer_router_telemetry", {}) or {}
+                        ),
+                    }
+                )
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = blocker_text
+                evidence["grounded_article_builder_blockers"] = [blocker_text]
+                evidence["writer_router"] = walk_row["writer_router"]
+                evidence["article"] = None
+                evidence["media"] = None
+                _persist_candidate_walk(terminal_reason=blocker_text)
+                _persist_cycle_evidence()
+                return evidence
             walk_row.update(
                 {
                     "writer_invocation_result": "FAIL_CLOSED",
