@@ -1,0 +1,20 @@
+{
+  "schema": "capital_chronicle.blind_publication_candidate.execution_manifest.v1",
+  "task": "TASK_CONTENTOPS_V1_CODEX_HIGH_XHIGH_BLIND_PUBLICATION_GRADE_BAKEOFF_V1",
+  "candidate": "XHIGH",
+  "requested_model": "gpt-5.6-sol",
+  "requested_reasoning_effort": "XHIGH",
+  "execution_surface": "FRESH_CODEX_DESKTOP_TASK_SESSION",
+  "editorial_brain": "THIS_INTERACTIVE_CODEX_DESKTOP_SESSION",
+  "headless_codex_or_codex_exec_used_as_editorial_brain": false,
+  "other_tasks_threads_or_subagents_created_or_contacted": 0,
+  "operator_interventions": 0,
+  "session_start": "2026-08-15T23:49:32+07:00",
+  "token_quota_cost_telemetry": "NOT_EXPOSED",
+  "research_cutoff": "2026-08-15T23:59:59+07:00",
+  "public_writes": 0,
+  "publisher_or_publication_coordinator_invoked": false,
+  "browser_public_write_surface_invoked": false,
+  "local_render_only": true,
+  "blindness_preserved": true
+}

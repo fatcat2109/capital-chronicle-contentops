@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="July retail receipts fell as the tax-refund impulse faded. Capital Chronicle examines the consumer mix, inflation and the implications for Federal Reserve policy.">
+  <title>The Refund Tide Went Out | Capital Chronicle</title>
+  <style>
+    :root {
+      --ink: #17273c;
+      --body: #29313b;
+      --muted: #69717c;
+      --paper: #f6f1e8;
+      --cream: #fffcf7;
+      --wine: #8f3040;
+      --gold: #c4972e;
+      --green: #23796f;
+      --rule: #d7d0c5;
+    }
+    * { box-sizing: border-box; }
+    html { background: #e7e1d7; scroll-behavior: smooth; }
+    body { margin: 0; color: var(--body); background: var(--cream); font-family: Georgia, "Times New Roman", serif; }
+    a { color: #6f2633; text-decoration-color: #c9a9ae; text-underline-offset: 3px; }
+    a:hover { color: var(--wine); }
+    .masthead { background: var(--ink); color: white; border-bottom: 5px solid var(--gold); }
+    .masthead-inner { max-width: 1220px; height: 98px; margin: 0 auto; padding: 0 34px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-size: 28px; letter-spacing: .08em; font-weight: 700; text-transform: uppercase; }
+    .brand span { color: #dbc17c; }
+    .mast-note { font-family: Arial, sans-serif; font-size: 11px; color: #bec7d1; letter-spacing: .18em; text-transform: uppercase; }
+    .article-header { max-width: 1120px; margin: 0 auto; padding: 86px 54px 42px; text-align: center; }
+    .kicker { color: var(--wine); font: 700 13px/1.2 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { max-width: 1020px; margin: 24px auto 24px; color: var(--ink); font-size: clamp(52px, 6.2vw, 86px); line-height: .98; letter-spacing: -.045em; }
+    .deck { max-width: 850px; margin: 0 auto 29px; color: #4c5663; font-size: 25px; line-height: 1.4; }
+    .byline { font: 13px/1.6 Arial, sans-serif; color: #6c727b; text-transform: uppercase; letter-spacing: .08em; }
+    .byline b { color: var(--ink); }
+    .signal-strip { max-width: 1120px; margin: 0 auto 42px; padding: 0 54px; }
+    .signal-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); background: var(--paper); }
+    .signal { min-height: 112px; padding: 24px 22px 20px; border-right: 1px solid var(--rule); }
+    .signal:last-child { border-right: 0; }
+    .signal-label { font: 700 10px/1.2 Arial, sans-serif; letter-spacing: .14em; color: #777267; text-transform: uppercase; }
+    .signal-value { margin-top: 8px; color: var(--ink); font: 700 29px/1 Georgia, serif; }
+    .signal-context { margin-top: 8px; color: #6c727b; font: 12px/1.3 Arial, sans-serif; }
+    .hero { max-width: 1220px; margin: 0 auto 62px; padding: 0 34px; }
+    .hero-frame { height: 610px; overflow: hidden; background: #dce4e5; }
+    .hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; display: block; filter: saturate(.88) contrast(1.03); }
+    figcaption { margin-top: 12px; color: #757b82; font: 12px/1.55 Arial, sans-serif; }
+    .article { max-width: 780px; margin: 0 auto; padding: 0 28px 100px; }
+    .article p { margin: 0 0 27px; font-size: 20px; line-height: 1.72; }
+    .article .lead { font-size: 24px; line-height: 1.62; color: var(--ink); }
+    .article .lead::first-letter { float: left; padding: 7px 9px 0 0; color: var(--wine); font: 700 82px/.75 Georgia, serif; }
+    h2 { margin: 76px 0 24px; color: var(--ink); font-size: 39px; line-height: 1.08; letter-spacing: -.025em; }
+    .section-rule { display: flex; align-items: center; gap: 14px; margin: 74px 0 20px; color: var(--wine); font: 700 11px/1 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    .section-rule::after { content: ""; height: 1px; background: var(--rule); flex: 1; }
+    .wide-figure { width: min(1000px, calc(100vw - 64px)); margin: 54px 50% 58px; transform: translateX(-50%); }
+    .wide-figure img { display: block; width: 100%; height: auto; border: 1px solid #dfd8ce; }
+    .fact-card { width: min(1040px, calc(100vw - 64px)); margin: 54px 50% 58px; transform: translateX(-50%); display: grid; grid-template-columns: 1.12fr .88fr; background: var(--ink); color: white; }
+    .fact-main { padding: 46px 48px; }
+    .fact-main .eyebrow { color: #dbc17c; font: 700 11px/1 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    .fact-main .big { margin: 14px 0 12px; font-size: 55px; line-height: 1; }
+    .fact-main p { margin: 0; color: #d8dee5; font: 15px/1.55 Arial, sans-serif; }
+    .fact-side { padding: 42px 42px; background: #24374f; display: flex; flex-direction: column; justify-content: center; }
+    .fact-row { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.13); font: 13px/1.25 Arial, sans-serif; }
+    .fact-row:last-child { border-bottom: 0; }
+    .fact-row strong { color: #f0d88f; font-size: 16px; }
+    .method-note { padding: 20px 24px; margin: 34px 0; border-left: 4px solid var(--gold); background: var(--paper); color: #4f5864; font: 14px/1.62 Arial, sans-serif; }
+    .policy-record { width: min(1000px, calc(100vw - 64px)); margin: 54px 50% 38px; transform: translateX(-50%); display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); background: #fff; }
+    .policy-image { min-height: 420px; background: url('assets/federal_reserve_eccles_building.jpg') center/cover no-repeat; }
+    .policy-copy { padding: 44px 46px; display: flex; flex-direction: column; justify-content: center; }
+    .policy-copy .label { color: var(--wine); font: 700 11px/1 Arial, sans-serif; letter-spacing: .15em; text-transform: uppercase; }
+    .policy-copy h3 { margin: 15px 0 15px; color: var(--ink); font-size: 31px; line-height: 1.08; }
+    .policy-copy p { margin: 0 0 14px; font: 15px/1.55 Arial, sans-serif; color: #58606b; }
+    .policy-caption { width: min(1000px, calc(100vw - 64px)); margin: -25px 50% 48px; transform: translateX(-50%); color: #757b82; font: 12px/1.5 Arial, sans-serif; }
+    .leadership { display: grid; grid-template-columns: 130px 1fr; gap: 26px; align-items: center; margin: 42px 0; padding: 25px; background: #f0ebe2; border-top: 1px solid #d9d1c5; border-bottom: 1px solid #d9d1c5; }
+    .leadership img { width: 130px; height: 168px; object-fit: cover; }
+    .leadership .label { color: var(--wine); font: 700 10px/1 Arial, sans-serif; letter-spacing: .15em; text-transform: uppercase; }
+    .leadership h3 { margin: 10px 0 9px; color: var(--ink); font-size: 26px; }
+    .leadership p { margin: 0; font: 14px/1.55 Arial, sans-serif; color: #626975; }
+    .analysis-box { width: min(900px, calc(100vw - 64px)); margin: 48px 50%; transform: translateX(-50%); padding: 42px 48px; border-top: 6px solid var(--gold); background: var(--ink); color: white; }
+    .analysis-box .label { color: #e3cb89; font: 700 11px/1 Arial, sans-serif; letter-spacing: .17em; text-transform: uppercase; }
+    .analysis-box p { margin: 18px 0 0; color: white; font-size: 25px; line-height: 1.48; }
+    .scenario-list { margin: 32px 0 36px; padding: 0; list-style: none; }
+    .scenario-list li { position: relative; margin: 0; padding: 19px 0 19px 42px; border-top: 1px solid var(--rule); font-size: 18px; line-height: 1.55; }
+    .scenario-list li:last-child { border-bottom: 1px solid var(--rule); }
+    .scenario-list li::before { content: ""; position: absolute; left: 4px; top: 28px; width: 14px; height: 14px; background: var(--gold); transform: rotate(45deg); }
+    .scenario-list strong { color: var(--ink); }
+    .closing { margin-top: 46px; padding-top: 36px; border-top: 2px solid var(--ink); color: var(--ink); font-size: 23px !important; line-height: 1.62 !important; }
+    .sources { background: #ece6dc; border-top: 1px solid #d1c9bd; }
+    .sources-inner { max-width: 1040px; margin: 0 auto; padding: 62px 46px 72px; }
+    .sources h2 { margin: 0 0 12px; font-size: 31px; }
+    .sources .cutoff { color: #666d75; font: 13px/1.5 Arial, sans-serif; }
+    .source-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 34px; margin-top: 30px; }
+    .source-item { padding: 14px 0; border-top: 1px solid #cfc6b9; font: 13px/1.45 Arial, sans-serif; }
+    .source-item b { display: block; margin-bottom: 3px; color: var(--ink); }
+    .footer { padding: 34px; background: #0f1b2a; color: #b7c0ca; text-align: center; font: 11px/1.6 Arial, sans-serif; letter-spacing: .06em; }
+    @media (max-width: 760px) {
+      .masthead-inner { height: 78px; padding: 0 20px; }
+      .brand { font-size: 21px; }
+      .mast-note { display: none; }
+      .article-header { padding: 55px 24px 35px; }
+      h1 { font-size: 47px; }
+      .deck { font-size: 20px; }
+      .signal-strip { padding: 0 20px; }
+      .signal-grid { grid-template-columns: 1fr 1fr; }
+      .signal:nth-child(2) { border-right: 0; }
+      .signal:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+      .hero { padding: 0; }
+      .hero-frame { height: 390px; }
+      .hero figcaption { padding: 0 20px; }
+      .article { padding-left: 22px; padding-right: 22px; }
+      .article p { font-size: 18px; }
+      .article .lead { font-size: 21px; }
+      h2 { font-size: 33px; }
+      .fact-card, .policy-record { grid-template-columns: 1fr; }
+      .policy-image { min-height: 330px; }
+      .source-grid { grid-template-columns: 1fr; }
+      .leadership { grid-template-columns: 90px 1fr; }
+      .leadership img { width: 90px; height: auto; }
+      .analysis-box { padding: 32px 28px; }
+      .analysis-box p { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand">Capital <span>Chronicle</span></div>
+      <div class="mast-note">Markets · Policy · The Real Economy</div>
+    </div>
+  </header>
+
+  <main>
+    <header class="article-header">
+      <div class="kicker">U.S. Economy · Capital Chronicle Analysis</div>
+      <h1>The Refund Tide Went Out. Now the Fed Has to Read the Consumer Without It</h1>
+      <p class="deck">July retail receipts fell 0.6% as online and auto spending reversed. Inflation cooled but energy prices stayed hot, leaving the Federal Reserve with a narrower case for action in either direction.</p>
+      <div class="byline"><b>By Capital Chronicle</b> &nbsp;·&nbsp; August 15, 2026 &nbsp;·&nbsp; Research cutoff 23:59 Asia/Saigon</div>
+    </header>
+
+    <section class="signal-strip" aria-label="Key data">
+      <div class="signal-grid">
+        <div class="signal"><div class="signal-label">July retail</div><div class="signal-value">−0.6%</div><div class="signal-context">month over month</div></div>
+        <div class="signal"><div class="signal-label">2026 refunds</div><div class="signal-value">$324.8B</div><div class="signal-context">through May 8</div></div>
+        <div class="signal"><div class="signal-label">July CPI</div><div class="signal-value">3.4%</div><div class="signal-context">12 months</div></div>
+        <div class="signal"><div class="signal-label">Fed target</div><div class="signal-value">3.50–3.75%</div><div class="signal-context">held July 29</div></div>
+      </div>
+    </section>
+
+    <figure class="hero">
+      <div class="hero-frame"><img src="assets/king_of_prussia_mall_2026_1280.jpg" alt="The bright, glass-domed Nordstrom court at King of Prussia Mall in Pennsylvania"></div>
+      <figcaption>The Nordstrom court at King of Prussia Mall in Pennsylvania, photographed February 4, 2026. Photo: Dough4872/Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Cropped for presentation.</figcaption>
+    </figure>
+
+    <article class="article">
+      <p class="lead">The American consumer did not fall off a cliff in July. It stepped off a temporary bridge.</p>
+
+      <p>Advance U.S. retail and food-services receipts were a seasonally adjusted <strong>$763.6 billion</strong>, down <strong>0.6% from June</strong>—the first monthly decline in nine months—and still <strong>5.0% above July 2025</strong>, according to <a href="https://fred.stlouisfed.org/series/RSAFS">Census Bureau data distributed by the Federal Reserve Bank of St. Louis</a>. These are advance estimates, and they are not adjusted for price changes.</p>
+
+      <p>The composition makes the headline more useful. The pullback was led by nonstore retailers and motor vehicles, two large categories that had enjoyed unusually favorable timing in June. Restaurants, clothing stores and several home-related categories advanced. That is not a clean recession signal. It is evidence of a consumer becoming more selective after a spring cash injection and a promotion-heavy start to summer.</p>
+
+      <p>For the Federal Reserve, that distinction is the story. July weakens the argument that demand can absorb another rate increase without strain. It does not, by itself, create a case for a cut while headline inflation is 3.4%, energy inflation is in double digits and second-quarter domestic demand was still firm. The latest data point toward patience—not because the economy is uneventful, but because its signals now disagree in precisely the way that punishes a rushed decision.</p>
+
+      <div class="section-rule">The temporary impulse</div>
+      <h2>A nearly $50 billion bridge</h2>
+
+      <p>The tax-refund numbers were large enough to change the texture of the spring.</p>
+
+      <p>By May 8, the Internal Revenue Service had issued <strong>$324.757 billion</strong> of refunds for the 2026 filing season, compared with <strong>$274.979 billion</strong> at the comparable point in 2025. That is <strong>$49.778 billion more</strong>, or an <strong>18.1%</strong> increase. The number of refunds was up <strong>6.0%</strong>, while the average refund rose <strong>11.5% to $3,276</strong>, according to the <a href="https://www.irs.gov/newsroom/filing-season-statistics-for-week-ending-may-8-2026">IRS filing-season statistics</a>.</p>
+
+      <div class="fact-card">
+        <div class="fact-main">
+          <div class="eyebrow">IRS filing season · through May 8</div>
+          <div class="big">+$49.8B</div>
+          <p>More refunds than at the comparable point in 2025. This is a cash-flow impulse, not a measured retail-spending multiplier.</p>
+        </div>
+        <div class="fact-side">
+          <div class="fact-row"><span>Refund count</span><strong>+6.0%</strong></div>
+          <div class="fact-row"><span>Average refund</span><strong>$3,276</strong></div>
+          <div class="fact-row"><span>Average change</span><strong>+11.5%</strong></div>
+        </div>
+      </div>
+
+      <p>Retail receipts rose from $754.0 billion in March to $766.2 billion in May and $768.1 billion in June before retreating to $763.6 billion in July. The timing supports a straightforward reading: larger refunds helped households bridge higher prices and bring some purchases forward, then that support faded.</p>
+
+      <p>It does <strong>not</strong> prove that refunds caused every dollar of the spring gain. The IRS figures are cumulative; retail sales are monthly. Households can save refunds, repay debt or spend them outside the retail categories. Auto incentives, the World Cup and the shift of Amazon's Prime Day into late June also affected timing. The defensible conclusion is narrower: refunds were a meaningful temporary tailwind, and July is the first clean look at demand after much of that tailwind had passed.</p>
+
+      <figure class="wide-figure">
+        <img src="charts/retail_timeline_tax_refund.svg" alt="U.S. retail receipts rose through June before declining in July, while an IRS annotation shows larger cumulative tax refunds through May 8">
+        <figcaption>Sources: U.S. Census Bureau via FRED; IRS filing-season statistics through May 8, 2026. Retail figures are seasonally adjusted and not price-adjusted. The overlap is evidence of timing, not proof of a one-for-one causal relationship.</figcaption>
+      </figure>
+
+      <div class="section-rule">Inside the headline</div>
+      <h2>The consumer mix says “budgeting,” not “bunker”</h2>
+
+      <p>Nonstore retailers, which include online sellers, recorded the largest major-category decline in July: <strong>2.2%</strong>. Motor-vehicle and parts dealers fell <strong>1.8%</strong>, gasoline-station receipts fell <strong>0.9%</strong>, and electronics and appliance stores slipped <strong>0.5%</strong>. The retail control group used in estimating goods consumption in GDP—excluding autos, gasoline, building materials and food services—fell <strong>0.4%</strong>, according to <a href="https://apnews.com/article/retail-inflation-consumer-sentiment-economy-3e2bc5807d7396b8e6c5f599941cb2a9">Associated Press reporting</a> on the Census release.</p>
+
+      <div class="method-note"><strong>Measurement guardrail:</strong> The Census survey measures receipts, not physical units. A decline at gasoline stations cannot be translated into a claim about gasoline volume without separate volume evidence. June comparisons were also affected by promotion timing: Prime Day began in late June, and auto incentives helped lift vehicle receipts that month.</div>
+
+      <p>The other side of the ledger is harder to square with a broad consumer retreat. Clothing-store receipts rebounded <strong>1.9%</strong>. Health and personal-care stores gained <strong>0.7%</strong>. Food services and drinking places—the only services category in the retail report—rose <strong>0.5%</strong> after a 0.4% June gain. Furniture, building-material and general-merchandise stores also edged higher in the <a href="https://fred.stlouisfed.org/release/tables?eid=201241&amp;rid=9">official category data</a>.</p>
+
+      <p>That pattern looks like prioritization. Households cut large, postponable and promotion-sensitive purchases while continuing to spend on meals out, back-to-school clothing and selected household needs. A consumer in a bunker cancels broadly. A consumer on a budget chooses.</p>
+
+      <figure class="wide-figure">
+        <img src="charts/retail_category_mix.svg" alt="Bar chart showing selected July retail declines and gains by category">
+        <figcaption>Source: U.S. Census Bureau Advance Monthly Retail Trade Survey via FRED. Percent changes are calculated from published June and July seasonally adjusted receipts; values may differ from headline rounding.</figcaption>
+      </figure>
+
+      <p>The report is also narrower than the consumer economy. It captures mostly goods and only one service category; it does not cover hotel stays, most travel, health services or financial services. That matters because the <a href="https://www.bea.gov/news/2026/gdp-advance-estimate-2nd-quarter-2026">Bureau of Economic Analysis</a> found that second-quarter consumer spending increased in both goods and services. Real GDP grew at a <strong>1.5% annualized rate</strong>, slower than the first quarter's 2.1%, but real final sales to private domestic purchasers accelerated to <strong>3.9%</strong> from 1.7%.</p>
+
+      <p>July therefore starts the third quarter on a softer note. It does not rewrite the second quarter, and one advance retail estimate is not a trend.</p>
+
+      <div class="section-rule">The price constraint</div>
+      <h2>Inflation cooled in the middle—and stayed hot at the edge</h2>
+
+      <p>The July inflation report is encouraging until it is treated as permission.</p>
+
+      <p>The Consumer Price Index rose <strong>0.1% in July</strong> and <strong>3.4% over 12 months</strong>, down from 3.5% in June. Core CPI, excluding food and energy, rose <strong>0.2% on the month</strong> and <strong>2.5% over the year</strong>, matching its post-pandemic low. Shelter rose only 0.1% in July. Those are the figures that give the Fed room to wait.</p>
+
+      <p>The distribution removes room to relax. Energy prices fell 1.5% in July but remained <strong>14.7% above a year earlier</strong>; gasoline was <strong>24.6% higher</strong>. Food was up 3.0% over 12 months and shelter 3.2%. The <a href="https://www.bls.gov/news.release/pdf/cpi.pdf">BLS release</a> also showed monthly increases in medical care, airfares, communication, education and recreation.</p>
+
+      <figure class="wide-figure">
+        <img src="charts/inflation_mix.svg" alt="Bar chart comparing twelve-month inflation for energy, all items, shelter, food and core CPI">
+        <figcaption>Source: U.S. Bureau of Labor Statistics, Consumer Price Index—July 2026. The energy bar includes a large gasoline contribution; year-over-year rates can remain high even when the latest monthly change is negative.</figcaption>
+      </figure>
+
+      <p>This is why the 5.0% year-over-year gain in retail receipts should not be presented as a 5.0% increase in purchasing power. Retail sales are nominal and their category weights do not match the CPI basket. Simply subtracting headline CPI would manufacture a “real retail sales” figure that neither agency publishes.</p>
+
+      <p>The broader price backdrop is similarly awkward. BEA's advance estimate put the second-quarter PCE price index at a <strong>5.1% annualized rate</strong> and core PCE at <strong>3.4%</strong>, even as July's CPI showed cooler momentum. The economy is not sending one inflation signal; it is sending a hot quarterly history and a cooler monthly update.</p>
+
+      <div class="section-rule">The policy decision</div>
+      <h2>The Fed's burden of proof has shifted</h2>
+
+      <p>On July 29, the Federal Open Market Committee held the federal-funds target at <strong>3.50%–3.75%</strong> by a <strong>9–3 vote</strong>. Beth Hammack, Neel Kashkari and Lorie Logan dissented in favor of a quarter-point increase. The <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">official statement</a> called inflation elevated relative to the 2% goal and specifically cited energy-related supply shocks.</p>
+
+      <div class="leadership">
+        <img src="assets/kevin_warsh_official.png" alt="Official portrait of Federal Reserve Chair Kevin Warsh">
+        <div>
+          <div class="label">Current Federal Reserve leadership</div>
+          <h3>Chair Kevin Warsh</h3>
+          <p>Warsh took office May 22, 2026, and also chairs the FOMC. In July testimony he said the committee had “no tolerance for persistently elevated inflation.” Portrait and biographical authority: <a href="https://www.federalreserve.gov/aboutthefed/bios/board/warsh.htm">Board of Governors</a>.</p>
+        </div>
+      </div>
+
+      <div class="policy-record">
+        <div class="policy-image" role="img" aria-label="The Marriner S. Eccles Federal Reserve Board Building in Washington, D.C."></div>
+        <div class="policy-copy">
+          <div class="label">Primary-source policy record</div>
+          <h3>Hold, with three votes to hike</h3>
+          <p><strong>Decision:</strong> maintain 3.50%–3.75%.</p>
+          <p><strong>Vote:</strong> 9–3; the dissents preferred a 25-basis-point increase.</p>
+          <p><strong>Stated constraint:</strong> inflation remained above the 2% goal, partly reflecting supply shocks including energy.</p>
+        </div>
+      </div>
+      <div class="policy-caption">The Marriner S. Eccles Federal Reserve Board Building. Photo: TheAgency/CJStumpf via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>. Cropped for presentation.</div>
+
+      <p>The leadership transition matters less than the reaction function it has made explicit: this Fed will want evidence that softer inflation is durable, not simply a favorable month.</p>
+
+      <aside class="analysis-box">
+        <div class="label">Capital Chronicle Analysis · Our View</div>
+        <p>July changes the burden of proof. An immediate hike now requires evidence that inflation is reaccelerating beyond energy while demand remains resilient. A cut requires evidence that weakness is spreading beyond online shopping and autos into services, hiring and incomes. Until one side clears that bar, holding rates is the decision most consistent with the data.</p>
+      </aside>
+
+      <p>That is not a forecast that the Fed will be inactive indefinitely. It is a map of what would make action coherent.</p>
+
+      <ul class="scenario-list">
+        <li><strong>The case for a hike strengthens</strong> if core monthly inflation reaccelerates, energy costs spill into a broader set of prices, and the July retail decline reverses without labor-market damage.</li>
+        <li><strong>The case for a cut strengthens</strong> if retail weakness broadens, services spending and hiring cool, and core inflation continues to run near a 0.2% monthly pace.</li>
+        <li><strong>The case for another hold survives</strong> if the present split persists: softer discretionary goods demand, still-positive services spending, cooler core inflation and elevated supply-driven headline inflation.</li>
+      </ul>
+
+      <p>The July retail report did not prove that the consumer is broken. It showed that the consumer looks different when a temporary cash cushion disappears. That makes the next set of data more important, not less: the Fed must distinguish a normalization after refunds and promotions from the start of a broader retrenchment.</p>
+
+      <p class="closing">For now, the strongest conclusion is the least theatrical one. The refund tide went out; the economy is still standing; and the central bank has no reason to sprint in either direction.</p>
+    </article>
+  </main>
+
+  <section class="sources">
+    <div class="sources-inner">
+      <h2>Primary sources and methodology</h2>
+      <p class="cutoff">Research cutoff: August 15, 2026, Asia/Saigon. Analysis is Capital Chronicle's and is not a quotation or investment recommendation. Advance and seasonally adjusted data are subject to revision.</p>
+      <div class="source-grid">
+        <div class="source-item"><b>U.S. Census Bureau</b><a href="https://www.census.gov/retail/sales.html">Monthly Retail Trade sales report</a>, July data released Aug. 14.</div>
+        <div class="source-item"><b>Census Bureau via FRED</b><a href="https://fred.stlouisfed.org/release/tables?eid=201241&amp;rid=9">Retail category table</a>, updated Aug. 14.</div>
+        <div class="source-item"><b>Internal Revenue Service</b><a href="https://www.irs.gov/newsroom/filing-season-statistics-for-week-ending-may-8-2026">Filing-season statistics through May 8</a>.</div>
+        <div class="source-item"><b>Bureau of Labor Statistics</b><a href="https://www.bls.gov/news.release/pdf/cpi.pdf">Consumer Price Index—July 2026</a>, Aug. 12.</div>
+        <div class="source-item"><b>Federal Reserve</b><a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">July 29 FOMC statement</a>.</div>
+        <div class="source-item"><b>Federal Reserve</b><a href="https://www.federalreserve.gov/newsevents/testimony/warsh20260714a.htm">Chair Warsh's July 14 testimony</a> and <a href="https://www.federalreserve.gov/aboutthefed/bios/board/warsh.htm">official biography</a>.</div>
+        <div class="source-item"><b>Bureau of Economic Analysis</b><a href="https://www.bea.gov/news/2026/gdp-advance-estimate-2nd-quarter-2026">Advance Q2 2026 GDP estimate</a>, July 30.</div>
+        <div class="source-item"><b>Professional corroboration</b><a href="https://apnews.com/article/retail-inflation-consumer-sentiment-economy-3e2bc5807d7396b8e6c5f599941cb2a9">AP retail report</a> and <a href="https://apnews.com/article/consumer-prices-inflation-fed-interest-rates-150e179a6c6b3182ba05cedf0188394b">AP inflation report</a>.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">CAPITAL CHRONICLE · INDEPENDENT MACROECONOMIC ANALYSIS · ZERO PUBLICATION WRITE CANDIDATE</footer>
+</body>
+</html>

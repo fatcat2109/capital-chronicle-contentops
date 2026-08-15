@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="720" viewBox="0 0 1000 720" role="img" aria-labelledby="title desc">
+  <title id="title">July weakness was concentrated, not universal</title>
+  <desc id="desc">Month-over-month receipts fell 2.2 percent at nonstore retailers and 1.8 percent at motor vehicle dealers. Clothing gained 1.9 percent, health and personal care gained 0.7 percent, and food services gained 0.5 percent.</desc>
+  <rect width="1000" height="720" fill="#ffffff"/>
+  <text x="60" y="54" fill="#17273c" font-family="Georgia,serif" font-size="34" font-weight="700">July weakness was concentrated, not universal</text>
+  <text x="60" y="84" fill="#5e6570" font-family="Arial,sans-serif" font-size="17">Selected categories · month-over-month change in seasonally adjusted receipts</text>
+
+  <g stroke="#d9dce1" stroke-width="1">
+    <line x1="220" y1="125" x2="220" y2="614"/>
+    <line x1="360" y1="125" x2="360" y2="614"/>
+    <line x1="500" y1="112" x2="500" y2="614" stroke="#7b818c" stroke-width="1.5"/>
+    <line x1="640" y1="125" x2="640" y2="614"/>
+    <line x1="780" y1="125" x2="780" y2="614"/>
+  </g>
+  <g fill="#777d87" font-family="Arial,sans-serif" font-size="13" text-anchor="middle">
+    <text x="220" y="638">−2%</text>
+    <text x="360" y="638">−1%</text>
+    <text x="500" y="638">0</text>
+    <text x="640" y="638">+1%</text>
+    <text x="780" y="638">+2%</text>
+  </g>
+
+  <g font-family="Arial,sans-serif" font-size="15">
+    <text x="60" y="157" fill="#2f3742">Nonstore retailers</text>
+    <rect x="185" y="137" width="315" height="26" rx="3" fill="#8f3040"/>
+    <text x="174" y="156" fill="#8f3040" font-weight="700" text-anchor="end">−2.2%</text>
+
+    <text x="60" y="217" fill="#2f3742">Motor vehicles &amp; parts</text>
+    <rect x="251" y="197" width="249" height="26" rx="3" fill="#8f3040"/>
+    <text x="240" y="216" fill="#8f3040" font-weight="700" text-anchor="end">−1.8%</text>
+
+    <text x="60" y="277" fill="#2f3742">Gasoline stations</text>
+    <rect x="372" y="257" width="128" height="26" rx="3" fill="#8f3040"/>
+    <text x="361" y="276" fill="#8f3040" font-weight="700" text-anchor="end">−0.9%</text>
+
+    <text x="60" y="337" fill="#2f3742" font-weight="700">TOTAL</text>
+    <rect x="419" y="317" width="81" height="26" rx="3" fill="#17273c"/>
+    <text x="408" y="336" fill="#17273c" font-weight="700" text-anchor="end">−0.6%</text>
+
+    <text x="60" y="397" fill="#2f3742">Electronics &amp; appliances</text>
+    <rect x="433" y="377" width="67" height="26" rx="3" fill="#8f3040"/>
+    <text x="422" y="396" fill="#8f3040" font-weight="700" text-anchor="end">−0.5%</text>
+
+    <text x="60" y="457" fill="#2f3742">Food services &amp; drinking places</text>
+    <rect x="500" y="437" width="73" height="26" rx="3" fill="#23796f"/>
+    <text x="584" y="456" fill="#23796f" font-weight="700">+0.5%</text>
+
+    <text x="60" y="517" fill="#2f3742">Health &amp; personal care</text>
+    <rect x="500" y="497" width="98" height="26" rx="3" fill="#23796f"/>
+    <text x="609" y="516" fill="#23796f" font-weight="700">+0.7%</text>
+
+    <text x="60" y="577" fill="#2f3742">Clothing &amp; accessories</text>
+    <rect x="500" y="557" width="266" height="26" rx="3" fill="#23796f"/>
+    <text x="777" y="576" fill="#23796f" font-weight="700">+1.9%</text>
+  </g>
+
+  <rect x="815" y="155" width="135" height="182" rx="8" fill="#f6f1e8"/>
+  <text x="833" y="184" fill="#87661e" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">READING THE MIX</text>
+  <text x="833" y="217" fill="#17273c" font-family="Georgia,serif" font-size="20" font-weight="700">Large,</text>
+  <text x="833" y="241" fill="#17273c" font-family="Georgia,serif" font-size="20" font-weight="700">deferrable</text>
+  <text x="833" y="265" fill="#17273c" font-family="Georgia,serif" font-size="20" font-weight="700">purchases</text>
+  <text x="833" y="289" fill="#17273c" font-family="Georgia,serif" font-size="20" font-weight="700">led down.</text>
+  <text x="833" y="317" fill="#626975" font-family="Arial,sans-serif" font-size="12">Services held up.</text>
+
+  <line x1="60" y1="665" x2="940" y2="665" stroke="#d4d0c8"/>
+  <text x="60" y="691" fill="#777d87" font-family="Arial,sans-serif" font-size="12">Source: U.S. Census Bureau Advance Monthly Retail Trade Survey via FRED · Capital Chronicle</text>
+</svg>

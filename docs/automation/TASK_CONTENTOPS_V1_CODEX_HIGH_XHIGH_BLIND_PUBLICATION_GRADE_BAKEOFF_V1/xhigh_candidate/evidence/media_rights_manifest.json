@@ -1,0 +1,80 @@
+{
+  "schema": "capital_chronicle.blind_publication_candidate.media_rights.v1",
+  "generated_documentary_imagery_used": false,
+  "real_person_generated_imagery_used": false,
+  "assets": [
+    {
+      "asset_id": "hero_king_of_prussia_mall_2026",
+      "local_path": "assets/king_of_prussia_mall_2026_1280.jpg",
+      "sha256": "af9ff63c139e663e5efd229633acf528e28e6de849782bfa1d9664f07e3cf9e6",
+      "media_type": "REAL_DOCUMENTARY_CONTEXT_PHOTOGRAPH",
+      "depiction": "Nordstrom court at King of Prussia Mall, Pennsylvania",
+      "capture_date": "2026-02-04",
+      "author": "Dough4872",
+      "source_page": "https://commons.wikimedia.org/wiki/File:King_of_Prussia_Mall_Nordstrom_court_from_second_floor.jpeg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/King_of_Prussia_Mall_Nordstrom_court_from_second_floor.jpeg/1280px-King_of_Prussia_Mall_Nordstrom_court_from_second_floor.jpeg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "modifications": ["CSS presentation crop", "minor CSS saturation and contrast adjustment"],
+      "attribution_rendered": true,
+      "rights_status": "PASS"
+    },
+    {
+      "asset_id": "federal_reserve_eccles_building",
+      "local_path": "assets/federal_reserve_eccles_building.jpg",
+      "sha256": "0d4d9717b723eab19ec98db7f3b8068f4768ac2290b4c4ac586c0bbc8e3ff827",
+      "media_type": "REAL_DOCUMENTARY_AUTHORITY_BUILDING_PHOTOGRAPH",
+      "depiction": "Marriner S. Eccles Federal Reserve Board Building, Washington, D.C.",
+      "capture_date": "2006-06-09",
+      "author": "TheAgency / CJStumpf",
+      "source_page": "https://commons.wikimedia.org/wiki/File:FedBuilding.JPG",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/FedBuilding.JPG",
+      "license": "CC BY-SA 3.0 (also available under GFDL)",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "modifications": ["CSS presentation crop"],
+      "attribution_rendered": true,
+      "rights_status": "PASS"
+    },
+    {
+      "asset_id": "kevin_warsh_official_portrait",
+      "local_path": "assets/kevin_warsh_official.png",
+      "sha256": "c1e999d3bc10b8159b9bcf9c003b6743524afed113bfdad4aa50237ea271e7a3",
+      "media_type": "REAL_AUTHORITY_PERSON_OFFICIAL_PORTRAIT",
+      "depiction": "Federal Reserve Chair Kevin Warsh",
+      "source_page": "https://www.federalreserve.gov/aboutthefed/bios/board/warsh.htm",
+      "download_url": "https://www.federalreserve.gov/aboutthefed/images/chairman-warsh-130x168.png",
+      "source_owner": "Board of Governors of the Federal Reserve System",
+      "license": "U.S. federal government work; no third-party credit or restriction displayed on the official biography page",
+      "modifications": [],
+      "attribution_rendered": true,
+      "rights_status": "PASS_OFFICIAL_GOVERNMENT_SOURCE"
+    },
+    {
+      "asset_id": "chart_retail_timeline_tax_refund",
+      "local_path": "charts/retail_timeline_tax_refund.svg",
+      "sha256": "0ec28624388ff16786b7c0a61e47179aed0c3baeada7a278fea348a61ea2880e",
+      "media_type": "NATIVE_DATA_CHART",
+      "creator": "Capital Chronicle",
+      "data_authorities": ["U.S. Census Bureau", "Internal Revenue Service"],
+      "rights_status": "PASS_ORIGINAL_CHART_FROM_PUBLIC_GOVERNMENT_DATA"
+    },
+    {
+      "asset_id": "chart_retail_category_mix",
+      "local_path": "charts/retail_category_mix.svg",
+      "sha256": "8f310c00f7586c99bb574db223714dd09563be645909bdc646c360c5a179aca5",
+      "media_type": "NATIVE_DATA_CHART",
+      "creator": "Capital Chronicle",
+      "data_authorities": ["U.S. Census Bureau via FRED"],
+      "rights_status": "PASS_ORIGINAL_CHART_FROM_PUBLIC_GOVERNMENT_DATA"
+    },
+    {
+      "asset_id": "chart_inflation_mix",
+      "local_path": "charts/inflation_mix.svg",
+      "sha256": "8bc63760d9b2132cea08f70a9efe5b19a6f12f8f068f0f73f7db1b9cf4b28915",
+      "media_type": "NATIVE_DATA_CHART",
+      "creator": "Capital Chronicle",
+      "data_authorities": ["U.S. Bureau of Labor Statistics"],
+      "rights_status": "PASS_ORIGINAL_CHART_FROM_PUBLIC_GOVERNMENT_DATA"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "schema": "capital_chronicle.blind_publication_candidate.source_manifest.v1",
+  "research_cutoff": "2026-08-15T23:59:59+07:00",
+  "cutoff_timezone": "Asia/Saigon",
+  "session_research_date": "2026-08-15",
+  "post_cutoff_sources_used": 0,
+  "sources": [
+    {
+      "source_id": "census_retail_release_2026_07",
+      "publisher": "U.S. Census Bureau",
+      "title": "Advance Monthly Sales for Retail and Food Services, July 2026",
+      "url": "https://www.census.gov/retail/sales.html",
+      "release_date": "2026-08-14",
+      "authority_class": "PRIMARY_OFFICIAL",
+      "cutoff_eligible": true,
+      "supports": ["July retail headline", "seasonal-adjustment status", "advance-estimate status", "not-adjusted-for-price-changes caveat"]
+    },
+    {
+      "source_id": "census_fred_rsafs",
+      "publisher": "U.S. Census Bureau via Federal Reserve Bank of St. Louis FRED",
+      "title": "Advance Retail Sales: Retail Trade and Food Services (RSAFS)",
+      "url": "https://fred.stlouisfed.org/series/RSAFS",
+      "release_date": "2026-08-14",
+      "authority_class": "PRIMARY_DATA_OFFICIAL_REHOST",
+      "cutoff_eligible": true,
+      "supports": ["March-July 2026 monthly retail levels", "July total 763602 million dollars", "June total 768072 million dollars", "July 2025 total 727176 million dollars"]
+    },
+    {
+      "source_id": "census_fred_category_table",
+      "publisher": "U.S. Census Bureau via Federal Reserve Bank of St. Louis FRED",
+      "title": "Advance Monthly Sales for Retail and Food Services by Kind of Business",
+      "url": "https://fred.stlouisfed.org/release/tables?eid=201241&rid=9",
+      "release_date": "2026-08-14",
+      "authority_class": "PRIMARY_DATA_OFFICIAL_REHOST",
+      "cutoff_eligible": true,
+      "supports": ["July category mix", "June comparison values", "year-ago comparison values", "category percent changes calculated in candidate evidence"]
+    },
+    {
+      "source_id": "irs_filing_season_2026_05_08",
+      "publisher": "Internal Revenue Service",
+      "title": "Filing season statistics for week ending May 8, 2026",
+      "url": "https://www.irs.gov/newsroom/filing-season-statistics-for-week-ending-may-8-2026",
+      "data_through": "2026-05-08",
+      "page_updated": "2026-05-18",
+      "authority_class": "PRIMARY_OFFICIAL",
+      "cutoff_eligible": true,
+      "supports": ["refund count", "refund total", "average refund", "direct-deposit refund statistics", "2025 comparable values"]
+    },
+    {
+      "source_id": "bls_cpi_2026_07",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "title": "Consumer Price Index — July 2026",
+      "url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+      "release_date": "2026-08-12",
+      "release_identifier": "USDL-26-1378",
+      "authority_class": "PRIMARY_OFFICIAL",
+      "cutoff_eligible": true,
+      "supports": ["monthly and annual headline CPI", "monthly and annual core CPI", "food", "shelter", "energy", "gasoline", "component details"]
+    },
+    {
+      "source_id": "fomc_statement_2026_07_29",
+      "publisher": "Board of Governors of the Federal Reserve System",
+      "title": "Federal Reserve issues FOMC statement",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm",
+      "release_date": "2026-07-29",
+      "authority_class": "PRIMARY_OFFICIAL",
+      "cutoff_eligible": true,
+      "supports": ["3.50%-3.75% target range", "9-3 vote", "three named hike dissents", "inflation and energy language"]
+    },
+    {
+      "source_id": "warsh_testimony_2026_07_14",
+      "publisher": "Board of Governors of the Federal Reserve System",
+      "title": "Semiannual Monetary Policy Report to the Congress — testimony by Chairman Kevin Warsh",
+      "url": "https://www.federalreserve.gov/newsevents/testimony/warsh20260714a.htm",
+      "release_date": "2026-07-14",
+      "page_updated": "2026-07-15",
+      "authority_class": "PRIMARY_OFFICIAL",
+      "cutoff_eligible": true,
+      "supports": ["verified direct quotation on persistently elevated inflation", "current leadership policy posture"]
+    },
+    {
+      "source_id": "warsh_official_biography",
+      "publisher": "Board of Governors of the Federal Reserve System",
+      "title": "Kevin Warsh, Chairman",
+      "url": "https://www.federalreserve.gov/aboutthefed/bios/board/warsh.htm",
+      "page_updated": "2026-06-17",
+      "authority_class": "PRIMARY_OFFICIAL",
+      "cutoff_eligible": true,
+      "supports": ["May 22, 2026 start date", "current chair and FOMC chair roles", "official portrait identity"]
+    },
+    {
+      "source_id": "bea_gdp_2026_q2_advance",
+      "publisher": "U.S. Bureau of Economic Analysis",
+      "title": "GDP (Advance Estimate), 2nd Quarter 2026",
+      "url": "https://www.bea.gov/news/2026/gdp-advance-estimate-2nd-quarter-2026",
+      "pdf_url": "https://bea.gov/sites/default/files/2026-07/gdp2q26-adv.pdf",
+      "release_date": "2026-07-30",
+      "release_identifier": "BEA 26-35",
+      "authority_class": "PRIMARY_OFFICIAL",
+      "cutoff_eligible": true,
+      "supports": ["Q2 real GDP", "Q1 comparison", "real final sales to private domestic purchasers", "PCE inflation", "goods and services consumption direction"]
+    },
+    {
+      "source_id": "ap_retail_2026_08_14",
+      "publisher": "Associated Press",
+      "title": "US retail sales slump unexpectedly and sharply after a summer tax-refund boost fades",
+      "url": "https://apnews.com/article/retail-inflation-consumer-sentiment-economy-3e2bc5807d7396b8e6c5f599941cb2a9",
+      "release_date": "2026-08-14",
+      "authority_class": "REPUTABLE_PROFESSIONAL_CORROBORATION",
+      "cutoff_eligible": true,
+      "supports": ["control-group decline", "promotion timing", "tax-refund context", "retail report scope", "first decline in nine months"]
+    },
+    {
+      "source_id": "ap_cpi_2026_08_12",
+      "publisher": "Associated Press",
+      "title": "Inflation slows but prices remain elevated as Iran war and spending on AI push up prices",
+      "url": "https://apnews.com/article/consumer-prices-inflation-fed-interest-rates-150e179a6c6b3182ba05cedf0188394b",
+      "release_date": "2026-08-12",
+      "authority_class": "REPUTABLE_PROFESSIONAL_CORROBORATION",
+      "cutoff_eligible": true,
+      "supports": ["post-pandemic core-inflation comparison", "policy context", "professional corroboration of BLS release"]
+    }
+  ]
+}

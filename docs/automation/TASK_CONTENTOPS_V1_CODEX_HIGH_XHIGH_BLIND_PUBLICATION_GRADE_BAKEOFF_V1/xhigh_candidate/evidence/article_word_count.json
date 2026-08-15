@@ -1,0 +1,6 @@
+{
+  "canonical_article_word_count": 1368,
+  "definition": "Article body, section headings, analysis callout, and scenario bullets; excludes headline, deck, byline, image/chart captions, and primary-source list.",
+  "tokenization": "ASCII alphanumeric words with internal apostrophes or hyphens counted as one word",
+  "validator": "validate_candidate.py"
+}

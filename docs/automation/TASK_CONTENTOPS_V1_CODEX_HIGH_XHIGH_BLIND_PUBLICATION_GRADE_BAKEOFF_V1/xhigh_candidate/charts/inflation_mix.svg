@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+  <title id="title">Inflation cooled at the center, not at the edge</title>
+  <desc id="desc">In July 2026, twelve-month CPI inflation was 3.4 percent overall, 2.5 percent excluding food and energy, 3.0 percent for food, 3.2 percent for shelter and 14.7 percent for energy.</desc>
+  <rect width="1000" height="600" fill="#f6f1e8"/>
+  <text x="65" y="54" fill="#17273c" font-family="Georgia,serif" font-size="34" font-weight="700">Inflation cooled at the center, not at the edge</text>
+  <text x="65" y="84" fill="#5e6570" font-family="Arial,sans-serif" font-size="17">Twelve-month CPI change · July 2026</text>
+
+  <g stroke="#d7d1c5" stroke-width="1">
+    <line x1="255" y1="112" x2="255" y2="447"/>
+    <line x1="475" y1="112" x2="475" y2="447"/>
+    <line x1="695" y1="112" x2="695" y2="447"/>
+    <line x1="915" y1="112" x2="915" y2="447"/>
+  </g>
+  <g fill="#777d87" font-family="Arial,sans-serif" font-size="12" text-anchor="middle">
+    <text x="255" y="466">0%</text>
+    <text x="475" y="466">5%</text>
+    <text x="695" y="466">10%</text>
+    <text x="915" y="466">15%</text>
+  </g>
+
+  <g font-family="Arial,sans-serif" font-size="15">
+    <text x="65" y="151" fill="#303844" font-weight="700">ENERGY</text>
+    <rect x="255" y="128" width="647" height="34" rx="4" fill="#c4972e"/>
+    <text x="915" y="151" fill="#765713" font-weight="700">14.7%</text>
+
+    <text x="65" y="215" fill="#303844" font-weight="700">ALL ITEMS</text>
+    <rect x="255" y="192" width="150" height="34" rx="4" fill="#8f3040"/>
+    <text x="417" y="215" fill="#8f3040" font-weight="700">3.4%</text>
+
+    <text x="65" y="279" fill="#303844">Shelter</text>
+    <rect x="255" y="256" width="141" height="34" rx="4" fill="#6b7482"/>
+    <text x="408" y="279" fill="#59616d" font-weight="700">3.2%</text>
+
+    <text x="65" y="343" fill="#303844">Food</text>
+    <rect x="255" y="320" width="132" height="34" rx="4" fill="#6b7482"/>
+    <text x="399" y="343" fill="#59616d" font-weight="700">3.0%</text>
+
+    <text x="65" y="407" fill="#303844" font-weight="700">CORE</text>
+    <rect x="255" y="384" width="110" height="34" rx="4" fill="#17273c"/>
+    <text x="377" y="407" fill="#17273c" font-weight="700">2.5%</text>
+  </g>
+
+  <rect x="65" y="493" width="870" height="54" rx="8" fill="#ffffff" stroke="#d6d0c5"/>
+  <text x="88" y="518" fill="#87661e" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">LATEST MONTH</text>
+  <text x="210" y="519" fill="#17273c" font-family="Arial,sans-serif" font-size="15">Headline +0.1%</text>
+  <text x="405" y="519" fill="#17273c" font-family="Arial,sans-serif" font-size="15">Core +0.2%</text>
+  <text x="565" y="519" fill="#17273c" font-family="Arial,sans-serif" font-size="15">Energy −1.5%</text>
+  <text x="740" y="519" fill="#8f3040" font-family="Arial,sans-serif" font-size="15" font-weight="700">Gasoline +24.6% y/y</text>
+
+  <text x="65" y="576" fill="#777d87" font-family="Arial,sans-serif" font-size="12">Source: U.S. Bureau of Labor Statistics, Consumer Price Index—July 2026 · Capital Chronicle</text>
+</svg>

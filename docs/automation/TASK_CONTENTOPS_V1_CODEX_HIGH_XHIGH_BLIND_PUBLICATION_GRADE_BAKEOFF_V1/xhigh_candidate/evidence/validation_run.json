@@ -1,0 +1,35 @@
+{
+  "schema": "capital_chronicle.blind_publication_candidate.validation_run.v1",
+  "overall_status": "PASS",
+  "canonical_article_word_count": 1368,
+  "word_count_definition": "body plus headings and scenario bullets; excludes title, deck, metadata, captions, and source list",
+  "checks": {
+    "html_relative_images_exist": "PASS",
+    "raster_dimensions": {
+      "status": "PASS",
+      "hero": [1280, 960],
+      "fed_building": [816, 616],
+      "warsh_portrait": [130, 168],
+      "full_page_desktop": [1440, 10494]
+    },
+    "svg_well_formed": "PASS",
+    "retail_category_arithmetic": "PASS",
+    "research_cutoff": {
+      "status": "PASS",
+      "source_count": 11,
+      "post_cutoff_sources": 0
+    },
+    "media_hash_binding": "PASS",
+    "required_numeric_claims_present": "PASS",
+    "gasoline_receipts_volume_guardrail": "PASS",
+    "analysis_attribution_label": "PASS",
+    "zero_public_writes": "PASS",
+    "render_artifacts_nonempty": {
+      "status": "PASS",
+      "png_bytes": 2481089,
+      "pdf_bytes": 2663130
+    }
+  },
+  "failure_count": 0,
+  "validator": "evidence/validate_candidate.py"
+}

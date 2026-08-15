@@ -1,0 +1,13 @@
+{
+  "schema": "capital_chronicle.zero_public_write_audit.v1",
+  "public_writes": 0,
+  "publication_attempts": 0,
+  "social_write_attempts": 0,
+  "durable_publication_coordinator_invocations": 0,
+  "substack_invocations": 0,
+  "browser_cdp_9222_invocations": 0,
+  "browser_cdp_9223_invocations": 0,
+  "local_file_render_invocations": 1,
+  "local_file_render_engine": "Microsoft Edge headless via Playwright",
+  "classification": "ZERO_PUBLIC_WRITES"
+}

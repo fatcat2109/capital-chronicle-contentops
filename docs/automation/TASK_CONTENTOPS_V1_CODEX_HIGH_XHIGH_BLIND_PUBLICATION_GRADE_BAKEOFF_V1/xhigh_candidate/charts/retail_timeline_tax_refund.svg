@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+  <title id="title">A temporary bridge, then a July step-down</title>
+  <desc id="desc">Seasonally adjusted U.S. retail and food services receipts rose from 754.0 billion dollars in March 2026 to 768.1 billion in June, then fell to 763.6 billion in July. IRS refunds through May 8 totaled 324.8 billion dollars, 18.1 percent more than at the comparable point in 2025.</desc>
+  <rect width="1000" height="600" fill="#f6f1e8"/>
+  <text x="70" y="54" fill="#17273c" font-family="Georgia,serif" font-size="34" font-weight="700">A temporary bridge, then a July step-down</text>
+  <text x="70" y="84" fill="#5e6570" font-family="Arial,sans-serif" font-size="17">U.S. retail &amp; food-services receipts · $ billions · seasonally adjusted</text>
+
+  <rect x="388" y="108" width="424" height="76" rx="8" fill="#fff8df" stroke="#c4972e" stroke-width="1.5"/>
+  <text x="410" y="134" fill="#765713" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1.2">IRS SNAPSHOT · THROUGH MAY 8</text>
+  <text x="410" y="162" fill="#17273c" font-family="Georgia,serif" font-size="23" font-weight="700">$324.8B refunded · +18.1% y/y</text>
+
+  <rect x="292" y="199" width="300" height="263" fill="#ead59a" opacity="0.18"/>
+  <text x="312" y="220" fill="#87661e" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">SPRING REFUND WINDOW</text>
+
+  <g stroke="#d6d0c5" stroke-width="1">
+    <line x1="118" y1="454" x2="892" y2="454"/>
+    <line x1="118" y1="390" x2="892" y2="390"/>
+    <line x1="118" y1="326" x2="892" y2="326"/>
+    <line x1="118" y1="262" x2="892" y2="262"/>
+    <line x1="118" y1="198" x2="892" y2="198"/>
+  </g>
+  <g fill="#727783" font-family="Arial,sans-serif" font-size="13" text-anchor="end">
+    <text x="104" y="459">752</text>
+    <text x="104" y="395">756</text>
+    <text x="104" y="331">760</text>
+    <text x="104" y="267">764</text>
+    <text x="104" y="203">768</text>
+  </g>
+
+  <polyline points="170,422 340,341 510,227 680,197 850,269" fill="none" stroke="#17273c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="680" y1="197" x2="850" y2="269" stroke="#8f3040" stroke-width="7" stroke-linecap="round"/>
+
+  <g fill="#f6f1e8" stroke="#17273c" stroke-width="4">
+    <circle cx="170" cy="422" r="8"/>
+    <circle cx="340" cy="341" r="8"/>
+    <circle cx="510" cy="227" r="8"/>
+    <circle cx="680" cy="197" r="8"/>
+  </g>
+  <circle cx="850" cy="269" r="10" fill="#8f3040" stroke="#f6f1e8" stroke-width="4"/>
+
+  <g fill="#17273c" font-family="Arial,sans-serif" font-size="15" font-weight="700" text-anchor="middle">
+    <text x="170" y="401">754.0</text>
+    <text x="340" y="320">759.1</text>
+    <text x="510" y="206">766.2</text>
+    <text x="680" y="176">768.1</text>
+    <text x="850" y="247" fill="#8f3040">763.6</text>
+  </g>
+  <g fill="#5f6570" font-family="Arial,sans-serif" font-size="15" text-anchor="middle">
+    <text x="170" y="490">MAR</text>
+    <text x="340" y="490">APR</text>
+    <text x="510" y="490">MAY</text>
+    <text x="680" y="490">JUN</text>
+    <text x="850" y="490">JUL</text>
+  </g>
+
+  <path d="M 791 215 C 824 211, 846 225, 850 249" fill="none" stroke="#8f3040" stroke-width="2"/>
+  <text x="750" y="209" fill="#8f3040" font-family="Arial,sans-serif" font-size="14" font-weight="700">−0.6% m/m</text>
+
+  <line x1="70" y1="526" x2="930" y2="526" stroke="#bfb8ac"/>
+  <text x="70" y="552" fill="#5e6570" font-family="Arial,sans-serif" font-size="13">Retail data are advance estimates and not adjusted for prices. Refund timing is not proof of one-for-one causality.</text>
+  <text x="70" y="576" fill="#7c8088" font-family="Arial,sans-serif" font-size="12">Sources: U.S. Census Bureau via FRED; Internal Revenue Service · Capital Chronicle</text>
+</svg>
