@@ -1,0 +1,9 @@
+metric,value,unit,period,authority,source_url
+Consumer Price Index all items monthly,0.1,percent,July 2026,U.S. Bureau of Labor Statistics,https://www.bls.gov/news.release/cpi.nr0.htm
+Consumer Price Index all items annual,3.4,percent,12 months through July 2026,U.S. Bureau of Labor Statistics,https://www.bls.gov/news.release/cpi.nr0.htm
+Consumer Price Index core annual,2.5,percent,12 months through July 2026,U.S. Bureau of Labor Statistics,https://www.bls.gov/news.release/cpi.nr0.htm
+Consumer Price Index energy annual,14.7,percent,12 months through July 2026,U.S. Bureau of Labor Statistics,https://www.bls.gov/news.release/cpi.nr0.htm
+Real GDP annualized,1.5,percent,Q2 2026 advance estimate,U.S. Bureau of Economic Analysis,https://www.bea.gov/news/2026/gdp-advance-estimate-2nd-quarter-2026
+Real final sales to private domestic purchasers annualized,3.9,percent,Q2 2026 advance estimate,U.S. Bureau of Economic Analysis,https://www.bea.gov/news/2026/gdp-advance-estimate-2nd-quarter-2026
+Federal funds target lower bound,3.5,percent,July 29 2026,Federal Open Market Committee,https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm
+Federal funds target upper bound,3.75,percent,July 29 2026,Federal Open Market Committee,https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm

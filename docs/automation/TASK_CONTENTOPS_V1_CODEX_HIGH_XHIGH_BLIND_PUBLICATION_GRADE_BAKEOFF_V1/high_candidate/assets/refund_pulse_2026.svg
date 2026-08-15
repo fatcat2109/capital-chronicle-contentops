@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">The 2026 tax refund wave was nearly 50 billion dollars larger</title>
+  <desc id="desc">Comparison of cumulative IRS refund dollars through May 9, 2025 and May 8, 2026.</desc>
+  <rect width="1200" height="720" fill="#17252d"/>
+  <text x="64" y="72" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#e39a66" letter-spacing="2">A TEMPORARY CASH-FLOW TAILWIND</text>
+  <text x="64" y="126" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#fffaf0">The refund wave was nearly $50bn larger</text>
+  <text x="64" y="164" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#c7d0d4">Cumulative individual income-tax refunds through comparable May filing-season dates</text>
+
+  <line x1="96" y1="554" x2="790" y2="554" stroke="#6f7d83" stroke-width="2"/>
+  <rect x="176" y="280" width="220" height="274" rx="6" fill="#78878c"/>
+  <rect x="486" y="230" width="220" height="324" rx="6" fill="#e39a66"/>
+  <text x="286" y="255" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="700" fill="#fffaf0">$275.0bn</text>
+  <text x="596" y="205" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="700" fill="#fffaf0">$324.8bn</text>
+  <text x="286" y="592" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#c7d0d4">2025</text>
+  <text x="596" y="592" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#fffaf0">2026</text>
+
+  <rect x="836" y="236" width="300" height="264" rx="14" fill="#21343d" stroke="#3d555f"/>
+  <text x="870" y="286" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#e39a66" letter-spacing="1.4">YEAR-OVER-YEAR DIFFERENCE</text>
+  <text x="870" y="350" font-family="Georgia, serif" font-size="48" font-weight="700" fill="#fffaf0">+$49.8bn</text>
+  <text x="870" y="390" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#c7d0d4">+18.1% aggregate dollars</text>
+  <line x1="870" y1="418" x2="1102" y2="418" stroke="#3d555f"/>
+  <text x="870" y="454" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#fffaf0">99.1m refunds  ·  +6.0%</text>
+  <text x="870" y="482" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#fffaf0">$3,276 average  ·  +11.5%</text>
+
+  <text x="64" y="638" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#c7d0d4">The IRS measures refunds issued—not how or when households spent them.</text>
+  <line x1="64" y1="660" x2="1136" y2="660" stroke="#3d555f"/>
+  <text x="64" y="692" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#9eacb2">Source: Internal Revenue Service, filing-season statistics through May 8, 2026.</text>
+  <text x="1136" y="692" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#fffaf0">CAPITAL CHRONICLE</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+  <title id="title">July retail weakness was concentrated in online and autos</title>
+  <desc id="desc">Horizontal bar chart of seasonally adjusted month-over-month sales changes for selected retail categories in July 2026.</desc>
+  <rect width="1200" height="780" fill="#f4f0e8"/>
+  <text x="64" y="72" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#c2543d" letter-spacing="2">THE MIX, NOT JUST THE MISS</text>
+  <text x="64" y="126" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#17252d">July weakness clustered in online and autos</text>
+  <text x="64" y="164" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#52636c">Seasonally adjusted sales, month over month</text>
+
+  <line x1="704" y1="208" x2="704" y2="650" stroke="#17252d" stroke-width="2"/>
+  <text x="704" y="684" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#52636c">0%</text>
+  <text x="64" y="230" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#17252d">Nonstore retailers</text>
+  <rect x="264" y="207" width="440" height="30" rx="4" fill="#c2543d"/>
+  <text x="250" y="229" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#8d3527">−2.2%</text>
+
+  <text x="64" y="290" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#17252d">Motor vehicles &amp; parts</text>
+  <rect x="344" y="267" width="360" height="30" rx="4" fill="#c2543d"/>
+  <text x="330" y="289" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#8d3527">−1.8%</text>
+
+  <text x="64" y="350" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#17252d">Gasoline stations</text>
+  <rect x="524" y="327" width="180" height="30" rx="4" fill="#d47a63"/>
+  <text x="510" y="349" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#8d3527">−0.9%</text>
+
+  <text x="64" y="410" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#17252d">Electronics &amp; appliances</text>
+  <rect x="604" y="387" width="100" height="30" rx="4" fill="#d47a63"/>
+  <text x="590" y="409" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#8d3527">−0.5%</text>
+
+  <text x="64" y="470" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#17252d">Total retail &amp; food services</text>
+  <rect x="584" y="447" width="120" height="30" rx="4" fill="#17252d"/>
+  <text x="570" y="469" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#17252d">−0.6%</text>
+
+  <text x="64" y="530" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#17252d">Building materials &amp; garden</text>
+  <rect x="704" y="507" width="60" height="30" rx="4" fill="#4e8977"/>
+  <text x="778" y="529" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#2d6656">+0.3%</text>
+
+  <text x="64" y="590" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#17252d">Food services &amp; drinking places</text>
+  <rect x="704" y="567" width="100" height="30" rx="4" fill="#4e8977"/>
+  <text x="818" y="589" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#2d6656">+0.5%</text>
+
+  <text x="64" y="650" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#17252d">Clothing &amp; accessories</text>
+  <rect x="704" y="627" width="380" height="30" rx="4" fill="#4e8977"/>
+  <text x="1098" y="649" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#2d6656">+1.9%</text>
+
+  <line x1="64" y1="714" x2="1136" y2="714" stroke="#c8c1b5"/>
+  <text x="64" y="748" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#52636c">Source: U.S. Census Bureau, Advance Monthly Retail Trade Survey, Aug. 14, 2026. Estimates are nominal.</text>
+  <text x="1136" y="748" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#17252d">CAPITAL CHRONICLE</text>
+</svg>

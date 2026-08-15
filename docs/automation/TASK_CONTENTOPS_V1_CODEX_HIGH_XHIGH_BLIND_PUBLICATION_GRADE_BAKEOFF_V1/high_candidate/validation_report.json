@@ -1,0 +1,43 @@
+{
+  "article_word_count": 1468,
+  "assertions": {
+    "all_assertions_pass": true,
+    "all_media_present": true,
+    "analysis_label_present": true,
+    "cpi_all_items_annual": true,
+    "cpi_core_annual": true,
+    "gasoline_volume_caveat_present": true,
+    "html_contains_exact_title": true,
+    "nominal_caveat_present": true,
+    "q2_private_final_sales": true,
+    "q2_real_gdp": true,
+    "refund_delta_dollars": true,
+    "refund_scale_rounds_to_6_5_percent": true,
+    "render_exists": true,
+    "retail_ex_auto_gas": true,
+    "retail_level_decline_millions": true,
+    "retail_total_monthly": true,
+    "zero_public_write_manifest": true
+  },
+  "calculations": {
+    "refund_delta_as_percent_of_july_sales": 6.5188,
+    "refund_delta_dollars": 49778000000,
+    "retail_level_decline_millions": 4470
+  },
+  "factual_numeric_review": "PASS_PRIMARY_AUTHORITY_TRANSCRIPTION_AND_CROSS_CALCULATION",
+  "files": {
+    "article.html": "dce77c79c59ac66ab27a0ea59e91a5c1658b5cc205f73df50c562f7557e576ee",
+    "article.md": "19362b367b9d90f6cbb9a37789f1bb22ff561c57ef5a6b9e1e0619b674d08be4",
+    "assets/kevin_warsh_official_federal_reserve.png": "c1e999d3bc10b8159b9bcf9c003b6743524afed113bfdad4aa50237ea271e7a3",
+    "assets/refund_pulse_2026.svg": "b9f906912ad70825ac75e694c7cba2d55f52d950dc9b7ea201989e018b136acf",
+    "assets/retail_checkout_vitaly_gariev_unsplash.jpg": "a8ecebce9772db5aa35111253f184de11ece936ff8ada9c6ca4fda24eca49cf4",
+    "assets/retail_mix_july_2026.svg": "513c03b56a73ac80323ac9280db7796ec729a66db09d1a8df2234783bb00fe42",
+    "full_page_desktop_1440.png": "085ac43a6b420bebee305ab19f2244f7a86292c0b9f8ed1a9bcaa6fb5048491b"
+  },
+  "media_rights_review": "PASS_EXPLICIT_SOURCE_LICENSE_HASH_AND_CONTEXT_LABELING",
+  "public_writes": 0,
+  "render_review": "PASS_1440PX_FULL_PAGE_8088PX_HEIGHT",
+  "research_cutoff": "2026-08-15 Asia/Saigon",
+  "schema_version": "capital_chronicle.publication_candidate_validation.v1",
+  "status": "PASS"
+}

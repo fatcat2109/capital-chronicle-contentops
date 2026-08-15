@@ -1,0 +1,15 @@
+{
+  "article_sha256": "19362b367b9d90f6cbb9a37789f1bb22ff561c57ef5a6b9e1e0619b674d08be4",
+  "candidate": "HIGH",
+  "canonical_article": "article.md",
+  "headless_codex_editorial_brain_used": false,
+  "html_sha256": "dce77c79c59ac66ab27a0ea59e91a5c1658b5cc205f73df50c562f7557e576ee",
+  "public_write_authority": false,
+  "public_writes": 0,
+  "publication_html": "article.html",
+  "requested_model": "gpt-5.6-sol",
+  "requested_reasoning_effort": "HIGH",
+  "research_cutoff": "2026-08-15 Asia/Saigon",
+  "schema_version": "capital_chronicle.blind_publication_candidate.v1",
+  "subagents_or_other_tasks_contacted": false
+}
