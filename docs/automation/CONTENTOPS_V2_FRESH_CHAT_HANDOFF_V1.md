@@ -5,9 +5,9 @@ Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `UNSELECTED / MAX_VS_ULTRA_DEFERRED_UNTIL_QUALITY_SUBSTRATE_ACCEPTED`
 
-Latest handoff (2026-08-15): `TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1` repaired the same CFTC Treasury story without changing narration or synthesizing audio. Actual 56.700s native 9:16 and 559.300s native 16:9 masters use 23 selected source assets, explicitly authored semantic beats, static full-context primary evidence, governed native data views, and separately measured source-material versus presentation-grammar diversity. The build reuses all 26 immutable audio segments; the existing Chatterbox sample remains diagnostic only and does not select a provider. Status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, not owner acceptance. The next action is Jim/ChatGPT review of both final MP4s. Do not begin MAX/ULTRA, V2-02, publication, or a voice-provider bakeoff.
+Latest handoff (2026-08-15): `TASK_CONTENTOPS_V2_CREATIVE_PACING_INGESTION_AND_VISUAL_STATE_ARCHITECTURE_V1` repaired the generic pacing defect on the same governed CFTC Treasury story. Actual 56.700s native 9:16 and 559.300s native 16:9 masters separate semantic beats from persistent visual states, within-state actions, and earned transitions; preserve the accepted assets and static full-context evidence; bind viewer numbers to exact governed rows; and include actual-media progressive-disclosure/full-duration proof. The build reused 25 segments and regenerated one local Kokoro jargon-cleanup segment at zero API cost; no provider was selected. Status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, not owner/substrate acceptance. The next action is Jim/ChatGPT review of both final MP4s. Do not begin MAX/ULTRA, V2-02, publication, or a voice-provider bakeoff.
 
-Durable rule: primary numeric evidence, source charts, source figures, and tables default to `STATIC_FULL_CONTEXT`. Do not zoom, pan, Ken-Burns, parallax, crop-push, or animate the evidence object itself. Source-material diversity and presentation/layout-grammar diversity are separate concepts.
+Durable rule: primary numeric evidence, source charts, source figures, and tables default to `STATIC_FULL_CONTEXT`. Do not zoom, pan, Ken-Burns, parallax, crop-push, or animate the evidence object itself. Source-material diversity and presentation/layout-grammar diversity are separate concepts. No fixed full-screen-change cadence is canonical; semantic beats may advance within a persistent state, and state duration follows comprehension/editorial purpose.
 
 Durable task record: `PASS_SHORT_LONGFORM_FORMAT_AUDIO_RECOVERY_SUBSTRATE / PASS_CFTC_TRUTH_EVIDENCE_BINDING / FAIL_PREVIOUS_LONGFORM_VISUAL_MATERIAL_RICHNESS`. `BUILD_TTS` remains unresolved beyond the frozen Kokoro A/B baseline.
 
@@ -348,7 +348,7 @@ A long scene should not remain one visual state simply because the analytical to
 
 Starting heuristic:
 
-- meaningful visual-state change roughly every 2–4 seconds;
+- no fixed visual-state cadence; semantic micro-beats may progress inside a persistent context and transitions must earn their cognitive switching cost;
 - longer evidence/data holds only when reading/comprehension requires them;
 - visual change follows information change, not arbitrary motion/cut counts.
 
@@ -452,21 +452,21 @@ Hold starting story/evidence/assets/safety/audio/revision budget constant. No cr
 
 # 17. Current exact next task
 
-`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CREATIVE_PACING_INGESTION_AND_VISUAL_STATE_ARCHITECTURE_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction.
+Builder implementation is complete at `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`; the active action is Jim/independent ChatGPT actual-media and substrate review unless Jim explicitly changes direction.
 
 Required real-media proof:
 
-`Fresh non-Hormuz governed story -> Evidence Expansion -> Visual Entity/Asset Needs -> Fresh Asset Discovery -> Candidate Asset Board -> ASSET_VISUAL_FIT -> Native Map/Data/Document as needed -> Codex Micro-Beat Storyboard -> Codex-Authored Remotion Source -> Severe Visual Gate -> Proxy -> Bounded Repair -> Professional Audio -> Native Short + Midform -> Jim/ChatGPT Review`
+`Same governed Treasury regression -> semantic beats -> persistent visual states -> within-state actions -> earned transitions -> proxy -> one bounded systemic correction -> native short + longform masters -> dense strips + progressive-disclosure frames -> Jim/ChatGPT review`
 
-The task must produce actual media. Infrastructure-only completion is not PASS.
+Actual media and required evidence exist under `A:\Capital Chronicle\Runtime\ContentOps\v2_creative_pacing_ingestion_visual_state_20260815_r2`. Infrastructure-only completion is not PASS.
 
-Recommended proof targets:
+Completed proof:
 
-- short approximately 55–70 seconds if story supports it;
-- midform approximately 130–180 seconds for this generalization/quality proof when evidence supports it;
-- no padding merely to reach duration.
+- 56.700s native 9:16 short: 24 semantic beats, 9 states, 8 transitions;
+- 559.300s native 16:9 longform: 125 semantic beats, 64 states, 63 transitions;
+- exact governed CFTC numeric binding, static full-context evidence, zero public writes, and no MAX/ULTRA.
 
 Maximum builder result:
 
@@ -520,12 +520,12 @@ V2-02 remains blocked.
 
 1. inspect local status and preserve unrelated work;
 2. fetch origin and verify fresh remote master;
-3. create a clean dedicated V2 worktree/branch from fresh master;
+3. create a clean dedicated V2 worktree/branch from the exact accepted V2 parent named by the task; do not import unrelated V1 master commits merely for freshness;
 4. regenerate/check CodeGraph after direct GitHub authority writes;
 5. read current authority including `CONTENTOPS_V2_CREATIVE_AUTHORITY_QUALITY_HARDENING_OWNER_AUDIT_V1.md`;
 6. inspect `e977f963...` as positive architecture proof and `03087d19...` only as negative fixed-renderer evidence;
-7. choose/fetch a fresh governed non-Hormuz benchmark or fail honestly if authority cannot support one;
-8. implement the asset-first quality-hardening vertical slice and actual media;
+7. inspect the exact current task evidence and actual short/longform media;
+8. treat the pacing implementation as pending owner/substrate acceptance, not as a production default;
 9. do not run MAX/ULTRA bakeoff;
 10. explicit staging only;
 11. commit/push task branch;
@@ -534,4 +534,4 @@ V2-02 remains blocked.
 
 # 23. Durable summary
 
-**V2 is Lane B Creative-Authority Hybrid. Codex owns the viewer-facing creative surface and actual-media repair; deterministic local code owns truth/safety/execution, not high-level creative composition. The fixed renderer bakeoff is negative evidence. The latest architecture proof recovered visual quality but exposed the next bottleneck: stale/narrow assets, weak asset visual-fitness/taste gating, the poor legacy Hormuz map, insufficient semantic asset diversity, long scene-level holds, and second-order analysis without enough hard-data anchors. The exact next task is `TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`: use a fresh non-Hormuz story, actively discover better rights-safe assets before storyboard, build a candidate asset board and visual-fit gate, create native map/data/document treatments as needed, author micro-beats and story-specific Remotion source, run severe visual review and bounded repairs, and deliver real short/midform media. Do not run MAX/ULTRA yet. After this quality substrate is accepted, run a corrected MAX-versus-ULTRA high-bar bakeoff on longer/more analytically abundant content. Zero video public-write authority remains in force.**
+**V2 is Lane B Creative-Authority Hybrid. Codex owns the viewer-facing creative surface and actual-media repair; deterministic local code owns truth/safety/execution, not high-level creative composition. The fixed renderer bakeoff is negative evidence. The current `TASK_CONTENTOPS_V2_CREATIVE_PACING_INGESTION_AND_VISUAL_STATE_ARCHITECTURE_V1` implementation separates semantic beats from persistent visual states, within-state actions, and earned transitions; removes fixed-cadence doctrine; and delivers actual Treasury short/longform owner-review media. Its maximum result is builder-ready, not owner/substrate acceptance. Do not run MAX/ULTRA, V2-02, or publication until Jim/independent ChatGPT reviews both masters. Zero video public-write authority remains in force.**

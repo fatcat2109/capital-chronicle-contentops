@@ -8,6 +8,8 @@ Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AU
 
 Current format/audio overlay (2026-08-15): canonical outputs are an independently authored `30–60s` native `9:16` short and an independently authored `5–45m` native `16:9` longform. The earlier approximately two-minute `midform` is historical proof terminology, not the final product. `BUILD_TTS != PUBLICATION_TTS`: Kokoro is the local build baseline; Parler is a local challenger; Chatterbox is conditional/no-cloning; ElevenLabs is optional premium finalization only after owner authorization; SAPI and non-commercial F5 pretrained weights are excluded from owner/public media.
 
+Current pacing overlay (2026-08-15): no fixed full-screen-change cadence is canonical. Codex authors semantic beats, persistent visual states, within-state reveals/emphasis, and transition events as separate concepts. State duration follows comprehension and editorial purpose; a transition must earn its cognitive switching cost. Deterministic QA diagnoses suspicious stagnation/churn without directing timing or imposing a generic maximum duration.
+
 # 1. Mission
 
 Capital Chronicle ContentOps V2 exists to turn the strongest Capital Chronicle journalism and analysis into **institutional-grade, retention-native financial video** that is useful enough for sophisticated viewers, clear enough for a cold audience, visually strong enough to build a premium media brand, and automated enough to operate repeatedly at bounded cost.

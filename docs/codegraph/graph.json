@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13145,
+    "edges": 13155,
     "entrypoints": 14,
-    "nodes": 6923,
+    "nodes": 6935,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -33,12 +33,12 @@
       "instructions": 8,
       "manifest": 15,
       "python_class": 544,
-      "python_function": 3855,
+      "python_function": 3862,
       "python_method": 241,
-      "python_module": 711,
+      "python_module": 712,
       "schema": 173,
       "test": 710,
-      "typescript_export": 485,
+      "typescript_export": 489,
       "typescript_or_javascript_module": 99
     }
   },
@@ -37607,6 +37607,12 @@
       "from": "live_contentops/treasury_visual_material_repair_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::treasury_visual_state_plan"
+    },
+    {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_audio_freeze"
     },
     {
@@ -38340,6 +38346,48 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.cross_domain_assignment_canary.v1"
+    },
+    {
+      "from": "live_contentops/v2_creative_pacing_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/v2_creative_pacing_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_creative_pacing_v1.py::authored_visual_states"
+    },
+    {
+      "from": "live_contentops/v2_creative_pacing_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_creative_pacing_v1.py::pacing_diagnostics"
+    },
+    {
+      "from": "live_contentops/v2_creative_pacing_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_creative_pacing_v1.py::scan_internal_jargon"
+    },
+    {
+      "from": "live_contentops/v2_creative_pacing_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_creative_pacing_v1.py::summarize_prompt_contract"
+    },
+    {
+      "from": "live_contentops/v2_creative_pacing_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_creative_pacing_v1.py::validate_visual_state_architecture"
+    },
+    {
+      "from": "live_contentops/v2_creative_pacing_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_creative_pacing_v1.py::viewer_copy_values"
     },
     {
       "from": "live_contentops/v6_platform_registry_contract.py",
@@ -68069,12 +68117,6 @@
       "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::dependency_manifest"
-    },
-    {
-      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
       "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_material_plan"
     },
     {
@@ -68100,12 +68142,6 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::validate_zero_write"
-    },
-    {
-      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_audio_freeze"
     },
     {
       "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
@@ -78719,6 +78755,12 @@
       "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "inference": "typescript_export_regex",
       "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::GovernedPosition"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
       "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::MaterialBeat"
     },
     {
@@ -78737,6 +78779,12 @@
       "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "inference": "typescript_export_regex",
       "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TransitionEvent"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
       "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningLongform"
     },
     {
@@ -78744,6 +78792,18 @@
       "inference": "typescript_export_regex",
       "kind": "defines",
       "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningShort"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::VisualState"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::WithinStateAction"
     },
     {
       "from": "video/asset_first_v1/src/index.ts",
@@ -79018,7 +79078,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-15T07:54:34Z",
+  "generation_timestamp_utc": "2026-08-15T10:02:28Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -79051,7 +79111,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 19980
+      "size_bytes": 20519
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -79196,7 +79256,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 21543
+      "size_bytes": 21668
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -79206,22 +79266,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 14137
+      "size_bytes": 14524
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 31076
+      "size_bytes": 31555
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 31769
+      "size_bytes": 32220
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 19418
+      "size_bytes": 19638
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -82647,7 +82707,7 @@
     {
       "id": "live_contentops/treasury_visual_material_repair_v1.py",
       "kind": "python_module",
-      "size_bytes": 53849
+      "size_bytes": 68511
     },
     {
       "id": "live_contentops/trusted_evidence_canary_evidence_v1.py",
@@ -82708,6 +82768,11 @@
       "id": "live_contentops/universal_news_cross_domain_canary_v1.py",
       "kind": "python_module",
       "size_bytes": 4363
+    },
+    {
+      "id": "live_contentops/v2_creative_pacing_v1.py",
+      "kind": "python_module",
+      "size_bytes": 17155
     },
     {
       "id": "live_contentops/v6_platform_registry_contract.py",
@@ -112835,21 +112900,28 @@
     {
       "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::dependency_manifest",
       "kind": "python_function",
-      "line": 593,
+      "line": 734,
       "path": "live_contentops/treasury_visual_material_repair_v1.py",
       "symbol": "dependency_manifest"
     },
     {
       "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::material_plan",
       "kind": "python_function",
-      "line": 452,
+      "line": 595,
       "path": "live_contentops/treasury_visual_material_repair_v1.py",
       "symbol": "material_plan"
     },
     {
+      "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::treasury_visual_state_plan",
+      "kind": "python_function",
+      "line": 586,
+      "path": "live_contentops/treasury_visual_material_repair_v1.py",
+      "symbol": "treasury_visual_state_plan"
+    },
+    {
       "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_audio_freeze",
       "kind": "python_function",
-      "line": 690,
+      "line": 831,
       "path": "live_contentops/treasury_visual_material_repair_v1.py",
       "symbol": "validate_audio_freeze"
     },
@@ -112863,14 +112935,14 @@
     {
       "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_evidence_motion_contract",
       "kind": "python_function",
-      "line": 482,
+      "line": 625,
       "path": "live_contentops/treasury_visual_material_repair_v1.py",
       "symbol": "validate_evidence_motion_contract"
     },
     {
       "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_material_plan",
       "kind": "python_function",
-      "line": 512,
+      "line": 655,
       "path": "live_contentops/treasury_visual_material_repair_v1.py",
       "symbol": "validate_material_plan"
     },
@@ -113377,6 +113449,48 @@
       "line": 21,
       "path": "live_contentops/universal_news_cross_domain_canary_v1.py",
       "symbol": "build_real_cross_domain_canary"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_creative_pacing_v1.py::authored_visual_states",
+      "kind": "python_function",
+      "line": 79,
+      "path": "live_contentops/v2_creative_pacing_v1.py",
+      "symbol": "authored_visual_states"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_creative_pacing_v1.py::pacing_diagnostics",
+      "kind": "python_function",
+      "line": 216,
+      "path": "live_contentops/v2_creative_pacing_v1.py",
+      "symbol": "pacing_diagnostics"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_creative_pacing_v1.py::scan_internal_jargon",
+      "kind": "python_function",
+      "line": 207,
+      "path": "live_contentops/v2_creative_pacing_v1.py",
+      "symbol": "scan_internal_jargon"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_creative_pacing_v1.py::summarize_prompt_contract",
+      "kind": "python_function",
+      "line": 305,
+      "path": "live_contentops/v2_creative_pacing_v1.py",
+      "symbol": "summarize_prompt_contract"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_creative_pacing_v1.py::validate_visual_state_architecture",
+      "kind": "python_function",
+      "line": 165,
+      "path": "live_contentops/v2_creative_pacing_v1.py",
+      "symbol": "validate_visual_state_architecture"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_creative_pacing_v1.py::viewer_copy_values",
+      "kind": "python_function",
+      "line": 294,
+      "path": "live_contentops/v2_creative_pacing_v1.py",
+      "symbol": "viewer_copy_values"
     },
     {
       "id": "python_symbol:live_contentops/v6_platform_registry_contract.py::PlatformRegistryEntry",
@@ -115292,42 +115406,42 @@
     {
       "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author",
       "kind": "python_function",
-      "line": 249,
+      "line": 563,
       "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
       "symbol": "author"
     },
     {
       "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
       "kind": "python_function",
-      "line": 636,
+      "line": 1070,
       "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
       "symbol": "finalize"
     },
     {
       "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main",
       "kind": "python_function",
-      "line": 702,
+      "line": 1152,
       "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::qa",
       "kind": "python_function",
-      "line": 494,
+      "line": 852,
       "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
       "symbol": "qa"
     },
     {
       "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::record_review",
       "kind": "python_function",
-      "line": 532,
+      "line": 890,
       "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
       "symbol": "record_review"
     },
     {
       "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::render",
       "kind": "python_function",
-      "line": 394,
+      "line": 752,
       "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
       "symbol": "render"
     },
@@ -116352,7 +116466,7 @@
     {
       "id": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
       "kind": "python_module",
-      "size_bytes": 40571
+      "size_bytes": 40819
     },
     {
       "id": "scripts/run_direct_image_bakeoff_v1.py",
@@ -116427,7 +116541,7 @@
     {
       "id": "scripts/run_v2_treasury_visual_material_repair_v1.py",
       "kind": "python_module",
-      "size_bytes": 44959
+      "size_bytes": 73958
     },
     {
       "id": "scripts/validate_v2_breaking_news_owner_repair_v2.py",
@@ -119597,7 +119711,7 @@
     {
       "id": "tests/test_treasury_visual_material_repair_v1.py",
       "kind": "test",
-      "size_bytes": 7453
+      "size_bytes": 12524
     },
     {
       "id": "tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py",
@@ -123029,6 +123143,13 @@
       "symbol": "SHORT_FRAMES"
     },
     {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::GovernedPosition",
+      "kind": "typescript_export",
+      "line": 12,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "GovernedPosition"
+    },
+    {
       "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::MaterialBeat",
       "kind": "typescript_export",
       "line": 7,
@@ -123038,30 +123159,51 @@
     {
       "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningProps",
       "kind": "typescript_export",
-      "line": 10,
+      "line": 14,
       "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "symbol": "PositioningProps"
     },
     {
       "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningScene",
       "kind": "typescript_export",
-      "line": 9,
+      "line": 13,
       "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "symbol": "PositioningScene"
     },
     {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TransitionEvent",
+      "kind": "typescript_export",
+      "line": 11,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "TransitionEvent"
+    },
+    {
       "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningLongform",
       "kind": "typescript_export",
-      "line": 111,
+      "line": 117,
       "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "symbol": "TreasuryPositioningLongform"
     },
     {
       "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningShort",
       "kind": "typescript_export",
-      "line": 109,
+      "line": 115,
       "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "symbol": "TreasuryPositioningShort"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::VisualState",
+      "kind": "typescript_export",
+      "line": 10,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "VisualState"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::WithinStateAction",
+      "kind": "typescript_export",
+      "line": 9,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "WithinStateAction"
     },
     {
       "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::BRAND",
@@ -123847,7 +123989,7 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 9166
+      "size_bytes": 9341
     },
     {
       "id": "video/asset_first_v1/package.json",
@@ -123867,7 +124009,7 @@
     {
       "id": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 20519
+      "size_bytes": 22673
     },
     {
       "id": "video/asset_first_v1/src/index.ts",
@@ -123882,7 +124024,7 @@
     {
       "id": "video/asset_first_v1/src/root.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 1737
+      "size_bytes": 1777
     },
     {
       "id": "video/asset_first_v1/tsconfig.json",
@@ -123983,6 +124125,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "8c2cc4e3bd811fb289ce7ed48bb82f5b787a79e0",
-  "source_tree_digest": "8c77232681bbe3506ebd193380ee944774a43fea60083dfe1381e5314c40846f"
+  "source_head": "ae0abc575521392b043486415cefaa7179c14b48",
+  "source_tree_digest": "03fafea86251d65ef8b7c66290858b989487f38fd45c9aafdb049571f65cfe75"
 }

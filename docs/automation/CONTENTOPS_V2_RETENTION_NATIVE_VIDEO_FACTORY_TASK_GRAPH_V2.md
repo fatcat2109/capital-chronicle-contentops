@@ -6,7 +6,7 @@ Companion plan: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
-Current task overlay (2026-08-15): `TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1` has reached `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. It preserves the frozen Treasury story and audio while producing actual 56.700s native short and 559.300s native longform masters with explicit semantic beats, 23 selected source assets, static full-context primary evidence, honest source-material/presentation-grammar accounting, full-duration/final-third visual review, and zero public writes. No mode bakeoff, V2-02, publication, or provider decision begins until Jim/ChatGPT reviews both masters.
+Current task overlay (2026-08-15): `TASK_CONTENTOPS_V2_CREATIVE_PACING_INGESTION_AND_VISUAL_STATE_ARCHITECTURE_V1` has reached `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. On the same governed Treasury regression, it separates 24/125 semantic beats from 9/64 persistent visual states and 8/63 full-screen transitions, adds progressive disclosure/ingestion dwell and actual-media diagnostics, preserves static full-context primary evidence, removes viewer-facing implementation jargon and divergent numeric literals, and delivers actual 56.700s short plus 559.300s longform masters with zero public writes. No mode bakeoff, V2-02, publication, or provider decision begins until Jim/ChatGPT reviews both masters and accepts the shared substrate.
 
 Durable owner rule: primary numeric evidence, source charts, source figures, and tables default to `STATIC_FULL_CONTEXT`; the evidence object itself must not receive Ken Burns, zoom, pan, parallax, crop-push, or animated-crop motion. Source-material diversity and presentation/layout-grammar diversity are separate concepts.
 
@@ -31,9 +31,9 @@ The controlled A/B and subsequent architecture-recovery proofs establish the fol
 
 # 2. Current exact task and next action
 
-`TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1`
+`TASK_CONTENTOPS_V2_CREATIVE_PACING_INGESTION_AND_VISUAL_STATE_ARCHITECTURE_V1`
 
-Implementation is complete at the builder ceiling and awaits `JIM_CHATGPT_ACTUAL_MEDIA_REVIEW_OF_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR`. Earlier QH1, Breaking Retail, and first Treasury-repair task descriptions below are historical execution context, not current routing.
+Implementation is complete at the builder ceiling and awaits `JIM_CHATGPT_ACTUAL_MEDIA_REVIEW_OF_CREATIVE_PACING_INGESTION_AND_VISUAL_STATE_ARCHITECTURE`. The QH1, Breaking Retail, and prior Treasury-repair task descriptions below are historical execution context, not current routing.
 
 The owner review must judge the actual short and longform masters; documentation or automated diagnostics cannot substitute for that gate.
 
@@ -72,7 +72,7 @@ The next task must improve the substrate first. Once it demonstrates richer, mor
 
 # 6. V2-QH1 — Asset-First Editorial Visual Quality Hardening Vertical Slice
 
-Status: `CURRENT / NEXT`
+Status: `ACCEPTED PREDECESSOR / HISTORICAL TASK DESCRIPTION`
 
 Task label:
 
@@ -139,7 +139,7 @@ Required implementation and proof:
 
 11. **Micro-beat editing**
     - major scenes should contain meaningful visual-state progression, not merely one static image plus text for 8–12 seconds;
-    - starting heuristic: meaningful visual state change roughly every 2–4 seconds unless evidence/document readability justifies a longer hold;
+    - no fixed visual-state cadence or generic duration ceiling; duration follows comprehension/editorial purpose, semantic micro-beats may progress within one state, and transitions must earn their context-switching cost;
     - visual change must follow information change, not arbitrary motion-count targets.
 
 12. **Material rhythm**

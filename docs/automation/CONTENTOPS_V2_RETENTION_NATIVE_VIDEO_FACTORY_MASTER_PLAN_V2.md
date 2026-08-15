@@ -8,6 +8,8 @@ Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AU
 
 Current execution overlay (2026-08-15): build the canonical `30–60s` vertical short plus evidence-earned `5–45m` landscape longform as separate editorial products. The first actual substrate proof produced 56.739s 4K vertical and 559.300s 1080p landscape owner-review media with segment-cached local Kokoro build audio. Premium publication voice selection remains a later owner gate; two-minute midform is retired as a final deliverable.
 
+Current pacing overlay (2026-08-15): the shared creative substrate separates narration/semantic beats from persistent visual states, within-state actions, and earned transitions. Do not optimize a seconds-per-slide target. Codex jointly edits narration and visuals before build-audio lock, allocates ingestion dwell by object complexity, and validates pacing on actual media. Deterministic infrastructure measures and surfaces review candidates; it does not become the director.
+
 # 0. Executive summary
 
 Capital Chronicle V2 will be completed as a **Lane B Hybrid** system.

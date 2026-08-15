@@ -142,7 +142,7 @@ Primary numeric evidence, source charts, source figures, numeric tables, governe
 
 Source-material diversity is distinct from presentation/layout-grammar diversity. Track exact source file, actual source-material family, semantic purpose, scenes, screen time, adjacency/short-window recurrence, and known recent-video reuse. Do not count boundaries, diagrams, timelines, montages, cards, monitoring layouts, or other presentation grammar as evidence of a broader source universe.
 
-Owner media must use explicitly authored semantic beats tied to narration/information changes. Do not derive the actual beat plan by dividing duration into a target cadence or cycling a short visual recipe; 2–4 seconds is only a heuristic, and stable evidence may need a longer readable hold.
+Owner media must separately author semantic beats, persistent visual states, within-state actions, and earned transition events. Do not derive the plan by dividing duration into a target cadence or cycling a short visual recipe. No fixed screen-change cadence or generic maximum state duration is canonical: stable evidence/mechanisms may hold while progressive disclosure advances, and a full-screen reset must introduce materially different viewer context.
 
 ## Motion-quality anti-patterns
 

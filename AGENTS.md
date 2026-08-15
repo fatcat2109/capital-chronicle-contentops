@@ -103,9 +103,9 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1`
+`TASK_CONTENTOPS_V2_CREATIVE_PACING_INGESTION_AND_VISUAL_STATE_ARCHITECTURE_V1`
 
-The implementation result is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. It preserves the governed Treasury story and all 26 immutable audio segments while producing revised 56.700s native 9:16 and 559.300s native 16:9 masters with semantically authored beats, static full-context primary evidence, 23 selected source assets across 10 actual source-material families, and actual-master review evidence. Jim/ChatGPT must review both MP4s; this is not owner, public, mode, or voice acceptance.
+The implementation result is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. It preserves the governed Treasury story/truth, the accepted asset universe, and `STATIC_FULL_CONTEXT` while separating semantic beats, persistent visual states, within-state actions, and earned transition events. Actual 56.700s native 9:16 and 559.300s native 16:9 masters, sidecars, state timelines/mappings, actual-media strips, progressive-disclosure frames, and truth/audio/safety receipts are complete. Jim/ChatGPT must review both MP4s; this is not owner, substrate, public, mode, or voice acceptance.
 
 Canonical formats are `SHORT` (`30–60s`) and `LONGFORM` (`5–45m`). Approximately two-minute `midform` is historical proof terminology only. `BUILD_TTS != PUBLICATION_TTS`: Kokoro is the current local build baseline; Parler is a local challenger; Chatterbox is conditional with no unauthorized cloning; ElevenLabs is premium-final only after explicit owner authority; SAPI is forbidden for owner media.
 
@@ -173,11 +173,11 @@ Do not build a giant GIS/chart framework before media exists.
 
 ### Micro-beat and motion doctrine
 
-Meaningful visual-state change should generally follow information change every roughly 2–4 seconds, unless evidence/document/data readability justifies a longer hold.
+No fixed screen-change cadence is canonical. Visual-state duration follows comprehension and editorial purpose: shorts may often move faster, longform may sustain persistent analytical/evidence contexts, and semantic micro-beats may advance through progressive disclosure without a full-screen reset.
 
 Do not optimize mechanical cut/motion counts.
 
-Owner media must use story-specific semantic beat boundaries, not a duration-divided cadence or cyclic visual recipe. The 2–4 second range is a heuristic, never a quota.
+Owner media must use story-specific semantic beats and separately authored visual states, not a duration-divided cadence or cyclic visual recipe. A transition must earn its cognitive switching cost by introducing materially different evidence, place, actor, mechanism, question, analytical phase, chapter, or intentional reset. Long holds are valid when information utility advances; deterministic QA surfaces unjustified stagnation for review without imposing a generic duration ceiling.
 
 Prefer semantic transitions that express causality, such as document -> extracted number -> chart point or tanker -> unload -> production -> storage.
 

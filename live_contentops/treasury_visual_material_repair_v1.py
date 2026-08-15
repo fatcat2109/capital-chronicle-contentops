@@ -13,7 +13,7 @@ import re
 from typing import Any, Mapping, Sequence
 
 
-TASK_ID = "TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1"
+TASK_ID = "TASK_CONTENTOPS_V2_CREATIVE_PACING_INGESTION_AND_VISUAL_STATE_ARCHITECTURE_V1"
 JOB_ID = "CFTC_TREASURY_POSITIONING_20260811_SHORT_LONGFORM_V1"
 RESULT = "PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW"
 FROZEN_AUDIO_SHA256 = {
@@ -252,7 +252,7 @@ SEMANTIC_SEQUENCES: dict[str, list[dict[str, Any]]] = {
     "S02_THREE_CONTRACTS": [
         _end(.43, MATURITY("2Y · ASSET MANAGER", "+1,680,389 net contracts")),
         _end(.78, MATURITY("5Y · ASSET MANAGER", "+2,883,977 net contracts")),
-        _end(1, POSITION("THE LONG SIDE", "Governed values across the curve")),
+        _end(1, POSITION("THE LONG SIDE", "Official values across the curve")),
     ],
     "S03_SHORT_MIRROR": [
         _end(.36, MATURITY("2Y · LEVERAGED FUND", "−1,359,521 net contracts")),
@@ -261,7 +261,7 @@ SEMANTIC_SEQUENCES: dict[str, list[dict[str, Any]]] = {
     ],
     "S04_PRIMARY_ROW": [
         _end(.31, _doc(CFTC_NOTES_1, "WHAT THE REPORT CLASSIFIES", "Four trader categories · Tuesday positions")),
-        _end(.73, _doc(ROWS, "SOURCE VERIFICATION", "Full governed 2Y · 5Y · 10Y rows")),
+        _end(.73, _doc(ROWS, "CFTC SOURCE · FULL VIEW", "Official 2Y · 5Y · 10Y rows")),
         _end(1, _doc(CFTC_NOTES_4, "WHAT IT CANNOT IDENTIFY", "Trader category does not reveal each trading motive")),
     ],
     "S05_BASIS_MECHANISM": [
@@ -304,13 +304,13 @@ SEMANTIC_SEQUENCES: dict[str, list[dict[str, Any]]] = {
         _end(1, MONTAGE("SOURCE CLOCK · CATEGORY · LIMIT", "Three conditions before interpretation")),
     ],
     "L03_TWO_YEAR": [
-        _end(.16, _doc(ROWS, "SOURCE VERIFICATION · 2Y", "Full governed table · open interest 4,377,812")),
+        _end(.16, _doc(ROWS, "CFTC SOURCE · 2Y", "Full official table · open interest 4,377,812")),
         _end(.31, MATURITY("2Y · ASSET MANAGER LONG", "2,342,975 long · 662,586 short")),
         _end(.46, MATURITY("2Y · ASSET MANAGER NET", "+1,680,389")),
         _end(.61, MATURITY("2Y · LEVERAGED FUND NET", "−1,359,521")),
         _end(.75, POSITION("A STRUCTURAL-LOOKING OFFSET", "Scale is observable; motive is not")),
         _end(.88, BOUNDARY("$200,000 FACE VALUE", "Contract size is context — not capital at risk")),
-        _end(1, MONTAGE("OBSERVATION BEFORE INTERPRETATION", "Open interest · gross legs · governed nets")),
+        _end(1, MONTAGE("OBSERVATION BEFORE INTERPRETATION", "Open interest · gross legs · verified nets")),
     ],
     "L04_FIVE_YEAR": [
         _end(.15, MATURITY("5Y · OPEN INTEREST", "6,442,950 contracts")),
@@ -438,8 +438,8 @@ SEMANTIC_SEQUENCES: dict[str, list[dict[str, Any]]] = {
         _end(1, MONTAGE("MECHANISM BEFORE MORAL", "See the service · then see the vulnerability")),
     ],
     "L18_CLOSE": [
-        _end(.14, _doc(ROWS, "SOURCE VERIFICATION · CLOSE", "Full governed snapshot · both sides trimming")),
-        _end(.28, _doc(CFTC_NOTES_1, "WHAT THE REPORT GIVES", "A governed weekly category map")),
+        _end(.14, _doc(ROWS, "CFTC SOURCE · FULL VIEW", "Official snapshot · both sides trimming")),
+        _end(.28, _doc(CFTC_NOTES_1, "WHAT THE REPORT GIVES", "An official weekly category map")),
         _end(.42, _doc(CFTC_NOTES_4, "WHAT IT DOES NOT GIVE", "Motive · live risk gauge · crisis countdown")),
         _end(.57, MONITOR("IDENTIFY THE ROUTE", "Repo + portfolio + basis + liquidity")),
         _end(.71, POSITION("THE GIANT OFFSET IS REAL", "+2.88m vs −2.15m in the five-year")),
@@ -447,6 +447,149 @@ SEMANTIC_SEQUENCES: dict[str, list[dict[str, Any]]] = {
         _end(1, _photo(PHOTO_CFTC, "POSITIONING IS A MAP", "Not a motive detector")),
     ],
 }
+
+
+def _state(indexes: Sequence[int], context: str, reason: str, *, layout: str | None = None,
+           anchor: int | None = None, density: str = "moderate", ingestion: str = "") -> dict[str, Any]:
+    row: dict[str, Any] = {
+        "semantic_beat_indexes": list(indexes), "context_key": context,
+        "transition_reason": reason, "information_density": density,
+        "ingestion_rationale": ingestion, "low_information_standalone_card": False,
+    }
+    if layout is not None:
+        row["display_layout"] = layout
+    if anchor is not None:
+        row["anchor_beat_index"] = anchor
+    return row
+
+
+# Story-specific editorial authorship.  These groups are not inferred from
+# seconds or beat counts.  Related narration points deliberately share a
+# persistent viewer context; distinct source objects and analytical phases earn
+# explicit full-screen resets.
+VISUAL_STATE_SPECS: dict[str, list[dict[str, Any]]] = {
+    "S01_GIANT_OFFSET": [
+        _state([0], "cftc_institution", "Establish the official source and place."),
+        _state([1, 2], "offset_thesis", "Move from institution to the core analytical question.", layout="position_chart"),
+    ],
+    "S02_THREE_CONTRACTS": [_state([0, 1, 2], "asset_manager_curve", "Introduce one governed curve object, then disclose tenors inside it.", layout="maturity_data")],
+    "S03_SHORT_MIRROR": [_state([0, 1, 2], "leveraged_fund_curve", "Switch actor while preserving the same curve comparison.", layout="maturity_data")],
+    "S04_PRIMARY_ROW": [_state([0, 1, 2], "cftc_exact_rows", "Keep the exact source table on screen while category and motive boundaries are disclosed.", layout="document_full", anchor=1, density="high", ingestion="Read the complete three-row source table while the category and motive limits are emphasized." )],
+    "S05_BASIS_MECHANISM": [_state([0, 1, 2], "basis_mechanism", "Use one persistent three-leg mechanism while source and dated-estimate boundaries are added.", layout="mechanism", anchor=1)],
+    "S06_NOT_IDENTITY": [_state([0, 1, 2], "proxy_comparison", "Keep one comparison surface while proxy evidence and the identity boundary are disclosed.", layout="figure_full", anchor=1, density="high", ingestion="Compare the futures, repo, and TRACE measures before the identity boundary appears.")],
+    "S07_STRESS_TEST": [_state([0, 1, 2], "leverage_source", "Keep the Financial Stability Report visible while the unwind path and financing test are emphasized.", layout="document_full", anchor=0, density="high", ingestion="Read the full report page while the stress path and financing condition are disclosed.")],
+    "S08_CLOSE": [_state([0, 1, 2], "monitoring_resolve", "Enter the closing monitoring framework and retain it through the payoff.", layout="monitoring")],
+
+    "L01_COLD_OPEN": [
+        _state([0], "cftc_institution", "Open on the official institution."),
+        _state([1, 2], "offset_thesis", "Introduce the central long-versus-short object.", layout="position_chart"),
+        _state([3], "historical_pairing_figure", "Move to historical tenor evidence.", density="high", ingestion="Read the tenor history and source date."),
+        _state([4], "historical_pairing_note", "Show the distinct explanatory source document.", density="high", ingestion="Read the historical mechanism context."),
+        _state([5, 6], "balance_sheet_question", "Reset from evidence to the central two-job analytical question.", layout="mechanism"),
+    ],
+    "L02_SOURCE_CLOCK": [
+        _state([0], "cftc_category_notes", "Introduce the source definition.", density="high", ingestion="Read category and open-interest context."),
+        _state([1], "release_schedule", "Show a distinct official release schedule.", density="high", ingestion="Read the Tuesday-to-Friday timing relationship."),
+        _state([2, 3], "source_clock", "Translate schedule evidence into one persistent timing model.", layout="source_clock"),
+        _state([4, 5, 6], "category_limit", "Move to the motive-identification boundary and retain it through synthesis.", density="high", ingestion="Read the category definition before the qualifier is emphasized."),
+    ],
+    "L03_TWO_YEAR": [
+        _state([0], "cftc_2y_source", "Introduce the exact two-year row.", density="high", ingestion="Read the full official table before derived emphasis."),
+        _state([1, 2, 3, 4, 5, 6], "two_year_object", "Keep one two-year object while revealing gross legs, nets, comparison, and interpretation boundaries.", layout="maturity_data"),
+    ],
+    "L04_FIVE_YEAR": [
+        _state([0, 1, 2, 3], "five_year_object", "Keep one five-year object while revealing open interest and category nets.", layout="maturity_data"),
+        _state([4], "treasury_market_context", "Introduce a primary Treasury-market context document.", density="high", ingestion="Read the funding, collateral, and policy-transmission context."),
+        _state([5, 6], "five_year_boundary", "Distinguish face value from risk, then resolve the five-year comparison.", layout="position_chart"),
+    ],
+    "L05_TEN_YEAR": [
+        _state([0, 1, 2, 3], "ten_year_object", "Keep one ten-year object while revealing open interest, nets, and the near-mirror.", layout="maturity_data"),
+        _state([4, 5], "counterparty_boundary", "Move to source-backed counterparty limits and retain the evidence context.", density="high", ingestion="Read the CFTC classification limit before the clearing qualifier."),
+    ],
+    "L06_WEEKLY_CHANGE": [
+        _state([0, 1, 2, 3], "weekly_change_object", "Keep one weekly-change comparison while emphasis moves between tenor and actor.", layout="weekly_delta"),
+        _state([4], "stock_flow_figure", "Move to historical positioning evidence.", density="high", ingestion="Read historical positioning context."),
+        _state([5, 6], "stock_flow_note", "Show the distinct source note and absorb the stock-versus-flow conclusion within it.", density="high", ingestion="Read the source note before the conclusion."),
+    ],
+    "L07_ASSET_MANAGER_JOB": [
+        _state([0], "treasury_institution", "Introduce the asset-manager institutional setting."),
+        _state([1], "treasury_market_jobs", "Show the primary Treasury source describing market functions.", density="high", ingestion="Read the market-function evidence and source date."),
+        _state([2, 3, 4, 5, 6], "synthetic_duration", "Explain multiple asset-manager uses inside one persistent duration mechanism.", layout="mechanism"),
+    ],
+    "L08_BASIS_SETUP": [
+        _state([0], "basis_primary_note", "Introduce the Federal Reserve basis source.", density="high", ingestion="Read source identity, date, and mechanism framing."),
+        _state([1, 2, 3], "basis_mechanism", "Keep the same convergence package while revealing its legs and economics.", layout="mechanism"),
+        _state([4, 5, 6], "basis_estimate", "Move to the dated portfolio estimate and retain it through the date boundary.", density="high", ingestion="Read chart, estimate, and date before synthesis."),
+    ],
+    "L09_REPO_FINANCING": [
+        _state([0], "repo_proxy", "Introduce a distinct financing proxy.", density="high", ingestion="Read the net-repo evidence as a separate surface."),
+        _state([1, 2], "repo_collateral", "Keep one collateral-financing object while equity-cushion emphasis is revealed.", layout="mechanism"),
+        _state([3, 4, 5, 6], "two_liquidity_legs", "Reset to the liquidity question and retain one mechanism through the cash-demand payoff.", layout="mechanism", anchor=4),
+    ],
+    "L10_FED_SCALE": [
+        _state([0], "fed_portfolio_note", "Introduce the Federal Reserve portfolio analysis.", density="high", ingestion="Read source date and estimate period."),
+        _state([1], "gross_exposure_figure", "Show the gross exposure and repo evidence figure.", density="high", ingestion="Read long, short, gross, and repo quantities together."),
+        _state([2], "holdings_share_figure", "Move to a distinct market-share figure.", density="high", ingestion="Read the holdings-share denominator and date."),
+        _state([3, 4, 5, 6], "basis_scale_boundary", "Move to the basis estimate and retain it through methodology and identity limits.", density="high", ingestion="Read the basis estimate and explicit dataset boundary before synthesis."),
+    ],
+    "L11_PROXY_BOUNDARY": [
+        _state([0], "tenor_proxy", "Introduce the tenor proxy figure.", density="high", ingestion="Read tenor distribution and source date."),
+        _state([1], "proxy_comparison", "Compare materially different proxy measures.", density="high", ingestion="Compare futures, net repo, and TRACE estimates."),
+        _state([2], "portfolio_uses", "Show the broader strategy decomposition.", density="high", ingestion="Read the seven-use decomposition."),
+        _state([3], "swap_spread_strategy", "Introduce a distinct relative-value strategy figure.", density="high", ingestion="Read swap-spread evidence as a separate strategy."),
+        _state([4, 5, 6], "proxy_identity_limit", "Return to the primary warning and retain it through both analytical boundaries.", density="high", ingestion="Read the source warning before the proxy and precision qualifiers."),
+    ],
+    "L12_BENEFIT": [
+        _state([0], "treasury_market_function", "Introduce primary evidence for why market function matters.", density="high", ingestion="Read collateral and benchmark context."),
+        _state([1, 2, 3], "arbitrage_service", "Keep one market-function mechanism while price discovery and intermediation are revealed.", layout="mechanism"),
+        _state([4, 5, 6], "service_vulnerability", "Move to the strategy-use evidence and retain it through the balanced conclusion.", density="high", ingestion="Read strategy evidence before weighing service against vulnerability."),
+    ],
+    "L13_STRESS_CHAIN": [
+        _state([0], "fsr_leverage", "Introduce the Financial Stability Report evidence.", density="high", ingestion="Read the full report page and source date."),
+        _state([1, 2, 3], "stress_cash_chain", "Keep one stress mechanism while margin, collateral, and repo emphasis advances.", layout="stress_chain"),
+        _state([4, 5, 6], "financing_unwind", "Move to the financing proxy and retain it through synchronized-unwind synthesis.", density="high", ingestion="Read the financing surface before the unwind implication."),
+    ],
+    "L14_DEALER_CAPACITY": [
+        _state([0], "dealer_leverage_evidence", "Introduce the dealer-capacity report page.", density="high", ingestion="Read dealer leverage and report context."),
+        _state([1, 2], "dealer_buffer", "Move from evidence to one persistent dealer-intermediation mechanism.", layout="mechanism", anchor=2),
+        _state([3, 4, 5, 6], "dealer_fund_counterweight", "Show the distinct hedge-fund page and retain it through absorb-or-amplify conditions.", density="high", ingestion="Read the leverage page before comparing vulnerability and buffer."),
+    ],
+    "L15_WHAT_TO_WATCH": [
+        _state([0], "monitoring_positioning", "Enter the monitoring chapter with the positioning question.", layout="monitoring"),
+        _state([1], "monitoring_tenors", "Show a distinct tenor evidence surface.", density="high", ingestion="Read cross-tenor short positioning."),
+        _state([2], "monitoring_financing", "Show a distinct financing evidence surface.", density="high", ingestion="Read net repo and financing context."),
+        _state([3], "monitoring_basis", "Show a distinct basis-measure comparison.", density="high", ingestion="Compare direct and proxy basis measures."),
+        _state([4, 5, 6], "monitoring_resolve", "Return to one monitoring framework for demand, liquidity, and the multi-surface payoff.", layout="monitoring"),
+    ],
+    "L16_CONFIRM": [
+        _state([0], "portfolio_confirmation", "Introduce portfolio evidence for confirmation.", density="high", ingestion="Read strategy ownership evidence."),
+        _state([1, 2], "confirm_challenge", "Keep one confirm/challenge frame while the test changes sides.", layout="monitoring"),
+        _state([3], "direct_basis_estimate", "Show the direct estimate required by the test.", density="high", ingestion="Read the direct basis estimate and source date."),
+        _state([4, 5, 6], "category_invalidation", "Move to the CFTC category limit and retain it through invalidation and synthesis.", density="high", ingestion="Read category breadth before the invalidation conclusion."),
+    ],
+    "L17_BALANCE_SHEET": [
+        _state([0], "balance_sheet_history", "Introduce the historical mechanism document.", density="high", ingestion="Read historical pairing context."),
+        _state([1, 2], "asset_manager_balance_sheet", "Keep one asset-manager context while the futures offset is emphasized.", layout="position_chart"),
+        _state([3], "hedge_fund_holdings", "Show a distinct hedge-fund holdings figure.", density="high", ingestion="Read holdings share and market context."),
+        _state([4, 5, 6], "balance_sheet_connectors", "Keep one connector mechanism through liquidity consequence and final synthesis.", layout="mechanism"),
+    ],
+    "L18_CLOSE": [
+        _state([0], "closing_cftc_rows", "Return to the exact CFTC snapshot.", density="high", ingestion="Read the complete source table one final time."),
+        _state([1], "closing_source_scope", "Show the category-scope source page.", density="high", ingestion="Read what the report provides."),
+        _state([2], "closing_source_limit", "Show the distinct motive-limit source page.", density="high", ingestion="Read what the report cannot provide."),
+        _state([3, 4, 5], "closing_route", "Retain one monitoring context through route, fact, and earned-meaning payoff.", layout="monitoring"),
+        _state([6], "closing_brand_resolve", "Use an intentional institutional visual reset for the final brand thesis."),
+    ],
+}
+
+
+def treasury_visual_state_plan(scene_id: str, semantic_beats: Sequence[Mapping[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    from live_contentops.v2_creative_pacing_v1 import authored_visual_states
+
+    specs = VISUAL_STATE_SPECS.get(scene_id)
+    if specs is None:
+        raise KeyError(f"missing_visual_state_specs:{scene_id}")
+    return authored_visual_states(scene_id, semantic_beats, specs)
 
 
 def material_plan(scenes: Sequence[Mapping[str, Any]], durations: Mapping[str, float]) -> dict[str, list[dict[str, Any]]]:
@@ -538,8 +681,6 @@ def validate_material_plan(plan: Mapping[str, Sequence[Mapping[str, Any]]], sele
             expected_start = float(row["end_seconds"])
             if duration <= 0:
                 errors.append(f"nonpositive_semantic_beat:{row['beat_id']}:{duration}")
-            if duration > 7.0 and not (row.get("readability_hold") and row.get("motion_policy") == STATIC_FULL_CONTEXT):
-                errors.append(f"unjustified_long_semantic_hold:{row['beat_id']}:{duration}")
             if asset:
                 if asset not in selected_asset_hashes:
                     errors.append(f"asset_not_selected:{row['beat_id']}:{asset}")
@@ -584,7 +725,7 @@ def validate_material_plan(plan: Mapping[str, Sequence[Mapping[str, Any]]], sele
         "semantic_beat_duration_seconds": {
             "minimum": round(min(durations), 3), "maximum": round(max(durations), 3),
             "distinct_rounded_tenths": len({round(value, 1) for value in durations}),
-            "note": "2–4 seconds is a heuristic, not a quota; boundaries follow narration/information changes.",
+            "note": "Semantic timing is descriptive. No fixed screen-change cadence or generic maximum duration is canonical.",
         },
         "evidence_motion_contract": motion,
     }
