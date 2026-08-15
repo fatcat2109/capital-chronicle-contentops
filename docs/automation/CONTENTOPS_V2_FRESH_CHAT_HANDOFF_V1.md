@@ -5,7 +5,9 @@ Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `UNSELECTED / MAX_VS_ULTRA_DEFERRED_UNTIL_QUALITY_SUBSTRATE_ACCEPTED`
 
-Latest handoff (2026-08-15): `TASK_CONTENTOPS_V2_SHORT_LONGFORM_LOW_COST_AUDIO_VERTICAL_SLICE_V1` produced actual 56.739s native 9:16 and 559.300s native 16:9 owner-review media from a fresh CFTC Treasury-positioning story. The build uses 26 immutable local Kokoro semantic segments with zero API credits; Parler was unavailable without an install project; one Chatterbox default/no-reference/no-cloning probe completed; ElevenLabs and SAPI were not used. Status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, not owner acceptance. The next action is Jim/ChatGPT review of both MP4s and the audition WAVs. Do not begin MAX/ULTRA, V2-02, or publication.
+Latest handoff (2026-08-15): `TASK_CONTENTOPS_V2_TREASURY_SHORT_LONGFORM_VISUAL_MATERIAL_RICHNESS_REPAIR_V1` repaired the same CFTC Treasury story without changing narration or synthesizing audio. Actual 56.700s native 9:16 and 559.300s native 16:9 masters now use documentary photos, official primary-source figures/documents, exact governed CFTC rows, native charts, and 2–4 second editorial micro-beats. The build reuses all 26 immutable Kokoro segments; the existing Chatterbox default/no-reference/no-cloning sample remains diagnostic only and does not select a provider. Status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, not owner acceptance. The next action is Jim/ChatGPT review of both final MP4s. Do not begin MAX/ULTRA, V2-02, publication, or a voice-provider bakeoff.
+
+Durable task record: `PASS_SHORT_LONGFORM_FORMAT_AUDIO_RECOVERY_SUBSTRATE / PASS_CFTC_TRUTH_EVIDENCE_BINDING / FAIL_PREVIOUS_LONGFORM_VISUAL_MATERIAL_RICHNESS`. `BUILD_TTS` remains unresolved beyond the frozen Kokoro A/B baseline.
 
 Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or owner chat history.
 

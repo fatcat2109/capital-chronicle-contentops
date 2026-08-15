@@ -5,9 +5,17 @@ Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `UNSELECTED / FUTURE_HIGH_BAR_MAX_VS_ULTRA_AFTER_QUALITY_HARDENING`
 
-Current exact task: `TASK_CONTENTOPS_V2_SHORT_LONGFORM_LOW_COST_AUDIO_VERTICAL_SLICE_V1`.
+Current exact task: `TASK_CONTENTOPS_V2_TREASURY_SHORT_LONGFORM_VISUAL_MATERIAL_RICHNESS_REPAIR_V1`.
 
-Builder state: `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. Actual 56.739s 2160×3840 short and 559.300s 1920×1080 longform masters are complete with local segment-cached Kokoro build audio, sidecar captions, audition/cost evidence, and zero public writes. Jim/ChatGPT must inspect the media and voice auditions. `MAX/ULTRA`, V2-02, publication, and permanent publication-voice selection remain blocked behind that owner gate.
+Builder state: `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. The repair preserves the accepted Treasury story and 26 immutable Kokoro segments while replacing the longform motion-deck treatment with documentary, primary-source, and native-data material. Actual 56.700s 2160×3840 short and 559.300s 1920×1080 longform masters, captions, asset board, material manifest, visual QA, recovery proof, and zero-write receipt are complete. Jim/ChatGPT must inspect both final masters. `MAX/ULTRA`, V2-02, publication, and permanent publication-voice selection remain blocked behind that owner gate.
+
+Durable substrate record:
+
+- `PASS_SHORT_LONGFORM_FORMAT_AUDIO_RECOVERY_SUBSTRATE`;
+- `PASS_CFTC_TRUTH_EVIDENCE_BINDING`;
+- `FAIL_PREVIOUS_LONGFORM_VISUAL_MATERIAL_RICHNESS`.
+
+The Chatterbox audition remains diagnostic/reference evidence only. This task synthesized no Chatterbox or Kokoro audio, did not substitute providers, and leaves `BUILD_TTS` unresolved beyond the frozen Kokoro A/B baseline.
 
 Canonical product terminology is now `SHORT` (`30–60s`, native 9:16) plus `LONGFORM` (`5–45m`, native 16:9). Earlier `midform` references below are historical evidence only. `BUILD_TTS != PUBLICATION_TTS`.
 
@@ -77,17 +85,15 @@ unless Jim explicitly reverses this decision.
 
 Do not use it as a professional-final presentation map in a new owner-review candidate.
 
-# Exact next task
+# Exact next action
 
-`TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
+`JIM_CHATGPT_ACTUAL_MEDIA_REVIEW_OF_TREASURY_VISUAL_MATERIAL_RICHNESS_REPAIR`
 
-This is the only active V2 product task unless Jim explicitly changes direction. Implementation has produced corrected actual media and is awaiting Jim/ChatGPT review; the builder result ceiling remains `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`.
+The active implementation task is `TASK_CONTENTOPS_V2_TREASURY_SHORT_LONGFORM_VISUAL_MATERIAL_RICHNESS_REPAIR_V1`. Its builder result ceiling is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`; it must not self-advance to professional/publication acceptance. Earlier Breaking Retail and QH1 routing below is retained as historical context and is superseded by this overlay.
 
-QH1 completed and supplied a useful asset/evidence/Creative-Authority substrate, but did not itself reach the final public bar. Breaking Retail V1 subsequently proved the crisp 4K/1080 path, brighter breaking-news direction, and ElevenLabs integration, while owner review found four bounded defects: primary-document annotation geometry, voice identity/prosody, long scene-level holds, and non-durable local-only source.
+Canonical bounded review flow:
 
-Canonical bounded repair flow:
-
-`Exact Breaking Retail V1 import -> deterministic document geometry -> bounded ElevenLabs identity audition -> semantic-segment audio timing -> evidence-bearing micro-edits -> 2160/1080 crisp render -> actual-frame QA -> durable branch -> Jim/ChatGPT review`
+`Frozen Treasury story/audio -> asset-first editorial repair -> native short + longform masters -> actual-frame QA -> Jim/ChatGPT watch both masters -> accept or issue bounded defects`
 
 MAX/ULTRA remains deferred and unselected. HeyGen remains deferred. Real authority footage remains an optional future rights-governed capability. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains unchanged.
 

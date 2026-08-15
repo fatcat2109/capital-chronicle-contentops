@@ -71,7 +71,7 @@ def test_ledger_reuses_identical_checkpoint_and_rejects_regression(tmp_path: Pat
 def test_creative_source_has_distinct_compositions_and_concrete_visuals():
     source = (REPO / "video" / "asset_first_v1" / "src" / "generated" / "treasuryPositioning.tsx").read_text(encoding="utf-8")
     root = (REPO / "video" / "asset_first_v1" / "src" / "root.tsx").read_text(encoding="utf-8")
-    for token in ("TreasuryPositioningShort", "TreasuryPositioningLongform", "PositionBars", "DocumentRow", "RepoChain", "FlowChain", "Timeline", "Tests"):
+    for token in ("TreasuryPositioningShort", "TreasuryPositioningLongform", "PositionChart", "Document", "Mechanism", "SourceClock", "StressChain", "Monitoring"):
         assert token in source or token in root
     assert "CODEX_VIEWER_FACING_AUTHORSHIP" in source
     assert "fetch(" not in source and "process.env" not in source

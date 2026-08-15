@@ -1,12 +1,14 @@
 # Capital Chronicle ContentOps V2 — Task Graph V2
 
-Authority date: 2026-08-14
+Authority date: 2026-08-15
 Status: `CURRENT_CANONICAL_V2_TASK_GRAPH`
 Companion plan: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
-Current task overlay (2026-08-15): `TASK_CONTENTOPS_V2_SHORT_LONGFORM_LOW_COST_AUDIO_VERTICAL_SLICE_V1` has reached `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. Actual 56.739s native short and 559.300s native longform media, local build-audio auditions, cache/resume/selective-render evidence, and safety receipts await owner review. No mode bakeoff or V2-02 begins until Jim/ChatGPT accepts the substrate.
+Current task overlay (2026-08-15): `TASK_CONTENTOPS_V2_TREASURY_SHORT_LONGFORM_VISUAL_MATERIAL_RICHNESS_REPAIR_V1` has reached `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. It preserves the frozen Treasury story and audio while producing actual 56.700s native short and 559.300s native longform masters with materially richer documentary/source/data material, asset-board and material-dependency evidence, recovery proof, and zero public writes. No mode bakeoff, V2-02, publication, or provider decision begins until Jim/ChatGPT reviews both masters.
+
+The durable predecessor record is `PASS_SHORT_LONGFORM_FORMAT_AUDIO_RECOVERY_SUBSTRATE / PASS_CFTC_TRUTH_EVIDENCE_BINDING / FAIL_PREVIOUS_LONGFORM_VISUAL_MATERIAL_RICHNESS`. The Chatterbox sample remains diagnostic only; no new TTS was synthesized and `BUILD_TTS` remains unresolved.
 
 # 1. Current position
 
@@ -25,13 +27,13 @@ The controlled A/B and subsequent architecture-recovery proofs establish the fol
 - `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains unchanged.
 - V2-02 distribution/publication expansion remains blocked.
 
-# 2. Current exact next task
+# 2. Current exact task and next action
 
-`TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
+`TASK_CONTENTOPS_V2_TREASURY_SHORT_LONGFORM_VISUAL_MATERIAL_RICHNESS_REPAIR_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. QH1 is completed implementation history and the current correction is at actual-media owner review.
+Implementation is complete at the builder ceiling and awaits `JIM_CHATGPT_ACTUAL_MEDIA_REVIEW_OF_TREASURY_VISUAL_MATERIAL_RICHNESS_REPAIR`. Earlier QH1 and Breaking Retail task descriptions below are historical execution context, not current routing.
 
-The task must be a heavy bounded real-media vertical slice, not a documentation or generic infrastructure program.
+The owner review must judge the actual short and longform masters; documentation or automated diagnostics cannot substitute for that gate.
 
 # 3. User problem
 

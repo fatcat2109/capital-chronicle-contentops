@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13086,
+    "edges": 13142,
     "entrypoints": 14,
-    "nodes": 6896,
+    "nodes": 6922,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -33,12 +33,12 @@
       "instructions": 8,
       "manifest": 15,
       "python_class": 544,
-      "python_function": 3833,
+      "python_function": 3854,
       "python_method": 241,
-      "python_module": 708,
+      "python_module": 711,
       "schema": 173,
-      "test": 709,
-      "typescript_export": 484,
+      "test": 710,
+      "typescript_export": 485,
       "typescript_or_javascript_module": 99
     }
   },
@@ -37580,6 +37580,54 @@
       "to": "tests/test_tier2_video_factory_v1.py"
     },
     {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::beat"
+    },
+    {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::dependency_manifest"
+    },
+    {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::material_plan"
+    },
+    {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_audio_freeze"
+    },
+    {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_creative_source_sandbox"
+    },
+    {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_material_plan"
+    },
+    {
+      "from": "live_contentops/treasury_visual_material_repair_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_treasury_visual_material_repair_v1.py"
+    },
+    {
       "from": "live_contentops/trusted_evidence_canary_evidence_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -66374,6 +66422,78 @@
       "to": "python_symbol:scripts/intake_cc_artifact_packet_v0.py::build_parser"
     },
     {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::font"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::cftc_rows_image",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::font"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::document_image",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::font"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::board"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::cftc_rows_image"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::document_image"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::download"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::sha256"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::verify_cftc"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::verify_cftc",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::sha256"
+    },
+    {
+      "from": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::verify_cftc",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::write_json"
+    },
+    {
       "from": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -67922,6 +68042,114 @@
       "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
     },
     {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::dependency_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_material_plan"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::validate_zero_write"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_creative_source_sandbox"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::FormatAudioLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::qa"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::record_review"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::render"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::render",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::render",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::render",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
       "from": "python_symbol:scripts/validate_v2_breaking_news_owner_repair_v2.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68394,6 +68622,66 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/intake_cc_artifact_packet_v0.py::main"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::board"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::cftc_rows_image"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::document_image"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::download"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::font"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::sha256"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::verify_cftc"
+    },
+    {
+      "from": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::write_json"
     },
     {
       "from": "scripts/run_direct_image_bakeoff_v1.py",
@@ -68922,6 +69210,48 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::render"
+    },
+    {
+      "from": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author"
+    },
+    {
+      "from": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize"
+    },
+    {
+      "from": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main"
+    },
+    {
+      "from": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main"
+    },
+    {
+      "from": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::qa"
+    },
+    {
+      "from": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::record_review"
+    },
+    {
+      "from": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::render"
     },
     {
       "from": "scripts/validate_v2_breaking_news_owner_repair_v2.py",
@@ -72720,6 +73050,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/tier2_video_factory_v1.py"
+    },
+    {
+      "from": "tests/test_treasury_visual_material_repair_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/treasury_visual_material_repair_v1.py"
     },
     {
       "from": "tests/test_unified_approval_outbox_readiness_v6.py",
@@ -78365,6 +78701,12 @@
       "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "inference": "typescript_export_regex",
       "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::MaterialBeat"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
       "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningProps"
     },
     {
@@ -78384,12 +78726,6 @@
       "inference": "typescript_export_regex",
       "kind": "defines",
       "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningShort"
-    },
-    {
-      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
-      "inference": "typescript_relative_import_regex",
-      "kind": "imports",
-      "to": "video/asset_first_v1/src/lowLevel.tsx"
     },
     {
       "from": "video/asset_first_v1/src/index.ts",
@@ -78664,7 +79000,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T18:24:48Z",
+  "generation_timestamp_utc": "2026-08-14T20:41:59Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -78697,7 +79033,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 18996
+      "size_bytes": 19002
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -78842,7 +79178,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 21026
+      "size_bytes": 21393
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -78852,22 +79188,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 13293
+      "size_bytes": 13510
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 31073
+      "size_bytes": 31076
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 31766
+      "size_bytes": 31769
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 18415
+      "size_bytes": 18964
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -80548,7 +80884,7 @@
     {
       "id": "live_contentops/lane_b_asset_first_v1.py",
       "kind": "python_module",
-      "size_bytes": 22084
+      "size_bytes": 22086
     },
     {
       "id": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -82038,7 +82374,7 @@
     {
       "id": "live_contentops/short_longform_low_cost_audio_v1.py",
       "kind": "python_module",
-      "size_bytes": 7974
+      "size_bytes": 8118
     },
     {
       "id": "live_contentops/social_account_binding_model.py",
@@ -82289,6 +82625,11 @@
       "id": "live_contentops/tier2_video_factory_v1.py",
       "kind": "python_module",
       "size_bytes": 54982
+    },
+    {
+      "id": "live_contentops/treasury_visual_material_repair_v1.py",
+      "kind": "python_module",
+      "size_bytes": 25528
     },
     {
       "id": "live_contentops/trusted_evidence_canary_evidence_v1.py",
@@ -112467,6 +112808,48 @@
       "symbol": "verify_hash_manifest"
     },
     {
+      "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::beat",
+      "kind": "python_function",
+      "line": 71,
+      "path": "live_contentops/treasury_visual_material_repair_v1.py",
+      "symbol": "beat"
+    },
+    {
+      "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::dependency_manifest",
+      "kind": "python_function",
+      "line": 241,
+      "path": "live_contentops/treasury_visual_material_repair_v1.py",
+      "symbol": "dependency_manifest"
+    },
+    {
+      "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::material_plan",
+      "kind": "python_function",
+      "line": 147,
+      "path": "live_contentops/treasury_visual_material_repair_v1.py",
+      "symbol": "material_plan"
+    },
+    {
+      "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_audio_freeze",
+      "kind": "python_function",
+      "line": 274,
+      "path": "live_contentops/treasury_visual_material_repair_v1.py",
+      "symbol": "validate_audio_freeze"
+    },
+    {
+      "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_creative_source_sandbox",
+      "kind": "python_function",
+      "line": 26,
+      "path": "live_contentops/treasury_visual_material_repair_v1.py",
+      "symbol": "validate_creative_source_sandbox"
+    },
+    {
+      "id": "python_symbol:live_contentops/treasury_visual_material_repair_v1.py::validate_material_plan",
+      "kind": "python_function",
+      "line": 185,
+      "path": "live_contentops/treasury_visual_material_repair_v1.py",
+      "symbol": "validate_material_plan"
+    },
+    {
       "id": "python_symbol:live_contentops/trusted_evidence_canary_evidence_v1.py::build_reports",
       "kind": "python_function",
       "line": 85,
@@ -114308,6 +114691,69 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::board",
+      "kind": "python_function",
+      "line": 323,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "board"
+    },
+    {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::cftc_rows_image",
+      "kind": "python_function",
+      "line": 289,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "cftc_rows_image"
+    },
+    {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::document_image",
+      "kind": "python_function",
+      "line": 221,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "document_image"
+    },
+    {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::download",
+      "kind": "python_function",
+      "line": 207,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "download"
+    },
+    {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::font",
+      "kind": "python_function",
+      "line": 216,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "font"
+    },
+    {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::main",
+      "kind": "python_function",
+      "line": 354,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::sha256",
+      "kind": "python_function",
+      "line": 194,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "sha256"
+    },
+    {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::verify_cftc",
+      "kind": "python_function",
+      "line": 240,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "verify_cftc"
+    },
+    {
+      "id": "python_symbol:scripts/prepare_v2_treasury_visual_material_assets_v1.py::write_json",
+      "kind": "python_function",
+      "line": 202,
+      "path": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "symbol": "write_json"
+    },
+    {
       "id": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::Cell",
       "kind": "python_class",
       "line": 69,
@@ -114816,6 +115262,48 @@
       "kind": "python_function",
       "line": 195,
       "path": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "symbol": "render"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::author",
+      "kind": "python_function",
+      "line": 135,
+      "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "symbol": "author"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::finalize",
+      "kind": "python_function",
+      "line": 382,
+      "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "symbol": "finalize"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::main",
+      "kind": "python_function",
+      "line": 430,
+      "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::qa",
+      "kind": "python_function",
+      "line": 321,
+      "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "symbol": "qa"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::record_review",
+      "kind": "python_function",
+      "line": 354,
+      "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "symbol": "record_review"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_treasury_visual_material_repair_v1.py::render",
+      "kind": "python_function",
+      "line": 223,
+      "path": "scripts/run_v2_treasury_visual_material_repair_v1.py",
       "symbol": "render"
     },
     {
@@ -115837,6 +116325,11 @@
       "size_bytes": 2231
     },
     {
+      "id": "scripts/prepare_v2_treasury_visual_material_assets_v1.py",
+      "kind": "python_module",
+      "size_bytes": 27056
+    },
+    {
       "id": "scripts/run_direct_image_bakeoff_v1.py",
       "kind": "python_module",
       "size_bytes": 21161
@@ -115904,7 +116397,12 @@
     {
       "id": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
       "kind": "python_module",
-      "size_bytes": 39874
+      "size_bytes": 40134
+    },
+    {
+      "id": "scripts/run_v2_treasury_visual_material_repair_v1.py",
+      "kind": "python_module",
+      "size_bytes": 27027
     },
     {
       "id": "scripts/validate_v2_breaking_news_owner_repair_v2.py",
@@ -118814,7 +119312,7 @@
     {
       "id": "tests/test_short_longform_low_cost_audio_v1.py",
       "kind": "test",
-      "size_bytes": 7388
+      "size_bytes": 7535
     },
     {
       "id": "tests/test_social_account_binding_model_and_fake_provider_contract.py",
@@ -119070,6 +119568,11 @@
       "id": "tests/test_tier2_video_factory_v1.py",
       "kind": "test",
       "size_bytes": 4394
+    },
+    {
+      "id": "tests/test_treasury_visual_material_repair_v1.py",
+      "kind": "test",
+      "size_bytes": 5651
     },
     {
       "id": "tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py",
@@ -122501,30 +123004,37 @@
       "symbol": "SHORT_FRAMES"
     },
     {
-      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningProps",
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::MaterialBeat",
       "kind": "typescript_export",
       "line": 7,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "MaterialBeat"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningProps",
+      "kind": "typescript_export",
+      "line": 10,
       "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "symbol": "PositioningProps"
     },
     {
       "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningScene",
       "kind": "typescript_export",
-      "line": 5,
+      "line": 9,
       "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "symbol": "PositioningScene"
     },
     {
       "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningLongform",
       "kind": "typescript_export",
-      "line": 52,
+      "line": 100,
       "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "symbol": "TreasuryPositioningLongform"
     },
     {
       "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningShort",
       "kind": "typescript_export",
-      "line": 50,
+      "line": 98,
       "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "symbol": "TreasuryPositioningShort"
     },
@@ -123322,7 +123832,7 @@
     {
       "id": "video/asset_first_v1/scripts/render.mjs",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 2428
+      "size_bytes": 2429
     },
     {
       "id": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
@@ -123332,7 +123842,7 @@
     {
       "id": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 9190
+      "size_bytes": 17992
     },
     {
       "id": "video/asset_first_v1/src/index.ts",
@@ -123347,7 +123857,7 @@
     {
       "id": "video/asset_first_v1/src/root.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 1730
+      "size_bytes": 1737
     },
     {
       "id": "video/asset_first_v1/tsconfig.json",
@@ -123448,6 +123958,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "edec326e62576db0278b05a3eb41bcb2286be6c5",
-  "source_tree_digest": "012d6db259f02f34bdcb1442e35d24c9e002b70366069cb70abe2a1cb792254f"
+  "source_head": "f324a290dba860cf085e7dbb6b4f8184a9e7a7a5",
+  "source_tree_digest": "1247fc5b9959b00862b8622715858e0cbbce1d2ab49ac5297bd0d8898078ae76"
 }
