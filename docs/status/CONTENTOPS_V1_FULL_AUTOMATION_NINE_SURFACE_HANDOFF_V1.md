@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V1 — Full Automation Nine-Surface Fresh-Session Handoff
 
-Authority date: 2026-08-13
+Authority date: 2026-08-15
 Status: `CURRENT_V1_OWNER_HANDOFF`
 
 This file exists so a fresh ChatGPT/Antigravity session can resume V1 without the long prior chat history.
@@ -166,6 +166,25 @@ hard production requirements.
 The broader product target remains approximately 5–8 useful canonical articles/day without filler.
 
 V2 video public-write authority is separate and unchanged by this V1 handoff.
+
+## Final editorial fallback routing
+
+The production-shaped V1 routing change on
+`codex/v1-codex-editorial-brain-final-fallback-v1` is awaiting Jim/ChatGPT audit before merge.
+
+- The canonical 9Router writer, its normal repair, and the authorized CX utility rescue remain
+  primary.
+- Only an evidence-qualified opportunity that reaches the accepted final writer trigger may create
+  one fresh, isolated Codex editorial job. The job may perform at most one bounded repair execution;
+  a second job for the same opportunity is blocked.
+- Codex receives an immutable, URL-free governed packet. It has no browser, evidence-discovery,
+  state, numeric-authority, publication, or public-write authority.
+- Existing deterministic source, factual, numeric, quotation, reader-value, release, coordinator,
+  readback, reconciliation, and `UNKNOWN_WRITE` gates remain final authority.
+- Execution is non-interactive and ephemeral. No persistent 24/7 Codex conversation is permitted.
+- The committed rank-1 Reuters/MarketWatch/CNN proof is classified
+  `PASS_V1_CODEX_EDITORIAL_BRAIN_ZERO_WRITE_PROVEN`; the proof invoked no publisher/coordinator and
+  caused zero public writes.
 
 ## Immediate blockers / execution order
 

@@ -1,0 +1,728 @@
+{
+  "bounded_revision_cycle": {
+    "article": {
+      "article_generation_method": "FRESH_ISOLATED_CODEX_EDITORIAL_BRAIN",
+      "article_generation_router_failure": null,
+      "article_mode": "straight_news",
+      "as_of_utc": "",
+      "canonical_rich_text": {
+        "blocks": [
+          {
+            "content": [
+              {
+                "text": "U.S. retail sales declined in July, the first drop in nine months, Reuters reported.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "text": "MarketWatch identified cheaper gasoline and an \u201cAmazon Prime hangover\u201d as the chief contributors to the slump. CNN also reported that U.S. consumers cut their retail spending during the month.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "text": "The available reporting does not specify the percentage or dollar value of the decline, limiting conclusions about its scale.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "schema_version": "contentops.article_rich_text.v1"
+      },
+      "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication",
+      "cc_context_bundle": {
+        "cc_context_refs": [],
+        "cc_context_richness": 0.0,
+        "factual_or_numeric_authority_granted": false,
+        "mutated_upstream": false,
+        "ordinary_reporting_blocked_when_unavailable": false,
+        "proprietary_claim_authority_granted": false,
+        "queried_entities": [],
+        "schema_version": "contentops.additive_cc_story_context.v1",
+        "state": "CC_CONTEXT_NOT_RELEVANT"
+      },
+      "claim_evidence_contract_sha256": "",
+      "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+      "codex_editorial_brain_receipt": {
+        "browser_use_count": 0,
+        "completed_at_utc": "2026-08-15T14:03:08.962499Z",
+        "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+        "executions": [
+          {
+            "attempt": 0,
+            "browser_use_count": 0,
+            "cli_sha256": "592958896cbffa154709618476fc9c9bf7fe73957e9a4fc12094c5051b6c69b3",
+            "cli_version": "codex-cli 0.147.0-alpha.6.6",
+            "command_execution_count": 0,
+            "diagnostic_code": null,
+            "effective_model": null,
+            "effective_reasoning_effort": null,
+            "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+            "exit_classification": "SUCCESS",
+            "exit_code": 0,
+            "external_model_service_network": true,
+            "external_research_network": false,
+            "fresh_execution_id": null,
+            "materialized_runtime_copy": true,
+            "non_interactive_headless": true,
+            "requested_model": null,
+            "requested_reasoning_effort": null,
+            "timeout_seconds": 420.0,
+            "tool_event_counts": {
+              "browser_calls": 0,
+              "command_executions": 0,
+              "file_changes": 0,
+              "mcp_tool_calls": 0,
+              "web_searches": 0
+            },
+            "usage": {},
+            "wall_time_seconds": 17.297,
+            "web_search_count": 0
+          }
+        ],
+        "external_research_network": false,
+        "governed_input_sha256": "946607692b4d6c0e246acd995c913badf1bbf8f37a21c88542adc9f6df5f8c8a",
+        "instruction_sha256": "dedc486a8b8be78c491509ea052c52bb2e6124700fdcd7c135f532fc2cb70d1c",
+        "job_id": "codex-editorial-946607692b4d6c0e246acd99",
+        "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+        "output_sha256": "78672b497a113cfc930a65427eeb8da872d4582fd840977c2548aeaa17873c59",
+        "public_write_performed": false,
+        "publication_authority": false,
+        "result_classification": "PASS_DETERMINISTIC_REVALIDATION_NO_NEW_CODEX_EXECUTION",
+        "revision_count": 0,
+        "schema_version": "contentops.v1_codex_editorial_brain.v1",
+        "started_at_utc": "2026-08-15T13:59:21.108653Z",
+        "status": "COMPLETED",
+        "total_wall_time_seconds": 17.297,
+        "validation_result": {
+          "classification": "PASS",
+          "editorial_failure_codes": [],
+          "forbidden_failure_codes": []
+        }
+      },
+      "conclusion_deduplication": {
+        "body_markdown": "U.S. retail sales declined in July, the first drop in nine months, Reuters reported.\n\nMarketWatch identified cheaper gasoline and an \u201cAmazon Prime hangover\u201d as the chief contributors to the slump. CNN also reported that U.S. consumers cut their retail spending during the month.\n\nThe available reporting does not specify the percentage or dollar value of the decline, limiting conclusions about its scale.",
+        "publication_authority": false,
+        "removed_count": 0,
+        "removed_paragraphs": [],
+        "semantic_review_calls": 0
+      },
+      "cross_asset_implications": "",
+      "dek": "The available reporting points to cheaper gasoline and a post-Prime spending lull, but does not specify the decline\u2019s magnitude.",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "editorial_mode": "straight_news",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_document_ids": [
+        "public-news-listing-58f4eac22670931ba463",
+        "public-news-listing-6e7cd95f14205ff02412",
+        "public-news-listing-d3b70f798c5e4fe8f63b"
+      ],
+      "evidence_review_tier": "ORDINARY_MINIMUM",
+      "grounded_research": {
+        "enhanced_review_required": false,
+        "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+        "research_as_of_utc": "2026-08-15T10:00:00.000529Z",
+        "research_logical_hash": "4ce635837d9fc628721b2701f30a97d3332f39bf052ea30ce794416f087b0f45",
+        "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+        "research_status": "PASS",
+        "risk_classification": "ORDINARY",
+        "schema_version": "contentops.grounded_news_research.v1",
+        "suggested_article_mode": "BREAKING_BRIEF"
+      },
+      "grounded_source_coverage": {
+        "blockers": [],
+        "fact_rows": [
+          {
+            "body_token_overlap": 0.8,
+            "bound_source_identity_referenced": true,
+            "fact_id": "f1",
+            "recognizably_used": true
+          },
+          {
+            "body_token_overlap": 0.8889,
+            "bound_source_identity_referenced": true,
+            "fact_id": "f2",
+            "recognizably_used": true
+          },
+          {
+            "body_token_overlap": 0.6667,
+            "bound_source_identity_referenced": true,
+            "fact_id": "f3",
+            "recognizably_used": true
+          },
+          {
+            "body_token_overlap": 0.8571,
+            "bound_source_identity_referenced": true,
+            "fact_id": "f4",
+            "recognizably_used": true
+          }
+        ],
+        "grounded_research_packet_present": true,
+        "paragraph_rows": [
+          {
+            "covered": true,
+            "labeled_supported_inference": false,
+            "paragraph_index": 0,
+            "source_token_overlap": 0.8
+          },
+          {
+            "covered": true,
+            "labeled_supported_inference": false,
+            "paragraph_index": 1,
+            "source_token_overlap": 0.7143
+          },
+          {
+            "covered": true,
+            "labeled_supported_inference": false,
+            "paragraph_index": 2,
+            "source_token_overlap": 0.2857
+          }
+        ],
+        "publication_authority": false,
+        "status": "PASS"
+      },
+      "headline_ids": [
+        "cc-x-headline-c1b06e8a2872d18745f952fc"
+      ],
+      "market_consequence_terms": [
+        "policy",
+        "compliance",
+        "implementation"
+      ],
+      "market_mechanism": "MarketWatch identified cheaper gasoline and an \u201cAmazon Prime hangover\u201d as the chief contributors to the retail-sales slump. [[SOURCE:SOURCE_2]]",
+      "mechanism_terms": [
+        "policy",
+        "implementation"
+      ],
+      "meta_description": "U.S. retail sales declined in July for the first time in nine months, with the exact size of the drop not specified in the available reporting.",
+      "minimum_trustworthy_evidence_packet": {
+        "attribution_required": true,
+        "core_factual_proposition": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+        "directly_attributed_numbers_permitted": true,
+        "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+        "evidence_packet_sha256": "e94945f9937695fd258ee08437baf30e49b37d943cc1a10cc60bfcdb77ddf887",
+        "publication_authority": false,
+        "published_at_utc": "2026-08-14T13:27:00Z",
+        "publisher": "MarketWatch",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "risk_tier": "ORDINARY",
+        "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+        "source_authority_class": "reputable_secondary_source",
+        "source_title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+        "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPM1VURVZzSWo1MFhuajJEbXJscEQycW1ZMDBxLVFoOGVLYy11Q0VKeEFwemlGTGlLanJoWWRGa0VVSmQ2ZVpGUlFVM05JZ19JYTlUMzZDc3FLeENsVzVVb0xxM19xdHdnLTNWa1lJVjhjaW1IOU02bzBPdTVaUng4T1VycjNxclBLQW5aS1J3c2FlUWlxSV9yS2k5QVN3ZFhrQjVEeXpkd0M2dUJvWG9JX3dkT1JZRGRuY2NNZ0lpVDh1VjE2bFNtTXZB?oc=5",
+        "status": "PASS",
+        "unsupported_optional_claims_must_be_omitted": true,
+        "x_content_grants_factual_authority": false
+      },
+      "mode_downgrade_reason": null,
+      "named_catalyst_terms": [
+        "official notice",
+        "effective date",
+        "official register"
+      ],
+      "news_peg_terms": [
+        "Reuters",
+        "2026-08-14"
+      ],
+      "numeric_claims_from_llm": false,
+      "omitted_unsupported_claims": [],
+      "policy_context": "",
+      "primary_topic": "US retail sales post first decline in nine months in July",
+      "publication_authority": false,
+      "quote_source_records": [
+        {
+          "binding_method": "EXACT_GOVERNED_CLAIM_SUBSTRING",
+          "claim_ids": [
+            "f3"
+          ],
+          "evidence_document_ids": [
+            "public-news-listing-d3b70f798c5e4fe8f63b"
+          ],
+          "publication_authority": false,
+          "quote_text": "Amazon Prime hangover",
+          "source_binding_ids": [
+            "source-4a31dd33ea3b34da"
+          ]
+        }
+      ],
+      "requested_article_mode": "BREAKING_BRIEF",
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "seo_primary_keyword": "retail",
+      "seo_semantic_terms": [
+        "retail",
+        "Reuters"
+      ],
+      "seo_title": "U.S. Retail Sales Fall for First Time in Nine Months",
+      "slug": "u-s-retail-sales-post-first-decline-in-nine-months",
+      "social_cross_asset_summary": "",
+      "social_lede": "U.S. retail sales declined in July, marking the first drop in nine months. [[SOURCE:SOURCE_1]]",
+      "social_mechanism_summary": "Cheaper gasoline and an \u201cAmazon Prime hangover\u201d were identified as the chief contributors to the retail-sales slump. [[SOURCE:SOURCE_2]]",
+      "social_og_media_asset_id": null,
+      "social_policy_summary": "",
+      "source_attributions": [
+        {
+          "publisher": "Reuters",
+          "reader_attribution_mode": "ATTRIBUTION_ONLY",
+          "reader_source_url": null,
+          "source_id": "source-d9d7ce4f7636ac54",
+          "title": "US retail sales post first decline in nine months in July"
+        },
+        {
+          "publisher": "MarketWatch",
+          "reader_attribution_mode": "ATTRIBUTION_ONLY",
+          "reader_source_url": null,
+          "source_id": "source-4a31dd33ea3b34da",
+          "title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+        },
+        {
+          "publisher": "CNN",
+          "reader_attribution_mode": "ATTRIBUTION_ONLY",
+          "reader_source_url": null,
+          "source_id": "source-e96efcfe6f407346",
+          "title": "Frustrated US consumers cut their retail spending last month"
+        }
+      ],
+      "source_binding_ids_referenced": [
+        "source-d9d7ce4f7636ac54",
+        "source-4a31dd33ea3b34da",
+        "source-e96efcfe6f407346"
+      ],
+      "source_bindings": [
+        {
+          "discovery_path_is_reader_authority": false,
+          "evidence_document_id": "public-news-listing-58f4eac22670931ba463",
+          "publisher": "Reuters",
+          "reader_attribution_mode": "ATTRIBUTION_ONLY",
+          "reader_source_url": null,
+          "source_handle": "SOURCE_1",
+          "source_id": "source-d9d7ce4f7636ac54",
+          "title": "US retail sales post first decline in nine months in July"
+        },
+        {
+          "discovery_path_is_reader_authority": false,
+          "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+          "publisher": "MarketWatch",
+          "reader_attribution_mode": "ATTRIBUTION_ONLY",
+          "reader_source_url": null,
+          "source_handle": "SOURCE_2",
+          "source_id": "source-4a31dd33ea3b34da",
+          "title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+        },
+        {
+          "discovery_path_is_reader_authority": false,
+          "evidence_document_id": "public-news-listing-6e7cd95f14205ff02412",
+          "publisher": "CNN",
+          "reader_attribution_mode": "ATTRIBUTION_ONLY",
+          "reader_source_url": null,
+          "source_handle": "SOURCE_3",
+          "source_id": "source-e96efcfe6f407346",
+          "title": "Frustrated US consumers cut their retail spending last month"
+        }
+      ],
+      "source_trail": [],
+      "story_type": "supply_chain_event",
+      "substack_body_markdown": "U.S. retail sales declined in July, the first drop in nine months, Reuters reported.\n\nMarketWatch identified cheaper gasoline and an \u201cAmazon Prime hangover\u201d as the chief contributors to the slump. CNN also reported that U.S. consumers cut their retail spending during the month.\n\nThe available reporting does not specify the percentage or dollar value of the decline, limiting conclusions about its scale.",
+      "subtitle": "The available reporting points to cheaper gasoline and a post-Prime spending lull, but does not specify the decline\u2019s magnitude.",
+      "supported_claim_count": 4,
+      "supported_claims": [
+        {
+          "attribution_required": true,
+          "claim_id": "f1",
+          "claim_text": "U.S. retail sales posted a decline in July.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-news-listing-58f4eac22670931ba463",
+            "public-news-listing-d3b70f798c5e4fe8f63b"
+          ],
+          "source_refs": [
+            "SRC_4A31DD33EA3B34DA",
+            "SRC_D9D7CE4F7636AC54"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "f2",
+          "claim_text": "The July decline in retail sales was the first drop in nine months.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-news-listing-58f4eac22670931ba463"
+          ],
+          "source_refs": [
+            "SRC_D9D7CE4F7636AC54"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "f3",
+          "claim_text": "Cheaper gas and an 'Amazon Prime hangover' were identified as the chief culprits for the retail sales slump.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-news-listing-d3b70f798c5e4fe8f63b"
+          ],
+          "source_refs": [
+            "SRC_4A31DD33EA3B34DA"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "f4",
+          "claim_text": "U.S. consumers cut their retail spending last month.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-news-listing-6e7cd95f14205ff02412"
+          ],
+          "source_refs": [
+            "SRC_E96EFCFE6F407346"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        }
+      ],
+      "title": "U.S. Retail Sales Post First Decline in Nine Months",
+      "unsupported_claims_removed": 0,
+      "update_chain_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+      "visual_asset_ids_expected": [],
+      "writer_reader_value_preflight": {
+        "attribution_chain_dominant": false,
+        "attribution_marker_count": 0,
+        "blockers": [],
+        "checks": {
+          "captions_and_source_metadata_not_dominant": true,
+          "mode_appropriate_structure": true,
+          "mode_appropriate_substance": true,
+          "multiple_meaningful_reader_paragraphs": true,
+          "native_rich_text_serializable": true,
+          "no_process_or_pipeline_language": true,
+          "no_repetitive_filler": true,
+          "not_attribution_chain_copy": true,
+          "professional_writer_output": true,
+          "reader_value_independent_of_media": true,
+          "title_not_body": true
+        },
+        "classification": "PASS",
+        "duplicated_sentence_count": 0,
+        "floor": {
+          "minimum_headings": 0,
+          "minimum_paragraphs": 3,
+          "minimum_words": 90
+        },
+        "floor_class": "CONCISE_UPDATE",
+        "formatting_targets": {
+          "heading_target_met": true,
+          "paragraph_target_met": true,
+          "word_target_met": false
+        },
+        "formatting_targets_are_advisory": true,
+        "heading_count": 0,
+        "list_item_count": 0,
+        "markup_findings": [],
+        "meaningful_paragraph_count": 3,
+        "paragraph_redundancy_findings": [],
+        "process_language_hits": [],
+        "publication_authority": false,
+        "reader_prose_word_count": 64,
+        "reader_sentence_count": 4,
+        "reason_code": null,
+        "schema_version": "contentops.reader_value_release_gate.v1",
+        "utility_floor": {
+          "minimum_reader_sentences": 3,
+          "minimum_words": 60
+        },
+        "visual_count": 0,
+        "visual_quantity_is_fixed_quota": false
+      },
+      "x_content_grants_factual_authority": false
+    },
+    "mandatory_semantic_review_calls": 0,
+    "publication_authority_granted": false,
+    "reason_code": null,
+    "review_history": [
+      {
+        "article_sha256": "1756280eb13902bb0b303df3cb17fa78ddb5efeb062d4c408eae5d790cf88278",
+        "combined_editorial_gate": {
+          "blockers": [],
+          "classification": "PASS",
+          "deterministic_pass": true,
+          "llm_cannot_override_deterministic_blockers": true,
+          "llm_semantic_pass": true,
+          "publication_authority": false
+        },
+        "deterministic_review": {
+          "advisory_editorial_findings": [
+            "lede_what_changed",
+            "lede_why_now",
+            "concise_nut_graf",
+            "high_information_density"
+          ],
+          "caveat_count": 0,
+          "classification": "PASS",
+          "duplicated_sentence_count": 0,
+          "editorial_blockers": [
+            "lede_what_changed",
+            "lede_why_now",
+            "concise_nut_graf",
+            "high_information_density"
+          ],
+          "editorial_checks": {
+            "concise_nut_graf": false,
+            "confirmation_condition": true,
+            "context_present": true,
+            "falsification_condition": true,
+            "high_information_density": false,
+            "lede_market_consequence": true,
+            "lede_what_changed": false,
+            "lede_why_now": false,
+            "mechanism_present": true,
+            "mode_declared": true,
+            "mode_rubric": true,
+            "named_next_catalysts": true,
+            "no_fabricated_quotes": true,
+            "no_financial_advice": true,
+            "no_process_language": true,
+            "original_value_claim_support": true,
+            "reader_value_floor": true,
+            "single_caveat": true
+          },
+          "editorial_score": 78,
+          "filler_hits": [],
+          "hard_editorial_blockers": [],
+          "headline_desk": {
+            "publication_authority": false,
+            "rejected_variant_count": 3,
+            "schema_version": "contentops.tier1_editorial_quality.v2",
+            "variants": [
+              {
+                "channel": "reader",
+                "checks": {
+                  "length": true,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": true,
+                  "search_intent": true,
+                  "specificity": true
+                },
+                "rejection_reasons": [],
+                "score": 100,
+                "text": "U.S. Retail Sales Post First Decline in Nine Months"
+              },
+              {
+                "channel": "seo",
+                "checks": {
+                  "length": true,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": true,
+                  "search_intent": true,
+                  "specificity": true
+                },
+                "rejection_reasons": [],
+                "score": 100,
+                "text": "U.S. Retail Sales Fall for First Time in Nine Months"
+              },
+              {
+                "channel": "social",
+                "checks": {
+                  "length": false,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": false,
+                  "search_intent": true,
+                  "specificity": false
+                },
+                "rejection_reasons": [
+                  "present",
+                  "length",
+                  "specificity"
+                ],
+                "score": 50,
+                "text": ""
+              },
+              {
+                "channel": "push",
+                "checks": {
+                  "length": false,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": false,
+                  "search_intent": true,
+                  "specificity": false
+                },
+                "rejection_reasons": [
+                  "present",
+                  "length",
+                  "specificity"
+                ],
+                "score": 50,
+                "text": ""
+              },
+              {
+                "channel": "youtube_community",
+                "checks": {
+                  "length": false,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": false,
+                  "search_intent": true,
+                  "specificity": false
+                },
+                "rejection_reasons": [
+                  "present",
+                  "length",
+                  "specificity"
+                ],
+                "score": 50,
+                "text": ""
+              }
+            ]
+          },
+          "paragraph_redundancy_findings": [],
+          "process_language_hits": [],
+          "reader_value_gate": {
+            "attribution_chain_dominant": false,
+            "attribution_marker_count": 0,
+            "blockers": [],
+            "checks": {
+              "captions_and_source_metadata_not_dominant": true,
+              "mode_appropriate_structure": true,
+              "mode_appropriate_substance": true,
+              "multiple_meaningful_reader_paragraphs": true,
+              "native_rich_text_serializable": true,
+              "no_process_or_pipeline_language": true,
+              "no_repetitive_filler": true,
+              "not_attribution_chain_copy": true,
+              "professional_writer_output": true,
+              "reader_value_independent_of_media": true,
+              "title_not_body": true
+            },
+            "classification": "PASS",
+            "duplicated_sentence_count": 0,
+            "floor": {
+              "minimum_headings": 0,
+              "minimum_paragraphs": 3,
+              "minimum_words": 90
+            },
+            "floor_class": "CONCISE_UPDATE",
+            "formatting_targets": {
+              "heading_target_met": true,
+              "paragraph_target_met": true,
+              "word_target_met": false
+            },
+            "formatting_targets_are_advisory": true,
+            "heading_count": 0,
+            "list_item_count": 0,
+            "markup_findings": [],
+            "meaningful_paragraph_count": 3,
+            "paragraph_redundancy_findings": [],
+            "process_language_hits": [],
+            "publication_authority": false,
+            "reader_prose_word_count": 64,
+            "reader_sentence_count": 4,
+            "reason_code": null,
+            "schema_version": "contentops.reader_value_release_gate.v1",
+            "utility_floor": {
+              "minimum_reader_sentences": 3,
+              "minimum_words": 60
+            },
+            "visual_count": 0,
+            "visual_quantity_is_fixed_quota": false
+          },
+          "rendered_body_sha256": "aa88f3c6d8ed5fb19c50c5ba8c54df62c30853db2d29f4bb3ee283ffbeeb200f",
+          "schema_version": "contentops.tier1_editorial_quality.v2",
+          "seo_blockers": [
+            "primary_topic_in_opening",
+            "heading_hierarchy",
+            "source_reference_links",
+            "chart_metadata",
+            "social_og_lead_media",
+            "visual_markers_complete"
+          ],
+          "seo_checks": {
+            "canonical_url_metadata": true,
+            "chart_metadata": false,
+            "clean_rendered_body": true,
+            "heading_hierarchy": false,
+            "meta_description": true,
+            "primary_topic_in_opening": false,
+            "reader_headline": true,
+            "semantic_keyword_coverage": true,
+            "seo_title": true,
+            "slug": true,
+            "social_og_lead_media": false,
+            "source_reference_links": false,
+            "title_dek_not_duplicated": true,
+            "visual_markers_complete": false
+          },
+          "seo_findings_are_advisory": true,
+          "seo_hygiene_is_observed_search_performance": false,
+          "seo_hygiene_score": 57,
+          "seo_score": 57,
+          "source_urls": [],
+          "visual_asset_ids": [],
+          "word_count": 64
+        },
+        "hard_factual_safety_review": {
+          "advisory_failed_checks": [],
+          "checks": {
+            "clear_news_peg": true,
+            "concise_nut_graf": true,
+            "high_information_density": true,
+            "material_claims_supported": true,
+            "material_evidence_matches": true,
+            "material_market_consequence": true,
+            "mode_consistent": true,
+            "no_fabricated_numbers": true,
+            "no_fabricated_quotes": true,
+            "no_factual_contradiction": true,
+            "no_financial_advice": true,
+            "no_misleading_framing": true,
+            "no_unsupported_certainty": true,
+            "reader_facing_prose": true,
+            "relevant_context": true,
+            "severe_coherence_ok": true,
+            "source_backed_mechanism": true,
+            "specific_confirmation_condition": true,
+            "specific_falsification_condition": true,
+            "why_now": true
+          },
+          "decision": "PASS",
+          "failed_checks": [],
+          "issues": [],
+          "material_failed_checks": [],
+          "missing_or_invalid_checks": [],
+          "mode": "straight_news",
+          "provider": "deterministic_minimum_evidence",
+          "publication_authority": false,
+          "review_sha256": "da9630c33768a3422cd4802713e58c76ed507d1bc29904b657babf464d48b3c1",
+          "review_type": "HARD_FACTUAL_SAFETY_ONLY",
+          "semantic_review_required": false,
+          "status": "SUCCESS",
+          "summary": "Ordinary article passed deterministic factual and source binding checks."
+        },
+        "llm_semantic_review": {
+          "decision": "NOT_RUN",
+          "publication_authority": false,
+          "status": "NOT_REQUIRED_ORDINARY_STORY"
+        },
+        "review_index": 0,
+        "revision_rounds_completed": 0
+      }
+    ],
+    "revision_rounds_completed": 0,
+    "semantic_review_required": false,
+    "status": "PASS"
+  },
+  "classification": "PASS",
+  "publication_authority": false,
+  "revision_round_limit": 1
+}

@@ -410,7 +410,18 @@ def audit_tier1_article(
     effective_mode = str(article.get("effective_article_mode") or article.get("resolved_article_mode") or "")
     concise_mode = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
     original_value = dict(article.get("original_value") or {})
-    quote_count = len(re.findall(r"[\"“][^\"”]{18,}[\"”]", rendered))
+    material_quotes = re.findall(r"[\"“]([^\"”]{18,})[\"”]", rendered)
+    grounded_quote_texts = {
+        _normalise(str(row.get("quote_text") or "")).casefold()
+        for row in article.get("quote_source_records") or []
+        if isinstance(row, Mapping)
+        and row.get("evidence_document_ids")
+        and row.get("source_binding_ids")
+    }
+    all_material_quotes_grounded = all(
+        _normalise(quote).casefold() in grounded_quote_texts
+        for quote in material_quotes
+    )
     source_urls = sorted(set(URL_RE.findall(body)))
     media_ids = [str(item.get("asset_id") or item.get("media_asset_id") or "") for item in media_assets]
     news_peg_terms = list(article.get("news_peg_terms") or ["3.62%", "2026-07-08"])
@@ -440,7 +451,7 @@ def audit_tier1_article(
         "falsification_condition": concise_mode or bool(re.search(r"\b(would (?:be )?challeng|would weaken|would falsify|challenge the)\b", closing, re.IGNORECASE)),
         "named_next_catalysts": concise_mode or sum(term.casefold() in closing.casefold() for term in catalyst_terms) >= min(2, len(catalyst_terms)),
         "no_process_language": not process_hits,
-        "no_fabricated_quotes": quote_count == 0 or bool(article.get("quote_source_records")),
+        "no_fabricated_quotes": not material_quotes or all_material_quotes_grounded,
         "no_financial_advice": not advice_hits,
         "single_caveat": caveat_count <= 1,
         "high_information_density": not filler_hits and duplicate_sentences == 0 and not paragraph_redundancy and _word_count(body) >= (180 if concise_mode else 300),
@@ -765,7 +776,11 @@ def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, 
     )
     valid = bool(
         article.get("article_generation_method")
-        in {"ROUTED_LLM_GROUNDED_ARTICLE", "MINIMUM_EVIDENCE_NEWS_BRIEF"}
+        in {
+            "ROUTED_LLM_GROUNDED_ARTICLE",
+            "MINIMUM_EVIDENCE_NEWS_BRIEF",
+            "FRESH_ISOLATED_CODEX_EDITORIAL_BRAIN",
+        }
         and packet.get("status") == "PASS"
         and packet.get("risk_tier") == "ORDINARY"
         and proposition

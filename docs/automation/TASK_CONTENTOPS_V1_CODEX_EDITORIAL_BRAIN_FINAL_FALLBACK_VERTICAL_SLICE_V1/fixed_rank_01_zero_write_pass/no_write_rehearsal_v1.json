@@ -1,0 +1,22 @@
+{
+  "blockers": [],
+  "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+  "destination_readiness": {
+    "destinations": {},
+    "fixture_bound": false,
+    "public_write_authority": false,
+    "schema_version": "contentops.destination_readiness.shadow.v1"
+  },
+  "distribution_warnings": [
+    "x_semantic_layout_failed",
+    "threads_semantic_layout_failed",
+    "substack_jit_readiness_required"
+  ],
+  "public_write_performed": false,
+  "publishing_adapter_called": false,
+  "release_candidate_lock_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-codex-editorial-brain-final-fallback-v1\\docs\\automation\\TASK_CONTENTOPS_V1_CODEX_EDITORIAL_BRAIN_FINAL_FALLBACK_VERTICAL_SLICE_V1\\fixed_rank_01_zero_write_pass\\release_candidate_lock_v1.json",
+  "release_candidate_lock_sha256": "7d513b6d4cf954040f5fe657ff5f152a7be01937a31f08325e07c6b48c4f850a",
+  "run_id": "fixed-rank-1-codex-editorial-brain-zero-write",
+  "schema_version": "contentops.rolling_x_text_image_release_rehearsal.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9"
+}

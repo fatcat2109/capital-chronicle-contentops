@@ -1,0 +1,38 @@
+{
+  "ai_generated_image": false,
+  "assets": [],
+  "contentops_built_or_source_backed_media": true,
+  "external_asset_discovery_status": "NOT_RUN_NO_PROVIDER_REQUIRED_FOR_BUILD",
+  "media_asset_count": 0,
+  "schema_version": "contentops.rolling_x_media_manifest.v1",
+  "status": "PASS",
+  "visual_intent_plan": {
+    "article_identity": "2224bdf88d0f3f77d0b265c7a5b005eadb8e5ff91daadc02658b06761c3f1788",
+    "intents": [
+      {
+        "editorial_rationale": "Show the real institution, place, or infrastructure at the center of the story.",
+        "publication_authority": false,
+        "queries": [
+          "Retail Sales Post First Decline Nine official photograph",
+          "Retail Sales Post First Decline Nine documentary context",
+          "Retail Sales Post First Decline Nine documentary photograph"
+        ],
+        "rights_required": true,
+        "visual_intent": "HERO_DOCUMENTARY"
+      }
+    ],
+    "provider_priority": [
+      "first_party_official",
+      "wikimedia_commons",
+      "openverse",
+      "general_image_search_discovery",
+      "licensed_contextual_library",
+      "generated_conceptual_illustration"
+    ],
+    "publication_authority": false,
+    "schema_version": "contentops.visual_asset_discovery.v1",
+    "semantic_model_may_grant_rights": false,
+    "unknown_rights_disposition": "REJECT"
+  },
+  "visual_optional_failure": null
+}

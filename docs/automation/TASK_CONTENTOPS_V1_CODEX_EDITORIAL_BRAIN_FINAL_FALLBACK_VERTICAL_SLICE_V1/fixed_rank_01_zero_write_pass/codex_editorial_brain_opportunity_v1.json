@@ -1,0 +1,83 @@
+{
+  "browser_use_count": 0,
+  "candidate_rank": 1,
+  "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "completed_at_utc": "2026-08-15T14:03:08.962499Z",
+  "deterministic_revalidation_only": true,
+  "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+  "executions": [
+    {
+      "attempt": 0,
+      "browser_use_count": 0,
+      "cli_sha256": "592958896cbffa154709618476fc9c9bf7fe73957e9a4fc12094c5051b6c69b3",
+      "cli_version": "codex-cli 0.147.0-alpha.6.6",
+      "command_execution_count": 0,
+      "diagnostic_code": null,
+      "effective_model": null,
+      "effective_reasoning_effort": null,
+      "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+      "exit_classification": "SUCCESS",
+      "exit_code": 0,
+      "external_model_service_network": true,
+      "external_research_network": false,
+      "fresh_execution_id": null,
+      "materialized_runtime_copy": true,
+      "non_interactive_headless": true,
+      "requested_model": null,
+      "requested_reasoning_effort": null,
+      "timeout_seconds": 420.0,
+      "tool_event_counts": {
+        "browser_calls": 0,
+        "command_executions": 0,
+        "file_changes": 0,
+        "mcp_tool_calls": 0,
+        "web_searches": 0
+      },
+      "usage": {},
+      "wall_time_seconds": 17.297,
+      "web_search_count": 0
+    }
+  ],
+  "external_research_network": false,
+  "governed_input_sha256": "946607692b4d6c0e246acd995c913badf1bbf8f37a21c88542adc9f6df5f8c8a",
+  "headline_ids": [
+    "cc-x-headline-c1b06e8a2872d18745f952fc"
+  ],
+  "instruction_sha256": "dedc486a8b8be78c491509ea052c52bb2e6124700fdcd7c135f532fc2cb70d1c",
+  "job_id": "codex-editorial-946607692b4d6c0e246acd99",
+  "job_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\codex_editorial_brain_task_proof_v1\\jobs\\codex-editorial-946607692b4d6c0e246acd99\\governed_article_job.json",
+  "new_codex_execution_during_revalidation": false,
+  "output_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\codex_editorial_brain_task_proof_v1\\jobs\\codex-editorial-946607692b4d6c0e246acd99\\article_result.json",
+  "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+  "output_sha256": "78672b497a113cfc930a65427eeb8da872d4582fd840977c2548aeaa17873c59",
+  "public_write_performed": false,
+  "publication_authority": false,
+  "result_classification": "PASS_DETERMINISTIC_REVALIDATION_NO_NEW_CODEX_EXECUTION",
+  "revision_count": 0,
+  "schema_version": "contentops.v1_codex_editorial_brain.v1",
+  "started_at_utc": "2026-08-15T13:59:21.108653Z",
+  "status": "COMPLETED",
+  "total_wall_time_seconds": 17.297,
+  "validation_history": [
+    {
+      "classification": "FAIL_FORBIDDEN",
+      "editorial_failure_codes": [
+        "WRITER_UTILITY_INSUFFICIENT_READER_SUBSTANCE"
+      ],
+      "forbidden_failure_codes": [
+        "grounded_paragraph_source_coverage_incomplete:2"
+      ]
+    },
+    {
+      "classification": "PASS",
+      "editorial_failure_codes": [],
+      "forbidden_failure_codes": []
+    }
+  ],
+  "validation_result": {
+    "classification": "PASS",
+    "editorial_failure_codes": [],
+    "forbidden_failure_codes": []
+  },
+  "work_item_id": "fixed-rank-1-codex-editorial-brain-zero-write"
+}

@@ -8,6 +8,7 @@ import pytest
 from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as implementation
 from live_contentops import rolling_x_grounded_article_media_builder_v1 as builder
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+    CODEX_EDITORIAL_BRAIN_TRIGGER,
     GroundedArticleBuilderError,
     build_rolling_x_grounded_article_and_media,
     build_source_backed_media_assets,
@@ -963,6 +964,13 @@ def test_decision5_provider_outage_copy_cannot_become_canonical_product(
         )
 
     monkeypatch.setattr(builder, "_default_article_generator", unavailable_quality_writer)
+    codex_calls = []
+
+    def unavailable_codex(**kwargs):
+        codex_calls.append(kwargs)
+        raise GroundedArticleBuilderError("CODEX_EDITORIAL_EXECUTION_FAILED")
+
+    monkeypatch.setattr(builder, "_run_codex_editorial_fallback", unavailable_codex)
 
     result = implementation._run_rolling_x_newsroom_cycle(
         run_id="decision-5-offline-replay",
@@ -981,10 +989,11 @@ def test_decision5_provider_outage_copy_cannot_become_canonical_product(
     )
 
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE"
+    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
     assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
-        "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE"
+        "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
     )
+    assert len(codex_calls) == 1
     assert result["public_write_performed"] is False
     assert result["unknown_write_detected"] is False
 
@@ -1293,6 +1302,248 @@ def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):
     assert raised.value.writer_router_telemetry["cx_rescue"]["terminal_disposition"] == (
         "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
     )
+
+
+def _codex_eligible_viability(*, cc_required=False, authority_verified=False):
+    document = _official_document()
+    evidence = _evidence([document], authority_verified=authority_verified)
+    evidence["minimum_trustworthy_evidence_packet"] = {
+        "status": "PASS",
+        "risk_tier": "ORDINARY",
+        "core_factual_proposition": (
+            "Treasury published a final stress testing rule that takes effect after a compliance "
+            "date and applies to affected entities."
+        ),
+        "evidence_document_id": document["document_id"],
+        "attribution_required": True,
+        "publication_authority": False,
+    }
+    evidence["evidence_substance"] = {
+        "enough_for_useful_article": True,
+        "usable_document_count": 1,
+    }
+    evidence["claim_evidence_contract"] = {
+        "supported_claims": [],
+        "omitted_unsupported_claims": [],
+        "omitted_claim_count": 0,
+    }
+    return _viability(
+        evidence=evidence,
+        cc_required=cc_required,
+        capability_authority_required=cc_required,
+    )
+
+
+def _codex_output_from_useful(*, body_suffix=""):
+    output = _useful_writer_output()
+    output["substack_body_markdown"] += body_suffix
+    output.update(
+        {
+            "source_handles_used": ["SOURCE_1"],
+            "evidence_document_ids": ["official-primary-abc123"],
+            "explicit_inferences": [],
+            "self_review_summary": (
+                "Uses the bound source, states the news once, and adds no unsupported number."
+            ),
+            "abstain_reason": None,
+        }
+    )
+    return output
+
+
+def _codex_execution(output, *, execution_id="codex-exec-1"):
+    return {
+        "exit_classification": "SUCCESS",
+        "exit_code": 0,
+        "wall_time_seconds": 1.5,
+        "timeout_seconds": 30.0,
+        "fresh_execution_id": execution_id,
+        "effective_model": None,
+        "usage": {},
+        "tool_event_counts": {
+            "command_executions": 0,
+            "web_searches": 0,
+            "mcp_tool_calls": 0,
+            "file_changes": 0,
+            "browser_calls": 0,
+        },
+        "output": output,
+    }
+
+
+def test_accepted_codex_trigger_routes_to_one_isolated_job_and_existing_gates(tmp_path):
+    calls = []
+
+    def codex_adapter(request):
+        calls.append(request)
+        return _codex_execution(_codex_output_from_useful())
+
+    built = build_rolling_x_grounded_article_and_media(
+        _codex_eligible_viability(),
+        output_dir=tmp_path / "opportunity",
+        accepted_codex_trigger_receipt={
+            "classification": CODEX_EDITORIAL_BRAIN_TRIGGER,
+            "writer_router": {"logical_invocations": 2},
+        },
+        codex_execution_adapter=codex_adapter,
+        codex_runtime_root=tmp_path / "runtime",
+        codex_timeout_seconds=30,
+    )
+
+    assert len(calls) == 1
+    assert calls[0].job_dir.parent.parent == tmp_path / "runtime"
+    assert built["article"]["article_generation_method"] == (
+        "FRESH_ISOLATED_CODEX_EDITORIAL_BRAIN"
+    )
+    assert built["article"]["codex_editorial_brain_receipt"]["status"] == "COMPLETED"
+    assert built["article"]["writer_reader_value_preflight"]["classification"] == "PASS"
+    assert "[[SOURCE:" not in built["article"]["substack_body_markdown"]
+    assert FR_URL in built["article"]["substack_body_markdown"]
+    assert built["critical_path_telemetry"]["article_writer_semantic_calls"] == 3
+    assert built["publication_authority"] is False
+
+
+def test_codex_is_not_invoked_for_authority_ineligible_story(tmp_path):
+    calls = []
+
+    def codex_adapter(request):
+        calls.append(request)
+        return _codex_execution(_codex_output_from_useful())
+
+    with pytest.raises(
+        GroundedArticleBuilderError,
+        match="analytical_mode_requires_capital_chronicle_authority",
+    ):
+        build_rolling_x_grounded_article_and_media(
+            _codex_eligible_viability(cc_required=True, authority_verified=False),
+            output_dir=tmp_path / "opportunity",
+            accepted_codex_trigger_receipt={
+                "classification": CODEX_EDITORIAL_BRAIN_TRIGGER
+            },
+            codex_execution_adapter=codex_adapter,
+            codex_runtime_root=tmp_path / "runtime",
+        )
+    assert calls == []
+
+
+def test_codex_is_not_invoked_after_material_factual_writer_failure(
+    tmp_path, monkeypatch
+):
+    codex_calls = []
+
+    def prohibited_trigger(_prompt):
+        raise GroundedArticleBuilderError(
+            CODEX_EDITORIAL_BRAIN_TRIGGER,
+            writer_router_telemetry={
+                "logical_invocations": 2,
+                "cx_rescue": {
+                    "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+                    "requested_effective_models": [{
+                        "failure_class": "factual_validation_failure"
+                    }],
+                },
+            },
+        )
+
+    def codex_fallback(**kwargs):
+        codex_calls.append(kwargs)
+        return _codex_output_from_useful()
+
+    monkeypatch.setattr(builder, "_default_article_generator", prohibited_trigger)
+    monkeypatch.setattr(builder, "_run_codex_editorial_fallback", codex_fallback)
+
+    with pytest.raises(
+        GroundedArticleBuilderError,
+        match=CODEX_EDITORIAL_BRAIN_TRIGGER,
+    ):
+        build_rolling_x_grounded_article_and_media(
+            _codex_eligible_viability(),
+            output_dir=tmp_path / "opportunity",
+            codex_runtime_root=tmp_path / "runtime",
+        )
+
+    assert codex_calls == []
+
+
+def test_codex_unsupported_numeric_output_is_rejected_without_revision(tmp_path):
+    calls = []
+
+    def codex_adapter(request):
+        calls.append(request)
+        return _codex_execution(
+            _codex_output_from_useful(
+                body_suffix="\n\nThe rule creates a new $999 billion obligation."
+            )
+        )
+
+    with pytest.raises(GroundedArticleBuilderError, match="CODEX_EDITORIAL_OUTPUT_REJECTED") as raised:
+        build_rolling_x_grounded_article_and_media(
+            _codex_eligible_viability(),
+            output_dir=tmp_path / "opportunity",
+            accepted_codex_trigger_receipt={
+                "classification": CODEX_EDITORIAL_BRAIN_TRIGGER
+            },
+            codex_execution_adapter=codex_adapter,
+            codex_runtime_root=tmp_path / "runtime",
+        )
+
+    assert len(calls) == 1
+    receipt = raised.value.writer_router_telemetry["codex_editorial_brain"]
+    assert receipt["revision_count"] == 0
+    assert "article_untraceable_numeric_claim" in receipt["validation_result"][
+        "forbidden_failure_codes"
+    ]
+
+
+def test_codex_untraceable_quotation_is_rejected_without_revision(tmp_path):
+    calls = []
+
+    def codex_adapter(request):
+        calls.append(request)
+        return _codex_execution(
+            _codex_output_from_useful(
+                body_suffix=(
+                    '\n\nAn unnamed observer called the rule “a guaranteed windfall for every bank.”'
+                )
+            )
+        )
+
+    with pytest.raises(GroundedArticleBuilderError, match="CODEX_EDITORIAL_OUTPUT_REJECTED") as raised:
+        build_rolling_x_grounded_article_and_media(
+            _codex_eligible_viability(),
+            output_dir=tmp_path / "opportunity",
+            accepted_codex_trigger_receipt={
+                "classification": CODEX_EDITORIAL_BRAIN_TRIGGER
+            },
+            codex_execution_adapter=codex_adapter,
+            codex_runtime_root=tmp_path / "runtime",
+        )
+
+    assert len(calls) == 1
+    receipt = raised.value.writer_router_telemetry["codex_editorial_brain"]
+    assert receipt["revision_count"] == 0
+    assert "article_untraceable_quotation" in receipt["validation_result"][
+        "forbidden_failure_codes"
+    ]
+
+
+def test_existing_writer_path_remains_primary_when_it_succeeds(tmp_path):
+    calls = []
+
+    def codex_adapter(request):
+        calls.append(request)
+        return _codex_execution(_codex_output_from_useful())
+
+    built = build_rolling_x_grounded_article_and_media(
+        _codex_eligible_viability(),
+        output_dir=tmp_path / "opportunity",
+        article_generator=lambda _prompt: _useful_writer_output(),
+        codex_execution_adapter=codex_adapter,
+        codex_runtime_root=tmp_path / "runtime",
+    )
+
+    assert calls == []
+    assert built["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
 
 
 # --- Phase 2: media factual provenance (framing/X cannot become evidence facts) ---

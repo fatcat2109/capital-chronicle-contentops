@@ -1,0 +1,57 @@
+{
+  "browser_use_count": 0,
+  "candidate_rank": 1,
+  "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "completed_at_utc": "2026-08-15T13:55:06.522655Z",
+  "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+  "executions": [
+    {
+      "attempt": 0,
+      "browser_use_count": 0,
+      "cli_sha256": "592958896cbffa154709618476fc9c9bf7fe73957e9a4fc12094c5051b6c69b3",
+      "cli_version": "codex-cli 0.147.0-alpha.6.6",
+      "command_execution_count": 0,
+      "diagnostic_code": null,
+      "effective_model": null,
+      "effective_reasoning_effort": null,
+      "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+      "exit_classification": "NONZERO_EXIT",
+      "exit_code": 1,
+      "external_model_service_network": true,
+      "external_research_network": false,
+      "fresh_execution_id": "01a005b4-654a-7ef0-8e76-273c6d1295f0",
+      "materialized_runtime_copy": true,
+      "non_interactive_headless": true,
+      "requested_model": null,
+      "requested_reasoning_effort": null,
+      "timeout_seconds": 420.0,
+      "tool_event_counts": {
+        "browser_calls": 0,
+        "command_executions": 0,
+        "file_changes": 0,
+        "mcp_tool_calls": 0,
+        "web_searches": 0
+      },
+      "usage": {},
+      "wall_time_seconds": 3.266,
+      "web_search_count": 0
+    }
+  ],
+  "external_research_network": false,
+  "governed_input_sha256": "b5aa0acc0f53aa204957604ff19ab487a7dd64aee92ab417b044f4715fa47bf9",
+  "headline_ids": [
+    "cc-x-headline-c1b06e8a2872d18745f952fc"
+  ],
+  "instruction_sha256": "7d8a21f0a3334ca8e77af127ed9bfb8bdbc5fd335d465cca6a235376ca4538ae",
+  "job_id": "codex-editorial-b5aa0acc0f53aa204957604f",
+  "job_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\codex_editorial_brain_task_proof_v1\\jobs\\codex-editorial-b5aa0acc0f53aa204957604f\\governed_article_job.json",
+  "output_schema_sha256": "d66983a1810288652e55b2eee7b017a000e5885d2edbd3658dc87c0b4bd73a22",
+  "public_write_performed": false,
+  "publication_authority": false,
+  "result_classification": "CODEX_EXECUTION_FAILED",
+  "revision_count": 0,
+  "schema_version": "contentops.v1_codex_editorial_brain.v1",
+  "started_at_utc": "2026-08-15T13:55:03.253997Z",
+  "status": "FAILED",
+  "work_item_id": "fixed-rank-1-codex-editorial-brain-zero-write"
+}

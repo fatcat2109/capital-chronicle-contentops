@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
@@ -265,6 +266,20 @@ def _evidence_text_bundle(context: Mapping[str, Any]) -> str:
             value = document.get(field)
             if value:
                 parts.append(str(value))
+    research = context.get("grounded_research_packet")
+    research = research if isinstance(research, Mapping) else {}
+    for field in (
+        "core_factual_proposition",
+        "confirmed_facts",
+        "attributed_numeric_facts",
+        "context",
+        "uncertainties",
+        "contradictions",
+        "unsupported_or_unverified",
+    ):
+        value = research.get(field)
+        if value:
+            parts.append(json.dumps(value, sort_keys=True, ensure_ascii=True))
     return "\n".join(parts)
 
 
@@ -830,13 +845,12 @@ def _writer_supported_claims(context: Mapping[str, Any]) -> list[dict[str, Any]]
     return []
 
 
-def build_article_generation_prompt(
-    context: Mapping[str, Any],
-    visual_asset_ids: Sequence[str],
-) -> str:
-    """Bounded article-generation request. All external text is untrusted data."""
+def _build_writer_governed_input(
+    context: Mapping[str, Any], visual_asset_ids: Sequence[str]
+) -> dict[str, Any]:
+    """Return the single governed writer packet shared by 9Router/CX and Codex."""
     framing = context.get("framing") if isinstance(context.get("framing"), Mapping) else {}
-    governed_input = {
+    return {
         "schema_version": SCHEMA_VERSION,
         "story_type": context.get("story_type"),
         "article_mode": context.get("article_mode"),
@@ -922,6 +936,14 @@ def build_article_generation_prompt(
         "audit_metadata_editorial_only": _article_audit_metadata(context),
         "output_contract": ARTICLE_OUTPUT_CONTRACT,
     }
+
+
+def build_article_generation_prompt(
+    context: Mapping[str, Any],
+    visual_asset_ids: Sequence[str],
+) -> str:
+    """Bounded article-generation request. All external text is untrusted data."""
+    governed_input = _build_writer_governed_input(context, visual_asset_ids)
     visual_marker_instruction = ", ".join(
         f"[[VISUAL:{asset_id}]]" for asset_id in visual_asset_ids
     )
@@ -1152,10 +1174,25 @@ def _resolve_generated_source_references(
             blockers.append("article_references_unknown_source_handle")
             return match.group(0)
         referenced.append(str(binding["source_id"]))
+        publisher = " ".join(str(binding.get("publisher") or "").split())
+        reader_url = str(binding.get("reader_source_url") or "")
+        preceding = str(body or "")[: match.start()].rstrip()
+        preceding_paragraph = re.split(r"\n+", preceding)[-1]
+        if (
+            publisher
+            and not reader_url
+            and re.search(rf"\b{re.escape(publisher)}\b", preceding_paragraph, re.IGNORECASE)
+        ):
+            # The handle still binds the source identity above. Avoid rendering a second bare
+            # publisher label when the writer already supplied the reader-facing attribution.
+            return ""
         return _source_reference_markdown(binding)
 
     resolved = SOURCE_HANDLE_RE.sub(replace, str(body or ""))
     resolved = _deduplicate_adjacent_publisher_attribution(resolved, bindings)
+    resolved = re.sub(r"[ \t]+([,.;:!?])", r"\1", resolved)
+    resolved = re.sub(r"[ \t]{2,}", " ", resolved)
+    resolved = re.sub(r"[ \t]+$", "", resolved, flags=re.MULTILINE)
     for url in _BODY_URL_RE.findall(resolved):
         binding = by_reader_url.get(url)
         if binding is None:
@@ -1175,6 +1212,63 @@ def _allowed_source_urls(context: Mapping[str, Any]) -> set[str]:
         for binding in _source_bindings(context)
         if binding.get("reader_source_url")
     }
+
+
+_LONG_QUOTATION_RE = re.compile(r'["\u201c]([^"\u201d]{18,})["\u201d]')
+
+
+def _grounded_quote_source_records(
+    body: str,
+    *,
+    supported_claims: Sequence[Mapping[str, Any]],
+    source_bindings: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Bind each material quotation to an exact governed claim and source identity."""
+    records: list[dict[str, Any]] = []
+    for quote_text in _LONG_QUOTATION_RE.findall(str(body or "")):
+        normalized_quote = " ".join(quote_text.casefold().split())
+        matching_claims = [
+            row
+            for row in supported_claims
+            if isinstance(row, Mapping)
+            and normalized_quote
+            in " ".join(str(row.get("claim_text") or "").casefold().split())
+        ]
+        evidence_ids = sorted(
+            {
+                str(value)
+                for row in matching_claims
+                for value in row.get("evidence_document_ids") or []
+                if str(value)
+            }
+        )
+        source_ids = sorted(
+            {
+                str(binding.get("source_id") or "")
+                for binding in source_bindings
+                if isinstance(binding, Mapping)
+                and str(binding.get("evidence_document_id") or "") in evidence_ids
+                and str(binding.get("source_id") or "")
+            }
+        )
+        if matching_claims and evidence_ids and source_ids:
+            records.append(
+                {
+                    "quote_text": quote_text,
+                    "claim_ids": sorted(
+                        {
+                            str(row.get("claim_id") or "")
+                            for row in matching_claims
+                            if str(row.get("claim_id") or "")
+                        }
+                    ),
+                    "evidence_document_ids": evidence_ids,
+                    "source_binding_ids": source_ids,
+                    "binding_method": "EXACT_GOVERNED_CLAIM_SUBSTRING",
+                    "publication_authority": False,
+                }
+            )
+    return records
 
 
 def grounded_article_source_coverage(
@@ -1510,6 +1604,21 @@ def _writer_response_source_coverage_blockers(
             if isinstance(row, Mapping)
         ]
     )
+    research = governed_input.get("grounded_research_packet")
+    research = research if isinstance(research, Mapping) else {}
+    evidence_text += " " + " ".join(
+        json.dumps(research.get(field), sort_keys=True, ensure_ascii=True)
+        for field in (
+            "core_factual_proposition",
+            "confirmed_facts",
+            "attributed_numeric_facts",
+            "context",
+            "uncertainties",
+            "contradictions",
+            "unsupported_or_unverified",
+        )
+        if research.get(field)
+    )
     evidence_tokens = {
         token.casefold()
         for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", evidence_text)
@@ -1586,6 +1695,7 @@ def _writer_utility_preflight(
 
     preflight_article = {
         **dict(article),
+        "substack_body_markdown": SOURCE_HANDLE_RE.sub("", body),
         "article_generation_method": "ROUTED_LLM_GROUNDED_ARTICLE",
         "article_mode": governed_input.get("article_mode"),
         "editorial_mode": governed_input.get("article_mode"),
@@ -1652,6 +1762,172 @@ def _writer_utility_preflight(
     return list(dict.fromkeys(codes))
 
 
+def _codex_editorial_output_validation(
+    output: Mapping[str, Any],
+    *,
+    context: Mapping[str, Any],
+    governed_input: Mapping[str, Any],
+    visual_asset_ids: Sequence[str],
+) -> dict[str, Any]:
+    """Classify Codex output before it can re-enter the canonical article builder.
+
+    Factual/source/numeric/authority failures are terminal for this Codex job.  Only reader-value
+    and schema/mechanical defects may receive the one bounded revision owned by the runner.
+    """
+    forbidden: list[str] = []
+    editorial: list[str] = []
+    body = str(output.get("substack_body_markdown") or "")
+    forbidden.extend(_writer_response_source_coverage_blockers(output, governed_input))
+    if _untraceable_numeric_claims(body, _evidence_text_bundle(context)):
+        forbidden.append("article_untraceable_numeric_claim")
+    material_quotes = _LONG_QUOTATION_RE.findall(body)
+    grounded_quotes = _grounded_quote_source_records(
+        body,
+        supported_claims=_writer_supported_claims(context),
+        source_bindings=_source_bindings(context),
+    )
+    if len(grounded_quotes) != len(material_quotes):
+        forbidden.append("article_untraceable_quotation")
+    body_visual_ids = VISUAL_RE.findall(body)
+    if sorted(body_visual_ids) != sorted(str(value) for value in visual_asset_ids):
+        editorial.append("CODEX_OUTPUT_VISUAL_MARKERS_INVALID")
+    normalized_body = " ".join(body.casefold().split())
+    for row in (context.get("claim_evidence_contract") or {}).get(
+        "omitted_unsupported_claims"
+    ) or []:
+        if not isinstance(row, Mapping):
+            continue
+        omitted_text = str(row.get("claim_text") or "")
+        normalized_omitted = " ".join(omitted_text.casefold().split())
+        if len(normalized_omitted) >= 16 and normalized_omitted in normalized_body:
+            forbidden.append("article_reintroduced_omitted_claim")
+        for number in _quantitative_numeric_claims(omitted_text):
+            if number and number.casefold() in body.casefold():
+                forbidden.append("article_reintroduced_omitted_numeric_claim")
+    editorial.extend(_writer_utility_preflight(output, governed_input))
+    return {
+        "classification": (
+            "FAIL_FORBIDDEN" if forbidden else "FAIL_EDITORIAL" if editorial else "PASS"
+        ),
+        "forbidden_failure_codes": list(dict.fromkeys(forbidden)),
+        "editorial_failure_codes": list(dict.fromkeys(editorial)),
+    }
+
+
+def _compact_codex_receipt(receipt: Mapping[str, Any]) -> dict[str, Any]:
+    """Keep only non-secret execution and validation provenance in the article artifact."""
+    return {
+        key: receipt.get(key)
+        for key in (
+            "schema_version",
+            "status",
+            "job_id",
+            "governed_input_sha256",
+            "instruction_sha256",
+            "output_schema_sha256",
+            "execution_plane",
+            "started_at_utc",
+            "completed_at_utc",
+            "revision_count",
+            "executions",
+            "validation_result",
+            "result_classification",
+            "output_sha256",
+            "total_wall_time_seconds",
+            "publication_authority",
+            "public_write_performed",
+            "browser_use_count",
+            "external_research_network",
+        )
+        if key in receipt
+    }
+
+
+def _run_codex_editorial_fallback(
+    *,
+    context: Mapping[str, Any],
+    visual_asset_ids: Sequence[str],
+    output_dir: Path,
+    work_item_id: str,
+    prior_writer_telemetry: Mapping[str, Any],
+    execution_adapter: Callable[[Any], Mapping[str, Any]] | None = None,
+    executable_path: str | Path | None = None,
+    runtime_root: Path | None = None,
+    timeout_seconds: float = 420.0,
+) -> dict[str, Any]:
+    from live_contentops.codex_editorial_brain_v1 import (
+        CodexEditorialBrainError,
+        build_codex_article_job,
+        run_codex_editorial_brain_job,
+    )
+
+    authority_blockers = _authority_blockers(context)
+    evidence_qualified = bool(
+        (context.get("grounded_research_packet") or {}).get("research_status") == "PASS"
+        or (context.get("minimum_trustworthy_evidence_packet") or {}).get("status") == "PASS"
+    )
+    if authority_blockers or not evidence_qualified or not _writer_supported_claims(context):
+        raise GroundedArticleBuilderError("CODEX_EDITORIAL_BRAIN_EVIDENCE_INELIGIBLE")
+
+    governed_input = _build_writer_governed_input(context, visual_asset_ids)
+    evaluation_cutoff = str(
+        (context.get("grounded_research_packet") or {}).get("research_as_of_utc")
+        or _primary_document(context).get("known_at_utc")
+        or ""
+    )
+    job = build_codex_article_job(
+        governed_input=governed_input,
+        work_item_id=work_item_id,
+        candidate_rank=int(context.get("selected_rank") or 0),
+        evaluation_cutoff=evaluation_cutoff,
+    )
+    effective_runtime_root = runtime_root or Path(
+        os.environ.get(
+            "CONTENTOPS_CODEX_RUNTIME_ROOT",
+            str(output_dir.parent / "_codex_editorial_brain_runtime"),
+        )
+    )
+
+    def validate(output: Mapping[str, Any]) -> Mapping[str, Any]:
+        return _codex_editorial_output_validation(
+            output,
+            context=context,
+            governed_input=governed_input,
+            visual_asset_ids=visual_asset_ids,
+        )
+
+    try:
+        result = run_codex_editorial_brain_job(
+            job=job,
+            opportunity_output_dir=output_dir,
+            runtime_root=effective_runtime_root,
+            deterministic_validator=validate,
+            timeout_seconds=timeout_seconds,
+            explicit_executable=executable_path,
+            execution_adapter=execution_adapter,
+        )
+    except CodexEditorialBrainError as exc:
+        raise GroundedArticleBuilderError(
+            exc.code,
+            writer_router_telemetry={
+                **dict(prior_writer_telemetry),
+                "codex_editorial_brain": _compact_codex_receipt(exc.receipt),
+            },
+        ) from exc
+    generated = dict(result["article_result"])
+    receipt = dict(result["receipt"])
+    generated["_codex_editorial_brain_receipt"] = _compact_codex_receipt(receipt)
+    generated["_writer_router_telemetry"] = {
+        **dict(prior_writer_telemetry),
+        "logical_invocations": int(prior_writer_telemetry.get("logical_invocations") or 0)
+        + len(receipt.get("executions") or []),
+        "codex_editorial_brain": _compact_codex_receipt(receipt),
+        "codex_completed_receipt_reused": bool(result.get("completed_receipt_reused")),
+    }
+    generated["article_generation_method"] = "FRESH_ISOLATED_CODEX_EDITORIAL_BRAIN"
+    return generated
+
+
 def _compact_writer_router_telemetry(summary: Mapping[str, Any]) -> dict[str, Any]:
     attempts = list(summary.get("attempts") or [])
     return {
@@ -1674,6 +1950,33 @@ def _compact_writer_router_telemetry(summary: Mapping[str, Any]) -> dict[str, An
             for row in attempts
         ],
     }
+
+
+def _codex_trigger_telemetry_is_eligible(telemetry: Mapping[str, Any]) -> bool:
+    """Reject a final-writer trigger that records a material non-retryable safety failure."""
+    for stage_name in ("normal", "cx_rescue"):
+        stage = telemetry.get(stage_name)
+        if not isinstance(stage, Mapping):
+            continue
+        if str(stage.get("terminal_disposition") or "") == "LLM_TERMINAL_NON_RETRYABLE_FAILURE":
+            return False
+        for attempt in stage.get("requested_effective_models") or []:
+            if not isinstance(attempt, Mapping):
+                continue
+            if str(attempt.get("failure_class") or "") in {
+                "evidence_failure",
+                "factual_validation_failure",
+                "fabricated_numeric_material",
+                "permission_failure",
+                "publication_authority_failure",
+                "freshness_or_material_delta_failure",
+                "capital_chronicle_authority_mismatch",
+                "policy_violation",
+                "invalid_authorization",
+                "malformed_business_input",
+            }:
+                return False
+    return True
 
 
 def _default_article_generator(prompt: str) -> dict[str, Any]:
@@ -2021,6 +2324,11 @@ def build_rolling_x_grounded_article_and_media(
     output_dir: Path,
     article_generator: Callable[[str], Mapping[str, Any]] | None = None,
     required_asset_count: int | None = None,
+    accepted_codex_trigger_receipt: Mapping[str, Any] | None = None,
+    codex_execution_adapter: Callable[[Any], Mapping[str, Any]] | None = None,
+    codex_executable_path: str | Path | None = None,
+    codex_runtime_root: Path | None = None,
+    codex_timeout_seconds: float = 420.0,
 ) -> dict[str, Any]:
     """Build the grounded article + source-backed media for the accepted evidence-viable story.
 
@@ -2037,13 +2345,14 @@ def build_rolling_x_grounded_article_and_media(
     )
 
     existing_activity = load_runtime_activity(output_dir / ACTIVITY_FILE_NAME)
+    effective_work_item_id = str(
+        existing_activity.get("work_item_id")
+        or viability.get("work_item_id")
+        or output_dir.name
+    )
     activity = RuntimeActivityRecorderV1(
         output_dir=output_dir,
-        work_item_id=str(
-            existing_activity.get("work_item_id")
-            or viability.get("work_item_id")
-            or output_dir.name
-        ),
+        work_item_id=effective_work_item_id,
     )
     authority_blockers = _authority_blockers(context)
     if authority_blockers:
@@ -2094,15 +2403,45 @@ def build_rolling_x_grounded_article_and_media(
     prompt = build_article_generation_prompt(context, visual_asset_ids)
     generator = article_generator or _default_article_generator
     using_default_generator = article_generator is None
-    try:
-        generated = dict(generator(prompt))
-    except Exception as exc:
-        from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+    if accepted_codex_trigger_receipt is not None and not using_default_generator:
+        raise GroundedArticleBuilderError("CODEX_TRIGGER_RECEIPT_WITH_CUSTOM_GENERATOR_FORBIDDEN")
+    codex_used = False
+    if accepted_codex_trigger_receipt is not None:
+        if str(accepted_codex_trigger_receipt.get("classification") or "") != CODEX_EDITORIAL_BRAIN_TRIGGER:
+            raise GroundedArticleBuilderError("CODEX_TRIGGER_RECEIPT_INVALID")
+        if not _codex_trigger_telemetry_is_eligible(
+            dict(accepted_codex_trigger_receipt.get("writer_router") or {})
+        ):
+            raise GroundedArticleBuilderError("CODEX_TRIGGER_PROHIBITED_SAFETY_FAILURE")
+        generated = _run_codex_editorial_fallback(
+            context=context,
+            visual_asset_ids=visual_asset_ids,
+            output_dir=output_dir,
+            work_item_id=effective_work_item_id,
+            prior_writer_telemetry=dict(
+                accepted_codex_trigger_receipt.get("writer_router") or {}
+            ),
+            execution_adapter=codex_execution_adapter,
+            executable_path=codex_executable_path,
+            runtime_root=codex_runtime_root,
+            timeout_seconds=codex_timeout_seconds,
+        )
+        codex_used = True
+    else:
+        try:
+            generated = dict(generator(prompt))
+        except Exception as exc:
+            from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
 
-        if using_default_generator and isinstance(exc, RoutedInvocationError):
-            raise GroundedArticleBuilderError(
-                CODEX_EDITORIAL_BRAIN_TRIGGER,
-                writer_router_telemetry={
+            prior_writer_telemetry: dict[str, Any] | None = None
+            if (
+                using_default_generator
+                and isinstance(exc, GroundedArticleBuilderError)
+                and str(exc) == CODEX_EDITORIAL_BRAIN_TRIGGER
+            ):
+                prior_writer_telemetry = dict(exc.writer_router_telemetry)
+            elif using_default_generator and isinstance(exc, RoutedInvocationError):
+                prior_writer_telemetry = {
                     "logical_invocations": 1,
                     "normal": _compact_writer_router_telemetry(exc.summary),
                     "normal_repair_attempted": bool(
@@ -2110,16 +2449,33 @@ def build_rolling_x_grounded_article_and_media(
                     ),
                     "cx_provider_fallback_attempted": False,
                     "cx_utility_rescue_attempted": False,
-                },
-            ) from exc
-        if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
-            "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
-        }:
-            raise
-        article_router_failure = {
-            key: value for key, value in exc.summary.items() if key != "output"
-        }
-        generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
+                }
+            if prior_writer_telemetry is not None and _codex_trigger_telemetry_is_eligible(
+                prior_writer_telemetry
+            ):
+                generated = _run_codex_editorial_fallback(
+                    context=context,
+                    visual_asset_ids=visual_asset_ids,
+                    output_dir=output_dir,
+                    work_item_id=effective_work_item_id,
+                    prior_writer_telemetry=prior_writer_telemetry,
+                    execution_adapter=codex_execution_adapter,
+                    executable_path=codex_executable_path,
+                    runtime_root=codex_runtime_root,
+                    timeout_seconds=codex_timeout_seconds,
+                )
+                codex_used = True
+            elif isinstance(exc, GroundedArticleBuilderError):
+                raise
+            elif not isinstance(exc, RoutedInvocationError) or effective_mode not in {
+                "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
+            }:
+                raise
+            else:
+                article_router_failure = {
+                    key: value for key, value in exc.summary.items() if key != "output"
+                }
+                generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
 
     resolved_body, referenced_source_ids, source_reference_blockers = (
         _resolve_generated_source_references(
@@ -2210,6 +2566,9 @@ def build_rolling_x_grounded_article_and_media(
         "article_generation_method": str(
             generated.get("article_generation_method") or "ROUTED_LLM_GROUNDED_ARTICLE"
         ),
+        "codex_editorial_brain_receipt": dict(
+            generated.get("_codex_editorial_brain_receipt") or {}
+        ),
         "article_generation_router_failure": article_router_failure,
         "conclusion_deduplication": conclusion_deduplication,
         "claim_evidence_contract_sha256": str(
@@ -2252,6 +2611,20 @@ def build_rolling_x_grounded_article_and_media(
         **audit_metadata,
     }
 
+    article["quote_source_records"] = _grounded_quote_source_records(
+        str(article.get("substack_body_markdown") or ""),
+        supported_claims=[
+            row
+            for row in article.get("supported_claims") or []
+            if isinstance(row, Mapping)
+        ],
+        source_bindings=[
+            row
+            for row in article.get("source_bindings") or []
+            if isinstance(row, Mapping)
+        ],
+    )
+
     article["grounded_source_coverage"] = grounded_article_source_coverage(
         article, context
     )
@@ -2267,7 +2640,11 @@ def build_rolling_x_grounded_article_and_media(
         writer_reader_value = evaluate_reader_value(article, media_assets=media_assets)
         article["writer_reader_value_preflight"] = writer_reader_value
         if writer_reader_value.get("classification") != "PASS":
-            raise GroundedArticleBuilderError(CODEX_EDITORIAL_BRAIN_TRIGGER)
+            raise GroundedArticleBuilderError(
+                "CODEX_EDITORIAL_BRAIN_READER_VALUE_FAILED"
+                if codex_used
+                else CODEX_EDITORIAL_BRAIN_TRIGGER
+            )
     article["canonical_rich_text"] = markdown_to_rich_text(
         str(article.get("substack_body_markdown") or "")
     )

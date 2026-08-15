@@ -7,10 +7,64 @@ from live_contentops.tier1_editorial_quality_v1 import (
     combine_editorial_gates,
     rendered_body,
     review_tier1_article_with_llm,
+    review_minimum_evidence_news_brief,
     validate_llm_editorial_review,
     evaluate_headline_desk,
     LLM_REVIEW_CHECKS,
 )
+
+
+def test_material_quote_requires_exact_evidence_and_source_binding() -> None:
+    article = {
+        "title": "Retail Sales Decline in July",
+        "editorial_mode": "straight_news",
+        "effective_article_mode": "BREAKING_BRIEF",
+        "substack_body_markdown": (
+            'MarketWatch called the pullback an “Amazon Prime hangover” after retail '
+            "sales declined in July. The report did not state the magnitude of the decline. "
+            "That limits conclusions about its scale."
+        ),
+    }
+
+    unbound = audit_tier1_article(article, media_assets=[])
+    assert unbound["editorial_checks"]["no_fabricated_quotes"] is False
+
+    article["quote_source_records"] = [{
+        "quote_text": "Amazon Prime hangover",
+        "evidence_document_ids": ["doc-1"],
+        "source_binding_ids": ["source-1"],
+    }]
+    grounded = audit_tier1_article(article, media_assets=[])
+    assert grounded["editorial_checks"]["no_fabricated_quotes"] is True
+
+
+def test_minimum_evidence_review_accepts_fresh_isolated_codex_method() -> None:
+    article = {
+        "article_generation_method": "FRESH_ISOLATED_CODEX_EDITORIAL_BRAIN",
+        "substack_body_markdown": (
+            "Retail sales slumped as cheaper gas and an Amazon Prime hangover were cited."
+        ),
+        "minimum_trustworthy_evidence_packet": {
+            "status": "PASS",
+            "risk_tier": "ORDINARY",
+            "core_factual_proposition": (
+                "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+            ),
+            "source_url": "https://example.test/source",
+            "evidence_document_id": "doc-1",
+        },
+        "source_bindings": [{
+            "source_id": "source-1",
+            "evidence_document_id": "doc-1",
+        }],
+        "source_binding_ids_referenced": ["source-1"],
+        "evidence_document_ids": ["doc-1"],
+        "x_content_grants_factual_authority": False,
+    }
+
+    review = review_minimum_evidence_news_brief(article)
+    assert review["decision"] == "PASS"
+    assert review["material_failed_checks"] == []
 
 
 def _media() -> list[dict]:
