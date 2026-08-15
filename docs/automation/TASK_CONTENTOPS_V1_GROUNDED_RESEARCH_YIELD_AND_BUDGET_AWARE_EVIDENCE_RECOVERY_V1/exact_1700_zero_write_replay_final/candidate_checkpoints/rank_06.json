@@ -1,0 +1,176 @@
+{
+  "candidate_result": {
+    "cc_context_state": null,
+    "cluster_id": "rolling-x-deterministic-cluster-c6920b43d7e20a94360e",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "elapsed_seconds": null,
+    "global_infrastructure_exhausted": false,
+    "grounding_mode": null,
+    "headline_ids": [
+      "cc-x-headline-25531ce3078cc16a3e30a230"
+    ],
+    "headline_proposition": "Monday FX Option Expiries",
+    "infrastructure_failure_class": null,
+    "measured_elapsed_seconds": 2.076,
+    "new_blockers": [
+      "evidence_documents_missing",
+      "minimum_trustworthy_evidence_missing",
+      "public_source_published_timestamp_unavailable",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation"
+    ],
+    "new_grounded_research_result": "BLOCKED",
+    "old_blockers": [
+      "evidence_documents_missing",
+      "grounded_research_query_planning_unavailable",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation",
+      "supported_claims_missing"
+    ],
+    "old_evidence_result": "BLOCKED",
+    "phase_telemetry": [],
+    "provider_telemetry": {
+      "cost_usd": 0,
+      "logical_calls": 0,
+      "models": [],
+      "provider_attempts": 0,
+      "tokens": {
+        "completion_tokens": 0,
+        "prompt_tokens": 0,
+        "total_tokens": 0
+      }
+    },
+    "public_retrieval_requests": 3,
+    "query_plan_calls": 0,
+    "rank": 6,
+    "research_calls": 0,
+    "research_model_identity": null,
+    "research_status": "BLOCKED",
+    "retrieval_result": {
+      "accepted_document_count": 0,
+      "blockers": [
+        "public_source_published_timestamp_unavailable"
+      ],
+      "status": "BLOCKED"
+    },
+    "source_authority_classes": [],
+    "source_count": 0,
+    "source_identities": [],
+    "source_synthesis_calls": 0,
+    "source_types": [],
+    "suggested_article_mode": null
+  },
+  "cluster_id": "rolling-x-deterministic-cluster-c6920b43d7e20a94360e",
+  "evidence_receipt": {
+    "blockers": [
+      "evidence_documents_missing",
+      "minimum_trustworthy_evidence_missing",
+      "public_source_published_timestamp_unavailable",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation"
+    ],
+    "capital_chronicle_authority_verified": false,
+    "cluster_id": "rolling-x-deterministic-cluster-c6920b43d7e20a94360e",
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [],
+        "enough_for_useful_article": false,
+        "enrichment_recommended": true,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 0,
+        "target_usable_content_words": 90,
+        "usable_content_words": 0,
+        "usable_document_count": 0
+      },
+      "grounded_research": {
+        "blockers": [
+          "public_source_published_timestamp_unavailable"
+        ],
+        "elapsed_seconds": null,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": null,
+        "infrastructure_failure_class": null,
+        "public_retrieval_requests": 3,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_published_timestamp_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED",
+        "telemetry": []
+      },
+      "official": {
+        "blockers": [
+          "exact_official_source_url_unavailable",
+          "official_source_locator_candidate_unavailable"
+        ],
+        "exact_bound_host_authorized_families": [],
+        "provenance": {
+          "bounded_truncation_allowed": true,
+          "evaluation_as_of_utc": "2026-08-15T10:00:00.000529Z",
+          "locator": {
+            "blockers": [
+              "official_source_locator_candidate_unavailable"
+            ],
+            "locator_endpoint": "https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest&conditions%5Bterm%5D=monday+option+expiries&conditions%5Bpublication_date%5D%5Bgte%5D=2026-08-14&conditions%5Bpublication_date%5D%5Blte%5D=2026-08-15",
+            "locator_query_logical_hash": "8a8c291d57b055bdc682426a70f8cad2576d504b5bdf58a7ff892f5dddfcc11d",
+            "status": "BLOCKED"
+          },
+          "locator_request_count": 1,
+          "official_evidence_get_count": 0,
+          "read_only_http_get_only": true,
+          "request_count": 1,
+          "request_limit": 24,
+          "retrieved_at_utc": null,
+          "timeout_seconds": 12.0
+        },
+        "registry_authorized_families": [
+          "official_regulatory_fiscal"
+        ],
+        "status": "BLOCKED"
+      }
+    },
+    "evidence_documents": [],
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [],
+      "enough_for_useful_article": false,
+      "enrichment_recommended": true,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 0,
+      "target_usable_content_words": 90,
+      "usable_content_words": 0,
+      "usable_document_count": 0
+    },
+    "headline_ids": [
+      "cc-x-headline-25531ce3078cc16a3e30a230"
+    ],
+    "minimum_trustworthy_evidence_packet": {
+      "blockers": [
+        "ordinary_core_factual_proposition_not_directly_bound"
+      ],
+      "evidence_packet_sha256": "b882e3421efaf24d9f7cc2f63bbfd2f2e30639bad9f77fdf3880cb6934d90096",
+      "publication_authority": false,
+      "risk_tier": "ORDINARY",
+      "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+      "status": "BLOCKED"
+    },
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [],
+    "publication_authority": false,
+    "status": "BLOCKED"
+  },
+  "public_write_performed": false,
+  "rank": 6,
+  "request_logical_hash": "589200d93c817e87d0c791aa9ebcf56ce05e2a577d7de0e4b6dfff098f729583",
+  "schema_version": "contentops.v1_grounded_candidate_replay_checkpoint.v1"
+}

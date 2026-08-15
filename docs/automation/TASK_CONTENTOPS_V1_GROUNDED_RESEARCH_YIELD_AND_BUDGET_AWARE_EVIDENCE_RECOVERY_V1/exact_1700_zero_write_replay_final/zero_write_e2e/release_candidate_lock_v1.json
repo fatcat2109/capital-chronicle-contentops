@@ -1,0 +1,70 @@
+{
+  "article_body_sha256": "e070598267de0791b23ee8b08fe59453e09f9e86f83886fad5e48c5d6ba1acb0",
+  "artifacts": {
+    "article_manifest_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\article_manifest_v1.json",
+      "sha256": "508dd49f8ebf0a91e98241583011aaf0a50427a2e7eafa51be9dfd244ab555c3"
+    },
+    "editorial_quality_gate_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\editorial_quality_gate_v1.json",
+      "sha256": "5df3139a62653f9ad14822bc5835cba377c3e86ff4a1d27e99ac0af3a3209bd5"
+    },
+    "grounded_support_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\grounded_support_v1.json",
+      "sha256": "3274fce4b45988faba829dba5516fae9168f1ab9b13052732484cc0d4c51a163"
+    },
+    "headline_intake_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\headline_intake_v1.json",
+      "sha256": "627f1c9aa7b6a8ac0a494fe9e1f228b3e02ad9c12209b92542d438f63b46dba6"
+    },
+    "idea_selection_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\idea_selection_v1.json",
+      "sha256": "30fcaa4b778b39286fc7846d7975e6b26654e3c116864fed702c9bf072ee6991"
+    },
+    "llm_idea_ranking_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\llm_idea_ranking_v1.json",
+      "sha256": "37cdc708108a889345807e090ddae6d24b2ca4a176f34c9c047063938128cff7"
+    },
+    "media_manifest_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\media_manifest_v1.json",
+      "sha256": "0decbab5b0b60a1ab0c4f2e08817478441b53b3bcbc592d149c9fc60051e2fa4"
+    },
+    "native_payloads_rehearsal_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\native_payloads_rehearsal_v1.json",
+      "sha256": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f"
+    },
+    "run_context_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\run_context_v1.json",
+      "sha256": "74c2dcb7880cccf38f1e55a5d2826611eb093b239de47dd3553b142ea35567d4"
+    },
+    "substack_browser_request_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\substack_browser_request_v1.json",
+      "sha256": "bf3e7ea781e52d269c370f30ed0aeaa8f232d74bac07ec6f8773237a70d8f474"
+    }
+  },
+  "duplicate_hotspot_decision": {
+    "decision": "PASS_FIRST_VIABLE_RANKED_CLUSTER",
+    "publish_allowed": true
+  },
+  "lock_sha256": "295306ebb16fa9e9d9ef3a50d07e90ebdb8b1273feefabed7a8b50b4e8128731",
+  "media_sha256": {},
+  "payload_sha256": {},
+  "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
+  "public_write_performed": false,
+  "rolling_x_live_path_used": true,
+  "run_id": "v1-grounded-frozen-zero-write",
+  "schema_version": "contentops.text_image_release_candidate_lock.v1",
+  "source_packet_sha256": "d25dd54f2e0e3a7a29cbb55361eba5bfdca52c5ba998f245885455d4b3a41214",
+  "task_label": "TASK_CONTENTOPS_ROLLING_24H_X_HEADLINES_TO_AUTONOMOUS_NEWSROOM_LIVE_V1",
+  "x_content_is_discovery_and_ranking_only": true
+}

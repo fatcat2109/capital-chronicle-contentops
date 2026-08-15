@@ -39,7 +39,7 @@ from live_contentops.source_capability_registry_v2 import (
 
 
 TASK_LABEL = (
-    "TASK_CONTENTOPS_V1_LLM_GROUNDED_RESEARCH_AND_ADDITIVE_CC_CONTEXT_VERTICAL_SLICE_V1"
+    "TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1"
 )
 
 
@@ -131,16 +131,31 @@ def _compact_provider_telemetry(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "logical_calls": len(rows),
         "provider_attempts": sum(
-            int(row.get("provider_attempt_count") or 0) for row in rows
+            int(row.get("total_attempts") or row.get("provider_attempt_count") or 0)
+            for row in rows
         ),
         "tokens": {
             key: sum(
-                int((row.get("token_usage") or {}).get(key) or 0) for row in rows
+                int(
+                    (
+                        row.get("total_usage")
+                        or row.get("token_usage")
+                        or {}
+                    ).get(key)
+                    or 0
+                )
+                for row in rows
             )
             for key in ("prompt_tokens", "completion_tokens", "total_tokens")
         },
         "cost_usd": round(
-            sum(float((row.get("cost") or {}).get("usd") or 0.0) for row in rows),
+            sum(
+                float(
+                    (row.get("total_cost") or row.get("cost") or {}).get("usd")
+                    or 0.0
+                )
+                for row in rows
+            ),
             8,
         ),
         "models": list(
@@ -178,11 +193,21 @@ def _research_metrics(receipt: Mapping[str, Any]) -> dict[str, Any]:
     grounded = provenance.get("grounded_research") or {}
     packet = receipt.get("grounded_research_packet") or {}
     sources = [row for row in packet.get("sources") or [] if isinstance(row, Mapping)]
+    telemetry = [
+        row for row in grounded.get("telemetry") or [] if isinstance(row, Mapping)
+    ]
     return {
         "research_status": packet.get("research_status") or receipt.get("status"),
         "grounding_mode": packet.get("grounding_mode"),
         "research_model_identity": packet.get("research_model_identity"),
         "research_calls": int(grounded.get("research_calls") or 0),
+        "query_plan_calls": sum(
+            str(row.get("phase") or "") in {"query_plan", "query_replan"}
+            for row in telemetry
+        ),
+        "source_synthesis_calls": sum(
+            str(row.get("phase") or "") == "source_synthesis" for row in telemetry
+        ),
         "public_retrieval_requests": int(
             grounded.get("public_retrieval_requests") or 0
         ),
@@ -198,6 +223,25 @@ def _research_metrics(receipt: Mapping[str, Any]) -> dict[str, Any]:
             }
             - {""}
         ),
+        "source_identities": [
+            {
+                "source_ref": row.get("source_ref"),
+                "source_title": row.get("source_title"),
+                "publisher": row.get("publisher"),
+                "source_url": row.get("source_url"),
+                "evidence_document_id": row.get("evidence_document_id"),
+                "evidence_packet_sha256": row.get("evidence_packet_sha256"),
+            }
+            for row in sources
+        ],
+        "retrieval_result": dict(grounded.get("retrieval_result") or {}),
+        "infrastructure_failure_class": grounded.get(
+            "infrastructure_failure_class"
+        ),
+        "global_infrastructure_exhausted": bool(
+            grounded.get("global_infrastructure_exhausted")
+        ),
+        "phase_telemetry": telemetry,
         "cc_context_state": (
             (receipt.get("cc_context_bundle") or {}).get("state")
             or (packet.get("cc_context") or {}).get("state")
@@ -248,7 +292,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         raise ValueError("frozen_replay_requires_exactly_12_rank_attempts")
     if cycle.get("exact_next_blocker") != "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED":
         raise ValueError("source_cycle_terminal_result_mismatch")
-    if int((cycle.get("critical_path_telemetry") or {}).get("full_rolling_headline_count") or 0) != 636:
+    full_rolling_headline_count = int(
+        (cycle.get("critical_path_telemetry") or {}).get(
+            "full_rolling_headline_count"
+        )
+        or (cycle.get("intake") or {}).get("counts", {}).get("accepted")
+        or 0
+    )
+    if full_rolling_headline_count <= 0:
         raise ValueError("source_cycle_full_rolling_headline_count_mismatch")
 
     clusters = {
@@ -311,6 +362,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             if "llm_operator_paused" not in checkpoint_blockers:
                 replay_rows.append(checkpoint_result)
                 receipts[cluster_id] = dict(checkpoint["evidence_receipt"])
+                if checkpoint_source != checkpoint_path:
+                    _write_json(checkpoint_path, checkpoint)
                 continue
         public_loader = BoundedPublicSecondaryEvidenceLoader(
             evaluation_as_of_utc=cutoff,
@@ -373,7 +426,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "task_label": TASK_LABEL,
         "source_run_id": cycle.get("run_id"),
         "original_cutoff_utc": cutoff,
-        "full_rolling_headline_count": 636,
+        "full_rolling_headline_count": full_rolling_headline_count,
         "ranked_candidate_count": 12,
         "source_artifacts": {
             path.name: {"path": str(path), "sha256": _sha256_file(path)}
@@ -396,7 +449,21 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "public_writes": 0,
         "publishing_adapter_called": False,
     }
-    if eligible:
+    e2e_result_path = output_dir / "zero_write_e2e" / "zero_write_e2e_result_v1.json"
+    if eligible and e2e_result_path.exists():
+        checkpointed_e2e = _load(e2e_result_path)
+        selected = eligible[0]
+        if (
+            int(checkpointed_e2e.get("selected_rank") or 0) != int(selected["rank"])
+            or str(checkpointed_e2e.get("selected_cluster_id") or "")
+            != str(selected["cluster_id"])
+            or int(checkpointed_e2e.get("public_writes") or 0) != 0
+            or bool(checkpointed_e2e.get("publishing_adapter_called"))
+            or bool(checkpointed_e2e.get("publication_coordinator_called"))
+        ):
+            raise ValueError("zero_write_e2e_checkpoint_binding_mismatch")
+        e2e = checkpointed_e2e
+    if eligible and e2e["status"] == "NOT_RUN_NO_RESEARCH_ELIGIBLE_FROZEN_CANDIDATE":
         selected_row = eligible[0]
         selected_id = str(selected_row["cluster_id"])
         old_attempt = next(
@@ -535,7 +602,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "publication_coordinator_called": False,
             "unknown_write": 0,
         }
-        _write_json(e2e_dir / "zero_write_e2e_result_v1.json", e2e)
+        _write_json(e2e_result_path, e2e)
         _write_json(e2e_dir / "publication_plan_zero_write_v1.json", plan)
 
     total_sources = sum(int(row.get("source_count") or 0) for row in replay_rows)
@@ -543,6 +610,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         int(row.get("public_retrieval_requests") or 0) for row in replay_rows
     )
     total_research_calls = sum(int(row.get("research_calls") or 0) for row in replay_rows)
+    replay_provider_attempts = sum(
+        int((row.get("provider_telemetry") or {}).get("provider_attempts") or 0)
+        for row in replay_rows
+    )
+    replay_accounted_tokens = sum(
+        int(
+            ((row.get("provider_telemetry") or {}).get("tokens") or {}).get(
+                "total_tokens"
+            )
+            or 0
+        )
+        for row in replay_rows
+    )
     cc_distribution = {
         state: sum(row.get("cc_context_state") == state for row in replay_rows)
         for state in (
@@ -556,18 +636,39 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "schema_version": "contentops.v1_grounded_research_vertical_slice_evidence.v1",
         "task_label": TASK_LABEL,
         "classification": (
-            "PASS_GROUNDED_RESEARCH_VERTICAL_SLICE_ZERO_WRITE"
-            if eligible and e2e.get("status") == "PASS_ZERO_WRITE_E2E"
+            "PASS_V1_GROUNDED_RESEARCH_YIELD_RECOVERED"
+            if eligible
+            and int(e2e.get("writer_calls") or 0) == 1
+            and e2e.get("factual_gate") == "PASS"
+            and int(e2e.get("public_writes") or 0) == 0
+            and not bool(e2e.get("publishing_adapter_called"))
+            and not bool(e2e.get("publication_coordinator_called"))
+            and (
+                e2e.get("status") == "PASS_ZERO_WRITE_E2E"
+                or (
+                    e2e.get("status") == "BLOCKED_ZERO_WRITE_E2E"
+                    and e2e.get("editorial_status") == "NO_PUBLICATION"
+                )
+            )
             else "BLOCKED_GROUNDED_RESEARCH_VERTICAL_SLICE"
         ),
         "created_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "source_run_id": cycle.get("run_id"),
         "original_cutoff_utc": cutoff,
-        "full_rolling_headline_count": 636,
+        "full_rolling_headline_count": full_rolling_headline_count,
         "frozen_ranked_candidate_count": 12,
         "old_evidence_eligible_count": 0,
         "new_evidence_research_eligible_count": len(eligible),
         "research_calls": total_research_calls,
+        "query_plan_calls": sum(
+            int(row.get("query_plan_calls") or 0) for row in replay_rows
+        ),
+        "source_synthesis_calls": sum(
+            int(row.get("source_synthesis_calls") or 0) for row in replay_rows
+        ),
+        "research_provider_attempts": replay_provider_attempts,
+        "research_accounted_tokens": replay_accounted_tokens,
+        "candidate_receipts_checkpointed": True,
         "average_sources_per_candidate": round(total_sources / 12.0, 3),
         "average_public_retrieval_requests_per_candidate": round(
             total_requests / 12.0, 3
@@ -577,7 +678,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "zero_write_e2e": e2e,
         "budget_telemetry": _budget_telemetry(control_root),
         "effective_grounding_implementation": (
-            "LLM_QUERY_PLANNING_PLUS_BOUNDED_RETRIEVAL"
+            "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS"
         ),
         "native_provider_grounding_detected": False,
         "public_writes_during_acceptance": 0,

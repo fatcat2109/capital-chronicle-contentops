@@ -1,0 +1,157 @@
+{
+  "adapter_callables_persisted": false,
+  "article_identity": "e070598267de0791b23ee8b08fe59453e09f9e86f83886fad5e48c5d6ba1acb0",
+  "artifact_refs": {
+    "article_manifest_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\article_manifest_v1.json",
+      "sha256": "508dd49f8ebf0a91e98241583011aaf0a50427a2e7eafa51be9dfd244ab555c3"
+    },
+    "editorial_quality_gate_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\editorial_quality_gate_v1.json",
+      "sha256": "5df3139a62653f9ad14822bc5835cba377c3e86ff4a1d27e99ac0af3a3209bd5"
+    },
+    "grounded_support_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\grounded_support_v1.json",
+      "sha256": "3274fce4b45988faba829dba5516fae9168f1ab9b13052732484cc0d4c51a163"
+    },
+    "headline_intake_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\headline_intake_v1.json",
+      "sha256": "627f1c9aa7b6a8ac0a494fe9e1f228b3e02ad9c12209b92542d438f63b46dba6"
+    },
+    "idea_selection_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\idea_selection_v1.json",
+      "sha256": "30fcaa4b778b39286fc7846d7975e6b26654e3c116864fed702c9bf072ee6991"
+    },
+    "llm_idea_ranking_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\llm_idea_ranking_v1.json",
+      "sha256": "37cdc708108a889345807e090ddae6d24b2ca4a176f34c9c047063938128cff7"
+    },
+    "media_manifest_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\media_manifest_v1.json",
+      "sha256": "0decbab5b0b60a1ab0c4f2e08817478441b53b3bcbc592d149c9fc60051e2fa4"
+    },
+    "native_payloads_rehearsal_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\native_payloads_rehearsal_v1.json",
+      "sha256": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f"
+    },
+    "run_context_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\run_context_v1.json",
+      "sha256": "74c2dcb7880cccf38f1e55a5d2826611eb093b239de47dd3553b142ea35567d4"
+    },
+    "substack_browser_request_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\substack_browser_request_v1.json",
+      "sha256": "bf3e7ea781e52d269c370f30ed0aeaa8f232d74bac07ec6f8773237a70d8f474"
+    }
+  },
+  "destinations": [
+    {
+      "adapter": "edge_cdp_publishing_adapter_v1.publish_substack_article_via_edge",
+      "canonical_url_dependency": null,
+      "destination": "substack",
+      "expected_destination_identity": "capitalchronicle.substack.com",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "payload_hash": "e070598267de0791b23ee8b08fe59453e09f9e86f83886fad5e48c5d6ba1acb0",
+      "payload_hash_kind": "FINAL_ARTICLE_BYTES",
+      "platform": "substack",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "SUBSTACK_ARTICLE",
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "EDGE_CDP"
+    }
+  ],
+  "editorial_classification": "BREAKING_NEW_STORY",
+  "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e",
+  "package_identity": "295306ebb16fa9e9d9ef3a50d07e90ebdb8b1273feefabed7a8b50b4e8128731",
+  "plan_hash": "0723b64b4828e4259038b304ae5627583842326c7eafae3391540a473e0d9f85",
+  "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+  "publication_window": {
+    "window_identity": "v1-grounded-frozen-zero-write"
+  },
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "run_id": "v1-grounded-frozen-zero-write",
+  "schema_version": "contentops.publication_plan.v1",
+  "secrets_persisted": false,
+  "skipped_derivative_destinations": [
+    {
+      "attempted": false,
+      "canonical_truth_affected": false,
+      "destination": "discord",
+      "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "DISCORD_ANNOUNCEMENT"
+    },
+    {
+      "attempted": false,
+      "canonical_truth_affected": false,
+      "destination": "facebook_page",
+      "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "FACEBOOK_PAGE_POST"
+    },
+    {
+      "attempted": false,
+      "canonical_truth_affected": false,
+      "destination": "instagram_business",
+      "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "INSTAGRAM_BUSINESS_POST"
+    },
+    {
+      "attempted": false,
+      "canonical_truth_affected": false,
+      "destination": "linkedin",
+      "disposition": "SKIPPED_PACKAGE_UNAVAILABLE",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "LINKEDIN_POST"
+    },
+    {
+      "attempted": false,
+      "canonical_truth_affected": false,
+      "destination": "telegram",
+      "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "TELEGRAM_CHANNEL_POST"
+    },
+    {
+      "attempted": false,
+      "canonical_truth_affected": false,
+      "destination": "threads",
+      "disposition": "SKIPPED_PACKAGE_UNAVAILABLE",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "THREADS_POST"
+    },
+    {
+      "attempted": false,
+      "canonical_truth_affected": false,
+      "destination": "x",
+      "disposition": "SKIPPED_PACKAGE_UNAVAILABLE",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "X_THREAD"
+    },
+    {
+      "attempted": false,
+      "canonical_truth_affected": false,
+      "destination": "youtube",
+      "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+      "readiness_state": "READINESS_MISSING",
+      "surface": "YOUTUBE_COMMUNITY_POST"
+    }
+  ],
+  "story_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "substack_first_dependency": true,
+  "transport_registry_version": "contentops.destination_transport_registry.v2",
+  "update_chain_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9"
+}

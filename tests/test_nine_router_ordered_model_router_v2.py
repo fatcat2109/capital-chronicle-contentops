@@ -23,6 +23,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV,
     GATEWAY,
     GEMINI_PRO_MODEL,
+    GROUNDED_RESEARCH_ROLE,
     IDENTITY_MISMATCH_CLASS,
     IDENTITY_NOT_VERIFIABLE,
     MAX_TOTAL_PROVIDER_ATTEMPTS,
@@ -283,6 +284,10 @@ def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_b
         role_task_id="article_writing",
         logical_invocation_id="generic-budget-test",
     )
+    grounded = retry_budget_for_role(
+        role_task_id=GROUNDED_RESEARCH_ROLE,
+        logical_invocation_id="grounded-budget-test",
+    )
     assert leaf.wall_clock_budget_seconds == NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS == 1200.0
     assert editor.wall_clock_budget_seconds == NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS == 1200.0
     assert generic.wall_clock_budget_seconds == 300.0
@@ -297,6 +302,9 @@ def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_b
     assert generic.max_total_provider_attempts == MAX_TOTAL_PROVIDER_ATTEMPTS
     assert generic.max_same_model_retries == 1
     assert generic.per_model_max_attempts == (2, 2, 1, 1)
+    assert grounded.max_total_provider_attempts == 5
+    assert grounded.max_structured_output_repair_attempts == 1
+    assert grounded.per_model_max_attempts == (1, 1, 1, 2)
 
 
 def test_global_editor_authority_packet_declares_exact_bounded_repair_policy() -> None:

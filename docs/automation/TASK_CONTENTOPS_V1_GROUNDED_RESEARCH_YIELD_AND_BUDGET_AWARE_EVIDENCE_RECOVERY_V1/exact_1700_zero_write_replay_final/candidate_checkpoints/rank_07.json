@@ -1,0 +1,408 @@
+{
+  "candidate_result": {
+    "cc_context_state": null,
+    "cluster_id": "rolling-x-deterministic-cluster-f18e9ba010996773c50d",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "elapsed_seconds": null,
+    "global_infrastructure_exhausted": false,
+    "grounding_mode": null,
+    "headline_ids": [
+      "cc-x-headline-4e23930c9139ab39f173b841"
+    ],
+    "headline_proposition": "\u201c.. There are some people arguing that the K-shaped economy is over,\u201d said @DianeSwonk, chief US economist at KPMG .. .. Friday\u2019s data emphasised \u201cthat is not the case\u201d, she said. @FT",
+    "infrastructure_failure_class": null,
+    "measured_elapsed_seconds": 38.26,
+    "new_blockers": [
+      "HTTP Error 403: Forbidden",
+      "evidence_documents_missing",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation"
+    ],
+    "new_grounded_research_result": "BLOCKED",
+    "old_blockers": [
+      "evidence_documents_missing",
+      "grounded_research_query_planning_unavailable",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation",
+      "supported_claims_missing"
+    ],
+    "old_evidence_result": "BLOCKED",
+    "phase_telemetry": [
+      {
+        "attempts": [
+          {
+            "failure_class": "http_503_unavailable",
+            "provider_status_class": "5xx_server_503",
+            "requested_model": "new/claude-fable-5",
+            "structured_validation_result": "NOT_EVALUATED"
+          },
+          {
+            "failure_class": "http_503_unavailable",
+            "provider_status_class": "5xx_server_503",
+            "requested_model": "new/gpt-5.6-sol-xhigh",
+            "structured_validation_result": "NOT_EVALUATED"
+          },
+          {
+            "failure_class": "http_503_unavailable",
+            "provider_status_class": "5xx_server_503",
+            "requested_model": "new/claude-opus-5",
+            "structured_validation_result": "NOT_EVALUATED"
+          },
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_plan_8baad39e109574b5a5e9",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "new/claude-fable-5",
+          "new/gpt-5.6-sol-xhigh",
+          "new/claude-opus-5",
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "query_plan",
+        "provider_attempt_count": 4,
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": "http_503_unavailable",
+        "token_usage": {
+          "completion_tokens": 845.0,
+          "prompt_tokens": 2730.0,
+          "total_tokens": 3575.0
+        },
+        "wall_clock_elapsed_seconds": 15.6813
+      },
+      {
+        "attempts": [
+          {
+            "failure_class": "http_503_unavailable",
+            "provider_status_class": "5xx_server_503",
+            "requested_model": "new/claude-fable-5",
+            "structured_validation_result": "NOT_EVALUATED"
+          },
+          {
+            "failure_class": "http_503_unavailable",
+            "provider_status_class": "5xx_server_503",
+            "requested_model": "new/gpt-5.6-sol-xhigh",
+            "structured_validation_result": "NOT_EVALUATED"
+          },
+          {
+            "failure_class": "http_503_unavailable",
+            "provider_status_class": "5xx_server_503",
+            "requested_model": "new/claude-opus-5",
+            "structured_validation_result": "NOT_EVALUATED"
+          },
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_replan_8baad39e109574b5a5e9",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "new/claude-fable-5",
+          "new/gpt-5.6-sol-xhigh",
+          "new/claude-opus-5",
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "query_replan",
+        "provider_attempt_count": 4,
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": "http_503_unavailable",
+        "token_usage": {
+          "completion_tokens": 1160.0,
+          "prompt_tokens": 2876.0,
+          "total_tokens": 4036.0
+        },
+        "wall_clock_elapsed_seconds": 19.6871
+      }
+    ],
+    "provider_telemetry": {
+      "cost_usd": 0.0,
+      "logical_calls": 2,
+      "models": [
+        "new/claude-fable-5",
+        "new/gpt-5.6-sol-xhigh",
+        "new/claude-opus-5",
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider_attempts": 8,
+      "tokens": {
+        "completion_tokens": 2005,
+        "prompt_tokens": 5606,
+        "total_tokens": 7611
+      }
+    },
+    "public_retrieval_requests": 6,
+    "query_plan_calls": 2,
+    "rank": 7,
+    "research_calls": 2,
+    "research_model_identity": null,
+    "research_status": "BLOCKED",
+    "retrieval_result": {
+      "accepted_document_count": 0,
+      "blockers": [
+        "HTTP Error 403: Forbidden"
+      ],
+      "status": "BLOCKED"
+    },
+    "source_authority_classes": [],
+    "source_count": 0,
+    "source_identities": [],
+    "source_synthesis_calls": 0,
+    "source_types": [],
+    "suggested_article_mode": null
+  },
+  "cluster_id": "rolling-x-deterministic-cluster-f18e9ba010996773c50d",
+  "evidence_receipt": {
+    "blockers": [
+      "HTTP Error 403: Forbidden",
+      "evidence_documents_missing",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation"
+    ],
+    "capital_chronicle_authority_verified": false,
+    "claim_evidence_contract": {
+      "blocked_claims": [
+        {
+          "claim_id": "claim-6632943c77f82d39",
+          "claim_text": "There are some people arguing that the K-shaped economy is over,\u201d said @DianeSwonk, chief US economist at KPMG ..",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        },
+        {
+          "claim_id": "claim-1d14de60753cd9e5",
+          "claim_text": "Friday\u2019s data emphasised \u201cthat is not the case\u201d, she said.",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "claim_contract_sha256": "5b6e684f3355b546708e7ec68840edd53c57ad4d55a6fc7e6820979bacb578b3",
+      "fabricated_claim_count": 0,
+      "omitted_claim_count": 2,
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-6632943c77f82d39",
+          "claim_text": "There are some people arguing that the K-shaped economy is over,\u201d said @DianeSwonk, chief US economist at KPMG ..",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        },
+        {
+          "claim_id": "claim-1d14de60753cd9e5",
+          "claim_text": "Friday\u2019s data emphasised \u201cthat is not the case\u201d, she said.",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.claim_evidence_contract.v1",
+      "status": "BLOCKED",
+      "supported_claim_count": 0,
+      "supported_claims": [],
+      "x_content_grants_factual_authority": false
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-f18e9ba010996773c50d",
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [],
+        "enough_for_useful_article": false,
+        "enrichment_recommended": true,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 0,
+        "target_usable_content_words": 90,
+        "usable_content_words": 0,
+        "usable_document_count": 0
+      },
+      "grounded_research": {
+        "blockers": [
+          "HTTP Error 403: Forbidden"
+        ],
+        "elapsed_seconds": null,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": null,
+        "infrastructure_failure_class": null,
+        "public_retrieval_requests": 6,
+        "research_calls": 2,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "HTTP Error 403: Forbidden"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "failure_class": "http_503_unavailable",
+                "provider_status_class": "5xx_server_503",
+                "requested_model": "new/claude-fable-5",
+                "structured_validation_result": "NOT_EVALUATED"
+              },
+              {
+                "failure_class": "http_503_unavailable",
+                "provider_status_class": "5xx_server_503",
+                "requested_model": "new/gpt-5.6-sol-xhigh",
+                "structured_validation_result": "NOT_EVALUATED"
+              },
+              {
+                "failure_class": "http_503_unavailable",
+                "provider_status_class": "5xx_server_503",
+                "requested_model": "new/claude-opus-5",
+                "structured_validation_result": "NOT_EVALUATED"
+              },
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_plan_8baad39e109574b5a5e9",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "new/claude-fable-5",
+              "new/gpt-5.6-sol-xhigh",
+              "new/claude-opus-5",
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_plan",
+            "provider_attempt_count": 4,
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": "http_503_unavailable",
+            "token_usage": {
+              "completion_tokens": 845.0,
+              "prompt_tokens": 2730.0,
+              "total_tokens": 3575.0
+            },
+            "wall_clock_elapsed_seconds": 15.6813
+          },
+          {
+            "attempts": [
+              {
+                "failure_class": "http_503_unavailable",
+                "provider_status_class": "5xx_server_503",
+                "requested_model": "new/claude-fable-5",
+                "structured_validation_result": "NOT_EVALUATED"
+              },
+              {
+                "failure_class": "http_503_unavailable",
+                "provider_status_class": "5xx_server_503",
+                "requested_model": "new/gpt-5.6-sol-xhigh",
+                "structured_validation_result": "NOT_EVALUATED"
+              },
+              {
+                "failure_class": "http_503_unavailable",
+                "provider_status_class": "5xx_server_503",
+                "requested_model": "new/claude-opus-5",
+                "structured_validation_result": "NOT_EVALUATED"
+              },
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_replan_8baad39e109574b5a5e9",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "new/claude-fable-5",
+              "new/gpt-5.6-sol-xhigh",
+              "new/claude-opus-5",
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_replan",
+            "provider_attempt_count": 4,
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": "http_503_unavailable",
+            "token_usage": {
+              "completion_tokens": 1160.0,
+              "prompt_tokens": 2876.0,
+              "total_tokens": 4036.0
+            },
+            "wall_clock_elapsed_seconds": 19.6871
+          }
+        ]
+      },
+      "official": {
+        "blockers": [
+          "exact_official_source_url_unavailable",
+          "official_source_locator_candidate_unavailable"
+        ],
+        "exact_bound_host_authorized_families": [],
+        "provenance": {
+          "bounded_truncation_allowed": true,
+          "evaluation_as_of_utc": "2026-08-15T10:00:00.000529Z",
+          "locator": {
+            "blockers": [
+              "official_source_locator_candidate_unavailable"
+            ],
+            "locator_endpoint": "https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest&conditions%5Bterm%5D=there+are+some+people+arguing+k-shaped+economy+over&conditions%5Bpublication_date%5D%5Bgte%5D=2026-08-14&conditions%5Bpublication_date%5D%5Blte%5D=2026-08-15",
+            "locator_query_logical_hash": "37b40ebd828278b9aa984566a316876b2ce25d7cfc51d68818a4e2f5b79187a8",
+            "status": "BLOCKED"
+          },
+          "locator_request_count": 1,
+          "official_evidence_get_count": 0,
+          "read_only_http_get_only": true,
+          "request_count": 1,
+          "request_limit": 24,
+          "retrieved_at_utc": null,
+          "timeout_seconds": 12.0
+        },
+        "registry_authorized_families": [
+          "official_regulatory_fiscal"
+        ],
+        "status": "BLOCKED"
+      }
+    },
+    "evidence_documents": [],
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [],
+      "enough_for_useful_article": false,
+      "enrichment_recommended": true,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 0,
+      "target_usable_content_words": 90,
+      "usable_content_words": 0,
+      "usable_document_count": 0
+    },
+    "headline_ids": [
+      "cc-x-headline-4e23930c9139ab39f173b841"
+    ],
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [],
+    "publication_authority": false,
+    "status": "BLOCKED"
+  },
+  "public_write_performed": false,
+  "rank": 7,
+  "request_logical_hash": "67f71e70e99d4572297eb038a5e363709a4d08582d973f01512e758bd0f50042",
+  "schema_version": "contentops.v1_grounded_candidate_replay_checkpoint.v1"
+}

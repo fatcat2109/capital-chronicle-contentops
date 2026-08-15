@@ -1,0 +1,20 @@
+{
+  "blockers": [
+    "INSUFFICIENT_READER_VALUE"
+  ],
+  "classification": "BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+  "destination_readiness": {
+    "all_required_destinations_ready": false,
+    "destinations": {}
+  },
+  "distribution_warnings": [
+    "substack_jit_readiness_required"
+  ],
+  "public_write_performed": false,
+  "publishing_adapter_called": false,
+  "release_candidate_lock_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\release_candidate_lock_v1.json",
+  "release_candidate_lock_sha256": "295306ebb16fa9e9d9ef3a50d07e90ebdb8b1273feefabed7a8b50b4e8128731",
+  "run_id": "v1-grounded-frozen-zero-write",
+  "schema_version": "contentops.rolling_x_text_image_release_rehearsal.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9"
+}

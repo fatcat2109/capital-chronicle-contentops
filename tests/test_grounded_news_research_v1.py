@@ -7,13 +7,17 @@ import pytest
 
 from live_contentops.grounded_news_research_v1 import (
     GROUNDING_MODE,
+    GroundedNewsResearchInvocationError,
     GroundedNewsResearchV1,
     _locator_query_seed,
+    _model_failure,
     build_additive_cc_context_bundle,
+    build_deterministic_locator_plan,
 )
 from live_contentops.nine_router_provider_adapter_v2 import (
     grounding_capability_manifest,
 )
+from live_contentops.llm_cost_governor_v1 import LLMCostBudgetExceededError
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     GroundedArticleBuilderError,
     build_rolling_x_grounded_article_and_media,
@@ -231,7 +235,7 @@ def test_provider_contract_selects_compatibility_grounding_without_probe():
     assert capability["network_probe_required"] is False
 
 
-def test_retrieval_keeps_llm_query_and_adds_exact_proposition_seed():
+def test_ordinary_retrieval_uses_deterministic_proposition_and_entity_queries():
     document = _document()
     seen_queries: list[str] = []
 
@@ -247,14 +251,21 @@ def test_retrieval_keeps_llm_query_and_adds_exact_proposition_seed():
     )(_request())
 
     assert result["status"] == "PASS"
-    assert seen_queries[0].startswith("US Commerce Department")
-    assert seen_queries[-1] == "US announces new semiconductor export restrictions"
+    assert seen_queries[0] == "US announces new semiconductor export restrictions"
+    assert seen_queries[1].endswith("United States semiconductors")
+    assert result["query_plan"]["planning_mode"] == "DETERMINISTIC_ORDINARY_LOCATOR"
+    assert [row["phase"] for row in result["telemetry"]] == ["source_synthesis"]
 
 
 def test_empty_first_retrieval_gets_one_bounded_llm_replan():
     document = _document()
+    corroborating = _document(
+        "ap-chip-rule",
+        publisher="Associated Press",
+        source_url="https://apnews.com/article/us-chip-export-rule-123",
+    )
     retrievals: list[list[str]] = []
-    base_model = _model_call([document["document_id"]])
+    base_model = _model_call([document["document_id"], corroborating["document_id"]])
 
     def model(phase: str, prompt: str) -> dict:
         if phase == "query_replan":
@@ -267,7 +278,7 @@ def test_empty_first_retrieval_gets_one_bounded_llm_replan():
 
     def retrieve(request: dict) -> dict:
         retrievals.append(list(request["story_context"]["grounded_research_queries"]))
-        documents = [] if len(retrievals) == 1 else [document]
+        documents = [] if len(retrievals) == 1 else [document, corroborating]
         return {
             "status": "PASS" if documents else "BLOCKED",
             "evidence_documents": documents,
@@ -278,12 +289,13 @@ def test_empty_first_retrieval_gets_one_bounded_llm_replan():
             "publication_authority": False,
         }
 
+    request = _request(story_type="geopolitical_event", mode="BREAKING_BRIEF")
     result = GroundedNewsResearchV1(
         evaluation_as_of_utc=AS_OF,
         public_retriever=retrieve,
         structured_model_call=model,
         max_queries=3,
-    )(_request())
+    )(request)
 
     assert result["status"] == "PASS"
     assert result["research_calls"] == 3
@@ -331,9 +343,8 @@ def test_unsupported_model_number_is_rejected_even_with_real_source_record():
     result = research(_request())
 
     assert result["status"] == "BLOCKED"
-    assert result["blockers"] == [
-        "grounded_research_source_synthesis_unavailable_or_unbound"
-    ]
+    assert result["blockers"] == ["research_fact_not_supported_by_bound_source"]
+    assert result["retrieval_result"]["accepted_document_count"] == 1
 
 
 def test_model_assertion_without_an_exact_source_record_cannot_pass():
@@ -347,7 +358,8 @@ def test_model_assertion_without_an_exact_source_record_cannot_pass():
     result = research(_request())
 
     assert result["status"] == "BLOCKED"
-    assert result["research_calls"] == 2
+    assert result["research_calls"] == 1
+    assert result["blockers"] == ["research_fact_binding_invalid"]
 
 
 def test_operator_pause_is_preserved_as_an_exact_pre_network_blocker():
@@ -364,8 +376,9 @@ def test_operator_pause_is_preserved_as_an_exact_pre_network_blocker():
 
     assert result["status"] == "BLOCKED"
     assert result["blockers"] == ["llm_operator_paused"]
-    assert result["research_calls"] == 0
-    assert result["public_retrieval_requests"] == 0
+    assert result["research_calls"] == 1
+    assert result["public_retrieval_requests"] == 2
+    assert result["global_infrastructure_exhausted"] is True
 
 
 def test_additive_cc_context_state_is_available_but_never_grants_authority():
@@ -443,7 +456,97 @@ def test_mode_downgrades_and_cached_research_does_not_repeat_calls():
 
     assert first["research_packet"]["suggested_article_mode"] == "BREAKING_BRIEF"
     assert second["cache_reused"] is True
-    assert calls == ["query_plan", "source_synthesis"]
+    assert calls == ["source_synthesis"]
+
+
+def test_deterministic_locator_plan_uses_bound_host_without_granting_authority():
+    compact = {
+        "normalized_headline_proposition": "Company files current quarterly results",
+        "important_entities": ["Example Holdings"],
+        "already_bound_source_urls": ["https://www.reuters.com/business/example/"],
+        "claims_or_questions_needing_verification": ["What did the filing report?"],
+    }
+
+    plan = build_deterministic_locator_plan(compact, max_queries=3)
+
+    assert plan["queries"] == [
+        "Company files current quarterly results",
+        "Company files current quarterly results Example Holdings",
+        "reuters Company files current quarterly results",
+    ]
+    assert plan["already_bound_source_urls_considered"] == 1
+    assert plan["query_text_grants_factual_authority"] is False
+
+
+def test_ordinary_candidate_with_no_source_records_spends_zero_model_calls():
+    calls: list[str] = []
+
+    def model(phase: str, _prompt: str) -> dict:
+        calls.append(phase)
+        raise AssertionError("ordinary empty retrieval must not call a model")
+
+    result = GroundedNewsResearchV1(
+        evaluation_as_of_utc=AS_OF,
+        public_retriever=_retriever([]),
+        structured_model_call=model,
+    )(_request())
+
+    assert result["status"] == "BLOCKED"
+    assert result["blockers"] == ["grounded_research_source_records_unavailable"]
+    assert result["research_calls"] == 0
+    assert calls == []
+
+
+def test_terminal_router_authorization_failure_is_an_exact_global_stop():
+    error = GroundedNewsResearchInvocationError(
+        "source_synthesis",
+        {
+            "logical_invocation_id": "synthesis-test",
+            "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+            "total_attempts": 1,
+            "attempts": [
+                {
+                    "requested_model": "new/claude-fable-5",
+                    "failure_class": "http_403_forbidden",
+                }
+            ],
+        },
+    )
+
+    blocker, telemetry, global_stop = _model_failure(
+        error,
+        phase="source_synthesis",
+        logical_invocation_id="synthesis-test",
+    )
+
+    assert blocker == (
+        "grounded_research_router_configuration_or_authorization_unavailable"
+    )
+    assert telemetry["terminal_failure_class"] == "http_403_forbidden"
+    assert global_stop is True
+
+
+@pytest.mark.parametrize(
+    "failure_class",
+    [
+        "llm_cycle_logical_call_budget_exhausted",
+        "llm_cycle_provider_attempt_budget_exhausted",
+        "llm_cycle_token_budget_exhausted",
+    ],
+)
+def test_each_cost_governor_exhaustion_class_is_preserved_as_global_stop(
+    failure_class: str,
+):
+    blocker, telemetry, global_stop = _model_failure(
+        LLMCostBudgetExceededError(failure_class),
+        phase="source_synthesis",
+        logical_invocation_id="synthesis-budget-test",
+    )
+
+    assert blocker == failure_class
+    assert telemetry["logical_invocation_reserved"] is False
+    assert telemetry["provider_attempt_count"] == 0
+    assert global_stop is True
 
 
 def test_grounded_packet_flows_through_adapter_and_existing_writer_builder(tmp_path: Path):

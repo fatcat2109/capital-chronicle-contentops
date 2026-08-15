@@ -66,7 +66,9 @@ def grounding_capability_manifest() -> dict[str, Any]:
         "native_grounded_citations_supported": False,
         "tool_calls_supported": False,
         "citation_metadata_visible_to_caller": False,
-        "effective_grounding_path": "LLM_QUERY_PLANNING_PLUS_BOUNDED_RETRIEVAL",
+        "effective_grounding_path": (
+            "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS"
+        ),
         "capability_basis": "STATIC_CANONICAL_ADAPTER_CONTRACT",
         "network_probe_required": False,
     }

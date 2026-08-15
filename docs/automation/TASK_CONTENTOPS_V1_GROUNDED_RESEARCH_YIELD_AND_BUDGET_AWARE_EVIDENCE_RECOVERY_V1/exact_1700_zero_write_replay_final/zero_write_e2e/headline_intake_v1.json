@@ -1,0 +1,434 @@
+{
+  "assignment_compaction_applied": true,
+  "canonical_input_hash": "264053877906508dff6820a2ac67d98adcbc823c7d3fd806ed80aec4cd50e84a",
+  "complete_input_coverage": false,
+  "counts": {
+    "accepted": 12,
+    "accepted_in_full_rolling_intake": 839,
+    "duplicates": 0,
+    "rejected": 6573,
+    "source_files": 40,
+    "source_rows": 7412
+  },
+  "cutoff_time_utc": "2026-08-15T10:00:00.000529Z",
+  "full_rolling_input_canonical_hash": "2af72787e1b2985b5fa8c6f56f4b873b0571e21120f595ea098adf2c2af3f402",
+  "headlines": [
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088242846570545596",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_growth_or_pmi_release"
+        ],
+        "headline_text": "US Retail Sales July 2026 Report https://t.co/NlMF4ZHa2B",
+        "official_source_urls": [
+          "https://www.census.gov/retail/sales.html"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "growth"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2088242846570545596"
+      },
+      "headline_id": "cc-x-headline-c1b06e8a2872d18745f952fc",
+      "source_locator": {
+        "line": 318,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-14T12:34:26Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088514964872986791",
+      "external_content": {
+        "author_handle": "ChinaBeigeBook",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "\"Shares of Chinese online retailer https://t.co/SmBWk8M8EA slipped &gt;10% in Hong Kong on Fri after the company reported its 1st decline in quarterly revenue since listing in 2014...The fall followed a 7% drop in the company\u2019s Nasdaq-listed shares on Thurs\" https://t.co/X45dXNyEH0",
+        "official_source_urls": [
+          "https://JD.com",
+          "https://www.ft.com/content/4e31fa96-360c-4e49-84d9-213e74b51419"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/ChinaBeigeBook/status/2088514964872986791"
+      },
+      "headline_id": "cc-x-headline-5a059b7267c2a4198297fcd8",
+      "source_locator": {
+        "line": 442,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-15T06:35:45Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088505043670442377",
+      "external_content": {
+        "author_handle": "ChinaBeigeBook",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "China keeps careful watch on mourning for premier Zhu Rongji https://t.co/F5ZuIVCMAR",
+        "official_source_urls": [
+          "https://www.ft.com/content/6e426546-a570-4e0c-a8cf-5da9638fdc42"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/ChinaBeigeBook/status/2088505043670442377"
+      },
+      "headline_id": "cc-x-headline-512ef81e326f334395524093",
+      "source_locator": {
+        "line": 417,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-15T05:56:19Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088359878091849868",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "The US-Iran situation is static - Politico citing a White House Official https://t.co/eVc75ABEDp",
+        "official_source_urls": [
+          "https://www.politico.com/news/2026/08/14/u-s-iran-ceasefire-set-to-expire-with-talks-at-a-standstill-01038275"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2088359878091849868"
+      },
+      "headline_id": "cc-x-headline-f4e5ac31043db7152c81115d",
+      "source_locator": {
+        "line": 160,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-14T20:19:29Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088347820113674630",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "CFTC Positions in the Week Ended August 11th, 2026 https://t.co/dlEROWgfEJ",
+        "official_source_urls": [
+          "https://www.financialjuice.com/News/9722155/CFTC-Positions-in-the-Week-Ended-August-11th-2026.aspx"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2088347820113674630"
+      },
+      "headline_id": "cc-x-headline-7432a92ccb6245300f5b71cd",
+      "source_locator": {
+        "line": 99,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-14T19:31:34Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088345523942023499",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Monday FX Option Expiries https://t.co/4bXWIQo9Pw",
+        "official_source_urls": [
+          "https://www.financialjuice.com/News/9722148/Monday-FX-Option-Expiries.aspx"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2088345523942023499"
+      },
+      "headline_id": "cc-x-headline-25531ce3078cc16a3e30a230",
+      "source_locator": {
+        "line": 106,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-14T19:22:27Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088343681552072776",
+      "external_content": {
+        "author_handle": "carlquintanilla",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "\u201c.. There are some people arguing that the K-shaped economy is over,\u201d said @DianeSwonk, chief US economist at KPMG .. .. Friday\u2019s data emphasised \u201cthat is not the case\u201d, she said. @FT https://t.co/q82WG48y73 https://t.co/0JZW7AGyFg",
+        "official_source_urls": [
+          "https://www.ft.com/content/66d3a2de-6591-443d-83b0-94f2224edbbf?syn-25a6b1a6=1"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/carlquintanilla/status/2088343681552072776"
+      },
+      "headline_id": "cc-x-headline-4e23930c9139ab39f173b841",
+      "source_locator": {
+        "line": 397,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-14T19:15:07Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088309939491983491",
+      "external_content": {
+        "author_handle": "edzitron",
+        "follow_up_data_need_candidates": [
+          "official_treasury_or_budget_release"
+        ],
+        "headline_text": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS then? https://t.co/5V9h5AMpes https://t.co/SGizuAxBGM",
+        "official_source_urls": [
+          "https://www.bloomberg.com/news/articles/2026-08-14/nvidia-s-500-billion-plan-envelops-wall-street-in-its-ai-frenzy"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "fiscal"
+        ],
+        "url_or_source_ref": "https://x.com/edzitron/status/2088309939491983491"
+      },
+      "headline_id": "cc-x-headline-f796c716cbd34293c15455c0",
+      "source_locator": {
+        "line": 92,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-14T17:01:03Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088525865462153377",
+      "external_content": {
+        "author_handle": "ChinaBeigeBook",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "RT @ftchina: China poised to lift travel ban on Manus founders https://t.co/nXObp9EZCl",
+        "official_source_urls": [
+          "https://ft.trib.al/1hlEwFd"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/ChinaBeigeBook/status/2088525865462153377"
+      },
+      "headline_id": "cc-x-headline-76b5c3d500176876785823dd",
+      "source_locator": {
+        "line": 473,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-15T07:19:03Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088522527282811344",
+      "external_content": {
+        "author_handle": "dlacalle_IA",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Big government, interventionism and high taxes have obliterated the economy. More government, taxes and interventionism will only cripple it further. https://t.co/yWwOCjPlpY",
+        "official_source_urls": [
+          "https://www.thetimes.com/comment/the-times-view/article/andy-burnham-lacks-serious-economic-advisers-and-a-plan-for-growth-zskjjfkth"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/dlacalle_IA/status/2088522527282811344"
+      },
+      "headline_id": "cc-x-headline-372bed9adfab8e0f6f9c7dc5",
+      "source_locator": {
+        "line": 451,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-15T07:05:48Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088480642073870555",
+      "external_content": {
+        "author_handle": "ftchina",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "China poised to lift travel ban on Manus founders https://t.co/nXObp9EZCl",
+        "official_source_urls": [
+          "https://ft.trib.al/1hlEwFd"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/ftchina/status/2088480642073870555"
+      },
+      "headline_id": "cc-x-headline-19130e27c68756d090ae484a",
+      "source_locator": {
+        "line": 474,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-15T04:19:21Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2088466991619121201",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Escobar: The New Great Game, Revisited https://t.co/n9M20A9s5i",
+        "official_source_urls": [
+          "https://www.zerohedge.com/geopolitical/escobar-new-great-game-revisited"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2088466991619121201"
+      },
+      "headline_id": "cc-x-headline-fb03d06a1a62499f3b7864f0",
+      "source_locator": {
+        "line": 251,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-15T03:25:07Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    }
+  ],
+  "prepared_candidate_subset": true,
+  "rejection_counts": {
+    "source_timestamp_before_window": 6573
+  },
+  "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_files": [
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl"
+  ],
+  "unique_headline_ids": [
+    "cc-x-headline-c1b06e8a2872d18745f952fc",
+    "cc-x-headline-5a059b7267c2a4198297fcd8",
+    "cc-x-headline-512ef81e326f334395524093",
+    "cc-x-headline-f4e5ac31043db7152c81115d",
+    "cc-x-headline-7432a92ccb6245300f5b71cd",
+    "cc-x-headline-25531ce3078cc16a3e30a230",
+    "cc-x-headline-4e23930c9139ab39f173b841",
+    "cc-x-headline-f796c716cbd34293c15455c0",
+    "cc-x-headline-76b5c3d500176876785823dd",
+    "cc-x-headline-372bed9adfab8e0f6f9c7dc5",
+    "cc-x-headline-19130e27c68756d090ae484a",
+    "cc-x-headline-fb03d06a1a62499f3b7864f0"
+  ],
+  "window_hours": 24.0,
+  "window_start_utc": "2026-08-14T10:00:00.000529Z"
+}

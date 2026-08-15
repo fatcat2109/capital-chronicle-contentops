@@ -2388,6 +2388,14 @@ ROLLING_X_EVIDENCE_REQUEST_BUDGET_BLOCKERS = frozenset({
     "official_source_request_budget_exhausted",
     "public_source_request_budget_exhausted",
 })
+ROLLING_X_GLOBAL_RESEARCH_INFRASTRUCTURE_BLOCKERS = frozenset({
+    "llm_operator_paused",
+    "llm_cycle_logical_call_budget_exhausted",
+    "llm_cycle_provider_attempt_budget_exhausted",
+    "llm_cycle_token_budget_exhausted",
+    "grounded_research_authorized_model_pool_unavailable",
+    "grounded_research_router_configuration_or_authorization_unavailable",
+})
 
 
 def _evidence_request_budget_blockers(
@@ -2409,6 +2417,23 @@ def _evidence_request_budget_blockers(
                     str(value) for value in (lane_provenance.get("diagnostics") or [])
                 )
     return sorted(candidates.intersection(ROLLING_X_EVIDENCE_REQUEST_BUDGET_BLOCKERS))
+
+
+def _global_research_infrastructure_blockers(
+    receipt: Mapping[str, Any], blockers: Sequence[str]
+) -> list[str]:
+    """Extract only opportunity-global sanitized model/cycle stop codes."""
+    candidates = {str(value) for value in blockers}
+    candidates.update(str(value) for value in receipt.get("blockers") or [])
+    provenance = receipt.get("evidence_acquisition_provenance") or {}
+    grounded = provenance.get("grounded_research") if isinstance(provenance, Mapping) else {}
+    if isinstance(grounded, Mapping):
+        candidates.update(str(value) for value in grounded.get("blockers") or [])
+        if grounded.get("global_infrastructure_exhausted") is True:
+            candidates.add(str(grounded.get("infrastructure_failure_class") or ""))
+    return sorted(
+        candidates.intersection(ROLLING_X_GLOBAL_RESEARCH_INFRASTRUCTURE_BLOCKERS)
+    )
 
 
 def classify_evidence_friction(
@@ -2814,6 +2839,7 @@ def select_first_viable_rolling_x_cluster(
     selected_evidence: Mapping[str, Any] | None = None
     seen_cluster_ids: set[str] = set()
     acquisition_budget_blockers: set[str] = set()
+    global_infrastructure_blockers: set[str] = set()
 
     ordered_clusters = sorted(
         clusters,
@@ -2865,6 +2891,7 @@ def select_first_viable_rolling_x_cluster(
         capability: dict[str, Any] = {}
         blockers: list[str] = []
         cluster_budget_blockers: set[str] = set()
+        cluster_global_infrastructure_blockers: set[str] = set()
         cluster_ceremony_reductions: set[str] = set()
         for effective_product_mode in product_mode_downgrade_path(requested_product_mode):
             requested_mode = (
@@ -3038,6 +3065,13 @@ def select_first_viable_rolling_x_cluster(
             )
             cluster_budget_blockers.update(mode_budget_blockers)
             acquisition_budget_blockers.update(mode_budget_blockers)
+            mode_global_blockers = (
+                _global_research_infrastructure_blockers(receipt, blockers)
+                if blockers
+                else []
+            )
+            cluster_global_infrastructure_blockers.update(mode_global_blockers)
+            global_infrastructure_blockers.update(mode_global_blockers)
             mode_attempts.append(
                 {
                     "requested_mode": requested_product_mode,
@@ -3047,6 +3081,7 @@ def select_first_viable_rolling_x_cluster(
                     "downgrade_reason": request.get("mode_downgrade_reason"),
                     "blockers": blockers,
                     "evidence_request_budget_blockers": mode_budget_blockers,
+                    "global_infrastructure_blockers": mode_global_blockers,
                     "evidence_friction_taxonomy": classify_evidence_friction(
                         blockers, receipt=receipt, request=request
                     ),
@@ -3056,7 +3091,7 @@ def select_first_viable_rolling_x_cluster(
                     "request_logical_hash": request.get("request_logical_hash"),
                 }
             )
-            if not blockers:
+            if not blockers or mode_global_blockers:
                 break
 
         attempt = {
@@ -3074,6 +3109,9 @@ def select_first_viable_rolling_x_cluster(
             "status": "VIABLE" if not blockers else "BLOCKED",
             "blockers": sorted(set(blockers)),
             "evidence_request_budget_blockers": sorted(cluster_budget_blockers),
+            "global_infrastructure_blockers": sorted(
+                cluster_global_infrastructure_blockers
+            ),
             "evidence_friction_taxonomy": classify_evidence_friction(
                 blockers, receipt=receipt, request=request
             ),
@@ -3086,6 +3124,8 @@ def select_first_viable_rolling_x_cluster(
             selected_cluster = cluster
             selected_evidence = receipt
             break
+        if cluster_global_infrastructure_blockers:
+            break
 
     viable = selected_cluster is not None
     pool_exhausted = (
@@ -3096,14 +3136,28 @@ def select_first_viable_rolling_x_cluster(
     reason_code = (
         "FIRST_VIABLE_RANKED_CLUSTER_SELECTED"
         if viable
+        else "INFRASTRUCTURE_BUDGET_OR_PROVIDER_EXHAUSTED"
+        if global_infrastructure_blockers
         else "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE"
         if acquisition_budget_blockers
         else "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
     )
     result = {
         "schema_version": ROLLING_X_EVIDENCE_VIABILITY_SCHEMA_VERSION,
-        "status": "SUCCESS" if viable else "NO_PUBLICATION",
-        "decision": "SELECT_STORY" if viable else "NO_PUBLICATION",
+        "status": (
+            "SUCCESS"
+            if viable
+            else "BLOCKED"
+            if global_infrastructure_blockers
+            else "NO_PUBLICATION"
+        ),
+        "decision": (
+            "SELECT_STORY"
+            if viable
+            else None
+            if global_infrastructure_blockers
+            else "NO_PUBLICATION"
+        ),
         "reason_code": reason_code,
         "selected_cluster_id": selected_cluster.get("cluster_id") if selected_cluster else None,
         "selected_rank": selected_cluster.get("rank") if selected_cluster else None,
@@ -3120,6 +3174,8 @@ def select_first_viable_rolling_x_cluster(
         "publishability_pool_exhausted": pool_exhausted,
         "evidence_request_budget_exhausted": bool(acquisition_budget_blockers),
         "evidence_request_budget_blockers": sorted(acquisition_budget_blockers),
+        "global_infrastructure_exhausted": bool(global_infrastructure_blockers),
+        "global_infrastructure_blockers": sorted(global_infrastructure_blockers),
         "evidence_friction_taxonomy": {
             "schema_version": "contentops.evidence_friction_taxonomy.v1",
             "attempts": [

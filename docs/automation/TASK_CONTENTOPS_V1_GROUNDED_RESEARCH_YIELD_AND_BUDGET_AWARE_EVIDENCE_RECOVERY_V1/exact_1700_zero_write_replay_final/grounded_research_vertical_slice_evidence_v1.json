@@ -1,0 +1,1251 @@
+{
+  "average_public_retrieval_requests_per_candidate": 3.667,
+  "average_sources_per_candidate": 0.333,
+  "budget_telemetry": {
+    "accounted_tokens": 59619,
+    "cycle_count": 5,
+    "provider_attempts": 12,
+    "raw_prompts_or_outputs_persisted": false,
+    "schema_version": "contentops.llm_cost_governor.v1"
+  },
+  "candidate_receipts_checkpointed": true,
+  "candidate_results": [
+    {
+      "cc_context_state": "CC_CONTEXT_NOT_RELEVANT",
+      "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": 42.433,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "headline_ids": [
+        "cc-x-headline-c1b06e8a2872d18745f952fc"
+      ],
+      "headline_proposition": "US Retail Sales July 2026 Report",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 43.146,
+      "new_blockers": [],
+      "new_grounded_research_result": "PASS",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_source_synthesis_unavailable_or_unbound",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [
+        {
+          "attempts": [
+            {
+              "failure_class": "structured_output_schema_invalid",
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_numeric_fact_binding_invalid",
+              "structured_validation_result": "FAIL"
+            },
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_synthesis_0c47a8b8f2726bfed5cb",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "source_synthesis",
+          "provider_attempt_count": 2,
+          "recoverable_failure_classes": [
+            "structured_output_schema_invalid"
+          ],
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": null,
+          "token_usage": {
+            "completion_tokens": 4952.0,
+            "prompt_tokens": 6339.0,
+            "total_tokens": 11291.0
+          },
+          "wall_clock_elapsed_seconds": 39.8088
+        }
+      ],
+      "provider_telemetry": {
+        "cost_usd": 0.0,
+        "logical_calls": 1,
+        "models": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "provider_attempts": 2,
+        "tokens": {
+          "completion_tokens": 4952,
+          "prompt_tokens": 6339,
+          "total_tokens": 11291
+        }
+      },
+      "public_retrieval_requests": 5,
+      "query_plan_calls": 0,
+      "rank": 1,
+      "research_calls": 1,
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "retrieval_result": {
+        "accepted_document_count": 3,
+        "blockers": [],
+        "status": "PASS"
+      },
+      "source_authority_classes": [
+        "reputable_secondary_source"
+      ],
+      "source_count": 3,
+      "source_identities": [
+        {
+          "evidence_document_id": "public-news-listing-58f4eac22670931ba463",
+          "evidence_packet_sha256": null,
+          "publisher": "Reuters",
+          "source_ref": "SRC_D9D7CE4F7636AC54",
+          "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQSUpsdlVVb2FPYVpWSk4wT3hkMFo0eHhoZDBfemp1cVJ5b0pVeUREcVRMRE8yQjlYVE9NdDQ2VmlVbEt0RHZXYUgwYlZGNnVuMUgxUW9FdDRORnU1TGI5b0xWZGdTNzNQQXlzb1pfdDNkejhDX1RqZmpoamstRXZoYjExRnZ0WWdVMVRR?oc=5"
+        },
+        {
+          "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+          "evidence_packet_sha256": null,
+          "publisher": "MarketWatch",
+          "source_ref": "SRC_4A31DD33EA3B34DA",
+          "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPM1VURVZzSWo1MFhuajJEbXJscEQycW1ZMDBxLVFoOGVLYy11Q0VKeEFwemlGTGlLanJoWWRGa0VVSmQ2ZVpGUlFVM05JZ19JYTlUMzZDc3FLeENsVzVVb0xxM19xdHdnLTNWa1lJVjhjaW1IOU02bzBPdTVaUng4T1VycjNxclBLQW5aS1J3c2FlUWlxSV9yS2k5QVN3ZFhrQjVEeXpkd0M2dUJvWG9JX3dkT1JZRGRuY2NNZ0lpVDh1VjE2bFNtTXZB?oc=5"
+        },
+        {
+          "evidence_document_id": "public-news-listing-6e7cd95f14205ff02412",
+          "evidence_packet_sha256": null,
+          "publisher": "CNN",
+          "source_ref": "SRC_E96EFCFE6F407346",
+          "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9BLVZTc2xhMmE4SVMxaElXbDg3VmRuaWcyUndNcDNBT0RLLWJTR1dZVVJzWkEwMmVuSVFZNEhiR25WZHFmblhmRzhMVG5hUUQ0QnVMR2x2R2N2RDZ0ZFdYUmpzbUprYkdUeTgw?oc=5"
+        }
+      ],
+      "source_synthesis_calls": 1,
+      "source_types": [
+        "application/rss+xml"
+      ],
+      "suggested_article_mode": "BREAKING_BRIEF"
+    },
+    {
+      "cc_context_state": "CC_CONTEXT_NOT_RELEVANT",
+      "cluster_id": "rolling-x-deterministic-cluster-b29396ced711690f23f9",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": 41.249,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "headline_ids": [
+        "cc-x-headline-5a059b7267c2a4198297fcd8"
+      ],
+      "headline_proposition": "\"Shares of Chinese online retailer slipped &gt;10% in Hong Kong on Fri after the company reported its 1st decline in quarterly revenue since listing in 2014...The fall followed a 7% drop in the company\u2019s Nasdaq-listed shares on Thurs\"",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 41.389,
+      "new_blockers": [],
+      "new_grounded_research_result": "PASS",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_source_synthesis_unavailable_or_unbound",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [
+        {
+          "attempts": [
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_plan_e21938e9e079c2636055",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "query_plan",
+          "provider_attempt_count": 1,
+          "recoverable_failure_classes": [],
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": null,
+          "token_usage": {
+            "completion_tokens": 1014.0,
+            "prompt_tokens": 2712.0,
+            "total_tokens": 3726.0
+          },
+          "wall_clock_elapsed_seconds": 10.5641
+        },
+        {
+          "attempts": [
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_replan_e21938e9e079c2636055",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "query_replan",
+          "provider_attempt_count": 1,
+          "recoverable_failure_classes": [],
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": null,
+          "token_usage": {
+            "completion_tokens": 1560.0,
+            "prompt_tokens": 2879.0,
+            "total_tokens": 4439.0
+          },
+          "wall_clock_elapsed_seconds": 14.9262
+        },
+        {
+          "attempts": [
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_synthesis_e21938e9e079c2636055",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "source_synthesis",
+          "provider_attempt_count": 1,
+          "recoverable_failure_classes": [],
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": null,
+          "token_usage": {
+            "completion_tokens": 1530.0,
+            "prompt_tokens": 3171.0,
+            "total_tokens": 4701.0
+          },
+          "wall_clock_elapsed_seconds": 13.7004
+        }
+      ],
+      "provider_telemetry": {
+        "cost_usd": 0.0,
+        "logical_calls": 3,
+        "models": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "provider_attempts": 3,
+        "tokens": {
+          "completion_tokens": 4104,
+          "prompt_tokens": 8762,
+          "total_tokens": 12866
+        }
+      },
+      "public_retrieval_requests": 6,
+      "query_plan_calls": 2,
+      "rank": 2,
+      "research_calls": 3,
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "retrieval_result": {
+        "accepted_document_count": 1,
+        "blockers": [
+          "HTTP Error 403: Forbidden"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [
+        "reputable_secondary_source"
+      ],
+      "source_count": 1,
+      "source_identities": [
+        {
+          "evidence_document_id": "public-news-listing-0511e2e5bbb6bdffc6da",
+          "evidence_packet_sha256": null,
+          "publisher": "Financial Times",
+          "source_ref": "SRC_D272C590604D0A5E",
+          "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPNnhidEdCQXozc0lOZE9VVS1oaE9WUThPSi1IODBQVTJtMzJVRkRfOUcweXBaZ01FX1VULWJXS0JrUUpMUmNFbzdsMHM5T0UyZ3ZLVEwyWkd0S2ctRHJEcU1EOEJjSXRVamYwSmVyamc4ZGF2RkJIU0Npdmp6WUs5bzdGRUI?oc=5"
+        }
+      ],
+      "source_synthesis_calls": 1,
+      "source_types": [
+        "application/rss+xml"
+      ],
+      "suggested_article_mode": "BREAKING_BRIEF"
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-de4f39be737aad0bc2ae",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-512ef81e326f334395524093"
+      ],
+      "headline_proposition": "China keeps careful watch on mourning for premier Zhu Rongji",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 3.225,
+      "new_blockers": [
+        "HTTP Error 403: Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [],
+      "provider_telemetry": {
+        "cost_usd": 0,
+        "logical_calls": 0,
+        "models": [],
+        "provider_attempts": 0,
+        "tokens": {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "public_retrieval_requests": 3,
+      "query_plan_calls": 0,
+      "rank": 3,
+      "research_calls": 0,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 0,
+        "blockers": [
+          "HTTP Error 403: Forbidden"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 0,
+      "source_types": [],
+      "suggested_article_mode": null
+    },
+    {
+      "cc_context_state": "CC_CONTEXT_NOT_RELEVANT",
+      "cluster_id": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": 24.428,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "headline_ids": [
+        "cc-x-headline-f4e5ac31043db7152c81115d"
+      ],
+      "headline_proposition": "The US-Iran situation is static - Politico citing a White House Official",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 24.428,
+      "new_blockers": [
+        "enhanced_risk_grounded_support_insufficient",
+        "evidence_documents_missing",
+        "grounded_research_facts_removed_by_hard_evidence_filter",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [
+        {
+          "attempts": [
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_plan_e243734d81378872dca2",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "query_plan",
+          "provider_attempt_count": 1,
+          "recoverable_failure_classes": [],
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": null,
+          "token_usage": {
+            "completion_tokens": 1163.0,
+            "prompt_tokens": 2619.0,
+            "total_tokens": 3782.0
+          },
+          "wall_clock_elapsed_seconds": 11.8118
+        },
+        {
+          "attempts": [
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_synthesis_e243734d81378872dca2",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "source_synthesis",
+          "provider_attempt_count": 1,
+          "recoverable_failure_classes": [],
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": null,
+          "token_usage": {
+            "completion_tokens": 1152.0,
+            "prompt_tokens": 3012.0,
+            "total_tokens": 4164.0
+          },
+          "wall_clock_elapsed_seconds": 10.8708
+        }
+      ],
+      "provider_telemetry": {
+        "cost_usd": 0.0,
+        "logical_calls": 2,
+        "models": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "provider_attempts": 2,
+        "tokens": {
+          "completion_tokens": 2315,
+          "prompt_tokens": 5631,
+          "total_tokens": 7946
+        }
+      },
+      "public_retrieval_requests": 4,
+      "query_plan_calls": 1,
+      "rank": 4,
+      "research_calls": 2,
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 1,
+        "blockers": [],
+        "status": "PASS"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 1,
+      "source_types": [],
+      "suggested_article_mode": "BREAKING_BRIEF"
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-fcda690904ad07d3614c",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-7432a92ccb6245300f5b71cd"
+      ],
+      "headline_proposition": "CFTC Positions in the Week Ended August 11th, 2026",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 2.262,
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_published_timestamp_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [],
+      "provider_telemetry": {
+        "cost_usd": 0,
+        "logical_calls": 0,
+        "models": [],
+        "provider_attempts": 0,
+        "tokens": {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "public_retrieval_requests": 3,
+      "query_plan_calls": 0,
+      "rank": 5,
+      "research_calls": 0,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 0,
+        "blockers": [
+          "public_source_published_timestamp_unavailable"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 0,
+      "source_types": [],
+      "suggested_article_mode": null
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-c6920b43d7e20a94360e",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-25531ce3078cc16a3e30a230"
+      ],
+      "headline_proposition": "Monday FX Option Expiries",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 2.076,
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_published_timestamp_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [],
+      "provider_telemetry": {
+        "cost_usd": 0,
+        "logical_calls": 0,
+        "models": [],
+        "provider_attempts": 0,
+        "tokens": {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "public_retrieval_requests": 3,
+      "query_plan_calls": 0,
+      "rank": 6,
+      "research_calls": 0,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 0,
+        "blockers": [
+          "public_source_published_timestamp_unavailable"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 0,
+      "source_types": [],
+      "suggested_article_mode": null
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-f18e9ba010996773c50d",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-4e23930c9139ab39f173b841"
+      ],
+      "headline_proposition": "\u201c.. There are some people arguing that the K-shaped economy is over,\u201d said @DianeSwonk, chief US economist at KPMG .. .. Friday\u2019s data emphasised \u201cthat is not the case\u201d, she said. @FT",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 38.26,
+      "new_blockers": [
+        "HTTP Error 403: Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [
+        {
+          "attempts": [
+            {
+              "failure_class": "http_503_unavailable",
+              "provider_status_class": "5xx_server_503",
+              "requested_model": "new/claude-fable-5",
+              "structured_validation_result": "NOT_EVALUATED"
+            },
+            {
+              "failure_class": "http_503_unavailable",
+              "provider_status_class": "5xx_server_503",
+              "requested_model": "new/gpt-5.6-sol-xhigh",
+              "structured_validation_result": "NOT_EVALUATED"
+            },
+            {
+              "failure_class": "http_503_unavailable",
+              "provider_status_class": "5xx_server_503",
+              "requested_model": "new/claude-opus-5",
+              "structured_validation_result": "NOT_EVALUATED"
+            },
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_plan_8baad39e109574b5a5e9",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "new/claude-fable-5",
+            "new/gpt-5.6-sol-xhigh",
+            "new/claude-opus-5",
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "query_plan",
+          "provider_attempt_count": 4,
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": "http_503_unavailable",
+          "token_usage": {
+            "completion_tokens": 845.0,
+            "prompt_tokens": 2730.0,
+            "total_tokens": 3575.0
+          },
+          "wall_clock_elapsed_seconds": 15.6813
+        },
+        {
+          "attempts": [
+            {
+              "failure_class": "http_503_unavailable",
+              "provider_status_class": "5xx_server_503",
+              "requested_model": "new/claude-fable-5",
+              "structured_validation_result": "NOT_EVALUATED"
+            },
+            {
+              "failure_class": "http_503_unavailable",
+              "provider_status_class": "5xx_server_503",
+              "requested_model": "new/gpt-5.6-sol-xhigh",
+              "structured_validation_result": "NOT_EVALUATED"
+            },
+            {
+              "failure_class": "http_503_unavailable",
+              "provider_status_class": "5xx_server_503",
+              "requested_model": "new/claude-opus-5",
+              "structured_validation_result": "NOT_EVALUATED"
+            },
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_replan_8baad39e109574b5a5e9",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "new/claude-fable-5",
+            "new/gpt-5.6-sol-xhigh",
+            "new/claude-opus-5",
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "query_replan",
+          "provider_attempt_count": 4,
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": "http_503_unavailable",
+          "token_usage": {
+            "completion_tokens": 1160.0,
+            "prompt_tokens": 2876.0,
+            "total_tokens": 4036.0
+          },
+          "wall_clock_elapsed_seconds": 19.6871
+        }
+      ],
+      "provider_telemetry": {
+        "cost_usd": 0.0,
+        "logical_calls": 2,
+        "models": [
+          "new/claude-fable-5",
+          "new/gpt-5.6-sol-xhigh",
+          "new/claude-opus-5",
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "provider_attempts": 8,
+        "tokens": {
+          "completion_tokens": 2005,
+          "prompt_tokens": 5606,
+          "total_tokens": 7611
+        }
+      },
+      "public_retrieval_requests": 6,
+      "query_plan_calls": 2,
+      "rank": 7,
+      "research_calls": 2,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 0,
+        "blockers": [
+          "HTTP Error 403: Forbidden"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 0,
+      "source_types": [],
+      "suggested_article_mode": null
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-6e75e9b8e29e085978e2",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-f796c716cbd34293c15455c0"
+      ],
+      "headline_proposition": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS...",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 60.004,
+      "new_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_source_synthesis_research_core_proposition_not_supported",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [
+        {
+          "attempts": [
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_plan_a86f0186c8f32a4c4b70",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "query_plan",
+          "provider_attempt_count": 1,
+          "recoverable_failure_classes": [],
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": null,
+          "token_usage": {
+            "completion_tokens": 869.0,
+            "prompt_tokens": 2689.0,
+            "total_tokens": 3558.0
+          },
+          "wall_clock_elapsed_seconds": 10.1751
+        },
+        {
+          "attempts": [
+            {
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_result": "PASS"
+            }
+          ],
+          "budget_exhausted_reason": null,
+          "cost": {},
+          "logical_invocation_id": "v1_research_replan_a86f0186c8f32a4c4b70",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "query_replan",
+          "provider_attempt_count": 1,
+          "recoverable_failure_classes": [],
+          "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+          "terminal_disposition": "ACCEPTED",
+          "terminal_failure_class": null,
+          "token_usage": {
+            "completion_tokens": 1467.0,
+            "prompt_tokens": 2864.0,
+            "total_tokens": 4331.0
+          },
+          "wall_clock_elapsed_seconds": 13.8759
+        },
+        {
+          "attempts": [
+            {
+              "failure_class": "structured_output_schema_invalid",
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_core_proposition_not_supported",
+              "structured_validation_result": "FAIL"
+            },
+            {
+              "failure_class": "structured_output_schema_invalid",
+              "provider_status_class": "2xx_success",
+              "requested_model": "vx/gemini-3.1-pro-preview(high)",
+              "resolved_model": "gemini-3.1-pro-preview",
+              "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_core_proposition_not_supported",
+              "structured_validation_result": "FAIL"
+            }
+          ],
+          "budget_exhausted_reason": "max_total_provider_attempts",
+          "cost": {},
+          "logical_invocation_id": "v1_research_synthesis_a86f0186c8f32a4c4b70",
+          "logical_invocation_reserved": true,
+          "models_attempted_in_order": [
+            "vx/gemini-3.1-pro-preview(high)"
+          ],
+          "phase": "source_synthesis",
+          "provider_attempt_count": 2,
+          "recoverable_failure_classes": [
+            "structured_output_schema_invalid"
+          ],
+          "resolved_model": null,
+          "terminal_disposition": "LLM_RETRY_BUDGET_EXHAUSTED",
+          "terminal_failure_class": "structured_output_schema_invalid",
+          "token_usage": {
+            "completion_tokens": 4001.0,
+            "prompt_tokens": 6647.0,
+            "total_tokens": 10648.0
+          },
+          "wall_clock_elapsed_seconds": 33.5075
+        }
+      ],
+      "provider_telemetry": {
+        "cost_usd": 0.0,
+        "logical_calls": 3,
+        "models": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "provider_attempts": 4,
+        "tokens": {
+          "completion_tokens": 6337,
+          "prompt_tokens": 12200,
+          "total_tokens": 18537
+        }
+      },
+      "public_retrieval_requests": 6,
+      "query_plan_calls": 2,
+      "rank": 8,
+      "research_calls": 3,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 2,
+        "blockers": [
+          "HTTP Error 403: Forbidden"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 1,
+      "source_types": [],
+      "suggested_article_mode": null
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-fbd94119bb6520d7dd59",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-76b5c3d500176876785823dd"
+      ],
+      "headline_proposition": "RT @ftchina: China poised to lift travel ban on Manus founders",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 1.661,
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [],
+      "provider_telemetry": {
+        "cost_usd": 0,
+        "logical_calls": 0,
+        "models": [],
+        "provider_attempts": 0,
+        "tokens": {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "public_retrieval_requests": 2,
+      "query_plan_calls": 0,
+      "rank": 9,
+      "research_calls": 0,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 0,
+        "blockers": [
+          "public_source_unavailable"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 0,
+      "source_types": [],
+      "suggested_article_mode": null
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-81f2864fe82fa3f38b50",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-372bed9adfab8e0f6f9c7dc5"
+      ],
+      "headline_proposition": "Big government, interventionism and high taxes have obliterated the economy. More government, taxes and interventionism will only cripple it further.",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 1.505,
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [],
+      "provider_telemetry": {
+        "cost_usd": 0,
+        "logical_calls": 0,
+        "models": [],
+        "provider_attempts": 0,
+        "tokens": {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "public_retrieval_requests": 2,
+      "query_plan_calls": 0,
+      "rank": 10,
+      "research_calls": 0,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 0,
+        "blockers": [
+          "public_source_unavailable"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 0,
+      "source_types": [],
+      "suggested_article_mode": null
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-214c165b898e099985cd",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-19130e27c68756d090ae484a"
+      ],
+      "headline_proposition": "China poised to lift travel ban on Manus founders",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 1.704,
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [],
+      "provider_telemetry": {
+        "cost_usd": 0,
+        "logical_calls": 0,
+        "models": [],
+        "provider_attempts": 0,
+        "tokens": {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "public_retrieval_requests": 2,
+      "query_plan_calls": 0,
+      "rank": 11,
+      "research_calls": 0,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 0,
+        "blockers": [
+          "public_source_unavailable"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 0,
+      "source_types": [],
+      "suggested_article_mode": null
+    },
+    {
+      "cc_context_state": null,
+      "cluster_id": "rolling-x-deterministic-cluster-4049ba2c5cfcaec6b7d0",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "elapsed_seconds": null,
+      "global_infrastructure_exhausted": false,
+      "grounding_mode": null,
+      "headline_ids": [
+        "cc-x-headline-fb03d06a1a62499f3b7864f0"
+      ],
+      "headline_proposition": "Escobar: The New Great Game, Revisited",
+      "infrastructure_failure_class": null,
+      "measured_elapsed_seconds": 1.566,
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_grounded_research_result": "BLOCKED",
+      "old_blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_planning_unavailable",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_evidence_result": "BLOCKED",
+      "phase_telemetry": [],
+      "provider_telemetry": {
+        "cost_usd": 0,
+        "logical_calls": 0,
+        "models": [],
+        "provider_attempts": 0,
+        "tokens": {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "public_retrieval_requests": 2,
+      "query_plan_calls": 0,
+      "rank": 12,
+      "research_calls": 0,
+      "research_model_identity": null,
+      "research_status": "BLOCKED",
+      "retrieval_result": {
+        "accepted_document_count": 0,
+        "blockers": [
+          "public_source_unavailable"
+        ],
+        "status": "BLOCKED"
+      },
+      "source_authority_classes": [],
+      "source_count": 0,
+      "source_identities": [],
+      "source_synthesis_calls": 0,
+      "source_types": [],
+      "suggested_article_mode": null
+    }
+  ],
+  "cc_context_availability_distribution": {
+    "CC_CONTEXT_AVAILABLE": 0,
+    "CC_CONTEXT_NOT_RELEVANT": 3,
+    "CC_CONTEXT_PARTIAL": 0,
+    "CC_CONTEXT_UNAVAILABLE": 0
+  },
+  "classification": "PASS_V1_GROUNDED_RESEARCH_YIELD_RECOVERED",
+  "created_at_utc": "2026-08-15T11:14:31.263433Z",
+  "effective_grounding_implementation": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+  "frozen_ranked_candidate_count": 12,
+  "full_rolling_headline_count": 839,
+  "native_provider_grounding_detected": false,
+  "new_evidence_research_eligible_count": 2,
+  "old_evidence_eligible_count": 0,
+  "original_cutoff_utc": "2026-08-15T10:00:00.000529Z",
+  "pending_reconciliation_created": 0,
+  "public_writes_during_acceptance": 0,
+  "publication_coordinator_called": false,
+  "publishing_adapter_called": false,
+  "query_plan_calls": 7,
+  "research_accounted_tokens": 58251,
+  "research_calls": 11,
+  "research_provider_attempts": 19,
+  "schema_version": "contentops.v1_grounded_research_vertical_slice_evidence.v1",
+  "source_run_id": "editorial-window-e80bb6a6cbb69b2a206a3fff5c2105ac",
+  "source_synthesis_calls": 4,
+  "task_label": "TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1",
+  "unknown_write": 0,
+  "zero_write_e2e": {
+    "article_markdown_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\canonical_article.md",
+    "article_preview_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\article_preview.html",
+    "article_section_count": 0,
+    "article_title": "US retail sales post first decline in nine months in July",
+    "article_word_count": 81,
+    "editorial_reason": "INSUFFICIENT_READER_VALUE",
+    "editorial_status": "NO_PUBLICATION",
+    "factual_gate": "PASS",
+    "native_derivative_package_count": 0,
+    "native_package_count_including_canonical": 1,
+    "public_writes": 0,
+    "publication_coordinator_called": false,
+    "publication_plan_destination_count": 1,
+    "publication_plan_hash": "0723b64b4828e4259038b304ae5627583842326c7eafae3391540a473e0d9f85",
+    "publishing_adapter_called": false,
+    "reader_value_gate": "INSUFFICIENT_READER_VALUE",
+    "release_blockers": [
+      "INSUFFICIENT_READER_VALUE"
+    ],
+    "release_preparation": "BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+    "selected_cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+    "selected_rank": 1,
+    "semantic_review_calls": 0,
+    "status": "BLOCKED_ZERO_WRITE_E2E",
+    "unknown_write": 0,
+    "visual_count": 0,
+    "visual_types": [],
+    "writer_calls": 1,
+    "writer_provider_telemetry": {
+      "cost_usd": 0.0,
+      "logical_calls": 1,
+      "models": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider_attempts": 1,
+      "tokens": {
+        "completion_tokens": 2798,
+        "prompt_tokens": 6181,
+        "total_tokens": 8979
+      }
+    }
+  }
+}

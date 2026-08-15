@@ -276,6 +276,48 @@ def test_acquisition_budget_exhaustion_is_not_mislabeled_as_pool_exhaustion():
     assert calls == [1, 2, 3]
 
 
+def test_global_llm_budget_exhaustion_stops_candidate_walk_as_infrastructure():
+    calls = []
+
+    def acquire(request):
+        calls.append(request["rank"])
+        receipt = _receipt(request, status="BLOCKED")
+        receipt["blockers"] = ["llm_cycle_provider_attempt_budget_exhausted"]
+        receipt["evidence_acquisition_provenance"] = {
+            "grounded_research": {
+                "status": "BLOCKED",
+                "blockers": ["llm_cycle_provider_attempt_budget_exhausted"],
+                "infrastructure_failure_class": (
+                    "llm_cycle_provider_attempt_budget_exhausted"
+                ),
+                "global_infrastructure_exhausted": True,
+            }
+        }
+        return receipt
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(
+            _cluster("one", 1), _cluster("two", 2), _cluster("three", 3)
+        ),
+        acquire_evidence=acquire,
+        story_type_by_cluster={
+            "one": "physical_event",
+            "two": "physical_event",
+            "three": "physical_event",
+        },
+    )
+
+    assert result["status"] == "BLOCKED"
+    assert result["decision"] is None
+    assert result["reason_code"] == "INFRASTRUCTURE_BUDGET_OR_PROVIDER_EXHAUSTED"
+    assert result["attempted_candidate_count"] == 1
+    assert result["unattempted_candidate_count"] == 2
+    assert result["global_infrastructure_blockers"] == [
+        "llm_cycle_provider_attempt_budget_exhausted"
+    ]
+    assert calls == [1]
+
+
 def test_one_exhausted_evidence_lane_does_not_block_later_other_lane_candidate():
     calls = []
 

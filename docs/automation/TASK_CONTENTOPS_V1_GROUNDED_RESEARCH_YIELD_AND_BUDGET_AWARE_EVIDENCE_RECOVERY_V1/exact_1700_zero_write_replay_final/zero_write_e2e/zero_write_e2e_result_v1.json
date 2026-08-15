@@ -1,0 +1,43 @@
+{
+  "article_markdown_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\canonical_article.md",
+  "article_preview_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\article_preview.html",
+  "article_section_count": 0,
+  "article_title": "US retail sales post first decline in nine months in July",
+  "article_word_count": 81,
+  "editorial_reason": "INSUFFICIENT_READER_VALUE",
+  "editorial_status": "NO_PUBLICATION",
+  "factual_gate": "PASS",
+  "native_derivative_package_count": 0,
+  "native_package_count_including_canonical": 1,
+  "public_writes": 0,
+  "publication_coordinator_called": false,
+  "publication_plan_destination_count": 1,
+  "publication_plan_hash": "0723b64b4828e4259038b304ae5627583842326c7eafae3391540a473e0d9f85",
+  "publishing_adapter_called": false,
+  "reader_value_gate": "INSUFFICIENT_READER_VALUE",
+  "release_blockers": [
+    "INSUFFICIENT_READER_VALUE"
+  ],
+  "release_preparation": "BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "selected_rank": 1,
+  "semantic_review_calls": 0,
+  "status": "BLOCKED_ZERO_WRITE_E2E",
+  "unknown_write": 0,
+  "visual_count": 0,
+  "visual_types": [],
+  "writer_calls": 1,
+  "writer_provider_telemetry": {
+    "cost_usd": 0.0,
+    "logical_calls": 1,
+    "models": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider_attempts": 1,
+    "tokens": {
+      "completion_tokens": 2798,
+      "prompt_tokens": 6181,
+      "total_tokens": 8979
+    }
+  }
+}

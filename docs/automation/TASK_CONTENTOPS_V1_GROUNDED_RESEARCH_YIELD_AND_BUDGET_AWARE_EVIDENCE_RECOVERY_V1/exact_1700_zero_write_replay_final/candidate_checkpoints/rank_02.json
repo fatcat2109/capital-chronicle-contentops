@@ -1,0 +1,529 @@
+{
+  "candidate_result": {
+    "cc_context_state": "CC_CONTEXT_NOT_RELEVANT",
+    "cluster_id": "rolling-x-deterministic-cluster-b29396ced711690f23f9",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "elapsed_seconds": 41.249,
+    "global_infrastructure_exhausted": false,
+    "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+    "headline_ids": [
+      "cc-x-headline-5a059b7267c2a4198297fcd8"
+    ],
+    "headline_proposition": "\"Shares of Chinese online retailer slipped &gt;10% in Hong Kong on Fri after the company reported its 1st decline in quarterly revenue since listing in 2014...The fall followed a 7% drop in the company\u2019s Nasdaq-listed shares on Thurs\"",
+    "infrastructure_failure_class": null,
+    "measured_elapsed_seconds": 41.389,
+    "new_blockers": [],
+    "new_grounded_research_result": "PASS",
+    "old_blockers": [
+      "evidence_documents_missing",
+      "grounded_research_source_synthesis_unavailable_or_unbound",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation",
+      "supported_claims_missing"
+    ],
+    "old_evidence_result": "BLOCKED",
+    "phase_telemetry": [
+      {
+        "attempts": [
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_plan_e21938e9e079c2636055",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "query_plan",
+        "provider_attempt_count": 1,
+        "recoverable_failure_classes": [],
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": null,
+        "token_usage": {
+          "completion_tokens": 1014.0,
+          "prompt_tokens": 2712.0,
+          "total_tokens": 3726.0
+        },
+        "wall_clock_elapsed_seconds": 10.5641
+      },
+      {
+        "attempts": [
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_replan_e21938e9e079c2636055",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "query_replan",
+        "provider_attempt_count": 1,
+        "recoverable_failure_classes": [],
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": null,
+        "token_usage": {
+          "completion_tokens": 1560.0,
+          "prompt_tokens": 2879.0,
+          "total_tokens": 4439.0
+        },
+        "wall_clock_elapsed_seconds": 14.9262
+      },
+      {
+        "attempts": [
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_synthesis_e21938e9e079c2636055",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "source_synthesis",
+        "provider_attempt_count": 1,
+        "recoverable_failure_classes": [],
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": null,
+        "token_usage": {
+          "completion_tokens": 1530.0,
+          "prompt_tokens": 3171.0,
+          "total_tokens": 4701.0
+        },
+        "wall_clock_elapsed_seconds": 13.7004
+      }
+    ],
+    "provider_telemetry": {
+      "cost_usd": 0.0,
+      "logical_calls": 3,
+      "models": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider_attempts": 3,
+      "tokens": {
+        "completion_tokens": 4104,
+        "prompt_tokens": 8762,
+        "total_tokens": 12866
+      }
+    },
+    "public_retrieval_requests": 6,
+    "query_plan_calls": 2,
+    "rank": 2,
+    "research_calls": 3,
+    "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+    "research_status": "PASS",
+    "retrieval_result": {
+      "accepted_document_count": 1,
+      "blockers": [
+        "HTTP Error 403: Forbidden"
+      ],
+      "status": "BLOCKED"
+    },
+    "source_authority_classes": [
+      "reputable_secondary_source"
+    ],
+    "source_count": 1,
+    "source_identities": [
+      {
+        "evidence_document_id": "public-news-listing-0511e2e5bbb6bdffc6da",
+        "evidence_packet_sha256": null,
+        "publisher": "Financial Times",
+        "source_ref": "SRC_D272C590604D0A5E",
+        "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPNnhidEdCQXozc0lOZE9VVS1oaE9WUThPSi1IODBQVTJtMzJVRkRfOUcweXBaZ01FX1VULWJXS0JrUUpMUmNFbzdsMHM5T0UyZ3ZLVEwyWkd0S2ctRHJEcU1EOEJjSXRVamYwSmVyamc4ZGF2RkJIU0Npdmp6WUs5bzdGRUI?oc=5"
+      }
+    ],
+    "source_synthesis_calls": 1,
+    "source_types": [
+      "application/rss+xml"
+    ],
+    "suggested_article_mode": "BREAKING_BRIEF"
+  },
+  "cluster_id": "rolling-x-deterministic-cluster-b29396ced711690f23f9",
+  "evidence_receipt": {
+    "blockers": [],
+    "capital_chronicle_authority_verified": false,
+    "cc_context_bundle": {
+      "cc_context_refs": [],
+      "cc_context_richness": 0.0,
+      "factual_or_numeric_authority_granted": false,
+      "mutated_upstream": false,
+      "ordinary_reporting_blocked_when_unavailable": false,
+      "proprietary_claim_authority_granted": false,
+      "queried_entities": [],
+      "schema_version": "contentops.additive_cc_story_context.v1",
+      "state": "CC_CONTEXT_NOT_RELEVANT"
+    },
+    "claim_evidence_contract": {
+      "blocked_claims": [],
+      "claim_contract_sha256": "9df4ecaa9d80e2bc84e134940444690051b18f1e5900107587cb10a89631c456",
+      "fabricated_claim_count": 0,
+      "omitted_claim_count": 1,
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-99448d26cb9a3748",
+          "claim_text": "\"Shares of Chinese online retailer slipped &gt;10% in Hong Kong on Fri after the company reported its 1st decline in quarterly revenue since listing in 2014...The fall followed a 7% drop in the company\u2019s Nasdaq-listed shares on Thurs\"",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.claim_evidence_contract.v1",
+      "status": "PASS",
+      "supported_claim_count": 1,
+      "supported_claims": [
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-d8cc9994a9506a01",
+          "claim_text": "Shares of China's JD.com slid after experiencing a rare revenue plunge.",
+          "evidence_document_ids": [
+            "public-news-listing-0511e2e5bbb6bdffc6da"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        }
+      ],
+      "x_content_grants_factual_authority": false
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-b29396ced711690f23f9",
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [
+          {
+            "document_id": "public-news-listing-0511e2e5bbb6bdffc6da",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          }
+        ],
+        "enough_for_useful_article": false,
+        "enrichment_recommended": true,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 0,
+        "target_usable_content_words": 90,
+        "usable_content_words": 0,
+        "usable_document_count": 1
+      },
+      "grounded_research": {
+        "blockers": [],
+        "elapsed_seconds": 41.249,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+        "infrastructure_failure_class": null,
+        "public_retrieval_requests": 6,
+        "research_calls": 3,
+        "retrieval_result": {
+          "accepted_document_count": 1,
+          "blockers": [
+            "HTTP Error 403: Forbidden"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "PASS",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_plan_e21938e9e079c2636055",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_plan",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1014.0,
+              "prompt_tokens": 2712.0,
+              "total_tokens": 3726.0
+            },
+            "wall_clock_elapsed_seconds": 10.5641
+          },
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_replan_e21938e9e079c2636055",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_replan",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1560.0,
+              "prompt_tokens": 2879.0,
+              "total_tokens": 4439.0
+            },
+            "wall_clock_elapsed_seconds": 14.9262
+          },
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_synthesis_e21938e9e079c2636055",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "source_synthesis",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1530.0,
+              "prompt_tokens": 3171.0,
+              "total_tokens": 4701.0
+            },
+            "wall_clock_elapsed_seconds": 13.7004
+          }
+        ]
+      },
+      "official": {
+        "blockers": [
+          "exact_official_source_url_unavailable",
+          "official_source_locator_candidate_unavailable"
+        ],
+        "exact_bound_host_authorized_families": [],
+        "provenance": {
+          "bounded_truncation_allowed": true,
+          "evaluation_as_of_utc": "2026-08-15T10:00:00.000529Z",
+          "locator": {
+            "blockers": [
+              "official_source_locator_candidate_unavailable"
+            ],
+            "locator_endpoint": "https://www.sec.gov/files/company_tickers.json",
+            "locator_query_logical_hash": "c3a5c2e69fc196e4e3405a01f00e2a47f48ba3dbe95f42cda9fba6f22e49293a",
+            "status": "BLOCKED"
+          },
+          "locator_request_count": 1,
+          "official_evidence_get_count": 0,
+          "read_only_http_get_only": true,
+          "request_count": 1,
+          "request_limit": 24,
+          "retrieved_at_utc": null,
+          "timeout_seconds": 12.0
+        },
+        "registry_authorized_families": [
+          "company_primary",
+          "sec_regulatory"
+        ],
+        "status": "BLOCKED"
+      }
+    },
+    "evidence_documents": [
+      {
+        "byte_length": 1092,
+        "canonical_content_sha256": "4f34cb87414832aaec25b6698d40036f19bef0521987f861ff0e1b6dc7d63db6",
+        "canonical_content_text": "Shares of China\u2019s JD.com slide after rare revenue plunge",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-0511e2e5bbb6bdffc6da",
+        "event_time_utc": "2026-08-14T06:19:13Z",
+        "grounded_source_ref": "SRC_D272C590604D0A5E",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-14T06:19:13Z",
+        "publisher": "Financial Times",
+        "raw_sha256": "0511e2e5bbb6bdffc6da9abab70d369aa8cf3cbe712617df90be028376fb86d9",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "JD",
+          "com",
+          "stock",
+          "plunge",
+          "Hong",
+          "Kong",
+          "revenue",
+          "drop"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "ft.com",
+        "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPNnhidEdCQXozc0lOZE9VVS1oaE9WUThPSi1IODBQVTJtMzJVRkRfOUcweXBaZ01FX1VULWJXS0JrUUpMUmNFbzdsMHM5T0UyZ3ZLVEwyWkd0S2ctRHJEcU1EOEJjSXRVamYwSmVyamc4ZGF2RkJIU0Npdmp6WUs5bzdGRUI?oc=5",
+        "title": "Shares of China\u2019s JD.com slide after rare revenue plunge"
+      }
+    ],
+    "evidence_review_tier": "ENHANCED",
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [
+        {
+          "document_id": "public-news-listing-0511e2e5bbb6bdffc6da",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        }
+      ],
+      "enough_for_useful_article": false,
+      "enrichment_recommended": true,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 0,
+      "target_usable_content_words": 90,
+      "usable_content_words": 0,
+      "usable_document_count": 1
+    },
+    "grounded_research_packet": {
+      "attributed_numeric_facts": [],
+      "cc_context": {
+        "cc_context_refs": [],
+        "cc_context_richness": 0.0,
+        "factual_or_numeric_authority_granted": false,
+        "mutated_upstream": false,
+        "ordinary_reporting_blocked_when_unavailable": false,
+        "proprietary_claim_authority_granted": false,
+        "queried_entities": [],
+        "schema_version": "contentops.additive_cc_story_context.v1",
+        "state": "CC_CONTEXT_NOT_RELEVANT"
+      },
+      "cc_context_refs": [],
+      "confirmed_facts": [
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f1",
+          "factual_statement": "Shares of China's JD.com slid after experiencing a rare revenue plunge.",
+          "source_refs": [
+            "SRC_D272C590604D0A5E"
+          ]
+        }
+      ],
+      "context": [
+        "T",
+        "h",
+        "e",
+        "",
+        "p",
+        "r",
+        "o",
+        "v",
+        "i",
+        "d"
+      ],
+      "contradictions": [],
+      "core_factual_proposition": "Shares of China's JD.com slid after experiencing a rare revenue plunge.",
+      "enhanced_review_required": true,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "model_assertion_grants_factual_authority": false,
+      "model_suggested_article_mode": "BREAKING_BRIEF",
+      "post_filter_accepted_evidence_document_ids": [
+        "public-news-listing-0511e2e5bbb6bdffc6da"
+      ],
+      "post_filter_removed_fact_count": 0,
+      "publication_authority": false,
+      "research_as_of_utc": "2026-08-15T10:00:00.000529Z",
+      "research_logical_hash": "588f0791e2463e6d7aa84ded599844b312f2f9bc00b770ee1e083902a57920d4",
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "risk_classification": "ENHANCED",
+      "schema_version": "contentops.grounded_news_research.v1",
+      "sources": [
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "4f34cb87414832aaec25b6698d40036f19bef0521987f861ff0e1b6dc7d63db6",
+          "evidence_document_id": "public-news-listing-0511e2e5bbb6bdffc6da",
+          "published_at": "2026-08-14T06:19:13Z",
+          "publisher": "Financial Times",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-15T10:59:14.243751Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_D272C590604D0A5E",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPNnhidEdCQXozc0lOZE9VVS1oaE9WUThPSi1IODBQVTJtMzJVRkRfOUcweXBaZ01FX1VULWJXS0JrUUpMUmNFbzdsMHM5T0UyZ3ZLVEwyWkd0S2ctRHJEcU1EOEJjSXRVamYwSmVyamc4ZGF2RkJIU0Npdmp6WUs5bzdGRUI?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Shares of China\u2019s JD.com slide after rare revenue plunge"
+        }
+      ],
+      "story_identity": "rolling-x-deterministic-cluster-b29396ced711690f23f9",
+      "suggested_article_mode": "BREAKING_BRIEF",
+      "uncertainties": [
+        "The specific days of the week (Thursday, Friday) and the exact exchanges (Hong Kong, Nasdaq) where the shares fell are not mentioned in the source."
+      ],
+      "unsupported_or_unverified": [
+        "Shares slipped >10% in Hong Kong on Friday.",
+        "The company reported its first decline in quarterly revenue since listing in 2014.",
+        "The fall followed a 7% drop in the company's Nasdaq-listed shares on Thursday."
+      ]
+    },
+    "headline_ids": [
+      "cc-x-headline-5a059b7267c2a4198297fcd8"
+    ],
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [
+      "basic_attributed_facts",
+      "credible_event_confirmation"
+    ],
+    "publication_authority": false,
+    "status": "PASS",
+    "unsupported_claims_removed": 1
+  },
+  "public_write_performed": false,
+  "rank": 2,
+  "request_logical_hash": "1aac6911a3267f2e9330c3a8b81a6ea377ead731c1154831ee64da99c9782dd0",
+  "schema_version": "contentops.v1_grounded_candidate_replay_checkpoint.v1"
+}

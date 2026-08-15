@@ -70,6 +70,7 @@ PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
 NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
+GROUNDED_RESEARCH_ROLE = "v1_grounded_researcher"
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
 GEMINI_PRO_MODEL = ORDERED_MODEL_POOL[-1]
 NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
@@ -354,6 +355,19 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
             max_same_model_retries=0,
             wall_clock_budget_seconds=NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
             per_model_max_attempts=NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
+        )
+    if str(role_task_id) == GROUNDED_RESEARCH_ROLE:
+        # Grounded JSON has an unusually strict source-binding validator. Reserve one repair
+        # attempt for the final authorized model rather than spending same-model retries on
+        # earlier transport failures. The logical-call cap and six-attempt absolute ceiling stay
+        # unchanged.
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=5,
+            max_fallback_transitions=3,
+            max_same_model_retries=1,
+            max_structured_output_repair_attempts=1,
+            per_model_max_attempts=(1, 1, 1, 2),
         )
     return RetryBudget(logical_invocation_id=logical_invocation_id)
 

@@ -1,0 +1,359 @@
+{
+  "candidate_result": {
+    "cc_context_state": "CC_CONTEXT_NOT_RELEVANT",
+    "cluster_id": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "elapsed_seconds": 24.428,
+    "global_infrastructure_exhausted": false,
+    "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+    "headline_ids": [
+      "cc-x-headline-f4e5ac31043db7152c81115d"
+    ],
+    "headline_proposition": "The US-Iran situation is static - Politico citing a White House Official",
+    "infrastructure_failure_class": null,
+    "measured_elapsed_seconds": 24.428,
+    "new_blockers": [
+      "enhanced_risk_grounded_support_insufficient",
+      "evidence_documents_missing",
+      "grounded_research_facts_removed_by_hard_evidence_filter",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation"
+    ],
+    "new_grounded_research_result": "BLOCKED",
+    "old_blockers": [
+      "evidence_documents_missing",
+      "grounded_research_query_planning_unavailable",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation",
+      "supported_claims_missing"
+    ],
+    "old_evidence_result": "BLOCKED",
+    "phase_telemetry": [
+      {
+        "attempts": [
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_plan_e243734d81378872dca2",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "query_plan",
+        "provider_attempt_count": 1,
+        "recoverable_failure_classes": [],
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": null,
+        "token_usage": {
+          "completion_tokens": 1163.0,
+          "prompt_tokens": 2619.0,
+          "total_tokens": 3782.0
+        },
+        "wall_clock_elapsed_seconds": 11.8118
+      },
+      {
+        "attempts": [
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_synthesis_e243734d81378872dca2",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "source_synthesis",
+        "provider_attempt_count": 1,
+        "recoverable_failure_classes": [],
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": null,
+        "token_usage": {
+          "completion_tokens": 1152.0,
+          "prompt_tokens": 3012.0,
+          "total_tokens": 4164.0
+        },
+        "wall_clock_elapsed_seconds": 10.8708
+      }
+    ],
+    "provider_telemetry": {
+      "cost_usd": 0.0,
+      "logical_calls": 2,
+      "models": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider_attempts": 2,
+      "tokens": {
+        "completion_tokens": 2315,
+        "prompt_tokens": 5631,
+        "total_tokens": 7946
+      }
+    },
+    "public_retrieval_requests": 4,
+    "query_plan_calls": 1,
+    "rank": 4,
+    "research_calls": 2,
+    "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+    "research_status": "BLOCKED",
+    "retrieval_result": {
+      "accepted_document_count": 1,
+      "blockers": [],
+      "status": "PASS"
+    },
+    "source_authority_classes": [],
+    "source_count": 0,
+    "source_identities": [],
+    "source_synthesis_calls": 1,
+    "source_types": [],
+    "suggested_article_mode": "BREAKING_BRIEF"
+  },
+  "cluster_id": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+  "evidence_receipt": {
+    "blockers": [
+      "enhanced_risk_grounded_support_insufficient",
+      "evidence_documents_missing",
+      "grounded_research_facts_removed_by_hard_evidence_filter",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation"
+    ],
+    "capital_chronicle_authority_verified": false,
+    "cc_context_bundle": {
+      "cc_context_refs": [],
+      "cc_context_richness": 0.0,
+      "factual_or_numeric_authority_granted": false,
+      "mutated_upstream": false,
+      "ordinary_reporting_blocked_when_unavailable": false,
+      "proprietary_claim_authority_granted": false,
+      "queried_entities": [],
+      "schema_version": "contentops.additive_cc_story_context.v1",
+      "state": "CC_CONTEXT_NOT_RELEVANT"
+    },
+    "claim_evidence_contract": {
+      "blocked_claims": [
+        {
+          "claim_id": "claim-2f36e6ec1aac947c",
+          "claim_text": "The US-Iran situation is static - Politico citing a White House Official",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "claim_contract_sha256": "ef73fe3ce6642fad455ab18b28bc26b377b87eedb791f8198d575f6126cd980f",
+      "fabricated_claim_count": 0,
+      "omitted_claim_count": 1,
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-2f36e6ec1aac947c",
+          "claim_text": "The US-Iran situation is static - Politico citing a White House Official",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.claim_evidence_contract.v1",
+      "status": "BLOCKED",
+      "supported_claim_count": 0,
+      "supported_claims": [],
+      "x_content_grants_factual_authority": false
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [
+          {
+            "document_id": "public-news-listing-1de6ed72a6ea1b687dd9",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          }
+        ],
+        "enough_for_useful_article": false,
+        "enrichment_recommended": true,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 0,
+        "target_usable_content_words": 90,
+        "usable_content_words": 0,
+        "usable_document_count": 1
+      },
+      "grounded_research": {
+        "blockers": [
+          "enhanced_risk_grounded_support_insufficient"
+        ],
+        "elapsed_seconds": 24.428,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+        "infrastructure_failure_class": null,
+        "public_retrieval_requests": 4,
+        "research_calls": 2,
+        "retrieval_result": {
+          "accepted_document_count": 1,
+          "blockers": [],
+          "status": "PASS"
+        },
+        "status": "BLOCKED",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_plan_e243734d81378872dca2",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_plan",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1163.0,
+              "prompt_tokens": 2619.0,
+              "total_tokens": 3782.0
+            },
+            "wall_clock_elapsed_seconds": 11.8118
+          },
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_synthesis_e243734d81378872dca2",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "source_synthesis",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1152.0,
+              "prompt_tokens": 3012.0,
+              "total_tokens": 4164.0
+            },
+            "wall_clock_elapsed_seconds": 10.8708
+          }
+        ]
+      }
+    },
+    "evidence_documents": [],
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [
+        {
+          "document_id": "public-news-listing-1de6ed72a6ea1b687dd9",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        }
+      ],
+      "enough_for_useful_article": false,
+      "enrichment_recommended": true,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 0,
+      "target_usable_content_words": 90,
+      "usable_content_words": 0,
+      "usable_document_count": 1
+    },
+    "grounded_research_packet": {
+      "attributed_numeric_facts": [],
+      "cc_context": {
+        "cc_context_refs": [],
+        "cc_context_richness": 0.0,
+        "factual_or_numeric_authority_granted": false,
+        "mutated_upstream": false,
+        "ordinary_reporting_blocked_when_unavailable": false,
+        "proprietary_claim_authority_granted": false,
+        "queried_entities": [],
+        "schema_version": "contentops.additive_cc_story_context.v1",
+        "state": "CC_CONTEXT_NOT_RELEVANT"
+      },
+      "cc_context_refs": [],
+      "confirmed_facts": [],
+      "context": [
+        "T",
+        "h",
+        "e",
+        "",
+        "p",
+        "r",
+        "o",
+        "v",
+        "i",
+        "d"
+      ],
+      "contradictions": [],
+      "core_factual_proposition": "",
+      "enhanced_review_required": true,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "model_assertion_grants_factual_authority": false,
+      "model_suggested_article_mode": "BREAKING_BRIEF",
+      "post_filter_accepted_evidence_document_ids": [],
+      "post_filter_removed_fact_count": 2,
+      "publication_authority": false,
+      "research_as_of_utc": "2026-08-15T10:00:00.000529Z",
+      "research_logical_hash": "f21b7f470d92bb75e22b1526c68a3e71e10d360a9f39d3ce8e1c5949ce058883",
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "BLOCKED",
+      "risk_classification": "ENHANCED",
+      "schema_version": "contentops.grounded_news_research.v1",
+      "sources": [],
+      "story_identity": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+      "suggested_article_mode": "BREAKING_BRIEF",
+      "uncertainties": [
+        "The exact expiration date and time of the U.S.-Iran ceasefire are not specified in the provided text.",
+        "The specific nature of the talks and the reasons for the standstill are not detailed in the source."
+      ],
+      "unsupported_or_unverified": [
+        "The claim that Politico cited a 'White House Official' is completely unsupported by the provided source text, which mentions no sources or officials."
+      ]
+    },
+    "headline_ids": [
+      "cc-x-headline-f4e5ac31043db7152c81115d"
+    ],
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [],
+    "publication_authority": false,
+    "status": "BLOCKED"
+  },
+  "public_write_performed": false,
+  "rank": 4,
+  "request_logical_hash": "56a91d383ce1947059fd65664cd48667e5559ad0f00727f09d484c0feb722a6e",
+  "schema_version": "contentops.v1_grounded_candidate_replay_checkpoint.v1"
+}

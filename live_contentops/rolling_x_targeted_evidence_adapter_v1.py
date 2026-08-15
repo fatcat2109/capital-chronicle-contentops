@@ -645,6 +645,13 @@ class RollingXTargetedEvidenceAdapter:
                             "grounding_mode"
                         )
                     ),
+                    "retrieval_result": dict(grounded.get("retrieval_result") or {}),
+                    "infrastructure_failure_class": grounded.get(
+                        "infrastructure_failure_class"
+                    ),
+                    "global_infrastructure_exhausted": bool(
+                        grounded.get("global_infrastructure_exhausted")
+                    ),
                 }
                 grounded_packet = dict(grounded.get("research_packet") or {})
                 grounded_minimum_packet = dict(

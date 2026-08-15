@@ -1,0 +1,29 @@
+{
+  "article_markdown_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\canonical_article.md",
+  "article_markdown_sha256": "e070598267de0791b23ee8b08fe59453e09f9e86f83886fad5e48c5d6ba1acb0",
+  "body_markdown": "US retail sales post first decline in nine months in July, according to Reuters Reuters (attribution: US retail sales post first decline in nine months in July). U.S. consumers cut their retail spending last month CNN (attribution: Frustrated US consumers cut their retail spending last month). Cheaper gas and an 'Amazon Prime hangover' were identified as the chief culprits for the retail sales slump MarketWatch (attribution: Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.).",
+  "body_markdown_sha256": "e070598267de0791b23ee8b08fe59453e09f9e86f83886fad5e48c5d6ba1acb0",
+  "image_assets": [],
+  "publication_mode": "publish",
+  "publication_url": "https://capitalchronicle.substack.com/publish/post",
+  "required_readback": {
+    "in_body_visual_asset_ids": [],
+    "matching_body_markdown_sha256": "e070598267de0791b23ee8b08fe59453e09f9e86f83886fad5e48c5d6ba1acb0",
+    "matching_title": "US retail sales post first decline in nine months in July",
+    "minimum_editor_body_image_count": 0,
+    "publication_state": "publish",
+    "url_kind": "public_url"
+  },
+  "run_id": "v1-grounded-frozen-zero-write",
+  "safety": {
+    "browser_profile_values_recorded": false,
+    "cookies_recorded": false,
+    "raw_credentials_recorded": false,
+    "session_storage_recorded": false
+  },
+  "schema_version": "contentops.substack_supervised_browser_request.v1",
+  "status": "READY_FOR_SUPERVISED_BROWSER_ASSIST",
+  "subtitle": "Consumers cut spending last month, marking the first drop in nine months.",
+  "title": "US retail sales post first decline in nine months in July",
+  "visual_marker_order": []
+}

@@ -1,0 +1,662 @@
+{
+  "assignment_logical_hash": "6f448c0e212f0c8d5a67ff6bd1ef06a08566842df1b96da4e298eb2e11200392",
+  "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
+  "decision": "SELECT_STORY",
+  "factual_or_numeric_authority_granted": false,
+  "input_binding": {
+    "canonical_input_hash": "264053877906508dff6820a2ac67d98adcbc823c7d3fd806ed80aec4cd50e84a",
+    "held_count": 0,
+    "input_count": 12,
+    "selected_count": 12
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c1b06e8a2872d18745f952fc",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-c1b06e8a2872d18745f952fc"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "US Retail Sales July 2026 Report",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-979eb7a35a06c8f647d9",
+      "member_headline_ids": [
+        "cc-x-headline-c1b06e8a2872d18745f952fc"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5a059b7267c2a4198297fcd8",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5a059b7267c2a4198297fcd8"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "\"Shares of Chinese online retailer slipped &gt;10% in Hong Kong on Fri after the company reported its 1st decline in quarterly revenue since listing in 2014...The fall followed a 7% drop in the company\u2019s Nasdaq-listed shares on Thurs\"",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-b29396ced711690f23f9",
+      "member_headline_ids": [
+        "cc-x-headline-5a059b7267c2a4198297fcd8"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-512ef81e326f334395524093",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-512ef81e326f334395524093"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "China keeps careful watch on mourning for premier Zhu Rongji",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-de4f39be737aad0bc2ae",
+      "member_headline_ids": [
+        "cc-x-headline-512ef81e326f334395524093"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f4e5ac31043db7152c81115d",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f4e5ac31043db7152c81115d"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "The US-Iran situation is static - Politico citing a White House Official",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-44724bcaa7a5fbc47ef7",
+      "member_headline_ids": [
+        "cc-x-headline-f4e5ac31043db7152c81115d"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7432a92ccb6245300f5b71cd",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7432a92ccb6245300f5b71cd"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "CFTC Positions in the Week Ended August 11th, 2026",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-fcda690904ad07d3614c",
+      "member_headline_ids": [
+        "cc-x-headline-7432a92ccb6245300f5b71cd"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-25531ce3078cc16a3e30a230",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-25531ce3078cc16a3e30a230"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Monday FX Option Expiries",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-c6920b43d7e20a94360e",
+      "member_headline_ids": [
+        "cc-x-headline-25531ce3078cc16a3e30a230"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-4e23930c9139ab39f173b841",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-4e23930c9139ab39f173b841"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "\u201c.. There are some people arguing that the K-shaped economy is over,\u201d said @DianeSwonk, chief US economist at KPMG .. .. Friday\u2019s data emphasised \u201cthat is not the case\u201d, she said. @FT",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-f18e9ba010996773c50d",
+      "member_headline_ids": [
+        "cc-x-headline-4e23930c9139ab39f173b841"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f796c716cbd34293c15455c0",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f796c716cbd34293c15455c0"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-6e75e9b8e29e085978e2",
+      "member_headline_ids": [
+        "cc-x-headline-f796c716cbd34293c15455c0"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-76b5c3d500176876785823dd",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-76b5c3d500176876785823dd"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "RT @ftchina: China poised to lift travel ban on Manus founders",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-fbd94119bb6520d7dd59",
+      "member_headline_ids": [
+        "cc-x-headline-76b5c3d500176876785823dd"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-372bed9adfab8e0f6f9c7dc5",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-372bed9adfab8e0f6f9c7dc5"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Big government, interventionism and high taxes have obliterated the economy. More government, taxes and interventionism will only cripple it further.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-81f2864fe82fa3f38b50",
+      "member_headline_ids": [
+        "cc-x-headline-372bed9adfab8e0f6f9c7dc5"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-19130e27c68756d090ae484a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-19130e27c68756d090ae484a"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "China poised to lift travel ban on Manus founders",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-214c165b898e099985cd",
+      "member_headline_ids": [
+        "cc-x-headline-19130e27c68756d090ae484a"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-fb03d06a1a62499f3b7864f0",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-fb03d06a1a62499f3b7864f0"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Escobar: The New Great Game, Revisited",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-4049ba2c5cfcaec6b7d0",
+      "member_headline_ids": [
+        "cc-x-headline-fb03d06a1a62499f3b7864f0"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 839,
+    "held_before_semantic_assignment_count": 827,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "df1d372a498bc87e6c46866d1f49fd33228fc2af3793ad9e341263e8d7d110a0",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+      "headline_ids": [
+        "cc-x-headline-c1b06e8a2872d18745f952fc"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-979eb7a35a06c8f647d9"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 1,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c1b06e8a2872d18745f952fc",
+        "ordered_headline_ids": [
+          "cc-x-headline-c1b06e8a2872d18745f952fc"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "US Retail Sales July 2026 Report"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-b29396ced711690f23f9",
+      "headline_ids": [
+        "cc-x-headline-5a059b7267c2a4198297fcd8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-b29396ced711690f23f9"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 2,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5a059b7267c2a4198297fcd8",
+        "ordered_headline_ids": [
+          "cc-x-headline-5a059b7267c2a4198297fcd8"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "\"Shares of Chinese online retailer slipped &gt;10% in Hong Kong on Fri after the company reported its 1st decline in quarterly revenue since listing in 2014...The fall followed a 7% drop in the company\u2019s Nasdaq-listed shares on Thurs\""
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-de4f39be737aad0bc2ae",
+      "headline_ids": [
+        "cc-x-headline-512ef81e326f334395524093"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-de4f39be737aad0bc2ae"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 3,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-512ef81e326f334395524093",
+        "ordered_headline_ids": [
+          "cc-x-headline-512ef81e326f334395524093"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "China keeps careful watch on mourning for premier Zhu Rongji"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-44724bcaa7a5fbc47ef7",
+      "headline_ids": [
+        "cc-x-headline-f4e5ac31043db7152c81115d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-44724bcaa7a5fbc47ef7"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 4,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f4e5ac31043db7152c81115d",
+        "ordered_headline_ids": [
+          "cc-x-headline-f4e5ac31043db7152c81115d"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "The US-Iran situation is static - Politico citing a White House Official"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-fcda690904ad07d3614c",
+      "headline_ids": [
+        "cc-x-headline-7432a92ccb6245300f5b71cd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-fcda690904ad07d3614c"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 5,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-7432a92ccb6245300f5b71cd",
+        "ordered_headline_ids": [
+          "cc-x-headline-7432a92ccb6245300f5b71cd"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "CFTC Positions in the Week Ended August 11th, 2026"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-c6920b43d7e20a94360e",
+      "headline_ids": [
+        "cc-x-headline-25531ce3078cc16a3e30a230"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-c6920b43d7e20a94360e"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 6,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-25531ce3078cc16a3e30a230",
+        "ordered_headline_ids": [
+          "cc-x-headline-25531ce3078cc16a3e30a230"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Monday FX Option Expiries"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-f18e9ba010996773c50d",
+      "headline_ids": [
+        "cc-x-headline-4e23930c9139ab39f173b841"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-f18e9ba010996773c50d"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 7,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-4e23930c9139ab39f173b841",
+        "ordered_headline_ids": [
+          "cc-x-headline-4e23930c9139ab39f173b841"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "\u201c.. There are some people arguing that the K-shaped economy is over,\u201d said @DianeSwonk, chief US economist at KPMG .. .. Friday\u2019s data emphasised \u201cthat is not the case\u201d, she said. @FT"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-6e75e9b8e29e085978e2",
+      "headline_ids": [
+        "cc-x-headline-f796c716cbd34293c15455c0"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-6e75e9b8e29e085978e2"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 8,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f796c716cbd34293c15455c0",
+        "ordered_headline_ids": [
+          "cc-x-headline-f796c716cbd34293c15455c0"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-fbd94119bb6520d7dd59",
+      "headline_ids": [
+        "cc-x-headline-76b5c3d500176876785823dd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-fbd94119bb6520d7dd59"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 9,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-76b5c3d500176876785823dd",
+        "ordered_headline_ids": [
+          "cc-x-headline-76b5c3d500176876785823dd"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RT @ftchina: China poised to lift travel ban on Manus founders"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-81f2864fe82fa3f38b50",
+      "headline_ids": [
+        "cc-x-headline-372bed9adfab8e0f6f9c7dc5"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-81f2864fe82fa3f38b50"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 10,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-372bed9adfab8e0f6f9c7dc5",
+        "ordered_headline_ids": [
+          "cc-x-headline-372bed9adfab8e0f6f9c7dc5"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Big government, interventionism and high taxes have obliterated the economy. More government, taxes and interventionism will only cripple it further."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-214c165b898e099985cd",
+      "headline_ids": [
+        "cc-x-headline-19130e27c68756d090ae484a"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-214c165b898e099985cd"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 11,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-19130e27c68756d090ae484a",
+        "ordered_headline_ids": [
+          "cc-x-headline-19130e27c68756d090ae484a"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "China poised to lift travel ban on Manus founders"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-4049ba2c5cfcaec6b7d0",
+      "headline_ids": [
+        "cc-x-headline-fb03d06a1a62499f3b7864f0"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-4049ba2c5cfcaec6b7d0"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 12,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-fb03d06a1a62499f3b7864f0",
+        "ordered_headline_ids": [
+          "cc-x-headline-fb03d06a1a62499f3b7864f0"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Escobar: The New Great Game, Revisited"
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [],
+  "router_output_grants_publication_authority": false,
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "selected_headline_ids": [
+    "cc-x-headline-c1b06e8a2872d18745f952fc"
+  ],
+  "semantic_assignment_failure_recovered": true,
+  "status": "SUCCESS",
+  "telemetry": {
+    "fallback_transitions": 0,
+    "logical_router_calls": 0,
+    "provider_attempts": 0,
+    "token_usage": {
+      "completion_tokens": 0,
+      "prompt_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "x_content_grants_evidence_authority": false
+}

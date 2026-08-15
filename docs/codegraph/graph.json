@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12661,
+    "edges": 12665,
     "entrypoints": 14,
-    "nodes": 6726,
+    "nodes": 6729,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -32,8 +32,8 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 11,
-      "python_class": 539,
-      "python_function": 3724,
+      "python_class": 540,
+      "python_function": 3726,
       "python_method": 245,
       "python_module": 700,
       "schema": 173,
@@ -16037,6 +16037,12 @@
       "from": "live_contentops/grounded_news_research_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchInvocationError"
+    },
+    {
+      "from": "live_contentops/grounded_news_research_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchV1"
     },
     {
@@ -16044,6 +16050,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/grounded_news_research_v1.py::build_additive_cc_context_bundle"
+    },
+    {
+      "from": "live_contentops/grounded_news_research_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/grounded_news_research_v1.py::build_deterministic_locator_plan"
     },
     {
       "from": "live_contentops/grounded_news_research_v1.py",
@@ -21594,6 +21606,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_global_repair_rule"
+    },
+    {
+      "from": "live_contentops/newsroom_assignment_scheduler_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_global_research_infrastructure_blockers"
     },
     {
       "from": "live_contentops/newsroom_assignment_scheduler_v1.py",
@@ -54737,6 +54755,12 @@
       "from": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::select_first_viable_rolling_x_cluster",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_global_research_infrastructure_blockers"
+    },
+    {
+      "from": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::select_first_viable_rolling_x_cluster",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_logical_hash"
     },
     {
@@ -76114,7 +76138,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T12:21:35Z",
+  "generation_timestamp_utc": "2026-08-15T08:09:15Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -76588,7 +76612,7 @@
     {
       "id": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "kind": "python_module",
-      "size_bytes": 330351
+      "size_bytes": 330852
     },
     {
       "id": "live_contentops/accepted_review_editorial_workflow_v6.py",
@@ -77363,7 +77387,7 @@
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
       "kind": "python_module",
-      "size_bytes": 81506
+      "size_bytes": 81558
     },
     {
       "id": "live_contentops/daily_article_brief_generation_v0.py",
@@ -77868,7 +77892,7 @@
     {
       "id": "live_contentops/grounded_news_research_v1.py",
       "kind": "python_module",
-      "size_bytes": 42302
+      "size_bytes": 54770
     },
     {
       "id": "live_contentops/grounded_research.py",
@@ -78343,7 +78367,7 @@
     {
       "id": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "kind": "python_module",
-      "size_bytes": 182016
+      "size_bytes": 184501
     },
     {
       "id": "live_contentops/next_article_brief_source_pack_review_v6.py",
@@ -78408,7 +78432,7 @@
     {
       "id": "live_contentops/nine_router_ordered_model_router_v2.py",
       "kind": "python_module",
-      "size_bytes": 44333
+      "size_bytes": 45051
     },
     {
       "id": "live_contentops/nine_router_preflight_v2.py",
@@ -78418,7 +78442,7 @@
     {
       "id": "live_contentops/nine_router_provider_adapter_v2.py",
       "kind": "python_module",
-      "size_bytes": 17393
+      "size_bytes": 17441
     },
     {
       "id": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
@@ -79263,12 +79287,12 @@
     {
       "id": "live_contentops/rolling_x_grounded_article_media_builder_v1.py",
       "kind": "python_module",
-      "size_bytes": 90369
+      "size_bytes": 90381
     },
     {
       "id": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "kind": "python_module",
-      "size_bytes": 50809
+      "size_bytes": 51192
     },
     {
       "id": "live_contentops/runtime_activity_projection_v1.py",
@@ -79693,7 +79717,7 @@
     {
       "id": "live_contentops/tier1_editorial_quality_v1.py",
       "kind": "python_module",
-      "size_bytes": 60556
+      "size_bytes": 60632
     },
     {
       "id": "live_contentops/tier2_video_factory_v1.py",
@@ -92715,28 +92739,42 @@
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchError",
       "kind": "python_class",
-      "line": 63,
+      "line": 66,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "GroundedNewsResearchError"
     },
     {
+      "id": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchInvocationError",
+      "kind": "python_class",
+      "line": 70,
+      "path": "live_contentops/grounded_news_research_v1.py",
+      "symbol": "GroundedNewsResearchInvocationError"
+    },
+    {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchV1",
       "kind": "python_class",
-      "line": 312,
+      "line": 535,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "GroundedNewsResearchV1"
     },
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::build_additive_cc_context_bundle",
       "kind": "python_function",
-      "line": 119,
+      "line": 192,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "build_additive_cc_context_bundle"
     },
     {
+      "id": "python_symbol:live_contentops/grounded_news_research_v1.py::build_deterministic_locator_plan",
+      "kind": "python_function",
+      "line": 109,
+      "path": "live_contentops/grounded_news_research_v1.py",
+      "symbol": "build_deterministic_locator_plan"
+    },
+    {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::build_grounded_research_request",
       "kind": "python_function",
-      "line": 164,
+      "line": 237,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "build_grounded_research_request"
     },
@@ -96978,28 +97016,28 @@
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_default_rolling_x_story_type",
       "kind": "python_function",
-      "line": 2508,
+      "line": 2533,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_default_rolling_x_story_type"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_dimension",
       "kind": "python_function",
-      "line": 3153,
+      "line": 3209,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_dimension"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_evidence_request_budget_blockers",
       "kind": "python_function",
-      "line": 2393,
+      "line": 2401,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_evidence_request_budget_blockers"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_explicit_dimension",
       "kind": "python_function",
-      "line": 3167,
+      "line": 3223,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_explicit_dimension"
     },
@@ -97023,6 +97061,13 @@
       "line": 973,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_global_repair_rule"
+    },
+    {
+      "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_global_research_infrastructure_blockers",
+      "kind": "python_function",
+      "line": 2422,
+      "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
+      "symbol": "_global_research_infrastructure_blockers"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_iso_utc",
@@ -97069,7 +97114,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_ordinary_minimum_packet_is_exactly_bound",
       "kind": "python_function",
-      "line": 2478,
+      "line": 2503,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_ordinary_minimum_packet_is_exactly_bound"
     },
@@ -97083,7 +97128,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_parse_utc",
       "kind": "python_function",
-      "line": 3146,
+      "line": 3202,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_parse_utc"
     },
@@ -97181,7 +97226,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_validate_rolling_x_story_type_output",
       "kind": "python_function",
-      "line": 2535,
+      "line": 2560,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_validate_rolling_x_story_type_output"
     },
@@ -97202,7 +97247,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::_weighted_available_average",
       "kind": "python_function",
-      "line": 3182,
+      "line": 3238,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "_weighted_available_average"
     },
@@ -97237,7 +97282,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::build_newsroom_schedule",
       "kind": "python_function",
-      "line": 3516,
+      "line": 3572,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "build_newsroom_schedule"
     },
@@ -97251,56 +97296,56 @@
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::build_universal_v2_newsroom_schedule",
       "kind": "python_function",
-      "line": 3680,
+      "line": 3736,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "build_universal_v2_newsroom_schedule"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::calculate_candidate_scores",
       "kind": "python_function",
-      "line": 3194,
+      "line": 3250,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "calculate_candidate_scores"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::classify_evidence_friction",
       "kind": "python_function",
-      "line": 2414,
+      "line": 2439,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "classify_evidence_friction"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::classify_rolling_x_story_types_deterministically",
       "kind": "python_function",
-      "line": 2687,
+      "line": 2712,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "classify_rolling_x_story_types_deterministically"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::classify_rolling_x_story_types_with_nine_router",
       "kind": "python_function",
-      "line": 2577,
+      "line": 2602,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "classify_rolling_x_story_types_with_nine_router"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::evaluate_deep_analysis_fallback",
       "kind": "python_function",
-      "line": 3302,
+      "line": 3358,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "evaluate_deep_analysis_fallback"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::evaluate_universal_v2_window_decision",
       "kind": "python_function",
-      "line": 3654,
+      "line": 3710,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "evaluate_universal_v2_window_decision"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::evaluate_window_decision",
       "kind": "python_function",
-      "line": 3335,
+      "line": 3391,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "evaluate_window_decision"
     },
@@ -97321,21 +97366,21 @@
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::main",
       "kind": "python_function",
-      "line": 3702,
+      "line": 3758,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::resolve_rolling_x_story_type",
       "kind": "python_function",
-      "line": 2515,
+      "line": 2540,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "resolve_rolling_x_story_type"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::select_first_viable_rolling_x_cluster",
       "kind": "python_function",
-      "line": 2763,
+      "line": 2788,
       "path": "live_contentops/newsroom_assignment_scheduler_v1.py",
       "symbol": "select_first_viable_rolling_x_cluster"
     },
@@ -97622,273 +97667,273 @@
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ModelRouterError",
       "kind": "python_class",
-      "line": 234,
+      "line": 235,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "ModelRouterError"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ProviderResult",
       "kind": "python_class",
-      "line": 578,
+      "line": 592,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "ProviderResult"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget",
       "kind": "python_class",
-      "line": 442,
+      "line": 456,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.__post_init__",
       "kind": "python_method",
-      "line": 466,
+      "line": 480,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.__post_init__"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.attempts_for",
       "kind": "python_method",
-      "line": 493,
+      "line": 507,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.attempts_for"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.elapsed_seconds",
       "kind": "python_method",
-      "line": 479,
+      "line": 493,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.elapsed_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.exhausted_reason",
       "kind": "python_method",
-      "line": 504,
+      "line": 518,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.exhausted_reason"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.from_snapshot",
       "kind": "python_method",
-      "line": 544,
+      "line": 558,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.from_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.model_attempts_remaining",
       "kind": "python_method",
-      "line": 496,
+      "line": 510,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.model_attempts_remaining"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_attempt",
       "kind": "python_method",
-      "line": 512,
+      "line": 526,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_attempt"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_fallback_transition",
       "kind": "python_method",
-      "line": 516,
+      "line": 530,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_fallback_transition"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_repair_attempt",
       "kind": "python_method",
-      "line": 519,
+      "line": 533,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_repair_attempt"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_sleep",
       "kind": "python_method",
-      "line": 522,
+      "line": 536,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_sleep"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_attempts",
       "kind": "python_method",
-      "line": 484,
+      "line": 498,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_attempts"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_sleep_seconds",
       "kind": "python_method",
-      "line": 487,
+      "line": 501,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_sleep_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_wall_clock_seconds",
       "kind": "python_method",
-      "line": 490,
+      "line": 504,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_wall_clock_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.snapshot",
       "kind": "python_method",
-      "line": 525,
+      "line": 539,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.snapshot"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.start",
       "kind": "python_method",
-      "line": 475,
+      "line": 489,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.start"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_bare_model_id",
       "kind": "python_function",
-      "line": 909,
+      "line": 923,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_bare_model_id"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_default_validator",
       "kind": "python_function",
-      "line": 603,
+      "line": 617,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_default_validator"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_hash",
       "kind": "python_function",
-      "line": 238,
+      "line": 239,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_hash"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_incident_model_pool_for_role",
       "kind": "python_function",
-      "line": 140,
+      "line": 141,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_incident_model_pool_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_is_authorized_identity",
       "kind": "python_function",
-      "line": 934,
+      "line": 948,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_is_authorized_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_redact",
       "kind": "python_function",
-      "line": 952,
+      "line": 966,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_redact"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_same_model_identity",
       "kind": "python_function",
-      "line": 930,
+      "line": 944,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_same_model_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_status_class",
       "kind": "python_function",
-      "line": 939,
+      "line": 953,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_status_class"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_sum_cost",
       "kind": "python_function",
-      "line": 976,
+      "line": 990,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_sum_cost"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_sum_usage",
       "kind": "python_function",
-      "line": 962,
+      "line": 976,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_sum_usage"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_summary_without_output",
       "kind": "python_function",
-      "line": 905,
+      "line": 919,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_summary_without_output"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::authority_packet",
       "kind": "python_function",
-      "line": 248,
+      "line": 249,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "authority_packet"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::build_acceptance_gemini_incident",
       "kind": "python_function",
-      "line": 107,
+      "line": 108,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "build_acceptance_gemini_incident"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::classify_failure",
       "kind": "python_function",
-      "line": 366,
+      "line": 380,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "classify_failure"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_fallback_eligible",
       "kind": "python_function",
-      "line": 424,
+      "line": 438,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_fallback_eligible"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_retryable",
       "kind": "python_function",
-      "line": 416,
+      "line": 430,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_retryable"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_terminal",
       "kind": "python_function",
-      "line": 420,
+      "line": 434,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_terminal"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role",
       "kind": "python_function",
-      "line": 318,
+      "line": 319,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "model_pool_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role",
       "kind": "python_function",
-      "line": 326,
+      "line": 327,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "retry_budget_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_policy",
       "kind": "python_function",
-      "line": 299,
+      "line": 300,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "retry_budget_policy"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::route_llm_invocation",
       "kind": "python_function",
-      "line": 612,
+      "line": 626,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "route_llm_invocation"
     },
@@ -97930,77 +97975,77 @@
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error",
       "kind": "python_function",
-      "line": 395,
+      "line": 397,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_classify_http_error"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_cost",
       "kind": "python_function",
-      "line": 106,
+      "line": 108,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_cost"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_text",
       "kind": "python_function",
-      "line": 121,
+      "line": 123,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_text"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_usage",
       "kind": "python_function",
-      "line": 97,
+      "line": 99,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_usage"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_load_json_body",
       "kind": "python_function",
-      "line": 192,
+      "line": 194,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_load_json_body"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_observed_model",
       "kind": "python_function",
-      "line": 247,
+      "line": 249,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_observed_model"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse",
       "kind": "python_function",
-      "line": 132,
+      "line": 134,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_parse_sse"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse_full",
       "kind": "python_function",
-      "line": 143,
+      "line": 145,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_parse_sse_full"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers",
       "kind": "python_function",
-      "line": 411,
+      "line": 413,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_retry_after_from_headers"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
       "kind": "python_function",
-      "line": 260,
+      "line": 262,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "call_nine_router"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::credential_presence",
       "kind": "python_function",
-      "line": 75,
+      "line": 77,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "credential_presence"
     },
@@ -98014,21 +98059,21 @@
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::normalize_model_identity",
       "kind": "python_function",
-      "line": 207,
+      "line": 209,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "normalize_model_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::resolve_base_url",
       "kind": "python_function",
-      "line": 84,
+      "line": 86,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "resolve_base_url"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::split_model_and_effort",
       "kind": "python_function",
-      "line": 228,
+      "line": 230,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "split_model_and_effort"
     },
@@ -111468,14 +111513,14 @@
     {
       "id": "python_symbol:scripts/run_v1_grounded_research_replay.py::main",
       "kind": "python_function",
-      "line": 593,
+      "line": 694,
       "path": "scripts/run_v1_grounded_research_replay.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/run_v1_grounded_research_replay.py::run",
       "kind": "python_function",
-      "line": 223,
+      "line": 267,
       "path": "scripts/run_v1_grounded_research_replay.py",
       "symbol": "run"
     },
@@ -112524,7 +112569,7 @@
     {
       "id": "scripts/run_v1_grounded_research_replay.py",
       "kind": "python_module",
-      "size_bytes": 26048
+      "size_bytes": 30042
     },
     {
       "id": "scripts/run_v1_real_media_discovery_and_friction_proofs.py",
@@ -113264,7 +113309,7 @@
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 36659
+      "size_bytes": 36695
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -113774,7 +113819,7 @@
     {
       "id": "tests/test_grounded_news_research_v1.py",
       "kind": "test",
-      "size_bytes": 20051
+      "size_bytes": 23880
     },
     {
       "id": "tests/test_grounded_research_brief.py",
@@ -114349,7 +114394,7 @@
     {
       "id": "tests/test_nine_router_ordered_model_router_v2.py",
       "kind": "test",
-      "size_bytes": 37463
+      "size_bytes": 37801
     },
     {
       "id": "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
@@ -115219,12 +115264,12 @@
     {
       "id": "tests/test_rolling_x_evidence_viability_v1.py",
       "kind": "test",
-      "size_bytes": 13611
+      "size_bytes": 15143
     },
     {
       "id": "tests/test_rolling_x_grounded_article_media_builder_v1.py",
       "kind": "test",
-      "size_bytes": 54922
+      "size_bytes": 54933
     },
     {
       "id": "tests/test_rolling_x_hierarchical_assignment_v1.py",
@@ -115234,7 +115279,7 @@
     {
       "id": "tests/test_rolling_x_newsroom_cycle_v1.py",
       "kind": "test",
-      "size_bytes": 58780
+      "size_bytes": 59014
     },
     {
       "id": "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
@@ -115724,7 +115769,7 @@
     {
       "id": "tests/test_v1_golden_product_regression_recovery_v1.py",
       "kind": "test",
-      "size_bytes": 12471
+      "size_bytes": 12541
     },
     {
       "id": "tests/test_v1_source_binding_and_evidence_depth_v1.py",
@@ -119766,6 +119811,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "70987dfe83e1c623a19b86e58ede20be6d584e09",
-  "source_tree_digest": "32a9b5bf26a646fc6fbc467349b094f7bfb1c80a1d4c252f371bd87d19bf3228"
+  "source_head": "1a0029d0a01c77ae11b164904b0343489801dd25",
+  "source_tree_digest": "b2f60e04ea1d5929837664575ac8d1aae0f6844c988e64d018fdd7b517d6fe84"
 }

@@ -1,0 +1,297 @@
+{
+  "article_export_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-grounded-research-yield-budget-aware-evidence-recovery-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\zero_write_e2e\\canonical_article.md",
+  "article_generation_method": "ROUTED_LLM_GROUNDED_ARTICLE",
+  "article_generation_router_failure": null,
+  "article_markdown_sha256": "e070598267de0791b23ee8b08fe59453e09f9e86f83886fad5e48c5d6ba1acb0",
+  "article_mode": "straight_news",
+  "as_of_utc": "",
+  "canonical_rich_text": {
+    "blocks": [
+      {
+        "content": [
+          {
+            "text": "US retail sales post first decline in nine months in July, according to Reuters Reuters (attribution: US retail sales post first decline in nine months in July). U.S. consumers cut their retail spending last month CNN (attribution: Frustrated US consumers cut their retail spending last month). Cheaper gas and an 'Amazon Prime hangover' were identified as the chief culprits for the retail sales slump MarketWatch (attribution: Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.).",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "schema_version": "contentops.article_rich_text.v1"
+  },
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication",
+  "cc_context_bundle": {
+    "cc_context_refs": [],
+    "cc_context_richness": 0.0,
+    "factual_or_numeric_authority_granted": false,
+    "mutated_upstream": false,
+    "ordinary_reporting_blocked_when_unavailable": false,
+    "proprietary_claim_authority_granted": false,
+    "queried_entities": [],
+    "schema_version": "contentops.additive_cc_story_context.v1",
+    "state": "CC_CONTEXT_NOT_RELEVANT"
+  },
+  "claim_evidence_contract_sha256": "",
+  "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "conclusion_deduplication": {
+    "body_markdown": "US retail sales post first decline in nine months in July, according to Reuters Reuters (attribution: US retail sales post first decline in nine months in July). U.S. consumers cut their retail spending last month CNN (attribution: Frustrated US consumers cut their retail spending last month). Cheaper gas and an 'Amazon Prime hangover' were identified as the chief culprits for the retail sales slump MarketWatch (attribution: Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.).",
+    "publication_authority": false,
+    "removed_count": 0,
+    "removed_paragraphs": [],
+    "semantic_review_calls": 0
+  },
+  "cross_asset_implications": "",
+  "dek": "Consumers cut spending last month, marking the first drop in nine months.",
+  "editorial_classification": "BREAKING_NEW_STORY",
+  "editorial_mode": "straight_news",
+  "effective_article_mode": "BREAKING_BRIEF",
+  "evidence_document_ids": [
+    "public-news-listing-58f4eac22670931ba463",
+    "public-news-listing-6e7cd95f14205ff02412",
+    "public-news-listing-d3b70f798c5e4fe8f63b"
+  ],
+  "evidence_review_tier": "ORDINARY_MINIMUM",
+  "grounded_research": {
+    "enhanced_review_required": false,
+    "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+    "research_as_of_utc": "2026-08-15T10:00:00.000529Z",
+    "research_logical_hash": "4ce635837d9fc628721b2701f30a97d3332f39bf052ea30ce794416f087b0f45",
+    "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+    "research_status": "PASS",
+    "risk_classification": "ORDINARY",
+    "schema_version": "contentops.grounded_news_research.v1",
+    "suggested_article_mode": "BREAKING_BRIEF"
+  },
+  "grounded_source_coverage": {
+    "blockers": [],
+    "fact_rows": [
+      {
+        "body_token_overlap": 0.8,
+        "bound_source_identity_referenced": true,
+        "fact_id": "f1",
+        "recognizably_used": true
+      },
+      {
+        "body_token_overlap": 0.7778,
+        "bound_source_identity_referenced": true,
+        "fact_id": "f2",
+        "recognizably_used": true
+      },
+      {
+        "body_token_overlap": 1.0,
+        "bound_source_identity_referenced": true,
+        "fact_id": "f3",
+        "recognizably_used": true
+      },
+      {
+        "body_token_overlap": 1.0,
+        "bound_source_identity_referenced": true,
+        "fact_id": "f4",
+        "recognizably_used": true
+      }
+    ],
+    "grounded_research_packet_present": true,
+    "paragraph_rows": [
+      {
+        "covered": true,
+        "labeled_supported_inference": false,
+        "paragraph_index": 0,
+        "source_token_overlap": 0.8387
+      }
+    ],
+    "publication_authority": false,
+    "status": "PASS"
+  },
+  "headline_ids": [
+    "cc-x-headline-c1b06e8a2872d18745f952fc"
+  ],
+  "market_consequence_terms": [
+    "policy",
+    "compliance",
+    "implementation"
+  ],
+  "market_mechanism": "",
+  "mechanism_terms": [
+    "policy",
+    "implementation"
+  ],
+  "meta_description": "US retail sales posted their first decline in nine months in July, driven by cheaper gas and an Amazon Prime hangover.",
+  "minimum_trustworthy_evidence_packet": {
+    "attribution_required": true,
+    "core_factual_proposition": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+    "directly_attributed_numbers_permitted": true,
+    "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+    "evidence_packet_sha256": "e94945f9937695fd258ee08437baf30e49b37d943cc1a10cc60bfcdb77ddf887",
+    "publication_authority": false,
+    "published_at_utc": "2026-08-14T13:27:00Z",
+    "publisher": "MarketWatch",
+    "reader_attribution_mode": "ATTRIBUTION_ONLY",
+    "reader_source_url": null,
+    "risk_tier": "ORDINARY",
+    "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+    "source_authority_class": "reputable_secondary_source",
+    "source_title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+    "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPM1VURVZzSWo1MFhuajJEbXJscEQycW1ZMDBxLVFoOGVLYy11Q0VKeEFwemlGTGlLanJoWWRGa0VVSmQ2ZVpGUlFVM05JZ19JYTlUMzZDc3FLeENsVzVVb0xxM19xdHdnLTNWa1lJVjhjaW1IOU02bzBPdTVaUng4T1VycjNxclBLQW5aS1J3c2FlUWlxSV9yS2k5QVN3ZFhrQjVEeXpkd0M2dUJvWG9JX3dkT1JZRGRuY2NNZ0lpVDh1VjE2bFNtTXZB?oc=5",
+    "status": "PASS",
+    "unsupported_optional_claims_must_be_omitted": true,
+    "x_content_grants_factual_authority": false
+  },
+  "mode_downgrade_reason": null,
+  "named_catalyst_terms": [
+    "official notice",
+    "effective date",
+    "official register"
+  ],
+  "news_peg_terms": [
+    "Reuters",
+    "2026-08-14"
+  ],
+  "numeric_claims_from_llm": false,
+  "numeric_claims_from_x": false,
+  "omitted_unsupported_claims": [],
+  "policy_context": "",
+  "primary_topic": "US retail sales post first decline in nine months in July",
+  "publication_authority": false,
+  "requested_article_mode": "BREAKING_BRIEF",
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "seo_primary_keyword": "retail",
+  "seo_semantic_terms": [
+    "retail",
+    "Reuters"
+  ],
+  "seo_title": "US retail sales post first decline in nine months in July",
+  "slug": "us-retail-sales-post-first-decline-in-nine-months-in-july",
+  "social_cross_asset_summary": "",
+  "social_lede": "",
+  "social_mechanism_summary": "",
+  "social_og_media_asset_id": null,
+  "social_policy_summary": "",
+  "source_attributions": [
+    {
+      "publisher": "Reuters",
+      "reader_attribution_mode": "ATTRIBUTION_ONLY",
+      "reader_source_url": null,
+      "source_id": "source-d9d7ce4f7636ac54",
+      "title": "US retail sales post first decline in nine months in July"
+    },
+    {
+      "publisher": "MarketWatch",
+      "reader_attribution_mode": "ATTRIBUTION_ONLY",
+      "reader_source_url": null,
+      "source_id": "source-4a31dd33ea3b34da",
+      "title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+    },
+    {
+      "publisher": "CNN",
+      "reader_attribution_mode": "ATTRIBUTION_ONLY",
+      "reader_source_url": null,
+      "source_id": "source-e96efcfe6f407346",
+      "title": "Frustrated US consumers cut their retail spending last month"
+    }
+  ],
+  "source_binding_ids_referenced": [
+    "source-d9d7ce4f7636ac54",
+    "source-e96efcfe6f407346",
+    "source-4a31dd33ea3b34da"
+  ],
+  "source_bindings": [
+    {
+      "discovery_path_is_reader_authority": false,
+      "evidence_document_id": "public-news-listing-58f4eac22670931ba463",
+      "publisher": "Reuters",
+      "reader_attribution_mode": "ATTRIBUTION_ONLY",
+      "reader_source_url": null,
+      "source_handle": "SOURCE_1",
+      "source_id": "source-d9d7ce4f7636ac54",
+      "title": "US retail sales post first decline in nine months in July"
+    },
+    {
+      "discovery_path_is_reader_authority": false,
+      "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+      "publisher": "MarketWatch",
+      "reader_attribution_mode": "ATTRIBUTION_ONLY",
+      "reader_source_url": null,
+      "source_handle": "SOURCE_2",
+      "source_id": "source-4a31dd33ea3b34da",
+      "title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+    },
+    {
+      "discovery_path_is_reader_authority": false,
+      "evidence_document_id": "public-news-listing-6e7cd95f14205ff02412",
+      "publisher": "CNN",
+      "reader_attribution_mode": "ATTRIBUTION_ONLY",
+      "reader_source_url": null,
+      "source_handle": "SOURCE_3",
+      "source_id": "source-e96efcfe6f407346",
+      "title": "Frustrated US consumers cut their retail spending last month"
+    }
+  ],
+  "source_trail": [],
+  "story_type": "supply_chain_event",
+  "substack_body_markdown": "US retail sales post first decline in nine months in July, according to Reuters Reuters (attribution: US retail sales post first decline in nine months in July). U.S. consumers cut their retail spending last month CNN (attribution: Frustrated US consumers cut their retail spending last month). Cheaper gas and an 'Amazon Prime hangover' were identified as the chief culprits for the retail sales slump MarketWatch (attribution: Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.).",
+  "substack_body_markdown_sha256": "e070598267de0791b23ee8b08fe59453e09f9e86f83886fad5e48c5d6ba1acb0",
+  "subtitle": "Consumers cut spending last month, marking the first drop in nine months.",
+  "supported_claim_count": 4,
+  "supported_claims": [
+    {
+      "attribution_required": true,
+      "claim_id": "f1",
+      "claim_text": "U.S. retail sales posted a decline in July.",
+      "direct_or_inferred": "DIRECT",
+      "evidence_document_ids": [
+        "public-news-listing-58f4eac22670931ba463",
+        "public-news-listing-d3b70f798c5e4fe8f63b"
+      ],
+      "source_refs": [
+        "SRC_4A31DD33EA3B34DA",
+        "SRC_D9D7CE4F7636AC54"
+      ],
+      "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "f2",
+      "claim_text": "The July decline in retail sales was the first drop in nine months.",
+      "direct_or_inferred": "DIRECT",
+      "evidence_document_ids": [
+        "public-news-listing-58f4eac22670931ba463"
+      ],
+      "source_refs": [
+        "SRC_D9D7CE4F7636AC54"
+      ],
+      "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "f3",
+      "claim_text": "Cheaper gas and an 'Amazon Prime hangover' were identified as the chief culprits for the retail sales slump.",
+      "direct_or_inferred": "DIRECT",
+      "evidence_document_ids": [
+        "public-news-listing-d3b70f798c5e4fe8f63b"
+      ],
+      "source_refs": [
+        "SRC_4A31DD33EA3B34DA"
+      ],
+      "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "f4",
+      "claim_text": "U.S. consumers cut their retail spending last month.",
+      "direct_or_inferred": "DIRECT",
+      "evidence_document_ids": [
+        "public-news-listing-6e7cd95f14205ff02412"
+      ],
+      "source_refs": [
+        "SRC_E96EFCFE6F407346"
+      ],
+      "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+    }
+  ],
+  "title": "US retail sales post first decline in nine months in July",
+  "unsupported_claims_removed": 0,
+  "update_chain_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "visual_asset_ids_expected": [],
+  "word_count": 81,
+  "x_content_grants_factual_authority": false
+}

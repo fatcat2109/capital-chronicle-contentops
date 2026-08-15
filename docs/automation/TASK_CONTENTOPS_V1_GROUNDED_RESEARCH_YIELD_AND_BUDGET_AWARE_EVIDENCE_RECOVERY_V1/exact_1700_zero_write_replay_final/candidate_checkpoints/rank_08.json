@@ -1,0 +1,365 @@
+{
+  "candidate_result": {
+    "cc_context_state": null,
+    "cluster_id": "rolling-x-deterministic-cluster-6e75e9b8e29e085978e2",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "elapsed_seconds": null,
+    "global_infrastructure_exhausted": false,
+    "grounding_mode": null,
+    "headline_ids": [
+      "cc-x-headline-f796c716cbd34293c15455c0"
+    ],
+    "headline_proposition": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS...",
+    "infrastructure_failure_class": null,
+    "measured_elapsed_seconds": 60.004,
+    "new_blockers": [
+      "evidence_documents_missing",
+      "grounded_research_source_synthesis_research_core_proposition_not_supported",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation"
+    ],
+    "new_grounded_research_result": "BLOCKED",
+    "old_blockers": [
+      "evidence_documents_missing",
+      "grounded_research_query_planning_unavailable",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation",
+      "supported_claims_missing"
+    ],
+    "old_evidence_result": "BLOCKED",
+    "phase_telemetry": [
+      {
+        "attempts": [
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_plan_a86f0186c8f32a4c4b70",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "query_plan",
+        "provider_attempt_count": 1,
+        "recoverable_failure_classes": [],
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": null,
+        "token_usage": {
+          "completion_tokens": 869.0,
+          "prompt_tokens": 2689.0,
+          "total_tokens": 3558.0
+        },
+        "wall_clock_elapsed_seconds": 10.1751
+      },
+      {
+        "attempts": [
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_replan_a86f0186c8f32a4c4b70",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "query_replan",
+        "provider_attempt_count": 1,
+        "recoverable_failure_classes": [],
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": null,
+        "token_usage": {
+          "completion_tokens": 1467.0,
+          "prompt_tokens": 2864.0,
+          "total_tokens": 4331.0
+        },
+        "wall_clock_elapsed_seconds": 13.8759
+      },
+      {
+        "attempts": [
+          {
+            "failure_class": "structured_output_schema_invalid",
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_core_proposition_not_supported",
+            "structured_validation_result": "FAIL"
+          },
+          {
+            "failure_class": "structured_output_schema_invalid",
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_core_proposition_not_supported",
+            "structured_validation_result": "FAIL"
+          }
+        ],
+        "budget_exhausted_reason": "max_total_provider_attempts",
+        "cost": {},
+        "logical_invocation_id": "v1_research_synthesis_a86f0186c8f32a4c4b70",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "source_synthesis",
+        "provider_attempt_count": 2,
+        "recoverable_failure_classes": [
+          "structured_output_schema_invalid"
+        ],
+        "resolved_model": null,
+        "terminal_disposition": "LLM_RETRY_BUDGET_EXHAUSTED",
+        "terminal_failure_class": "structured_output_schema_invalid",
+        "token_usage": {
+          "completion_tokens": 4001.0,
+          "prompt_tokens": 6647.0,
+          "total_tokens": 10648.0
+        },
+        "wall_clock_elapsed_seconds": 33.5075
+      }
+    ],
+    "provider_telemetry": {
+      "cost_usd": 0.0,
+      "logical_calls": 3,
+      "models": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider_attempts": 4,
+      "tokens": {
+        "completion_tokens": 6337,
+        "prompt_tokens": 12200,
+        "total_tokens": 18537
+      }
+    },
+    "public_retrieval_requests": 6,
+    "query_plan_calls": 2,
+    "rank": 8,
+    "research_calls": 3,
+    "research_model_identity": null,
+    "research_status": "BLOCKED",
+    "retrieval_result": {
+      "accepted_document_count": 2,
+      "blockers": [
+        "HTTP Error 403: Forbidden"
+      ],
+      "status": "BLOCKED"
+    },
+    "source_authority_classes": [],
+    "source_count": 0,
+    "source_identities": [],
+    "source_synthesis_calls": 1,
+    "source_types": [],
+    "suggested_article_mode": null
+  },
+  "cluster_id": "rolling-x-deterministic-cluster-6e75e9b8e29e085978e2",
+  "evidence_receipt": {
+    "blockers": [
+      "evidence_documents_missing",
+      "grounded_research_source_synthesis_research_core_proposition_not_supported",
+      "minimum_trustworthy_evidence_missing",
+      "required_evidence_capability_missing:basic_attributed_facts",
+      "required_evidence_capability_missing:credible_event_confirmation"
+    ],
+    "capital_chronicle_authority_verified": false,
+    "claim_evidence_contract": {
+      "blocked_claims": [
+        {
+          "claim_id": "claim-929b471ef2bd16ea",
+          "claim_text": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS...",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "claim_contract_sha256": "7588576798a15da79bd39ba6f144c32200996f805c0cc8906e7f700ba8b2f31c",
+      "fabricated_claim_count": 0,
+      "omitted_claim_count": 1,
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-929b471ef2bd16ea",
+          "claim_text": "Per Bloomberg, Goldman, Blackstone and Apollo have been having \"slow progress\" on AI data center debt deals, but Jensen Huang decided to rush out the $500 billion announcement, which has \"no obvious provenance.\" So I guess it was all BS...",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.claim_evidence_contract.v1",
+      "status": "BLOCKED",
+      "supported_claim_count": 0,
+      "supported_claims": [],
+      "x_content_grants_factual_authority": false
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-6e75e9b8e29e085978e2",
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [],
+        "enough_for_useful_article": false,
+        "enrichment_recommended": true,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 0,
+        "target_usable_content_words": 90,
+        "usable_content_words": 0,
+        "usable_document_count": 0
+      },
+      "grounded_research": {
+        "blockers": [
+          "grounded_research_source_synthesis_research_core_proposition_not_supported"
+        ],
+        "elapsed_seconds": null,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": null,
+        "infrastructure_failure_class": null,
+        "public_retrieval_requests": 6,
+        "research_calls": 3,
+        "retrieval_result": {
+          "accepted_document_count": 2,
+          "blockers": [
+            "HTTP Error 403: Forbidden"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_plan_a86f0186c8f32a4c4b70",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_plan",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 869.0,
+              "prompt_tokens": 2689.0,
+              "total_tokens": 3558.0
+            },
+            "wall_clock_elapsed_seconds": 10.1751
+          },
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_replan_a86f0186c8f32a4c4b70",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_replan",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1467.0,
+              "prompt_tokens": 2864.0,
+              "total_tokens": 4331.0
+            },
+            "wall_clock_elapsed_seconds": 13.8759
+          },
+          {
+            "attempts": [
+              {
+                "failure_class": "structured_output_schema_invalid",
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_core_proposition_not_supported",
+                "structured_validation_result": "FAIL"
+              },
+              {
+                "failure_class": "structured_output_schema_invalid",
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_core_proposition_not_supported",
+                "structured_validation_result": "FAIL"
+              }
+            ],
+            "budget_exhausted_reason": "max_total_provider_attempts",
+            "cost": {},
+            "logical_invocation_id": "v1_research_synthesis_a86f0186c8f32a4c4b70",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "source_synthesis",
+            "provider_attempt_count": 2,
+            "recoverable_failure_classes": [
+              "structured_output_schema_invalid"
+            ],
+            "resolved_model": null,
+            "terminal_disposition": "LLM_RETRY_BUDGET_EXHAUSTED",
+            "terminal_failure_class": "structured_output_schema_invalid",
+            "token_usage": {
+              "completion_tokens": 4001.0,
+              "prompt_tokens": 6647.0,
+              "total_tokens": 10648.0
+            },
+            "wall_clock_elapsed_seconds": 33.5075
+          }
+        ]
+      }
+    },
+    "evidence_documents": [],
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [],
+      "enough_for_useful_article": false,
+      "enrichment_recommended": true,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 0,
+      "target_usable_content_words": 90,
+      "usable_content_words": 0,
+      "usable_document_count": 0
+    },
+    "headline_ids": [
+      "cc-x-headline-f796c716cbd34293c15455c0"
+    ],
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [],
+    "publication_authority": false,
+    "status": "BLOCKED"
+  },
+  "public_write_performed": false,
+  "rank": 8,
+  "request_logical_hash": "cf667618cfd8f46fb0c4aea5dbe93f71fb3bda63f44d67b3c7b8f29bb3802c70",
+  "schema_version": "contentops.v1_grounded_candidate_replay_checkpoint.v1"
+}
