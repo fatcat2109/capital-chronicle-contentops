@@ -1,0 +1,11 @@
+{
+  "task_id": "TASK_CONTENTOPS_V1_CODEX_ULTRA_PUBLICATION_GRADE_ARTICLE_AND_MEDIA_VERTICAL_SLICE_V1",
+  "authority": "ZERO_PUBLIC_WRITE",
+  "publication_provider_calls": 0,
+  "publication_browser_actions": 0,
+  "runtime_store_mutations": 0,
+  "capital_chronicle_source_mutations": 0,
+  "public_destination_readbacks": 0,
+  "local_artifact_writes_only": true,
+  "status": "PASS"
+}

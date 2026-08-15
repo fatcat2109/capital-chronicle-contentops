@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "task_id": "TASK_CONTENTOPS_V1_CODEX_ULTRA_PUBLICATION_GRADE_ARTICLE_AND_MEDIA_VERTICAL_SLICE_V1",
+  "rights_reviewed_utc": "2026-08-15T15:31:32.722Z",
+  "generated_real_person_documentary_imagery": false,
+  "selected_external_assets": [
+    {
+      "local_path": "media/us-commissary-shoppers-fort-belvoir.jpg",
+      "sha256": "9f49a8321ef2bcfadaac0f937ccf5f40b1f7fb6aea6a5fbf5d831c606c357f0f",
+      "dimensions": "2000x1103",
+      "asset_type": "REAL_DOCUMENTARY_PHOTO",
+      "creator_credit": "Courtesy Photo / Defense Commissary Agency",
+      "source_page": "https://www.dvidshub.net/image/8046347/celebrating-32-years-since-oct-1-1991-commissaries-have-delivered-patron-savings-groceries-military-members-and-their-families",
+      "download_url": "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2309/8046347/2000w_q95.jpg",
+      "rights_page": "https://www.dvidshub.net/about/copyright",
+      "rights_status": "PUBLIC_DOMAIN",
+      "editorial_use": "Documentary context for physical consumer spending; not a depiction of July 2026 activity.",
+      "required_caption_constraint": "Include the Defense Commissary Agency/DVIDS credit, public-domain status, date/context qualifier, and the U.S. Department of War non-endorsement disclaimer.",
+      "compliance_status": "PASS"
+    },
+    {
+      "local_path": "media/kevin-warsh-fomc-press-conference.jpg",
+      "sha256": "6cc2d0017fe906624fc3097f6d68280ec1e54c839033e91a36a9065387b5cea0",
+      "dimensions": "1024x683",
+      "asset_type": "REAL_AUTHORITY_PHOTO",
+      "creator_credit": "Federal Reserve",
+      "source_page": "https://www.flickr.com/photos/federalreserve/55341427476",
+      "download_url": "https://live.staticflickr.com/65535/55341427476_80c58db09a_b.jpg",
+      "rights_page": "https://www.federalreserve.gov/disclaimer.htm",
+      "rights_status": "PUBLIC_DOMAIN",
+      "editorial_use": "Authority portrait within the policy-transmission section; caption identifies the June 2026 FOMC press conference.",
+      "required_caption_constraint": "Credit Federal Reserve; do not imply Federal Reserve endorsement.",
+      "compliance_status": "PASS"
+    }
+  ],
+  "capital_chronicle_created_assets": [
+    {
+      "local_paths": ["charts/census_release_excerpt.png", "charts/census_release_excerpt.svg"],
+      "asset_type": "TYPESET_PRIMARY_SOURCE_EXCERPT",
+      "inputs": ["U.S. Census Bureau CB26-131"],
+      "transformation": "Exact reported sentence and uncertainty intervals typeset into Capital Chronicle visual language; explicitly labeled as a typeset excerpt, not an image or facsimile of the release.",
+      "status": "PASS"
+    },
+    {
+      "local_paths": ["charts/irs_refund_impulse.png", "charts/irs_refund_impulse.svg"],
+      "asset_type": "DATA_CHART",
+      "inputs": ["source_data/irs_refunds_may_2026.csv"],
+      "transformation": "Comparable early-May cumulative refund amounts and average refunds; percentage change is the IRS-reported comparison.",
+      "status": "PASS"
+    },
+    {
+      "local_paths": ["charts/retail_path_2026.png", "charts/retail_path_2026.svg"],
+      "asset_type": "DATA_CHART",
+      "inputs": ["source_data/retail_sales_2026.csv"],
+      "transformation": "Each series indexed to January 2026 = 100 from official Census dollar levels; refund window is an editorial time annotation.",
+      "status": "PASS"
+    },
+    {
+      "local_paths": ["charts/july_category_mix.png", "charts/july_category_mix.svg"],
+      "asset_type": "DATA_CHART",
+      "inputs": ["source_data/july_2026_category_changes.csv"],
+      "transformation": "Selected Census seasonally adjusted month-over-month category changes; not adjusted for price changes.",
+      "status": "PASS"
+    }
+  ],
+  "rejected_assets": [
+    {
+      "description": "2021 produce-aisle photo showing a masked shopper",
+      "reason": "Rights-safe but dated pandemic cues risked a false implication about July 2026 consumer conditions.",
+      "package_inclusion": false
+    },
+    {
+      "description": "Cloudflare challenge page returned while attempting to retrieve the Census PDF",
+      "reason": "Not the primary document and therefore ineligible for article or evidence use.",
+      "package_inclusion": false
+    }
+  ]
+}

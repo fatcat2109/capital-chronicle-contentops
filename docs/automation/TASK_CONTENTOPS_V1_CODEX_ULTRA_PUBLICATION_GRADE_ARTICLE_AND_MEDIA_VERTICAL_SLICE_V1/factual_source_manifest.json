@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0",
+  "task_id": "TASK_CONTENTOPS_V1_CODEX_ULTRA_PUBLICATION_GRADE_ARTICLE_AND_MEDIA_VERTICAL_SLICE_V1",
+  "article_as_of": "2026-08-15",
+  "research_completed_utc": "2026-08-15T15:31:32.722Z",
+  "editorial_rule": "Reported facts and official-source calculations are source-bound. Market, corporate and policy consequences are Capital Chronicle analysis and are stated as interpretation, not proprietary numeric fact.",
+  "sources": [
+    {
+      "id": "census_release",
+      "tier": "PRIMARY_OFFICIAL",
+      "publisher": "U.S. Census Bureau",
+      "title": "Advance Monthly Sales for Retail and Food Services, July 2026",
+      "release_date": "2026-08-14",
+      "url": "https://www.census.gov/retail/sales.html",
+      "companion_pdf_url": "https://www.census.gov/retail/marts/www/marts_current.pdf",
+      "release_id": "CB26-131"
+    },
+    {
+      "id": "census_total_series",
+      "tier": "PRIMARY_OFFICIAL",
+      "publisher": "U.S. Census Bureau",
+      "title": "Advance Retail and Food Services total time series",
+      "url": "https://www.census.gov/retail/marts/www/adv44X72.txt"
+    },
+    {
+      "id": "census_ex_auto_gas_series",
+      "tier": "PRIMARY_OFFICIAL",
+      "publisher": "U.S. Census Bureau",
+      "title": "Advance retail sales excluding motor vehicles, parts and gasoline time series",
+      "url": "https://www.census.gov/retail/marts/www/adv44W72.txt"
+    },
+    {
+      "id": "irs_refunds",
+      "tier": "PRIMARY_OFFICIAL",
+      "publisher": "Internal Revenue Service",
+      "title": "Filing season statistics for week ending May 8, 2026",
+      "url": "https://www.irs.gov/newsroom/filing-season-statistics-for-week-ending-may-8-2026"
+    },
+    {
+      "id": "bls_cpi",
+      "tier": "PRIMARY_OFFICIAL",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "title": "Consumer Price Index — July 2026",
+      "release_date": "2026-08-12",
+      "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+    },
+    {
+      "id": "fomc_statement",
+      "tier": "PRIMARY_OFFICIAL",
+      "publisher": "Board of Governors of the Federal Reserve System",
+      "title": "Federal Reserve issues FOMC statement",
+      "release_date": "2026-07-29",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm"
+    },
+    {
+      "id": "bea_gdp",
+      "tier": "PRIMARY_OFFICIAL",
+      "publisher": "U.S. Bureau of Economic Analysis",
+      "title": "Gross Domestic Product, Second Quarter 2026 (Advance Estimate)",
+      "release_date": "2026-07-30",
+      "url": "https://www.bea.gov/data/gdp/gross-domestic-product"
+    },
+    {
+      "id": "census_schedule",
+      "tier": "PRIMARY_OFFICIAL",
+      "publisher": "U.S. Census Bureau",
+      "title": "2026 retail release schedule",
+      "url": "https://www.census.gov/retail/release_schedule.html"
+    },
+    {
+      "id": "axios_retail",
+      "tier": "PROFESSIONAL_REPORTING",
+      "publisher": "Axios",
+      "title": "Retail sales slump in July",
+      "release_date": "2026-08-14",
+      "url": "https://www.axios.com/2026/08/14/retail-sales-amazon-world-cup"
+    },
+    {
+      "id": "ap_retail_current",
+      "tier": "PROFESSIONAL_REPORTING",
+      "publisher": "Associated Press",
+      "title": "US retail sales fell 0.6% last month as consumers pulled back after a spring spending spree",
+      "release_date": "2026-08-14",
+      "url": "https://apnews.com/article/3e2bc5807d7396b8e6c5f599941cb2a9"
+    },
+    {
+      "id": "ap_retail_april",
+      "tier": "PROFESSIONAL_REPORTING",
+      "publisher": "Associated Press",
+      "title": "Retail sales growth slowed in April as consumers continued to spend despite uncertainty",
+      "release_date": "2026-05-14",
+      "url": "https://apnews.com/article/f77b8986d274c40b913c26ba39492ead"
+    },
+    {
+      "id": "ap_retail_may",
+      "tier": "PROFESSIONAL_REPORTING",
+      "publisher": "Associated Press",
+      "title": "Retail sales up a strong 0.9% in May as consumers shrugged off uncertainty",
+      "release_date": "2026-06-17",
+      "url": "https://apnews.com/article/090206f028b12e15038265806355d75f"
+    }
+  ],
+  "verified_claims": [
+    {
+      "claim": "July retail and food-services sales were $763.6 billion, down 0.6% month over month and up 5.0% year over year.",
+      "source_ids": ["census_release"],
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "The reported 90% sampling-error interval for the monthly change was plus or minus 0.4 percentage point.",
+      "source_ids": ["census_release"],
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "July category changes included nonstore -2.2%, autos -1.8%, gasoline stations -0.9%, restaurants +0.5%, clothing +1.9%, general merchandise +0.3%, and ex-autos-and-gas -0.2%.",
+      "source_ids": ["census_release"],
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Comparable early-May individual income-tax refunds rose from $274.979 billion in 2025 to $324.757 billion in 2026, while the average refund rose from $2,939 to $3,276.",
+      "source_ids": ["irs_refunds"],
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "The aggregate refund difference was $49.778 billion.",
+      "source_ids": ["irs_refunds"],
+      "calculation": "324.757 - 274.979",
+      "status": "VERIFIED_DERIVATION"
+    },
+    {
+      "claim": "July headline CPI rose 0.1% month over month and 3.4% year over year; core CPI rose 0.2% month over month and 2.5% year over year.",
+      "source_ids": ["bls_cpi"],
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "The FOMC held the federal-funds target range at 3.5%-3.75% on July 29 in a 9-3 vote, with three members preferring a quarter-point increase.",
+      "source_ids": ["fomc_statement"],
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Real GDP grew at a 1.5% annual rate in the Q2 2026 advance estimate.",
+      "source_ids": ["bea_gdp"],
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "The next advance retail-sales release is scheduled for September 16, 2026.",
+      "source_ids": ["census_schedule"],
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "The July decline was the largest monthly drop since May 2025 and came against a professional consensus for a small gain.",
+      "source_ids": ["axios_retail", "ap_retail_current"],
+      "status": "CORROBORATED"
+    }
+  ],
+  "analysis_not_numeric_authority": [
+    "The refund bridge ending is the best organizing explanation for the July downshift.",
+    "The category mix indicates moderation rather than household capitulation.",
+    "Retail margins and promotion intensity may weaken before nominal sales collapse.",
+    "The combined retail and inflation data widen the Federal Reserve's waiting zone."
+  ]
+}
