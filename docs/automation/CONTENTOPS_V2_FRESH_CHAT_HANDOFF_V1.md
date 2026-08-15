@@ -5,7 +5,9 @@ Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `UNSELECTED / MAX_VS_ULTRA_DEFERRED_UNTIL_QUALITY_SUBSTRATE_ACCEPTED`
 
-Latest handoff (2026-08-15): `TASK_CONTENTOPS_V2_TREASURY_SHORT_LONGFORM_VISUAL_MATERIAL_RICHNESS_REPAIR_V1` repaired the same CFTC Treasury story without changing narration or synthesizing audio. Actual 56.700s native 9:16 and 559.300s native 16:9 masters now use documentary photos, official primary-source figures/documents, exact governed CFTC rows, native charts, and 2–4 second editorial micro-beats. The build reuses all 26 immutable Kokoro segments; the existing Chatterbox default/no-reference/no-cloning sample remains diagnostic only and does not select a provider. Status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, not owner acceptance. The next action is Jim/ChatGPT review of both final MP4s. Do not begin MAX/ULTRA, V2-02, publication, or a voice-provider bakeoff.
+Latest handoff (2026-08-15): `TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1` repaired the same CFTC Treasury story without changing narration or synthesizing audio. Actual 56.700s native 9:16 and 559.300s native 16:9 masters use 23 selected source assets, explicitly authored semantic beats, static full-context primary evidence, governed native data views, and separately measured source-material versus presentation-grammar diversity. The build reuses all 26 immutable audio segments; the existing Chatterbox sample remains diagnostic only and does not select a provider. Status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, not owner acceptance. The next action is Jim/ChatGPT review of both final MP4s. Do not begin MAX/ULTRA, V2-02, publication, or a voice-provider bakeoff.
+
+Durable rule: primary numeric evidence, source charts, source figures, and tables default to `STATIC_FULL_CONTEXT`. Do not zoom, pan, Ken-Burns, parallax, crop-push, or animate the evidence object itself. Source-material diversity and presentation/layout-grammar diversity are separate concepts.
 
 Durable task record: `PASS_SHORT_LONGFORM_FORMAT_AUDIO_RECOVERY_SUBSTRATE / PASS_CFTC_TRUTH_EVIDENCE_BINDING / FAIL_PREVIOUS_LONGFORM_VISUAL_MATERIAL_RICHNESS`. `BUILD_TTS` remains unresolved beyond the frozen Kokoro A/B baseline.
 
@@ -27,11 +29,11 @@ V1 and V2 execute concurrently but must remain isolated. Preserve unrelated V1 w
 
 ## Current V2 continuation
 
-Active task: `TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
+Active task: `TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1`
 
-QH1 Asset-First completed and remains the useful implementation substrate, not the accepted public bar. Breaking Retail V1 then proved crisp 4K/1080 BT.709 rendering, a brighter breaking-news material direction, and ElevenLabs integration. Jim/ChatGPT rejected that V1 media on four bounded defects: document annotation geometry, voice identity/prosody, insufficient intra-scene micro-editing, and repository durability.
+The Treasury owner-integrity implementation is complete at the builder ceiling and is waiting for Jim/ChatGPT actual-media review. It preserves the prior Treasury truth/narration/audio and addresses bounded owner defects in source repetition, evidence-object motion, mechanical beat cycling, and diversity accounting.
 
-The current branch preserves the same Retail Sales truth packet and repairs those four defects. Corrected actual media is at the Jim/ChatGPT review gate; maximum builder status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, never owner acceptance.
+Corrected actual media is at the Jim/ChatGPT review gate; maximum builder status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, never owner acceptance.
 
 Mode remains unselected; MAX/ULTRA is deferred. HeyGen is deferred. Real authority footage remains an optional future rights-governed capability. V2-02 and all video public writes remain blocked.
 

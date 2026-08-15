@@ -103,9 +103,9 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_SHORT_LONGFORM_LOW_COST_AUDIO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1`
 
-The implementation result is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. It produced an independently authored 56.739s native 9:16 short and 559.300s native 16:9 longform from a fresh governed CFTC Treasury-positioning story, using immutable semantic-segment local Kokoro build audio at zero marginal API-credit cost. Jim/ChatGPT must review both MP4s and the Kokoro/Chatterbox audition artifacts; this is not public or voice acceptance.
+The implementation result is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. It preserves the governed Treasury story and all 26 immutable audio segments while producing revised 56.700s native 9:16 and 559.300s native 16:9 masters with semantically authored beats, static full-context primary evidence, 23 selected source assets across 10 actual source-material families, and actual-master review evidence. Jim/ChatGPT must review both MP4s; this is not owner, public, mode, or voice acceptance.
 
 Canonical formats are `SHORT` (`30–60s`) and `LONGFORM` (`5–45m`). Approximately two-minute `midform` is historical proof terminology only. `BUILD_TTS != PUBLICATION_TTS`: Kokoro is the current local build baseline; Parler is a local challenger; Chatterbox is conditional with no unauthorized cloning; ElevenLabs is premium-final only after explicit owner authority; SAPI is forbidden for owner media.
 
@@ -155,6 +155,8 @@ Track:
 
 A high asset-ID count does not prove visual richness if most assets are tankers/refineries/storage.
 
+Source-material diversity and presentation/layout-grammar diversity are separate concepts. Boundary frames, diagrams, timelines, cards, montages, and other layout labels cannot be counted as proof of a broader source universe.
+
 ### Native map/data/document direction
 
 Build the minimum reusable capability required by the current real proof.
@@ -165,6 +167,8 @@ Charts should clearly distinguish observations from forecasts, use real date anc
 
 Primary documents should use readable excerpts/crops, controlled highlight geometry, source/date, and no competing native/overlay annotation systems.
 
+Primary numeric evidence, source charts, source figures, tables, and governed data screenshots default to `STATIC_FULL_CONTEXT`: use contain-style presentation with fixed scale and framing. Do not apply Ken Burns, zoom, pan, parallax, crop-push, animated crop, or another decorative transform to the evidence object itself. When detail needs emphasis, keep the source stable and author a separate governed Capital Chronicle native visualization; documentary photography may still use restrained editorial reframing.
+
 Do not build a giant GIS/chart framework before media exists.
 
 ### Micro-beat and motion doctrine
@@ -172,6 +176,8 @@ Do not build a giant GIS/chart framework before media exists.
 Meaningful visual-state change should generally follow information change every roughly 2–4 seconds, unless evidence/document/data readability justifies a longer hold.
 
 Do not optimize mechanical cut/motion counts.
+
+Owner media must use story-specific semantic beat boundaries, not a duration-divided cadence or cyclic visual recipe. The 2–4 second range is a heuristic, never a quota.
 
 Prefer semantic transitions that express causality, such as document -> extracted number -> chart point or tanker -> unload -> production -> storage.
 

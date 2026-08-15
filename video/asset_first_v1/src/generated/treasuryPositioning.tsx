@@ -5,13 +5,17 @@ import {AbsoluteFill, Audio, Img, Sequence, interpolate, spring, staticFile, use
 const C={paper:'#f2ede2',paper2:'#dfd5c2',ink:'#112631',coal:'#081116',slate:'#38515d',mint:'#43cbb1',rust:'#d56c4b',gold:'#ddb15f',white:'#fbf8f1'};
 const clamp={extrapolateLeft:'clamp' as const,extrapolateRight:'clamp' as const};
 
-export type MaterialBeat={beat_id:string;start_seconds:number;end_seconds:number;duration_seconds:number;layout:string;family:string;purpose:string;asset?:string|null;label:string;detail:string;focus?:string};
+export type MaterialBeat={beat_id:string;start_seconds:number;end_seconds:number;duration_seconds:number;layout:string;family:string;source_material_family:string;presentation_grammar:string;purpose:string;asset?:string|null;label:string;detail:string;focus?:string;evidence_object_class:string;motion_policy:'STATIC_FULL_CONTEXT'|'PHOTO_EDITORIAL_REFRAME'|'NATIVE_GOVERNED_MOTION'|'SEMANTIC_COMPONENT_MOTION'|'STATIC_EDITORIAL_FRAME';readability_hold:boolean;boundary_authority:string};
 export type PositioningScene={scene_id:string;duration_seconds:number;narration:string;caption:string;visual_kind:string;source:string;headline:string;dek?:string;material_plan:MaterialBeat[]};
 export type PositioningProps={proofId:string;creativeSourceSha256:string;captionsVisible:boolean;variant:'short'|'longform';scenes:PositioningScene[];audioFile:string};
 
 const src=(name:string)=>staticFile(`assets/${name}`);
 const fmt=(value:number)=>`${value>0?'+':'−'}${(Math.abs(value)/1_000_000).toFixed(2)}m`;
-const positions=[{label:'2Y',asset:1680389,lever:-1359521},{label:'5Y',asset:2883977,lever:-2147744},{label:'10Y',asset:2554411,lever:-2163714}];
+const positions=[
+  {label:'2Y',open:4377812,assetLong:2342975,assetShort:662586,asset:1680389,lever:-1359521},
+  {label:'5Y',open:6442950,assetLong:3543666,assetShort:659689,asset:2883977,lever:-2147744},
+  {label:'10Y',open:5458890,assetLong:3002252,assetShort:447841,asset:2554411,lever:-2163714},
+];
 
 const Grain:React.FC=()=> <AbsoluteFill style={{opacity:.11,backgroundImage:'radial-gradient(circle at 15% 20%,rgba(255,255,255,.8) 0 1px,transparent 1.5px),radial-gradient(circle at 70% 80%,rgba(8,17,22,.55) 0 1px,transparent 1.6px)',backgroundSize:'23px 29px,31px 27px',mixBlendMode:'soft-light'}}/>;
 const Brand:React.FC<{dark?:boolean;portrait:boolean}>=({dark=true,portrait})=><div style={{position:'absolute',zIndex:80,top:portrait?45:32,right:portrait?46:58,color:dark?C.white:C.ink,fontSize:portrait?18:15,fontWeight:900,letterSpacing:2.2}}>CAPITAL <span style={{color:C.mint}}>CHRONICLE</span></div>;
@@ -25,15 +29,21 @@ const PhotoFull:React.FC<{beat:MaterialBeat;portrait:boolean;progress:number}>=(
   return <AbsoluteFill style={{background:C.coal}}><Img src={src(beat.asset!)} style={{width:'100%',height:'100%',objectFit:'cover',objectPosition,transform:`scale(${1.04+progress*.05})`,filter:'saturate(.82) contrast(1.04)'}}/><AbsoluteFill style={{background:portrait?'linear-gradient(180deg,rgba(8,17,22,.04) 22%,rgba(8,17,22,.9) 78%)':'linear-gradient(90deg,rgba(8,17,22,.9) 0%,rgba(8,17,22,.55) 44%,rgba(8,17,22,.08) 76%)'}}/><div style={{position:'absolute',zIndex:5,left:portrait?50:74,right:portrait?50:'auto',bottom:portrait?180:130,width:portrait?'auto':800}}><BeatTitle beat={beat} portrait={portrait}/></div></AbsoluteFill>;
 };
 
-const Document:React.FC<{beat:MaterialBeat;portrait:boolean;progress:number;figure?:boolean}>=({beat,portrait,progress,figure=false})=>{
-  const crop=beat.layout.endsWith('_crop'); const objectPosition=beat.focus==='left'?'left center':beat.focus==='right'?'right center':'center';
+const Document:React.FC<{beat:MaterialBeat;portrait:boolean;progress:number;figure?:boolean}>=({beat,portrait,figure=false})=>{
   const dark=figure?C.coal:'#cfc3ad';
-  return <AbsoluteFill style={{background:dark}}><div style={{position:'absolute',left:portrait?32:80,right:portrait?32:80,top:portrait?120:86,bottom:portrait?430:240,background:C.white,boxShadow:'0 30px 70px rgba(0,0,0,.32)',overflow:'hidden',borderRadius:portrait?7:4}}><Img src={src(beat.asset!)} style={{width:'100%',height:'100%',objectFit:crop?'cover':'contain',objectPosition,transform:`scale(${crop?1.04+progress*.055:1+progress*.012})`,background:C.white}}/></div><div style={{position:'absolute',zIndex:6,left:portrait?46:62,right:portrait?46:62,bottom:portrait?150:102,display:'flex',alignItems:'flex-end',justifyContent:'space-between',gap:30}}><BeatTitle beat={beat} portrait={portrait} dark={figure}/><div style={{fontSize:portrait?18:15,color:figure?C.gold:C.rust,fontWeight:900,letterSpacing:1.5,whiteSpace:'nowrap'}}>SOURCE MATERIAL · {crop?'DETAIL':'FULL VIEW'}</div></div></AbsoluteFill>;
+  return <AbsoluteFill style={{background:dark}}><div style={{position:'absolute',left:portrait?32:80,right:portrait?32:80,top:portrait?120:86,bottom:portrait?430:240,background:C.white,boxShadow:'0 30px 70px rgba(0,0,0,.32)',overflow:'hidden',borderRadius:portrait?7:4}}><Img src={src(beat.asset!)} style={{width:'100%',height:'100%',objectFit:'contain',objectPosition:'center',transform:'none',background:C.white}}/></div><div style={{position:'absolute',zIndex:6,left:portrait?46:62,right:portrait?46:62,bottom:portrait?150:102,display:'flex',alignItems:'flex-end',justifyContent:'space-between',gap:30}}><BeatTitle beat={beat} portrait={portrait} dark={figure}/><div style={{fontSize:portrait?18:15,color:figure?C.gold:C.rust,fontWeight:900,letterSpacing:1.5,whiteSpace:'nowrap'}}>SOURCE MATERIAL · STATIC FULL CONTEXT</div></div></AbsoluteFill>;
 };
 
 const PositionChart:React.FC<{beat:MaterialBeat;portrait:boolean;local:number}>=({beat,portrait,local})=>{
   const grow=interpolate(local,[4,32],[0,1],clamp); const w=portrait?900:1320;
   return <AbsoluteFill style={{background:C.paper,color:C.ink,padding:portrait?'155px 62px 165px':'120px 95px 110px'}}><div style={{height:'100%',display:'flex',flexDirection:'column',justifyContent:'center'}}><BeatTitle beat={beat} portrait={portrait} dark={false}/><div style={{marginTop:portrait?75:46,width:w,maxWidth:'100%',display:'grid',gap:portrait?55:35}}>{positions.map((row,index)=>{const enter=spring({frame:local-index*7,fps:30,config:{damping:18,stiffness:130}});return <div key={row.label} style={{display:'grid',gridTemplateColumns:portrait?'90px 1fr':'120px 1fr',alignItems:'center',gap:22,opacity:enter}}><div style={{fontSize:portrait?37:31,fontWeight:950}}>{row.label}</div><div style={{position:'relative',height:portrait?100:76,borderLeft:`2px solid ${C.slate}`}}><div style={{position:'absolute',left:'50%',top:0,height:portrait?40:31,width:`${grow*Math.abs(row.asset)/3_000_000*50}%`,background:C.mint}}><b style={{position:'absolute',left:12,top:portrait?4:2,fontSize:portrait?25:21}}>{fmt(row.asset)}</b></div><div style={{position:'absolute',right:'50%',bottom:0,height:portrait?40:31,width:`${grow*Math.abs(row.lever)/3_000_000*50}%`,background:C.rust}}><b style={{position:'absolute',right:12,top:portrait?4:2,color:C.white,fontSize:portrait?25:21}}>{fmt(row.lever)}</b></div></div></div>})}</div><div style={{display:'flex',gap:28,marginTop:portrait?50:32,fontSize:portrait?21:17,fontWeight:800}}><span style={{color:'#087d69'}}>■ ASSET MANAGER NET</span><span style={{color:C.rust}}>■ LEVERAGED FUND NET</span></div></div></AbsoluteFill>;
+};
+
+const MaturityData:React.FC<{beat:MaterialBeat;portrait:boolean;local:number}>=({beat,portrait,local})=>{
+  const row=positions.find(item=>beat.label.startsWith(item.label))??positions[1];
+  const reveal=spring({frame:local,fps:30,config:{damping:19,stiffness:120}});
+  const card=(title:string,value:string,color:string,index:number)=><div style={{background:C.white,borderTop:`10px solid ${color}`,padding:portrait?'34px 30px':'30px 34px',boxShadow:'0 16px 45px rgba(17,38,49,.11)',opacity:spring({frame:local-index*7,fps:30,config:{damping:18}})}}><div style={{fontSize:portrait?20:17,fontWeight:900,letterSpacing:1.5,color:C.slate}}>{title}</div><div style={{fontSize:portrait?62:54,fontWeight:950,letterSpacing:'-.045em',color:C.ink,marginTop:13}}>{value}</div></div>;
+  return <AbsoluteFill style={{background:`linear-gradient(135deg,${C.paper} 0%,${C.paper2} 100%)`,color:C.ink,padding:portrait?'165px 58px 155px':'118px 92px 100px'}}><BeatTitle beat={beat} portrait={portrait} dark={false}/><div style={{display:'grid',gridTemplateColumns:portrait?'1fr':'1.15fr .85fr',gap:portrait?26:34,marginTop:portrait?58:42,alignItems:'stretch'}}><div style={{background:C.coal,color:C.white,padding:portrait?'42px 36px':'40px 44px',display:'flex',flexDirection:'column',justifyContent:'space-between',minHeight:portrait?270:300,transform:`translateY(${(1-reveal)*22}px)`,opacity:reveal}}><div style={{fontSize:portrait?22:18,fontWeight:900,letterSpacing:1.8,color:C.gold}}>GOVERNED CFTC SNAPSHOT</div><div><div style={{fontSize:portrait?90:84,fontWeight:950,letterSpacing:'-.055em'}}>{row.label}</div><div style={{fontSize:portrait?25:21,color:'#c2d0d6',fontWeight:750}}>OPEN INTEREST · {row.open.toLocaleString('en-US')}</div></div><div style={{fontSize:portrait?18:15,color:C.mint,fontWeight:850}}>POSITIONS AS OF 11 AUG 2026</div></div><div style={{display:'grid',gap:portrait?20:18}}>{card('ASSET MANAGER NET',row.asset.toLocaleString('en-US',{signDisplay:'always'}),C.mint,1)}{card('LEVERAGED FUND NET',row.lever.toLocaleString('en-US',{signDisplay:'always'}),C.rust,2)}</div></div></AbsoluteFill>;
 };
 
 const WeeklyDelta:React.FC<{beat:MaterialBeat;portrait:boolean;local:number}>=({beat,portrait,local})=>{
@@ -76,6 +86,7 @@ const Material:React.FC<{scene:PositioningScene;beat:MaterialBeat;portrait:boole
   if(beat.layout.startsWith('document_')) return <Document beat={beat} portrait={portrait} progress={progress}/>;
   if(beat.layout.startsWith('figure_')) return <Document beat={beat} portrait={portrait} progress={progress} figure/>;
   if(beat.layout==='position_chart') return <PositionChart beat={beat} portrait={portrait} local={local}/>;
+  if(beat.layout==='maturity_data') return <MaturityData beat={beat} portrait={portrait} local={local}/>;
   if(beat.layout==='weekly_delta') return <WeeklyDelta beat={beat} portrait={portrait} local={local}/>;
   if(beat.layout==='mechanism') return <Mechanism beat={beat} portrait={portrait} local={local}/>;
   if(beat.layout==='boundary') return <Boundary beat={beat} portrait={portrait} local={local}/>;
@@ -90,7 +101,7 @@ const Scene:React.FC<{scene:PositioningScene;portrait:boolean;caption:boolean}>=
   const beat=beats.find(row=>second>=row.start_seconds&&second<row.end_seconds)??beats[beats.length-1];
   const local=Math.max(0,frame-Math.round(beat.start_seconds*30)); const duration=Math.max(1,Math.round(beat.duration_seconds*30));
   const progress=interpolate(local,[0,duration],[0,1],clamp); const edge=interpolate(local,[0,5],[.88,1],clamp);
-  const dark=!['document_full','document_crop','position_chart','weekly_delta','source_clock','stress_chain','montage'].includes(beat.layout);
+  const dark=!['document_full','position_chart','maturity_data','weekly_delta','source_clock','stress_chain','montage'].includes(beat.layout);
   return <AbsoluteFill style={{opacity:edge,background:C.coal}}><Material scene={scene} beat={beat} portrait={portrait} local={local} progress={progress}/><Grain/><ChapterSlug scene={scene} portrait={portrait} dark={dark}/><Brand portrait={portrait} dark={dark}/><SourceLine portrait={portrait} dark={dark}>{scene.source}</SourceLine>{caption&&<div style={{position:'absolute',zIndex:120,left:portrait?48:280,right:portrait?48:280,bottom:portrait?92:55,background:'rgba(8,17,22,.9)',color:C.white,padding:'13px 20px',fontSize:portrait?29:27,fontWeight:800,textAlign:'center'}}>{scene.caption}</div>}</AbsoluteFill>;
 };
 

@@ -5,9 +5,11 @@ Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `UNSELECTED / FUTURE_HIGH_BAR_MAX_VS_ULTRA_AFTER_QUALITY_HARDENING`
 
-Current exact task: `TASK_CONTENTOPS_V2_TREASURY_SHORT_LONGFORM_VISUAL_MATERIAL_RICHNESS_REPAIR_V1`.
+Current exact task: `TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1`.
 
-Builder state: `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. The repair preserves the accepted Treasury story and 26 immutable Kokoro segments while replacing the longform motion-deck treatment with documentary, primary-source, and native-data material. Actual 56.700s 2160×3840 short and 559.300s 1920×1080 longform masters, captions, asset board, material manifest, visual QA, recovery proof, and zero-write receipt are complete. Jim/ChatGPT must inspect both final masters. `MAX/ULTRA`, V2-02, publication, and permanent publication-voice selection remain blocked behind that owner gate.
+Builder state: `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. The owner-integrity repair preserves the accepted Treasury story and all 26 immutable audio segments while replacing timer-generated recipe cycling with explicit semantic beats. It expands the candidate/selected source universe to 25/23, separates 10 actual source-material families from 12 presentation grammars, and locks primary numeric evidence/source charts/figures/tables to `STATIC_FULL_CONTEXT`. Actual 56.700s 2160×3840 short and 559.300s 1920×1080 longform masters, sidecar captions, full-duration/final-third review surfaces, reuse accounting, and full-resolution evidence stills are complete. Jim/ChatGPT must inspect both final masters. `MAX/ULTRA`, V2-02, publication, and permanent publication-voice selection remain blocked behind that owner gate.
+
+Durable owner rules: primary numeric evidence/source charts/source figures/tables default to fixed-scale, fixed-frame, full-context contain presentation; do not apply Ken Burns, zoom, pan, parallax, crop-push, or animated crop to the evidence object itself. Source-material diversity and presentation/layout-grammar diversity are separate and must be reported separately.
 
 Durable substrate record:
 

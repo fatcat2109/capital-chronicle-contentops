@@ -1,6 +1,6 @@
 # `video/` — Retention-Native V2 Creative-Code / Renderer Scope
 
-Authority date: 2026-08-12
+Authority date: 2026-08-15
 
 For V2/video work, read first:
 
@@ -14,11 +14,11 @@ For V2/video work, read first:
 
 Current next task:
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1`
 
 Required result:
 
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 
 ## Exact creative-code model
 
@@ -135,6 +135,14 @@ Use where relevant:
 - generated conceptual illustrations through the accepted direct `gpt-5.5` boundary.
 
 Generated real-person documentary imagery remains forbidden.
+
+## Primary-evidence integrity and diversity accounting
+
+Primary numeric evidence, source charts, source figures, numeric tables, governed data screenshots, and equivalent evidence objects default to `STATIC_FULL_CONTEXT`. Present the entire object with contain-style framing and fixed scale/position. Do not zoom, pan, Ken-Burns, parallax, crop-push, animate a crop, or otherwise transform the evidence object for decoration. Surrounding cuts, restrained highlights, pointers, source/date labels, and separately authored governed Capital Chronicle native visualizations remain allowed. Documentary photography may use restrained editorial reframing when justified.
+
+Source-material diversity is distinct from presentation/layout-grammar diversity. Track exact source file, actual source-material family, semantic purpose, scenes, screen time, adjacency/short-window recurrence, and known recent-video reuse. Do not count boundaries, diagrams, timelines, montages, cards, monitoring layouts, or other presentation grammar as evidence of a broader source universe.
+
+Owner media must use explicitly authored semantic beats tied to narration/information changes. Do not derive the actual beat plan by dividing duration into a target cadence or cycling a short visual recipe; 2–4 seconds is only a heuristic, and stable evidence may need a longer readable hold.
 
 ## Motion-quality anti-patterns
 

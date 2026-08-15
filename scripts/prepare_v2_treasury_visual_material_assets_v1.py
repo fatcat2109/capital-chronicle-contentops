@@ -20,10 +20,10 @@ from typing import Any
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 
-TASK_ID = "TASK_CONTENTOPS_V2_TREASURY_SHORT_LONGFORM_VISUAL_MATERIAL_RICHNESS_REPAIR_V1"
+TASK_ID = "TASK_CONTENTOPS_V2_TREASURY_OWNER_VISUAL_INTEGRITY_AND_ASSET_DIVERSITY_REPAIR_V1"
 STORY_ID = "CFTC_TREASURY_POSITIONING_20260811_SHORT_LONGFORM_V1"
 OLD_RUNTIME = Path(r"A:\Capital Chronicle\Runtime\ContentOps\v2_short_longform_low_cost_audio_20260815")
-DEFAULT_RUNTIME = Path(r"A:\Capital Chronicle\Runtime\ContentOps\v2_treasury_visual_material_richness_20260815")
+DEFAULT_RUNTIME = Path(r"A:\Capital Chronicle\Runtime\ContentOps\v2_treasury_owner_visual_integrity_diversity_20260815")
 PDFTOPPM = Path(r"C:\Users\bullw\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\poppler\Library\bin\pdftoppm.exe")
 EXPECTED_SOURCE_SHA256 = "e3e4bff2592777fbd9a125e723bdb087b5110b47b95c16e1b376dcb029b44f96"
 EXPECTED_ROWS = {
@@ -41,6 +41,7 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://commons.wikimedia.org/wiki/File:Commodity_Futures_Trading_Commission_entrance_Washington_DC_2026-03-15_08-47-48.jpg",
         "rights": "CC BY 4.0; credit G. Edward Johnson; crop/color treatment allowed; no endorsement implied",
         "family": "documentary_photo",
+        "source_material_family": "cftc_institutional_context",
         "orientation": "landscape",
         "crop_notes": "Use entrance/logo as factual CFTC context; preserve visible agency identity.",
         "embedded_text": "CFTC agency sign/logo",
@@ -54,6 +55,7 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://www.loc.gov/item/2011635063/",
         "rights": "Library of Congress; Carol M. Highsmith Archive; no known restrictions on publication",
         "family": "documentary_photo",
+        "source_material_family": "treasury_institutional_context",
         "orientation": "landscape",
         "crop_notes": "Wide facade; use for Treasury-market institutional context, not as proof of a numeric claim.",
         "embedded_text": "None material",
@@ -67,6 +69,7 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://commons.wikimedia.org/wiki/File:US_Federal_Reserve_Eccles_Building_1937.jpg",
         "rights": "Public domain U.S. Federal Reserve Board work",
         "family": "documentary_photo",
+        "source_material_family": "fed_institutional_context",
         "orientation": "landscape",
         "crop_notes": "Historic facade; pair with dated 2026 Fed research documents, clearly labeling dates.",
         "embedded_text": "None material",
@@ -80,11 +83,26 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/decomposing-hedge-funds-u-s-treasury-exposures-20260622.html",
         "rights": "Official Federal Reserve research figure; U.S. government source; retain source/date",
         "family": "primary_source_figure",
+        "source_material_family": "fed_2026_exposure_research",
         "orientation": "landscape",
         "crop_notes": "Use full figure or an explicitly labeled panel crop; keep axes/source legible.",
         "embedded_text": "Four chart panels, titles, axes, note/source",
         "selected": True,
         "story_use": ["L09", "L10", "L12", "L17"],
+    },
+    {
+        "asset_id": "FED_2026_FIGURE_2",
+        "filename": "fed-2026-fig2-holdings-share.png",
+        "url": "https://www.federalreserve.gov/econres/notes/feds-notes/fig2-4082.png",
+        "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/decomposing-hedge-funds-u-s-treasury-exposures-20260622.html",
+        "rights": "Official Federal Reserve research figure; U.S. government source; retain source/date",
+        "family": "primary_source_figure",
+        "source_material_family": "fed_2026_exposure_research",
+        "orientation": "landscape",
+        "crop_notes": "Static full-context figure only; use for portfolio-scale context.",
+        "embedded_text": "Holdings share chart, axes, note/source",
+        "selected": True,
+        "story_use": ["L10", "L17"],
     },
     {
         "asset_id": "FED_2026_FIGURE_3",
@@ -93,6 +111,7 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/decomposing-hedge-funds-u-s-treasury-exposures-20260622.html",
         "rights": "Official Federal Reserve research figure; U.S. government source; retain source/date",
         "family": "primary_source_figure",
+        "source_material_family": "fed_2026_exposure_research",
         "orientation": "landscape",
         "crop_notes": "Use to prove that hedge-fund Treasury exposure contains multiple strategies.",
         "embedded_text": "Stacked chart, legend, axes, note/source",
@@ -106,6 +125,7 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/decomposing-hedge-funds-u-s-treasury-exposures-20260622.html",
         "rights": "Official Federal Reserve research figure; U.S. government source; retain source/date",
         "family": "primary_source_figure",
+        "source_material_family": "fed_2026_exposure_research",
         "orientation": "landscape",
         "crop_notes": "Use with $830bn/September 2025 label; not as an August 2026 live estimate.",
         "embedded_text": "Dual-axis chart, legend, axes, note/source",
@@ -119,12 +139,68 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/decomposing-hedge-funds-u-s-treasury-exposures-20260622.html",
         "rights": "Official Federal Reserve research figure; U.S. government source; retain source/date",
         "family": "primary_source_figure",
+        "source_material_family": "fed_2026_exposure_research",
         "orientation": "landscape",
         "crop_notes": "Candidate for alternative-strategy context; lower priority than Figure 3.",
         "embedded_text": "Line chart, axes, note/source",
-        "selected": False,
-        "rejection_reason": "Figure 3 communicates strategy plurality more directly; avoid redundant Fed chart time.",
-        "story_use": [],
+        "selected": True,
+        "story_use": ["L11", "L12"],
+    },
+    {
+        "asset_id": "FED_2024_BASIS_FIGURE_2",
+        "filename": "fed-2024-basis-fig2-leveraged-short-tenors.png",
+        "url": "https://www.federalreserve.gov/econres/notes/feds-notes/fig2-3458.png",
+        "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/quantifying-treasury-cash-futures-basis-trades-20240308.html",
+        "rights": "Official Federal Reserve research figure; retain source/date and CFTC data attribution",
+        "family": "primary_source_figure",
+        "source_material_family": "fed_2024_basis_proxy_research",
+        "orientation": "landscape",
+        "crop_notes": "Static full-context figure only; historical proxy context, not an August 2026 observation.",
+        "embedded_text": "Treasury-tenor short-position chart, axes, note/source",
+        "selected": True,
+        "story_use": ["S06", "L08", "L11"],
+    },
+    {
+        "asset_id": "FED_2024_BASIS_FIGURE_5",
+        "filename": "fed-2024-basis-fig5-net-repo.png",
+        "url": "https://www.federalreserve.gov/econres/notes/feds-notes/fig5-3458.png",
+        "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/quantifying-treasury-cash-futures-basis-trades-20240308.html",
+        "rights": "Official Federal Reserve research figure; U.S. government source; retain source/date",
+        "family": "primary_source_figure",
+        "source_material_family": "fed_2024_basis_proxy_research",
+        "orientation": "landscape",
+        "crop_notes": "Static full-context figure only; historical net-repo proxy context.",
+        "embedded_text": "Net-repo chart, axes, note/source",
+        "selected": True,
+        "story_use": ["S07", "L09", "L13", "L15"],
+    },
+    {
+        "asset_id": "FED_2024_BASIS_FIGURE_6",
+        "filename": "fed-2024-basis-fig6-proxy-comparison.png",
+        "url": "https://www.federalreserve.gov/econres/notes/feds-notes/fig6-3458.png",
+        "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/quantifying-treasury-cash-futures-basis-trades-20240308.html",
+        "rights": "Official Federal Reserve research figure; U.S. government source; retain source/date",
+        "family": "primary_source_figure",
+        "source_material_family": "fed_2024_basis_proxy_research",
+        "orientation": "landscape",
+        "crop_notes": "Static full-context figure only; use to show why futures shorts are not an identity.",
+        "embedded_text": "TRACE/net-repo/leveraged-short comparison, axes, note/source",
+        "selected": True,
+        "story_use": ["S06", "L11", "L15", "L16"],
+    },
+    {
+        "asset_id": "FED_2023_POSITIONING_FIGURE_4",
+        "filename": "fed-2023-fig4-treasury-tenor-positioning.png",
+        "url": "https://www.federalreserve.gov/econres/notes/feds-notes/fig4-3355.png",
+        "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/recent-developments-in-hedge-funds-treasury-futures-and-repo-positions-20230830.html",
+        "rights": "Official Federal Reserve research figure; retain source/date and CFTC data attribution",
+        "family": "primary_source_figure",
+        "source_material_family": "fed_2023_treasury_positioning_research",
+        "orientation": "landscape",
+        "crop_notes": "Static full-context figure only; historical context distinct from the governed 2026 snapshot.",
+        "embedded_text": "2Y/5Y/10Y positioning panels, axes, note/source",
+        "selected": True,
+        "story_use": ["L01", "L06", "L17"],
     },
     {
         "asset_id": "CBOT_1900_SESSION",
@@ -133,6 +209,7 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://www.loc.gov/item/2007663560/",
         "rights": "Library of Congress; no known restrictions on publication",
         "family": "archival_photo",
+        "source_material_family": "archival_exchange_context",
         "orientation": "panorama",
         "crop_notes": "Archival exchange scene only; not modern Treasury-futures evidence.",
         "embedded_text": "None material",
@@ -147,6 +224,7 @@ ASSETS: list[dict[str, Any]] = [
         "source_page": "https://www.loc.gov/item/2011634218/",
         "rights": "Library of Congress; Carol M. Highsmith Archive; no known restrictions on publication",
         "family": "documentary_photo",
+        "source_material_family": "equity_exchange_context",
         "orientation": "landscape",
         "crop_notes": "Equity exchange context, not Treasury-market plumbing.",
         "embedded_text": "Exchange signage/screens",
@@ -165,6 +243,7 @@ DOCUMENT_SOURCES = [
         "source_page": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/ReleaseSchedule/index.htm",
         "rights": "Official CFTC public source",
         "family": "primary_document",
+        "source_material_family": "cftc_official_document",
         "selected": True,
         "story_use": ["L02"],
     },
@@ -175,6 +254,7 @@ DOCUMENT_SOURCES = [
         "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/decomposing-hedge-funds-u-s-treasury-exposures-20260622.html",
         "rights": "Official Federal Reserve public research source",
         "family": "primary_document",
+        "source_material_family": "fed_2026_exposure_research",
         "selected": True,
         "story_use": ["L10", "L11"],
     },
@@ -185,8 +265,43 @@ DOCUMENT_SOURCES = [
         "source_page": "https://home.treasury.gov/news/press-releases/jy2618",
         "rights": "Official U.S. Treasury public source",
         "family": "primary_document",
+        "source_material_family": "treasury_official_document",
         "selected": True,
         "story_use": ["L07", "L12"],
+    },
+    {
+        "asset_id": "FED_BASIS_NOTE_2024_HTML",
+        "filename": "fed-basis-note-2024.html",
+        "url": "https://www.federalreserve.gov/econres/notes/feds-notes/quantifying-treasury-cash-futures-basis-trades-20240308.html",
+        "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/quantifying-treasury-cash-futures-basis-trades-20240308.html",
+        "rights": "Official Federal Reserve public research source",
+        "family": "primary_document",
+        "source_material_family": "fed_2024_basis_proxy_research",
+        "selected": True,
+        "story_use": ["S05", "S06", "L08", "L11"],
+    },
+    {
+        "asset_id": "FED_POSITIONING_NOTE_2023_HTML",
+        "filename": "fed-positioning-note-2023.html",
+        "url": "https://www.federalreserve.gov/econres/notes/feds-notes/recent-developments-in-hedge-funds-treasury-futures-and-repo-positions-20230830.html",
+        "source_page": "https://www.federalreserve.gov/econres/notes/feds-notes/recent-developments-in-hedge-funds-treasury-futures-and-repo-positions-20230830.html",
+        "rights": "Official Federal Reserve public research source",
+        "family": "primary_document",
+        "source_material_family": "fed_2023_treasury_positioning_research",
+        "selected": True,
+        "story_use": ["L01", "L06", "L17"],
+    },
+]
+
+
+PDF_SOURCES = [
+    {
+        "asset_id": "CFTC_TFF_EXPLANATORY_NOTES_PDF",
+        "filename": "cftc-tff-explanatory-notes.pdf",
+        "url": "https://www.cftc.gov/sites/default/files/idc/groups/public/@commitmentsoftraders/documents/file/tfmexplanatorynotes.pdf",
+        "source_page": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm",
+        "rights": "Official CFTC public document",
+        "source_material_family": "cftc_official_document",
     },
 ]
 
@@ -337,7 +452,7 @@ def board(items: list[dict[str, Any]], target: Path) -> None:
         d.rectangle((20, 318, 142, 357), fill=color)
         d.text((32, 326), status, font=font(20, True), fill="#07131b")
         d.text((158, 322), item["asset_id"][:29], font=font(19, True), fill="#f3efe4")
-        d.text((20, 364), f'{item["width"]}×{item["height"]} · {item["family"]}', font=font(15), fill="#b7c6cf")
+        d.text((20, 364), f'{item["width"]}×{item["height"]} · {item["source_material_family"]}', font=font(15), fill="#b7c6cf")
         cards.append(card)
     cols = 3
     rows = (len(cards) + cols - 1) // cols
@@ -379,39 +494,93 @@ def main() -> int:
         download(spec["url"], target)
         spec["source_sha256"] = sha256(target)
 
+    for spec in PDF_SOURCES:
+        target = sources_dir / spec["filename"]
+        download(spec["url"], target)
+        spec["source_sha256"] = sha256(target)
+
     fsr_pdf = sources_dir / "financial-stability-report-20260508.pdf"
     download("https://www.federalreserve.gov/publications/files/financial-stability-report-20260508.pdf", fsr_pdf)
-    fsr_prefix = assets_dir / "fed-fsr-2026-page-38"
-    fsr_image = assets_dir / "fed-fsr-2026-page-38.png"
-    if not fsr_image.is_file():
-        subprocess.run([str(PDFTOPPM), "-f", "38", "-l", "38", "-r", "150", "-png", "-singlefile", str(fsr_pdf), str(fsr_prefix)], check=True)
+    for page in (37, 38, 39):
+        fsr_prefix = assets_dir / f"fed-fsr-2026-page-{page}"
+        fsr_image = assets_dir / f"fed-fsr-2026-page-{page}.png"
+        if not fsr_image.is_file():
+            subprocess.run([str(PDFTOPPM), "-f", str(page), "-l", str(page), "-r", "150", "-png", "-singlefile", str(fsr_pdf), str(fsr_prefix)], check=True)
+
+    cftc_notes_pdf = sources_dir / PDF_SOURCES[0]["filename"]
+    for page in (1, 4):
+        prefix = assets_dir / f"cftc-tff-explanatory-notes-page-{page}"
+        image = assets_dir / f"cftc-tff-explanatory-notes-page-{page}.png"
+        if not image.is_file():
+            subprocess.run([str(PDFTOPPM), "-f", str(page), "-l", str(page), "-r", "180", "-png", "-singlefile", str(cftc_notes_pdf), str(prefix)], check=True)
 
     derivative_specs = [
         {
             "asset_id": "CFTC_EXACT_ROWS_DERIVATIVE", "filename": "cftc-exact-rows-2026-08-11.png", "family": "primary_data_derivative",
+            "source_material_family": "cftc_governed_snapshot",
             "source_page": "https://www.cftc.gov/files/dea/history/fut_fin_txt_2026.zip", "rights": "Official CFTC data; faithful derivative from exact governed source bytes",
             "story_use": ["S02", "S03", "S04", "L03", "L04", "L05", "L06", "L18"], "selected": True,
             "crop_notes": "Prefer full table; in portrait use one contract row at a time with derivative label visible.", "embedded_text": "Exact values, date, evidence boundary, source SHA-256",
         },
         {
             "asset_id": "CFTC_RELEASE_SCHEDULE_DERIVATIVE", "filename": "cftc-release-schedule-derivative.png", "family": "primary_document_derivative",
+            "source_material_family": "cftc_official_document",
             "source_page": DOCUMENT_SOURCES[0]["source_page"], "rights": "Official CFTC page; faithful editorial excerpt tied to cached HTML SHA-256",
             "story_use": ["L02"], "selected": True, "crop_notes": "Full document view then August 14 highlight; never imply live data.", "embedded_text": "Release convention and August 2026 dates",
         },
         {
             "asset_id": "FED_NOTE_COVER_DERIVATIVE", "filename": "fed-note-cover-derivative.png", "family": "primary_document_derivative",
+            "source_material_family": "fed_2026_exposure_research",
             "source_page": DOCUMENT_SOURCES[1]["source_page"], "rights": "Official Federal Reserve page; faithful editorial excerpt tied to cached HTML SHA-256",
             "story_use": ["L10", "L11"], "selected": True, "crop_notes": "Pair with actual figure; keep June 22, 2026 date and source hash.", "embedded_text": "Title, date, documented $4tn/$3tn/$830bn scale",
         },
         {
             "asset_id": "TREASURY_REMARKS_DERIVATIVE", "filename": "treasury-remarks-derivative.png", "family": "primary_document_derivative",
+            "source_material_family": "treasury_official_document",
             "source_page": DOCUMENT_SOURCES[2]["source_page"], "rights": "Official U.S. Treasury page; faithful editorial excerpt tied to cached HTML SHA-256",
             "story_use": ["L07", "L12"], "selected": True, "crop_notes": "Use as institutional source page, not a portrait proxy.", "embedded_text": "Title, date, Treasury-market function excerpt",
         },
         {
             "asset_id": "FED_FSR_2026_PAGE_38", "filename": "fed-fsr-2026-page-38.png", "family": "primary_document_page",
+            "source_material_family": "fed_2026_financial_stability_report",
             "source_page": "https://www.federalreserve.gov/publications/files/financial-stability-report-20260508.pdf", "rights": "Official Federal Reserve report page",
-            "story_use": ["S07", "L13", "L14"], "selected": True, "crop_notes": "Use full page and figure 3.11/3.13 crops with page/date/source visible.", "embedded_text": "Figures 3.11–3.14, sources, page number",
+            "story_use": ["L13"], "selected": True, "crop_notes": "Static full-context page only; use as narrative bridge into hedge-fund leverage.", "embedded_text": "Dealer funding narrative, insurer leverage figure, hedge-fund leverage introduction",
+        },
+        {
+            "asset_id": "FED_FSR_2026_PAGE_37", "filename": "fed-fsr-2026-page-37.png", "family": "primary_document_page",
+            "source_material_family": "fed_2026_financial_stability_report",
+            "source_page": "https://www.federalreserve.gov/publications/files/financial-stability-report-20260508.pdf", "rights": "Official Federal Reserve report page",
+            "story_use": ["L14"], "selected": True, "crop_notes": "Static full-context page only; dealer leverage/intermediation source.", "embedded_text": "Broker-dealer leverage, profits, intermediation-capacity narrative, sources, page number",
+        },
+        {
+            "asset_id": "FED_FSR_2026_PAGE_39", "filename": "fed-fsr-2026-page-39.png", "family": "primary_document_page",
+            "source_material_family": "fed_2026_financial_stability_report",
+            "source_page": "https://www.federalreserve.gov/publications/files/financial-stability-report-20260508.pdf", "rights": "Official Federal Reserve report page",
+            "story_use": ["S07", "L13", "L14", "L16"], "selected": True, "crop_notes": "Static full-context page only; actual figures 3.11–3.13.", "embedded_text": "Hedge-fund leverage and dealer survey figures 3.11–3.13, sources, page number",
+        },
+        {
+            "asset_id": "CFTC_TFF_EXPLANATORY_PAGE_1", "filename": "cftc-tff-explanatory-notes-page-1.png", "family": "primary_document_page",
+            "source_material_family": "cftc_official_document",
+            "source_page": PDF_SOURCES[0]["source_page"], "rights": "Official CFTC explanatory-notes page",
+            "story_use": ["S04", "L02", "L03"], "selected": True, "crop_notes": "Static full-context page only; classification/source-clock context.", "embedded_text": "TFF category design and Tuesday-position explanation",
+        },
+        {
+            "asset_id": "CFTC_TFF_EXPLANATORY_PAGE_4", "filename": "cftc-tff-explanatory-notes-page-4.png", "family": "primary_document_page",
+            "source_material_family": "cftc_official_document",
+            "source_page": PDF_SOURCES[0]["source_page"], "rights": "Official CFTC explanatory-notes page",
+            "story_use": ["S04", "L02", "L05", "L18"], "selected": True, "crop_notes": "Static full-context page only; classification-limitation context.", "embedded_text": "Potential limitations: CFTC classifies traders, not each trading activity",
+        },
+        {
+            "asset_id": "FED_BASIS_NOTE_2024_DERIVATIVE", "filename": "fed-basis-note-2024-derivative.png", "family": "primary_document_derivative",
+            "source_material_family": "fed_2024_basis_proxy_research",
+            "source_page": DOCUMENT_SOURCES[3]["source_page"], "rights": "Official Federal Reserve page; faithful editorial excerpt tied to cached HTML SHA-256",
+            "story_use": ["S05", "S06", "L08", "L11"], "selected": True, "crop_notes": "Static full-context excerpt only; retain March 8, 2024 date/source.", "embedded_text": "Basis mechanism and proxy limitation",
+        },
+        {
+            "asset_id": "FED_POSITIONING_NOTE_2023_DERIVATIVE", "filename": "fed-positioning-note-2023-derivative.png", "family": "primary_document_derivative",
+            "source_material_family": "fed_2023_treasury_positioning_research",
+            "source_page": DOCUMENT_SOURCES[4]["source_page"], "rights": "Official Federal Reserve page; faithful editorial excerpt tied to cached HTML SHA-256",
+            "story_use": ["L01", "L06", "L17"], "selected": True, "crop_notes": "Static full-context excerpt only; retain August 30, 2023 date/source.", "embedded_text": "Asset-manager long / leveraged-fund short historical mechanism context",
         },
     ]
 
@@ -428,6 +597,14 @@ def main() -> int:
         "Remarks at the 2024 U.S. Treasury Market Conference", "26 September 2024 · U.S. Department of the Treasury",
         "TREASURY MARKET RESILIENCE", ["Treasuries finance the government, support monetary policy, serve as collateral and benchmark global asset prices.", "Resilience work spans transparency, repo reporting, buybacks and central clearing."],
         f"Official Treasury HTML snapshot · SHA-256 {DOCUMENT_SOURCES[2]['source_sha256']}", assets_dir / derivative_specs[3]["filename"])
+    document_image(
+        "Quantifying Treasury Cash-Futures Basis Trades", "FEDS Notes · 8 March 2024",
+        "FEDERAL RESERVE RESEARCH", ["The basis package pairs a repo-financed cash Treasury with a short Treasury future.", "Leveraged-fund short futures are timely but may overestimate basis activity because the category includes other strategies.", "Use futures, repo, TRACE and portfolio measures together."],
+        f"Official Federal Reserve HTML snapshot · SHA-256 {DOCUMENT_SOURCES[3]['source_sha256']}", assets_dir / "fed-basis-note-2024-derivative.png")
+    document_image(
+        "Treasury Futures and Repo Positions", "FEDS Notes · 30 August 2023",
+        "FEDERAL RESERVE RESEARCH", ["Asset-manager long futures and leveraged-fund shorts rose together across Treasury tenors.", "The pairing is consistent with basis activity but does not identify every leveraged-fund short as a basis position."],
+        f"Official Federal Reserve HTML snapshot · SHA-256 {DOCUMENT_SOURCES[4]['source_sha256']}", assets_dir / "fed-positioning-note-2023-derivative.png")
 
     for spec in derivative_specs:
         target = assets_dir / spec["filename"]
@@ -435,7 +612,9 @@ def main() -> int:
             width, height = image.size
             media_type = Image.MIME.get(image.format, image.format)
         source_sha = receipt["source_sha256"] if spec["asset_id"] == "CFTC_EXACT_ROWS_DERIVATIVE" else (
-            sha256(fsr_pdf) if spec["asset_id"] == "FED_FSR_2026_PAGE_38" else next(row["source_sha256"] for row in DOCUMENT_SOURCES if row["source_page"] == spec["source_page"])
+            sha256(fsr_pdf) if spec["asset_id"].startswith("FED_FSR_2026_PAGE_") else
+            PDF_SOURCES[0]["source_sha256"] if spec["asset_id"].startswith("CFTC_TFF_EXPLANATORY_PAGE_") else
+            next(row["source_sha256"] for row in DOCUMENT_SOURCES if row["source_page"] == spec["source_page"])
         )
         items.append(dict(spec, local_path=str(target), sha256=sha256(target), source_sha256=source_sha,
                           bytes=target.stat().st_size, width=width, height=height, media_type=media_type,
@@ -444,12 +623,15 @@ def main() -> int:
     selected = [item for item in items if item.get("selected")]
     rejected = [item for item in items if not item.get("selected")]
     board_payload = {
-        "schema": "contentops.v2.treasury_asset_board.v1", "task_id": TASK_ID, "story_id": STORY_ID,
+        "schema": "contentops.v2.treasury_asset_board.v2", "task_id": TASK_ID, "story_id": STORY_ID,
         "status": "PASS_PRE_MOTION_ASSET_BOARD_READY", "created_at": retrieved,
         "visual_policy": "CONCRETE_FIRST_ABSTRACT_SECOND; documentary/source/data material before explanatory abstraction",
         "selected": selected, "rejected": rejected,
         "counts": {"candidates": len(items), "selected": len(selected), "rejected": len(rejected),
-                   "selected_external_or_source_assets": len(selected), "selected_families": len({item["family"] for item in selected})},
+                   "selected_external_or_source_assets": len(selected),
+                   "selected_source_material_families": len({item["source_material_family"] for item in selected}),
+                   "presentation_grammars": 0},
+        "taxonomy_note": "Source-material families describe actual source provenance/semantics. Presentation grammars are reported from serialized render props and never counted as source-material diversity.",
     }
     write_json(runtime / "contracts" / "asset_board.json", board_payload)
     board(items, runtime / "review" / "pre-motion-asset-board.jpg")
@@ -459,7 +641,7 @@ def main() -> int:
     for item in selected:
         shutil.copy2(item["local_path"], public / Path(item["local_path"]).name)
     write_json(runtime / "receipts" / "asset_acquisition.json", {
-        "status": "PASS", "retrieved_at": retrieved, "downloads": len(ASSETS) + len(DOCUMENT_SOURCES) + 1,
+        "status": "PASS", "retrieved_at": retrieved, "downloads": len(ASSETS) + len(DOCUMENT_SOURCES) + len(PDF_SOURCES) + 1,
         "selected_assets_copied_to_render_public": len(selected), "network_scope": "explicit read-only sources only",
         "public_writes": 0, "uploads": 0, "browser_profile_uses": 0,
     })
