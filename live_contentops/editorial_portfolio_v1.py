@@ -3,8 +3,9 @@
 Owner decision 2026-08-10 (V1 realignment): every editorial decision must know what ContentOps
 already published, classify each viable cluster explicitly as
 BREAKING_NEW_STORY / MATERIAL_FOLLOW_UP / DEEPEN_EXISTING_STORY / LOW_DELTA_REPEAT / HOLD, and
-operate toward a 5-8 high-quality article target band via more decision opportunities and
-material-event wakeups — never via filler fabrication or weakened factual/numeric authority.
+operate under the owner-locked four-opportunity quality probation with no publication minimum.
+The broader 5-8 useful-article band remains long-term portfolio context only and creates no
+filler pressure, automatic wakeup, or schedule-scaling authority.
 
 This module is deterministic editorial intelligence feeding the existing canonical newsroom
 boundary. It is not a second newsroom, not a second scheduler, and not a second store.
@@ -24,8 +25,9 @@ DECISION_LOW_DELTA_REPEAT = "LOW_DELTA_REPEAT"
 DECISION_HOLD = "HOLD"
 DECISION_NO_PUBLICATION = "NO_PUBLICATION"
 
-DAILY_TARGET_BAND = (5, 8)
-CORE_DECISION_OPPORTUNITIES_PER_DAY = 8
+DAILY_TARGET_BAND = (0, 4)
+LONG_TERM_USEFUL_ARTICLE_PORTFOLIO_GOAL = (5, 8)
+CORE_DECISION_OPPORTUNITIES_PER_DAY = 4
 
 ARTICLE_MODE_BREAKING_BRIEF = "BREAKING_BRIEF"
 ARTICLE_MODE_FOLLOW_UP_UPDATE = "FOLLOW_UP_UPDATE"
@@ -295,7 +297,13 @@ def portfolio_state_today(
         "as_of_utc": moment.isoformat().replace("+00:00", "Z"),
         "published_today_count": len(todays),
         "daily_target_band": list(DAILY_TARGET_BAND),
-        "remaining_target_min": max(0, DAILY_TARGET_BAND[0] - len(todays)),
+        "publication_minimum": 0,
+        "routine_publication_ceiling": 4,
+        "remaining_target_min": 0,
+        "long_term_useful_article_portfolio_goal": list(
+            LONG_TERM_USEFUL_ARTICLE_PORTFOLIO_GOAL
+        ),
+        "long_term_goal_creates_filler_pressure": False,
         "article_mode_counts": mode_counts,
         "entity_concentration_top": sorted(
             ({"entity": entity, "count": count} for entity, count in entity_counts.items()),
@@ -326,14 +334,22 @@ def concentration_penalty(cluster_entities: Sequence[str], portfolio: Mapping[st
 
 
 def bootstrap_portfolio_policy() -> dict[str, Any]:
-    """Versioned bootstrap configuration for the 5-8/day target band. Exact window times are
-    configuration, not claimed universal truth; learning may tune them later."""
+    """Owner-locked four-window quality-probation portfolio configuration."""
     return {
         "schema_version": "contentops.editorial_portfolio_policy.v1",
-        "policy_version": "portfolio.bootstrap.v1",
+        "policy_version": "portfolio.quality_probation_four_window.v1",
         "daily_target_band": list(DAILY_TARGET_BAND),
+        "publication_minimum": 0,
+        "routine_publication_ceiling": 4,
+        "long_term_useful_article_portfolio_goal": list(
+            LONG_TERM_USEFUL_ARTICLE_PORTFOLIO_GOAL
+        ),
         "core_decision_opportunities_per_day": CORE_DECISION_OPPORTUNITIES_PER_DAY,
-        "material_event_wakeups_enabled": True,
+        "material_event_wakeups_enabled": False,
+        "material_event_priority_next_scheduled_opportunity": True,
+        "manual_go_exception_enabled": True,
+        "automatic_schedule_scaling_enabled": False,
+        "schedule_owner_locked": True,
         "min_spacing_minutes": 60,
         "saturation_daily_hard_cap": 10,
         "concentration_same_entity_daily_soft_cap": 2,

@@ -245,6 +245,8 @@ class DurablePublicationCoordinator:
                 "plan_hash": plan_hash,
                 "output_dir": plan.get("output_dir"),
                 "artifact_refs": plan.get("artifact_refs") or {},
+                "editorial_features": plan.get("editorial_features") or {},
+                "learning_policy_version": plan.get("learning_policy_version"),
                 "destination_plan": dict(item),
                 "payload": item.get("payload"),
                 "canonical_url": item.get("canonical_url"),
@@ -340,8 +342,8 @@ class DurablePublicationCoordinator:
         elif normalized.get("write_absent") is True:
             status = RECONCILED_ABSENT_SAFE_TO_RETRY
             # The exact readback proved that the intended public write did not occur.  Clear
-            # UNKNOWN_WRITE durably while preserving the stable draft/object id for audit.  This
-            # is classification only: recovery never retries the adapter automatically.
+            # UNKNOWN_WRITE durably while preserving the stable draft/object id for audit. A
+            # later bounded recovery pass may make one explicit retry under this same identity.
             self.store.set_dispatch_status(dispatch_id, RECONCILED_ABSENT_SAFE_TO_RETRY)
             self.store.set_outbox_status(
                 str(dispatch["message_id"]), RECONCILED_ABSENT_SAFE_TO_RETRY
@@ -390,10 +392,9 @@ class DurablePublicationCoordinator:
             recovery_object_id = str(existing.get("public_object_id") or "") or None
             retry_eligible = bool(
                 explicit_reconciled_absent_retry
-                and destination == "substack"
                 and str(existing.get("status") or "") == RECONCILED_ABSENT_SAFE_TO_RETRY
                 and reconciliation_status == RECONCILED_ABSENT_SAFE_TO_RETRY
-                and recovery_object_id
+                and (destination != "substack" or recovery_object_id)
             )
             if not retry_eligible:
                 return {
@@ -404,20 +405,31 @@ class DurablePublicationCoordinator:
                     "public_object_url": existing.get("public_object_url"),
                     "reconciliation_status": reconciliation_status,
                 }
-            intent = {**intent, "recovery_public_object_id": recovery_object_id}
+            if destination == "substack":
+                intent = {**intent, "recovery_public_object_id": recovery_object_id}
         dependency = item.get("canonical_url_dependency")
         if dependency and not (canonical_url or intent.get("canonical_url")):
             return {"destination": destination, "status": "WAITING_CANONICAL_URL", "publish_called": False}
         if dependency and canonical_url:
-            finalizer = getattr(self.transport_runtime, "finalize_intent", None)
-            if callable(finalizer):
-                intent = dict(finalizer(destination=destination, intent=intent, canonical_url=canonical_url))
+            if explicit_reconciled_absent_retry:
+                # The original attempt already froze exact canonical-bound bytes before its
+                # dispatch marker. Recovery must reuse them byte-for-byte, never mutate them.
+                if str(intent.get("canonical_url") or "") != canonical_url:
+                    return {
+                        "destination": destination,
+                        "status": "RETRY_BLOCKED_CANONICAL_PAYLOAD_IDENTITY_MISMATCH",
+                        "publish_called": False,
+                    }
             else:
-                intent["canonical_url"] = canonical_url
-            finalized_payload = _canonical_json(intent)
-            self.store.finalize_outbox_payload_before_dispatch(
-                message_id=ids["message_id"], payload=finalized_payload, status="READY",
-            )
+                finalizer = getattr(self.transport_runtime, "finalize_intent", None)
+                if callable(finalizer):
+                    intent = dict(finalizer(destination=destination, intent=intent, canonical_url=canonical_url))
+                else:
+                    intent["canonical_url"] = canonical_url
+                finalized_payload = _canonical_json(intent)
+                self.store.finalize_outbox_payload_before_dispatch(
+                    message_id=ids["message_id"], payload=finalized_payload, status="READY",
+                )
             item = dict(intent["destination_plan"])
         # Re-read durable mode immediately before every new adapter write.
         mode = self._mode()
@@ -544,9 +556,8 @@ class DurablePublicationCoordinator:
     def retry_reconciled_absent_substack(self, dispatch_id: str) -> dict[str, Any]:
         """Explicitly resume one exact Substack draft only after absent reconciliation.
 
-        This is never called by normal plan execution or restart recovery. The existing exact
-        dispatch, outbox payload, reconciliation state, and draft identity must all agree before
-        the coordinator can cross the adapter boundary once.
+        The existing exact dispatch, outbox payload, reconciliation state, and draft identity must
+        all agree before the coordinator can cross the adapter boundary once.
         """
         dispatch = self.store.get_platform_dispatch(str(dispatch_id))
         if not dispatch:
@@ -664,16 +675,21 @@ class DurablePublicationCoordinator:
                 queued_status = self._finalize_derivative_intent(
                     message, canonical_url=canonical_url
                 )
-                outcomes[str(message["destination"])] = {
-                    "destination": str(message["destination"]),
-                    "status": (
-                        "ASYNC_DERIVATIVE_QUEUED"
-                        if queued_status == "READY"
-                        else queued_status
-                    ),
-                    "publish_called": False,
-                    "reconciliation_status": None,
-                }
+                if queued_status == "READY":
+                    # The same scheduled opportunity must drive one bounded attempt for every
+                    # currently READY destination. Destination-local failure never blocks the
+                    # remaining fanout and never revokes confirmed canonical truth.
+                    refreshed = self.store.get_outbox_message(str(message["message_id"])) or message
+                    outcomes[str(message["destination"])] = self._dispatch_message(
+                        refreshed, canonical_url=canonical_url
+                    )
+                else:
+                    outcomes[str(message["destination"])] = {
+                        "destination": str(message["destination"]),
+                        "status": queued_status,
+                        "publish_called": False,
+                        "reconciliation_status": None,
+                    }
             else:
                 outcomes[str(message["destination"])] = {
                     "destination": str(message["destination"]),
@@ -721,7 +737,7 @@ class DurablePublicationCoordinator:
                 "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
                 if derivatives
                 and derivative_confirmed == len(derivatives)
-                else "CANONICAL_PUBLISHED_DERIVATIVES_ASYNC"
+                else "CANONICAL_PUBLISHED_READY_FANOUT_ATTEMPTED"
             )
         else:
             distribution_status = "CANONICAL_NOT_CONFIRMED"
@@ -745,18 +761,41 @@ class DurablePublicationCoordinator:
             "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
         }
 
+    def _confirmed_canonical_url_for_work_item(self, work_item_id: str) -> Optional[str]:
+        for message in self.store.list_outbox_messages():
+            if str(message.get("work_item_id") or "") != work_item_id or str(
+                message.get("destination") or ""
+            ) != "substack":
+                continue
+            dispatch = self.store.get_platform_dispatch(
+                "dispatch_" + str(message["message_id"]).removeprefix("outbox_")
+            )
+            if not dispatch or str(dispatch.get("status") or "") != DISPATCH_CONFIRMED:
+                continue
+            url = str(dispatch.get("public_object_url") or "")
+            if not _valid_substack_canonical_url(url):
+                continue
+            expected = "reconciliation_" + str(dispatch["dispatch_id"]).removeprefix("dispatch_")
+            reconciliation = next((
+                row for row in self.store.get_reconciliations_for_work_item(work_item_id)
+                if str(row.get("reconciliation_id") or "") == expected
+            ), None)
+            if reconciliation and str(reconciliation.get("status") or "") == RECONCILED_CONFIRMED:
+                return url
+        return None
+
     def recover_pending(self) -> dict[str, Any]:
-        """Reconcile ambiguous writes, then advance at most one durable queued write."""
+        """Reconcile ambiguity, then drain all safe READY work in a bounded nine-surface pass."""
         summary = {"safe_resumes": 0, "marked_unknown": 0, "readbacks": 0, "publish_calls": 0,
-                   "readiness_probe_performed": False}
+                   "readiness_probe_performed": False, "per_destination": {}}
         messages = self.store.list_outbox_messages()
         dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
-        ready_messages: list[Mapping[str, Any]] = []
+        ready_messages: list[tuple[Mapping[str, Any], bool]] = []
         for message in messages:
             intent = json.loads(str(message["payload"]))
             dispatch = dispatch_by_message.get(str(message["message_id"]))
             if dispatch is None and str(message["status"]) == "READY":
-                ready_messages.append(message)
+                ready_messages.append((message, False))
                 continue
             if dispatch is None:
                 continue
@@ -778,9 +817,17 @@ class DurablePublicationCoordinator:
                 ),
                 None,
             )
+            if current_reconciliation == RECONCILED_ABSENT_SAFE_TO_RETRY:
+                # A strict readback proved absence. Preserve the same logical dispatch identity
+                # and allow one explicit bounded retry for a destination-local derivative in
+                # this recovery pass. Substack requires its narrower operator-authorized
+                # ``retry_reconciled_absent_substack`` route because a preserved draft ID may
+                # be deliberately non-public.
+                if str(message["destination"]) != "substack":
+                    ready_messages.append((message, True))
+                continue
             if current_reconciliation in {
                 RECONCILED_CONFIRMED,
-                RECONCILED_ABSENT_SAFE_TO_RETRY,
                 RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
             }:
                 continue
@@ -795,29 +842,54 @@ class DurablePublicationCoordinator:
                 summary["readbacks"] += 1
         if ready_messages:
             ready_messages.sort(
-                key=lambda message: (
-                    0 if str(message["destination"]) == "substack" else 1,
-                    str(message["destination"]),
+                key=lambda entry: (
+                    str(entry[0].get("work_item_id") or ""),
+                    0 if str(entry[0]["destination"]) == "substack" else 1,
+                    str(entry[0]["destination"]),
                 )
             )
-            message = ready_messages[0]
-            intent = json.loads(str(message["payload"]))
-            outcome = self._dispatch_message(
-                message, canonical_url=intent.get("canonical_url")
-            )
-            summary["safe_resumes"] += 1
-            summary["publish_calls"] += int(bool(outcome.get("publish_called")))
-            if (
-                str(message["destination"]) == "substack"
-                and outcome.get("status") == DISPATCH_CONFIRMED
-                and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
-                and _valid_substack_canonical_url(outcome.get("public_object_url"))
-            ):
-                canonical_url = str(outcome["public_object_url"])
-                for derivative in ready_messages[1:]:
-                    self._finalize_derivative_intent(
-                        derivative, canonical_url=canonical_url
+            canonical_urls: dict[str, str] = {}
+            for message, explicit_retry in ready_messages[:9]:
+                work_item_id = str(message.get("work_item_id") or "")
+                intent = json.loads(str(message["payload"]))
+                destination = str(message["destination"])
+                canonical_url = canonical_urls.get(work_item_id) or str(
+                    intent.get("canonical_url") or ""
+                )
+                if not canonical_url:
+                    canonical_url = self._confirmed_canonical_url_for_work_item(work_item_id) or ""
+                if destination != "substack" and not canonical_url:
+                    summary["per_destination"][destination] = {
+                        "status": "WAITING_CANONICAL_URL",
+                        "publish_called": False,
+                    }
+                    continue
+                if destination != "substack":
+                    finalized = self._finalize_derivative_intent(
+                        message, canonical_url=canonical_url
                     )
+                    if finalized != "READY":
+                        summary["per_destination"][destination] = {
+                            "status": finalized,
+                            "publish_called": False,
+                        }
+                        continue
+                    message = self.store.get_outbox_message(str(message["message_id"])) or message
+                outcome = self._dispatch_message(
+                    message,
+                    canonical_url=canonical_url or None,
+                    explicit_reconciled_absent_retry=explicit_retry,
+                )
+                summary["per_destination"][destination] = outcome
+                summary["safe_resumes"] += 1
+                summary["publish_calls"] += int(bool(outcome.get("publish_called")))
+                if (
+                    destination == "substack"
+                    and outcome.get("status") == DISPATCH_CONFIRMED
+                    and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+                    and _valid_substack_canonical_url(outcome.get("public_object_url"))
+                ):
+                    canonical_urls[work_item_id] = str(outcome["public_object_url"])
         return summary
 
     def publish_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
@@ -993,7 +1065,15 @@ class CanonicalDestinationTransportRuntimeV1:
             return {
                 "status": "UNSUPPORTED",
                 "metrics": {},
-                "availability": {},
+                "availability": {name: "UNSUPPORTED" for name in (
+                    "impressions", "reach", "views", "meaningful_reads", "completion_rate",
+                    "likes", "reactions", "shares", "reposts", "restacks", "saves",
+                    "bookmarks", "comments", "replies", "canonical_article_clicks",
+                    "subscriber_conversions", "follower_conversions", "newsletter_opens",
+                    "newsletter_clicks", "search_impressions", "search_clicks", "search_ctr",
+                    "search_query", "search_position", "interaction_quality",
+                )},
+                "interaction_availability": "UNSUPPORTED",
                 "source_identity": f"contentops.{destination}.metrics.unsupported.v1",
                 "limitations": ["destination_local_real_metrics_collector_not_implemented"],
             }

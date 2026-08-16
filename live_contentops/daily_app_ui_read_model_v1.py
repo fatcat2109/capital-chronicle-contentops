@@ -46,6 +46,7 @@ from live_contentops.destination_transport_registry_v1 import (
 )
 from live_contentops.daily_app_performance_v1 import (
     QUALIFIED_ENGAGEMENT_FORMULA_VERSION,
+    _normalized_policy_payload,
     qualified_engagement_score,
 )
 
@@ -185,12 +186,16 @@ def _next_windows(
 ) -> list[dict[str, Any]]:
     policy = build_bootstrap_editorial_window_policy()
     consumed = {str(value) for value in consumed_window_ids}
-    offset = int(active_policy.get("timing_offset_minutes") or 0) if active_policy else 0
+    # The four native Desktop schedules are owner authority. Learning can be shown as a
+    # recommendation, but it cannot move a scheduled opportunity automatically.
+    offset = 0
     active_provenance = str(active_policy.get("provenance") or "") if active_policy else ""
     windows: list[dict[str, Any]] = []
     for day_offset in range(0, 8):
         day = (now + timedelta(days=day_offset)).date()
         for window in policy.core_windows:
+            if day.weekday() not in set(window.eligible_weekdays_utc):
+                continue
             start = datetime(
                 day.year, day.month, day.day, int(window.start_hour_utc),
                 tzinfo=timezone.utc,
@@ -568,7 +573,7 @@ def build_daily_app_snapshot(
     policy_models: list[dict[str, Any]] = []
     for row in policies:
         payload = _json(row.get("policy_payload_json"), {})
-        payload = payload if isinstance(payload, Mapping) else {}
+        payload = _normalized_policy_payload(payload if isinstance(payload, Mapping) else {})
         policy_models.append({
             "policy_version": row["policy_version"],
             "parent_policy_version": row["parent_policy_version"],
@@ -579,6 +584,13 @@ def build_daily_app_snapshot(
             "confidence": row["confidence"],
             "formula_version": row["formula_version"],
             "timing_offset_minutes": _policy_timing_offset_minutes(payload),
+            "timing_recommendations": dict(payload.get("timing") or {}),
+            "content_recommendations": dict(payload.get("content") or {}),
+            "seo_recommendations": dict(payload.get("seo") or {}),
+            "package_recommendations": dict(payload.get("package") or {}),
+            "schedule_owner_locked": bool(
+                (payload.get("timing") or {}).get("owner_locked")
+            ),
             "recommendations": _json(row.get("accepted_changes_json"), {}),
             "bounded_delta": _json(row.get("bounded_delta_json"), {}),
             "rollback_reference": row["rollback_reference"],
@@ -759,6 +771,10 @@ def build_daily_app_snapshot(
         # ``publications`` is newest-first; retain the first durable dispatch per platform.
         dispatch_by_platform.setdefault(str(row["platform"]), row)
     observation_platforms = {str(row["platform"]) for row in observation_models}
+    from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
+    metrics_capability_by_destination = {
+        str(row["destination"]): row for row in current_metrics_capability_matrix()
+    }
     readiness_by_surface = {str(row["surface"]): row for row in readiness_rows}
     platform_models = []
     for platform_id, display_name, binding_class in TIER1_DESTINATIONS:
@@ -807,8 +823,23 @@ def build_daily_app_snapshot(
                 if last else None
             ),
             "pending_incident": bool(last and last["lifecycle_classification"] == "UNKNOWN_WRITE"),
-            "metrics_capability": "OBSERVATION_RECORDED" if aliases & observation_platforms else "COLLECTOR_CAPABILITY_UNAVAILABLE",
-            "next_metric_availability": "UNAVAILABLE",
+            "metrics_capability": (
+                "OBSERVATION_RECORDED"
+                if aliases & observation_platforms
+                else metrics_capability_by_destination.get(platform_id, {}).get(
+                    "collector_state", "UNSUPPORTED_CURRENT_AUTHORIZED_RUNTIME"
+                )
+            ),
+            "metrics_supported": metrics_capability_by_destination.get(platform_id, {}).get(
+                "metrics", []
+            ),
+            "interaction_observation": metrics_capability_by_destination.get(
+                platform_id, {}
+            ).get("interaction_text_observation", "UNSUPPORTED"),
+            "search_metrics_channel": metrics_capability_by_destination.get(
+                platform_id, {}
+            ).get("search_console_channel", "OPERATOR_SETUP_REQUIRED"),
+            "next_metric_availability": "UNAVAILABLE_NOT_ZERO",
             "readiness_authority": TRANSPORT_REGISTRY_VERSION,
         })
 
@@ -984,7 +1015,7 @@ def build_daily_app_snapshot(
 
     published_today_count = 0
     published_corpus_count = 0
-    daily_target_band = [5, 8]
+    daily_target_band = [0, 4]
     try:
         from live_contentops.editorial_portfolio_v1 import DAILY_TARGET_BAND
         from live_contentops.published_corpus_read_model_v1 import load_published_corpus

@@ -697,7 +697,9 @@ def test_published_corpus_with_confirmed_publication(tmp_path):
     assert article.content_hash is None
     state = portfolio_state_today(corpus["articles"], now=datetime(2026, 8, 10, 12, 0, tzinfo=timezone.utc))
     assert state["published_today_count"] == 1
-    assert state["daily_target_band"] == [5, 8]
+    assert state["daily_target_band"] == [0, 4]
+    assert state["publication_minimum"] == 0
+    assert state["routine_publication_ceiling"] == 4
 
 
 # --- F. Breaking vs follow-up classification ---------------------------------------------------
@@ -776,21 +778,28 @@ def test_deepen_existing_story_with_cc_context():
 # --- G. Portfolio policy and concentration ---------------------------------------------------
 
 
-def test_bootstrap_policy_supports_5_8_target():
+def test_bootstrap_policy_locks_four_window_quality_probation():
     policy = bootstrap_portfolio_policy()
-    assert policy["daily_target_band"] == [5, 8]
-    assert policy["core_decision_opportunities_per_day"] == 8
-    assert policy["material_event_wakeups_enabled"] is True
+    assert policy["daily_target_band"] == [0, 4]
+    assert policy["publication_minimum"] == 0
+    assert policy["routine_publication_ceiling"] == 4
+    assert policy["core_decision_opportunities_per_day"] == 4
+    assert policy["material_event_wakeups_enabled"] is False
+    assert policy["material_event_priority_next_scheduled_opportunity"] is True
+    assert policy["automatic_schedule_scaling_enabled"] is False
+    assert policy["schedule_owner_locked"] is True
     assert policy["filler_fabrication_permitted"] is False
     assert policy["weakened_factual_or_numeric_authority_permitted"] is False
 
     from live_contentops.daily_app_supervisor_v1 import build_bootstrap_editorial_window_policy
 
     window_policy = build_bootstrap_editorial_window_policy()
-    assert len(window_policy.core_windows) == 8
-    assert window_policy.policy_version == "bootstrap.v2"
-    assert window_policy.daily_publication_target_band == (5, 8)
+    assert len(window_policy.core_windows) == 4
+    assert window_policy.policy_version == "quality_probation_four_window.v1"
+    assert window_policy.daily_publication_target_band == (0, 4)
     assert window_policy.material_event_override_enabled is True
+    assert window_policy.automatic_schedule_scaling_enabled is False
+    assert window_policy.schedule_owner_locked is True
     assert window_policy.minimum_cycle_spacing_hours <= 2.0
 
 

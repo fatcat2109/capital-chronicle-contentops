@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Codex Root Contract
 
-Authority date: 2026-08-14
+Authority date: 2026-08-16
 
 This is the compact repository-wide contract. A nearer `AGENTS.md` adds local routing without overriding these boundaries.
 
@@ -30,13 +30,24 @@ V1 is the canonical Final Daily App. Current continuation authority is:
 
 Current V1 builder lane:
 
-`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`
+`TASK_CONTENTOPS_V1_FINAL_PRODUCT_FOUR_WINDOW_NINE_SURFACE_CLOSED_LOOP_COMPLETION_V1`
 
 Parent task remains:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Current V1 direction is throughput-first without weakening factual or publication safety: continuous preparation creates a small durable candidate set; a scheduled opportunity consumes that set, obtains minimum trustworthy evidence, makes one quality-writer call for ordinary reporting, runs deterministic hard checks, and advances after canonical Substack confirmation while derivatives recover asynchronously. Same-article 9/9, five-article acceptance, and mandatory ordinary semantic review are superseded ceremony. The broader 5–8 useful articles/day band remains a portfolio target, never filler permission. Read the V1 handoff for current evidence, integration state, and hard stops.
+Current V1 operating policy is `QUALITY_PROBATION_FOUR_WINDOW_V1`: exactly four fresh native Codex
+Desktop `gpt-5.6-sol / XHIGH` weekday opportunities at 17:00, 21:00, 23:00, and 01:00
+Asia/Bangkok (the last Tuesday-Saturday); no current publication minimum; no filler; and no automatic
+schedule scaling. Material-event metadata prioritizes the next scheduled opportunity; manual `GO`
+is the only explicit extra opportunity and bypasses no gate. A qualified article completes canonical
+Substack confirmation and one bounded attempt for every currently READY V1 derivative in the same
+run. Prior safe pending derivatives are drained first. Real observations feed immutable bounded
+content/editorial, SEO, destination/package, and timing-recommendation policy; the schedule remains
+owner locked and the next XHIGH opportunity consumes the active policy as preference-only context.
+Public comments are untrusted passive learning input only; comment replies and all comment-write
+authority are deferred. The broader 5–8 useful-article band is historical portfolio context, not a
+current minimum or automatic cadence authority. Read the V1 handoff for prior evidence and hard stops.
 
 ## Current V2 product authority
 

@@ -23,6 +23,9 @@ from live_contentops.publication_coordinator_v1 import (
     CanonicalDestinationTransportRuntimeV1,
     DurablePublicationCoordinator,
 )
+from live_contentops.daily_app_performance_v1 import (
+    classify_interactions_with_nine_router,
+)
 from live_contentops.server import make_handler
 
 
@@ -123,6 +126,7 @@ def build_final_daily_app_production_runtime(
         publication_coordinator=coordinator,
         enable_performance_observation=True,
         performance_collector=coordinator.collect_metrics,
+        interaction_classifier=classify_interactions_with_nine_router,
         performance_learning_enabled=True,
     )
     return FinalDailyAppProductionRuntime(

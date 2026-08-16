@@ -17,25 +17,26 @@ FDA-G is not accepted. `v1.1.0` is not authorized.
 
 ## V1 current builder lane
 
-`TASK_CONTENTOPS_V1_CODEX_DESKTOP_SCHEDULED_NEWSROOM_OPERATOR_AND_LIVE_CC_CONTEXT_V1`
+`TASK_CONTENTOPS_V1_FINAL_PRODUCT_FOUR_WINDOW_NINE_SURFACE_CLOSED_LOOP_COMPLETION_V1`
 
 Required result:
 
-`PASS_V1_DESKTOP_SCHEDULED_NEWSROOM_OPERATOR_READY`
+`PASS_V1_FINAL_PRODUCT_FOUR_WINDOW_CLOSED_LOOP_READY_FOR_REAL_QUALITY_PROBATION`
 
-Current operating mode is `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`. Fresh native Codex
-Desktop scheduled tasks use `gpt-5.6-sol / XHIGH` and the durable instruction at
-`docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md` to execute exactly one current V1
-opportunity from existing durable cutoff, dedupe/update-chain identity, published memory, latest
-web evidence, and dynamically refreshed read-only Capital Chronicle context. The abandoned
-Desktop bridge/UI-automation, Codex CLI editorial, App Server, and broker/queue lanes must not be
-resumed. Capital Chronicle remains the continuously evolving analytical/numeric authority;
-arbitrary DB matches stay context-only, and only exact compatible governed packets may authorize
-CC-owned proprietary claims.
+Current policy is `QUALITY_PROBATION_FOUR_WINDOW_V1`: exactly four native Desktop
+`gpt-5.6-sol / XHIGH` routine tasks at 17:00, 21:00, 23:00 Monday-Friday and 01:00
+Tuesday-Saturday, Asia/Bangkok. Publication minimum is zero and the routine ceiling is four; no
+automatic schedule mutation or scale-up is authorized. Each qualified opportunity drains safe
+prior derivative work, consumes the active bounded policy, uses current durable/news/web/read-only
+CC context, confirms canonical Substack first, then drives one safe attempt for every currently
+READY V1 derivative. Real observations update immutable content/editorial, SEO, destination/package,
+and timing-recommendation policy; timing stays owner locked. Comments are untrusted passive input
+only. Comment replies are deferred and have zero write authority. The abandoned Desktop bridge,
+Codex CLI editorial, App Server, and broker/queue lanes must not be resumed.
 
 Exact next after PASS:
 
-`JIM_CONFIGURES_NATIVE_CODEX_DESKTOP_XHIGH_SCHEDULED_TASKS_AND_RUNS_FIRST_REAL_SCHEDULED_V1_PUBLICATION_WINDOW`
+`JIM_CONFIGURES_ONLY_FOUR_NATIVE_CODEX_DESKTOP_XHIGH_TASKS_AND_RUNS_V1_FOUR_WINDOW_REAL_QUALITY_PROBATION_WITH_EVERY_PUBLISHED_ARTICLE_AND_NINE_SURFACE_RESULT_AUDITED`
 
 ## V1 latest accepted builder lane
 
@@ -149,7 +150,8 @@ authority or blocking the canonical-ready surfaces.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.
 
-The 5–8 articles/day band remains a product target, never filler permission.
+The historical 5–8 articles/day band is portfolio context only; it is not a current minimum,
+acceptance gate, or authority to exceed the four routine opportunities.
 
 ## Owner concurrent-lane decision
 

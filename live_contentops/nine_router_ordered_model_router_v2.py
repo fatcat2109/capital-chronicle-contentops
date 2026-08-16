@@ -68,6 +68,7 @@ PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
 #: the canonical quality ordering. Keeping this registry beside the canonical pool means the
 #: provider adapter and router still share one authority surface.
 NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
+PASSIVE_INTERACTION_QUALITY_ROLE = "passive_interaction_quality_classification"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
 GROUNDED_RESEARCH_ROLE = "v1_grounded_researcher"
@@ -88,6 +89,7 @@ GROUNDED_RESEARCH_MODEL_POOL: tuple[str, ...] = V1_HIGH_QUALITY_MODEL_POOL
 ARTICLE_WRITING_CX_RESCUE_MODEL_POOL: tuple[str, ...] = (CX_FINAL_FALLBACK_MODEL,)
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
+    PASSIVE_INTERACTION_QUALITY_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
     # Article prose is final editorial work, so it uses the exact quality-first order. Flash
     # remains authorized only for the cheap semantic leaf role above.
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,

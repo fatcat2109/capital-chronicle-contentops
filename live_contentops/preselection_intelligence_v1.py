@@ -228,6 +228,7 @@ def apply_preselection_intelligence(
     *,
     published_corpus: Sequence[PublishedArticleRef],
     cc_catalog: Mapping[str, Any],
+    learning_policy: Mapping[str, Any] | None = None,
     now: datetime | None = None,
 ) -> dict[str, Any]:
     """Enrich and rerank the compact shortlist before any expensive story path."""
@@ -235,6 +236,13 @@ def apply_preselection_intelligence(
     portfolio = portfolio_state_today(published_corpus, now=moment)
     evaluated: list[dict[str, Any]] = []
     original_order = [str(row.get("cluster_id") or "") for row in clusters]
+    active_policy = dict(learning_policy or {})
+    content_policy = dict(active_policy.get("content") or {})
+    content_preferences = [
+        dict(row) for row in (content_policy.get("recommendations") or [])
+        if isinstance(row, Mapping)
+    ][:3]
+    seo_policy = dict(active_policy.get("seo") or {})
     for cluster_value in clusters:
         cluster = dict(cluster_value)
         original_rank = int(cluster.get("rank") or 0)
@@ -273,6 +281,33 @@ def apply_preselection_intelligence(
             + 28.0 * float(reachability["score"])
         )
         resolved_mode = str(novelty.get("recommended_article_mode") or "HOLD")
+        learning_bonus = 0.0
+        learning_matches: list[dict[str, Any]] = []
+        feature_values = {
+            "article_mode": resolved_mode,
+            "update_mode": decision,
+            "topic_family": [str(value) for value in (cluster.get("entities_topics") or [])],
+            "story_type": str(cluster.get("story_type") or ""),
+        }
+        for preference in content_preferences:
+            feature = str(preference.get("feature") or "")
+            preferred = str(preference.get("preferred_value") or "").casefold()
+            candidate_value = feature_values.get(feature)
+            if isinstance(candidate_value, list):
+                matched = preferred in {
+                    str(value).casefold() for value in candidate_value
+                }
+            else:
+                matched = bool(preferred and str(candidate_value or "").casefold() == preferred)
+            if matched:
+                learning_bonus += 2.0
+                learning_matches.append({
+                    "feature": feature,
+                    "preferred_value": preference.get("preferred_value"),
+                    "support_count": preference.get("support_count"),
+                })
+        learning_bonus = min(6.0, learning_bonus)
+        score += learning_bonus
         follow_up_context = build_material_follow_up_context(
             cluster, novelty, published_corpus
         )
@@ -285,6 +320,14 @@ def apply_preselection_intelligence(
             "portfolio_concentration_penalty": concentration,
             "portfolio_concentration_penalty_effective": round(effective_concentration, 4),
             "preselection_score": round(score, 4),
+            "learning_priority_bonus": round(learning_bonus, 4),
+            "learning_preference_matches": learning_matches,
+            "learning_policy_version": active_policy.get("policy_version"),
+            "learning_policy_sample_count": active_policy.get("sample_count", 0),
+            "learning_policy_confidence": active_policy.get("confidence", 0.0),
+            "seo_learning_preferences": list(seo_policy.get("recommendations") or [])[:3],
+            "learning_preferences_grant_factual_or_numeric_authority": False,
+            "learning_preferences_change_evidence_or_publication_gates": False,
             "evidence_reachability": reachability,
             "preselection_novelty": novelty,
             "material_follow_up_context": follow_up_context,
@@ -326,6 +369,10 @@ def apply_preselection_intelligence(
         "published_corpus_article_count": len(published_corpus),
         "cc_catalog_store_count": int(cc_catalog.get("store_count_discovered") or 0),
         "cc_catalog_complete": cc_catalog.get("discovery_complete") is True,
+        "learning_policy_version": active_policy.get("policy_version"),
+        "learning_policy_consumed": bool(active_policy),
+        "learning_policy_priority_bonus_cap": 6.0,
+        "learning_policy_grants_factual_or_numeric_authority": False,
         "occurs_before_targeted_evidence": True,
         "occurs_before_article_generation": True,
         "llm_or_provider_calls": 0,

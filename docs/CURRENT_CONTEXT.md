@@ -7,13 +7,35 @@ Authority date: 2026-08-16
 
 ## Current product lanes
 
-### V1 — Final Daily App / Nine-Surface Live Closeout
+### V1 — Final Daily App / Four-Window Nine-Surface Closed Loop
 
 Current owner-authorized builder lane:
 
-`TASK_CONTENTOPS_V1_CODEX_DESKTOP_SCHEDULED_NEWSROOM_OPERATOR_AND_LIVE_CC_CONTEXT_V1`
+`TASK_CONTENTOPS_V1_FINAL_PRODUCT_FOUR_WINDOW_NINE_SURFACE_CLOSED_LOOP_COMPLETION_V1`
 
-Interim operating mode: `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`.
+Current operating policy: `QUALITY_PROBATION_FOUR_WINDOW_V1` under
+`OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`.
+
+Exactly four fresh native Codex Desktop `gpt-5.6-sol / XHIGH` routine opportunities are authorized:
+17:00, 21:00, and 23:00 Monday-Friday plus 01:00 Tuesday-Saturday, all Asia/Bangkok. Current
+publication minimum is zero; routine ceiling is four; no learning/code path may scale or shift the
+schedule automatically. Material events prioritize the next scheduled opportunity. Manual `GO` is
+the explicit exceptional extra opportunity and bypasses no gate.
+
+Each publication-qualified run now drives the complete V1 transaction: canonical Substack first,
+then exactly one safe attempt for every currently READY Telegram, X, Discord, LinkedIn, Facebook
+Page, Instagram Business, Threads, and YouTube Community derivative, with destination-local
+readback/reconciliation. Safe prior pending derivative work is recovered before a new article.
+Confirmed canonical truth survives derivative failures. `UNKNOWN_WRITE` remains
+`STOP RETRY -> READ BACK -> RECONCILE`.
+
+Reconciled public objects receive bounded real observation checkpoints. Unsupported metrics remain
+explicitly unavailable, never zero. Authorized visible comments are untrusted passive input to a
+bounded low-cost interaction-quality projection and grant no factual, instruction, tool, or write
+authority. Immutable learning policy now covers content/editorial, SEO, destination/package, and
+owner-locked timing recommendations; each next XHIGH opportunity receives the active policy as
+preference-only context. `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP` is deferred with zero current
+comment-write implementation or authority.
 
 Jim's 2026-08-16 owner realignment abandons the Codex Desktop external bridge/UI-automation,
 Codex CLI editorial execution, App Server, and broker/queue lanes. During active newsroom hours,

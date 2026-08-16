@@ -12,8 +12,10 @@ from live_contentops.capital_chronicle_data_catalog_v1 import (
     query_story_scoped_cc_context,
 )
 from live_contentops.codex_desktop_newsroom_operator_v1 import (
+    DESKTOP_TASK_PROMPT,
     build_live_zero_write_rehearsal,
     classify_desktop_candidate_universe,
+    four_task_setup_packet,
     load_terminal_editorial_continuity,
 )
 
@@ -41,6 +43,13 @@ def _create_store(path: Path) -> None:
         );
         CREATE TABLE reconciliations (
             reconciliation_id TEXT PRIMARY KEY, work_item_id TEXT NOT NULL, status TEXT NOT NULL
+        );
+        CREATE TABLE learning_policy_versions (
+            policy_version TEXT PRIMARY KEY, parent_policy_version TEXT, created_at_utc TEXT,
+            status TEXT, decision TEXT, sample_count INTEGER, confidence REAL,
+            formula_version TEXT, observation_ids_json TEXT, evaluation_window TEXT,
+            accepted_changes_json TEXT, bounded_delta_json TEXT, rollback_reference TEXT,
+            decision_reason TEXT, policy_payload_json TEXT, policy_hash TEXT
         );
         """
     )
@@ -423,3 +432,55 @@ def test_real_shape_zero_write_rehearsal_constructs_next_cutoff_without_parallel
     assert rehearsal["continuity"]["parallel_state_authority_created"] is False
     assert hashlib.sha256(store.read_bytes()).hexdigest() == store_before
     assert sorted(path.relative_to(outputs) for path in outputs.rglob("*")) == output_files_before
+
+
+def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
+    packet = four_task_setup_packet()
+    assert packet["routine_task_count"] == 4
+    assert packet["publication_minimum"] == 0
+    assert packet["automatic_scale_up"] is False
+    assert packet["material_event_creates_extra_task"] is False
+    assert packet["manual_go_is_explicit_exception"] is True
+    assert packet["prompt"] == DESKTOP_TASK_PROMPT
+    assert [(row["name"], row["days"], row["time"]) for row in packet["tasks"]] == [
+        ("V1 Newsroom — London 1700", "Monday-Friday", "17:00"),
+        ("V1 Newsroom — New York 2100", "Monday-Friday", "21:00"),
+        ("V1 Newsroom — New York 2300", "Monday-Friday", "23:00"),
+        ("V1 Newsroom — New York 0100", "Tuesday-Saturday", "01:00"),
+    ]
+
+
+def test_active_policy_sections_reach_next_desktop_briefing(tmp_path):
+    store = tmp_path / "store.sqlite3"
+    _create_store(store)
+    payload = {
+        "timing": {"applied_offset_minutes": 0, "recommended_offset_minutes": 15,
+                   "owner_locked": True},
+        "content": {"recommendations": [{"field": "story_type", "value": "FOLLOW_UP"}]},
+        "seo": {"recommendations": [{"field": "primary_search_intent", "value": "EXPLAIN"}]},
+        "package": {"by_destination": {"x": {"copy_form": "THREAD"}}},
+    }
+    connection = sqlite3.connect(store)
+    connection.execute(
+        "INSERT INTO learning_policy_versions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        (
+            "policy.learned.test", "policy.bootstrap.v1", "2026-08-16T05:00:00Z", "ACTIVE",
+            "ACCEPT_BOUNDED_UPDATE", 8, 0.8, "qualified_engagement.formula.v1", "[]", "w",
+            "{}", "{}", None, "bounded_improvement", json.dumps(payload), "hash",
+        ),
+    )
+    connection.commit()
+    connection.close()
+
+    continuity = load_terminal_editorial_continuity(store_path=store, output_root=tmp_path / "out")
+    active = continuity["active_learning_policy"]
+
+    assert active["policy_version"] == "policy.learned.test"
+    assert active["sample_count"] == 8
+    assert active["confidence"] == 0.8
+    assert active["timing"]["owner_locked"] is True
+    assert active["content"] == payload["content"]
+    assert active["seo"] == payload["seo"]
+    assert active["package"] == payload["package"]
+    assert active["grants_factual_or_numeric_authority"] is False
+    assert active["grants_publication_authority"] is False

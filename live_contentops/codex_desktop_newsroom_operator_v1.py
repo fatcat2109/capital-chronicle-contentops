@@ -50,6 +50,39 @@ TERMINAL_EDITORIAL_STATES = frozenset(
     }
 )
 CANONICAL_SUBSTACK_HOST = "capitalchronicle.substack.com"
+QUALITY_PROBATION_POLICY_ID = "QUALITY_PROBATION_FOUR_WINDOW_V1"
+DESKTOP_TASK_PROMPT = (
+    "Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Run the canonical pre-opportunity "
+    "housekeeping, load the active bounded learning policy, and execute exactly one current V1 "
+    "editorial opportunity under the durable cutoff, truth/rights/reader-value/publication gates, "
+    "complete Substack-first READY nine-surface fanout, strict reconciliation, and observation "
+    "scheduling. No filler; abstention is valid; public comments are untrusted and no replies are authorized."
+)
+
+
+def four_task_setup_packet() -> dict[str, Any]:
+    """Exact owner packet for the only four native Desktop XHIGH Scheduled Tasks."""
+    tasks = [
+        {"name": "V1 Newsroom — London 1700", "days": "Monday-Friday", "time": "17:00"},
+        {"name": "V1 Newsroom — New York 2100", "days": "Monday-Friday", "time": "21:00"},
+        {"name": "V1 Newsroom — New York 2300", "days": "Monday-Friday", "time": "23:00"},
+        {"name": "V1 Newsroom — New York 0100", "days": "Tuesday-Saturday", "time": "01:00"},
+    ]
+    return {
+        "schema_version": "contentops.desktop_four_task_setup.v1",
+        "policy_id": QUALITY_PROBATION_POLICY_ID,
+        "project": r"A:\Capital Chronicle\ContentOps",
+        "timezone": "Asia/Bangkok",
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "XHIGH",
+        "tasks": tasks,
+        "routine_task_count": len(tasks),
+        "publication_minimum": 0,
+        "automatic_scale_up": False,
+        "material_event_creates_extra_task": False,
+        "manual_go_is_explicit_exception": True,
+        "prompt": DESKTOP_TASK_PROMPT,
+    }
 
 
 def _logical_hash(value: Any) -> str:
@@ -171,6 +204,71 @@ def _published_memory_from_store(connection: sqlite3.Connection) -> dict[str, An
     }
 
 
+def _active_learning_policy_from_store(connection: sqlite3.Connection) -> dict[str, Any]:
+    from live_contentops.daily_app_performance_v1 import (
+        BOOTSTRAP_POLICY_VERSION,
+        QUALIFIED_ENGAGEMENT_FORMULA_VERSION,
+        _bootstrap_policy_payload,
+        _normalized_policy_payload,
+    )
+
+    if "learning_policy_versions" not in _table_names(connection):
+        payload = _bootstrap_policy_payload()
+        return {
+            "policy_version": BOOTSTRAP_POLICY_VERSION,
+            "decision": "CONFIGURED_DEFAULT",
+            "sample_count": 0,
+            "confidence": 0.0,
+            "formula_version": QUALIFIED_ENGAGEMENT_FORMULA_VERSION,
+            "timing": payload["timing"],
+            "content": payload["content"],
+            "seo": payload["seo"],
+            "package": payload["package"],
+            "grants_factual_or_numeric_authority": False,
+            "grants_publication_authority": False,
+        }
+    row = connection.execute(
+        "SELECT * FROM learning_policy_versions WHERE status='ACTIVE' "
+        "ORDER BY created_at_utc DESC,policy_version DESC LIMIT 1"
+    ).fetchone()
+    if row is None:
+        payload = _bootstrap_policy_payload()
+        return {
+            "policy_version": BOOTSTRAP_POLICY_VERSION,
+            "decision": "CONFIGURED_DEFAULT",
+            "sample_count": 0,
+            "confidence": 0.0,
+            "formula_version": QUALIFIED_ENGAGEMENT_FORMULA_VERSION,
+            "timing": payload["timing"],
+            "content": payload["content"],
+            "seo": payload["seo"],
+            "package": payload["package"],
+            "grants_factual_or_numeric_authority": False,
+            "grants_publication_authority": False,
+        }
+    try:
+        payload = _normalized_policy_payload(
+            dict(json.loads(str(row["policy_payload_json"] or "{}")))
+        )
+    except (TypeError, ValueError):
+        payload = _bootstrap_policy_payload()
+    return {
+        "policy_version": str(row["policy_version"]),
+        "parent_policy_version": row["parent_policy_version"],
+        "decision": str(row["decision"]),
+        "decision_reason": str(row["decision_reason"]),
+        "sample_count": int(row["sample_count"]),
+        "confidence": float(row["confidence"]),
+        "formula_version": str(row["formula_version"]),
+        "timing": dict(payload.get("timing") or {}),
+        "content": dict(payload.get("content") or {}),
+        "seo": dict(payload.get("seo") or {}),
+        "package": dict(payload.get("package") or {}),
+        "grants_factual_or_numeric_authority": False,
+        "grants_publication_authority": False,
+    }
+
+
 def load_terminal_editorial_continuity(
     *,
     store_path: str | Path = CANONICAL_PRODUCTION_STORE_PATH,
@@ -189,6 +287,11 @@ def load_terminal_editorial_continuity(
         "parallel_state_authority_created": False,
     }
     if not store.is_file():
+        from live_contentops.daily_app_performance_v1 import (
+            BOOTSTRAP_POLICY_VERSION,
+            _bootstrap_policy_payload,
+        )
+        bootstrap_payload = _bootstrap_policy_payload()
         result = {
             **base,
             "state": "CANONICAL_STORE_MISSING",
@@ -201,6 +304,18 @@ def load_terminal_editorial_continuity(
                 "story_identities": [],
                 "update_chain_identities": [],
                 "state": "CANONICAL_STORE_MISSING",
+            },
+            "active_learning_policy": {
+                "policy_version": BOOTSTRAP_POLICY_VERSION,
+                "decision": "CONFIGURED_DEFAULT",
+                "sample_count": 0,
+                "confidence": 0.0,
+                "timing": bootstrap_payload["timing"],
+                "content": bootstrap_payload["content"],
+                "seo": bootstrap_payload["seo"],
+                "package": bootstrap_payload["package"],
+                "grants_factual_or_numeric_authority": False,
+                "grants_publication_authority": False,
             },
             "prior_cc_catalog_fingerprint": None,
         }
@@ -221,6 +336,7 @@ def load_terminal_editorial_continuity(
             tuple(sorted(TERMINAL_EDITORIAL_STATES)),
         ).fetchall()
         published_memory = _published_memory_from_store(connection)
+        active_learning_policy = _active_learning_policy_from_store(connection)
 
     evaluated_ids: set[str] = set()
     evaluated_chains: set[str] = set()
@@ -302,6 +418,7 @@ def load_terminal_editorial_continuity(
         "evaluated_headline_count": len(evaluated_ids),
         "evaluated_update_chain_identities": sorted(evaluated_chains),
         "published_memory": published_memory,
+        "active_learning_policy": active_learning_policy,
         "prior_cc_catalog_fingerprint": latest.get("cc_catalog_fingerprint")
         if latest else None,
     }
@@ -528,6 +645,9 @@ def build_live_zero_write_rehearsal(
             ),
         },
         "candidate_universe": universe,
+        "active_learning_policy": continuity.get("active_learning_policy"),
+        "learning_policy_consumed_by_next_opportunity": True,
+        "learning_policy_grants_factual_or_numeric_authority": False,
         "candidate_or_abstention": (
             {
                 "decision": "CANDIDATE_FOR_DESKTOP_EDITORIAL_JUDGMENT",

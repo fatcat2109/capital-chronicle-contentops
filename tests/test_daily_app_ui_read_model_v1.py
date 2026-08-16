@@ -125,7 +125,7 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     cockpit = snapshot["runtime"]["operator_cockpit"]
     assert cockpit["primary_state"] == "RUNNING_IDLE"
     assert cockpit["schedule"]["idle_healthy"] is True
-    assert cockpit["schedule"]["next_editorial_wake_utc"] == "2026-08-10T12:00:00Z"
+    assert cockpit["schedule"]["next_editorial_wake_utc"] == "2026-08-10T14:00:00Z"
     assert cockpit["schedule"]["next_x_eligible_capture_utc"] == "2026-08-10T13:00:00Z"
     assert cockpit["schedule"]["x_cadence_state"] == "EMPTY_BACKOFF_60M"
     assert cockpit["timeline"] == []
@@ -144,7 +144,7 @@ def test_next_wake_skips_a_current_window_already_claimed_by_the_scheduler(tmp_p
     store = _store(tmp_path)
     store.upsert_heartbeat("daily-supervisor")
     policy = build_bootstrap_editorial_window_policy()
-    current = next(window for window in policy.core_windows if window.start_hour_utc == 12)
+    current = next(window for window in policy.core_windows if window.start_hour_utc == 14)
     start = NOW.replace(hour=current.start_hour_utc, minute=0, second=0, microsecond=0)
     end = NOW.replace(hour=current.end_hour_utc, minute=0, second=0, microsecond=0)
     window_id = editorial_window_id(
@@ -159,9 +159,9 @@ def test_next_wake_skips_a_current_window_already_claimed_by_the_scheduler(tmp_p
         target_surface="daily_app_editorial_window", work_item_id=window_id,
     )
     snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
-    assert snapshot["runtime"]["next_wake_utc"] == "2026-08-10T15:00:00Z"
+    assert snapshot["runtime"]["next_wake_utc"] == "2026-08-10T16:00:00Z"
     assert snapshot["runtime"]["operator_cockpit"]["schedule"]["next_editorial_wake_utc"] == (
-        "2026-08-10T15:00:00Z"
+        "2026-08-10T16:00:00Z"
     )
 
 
@@ -721,7 +721,7 @@ def test_genuine_learned_child_controls_window_provenance_and_nested_offset(tmp_
     assert active["provenance"] == "LEARNED"
     assert active["timing_offset_minutes"] == 15
     assert snapshot["runtime"]["next_editorial_window"]["provenance"] == "LEARNED_ACTIVE_POLICY"
-    assert snapshot["runtime"]["next_editorial_window"]["window_start_utc"] == "2026-08-10T12:15:00Z"
+    assert snapshot["runtime"]["next_editorial_window"]["window_start_utc"] == "2026-08-10T14:00:00Z"
 
 
 def test_kill_switch_cas_restart_and_zero_calls(tmp_path):
