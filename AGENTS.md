@@ -44,16 +44,17 @@ V2 is the owner-approved retention-native video/channel-growth lane and proceeds
 
 For V2, read in this order:
 
-1. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
-2. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
-3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
-4. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
-5. `docs/automation/CONTENTOPS_V2_CREATIVE_AUTHORITY_QUALITY_HARDENING_OWNER_AUDIT_V1.md`
-6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-7. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
-8. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
-9. `video/AGENTS.md`
-10. exact task code/tests/evidence.
+1. `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
+2. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
+4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
+5. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+6. `docs/automation/CONTENTOPS_V2_CREATIVE_AUTHORITY_QUALITY_HARDENING_OWNER_AUDIT_V1.md`
+7. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+8. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+9. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
+10. `video/AGENTS.md`
+11. exact task code/tests/evidence.
 
 The older `CONTENTOPS_V2_CODEX_56_SOL_MODE_BAKEOFF_OWNER_OVERRIDE_V1.md` remains historical input for mode semantics. Its original HIGH/XHIGH/ULTRA sequencing is superseded by the current owner audit, Task Graph, Execution Pointer, and Fresh Handoff.
 
@@ -61,7 +62,7 @@ Older V2 plan/status/model-override docs remain historical/reference where they 
 
 ### Canonical V2 direction
 
-`LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
+`FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY / HIGH_PARENT_XHIGH_CREATIVE`
 
 Codex is the **fresh per-video creative/editorial brain, viewer-facing Remotion author, and actual-media visual reviewer**.
 
@@ -103,9 +104,11 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction.
+This is the only active V2 product task unless Jim explicitly changes direction. It must
+produce the minimum free-form chapterized production substrate plus an actual materially
+improved 1080 owner-review edition of *Frozen Without Breaking*.
 
 The task must produce actual owner-review media. Infrastructure-only completion is not PASS.
 
@@ -171,40 +174,21 @@ Primary documents should use readable excerpts/crops, controlled highlight geome
 
 Do not build a giant GIS/chart framework before media exists.
 
-### Micro-beat and motion doctrine
+### Motion and pacing doctrine
 
-Meaningful visual-state change should generally follow information change every roughly 2–4 seconds, unless evidence/document/data readability justifies a longer hold.
+Viewer-facing motion, pacing, transitions, holds, and micro-beats belong to XHIGH creative
+authorship. The prior roughly 2–4 second heuristic is not a rule, target, validator, or machine
+gate. Do not optimize cut, motion, transition, or hold counts. Creative authors may use hard
+cuts, long evidence holds, silence, restrained stillness, or dense progression when the film
+earns them.
 
-Do not optimize mechanical cut/motion counts.
+### Creative review boundary
 
-Prefer semantic transitions that express causality, such as document -> extracted number -> chart point or tanker -> unload -> production -> storage.
-
-Maintain Capital Chronicle identity while varying material rhythm across documentary media, maps, documents, data scenes, micro-montages, minimal thesis frames, charts, and physical-mechanism sequences.
-
-### Severe visual-editor gate
-
-Before expensive final motion, explicitly answer:
-
-`Would an institutional media editor approve this exact asset and composition for publication?`
-
-Evaluate:
-
-- asset quality;
-- taste;
-- novelty;
-- visual richness;
-- hierarchy;
-- crop/focal subject;
-- embedded-text clutter;
-- visual-family repetition;
-- asset fatigue;
-- template feel;
-- evidence clarity;
-- Capital Chronicle fit.
-
-If the answer is not clearly yes, revise before final motion even if deterministic collision/layout QA passes.
-
-Worker/critic aesthetic PASS is evidence, not owner authority.
+Actual-media XHIGH review and Jim/ChatGPT owner review judge taste, pacing, clarity, novelty,
+picture, sound, and publishability. Those judgments may guide creative revision but are not
+deterministic thresholds. Local QA may block only factual/numeric authority, rights,
+provenance, secret/security/sandbox, corrupt media, format, and publication-authority defects.
+Worker/critic aesthetic judgment remains evidence, not owner authority.
 
 ### V2 editorial doctrine
 
@@ -237,26 +221,16 @@ Use the best currently authorized professional V2 audio path. Kokoro is a valid 
 
 ### Codex 5.6 Sol mode authority
 
-The Codex reasoning-effort mode is intentionally **UNSELECTED**.
+Current model orchestration is selected:
 
-Do not run another mode bakeoff in the current asset-first quality-hardening task.
+- parent/coordinator/deterministic executor: `GPT-5.6 Sol / HIGH`;
+- fresh isolated viewer-facing creative authors: `GPT-5.6 Sol / XHIGH`;
+- same creative thread may resume only for its own chapter or audio revision.
 
-The prior fixed-renderer HIGH/XHIGH/ULTRA visual comparison is invalid for mode selection.
-
-After Jim/ChatGPT accept the asset-first quality substrate, the intended next high-bar comparison is at least:
-
-- `MAX`;
-- `ULTRA`;
-
-subject to non-secret rediscovery of the exact supported current Codex capability identifiers.
-
-The future bakeoff should use longer, more analytically abundant content, preferably a ~150–210 second midform when evidence supports it.
-
-Hold story/evidence/starting asset universe/rights/low-level safety/professional audio/revision budget/QA constant while allowing each mode to independently author analysis, narration, storyboard, asset selection, viewer-facing Remotion source, micro-beats, and localized visual repairs.
-
-No cross-mode creative leakage.
-
-Jim + ChatGPT select the production default/escalation policy only after actual-media plus quota/TCO review.
+`MAX` and `ULTRA` are retired. Do not run a mode bakeoff. Do not spend XHIGH on Git,
+acquisition, hashing, transcoding, installation, rendering, waiting, polling, FFmpeg, tests,
+cache work, assembly, evidence formatting, commit, or push. Preserve non-secret mode receipts
+when exposed and never silently let HIGH replace an assigned XHIGH creative step.
 
 ### V1 -> V2 operating direction
 

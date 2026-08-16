@@ -2,8 +2,22 @@
 
 Authority date: 2026-08-14
 Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
-Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
-Codex mode state: `UNSELECTED / FUTURE_HIGH_BAR_MAX_VS_ULTRA_AFTER_QUALITY_HARDENING`
+Product direction: `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY`
+Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRED`
+
+Current controlling owner override:
+
+`CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
+
+Current task:
+
+`TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`
+
+Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
+short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
+authorship units, not mandatory render units. Deterministic infrastructure may enforce hard
+truth/rights/security/media/format/publication boundaries but may not enforce aesthetic
+schemas, quotas, motion intervals, scores, or fixed repair counts.
 
 # Canonical V2 read order
 

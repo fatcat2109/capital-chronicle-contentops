@@ -14,50 +14,48 @@ For V2/video work, read first:
 
 Current next task:
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`
 
 Required result:
 
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 
-## Exact creative-code model
+## Exact model split
 
-Primary creative-code model through the canonical 9Router seam:
+- Parent/coordinator and every deterministic operation: `GPT-5.6 Sol / HIGH`.
+- Viewer-facing creative direction, chapter authorship, audio-edit authorship, and whole-film
+  criticism: fresh isolated `GPT-5.6 Sol / XHIGH` executions.
+- `MAX` and `ULTRA` are forbidden. No mode bakeoff.
+- Never silently use HIGH for an assigned XHIGH creative responsibility. Record a non-secret
+  receipt when model/reasoning metadata is exposed.
 
-`new/gpt-5.6-sol-xhigh`
-
-Mandatory primary roles:
-
-- `V2_CREATIVE_EDITOR`
-- `V2_MOTION_CODE_AUTHOR`
-- `V2_CREATIVE_REVISION_AUTHOR`
-
-If fallback is required for availability, record `DEGRADED_CREATIVE_MODEL`. Fallback output may be rendered diagnostically but cannot self-pass the professional creative gate.
-
-## Creative/renderer contract
+## Free-form creative/renderer contract
 
 Remotion is deterministic execution/rendering infrastructure. It is not the creative director.
 
-Canonical hierarchy:
+Canonical hierarchy for the current owner-polish task:
 
 ```text
-governed story/evidence packet
-→ new/gpt-5.6-sol-xhigh Creative Editor
-→ screenplay + narration + shot/edit plan
-→ renderer-neutral semantic contracts
-→ rights-aware AssetPlan + AudioPlan
-→ new/gpt-5.6-sol-xhigh Motion Code Author
-→ sandboxed per-video/per-shot React/TypeScript/SVG/Canvas code
-→ deterministic source validation/typecheck
-→ Remotion render
-→ deterministic media/retention/repetition/layout QA
-→ independent multimodal critic
-→ new/gpt-5.6-sol-xhigh localized creative code revision
-→ selective rerender
-→ Jim/ChatGPT actual media acceptance
+governed whole-film packet
+→ XHIGH whole-film repair director
+→ only necessary isolated XHIGH chapter authors
+→ free-form viewer-facing React/Remotion source
+→ HIGH typecheck + dirty-range review + chapter locks
+→ one XHIGH audio editor
+→ HIGH stem build + picture assembly + mix/mux
+→ XHIGH whole-film critic
+→ bounded localized same-author repair where material
+→ high-quality 1080 owner master
+→ Jim/ChatGPT actual media review
 ```
 
-Semantic truth, rights, assets, narration identity, and package lineage remain separate from generated presentation code.
+Semantic truth, rights, assets, narration identity, and package lineage remain separate from
+generated presentation code. A creative chapter is not automatically a render unit.
+
+Do not force creative authors through a fixed compositor, layout enum, template renderer,
+mandatory storyboard/visual-state schema, creative score, scene/asset/material/chart quota,
+cut/transition/motion target, 2–4 second rule, must-use-all-assets rule, or fixed repair count.
+Aesthetic telemetry is descriptive only.
 
 A scene is a production grouping, not a static slide. Per-shot generated code may use different layouts, timing, cuts, motion families, charts, masks, reframes, document treatments, maps, images, or effects when editorially justified.
 

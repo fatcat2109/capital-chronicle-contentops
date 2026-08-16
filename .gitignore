@@ -43,6 +43,11 @@ docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature.json
 
 # Generated dependencies / local scratch artifacts
 node_modules/
+.task-runtime/
+video/projects/*/public/
+video/projects/*/renders/
+video/projects/*/.cache/
+video/projects/*/build/
 scratch/temp_profile_*/
 scratch/archive/
 scratch/*.png

@@ -6,6 +6,14 @@ Plan status: `CURRENT_CANONICAL_V2_EXECUTION_PLAN`
 Companion constitution: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
+> **2026-08-16 execution supersession:**
+> `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` is the current owner
+> execution authority. The active path preserves free-form creative source and semantic
+> chapters while adding only dirty-range rendering, cache identity, independent audio stems,
+> chapter assembly, hard validation, and recovery. Earlier fixed repair budgets, creative
+> gates, short/midform envelopes, mode-bakeoff sequencing, and aesthetic thresholds below are
+> historical planning context where they conflict.
+
 # 0. Executive summary
 
 Capital Chronicle V2 will be completed as a **Lane B Hybrid** system.

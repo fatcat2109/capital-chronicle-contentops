@@ -6,6 +6,12 @@ Companion plan: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
+> **2026-08-16 task-graph override:** Current task is
+> `TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`,
+> governed by `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`.
+> QH1/QH2 and MAX/ULTRA sequencing below are superseded planning history. No current or
+> future mode bakeoff is authorized by this graph.
+
 # 1. Current position
 
 The controlled A/B and subsequent architecture-recovery proofs establish the following durable product conclusions:
@@ -25,9 +31,11 @@ The controlled A/B and subsequent architecture-recovery proofs establish the fol
 
 # 2. Current exact next task
 
-`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction.
+This is the only active V2 product task unless Jim explicitly changes direction. It must
+productize the minimum free-form chapterized 1080 production substrate and deliver a repaired
+owner-review edition of *Frozen Without Breaking*.
 
 The task must be a heavy bounded real-media vertical slice, not a documentation or generic infrastructure program.
 
@@ -208,9 +216,9 @@ Jim + ChatGPT must inspect the actual short/midform and evidence.
 
 If QH1 is accepted, the next likely capability is the corrected high-bar Codex reasoning-effort bakeoff.
 
-# 8. Future V2-QH2 — Corrected MAX vs ULTRA High-Bar Bakeoff
+# 8. Retired V2-QH2 — MAX vs ULTRA High-Bar Bakeoff
 
-Status: `BLOCKED_BY_QH1_OWNER_ACCEPTANCE`
+Status: `RETIRED_BY_2026_08_16_OWNER_OVERRIDE`
 
 This is a future task, not current work.
 

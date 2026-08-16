@@ -1,0 +1,43 @@
+{
+  "schema": "contentops.v2.freeform_chapter_film.v1",
+  "film_id": "frozen_without_breaking_owner_polish_v1",
+  "project_root": "video/projects/frozen_without_breaking_v1",
+  "entry": "src/index.ts",
+  "format_contract": {
+    "kind": "longform",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "duration_seconds": 848.367,
+    "color": "bt709_limited_yuv420p",
+    "audio": "48000_hz_stereo"
+  },
+  "model_orchestration": {
+    "parent": "gpt-5.6-sol/high",
+    "creative_workers": "gpt-5.6-sol/xhigh",
+    "forbidden_modes": ["max", "ultra"]
+  },
+  "hard_boundaries": {
+    "video_public_write_authority": false,
+    "v1_mutation_authority": false,
+    "allow_4k": false,
+    "creative_gate_is_deterministic": false
+  },
+  "shared_source_files": [
+    "src/index.ts",
+    "src/Root.tsx",
+    "src/Film.tsx",
+    "src/shared.tsx",
+    "src/timing.ts",
+    "src/types.ts"
+  ],
+  "chapters": [
+    {"id": "Chapter01", "composition": "Chapter01", "duration_frames": 3615, "source_files": ["src/chapters/Chapter01.tsx"], "asset_files": ["public/assets/authority/fed_fomc_2026-07-29_clip01_labor_baseline_official_880x720_handles.mp4", "public/assets/illustrative/frozen_concourse_imagegen_v1.png"]},
+    {"id": "Chapter02", "composition": "Chapter02", "duration_frames": 3614, "source_files": ["src/chapters/Chapter02.tsx"], "asset_files": ["public/assets/documentary/empty_office_pexels_7844843.mp4"]},
+    {"id": "Chapter03", "composition": "Chapter03", "duration_frames": 3866, "source_files": ["src/chapters/Chapter03.tsx"], "asset_files": ["public/assets/documentary/commuters_subway_cc0_pexels_855749.mp4", "public/assets/documentary/job_interview_pexels_5438891.mp4", "public/assets/documentary/office_workers_pexels_6549254.mp4"]},
+    {"id": "Chapter04", "composition": "Chapter04", "duration_frames": 3123, "source_files": ["src/chapters/Chapter04.tsx"], "asset_files": ["public/assets/documentary/grocery_cashier_pexels_4121754.mp4", "public/assets/documentary/finance_team_pexels_7593886.mp4", "public/assets/documentary/warehouse_workers_pexels_4293958.mp4", "public/assets/documentary/office_workers_pexels_6549254.mp4", "public/assets/documentary/healthcare_nurse_pexels_6130024.mp4", "public/assets/illustrative/load_bearing_healthcare_imagegen_v1.png"]},
+    {"id": "Chapter05", "composition": "Chapter05", "duration_frames": 3244, "source_files": ["src/chapters/Chapter05.tsx"], "asset_files": ["public/assets/documentary/warehouse_workers_pexels_4293958.mp4", "public/assets/documentary/office_workers_pexels_6549254.mp4", "public/assets/documentary/grocery_cashier_pexels_4121754.mp4"]},
+    {"id": "Chapter06", "composition": "Chapter06", "duration_frames": 3191, "source_files": ["src/chapters/Chapter06.tsx"], "asset_files": ["public/assets/documentary/grocery_cashier_pexels_4121754.mp4", "public/assets/documentary/job_interview_pexels_5438891.mp4"]},
+    {"id": "Chapter07", "composition": "Chapter07", "duration_frames": 4798, "source_files": ["src/chapters/Chapter07.tsx"], "asset_files": ["public/assets/authority/fed_fomc_2026-07-29_clip02_dual_mandate_official_880x720_handles.mp4", "public/assets/documentary/empty_office_pexels_7844843.mp4", "public/assets/documents/fed_transcript_page_01.png"]}
+  ]
+}

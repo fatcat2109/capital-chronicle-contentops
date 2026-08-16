@@ -4,6 +4,7 @@
     "docs/AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
     "docs/CURRENT_CONTEXT.md",
+    "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
     "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
     "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
     "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -21,25 +22,25 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12705,
+    "edges": 12847,
     "entrypoints": 14,
-    "nodes": 6748,
+    "nodes": 6839,
     "nodes_by_kind": {
-      "authority_doc": 16,
-      "cli_command": 14,
+      "authority_doc": 17,
+      "cli_command": 22,
       "directory_scope": 8,
       "durable_table": 36,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 11,
-      "python_class": 540,
-      "python_function": 3734,
+      "manifest": 13,
+      "python_class": 544,
+      "python_function": 3757,
       "python_method": 249,
-      "python_module": 701,
+      "python_module": 705,
       "schema": 176,
-      "test": 707,
-      "typescript_export": 453,
-      "typescript_or_javascript_module": 89
+      "test": 708,
+      "typescript_export": 488,
+      "typescript_or_javascript_module": 102
     }
   },
   "edges": [
@@ -66302,6 +66303,204 @@
       "to": "python_symbol:live_contentops/visual_asset_discovery_v1.py::discover_visual_assets_for_article"
     },
     {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_flow_pulse",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::db"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_flow_pulse",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::envelope"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_flow_pulse",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::place"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_mechanical_region",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_mechanical_region",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::place"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_flow_pulse"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_mechanical_region"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::db"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::duck_envelope"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::fade"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::filter_audio"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::noise_region"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::place"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::read_audio"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::stereo_width"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::AudioBuildError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::db"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::envelope"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::pink_noise"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::seed_for"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::noise_region",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::db"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::noise_region",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::filter_audio"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::noise_region",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::pink_noise"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::noise_region",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::seed_for"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::read_audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::run"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::AudioBuildError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::FreeformChapterPipeline"
+    },
+    {
+      "from": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::synthesize_file"
+    },
+    {
+      "from": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::synthesize_file",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::parse_blocks"
+    },
+    {
+      "from": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::synthesize_file",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::silence"
+    },
+    {
+      "from": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::synthesize_file",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::speech_chunks"
+    },
+    {
       "from": "scripts/AGENTS.md",
       "inference": "agents_directory_scope",
       "kind": "governs",
@@ -76272,6 +76471,660 @@
       "inference": "agents_directory_scope",
       "kind": "governs",
       "to": "directory:video"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::AudioBuildError"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_flow_pulse"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_mechanical_region"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::db"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::duck_envelope"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::envelope"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::fade"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::filter_audio"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::noise_region"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::pink_noise"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::place"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::read_audio"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::run"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::seed_for"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::stereo_width"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:assemble"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:mix-audio"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:mux"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:prepare-bundle"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:probe"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:render-chapter"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:render-range"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:validate"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::FreeformChapterPipeline"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::PipelineError"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::RenderProfile"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::RenderProfile"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::main"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::main"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::parse_blocks"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::silence"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::speech_chunks"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::synthesize_file"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/Film.tsx::Film"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/timing.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/Root.tsx::RemotionRoot"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/Film.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/timing.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx::Chapter01"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/shared.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/types.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx::Chapter02"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/shared.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/types.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx::Chapter03"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/shared.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/types.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx::Chapter04"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/shared.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/types.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx::Chapter05"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/shared.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/types.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx::Chapter06"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/shared.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/types.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx::Chapter07"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/shared.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/types.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/index.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/Root.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::Canvas"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::ChapterSlug"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::FilmGrain"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::FullBleedImage"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::FullBleedVideo"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::SourceTag"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::ThinRule"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::Vignette"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::amber"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::clamp"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::copper"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::cyan"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::holdFade"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::ink"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::lerp"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::paper"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::progress"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::red"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::sans"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::serif"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::silver"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/timing.ts::FPS"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/timing.ts::chapters"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/timing.ts::totalDurationInFrames"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/timing.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_v1/src/types.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/types.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/types.ts::ChapterDefinition"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_v1/src/types.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/types.ts::ChapterProps"
     }
   ],
   "entrypoints": [
@@ -76350,6 +77203,8 @@
     ".git",
     ".pytest_cache",
     ".ruff_cache",
+    ".task-runtime",
+    ".venv",
     "__pycache__",
     "build",
     "dist",
@@ -76361,10 +77216,13 @@
     "node_modules",
     "raw_archive",
     "runtime",
-    "scratch"
+    "scratch",
+    "venv",
+    "virtualenvs"
   ],
   "excluded_roots": [
     ".git/",
+    ".task-runtime/",
     ".venv/ and virtualenvs/",
     "node_modules/",
     "Runtime outputs/",
@@ -76378,8 +77236,8 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-15T13:05:55Z",
-  "generator_version": "2.2.0",
+  "generation_timestamp_utc": "2026-08-16T07:41:59Z",
+  "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
     "headline_ingestion/",
@@ -76411,7 +77269,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 18844
+      "size_bytes": 18361
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -76427,6 +77285,11 @@
       "id": "Start_ContentOps_Daily_App.cmd",
       "kind": "manifest",
       "size_bytes": 566
+    },
+    {
+      "command": "assemble",
+      "id": "cli:assemble",
+      "kind": "cli_command"
     },
     {
       "command": "audit-publication-registry",
@@ -76474,6 +77337,16 @@
       "kind": "cli_command"
     },
     {
+      "command": "mix-audio",
+      "id": "cli:mix-audio",
+      "kind": "cli_command"
+    },
+    {
+      "command": "mux",
+      "id": "cli:mux",
+      "kind": "cli_command"
+    },
+    {
       "command": "open",
       "id": "cli:open",
       "kind": "cli_command"
@@ -76484,8 +77357,28 @@
       "kind": "cli_command"
     },
     {
+      "command": "prepare-bundle",
+      "id": "cli:prepare-bundle",
+      "kind": "cli_command"
+    },
+    {
+      "command": "probe",
+      "id": "cli:probe",
+      "kind": "cli_command"
+    },
+    {
       "command": "rehearse-x-pre-click",
       "id": "cli:rehearse-x-pre-click",
+      "kind": "cli_command"
+    },
+    {
+      "command": "render-chapter",
+      "id": "cli:render-chapter",
+      "kind": "cli_command"
+    },
+    {
+      "command": "render-range",
+      "id": "cli:render-range",
       "kind": "cli_command"
     },
     {
@@ -76496,6 +77389,11 @@
     {
       "command": "shutdown-preflight",
       "id": "cli:shutdown-preflight",
+      "kind": "cli_command"
+    },
+    {
+      "command": "validate",
+      "id": "cli:validate",
       "kind": "cli_command"
     },
     {
@@ -76551,12 +77449,17 @@
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 19576
+      "size_bytes": 19603
+    },
+    {
+      "id": "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
+      "kind": "authority_doc",
+      "size_bytes": 5164
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 19367
+      "size_bytes": 19777
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -76566,27 +77469,27 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 12051
+      "size_bytes": 12694
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 30631
+      "size_bytes": 31189
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 31181
+      "size_bytes": 31690
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 16544
+      "size_bytes": 17076
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 12972
+      "size_bytes": 13004
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
@@ -76611,7 +77514,7 @@
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
       "kind": "authority_doc",
-      "size_bytes": 16354
+      "size_bytes": 16365
     },
     {
       "id": "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -77317,7 +78220,7 @@
     {
       "id": "live_contentops/capital_chronicle_data_catalog_v1.py",
       "kind": "python_module",
-      "size_bytes": 27629
+      "size_bytes": 27837
     },
     {
       "id": "live_contentops/capital_chronicle_ingestion_headline_idea_connector_precheck.py",
@@ -77402,7 +78305,7 @@
     {
       "id": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "kind": "python_module",
-      "size_bytes": 23496
+      "size_bytes": 24062
     },
     {
       "id": "live_contentops/community_feedback_capture_contract_v6.py",
@@ -111544,217 +112447,217 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_graph",
       "kind": "python_function",
-      "line": 811,
+      "line": 817,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_outputs",
       "kind": "python_function",
-      "line": 1195,
+      "line": 1205,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::check_outputs",
       "kind": "python_function",
-      "line": 1219,
+      "line": 1229,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "check_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::context_markdown",
       "kind": "python_function",
-      "line": 1018,
+      "line": 1024,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "context_markdown"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::entrypoint_rows",
       "kind": "python_function",
-      "line": 716,
+      "line": 722,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "entrypoint_rows"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::git_commit_timestamp",
       "kind": "python_function",
-      "line": 236,
+      "line": 242,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "git_commit_timestamp"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::git_head",
       "kind": "python_function",
-      "line": 248,
+      "line": 254,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "git_head"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::http_endpoint_nodes",
       "kind": "python_function",
-      "line": 529,
+      "line": 535,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "http_endpoint_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::included",
       "kind": "python_function",
-      "line": 198,
+      "line": 204,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "included"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::index_markdown",
       "kind": "python_function",
-      "line": 1097,
+      "line": 1107,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "index_markdown"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::is_test_path",
       "kind": "python_function",
-      "line": 669,
+      "line": 675,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "is_test_path"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::main",
       "kind": "python_function",
-      "line": 1314,
+      "line": 1324,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::nearest_agents_file",
       "kind": "python_function",
-      "line": 283,
+      "line": 289,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "nearest_agents_file"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::node_kind",
       "kind": "python_function",
-      "line": 767,
+      "line": 773,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "node_kind"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::normalized_for_check",
       "kind": "python_function",
-      "line": 1205,
+      "line": 1215,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "normalized_for_check"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_call_edges",
       "kind": "python_function",
-      "line": 634,
+      "line": 640,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_call_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_definitions",
       "kind": "python_function",
-      "line": 430,
+      "line": 436,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_definitions"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_import_edges",
       "kind": "python_function",
-      "line": 312,
+      "line": 318,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_import_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_metadata_nodes",
       "kind": "python_function",
-      "line": 479,
+      "line": 485,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_metadata_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_module_name",
       "kind": "python_function",
-      "line": 303,
+      "line": 309,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_module_name"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_tree",
       "kind": "python_function",
-      "line": 423,
+      "line": 429,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_tree"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::read_text",
       "kind": "python_function",
-      "line": 296,
+      "line": 302,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "read_text"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::rel",
       "kind": "python_function",
-      "line": 194,
+      "line": 200,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "rel"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::source_digest",
       "kind": "python_function",
-      "line": 273,
+      "line": 279,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "source_digest"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::source_files",
       "kind": "python_function",
-      "line": 220,
+      "line": 226,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "source_files"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::test_relationships",
       "kind": "python_function",
-      "line": 678,
+      "line": 684,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "test_relationships"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::ts_import_edges",
       "kind": "python_function",
-      "line": 357,
+      "line": 363,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "ts_import_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::typescript_export_nodes",
       "kind": "python_function",
-      "line": 457,
+      "line": 463,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "typescript_export_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_context_contract",
       "kind": "python_function",
-      "line": 1269,
+      "line": 1279,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_context_contract"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_graph",
       "kind": "python_function",
-      "line": 1247,
+      "line": 1257,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::write_outputs",
       "kind": "python_function",
-      "line": 1291,
+      "line": 1301,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "write_outputs"
     },
@@ -111869,6 +112772,195 @@
       "line": 177,
       "path": "scripts/run_v1_real_media_discovery_and_friction_proofs.py",
       "symbol": "run"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::AudioBuildError",
+      "kind": "python_class",
+      "line": 29,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "AudioBuildError"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_flow_pulse",
+      "kind": "python_function",
+      "line": 236,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "add_flow_pulse"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_mechanical_region",
+      "kind": "python_function",
+      "line": 260,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "add_mechanical_region"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::build",
+      "kind": "python_function",
+      "line": 286,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "build"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::db",
+      "kind": "python_function",
+      "line": 33,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "db"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::duck_envelope",
+      "kind": "python_function",
+      "line": 280,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "duck_envelope"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::effect",
+      "kind": "python_function",
+      "line": 188,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "effect"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::envelope",
+      "kind": "python_function",
+      "line": 178,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "envelope"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::fade",
+      "kind": "python_function",
+      "line": 106,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "fade"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::filter_audio",
+      "kind": "python_function",
+      "line": 93,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "filter_audio"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::main",
+      "kind": "python_function",
+      "line": 428,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::noise_region",
+      "kind": "python_function",
+      "line": 142,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "noise_region"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::pink_noise",
+      "kind": "python_function",
+      "line": 131,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "pink_noise"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::place",
+      "kind": "python_function",
+      "line": 123,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "place"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::read_audio",
+      "kind": "python_function",
+      "line": 58,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "read_audio"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::run",
+      "kind": "python_function",
+      "line": 41,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "run"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::seed_for",
+      "kind": "python_function",
+      "line": 37,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "seed_for"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::stereo_width",
+      "kind": "python_function",
+      "line": 117,
+      "path": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "symbol": "stereo_width"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::FreeformChapterPipeline",
+      "kind": "python_class",
+      "line": 98,
+      "path": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "symbol": "FreeformChapterPipeline"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::PipelineError",
+      "kind": "python_class",
+      "line": 23,
+      "path": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "symbol": "PipelineError"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::RenderProfile",
+      "kind": "python_class",
+      "line": 82,
+      "path": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "symbol": "RenderProfile"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::main",
+      "kind": "python_function",
+      "line": 579,
+      "path": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::main",
+      "kind": "python_function",
+      "line": 99,
+      "path": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::parse_blocks",
+      "kind": "python_function",
+      "line": 32,
+      "path": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "symbol": "parse_blocks"
+    },
+    {
+      "id": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::silence",
+      "kind": "python_function",
+      "line": 28,
+      "path": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "symbol": "silence"
+    },
+    {
+      "id": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::speech_chunks",
+      "kind": "python_function",
+      "line": 56,
+      "path": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "symbol": "speech_chunks"
+    },
+    {
+      "id": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::synthesize_file",
+      "kind": "python_function",
+      "line": 65,
+      "path": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "symbol": "synthesize_file"
     },
     {
       "id": "schema:0.1.0",
@@ -112853,7 +113945,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 56836
+      "size_bytes": 57558
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -113433,12 +114525,12 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 8744
+      "size_bytes": 9314
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
       "kind": "test",
-      "size_bytes": 16761
+      "size_bytes": 17186
     },
     {
       "id": "tests/test_community_feedback_capture_contract_v6.py",
@@ -116139,6 +117231,11 @@
       "id": "tests/test_v1_throughput_architecture_v1.py",
       "kind": "test",
       "size_bytes": 8847
+    },
+    {
+      "id": "tests/test_v2_freeform_chapter_pipeline_v1.py",
+      "kind": "test",
+      "size_bytes": 8281
     },
     {
       "id": "tests/test_v6_north_star_authority_consistency.py",
@@ -119482,6 +120579,251 @@
       "symbol": "WriterStudio"
     },
     {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/Film.tsx::Film",
+      "kind": "typescript_export",
+      "line": 21,
+      "path": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "symbol": "Film"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/Root.tsx::RemotionRoot",
+      "kind": "typescript_export",
+      "line": 22,
+      "path": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "symbol": "RemotionRoot"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx::Chapter01",
+      "kind": "typescript_export",
+      "line": 352,
+      "path": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx",
+      "symbol": "Chapter01"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx::Chapter02",
+      "kind": "typescript_export",
+      "line": 253,
+      "path": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx",
+      "symbol": "Chapter02"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx::Chapter03",
+      "kind": "typescript_export",
+      "line": 353,
+      "path": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx",
+      "symbol": "Chapter03"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx::Chapter04",
+      "kind": "typescript_export",
+      "line": 311,
+      "path": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx",
+      "symbol": "Chapter04"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx::Chapter05",
+      "kind": "typescript_export",
+      "line": 316,
+      "path": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx",
+      "symbol": "Chapter05"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx::Chapter06",
+      "kind": "typescript_export",
+      "line": 311,
+      "path": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx",
+      "symbol": "Chapter06"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx::Chapter07",
+      "kind": "typescript_export",
+      "line": 275,
+      "path": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx",
+      "symbol": "Chapter07"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::Canvas",
+      "kind": "typescript_export",
+      "line": 208,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "Canvas"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::ChapterSlug",
+      "kind": "typescript_export",
+      "line": 103,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "ChapterSlug"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::FilmGrain",
+      "kind": "typescript_export",
+      "line": 52,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "FilmGrain"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::FullBleedImage",
+      "kind": "typescript_export",
+      "line": 167,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "FullBleedImage"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::FullBleedVideo",
+      "kind": "typescript_export",
+      "line": 131,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "FullBleedVideo"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::SourceTag",
+      "kind": "typescript_export",
+      "line": 79,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "SourceTag"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::ThinRule",
+      "kind": "typescript_export",
+      "line": 188,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "ThinRule"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::Vignette",
+      "kind": "typescript_export",
+      "line": 69,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "Vignette"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::amber",
+      "kind": "typescript_export",
+      "line": 19,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "amber"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::clamp",
+      "kind": "typescript_export",
+      "line": 23,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "clamp"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::copper",
+      "kind": "typescript_export",
+      "line": 17,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "copper"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::cyan",
+      "kind": "typescript_export",
+      "line": 16,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "cyan"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::holdFade",
+      "kind": "typescript_export",
+      "line": 41,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "holdFade"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::ink",
+      "kind": "typescript_export",
+      "line": 12,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "ink"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::lerp",
+      "kind": "typescript_export",
+      "line": 26,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "lerp"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::paper",
+      "kind": "typescript_export",
+      "line": 14,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "paper"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::progress",
+      "kind": "typescript_export",
+      "line": 29,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "progress"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::red",
+      "kind": "typescript_export",
+      "line": 18,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "red"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::sans",
+      "kind": "typescript_export",
+      "line": 20,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "sans"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::serif",
+      "kind": "typescript_export",
+      "line": 22,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "serif"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/shared.tsx::silver",
+      "kind": "typescript_export",
+      "line": 15,
+      "path": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "symbol": "silver"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/timing.ts::FPS",
+      "kind": "typescript_export",
+      "line": 2,
+      "path": "video/projects/frozen_without_breaking_v1/src/timing.ts",
+      "symbol": "FPS"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/timing.ts::chapters",
+      "kind": "typescript_export",
+      "line": 4,
+      "path": "video/projects/frozen_without_breaking_v1/src/timing.ts",
+      "symbol": "chapters"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/timing.ts::totalDurationInFrames",
+      "kind": "typescript_export",
+      "line": 56,
+      "path": "video/projects/frozen_without_breaking_v1/src/timing.ts",
+      "symbol": "totalDurationInFrames"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/types.ts::ChapterDefinition",
+      "kind": "typescript_export",
+      "line": 4,
+      "path": "video/projects/frozen_without_breaking_v1/src/types.ts",
+      "symbol": "ChapterDefinition"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/types.ts::ChapterProps",
+      "kind": "typescript_export",
+      "line": 1,
+      "path": "video/projects/frozen_without_breaking_v1/src/types.ts",
+      "symbol": "ChapterProps"
+    },
+    {
       "id": "ui/contentops_v5/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 1697
@@ -120104,7 +121446,102 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 7813
+      "size_bytes": 8152
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/__init__.py",
+      "kind": "python_module",
+      "size_bytes": 462
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/build_authored_audio.py",
+      "kind": "python_module",
+      "size_bytes": 18568
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "kind": "python_module",
+      "size_bytes": 26435
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/package.json",
+      "kind": "manifest",
+      "size_bytes": 632
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
+      "kind": "python_module",
+      "size_bytes": 5143
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/Film.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1221
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/Root.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1338
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter01.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 15449
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter02.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 18314
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter03.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 24876
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter04.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 16402
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter05.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 12475
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter06.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 20953
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/chapters/Chapter07.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 17415
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/index.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 449
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/shared.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 5527
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/timing.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1747
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/src/types.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 209
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_v1/tsconfig.json",
+      "kind": "manifest",
+      "size_bytes": 428
     }
   ],
   "protected_boundaries": [
@@ -120170,6 +121607,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "3ab42d56298234f61b1122cd27d627625db95e17",
-  "source_tree_digest": "fa9f85ae003fa1fb36cadab2e594f44baed0776329b66539e8daf95b35a0f290"
+  "source_head": "3404b234e511add01d7b5a645ceaef3bf7765c36",
+  "source_tree_digest": "afcd6e078975e238dd21590c0aade817d764b9a8181bfb9762c48dd54b2dbc56"
 }

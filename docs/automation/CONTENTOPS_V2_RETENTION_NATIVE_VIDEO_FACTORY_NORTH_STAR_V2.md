@@ -6,6 +6,13 @@ Status: `CURRENT_CANONICAL_V2_PRODUCT_CONSTITUTION`
 Supersedes: all prior V2 North Star directions where they conflict, including the prior model-centric `NineRouterGPT56Brain`-default direction.
 Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
+> **2026-08-16 current owner override:**
+> `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` supersedes this
+> document where it conflicts. The current product uses a HIGH parent, fresh isolated XHIGH
+> viewer-facing creative authors, 1080-first short/longform output, semantic chapterization,
+> free-form Remotion authorship, no MAX/ULTRA, no 4K, and no deterministic aesthetic gates.
+> Lower sections retain earlier architecture history and heuristics as non-controlling context.
+
 # 1. Mission
 
 Capital Chronicle ContentOps V2 exists to turn the strongest Capital Chronicle journalism and analysis into **institutional-grade, retention-native financial video** that is useful enough for sophisticated viewers, clear enough for a cold audience, visually strong enough to build a premium media brand, and automated enough to operate repeatedly at bounded cost.

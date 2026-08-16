@@ -3,7 +3,13 @@
 Authority date: 2026-08-14
 Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
-Codex mode state: `UNSELECTED / MAX_VS_ULTRA_DEFERRED_UNTIL_QUALITY_SUBSTRATE_ACCEPTED`
+Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRED`
+
+> **2026-08-16 current handoff override:** Read
+> `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` before the older
+> evidence below. The active task is the free-form chapterized HIGH/XHIGH 1080 owner-polish
+> task for *Frozen Without Breaking*. MAX/ULTRA, 4K, deterministic creative gates, normative
+> micro-beat rules, and fixed creative-repair budgets are no longer current direction.
 
 Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or owner chat history.
 

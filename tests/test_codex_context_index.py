@@ -123,8 +123,11 @@ def test_generated_v2_context_routes_direct_image_and_retention_native_authority
     assert "gpt-5.5" in normalized
     assert "provisional V2 generated-illustration default" in normalized
     assert "confirmed HTTP 400" in normalized
-    assert "TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1" in normalized
-    assert "new/gpt-5.6-sol-xhigh" in normalized
+    assert "TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1" in normalized
+    assert "GPT-5.6 Sol HIGH" in normalized
+    assert "GPT-5.6 Sol XHIGH" in normalized
+    assert "MAX/ULTRA and mode bakeoffs are retired" in normalized
+    assert "free-form React/Remotion code" in normalized
     assert "NORTH_STAR_V2" in normalized
     assert "d231b54e" in normalized
     assert "b6f50029" in normalized
@@ -165,19 +168,23 @@ def test_runtime_raw_data_and_cache_changes_do_not_change_digest(monkeypatch, tm
     runtime = root / "Runtime" / "output.json"
     raw = root / "headline_ingestion" / "data" / "raw_archive" / "raw.json"
     cache = root / "ui" / "contentops_v5" / "node_modules" / "cache.js"
+    task_runtime = root / ".task-runtime" / "job" / ".venv" / "Lib" / "vendor.py"
     code.parent.mkdir(parents=True)
     runtime.parent.mkdir(parents=True)
     raw.parent.mkdir(parents=True)
     cache.parent.mkdir(parents=True)
+    task_runtime.parent.mkdir(parents=True)
     code.write_text("VALUE = 1\n", encoding="utf-8")
     runtime.write_text("one", encoding="utf-8")
     raw.write_text("one", encoding="utf-8")
     cache.write_text("one", encoding="utf-8")
+    task_runtime.write_text("one", encoding="utf-8")
     monkeypatch.setattr(index, "ROOT", root)
     before = index.source_digest(index.source_files())
     runtime.write_text("two", encoding="utf-8")
     raw.write_text("two", encoding="utf-8")
     cache.write_text("two", encoding="utf-8")
+    task_runtime.write_text("two", encoding="utf-8")
     assert index.source_digest(index.source_files()) == before
 
 
@@ -188,4 +195,6 @@ def test_source_scope_excludes_history_data_and_generated_outputs():
     assert not any(path.startswith("headline_ingestion/data/intake/headline_sidecars/") for path in paths)
     assert not any(path in index.GENERATED_PATHS for path in paths)
     assert not any("node_modules" in path for path in paths)
+    assert not any(path.startswith(".task-runtime/") for path in paths)
+    assert not any("/.venv/" in path or path.startswith(".venv/") for path in paths)
     assert "docs/codegraph/V1_CONTEXT.md" in paths
