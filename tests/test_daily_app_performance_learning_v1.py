@@ -329,10 +329,10 @@ def test_metrics_capability_matrix_is_nine_surface_and_never_zero_fills_unavaila
     assert next(row for row in matrix if row["destination"] == "substack")[
         "collector_state"
     ] == "AVAILABLE_FIRST_PARTY_VISIBLE_POST_STATS"
-    assert all(
-        row["collector_state"] == "UNSUPPORTED_CURRENT_AUTHORIZED_RUNTIME"
-        for row in matrix if row["destination"] != "substack"
-    )
+    assert next(row for row in matrix if row["destination"] == "linkedin")[
+        "collector_state"
+    ] == "PERMISSION_REQUIRED_RESTRICTED_MEMBER_SOCIAL_READ"
+    assert all(row["max_provider_requests_per_observation"] == 1 for row in matrix)
 
 
 def test_native_metrics_preserved(tmp_path):
@@ -410,6 +410,22 @@ def test_small_n_holds_policy(tmp_path):
     assert decision["stored"] is True
 
 
+def test_five_distinct_articles_satisfy_global_minimum_sample_gate(tmp_path):
+    sup = _supervisor(tmp_path, learning=False, clock=lambda: AFTER_ALL_WINDOWS)
+    _seed_eligible_observations(
+        sup._store, sup, perf.MIN_ELIGIBLE_OBSERVATIONS, tag="five-distinct"
+    )
+    perf.ensure_bootstrap_policy(sup._store, now=T0)
+
+    decision = perf.evaluate_learning_decision(
+        sup._store, evaluation_window="five-distinct", now=AFTER_ALL_WINDOWS
+    )
+
+    assert perf.MIN_ELIGIBLE_OBSERVATIONS == 5
+    assert decision["sample_count"] == 5
+    assert decision["reason"] != "small_sample_hold"
+
+
 def test_low_confidence_holds_policy(tmp_path):
     sup = _supervisor(tmp_path, learning=False, clock=lambda: AFTER_ALL_WINDOWS)
     # Enough eligible observations but no available qualified metrics -> no scores -> low confidence.
@@ -418,6 +434,123 @@ def test_low_confidence_holds_policy(tmp_path):
     perf.ensure_bootstrap_policy(sup._store, now=T0)
     decision = perf.evaluate_learning_decision(sup._store, evaluation_window="w", now=AFTER_ALL_WINDOWS)
     assert decision["decision"] == perf.DECISION_HOLD
+
+
+def test_nine_dispatches_and_many_windows_from_one_article_still_count_as_one(tmp_path):
+    store = _store(tmp_path)
+    with store.get_connection() as conn:
+        conn.execute(
+            "INSERT INTO work_items VALUES (?,?,?,?,?,?,?,?)",
+            ("one-article", "story-one", "One article", "EVIDENCE_READY", 2, "surf",
+             T0.isoformat(), T0.isoformat()),
+        )
+        for index in range(9):
+            message_id = f"one-message-{index}"
+            dispatch_id = f"one-dispatch-{index}"
+            conn.execute(
+                "INSERT INTO outbox_messages VALUES (?,?,?,?,?,?)",
+                (message_id, "one-article", f"surface-{index}",
+                 json.dumps({"editorial_features": {"story_type": "NEWS"}}),
+                 "DISPATCH_CONFIRMED", T0.isoformat()),
+            )
+            conn.execute(
+                "INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at,public_object_id) VALUES (?,?,?,?,?,?)",
+                (dispatch_id, message_id, f"surface-{index}", "DISPATCH_CONFIRMED",
+                 T0.isoformat(), f"object-{index}"),
+            )
+            for window in ("EARLY", "DAILY"):
+                observation = {
+                    "observation_id": f"obs-{index}-{window}",
+                    "schema_version": perf.OBSERVATION_SCHEMA_VERSION,
+                    "dispatch_id": dispatch_id, "work_item_id": "one-article",
+                    "platform": f"surface-{index}", "public_object_id": f"object-{index}",
+                    "public_object_url_hash": None, "observation_window": window,
+                    "scheduled_for_utc": T0.isoformat(), "collected_at_utc": T0.isoformat(),
+                    "collector_capability_version": perf.COLLECTOR_CAPABILITY_VERSION,
+                    "collection_status": "COLLECTED",
+                    "metrics_native_json": json.dumps({"shares": 2}),
+                    "metric_availability_json": json.dumps({"shares": "AVAILABLE"}),
+                    "source_identity": "controlled", "learning_eligible": 1,
+                }
+                observation["observation_hash"] = perf.observation_hash(observation)
+                columns = list(observation)
+                conn.execute(
+                    f"INSERT INTO performance_observations ({','.join(columns)}) VALUES ({','.join('?' for _ in columns)})",
+                    tuple(observation[name] for name in columns),
+                )
+    perf.ensure_bootstrap_policy(store, now=T0)
+    decision = perf.evaluate_learning_decision(
+        store, evaluation_window="one-article-many-surfaces", now=AFTER_ALL_WINDOWS
+    )
+    eligible = [
+        row for row in store.list_performance_observations()
+        if int(row["learning_eligible"]) == 1
+    ]
+    article_records, package_records = perf._learning_feature_records(store, eligible)
+    assert decision["decision"] == perf.DECISION_HOLD
+    assert decision["sample_count"] == 1
+    assert len(article_records) == 1
+    assert len(package_records) == 9
+    assert {
+        row["destination"]: row["work_item_id"] for row in package_records
+    } == {f"surface-{index}": "one-article" for index in range(9)}
+    assert perf._feature_preferences(
+        [{"copy_length_band": "SHORT", "score": 2.0}] * 2,
+        ("copy_length_band",),
+    ) == []
+    assert perf._feature_preferences(
+        [{"copy_length_band": "SHORT", "score": 2.0}] * 3,
+        ("copy_length_band",),
+    )[0]["support_count"] == perf.MIN_FEATURE_COHORT
+
+
+def test_seo_holds_on_generic_engagement_and_updates_only_with_search_evidence(tmp_path):
+    generic = _supervisor(tmp_path, learning=False, clock=lambda: AFTER_ALL_WINDOWS)
+    _seed_eligible_observations(
+        generic._store, generic, perf.CONFIDENCE_SAMPLE_DENOMINATOR, tag="generic"
+    )
+    with generic._store.get_connection() as conn:
+        conn.execute(
+            "UPDATE outbox_messages SET payload=?",
+            (json.dumps({"editorial_features": {"primary_search_intent": "EXPLAIN"}}),),
+        )
+    perf.ensure_bootstrap_policy(generic._store, now=T0)
+    generic_decision = perf.evaluate_learning_decision(
+        generic._store, evaluation_window="generic", now=AFTER_ALL_WINDOWS
+    )
+    generic_policy = generic._store.get_learning_policy(generic_decision["policy_version"])
+    generic_payload = json.loads(generic_policy["policy_payload_json"])
+    assert generic_payload["seo"]["state"] == "HOLD_INSUFFICIENT_SEARCH_EVIDENCE"
+    assert generic_payload["seo"]["recommendations"] == []
+
+    search_store = _store(tmp_path, "search.sqlite3")
+    search_sup = _supervisor(
+        tmp_path, learning=False, clock=lambda: AFTER_ALL_WINDOWS, store=search_store
+    )
+    search_metrics = {
+        **COLLECTED_METRICS, "search_impressions": 1000,
+        "search_clicks": 100, "search_ctr": 0.1, "search_position": 5,
+    }
+    search_availability = {key: "AVAILABLE" for key in search_metrics}
+    _seed_eligible_observations(
+        search_store, search_sup, perf.CONFIDENCE_SAMPLE_DENOMINATOR,
+        collector_metrics=search_metrics, collector_availability=search_availability,
+        tag="search",
+    )
+    with search_store.get_connection() as conn:
+        conn.execute(
+            "UPDATE outbox_messages SET payload=?",
+            (json.dumps({"editorial_features": {"primary_search_intent": "EXPLAIN"}}),),
+        )
+    perf.ensure_bootstrap_policy(search_store, now=T0)
+    search_decision = perf.evaluate_learning_decision(
+        search_store, evaluation_window="search", now=AFTER_ALL_WINDOWS
+    )
+    search_policy = search_store.get_learning_policy(search_decision["policy_version"])
+    search_payload = json.loads(search_policy["policy_payload_json"])
+    assert search_payload["seo"]["state"] == "BOUNDED_RECOMMENDATIONS"
+    assert search_payload["seo"]["sample_count"] == perf.CONFIDENCE_SAMPLE_DENOMINATOR
+    assert search_payload["seo"]["recommendations"][0]["feature"] == "primary_search_intent"
 
 
 def test_accepted_update_creates_immutable_child_policy_and_bounded_delta(tmp_path):

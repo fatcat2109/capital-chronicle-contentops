@@ -562,3 +562,71 @@ class LinkedInOfficialMemberApiTransportV1:
                 "public_object_id": observed, "public_object_url": public_object_url,
             }
         return {"status": "UNKNOWN_WRITE", "verified": False}
+
+    def collect_metrics(self, *, public_object_id: str) -> dict[str, Any]:
+        """Read one exact social-action summary only when the existing scope permits it."""
+        metric_names = ("likes", "comments", "shares", "reposts", "impressions")
+        try:
+            metadata = self.token_store.read_metadata()
+        except LinkedInOfficialApiError:
+            return {
+                "status": "AUTH_REQUIRED", "metrics": {},
+                "availability": {name: "AUTH_REQUIRED" for name in metric_names},
+                "interaction_availability": "AUTH_REQUIRED",
+                "source_identity": "contentops.linkedin.current_authorized_read_only.v1",
+                "limitations": ["current_official_member_binding_unavailable"],
+                "provider_requests": 0, "public_write_performed": False,
+            }
+        scopes = set(metadata.get("granted_scopes") or [])
+        if READ_SCOPE not in scopes and "r_member_social_feed" not in scopes:
+            return {
+                "status": "PERMISSION_REQUIRED", "metrics": {},
+                "availability": {name: "PERMISSION_REQUIRED" for name in metric_names},
+                "interaction_availability": "PERMISSION_REQUIRED",
+                "source_identity": "contentops.linkedin.current_authorized_read_only.v1",
+                "limitations": ["existing_binding_lacks_restricted_member_social_read_scope"],
+                "provider_requests": 0, "public_write_performed": False,
+                "additional_scope_requested": False,
+            }
+        try:
+            credentials, _ = self._authorized()
+            encoded = urllib.parse.quote(str(public_object_id), safe="")
+            request = urllib.request.Request(
+                "https://api.linkedin.com/rest/socialActions/" + encoded,
+                method="GET",
+                headers={
+                    "Authorization": "Bearer " + str(credentials["access_token"]),
+                    "X-Restli-Protocol-Version": "2.0.0",
+                    "LinkedIn-Version": LINKEDIN_READBACK_VERSION,
+                },
+            )
+            status, payload, _headers = _request_json(
+                request, timeout_seconds=15.0, opener=self.opener
+            )
+        except LinkedInOfficialApiError as exc:
+            state = "PERMISSION_REQUIRED" if exc.http_status == 403 else (
+                "AUTH_REQUIRED" if exc.http_status == 401 else "UNAVAILABLE"
+            )
+            return {
+                "status": state, "metrics": {},
+                "availability": {name: state for name in metric_names},
+                "interaction_availability": state,
+                "source_identity": "contentops.linkedin.current_authorized_read_only.v1",
+                "limitations": [f"official_social_actions_{exc.classification}"],
+                "provider_requests": 1, "public_write_performed": False,
+            }
+        likes = int((payload.get("likesSummary") or {}).get("aggregatedTotalLikes") or 0)
+        comments = int((payload.get("commentsSummary") or {}).get("aggregatedTotalComments") or 0)
+        return {
+            "status": "COLLECTED" if status == 200 else "UNAVAILABLE",
+            "metrics": {"likes": likes, "comments": comments},
+            "availability": {
+                "likes": "AVAILABLE", "comments": "AVAILABLE",
+                "shares": "NOT_EXPOSED", "reposts": "NOT_EXPOSED",
+                "impressions": "NOT_EXPOSED",
+            },
+            "interaction_availability": "NOT_EXPOSED",
+            "source_identity": "contentops.linkedin.official_social_actions.v1",
+            "limitations": ["one_exact_social_action_summary_read_comment_text_not_collected"],
+            "provider_requests": 1, "public_write_performed": False,
+        }

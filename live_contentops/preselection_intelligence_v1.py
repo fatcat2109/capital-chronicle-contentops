@@ -229,6 +229,7 @@ def apply_preselection_intelligence(
     published_corpus: Sequence[PublishedArticleRef],
     cc_catalog: Mapping[str, Any],
     learning_policy: Mapping[str, Any] | None = None,
+    material_event_priority: Mapping[str, Any] | None = None,
     now: datetime | None = None,
 ) -> dict[str, Any]:
     """Enrich and rerank the compact shortlist before any expensive story path."""
@@ -243,6 +244,15 @@ def apply_preselection_intelligence(
         if isinstance(row, Mapping)
     ][:3]
     seo_policy = dict(active_policy.get("seo") or {})
+    material_priority = dict(material_event_priority or {})
+    priority_headline_ids = {
+        str(value) for value in (material_priority.get("headline_ids") or []) if str(value)
+    }
+    priority_update_chains = {
+        str(value)
+        for value in (material_priority.get("update_chain_identities") or [])
+        if str(value)
+    }
     for cluster_value in clusters:
         cluster = dict(cluster_value)
         original_rank = int(cluster.get("rank") or 0)
@@ -308,6 +318,15 @@ def apply_preselection_intelligence(
                 })
         learning_bonus = min(6.0, learning_bonus)
         score += learning_bonus
+        cluster_headline_ids = {
+            str(value) for value in (cluster.get("headline_ids") or []) if str(value)
+        }
+        material_priority_match = bool(
+            priority_headline_ids.intersection(cluster_headline_ids)
+            or (update_chain_identity and update_chain_identity in priority_update_chains)
+        )
+        material_priority_bonus = 80.0 if material_priority_match else 0.0
+        score += material_priority_bonus
         follow_up_context = build_material_follow_up_context(
             cluster, novelty, published_corpus
         )
@@ -325,6 +344,13 @@ def apply_preselection_intelligence(
             "learning_policy_version": active_policy.get("policy_version"),
             "learning_policy_sample_count": active_policy.get("sample_count", 0),
             "learning_policy_confidence": active_policy.get("confidence", 0.0),
+            "material_event_priority_match": material_priority_match,
+            "material_event_priority_bonus": material_priority_bonus,
+            "material_event_priority_ids": list(
+                material_priority.get("priority_ids") or []
+            ) if material_priority_match else [],
+            "material_event_priority_grants_factual_or_numeric_authority": False,
+            "material_event_priority_changes_eligibility_gates": False,
             "seo_learning_preferences": list(seo_policy.get("recommendations") or [])[:3],
             "learning_preferences_grant_factual_or_numeric_authority": False,
             "learning_preferences_change_evidence_or_publication_gates": False,
@@ -373,6 +399,10 @@ def apply_preselection_intelligence(
         "learning_policy_consumed": bool(active_policy),
         "learning_policy_priority_bonus_cap": 6.0,
         "learning_policy_grants_factual_or_numeric_authority": False,
+        "material_event_priority_consumed": bool(material_priority),
+        "material_event_priority_ids": list(material_priority.get("priority_ids") or []),
+        "material_event_priority_bonus_cap": 80.0,
+        "material_event_priority_changes_eligibility_gates": False,
         "occurs_before_targeted_evidence": True,
         "occurs_before_article_generation": True,
         "llm_or_provider_calls": 0,

@@ -3773,6 +3773,7 @@ def _run_rolling_x_newsroom_cycle(
     published_corpus: Sequence[Any] | None = None,
     cc_catalog: Mapping[str, Any] | None = None,
     learning_policy: Mapping[str, Any] | None = None,
+    material_event_priority: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if sidecar_glob is None:
@@ -4032,6 +4033,7 @@ def _run_rolling_x_newsroom_cycle(
             published_corpus=list(published_corpus or []),
             cc_catalog=effective_catalog,
             learning_policy=dict(learning_policy or {}),
+            material_event_priority=dict(material_event_priority or {}),
             now=datetime.fromisoformat(str(cutoff_utc).replace("Z", "+00:00")),
         )
         _write_json(output_dir / "preselection_intelligence_v1.json", preselection)

@@ -753,6 +753,7 @@ def _learning_feature_records(
             "destination": str(dispatch.get("platform") or message.get("destination") or ""),
             "score": score,
             "dispatch_id": dispatch_id,
+            "work_item_id": work_item_id,
         })
         if work_item_id:
             article_scores.setdefault(work_item_id, []).append(score)
@@ -768,6 +769,88 @@ def _learning_feature_records(
     return article_records, package_records
 
 
+def _work_item_id_for_observation(store: Any, observation: Mapping[str, Any]) -> str:
+    dispatch = store.get_platform_dispatch(str(observation.get("dispatch_id") or ""))
+    if not dispatch:
+        return ""
+    message = store.get_outbox_message(str(dispatch.get("message_id") or ""))
+    return str((message or {}).get("work_item_id") or "")
+
+
+def _search_evidence_score(
+    metrics: Mapping[str, Any], availability: Mapping[str, Any]
+) -> float | None:
+    """Return a bounded score only when an actual search channel supplied evidence."""
+
+    def available_number(name: str) -> float | None:
+        if str(availability.get(name) or "") != AVAILABLE:
+            return None
+        value = metrics.get(name)
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            return None
+        return max(0.0, float(value))
+
+    impressions = available_number("search_impressions")
+    if impressions is None or impressions <= 0:
+        return None
+    clicks = available_number("search_clicks")
+    ctr = available_number("search_ctr")
+    position = available_number("search_position")
+    if clicks is None and ctr is None and position is None:
+        return None
+    if ctr is None and clicks is not None:
+        ctr = clicks / impressions
+    if ctr is not None and ctr > 1.0:
+        ctr /= 100.0
+    ctr_component = min(max(ctr or 0.0, 0.0), 1.0) * 6.0
+    click_component = min(clicks or 0.0, 20.0) / 20.0 * 2.0
+    position_component = (
+        max(0.0, 1.0 - min(position, 100.0) / 100.0) * 2.0
+        if position is not None and position > 0
+        else 0.0
+    )
+    return min(ctr_component + click_component + position_component, SCORE_CAP)
+
+
+def _search_feature_records(
+    store: Any, eligible_observations: Sequence[Mapping[str, Any]]
+) -> list[dict[str, Any]]:
+    scores_by_work_item: dict[str, list[float]] = {}
+    features_by_work_item: dict[str, dict[str, Any]] = {}
+    for observation in eligible_observations:
+        try:
+            metrics = json.loads(str(observation["metrics_native_json"]))
+            availability = json.loads(str(observation["metric_availability_json"]))
+        except Exception:  # noqa: BLE001
+            continue
+        score = _search_evidence_score(metrics, availability)
+        if score is None:
+            continue
+        dispatch = store.get_platform_dispatch(str(observation.get("dispatch_id") or ""))
+        message = store.get_outbox_message(str((dispatch or {}).get("message_id") or ""))
+        if not message:
+            continue
+        work_item_id = str(message.get("work_item_id") or "")
+        try:
+            intent = json.loads(str(message.get("payload") or "{}"))
+        except (TypeError, ValueError):
+            continue
+        if not work_item_id:
+            continue
+        scores_by_work_item.setdefault(work_item_id, []).append(score)
+        features_by_work_item.setdefault(
+            work_item_id, dict(intent.get("editorial_features") or {})
+        )
+    return [
+        {
+            **features_by_work_item.get(work_item_id, {}),
+            "score": min(_mean(scores), SCORE_CAP),
+            "work_item_id": work_item_id,
+        }
+        for work_item_id, scores in sorted(scores_by_work_item.items())
+    ]
+
+
 def _bounded_policy_sections(
     store: Any,
     eligible_observations: Sequence[Mapping[str, Any]],
@@ -781,8 +864,9 @@ def _bounded_policy_sections(
         article_records,
         ("story_type", "article_mode", "topic_family", "update_mode", "depth_band"),
     )
+    search_records = _search_feature_records(store, eligible_observations)
     seo_recommendations = _feature_preferences(
-        article_records,
+        search_records,
         (
             "primary_search_intent", "keyword_cluster", "headline_frame",
             "section_structure", "evergreen_balance", "refresh_intent",
@@ -793,6 +877,12 @@ def _bounded_policy_sections(
         destination_rows = [
             row for row in package_records if str(row.get("destination") or "") == destination
         ]
+        # One article gets one vote for a destination even if historical repair produced
+        # more than one durable dispatch row.
+        destination_rows = list({
+            str(row.get("work_item_id") or row.get("dispatch_id") or ""): row
+            for row in destination_rows
+        }.values())
         preferences = _feature_preferences(
             destination_rows,
             ("copy_length_band", "package_form", "link_treatment", "thread_structure"),
@@ -812,11 +902,14 @@ def _bounded_policy_sections(
             "repetition_concentration_penalty_mutable": False,
         },
         "seo": {
-            "state": "BOUNDED_RECOMMENDATIONS" if seo_recommendations else "HOLD_NO_SUPPORTED_SEARCH_PREFERENCE",
+            "state": "BOUNDED_RECOMMENDATIONS" if seo_recommendations else "HOLD_INSUFFICIENT_SEARCH_EVIDENCE",
             "recommendations": seo_recommendations,
-            "sample_count": len(article_records),
-            "confidence": round(confidence, 4),
+            "sample_count": len(search_records),
+            "confidence": round(
+                min(1.0, len(search_records) / CONFIDENCE_SAMPLE_DENOMINATOR), 4
+            ),
             "deterministic_score_is_observed_success": False,
+            "search_channel_evidence_required": True,
         },
         "package": {
             "state": "BOUNDED_DESTINATION_RECOMMENDATIONS" if by_destination else "HOLD_NO_SUPPORTED_DESTINATION_PREFERENCE",
@@ -845,20 +938,16 @@ def evaluate_learning_decision(
         o for o in observations
         if int(o["learning_eligible"]) == 1 and o["collection_status"] == "COLLECTED"
     ]
-    # Learning sample = distinct REAL published objects (not per-window observations), so one
-    # post can never dominate and the guard matches "do not overfit to 1 post".
-    total_eligible = len({o["dispatch_id"] for o in eligible})
-    total_observations = len(eligible)
-    scored: List[float] = []
-    for obs in eligible:
-        try:
-            metrics = json.loads(obs["metrics_native_json"])
-            availability = json.loads(obs["metric_availability_json"])
-        except Exception:  # noqa: BLE001 - malformed payload yields no score
-            continue
-        score = qualified_engagement_score(metrics, availability)
-        if score is not None:
-            scored.append(min(score, SCORE_CAP))
+    # The global guard and score both count distinct articles/work items. A nine-surface
+    # dispatch fanout and four observation windows are still exactly one learning vote.
+    eligible_work_item_ids = {
+        work_item_id
+        for observation in eligible
+        if (work_item_id := _work_item_id_for_observation(store, observation))
+    }
+    total_eligible = len(eligible_work_item_ids)
+    article_records, _ = _learning_feature_records(store, eligible)
+    scored = [float(row["score"]) for row in article_records]
 
     observation_ids = [obs["observation_id"] for obs in eligible]
     common = {
@@ -875,7 +964,7 @@ def evaluate_learning_decision(
                                 common=common, now=now, scored_count=len(scored))
 
     # Confidence blends sample size with data availability (unavailable data lowers confidence).
-    scored_fraction = (len(scored) / total_observations) if total_observations else 0.0
+    scored_fraction = (len(scored) / total_eligible) if total_eligible else 0.0
     confidence = min(1.0, total_eligible / CONFIDENCE_SAMPLE_DENOMINATOR) * scored_fraction
     # Guard 2: low-confidence hold.
     if confidence < CONFIDENCE_THRESHOLD:
@@ -1248,29 +1337,34 @@ def active_policy_briefing(store: Any) -> Dict[str, Any]:
 
 def current_metrics_capability_matrix() -> list[dict[str, Any]]:
     """Truthful current collector capability without probing a platform or widening scope."""
-    rows = []
-    for destination in (
-        "substack", "telegram", "x", "discord", "linkedin", "facebook_page",
-        "instagram_business", "threads", "youtube",
-    ):
-        supported = destination == "substack"
-        rows.append({
+    capabilities = {
+        "substack": ("AVAILABLE_FIRST_PARTY_VISIBLE_POST_STATS", [
+            "total_views", "free_subscriptions", "paid_subscriptions", "recipients",
+            "open_rate", "delivery_rate", "likes", "comments", "shares", "restacks",
+            "subscriber_conversions",
+        ], "NOT_EXPOSED"),
+        "facebook_page": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["likes", "comments", "shares"], "AVAILABLE_IF_AUTHORIZED"),
+        "instagram_business": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["likes", "comments"], "AVAILABLE_IF_AUTHORIZED"),
+        "threads": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["replies"], "AVAILABLE_IF_AUTHORIZED"),
+        "discord": ("AVAILABLE_IF_CURRENT_WEBHOOK_BINDING_AUTHORIZES_EXACT_READ", ["reactions"], "NOT_EXPOSED"),
+        "linkedin": ("PERMISSION_REQUIRED_RESTRICTED_MEMBER_SOCIAL_READ", ["likes", "comments"], "PERMISSION_REQUIRED"),
+        "telegram": ("NOT_EXPOSED_BY_CURRENT_BOT_BINDING", [], "NOT_EXPOSED"),
+        "x": ("NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING", [], "NOT_EXPOSED"),
+        "youtube": ("NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING", [], "NOT_EXPOSED"),
+    }
+    return [
+        {
             "destination": destination,
-            "collector_state": (
-                "AVAILABLE_FIRST_PARTY_VISIBLE_POST_STATS"
-                if supported else "UNSUPPORTED_CURRENT_AUTHORIZED_RUNTIME"
-            ),
-            "metrics": (
-                [
-                    "total_views", "free_subscriptions", "paid_subscriptions", "recipients",
-                    "open_rate", "delivery_rate", "likes", "comments", "shares", "restacks",
-                    "subscriber_conversions",
-                ]
-                if supported else []
-            ),
-            "interaction_text_observation": "UNSUPPORTED",
+            "collector_state": capabilities[destination][0],
+            "metrics": capabilities[destination][1],
+            "interaction_text_observation": capabilities[destination][2],
             "search_console_channel": "OPERATOR_SETUP_REQUIRED",
             "unavailable_is_zero": False,
             "additional_scope_granted": False,
-        })
-    return rows
+            "max_provider_requests_per_observation": 1,
+        }
+        for destination in (
+            "substack", "telegram", "x", "discord", "linkedin", "facebook_page",
+            "instagram_business", "threads", "youtube",
+        )
+    ]

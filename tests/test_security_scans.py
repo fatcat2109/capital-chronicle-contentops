@@ -42,9 +42,10 @@ def test_no_forbidden_imports_or_env_vars():
         "fast_one_cycle_automation_v0.py",
         "grounded_search_engine_v6.py",
     }
-    urllib_network_allowlist = live_gate_allowlist | {
-        "current_oil_release_source_v1.py",
-        "edge_cdp_publishing_adapter_v1.py",
+        urllib_network_allowlist = live_gate_allowlist | {
+            "current_oil_release_source_v1.py",
+            "destination_performance_observer_v1.py",
+            "edge_cdp_publishing_adapter_v1.py",
         "live_readonly_probe_registry.py",
         "media_content_audit_v6.py",
         "media_manifest_authority_v1.py",
@@ -52,13 +53,14 @@ def test_no_forbidden_imports_or_env_vars():
     }
 
     # Modules allowed to perform env lookups for configuration (excluding generic modules)
-    env_access_allowlist = {
+        env_access_allowlist = {
         "cli.py",
         "operator_browser_lab.py",
         "social_credential_setup_workbench.py",
         "ai_provider_gate_v6.py",
         "operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py",
-        "discord_supervised_live_preflight_v6.py",
+            "discord_supervised_live_preflight_v6.py",
+            "destination_performance_observer_v1.py",
         "grounded_news_angle_workbench.py",
         "publishing_profile_registry_v1.py",
         "source_chart_short_video_v1.py",

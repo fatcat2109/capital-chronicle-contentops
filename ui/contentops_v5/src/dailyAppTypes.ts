@@ -210,6 +210,9 @@ export interface DailyAppSnapshot {
   };
   performance: {
     observations: Array<Record<string, unknown>>;
+    collector_capabilities?: Array<Record<string, unknown>>;
+    scheduled_observation_count?: number;
+    collected_observation_count?: number;
     real_observation_count: number;
     empty_reason: string | null;
     empty_detail: string | null;

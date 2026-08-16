@@ -351,6 +351,55 @@ def test_four_candidate_preselection_classifies_filters_and_changes_order(monkey
     assert result["llm_or_provider_calls"] == 0
 
 
+def test_material_event_priority_reranks_matching_eligible_update_without_new_authority(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.query_story_scoped_cc_context",
+        lambda _catalog, _entities: {
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matches": [],
+            "grants_factual_or_numeric_authority": False,
+        },
+    )
+    clusters = [
+        {
+            "cluster_id": "normally-first", "rank": 1,
+            "headline_ids": ["headline-normal"], "entities_topics": ["Rates"],
+            "leaf_summaries": ["new official decision"],
+        },
+        {
+            "cluster_id": "priority-chain", "update_chain_identity": "chain-priority",
+            "rank": 2, "headline_ids": ["headline-priority"],
+            "entities_topics": ["Inflation"],
+            "leaf_summaries": ["new agency update"],
+        },
+    ]
+
+    result = apply_preselection_intelligence(
+        clusters,
+        published_corpus=[],
+        cc_catalog={"stores": []},
+        material_event_priority={
+            "priority_ids": ["material-priority-1"],
+            "headline_ids": ["headline-priority"],
+            "update_chain_identities": ["chain-priority"],
+        },
+        now=NOW,
+    )
+
+    assert result["reranked_order"] == ["priority-chain", "normally-first"]
+    prioritized = result["ranked_clusters"][0]
+    assert prioritized["material_event_priority_match"] is True
+    assert prioritized["material_event_priority_bonus"] == 80.0
+    assert prioritized["material_event_priority_ids"] == ["material-priority-1"]
+    assert prioritized["material_event_priority_changes_eligibility_gates"] is False
+    assert prioritized["material_event_priority_grants_factual_or_numeric_authority"] is False
+    assert result["publication_authority_granted"] is False
+
+
 def test_duplicate_corpus_rows_still_hold_repeat_and_allow_material_follow_up(
     monkeypatch,
 ):

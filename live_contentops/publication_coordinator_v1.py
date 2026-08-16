@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 from contextlib import nullcontext
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Optional
 from urllib.parse import urlsplit
@@ -32,6 +33,11 @@ RECONCILED_ABSENT_SAFE_TO_RETRY = "RECONCILED_ABSENT_SAFE_TO_RETRY"
 RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE = (
     "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
 )
+DERIVATIVE_EXPIRED_STALE_NO_WRITE = "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE = (
+    "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE"
+)
+RECOVERY_ATTEMPT_BUDGET = 9
 
 
 def _canonical_json(value: Any) -> str:
@@ -57,6 +63,16 @@ def _valid_substack_canonical_url(value: Any) -> bool:
         and not parsed.username
         and not parsed.password
     )
+
+
+def _parse_utc(value: Any) -> datetime | None:
+    try:
+        parsed = datetime.fromisoformat(str(value or "").replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
 
 
 def normalize_dispatch_result(
@@ -158,12 +174,82 @@ class DurablePublicationCoordinator:
         readiness_provider: Optional[Callable[[str], Mapping[str, Any]]] = None,
         readiness_manager: Any = None,
         readiness_refresh_seconds: float = 300.0,
+        clock: Optional[Callable[[], datetime]] = None,
     ) -> None:
         self.store = store
         self.transport_runtime = transport_runtime
         self.readiness_provider = readiness_provider
         self.readiness_manager = readiness_manager
         self.readiness_refresh_seconds = max(30.0, float(readiness_refresh_seconds))
+        self._clock = clock or (lambda: datetime.now(timezone.utc))
+
+    @staticmethod
+    def _freshness_horizon(intent: Mapping[str, Any]) -> timedelta:
+        mode = str(intent.get("resolved_article_mode") or "").upper()
+        if "BREAKING" in mode:
+            return timedelta(hours=6)
+        if "FOLLOW_UP" in mode or "UPDATE" in mode:
+            return timedelta(hours=24)
+        if "DEEP_DIVE" in mode:
+            return timedelta(hours=72)
+        if "EVERGREEN" in mode:
+            return timedelta(days=7)
+        return timedelta(hours=24)
+
+    def _message_is_stale(
+        self, message: Mapping[str, Any], intent: Mapping[str, Any]
+    ) -> bool:
+        publication_window = intent.get("publication_window") or {}
+        if isinstance(publication_window, Mapping):
+            explicit_expiry = _parse_utc(
+                publication_window.get("expires_at_utc")
+                or publication_window.get("fresh_until_utc")
+            )
+            if explicit_expiry is not None:
+                return self._clock().astimezone(timezone.utc) >= explicit_expiry
+        created = _parse_utc(message.get("created_at"))
+        return bool(
+            created is not None
+            and self._clock().astimezone(timezone.utc)
+            >= created + self._freshness_horizon(intent)
+        )
+
+    def _retry_incident_id(self, dispatch_id: str) -> str:
+        return "incident_derivative_recovery_retry_" + _hash(dispatch_id)[:24]
+
+    def _retry_already_attempted(self, dispatch_id: str) -> bool:
+        try:
+            with self.store.get_read_only_connection() as conn:
+                return conn.execute(
+                    "SELECT 1 FROM incidents WHERE incident_id=?",
+                    (self._retry_incident_id(dispatch_id),),
+                ).fetchone() is not None
+        except Exception:
+            return True
+
+    def _record_retry_attempt(self, dispatch_id: str, work_item_id: str) -> None:
+        self.store.register_incident(
+            incident_id=self._retry_incident_id(dispatch_id),
+            work_item_id=work_item_id,
+            severity="RECOVERY_AUDIT",
+            description="One bounded absence-safe derivative retry crossed the write boundary.",
+        )
+
+    def _expire_stale_derivative(
+        self, message: Mapping[str, Any], dispatch: Mapping[str, Any] | None
+    ) -> None:
+        message_id = str(message["message_id"])
+        self.store.set_outbox_status(message_id, DERIVATIVE_EXPIRED_STALE_NO_WRITE)
+        if dispatch is not None:
+            self.store.set_dispatch_status(
+                str(dispatch["dispatch_id"]), DERIVATIVE_EXPIRED_STALE_NO_WRITE
+            )
+        self.store.register_incident(
+            incident_id="incident_derivative_stale_" + _hash(message_id)[:24],
+            work_item_id=str(message.get("work_item_id") or "") or None,
+            severity="RECOVERY_AUDIT",
+            description="Stale derivative expired with zero public write; prior readback history retained.",
+        )
 
     def _refresh_readiness_if_due(self) -> bool:
         """Compatibility seam: periodic active/global readiness refresh is disabled."""
@@ -625,6 +711,24 @@ class DurablePublicationCoordinator:
         return {"status": "REPLAY_VERIFIED_READBACK_NOT_FOUND", "provider_calls": 0}
 
     def execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        recovery_preflight = self.recover_pending()
+        if int(recovery_preflight.get("backlog_remaining") or 0) > 0:
+            return {
+                "plan_hash": str(plan.get("plan_hash") or _hash(_canonical_json(plan))),
+                "registered": [],
+                "outbox_count": 0,
+                "per_destination": {},
+                "canonical_article_status": "NOT_STARTED",
+                "canonical_article_real_published": False,
+                "canonical_url": None,
+                "canonical_publication_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+                "distribution_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+                "recovery_preflight": recovery_preflight,
+                "public_write_performed": bool(
+                    recovery_preflight.get("publish_calls")
+                ),
+                "unknown_write_detected": False,
+            }
         registration = self.register_plan(work_item_id, plan)
         outcomes: dict[str, Any] = {
             str(row.get("destination") or ""): {
@@ -785,16 +889,33 @@ class DurablePublicationCoordinator:
         return None
 
     def recover_pending(self) -> dict[str, Any]:
-        """Reconcile ambiguity, then drain all safe READY work in a bounded nine-surface pass."""
-        summary = {"safe_resumes": 0, "marked_unknown": 0, "readbacks": 0, "publish_calls": 0,
-                   "readiness_probe_performed": False, "per_destination": {}}
+        """Reconcile every ambiguity, then spend one bounded freshness-safe recovery budget."""
+        summary = {
+            "safe_resumes": 0, "safely_attempted": 0, "stale_expired": 0,
+            "marked_unknown": 0, "readbacks": 0, "publish_calls": 0,
+            "readiness_probe_performed": False, "per_destination": {},
+            "recovery_attempt_budget": RECOVERY_ATTEMPT_BUDGET,
+            "backlog_remaining": 0,
+        }
         messages = self.store.list_outbox_messages()
         dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
         ready_messages: list[tuple[Mapping[str, Any], bool]] = []
         for message in messages:
             intent = json.loads(str(message["payload"]))
+            if not intent.get("work_item_id") or not intent.get("plan_hash"):
+                summary["legacy_noncanonical_rows_skipped"] = int(
+                    summary.get("legacy_noncanonical_rows_skipped") or 0
+                ) + 1
+                continue
             dispatch = dispatch_by_message.get(str(message["message_id"]))
             if dispatch is None and str(message["status"]) == "READY":
+                if (
+                    str(message["destination"]) != "substack"
+                    and self._message_is_stale(message, intent)
+                ):
+                    self._expire_stale_derivative(message, None)
+                    summary["stale_expired"] += 1
+                    continue
                 ready_messages.append((message, False))
                 continue
             if dispatch is None:
@@ -824,7 +945,20 @@ class DurablePublicationCoordinator:
                 # ``retry_reconciled_absent_substack`` route because a preserved draft ID may
                 # be deliberately non-public.
                 if str(message["destination"]) != "substack":
-                    ready_messages.append((message, True))
+                    if self._retry_already_attempted(str(dispatch["dispatch_id"])):
+                        self.store.set_dispatch_status(
+                            str(dispatch["dispatch_id"]),
+                            DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+                        )
+                        self.store.set_outbox_status(
+                            str(message["message_id"]),
+                            DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+                        )
+                    elif self._message_is_stale(message, intent):
+                        self._expire_stale_derivative(message, dispatch)
+                        summary["stale_expired"] += 1
+                    else:
+                        ready_messages.append((message, True))
                 continue
             if current_reconciliation in {
                 RECONCILED_CONFIRMED,
@@ -849,7 +983,7 @@ class DurablePublicationCoordinator:
                 )
             )
             canonical_urls: dict[str, str] = {}
-            for message, explicit_retry in ready_messages[:9]:
+            for message, explicit_retry in ready_messages[:RECOVERY_ATTEMPT_BUDGET]:
                 work_item_id = str(message.get("work_item_id") or "")
                 intent = json.loads(str(message["payload"]))
                 destination = str(message["destination"])
@@ -882,7 +1016,19 @@ class DurablePublicationCoordinator:
                 )
                 summary["per_destination"][destination] = outcome
                 summary["safe_resumes"] += 1
+                summary["safely_attempted"] += 1
                 summary["publish_calls"] += int(bool(outcome.get("publish_called")))
+                if explicit_retry and outcome.get("publish_called") is True:
+                    dispatch = self.store.get_platform_dispatch(
+                        self._ids(
+                            str(intent["work_item_id"]),
+                            str(intent["plan_hash"]), destination,
+                        )["dispatch_id"]
+                    )
+                    if dispatch is not None:
+                        self._record_retry_attempt(
+                            str(dispatch["dispatch_id"]), work_item_id
+                        )
                 if (
                     destination == "substack"
                     and outcome.get("status") == DISPATCH_CONFIRMED
@@ -890,6 +1036,45 @@ class DurablePublicationCoordinator:
                     and _valid_substack_canonical_url(outcome.get("public_object_url"))
                 ):
                     canonical_urls[work_item_id] = str(outcome["public_object_url"])
+        remaining_destinations: list[str] = []
+        refreshed_dispatches = {
+            str(row["message_id"]): row for row in self.store.list_platform_dispatches()
+        }
+        for message in self.store.list_outbox_messages():
+            dispatch = refreshed_dispatches.get(str(message["message_id"]))
+            if dispatch is None:
+                if str(message.get("status") or "") == "READY":
+                    remaining_destinations.append(str(message["destination"]))
+                continue
+            if str(message["destination"]) == "substack":
+                continue
+            if str(dispatch.get("status") or "") in {
+                DERIVATIVE_EXPIRED_STALE_NO_WRITE,
+                DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+            }:
+                continue
+            intent = json.loads(str(message["payload"]))
+            if not intent.get("work_item_id") or not intent.get("plan_hash"):
+                continue
+            ids = self._ids(
+                str(intent["work_item_id"]), str(intent["plan_hash"]),
+                str(message["destination"]),
+            )
+            reconciliation = next((
+                str(row.get("status") or "")
+                for row in self.store.get_reconciliations_for_work_item(
+                    str(intent["work_item_id"])
+                )
+                if str(row.get("reconciliation_id") or "") == ids["reconciliation_id"]
+            ), None)
+            if (
+                reconciliation == RECONCILED_ABSENT_SAFE_TO_RETRY
+                and not self._retry_already_attempted(str(dispatch["dispatch_id"]))
+            ):
+                remaining_destinations.append(str(message["destination"]))
+        summary["backlog_remaining"] = len(remaining_destinations)
+        summary["backlog_remaining_by_destination"] = sorted(remaining_destinations)
+        summary["backlog_blocking_new_publication"] = bool(remaining_destinations)
         return summary
 
     def publish_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
@@ -1061,22 +1246,18 @@ class CanonicalDestinationTransportRuntimeV1:
         public_object_url_hash: Optional[str],
         observation_window: str,
     ) -> Mapping[str, Any]:
+        if destination == "linkedin":
+            return self._linkedin_transport.collect_metrics(
+                public_object_id=public_object_id
+            )
         if destination != "substack":
-            return {
-                "status": "UNSUPPORTED",
-                "metrics": {},
-                "availability": {name: "UNSUPPORTED" for name in (
-                    "impressions", "reach", "views", "meaningful_reads", "completion_rate",
-                    "likes", "reactions", "shares", "reposts", "restacks", "saves",
-                    "bookmarks", "comments", "replies", "canonical_article_clicks",
-                    "subscriber_conversions", "follower_conversions", "newsletter_opens",
-                    "newsletter_clicks", "search_impressions", "search_clicks", "search_ctr",
-                    "search_query", "search_position", "interaction_quality",
-                )},
-                "interaction_availability": "UNSUPPORTED",
-                "source_identity": f"contentops.{destination}.metrics.unsupported.v1",
-                "limitations": ["destination_local_real_metrics_collector_not_implemented"],
-            }
+            from live_contentops.destination_performance_observer_v1 import (
+                collect_current_authorized_destination_metrics,
+            )
+
+            return collect_current_authorized_destination_metrics(
+                destination=destination, public_object_id=public_object_id
+            )
         from live_contentops.substack_performance_observer_v1 import (
             collect_substack_post_metrics_via_edge,
         )
