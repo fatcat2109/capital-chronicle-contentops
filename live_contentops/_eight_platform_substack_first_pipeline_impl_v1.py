@@ -2938,6 +2938,76 @@ def _prepare_rolling_x_release_candidate(
     }
 
 
+def _publication_learning_features(
+    *,
+    viability: Mapping[str, Any],
+    article: Mapping[str, Any],
+    payloads: Mapping[str, Any],
+    learning_policy_version: str | None,
+) -> dict[str, Any]:
+    selected = dict(viability.get("selected_cluster") or {})
+    body = str(article.get("substack_body_markdown") or article.get("rendered_body") or "")
+    headings = [
+        re.sub(r"^#+\s*", "", line).strip()
+        for line in body.splitlines()
+        if re.match(r"^#{1,4}\s+", line.strip())
+    ]
+    word_count = int(article.get("word_count") or len(re.findall(r"\b\w+\b", body)))
+    depth_band = (
+        "BRIEF" if word_count < 500 else "STANDARD" if word_count < 1200 else "DEEP"
+    )
+    topic_values = [str(value) for value in (selected.get("entities_topics") or []) if str(value)]
+    keyword_values = [
+        str(value) for value in (
+            article.get("seo_keywords")
+            or article.get("keyword_cluster")
+            or topic_values
+        ) if str(value)
+    ]
+    title = str(article.get("title") or "")
+    editorial = {
+        "story_type": str(selected.get("story_type") or viability.get("story_type") or "UNKNOWN"),
+        "article_mode": str(article.get("resolved_article_mode") or selected.get("resolved_article_mode") or "UNKNOWN"),
+        "topic_family": topic_values[:5],
+        "update_mode": str(selected.get("editorial_classification") or article.get("editorial_classification") or "UNKNOWN"),
+        "depth_band": depth_band,
+        "primary_search_intent": str(selected.get("seo_intent") or article.get("primary_search_intent") or "UNAVAILABLE"),
+        "secondary_search_intents": [str(value) for value in (article.get("secondary_search_intents") or [])][:5],
+        "keyword_cluster": keyword_values[:8],
+        "reader_headline": title,
+        "seo_title": str(article.get("seo_title") or ""),
+        "slug": str(article.get("slug") or ""),
+        "meta_description": str(article.get("meta_description") or ""),
+        "section_structure": headings[:12],
+        "headline_frame": "QUESTION" if title.endswith("?") else "DIRECT_NEWS_OR_ANALYSIS",
+        "evergreen_balance": str(article.get("evergreen_balance") or "NEWS_CURRENT"),
+        "refresh_intent": str(article.get("refresh_intent") or "NO_EXPLICIT_REFRESH"),
+        "source_learning_policy_version": learning_policy_version,
+        "grants_factual_or_numeric_authority": False,
+    }
+    packages: dict[str, dict[str, Any]] = {}
+    for destination, payload_value in payloads.items():
+        payload = dict(payload_value or {}) if isinstance(payload_value, Mapping) else {}
+        text = str(payload.get("text") or "")
+        replies = list(payload.get("reply_texts") or [])
+        length = len(text)
+        packages[str(destination)] = {
+            "copy_length_band": "SHORT" if length < 280 else "MEDIUM" if length < 1000 else "LONG",
+            "package_form": "THREAD" if replies else "SINGLE_POST",
+            "link_treatment": "CANONICAL_LINK" if "pending-publication" in text or "substack.com/p/" in text else "NO_LINK_IN_TEMPLATE",
+            "thread_structure": f"ROOT_PLUS_{len(replies)}_REPLIES" if replies else "NOT_THREADED",
+            "visual_package": "MEDIA_ATTACHED" if payload.get("media_asset_ids") else "TEXT_ONLY",
+        }
+    packages["substack"] = {
+        "copy_length_band": depth_band,
+        "package_form": "CANONICAL_LONGFORM",
+        "link_treatment": "CANONICAL_OBJECT",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "ARTICLE_MEDIA_OPTIONAL",
+    }
+    return {"editorial": editorial, "packages": packages}
+
+
 def _build_rolling_x_publication_plan(
     *, run_id: str, output_dir: Path, viability: Mapping[str, Any],
     preparation: Mapping[str, Any], readiness: Mapping[str, Any],
@@ -2955,6 +3025,15 @@ def _build_rolling_x_publication_plan(
     article = dict(context.get("article") or {})
     media_available = bool((context.get("media") or {}).get("assets"))
     payload_hashes = dict(lock.get("payload_sha256") or {})
+    learning_policy_version = str(
+        ((viability.get("selected_cluster") or {}).get("learning_policy_version") or "")
+    ) or None
+    learning_features = _publication_learning_features(
+        viability=viability,
+        article=article,
+        payloads=dict(preparation.get("payloads") or {}),
+        learning_policy_version=learning_policy_version,
+    )
     destinations: list[dict[str, Any]] = []
     skipped_derivatives: list[dict[str, Any]] = []
     readiness_rows = dict(readiness.get("destinations") or {})
@@ -3016,6 +3095,9 @@ def _build_rolling_x_publication_plan(
             "expected_destination_identity": registration.expected_identity,
             "readiness_state": state,
             "jit_verification_required": state not in READY_STATES,
+            "package_features": dict(
+                learning_features["packages"].get(destination) or {}
+            ),
         })
     plan_core = {
         "schema_version": "contentops.publication_plan.v1",
@@ -3033,6 +3115,8 @@ def _build_rolling_x_publication_plan(
         "package_identity": str(lock.get("lock_sha256") or ""),
         "output_dir": str(output_dir.resolve()),
         "artifact_refs": dict(lock.get("artifacts") or {}),
+        "editorial_features": learning_features["editorial"],
+        "learning_policy_version": learning_policy_version,
         "destinations": destinations,
         "skipped_derivative_destinations": skipped_derivatives,
         "transport_registry_version": REGISTRY_VERSION,
@@ -3688,6 +3772,7 @@ def _run_rolling_x_newsroom_cycle(
     operating_mode: str = "AUTONOMOUS_DEFAULT",
     published_corpus: Sequence[Any] | None = None,
     cc_catalog: Mapping[str, Any] | None = None,
+    learning_policy: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if sidecar_glob is None:
@@ -3946,6 +4031,7 @@ def _run_rolling_x_newsroom_cycle(
             enriched_clusters,
             published_corpus=list(published_corpus or []),
             cc_catalog=effective_catalog,
+            learning_policy=dict(learning_policy or {}),
             now=datetime.fromisoformat(str(cutoff_utc).replace("Z", "+00:00")),
         )
         _write_json(output_dir / "preselection_intelligence_v1.json", preselection)

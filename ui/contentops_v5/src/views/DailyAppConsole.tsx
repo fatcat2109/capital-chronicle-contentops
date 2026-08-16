@@ -419,7 +419,7 @@ function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh
       </div>
       <div className="daily-grid-3">
         <Metric label="Published today" value={data.today.published_today_count} status={data.today.published_today_count ? 'PUBLISHED' : 'NONE_TODAY'} />
-        <Metric label="Daily target" value={`${(data.today.daily_target_band ?? [5, 8])[0]}–${(data.today.daily_target_band ?? [5, 8])[1]}`} />
+        <Metric label="Probation publish range" value={`${(data.today.daily_target_band ?? [0, 4])[0]}–${(data.today.daily_target_band ?? [0, 4])[1]}`} />
         <Metric label="Published corpus" value={data.today.published_corpus_count} />
       </div>
       <div className="daily-grid-4">

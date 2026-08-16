@@ -53,6 +53,7 @@ ROLE_NEWSROOM_LEAF_SCAN = "rolling_x_newsroom_leaf_scan"
 ROLE_GROUNDED_RESEARCH = "v1_grounded_researcher"
 ROLE_EDITORIAL_REVISION = "rolling_x_editorial_revision"
 ROLE_STRUCTURED_REPAIR = "structured_output_repair"
+ROLE_PASSIVE_INTERACTION_QUALITY = "passive_interaction_quality_classification"
 
 INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_ARTICLE_WRITING,
@@ -65,6 +66,7 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_GROUNDED_RESEARCH,
     ROLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
+    ROLE_PASSIVE_INTERACTION_QUALITY,
 )
 
 #: Stages that are deliberately deterministic. Listed explicitly so a future change that

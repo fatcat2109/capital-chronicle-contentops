@@ -14,8 +14,8 @@ coordination layer that:
 * exposes a one-shot/tick mode that exercises the SAME idempotency code as run-forever.
 
 It is NOT a second newsroom, state store, approval engine, publisher, provider gateway, or
-analytics engine. Performance-observation and closed-loop-learning hooks are deliberately
-deferred and report ``NOT_IMPLEMENTED_NOT_DUE``.
+analytics engine. Performance observation, passive interaction analysis, and bounded learning
+reuse the canonical durable store and publication coordinator.
 """
 from __future__ import annotations
 
@@ -85,7 +85,7 @@ WINDOW_EXECUTED_STATES = frozenset(
 )
 
 WINDOW_POLICY_ID = "contentops.editorial_window_policy.v1"
-WINDOW_POLICY_VERSION = "bootstrap.v2"
+WINDOW_POLICY_VERSION = "quality_probation_four_window.v1"
 
 NOT_IMPLEMENTED_NOT_DUE = "NOT_IMPLEMENTED_NOT_DUE"
 
@@ -163,6 +163,7 @@ class CoreEditorialWindow:
     start_hour_utc: int
     end_hour_utc: int
     session: str = "core_daily"
+    eligible_weekdays_utc: tuple = (0, 1, 2, 3, 4)
 
 
 @dataclass(frozen=True)
@@ -186,7 +187,11 @@ class EditorialWindowPolicy:
     confidence_state: str
     sample_state: str
     provenance: str
-    daily_publication_target_band: tuple = (5, 8)
+    daily_publication_target_band: tuple = (0, 4)
+    routine_opportunity_limit: int = 4
+    publication_minimum: int = 0
+    schedule_owner_locked: bool = True
+    automatic_schedule_scaling_enabled: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -204,19 +209,23 @@ class EditorialWindowPolicy:
             "sample_state": self.sample_state,
             "provenance": self.provenance,
             "daily_publication_target_band": list(self.daily_publication_target_band),
+            "routine_opportunity_limit": self.routine_opportunity_limit,
+            "publication_minimum": self.publication_minimum,
+            "schedule_owner_locked": self.schedule_owner_locked,
+            "automatic_schedule_scaling_enabled": self.automatic_schedule_scaling_enabled,
         }
 
 
 def build_bootstrap_editorial_window_policy(
     *, effective_at_utc: Optional[str] = None
 ) -> EditorialWindowPolicy:
-    """Deterministic bootstrap policy v2 (owner realignment 2026-08-10): eight configured core
-    decision opportunities per active day across major market sessions, plus material-event
-    wakeups outside those windows, operating toward the 5-8 high-quality article target band.
+    """Owner-locked quality-probation policy: exactly four routine weekday opportunities.
 
-    Exact times are versioned configuration, NOT claimed universal truth. Performance learning
-    may tune them later from observed qualified engagement, never from unmeasured assumptions.
-    The target band is not permission to fabricate filler or weaken factual/numeric authority.
+    The UTC hours map to 17:00, 21:00, 23:00, and 01:00 Asia/Bangkok.  Because the 01:00
+    Bangkok opportunity is 18:00 UTC on the prior day, all four rows are Monday-Friday in UTC.
+    Learning may record timing recommendations but cannot mutate this schedule or add a fifth
+    automatic expensive run. Material events remain durable priority metadata for the next
+    opportunity. Manual GO is the only explicit exceptional extra opportunity.
     """
     return EditorialWindowPolicy(
         policy_id=WINDOW_POLICY_ID,
@@ -224,14 +233,10 @@ def build_bootstrap_editorial_window_policy(
         effective_at_utc=effective_at_utc or _iso_utc(datetime.now(timezone.utc)),
         timezone_session="utc",
         core_windows=(
-            CoreEditorialWindow(start_hour_utc=1, end_hour_utc=2, session="core_daily"),
-            CoreEditorialWindow(start_hour_utc=5, end_hour_utc=6, session="core_daily"),
-            CoreEditorialWindow(start_hour_utc=7, end_hour_utc=8, session="core_daily"),
-            CoreEditorialWindow(start_hour_utc=10, end_hour_utc=11, session="core_daily"),
-            CoreEditorialWindow(start_hour_utc=12, end_hour_utc=14, session="core_daily"),
-            CoreEditorialWindow(start_hour_utc=15, end_hour_utc=16, session="core_daily"),
-            CoreEditorialWindow(start_hour_utc=18, end_hour_utc=19, session="core_daily"),
-            CoreEditorialWindow(start_hour_utc=21, end_hour_utc=22, session="core_daily"),
+            CoreEditorialWindow(start_hour_utc=10, end_hour_utc=11, session="london_1700_bangkok"),
+            CoreEditorialWindow(start_hour_utc=14, end_hour_utc=15, session="new_york_2100_bangkok"),
+            CoreEditorialWindow(start_hour_utc=16, end_hour_utc=17, session="new_york_2300_bangkok"),
+            CoreEditorialWindow(start_hour_utc=18, end_hour_utc=19, session="new_york_0100_bangkok"),
         ),
         destination_preferred_windows=(),
         minimum_cycle_spacing_hours=1.0,
@@ -241,10 +246,14 @@ def build_bootstrap_editorial_window_policy(
         confidence_state="bootstrap_configured_defaults_not_learned",
         sample_state="insufficient_samples_no_learning_applied",
         provenance=(
-            "deterministic_configured_bootstrap_v2_eight_core_decision_opportunities_per_day_"
-            "material_event_wakeups_target_band_5_8_not_learned"
+            "owner_locked_quality_probation_four_routine_opportunities_no_publication_minimum_"
+            "material_events_priority_next_scheduled_opportunity_not_learned"
         ),
-        daily_publication_target_band=(5, 8),
+        daily_publication_target_band=(0, 4),
+        routine_opportunity_limit=4,
+        publication_minimum=0,
+        schedule_owner_locked=True,
+        automatic_schedule_scaling_enabled=False,
     )
 
 
@@ -340,6 +349,7 @@ class ContentOpsDailyAppSupervisor:
         publication_coordinator: Any = None,
         enable_performance_observation: bool = False,
         performance_collector: Optional[Callable[..., Mapping[str, Any]]] = None,
+        interaction_classifier: Optional[Callable[..., Mapping[str, Any]]] = None,
         performance_learning_enabled: bool = False,
         intake_housekeeping: Optional[Callable[..., Mapping[str, Any]]] = None,
     ) -> None:
@@ -386,6 +396,7 @@ class ContentOpsDailyAppSupervisor:
         # from the cheap tick. ZERO LLM calls for metrics collection. No second scheduler/store.
         self._enable_performance_observation = bool(enable_performance_observation)
         self._performance_collector = performance_collector
+        self._interaction_classifier = interaction_classifier
         self._performance_learning_enabled = bool(performance_learning_enabled)
         if newsroom_cycle is None:
             from live_contentops.eight_platform_substack_first_pipeline_v1 import (
@@ -1277,7 +1288,9 @@ class ContentOpsDailyAppSupervisor:
                 continue
             perf.collect_observation(
                 self._store, observation_id=obs["observation_id"],
-                collector=self._performance_collector, now=now,
+                collector=self._performance_collector,
+                interaction_classifier=self._interaction_classifier,
+                now=now,
             )
             summary["collected"] += 1
 
@@ -1287,6 +1300,40 @@ class ContentOpsDailyAppSupervisor:
                 self._store, evaluation_window=f"supervisor_tick:{_iso_utc(now)}", now=now
             )
         return summary
+
+    def run_desktop_opportunity_housekeeping(
+        self, *, now: Optional[datetime] = None
+    ) -> Dict[str, Any]:
+        """Run the complete cheap pre-editorial loop for one native Desktop opportunity.
+
+        This deliberately does not execute a newsroom cycle. It recovers exact prior write
+        state, drains every safe READY derivative through the sole coordinator, collects due
+        read-only observations, evaluates bounded learning, and returns the active policy for
+        the fresh XHIGH task. UNKNOWN_WRITE is still readback-only and never blindly retried.
+        """
+        moment = (now or self._clock()).astimezone(timezone.utc)
+        self._refresh_operating_mode()
+        recovery: Dict[str, Any]
+        if self._publication_coordinator is not None:
+            recovery = dict(self._publication_coordinator.recover_pending())
+        else:
+            recovery = self._run_readback_reconciliation_housekeeping(moment)
+        performance = self._run_performance_observations(moment)
+        from live_contentops.daily_app_performance_v1 import active_policy_briefing
+
+        policy = active_policy_briefing(self._store)
+        return {
+            "schema_version": "contentops.desktop_opportunity_housekeeping.v1",
+            "run_at_utc": _iso_utc(moment),
+            "recovery": recovery,
+            "performance": performance,
+            "active_learning_policy": policy,
+            "newsroom_cycle_invocations": 0,
+            "schedule_owner_locked": True,
+            "routine_opportunity_limit": 4,
+            "public_comment_writes": 0,
+            "unknown_write_rule": "STOP_RETRY_READ_BACK_RECONCILE",
+        }
 
     def _maybe_drive_publication_lifecycle(
         self, window_id: str, result: Mapping[str, Any]
@@ -1784,6 +1831,25 @@ class ContentOpsDailyAppSupervisor:
         except Exception:  # noqa: BLE001 - missing/broken policy must not alter bootstrap timing
             return 0
 
+    def _active_learning_policy_briefing(self) -> dict[str, Any]:
+        """Bounded preference-only context for preselection and the fresh editorial brain."""
+        try:
+            from live_contentops.daily_app_performance_v1 import active_policy_briefing
+
+            return active_policy_briefing(self._store)
+        except Exception:  # noqa: BLE001 - learning context is never truth authority
+            return {
+                "policy_version": "policy.bootstrap.v1",
+                "sample_count": 0,
+                "confidence": 0.0,
+                "timing": {"owner_locked": True, "routine_opportunity_count": 4},
+                "content": {},
+                "seo": {},
+                "package": {},
+                "grants_factual_or_numeric_authority": False,
+                "grants_publication_authority": False,
+            }
+
     def _stage_material_event(
         self, signal: Mapping[str, Any], now: datetime
     ) -> dict[str, Any]:
@@ -1853,6 +1919,8 @@ class ContentOpsDailyAppSupervisor:
         for day_offset in (0, -1):
             day = now + timedelta(days=day_offset)
             for core in self._policy.core_windows:
+                if day.weekday() not in set(core.eligible_weekdays_utc):
+                    continue
                 start, end = self._window_for_day(core, day)
                 start = start + timing_offset
                 end = end + timing_offset
@@ -2411,12 +2479,22 @@ class ContentOpsDailyAppSupervisor:
             portfolio_context = self._build_editorial_portfolio_context(
                 output_dir, intelligence
             )
+            learning_policy = self._active_learning_policy_briefing()
+            portfolio_context["active_learning_policy"] = learning_policy
+            try:
+                (output_dir / "editorial_portfolio_context_v1.json").write_text(
+                    json.dumps(portfolio_context, indent=2, sort_keys=True, default=str) + "\n",
+                    encoding="utf-8",
+                )
+            except OSError:
+                pass
             cycle_kwargs.update({
                 "operating_mode": self._operating_mode,
                 "published_corpus": list(
                     (intelligence.get("published_corpus") or {}).get("articles") or []
                 ),
                 "cc_catalog": dict(intelligence.get("cc_catalog") or {}),
+                "learning_policy": learning_policy,
             })
             from live_contentops.llm_cost_governor_v1 import llm_cycle_budget_scope
 
@@ -2486,6 +2564,11 @@ class ContentOpsDailyAppSupervisor:
             if lifecycle:
                 public_write = public_write or bool(lifecycle.get("public_write_performed"))
                 unknown_write = unknown_write or bool(lifecycle.get("unknown_write_detected"))
+            post_publication_performance = None
+            if lifecycle and self._enable_performance_observation:
+                # The same opportunity schedules the newly reconciled objects before its
+                # terminal report; later checkpoints remain ordinary due observations.
+                post_publication_performance = self._run_performance_observations(now)
             try:
                 from live_contentops.published_corpus_read_model_v1 import load_published_corpus
 
@@ -2524,6 +2607,7 @@ class ContentOpsDailyAppSupervisor:
                 "public_write_performed": public_write,
                 "unknown_write_detected": unknown_write,
                 "publication_lifecycle": lifecycle,
+                "post_publication_performance": post_publication_performance,
                 "published_memory_cycle_proof": memory_proof,
                 "editorial_novelty_decision": novelty_decision,
                 "terminal_state": self._window_state(window_id),
@@ -2544,6 +2628,8 @@ class ContentOpsDailyAppSupervisor:
         for day_offset in range(0, 3):
             day = now + timedelta(days=day_offset)
             for core in self._policy.core_windows:
+                if day.weekday() not in set(core.eligible_weekdays_utc):
+                    continue
                 start, _end = self._window_for_day(core, day)
                 start = start + timing_offset
                 if start > now:

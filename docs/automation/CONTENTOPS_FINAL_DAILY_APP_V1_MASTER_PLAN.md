@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Daily App V1 Master Plan
 
-Authority date: 2026-08-09
+Authority date: 2026-08-16
 
 Authority ID:
 
@@ -20,6 +20,23 @@ This plan is the current Tier-1 execution authority. It supersedes conflicting s
 
 The goal is not to restart the historical hardening program. The goal is to finish one sellable autonomous product.
 
+## Current execution override — four-window closed loop
+
+During owner quality probation, exactly four fresh native Codex Desktop `gpt-5.6-sol / XHIGH`
+tasks own routine editorial opportunities at 17:00, 21:00, and 23:00 Monday-Friday plus 01:00
+Tuesday-Saturday, Asia/Bangkok. Current publication minimum is zero and routine ceiling is four.
+No code or learning policy may change those tasks or add a fifth automatic run. Material events
+become priority input for the next scheduled opportunity; manual `GO` is the explicit exceptional
+extra run.
+
+Each task runs cheap deterministic housekeeping first, then loads the active immutable policy,
+executes at most one current opportunity, confirms Substack first, attempts all currently READY V1
+derivatives once, reconciles, and schedules observations. Real supported metrics and untrusted
+passive interaction-quality projections feed bounded content/editorial, SEO, destination/package,
+and timing-recommendation sections. Unsupported is persisted as unavailable, never zero. The next
+Desktop task consumes policy preferences without receiving factual, numeric, permission, gate, or
+publication authority.
+
 ## 0. Final product objective
 
 Jim should be able to launch one ContentOps application, leave it running continuously, and rely on it to perform routine newsroom and distribution work without manually driving each cycle.
@@ -28,7 +45,8 @@ The final V1 product must:
 
 1. stay alive 24/7 with low-cost supervision;
 2. know when the next editorial decision is due;
-3. wake early for a genuinely material event;
+3. prioritize genuinely material events into the next scheduled opportunity during current quality
+   probation (an extra automatic expensive run requires a future owner decision);
 4. ingest current headline/event evidence;
 5. cluster, rank, select, hold, reject, or abstain;
 6. obtain exact story-dependent evidence;
@@ -43,6 +61,19 @@ The final V1 product must:
 15. expose the complete current state in the canonical V5 Daily App UI.
 
 No-publication is valid. No mandatory post count exists.
+
+### Deferred capability — `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP`
+
+Do not implement public comment replies in the current plan. Future implementation requires a new
+exact owner-authorized task and must reuse the canonical destination/public-object/readback
+authority. Its intended bounded flow is authorized comment observation -> cheap prompt-injection-
+safe discourse classification -> source-grounded concise reply only for substantive questions,
+reasoned agreement/critique, factual clarification, or useful domain insight. Generic praise,
+emoji-only reactions, spam, trolling/bait, empty sarcasm, promotion, and low-information repetition
+are skipped. Unsolicited DMs, reaction farming, and endless bot conversations remain forbidden.
+Destination comment-read scope, comment-write scope, identity, safety, rate limit, reply depth,
+evidence, and reconciliation must all be separately granted. Current comment-write implementation
+and authority are exactly zero.
 
 ## 1. Verified starting state
 

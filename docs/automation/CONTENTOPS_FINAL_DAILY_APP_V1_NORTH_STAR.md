@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Daily App V1 North Star
 
-Authority date: 2026-08-09
+Authority date: 2026-08-16
 
 Authority ID:
 
@@ -15,6 +15,27 @@ Repository: `fatcat2109/capital-chronicle-contentops`
 This document is current product-direction authority. It supersedes conflicting sequencing and scope language in the Daily Live probation / parallel-V2 direction while preserving all verified historical evidence, the immutable `v1.0` release, the one canonical production boundary, Capital Chronicle analytical/numeric authority, browser-profile separation, exact publication gates, and fail-closed safety behavior.
 
 Daily Live remains valid precursor evidence. It is no longer the final V1 product definition.
+
+## Current quality-probation operating overlay
+
+Jim's current pragmatic V1 policy is `QUALITY_PROBATION_FOUR_WINDOW_V1`. The canonical editorial
+brain is a fresh native Codex Desktop `gpt-5.6-sol / XHIGH` task at exactly four routine Bangkok
+opportunities: 17:00, 21:00, and 23:00 Monday-Friday plus 01:00 Tuesday-Saturday. There is no
+publication minimum, no filler permission, and no automatic schedule shift or scale-up. Material
+events prioritize the next scheduled opportunity; manual `GO` is the sole explicit extra
+opportunity and bypasses no gate.
+
+A qualified opportunity is one complete transaction: recover safe prior work and due observations;
+evaluate/load the active policy; produce and gate at most one article; confirm canonical Substack;
+attempt every currently READY V1 derivative once; reconcile; and schedule observations. Immutable
+bounded learning covers content/editorial, SEO, destination/package, and timing recommendations.
+Timing is observation/recommendation only while schedule ownership remains locked to Jim. The next
+fresh XHIGH task consumes that policy as preference-only context with zero truth, numeric,
+permission, gate, or publication authority.
+
+The older 24/7 supervision language remains long-term architecture direction, not evidence that a
+separate always-on expensive model worker is required or currently proven. The four native tasks
+plus canonical durable control plane are the owner-approved quality-probation mode.
 
 ## 1. Owner product decision
 
@@ -142,6 +163,21 @@ NEXT WINDOW
 
 The same story/evidence/content identity must survive this entire loop.
 
+### Deferred: `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP`
+
+Future V1 direction may extend authorized passive comment observation into a separately governed
+response loop: observe an authorized public comment, classify it with the existing cheap bounded
+semantic route when useful, and reply only to genuine discourse value such as a substantive
+question, reasoned agreement/critique, factual clarification, or useful specialist contribution.
+Generic praise, emoji-only reactions, spam, trolling/bait, empty sarcasm, promotion, and repetitive
+low-information content are skipped. Any future reply must be source-grounded, article-aware,
+concise, factual, non-combative, non-spammy, and bounded against endless conversation. No
+unsolicited DMs or reaction farming.
+
+This capability is `DEFERRED_ZERO_WRITE_AUTHORITY`. No comment reply is implemented or authorized
+now. A later exact owner task must separately authorize destination read/write scope, identity,
+safety, rate limits, reply depth, evidence, and readback/reconciliation.
+
 ## 4. Always-on means low-cost supervision, not continuous expensive LLM work
 
 The app may run 24/7, but expensive newsroom/model work must only wake when justified.
@@ -181,7 +217,8 @@ The final app must maintain a versioned `EditorialWindowPolicy` (exact naming is
 
 At bootstrap, use deterministic configured defaults. Do not claim that unmeasured times are optimal.
 
-As real outcomes accumulate, the learning loop may shift windows toward periods with stronger qualified engagement while preserving:
+After a future explicit Jim owner decision unlocks schedule mutation, real outcomes may support
+shifting windows toward stronger qualified engagement while preserving:
 
 - news freshness;
 - evidence availability;
@@ -199,7 +236,10 @@ The always-on app may execute outside normal editorial windows when a genuinely 
 
 Use the existing governed headline/update-chain system and deterministic materiality metadata. Do not create a second breaking-news engine.
 
-A material-event wakeup must still pass the same evidence, article-mode, review, publication, and readback gates as a scheduled cycle.
+During current quality probation, material-event metadata prioritizes the next scheduled
+opportunity and does not create a fifth automatic XHIGH run. If a future owner decision restores
+extra material-event wakes, they must still pass the same evidence, article-mode, review,
+publication, and readback gates as a scheduled cycle.
 
 ## 7. Evidence and authority remain hard gates
 

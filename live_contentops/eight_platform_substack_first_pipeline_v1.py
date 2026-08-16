@@ -105,6 +105,7 @@ def run_rolling_x_newsroom_cycle(
     operating_mode: str = "AUTONOMOUS_DEFAULT",
     published_corpus: Sequence[Any] | None = None,
     cc_catalog: Mapping[str, Any] | None = None,
+    learning_policy: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     return _execute(
@@ -134,6 +135,7 @@ def run_rolling_x_newsroom_cycle(
         operating_mode=operating_mode,
         published_corpus=published_corpus,
         cc_catalog=cc_catalog,
+        learning_policy=learning_policy,
         destination_readiness_override=destination_readiness_override,
     )
 

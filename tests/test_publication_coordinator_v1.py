@@ -182,13 +182,13 @@ def test_metrics_collection_requires_exact_confirmed_reconciled_dispatch_binding
 def test_case_a_api_success_and_case_b_cdp_success(tmp_path):
     store, transport, coordinator = _coordinator(tmp_path)
     result = coordinator.execute_plan("work-1", _plan("telegram", "substack"))
-    assert result["per_destination"]["telegram"]["status"] == "ASYNC_DERIVATIVE_QUEUED"
+    assert result["per_destination"]["telegram"]["status"] == DISPATCH_CONFIRMED
     assert result["per_destination"]["substack"]["reconciliation_status"] == RECONCILED_CONFIRMED
-    assert transport.publish_calls == ["substack"]
-    assert result["distribution_status"] == "CANONICAL_PUBLISHED_DERIVATIVES_ASYNC"
+    assert transport.publish_calls == ["substack", "telegram"]
+    assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
 
     recovery = coordinator.recover_pending()
-    assert recovery["publish_calls"] == 1
+    assert recovery["publish_calls"] == 0
     assert sorted(transport.publish_calls) == ["substack", "telegram"]
     assert all(row["status"] == DISPATCH_CONFIRMED for row in store.list_platform_dispatches())
     assert result["canonical_article_real_published"] is True
@@ -200,6 +200,52 @@ def test_case_a_api_success_and_case_b_cdp_success(tmp_path):
         row["status"] == RECONCILED_CONFIRMED
         for row in store.get_reconciliations_for_work_item("work-1")
     )
+
+
+def test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once(tmp_path):
+    destinations = (
+        "substack", "telegram", "x", "discord", "linkedin", "facebook_page",
+        "instagram_business", "threads", "youtube",
+    )
+    store, transport, coordinator = _coordinator(tmp_path)
+
+    result = coordinator.execute_plan("work-1", _plan(*destinations))
+    coordinator.execute_plan("work-1", _plan(*destinations))
+
+    assert result["canonical_article_real_published"] is True
+    assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
+    assert set(result["per_destination"]) == set(destinations)
+    assert result["derivative_attempted_count"] == 8
+    assert result["derivative_confirmed_count"] == 8
+    assert transport.publish_calls.count("substack") == 1
+    assert all(transport.publish_calls.count(destination) == 1 for destination in destinations)
+    assert len(store.list_platform_dispatches()) == 9
+
+
+def test_one_derivative_failure_does_not_block_remaining_ready_derivatives(tmp_path):
+    class OneFailureTransport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if destination == "linkedin":
+                self.publish_calls.append(destination)
+                return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True}
+            return super().publish(
+                destination=destination,
+                intent=intent,
+                authorization_context=authorization_context,
+            )
+
+    runtime = OneFailureTransport()
+    _store_value, transport, coordinator = _coordinator(tmp_path, runtime=runtime)
+    result = coordinator.execute_plan(
+        "work-1", _plan("substack", "linkedin", "telegram", "x")
+    )
+
+    assert result["canonical_article_real_published"] is True
+    assert result["per_destination"]["linkedin"]["status"] == DEFINITE_NO_WRITE
+    assert result["per_destination"]["telegram"]["status"] == DISPATCH_CONFIRMED
+    assert result["per_destination"]["x"]["status"] == DISPATCH_CONFIRMED
+    assert result["distribution_status"] == "CANONICAL_PUBLISHED_READY_FANOUT_ATTEMPTED"
+    assert sorted(transport.publish_calls) == ["linkedin", "substack", "telegram", "x"]
 
 
 def test_exact_write_exists_clears_unknown_without_claiming_strict_reconciliation(tmp_path):
@@ -279,7 +325,7 @@ def test_substack_confirmed_with_unready_derivative_is_real_partial_publication(
     assert result["canonical_url"] == (
         "https://capitalchronicle.substack.com/p/fixture-article-1"
     )
-    assert result["distribution_status"] == "CANONICAL_PUBLISHED_DERIVATIVES_ASYNC"
+    assert result["distribution_status"] == "CANONICAL_PUBLISHED_READY_FANOUT_ATTEMPTED"
     assert result["per_destination"]["linkedin"]["status"] == "SKIPPED_NOT_READY"
     assert result["derivative_skipped_count"] == 1
     assert transport.publish_calls == ["substack"]
@@ -355,8 +401,8 @@ def test_strict_readback_can_recover_valid_substack_url_and_idempotent_status(tm
     )
     assert second["canonical_article_real_published"] is True
     assert second["canonical_url"] == first["canonical_url"]
-    assert transport.publish_calls == ["substack"]
-    assert coordinator.recover_pending()["publish_calls"] == 1
+    assert transport.publish_calls == ["substack", "telegram"]
+    assert coordinator.recover_pending()["publish_calls"] == 0
     assert transport.publish_calls == ["substack", "telegram"]
     substack = next(
         row for row in store.list_platform_dispatches() if row["platform"] == "substack"
@@ -402,9 +448,7 @@ def test_derivative_failure_never_erases_reconciled_substack_truth(
 
     assert result["canonical_article_real_published"] is True
     assert result["canonical_article_status"] == "REAL_PUBLISHED"
-    assert result["distribution_status"] == "CANONICAL_PUBLISHED_DERIVATIVES_ASYNC"
-    assert result["per_destination"]["linkedin"]["status"] == "ASYNC_DERIVATIVE_QUEUED"
-    coordinator.recover_pending()
+    assert result["distribution_status"] == "CANONICAL_PUBLISHED_READY_FANOUT_ATTEMPTED"
     derivative = next(
         row for row in store.list_platform_dispatches() if row["platform"] == "linkedin"
     )
@@ -576,6 +620,32 @@ def test_explicit_substack_retry_requires_reconciled_absent_exact_draft(tmp_path
     assert transport.recovery_ids == ["210915784"]
 
 
+def test_next_run_drains_reconciled_absent_derivative_once_under_same_identity(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    registered = coordinator.register_plan("work-1", _plan("telegram"))["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=registered["dispatch_id"],
+        message_id=registered["message_id"],
+        platform="telegram",
+        status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+    )
+    store.set_outbox_status(registered["message_id"], RECONCILED_ABSENT_SAFE_TO_RETRY)
+    store.register_reconciliation(
+        reconciliation_id=registered["reconciliation_id"],
+        work_item_id="work-1",
+        status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+    )
+
+    first = coordinator.recover_pending()
+    second = coordinator.recover_pending()
+
+    assert first["publish_calls"] == 1
+    assert first["per_destination"]["telegram"]["status"] == DISPATCH_CONFIRMED
+    assert second["publish_calls"] == 0
+    assert transport.publish_calls == ["telegram"]
+    assert len(store.list_platform_dispatches()) == 1
+
+
 def test_cases_h_i_edge_crash_bootstrap_and_reauth_classification(tmp_path, monkeypatch):
     import live_contentops.edge_cdp_publishing_adapter_v1 as adapter
     import live_contentops.publishing_profile_registry_v1 as profiles
@@ -632,7 +702,7 @@ def test_exactly_one_write_mixed_transport_duplicate_restart_recovery(tmp_path):
     assert len(store.list_platform_dispatches()) == 5
     assert len(transport.publish_calls) == 5
     assert second["public_write_performed"] is False
-    assert sum(row["publish_calls"] for row in recoveries) == 4
+    assert sum(row["publish_calls"] for row in recoveries) == 0
     assert len({row["public_object_id"] for row in store.list_platform_dispatches()}) == 5
     assert len(store.get_reconciliations_for_work_item("work-1")) == 5
 

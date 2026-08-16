@@ -68,12 +68,16 @@ def _supervisor(
 
 def test_bootstrap_policy_is_deterministic_configured_defaults_not_learned():
     policy = build_bootstrap_editorial_window_policy(effective_at_utc="2026-08-09T00:00:00Z")
-    assert policy.policy_version == "bootstrap.v2"
+    assert policy.policy_version == "quality_probation_four_window.v1"
     assert policy.confidence_state == "bootstrap_configured_defaults_not_learned"
     assert "learned" not in policy.confidence_state or "not_learned" in policy.confidence_state
-    assert policy.provenance.startswith("deterministic_configured_bootstrap")
-    assert len(policy.core_windows) == 8
+    assert policy.provenance.startswith("owner_locked_quality_probation")
+    assert len(policy.core_windows) == 4
     assert policy.material_event_override_enabled is True
+    assert policy.daily_publication_target_band == (0, 4)
+    assert policy.publication_minimum == 0
+    assert policy.schedule_owner_locked is True
+    assert policy.automatic_schedule_scaling_enabled is False
 
 
 def test_editorial_window_id_is_deterministic_and_trigger_kind_aware():
@@ -97,11 +101,11 @@ def test_editorial_window_id_is_deterministic_and_trigger_kind_aware():
 
 
 def test_next_wake_is_deterministic_for_fixed_clock_and_policy():
-    clock_dt = datetime(2026, 8, 9, 10, 0, tzinfo=timezone.utc)  # before the 13:00 window
+    clock_dt = datetime(2026, 8, 9, 10, 0, tzinfo=timezone.utc)  # Sunday: next is Monday
     supervisor, _ = _supervisor(Path(_tempdir()), clock=_fixed_clock(clock_dt))
     wake1 = supervisor._next_wake(clock_dt)
     wake2 = supervisor._next_wake(clock_dt)
-    assert wake1 == wake2 == datetime(2026, 8, 9, 12, tzinfo=timezone.utc)
+    assert wake1 == wake2 == datetime(2026, 8, 10, 10, tzinfo=timezone.utc)
 
 
 def _tempdir():
@@ -113,7 +117,7 @@ def _tempdir():
 
 
 def test_due_window_invokes_canonical_cycle_exactly_once_and_persists_terminal(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)  # inside 13-15 window
+    clock_dt = datetime(2026, 8, 10, 14, 0, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     report = supervisor.tick(now=clock_dt)
     assert report["windows_dispatched"] == 1
@@ -122,15 +126,15 @@ def test_due_window_invokes_canonical_cycle_exactly_once_and_persists_terminal(t
     # Terminal state persisted.
     wid = editorial_window_id(
         policy_version=supervisor.policy.policy_version,
-        window_start_utc=datetime(2026, 8, 9, 12, tzinfo=timezone.utc),
-        window_end_utc=datetime(2026, 8, 9, 14, tzinfo=timezone.utc),
-        session="core_daily", trigger_kind=TRIGGER_SCHEDULED,
+        window_start_utc=datetime(2026, 8, 10, 14, tzinfo=timezone.utc),
+        window_end_utc=datetime(2026, 8, 10, 15, tzinfo=timezone.utc),
+        session="new_york_2100_bangkok", trigger_kind=TRIGGER_SCHEDULED,
     )
     assert supervisor._window_state(wid) in WINDOW_EXECUTED_STATES
 
 
 def test_duplicate_tick_does_not_invoke_cycle_twice(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
+    clock_dt = datetime(2026, 8, 10, 14, 0, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     supervisor.tick(now=clock_dt)
     second = supervisor.tick(now=clock_dt)
@@ -140,7 +144,7 @@ def test_duplicate_tick_does_not_invoke_cycle_twice(tmp_path):
 
 
 def test_restart_does_not_rerun_completed_window(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
+    clock_dt = datetime(2026, 8, 10, 14, 0, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     supervisor.tick(now=clock_dt)
     assert len(calls) == 1
@@ -203,7 +207,7 @@ def test_kill_switch_blocks_dispatch_allows_recovery_and_pauses_default_browser_
     tmp_path, monkeypatch,
 ):
     monkeypatch.delenv("CONTENTOPS_DAILY_APP_DISABLE_INTAKE_LANE", raising=False)
-    clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
+    clock_dt = datetime(2026, 8, 10, 14, 0, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, mode="KILL_SWITCH", clock=_fixed_clock(clock_dt))
     report = supervisor.tick(now=clock_dt)
     assert report["kill_switch_active"] is True
@@ -220,7 +224,7 @@ def test_kill_switch_blocks_dispatch_allows_recovery_and_pauses_default_browser_
 
 
 def test_competing_supervisors_preserve_single_logical_owner(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
+    clock_dt = datetime(2026, 8, 10, 14, 0, tzinfo=timezone.utc)
     supervisor_a, calls_a = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     supervisor_b, calls_b = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     report_a = supervisor_a.tick(now=clock_dt)
@@ -232,7 +236,7 @@ def test_competing_supervisors_preserve_single_logical_owner(tmp_path):
 
 
 def test_competing_supervisor_cannot_recover_an_active_pending_window(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
+    clock_dt = datetime(2026, 8, 10, 14, 0, tzinfo=timezone.utc)
     cycle_started = threading.Event()
     allow_cycle_to_finish = threading.Event()
     calls_a = []
@@ -272,9 +276,9 @@ def test_competing_supervisor_cannot_recover_an_active_pending_window(tmp_path):
 
     window_id = editorial_window_id(
         policy_version=supervisor_a.policy.policy_version,
-        window_start_utc=datetime(2026, 8, 9, 12, tzinfo=timezone.utc),
-        window_end_utc=datetime(2026, 8, 9, 14, tzinfo=timezone.utc),
-        session="core_daily",
+        window_start_utc=datetime(2026, 8, 10, 14, tzinfo=timezone.utc),
+        window_end_utc=datetime(2026, 8, 10, 15, tzinfo=timezone.utc),
+        session="new_york_2100_bangkok",
         trigger_kind=TRIGGER_SCHEDULED,
     )
     assert supervisor_b._window_state(window_id) == "EVIDENCE_PENDING"

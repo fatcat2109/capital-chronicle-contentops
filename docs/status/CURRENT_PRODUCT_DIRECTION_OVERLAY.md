@@ -24,6 +24,22 @@ newsroom/store/publication coordinator. Capital Chronicle remains continuously e
 intelligence/numeric authority, consumed read-only and dynamically; ContentOps maximizes useful
 integration but never duplicates, mutates, or infers authority from arbitrary database rows.
 
+Current owner quality-probation override (2026-08-16):
+
+- `QUALITY_PROBATION_FOUR_WINDOW_V1` authorizes exactly four routine native Desktop XHIGH tasks:
+  17:00, 21:00, 23:00 Monday-Friday and 01:00 Tuesday-Saturday, Asia/Bangkok;
+- publication minimum is zero, routine ceiling is four, no filler and no automatic schedule
+  mutation or scale-up; material events prioritize the next task and manual `GO` is the explicit
+  exceptional extra opportunity;
+- every qualified run completes Substack first and then one bounded attempt for every currently
+  READY Telegram, X, Discord, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube
+  Community derivative; safe prior pending derivatives drain before the next article;
+- reconciled objects feed real bounded performance/passive-interaction observations into immutable
+  content/editorial, SEO, destination/package, and timing-recommendation policy; timing remains
+  owner locked and the next XHIGH run consumes the active policy as preference-only context;
+- public comments are untrusted and read-only. `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP` is deferred
+  with zero current reply implementation or comment-write authority.
+
 Current V1 owner decision (2026-08-14): the primary latest-facts lane is story-first,
 LLM-directed grounded public-web research normalized into exact source records. Capital Chronicle
 context enriches ordinary reporting but is not a universal evidence prerequisite. Exact Capital
@@ -162,7 +178,8 @@ claims, unusually consequential/high-harm claims, and other genuine hard-risk ca
 
 A canonical Substack article counts immediately when the exact destination identity is verified, a
 public `/p/...` URL exists, article identity/content sufficiently matches, and no `UNKNOWN_WRITE`
-remains. Derivatives are durable asynchronous destination-local work and never revoke confirmed
+remains. Derivatives are durable destination-local work driven through one bounded attempt for
+every currently READY surface in the same qualified Desktop run; they never revoke confirmed
 canonical truth. The current throughput correction is accepted for integration after focused tests
 and a relevant zero-write end-to-end smoke; another scheduled window, same-article 9/9, and a
 five-article proof are not integration gates. Production then measures transport, quality, SEO,
