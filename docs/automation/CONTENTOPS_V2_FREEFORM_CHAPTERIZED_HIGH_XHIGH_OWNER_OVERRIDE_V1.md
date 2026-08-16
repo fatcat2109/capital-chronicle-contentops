@@ -8,21 +8,21 @@ This override supersedes current V2 planning language where it conflicts. Histor
 
 ## Current task
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_OFFICIAL_PLATFORM_PUBLICATION_ADAPTERS_SHADOW_CLOSED_LOOP_V1`
 
 Required result ceiling:
 
-`PASS_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_READY_FOR_MERGE_AUDIT`
+`PASS_SHADOW_PUBLICATION_ADAPTERS_READY_FOR_ACCOUNT_AND_LIVE_CANARY_AUTHORIZATION`
 
-The accepted longform and Short pictures are closed creative inputs. The current correction
-changes the recurring language cost model without reopening media: render one clean picture per
-editorial format, then produce governed translation, audio, timed captions, metadata and package
-sidecars. No locale-specific picture source, Remotion render, or recurring XHIGH localization
-session is canonical. Burned-caption renders are `OPTIONAL_ONLY` under later exact authority.
+The free-form creation substrate, native multiformat package factory, and zero-rerender global
+language sidecars are accepted. The current deterministic task adds official provider request
+planning, destination binding, zero-write authority enforcement, asynchronous state/readback,
+reconciliation, and recovery using local fake-provider evidence only. It does not publish,
+connect V1, create schedules, read credentials, or generate media.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [CURRENT] -> official publication adapters [NEXT AFTER MERGE/ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> native multiformat package factory [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> official publication adapters [CURRENT] -> live platform canary/readback [NEXT AFTER ACCEPTANCE] -> unattended V2 core proof [LATER] -> V1 integration/scheduling [DEFERRED]`
 
 ## Model orchestration
 

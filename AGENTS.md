@@ -135,19 +135,21 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_OFFICIAL_PLATFORM_PUBLICATION_ADAPTERS_SHADOW_CLOSED_LOOP_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It corrects the
-accepted multilingual package factory before merge. Canonical production is
-`AUDIO_SIDECAR_FIRST / PICTURE_RENDER_ONCE / NO_LOCALE_PICTURE_RENDER_BY_DEFAULT /
-NO_XHIGH_PER_LOCALE / GLOBAL_LANGUAGE_REACH / BURNED_CAPTION_OPTIONAL_ONLY`.
+This is the only active V2 product task unless Jim explicitly changes direction. The free-form
+creation substrate, native multiformat package factory and zero-rerender global language sidecars
+are accepted. The current task consumes those stable packages and adds official provider request
+plans, exact non-secret destination binding, a hard zero-write gate, asynchronous state/readback,
+reconciliation and `UNKNOWN_WRITE` recovery using deterministic local fake providers only.
 
-One clean picture is rendered once per editorial format. Recurring locale work may translate
-governed semantic segments locally, validate factual anchors, synthesize/mix audio, write timed
-caption and metadata sidecars, and perform cheap `-c:v copy` muxing only when a destination
-requires a separate localized file. Existing burned-caption proofs remain historical evidence.
-Official publication adapters are next after merge/acceptance; V1 integration and scheduling
-remain deferred.
+Current sequence:
+
+`free-form creation substrate [ACCEPTED] -> native multiformat package factory [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> official publication adapters [CURRENT] -> live platform canary/readback [NEXT AFTER ACCEPTANCE] -> unattended V2 core proof [LATER] -> V1 connection/scheduling [DEFERRED]`
+
+No credential/account access, browser action, provider write, media render, audio generation, V1
+connection or scheduler work is authorized. The next task after acceptance is a separately
+authorized one-destination live platform canary/readback task.
 
 Canonical product path:
 

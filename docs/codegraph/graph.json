@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13107,
+    "edges": 13170,
     "entrypoints": 14,
-    "nodes": 6970,
+    "nodes": 7011,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 27,
@@ -33,12 +33,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 15,
-      "python_class": 552,
-      "python_function": 3816,
+      "python_class": 572,
+      "python_function": 3825,
       "python_method": 264,
-      "python_module": 718,
+      "python_module": 729,
       "schema": 177,
-      "test": 711,
+      "test": 712,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -67323,6 +67323,42 @@
       "to": "python_symbol:video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py::run_proof"
     },
     {
+      "from": "python_symbol:video/official_platform_publication_v1/models.py::assert_no_secret_serialization",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::PublicationContractError"
+    },
+    {
+      "from": "python_symbol:video/official_platform_publication_v1/models.py::deterministic_attempt_id",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:video/official_platform_publication_v1/models.py::load_publication_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::PublicationContractError"
+    },
+    {
+      "from": "python_symbol:video/official_platform_publication_v1/models.py::load_publication_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::assert_no_secret_serialization"
+    },
+    {
+      "from": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::run_shadow_demo"
+    },
+    {
+      "from": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::run_shadow_demo",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::adapter_registry"
+    },
+    {
       "from": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -78087,6 +78123,348 @@
       "to": "video/freeform_chapter_pipeline_v1/package_factory.py"
     },
     {
+      "from": "video/official_platform_publication_v1/control_plane.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/control_plane.py::PublicationControlPlane"
+    },
+    {
+      "from": "video/official_platform_publication_v1/control_plane.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/control_plane.py::UnknownWriteRetryError"
+    },
+    {
+      "from": "video/official_platform_publication_v1/control_plane.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/control_plane.py::WriteAuthorityError"
+    },
+    {
+      "from": "video/official_platform_publication_v1/control_plane.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/control_plane.py::WriteAuthorityGate"
+    },
+    {
+      "from": "video/official_platform_publication_v1/control_plane.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/control_plane.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/models.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/control_plane.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/base.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/fake_provider.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/fake_provider.py::DeterministicFakeProvider"
+    },
+    {
+      "from": "video/official_platform_publication_v1/fake_provider.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/fake_provider.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/control_plane.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/fake_provider.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/models.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::AdapterCapabilityState"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::DestinationBinding"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::Platform"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::ProviderPlan"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::ProviderRequest"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::PublicationAttempt"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::PublicationContractError"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::PublicationState"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::ReconciliationResult"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::Surface"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::assert_no_secret_serialization"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::canonical_json"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::deterministic_attempt_id"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::load_publication_package"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/models.py::media_artifact"
+    },
+    {
+      "from": "video/official_platform_publication_v1/models.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/__init__.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/providers/base.py::OfficialProviderAdapter"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/providers/base.py::metadata"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/base.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/models.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/base.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/facebook.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/providers/facebook.py::FacebookReelsAdapter"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/facebook.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/models.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/facebook.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/facebook.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/base.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/instagram.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/providers/instagram.py::InstagramAdapter"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/instagram.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/models.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/instagram.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/instagram.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/base.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/tiktok.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/providers/tiktok.py::TikTokDirectPostAdapter"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/tiktok.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/models.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/tiktok.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/tiktok.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/base.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/youtube.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/providers/youtube.py::YouTubeAdapter"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/youtube.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/models.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/youtube.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/providers/youtube.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/base.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::adapter_registry"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::main"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::main"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::run_shadow_demo"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/__init__.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/control_plane.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/fake_provider.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/models.py"
+    },
+    {
+      "from": "video/official_platform_publication_v1/shadow_demo.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/official_platform_publication_v1/providers/__init__.py"
+    },
+    {
       "from": "video/projects/frozen_without_breaking_short_v1/src/Root.tsx",
       "inference": "typescript_export_regex",
       "kind": "defines",
@@ -78796,7 +79174,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-16T14:49:29Z",
+  "generation_timestamp_utc": "2026-08-16T14:51:35Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -78829,7 +79207,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 20913
+      "size_bytes": 21160
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -79039,7 +79417,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 5773
+      "size_bytes": 5810
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
@@ -79054,7 +79432,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 13327
+      "size_bytes": 13387
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -79069,7 +79447,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 17614
+      "size_bytes": 17826
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -115092,6 +115470,209 @@
       "symbol": "run_proof"
     },
     {
+      "id": "python_symbol:video/official_platform_publication_v1/control_plane.py::PublicationControlPlane",
+      "kind": "python_class",
+      "line": 80,
+      "path": "video/official_platform_publication_v1/control_plane.py",
+      "symbol": "PublicationControlPlane"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/control_plane.py::UnknownWriteRetryError",
+      "kind": "python_class",
+      "line": 26,
+      "path": "video/official_platform_publication_v1/control_plane.py",
+      "symbol": "UnknownWriteRetryError"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/control_plane.py::WriteAuthorityError",
+      "kind": "python_class",
+      "line": 22,
+      "path": "video/official_platform_publication_v1/control_plane.py",
+      "symbol": "WriteAuthorityError"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/control_plane.py::WriteAuthorityGate",
+      "kind": "python_class",
+      "line": 69,
+      "path": "video/official_platform_publication_v1/control_plane.py",
+      "symbol": "WriteAuthorityGate"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/fake_provider.py::DeterministicFakeProvider",
+      "kind": "python_class",
+      "line": 12,
+      "path": "video/official_platform_publication_v1/fake_provider.py",
+      "symbol": "DeterministicFakeProvider"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::AdapterCapabilityState",
+      "kind": "python_class",
+      "line": 33,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "AdapterCapabilityState"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::DestinationBinding",
+      "kind": "python_class",
+      "line": 116,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "DestinationBinding"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::Platform",
+      "kind": "python_class",
+      "line": 17,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "Platform"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::ProviderPlan",
+      "kind": "python_class",
+      "line": 192,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "ProviderPlan"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::ProviderRequest",
+      "kind": "python_class",
+      "line": 174,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "ProviderRequest"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::PublicationAttempt",
+      "kind": "python_class",
+      "line": 227,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "PublicationAttempt"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::PublicationContractError",
+      "kind": "python_class",
+      "line": 13,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "PublicationContractError"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::PublicationState",
+      "kind": "python_class",
+      "line": 42,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "PublicationState"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::ReconciliationResult",
+      "kind": "python_class",
+      "line": 216,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "ReconciliationResult"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::Surface",
+      "kind": "python_class",
+      "line": 24,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "Surface"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::assert_no_secret_serialization",
+      "kind": "python_function",
+      "line": 103,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "assert_no_secret_serialization"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::canonical_json",
+      "kind": "python_function",
+      "line": 84,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "canonical_json"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::deterministic_attempt_id",
+      "kind": "python_function",
+      "line": 163,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "deterministic_attempt_id"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::load_publication_package",
+      "kind": "python_function",
+      "line": 266,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "load_publication_package"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/models.py::media_artifact",
+      "kind": "python_function",
+      "line": 294,
+      "path": "video/official_platform_publication_v1/models.py",
+      "symbol": "media_artifact"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/providers/base.py::OfficialProviderAdapter",
+      "kind": "python_class",
+      "line": 20,
+      "path": "video/official_platform_publication_v1/providers/base.py",
+      "symbol": "OfficialProviderAdapter"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/providers/base.py::metadata",
+      "kind": "python_function",
+      "line": 62,
+      "path": "video/official_platform_publication_v1/providers/base.py",
+      "symbol": "metadata"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/providers/facebook.py::FacebookReelsAdapter",
+      "kind": "python_class",
+      "line": 20,
+      "path": "video/official_platform_publication_v1/providers/facebook.py",
+      "symbol": "FacebookReelsAdapter"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/providers/instagram.py::InstagramAdapter",
+      "kind": "python_class",
+      "line": 20,
+      "path": "video/official_platform_publication_v1/providers/instagram.py",
+      "symbol": "InstagramAdapter"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/providers/tiktok.py::TikTokDirectPostAdapter",
+      "kind": "python_class",
+      "line": 27,
+      "path": "video/official_platform_publication_v1/providers/tiktok.py",
+      "symbol": "TikTokDirectPostAdapter"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/providers/youtube.py::YouTubeAdapter",
+      "kind": "python_class",
+      "line": 20,
+      "path": "video/official_platform_publication_v1/providers/youtube.py",
+      "symbol": "YouTubeAdapter"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::adapter_registry",
+      "kind": "python_function",
+      "line": 27,
+      "path": "video/official_platform_publication_v1/shadow_demo.py",
+      "symbol": "adapter_registry"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::main",
+      "kind": "python_function",
+      "line": 230,
+      "path": "video/official_platform_publication_v1/shadow_demo.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/official_platform_publication_v1/shadow_demo.py::run_shadow_demo",
+      "kind": "python_function",
+      "line": 100,
+      "path": "video/official_platform_publication_v1/shadow_demo.py",
+      "symbol": "run_shadow_demo"
+    },
+    {
       "id": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::main",
       "kind": "python_function",
       "line": 99,
@@ -119430,6 +120011,11 @@
       "id": "tests/test_v2_multiformat_multilingual_package_factory_v1.py",
       "kind": "test",
       "size_bytes": 10878
+    },
+    {
+      "id": "tests/test_v2_official_platform_publication_adapters_shadow_v1.py",
+      "kind": "test",
+      "size_bytes": 14570
     },
     {
       "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
@@ -123771,7 +124357,7 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 8695
+      "size_bytes": 8685
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/__init__.py",
@@ -123826,12 +124412,67 @@
     {
       "id": "video/freeform_chapter_pipeline_v1/pipeline.py",
       "kind": "python_module",
-      "size_bytes": 26432
+      "size_bytes": 26435
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
       "kind": "python_module",
       "size_bytes": 5998
+    },
+    {
+      "id": "video/official_platform_publication_v1/__init__.py",
+      "kind": "python_module",
+      "size_bytes": 524
+    },
+    {
+      "id": "video/official_platform_publication_v1/control_plane.py",
+      "kind": "python_module",
+      "size_bytes": 5396
+    },
+    {
+      "id": "video/official_platform_publication_v1/fake_provider.py",
+      "kind": "python_module",
+      "size_bytes": 10006
+    },
+    {
+      "id": "video/official_platform_publication_v1/models.py",
+      "kind": "python_module",
+      "size_bytes": 10783
+    },
+    {
+      "id": "video/official_platform_publication_v1/providers/__init__.py",
+      "kind": "python_module",
+      "size_bytes": 339
+    },
+    {
+      "id": "video/official_platform_publication_v1/providers/base.py",
+      "kind": "python_module",
+      "size_bytes": 2315
+    },
+    {
+      "id": "video/official_platform_publication_v1/providers/facebook.py",
+      "kind": "python_module",
+      "size_bytes": 6163
+    },
+    {
+      "id": "video/official_platform_publication_v1/providers/instagram.py",
+      "kind": "python_module",
+      "size_bytes": 8180
+    },
+    {
+      "id": "video/official_platform_publication_v1/providers/tiktok.py",
+      "kind": "python_module",
+      "size_bytes": 6821
+    },
+    {
+      "id": "video/official_platform_publication_v1/providers/youtube.py",
+      "kind": "python_module",
+      "size_bytes": 8431
+    },
+    {
+      "id": "video/official_platform_publication_v1/shadow_demo.py",
+      "kind": "python_module",
+      "size_bytes": 8423
     },
     {
       "id": "video/projects/frozen_without_breaking_short_v1/package.json",
@@ -124022,6 +124663,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "ca7ae53e7a8c6aa7fe05f16d493f0c64ad054ded",
-  "source_tree_digest": "0a61b8d2b7efe698533ded13f558e1833b82a2e8f5e23090e274bea14ae2a53e"
+  "source_head": "74a3751b2cd28928c437b202dc7cbaac3669924d",
+  "source_tree_digest": "f1cd67dd206fd3664b6fbcf48949656843807278cfaa019a4030e743d8ae159a"
 }

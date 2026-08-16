@@ -14,18 +14,18 @@ For V2/video work, read first:
 
 Current next task:
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_OFFICIAL_PLATFORM_PUBLICATION_ADAPTERS_SHADOW_CLOSED_LOOP_V1`
 
 Required result:
 
-`PASS_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_READY_FOR_MERGE_AUDIT`
+`PASS_SHADOW_PUBLICATION_ADAPTERS_READY_FOR_ACCOUNT_AND_LIVE_CANARY_AUTHORIZATION`
 
-For recurring localization, render picture once per editorial format. Language work is governed
-translation, audio, timed captions, metadata and manifests. Locale-specific Remotion source,
-picture renders and XHIGH localization sessions are forbidden by default. Burned captions are
-optional-only under later exact authority. Global-picture authors should avoid making essential
-comprehension depend solely on long language-specific prose embedded in frame; this is guidance,
-not a typography quota or deterministic creative gate.
+The free-form substrate, native multiformat package factory and zero-rerender language sidecars
+are accepted. The current task adds official provider request plans, non-secret destination
+binding, compile-time false live-write authority, asynchronous state/readback, reconciliation and
+`UNKNOWN_WRITE` recovery. It uses existing package manifests plus deterministic local fake
+providers only. No render, audio generation, credential access, browser action, platform write,
+V1 connection or scheduler is authorized.
 
 ## Exact model split
 

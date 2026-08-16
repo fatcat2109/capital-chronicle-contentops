@@ -11,11 +11,11 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_OFFICIAL_PLATFORM_PUBLICATION_ADAPTERS_SHADOW_CLOSED_LOOP_V1`
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [CURRENT] -> official publication adapters [NEXT AFTER MERGE/ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> native multiformat package factory [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> official publication adapters [CURRENT] -> live platform canary/readback [NEXT AFTER ACCEPTANCE] -> unattended V2 core proof [LATER] -> V1 integration/scheduling [DEFERRED]`
 
 Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
 short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
@@ -91,14 +91,14 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Exact next task
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_OFFICIAL_PLATFORM_PUBLICATION_ADAPTERS_SHADOW_CLOSED_LOOP_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. The previously
-accepted longform and Short pictures must not be rerendered. Canonical language delivery is one
-clean picture per format plus localized audio, timed caption, metadata and package sidecars.
-Locale-specific muxes may use FFmpeg stream copy where a later authorized platform requires a
-separate file. No locale-specific picture render or recurring XHIGH localization lane is allowed
-by default. Official publication adapters remain next after merge/acceptance.
+This is the only active V2 product task unless Jim explicitly changes direction. It consumes the
+accepted package manifests without rendering or audio work, builds official provider-specific
+request plans behind a compile-time false live-write gate, and proves processing, readback,
+reconciliation and `UNKNOWN_WRITE` recovery through deterministic local fake providers. The exact
+next task after acceptance is a separately authorized live platform canary/readback task. V1
+connection and scheduling remain deferred.
 
 Canonical proof flow:
 
@@ -325,6 +325,6 @@ V2-02 remains blocked.
 
 # Result ceiling
 
-`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_SHADOW_PUBLICATION_ADAPTERS_READY_FOR_ACCOUNT_AND_LIVE_CANARY_AUTHORIZATION`
 
 Only Jim/ChatGPT may grant owner aesthetic/audio acceptance.

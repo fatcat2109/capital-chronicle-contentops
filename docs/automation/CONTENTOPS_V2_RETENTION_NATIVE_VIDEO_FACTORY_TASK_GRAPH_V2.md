@@ -7,11 +7,12 @@ Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
 > **2026-08-16 task-graph override:** Current task is
-> `TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`, correcting the
-> accepted multilingual factory to render one picture per editorial format and use language
-> audio/caption/metadata sidecars without recurring per-locale XHIGH or picture renders.
-> QH1/QH2 and MAX/ULTRA sequencing below are superseded planning history. No current or
-> future mode bakeoff is authorized by this graph.
+> `TASK_CONTENTOPS_V2_OFFICIAL_PLATFORM_PUBLICATION_ADAPTERS_SHADOW_CLOSED_LOOP_V1`. The
+> free-form substrate, native multiformat package factory, and zero-rerender global language
+> sidecars are accepted. This task adds official provider publication adapters and proves their
+> state/readback/recovery contracts locally with zero platform writes. QH1/QH2 and MAX/ULTRA
+> sequencing below are superseded planning history. No current or future mode bakeoff is
+> authorized by this graph.
 
 # 1. Current position
 
@@ -32,17 +33,18 @@ The controlled A/B and subsequent architecture-recovery proofs establish the fol
 
 # 2. Current exact next task
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_OFFICIAL_PLATFORM_PUBLICATION_ADAPTERS_SHADOW_CLOSED_LOOP_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. The
-free-form 1080 production substrate, native Short picture, and prior multilingual proofs are
-accepted historical inputs. The correction must make `AUDIO_SIDECAR_FIRST`,
-`PICTURE_RENDER_ONCE`, `NO_LOCALE_PICTURE_RENDER_BY_DEFAULT`, `NO_XHIGH_PER_LOCALE`,
-`GLOBAL_LANGUAGE_REACH`, and `BURNED_CAPTION_OPTIONAL_ONLY` canonical.
+This is the only active V2 product task unless Jim explicitly changes direction. It consumes the
+accepted platform-neutral package contract and adds official request plans, non-secret exact
+destination binding, hard zero-write authority, asynchronous provider state, processing/readback,
+reconciliation and `UNKNOWN_WRITE` recovery. All downstream flows are proven with deterministic
+fake providers only; no credential, account, browser, V1, scheduler or platform mutation is in
+scope.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [CURRENT] -> official publication adapters [NEXT AFTER MERGE/ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> native multiformat package factory [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> official publication adapters [CURRENT] -> live platform canary/readback [NEXT AFTER ACCEPTANCE] -> unattended V2 core proof [LATER] -> V1 integration/scheduling [DEFERRED]`
 
 The task must be a heavy bounded real-media vertical slice, not a documentation or generic infrastructure program.
 

@@ -1,6 +1,6 @@
 # Platform Publication Contracts
 
-Research date: `2026-08-16`
+Research date: `2026-08-16`; official-adapter re-verification: `2026-08-16`
 
 Scope: read-only official documentation research for the next publication-adapter task. This
 document does not authorize or implement any upload, draft, schedule, metadata mutation, or
@@ -19,8 +19,8 @@ Classification vocabulary:
 |---|---|---|---|
 | YouTube normal video | MP4/H.264 progressive/yuv420p with AAC-LC 48 kHz is the official recommended path; standard desktop aspect is 16:9 and BT.709 is recommended for SDR. | Default accounts: up to 15 minutes; verified accounts may exceed 15 minutes; absolute upload ceiling is 12 hours or 256 GB, whichever is less. The factory's 5–45 minute longform stays inside the verified-account envelope. | `API_CONFIRMED`: `videos.insert` media upload with OAuth. Unverified API projects created after 2020-07-28 are private-only until audit. |
 | YouTube Shorts | Same video-upload endpoint/media path; square or vertical uploads up to three minutes are categorized as Shorts for standard channels. Native 1080x1920 is compatible. | Product classification currently allows up to 3 minutes. This factory deliberately keeps its core Short at 30–60 seconds. | `API_CONFIRMED`: upload through `videos.insert`; no separate public "Shorts upload" endpoint/flag was found. Shorts classification is product behavior based on media. |
-| TikTok | Content Posting API accepts MP4 (recommended), MOV, or WebM; H.264 is recommended; 23–60 fps; both dimensions 360–4096 px; maximum 4 GB. Native 1080x1920/30 fps is compatible. | API media transfer accepts up to 10 minutes, but the adapter must query `creator_info.max_video_post_duration_sec` because creator limits vary. | `API_CONFIRMED`: Direct Post requires an approved app, Direct Post configuration, `video.publish`, current creator-info UI/consent, and audit for non-private visibility. Upload-to-inbox uses `video.upload` and requires creator completion. Pull-from-URL requires verified domain/prefix ownership. |
-| Instagram Reels | Official Meta collection: MP4/MOV; H.264/HEVC; AAC 48 kHz; 23–60 fps; 1920 horizontal max; 9:16 recommended; <=25 Mbps video; <=128 kbps audio; <=1 GB. Native 1080x1920 is compatible. | Official API collection states 3 seconds–15 minutes. | `API_CONFIRMED`: Instagram professional account; content-publish permission/access; create `REELS` container from public `video_url` or resumable upload, wait for `FINISHED`, then `media_publish`. Account/login variant determines token and permission set. |
+| TikTok | Content Posting API accepts MP4 (recommended), MOV, or WebM; H.264 is recommended; 23–60 fps; both dimensions 360–4096 px; maximum 4 GB. Native 1080x1920/30 fps is compatible. | API media transfer accepts up to 10 minutes, but the adapter must query `creator_info.max_video_post_duration_sec` because creator limits vary. | `API_CONFIRMED` technically, but `PRODUCT_POLICY_BLOCKED` for this autonomous internal owner model. Direct Post requires an approved app, Direct Post configuration, `video.publish`, current creator-info UI, editable privacy/metadata, express per-post consent, and audit for non-private visibility. The official sharing guidelines explicitly reject a utility used to upload to accounts managed by the developer/team. Server-hosted media should use `PULL_FROM_URL` from a verified domain/prefix. |
+| Instagram Reels | Official Meta collection: MP4/MOV; H.264/HEVC; AAC 48 kHz; 23–60 fps; 1920 horizontal max; 9:16 recommended; <=25 Mbps video; <=128 kbps audio; <=1 GB. Native 1080x1920 is compatible. | Official API collection states 3 seconds–15 minutes. | `API_CONFIRMED`: Instagram professional account; content-publish permission/access; create `REELS` container from public `video_url` or resumable upload, wait for `FINISHED`, then `media_publish`. Instagram Login uses current `instagram_business_basic` and `instagram_business_content_publish` scope names; Facebook Login has its separate Page-linked permission model. Standard Access can serve accounts owned/managed and added in the App Dashboard; Advanced Access is required for other professional accounts. |
 | Instagram Story | Same Instagram video-container flow with `media_type=STORIES`; native 1080x1920 is the intended full-screen derivative. | `UNRESOLVED`: the verified API collection exposes Story containers but the API-specific maximum was not stated in the reviewed official reference. Official Meta product/ad guidance supports 60-second Story video, so the factory's <=60-second Short is conservative, but the future adapter must re-read the exact current endpoint limit. | `API_CONFIRMED` for publishing a Story container; `PRODUCT_UI_ONLY_OR_ACCOUNT_GATED` because Stories publishing is limited to Instagram Business accounts in the reviewed official collection. |
 | Facebook Reels | Official Meta collection accepts many containers including MP4; minimum 540x960; exact 9:16; minimum 23 fps. Native 1080x1920/30 fps is compatible. | Official Reels Publishing API collection states 4–60 seconds. (Facebook product UI may allow other lengths; the adapter must follow the API contract.) | `API_CONFIRMED`: Page Reels flow initializes `/{page-id}/video_reels`, uploads to returned `rupload` URL, then finishes with `video_state`; requires a Page access token and Page permissions such as `pages_show_list`, `pages_read_engagement`, and `pages_manage_posts`. |
 
@@ -51,6 +51,11 @@ Classification vocabulary:
 5. For TikTok, Instagram, or Facebook separate-language posts, reuse the same canonical H.264
    picture and make only a cheap `-c:v copy` audio mux. Do not rerender or re-encode video merely
    because audio changed.
+6. TikTok Direct Post is not eligible for this product's autonomous internal publisher model.
+   Keep its technically correct adapter contract, but require a future owner product decision and
+   a TikTok-compliant wide-audience creator-consent UX before any live eligibility can be claimed.
+7. Meta's official collections keep Graph version as a runtime variable. The shadow plan must not
+   hard-code a stale version; the exact supported version remains a required live-canary preflight.
 
 ## Official references
 
@@ -66,6 +71,7 @@ Classification vocabulary:
 - TikTok media restrictions/transfer: <https://developers.tiktok.com/doc/content-posting-api-media-transfer-guide>
 - TikTok creator duration capability: <https://developers.tiktok.com/doc/content-posting-api-reference-query-creator-info>
 - TikTok publish status: <https://developers.tiktok.com/doc/content-posting-api-reference-get-video-status>
+- TikTok Content Sharing Guidelines: <https://developers.tiktok.com/doc/content-sharing-guidelines>
 - Meta official Instagram API collection: <https://www.postman.com/meta/workspace/instagram/documentation/23987686-9386f468-7714-490f-9bfc-9442db5c8f00>
 - Meta official Instagram video-container request (`REELS`/`STORIES`): <https://www.postman.com/meta/instagram/request/23987686-8d93f052-4c50-4cef-b23e-57732bf370f3>
 - Meta official Instagram container-status request: <https://www.postman.com/meta/instagram/request/munmruq/get-ig-container-status>

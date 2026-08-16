@@ -1,0 +1,37 @@
+{
+  "schema": "contentops.v2.official_publication_shadow_demo_summary.v1",
+  "execution_date": "2026-08-16",
+  "result": "PASS_SHADOW_PUBLICATION_CLOSED_LOOP",
+  "packages": {
+    "longform": "pkg_33715fff75a0204cf430bbb763cb5ff9b6339e370b323c1d754aa6a91f24b4db",
+    "short": "pkg_2dfe4af587fd8135d04bae456b8c5b30a1560be91232b34f520cf7f05a71c0b2"
+  },
+  "surfaces": [
+    {"surface": "YOUTUBE_NORMAL_VIDEO", "object_id": "ytv_1566f1913d8b6b61", "state": "READBACK_CONFIRMED"},
+    {"surface": "YOUTUBE_SHORTS", "object_id": "yts_47a1796d72cc33da", "state": "READBACK_CONFIRMED"},
+    {"surface": "TIKTOK", "object_id": "tt_1eb6f600e9dd1146", "state": "READBACK_CONFIRMED", "live_eligibility": "PRODUCT_POLICY_BLOCKED"},
+    {"surface": "INSTAGRAM_REELS", "object_id": "igr_ae47ef49ccd74789", "state": "READBACK_CONFIRMED"},
+    {"surface": "INSTAGRAM_STORIES", "object_id": "igs_730e30f3e0eef5a1", "state": "READBACK_CONFIRMED"},
+    {"surface": "FACEBOOK_REELS", "object_id": "fbr_0fced95f530245e0", "state": "READBACK_CONFIRMED"}
+  ],
+  "unknown_write": {
+    "blind_retry_blocked": true,
+    "positive_recovery_state": "READBACK_CONFIRMED",
+    "positive_object_id": "fbr_40254348bd641f32",
+    "negative_readback_state": "UNKNOWN_WRITE",
+    "negative_success_manufactured": false
+  },
+  "operations": {
+    "real_provider_writes": 0,
+    "private_unlisted_draft_writes": 0,
+    "browser_actions": 0,
+    "credential_reads": 0,
+    "v1_mutations": 0,
+    "scheduler_mutations": 0,
+    "remotion_renders": 0,
+    "localized_picture_renders": 0,
+    "audio_generations": 0,
+    "max_calls": 0,
+    "ultra_calls": 0
+  }
+}
