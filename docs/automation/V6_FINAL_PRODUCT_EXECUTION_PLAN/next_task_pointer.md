@@ -1,6 +1,6 @@
 # ContentOps — Current Next Task Pointer
 
-Authority date: 2026-08-14
+Authority date: 2026-08-16
 Status: `CURRENT_DUAL_LANE_EXECUTION_POINTER`
 
 This file is a compact routing pointer. Detailed V1 history remains in task evidence/current status; detailed V2 execution authority is in the V2 retention-native plan set.
@@ -17,9 +17,31 @@ FDA-G is not accepted. `v1.1.0` is not authorized.
 
 ## V1 current builder lane
 
-`TASK_CONTENTOPS_V1_LLM_GROUNDED_RESEARCH_AND_ADDITIVE_CC_CONTEXT_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V1_CODEX_DESKTOP_SCHEDULED_NEWSROOM_OPERATOR_AND_LIVE_CC_CONTEXT_V1`
 
 Required result:
+
+`PASS_V1_DESKTOP_SCHEDULED_NEWSROOM_OPERATOR_READY`
+
+Current operating mode is `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`. Fresh native Codex
+Desktop scheduled tasks use `gpt-5.6-sol / XHIGH` and the durable instruction at
+`docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md` to execute exactly one current V1
+opportunity from existing durable cutoff, dedupe/update-chain identity, published memory, latest
+web evidence, and dynamically refreshed read-only Capital Chronicle context. The abandoned
+Desktop bridge/UI-automation, Codex CLI editorial, App Server, and broker/queue lanes must not be
+resumed. Capital Chronicle remains the continuously evolving analytical/numeric authority;
+arbitrary DB matches stay context-only, and only exact compatible governed packets may authorize
+CC-owned proprietary claims.
+
+Exact next after PASS:
+
+`JIM_CONFIGURES_NATIVE_CODEX_DESKTOP_XHIGH_SCHEDULED_TASKS_AND_RUNS_FIRST_REAL_SCHEDULED_V1_PUBLICATION_WINDOW`
+
+## V1 latest accepted builder lane
+
+`TASK_CONTENTOPS_V1_LLM_GROUNDED_RESEARCH_AND_ADDITIVE_CC_CONTEXT_VERTICAL_SLICE_V1`
+
+Accepted result:
 
 `PASS_GROUNDED_RESEARCH_VERTICAL_SLICE_ZERO_WRITE`
 

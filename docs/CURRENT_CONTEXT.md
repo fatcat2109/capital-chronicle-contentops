@@ -3,13 +3,36 @@
 > [!IMPORTANT]
 > GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans/status are historical/reference material when they conflict with current V1/V2 direction.
 
-Authority date: 2026-08-14
+Authority date: 2026-08-16
 
 ## Current product lanes
 
 ### V1 — Final Daily App / Nine-Surface Live Closeout
 
 Current owner-authorized builder lane:
+
+`TASK_CONTENTOPS_V1_CODEX_DESKTOP_SCHEDULED_NEWSROOM_OPERATOR_AND_LIVE_CC_CONTEXT_V1`
+
+Interim operating mode: `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`.
+
+Jim's 2026-08-16 owner realignment abandons the Codex Desktop external bridge/UI-automation,
+Codex CLI editorial execution, App Server, and broker/queue lanes. During active newsroom hours,
+fresh native Codex Desktop scheduled tasks use `gpt-5.6-sol / XHIGH` to execute at most one V1
+editorial opportunity from existing durable cutoff, evaluated-headline/update-chain identity, and
+published memory. The durable reusable instruction is
+`docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md`. Native Desktop task operation is an
+interim pragmatic mode; it does not rewrite the historical fully unattended 24/7 North Star as
+proven.
+
+Capital Chronicle remains the continuously evolving upstream analytical/numeric authority.
+ContentOps rediscovers the complete current estate and governed surfaces at every Desktop
+opportunity, consumes it read-only, and maximizes useful story-scoped integration without
+duplicating, mutating, or silently widening CC authority. Arbitrary database matches are context
+only. Unknown exact governed schemas fail only the affected capability as
+`CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED`; unrelated ordinary reporting continues on external
+evidence.
+
+Latest accepted builder lane before this owner realignment:
 
 `TASK_CONTENTOPS_V1_LLM_GROUNDED_RESEARCH_AND_ADDITIVE_CC_CONTEXT_VERTICAL_SLICE_V1`
 

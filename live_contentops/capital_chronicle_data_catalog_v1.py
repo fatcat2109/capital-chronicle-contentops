@@ -19,6 +19,8 @@ DEFAULT_CC_ROOT = Path(r"A:\Capital Chronicle\Main App")
 LOCAL_DB_SUBPATH = Path("data") / "local_db"
 PUBLICATION_EVIDENCE_SUBPATH = Path("docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json")
 NEWSROOM_POOL_SUBPATH = Path("docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json")
+PUBLICATION_EVIDENCE_SCHEMA_VERSION = "capital_chronicle.publication_evidence_packet.v1"
+NEWSROOM_POOL_SCHEMA_VERSION = "capital_chronicle.newsroom_candidate_pool.v1"
 STORY_QUERY_ENTITY_LIMIT = 6
 STORY_QUERY_ROWS_PER_ENTITY = 5
 MAX_DEEP_QUERY_TABLES = 8
@@ -65,6 +67,21 @@ def _estate_file_fingerprint(paths: Sequence[Path]) -> str:
     ])
 
 
+def _surface_file_metadata(path: Path) -> dict[str, Any]:
+    """Return bounded identity metadata for one governed file without granting authority."""
+    if not path.is_file():
+        return {"path": str(path), "exists": False}
+    payload = path.read_bytes()
+    stat = path.stat()
+    return {
+        "path": str(path),
+        "exists": True,
+        "size_bytes": len(payload),
+        "mtime_ns": stat.st_mtime_ns,
+        "sha256": hashlib.sha256(payload).hexdigest(),
+    }
+
+
 def discover_cc_data_estate(
     *,
     cc_root: str | Path = DEFAULT_CC_ROOT,
@@ -79,16 +96,31 @@ def discover_cc_data_estate(
     root = Path(cc_root).resolve()
     local_db_dir = root / LOCAL_DB_SUBPATH
     store_paths = sorted(local_db_dir.glob("*.duckdb")) if local_db_dir.is_dir() else []
-    file_fingerprint = _estate_file_fingerprint(store_paths) if store_paths else _canonical_hash([])
+    publication_packet = root / PUBLICATION_EVIDENCE_SUBPATH
+    newsroom_pool = root / NEWSROOM_POOL_SUBPATH
+    database_file_fingerprint = (
+        _estate_file_fingerprint(store_paths) if store_paths else _canonical_hash([])
+    )
+    governed_surface_files = {
+        "publication_evidence_packet": _surface_file_metadata(publication_packet),
+        "newsroom_candidate_pool": _surface_file_metadata(newsroom_pool),
+    }
+    governed_surface_file_fingerprint = _canonical_hash(governed_surface_files)
+    file_fingerprint = _canonical_hash({
+        "database_file_fingerprint": database_file_fingerprint,
+        "governed_surface_file_fingerprint": governed_surface_file_fingerprint,
+    })
     cache_key = str(root).casefold()
     cached = _CATALOG_CACHE.get(cache_key)
     if use_cache and cached and cached[0] == file_fingerprint:
         result = copy.deepcopy(cached[1])
-        result["cache"] = {"state": "HIT", "file_fingerprint": file_fingerprint}
+        result["cache"] = {
+            **dict(result.get("cache") or {}),
+            "state": "HIT",
+            "file_fingerprint": file_fingerprint,
+        }
         return result
 
-    publication_packet = root / PUBLICATION_EVIDENCE_SUBPATH
-    newsroom_pool = root / NEWSROOM_POOL_SUBPATH
     catalog: dict[str, Any] = {
         "schema_version": CATALOG_SCHEMA_VERSION,
         "cc_root": str(root),
@@ -104,17 +136,24 @@ def discover_cc_data_estate(
                 "path": str(publication_packet),
                 "exists": publication_packet.is_file(),
                 "role": "governed_publication_authority_surface",
+                "file_identity": governed_surface_files["publication_evidence_packet"],
             },
             "newsroom_candidate_pool": {
                 "path": str(newsroom_pool),
                 "exists": newsroom_pool.is_file(),
                 "role": "governed_newsroom_pool_surface",
+                "file_identity": governed_surface_files["newsroom_candidate_pool"],
             },
         },
         "mutated_upstream": False,
         "connection_mode": "duckdb_read_only",
         "discovery_scope": "ALL_DUCKDB_STORES_AND_ALL_TABLE_SCHEMAS_METADATA_ONLY",
-        "cache": {"state": "MISS", "file_fingerprint": file_fingerprint},
+        "cache": {
+            "state": "MISS",
+            "file_fingerprint": file_fingerprint,
+            "database_file_fingerprint": database_file_fingerprint,
+            "governed_surface_file_fingerprint": governed_surface_file_fingerprint,
+        },
     }
     for store_path in store_paths:
         store_entry: dict[str, Any] = {
@@ -206,6 +245,138 @@ def discover_cc_data_estate(
     })
     _CATALOG_CACHE[cache_key] = (file_fingerprint, copy.deepcopy(catalog))
     return catalog
+
+
+def inspect_governed_cc_surfaces(catalog: Mapping[str, Any]) -> dict[str, Any]:
+    """Inspect exact governed packets while keeping arbitrary database context non-authoritative.
+
+    Unknown governed schemas fail only the affected capability. Missing, malformed, or stale-
+    flagged packets never become publication authority, and ordinary journalism remains free to
+    proceed on separately acquired public evidence.
+    """
+    surfaces = catalog.get("governed_surfaces") or {}
+    result: dict[str, Any] = {
+        "schema_version": "contentops.capital_chronicle_governed_surface_inspection.v1",
+        "catalog_fingerprint": catalog.get("catalog_fingerprint"),
+        "surfaces": {},
+        "governed_publication_authority_available": False,
+        "compatible_governed_publication_packet_available": False,
+        "context_or_discovery_grants_publication_authority": False,
+        "mutated_upstream": False,
+    }
+    compatibility_required: list[str] = []
+    for surface_name in ("publication_evidence_packet", "newsroom_candidate_pool"):
+        descriptor = surfaces.get(surface_name) or {}
+        path = Path(str(descriptor.get("path") or ""))
+        row: dict[str, Any] = {
+            "surface": surface_name,
+            "path": str(path),
+            "exists": path.is_file(),
+            "role": descriptor.get("role"),
+            "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+            "publication_authority_granted": False,
+        }
+        if not path.is_file():
+            row["state"] = "MISSING"
+            result["surfaces"][surface_name] = row
+            continue
+        try:
+            payload = path.read_bytes()
+            value = json.loads(payload.decode("utf-8"))
+            if not isinstance(value, Mapping):
+                raise ValueError("governed_surface_root_not_object")
+        except (OSError, UnicodeError, ValueError, TypeError) as exc:
+            row.update({
+                "state": "MALFORMED",
+                "error_class": type(exc).__name__,
+            })
+            result["surfaces"][surface_name] = row
+            continue
+        row.update({
+            "sha256": hashlib.sha256(payload).hexdigest(),
+            "size_bytes": len(payload),
+            "schema_version": value.get("schema_version"),
+            "status": value.get("status"),
+            "generated_at_utc": value.get("generated_at_utc"),
+        })
+        if surface_name == "publication_evidence_packet":
+            if value.get("schema_version") != PUBLICATION_EVIDENCE_SCHEMA_VERSION:
+                row["state"] = "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED"
+                compatibility_required.append(surface_name)
+                result["surfaces"][surface_name] = row
+                continue
+            story_authority = value.get("story_authority") or {}
+            permissions = value.get("public_claim_permissions") or {}
+            source_health = value.get("source_health") or {}
+            blockers = [str(item) for item in (value.get("blockers") or [])]
+            source_health_status = str(source_health.get("status") or "").upper()
+            packet_authorized = bool(
+                value.get("status") == "PASS_PUBLICATION_AUTHORIZED"
+                and str(value.get("packet_id") or "").strip()
+                and str(value.get("as_of_utc") or "").strip()
+                and isinstance(story_authority, Mapping)
+                and story_authority.get("decision") == "ALLOW"
+                and str(story_authority.get("scope") or "").strip()
+                and isinstance(permissions, Mapping)
+                and permissions.get("decision") == "ALLOW"
+                and source_health_status in {"HEALTHY", "PASS", "READY", "FRESH"}
+                and not blockers
+            )
+            row.update({
+                "state": "READY" if packet_authorized else "CONTEXT_ONLY_NOT_AUTHORIZED",
+                "packet_id": value.get("packet_id"),
+                "as_of_utc": value.get("as_of_utc"),
+                "source_retrieved_at_utc": (value.get("provenance") or {}).get(
+                    "retrieved_at_utc"
+                ) if isinstance(value.get("provenance"), Mapping) else None,
+                "source_health_status": source_health.get("status")
+                if isinstance(source_health, Mapping) else None,
+                "source_freshness_age_hours_at_packet_generation": source_health.get(
+                    "freshness_age_hours"
+                ) if isinstance(source_health, Mapping) else None,
+                "story_authority_decision": story_authority.get("decision")
+                if isinstance(story_authority, Mapping) else None,
+                "story_authority_scope": story_authority.get("scope")
+                if isinstance(story_authority, Mapping) else None,
+                "public_claim_permission_decision": permissions.get("decision")
+                if isinstance(permissions, Mapping) else None,
+                "numeric_claims_allowed": bool(permissions.get("numeric_claims_allowed"))
+                if isinstance(permissions, Mapping) else False,
+                "llm_numeric_authority": bool(permissions.get("llm_numeric_authority"))
+                if isinstance(permissions, Mapping) else False,
+                "numeric_claim_count": len(value.get("numeric_claims") or []),
+                "time_series_count": len(value.get("time_series") or []),
+                "blockers": blockers,
+                "packet_contract_authorized_for_exact_scope": packet_authorized,
+                "freshness_must_be_reassessed_for_current_story": True,
+                "exact_story_scope_binding_required": True,
+            })
+            if packet_authorized:
+                row["authority_class"] = "GOVERNED_CC_AUTHORITY_PACKET"
+                result["compatible_governed_publication_packet_available"] = True
+        else:
+            if value.get("schema_version") != NEWSROOM_POOL_SCHEMA_VERSION:
+                row["state"] = "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED"
+                compatibility_required.append(surface_name)
+                result["surfaces"][surface_name] = row
+                continue
+            row.update({
+                "state": "READY_CONTEXT_ONLY",
+                "pool_id": value.get("pool_id"),
+                "cutoff_time_utc": value.get("cutoff_time_utc"),
+                "candidate_only": value.get("candidate_only") is True,
+                "eligible_candidate_count": int(
+                    (value.get("counts") or {}).get("eligible") or 0
+                ) if isinstance(value.get("counts"), Mapping) else 0,
+                "authority_class": "GOVERNED_NEWSROOM_DISCOVERY_ONLY",
+            })
+        result["surfaces"][surface_name] = row
+    result["compatibility_required_surfaces"] = compatibility_required
+    result["compatibility_state"] = (
+        "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED"
+        if compatibility_required else "COMPATIBLE"
+    )
+    return result
 
 
 def _candidate_search_tables(store_entry: Mapping[str, Any]) -> list[Mapping[str, Any]]:

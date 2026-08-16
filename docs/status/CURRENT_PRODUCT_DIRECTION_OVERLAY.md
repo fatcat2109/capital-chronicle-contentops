@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-14
+Authority date: 2026-08-16
 Status: `CURRENT_DUAL_PRODUCT_DIRECTION_OVERLAY`
 
 GitHub remote refs/commits/diffs/exact fetched bytes remain repo-state authority. Jim's latest explicit instruction remains product-direction authority. This overlay supersedes conflicting sequencing/scope text in older plans while preserving verified historical evidence and safety invariants.
@@ -14,6 +14,15 @@ ContentOps now has two concurrent product lanes:
 `CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
 
 V1 continues the genuine calendar-time FDA-G soak and the evidence-gate calibration/publication-unblock work. It remains the canonical live newsroom/publication runtime. Its accepted browser policy is `IDLE_PUBLISHING_BROWSER_ACTIVITY_ZERO / PUBLISH_AND_RECONCILE_JIT_ONLY / X_30M_15M_ONCE_60M_BACKOFF`.
+
+Current V1 operating realignment (2026-08-16): use native Codex Desktop Scheduled Tasks in
+`OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`; the default editorial brain is Codex Desktop
+`gpt-5.6-sol / XHIGH`. The external Desktop bridge/UI-automation, Codex CLI editorial execution,
+App Server, and broker/queue lanes are abandoned. Each fresh Desktop run derives one opportunity
+from existing durable cutoff/update-chain/published memory and retains the canonical V1
+newsroom/store/publication coordinator. Capital Chronicle remains continuously evolving upstream
+intelligence/numeric authority, consumed read-only and dynamically; ContentOps maximizes useful
+integration but never duplicates, mutates, or infers authority from arbitrary database rows.
 
 Current V1 owner decision (2026-08-14): the primary latest-facts lane is story-first,
 LLM-directed grounded public-web research normalized into exact source records. Capital Chronicle
