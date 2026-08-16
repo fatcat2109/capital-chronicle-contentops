@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13107,
+    "edges": 13109,
     "entrypoints": 14,
-    "nodes": 6970,
+    "nodes": 6972,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 27,
@@ -34,7 +34,7 @@
       "instructions": 8,
       "manifest": 15,
       "python_class": 552,
-      "python_function": 3816,
+      "python_function": 3818,
       "python_method": 264,
       "python_module": 718,
       "schema": 177,
@@ -6480,6 +6480,12 @@
       "from": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_editorial_worker_routing_packet"
+    },
+    {
+      "from": "live_contentops/codex_desktop_newsroom_operator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_live_zero_write_rehearsal"
     },
     {
@@ -6499,6 +6505,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::load_terminal_editorial_continuity"
+    },
+    {
+      "from": "live_contentops/codex_desktop_newsroom_operator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::validate_editorial_worker_return"
     },
     {
       "from": "live_contentops/codex_desktop_newsroom_operator_v1.py",
@@ -78796,7 +78808,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-16T14:49:29Z",
+  "generation_timestamp_utc": "2026-08-16T14:51:35Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -78829,7 +78841,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 20913
+      "size_bytes": 21521
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -79034,7 +79046,7 @@
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 23035
+      "size_bytes": 23374
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
@@ -79074,17 +79086,17 @@
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 15367
+      "size_bytes": 16010
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 18626
+      "size_bytes": 18794
     },
     {
       "id": "docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 12272
+      "size_bytes": 13154
     },
     {
       "id": "docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md",
@@ -79099,7 +79111,7 @@
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
       "kind": "authority_doc",
-      "size_bytes": 19400
+      "size_bytes": 20275
     },
     {
       "id": "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -79890,7 +79902,7 @@
     {
       "id": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "kind": "python_module",
-      "size_bytes": 32450
+      "size_bytes": 40283
     },
     {
       "id": "live_contentops/community_feedback_capture_contract_v6.py",
@@ -80125,7 +80137,7 @@
     {
       "id": "live_contentops/daily_app_supervisor_v1.py",
       "kind": "python_module",
-      "size_bytes": 138225
+      "size_bytes": 138231
     },
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
@@ -87701,32 +87713,46 @@
       "symbol": "write_artifacts"
     },
     {
+      "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_editorial_worker_routing_packet",
+      "kind": "python_function",
+      "line": 146,
+      "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
+      "symbol": "build_editorial_worker_routing_packet"
+    },
+    {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_live_zero_write_rehearsal",
       "kind": "python_function",
-      "line": 600,
+      "line": 762,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "build_live_zero_write_rehearsal"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::classify_desktop_candidate_universe",
       "kind": "python_function",
-      "line": 467,
+      "line": 629,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "classify_desktop_candidate_universe"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::four_task_setup_packet",
       "kind": "python_function",
-      "line": 66,
+      "line": 111,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "four_task_setup_packet"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::load_terminal_editorial_continuity",
       "kind": "python_function",
-      "line": 275,
+      "line": 437,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "load_terminal_editorial_continuity"
+    },
+    {
+      "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::validate_editorial_worker_return",
+      "kind": "python_function",
+      "line": 231,
+      "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
+      "symbol": "validate_editorial_worker_return"
     },
     {
       "id": "python_symbol:live_contentops/community_feedback_capture_contract_v6.py::main",
@@ -114219,14 +114245,14 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_outputs",
       "kind": "python_function",
-      "line": 1203,
+      "line": 1204,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::check_outputs",
       "kind": "python_function",
-      "line": 1227,
+      "line": 1228,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "check_outputs"
     },
@@ -114289,7 +114315,7 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::main",
       "kind": "python_function",
-      "line": 1322,
+      "line": 1323,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "main"
     },
@@ -114310,7 +114336,7 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::normalized_for_check",
       "kind": "python_function",
-      "line": 1213,
+      "line": 1214,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "normalized_for_check"
     },
@@ -114408,21 +114434,21 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_context_contract",
       "kind": "python_function",
-      "line": 1277,
+      "line": 1278,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_context_contract"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_graph",
       "kind": "python_function",
-      "line": 1255,
+      "line": 1256,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::write_outputs",
       "kind": "python_function",
-      "line": 1299,
+      "line": 1300,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "write_outputs"
     },
@@ -116119,7 +116145,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 57362
+      "size_bytes": 57483
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -116709,12 +116735,12 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 9337
+      "size_bytes": 9345
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
       "kind": "test",
-      "size_bytes": 20219
+      "size_bytes": 26581
     },
     {
       "id": "tests/test_community_feedback_capture_contract_v6.py",
@@ -123826,7 +123852,7 @@
     {
       "id": "video/freeform_chapter_pipeline_v1/pipeline.py",
       "kind": "python_module",
-      "size_bytes": 26432
+      "size_bytes": 26435
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
@@ -124022,6 +124048,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "ca7ae53e7a8c6aa7fe05f16d493f0c64ad054ded",
-  "source_tree_digest": "0a61b8d2b7efe698533ded13f558e1833b82a2e8f5e23090e274bea14ae2a53e"
+  "source_head": "74a3751b2cd28928c437b202dc7cbaac3669924d",
+  "source_tree_digest": "d87fb9494916d4cef798d997b6988cf2ceac3b2f55fc430b365099986a304e09"
 }

@@ -12,11 +12,18 @@ from live_contentops.capital_chronicle_data_catalog_v1 import (
     query_story_scoped_cc_context,
 )
 from live_contentops.codex_desktop_newsroom_operator_v1 import (
+    COORDINATOR_MODEL,
+    COORDINATOR_REASONING_EFFORT,
     DESKTOP_TASK_PROMPT,
+    EDITORIAL_WORKER_MODEL,
+    EDITORIAL_WORKER_REASONING_EFFORT,
+    MANUAL_GO_PROMPT,
+    build_editorial_worker_routing_packet,
     build_live_zero_write_rehearsal,
     classify_desktop_candidate_universe,
     four_task_setup_packet,
     load_terminal_editorial_continuity,
+    validate_editorial_worker_return,
 )
 
 
@@ -436,6 +443,14 @@ def test_real_shape_zero_write_rehearsal_constructs_next_cutoff_without_parallel
 
 def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
     packet = four_task_setup_packet()
+    assert packet["model"] == COORDINATOR_MODEL == "gpt-5.6-sol"
+    assert packet["reasoning_effort"] == COORDINATOR_REASONING_EFFORT == "HIGH"
+    assert packet["editorial_worker_model"] == EDITORIAL_WORKER_MODEL == "gpt-5.6-sol"
+    assert packet["editorial_worker_reasoning_effort"] == (
+        EDITORIAL_WORKER_REASONING_EFFORT
+    ) == "XHIGH"
+    assert packet["editorial_worker_is_fresh_and_isolated"] is True
+    assert packet["editorial_worker_only_when_article_warranted"] is True
     assert packet["routine_task_count"] == 4
     assert packet["publication_minimum"] == 0
     assert packet["automatic_scale_up"] is False
@@ -448,6 +463,134 @@ def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
         ("V1 Newsroom — New York 2300", "Monday-Friday", "23:00"),
         ("V1 Newsroom — New York 0100", "Tuesday-Saturday", "01:00"),
     ]
+    assert "fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in DESKTOP_TASK_PROMPT
+    assert "Only when one real candidate has enough governed evidence" in DESKTOP_TASK_PROMPT
+    assert "Start one fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in MANUAL_GO_PROMPT
+
+
+@pytest.mark.parametrize(
+    "opportunity_state",
+    [
+        "NO_NEW_HEADLINE",
+        "DUPLICATE_ONLY",
+        "NO_QUALIFIED_CANDIDATE",
+        "EVIDENCE_BLOCKED",
+        "FULL_DISTRIBUTION_READINESS_BLOCKED",
+        "RECOVERY_ONLY",
+        "HOUSEKEEPING_ONLY",
+        "METRICS_LEARNING_HOUSEKEEPING_ONLY",
+    ],
+)
+def test_no_article_paths_use_high_and_request_zero_xhigh_workers(opportunity_state):
+    route = build_editorial_worker_routing_packet(
+        opportunity_state=opportunity_state,
+    )
+
+    assert route["coordinator"] == {
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "HIGH",
+        "owns_deterministic_validation_after_return": True,
+        "owns_publication_coordination": True,
+    }
+    assert route["decision"] == "HIGH_ONLY_NO_EDITORIAL_WORKER"
+    assert route["xhigh_worker_count_requested"] == 0
+    assert route["worker_request"] is None
+    assert route["public_write_performed"] is False
+    assert route["desktop_bridge_created"] is False
+    assert route["scheduler_or_queue_created"] is False
+
+
+def test_distribution_hold_before_editorial_requests_no_xhigh_worker():
+    route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context={
+            "accepted_evidence_packet": {"packet_id": "evidence-1"},
+            "exact_source_handles": ["source-1"],
+        },
+        readiness_checked_before_editorial=True,
+        readiness_state="HOLD",
+    )
+
+    assert route["opportunity_state"] == "FULL_DISTRIBUTION_READINESS_BLOCKED"
+    assert route["decision"] == "HIGH_ONLY_NO_EDITORIAL_WORKER"
+    assert route["xhigh_worker_count_requested"] == 0
+
+
+def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_high_resumes():
+    governed_context = {
+        "accepted_evidence_packet": {"packet_id": "evidence-1", "status": "ACCEPTED"},
+        "exact_source_handles": ["source-1", "source-2"],
+        "governed_capital_chronicle_context": {"authority": "READ_ONLY"},
+        "active_bounded_learning_policy": {"policy_version": "policy-1"},
+        "material_update_context": {"relationship": "material_update"},
+        "rights_cleared_media_candidates": [{"asset_id": "asset-1"}],
+        "governed_chart_inputs": [{"series_id": "series-1"}],
+        "destination_package_constraints": {"substack": {"canonical": True}},
+    }
+    route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context=governed_context,
+        readiness_checked_before_editorial=True,
+        readiness_state="READY",
+    )
+
+    worker = route["worker_request"]
+    assert route["xhigh_worker_count_requested"] == 1
+    assert route["decision"] == "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
+    assert worker["model"] == "gpt-5.6-sol"
+    assert worker["reasoning_effort"] == "XHIGH"
+    assert worker["fresh"] is True
+    assert worker["isolated"] is True
+    assert worker["resume_existing"] is False
+    assert worker["governed_input_hash"] == route["governed_input_hash"]
+    assert worker["bounded_governed_context"] == governed_context
+    assert worker["max_bounded_editorial_revisions"] == 1
+    assert worker["grants_factual_authority"] is False
+    assert worker["grants_numeric_authority"] is False
+    assert worker["grants_capital_chronicle_authority"] is False
+    assert worker["grants_permission_authority"] is False
+    assert worker["grants_public_write_authority"] is False
+
+    validated = validate_editorial_worker_return(
+        worker_return={
+            "governed_input_hash": route["governed_input_hash"],
+            "bounded_revision_count": 1,
+            "public_write_attempted": False,
+            "article": {"headline": "A publication-quality result"},
+        },
+        expected_governed_input_hash=route["governed_input_hash"],
+    )
+    assert validated["coordinator_resumes"] is True
+    assert validated["coordinator_reasoning_effort"] == "HIGH"
+    assert validated["deterministic_validation_required"] is True
+    assert validated["xhigh_publication_authority"] is False
+    assert validated["publication_coordinator_remains_sole_public_writer"] is True
+
+
+def test_xhigh_return_rejects_wrong_hash_second_revision_and_public_write():
+    expected_hash = "a" * 64
+    with pytest.raises(ValueError, match="input_hash_mismatch"):
+        validate_editorial_worker_return(
+            worker_return={"governed_input_hash": "b" * 64},
+            expected_governed_input_hash=expected_hash,
+        )
+    with pytest.raises(ValueError, match="revision_limit_exceeded"):
+        validate_editorial_worker_return(
+            worker_return={
+                "governed_input_hash": expected_hash,
+                "bounded_revision_count": 2,
+            },
+            expected_governed_input_hash=expected_hash,
+        )
+    with pytest.raises(ValueError, match="public_write_forbidden"):
+        validate_editorial_worker_return(
+            worker_return={
+                "governed_input_hash": expected_hash,
+                "bounded_revision_count": 0,
+                "public_write_attempted": True,
+            },
+            expected_governed_input_hash=expected_hash,
+        )
 
 
 def test_active_policy_sections_reach_next_desktop_briefing(tmp_path):

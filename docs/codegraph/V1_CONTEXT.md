@@ -41,7 +41,9 @@ weaken evidence or create filler.
   enable, or add a fifth task.
 - Pre-live chain: fast-forward accepted branch to `master`; synchronize the canonical checkout;
   verify readiness/identity for all nine surfaces, `UNKNOWN_WRITE=0`, and no pending ambiguous
-  reconciliation; then Jim runs exactly one fresh Desktop `gpt-5.6-sol / XHIGH` manual `GO` canary.
+  reconciliation; then Jim runs exactly one fresh Desktop `gpt-5.6-sol / HIGH` manual `GO`
+  coordinator canary. It creates one fresh isolated `gpt-5.6-sol / XHIGH` editorial worker only if
+  governed evidence warrants an article; no-article paths remain HIGH-only.
 - Jim/ChatGPT must audit the actual editorial product and all nine public surfaces. Only PASS enables
   the existing four tasks. `HOLD` is not PASS; `NO_PUBLICATION` is valid but not canary proof.
 - `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden before that real evidence.

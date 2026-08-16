@@ -27,14 +27,14 @@ Exactly four native V1 tasks already exist and are all `PAUSED`:
 
 Do not create, recreate, enable, or add a fifth task. The exact next chain is:
 
-`FAST_FORWARD_ACCEPTED_BRANCH_TO_MASTER -> SYNC_CANONICAL_CHECKOUT -> VERIFY_ALL_NINE_READINESS_IDENTITY_AND_UNKNOWN_WRITE_ZERO -> JIM_RUNS_EXACTLY_ONE_FRESH_DESKTOP_GPT_5_6_SOL_XHIGH_MANUAL_GO_CANARY -> JIM_CHATGPT_AUDIT_ACTUAL_NINE_SURFACES -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
+`CHATGPT_AUDITS_MODEL_ROUTING -> FAST_FORWARD_MASTER -> SYNC_CANONICAL_CHECKOUT -> ONE_MANUAL_GO_USING_HIGH_COORDINATOR -> XHIGH_SPAWNS_ONLY_IF_ARTICLE_IS_WARRANTED -> AUDIT_REAL_ARTICLE_AND_NINE_SURFACE_PUBLICATION -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
 
 `V1_FINAL_PRODUCT_ACCEPTED` is forbidden until the real canary evidence passes.
 
 Current operating policy: `QUALITY_PROBATION_FOUR_WINDOW_V1` under
 `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`.
 
-Exactly four fresh native Codex Desktop `gpt-5.6-sol / XHIGH` routine opportunities are authorized:
+Exactly four fresh native Codex Desktop `gpt-5.6-sol / HIGH` coordinator opportunities are authorized:
 17:00, 21:00, and 23:00 Monday-Friday plus 01:00 Tuesday-Saturday, all Asia/Bangkok. Current
 publication minimum is zero; routine ceiling is four; no learning/code path may scale or shift the
 schedule automatically. Material events prioritize the next scheduled opportunity. Manual `GO` is
@@ -53,11 +53,14 @@ Reconciled public objects receive bounded real observation checkpoints. Unsuppor
 explicitly unavailable, never zero. Authorized visible comments are untrusted passive input to a
 bounded low-cost interaction-quality projection and grant no factual, instruction, tool, or write
 authority. Immutable learning policy now covers content/editorial, SEO, destination/package, and
-owner-locked timing recommendations; each next XHIGH opportunity receives the active policy as
-preference-only context. `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP` is deferred with zero current
+owner-locked timing recommendations; each next HIGH coordinator receives the active policy as
+preference-only context. Only a real candidate with enough governed evidence to warrant article
+production causes one fresh isolated `gpt-5.6-sol / XHIGH` editorial worker; the worker receives a
+hash-bound bounded governed packet, may perform at most one bounded editorial revision, and has zero
+factual, numeric, Capital Chronicle, permission, or public-write authority. `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP` is deferred with zero current
 comment-write implementation or authority. A future exact owner task may authorize an inexpensive
 Gemini-class model through 9Router for comment-value classification and bounded reply drafting;
-routine XHIGH is not the default, no exact model ID is selected, and deterministic/source/safety/
+an XHIGH editorial worker is not the default, no exact model ID is selected, and deterministic/source/safety/
 publication authority remains outside the model.
 
 The observation and immutable-learning machinery is implemented, but real effectiveness is not yet
@@ -67,7 +70,7 @@ single publication canary. This closeout does not build Search Console or widen 
 
 Jim's 2026-08-16 owner realignment abandons the Codex Desktop external bridge/UI-automation,
 Codex CLI editorial execution, App Server, and broker/queue lanes. During active newsroom hours,
-fresh native Codex Desktop scheduled tasks use `gpt-5.6-sol / XHIGH` to execute at most one V1
+fresh native Codex Desktop scheduled tasks use `gpt-5.6-sol / HIGH` to coordinate at most one V1
 editorial opportunity from existing durable cutoff, evaluated-headline/update-chain identity, and
 published memory. The durable reusable instruction is
 `docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md`. Native Desktop task operation is an

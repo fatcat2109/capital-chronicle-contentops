@@ -27,16 +27,28 @@ recreate, enable, or add a fifth task. First fast-forward accepted branch
 `codex/v1-four-window-closed-loop-current-master-integration-v1` to `master`, synchronize the
 canonical checkout, and verify exact readiness/identity for all nine surfaces, `UNKNOWN_WRITE=0`,
 and no pending ambiguous reconciliation. Jim then runs exactly one fresh Desktop
-`gpt-5.6-sol / XHIGH` manual `GO` canary. Only a Jim/ChatGPT audit PASS of the actual article and all
+`gpt-5.6-sol / HIGH` manual `GO` coordinator canary. It creates one fresh isolated
+`gpt-5.6-sol / XHIGH` editorial worker only if governed evidence warrants an article. Only a Jim/ChatGPT audit PASS of the actual article and all
 nine surfaces authorizes enabling the existing four tasks. `HOLD` is not PASS; `NO_PUBLICATION` is
 valid but not canary proof; `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before real evidence.
 
-During owner quality probation, exactly four fresh native Codex Desktop `gpt-5.6-sol / XHIGH`
-tasks own routine editorial opportunities at 17:00, 21:00, and 23:00 Monday-Friday plus 01:00
+During owner quality probation, exactly four fresh native Codex Desktop `gpt-5.6-sol / HIGH`
+coordinator tasks own routine editorial opportunities at 17:00, 21:00, and 23:00 Monday-Friday plus 01:00
 Tuesday-Saturday, Asia/Bangkok. Current publication minimum is zero and routine ceiling is four.
 No code or learning policy may change those tasks or add a fifth automatic run. Material events
 become priority input for the next scheduled opportunity; manual `GO` is the explicit exceptional
 extra run.
+
+HIGH owns durable recovery/reconciliation, housekeeping, ingestion/cutoff/dedupe/update chains,
+candidate ranking, Capital Chronicle estate discovery, ordinary grounded evidence qualification,
+nine-surface readiness, deterministic validation, publication coordination, readback, observation,
+learning, and terminal reporting. HIGH does not write the final canonical article. No-new-headline,
+duplicate-only, no-qualified-candidate, evidence-blocked, readiness-HOLD where checked before
+editorial work, recovery-only, and metrics/learning-housekeeping-only runs create zero XHIGH
+workers. Only a qualified article creates exactly one fresh isolated `gpt-5.6-sol / XHIGH`
+editorial worker with bounded governed context, an exact input hash, zero factual/numeric/Capital
+Chronicle/permission/public-write authority, and at most one bounded editorial revision. HIGH then
+resumes every deterministic and publication gate.
 
 Each task runs cheap deterministic housekeeping first, then loads the active immutable policy,
 executes at most one current opportunity, refreshes exact readiness for Substack plus all eight
@@ -87,7 +99,7 @@ Destination comment-read scope, comment-write scope, identity, safety, rate limi
 evidence, and reconciliation must all be separately granted. Current comment-write implementation
 and authority are exactly zero. If a future exact owner task authorizes the loop, prefer an
 authorized low-cost Gemini-class model through 9Router for comment-value classification and bounded
-reply drafting; routine XHIGH is not the default and no exact Gemini model ID is selected.
+reply drafting; the XHIGH editorial worker is not the default and no exact Gemini model ID is selected.
 Deterministic/source/safety/publication authority remains outside the model.
 
 ## 1. Verified starting state
@@ -167,7 +179,8 @@ current implementation blocker:
    `test_policy_locator_returns_no_candidate_when_no_fomc_links` prove the current behavior.
 4. **Superseded.** The former arbitrary rolling-X article/media canary is not current routing. The
    accepted four-window/full-nine implementation now proceeds only through the single fresh Desktop
-   XHIGH live canary contract at the top of this plan.
+   HIGH coordinator live canary contract at the top of this plan, with XHIGH only at a warranted
+   article boundary.
 
 These dispositions do not constitute final product acceptance or real live-canary evidence.
 

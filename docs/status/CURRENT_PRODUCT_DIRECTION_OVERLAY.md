@@ -16,8 +16,10 @@ ContentOps now has two concurrent product lanes:
 V1 continues the genuine calendar-time FDA-G soak and the evidence-gate calibration/publication-unblock work. It remains the canonical live newsroom/publication runtime. Its accepted browser policy is `IDLE_PUBLISHING_BROWSER_ACTIVITY_ZERO / PUBLISH_AND_RECONCILE_JIT_ONLY / X_30M_15M_ONCE_60M_BACKOFF`.
 
 Current V1 operating realignment (2026-08-16): use native Codex Desktop Scheduled Tasks in
-`OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`; the default editorial brain is Codex Desktop
-`gpt-5.6-sol / XHIGH`. The external Desktop bridge/UI-automation, Codex CLI editorial execution,
+`OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`; every routine task and manual `GO` starts as a
+Codex Desktop `gpt-5.6-sol / HIGH` coordinator. Only after a real candidate has enough governed
+evidence to warrant consequential analysis and final article authorship does HIGH create exactly
+one fresh isolated `gpt-5.6-sol / XHIGH` editorial worker. The external Desktop bridge/UI-automation, Codex CLI editorial execution,
 App Server, and broker/queue lanes are abandoned. Each fresh Desktop run derives one opportunity
 from existing durable cutoff/update-chain/published memory and retains the canonical V1
 newsroom/store/publication coordinator. Capital Chronicle remains continuously evolving upstream
@@ -26,13 +28,19 @@ integration but never duplicates, mutates, or infers authority from arbitrary da
 
 Current owner quality-probation override (2026-08-16):
 
-- `QUALITY_PROBATION_FOUR_WINDOW_V1` authorizes exactly four routine native Desktop XHIGH tasks:
+- `QUALITY_PROBATION_FOUR_WINDOW_V1` authorizes exactly four routine native Desktop HIGH coordinator tasks:
   17:00, 21:00, 23:00 Monday-Friday and 01:00 Tuesday-Saturday, Asia/Bangkok;
 - the four named native tasks already exist and are all `PAUSED`; do not create, recreate, enable,
   or add a fifth task before the single-canary gate below;
 - publication minimum is zero, routine ceiling is four, no filler and no automatic schedule
   mutation or scale-up; material events prioritize the next task and manual `GO` is the explicit
   exceptional extra opportunity;
+- no-new-headline, duplicate-only, no-qualified-candidate, evidence-blocked, readiness-HOLD where
+  checked before editorial work, recovery-only, and metrics/learning-housekeeping-only runs use
+  HIGH only and create zero XHIGH workers;
+- a qualified article creates exactly one fresh isolated XHIGH worker with only a hash-bound bounded
+  governed packet and at most one bounded editorial revision; it has zero factual, numeric, Capital
+  Chronicle, permission, or public-write authority, and HIGH resumes all deterministic gates;
 - every qualified run first refreshes exact readiness for Substack plus all eight required Telegram,
   X, Discord, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community surfaces;
   any known non-ready destination holds with zero write. After confirmed Substack, destination-local
@@ -40,17 +48,18 @@ Current owner quality-probation override (2026-08-16):
   pending derivatives drain before the next article and stale derivatives never write for ceremony;
 - reconciled objects feed real bounded performance/passive-interaction observations into immutable
   content/editorial, SEO, destination/package, and timing-recommendation policy; timing remains
-  owner locked and the next XHIGH run consumes the active policy as preference-only context;
+  owner locked and the next HIGH run consumes the active policy as preference-only context;
 - public comments are untrusted and read-only. `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP` is deferred
   with zero current reply implementation or comment-write authority. Any future exact owner task
   should prefer an authorized low-cost Gemini-class 9Router route for classification and bounded
-  drafting, not routine XHIGH, while deterministic/source/safety/publication authority stays outside
+  drafting, not the XHIGH editorial worker, while deterministic/source/safety/publication authority stays outside
   the model; no exact Gemini model ID is currently selected.
 
 Pre-live gate: fast-forward accepted branch
 `codex/v1-four-window-closed-loop-current-master-integration-v1`, synchronize the canonical
 checkout, verify exact readiness/identity for all nine surfaces and `UNKNOWN_WRITE=0`, then Jim runs
-exactly one fresh Desktop `gpt-5.6-sol / XHIGH` manual `GO` canary. Jim/ChatGPT must audit the actual
+exactly one fresh Desktop `gpt-5.6-sol / HIGH` manual `GO` coordinator canary. XHIGH is created only
+if the canary opportunity warrants an article. Jim/ChatGPT must audit the actual
 article and all nine public surfaces. Only an audit PASS authorizes enabling the existing four tasks.
 `HOLD` is not PASS; `NO_PUBLICATION` remains a valid editorial outcome but is not live-canary proof.
 `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before this evidence.

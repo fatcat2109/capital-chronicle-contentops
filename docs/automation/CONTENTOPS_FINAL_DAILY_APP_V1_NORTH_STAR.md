@@ -22,13 +22,14 @@ Pre-live state: the exactly four named native V1 tasks already exist and are all
 not be created, recreated, enabled, or expanded before the accepted implementation branch is
 fast-forwarded to `master`, the canonical checkout is synchronized, and all nine destination
 readiness/identity states plus `UNKNOWN_WRITE=0` are verified. Jim then runs exactly one fresh
-Desktop `gpt-5.6-sol / XHIGH` manual `GO` canary. Only a Jim/ChatGPT audit PASS of the actual article
+Desktop `gpt-5.6-sol / HIGH` manual `GO` coordinator canary. It creates one fresh isolated
+`gpt-5.6-sol / XHIGH` editorial worker only if an article is warranted. Only a Jim/ChatGPT audit PASS of the actual article
 and all nine surfaces authorizes enabling the existing four tasks. `HOLD` is not PASS;
 `NO_PUBLICATION` is valid editorial behavior but not canary proof; `V1_FINAL_PRODUCT_ACCEPTED` is
 forbidden before real evidence.
 
-Jim's current pragmatic V1 policy is `QUALITY_PROBATION_FOUR_WINDOW_V1`. The canonical editorial
-brain is a fresh native Codex Desktop `gpt-5.6-sol / XHIGH` task at exactly four routine Bangkok
+Jim's current pragmatic V1 policy is `QUALITY_PROBATION_FOUR_WINDOW_V1`. The canonical routine
+coordinator is a fresh native Codex Desktop `gpt-5.6-sol / HIGH` task at exactly four Bangkok
 opportunities: 17:00, 21:00, and 23:00 Monday-Friday plus 01:00 Tuesday-Saturday. There is no
 publication minimum, no filler permission, and no automatic schedule shift or scale-up. Material
 events prioritize the next scheduled opportunity; manual `GO` is the sole explicit extra
@@ -42,8 +43,14 @@ canonical truth, continues the remaining attempts, and stays in freshness-safe r
 article. Reconcile and schedule observations. Immutable
 bounded learning covers content/editorial, SEO, destination/package, and timing recommendations.
 Timing is observation/recommendation only while schedule ownership remains locked to Jim. The next
-fresh XHIGH task consumes that policy as preference-only context with zero truth, numeric,
-permission, gate, or publication authority.
+fresh HIGH coordinator consumes that policy as preference-only context. No-new-headline,
+duplicate-only, no-qualified-candidate, evidence-blocked, readiness-HOLD where checked before
+editorial work, recovery-only, and metrics/learning-housekeeping-only runs remain HIGH-only. A real
+candidate with enough governed evidence may create exactly one fresh isolated `gpt-5.6-sol / XHIGH`
+editorial worker for consequential analysis and final prose, bound to the exact governed input and
+limited to one bounded revision. That worker has zero truth, numeric, Capital Chronicle,
+permission, gate, or publication authority; HIGH resumes deterministic validation and publication
+coordination after return.
 
 The older 24/7 supervision language remains long-term architecture direction, not evidence that a
 separate always-on expensive model worker is required or currently proven. The four native tasks
@@ -258,7 +265,7 @@ The always-on app may execute outside normal editorial windows when a genuinely 
 Use the existing governed headline/update-chain system and deterministic materiality metadata. Do not create a second breaking-news engine.
 
 During current quality probation, material-event metadata prioritizes the next scheduled
-opportunity and does not create a fifth automatic XHIGH run. If a future owner decision restores
+opportunity and does not create a fifth automatic coordinator run. If a future owner decision restores
 extra material-event wakes, they must still pass the same evidence, article-mode, review,
 publication, and readback gates as a scheduled cycle.
 

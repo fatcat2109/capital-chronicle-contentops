@@ -1324,7 +1324,7 @@ class ContentOpsDailyAppSupervisor:
         This deliberately does not execute a newsroom cycle. It recovers exact prior write
         state, drains every safe READY derivative through the sole coordinator, collects due
         read-only observations, evaluates bounded learning, and returns the active policy for
-        the fresh XHIGH task. UNKNOWN_WRITE is still readback-only and never blindly retried.
+        the fresh HIGH coordinator. UNKNOWN_WRITE is still readback-only and never blindly retried.
         """
         moment = (now or self._clock()).astimezone(timezone.utc)
         self._refresh_operating_mode()

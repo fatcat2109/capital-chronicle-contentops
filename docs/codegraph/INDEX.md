@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `ca7ae53e7a8c6aa7fe05f16d493f0c64ad054ded`
-Source tree digest: `0a61b8d2b7efe698533ded13f558e1833b82a2e8f5e23090e274bea14ae2a53e`
+Source HEAD: `74a3751b2cd28928c437b202dc7cbaac3669924d`
+Source tree digest: `d87fb9494916d4cef798d997b6988cf2ceac3b2f55fc430b365099986a304e09`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.2.1`
 
 This generated map is descriptive, not product authority.
@@ -120,9 +120,9 @@ Use the focused test beside each hot-path section. Backend tests are under `test
 
 ## Current V1 closeout
 
-Accepted implementation: four-window / full-nine-surface / closed-loop branch `codex/v1-four-window-closed-loop-current-master-integration-v1`. Exactly four native Desktop `gpt-5.6-sol / XHIGH` tasks already exist and are all `PAUSED`; do not create, recreate, enable, or add a fifth task.
+Accepted implementation: four-window / full-nine-surface / closed-loop branch `codex/v1-four-window-closed-loop-current-master-integration-v1`. Exactly four native Desktop `gpt-5.6-sol / HIGH` coordinator tasks already exist and are all `PAUSED`; do not create, recreate, enable, or add a fifth task.
 
-Current task: `TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1`. First fast-forward the accepted branch, synchronize the canonical checkout, and verify all nine readiness/identity states plus `UNKNOWN_WRITE=0`. Jim then runs exactly one fresh Desktop XHIGH manual `GO` canary. Only a Jim/ChatGPT audit PASS of the actual article and all nine public surfaces enables the existing four tasks. `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before real evidence.
+Current task: `TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1`. First fast-forward the accepted branch, synchronize the canonical checkout, and verify all nine readiness/identity states plus `UNKNOWN_WRITE=0`. Jim then runs exactly one fresh Desktop HIGH coordinator manual `GO` canary; it creates one fresh isolated XHIGH editorial worker only if an article is warranted. Only a Jim/ChatGPT audit PASS of the actual article and all nine public surfaces enables the existing four tasks. `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before real evidence.
 
 ## Tier2 separation
 
@@ -144,4 +144,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`6970` nodes and `13107` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`6972` nodes and `13109` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

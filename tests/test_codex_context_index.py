@@ -107,10 +107,10 @@ def test_generated_index_routes_v1_hot_paths_and_separates_v2(graph):
         assert f"## {heading}" in generated
     assert "Exactly four native" in generated
     assert "all `PAUSED`" in generated
-    assert "exactly one fresh Desktop XHIGH manual `GO` canary" in generated
+    assert "exactly one fresh Desktop HIGH coordinator manual `GO` canary" in generated
     assert "all nine public surfaces enables the existing four tasks" in generated
     assert "`V1_FINAL_PRODUCT_ACCEPTED` is forbidden" in generated
-    assert "TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1" in generated
+    assert "TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1" in generated
 
 
 def test_generated_v2_context_routes_direct_image_and_retention_native_authority(graph):

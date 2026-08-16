@@ -7,11 +7,11 @@ This file is a compact routing pointer. Detailed V1 history remains in task evid
 
 ## V1 current authority-closeout lane
 
-`TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1`
+`TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1`
 
 Closeout result:
 
-`PASS_V1_FINAL_AUTHORITY_CLOSEOUT_READY_FOR_MASTER_FAST_FORWARD_AND_SINGLE_LIVE_CANARY`
+`PASS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_READY_FOR_SINGLE_LIVE_CANARY`
 
 Accepted implementation branch/product baseline:
 
@@ -20,7 +20,7 @@ Accepted implementation branch/product baseline:
 
 This is the accepted four-window / full-nine-surface / closed-loop integration implementation.
 
-Current physical task state is exactly four existing native Desktop `gpt-5.6-sol / XHIGH` tasks,
+Current physical task state is exactly four existing native Desktop `gpt-5.6-sol / HIGH` coordinator tasks,
 all `PAUSED`:
 
 - `V1 Newsroom — London 1700`;
@@ -31,14 +31,15 @@ all `PAUSED`:
 Do not create, recreate, enable, add a fifth task, start routine probation, or auto-scale. The exact
 next chain is:
 
-`FAST_FORWARD_ACCEPTED_BRANCH_TO_MASTER -> SYNC_CANONICAL_CHECKOUT -> VERIFY_ALL_NINE_READINESS_IDENTITY_AND_UNKNOWN_WRITE_ZERO -> JIM_RUNS_EXACTLY_ONE_FRESH_DESKTOP_GPT_5_6_SOL_XHIGH_MANUAL_GO_CANARY -> JIM_CHATGPT_AUDIT_ACTUAL_NINE_SURFACES -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
+`CHATGPT_AUDITS_MODEL_ROUTING -> FAST_FORWARD_MASTER -> SYNC_CANONICAL_CHECKOUT -> ONE_MANUAL_GO_USING_HIGH_COORDINATOR -> XHIGH_SPAWNS_ONLY_IF_ARTICLE_IS_WARRANTED -> AUDIT_REAL_ARTICLE_AND_NINE_SURFACE_PUBLICATION -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
 
 The readiness check covers exact Substack plus Telegram, X, Discord, LinkedIn, Facebook Page,
 Instagram Business, Threads, and YouTube Community identities/readiness, pending ambiguous
 reconciliation, and `UNKNOWN_WRITE=0`. The canary acceptance contract requires:
 
-- **Editorial:** a real current unseen or materially updated story; actual fresh native Codex
-  Desktop `gpt-5.6-sol / XHIGH` authorship; a publication-quality article requiring no substantive
+- **Editorial:** a real current unseen or materially updated story; a fresh native Codex Desktop
+  `gpt-5.6-sol / HIGH` coordinator and, only when an article is warranted, exactly one fresh isolated
+  `gpt-5.6-sol / XHIGH` editorial worker; a publication-quality article requiring no substantive
   rewrite; factual, numeric, source, freshness, and rights gates PASS; and purposeful media/charts
   when justified, while zero media remains valid when genuinely best.
 - **Capital Chronicle:** rediscover the latest complete estate; use exact governed CC information
@@ -59,6 +60,13 @@ but it does not prove the live canary. If no story qualifies, wait for another m
 opportunity rather than lowering gates. `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before the required
 real evidence. Only after PASS may the existing four tasks be enabled; do not recreate them, add a
 fifth, or authorize automatic schedule mutation.
+
+No-new-headline, duplicate-only, no-qualified-candidate, evidence-blocked, readiness-HOLD where
+checked before editorial work, recovery-only, and metrics/learning-housekeeping-only runs remain
+HIGH-only and create zero XHIGH workers. The XHIGH worker receives only bounded governed context
+bound to the exact input hash, may perform at most one bounded editorial revision, and has zero
+factual, numeric, Capital Chronicle, permission, or public-write authority. HIGH resumes all
+deterministic validation and publication coordination after the worker returns.
 
 Observation and immutable-policy machinery is implemented, but real effectiveness is unproven.
 SEO stays `HOLD` without search-specific evidence. Search Console is `OPERATOR_SETUP_REQUIRED` and

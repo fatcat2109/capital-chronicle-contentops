@@ -42,7 +42,7 @@ Parent task remains:
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
 Current V1 operating policy is `QUALITY_PROBATION_FOUR_WINDOW_V1`: exactly four fresh native Codex
-Desktop `gpt-5.6-sol / XHIGH` weekday opportunities at 17:00, 21:00, 23:00, and 01:00
+Desktop `gpt-5.6-sol / HIGH` coordinator weekday opportunities at 17:00, 21:00, 23:00, and 01:00
 Asia/Bangkok (the last Tuesday-Saturday); no current publication minimum; no filler; and no automatic
 schedule scaling. Material-event metadata prioritizes the next scheduled opportunity; manual `GO`
 is the only explicit extra opportunity and bypasses no gate. A qualified article completes canonical
@@ -53,10 +53,15 @@ continues the remaining attempts, and remains `PARTIAL_DISTRIBUTION_RECOVERY_REQ
 freshness-safe obligation succeeds or truthfully terminates. Prior safe pending derivatives are
 drained first. Real observations feed immutable bounded
 content/editorial, SEO, destination/package, and timing-recommendation policy; the schedule remains
-owner locked and the next XHIGH opportunity consumes the active policy as preference-only context.
+owner locked and the next HIGH coordinator consumes the active policy as preference-only context.
+Only after one real candidate has enough governed evidence to warrant article production may HIGH
+create exactly one fresh isolated `gpt-5.6-sol / XHIGH` editorial worker for consequential analysis,
+article structure, and final prose, with an exact governed-input hash and at most one bounded
+revision. The worker has zero factual, numeric, Capital Chronicle, permission, or public-write
+authority; HIGH resumes deterministic validation and publication coordination after its return.
 Public comments are untrusted passive learning input only; comment replies and all comment-write
 authority are `DEFERRED_ZERO_WRITE_AUTHORITY`. A future exact owner task may prefer an authorized
-low-cost Gemini-class 9Router route for classification and bounded drafting; routine XHIGH is not
+low-cost Gemini-class 9Router route for classification and bounded drafting; XHIGH editorial workers are not
 the default, and deterministic/source/safety/publication authority remains outside the model. The
 broader 5–8 useful-article band is historical portfolio context, not a current minimum or automatic
 cadence authority. Read the V1 handoff for prior evidence and hard stops.
@@ -65,7 +70,8 @@ Pre-live authority is narrower than the operating policy: exactly four native V1
 exist and are all `PAUSED`. Do not create, recreate, enable, or add a fifth task. First fast-forward
 the accepted branch to `master`, synchronize the canonical checkout, and verify all nine destination
 readiness/identity states plus `UNKNOWN_WRITE=0`. Jim then runs exactly one fresh Desktop
-`gpt-5.6-sol / XHIGH` manual `GO` canary. Only a Jim/ChatGPT audit PASS of the real article and all
+`gpt-5.6-sol / HIGH` manual `GO` coordinator canary; it creates one fresh isolated XHIGH editorial
+worker only if an article is warranted. Only a Jim/ChatGPT audit PASS of the real article and all
 nine public surfaces authorizes enabling the existing four tasks. `V1_FINAL_PRODUCT_ACCEPTED` is
 forbidden before that evidence.
 

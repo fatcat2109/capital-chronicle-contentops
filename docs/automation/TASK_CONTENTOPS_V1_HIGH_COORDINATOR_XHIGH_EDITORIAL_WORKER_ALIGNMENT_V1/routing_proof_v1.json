@@ -1,0 +1,107 @@
+{
+  "schema_version": "contentops.v1_high_coordinator_xhigh_editorial_worker_alignment_proof.v1",
+  "task_id": "TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1",
+  "classification": "PASS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_READY_FOR_SINGLE_LIVE_CANARY",
+  "initial_fetched_master": "59e9c0c9f0933dc40ec7bdfca0660f0c8cc46064",
+  "final_reconciled_fetched_master": "74a3751b2cd28928c437b202dc7cbaac3669924d",
+  "branch": "codex/v1-high-coordinator-xhigh-editorial-worker-alignment-v1",
+  "zero_write_capability_proof": {
+    "parent": {
+      "creation_method": "native fresh isolated collaboration spawn",
+      "requested_model": "gpt-5.6-sol",
+      "requested_reasoning_effort": "HIGH",
+      "request_was_explicit": true,
+      "fresh": true,
+      "resumed": false,
+      "task_name": "/root/v1_high_parent_xhigh_child_proof",
+      "effective_model": null,
+      "effective_reasoning_effort": null,
+      "effective_metadata_exposed_by_runtime": false
+    },
+    "child": {
+      "creation_method": "nested native fresh isolated collaboration spawn by the explicit HIGH parent",
+      "requested_model": "gpt-5.6-sol",
+      "requested_reasoning_effort": "XHIGH",
+      "request_was_explicit_not_inherited": true,
+      "fresh": true,
+      "resumed": false,
+      "task_name": "/root/v1_high_parent_xhigh_child_proof/xhigh_child",
+      "nonce": "V1-NESTED-HIGH-XHIGH-74A3751B-20260816",
+      "expected_result": "V1_NESTED_XHIGH_CHILD_OK|nonce=V1-NESTED-HIGH-XHIGH-74A3751B-20260816|fresh=true",
+      "actual_result": "V1_NESTED_XHIGH_CHILD_OK|nonce=V1-NESTED-HIGH-XHIGH-74A3751B-20260816|fresh=true",
+      "effective_model": null,
+      "effective_reasoning_effort": null,
+      "effective_metadata_exposed_by_runtime": false
+    },
+    "nested_parent_result": "V1_HIGH_PARENT_OK|parent_requested=gpt-5.6-sol/HIGH|child_requested=gpt-5.6-sol/XHIGH|child_result=V1_NESTED_XHIGH_CHILD_OK|nonce=V1-NESTED-HIGH-XHIGH-74A3751B-20260816|fresh=true",
+    "desktop_bridge_used": false,
+    "codex_cli_used": false,
+    "ui_automation_used": false,
+    "public_writes": 0
+  },
+  "native_task_inventory": {
+    "task_count": 4,
+    "all_paused": true,
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "high",
+    "prompt_sha256": "478beb8770cdeb0e670089c80c46ac72458b85f14373c1f93f7a0c71f4d821a7",
+    "tasks": [
+      {
+        "id": "v1-newsroom-london-1700",
+        "name": "V1 Newsroom — London 1700",
+        "status": "PAUSED",
+        "recurrence": "Monday-Friday 17:00 Asia/Bangkok"
+      },
+      {
+        "id": "v1-newsroom-new-york-2100",
+        "name": "V1 Newsroom — New York 2100",
+        "status": "PAUSED",
+        "recurrence": "Monday-Friday 21:00 Asia/Bangkok"
+      },
+      {
+        "id": "v1-newsroom-new-york-2300",
+        "name": "V1 Newsroom — New York 2300",
+        "status": "PAUSED",
+        "recurrence": "Monday-Friday 23:00 Asia/Bangkok"
+      },
+      {
+        "id": "v1-newsroom-new-york-0100",
+        "name": "V1 Newsroom — New York 0100",
+        "status": "PAUSED",
+        "recurrence": "Tuesday-Saturday 01:00 Asia/Bangkok"
+      }
+    ]
+  },
+  "routing_contract": {
+    "coordinator_model": "gpt-5.6-sol",
+    "coordinator_reasoning_effort": "HIGH",
+    "qualified_article_xhigh_worker_count": 1,
+    "editorial_worker_model": "gpt-5.6-sol",
+    "editorial_worker_reasoning_effort": "XHIGH",
+    "editorial_worker_fresh": true,
+    "editorial_worker_isolated": true,
+    "max_bounded_editorial_revisions": 1,
+    "governed_input_hash_required": true,
+    "high_resumes_deterministic_validation": true,
+    "xhigh_public_write_authority": false,
+    "zero_xhigh_paths": [
+      "NO_NEW_HEADLINE",
+      "DUPLICATE_ONLY",
+      "NO_QUALIFIED_CANDIDATE",
+      "EVIDENCE_BLOCKED",
+      "FULL_DISTRIBUTION_READINESS_BLOCKED",
+      "RECOVERY_ONLY",
+      "HOUSEKEEPING_ONLY",
+      "METRICS_LEARNING_HOUSEKEEPING_ONLY"
+    ]
+  },
+  "validation": {
+    "focused_operator_tests": "19 passed",
+    "context_generator_tests": "11 passed",
+    "daily_app_supervisor_tests": "21 passed",
+    "codegraph_check": "CODEGRAPH_CURRENT",
+    "rebased_onto_final_fetched_master": true,
+    "public_writes": 0,
+    "v2_product_or_runtime_mutations": 0
+  }
+}

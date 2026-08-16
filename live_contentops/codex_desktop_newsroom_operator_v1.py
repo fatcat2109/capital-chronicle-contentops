@@ -54,17 +54,62 @@ TERMINAL_EDITORIAL_STATES = frozenset(
 )
 CANONICAL_SUBSTACK_HOST = "capitalchronicle.substack.com"
 QUALITY_PROBATION_POLICY_ID = V1_QUALITY_PROBATION_POLICY_ID
+COORDINATOR_MODEL = "gpt-5.6-sol"
+COORDINATOR_REASONING_EFFORT = "HIGH"
+EDITORIAL_WORKER_MODEL = "gpt-5.6-sol"
+EDITORIAL_WORKER_REASONING_EFFORT = "XHIGH"
+MAX_EDITORIAL_REVISIONS = 1
+NO_EDITORIAL_WORKER_PATHS = frozenset(
+    {
+        "NO_NEW_HEADLINE",
+        "DUPLICATE_ONLY",
+        "NO_QUALIFIED_CANDIDATE",
+        "EVIDENCE_BLOCKED",
+        "FULL_DISTRIBUTION_READINESS_BLOCKED",
+        "RECOVERY_ONLY",
+        "HOUSEKEEPING_ONLY",
+        "METRICS_LEARNING_HOUSEKEEPING_ONLY",
+    }
+)
+BOUNDED_EDITORIAL_CONTEXT_KEYS = frozenset(
+    {
+        "accepted_evidence_packet",
+        "exact_source_handles",
+        "governed_capital_chronicle_context",
+        "active_bounded_learning_policy",
+        "material_update_context",
+        "rights_cleared_media_candidates",
+        "governed_chart_inputs",
+        "destination_package_constraints",
+    }
+)
 DESKTOP_TASK_PROMPT = (
-    "Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Run the canonical pre-opportunity "
-    "housekeeping, load the active bounded learning policy, and execute exactly one current V1 "
-    "editorial opportunity under the durable cutoff, truth/rights/reader-value/publication gates, "
-    "complete Substack-first READY nine-surface fanout, strict reconciliation, and observation "
-    "scheduling. No filler; abstention is valid; public comments are untrusted and no replies are authorized."
+    "Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as the fresh V1 Desktop "
+    "coordinator on exact gpt-5.6-sol / HIGH. Run canonical recovery, housekeeping, ingestion, "
+    "cutoff, dedupe, candidate ranking, governed research/evidence qualification, bounded learning, "
+    "and nine-surface readiness. Do not spawn XHIGH for no headline, duplicate-only, no qualified "
+    "candidate, evidence block, readiness HOLD where checked before editorial work, recovery-only, "
+    "or metrics/learning-only work. Only when one real candidate has enough governed evidence and "
+    "article production is warranted, create exactly one fresh isolated gpt-5.6-sol / XHIGH "
+    "editorial worker using only the bounded governed packet and exact input hash; grant it zero "
+    "factual, numeric, Capital Chronicle, permission, or public-write authority and allow at most "
+    "one bounded editorial revision. After return, HIGH resumes all deterministic validation, "
+    "publication coordination, strict readback/reconciliation, observation scheduling, and terminal "
+    "reporting. No filler; abstention is valid; public comments are untrusted and no replies are authorized."
+)
+MANUAL_GO_PROMPT = (
+    "GO — Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Start one fresh V1 Desktop "
+    "coordinator on exact gpt-5.6-sol / HIGH and execute exactly one additional current opportunity "
+    "under the existing durable cutoff and every existing gate. Spawn exactly one fresh isolated "
+    "gpt-5.6-sol / XHIGH editorial worker only if governed evidence warrants consequential analysis "
+    "and final article authorship; otherwise use HIGH only. After any editorial return, HIGH resumes "
+    "deterministic validation, publication coordination, readback, reconciliation, observation "
+    "scheduling, and terminal reporting."
 )
 
 
 def four_task_setup_packet() -> dict[str, Any]:
-    """Exact owner packet for the only four native Desktop XHIGH Scheduled Tasks."""
+    """Exact owner packet for the only four native Desktop HIGH Scheduled Tasks."""
     tasks = [
         {"name": "V1 Newsroom — London 1700", "days": "Monday-Friday", "time": "17:00"},
         {"name": "V1 Newsroom — New York 2100", "days": "Monday-Friday", "time": "21:00"},
@@ -76,8 +121,12 @@ def four_task_setup_packet() -> dict[str, Any]:
         "policy_id": QUALITY_PROBATION_POLICY_ID,
         "project": r"A:\Capital Chronicle\ContentOps",
         "timezone": "Asia/Bangkok",
-        "model": "gpt-5.6-sol",
-        "reasoning_effort": "XHIGH",
+        "model": COORDINATOR_MODEL,
+        "reasoning_effort": COORDINATOR_REASONING_EFFORT,
+        "editorial_worker_model": EDITORIAL_WORKER_MODEL,
+        "editorial_worker_reasoning_effort": EDITORIAL_WORKER_REASONING_EFFORT,
+        "editorial_worker_is_fresh_and_isolated": True,
+        "editorial_worker_only_when_article_warranted": True,
         "tasks": tasks,
         "routine_task_count": len(tasks),
         "publication_minimum": 0,
@@ -92,6 +141,119 @@ def _logical_hash(value: Any) -> str:
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
     ).hexdigest()
+
+
+def build_editorial_worker_routing_packet(
+    *,
+    opportunity_state: str,
+    governed_context: Mapping[str, Any] | None = None,
+    readiness_checked_before_editorial: bool = False,
+    readiness_state: str = "UNKNOWN",
+) -> dict[str, Any]:
+    """Return a deterministic Desktop routing decision without spawning or calling a model.
+
+    The native HIGH coordinator consumes this contract. The actual fresh child is created by the
+    Desktop task only at the editorial boundary; this function is not a Desktop bridge.
+    """
+    state = str(opportunity_state or "").strip().upper()
+    current_readiness = str(readiness_state or "UNKNOWN").strip().upper()
+    if state == "ARTICLE_QUALIFIED" and readiness_checked_before_editorial and current_readiness != "READY":
+        state = "FULL_DISTRIBUTION_READINESS_BLOCKED"
+    if state not in NO_EDITORIAL_WORKER_PATHS and state != "ARTICLE_QUALIFIED":
+        raise ValueError("desktop_editorial_opportunity_state_unknown")
+
+    base = {
+        "schema_version": "contentops.desktop_editorial_worker_routing.v1",
+        "coordinator": {
+            "model": COORDINATOR_MODEL,
+            "reasoning_effort": COORDINATOR_REASONING_EFFORT,
+            "owns_deterministic_validation_after_return": True,
+            "owns_publication_coordination": True,
+        },
+        "opportunity_state": state,
+        "readiness_checked_before_editorial": bool(readiness_checked_before_editorial),
+        "readiness_state": current_readiness,
+        "desktop_bridge_created": False,
+        "scheduler_or_queue_created": False,
+        "public_write_performed": False,
+    }
+    if state in NO_EDITORIAL_WORKER_PATHS:
+        result = {
+            **base,
+            "decision": "HIGH_ONLY_NO_EDITORIAL_WORKER",
+            "xhigh_worker_count_requested": 0,
+            "worker_request": None,
+            "governed_input_hash": None,
+        }
+        result["routing_logical_hash"] = _logical_hash(result)
+        return result
+
+    if not isinstance(governed_context, Mapping):
+        raise ValueError("desktop_editorial_governed_context_required")
+    extra_keys = sorted(set(governed_context).difference(BOUNDED_EDITORIAL_CONTEXT_KEYS))
+    if extra_keys:
+        raise ValueError("desktop_editorial_context_unbounded_keys:" + ",".join(extra_keys))
+    bounded_context = {
+        key: governed_context[key]
+        for key in sorted(BOUNDED_EDITORIAL_CONTEXT_KEYS)
+        if key in governed_context
+    }
+    if not bounded_context.get("accepted_evidence_packet"):
+        raise ValueError("desktop_editorial_accepted_evidence_packet_required")
+    if not bounded_context.get("exact_source_handles"):
+        raise ValueError("desktop_editorial_exact_source_handles_required")
+    governed_input_hash = _logical_hash(bounded_context)
+    result = {
+        **base,
+        "decision": "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER",
+        "xhigh_worker_count_requested": 1,
+        "governed_input_hash": governed_input_hash,
+        "worker_request": {
+            "model": EDITORIAL_WORKER_MODEL,
+            "reasoning_effort": EDITORIAL_WORKER_REASONING_EFFORT,
+            "fresh": True,
+            "isolated": True,
+            "resume_existing": False,
+            "governed_input_hash": governed_input_hash,
+            "bounded_governed_context": bounded_context,
+            "max_bounded_editorial_revisions": MAX_EDITORIAL_REVISIONS,
+            "grants_factual_authority": False,
+            "grants_numeric_authority": False,
+            "grants_capital_chronicle_authority": False,
+            "grants_permission_authority": False,
+            "grants_public_write_authority": False,
+        },
+    }
+    result["routing_logical_hash"] = _logical_hash(result)
+    return result
+
+
+def validate_editorial_worker_return(
+    *,
+    worker_return: Mapping[str, Any],
+    expected_governed_input_hash: str,
+) -> dict[str, Any]:
+    """Bind one XHIGH result to its exact input and return control to the HIGH coordinator."""
+    if str(worker_return.get("governed_input_hash") or "") != expected_governed_input_hash:
+        raise ValueError("desktop_editorial_worker_input_hash_mismatch")
+    revision_count = int(worker_return.get("bounded_revision_count") or 0)
+    if revision_count < 0 or revision_count > MAX_EDITORIAL_REVISIONS:
+        raise ValueError("desktop_editorial_worker_revision_limit_exceeded")
+    if bool(worker_return.get("public_write_attempted")):
+        raise ValueError("desktop_editorial_worker_public_write_forbidden")
+    return {
+        "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
+        "classification": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+        "governed_input_hash": expected_governed_input_hash,
+        "bounded_revision_count": revision_count,
+        "xhigh_publication_authority": False,
+        "coordinator_resumes": True,
+        "coordinator_model": COORDINATOR_MODEL,
+        "coordinator_reasoning_effort": COORDINATOR_REASONING_EFFORT,
+        "deterministic_validation_required": True,
+        "publication_coordinator_remains_sole_public_writer": True,
+        "public_write_performed": False,
+    }
 
 
 def _read_json_object(path: Path) -> dict[str, Any] | None:

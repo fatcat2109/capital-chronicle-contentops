@@ -69,7 +69,16 @@ Exactly four native V1 tasks already exist and are all `PAUSED`:
 
 Do not create, recreate, enable, add a fifth task, or auto-scale. The exact next chain is:
 
-`FAST_FORWARD_ACCEPTED_BRANCH_TO_MASTER -> SYNC_CANONICAL_CHECKOUT -> VERIFY_ALL_NINE_READINESS_IDENTITY_AND_UNKNOWN_WRITE_ZERO -> JIM_RUNS_EXACTLY_ONE_FRESH_DESKTOP_GPT_5_6_SOL_XHIGH_MANUAL_GO_CANARY -> JIM_CHATGPT_AUDIT_ACTUAL_NINE_SURFACES -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
+`CHATGPT_AUDITS_MODEL_ROUTING -> FAST_FORWARD_MASTER -> SYNC_CANONICAL_CHECKOUT -> ONE_MANUAL_GO_USING_HIGH_COORDINATOR -> XHIGH_SPAWNS_ONLY_IF_ARTICLE_IS_WARRANTED -> AUDIT_REAL_ARTICLE_AND_NINE_SURFACE_PUBLICATION -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
+
+All four existing scheduled tasks and manual `GO` start as fresh `gpt-5.6-sol / HIGH`
+coordinators. No-new-headline, duplicate-only, no-qualified-candidate, evidence-blocked,
+readiness-HOLD where checked before editorial work, recovery-only, and
+metrics/learning-housekeeping-only runs create zero XHIGH workers. Only a candidate with enough
+governed evidence to warrant article production creates exactly one fresh isolated
+`gpt-5.6-sol / XHIGH` editorial worker, bound to the exact bounded governed-input hash and limited
+to one bounded revision. It has zero factual, numeric, Capital Chronicle, permission, or
+public-write authority. HIGH resumes all deterministic and publication gates after its return.
 
 The single-canary acceptance contract requires Jim/ChatGPT editorial and Capital Chronicle quality
 PASS; confirmed canonical Substack plus all eight required native derivatives; stable public IDs and
@@ -200,11 +209,13 @@ V2 video public-write authority is separate and unchanged by this V1 handoff.
 
 ## Current execution order
 
-1. fast-forward the accepted branch to `master` and synchronize the canonical checkout;
-2. verify all nine exact readiness/identity states, `UNKNOWN_WRITE=0`, and no ambiguous recovery;
-3. Jim runs exactly one fresh Desktop `gpt-5.6-sol / XHIGH` manual `GO` canary;
-4. Jim/ChatGPT audit the actual article and all nine surfaces;
-5. only after PASS, enable the existing four paused tasks.
+1. ChatGPT audits the HIGH/XHIGH model-routing correction;
+2. fast-forward the accepted correction branch to `master` and synchronize the canonical checkout;
+3. verify all nine exact readiness/identity states, `UNKNOWN_WRITE=0`, and no ambiguous recovery;
+4. Jim runs exactly one fresh Desktop `gpt-5.6-sol / HIGH` manual `GO` coordinator canary;
+5. that HIGH coordinator creates one fresh isolated XHIGH editorial worker only if an article is warranted;
+6. Jim/ChatGPT audit the actual article and all nine surfaces;
+7. only after PASS, enable the existing four paused tasks.
 
 ## Hard stops that remain
 
