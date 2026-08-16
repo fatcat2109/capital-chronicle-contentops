@@ -22,25 +22,25 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12940,
+    "edges": 13107,
     "entrypoints": 14,
-    "nodes": 6875,
+    "nodes": 6970,
     "nodes_by_kind": {
       "authority_doc": 17,
-      "cli_command": 22,
+      "cli_command": 27,
       "directory_scope": 8,
       "durable_table": 36,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 13,
-      "python_class": 545,
-      "python_function": 3771,
+      "manifest": 15,
+      "python_class": 552,
+      "python_function": 3816,
       "python_method": 264,
-      "python_module": 709,
+      "python_module": 718,
       "schema": 177,
-      "test": 709,
-      "typescript_export": 488,
-      "typescript_or_javascript_module": 102
+      "test": 711,
+      "typescript_export": 506,
+      "typescript_or_javascript_module": 109
     }
   },
   "edges": [
@@ -66957,10 +66957,370 @@
       "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::AudioBuildError"
     },
     {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_demo_packages.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_demo_packages.py::build_demo_packages"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::validate_demo"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::flatten",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::flatten"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::validate"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::validate",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::display_number"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::validate",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::pauses"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::Qwen3LocalTranslator"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::validate_governed_translation"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::validate_governed_translation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::GovernedTranslationError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::LocalizedAudioError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_preflight_sample"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::sha256"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::LocalizedAudioError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::MeasuredSegment"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::narrative_events"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::place"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::sha256"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize_cached"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::to_stereo_48k"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_preflight_sample",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::MeasuredSegment"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_preflight_sample",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize_cached"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::LocalizedAudioError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::MeasuredSegment"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::place"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::sha256"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize_cached"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::to_stereo_48k"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::place",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::LocalizedAudioError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::LocalizedAudioError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::silence"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::speech_chunks"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize_cached",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::sha256"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize_cached",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::parse_strings"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::build"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/materialize_short_locales.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/materialize_short_locales.py::typescript"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_caption_cues",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::CaptionCue"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_caption_cues",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_caption_cues",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_publication_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_publication_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_publication_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_platform_neutral"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::caption_text",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::caption_text",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_caption_set"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::load_locale_registry",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_caption_cues"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_publication_package"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::load_locale_registry"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_anchor_preservation"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_caption_set"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::write_caption_artifacts"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::sha256_file",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_anchor_preservation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_media_probe",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_platform_neutral",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::write_caption_artifacts",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::caption_text"
+    },
+    {
       "from": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::FreeformChapterPipeline"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py::run_proof"
     },
     {
       "from": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::main",
@@ -77151,6 +77511,462 @@
       "to": "video/freeform_chapter_pipeline_v1/__init__.py"
     },
     {
+      "from": "video/freeform_chapter_pipeline_v1/build_demo_packages.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_demo_packages.py::build_demo_packages"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_demo_packages.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_demo_packages.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_demo_packages.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_demo_packages.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_demo_packages.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/build_demo_packages.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/package_factory.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::validate_demo"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/package_factory.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::digits"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::display_number"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::flatten"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::pauses"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::validate"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:translate"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:validate"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::GovernedTranslationError"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::Qwen3LocalTranslator"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::build_translation_messages"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::validate_governed_translation"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::LocalizedAudioError"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::MeasuredSegment"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_preflight_sample"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::narrative_events"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::place"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::sha256"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::silence"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::speech_chunks"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize_cached"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::to_stereo_48k"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/build_authored_audio.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/package_factory.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::build"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::parse_strings"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/materialize_short_locales.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/materialize_short_locales.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/materialize_short_locales.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/materialize_short_locales.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/materialize_short_locales.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/materialize_short_locales.py::typescript"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/materialize_short_locales.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:captions"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:package"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:validate-anchors"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:validate-locales"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::ArtifactIdentity"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::CaptionCue"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_caption_cues"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_publication_package"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::canonical_json"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::caption_text"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::load_locale_registry"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::sha256_file"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_anchor_preservation"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_caption_set"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_media_probe"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_platform_neutral"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::write_caption_artifacts"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
       "from": "video/freeform_chapter_pipeline_v1/pipeline.py",
       "inference": "python_ast_add_parser",
       "kind": "registers_cli_command",
@@ -77239,6 +78055,192 @@
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py::main"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py::run_proof"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/package_factory.py"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/Root.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/Root.tsx::RemotionRoot"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_short_v1/src/Short.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/Root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_short_v1/src/timing.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/Short.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/Short.tsx::FrozenWithoutBreakingShort"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/Short.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/Short.tsx::ShortProps"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/Short.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_short_v1/src/strings.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/Short.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_short_v1/src/timing.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/generated_caption_timings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/generated_caption_timings.ts::localizedCaptionCues"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/generated_locale_strings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/generated_locale_strings.ts::localizedStringMaps"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/index.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_short_v1/src/Root.tsx"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::Locale"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::StringKey"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::StringMap"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::en"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::localeLayout"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::localeStrings"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::stringsFor"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_short_v1/src/generated_locale_strings.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::CaptionCue"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::DURATION_IN_FRAMES"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::FPS"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::beats"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::captionCues"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::captionCuesFor"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_short_v1/src/generated_caption_timings.ts"
+    },
+    {
+      "from": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/projects/frozen_without_breaking_short_v1/src/strings.ts"
     },
     {
       "from": "video/projects/frozen_without_breaking_v1/scripts/generate_narration.py",
@@ -77794,7 +78796,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-16T12:59:07Z",
+  "generation_timestamp_utc": "2026-08-16T14:49:29Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -77827,7 +78829,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 20264
+      "size_bytes": 20913
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -77862,6 +78864,11 @@
     {
       "command": "authorize-x-live-click",
       "id": "cli:authorize-x-live-click",
+      "kind": "cli_command"
+    },
+    {
+      "command": "captions",
+      "id": "cli:captions",
       "kind": "cli_command"
     },
     {
@@ -77910,6 +78917,11 @@
       "kind": "cli_command"
     },
     {
+      "command": "package",
+      "id": "cli:package",
+      "kind": "cli_command"
+    },
+    {
       "command": "prelive-x-post",
       "id": "cli:prelive-x-post",
       "kind": "cli_command"
@@ -77950,8 +78962,23 @@
       "kind": "cli_command"
     },
     {
+      "command": "translate",
+      "id": "cli:translate",
+      "kind": "cli_command"
+    },
+    {
       "command": "validate",
       "id": "cli:validate",
+      "kind": "cli_command"
+    },
+    {
+      "command": "validate-anchors",
+      "id": "cli:validate-anchors",
+      "kind": "cli_command"
+    },
+    {
+      "command": "validate-locales",
+      "id": "cli:validate-locales",
       "kind": "cli_command"
     },
     {
@@ -78007,12 +79034,12 @@
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 22996
+      "size_bytes": 23035
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 5164
+      "size_bytes": 5773
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
@@ -78027,7 +79054,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 12694
+      "size_bytes": 13327
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -78042,22 +79069,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 17076
+      "size_bytes": 17614
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 15300
+      "size_bytes": 15367
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 18605
+      "size_bytes": 18626
     },
     {
       "id": "docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 12209
+      "size_bytes": 12272
     },
     {
       "id": "docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md",
@@ -78072,7 +79099,7 @@
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
       "kind": "authority_doc",
-      "size_bytes": 19369
+      "size_bytes": 19400
     },
     {
       "id": "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -78323,7 +79350,7 @@
     {
       "id": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "kind": "python_module",
-      "size_bytes": 336950
+      "size_bytes": 336969
     },
     {
       "id": "live_contentops/accepted_review_editorial_workflow_v6.py",
@@ -78863,7 +79890,7 @@
     {
       "id": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "kind": "python_module",
-      "size_bytes": 32444
+      "size_bytes": 32450
     },
     {
       "id": "live_contentops/community_feedback_capture_contract_v6.py",
@@ -79213,7 +80240,7 @@
     {
       "id": "live_contentops/destination_transport_registry_v1.py",
       "kind": "python_module",
-      "size_bytes": 39661
+      "size_bytes": 39693
     },
     {
       "id": "live_contentops/direct_image_api_v1.py",
@@ -80848,7 +81875,7 @@
     {
       "id": "live_contentops/publication_coordinator_v1.py",
       "kind": "python_module",
-      "size_bytes": 76637
+      "size_bytes": 76976
     },
     {
       "id": "live_contentops/publish_adapter_credential_secret_policy.py",
@@ -113673,6 +114700,356 @@
       "symbol": "stereo_width"
     },
     {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_demo_packages.py::build_demo_packages",
+      "kind": "python_function",
+      "line": 46,
+      "path": "video/freeform_chapter_pipeline_v1/build_demo_packages.py",
+      "symbol": "build_demo_packages"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_demo_packages.py::main",
+      "kind": "python_function",
+      "line": 175,
+      "path": "video/freeform_chapter_pipeline_v1/build_demo_packages.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::main",
+      "kind": "python_function",
+      "line": 187,
+      "path": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::validate_demo",
+      "kind": "python_function",
+      "line": 75,
+      "path": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
+      "symbol": "validate_demo"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::digits",
+      "kind": "python_function",
+      "line": 24,
+      "path": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "symbol": "digits"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::display_number",
+      "kind": "python_function",
+      "line": 51,
+      "path": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "symbol": "display_number"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::flatten",
+      "kind": "python_function",
+      "line": 14,
+      "path": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "symbol": "flatten"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::main",
+      "kind": "python_function",
+      "line": 148,
+      "path": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::pauses",
+      "kind": "python_function",
+      "line": 28,
+      "path": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "symbol": "pauses"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/fwb_localization_validation.py::validate",
+      "kind": "python_function",
+      "line": 67,
+      "path": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "symbol": "validate"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::GovernedTranslationError",
+      "kind": "python_class",
+      "line": 18,
+      "path": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "symbol": "GovernedTranslationError"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::Qwen3LocalTranslator",
+      "kind": "python_class",
+      "line": 112,
+      "path": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "symbol": "Qwen3LocalTranslator"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::build_translation_messages",
+      "kind": "python_function",
+      "line": 79,
+      "path": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "symbol": "build_translation_messages"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::main",
+      "kind": "python_function",
+      "line": 184,
+      "path": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/governed_translation.py::validate_governed_translation",
+      "kind": "python_function",
+      "line": 42,
+      "path": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "symbol": "validate_governed_translation"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::LocalizedAudioError",
+      "kind": "python_class",
+      "line": 50,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "LocalizedAudioError"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::MeasuredSegment",
+      "kind": "python_class",
+      "line": 55,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "MeasuredSegment"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build",
+      "kind": "python_function",
+      "line": 445,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "build"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_longform",
+      "kind": "python_function",
+      "line": 343,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "build_longform"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_preflight_sample",
+      "kind": "python_function",
+      "line": 295,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "build_preflight_sample"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::build_short",
+      "kind": "python_function",
+      "line": 236,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "build_short"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::main",
+      "kind": "python_function",
+      "line": 520,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::narrative_events",
+      "kind": "python_function",
+      "line": 85,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "narrative_events"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::place",
+      "kind": "python_function",
+      "line": 171,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "place"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::sha256",
+      "kind": "python_function",
+      "line": 65,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "sha256"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::silence",
+      "kind": "python_function",
+      "line": 73,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "silence"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::speech_chunks",
+      "kind": "python_function",
+      "line": 77,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "speech_chunks"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize",
+      "kind": "python_function",
+      "line": 110,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "synthesize"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::synthesize_cached",
+      "kind": "python_function",
+      "line": 184,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "synthesize_cached"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/localized_audio.py::to_stereo_48k",
+      "kind": "python_function",
+      "line": 160,
+      "path": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "symbol": "to_stereo_48k"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::build",
+      "kind": "python_function",
+      "line": 31,
+      "path": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "symbol": "build"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::main",
+      "kind": "python_function",
+      "line": 75,
+      "path": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/make_english_editorial.py::parse_strings",
+      "kind": "python_function",
+      "line": 22,
+      "path": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "symbol": "parse_strings"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/materialize_short_locales.py::main",
+      "kind": "python_function",
+      "line": 14,
+      "path": "video/freeform_chapter_pipeline_v1/materialize_short_locales.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/materialize_short_locales.py::typescript",
+      "kind": "python_function",
+      "line": 10,
+      "path": "video/freeform_chapter_pipeline_v1/materialize_short_locales.py",
+      "symbol": "typescript"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::ArtifactIdentity",
+      "kind": "python_class",
+      "line": 75,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "ArtifactIdentity"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::CaptionCue",
+      "kind": "python_class",
+      "line": 91,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "CaptionCue"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::PackageFactoryError",
+      "kind": "python_class",
+      "line": 22,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "PackageFactoryError"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_caption_cues",
+      "kind": "python_function",
+      "line": 167,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "build_caption_cues"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_publication_package",
+      "kind": "python_function",
+      "line": 360,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "build_publication_package"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::canonical_json",
+      "kind": "python_function",
+      "line": 54,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "canonical_json"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::caption_text",
+      "kind": "python_function",
+      "line": 242,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "caption_text"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::load_locale_registry",
+      "kind": "python_function",
+      "line": 433,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "load_locale_registry"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::main",
+      "kind": "python_function",
+      "line": 478,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::sha256_file",
+      "kind": "python_function",
+      "line": 63,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "sha256_file"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_anchor_preservation",
+      "kind": "python_function",
+      "line": 116,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "validate_anchor_preservation"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_caption_set",
+      "kind": "python_function",
+      "line": 211,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "validate_caption_set"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_media_probe",
+      "kind": "python_function",
+      "line": 287,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "validate_media_probe"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_platform_neutral",
+      "kind": "python_function",
+      "line": 334,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "validate_platform_neutral"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::write_caption_artifacts",
+      "kind": "python_function",
+      "line": 262,
+      "path": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "symbol": "write_caption_artifacts"
+    },
+    {
       "id": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::FreeformChapterPipeline",
       "kind": "python_class",
       "line": 98,
@@ -113699,6 +115076,20 @@
       "line": 579,
       "path": "video/freeform_chapter_pipeline_v1/pipeline.py",
       "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py::main",
+      "kind": "python_function",
+      "line": 132,
+      "path": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py::run_proof",
+      "kind": "python_function",
+      "line": 38,
+      "path": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
+      "symbol": "run_proof"
     },
     {
       "id": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::main",
@@ -114728,7 +116119,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 57348
+      "size_bytes": 57362
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -115318,7 +116709,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 9331
+      "size_bytes": 9337
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
@@ -115543,7 +116934,7 @@
     {
       "id": "tests/test_daily_app_publication_lifecycle_v1.py",
       "kind": "test",
-      "size_bytes": 21796
+      "size_bytes": 21799
     },
     {
       "id": "tests/test_daily_app_supervisor_v1.py",
@@ -117348,7 +118739,7 @@
     {
       "id": "tests/test_publication_coordinator_v1.py",
       "kind": "test",
-      "size_bytes": 49337
+      "size_bytes": 49511
     },
     {
       "id": "tests/test_publish_adapter_credential_secret_policy.py",
@@ -117528,7 +118919,7 @@
     {
       "id": "tests/test_rolling_x_newsroom_cycle_v1.py",
       "kind": "test",
-      "size_bytes": 59277
+      "size_bytes": 59285
     },
     {
       "id": "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
@@ -118034,6 +119425,16 @@
       "id": "tests/test_v2_freeform_chapter_pipeline_v1.py",
       "kind": "test",
       "size_bytes": 8281
+    },
+    {
+      "id": "tests/test_v2_multiformat_multilingual_package_factory_v1.py",
+      "kind": "test",
+      "size_bytes": 10878
+    },
+    {
+      "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
+      "kind": "test",
+      "size_bytes": 4886
     },
     {
       "id": "tests/test_v6_north_star_authority_consistency.py",
@@ -121377,6 +122778,132 @@
       "symbol": "WriterStudio"
     },
     {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/Root.tsx::RemotionRoot",
+      "kind": "typescript_export",
+      "line": 20,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/Root.tsx",
+      "symbol": "RemotionRoot"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/Short.tsx::FrozenWithoutBreakingShort",
+      "kind": "typescript_export",
+      "line": 636,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/Short.tsx",
+      "symbol": "FrozenWithoutBreakingShort"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/Short.tsx::ShortProps",
+      "kind": "typescript_export",
+      "line": 26,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/Short.tsx",
+      "symbol": "ShortProps"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/generated_caption_timings.ts::localizedCaptionCues",
+      "kind": "typescript_export",
+      "line": 2,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/generated_caption_timings.ts",
+      "symbol": "localizedCaptionCues"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/generated_locale_strings.ts::localizedStringMaps",
+      "kind": "typescript_export",
+      "line": 2,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/generated_locale_strings.ts",
+      "symbol": "localizedStringMaps"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::Locale",
+      "kind": "typescript_export",
+      "line": 2,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "symbol": "Locale"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::StringKey",
+      "kind": "typescript_export",
+      "line": 84,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "symbol": "StringKey"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::StringMap",
+      "kind": "typescript_export",
+      "line": 86,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "symbol": "StringMap"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::en",
+      "kind": "typescript_export",
+      "line": 4,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "symbol": "en"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::localeLayout",
+      "kind": "typescript_export",
+      "line": 93,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "symbol": "localeLayout"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::localeStrings",
+      "kind": "typescript_export",
+      "line": 89,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "symbol": "localeStrings"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/strings.ts::stringsFor",
+      "kind": "typescript_export",
+      "line": 105,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "symbol": "stringsFor"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::CaptionCue",
+      "kind": "typescript_export",
+      "line": 15,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "symbol": "CaptionCue"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::DURATION_IN_FRAMES",
+      "kind": "typescript_export",
+      "line": 5,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "symbol": "DURATION_IN_FRAMES"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::FPS",
+      "kind": "typescript_export",
+      "line": 3,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "symbol": "FPS"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::beats",
+      "kind": "typescript_export",
+      "line": 6,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "symbol": "beats"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::captionCues",
+      "kind": "typescript_export",
+      "line": 22,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "symbol": "captionCues"
+    },
+    {
+      "id": "typescript_export:video/projects/frozen_without_breaking_short_v1/src/timing.ts::captionCuesFor",
+      "kind": "typescript_export",
+      "line": 35,
+      "path": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "symbol": "captionCuesFor"
+    },
+    {
       "id": "typescript_export:video/projects/frozen_without_breaking_v1/src/Film.tsx::Film",
       "kind": "typescript_export",
       "line": 21,
@@ -122244,7 +123771,7 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 8152
+      "size_bytes": 8695
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/__init__.py",
@@ -122257,9 +123784,99 @@
       "size_bytes": 18568
     },
     {
+      "id": "video/freeform_chapter_pipeline_v1/build_demo_packages.py",
+      "kind": "python_module",
+      "size_bytes": 8300
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
+      "kind": "python_module",
+      "size_bytes": 6987
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/fwb_localization_validation.py",
+      "kind": "python_module",
+      "size_bytes": 6374
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/governed_translation.py",
+      "kind": "python_module",
+      "size_bytes": 8421
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/localized_audio.py",
+      "kind": "python_module",
+      "size_bytes": 21545
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/make_english_editorial.py",
+      "kind": "python_module",
+      "size_bytes": 4225
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/materialize_short_locales.py",
+      "kind": "python_module",
+      "size_bytes": 2333
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/package_factory.py",
+      "kind": "python_module",
+      "size_bytes": 20577
+    },
+    {
       "id": "video/freeform_chapter_pipeline_v1/pipeline.py",
       "kind": "python_module",
-      "size_bytes": 26435
+      "size_bytes": 26432
+    },
+    {
+      "id": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
+      "kind": "python_module",
+      "size_bytes": 5998
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/package.json",
+      "kind": "manifest",
+      "size_bytes": 564
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/src/Root.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 871
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/src/Short.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 32458
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/src/generated_caption_timings.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 3504
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/src/generated_locale_strings.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 15713
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/src/index.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 449
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/src/strings.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 5480
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/src/timing.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1393
+    },
+    {
+      "id": "video/projects/frozen_without_breaking_short_v1/tsconfig.json",
+      "kind": "manifest",
+      "size_bytes": 406
     },
     {
       "id": "video/projects/frozen_without_breaking_v1/package.json",
@@ -122405,6 +124022,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "14d596c114a5ef591a7135e77016e913d262878d",
-  "source_tree_digest": "472cf70bc51c02bd65dd19bcf5b0791c12d557db3f481a41d38535b4c1d32cb5"
+  "source_head": "ca7ae53e7a8c6aa7fe05f16d493f0c64ad054ded",
+  "source_tree_digest": "0a61b8d2b7efe698533ded13f558e1833b82a2e8f5e23090e274bea14ae2a53e"
 }

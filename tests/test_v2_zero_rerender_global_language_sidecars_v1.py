@@ -69,13 +69,21 @@ def test_governed_translation_fails_closed_without_silent_number_repair() -> Non
     assert result["silent_repair_performed"] is False
 
 
-def test_tts_and_voice_registries_cover_all_declared_locales_without_claiming_acceptance() -> None:
+def test_tts_and_voice_registries_cover_all_declared_locales_and_lock_english_owner_baseline() -> None:
     locale_registry = json.loads((PIPELINE / "locale_profiles.json").read_text(encoding="utf-8"))
     routes = json.loads((PIPELINE / "tts_routes.json").read_text(encoding="utf-8"))
     voices = json.loads((PIPELINE / "voice_registry.json").read_text(encoding="utf-8"))
     declared = set(locale_registry["locales"])
     assert set(routes["routes"]) == declared
     assert set(voices["entries"]) == declared
+    english = voices["entries"]["en"]
+    assert english["provider"] == "kokoro-onnx"
+    assert english["voice_identity"] == "af_heart"
+    assert english["settings"] == {"speed": 1.06, "lang": "en-us"}
+    assert english["acceptance_status"] == "OWNER_PREFERRED_ACCEPTED_BASELINE"
+    assert english["sample_path"] is None
+    assert english["sample_sha256"] is None
+    assert "am_michael" not in json.dumps(english)
     assert routes["routes"]["vi"][0] == "eleven_flash_v2_5"
     assert routes["routes"]["bn"] == ["eleven_v3"]
     assert voices["entries"]["vi"]["sample_path"] is None

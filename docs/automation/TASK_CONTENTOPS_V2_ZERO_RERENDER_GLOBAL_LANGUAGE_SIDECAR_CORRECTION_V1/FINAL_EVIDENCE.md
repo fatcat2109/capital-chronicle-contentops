@@ -79,15 +79,20 @@ treatment; the real person is never synthesized speaking translated words in the
 
 ## One-time voice registry
 
-Existing 20–30 second proof samples are retained:
+Existing 20–30 second proof samples are retained for the still-review-gated locales:
 
-- `audio/en/voice_sample.wav` — `cb6f9107129416c6355680e6ec6c44ab5723ee2a2c1939571f83c1afe6300785`
 - `audio/es/voice_sample.wav` — `85cf6b1669e93a69085b98c815024099c6c724238cceb2ba529807eb701605ce`
 - `audio/pt-BR/voice_sample.wav` — `cb8b73867dc067d9b686f76b0edf6bd60607d95681b133d2300c55b9de5085ae`
 - `audio/ja/voice_sample.wav` — `174aef4b12ac2cb93bedc41acc9517a4ae7a52dc9030eed8052a854d69055d6e`
 
 Paths are relative to
 `.task-runtime/v2-native-multiformat-multilingual-package-factory-v1/`.
+
+English is locked to the owner-preferred accepted Kokoro baseline `af_heart`, speed `1.06`,
+language `en-us`, as recorded by the accepted owner-polish evidence. The registry leaves its
+sample path and hash null because that authority records accepted narration stems/final media,
+not an immutable standalone `af_heart` voice-sample artifact. The earlier `am_michael` proof
+sample is not English voice-registry authority.
 
 No new core-locale sample was generated because no new provider/stock voice was owner-selected
 or authorized for paid use. Their registry entries remain explicitly pending; no full 14-minute
