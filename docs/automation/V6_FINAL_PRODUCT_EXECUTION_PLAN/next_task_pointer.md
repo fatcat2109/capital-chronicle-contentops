@@ -5,38 +5,70 @@ Status: `CURRENT_DUAL_LANE_EXECUTION_POINTER`
 
 This file is a compact routing pointer. Detailed V1 history remains in task evidence/current status; detailed V2 execution authority is in the V2 retention-native plan set.
 
-## V1 continuous lane
+## V1 current authority-closeout lane
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1`
+`TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1`
 
-Result:
+Closeout result:
 
-`SOAK_ACTIVE_FIRST_GENUINE_OPPORTUNITY_COMPLETED_ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`
+`PASS_V1_FINAL_AUTHORITY_CLOSEOUT_READY_FOR_MASTER_FAST_FORWARD_AND_SINGLE_LIVE_CANARY`
 
-FDA-G is not accepted. `v1.1.0` is not authorized.
+Accepted implementation branch/product baseline:
 
-## V1 current builder lane
+`codex/v1-four-window-closed-loop-current-master-integration-v1` at
+`14d596c114a5ef591a7135e77016e913d262878d`
 
-`TASK_CONTENTOPS_V1_FINAL_PRODUCT_FOUR_WINDOW_NINE_SURFACE_CLOSED_LOOP_COMPLETION_V1`
+This is the accepted four-window / full-nine-surface / closed-loop integration implementation.
 
-Required result:
+Current physical task state is exactly four existing native Desktop `gpt-5.6-sol / XHIGH` tasks,
+all `PAUSED`:
 
-`PASS_V1_FINAL_PRODUCT_FOUR_WINDOW_CLOSED_LOOP_READY_FOR_REAL_QUALITY_PROBATION`
+- `V1 Newsroom — London 1700`;
+- `V1 Newsroom — New York 2100`;
+- `V1 Newsroom — New York 2300`;
+- `V1 Newsroom — New York 0100`.
 
-Current policy is `QUALITY_PROBATION_FOUR_WINDOW_V1`: exactly four native Desktop
-`gpt-5.6-sol / XHIGH` routine tasks at 17:00, 21:00, 23:00 Monday-Friday and 01:00
-Tuesday-Saturday, Asia/Bangkok. Publication minimum is zero and the routine ceiling is four; no
-automatic schedule mutation or scale-up is authorized. Each qualified opportunity drains safe
-prior derivative work, consumes the active bounded policy, uses current durable/news/web/read-only
-CC context, confirms canonical Substack first, then drives one safe attempt for every currently
-READY V1 derivative. Real observations update immutable content/editorial, SEO, destination/package,
-and timing-recommendation policy; timing stays owner locked. Comments are untrusted passive input
-only. Comment replies are deferred and have zero write authority. The abandoned Desktop bridge,
+Do not create, recreate, enable, add a fifth task, start routine probation, or auto-scale. The exact
+next chain is:
+
+`FAST_FORWARD_ACCEPTED_BRANCH_TO_MASTER -> SYNC_CANONICAL_CHECKOUT -> VERIFY_ALL_NINE_READINESS_IDENTITY_AND_UNKNOWN_WRITE_ZERO -> JIM_RUNS_EXACTLY_ONE_FRESH_DESKTOP_GPT_5_6_SOL_XHIGH_MANUAL_GO_CANARY -> JIM_CHATGPT_AUDIT_ACTUAL_NINE_SURFACES -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
+
+The readiness check covers exact Substack plus Telegram, X, Discord, LinkedIn, Facebook Page,
+Instagram Business, Threads, and YouTube Community identities/readiness, pending ambiguous
+reconciliation, and `UNKNOWN_WRITE=0`. The canary acceptance contract requires:
+
+- **Editorial:** a real current unseen or materially updated story; actual fresh native Codex
+  Desktop `gpt-5.6-sol / XHIGH` authorship; a publication-quality article requiring no substantive
+  rewrite; factual, numeric, source, freshness, and rights gates PASS; and purposeful media/charts
+  when justified, while zero media remains valid when genuinely best.
+- **Capital Chronicle:** rediscover the latest complete estate; use exact governed CC information
+  where materially relevant; keep ContentOps read-only; and never treat arbitrary database context
+  as proprietary numeric authority.
+- **Distribution:** all nine surfaces PASS exact readiness/identity before the canonical write;
+  confirm the exact Capital Chronicle Substack public `/p/...`, Telegram, X, Discord, LinkedIn,
+  Facebook Page, Instagram Business, Threads, and YouTube Community objects; persist stable exact
+  public-object identity and strict readback/reconciliation for every destination; finish with
+  `UNKNOWN_WRITE=0` and no unresolved still-current distribution recovery.
+- **Observation:** durably schedule performance-observation windows for the real public objects;
+  unavailable/unsupported metrics remain unavailable, never zero.
+- **Quality:** Jim/ChatGPT independently inspect the actual article, meaningful media/render, and
+  all nine public surfaces. Transport success alone is not quality PASS.
+
+`HOLD_FULL_V1_DISTRIBUTION_NOT_READY` is not canary PASS. `NO_PUBLICATION` is not a pipeline failure,
+but it does not prove the live canary. If no story qualifies, wait for another manual/current
+opportunity rather than lowering gates. `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before the required
+real evidence. Only after PASS may the existing four tasks be enabled; do not recreate them, add a
+fifth, or authorize automatic schedule mutation.
+
+Observation and immutable-policy machinery is implemented, but real effectiveness is unproven.
+SEO stays `HOLD` without search-specific evidence. Search Console is `OPERATOR_SETUP_REQUIRED` and
+is a post-canary setup item, not a publication-canary blocker; do not build it or widen read scopes
+under this task. Public comments remain untrusted passive input only. The response loop is deferred
+with zero write authority; a future exact owner task should prefer an authorized low-cost
+Gemini-class 9Router route for bounded classification/drafting. The abandoned Desktop bridge,
 Codex CLI editorial, App Server, and broker/queue lanes must not be resumed.
 
-Exact next after PASS:
-
-`JIM_CONFIGURES_ONLY_FOUR_NATIVE_CODEX_DESKTOP_XHIGH_TASKS_AND_RUNS_V1_FOUR_WINDOW_REAL_QUALITY_PROBATION_WITH_EVERY_PUBLISHED_ARTICLE_AND_NINE_SURFACE_RESULT_AUDITED`
+## Historical V1 routing — superseded; do not execute
 
 ## V1 latest accepted builder lane
 
@@ -140,13 +172,9 @@ Completed execution result:
 5. a deterministic replay of genuine current newsroom input produced one Golden-ready BLS CPI brief with one writer call, zero mandatory semantic review, a purposeful media attempt, and nine zero-write packages;
 6. no `POLICY_CEREMONY_BLOCK` was observed and no core truth, reader-value, rights, destination-identity, KILL_SWITCH, or UNKNOWN_WRITE gate was weakened.
 
-Next V1 action: keep the genuine calendar-time soak active and observe the first genuine eligible
-editorial opportunity to its truthful terminal result. The exact pre-resume gates passed at
-`df971a0a3a13c4be7e6842139101b5c67530aa1d`; the canonical CAS moved from `KILL_SWITCH` state
-version 4 to `AUTONOMOUS_DEFAULT` state version 5 without Run Now or a new operator trigger. Let the
-natural calendar/material wake execute. Only currently READY existing V1 destinations are eligible;
-a destination-local reauthentication failure excludes that destination without broadening
-authority or blocking the canonical-ready surfaces.
+Historical action record only: the earlier natural-soak/resume route is superseded by the current
+single-canary gate at the top of this file. Do not execute it, wake a scheduled task, or apply its
+former destination-local preflight semantics.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.
 

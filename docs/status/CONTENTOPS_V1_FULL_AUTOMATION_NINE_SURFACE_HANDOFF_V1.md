@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V1 — Full Automation Nine-Surface Fresh-Session Handoff
 
-Authority date: 2026-08-13
+Authority date: 2026-08-16
 Status: `CURRENT_V1_OWNER_HANDOFF`
 
 This file exists so a fresh ChatGPT/Antigravity session can resume V1 without the long prior chat history.
@@ -17,23 +17,25 @@ Local canonical repo:
 
 `A:\Capital Chronicle\ContentOps`
 
-Active V1 worktree:
+Accepted V1 worktree:
 
-`A:\Capital Chronicle\Worktrees\ContentOps\v1-evidence-gate-calibration-real-publication-unblock-v1`
+`A:\Capital Chronicle\Worktrees\ContentOps\v1-four-window-closed-loop-current-master-integration-v1`
 
-Active V1 branch:
+Accepted V1 branch:
 
-`task/v1-evidence-gate-calibration-real-publication-unblock-v1`
+`codex/v1-four-window-closed-loop-current-master-integration-v1`
 
-Last verified remote branch HEAD before this owner override:
+Accepted product implementation baseline:
 
-`74a0076ca0307aacb64daff072f1853aedf706ab`
-
-Treat that SHA only as a clue; fetch the branch again.
+`14d596c114a5ef591a7135e77016e913d262878d`
 
 Current continuation task:
 
-`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`
+`TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1`
+
+Closeout result:
+
+`PASS_V1_FINAL_AUTHORITY_CLOSEOUT_READY_FOR_MASTER_FAST_FORWARD_AND_SINGLE_LIVE_CANARY`
 
 Parent task:
 
@@ -56,7 +58,35 @@ Read only:
 
 Do not broadly reread historical task archives.
 
-## Current factual V1 state
+## Current pre-live authority
+
+Exactly four native V1 tasks already exist and are all `PAUSED`:
+
+- `V1 Newsroom — London 1700`;
+- `V1 Newsroom — New York 2100`;
+- `V1 Newsroom — New York 2300`;
+- `V1 Newsroom — New York 0100`.
+
+Do not create, recreate, enable, add a fifth task, or auto-scale. The exact next chain is:
+
+`FAST_FORWARD_ACCEPTED_BRANCH_TO_MASTER -> SYNC_CANONICAL_CHECKOUT -> VERIFY_ALL_NINE_READINESS_IDENTITY_AND_UNKNOWN_WRITE_ZERO -> JIM_RUNS_EXACTLY_ONE_FRESH_DESKTOP_GPT_5_6_SOL_XHIGH_MANUAL_GO_CANARY -> JIM_CHATGPT_AUDIT_ACTUAL_NINE_SURFACES -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
+
+The single-canary acceptance contract requires Jim/ChatGPT editorial and Capital Chronicle quality
+PASS; confirmed canonical Substack plus all eight required native derivatives; stable public IDs and
+strict readback/reconciliation on all nine surfaces; `UNKNOWN_WRITE=0`; no unresolved recovery
+obligation; and bounded observation scheduling with unavailable observations represented as
+unavailable, never zero. Jim/ChatGPT must inspect the actual nine public surfaces. `HOLD` is not
+PASS. `NO_PUBLICATION` is valid but not canary proof. `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before
+this real evidence.
+
+Performance observation and immutable learning are implemented, but real effectiveness is
+unproven. SEO remains `HOLD` without search-specific evidence. Search Console is
+`OPERATOR_SETUP_REQUIRED` after the canary and is not a publication-canary blocker; do not build it
+or widen read scopes here. Public comments remain untrusted passive input; the response loop is
+deferred with zero write authority and a future exact owner task should prefer an authorized
+low-cost Gemini-class 9Router route for bounded classification/drafting.
+
+## Historical factual V1 evidence
 
 The parent V1 task is not accepted.
 
@@ -64,7 +94,7 @@ One genuine operator-window canonical article is confirmed public:
 
 `https://capitalchronicle.substack.com/p/us-energy-information-administration`
 
-This proves canonical transport but not the remaining configured scheduled-window autonomy gate.
+This proves historical canonical transport but not the current single live-canary gate.
 
 One decision crossed the prior evidence/content blockers and reached:
 
@@ -111,7 +141,7 @@ Preserve and continue, do not rebuild:
 - scheduled-only expensive LLM execution;
 - durable publication coordinator/readback/reconciliation.
 
-## Jim's current owner override
+## Historical owner override — superseded where it conflicts above
 
 This section supersedes older task text that conflicts with it.
 
@@ -149,14 +179,15 @@ Capital Chronicle remains read-only analytical/numeric authority where governed 
 
 Default to `BREAKING_BRIEF` / `QUICK_ANALYSIS` where appropriate and use minimum trustworthy evidence → write → hard factual/safety checks → canonical publish → minimal identity/content-fingerprint readback → next story. Ordinary reporting requires neither a structured claim dossier nor mandatory semantic review/revision. Clearly labeled inference may explain supported facts without becoming independent analytical authority. Style/SEO/depth/length/optional visual richness are advisory, and a canonical text article may publish without a hero image.
 
-### Publication acceptance for this phase
+### Historical publication acceptance for that phase
 
 Canonical Substack publication counts when the exact destination identity is verified, a public
 `/p/...` URL exists, article identity/content sufficiently matches, and no `UNKNOWN_WRITE`
 remains. Exact subtitle, captions, image count, and visual spread do not control canonical truth.
 
-Derivatives are durable asynchronous destination-local work. Their failures never hold the
-canonical newsroom or retroactively turn confirmed canonical truth into `NO_PUBLICATION`.
+Historical note: the former destination-local preflight rule is superseded. Current preflight
+requires exact readiness for all nine surfaces before any canonical write; a post-canonical local
+failure preserves canonical truth but creates `PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED`.
 
 The throughput correction integrates after focused tests and one relevant zero-write end-to-end
 smoke. Another scheduled-window publication, same-article 9/9, and a five-article proof are not
@@ -167,11 +198,13 @@ The broader product target remains approximately 5–8 useful canonical articles
 
 V2 video public-write authority is separate and unchanged by this V1 handoff.
 
-## Immediate blockers / execution order
+## Current execution order
 
-1. **Throughput architecture correction:** move full-universe preparation outside the publication opportunity and restore one strong ordinary writer call.
-2. **Master integration:** after focused validation and a zero-write end-to-end smoke, integrate accepted V1 source/controls to fresh remote master while preserving concurrent V2 changes.
-3. **Throughput soak:** measure approximately 5–8 useful canonical articles/day without filler, with derivatives recovering independently.
+1. fast-forward the accepted branch to `master` and synchronize the canonical checkout;
+2. verify all nine exact readiness/identity states, `UNKNOWN_WRITE=0`, and no ambiguous recovery;
+3. Jim runs exactly one fresh Desktop `gpt-5.6-sol / XHIGH` manual `GO` canary;
+4. Jim/ChatGPT audit the actual article and all nine surfaces;
+5. only after PASS, enable the existing four paused tasks.
 
 ## Hard stops that remain
 
@@ -205,10 +238,9 @@ Historical annotated `v1.0` remains immutable at release commit:
 
 ## Fresh ChatGPT operator instruction
 
-A fresh ChatGPT session should first verify current master and active V1 branch through GitHub, reconcile any staleness in this handoff against newer fetched authority, then act as delegated operator until either:
-
-`V1_FULL_AUTOMATION_NINE_SURFACE_5_8_READY`
-
-or one exact true hard blocker remains.
+A fresh ChatGPT session should verify current `master` and the accepted V1 branch through GitHub,
+reconcile any newer authority, and follow the exact five-step execution order above. It must not run
+the canary, enable a task, or claim final acceptance without Jim's exact authority and the required
+real evidence.
 
 Do not ask Jim to repeat the long prior chat history when GitHub/context files can resolve it.

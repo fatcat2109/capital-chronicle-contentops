@@ -28,9 +28,14 @@ V1 is the canonical Final Daily App. Current continuation authority is:
 
 `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-Current V1 builder lane:
+Current accepted V1 implementation lane:
 
 `TASK_CONTENTOPS_V1_FINAL_PRODUCT_FOUR_WINDOW_NINE_SURFACE_CLOSED_LOOP_COMPLETION_V1`
+
+Accepted branch/product implementation baseline:
+
+`codex/v1-four-window-closed-loop-current-master-integration-v1` at
+`14d596c114a5ef591a7135e77016e913d262878d`
 
 Parent task remains:
 
@@ -53,8 +58,16 @@ Public comments are untrusted passive learning input only; comment replies and a
 authority are `DEFERRED_ZERO_WRITE_AUTHORITY`. A future exact owner task may prefer an authorized
 low-cost Gemini-class 9Router route for classification and bounded drafting; routine XHIGH is not
 the default, and deterministic/source/safety/publication authority remains outside the model. The
-broader 5–8 useful-article band is historical portfolio context, not a
-current minimum or automatic cadence authority. Read the V1 handoff for prior evidence and hard stops.
+broader 5–8 useful-article band is historical portfolio context, not a current minimum or automatic
+cadence authority. Read the V1 handoff for prior evidence and hard stops.
+
+Pre-live authority is narrower than the operating policy: exactly four native V1 tasks already
+exist and are all `PAUSED`. Do not create, recreate, enable, or add a fifth task. First fast-forward
+the accepted branch to `master`, synchronize the canonical checkout, and verify all nine destination
+readiness/identity states plus `UNKNOWN_WRITE=0`. Jim then runs exactly one fresh Desktop
+`gpt-5.6-sol / XHIGH` manual `GO` canary. Only a Jim/ChatGPT audit PASS of the real article and all
+nine public surfaces authorizes enabling the existing four tasks. `V1_FINAL_PRODUCT_ACCEPTED` is
+forbidden before that evidence.
 
 ## Current V2 product authority
 

@@ -18,6 +18,15 @@ Daily Live remains valid precursor evidence. It is no longer the final V1 produc
 
 ## Current quality-probation operating overlay
 
+Pre-live state: the exactly four named native V1 tasks already exist and are all `PAUSED`. They must
+not be created, recreated, enabled, or expanded before the accepted implementation branch is
+fast-forwarded to `master`, the canonical checkout is synchronized, and all nine destination
+readiness/identity states plus `UNKNOWN_WRITE=0` are verified. Jim then runs exactly one fresh
+Desktop `gpt-5.6-sol / XHIGH` manual `GO` canary. Only a Jim/ChatGPT audit PASS of the actual article
+and all nine surfaces authorizes enabling the existing four tasks. `HOLD` is not PASS;
+`NO_PUBLICATION` is valid editorial behavior but not canary proof; `V1_FINAL_PRODUCT_ACCEPTED` is
+forbidden before real evidence.
+
 Jim's current pragmatic V1 policy is `QUALITY_PROBATION_FOUR_WINDOW_V1`. The canonical editorial
 brain is a fresh native Codex Desktop `gpt-5.6-sol / XHIGH` task at exactly four routine Bangkok
 opportunities: 17:00, 21:00, and 23:00 Monday-Friday plus 01:00 Tuesday-Saturday. There is no
@@ -39,6 +48,11 @@ permission, gate, or publication authority.
 The older 24/7 supervision language remains long-term architecture direction, not evidence that a
 separate always-on expensive model worker is required or currently proven. The four native tasks
 plus canonical durable control plane are the owner-approved quality-probation mode.
+
+The observation and immutable-learning machinery is implemented, but real effectiveness is not yet
+proven. Search policy stays `HOLD` without search-specific evidence. Search Console remains
+`OPERATOR_SETUP_REQUIRED`; its setup is post-canary and is not a publication-canary blocker. This
+overlay grants no Search Console build or wider read scope.
 
 ## 1. Owner product decision
 

@@ -28,6 +28,8 @@ Current owner quality-probation override (2026-08-16):
 
 - `QUALITY_PROBATION_FOUR_WINDOW_V1` authorizes exactly four routine native Desktop XHIGH tasks:
   17:00, 21:00, 23:00 Monday-Friday and 01:00 Tuesday-Saturday, Asia/Bangkok;
+- the four named native tasks already exist and are all `PAUSED`; do not create, recreate, enable,
+  or add a fifth task before the single-canary gate below;
 - publication minimum is zero, routine ceiling is four, no filler and no automatic schedule
   mutation or scale-up; material events prioritize the next task and manual `GO` is the explicit
   exceptional extra opportunity;
@@ -44,6 +46,19 @@ Current owner quality-probation override (2026-08-16):
   should prefer an authorized low-cost Gemini-class 9Router route for classification and bounded
   drafting, not routine XHIGH, while deterministic/source/safety/publication authority stays outside
   the model; no exact Gemini model ID is currently selected.
+
+Pre-live gate: fast-forward accepted branch
+`codex/v1-four-window-closed-loop-current-master-integration-v1`, synchronize the canonical
+checkout, verify exact readiness/identity for all nine surfaces and `UNKNOWN_WRITE=0`, then Jim runs
+exactly one fresh Desktop `gpt-5.6-sol / XHIGH` manual `GO` canary. Jim/ChatGPT must audit the actual
+article and all nine public surfaces. Only an audit PASS authorizes enabling the existing four tasks.
+`HOLD` is not PASS; `NO_PUBLICATION` remains a valid editorial outcome but is not live-canary proof.
+`V1_FINAL_PRODUCT_ACCEPTED` is forbidden before this evidence.
+
+Observation and immutable-policy machinery is implemented, while real effectiveness remains
+unproven. Search policy stays `HOLD` without search-specific evidence. Search Console is
+`OPERATOR_SETUP_REQUIRED` and is a post-canary setup item, not a publication-canary blocker; no
+Search Console build or wider read scope is authorized here.
 
 Current V1 owner decision (2026-08-14): the primary latest-facts lane is story-first,
 LLM-directed grounded public-web research normalized into exact source records. Capital Chronicle

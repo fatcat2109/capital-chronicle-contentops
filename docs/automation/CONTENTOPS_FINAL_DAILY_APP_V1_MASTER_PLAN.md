@@ -22,6 +22,15 @@ The goal is not to restart the historical hardening program. The goal is to fini
 
 ## Current execution override — four-window closed loop
 
+Pre-live state: exactly four named native V1 tasks already exist and are all `PAUSED`. Do not create,
+recreate, enable, or add a fifth task. First fast-forward accepted branch
+`codex/v1-four-window-closed-loop-current-master-integration-v1` to `master`, synchronize the
+canonical checkout, and verify exact readiness/identity for all nine surfaces, `UNKNOWN_WRITE=0`,
+and no pending ambiguous reconciliation. Jim then runs exactly one fresh Desktop
+`gpt-5.6-sol / XHIGH` manual `GO` canary. Only a Jim/ChatGPT audit PASS of the actual article and all
+nine surfaces authorizes enabling the existing four tasks. `HOLD` is not PASS; `NO_PUBLICATION` is
+valid but not canary proof; `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before real evidence.
+
 During owner quality probation, exactly four fresh native Codex Desktop `gpt-5.6-sol / XHIGH`
 tasks own routine editorial opportunities at 17:00, 21:00, and 23:00 Monday-Friday plus 01:00
 Tuesday-Saturday, Asia/Bangkok. Current publication minimum is zero and routine ceiling is four.
@@ -137,16 +146,30 @@ Controlled zero-write evidence reports the downstream chain can reach article, s
 
 However the fresh production canary remained evidence-blocked, so the complete real live path is not yet proven.
 
-### 1.5 Known safety/correctness defects still open
+### 1.5 Historical safety/correctness defects — current disposition
 
-Do not hide these behind probation:
+The four earlier OPEN items were audited against current exact code and focused tests. None remains a
+current implementation blocker:
 
-1. the current decision fact card may derive displayed `entities_topics` from editorial framing / X-side context while claiming every field is copied from accepted evidence;
-2. source-backed deterministic renders currently use a blanket `rights_status = capital_chronicle_owned`, which can overstate rights in underlying official source/excerpt content even when Capital Chronicle owns only the render/layout;
-3. the Federal Reserve `official_policy` locator used a press-release index path that returned HTTP 404 during the fresh canary;
-4. real production has not yet produced a fresh evidence-viable arbitrary rolling-X story through the new default article/media builder.
+1. **Resolved.** Decision fact cards read only evidence-document bound entity fields through
+   `rolling_x_grounded_article_media_builder_v1._evidence_bound_entities`; framing/X
+   `entities_topics` is excluded. `test_framing_only_entities_cannot_become_evidence_bound_entities`
+   and `test_fact_card_builds_without_framing_entities` prove the boundary.
+2. **Resolved.** Render ownership is recorded separately from underlying source rights and reuse
+   basis. Excerpts require a permitted underlying-source state; unresolved sources fall back to
+   metadata-only treatment. `test_render_ownership_is_separate_from_underlying_source_rights`,
+   `test_unresolved_underlying_rights_render_metadata_only_not_excerpt`, and the SEC/government
+   cases in `tests/test_rolling_x_grounded_article_media_builder_v1.py` cover the distinction.
+3. **Resolved.** The broken Federal Reserve press-release index was replaced by the official FOMC
+   calendars route. The bounded locator derives eligible official statement links at the evaluation
+   cutoff and fails closed. `test_policy_locator_uses_fed_calendar_route_and_returns_statement_candidate`,
+   `test_policy_locator_never_selects_a_statement_after_the_cutoff`, and
+   `test_policy_locator_returns_no_candidate_when_no_fomc_links` prove the current behavior.
+4. **Superseded.** The former arbitrary rolling-X article/media canary is not current routing. The
+   accepted four-window/full-nine implementation now proceeds only through the single fresh Desktop
+   XHIGH live canary contract at the top of this plan.
 
-These are direct product blockers and belong in the first implementation slice.
+These dispositions do not constitute final product acceptance or real live-canary evidence.
 
 ### 1.6 Scheduling state
 
@@ -236,7 +259,7 @@ Without this, timing/SEO/packaging learning is not trustworthy.
 
 Status:
 
-`CURRENT / REQUIRED BEFORE FINAL APP LIVE ACCEPTANCE`
+`COMPLETED FOUNDATION / HISTORICAL WORK PACKAGE`
 
 This is not broad hardening. It fixes defects discovered in the exact canonical builder/source path.
 
@@ -298,7 +321,7 @@ FDA-A exits when focused controlled tests prove:
 
 Status:
 
-`CURRENT FIRST MAJOR PRODUCT BUILD`
+`COMPLETED FOUNDATION / HISTORICAL WORK PACKAGE`
 
 This is the first user-visible final-app capability.
 
@@ -523,6 +546,11 @@ Where a safe configured integration exists, collect Search Console / first-party
 - subscriber conversion.
 
 If an integration is absent, surface it as an unavailable learning channel rather than blocking all Daily App operation.
+
+Current truth: performance observation and immutable learning machinery are implemented, but real
+effectiveness is not yet proven. SEO policy remains `HOLD` without search-specific evidence. Search
+Console is `OPERATOR_SETUP_REQUIRED`; it is a post-canary setup item, not a blocker for the single
+publication canary. Do not build Search Console or widen read scopes under this closeout.
 
 ## 7. Work Package FDA-E — Bounded closed-loop learning
 
@@ -790,7 +818,7 @@ FDA-A and the first useful portion of FDA-B should be implemented together as th
 
 Do not split them into a long ceremony chain.
 
-## 11. First builder task
+## 11. Historical first builder task — completed; do not execute
 
 Exact task:
 
@@ -798,7 +826,9 @@ Exact task:
 
 ### User problem
 
-ContentOps can execute individual canonical newsroom cycles, but Jim cannot yet start one application and leave it running safely. The latest builder also contains two media provenance defects and a broken Federal Reserve locator route that would make always-on operation repeat known failures.
+Historical problem statement only. The always-on boundary and the two media-provenance/Federal
+Reserve corrections were subsequently implemented and focused-tested; they are not current OPEN
+defects or routing authority.
 
 ### Capability delivered
 
@@ -834,7 +864,7 @@ After: one persistent application can autonomously own due-window execution and 
 
 ### Why now
 
-The newsroom, evidence gates, article/media builder, packages, publication/readback foundation, and durable store already exist. The missing product boundary is orchestration into one always-on application plus correction of known safety defects.
+Historical rationale only. The product boundary and the identified safety corrections now exist.
 
 ### Bounded cost/time
 
@@ -844,11 +874,10 @@ Keep this to one heavy product batch. No broad platform metrics implementation o
 
 Focused tests plus one supervisor end-to-end local smoke and, if safe/current inputs exist, one canonical current canary. No full suite absent concrete changed-path risk.
 
-### Exact next blocker after success
+### Historical next blocker after success
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_REAL_PERFORMANCE_OBSERVATION_AND_LEARNING_LOOP_V1`
-
-unless the first real supervisor run reveals a substantive product blocker.
+Superseded. Current routing is the authority-closeout and single live-canary gate at the top of this
+plan and in `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`.
 
 ## 12. Provider/model policy
 

@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `f2e7fea02565db96095f48df4762f65ca86a987e`
-Source tree digest: `a39cf2640efe86340168b06043fc3a88e1d6d0f2207d286c6c7b82af84891666`
+Source HEAD: `14d596c114a5ef591a7135e77016e913d262878d`
+Source tree digest: `472cf70bc51c02bd65dd19bcf5b0791c12d557db3f481a41d38535b4c1d32cb5`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.2.1`
 
 This generated map is descriptive, not product authority.
@@ -120,9 +120,9 @@ Use the focused test beside each hot-path section. Backend tests are under `test
 
 ## Current V1 closeout
 
-The parent evidence-calibration task completed eight governed decisions with zero confirmed canonical public article. One decision produced Substack draft `210796285`, now exactly reconciled as nonpublic and absent-safe-to-retry; the remaining decisions exhausted only a small evidence-dead shortlist. UNKNOWN_WRITE and pending reconciliation are both zero in the latest committed handoff.
+Accepted implementation: four-window / full-nine-surface / closed-loop branch `codex/v1-four-window-closed-loop-current-master-integration-v1`. Exactly four native Desktop `gpt-5.6-sol / XHIGH` tasks already exist and are all `PAUSED`; do not create, recreate, enable, or add a fifth task.
 
-Active V1 task: `TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`. The current owner override removes artificial sequential-run limits. Acceptance requires at least five genuine canonical articles, each independently strict 9/9 `RECONCILED_CONFIRMED` on Substack, Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community; at least one must originate from a genuine scheduled window. Published-memory feedback and duplicate suppression or material-follow-up behavior must also be proven.
+Current task: `TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1`. First fast-forward the accepted branch, synchronize the canonical checkout, and verify all nine readiness/identity states plus `UNKNOWN_WRITE=0`. Jim then runs exactly one fresh Desktop XHIGH manual `GO` canary. Only a Jim/ChatGPT audit PASS of the actual article and all nine public surfaces enables the existing four tasks. `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before real evidence.
 
 ## Tier2 separation
 

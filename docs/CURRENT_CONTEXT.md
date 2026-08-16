@@ -9,9 +9,27 @@ Authority date: 2026-08-16
 
 ### V1 — Final Daily App / Four-Window Nine-Surface Closed Loop
 
-Current owner-authorized builder lane:
+Current accepted implementation branch/product baseline:
 
-`TASK_CONTENTOPS_V1_FINAL_PRODUCT_FOUR_WINDOW_NINE_SURFACE_CLOSED_LOOP_COMPLETION_V1`
+`codex/v1-four-window-closed-loop-current-master-integration-v1` at
+`14d596c114a5ef591a7135e77016e913d262878d`
+
+Current authority-closeout task:
+
+`TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1`
+
+Exactly four native V1 tasks already exist and are all `PAUSED`:
+
+- `V1 Newsroom — London 1700`;
+- `V1 Newsroom — New York 2100`;
+- `V1 Newsroom — New York 2300`;
+- `V1 Newsroom — New York 0100`.
+
+Do not create, recreate, enable, or add a fifth task. The exact next chain is:
+
+`FAST_FORWARD_ACCEPTED_BRANCH_TO_MASTER -> SYNC_CANONICAL_CHECKOUT -> VERIFY_ALL_NINE_READINESS_IDENTITY_AND_UNKNOWN_WRITE_ZERO -> JIM_RUNS_EXACTLY_ONE_FRESH_DESKTOP_GPT_5_6_SOL_XHIGH_MANUAL_GO_CANARY -> JIM_CHATGPT_AUDIT_ACTUAL_NINE_SURFACES -> ONLY_AFTER_PASS_ENABLE_THE_EXISTING_FOUR_TASKS`
+
+`V1_FINAL_PRODUCT_ACCEPTED` is forbidden until the real canary evidence passes.
 
 Current operating policy: `QUALITY_PROBATION_FOUR_WINDOW_V1` under
 `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`.
@@ -41,6 +59,11 @@ comment-write implementation or authority. A future exact owner task may authori
 Gemini-class model through 9Router for comment-value classification and bounded reply drafting;
 routine XHIGH is not the default, no exact model ID is selected, and deterministic/source/safety/
 publication authority remains outside the model.
+
+The observation and immutable-learning machinery is implemented, but real effectiveness is not yet
+proven. Search-specific policy remains `HOLD` without search-specific evidence. Search Console is
+currently `OPERATOR_SETUP_REQUIRED`; setup is a post-canary operating item, not a blocker for the
+single publication canary. This closeout does not build Search Console or widen read scopes.
 
 Jim's 2026-08-16 owner realignment abandons the Codex Desktop external bridge/UI-automation,
 Codex CLI editorial execution, App Server, and broker/queue lanes. During active newsroom hours,

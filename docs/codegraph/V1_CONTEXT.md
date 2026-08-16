@@ -34,51 +34,25 @@ weaken evidence or create filler.
 
 ## Current production status
 
-- FDA-G: `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`; not accepted, no `v1.1.0`.
-- Current remote master was merged normally into the V1 closeout branch; V1 code/tests and the
-  concurrent V2 GPT-5.6 authority documents are both preserved. The generated `INDEX.md` and
-  `graph.json` record the exact source commit/tree they describe.
-- The parent evidence-calibration task completed eight governed decisions with zero confirmed
-  canonical public article. One decision reached article/review/package and created draft ID
-  `210796285`; exact strict readback proves that draft remains nonpublic and the public write is
-  absent-safe-to-retry. The other decisions exhausted only the supplied 12-row evidence-dead
-  shortlist, not the compact 64-headline universe.
-- Latest durable handoff truth is `UNKNOWN_WRITE=0`, pending reconciliation `0`, and committed
-  canonical published-corpus count `0`.
+- Accepted implementation branch/product baseline:
+  `codex/v1-four-window-closed-loop-current-master-integration-v1` at
+  `14d596c114a5ef591a7135e77016e913d262878d`.
+- Exactly four named native V1 tasks already exist and are all `PAUSED`; do not create, recreate,
+  enable, or add a fifth task.
+- Pre-live chain: fast-forward accepted branch to `master`; synchronize the canonical checkout;
+  verify readiness/identity for all nine surfaces, `UNKNOWN_WRITE=0`, and no pending ambiguous
+  reconciliation; then Jim runs exactly one fresh Desktop `gpt-5.6-sol / XHIGH` manual `GO` canary.
+- Jim/ChatGPT must audit the actual editorial product and all nine public surfaces. Only PASS enables
+  the existing four tasks. `HOLD` is not PASS; `NO_PUBLICATION` is valid but not canary proof.
+- `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden before that real evidence.
 
-Continuation update on the current task branch:
-
-- calibrated minimum/optional evidence and claim-level support crossed evidence with Decision 5;
-- exact offline replay reproduced `ValueError: rolling_x_article_revision_made_no_change`;
-- the source-desk-label/SEO metadata mismatch is fixed at the deterministic brief seam;
-- the replay now reaches article, deterministic review PASS, and shadow package with zero write;
-- one-click STOP/explicit RESUME, a persistent pre-network LLM operator fuse, scheduled-only LLM
-  execution, and the owner-authorized 6-call/12-attempt/250k-cycle/2m-day circuit breakers are
-  locally validated;
-- Jim's current throughput override removes same-article 9/9, five-article acceptance, another
-  scheduled-window proof, and mandatory ordinary semantic review as integration gates. The
-  publication opportunity consumes a small prepared candidate set and ordinary reporting uses one
-  strong writer call followed by deterministic hard checks. Real 5–8 useful-article throughput is
-  measured after integration.
-
-These are committed evidence facts, not a claim about live state after the evidence capture.
-Source: `docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/`.
-
-## Current known blocker
-
-`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1` continues the unaccepted
-parent evidence-calibration task. The one-click STOP/resume controls, canonical LLM pause fuse,
-scheduled-only expensive execution, durable cost governor, and prior evidence-gate fixes remain
-present. The immediate defects are the Substack draft-to-public transition/readback seam and the
-12-row assignment bottleneck that prevents the existing same-cycle rank walker from reaching
-later compact candidates.
-
-The current closeout must preserve the existing `DurablePublicationCoordinator`, unknown-write
-stop/readback/reconcile doctrine, exact destination identities, canonical browser roles, and
-source/claim/review gates. It may autonomously repair these reversible defects and continue safe
-bounded cycles without routine approval. Integrate to master after focused validation and one
-relevant zero-write end-to-end smoke. Durable parent status:
-`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1_STATUS.md`.
+The earlier draft-transition/assignment blockers and the former arbitrary rolling-X canary route are
+historical, not current routing. The active implementation uses full nine-surface preflight, exact
+destination identity/readback, canonical Substack truth, bounded derivative recovery, observation
+scheduling, and immutable learning. Learning effectiveness is still unproven; SEO remains `HOLD`
+without search-specific evidence, and Search Console is `OPERATOR_SETUP_REQUIRED` after the canary.
+The canonical `DurablePublicationCoordinator`, browser roles, Capital Chronicle read-only authority,
+and `STOP RETRY -> READ BACK -> RECONCILE` doctrine remain unchanged.
 
 ## Decision and data flow
 

@@ -105,12 +105,12 @@ def test_generated_index_routes_v1_hot_paths_and_separates_v2(graph):
         "Regeneration and check",
     ):
         assert f"## {heading}" in generated
-    assert "Substack draft `210796285`" in generated
-    assert "small evidence-dead shortlist" in generated
-    assert "removes artificial sequential-run limits" in generated
-    assert "at least five genuine canonical articles" in generated
-    assert "each independently strict 9/9" in generated
-    assert "TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1" in generated
+    assert "Exactly four native" in generated
+    assert "all `PAUSED`" in generated
+    assert "exactly one fresh Desktop XHIGH manual `GO` canary" in generated
+    assert "all nine public surfaces enables the existing four tasks" in generated
+    assert "`V1_FINAL_PRODUCT_ACCEPTED` is forbidden" in generated
+    assert "TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1" in generated
 
 
 def test_generated_v2_context_routes_direct_image_and_retention_native_authority(graph):
