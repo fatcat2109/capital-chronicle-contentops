@@ -14,11 +14,18 @@ For V2/video work, read first:
 
 Current next task:
 
-`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
+`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
 
 Required result:
 
-`PASS_IMPLEMENTATION_PACKAGES_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_READY_FOR_MERGE_AUDIT`
+
+For recurring localization, render picture once per editorial format. Language work is governed
+translation, audio, timed captions, metadata and manifests. Locale-specific Remotion source,
+picture renders and XHIGH localization sessions are forbidden by default. Burned captions are
+optional-only under later exact authority. Global-picture authors should avoid making essential
+comprehension depend solely on long language-specific prose embedded in frame; this is guidance,
+not a typography quota or deterministic creative gate.
 
 ## Exact model split
 

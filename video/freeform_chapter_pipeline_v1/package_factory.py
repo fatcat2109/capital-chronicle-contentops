@@ -371,15 +371,28 @@ def build_publication_package(spec: Mapping[str, Any]) -> dict[str, Any]:
     if not str(metadata.get("title", "")).strip() or not str(metadata.get("description", "")).strip():
         raise PackageFactoryError("Localized title and description are required")
 
+    delivery_policy = dict(spec.get("delivery_policy", {}))
+    if delivery_policy != {
+        "picture_render_scope": "ONCE_PER_EDITORIAL_FORMAT",
+        "locale_picture_render_default": False,
+        "burned_captions": "OPTIONAL_ONLY_EXACT_AUTHORITY_REQUIRED",
+        "recurring_locale_creative_xhigh": False,
+    }:
+        raise PackageFactoryError("AUDIO_SIDECAR_FIRST zero-rerender delivery policy is required")
+    if spec.get("burned_caption_video") is not None and not spec.get(
+        "burned_caption_exact_authority"
+    ):
+        raise PackageFactoryError("Burned captions are OPTIONAL_ONLY and require exact authority")
+
     artifacts = {
-        "clean_video": _artifact(spec.get("clean_video")),
+        "canonical_picture": _artifact(spec.get("canonical_picture")),
         "burned_caption_video": _artifact(spec.get("burned_caption_video")),
         "audio": _artifact(spec.get("audio")),
         "caption_json": _artifact(spec.get("caption_json")),
         "caption_srt": _artifact(spec.get("caption_srt")),
         "caption_vtt": _artifact(spec.get("caption_vtt")),
     }
-    for required in ("clean_video", "audio", "caption_json", "caption_srt", "caption_vtt"):
+    for required in ("canonical_picture", "audio", "caption_json", "caption_srt", "caption_vtt"):
         if artifacts[required] is None:
             raise PackageFactoryError(f"Required package artifact is missing: {required}")
 
@@ -400,6 +413,7 @@ def build_publication_package(spec: Mapping[str, Any]) -> dict[str, Any]:
         "rights_provenance_refs": rights,
         "factual_evidence_refs": evidence,
         "intended_future_surfaces": list(spec.get("intended_future_surfaces", [])),
+        "delivery_policy": delivery_policy,
         "generation_version": str(spec.get("generation_version", "v1")),
         "hard_boundaries": dict(spec["hard_boundaries"]),
     }
@@ -412,7 +426,7 @@ def build_publication_package(spec: Mapping[str, Any]) -> dict[str, Any]:
             or datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         ),
         "transport": None,
-        "publication_state": "PACKAGE_ONLY_ZERO_PUBLIC_WRITE",
+        "publication_state": "AUDIO_SIDECAR_FIRST_PACKAGE_ONLY_ZERO_PUBLIC_WRITE",
     }
 
 
@@ -429,8 +443,14 @@ def load_locale_registry(path: Path) -> dict[str, Any]:
             "DEMONSTRATION_REQUIRED",
             "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED",
             "VOICE_BACKEND_NOT_ACCEPTED",
+            "CAPABILITY_DECLARED_VOICE_PENDING",
         }:
             raise PackageFactoryError(f"Invalid support status for {tag}")
+        if profile.get("profile") not in registry.get("profiles", {}):
+            raise PackageFactoryError(f"Locale profile class is missing or invalid: {tag}")
+    declared = {tag for tags in registry.get("profiles", {}).values() for tag in tags}
+    if declared != set(locales):
+        raise PackageFactoryError("Locale profile membership must exactly match locale entries")
     return registry
 
 

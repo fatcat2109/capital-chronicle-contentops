@@ -1,0 +1,21 @@
+{
+  "schema": "contentops.v2.tts_route_registry.v1",
+  "research_date": "2026-08-16",
+  "official_elevenlabs_reference": "https://elevenlabs.io/docs/overview/models",
+  "routing_rule": "Use the cheapest owner-accepted route. Registry order is preference, not acceptance.",
+  "model_facts": {
+    "eleven_multilingual_v2": "29 languages; stable longform; 10000 character request limit",
+    "eleven_flash_v2_5": "32 languages including Vietnamese; lower-cost; 40000 character request limit; normalize governed numbers before synthesis",
+    "eleven_v3": "70+ languages; 5000 character request limit; use only for coverage or material quality advantage"
+  },
+  "routes": {
+    "en": ["kokoro_local", "eleven_multilingual_v2"], "es": ["kokoro_local", "eleven_multilingual_v2"], "pt-BR": ["kokoro_local", "eleven_multilingual_v2"],
+    "zh-Hans": ["kokoro_local_candidate", "eleven_multilingual_v2"], "hi": ["kokoro_local_candidate", "eleven_multilingual_v2"], "id": ["eleven_multilingual_v2"],
+    "ar": ["eleven_multilingual_v2"], "vi": ["eleven_flash_v2_5", "eleven_v3_quality_escalation"], "ja": ["kokoro_local", "eleven_multilingual_v2"],
+    "ko": ["eleven_multilingual_v2"], "fr": ["kokoro_local_candidate", "eleven_multilingual_v2"], "de": ["eleven_multilingual_v2"],
+    "zh-Hant": ["share_zh_Hans_mandarin_when_appropriate", "eleven_multilingual_v2"], "bn": ["eleven_v3"], "ta": ["eleven_multilingual_v2"],
+    "te": ["eleven_v3"], "mr": ["eleven_v3"], "ur": ["eleven_v3"], "fil": ["eleven_multilingual_v2"], "tr": ["eleven_multilingual_v2"],
+    "ru": ["eleven_multilingual_v2"], "th": ["eleven_v3"], "it": ["eleven_multilingual_v2"]
+  },
+  "voice_safety": {"real_person_voice_cloning": false, "authority_speech": "AUTHENTIC_SOURCE_OR_DISTINCT_INTERPRETER_TREATMENT_ONLY"}
+}

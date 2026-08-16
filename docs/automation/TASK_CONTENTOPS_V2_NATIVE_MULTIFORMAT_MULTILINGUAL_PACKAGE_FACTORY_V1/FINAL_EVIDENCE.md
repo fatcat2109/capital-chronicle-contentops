@@ -2,6 +2,11 @@
 
 Authority date: 2026-08-16
 
+> **Superseded production-cost note:** The ES/pt-BR/JA burned-caption renders below remain
+> historical proof only. `TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+> makes one clean picture per editorial format plus audio/caption/metadata sidecars canonical.
+> Locale-specific picture rendering and burned captions are no longer production defaults.
+
 ## Result
 
 `PASS_IMPLEMENTATION_PACKAGES_READY_FOR_JIM_CHATGPT_REVIEW`

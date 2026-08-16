@@ -39,7 +39,7 @@ def _package_spec(tmp_path: Path, *, language: str = "es") -> dict[str, object]:
         "source_film_id": "frozen_without_breaking_owner_polish_v1",
         "format": "LONGFORM_16_9",
         "language": language,
-        "clean_video": str(picture),
+        "canonical_picture": str(picture),
         "burned_caption_video": None,
         "audio": str(audio),
         "caption_json": str(captions),
@@ -55,6 +55,12 @@ def _package_spec(tmp_path: Path, *, language: str = "es") -> dict[str, object]:
         "intended_future_surfaces": ["YOUTUBE_NORMAL_VIDEO"],
         "generation_version": "v1",
         "generation_timestamp_utc": "2026-08-16T00:00:00Z",
+        "delivery_policy": {
+            "picture_render_scope": "ONCE_PER_EDITORIAL_FORMAT",
+            "locale_picture_render_default": False,
+            "burned_captions": "OPTIONAL_ONLY_EXACT_AUTHORITY_REQUIRED",
+            "recurring_locale_creative_xhigh": False,
+        },
         "hard_boundaries": {
             "video_public_write_authority": False,
             "v1_mutation_authority": False,
@@ -67,10 +73,16 @@ def _package_spec(tmp_path: Path, *, language: str = "es") -> dict[str, object]:
 def test_locale_registry_is_configurable_and_does_not_claim_unproven_support() -> None:
     registry = load_locale_registry(LOCALES)
 
-    assert set(registry["locales"]) == {"en", "es", "pt-BR", "ja"}
+    assert set(registry["profiles"]["CORE_ALWAYS_ON"]) == {
+        "en", "es", "pt-BR", "zh-Hans", "hi", "id", "ar", "vi", "ja", "ko", "fr", "de"
+    }
+    assert set(registry["profiles"]["EXPANSION_CONFIGURED"]) == {
+        "zh-Hant", "bn", "ta", "te", "mr", "ur", "fil", "tr", "ru", "th", "it"
+    }
     assert registry["locales"]["en"]["support_status"] == "CANONICAL_EXISTING"
     assert all(
-        registry["locales"][tag]["support_status"] == "DEMONSTRATION_REQUIRED"
+        registry["locales"][tag]["support_status"]
+        == "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED"
         for tag in ("es", "pt-BR", "ja")
     )
     assert "configuration_rule" in registry
@@ -172,7 +184,7 @@ def test_package_id_is_content_addressed_and_language_specific(tmp_path: Path) -
     assert spanish["package_id"].startswith("pkg_")
     assert spanish["package_id"] != portuguese["package_id"]
     assert spanish["transport"] is None
-    assert spanish["publication_state"] == "PACKAGE_ONLY_ZERO_PUBLIC_WRITE"
+    assert spanish["publication_state"] == "AUDIO_SIDECAR_FIRST_PACKAGE_ONLY_ZERO_PUBLIC_WRITE"
 
 
 def test_language_audio_reuses_unchanged_picture_identity(tmp_path: Path) -> None:
@@ -193,20 +205,23 @@ def test_language_audio_reuses_unchanged_picture_identity(tmp_path: Path) -> Non
     es = build_publication_package(es_spec)
     pt = build_publication_package(pt_spec)
 
-    assert es["artifacts"]["clean_video"]["sha256"] == pt["artifacts"]["clean_video"]["sha256"]
+    assert es["artifacts"]["canonical_picture"]["sha256"] == pt["artifacts"]["canonical_picture"]["sha256"]
     assert es["artifacts"]["audio"]["sha256"] != pt["artifacts"]["audio"]["sha256"]
 
 
-def test_clean_and_burned_short_variants_are_distinct(tmp_path: Path) -> None:
+def test_burned_short_is_optional_only_and_requires_exact_authority(tmp_path: Path) -> None:
     spec = _package_spec(tmp_path, language="ja")
     spec["format"] = "SHORT_9_16"
     spec["intended_future_surfaces"] = ["YOUTUBE_SHORTS", "TIKTOK", "INSTAGRAM_REELS"]
     spec["burned_caption_video"] = str(
         _artifact(tmp_path, "burned.mp4", b"viewer-facing captions")
     )
-    package = build_publication_package(spec)
+    with pytest.raises(PackageFactoryError, match="OPTIONAL_ONLY"):
+        build_publication_package(spec)
 
-    assert package["artifacts"]["clean_video"]["sha256"] != package["artifacts"]["burned_caption_video"]["sha256"]
+    spec["burned_caption_exact_authority"] = "future-exact-task-id"
+    package = build_publication_package(spec)
+    assert package["artifacts"]["canonical_picture"]["sha256"] != package["artifacts"]["burned_caption_video"]["sha256"]
 
 
 def test_native_media_contracts_and_no_4k() -> None:

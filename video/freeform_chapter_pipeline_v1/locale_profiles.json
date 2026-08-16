@@ -1,42 +1,40 @@
 {
-  "schema": "contentops.v2.locale_registry.v1",
-  "configuration_rule": "Additional locales require an explicit profile and verified backend proof; no code redesign is required.",
+  "schema": "contentops.v2.global_locale_registry.v2",
+  "configuration_rule": "Locales are capability declarations. New locales extend registry data and governed semantic forms; they never create locale-specific picture source or a default picture render.",
+  "production_policy": {
+    "picture_render_once_per_editorial_format": true,
+    "locale_picture_render_default": false,
+    "burned_captions": "OPTIONAL_ONLY_EXACT_AUTHORITY_REQUIRED",
+    "recurring_locale_creative_xhigh": false,
+    "translation_authority": "GOVERNED_SEMANTIC_SEGMENTS_PLUS_DETERMINISTIC_ANCHORS"
+  },
+  "profiles": {
+    "CORE_ALWAYS_ON": ["en", "es", "pt-BR", "zh-Hans", "hi", "id", "ar", "vi", "ja", "ko", "fr", "de"],
+    "EXPANSION_CONFIGURED": ["zh-Hant", "bn", "ta", "te", "mr", "ur", "fil", "tr", "ru", "th", "it"]
+  },
   "locales": {
-    "en": {
-      "tag": "en",
-      "label": "English",
-      "script": "Latin",
-      "direction": "ltr",
-      "support_status": "CANONICAL_EXISTING",
-      "tts_backend": "kokoro-onnx",
-      "voice_acceptance": "ACCEPTED_BASELINE_ONLY"
-    },
-    "es": {
-      "tag": "es",
-      "label": "Spanish",
-      "script": "Latin",
-      "direction": "ltr",
-      "support_status": "DEMONSTRATION_REQUIRED",
-      "tts_backend": null,
-      "voice_acceptance": "OWNER_REVIEW_REQUIRED"
-    },
-    "pt-BR": {
-      "tag": "pt-BR",
-      "label": "Portuguese (Brazil)",
-      "script": "Latin",
-      "direction": "ltr",
-      "support_status": "DEMONSTRATION_REQUIRED",
-      "tts_backend": null,
-      "voice_acceptance": "OWNER_REVIEW_REQUIRED"
-    },
-    "ja": {
-      "tag": "ja",
-      "label": "Japanese",
-      "script": "Jpan",
-      "direction": "ltr",
-      "support_status": "DEMONSTRATION_REQUIRED",
-      "tts_backend": null,
-      "voice_acceptance": "OWNER_REVIEW_REQUIRED"
-    }
+    "en": {"tag": "en", "label": "English", "script": "Latin", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "CANONICAL_EXISTING"},
+    "es": {"tag": "es", "label": "Spanish", "script": "Latin", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED"},
+    "pt-BR": {"tag": "pt-BR", "label": "Portuguese (Brazil)", "script": "Latin", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED"},
+    "zh-Hans": {"tag": "zh-Hans", "label": "Chinese (Simplified)", "script": "Hans", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "hi": {"tag": "hi", "label": "Hindi", "script": "Deva", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "id": {"tag": "id", "label": "Indonesian", "script": "Latin", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "ar": {"tag": "ar", "label": "Arabic", "script": "Arab", "direction": "rtl", "profile": "CORE_ALWAYS_ON", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "vi": {"tag": "vi", "label": "Vietnamese", "script": "Latin", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "ja": {"tag": "ja", "label": "Japanese", "script": "Jpan", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED"},
+    "ko": {"tag": "ko", "label": "Korean", "script": "Kore", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "fr": {"tag": "fr", "label": "French", "script": "Latin", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "de": {"tag": "de", "label": "German", "script": "Latin", "direction": "ltr", "profile": "CORE_ALWAYS_ON", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "zh-Hant": {"tag": "zh-Hant", "label": "Chinese (Traditional)", "script": "Hant", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING", "audio_share_candidate": "zh-Hans", "audio_share_rule": "MANDARIN_ONLY_WHEN_LINGUISTICALLY_APPROPRIATE; SCRIPT_METADATA_REMAIN_SEPARATE"},
+    "bn": {"tag": "bn", "label": "Bengali", "script": "Beng", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "ta": {"tag": "ta", "label": "Tamil", "script": "Taml", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "te": {"tag": "te", "label": "Telugu", "script": "Telu", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "mr": {"tag": "mr", "label": "Marathi", "script": "Deva", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "ur": {"tag": "ur", "label": "Urdu", "script": "Arab", "direction": "rtl", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "fil": {"tag": "fil", "label": "Filipino", "script": "Latin", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "tr": {"tag": "tr", "label": "Turkish", "script": "Latin", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "ru": {"tag": "ru", "label": "Russian", "script": "Cyrl", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "th": {"tag": "th", "label": "Thai", "script": "Thai", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"},
+    "it": {"tag": "it", "label": "Italian", "script": "Latin", "direction": "ltr", "profile": "EXPANSION_CONFIGURED", "support_status": "CAPABILITY_DECLARED_VOICE_PENDING"}
   }
 }

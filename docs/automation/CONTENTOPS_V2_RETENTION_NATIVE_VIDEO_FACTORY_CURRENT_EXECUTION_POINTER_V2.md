@@ -11,11 +11,11 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
+`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> native multiformat/multilingual packages [CURRENT] -> official publication adapters [NEXT AFTER ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [CURRENT] -> official publication adapters [NEXT AFTER MERGE/ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
 
 Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
 short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
@@ -91,15 +91,14 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Exact next task
 
-`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
+`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction.
-
-The accepted *Frozen Without Breaking* picture is the governed longform proof input and must
-not be aesthetically rebuilt. The task must produce a separately authored native 9:16 Short,
-English/Spanish/Portuguese-BR/Japanese localization packages, actual multilingual owner-review
-media, and content-addressed platform-neutral manifests. Infrastructure-only completion is not
-PASS. Official publication adapters are the next task only after owner acceptance.
+This is the only active V2 product task unless Jim explicitly changes direction. The previously
+accepted longform and Short pictures must not be rerendered. Canonical language delivery is one
+clean picture per format plus localized audio, timed caption, metadata and package sidecars.
+Locale-specific muxes may use FFmpeg stream copy where a later authorized platform requires a
+separate file. No locale-specific picture render or recurring XHIGH localization lane is allowed
+by default. Official publication adapters remain next after merge/acceptance.
 
 Canonical proof flow:
 

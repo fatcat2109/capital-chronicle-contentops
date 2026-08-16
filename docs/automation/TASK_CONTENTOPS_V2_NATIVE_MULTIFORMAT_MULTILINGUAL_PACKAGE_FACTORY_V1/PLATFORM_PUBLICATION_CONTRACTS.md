@@ -30,7 +30,7 @@ Classification vocabulary:
 |---|---|---|---|---|---|
 | YouTube normal video | `API_CONFIRMED`: title, description, tags, category, default language, privacy, publish time, made-for-kids, synthetic-media flag. | `API_CONFIRMED`: `captions.insert` uploads a language-tagged track; `captions.list/download` support readback. Auto-sync API parameter is deprecated, so send timed files. | `PRODUCT_UI_ONLY_OR_ACCOUNT_GATED`: Studio supports creator-supplied multilingual audio for eligible creators. `NOT_EXPOSED_BY_VERIFIED_API`: no public Data API alternate-audio upload method was found. | `API_CONFIRMED`: `localizations` supports BCP-47 keyed title/description. | `API_CONFIRMED`: `videos.list` exposes upload/processing/privacy status and failure/rejection reasons. |
 | YouTube Shorts | Same API metadata/caption/localization model as video upload. | `API_CONFIRMED` through the video caption resource. | Same classification as normal video: Studio feature exists and is eligibility-gated; no verified public API uploader. | `API_CONFIRMED` through video `localizations`. | `API_CONFIRMED` through video resource/status; verify eventual Shorts classification during readback. |
-| TikTok | `API_CONFIRMED`: one post `title`/caption with hashtags/mentions, privacy and interaction settings, cover timestamp. | `NOT_EXPOSED_BY_VERIFIED_API`: no sidecar timed-caption upload field was found in Direct Post/Upload. Use burned captions where editorially approved. | `NOT_EXPOSED_BY_VERIFIED_API`. | `NOT_EXPOSED_BY_VERIFIED_API`: one caption/title is sent per post. | `API_CONFIRMED`: publish-status endpoint returns state such as `PUBLISH_COMPLETE` and failure reason; Display API video object can expose ID, URL, title/description, dimensions, duration, and metrics with the appropriate scopes. |
+| TikTok | `API_CONFIRMED`: one post `title`/caption with hashtags/mentions, privacy and interaction settings, cover timestamp. | `NOT_EXPOSED_BY_VERIFIED_API`: no sidecar timed-caption upload field was found in Direct Post/Upload. Keep SRT/VTT available for native/manual workflows; burned captions remain optional-only under later exact authority. | `NOT_EXPOSED_BY_VERIFIED_API`. | `NOT_EXPOSED_BY_VERIFIED_API`: one caption/title is sent per post. | `API_CONFIRMED`: publish-status endpoint returns state such as `PUBLISH_COMPLETE` and failure reason; Display API video object can expose ID, URL, title/description, dimensions, duration, and metrics with the appropriate scopes. |
 | Instagram Reels | `API_CONFIRMED`: one `caption`; options include feed sharing, cover/thumbnail-related fields where supported by the chosen login/API variant. | `NOT_EXPOSED_BY_VERIFIED_API`: no sidecar timed-caption parameter was found in the reviewed container contract. | `NOT_EXPOSED_BY_VERIFIED_API`. | `NOT_EXPOSED_BY_VERIFIED_API`: no locale-keyed metadata contract was found. Publish separate localized packages only if later product policy authorizes separate posts. | `API_CONFIRMED`: container `status_code/status` can be polled; published media ID is returned and `media_product_type` distinguishes a Reel. |
 | Instagram Story | The reviewed API container uses media only; no ordinary post caption field was verified for Stories. | `NOT_EXPOSED_BY_VERIFIED_API`; use the approved burned-caption derivative when captions are required. | `NOT_EXPOSED_BY_VERIFIED_API`. | `NOT_EXPOSED_BY_VERIFIED_API`. | `API_CONFIRMED`: container status and returned published media ID; exact post-publication Story readback fields remain `UNRESOLVED` for the next adapter. |
 | Facebook Reels | `API_CONFIRMED`: finish phase supports optional title and description plus `video_state`. | `NOT_EXPOSED_BY_VERIFIED_API` in the reviewed Reels flow. | `NOT_EXPOSED_BY_VERIFIED_API`. | `NOT_EXPOSED_BY_VERIFIED_API`. | `API_CONFIRMED`: the flow exposes a `video_id` and upload/status/publish phases; exact fields and reconciliation semantics must be rebound to the current Graph version during adapter implementation. |
@@ -40,14 +40,17 @@ Classification vocabulary:
 1. One native 1080x1920/30 fps <=60-second master is compatible with the verified core media
    envelope for YouTube Shorts, TikTok, Instagram Reels, Instagram Story, and Facebook Reels.
    No creatively different surface video is justified by current contracts.
-2. Keep clean video, burned-caption video, SRT, VTT, localized audio, and localized metadata as
-   separate first-class artifacts. YouTube can consume sidecars/localizations; the other
-   reviewed APIs may require burned captions or one localized post/package per language.
+2. Render one clean picture per editorial format. Keep localized audio, SRT, VTT, internal timed
+   JSON and localized metadata as sidecars. Burned-caption media is not a canonical requirement;
+   it is optional-only under later exact authority.
 3. Keep language audio independent from picture. YouTube's product supports alternate audio,
    but its verified public API does not expose upload in the reviewed contract. Future adapters
    must not invent that capability.
 4. TikTok duration must be checked against current creator-info before upload. Instagram Story
    API duration and exact post-readback remain an explicit re-verification item.
+5. For TikTok, Instagram, or Facebook separate-language posts, reuse the same canonical H.264
+   picture and make only a cheap `-c:v copy` audio mux. Do not rerender or re-encode video merely
+   because audio changed.
 
 ## Official references
 

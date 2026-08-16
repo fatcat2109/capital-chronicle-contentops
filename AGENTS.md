@@ -135,18 +135,19 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
+`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. The accepted
-free-form chapterized *Frozen Without Breaking* substrate is the governed proof input. The task
-must extend it with a native 9:16 Short, configurable multilingual audio/captions/metadata, and
-immutable platform-neutral publication packages with actual owner-review media.
+This is the only active V2 product task unless Jim explicitly changes direction. It corrects the
+accepted multilingual package factory before merge. Canonical production is
+`AUDIO_SIDECAR_FIRST / PICTURE_RENDER_ONCE / NO_LOCALE_PICTURE_RENDER_BY_DEFAULT /
+NO_XHIGH_PER_LOCALE / GLOBAL_LANGUAGE_REACH / BURNED_CAPTION_OPTIONAL_ONLY`.
 
-The task must produce actual owner-review media. Infrastructure-only completion is not PASS.
-Current sequence is: free-form creation substrate `[ACCEPTED]` -> native multiformat/
-multilingual packages `[CURRENT]` -> official publication adapters `[NEXT AFTER ACCEPTANCE]`
--> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling
-`[DEFERRED]`.
+One clean picture is rendered once per editorial format. Recurring locale work may translate
+governed semantic segments locally, validate factual anchors, synthesize/mix audio, write timed
+caption and metadata sidecars, and perform cheap `-c:v copy` muxing only when a destination
+requires a separate localized file. Existing burned-caption proofs remain historical evidence.
+Official publication adapters are next after merge/acceptance; V1 integration and scheduling
+remain deferred.
 
 Canonical product path:
 
@@ -249,7 +250,9 @@ Narration carries nuance. Screen carries the visual thesis.
 
 ### Captions/audio
 
-Canonical master is clean; sidecar/platform captions and optional social-caption derivatives are separate outputs.
+Canonical master is clean and rendered once per editorial format. Audio, timed captions, and
+localized metadata are sidecars. Burned captions are optional-only under a later exact authority;
+localization must not trigger a Remotion picture render by default.
 
 Windows SAPI is diagnostic-only and not professional-media eligible.
 

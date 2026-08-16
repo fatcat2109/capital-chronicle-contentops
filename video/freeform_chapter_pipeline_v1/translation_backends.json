@@ -1,0 +1,18 @@
+{
+  "schema": "contentops.v2.governed_translation_backend_registry.v1",
+  "default_backend": "qwen3_4b_local",
+  "backends": {
+    "qwen3_4b_local": {
+      "provider": "LOCAL_ONLY",
+      "official_model_id": "Qwen/Qwen3-4B",
+      "license": "Apache-2.0",
+      "license_source": "https://huggingface.co/Qwen/Qwen3-4B/blob/main/LICENSE",
+      "runtime": "transformers_local_files_only",
+      "network_allowed_during_translation": false,
+      "role": "MULTILINGUAL_TRANSLATION_ONLY_NOT_FACTUAL_AUTHORITY",
+      "status": "ADAPTER_IMPLEMENTED_MODEL_NOT_MATERIALIZED_IN_REPOSITORY"
+    }
+  },
+  "forbidden_canonical_backends": {"nllb_200_distilled": "NON_COMMERCIAL_LICENSE_NOT_ELIGIBLE_FOR_CANONICAL_COMMERCIAL_PATH"},
+  "failure_policy": "FAIL_LOCALE_SEGMENT_CLOSED_ON_MISSING_GOVERNED_ANCHOR_NO_SILENT_FACT_REPAIR"
+}

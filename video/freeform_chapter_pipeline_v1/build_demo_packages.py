@@ -46,8 +46,10 @@ def _metadata(editorial: dict[str, Any], format_name: str) -> dict[str, Any]:
 def build_demo_packages(
     *,
     runtime_root: Path,
+    audio_root: Path,
     locale_dir: Path,
-    accepted_longform_master: Path,
+    canonical_longform_picture: Path,
+    canonical_short_picture: Path,
     source_root: Path,
     generation_timestamp_utc: str,
 ) -> dict[str, Any]:
@@ -64,7 +66,6 @@ def build_demo_packages(
         _artifact_ref(source_root / "FINAL_NARRATION.md"),
         _artifact_ref(source_root / "CHAPTERS.md"),
     ]
-    owner_root = runtime_root / "renders" / "owner_review"
     package_index: list[dict[str, Any]] = []
     metadata_index: dict[str, Any] = {}
 
@@ -72,7 +73,7 @@ def build_demo_packages(
         editorial_path = locale_dir / f"{locale}.json"
         editorial = json.loads(editorial_path.read_text(encoding="utf-8"))
         factual_refs = [*evidence_refs, _artifact_ref(editorial_path)]
-        voice_sample = ArtifactIdentity.from_path(runtime_root / "audio" / locale / "voice_sample.wav")
+        voice_sample = ArtifactIdentity.from_path(audio_root / locale / "voice_sample.wav")
 
         for format_name, format_kind in (("short", "SHORT_9_16"), ("longform", "LONGFORM_16_9")):
             metadata = _metadata(editorial, format_name)
@@ -85,25 +86,17 @@ def build_demo_packages(
             )
 
             if format_name == "short":
-                clean_video = owner_root / f"Frozen_Without_Breaking_short_{locale}_clean.mp4"
-                burned = (
-                    owner_root / f"Frozen_Without_Breaking_short_{locale}_burned.mp4"
-                    if locale != "en"
-                    else None
-                )
-                audio_root = runtime_root / "audio" / locale / "short"
-                audio = audio_root / "narration.wav"
+                canonical_picture = canonical_short_picture
+                burned = None
+                format_audio_root = audio_root / locale / "short"
+                audio = format_audio_root / "narration.wav"
                 chapters: list[dict[str, Any]] = []
                 surfaces = ["YOUTUBE_SHORTS", "TIKTOK", "INSTAGRAM_REELS"]
             else:
-                clean_video = (
-                    owner_root / "Frozen_Without_Breaking_es_1080p_master.mp4"
-                    if locale == "es"
-                    else accepted_longform_master
-                )
+                canonical_picture = canonical_longform_picture
                 burned = None
-                audio_root = runtime_root / "audio" / locale / "longform"
-                audio = audio_root / "premaster.wav"
+                format_audio_root = audio_root / locale / "longform"
+                audio = format_audio_root / "premaster.wav"
                 chapter_titles = list(editorial["longform"]["chapter_titles"].values())
                 chapters = [
                     {"start_seconds": start, "title": title}
@@ -111,13 +104,13 @@ def build_demo_packages(
                 ]
                 surfaces = ["YOUTUBE_NORMAL_VIDEO"]
 
-            caption_root = audio_root / "captions"
+            caption_root = format_audio_root / "captions"
             spec = {
                 "source_story_id": "frozen_without_breaking",
                 "source_film_id": "frozen_without_breaking_owner_polish_v1",
                 "format": format_kind,
                 "language": locale,
-                "clean_video": str(clean_video),
+                "canonical_picture": str(canonical_picture),
                 "burned_caption_video": str(burned) if burned else None,
                 "audio": str(audio),
                 "caption_json": str(caption_root / f"captions.{locale}.json"),
@@ -130,6 +123,12 @@ def build_demo_packages(
                 "intended_future_surfaces": surfaces,
                 "generation_version": "native_multiformat_multilingual_factory_v1",
                 "generation_timestamp_utc": generation_timestamp_utc,
+                "delivery_policy": {
+                    "picture_render_scope": "ONCE_PER_EDITORIAL_FORMAT",
+                    "locale_picture_render_default": False,
+                    "burned_captions": "OPTIONAL_ONLY_EXACT_AUTHORITY_REQUIRED",
+                    "recurring_locale_creative_xhigh": False,
+                },
                 "hard_boundaries": BOUNDARIES,
             }
             package = build_publication_package(spec)
@@ -156,15 +155,17 @@ def build_demo_packages(
         "packages": package_index,
         "metadata": metadata_index,
         "hard_boundaries": BOUNDARIES,
-        "publication_state": "PACKAGE_ONLY_ZERO_PUBLIC_WRITE",
+        "publication_state": "AUDIO_SIDECAR_FIRST_PACKAGE_ONLY_ZERO_PUBLIC_WRITE",
     }
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runtime-root", required=True, type=Path)
+    parser.add_argument("--audio-root", required=True, type=Path)
     parser.add_argument("--locale-dir", required=True, type=Path)
-    parser.add_argument("--accepted-longform-master", required=True, type=Path)
+    parser.add_argument("--canonical-longform-picture", required=True, type=Path)
+    parser.add_argument("--canonical-short-picture", required=True, type=Path)
     parser.add_argument("--source-root", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--generation-timestamp-utc", required=True)
@@ -175,8 +176,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     result = build_demo_packages(
         runtime_root=args.runtime_root.resolve(),
+        audio_root=args.audio_root.resolve(),
         locale_dir=args.locale_dir.resolve(),
-        accepted_longform_master=args.accepted_longform_master.resolve(),
+        canonical_longform_picture=args.canonical_longform_picture.resolve(),
+        canonical_short_picture=args.canonical_short_picture.resolve(),
         source_root=args.source_root.resolve(),
         generation_timestamp_utc=args.generation_timestamp_utc,
     )

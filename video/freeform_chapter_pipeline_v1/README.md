@@ -18,10 +18,16 @@ The pipeline owns only hard production work:
 
 The task manifest is `frozen_without_breaking.manifest.json`. Runtime media, bundles, caches, proxies, and masters live under the caller-selected workspace and remain outside Git.
 
-`package_factory.py` extends this same substrate with configurable locale profiles, factual-
-anchor validation, actual-audio-timed SRT/WebVTT/JSON captions, clean/burned media identities,
-and immutable platform-neutral publication manifests. It binds artifacts only: it does not
-translate, synthesize speech, render picture, upload, schedule, or own platform accounts.
+`package_factory.py` extends this same substrate with configurable global locale profiles,
+factual-anchor validation, actual-audio-timed SRT/WebVTT/JSON captions, one canonical picture
+identity per editorial format, and immutable platform-neutral manifests. Production is
+`AUDIO_SIDECAR_FIRST`: burned captions are optional-only and locale changes do not render picture.
+
+`governed_translation.py` is a fail-closed, local-files-only Qwen3-4B translation adapter. It is
+not factual authority and never silently repairs a failed anchor. `tts_routes.json` and
+`voice_registry.json` make provider/voice selection an explicit one-time capability decision.
+`zero_rerender_sidecar_proof.py` writes captions/metadata and performs only an FFmpeg
+`-c:v copy` mux while recording zero Remotion, public-write, V1 and scheduler operations.
 
 Examples from the repository root:
 

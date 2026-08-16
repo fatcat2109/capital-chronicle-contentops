@@ -8,21 +8,21 @@ This override supersedes current V2 planning language where it conflicts. Histor
 
 ## Current task
 
-`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
+`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
 
 Required result ceiling:
 
-`PASS_IMPLEMENTATION_PACKAGES_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_READY_FOR_MERGE_AUDIT`
 
-The free-form chapterized 1080p owner-polish edition of *Frozen Without Breaking* is accepted
-as the creative/production substrate and must not be reopened for aesthetic cleanup. The
-current task extends that exact governed input with one fresh XHIGH-authored native 9:16 Short,
-configurable multilingual audio/captions/metadata, and immutable platform-neutral publication
-packages. Infrastructure-only completion is not PASS.
+The accepted longform and Short pictures are closed creative inputs. The current correction
+changes the recurring language cost model without reopening media: render one clean picture per
+editorial format, then produce governed translation, audio, timed captions, metadata and package
+sidecars. No locale-specific picture source, Remotion render, or recurring XHIGH localization
+session is canonical. Burned-caption renders are `OPTIONAL_ONLY` under later exact authority.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> native multiformat/multilingual packages [CURRENT] -> official publication adapters [NEXT AFTER ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [CURRENT] -> official publication adapters [NEXT AFTER MERGE/ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
 
 ## Model orchestration
 
