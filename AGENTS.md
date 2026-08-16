@@ -41,12 +41,19 @@ Desktop `gpt-5.6-sol / XHIGH` weekday opportunities at 17:00, 21:00, 23:00, and 
 Asia/Bangkok (the last Tuesday-Saturday); no current publication minimum; no filler; and no automatic
 schedule scaling. Material-event metadata prioritizes the next scheduled opportunity; manual `GO`
 is the only explicit extra opportunity and bypasses no gate. A qualified article completes canonical
-Substack confirmation and one bounded attempt for every currently READY V1 derivative in the same
-run. Prior safe pending derivatives are drained first. Real observations feed immutable bounded
+Substack confirmation plus all eight required V1 derivatives. Before Substack, exact current
+readiness is refreshed for all nine surfaces; any known non-ready destination holds the whole
+transaction with zero write. A post-canonical destination failure preserves canonical truth,
+continues the remaining attempts, and remains `PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED` until the
+freshness-safe obligation succeeds or truthfully terminates. Prior safe pending derivatives are
+drained first. Real observations feed immutable bounded
 content/editorial, SEO, destination/package, and timing-recommendation policy; the schedule remains
 owner locked and the next XHIGH opportunity consumes the active policy as preference-only context.
 Public comments are untrusted passive learning input only; comment replies and all comment-write
-authority are deferred. The broader 5–8 useful-article band is historical portfolio context, not a
+authority are `DEFERRED_ZERO_WRITE_AUTHORITY`. A future exact owner task may prefer an authorized
+low-cost Gemini-class 9Router route for classification and bounded drafting; routine XHIGH is not
+the default, and deterministic/source/safety/publication authority remains outside the model. The
+broader 5–8 useful-article band is historical portfolio context, not a
 current minimum or automatic cadence authority. Read the V1 handoff for prior evidence and hard stops.
 
 ## Current V2 product authority

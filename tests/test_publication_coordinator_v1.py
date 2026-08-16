@@ -9,6 +9,9 @@ import pytest
 from live_contentops.destination_transport_registry_v1 import (
     REGISTRY_VERSION,
     READY_STATES,
+    V1_QUALITY_PROBATION_POLICY_ID,
+    V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+    V1_REQUIRED_PUBLICATION_DESTINATIONS,
     DestinationReadinessManager,
     canonical_transport_registry,
     registration_for_destination,
@@ -24,6 +27,9 @@ from live_contentops.publication_coordinator_v1 import (
     RECONCILED_CONFIRMED,
     RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
     DERIVATIVE_EXPIRED_STALE_NO_WRITE,
+    FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED,
+    HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
+    PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED,
     UNKNOWN_WRITE,
     DurablePublicationCoordinator,
     normalize_dispatch_result,
@@ -115,6 +121,22 @@ def _plan(*destinations: str):
     }
 
 
+def _quality_plan():
+    plan = _plan(*V1_REQUIRED_PUBLICATION_DESTINATIONS)
+    plan.update({
+        "quality_probation_policy_id": V1_QUALITY_PROBATION_POLICY_ID,
+        "full_v1_distribution_required": True,
+        "required_publication_destinations": list(
+            V1_REQUIRED_PUBLICATION_DESTINATIONS
+        ),
+        "required_derivative_destinations": list(
+            V1_REQUIRED_DERIVATIVE_DESTINATIONS
+        ),
+        "skipped_derivative_destinations": [],
+    })
+    return plan
+
+
 def _coordinator(tmp_path: Path, runtime=None, readiness=None, readiness_manager=None):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     store.create_work_item(
@@ -153,6 +175,148 @@ def test_registry_locks_surface_transport_and_browser_roles():
     assert registry["silent_transport_fallback_allowed"] is False
     assert registration_for_destination("youtube").surface == "YOUTUBE_COMMUNITY_POST"
     assert registration_for_destination("youtube").transport_type == "EDGE_CDP"
+    assert V1_REQUIRED_DERIVATIVE_DESTINATIONS == (
+        "telegram", "x", "discord", "linkedin", "facebook_page",
+        "instagram_business", "threads", "youtube",
+    )
+    assert set(V1_REQUIRED_PUBLICATION_DESTINATIONS) == {
+        "substack", "telegram", "x", "discord", "linkedin", "facebook_page",
+        "instagram_business", "threads", "youtube",
+    }
+    assert not {"tiktok", "youtube_video", "youtube_short"}.intersection(
+        V1_REQUIRED_PUBLICATION_DESTINATIONS
+    )
+
+
+def test_quality_probation_preflight_holds_all_writes_when_one_surface_not_ready(
+    tmp_path,
+):
+    store, transport, coordinator = _coordinator(
+        tmp_path, readiness={"threads": "AUTH_INVALID"}
+    )
+
+    result = coordinator.execute_plan("work-1", _quality_plan())
+
+    assert result["distribution_status"] == HOLD_FULL_V1_DISTRIBUTION_NOT_READY
+    assert result["transaction_classification"] == HOLD_FULL_V1_DISTRIBUTION_NOT_READY
+    assert result["quality_preflight"]["readiness_blockers"] == ["threads"]
+    assert result["registered"] == []
+    assert result["outbox_count"] == 0
+    assert result["public_write_performed"] is False
+    assert transport.publish_calls == []
+    assert store.list_outbox_messages() == []
+
+
+def test_quality_probation_full_nine_surface_confirmation(tmp_path):
+    _store_value, transport, coordinator = _coordinator(tmp_path)
+
+    result = coordinator.execute_plan("work-1", _quality_plan())
+
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+    assert result["transaction_classification"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+    assert result["derivative_attempted_count"] == 8
+    assert result["derivative_confirmed_count"] == 8
+    assert result["recovery_required_destinations"] == []
+    assert transport.publish_calls[0] == "substack"
+    assert set(transport.publish_calls[1:]) == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+
+
+def test_quality_probation_postcanonical_failure_preserves_canonical_and_continues(
+    tmp_path,
+):
+    class OneFailureTransport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if destination == "linkedin":
+                self.publish_calls.append(destination)
+                return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True}
+            return super().publish(
+                destination=destination,
+                intent=intent,
+                authorization_context=authorization_context,
+            )
+
+    store, transport, coordinator = _coordinator(
+        tmp_path, runtime=OneFailureTransport()
+    )
+
+    result = coordinator.execute_plan("work-1", _quality_plan())
+
+    assert result["canonical_article_real_published"] is True
+    assert result["distribution_status"] == PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+    assert result["recovery_required_destinations"] == ["linkedin"]
+    assert result["per_destination"]["linkedin"]["reconciliation_status"] == (
+        RECONCILED_ABSENT_SAFE_TO_RETRY
+    )
+    assert set(transport.publish_calls) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
+    assert len(store.list_platform_dispatches()) == 9
+
+
+def test_unresolved_quality_distribution_obligation_blocks_new_canonical(tmp_path):
+    class PendingLinkedInReadback(FixtureTransport):
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if destination == "linkedin":
+                self.readback_calls.append(destination)
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(
+                destination=destination,
+                public_object_id=public_object_id,
+                public_object_url=public_object_url,
+                intent=intent,
+            )
+
+    _store_value, transport, coordinator = _coordinator(
+        tmp_path, runtime=PendingLinkedInReadback()
+    )
+    first = coordinator.execute_plan("work-1", _quality_plan())
+
+    blocked = coordinator.execute_plan("work-2", _quality_plan())
+
+    assert first["distribution_status"] == PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+    assert blocked["distribution_status"] == "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS"
+    assert blocked["recovery_preflight"]["backlog_remaining"] == 1
+    assert blocked["recovery_preflight"]["backlog_remaining_obligations"][0][
+        "destination"
+    ] == "linkedin"
+    assert transport.publish_calls.count("substack") == 1
+
+
+def test_stable_provider_id_confirms_distribution_with_readback_limitation(tmp_path):
+    class LimitedLinkedInReadback(FixtureTransport):
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if destination == "linkedin":
+                self.readback_calls.append(destination)
+                return {
+                    "status": "READBACK_CAPABILITY_LIMITED",
+                    "verified": False,
+                    "write_exists": True,
+                    "public_object_id": public_object_id,
+                }
+            return super().readback(
+                destination=destination,
+                public_object_id=public_object_id,
+                public_object_url=public_object_url,
+                intent=intent,
+            )
+
+    store, transport, coordinator = _coordinator(
+        tmp_path, runtime=LimitedLinkedInReadback()
+    )
+
+    result = coordinator.execute_plan("work-1", _quality_plan())
+
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+    assert result["readback_limitation_destinations"] == ["linkedin"]
+    linkedin = result["per_destination"]["linkedin"]
+    assert linkedin["public_object_id"] == "linkedin-object-1"
+    assert linkedin["public_object_url"] == "https://example.test/linkedin/1"
+    dispatch = next(
+        row for row in store.list_platform_dispatches() if row["platform"] == "linkedin"
+    )
+    metrics = coordinator.collect_metrics(
+        dispatch["dispatch_id"], dispatch["public_object_id"], "DAILY"
+    )
+    assert metrics["status"] == "UNAVAILABLE"
+    assert transport.metrics_calls == []
 
 
 def test_metrics_collection_requires_exact_confirmed_reconciled_dispatch_binding(tmp_path):

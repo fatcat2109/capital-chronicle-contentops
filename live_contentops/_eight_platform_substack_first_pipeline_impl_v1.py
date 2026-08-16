@@ -3017,6 +3017,9 @@ def _build_rolling_x_publication_plan(
         DESTINATION_TO_SURFACE,
         READY_STATES,
         REGISTRY_VERSION,
+        V1_QUALITY_PROBATION_POLICY_ID,
+        V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+        V1_REQUIRED_PUBLICATION_DESTINATIONS,
         registration_for_destination,
     )
 
@@ -3117,6 +3120,14 @@ def _build_rolling_x_publication_plan(
         "artifact_refs": dict(lock.get("artifacts") or {}),
         "editorial_features": learning_features["editorial"],
         "learning_policy_version": learning_policy_version,
+        "quality_probation_policy_id": V1_QUALITY_PROBATION_POLICY_ID,
+        "full_v1_distribution_required": True,
+        "required_publication_destinations": list(
+            V1_REQUIRED_PUBLICATION_DESTINATIONS
+        ),
+        "required_derivative_destinations": list(
+            V1_REQUIRED_DERIVATIVE_DESTINATIONS
+        ),
         "destinations": destinations,
         "skipped_derivative_destinations": skipped_derivatives,
         "transport_registry_version": REGISTRY_VERSION,

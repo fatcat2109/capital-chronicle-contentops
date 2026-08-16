@@ -30,8 +30,11 @@ become priority input for the next scheduled opportunity; manual `GO` is the exp
 extra run.
 
 Each task runs cheap deterministic housekeeping first, then loads the active immutable policy,
-executes at most one current opportunity, confirms Substack first, attempts all currently READY V1
-derivatives once, reconciles, and schedules observations. Real supported metrics and untrusted
+executes at most one current opportunity, refreshes exact readiness for Substack plus all eight
+required V1 derivatives, and holds with zero write if any is known non-ready. After confirmed
+Substack it attempts every derivative, preserves canonical truth on destination-local failure, and
+recovers still-current obligations before a new article. It then reconciles and schedules
+observations. Real supported metrics and untrusted
 passive interaction-quality projections feed bounded content/editorial, SEO, destination/package,
 and timing-recommendation sections. Unsupported is persisted as unavailable, never zero. The next
 Desktop task consumes policy preferences without receiving factual, numeric, permission, gate, or
@@ -52,7 +55,7 @@ The final V1 product must:
 6. obtain exact story-dependent evidence;
 7. produce grounded article, SEO, visuals, and native packages;
 8. review and revise within bounded policy;
-9. publish automatically to every currently READY configured Tier-1 destination when exact gates pass;
+9. publish automatically to every required V1 destination only when the full readiness and exact gates pass;
 10. manage the public-object lifecycle through strict readback/reconciliation;
 11. collect real performance/search/subscriber observations when safely available;
 12. evaluate outcomes by story, package, platform, and publication window;
@@ -73,7 +76,10 @@ emoji-only reactions, spam, trolling/bait, empty sarcasm, promotion, and low-inf
 are skipped. Unsolicited DMs, reaction farming, and endless bot conversations remain forbidden.
 Destination comment-read scope, comment-write scope, identity, safety, rate limit, reply depth,
 evidence, and reconciliation must all be separately granted. Current comment-write implementation
-and authority are exactly zero.
+and authority are exactly zero. If a future exact owner task authorizes the loop, prefer an
+authorized low-cost Gemini-class model through 9Router for comment-value classification and bounded
+reply drafting; routine XHIGH is not the default and no exact Gemini model ID is selected.
+Deterministic/source/safety/publication authority remains outside the model.
 
 ## 1. Verified starting state
 

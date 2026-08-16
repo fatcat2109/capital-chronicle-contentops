@@ -801,6 +801,10 @@ def test_release_candidate_defers_unready_derivative_to_exact_jit_verification(t
         preparation=result,
         readiness=readiness,
     )
+    assert plan["quality_probation_policy_id"] == "QUALITY_PROBATION_FOUR_WINDOW_V1"
+    assert plan["full_v1_distribution_required"] is True
+    assert len(plan["required_publication_destinations"]) == 9
+    assert len(plan["required_derivative_destinations"]) == 8
     planned_x = next(row for row in plan["destinations"] if row["destination"] == "x")
     assert planned_x["readiness_state"] == "BLOCKED"
     assert planned_x["jit_verification_required"] is True

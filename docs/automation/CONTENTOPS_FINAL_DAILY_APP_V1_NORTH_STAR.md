@@ -26,8 +26,11 @@ events prioritize the next scheduled opportunity; manual `GO` is the sole explic
 opportunity and bypasses no gate.
 
 A qualified opportunity is one complete transaction: recover safe prior work and due observations;
-evaluate/load the active policy; produce and gate at most one article; confirm canonical Substack;
-attempt every currently READY V1 derivative once; reconcile; and schedule observations. Immutable
+evaluate/load the active policy; produce and gate at most one article; refresh exact current readiness
+for Substack and all eight required V1 derivatives; then confirm canonical Substack only if all pass.
+Any known non-ready destination holds with zero write. A post-canonical derivative failure preserves
+canonical truth, continues the remaining attempts, and stays in freshness-safe recovery before a new
+article. Reconcile and schedule observations. Immutable
 bounded learning covers content/editorial, SEO, destination/package, and timing recommendations.
 Timing is observation/recommendation only while schedule ownership remains locked to Jim. The next
 fresh XHIGH task consumes that policy as preference-only context with zero truth, numeric,
@@ -55,7 +58,7 @@ start ContentOps Daily App
 → selects or abstains
 → acquires exact evidence
 → writes / reviews / optimizes / visualizes
-→ packages natively for every currently READY destination
+→ packages natively for every required V1 destination
 → publishes automatically when all exact gates pass
 → reads back and reconciles public objects
 → observes engagement / search / subscriber outcomes over time
@@ -133,7 +136,7 @@ grounded article
 
 AUTONOMOUS DISTRIBUTION
 destination readiness
-→ idempotent public writes to every currently READY configured destination
+→ all-required-destination preflight, then idempotent public writes
 → strict public/provider readback
 → reconciliation / incident handling
 
@@ -176,7 +179,11 @@ unsolicited DMs or reaction farming.
 
 This capability is `DEFERRED_ZERO_WRITE_AUTHORITY`. No comment reply is implemented or authorized
 now. A later exact owner task must separately authorize destination read/write scope, identity,
-safety, rate limits, reply depth, evidence, and readback/reconciliation.
+safety, rate limits, reply depth, evidence, and readback/reconciliation. Its preferred routine cost
+route is an authorized low-cost Gemini-class model through 9Router for comment-value classification
+and bounded reply drafting; XHIGH is not the routine default and no exact Gemini model ID is selected.
+Deterministic rules plus source, safety, permission, and final publication authority remain outside
+the model.
 
 ## 4. Always-on means low-cost supervision, not continuous expensive LLM work
 
@@ -505,7 +512,7 @@ Release only after the same canonical app demonstrates, with real calendar-time 
 - current intake and ranking;
 - legitimate abstentions;
 - at least one fresh evidence-viable real story reaching grounded article/review/media/native-package/live gate;
-- real autonomous publication when an exact READY destination exists and all gates pass;
+- real autonomous full-nine-surface V1 publication when every required readiness and exact gate passes;
 - strict readback/reconciliation for public objects;
 - no unreconciled unknown writes;
 - real performance snapshots from available configured destinations;

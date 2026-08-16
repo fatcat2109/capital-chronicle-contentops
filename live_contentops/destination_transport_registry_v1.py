@@ -24,6 +24,7 @@ from live_contentops.browser_interaction_budget_v1 import (
 
 REGISTRY_VERSION = "contentops.destination_transport_registry.v2"
 IDENTITY_AUTHORITY_VERSION = "contentops.destination_identity_authority.v2"
+V1_QUALITY_PROBATION_POLICY_ID = "QUALITY_PROBATION_FOUR_WINDOW_V1"
 PUBLISHING_CDP_PORT = 9223
 INGESTION_ONLY_CDP_PORT = 9222
 
@@ -157,6 +158,23 @@ DESTINATION_TO_SURFACE = {
     "threads": "THREADS_POST",
 }
 
+# Quality-probation V1 is one canonical article plus these exact eight derivative
+# surfaces. YouTube here means Community; video/Short surfaces remain V2-only.
+V1_REQUIRED_DERIVATIVE_DESTINATIONS = (
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube",
+)
+V1_REQUIRED_PUBLICATION_DESTINATIONS = (
+    "substack",
+    *V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+)
+
 
 def canonical_transport_registry() -> dict[str, Any]:
     rows = [asdict(SURFACE_REGISTRY[surface]) for surface in sorted(SURFACE_REGISTRY)]
@@ -166,6 +184,9 @@ def canonical_transport_registry() -> dict[str, Any]:
         "identity_authority_version": IDENTITY_AUTHORITY_VERSION,
         "surfaces": rows,
         "tier1_surfaces": list(TIER1_SURFACES),
+        "v1_required_publication_destinations": list(
+            V1_REQUIRED_PUBLICATION_DESTINATIONS
+        ),
         "publishing_cdp_port": PUBLISHING_CDP_PORT,
         "ingestion_only_cdp_port": INGESTION_ONLY_CDP_PORT,
         "chrome_publishing_allowed": False,
@@ -189,6 +210,8 @@ def validate_registry() -> None:
         raise RuntimeError("duplicate_surface_transport_registration")
     if set(TIER1_SURFACES) - set(SURFACE_REGISTRY):
         raise RuntimeError("tier1_surface_transport_missing")
+    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) != set(DESTINATION_TO_SURFACE):
+        raise RuntimeError("v1_required_publication_destination_mismatch")
     for surface in TIER1_SURFACES:
         row = SURFACE_REGISTRY[surface]
         if not any((row.expected_stable_id, row.expected_public_handle, row.expected_domain)):

@@ -24,9 +24,9 @@ from live_contentops.daily_app_supervisor_v1 import (
     STATUS_DISPATCH_CONFIRMED,
 )
 
-WINDOW_START = datetime(2026, 8, 9, 13, tzinfo=timezone.utc)
-WINDOW_END = datetime(2026, 8, 9, 15, tzinfo=timezone.utc)
-INSIDE_WINDOW = datetime(2026, 8, 9, 14, tzinfo=timezone.utc)
+WINDOW_START = datetime(2026, 8, 10, 13, tzinfo=timezone.utc)
+WINDOW_END = datetime(2026, 8, 10, 15, tzinfo=timezone.utc)
+INSIDE_WINDOW = datetime(2026, 8, 10, 14, tzinfo=timezone.utc)
 
 EPOCH_A = "2026-08-09T13:27:00.663942Z"
 EPOCH_DIFFERENT = "2026-08-09T14:00:00.000000Z"

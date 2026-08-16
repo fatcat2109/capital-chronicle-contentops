@@ -26,6 +26,9 @@ from live_contentops.daily_app_launcher_v1 import (
     CANONICAL_PRODUCTION_OUTPUT_ROOT,
     CANONICAL_PRODUCTION_STORE_PATH,
 )
+from live_contentops.destination_transport_registry_v1 import (
+    V1_QUALITY_PROBATION_POLICY_ID,
+)
 from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     load_rolling_x_headline_sidecars,
@@ -50,7 +53,7 @@ TERMINAL_EDITORIAL_STATES = frozenset(
     }
 )
 CANONICAL_SUBSTACK_HOST = "capitalchronicle.substack.com"
-QUALITY_PROBATION_POLICY_ID = "QUALITY_PROBATION_FOUR_WINDOW_V1"
+QUALITY_PROBATION_POLICY_ID = V1_QUALITY_PROBATION_POLICY_ID
 DESKTOP_TASK_PROMPT = (
     "Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Run the canonical pre-opportunity "
     "housekeeping, load the active bounded learning policy, and execute exactly one current V1 "

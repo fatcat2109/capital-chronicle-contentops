@@ -18,6 +18,9 @@ from urllib.parse import urlsplit
 from live_contentops.destination_transport_registry_v1 import (
     READY_STATES,
     REGISTRY_VERSION,
+    V1_QUALITY_PROBATION_POLICY_ID,
+    V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+    V1_REQUIRED_PUBLICATION_DESTINATIONS,
     registration_for_destination,
 )
 from live_contentops.browser_interaction_budget_v1 import browser_activity
@@ -38,6 +41,15 @@ DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE = (
     "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE"
 )
 RECOVERY_ATTEMPT_BUDGET = 9
+HOLD_FULL_V1_DISTRIBUTION_NOT_READY = "HOLD_FULL_V1_DISTRIBUTION_NOT_READY"
+PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED = "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED"
+FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED = (
+    "FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED"
+)
+_PUBLICATION_CONFIRMED_RECONCILIATIONS = {
+    RECONCILED_CONFIRMED,
+    RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
+}
 
 
 def _canonical_json(value: Any) -> str:
@@ -284,6 +296,129 @@ class DurablePublicationCoordinator:
         return str(planned.get("readiness_state") or "")
 
     @staticmethod
+    def _full_v1_distribution_required(plan_or_intent: Mapping[str, Any]) -> bool:
+        return bool(
+            plan_or_intent.get("full_v1_distribution_required") is True
+            and str(plan_or_intent.get("quality_probation_policy_id") or "")
+            == V1_QUALITY_PROBATION_POLICY_ID
+        )
+
+    @staticmethod
+    def _confirmed_public_object(
+        outcome: Mapping[str, Any], *, destination: str
+    ) -> bool:
+        if (
+            outcome.get("status") != DISPATCH_CONFIRMED
+            or not str(outcome.get("public_object_id") or "")
+            or outcome.get("reconciliation_status")
+            not in _PUBLICATION_CONFIRMED_RECONCILIATIONS
+        ):
+            return False
+        if destination == "substack":
+            return bool(
+                outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+                and _valid_substack_canonical_url(outcome.get("public_object_url"))
+            )
+        return True
+
+    def _full_v1_distribution_preflight(
+        self, work_item_id: str, plan: Mapping[str, Any]
+    ) -> dict[str, Any]:
+        """Refresh all nine exact destinations before any durable/public write boundary."""
+
+        destinations = [
+            str(row.get("destination") or "")
+            for row in (plan.get("destinations") or [])
+            if isinstance(row, Mapping)
+        ]
+        item_by_destination = {
+            str(row.get("destination") or ""): dict(row)
+            for row in (plan.get("destinations") or [])
+            if isinstance(row, Mapping) and str(row.get("destination") or "")
+        }
+        required = set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
+        observed = set(destinations)
+        duplicate_destinations = sorted(
+            destination
+            for destination in observed
+            if destinations.count(destination) > 1
+        )
+        skipped = sorted(
+            str(row.get("destination") or "")
+            for row in (plan.get("skipped_derivative_destinations") or [])
+            if isinstance(row, Mapping) and str(row.get("destination") or "")
+        )
+        structural_blockers = {
+            "missing_destinations": sorted(required - observed),
+            "unexpected_destinations": sorted(observed - required),
+            "duplicate_destinations": duplicate_destinations,
+            "skipped_derivative_destinations": skipped,
+        }
+        plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
+        readiness_rows: dict[str, Any] = {}
+        readiness_blockers: list[str] = []
+        for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
+            item = item_by_destination.get(destination, {})
+            try:
+                if self.readiness_manager is not None:
+                    row = dict(
+                        self.readiness_manager.verify_destination_jit(
+                            destination,
+                            reason="PUBLICATION",
+                            persist=True,
+                            attempt_identity=self._ids(
+                                work_item_id, plan_hash, destination
+                            )["dispatch_id"],
+                        )
+                        or {}
+                    )
+                elif callable(self.readiness_provider):
+                    row = dict(self.readiness_provider(destination) or {})
+                else:
+                    row = {"readiness_state": self._readiness(destination, item)}
+            except Exception as exc:
+                row = {
+                    "readiness_state": "READINESS_CHECK_FAILED",
+                    "identity_match": False,
+                    "safe_error_classification": type(exc).__name__,
+                }
+            state = str(row.get("readiness_state") or row.get("status") or "")
+            identity_match = row.get("identity_match")
+            write_eligible = row.get("write_eligible")
+            ready = bool(
+                state in READY_STATES
+                and identity_match not in (False, 0, "false", "False")
+                and write_eligible not in (False, 0, "false", "False")
+            )
+            readiness_rows[destination] = {
+                "readiness_state": state or "READINESS_UNKNOWN",
+                "identity_match": identity_match,
+                "write_eligible": ready,
+                "safe_error_classification": row.get("safe_error_classification"),
+                "sanitized_detail": dict(row.get("sanitized_detail") or {})
+                if isinstance(row.get("sanitized_detail"), Mapping)
+                else {},
+            }
+            if not ready:
+                readiness_blockers.append(destination)
+        structural_ready = not any(structural_blockers.values())
+        return {
+            "status": (
+                "FULL_V1_DISTRIBUTION_READY"
+                if structural_ready and not readiness_blockers
+                else HOLD_FULL_V1_DISTRIBUTION_NOT_READY
+            ),
+            "required_destinations": list(V1_REQUIRED_PUBLICATION_DESTINATIONS),
+            "required_derivative_destinations": list(
+                V1_REQUIRED_DERIVATIVE_DESTINATIONS
+            ),
+            "structural_blockers": structural_blockers,
+            "readiness_blockers": readiness_blockers,
+            "per_destination": readiness_rows,
+            "public_write_performed": False,
+        }
+
+    @staticmethod
     def _record_runtime_activity(
         intent: Mapping[str, Any], stage: str, *, destination: str | None = None
     ) -> None:
@@ -333,6 +468,16 @@ class DurablePublicationCoordinator:
                 "artifact_refs": plan.get("artifact_refs") or {},
                 "editorial_features": plan.get("editorial_features") or {},
                 "learning_policy_version": plan.get("learning_policy_version"),
+                "quality_probation_policy_id": plan.get("quality_probation_policy_id"),
+                "full_v1_distribution_required": plan.get(
+                    "full_v1_distribution_required"
+                ) is True,
+                "required_publication_destinations": list(
+                    plan.get("required_publication_destinations") or []
+                ),
+                "required_derivative_destinations": list(
+                    plan.get("required_derivative_destinations") or []
+                ),
                 "destination_plan": dict(item),
                 "payload": item.get("payload"),
                 "canonical_url": item.get("canonical_url"),
@@ -437,7 +582,7 @@ class DurablePublicationCoordinator:
         elif normalized.get("write_exists") is True:
             # Exact object identity proves the write occurred even when a stricter content/media
             # gate failed. Clear UNKNOWN_WRITE and end retry recovery without overstating strict
-            # reconciliation or accepting the destination toward 9/9.
+            # content/metrics readback. Stable provider identity still confirms publication.
             status = RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
             self.store.set_dispatch_status(dispatch_id, DISPATCH_CONFIRMED)
             self.store.set_outbox_status(str(dispatch["message_id"]), DISPATCH_CONFIRMED)
@@ -593,9 +738,32 @@ class DurablePublicationCoordinator:
         self.store.set_dispatch_status(ids["dispatch_id"], str(result["status"]))
         self.store.set_outbox_status(ids["message_id"], str(result["status"]))
         dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
-        reconciliation = self._reconcile(dispatch, intent) if result["status"] in {
-            DISPATCH_CONFIRMED, UNKNOWN_WRITE,
-        } else RECONCILED_ABSENT_SAFE_TO_RETRY
+        if result["status"] in {DISPATCH_CONFIRMED, UNKNOWN_WRITE}:
+            reconciliation = self._reconcile(dispatch, intent)
+        elif (
+            result["status"] == DEFINITE_NO_WRITE
+            and destination != "substack"
+            and self._full_v1_distribution_required(intent)
+        ):
+            # A definite pre-write failure is a recoverable quality-probation derivative
+            # obligation, not an ambiguity and not permission to abandon the destination.
+            reconciliation = RECONCILED_ABSENT_SAFE_TO_RETRY
+            self.store.set_dispatch_status(
+                ids["dispatch_id"], RECONCILED_ABSENT_SAFE_TO_RETRY
+            )
+            self.store.set_outbox_status(
+                ids["message_id"], RECONCILED_ABSENT_SAFE_TO_RETRY
+            )
+            self.store.register_reconciliation(
+                reconciliation_id=ids["reconciliation_id"],
+                work_item_id=str(intent["work_item_id"]),
+                status=reconciliation,
+            )
+            self.store.set_reconciliation_status(
+                ids["reconciliation_id"], reconciliation
+            )
+        else:
+            reconciliation = RECONCILED_ABSENT_SAFE_TO_RETRY
         persisted = self.store.get_platform_dispatch(ids["dispatch_id"]) or dispatch
         return {
             "destination": destination, "status": str(persisted.get("status") or result["status"]),
@@ -729,6 +897,31 @@ class DurablePublicationCoordinator:
                 ),
                 "unknown_write_detected": False,
             }
+        quality_preflight = None
+        if self._full_v1_distribution_required(plan):
+            quality_preflight = self._full_v1_distribution_preflight(work_item_id, plan)
+            if quality_preflight["status"] != "FULL_V1_DISTRIBUTION_READY":
+                return {
+                    "plan_hash": str(
+                        plan.get("plan_hash") or _hash(_canonical_json(plan))
+                    ),
+                    "registered": [],
+                    "outbox_count": 0,
+                    "per_destination": quality_preflight["per_destination"],
+                    "canonical_article_status": "NOT_STARTED",
+                    "canonical_article_real_published": False,
+                    "canonical_url": None,
+                    "canonical_publication_status": HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
+                    "distribution_status": HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
+                    "transaction_classification": HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
+                    "quality_preflight": quality_preflight,
+                    "recovery_preflight": recovery_preflight,
+                    "current_transaction_public_write_performed": False,
+                    "public_write_performed": bool(
+                        recovery_preflight.get("publish_calls")
+                    ),
+                    "unknown_write_detected": False,
+                }
         registration = self.register_plan(work_item_id, plan)
         outcomes: dict[str, Any] = {
             str(row.get("destination") or ""): {
@@ -812,10 +1005,15 @@ class DurablePublicationCoordinator:
             for destination, outcome in outcomes.items()
             if destination != "substack"
         }
+        full_distribution_required = self._full_v1_distribution_required(plan)
         derivative_confirmed = sum(
-            outcome.get("status") == DISPATCH_CONFIRMED
-            and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
-            for outcome in derivatives.values()
+            self._confirmed_public_object(outcome, destination=destination)
+            if full_distribution_required
+            else (
+                outcome.get("status") == DISPATCH_CONFIRMED
+                and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+            )
+            for destination, outcome in derivatives.items()
         )
         derivative_attempted = sum(
             outcome.get("publish_called") is True for outcome in derivatives.values()
@@ -826,17 +1024,41 @@ class DurablePublicationCoordinator:
         derivative_skipped = sum(
             outcome.get("publish_called") is not True
             and not (
-                outcome.get("status") == DISPATCH_CONFIRMED
-                and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+                self._confirmed_public_object(outcome, destination=destination)
+                if full_distribution_required
+                else (
+                    outcome.get("status") == DISPATCH_CONFIRMED
+                    and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+                )
             )
-            for outcome in derivatives.values()
+            for destination, outcome in derivatives.items()
         )
         derivative_failed = sum(
             outcome.get("publish_called") is True
             and outcome.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE}
             for outcome in derivatives.values()
         )
-        if canonical_real:
+        recovery_destinations = sorted(
+            destination
+            for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+            if full_distribution_required
+            and not self._confirmed_public_object(
+                derivatives.get(destination) or {}, destination=destination
+            )
+        )
+        readback_limitation_destinations = sorted(
+            destination
+            for destination, outcome in derivatives.items()
+            if outcome.get("reconciliation_status")
+            == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+        )
+        if canonical_real and full_distribution_required:
+            distribution_status = (
+                FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+                if not recovery_destinations and len(derivatives) == 8
+                else PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+            )
+        elif canonical_real:
             distribution_status = (
                 "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
                 if derivatives
@@ -853,6 +1075,11 @@ class DurablePublicationCoordinator:
             "canonical_url": canonical_url if canonical_real else None,
             "canonical_publication_status": distribution_status,
             "distribution_status": distribution_status,
+            "transaction_classification": distribution_status,
+            "quality_preflight": quality_preflight,
+            "recovery_required_destinations": recovery_destinations,
+            "readback_limitation_destinations": readback_limitation_destinations,
+            "metrics_availability_independent_from_publication_confirmation": True,
             "derivative_attempted_count": derivative_attempted,
             "derivative_confirmed_count": derivative_confirmed,
             "derivative_skipped_count": derivative_skipped,
@@ -1037,23 +1264,79 @@ class DurablePublicationCoordinator:
                 ):
                     canonical_urls[work_item_id] = str(outcome["public_object_url"])
         remaining_destinations: list[str] = []
+        remaining_obligations: list[dict[str, str]] = []
         refreshed_dispatches = {
             str(row["message_id"]): row for row in self.store.list_platform_dispatches()
         }
         for message in self.store.list_outbox_messages():
+            try:
+                intent = json.loads(str(message["payload"]))
+            except (TypeError, ValueError, KeyError):
+                continue
             dispatch = refreshed_dispatches.get(str(message["message_id"]))
+            destination = str(message["destination"])
+            if (
+                self._full_v1_distribution_required(intent)
+                and destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+            ):
+                terminal_statuses = {
+                    DERIVATIVE_EXPIRED_STALE_NO_WRITE,
+                    DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+                }
+                durable_status = str(
+                    (dispatch or {}).get("status") or message.get("status") or ""
+                )
+                if durable_status in terminal_statuses:
+                    continue
+                reconciliation = None
+                if dispatch is not None:
+                    ids = self._ids(
+                        str(intent["work_item_id"]),
+                        str(intent["plan_hash"]),
+                        destination,
+                    )
+                    reconciliation = next((
+                        str(row.get("status") or "")
+                        for row in self.store.get_reconciliations_for_work_item(
+                            str(intent["work_item_id"])
+                        )
+                        if str(row.get("reconciliation_id") or "")
+                        == ids["reconciliation_id"]
+                    ), None)
+                confirmed = bool(
+                    dispatch is not None
+                    and str(dispatch.get("status") or "") == DISPATCH_CONFIRMED
+                    and str(dispatch.get("public_object_id") or "")
+                    and reconciliation in _PUBLICATION_CONFIRMED_RECONCILIATIONS
+                )
+                if not confirmed:
+                    latest_outcome = dict(
+                        summary["per_destination"].get(destination) or {}
+                    )
+                    remaining_destinations.append(destination)
+                    remaining_obligations.append({
+                        "work_item_id": str(intent.get("work_item_id") or ""),
+                        "destination": destination,
+                        "durable_status": durable_status or "MISSING_DISPATCH",
+                        "blocking_status": str(
+                            latest_outcome.get("status")
+                            or durable_status
+                            or "MISSING_DISPATCH"
+                        ),
+                        "reconciliation_status": str(reconciliation or ""),
+                    })
+                continue
             if dispatch is None:
                 if str(message.get("status") or "") == "READY":
-                    remaining_destinations.append(str(message["destination"]))
+                    remaining_destinations.append(destination)
                 continue
-            if str(message["destination"]) == "substack":
+            if destination == "substack":
                 continue
             if str(dispatch.get("status") or "") in {
                 DERIVATIVE_EXPIRED_STALE_NO_WRITE,
                 DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
             }:
                 continue
-            intent = json.loads(str(message["payload"]))
             if not intent.get("work_item_id") or not intent.get("plan_hash"):
                 continue
             ids = self._ids(
@@ -1074,6 +1357,10 @@ class DurablePublicationCoordinator:
                 remaining_destinations.append(str(message["destination"]))
         summary["backlog_remaining"] = len(remaining_destinations)
         summary["backlog_remaining_by_destination"] = sorted(remaining_destinations)
+        summary["backlog_remaining_obligations"] = sorted(
+            remaining_obligations,
+            key=lambda row: (row["work_item_id"], row["destination"]),
+        )
         summary["backlog_blocking_new_publication"] = bool(remaining_destinations)
         return summary
 

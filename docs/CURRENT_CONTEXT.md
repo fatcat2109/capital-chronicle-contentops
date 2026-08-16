@@ -22,12 +22,14 @@ publication minimum is zero; routine ceiling is four; no learning/code path may 
 schedule automatically. Material events prioritize the next scheduled opportunity. Manual `GO` is
 the explicit exceptional extra opportunity and bypasses no gate.
 
-Each publication-qualified run now drives the complete V1 transaction: canonical Substack first,
-then exactly one safe attempt for every currently READY Telegram, X, Discord, LinkedIn, Facebook
-Page, Instagram Business, Threads, and YouTube Community derivative, with destination-local
-readback/reconciliation. Safe prior pending derivative work is recovered before a new article.
-Confirmed canonical truth survives derivative failures. `UNKNOWN_WRITE` remains
-`STOP RETRY -> READ BACK -> RECONCILE`.
+Each publication-qualified run now drives the complete V1 transaction: refresh exact current
+readiness for canonical Substack plus all eight required Telegram, X, Discord, LinkedIn, Facebook
+Page, Instagram Business, Threads, and YouTube Community derivatives before any canonical write.
+Any known non-ready destination holds the transaction with zero write. After confirmed Substack,
+each derivative is attempted and reconciled; a destination-local failure preserves canonical truth
+but remains `PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED`. Safe, still-current prior derivative work is
+recovered before a new article, while stale work never writes merely to manufacture completion.
+`UNKNOWN_WRITE` remains `STOP RETRY -> READ BACK -> RECONCILE`.
 
 Reconciled public objects receive bounded real observation checkpoints. Unsupported metrics remain
 explicitly unavailable, never zero. Authorized visible comments are untrusted passive input to a
@@ -35,7 +37,10 @@ bounded low-cost interaction-quality projection and grant no factual, instructio
 authority. Immutable learning policy now covers content/editorial, SEO, destination/package, and
 owner-locked timing recommendations; each next XHIGH opportunity receives the active policy as
 preference-only context. `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP` is deferred with zero current
-comment-write implementation or authority.
+comment-write implementation or authority. A future exact owner task may authorize an inexpensive
+Gemini-class model through 9Router for comment-value classification and bounded reply drafting;
+routine XHIGH is not the default, no exact model ID is selected, and deterministic/source/safety/
+publication authority remains outside the model.
 
 Jim's 2026-08-16 owner realignment abandons the Codex Desktop external bridge/UI-automation,
 Codex CLI editorial execution, App Server, and broker/queue lanes. During active newsroom hours,

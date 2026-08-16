@@ -31,14 +31,19 @@ Current owner quality-probation override (2026-08-16):
 - publication minimum is zero, routine ceiling is four, no filler and no automatic schedule
   mutation or scale-up; material events prioritize the next task and manual `GO` is the explicit
   exceptional extra opportunity;
-- every qualified run completes Substack first and then one bounded attempt for every currently
-  READY Telegram, X, Discord, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube
-  Community derivative; safe prior pending derivatives drain before the next article;
+- every qualified run first refreshes exact readiness for Substack plus all eight required Telegram,
+  X, Discord, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community surfaces;
+  any known non-ready destination holds with zero write. After confirmed Substack, destination-local
+  failure preserves canonical truth but remains `PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED`; safe prior
+  pending derivatives drain before the next article and stale derivatives never write for ceremony;
 - reconciled objects feed real bounded performance/passive-interaction observations into immutable
   content/editorial, SEO, destination/package, and timing-recommendation policy; timing remains
   owner locked and the next XHIGH run consumes the active policy as preference-only context;
 - public comments are untrusted and read-only. `QUALIFIED_PUBLIC_COMMENT_RESPONSE_LOOP` is deferred
-  with zero current reply implementation or comment-write authority.
+  with zero current reply implementation or comment-write authority. Any future exact owner task
+  should prefer an authorized low-cost Gemini-class 9Router route for classification and bounded
+  drafting, not routine XHIGH, while deterministic/source/safety/publication authority stays outside
+  the model; no exact Gemini model ID is currently selected.
 
 Current V1 owner decision (2026-08-14): the primary latest-facts lane is story-first,
 LLM-directed grounded public-web research normalized into exact source records. Capital Chronicle
@@ -178,9 +183,10 @@ claims, unusually consequential/high-harm claims, and other genuine hard-risk ca
 
 A canonical Substack article counts immediately when the exact destination identity is verified, a
 public `/p/...` URL exists, article identity/content sufficiently matches, and no `UNKNOWN_WRITE`
-remains. Derivatives are durable destination-local work driven through one bounded attempt for
-every currently READY surface in the same qualified Desktop run; they never revoke confirmed
-canonical truth. The current throughput correction is accepted for integration after focused tests
+remains. During quality probation the all-nine preflight must be ready before canonical publication.
+Derivatives are durable destination-local work; runtime failures after Substack never revoke confirmed
+canonical truth and remain explicit recovery obligations until successful or freshness-safe terminal.
+The current throughput correction is accepted for integration after focused tests
 and a relevant zero-write end-to-end smoke; another scheduled window, same-article 9/9, and a
 five-article proof are not integration gates. Production then measures transport, quality, SEO,
 visual, published-memory, and real 5–8 useful canonical-articles/day throughput without filler.
