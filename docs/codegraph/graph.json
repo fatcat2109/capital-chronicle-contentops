@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12876,
+    "edges": 12927,
     "entrypoints": 14,
-    "nodes": 6852,
+    "nodes": 6872,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 22,
@@ -33,12 +33,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 13,
-      "python_class": 544,
-      "python_function": 3765,
-      "python_method": 252,
-      "python_module": 706,
+      "python_class": 545,
+      "python_function": 3771,
+      "python_method": 261,
+      "python_module": 709,
       "schema": 177,
-      "test": 708,
+      "test": 709,
       "typescript_export": 488,
       "typescript_or_javascript_module": 102
     }
@@ -9444,6 +9444,12 @@
       "from": "live_contentops/daily_app_supervisor_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._finalize_material_event_priority"
+    },
+    {
+      "from": "live_contentops/daily_app_supervisor_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._latest_recovery_attempt_at"
     },
     {
@@ -9486,6 +9492,12 @@
       "from": "live_contentops/daily_app_supervisor_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._merge_material_event_priorities"
+    },
+    {
+      "from": "live_contentops/daily_app_supervisor_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_observation_wake"
     },
     {
@@ -9499,6 +9511,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_wake"
+    },
+    {
+      "from": "live_contentops/daily_app_supervisor_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_priorities"
     },
     {
       "from": "live_contentops/daily_app_supervisor_v1.py",
@@ -10609,6 +10627,24 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_destination_binding_review_scaffold_from_dispatch_gate_v6.py"
+    },
+    {
+      "from": "live_contentops/destination_performance_observer_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/destination_performance_observer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/destination_performance_observer_v1.py::collect_current_authorized_destination_metrics"
+    },
+    {
+      "from": "live_contentops/destination_performance_observer_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_destination_performance_observer_v1.py"
     },
     {
       "from": "live_contentops/destination_transport_registry_v1.py",
@@ -30858,13 +30894,31 @@
       "from": "live_contentops/publication_coordinator_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._expire_stale_derivative"
+    },
+    {
+      "from": "live_contentops/publication_coordinator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._finalize_derivative_intent"
     },
     {
       "from": "live_contentops/publication_coordinator_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._freshness_horizon"
+    },
+    {
+      "from": "live_contentops/publication_coordinator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._ids"
+    },
+    {
+      "from": "live_contentops/publication_coordinator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._message_is_stale"
     },
     {
       "from": "live_contentops/publication_coordinator_v1.py",
@@ -30888,6 +30942,12 @@
       "from": "live_contentops/publication_coordinator_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._record_retry_attempt"
+    },
+    {
+      "from": "live_contentops/publication_coordinator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._record_runtime_activity"
     },
     {
@@ -30895,6 +30955,18 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._refresh_readiness_if_due"
+    },
+    {
+      "from": "live_contentops/publication_coordinator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_already_attempted"
+    },
+    {
+      "from": "live_contentops/publication_coordinator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_incident_id"
     },
     {
       "from": "live_contentops/publication_coordinator_v1.py",
@@ -30955,6 +31027,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash"
+    },
+    {
+      "from": "live_contentops/publication_coordinator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_parse_utc"
     },
     {
       "from": "live_contentops/publication_coordinator_v1.py",
@@ -45879,12 +45957,6 @@
       "to": "python_symbol:live_contentops/daily_app_performance_v1.py::classify_interaction_quality"
     },
     {
-      "from": "python_symbol:live_contentops/daily_app_performance_v1.py::evaluate_learning_decision",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/daily_app_performance_v1.py::qualified_engagement_score"
-    },
-    {
       "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.__init__",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -45972,6 +46044,12 @@
       "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._execute_window",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._finalize_material_event_priority"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._execute_window",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_editorial_intelligence_runtime"
     },
     {
@@ -45985,6 +46063,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._maybe_drive_publication_lifecycle"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._execute_window",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._merge_material_event_priorities"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._execute_window",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_priorities"
     },
     {
       "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._execute_window",
@@ -46033,6 +46123,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::_iso_utc"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._finalize_material_event_priority",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._transition"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._finalize_material_event_priority",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._window_state"
     },
     {
       "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._latest_recovery_attempt_at",
@@ -46117,6 +46219,30 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._window_for_day"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_priorities",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._finalize_material_event_priority"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_priorities",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_windows"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_priorities",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::_iso_utc"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_priorities",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::_parse_utc"
     },
     {
       "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_windows",
@@ -46291,6 +46417,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::_iso_utc"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._stage_material_event",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::_logical_hash"
     },
     {
       "from": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._stage_material_event",
@@ -60651,6 +60783,12 @@
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::normalize_dispatch_result"
     },
     {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._expire_stale_derivative",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash"
+    },
+    {
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._finalize_derivative_intent",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -60667,6 +60805,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._message_is_stale",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._freshness_horizon"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._message_is_stale",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_parse_utc"
     },
     {
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._readiness",
@@ -60723,6 +60873,24 @@
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::normalize_readback_result"
     },
     {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._record_retry_attempt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_incident_id"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_already_attempted",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_incident_id"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_incident_id",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash"
+    },
+    {
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.collect_metrics",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -60762,7 +60930,25 @@
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.register_plan"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_canonical_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash"
     },
     {
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
@@ -60792,6 +60978,12 @@
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._expire_stale_derivative"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._finalize_derivative_intent"
     },
     {
@@ -60804,7 +60996,25 @@
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._message_is_stale"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._reconcile"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._record_retry_attempt"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_already_attempted"
     },
     {
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
@@ -65799,6 +66009,12 @@
       "to": "python_symbol:live_contentops/support_aware_article_idea_reselection_v0.py::reselect_article_idea"
     },
     {
+      "from": "python_symbol:scripts/capture_v1_bounded_correction_ui_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/capture_v1_bounded_correction_ui_v1.py::capture"
+    },
+    {
       "from": "python_symbol:scripts/decide_cc_artifact_public_candidate_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -66271,6 +66487,48 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:scripts/prove_v1_final_product_four_window_closed_loop_v1.py::build_proof"
+    },
+    {
+      "from": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_live_zero_write_rehearsal"
+    },
+    {
+      "from": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_performance_v1.py::active_policy_briefing"
+    },
+    {
+      "from": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_supervisor_v1.py::material_event_due"
+    },
+    {
+      "from": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/destination_transport_registry_v1.py::registration_for_destination"
+    },
+    {
+      "from": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/production_runtime_v1.py::build_final_daily_app_production_runtime"
+    },
+    {
+      "from": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::ControlledZeroWriteTransport"
+    },
+    {
+      "from": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof"
     },
     {
       "from": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::main",
@@ -66801,6 +67059,24 @@
       "to": "python_symbol:scripts/build_support_aware_article_idea_reselection_v0.py::main"
     },
     {
+      "from": "scripts/capture_v1_bounded_correction_ui_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/capture_v1_bounded_correction_ui_v1.py::capture"
+    },
+    {
+      "from": "scripts/capture_v1_bounded_correction_ui_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/capture_v1_bounded_correction_ui_v1.py::main"
+    },
+    {
+      "from": "scripts/capture_v1_bounded_correction_ui_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/capture_v1_bounded_correction_ui_v1.py::main"
+    },
+    {
       "from": "scripts/core_v0_cohort_browser_qa.py",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -67087,6 +67363,30 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/prove_v1_final_product_four_window_closed_loop_v1.py::main"
+    },
+    {
+      "from": "scripts/prove_v1_four_window_bounded_correction_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::ControlledZeroWriteTransport"
+    },
+    {
+      "from": "scripts/prove_v1_four_window_bounded_correction_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof"
+    },
+    {
+      "from": "scripts/prove_v1_four_window_bounded_correction_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::main"
+    },
+    {
+      "from": "scripts/prove_v1_four_window_bounded_correction_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::main"
     },
     {
       "from": "scripts/run_direct_image_bakeoff_v1.py",
@@ -68263,6 +68563,12 @@
       "inference": "test_exact_import",
       "kind": "tests",
       "to": "live_contentops/publishing_profile_registry_v1.py"
+    },
+    {
+      "from": "tests/test_destination_performance_observer_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/destination_performance_observer_v1.py"
     },
     {
       "from": "tests/test_direct_image_api_v1.py",
@@ -77410,7 +77716,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-16T10:17:38Z",
+  "generation_timestamp_utc": "2026-08-16T12:05:17Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -77939,7 +78245,7 @@
     {
       "id": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "kind": "python_module",
-      "size_bytes": 336352
+      "size_bytes": 336489
     },
     {
       "id": "live_contentops/accepted_review_editorial_workflow_v6.py",
@@ -78479,7 +78785,7 @@
     {
       "id": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "kind": "python_module",
-      "size_bytes": 29654
+      "size_bytes": 32349
     },
     {
       "id": "live_contentops/community_feedback_capture_contract_v6.py",
@@ -78709,17 +79015,17 @@
     {
       "id": "live_contentops/daily_app_performance_v1.py",
       "kind": "python_module",
-      "size_bytes": 57611
+      "size_bytes": 62120
     },
     {
       "id": "live_contentops/daily_app_supervisor_v1.py",
       "kind": "python_module",
-      "size_bytes": 130089
+      "size_bytes": 138225
     },
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
       "kind": "python_module",
-      "size_bytes": 83166
+      "size_bytes": 83963
     },
     {
       "id": "live_contentops/daily_article_brief_generation_v0.py",
@@ -78820,6 +79126,11 @@
       "id": "live_contentops/destination_binding_review_scaffold_from_dispatch_gate_v6.py",
       "kind": "python_module",
       "size_bytes": 20036
+    },
+    {
+      "id": "live_contentops/destination_performance_observer_v1.py",
+      "kind": "python_module",
+      "size_bytes": 8641
     },
     {
       "id": "live_contentops/destination_transport_registry_v1.py",
@@ -79029,7 +79340,7 @@
     {
       "id": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "kind": "python_module",
-      "size_bytes": 7443
+      "size_bytes": 7564
     },
     {
       "id": "live_contentops/endpoint_allowlist_gate_from_official_provider_docs_scope_v6.py",
@@ -79399,7 +79710,7 @@
     {
       "id": "live_contentops/linkedin_official_member_api_v1.py",
       "kind": "python_module",
-      "size_bytes": 25025
+      "size_bytes": 28856
     },
     {
       "id": "live_contentops/linkedin_publication_audit_review_metrics_summary_v6.py",
@@ -80324,7 +80635,7 @@
     {
       "id": "live_contentops/preselection_intelligence_v1.py",
       "kind": "python_module",
-      "size_bytes": 17315
+      "size_bytes": 18937
     },
     {
       "id": "live_contentops/primary_payload_classes_contract.py",
@@ -80459,7 +80770,7 @@
     {
       "id": "live_contentops/publication_coordinator_v1.py",
       "kind": "python_module",
-      "size_bytes": 55081
+      "size_bytes": 63367
     },
     {
       "id": "live_contentops/publish_adapter_credential_secret_policy.py",
@@ -81408,7 +81719,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_apply_exact_editorial_replacements",
       "kind": "python_function",
-      "line": 5815,
+      "line": 5817,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_apply_exact_editorial_replacements"
     },
@@ -81499,7 +81810,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_dispatch_canonical_operation",
       "kind": "python_function",
-      "line": 6767,
+      "line": 6769,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_dispatch_canonical_operation"
     },
@@ -81520,7 +81831,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_ensure_canonical_edge_publishing_runtime",
       "kind": "python_function",
-      "line": 6727,
+      "line": 6729,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_ensure_canonical_edge_publishing_runtime"
     },
@@ -81534,7 +81845,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_implementation_main",
       "kind": "python_function",
-      "line": 6459,
+      "line": 6461,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_implementation_main"
     },
@@ -81681,21 +81992,21 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_existing_derivative_readbacks",
       "kind": "python_function",
-      "line": 5589,
+      "line": 5591,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_existing_derivative_readbacks"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_linkedin_activity_pair",
       "kind": "python_function",
-      "line": 6176,
+      "line": 6178,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_linkedin_activity_pair"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_public_substack_for_derivative_resume",
       "kind": "python_function",
-      "line": 4822,
+      "line": 4824,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_public_substack_for_derivative_resume"
     },
@@ -81716,28 +82027,28 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_substack_caption_fragment",
       "kind": "python_function",
-      "line": 5739,
+      "line": 5741,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_substack_caption_fragment"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_treasury_release_candidate_editorial",
       "kind": "python_function",
-      "line": 5826,
+      "line": 5828,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_treasury_release_candidate_editorial"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_final_treasury_auction_logic",
       "kind": "python_function",
-      "line": 5946,
+      "line": 5948,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_final_treasury_auction_logic"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_resume_eight_platform_derivatives",
       "kind": "python_function",
-      "line": 4854,
+      "line": 4856,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_resume_eight_platform_derivatives"
     },
@@ -81814,42 +82125,42 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._candidate_walk_row",
       "kind": "python_method",
-      "line": 4417,
+      "line": 4419,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._candidate_walk_row"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._merge_viability_attempts",
       "kind": "python_method",
-      "line": 4321,
+      "line": 4323,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._merge_viability_attempts"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._next_viable_after",
       "kind": "python_method",
-      "line": 4447,
+      "line": 4449,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._next_viable_after"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._persist_candidate_walk",
       "kind": "python_method",
-      "line": 4420,
+      "line": 4422,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._persist_candidate_walk"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._persist_cycle_evidence",
       "kind": "python_method",
-      "line": 4259,
+      "line": 4261,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._persist_cycle_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle.tracked_evidence_acquirer",
       "kind": "python_method",
-      "line": 4141,
+      "line": 4143,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle.tracked_evidence_acquirer"
     },
@@ -81975,14 +82286,14 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::compile_variant_reliability_evidence",
       "kind": "python_function",
-      "line": 6298,
+      "line": 6300,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "compile_variant_reliability_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::finalize_reliability_hardening_evidence",
       "kind": "python_function",
-      "line": 6336,
+      "line": 6338,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "finalize_reliability_hardening_evidence"
     },
@@ -86287,14 +86598,14 @@
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_live_zero_write_rehearsal",
       "kind": "python_function",
-      "line": 554,
+      "line": 597,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "build_live_zero_write_rehearsal"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::classify_desktop_candidate_universe",
       "kind": "python_function",
-      "line": 439,
+      "line": 464,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "classify_desktop_candidate_universe"
     },
@@ -88639,14 +88950,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::active_policy_briefing",
       "kind": "python_function",
-      "line": 1193,
+      "line": 1282,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "active_policy_briefing"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::active_policy_timing_offset_minutes",
       "kind": "python_function",
-      "line": 1182,
+      "line": 1271,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "active_policy_timing_offset_minutes"
     },
@@ -88688,21 +88999,21 @@
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::current_metrics_capability_matrix",
       "kind": "python_function",
-      "line": 1249,
+      "line": 1338,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "current_metrics_capability_matrix"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::ensure_bootstrap_policy",
       "kind": "python_function",
-      "line": 1164,
+      "line": 1253,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "ensure_bootstrap_policy"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::evaluate_learning_decision",
       "kind": "python_function",
-      "line": 830,
+      "line": 923,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "evaluate_learning_decision"
     },
@@ -88730,371 +89041,392 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor",
       "kind": "python_class",
-      "line": 329,
+      "line": 344,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.__init__",
       "kind": "python_method",
-      "line": 332,
+      "line": 347,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.__init__"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._active_learning_policy_briefing",
       "kind": "python_method",
-      "line": 1834,
+      "line": 1849,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._active_learning_policy_briefing"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._build_editorial_portfolio_context",
       "kind": "python_method",
-      "line": 2141,
+      "line": 2285,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._build_editorial_portfolio_context"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._capture_detail_suffix",
       "kind": "python_method",
-      "line": 1498,
+      "line": 1513,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._capture_detail_suffix"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._consume_pending_operator_trigger",
       "kind": "python_method",
-      "line": 1505,
+      "line": 1520,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._consume_pending_operator_trigger"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._due_windows",
       "kind": "python_method",
-      "line": 1907,
+      "line": 2051,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._due_windows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._editorial_opportunity_checkpoint_path",
       "kind": "python_method",
-      "line": 1972,
+      "line": 2116,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._editorial_opportunity_checkpoint_path"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._execute_window",
       "kind": "python_method",
-      "line": 2391,
+      "line": 2535,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._execute_window"
     },
     {
+      "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._finalize_material_event_priority",
+      "kind": "python_method",
+      "line": 1930,
+      "path": "live_contentops/daily_app_supervisor_v1.py",
+      "symbol": "ContentOpsDailyAppSupervisor._finalize_material_event_priority"
+    },
+    {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._latest_recovery_attempt_at",
       "kind": "python_method",
-      "line": 1085,
+      "line": 1100,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._latest_recovery_attempt_at"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._lifecycle_identity",
       "kind": "python_method",
-      "line": 548,
+      "line": 563,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._lifecycle_identity"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_editorial_intelligence_runtime",
       "kind": "python_method",
-      "line": 2110,
+      "line": 2254,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_editorial_intelligence_runtime"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_editorial_opportunity_checkpoint",
       "kind": "python_method",
-      "line": 2004,
+      "line": 2148,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_editorial_opportunity_checkpoint"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_prepared_candidate_checkpoint",
       "kind": "python_method",
-      "line": 1460,
+      "line": 1475,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_prepared_candidate_checkpoint"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_production_epoch",
       "kind": "python_method",
-      "line": 490,
+      "line": 505,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_production_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._maybe_drive_publication_lifecycle",
       "kind": "python_method",
-      "line": 1338,
+      "line": 1353,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._maybe_drive_publication_lifecycle"
     },
     {
+      "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._merge_material_event_priorities",
+      "kind": "python_method",
+      "line": 2009,
+      "path": "live_contentops/daily_app_supervisor_v1.py",
+      "symbol": "ContentOpsDailyAppSupervisor._merge_material_event_priorities"
+    },
+    {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_observation_wake",
       "kind": "python_method",
-      "line": 1219,
+      "line": 1234,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_observation_wake"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_recovery_wake",
       "kind": "python_method",
-      "line": 1126,
+      "line": 1141,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_recovery_wake"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_wake",
       "kind": "python_method",
-      "line": 2623,
+      "line": 2789,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_wake"
     },
     {
+      "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_priorities",
+      "kind": "python_method",
+      "line": 1968,
+      "path": "live_contentops/daily_app_supervisor_v1.py",
+      "symbol": "ContentOpsDailyAppSupervisor._pending_material_event_priorities"
+    },
+    {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_windows",
       "kind": "python_method",
-      "line": 1879,
+      "line": 2023,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._pending_material_event_windows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_readback_reconciliation_candidates",
       "kind": "python_method",
-      "line": 1038,
+      "line": 1053,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._pending_readback_reconciliation_candidates"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._persist_editorial_opportunity_checkpoint",
       "kind": "python_method",
-      "line": 1975,
+      "line": 2119,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._persist_editorial_opportunity_checkpoint"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._prepared_candidate_checkpoint_path",
       "kind": "python_method",
-      "line": 1406,
+      "line": 1421,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._prepared_candidate_checkpoint_path"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._published_memory_projection",
       "kind": "python_method",
-      "line": 2214,
+      "line": 2358,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._published_memory_projection"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._reconciliation_status_for_dispatch",
       "kind": "python_method",
-      "line": 1189,
+      "line": 1204,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._reconciliation_status_for_dispatch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._record_editorial_novelty_decision",
       "kind": "python_method",
-      "line": 2189,
+      "line": 2333,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._record_editorial_novelty_decision"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._record_production_epoch",
       "kind": "python_method",
-      "line": 503,
+      "line": 518,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._record_production_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._record_published_memory_cycle_proof",
       "kind": "python_method",
-      "line": 2238,
+      "line": 2382,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._record_published_memory_cycle_proof"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._recover_stale_pending",
       "kind": "python_method",
-      "line": 2062,
+      "line": 2206,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._recover_stale_pending"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._recovery_window_eligible_at",
       "kind": "python_method",
-      "line": 1112,
+      "line": 1127,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._recovery_window_eligible_at"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._refresh_operating_mode",
       "kind": "python_method",
-      "line": 434,
+      "line": 449,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._refresh_operating_mode"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._refresh_prepared_candidate_checkpoint",
       "kind": "python_method",
-      "line": 1409,
+      "line": 1424,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._refresh_prepared_candidate_checkpoint"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._resolve_production_epoch",
       "kind": "python_method",
-      "line": 464,
+      "line": 479,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._resolve_production_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_continuous_intake_housekeeping",
       "kind": "python_method",
-      "line": 1371,
+      "line": 1386,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_continuous_intake_housekeeping"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_operator_trigger_intake_sync",
       "kind": "python_method",
-      "line": 1479,
+      "line": 1494,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_operator_trigger_intake_sync"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_performance_observations",
       "kind": "python_method",
-      "line": 1232,
+      "line": 1247,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_performance_observations"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_readback_reconciliation_housekeeping",
       "kind": "python_method",
-      "line": 1138,
+      "line": 1153,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_readback_reconciliation_housekeeping"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._stage_material_event",
       "kind": "python_method",
-      "line": 1853,
+      "line": 1868,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._stage_material_event"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._timing_policy_offset_minutes",
       "kind": "python_method",
-      "line": 1820,
+      "line": 1835,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._timing_policy_offset_minutes"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._transition",
       "kind": "python_method",
-      "line": 2035,
+      "line": 2179,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._transition"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._verify_readback_confirmation",
       "kind": "python_method",
-      "line": 568,
+      "line": 583,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._verify_readback_confirmation"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._window_for_day",
       "kind": "python_method",
-      "line": 1812,
+      "line": 1827,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._window_for_day"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._window_state",
       "kind": "python_method",
-      "line": 1961,
+      "line": 2105,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._window_state"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._within_production_epoch",
       "kind": "python_method",
-      "line": 525,
+      "line": 540,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._within_production_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.drive_canonical_publication_lifecycle",
       "kind": "python_method",
-      "line": 600,
+      "line": 615,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.drive_canonical_publication_lifecycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.operating_mode",
       "kind": "python_method",
-      "line": 431,
+      "line": 446,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.operating_mode"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.perform_safe_readback_and_reconciliation",
       "kind": "python_method",
-      "line": 838,
+      "line": 853,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.perform_safe_readback_and_reconciliation"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.policy",
       "kind": "python_method",
-      "line": 427,
+      "line": 442,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.policy"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.production_epoch_start_utc",
       "kind": "python_method",
-      "line": 457,
+      "line": 472,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.production_epoch_start_utc"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.run_desktop_opportunity_housekeeping",
       "kind": "python_method",
-      "line": 1304,
+      "line": 1319,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.run_desktop_opportunity_housekeeping"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.run_forever",
       "kind": "python_method",
-      "line": 1769,
+      "line": 1784,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.run_forever"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.store_path",
       "kind": "python_method",
-      "line": 452,
+      "line": 467,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.store_path"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.tick",
       "kind": "python_method",
-      "line": 1583,
+      "line": 1598,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.tick"
     },
@@ -89178,7 +89510,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::material_event_window_id",
       "kind": "python_function",
-      "line": 318,
+      "line": 333,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "material_event_window_id"
     },
@@ -89304,7 +89636,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_sanitize_operator_trigger",
       "kind": "python_function",
-      "line": 1590,
+      "line": 1608,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_sanitize_operator_trigger"
     },
@@ -89325,21 +89657,21 @@
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot.editorial_history_row",
       "kind": "python_method",
-      "line": 1221,
+      "line": 1234,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "build_daily_app_snapshot.editorial_history_row"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::request_operator_cycle",
       "kind": "python_function",
-      "line": 1604,
+      "line": 1622,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "request_operator_cycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::update_daily_app_mode",
       "kind": "python_function",
-      "line": 1566,
+      "line": 1584,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "update_daily_app_mode"
     },
@@ -89797,6 +90129,13 @@
       "line": 167,
       "path": "live_contentops/destination_binding_review_scaffold_from_dispatch_gate_v6.py",
       "symbol": "validate_dispatch_review_record"
+    },
+    {
+      "id": "python_symbol:live_contentops/destination_performance_observer_v1.py::collect_current_authorized_destination_metrics",
+      "kind": "python_function",
+      "line": 174,
+      "path": "live_contentops/destination_performance_observer_v1.py",
+      "symbol": "collect_current_authorized_destination_metrics"
     },
     {
       "id": "python_symbol:live_contentops/destination_transport_registry_v1.py::DestinationReadinessManager",
@@ -92657,7 +92996,7 @@
     {
       "id": "python_symbol:live_contentops/eight_platform_substack_first_pipeline_v1.py::main",
       "kind": "python_function",
-      "line": 206,
+      "line": 208,
       "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "symbol": "main"
     },
@@ -92678,49 +93017,49 @@
     {
       "id": "python_symbol:live_contentops/eight_platform_substack_first_pipeline_v1.py::reconcile_existing_derivative_readbacks",
       "kind": "python_function",
-      "line": 162,
+      "line": 164,
       "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "symbol": "reconcile_existing_derivative_readbacks"
     },
     {
       "id": "python_symbol:live_contentops/eight_platform_substack_first_pipeline_v1.py::reconcile_linkedin_activity_pair",
       "kind": "python_function",
-      "line": 186,
+      "line": 188,
       "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "symbol": "reconcile_linkedin_activity_pair"
     },
     {
       "id": "python_symbol:live_contentops/eight_platform_substack_first_pipeline_v1.py::reconcile_public_substack_for_derivative_resume",
       "kind": "python_function",
-      "line": 143,
+      "line": 145,
       "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "symbol": "reconcile_public_substack_for_derivative_resume"
     },
     {
       "id": "python_symbol:live_contentops/eight_platform_substack_first_pipeline_v1.py::repair_exact_substack_caption_fragment",
       "kind": "python_function",
-      "line": 170,
+      "line": 172,
       "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "symbol": "repair_exact_substack_caption_fragment"
     },
     {
       "id": "python_symbol:live_contentops/eight_platform_substack_first_pipeline_v1.py::repair_exact_treasury_release_candidate_editorial",
       "kind": "python_function",
-      "line": 174,
+      "line": 176,
       "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "symbol": "repair_exact_treasury_release_candidate_editorial"
     },
     {
       "id": "python_symbol:live_contentops/eight_platform_substack_first_pipeline_v1.py::repair_final_treasury_auction_logic",
       "kind": "python_function",
-      "line": 182,
+      "line": 184,
       "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "symbol": "repair_final_treasury_auction_logic"
     },
     {
       "id": "python_symbol:live_contentops/eight_platform_substack_first_pipeline_v1.py::resume_eight_platform_derivatives",
       "kind": "python_function",
-      "line": 151,
+      "line": 153,
       "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "symbol": "resume_eight_platform_derivatives"
     },
@@ -105803,210 +106142,259 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1",
       "kind": "python_class",
-      "line": 978,
+      "line": 1163,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.__init__",
       "kind": "python_method",
-      "line": 981,
+      "line": 1166,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.__init__"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.collect_metrics",
       "kind": "python_method",
-      "line": 1054,
+      "line": 1239,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.collect_metrics"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.finalize_intent",
       "kind": "python_method",
-      "line": 1014,
+      "line": 1199,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.finalize_intent"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.publish",
       "kind": "python_method",
-      "line": 990,
+      "line": 1175,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.publish"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.readback",
       "kind": "python_method",
-      "line": 1030,
+      "line": 1215,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.readback"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator",
       "kind": "python_class",
-      "line": 150,
+      "line": 166,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.__init__",
       "kind": "python_method",
-      "line": 153,
+      "line": 169,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.__init__"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._confirmed_canonical_url_for_work_item",
       "kind": "python_method",
-      "line": 764,
+      "line": 868,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._confirmed_canonical_url_for_work_item"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._dispatch_message",
       "kind": "python_method",
-      "line": 367,
+      "line": 453,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._dispatch_message"
     },
     {
+      "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._expire_stale_derivative",
+      "kind": "python_method",
+      "line": 238,
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "symbol": "DurablePublicationCoordinator._expire_stale_derivative"
+    },
+    {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._finalize_derivative_intent",
       "kind": "python_method",
-      "line": 522,
+      "line": 608,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._finalize_derivative_intent"
     },
     {
+      "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._freshness_horizon",
+      "kind": "python_method",
+      "line": 187,
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "symbol": "DurablePublicationCoordinator._freshness_horizon"
+    },
+    {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._ids",
       "kind": "python_method",
-      "line": 173,
+      "line": 259,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._ids"
     },
     {
+      "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._message_is_stale",
+      "kind": "python_method",
+      "line": 199,
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "symbol": "DurablePublicationCoordinator._message_is_stale"
+    },
+    {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._mode",
       "kind": "python_method",
-      "line": 183,
+      "line": 269,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._mode"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._readiness",
       "kind": "python_method",
-      "line": 189,
+      "line": 275,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._readiness"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._reconcile",
       "kind": "python_method",
-      "line": 272,
+      "line": 358,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._reconcile"
     },
     {
+      "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._record_retry_attempt",
+      "kind": "python_method",
+      "line": 230,
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "symbol": "DurablePublicationCoordinator._record_retry_attempt"
+    },
+    {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._record_runtime_activity",
       "kind": "python_method",
-      "line": 201,
+      "line": 287,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._record_runtime_activity"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._refresh_readiness_if_due",
       "kind": "python_method",
-      "line": 168,
+      "line": 254,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._refresh_readiness_if_due"
     },
     {
+      "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_already_attempted",
+      "kind": "python_method",
+      "line": 220,
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "symbol": "DurablePublicationCoordinator._retry_already_attempted"
+    },
+    {
+      "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._retry_incident_id",
+      "kind": "python_method",
+      "line": 217,
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "symbol": "DurablePublicationCoordinator._retry_incident_id"
+    },
+    {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.collect_metrics",
       "kind": "python_method",
-      "line": 902,
+      "line": 1087,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.collect_metrics"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
       "kind": "python_method",
-      "line": 627,
+      "line": 713,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.execute_plan"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.publish_plan",
       "kind": "python_method",
-      "line": 895,
+      "line": 1080,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.publish_plan"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.readback",
       "kind": "python_method",
-      "line": 898,
+      "line": 1083,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.readback"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
       "kind": "python_method",
-      "line": 787,
+      "line": 891,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.recover_pending"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.register_plan",
       "kind": "python_method",
-      "line": 219,
+      "line": 305,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.register_plan"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.replay_persisted_verified_readback",
       "kind": "python_method",
-      "line": 574,
+      "line": 660,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.replay_persisted_verified_readback"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.retry_reconciled_absent_substack",
       "kind": "python_method",
-      "line": 556,
+      "line": 642,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.retry_reconciled_absent_substack"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::_canonical_json",
       "kind": "python_function",
-      "line": 37,
+      "line": 43,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "_canonical_json"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash",
       "kind": "python_function",
-      "line": 41,
+      "line": 47,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "_hash"
     },
     {
+      "id": "python_symbol:live_contentops/publication_coordinator_v1.py::_parse_utc",
+      "kind": "python_function",
+      "line": 68,
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "symbol": "_parse_utc"
+    },
+    {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::_valid_substack_canonical_url",
       "kind": "python_function",
-      "line": 45,
+      "line": 51,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "_valid_substack_canonical_url"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::normalize_dispatch_result",
       "kind": "python_function",
-      "line": 62,
+      "line": 78,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "normalize_dispatch_result"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::normalize_readback_result",
       "kind": "python_function",
-      "line": 114,
+      "line": 130,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "normalize_readback_result"
     },
@@ -112654,6 +113042,20 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/capture_v1_bounded_correction_ui_v1.py::capture",
+      "kind": "python_function",
+      "line": 11,
+      "path": "scripts/capture_v1_bounded_correction_ui_v1.py",
+      "symbol": "capture"
+    },
+    {
+      "id": "python_symbol:scripts/capture_v1_bounded_correction_ui_v1.py::main",
+      "kind": "python_function",
+      "line": 63,
+      "path": "scripts/capture_v1_bounded_correction_ui_v1.py",
+      "symbol": "main"
+    },
+    {
       "id": "python_symbol:scripts/core_v0_cohort_browser_qa.py::main",
       "kind": "python_function",
       "line": 24,
@@ -112931,6 +113333,27 @@
       "kind": "python_function",
       "line": 337,
       "path": "scripts/prove_v1_final_product_four_window_closed_loop_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::ControlledZeroWriteTransport",
+      "kind": "python_class",
+      "line": 115,
+      "path": "scripts/prove_v1_four_window_bounded_correction_v1.py",
+      "symbol": "ControlledZeroWriteTransport"
+    },
+    {
+      "id": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::build_proof",
+      "kind": "python_function",
+      "line": 280,
+      "path": "scripts/prove_v1_four_window_bounded_correction_v1.py",
+      "symbol": "build_proof"
+    },
+    {
+      "id": "python_symbol:scripts/prove_v1_four_window_bounded_correction_v1.py::main",
+      "kind": "python_function",
+      "line": 487,
+      "path": "scripts/prove_v1_four_window_bounded_correction_v1.py",
       "symbol": "main"
     },
     {
@@ -114184,6 +114607,11 @@
       "size_bytes": 2755
     },
     {
+      "id": "scripts/capture_v1_bounded_correction_ui_v1.py",
+      "kind": "python_module",
+      "size_bytes": 3171
+    },
+    {
       "id": "scripts/core_v0_cohort_browser_qa.py",
       "kind": "python_module",
       "size_bytes": 3069
@@ -114227,6 +114655,11 @@
       "id": "scripts/prove_v1_final_product_four_window_closed_loop_v1.py",
       "kind": "python_module",
       "size_bytes": 15791
+    },
+    {
+      "id": "scripts/prove_v1_four_window_bounded_correction_v1.py",
+      "kind": "python_module",
+      "size_bytes": 23703
     },
     {
       "id": "scripts/run_direct_image_bakeoff_v1.py",
@@ -115006,7 +115439,7 @@
     {
       "id": "tests/test_daily_app_performance_learning_v1.py",
       "kind": "test",
-      "size_bytes": 28853
+      "size_bytes": 35645
     },
     {
       "id": "tests/test_daily_app_publication_lifecycle_v1.py",
@@ -115016,12 +115449,12 @@
     {
       "id": "tests/test_daily_app_supervisor_v1.py",
       "kind": "test",
-      "size_bytes": 18454
+      "size_bytes": 22219
     },
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 36695
+      "size_bytes": 38181
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -115132,6 +115565,11 @@
       "id": "tests/test_destination_identity_pinning_v1.py",
       "kind": "test",
       "size_bytes": 12422
+    },
+    {
+      "id": "tests/test_destination_performance_observer_v1.py",
+      "kind": "test",
+      "size_bytes": 2530
     },
     {
       "id": "tests/test_direct_image_api_v1.py",
@@ -116696,7 +117134,7 @@
     {
       "id": "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
       "kind": "test",
-      "size_bytes": 31192
+      "size_bytes": 33155
     },
     {
       "id": "tests/test_primary_payload_classes_contract.py",
@@ -116811,7 +117249,7 @@
     {
       "id": "tests/test_publication_coordinator_v1.py",
       "kind": "test",
-      "size_bytes": 39149
+      "size_bytes": 42504
     },
     {
       "id": "tests/test_publish_adapter_credential_secret_policy.py",
@@ -117146,7 +117584,7 @@
     {
       "id": "tests/test_security_scans.py",
       "kind": "test",
-      "size_bytes": 3929
+      "size_bytes": 4059
     },
     {
       "id": "tests/test_seo_editorial_metadata_proposal_v6.py",
@@ -117706,7 +118144,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::LoadState",
       "kind": "typescript_export",
-      "line": 260,
+      "line": 263,
       "path": "ui/contentops_v5/src/dailyAppTypes.ts",
       "symbol": "LoadState"
     },
@@ -120702,7 +121140,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/views/DailyAppConsole.tsx::DailyAppConsole",
       "kind": "typescript_export",
-      "line": 580,
+      "line": 591,
       "path": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "symbol": "DailyAppConsole"
     },
@@ -121127,7 +121565,7 @@
     {
       "id": "ui/contentops_v5/src/dailyAppTypes.ts",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 8502
+      "size_bytes": 8650
     },
     {
       "id": "ui/contentops_v5/src/data/canonicalDraftFinalReviewVariantPreviewAdapter.ts",
@@ -121602,7 +122040,7 @@
     {
       "id": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 52992
+      "size_bytes": 55428
     },
     {
       "id": "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
@@ -121868,6 +122306,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "eee0ba77b04d526393e8275ed2df1370be40d968",
-  "source_tree_digest": "8f2361cdfda3b6f163bada59934adf8c3653df1fb98d61a2240ae30390b85ce9"
+  "source_head": "5c9dc859e4cc85cca3d12f471b0e093e139315f7",
+  "source_tree_digest": "4d03586c51311990d49fa805469aa8f792687ef7f21cfebf2f874241dcd71bec"
 }

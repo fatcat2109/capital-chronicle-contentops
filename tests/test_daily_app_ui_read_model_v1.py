@@ -33,7 +33,10 @@ def _store(tmp_path, name="daily.sqlite3"):
     return ContentOpsDurableStore(tmp_path / name, now_fn=lambda: NOW)
 
 
-def _seed_dispatch(store, *, suffix, status, object_id=None, reconciliation=None, public_url=None):
+def _seed_dispatch(
+    store, *, suffix, status, object_id=None, reconciliation=None, public_url=None,
+    platform="substack",
+):
     work_id = f"work_{suffix}"
     message_id = f"outbox_{suffix}"
     dispatch_id = f"dispatch_{suffix}"
@@ -42,11 +45,11 @@ def _seed_dispatch(store, *, suffix, status, object_id=None, reconciliation=None
         work_item_id=work_id,
     )
     store.register_outbox_message(
-        message_id=message_id, work_item_id=work_id, destination="substack",
+        message_id=message_id, work_item_id=work_id, destination=platform,
         payload="{}", status="READY",
     )
     store.register_platform_dispatch(
-        dispatch_id=dispatch_id, message_id=message_id, platform="substack",
+        dispatch_id=dispatch_id, message_id=message_id, platform=platform,
         status=status, public_object_id=object_id, public_object_url=public_url,
     )
     if reconciliation:
@@ -626,6 +629,37 @@ def test_due_observation_preserves_unavailable_metric_not_zero(tmp_path):
         "qualified_engagement.formula.v1"
     )
     assert snapshot["queue"]["due_performance_observation_count"] == 1
+
+
+def test_observation_history_never_overwrites_current_collector_capability(tmp_path):
+    store = _store(tmp_path)
+    dispatch = _seed_dispatch(
+        store, suffix="x-history", platform="x", status="DISPATCH_CONFIRMED",
+        object_id="x-public-history", reconciliation="RECONCILED_CONFIRMED",
+    )
+    with store.get_connection() as conn:
+        conn.execute(
+            "INSERT INTO performance_observations VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (
+                "obs_x_history", "contentops.performance_observation.v1", dispatch,
+                "work_x-history", "x", "x-public-history", None, "DAILY",
+                "2026-08-10T11:00:00Z", "2026-08-10T11:01:00Z", "collector.legacy",
+                "COLLECTED", json.dumps({"likes": 4}),
+                json.dumps({"likes": "AVAILABLE"}), "historical", "history-hash", 1,
+            ),
+        )
+
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    platform = next(
+        row for row in snapshot["platforms"]["destinations"]
+        if row["platform_id"] == "x"
+    )
+
+    assert platform["observation_history_count"] == 1
+    assert platform["observation_history"][0]["collection_status"] == "COLLECTED"
+    assert platform["collector_capability"] == "NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING"
+    assert platform["interaction_capability"] == "NOT_EXPOSED"
+    assert platform["next_observation_at_utc"] is None
 
 
 def test_learning_bootstrap_child_and_rollback_lineage(tmp_path):

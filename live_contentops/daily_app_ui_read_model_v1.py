@@ -770,7 +770,6 @@ def build_daily_app_snapshot(
     for row in publications:
         # ``publications`` is newest-first; retain the first durable dispatch per platform.
         dispatch_by_platform.setdefault(str(row["platform"]), row)
-    observation_platforms = {str(row["platform"]) for row in observation_models}
     from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
     metrics_capability_by_destination = {
         str(row["destination"]): row for row in current_metrics_capability_matrix()
@@ -799,6 +798,21 @@ def build_daily_app_snapshot(
         sanitized_detail = _json(readiness.get("sanitized_detail_json"), {})
         if platform_id == "linkedin" and readiness:
             readiness_state = str(sanitized_detail.get("official_api_state") or "AUTH_UNAVAILABLE")
+        platform_observations = [
+            row for row in observation_models if str(row.get("platform") or "") in aliases
+        ]
+        platform_observations.sort(
+            key=lambda row: str(row.get("scheduled_for_utc") or ""), reverse=True
+        )
+        next_observation = min(
+            (
+                row for row in platform_observations
+                if row.get("collection_status") == "SCHEDULED"
+            ),
+            key=lambda row: str(row.get("scheduled_for_utc") or ""),
+            default=None,
+        )
+        capability = metrics_capability_by_destination.get(platform_id, {})
         platform_models.append({
             "platform_id": platform_id,
             "display_name": display_name,
@@ -823,22 +837,21 @@ def build_daily_app_snapshot(
                 if last else None
             ),
             "pending_incident": bool(last and last["lifecycle_classification"] == "UNKNOWN_WRITE"),
-            "metrics_capability": (
-                "OBSERVATION_RECORDED"
-                if aliases & observation_platforms
-                else metrics_capability_by_destination.get(platform_id, {}).get(
-                    "collector_state", "UNSUPPORTED_CURRENT_AUTHORIZED_RUNTIME"
-                )
+            "collector_capability": capability.get(
+                "collector_state", "UNSUPPORTED_CURRENT_AUTHORIZED_RUNTIME"
             ),
-            "metrics_supported": metrics_capability_by_destination.get(platform_id, {}).get(
-                "metrics", []
+            "observation_history": platform_observations,
+            "observation_history_count": len(platform_observations),
+            "metrics_supported": capability.get("metrics", []),
+            "interaction_capability": capability.get(
+                "interaction_text_observation", "UNSUPPORTED"
             ),
-            "interaction_observation": metrics_capability_by_destination.get(
-                platform_id, {}
-            ).get("interaction_text_observation", "UNSUPPORTED"),
-            "search_metrics_channel": metrics_capability_by_destination.get(
-                platform_id, {}
-            ).get("search_console_channel", "OPERATOR_SETUP_REQUIRED"),
+            "search_capability": capability.get(
+                "search_console_channel", "OPERATOR_SETUP_REQUIRED"
+            ),
+            "next_observation_at_utc": (
+                next_observation.get("scheduled_for_utc") if next_observation else None
+            ),
             "next_metric_availability": "UNAVAILABLE_NOT_ZERO",
             "readiness_authority": TRANSPORT_REGISTRY_VERSION,
         })
@@ -1480,6 +1493,11 @@ def build_daily_app_snapshot(
         },
         "performance": {
             "observations": observation_models,
+            "collector_capabilities": list(metrics_capability_by_destination.values()),
+            "scheduled_observation_count": len(scheduled_observations),
+            "collected_observation_count": sum(
+                row.get("collection_status") == "COLLECTED" for row in observation_models
+            ),
             "real_observation_count": len(observation_models),
             "empty_reason": "NO_REAL_PERFORMANCE_OBSERVATIONS_YET" if not observation_models else None,
             "empty_detail": "No real confirmed public object is eligible for observation." if not observation_models and not real_publications else None,

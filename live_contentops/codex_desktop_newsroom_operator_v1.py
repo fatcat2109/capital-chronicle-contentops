@@ -318,6 +318,10 @@ def load_terminal_editorial_continuity(
                 "grants_publication_authority": False,
             },
             "prior_cc_catalog_fingerprint": None,
+            "material_event_priority": {
+                "priority_ids": [], "headline_ids": [], "update_chain_identities": [],
+                "priority_count": 0, "grants_evidence_or_publication_authority": False,
+            },
         }
         result["continuity_logical_hash"] = _logical_hash(result)
         return result
@@ -337,6 +341,26 @@ def load_terminal_editorial_continuity(
         ).fetchall()
         published_memory = _published_memory_from_store(connection)
         active_learning_policy = _active_learning_policy_from_store(connection)
+        pending_material_rows = connection.execute(
+            "SELECT work_item_id FROM work_items "
+            "WHERE target_surface='daily_app_material_event_window' "
+            "AND current_state='DISCOVERED' ORDER BY work_item_id"
+        ).fetchall()
+
+    material_priorities: list[dict[str, Any]] = []
+    for pending in pending_material_rows:
+        priority = _read_json_object(
+            outputs / str(pending["work_item_id"]) / "material_event_priority_v1.json"
+        )
+        if priority:
+            material_priorities.append(priority)
+    material_event_priority = {
+        "priority_ids": sorted({str(row.get("priority_id") or "") for row in material_priorities if str(row.get("priority_id") or "")}),
+        "headline_ids": sorted({str(value) for row in material_priorities for value in (row.get("headline_ids") or []) if str(value)}),
+        "update_chain_identities": sorted({str(value) for row in material_priorities for value in (row.get("update_chain_identities") or []) if str(value)}),
+        "priority_count": len(material_priorities),
+        "grants_evidence_or_publication_authority": False,
+    }
 
     evaluated_ids: set[str] = set()
     evaluated_chains: set[str] = set()
@@ -421,6 +445,7 @@ def load_terminal_editorial_continuity(
         "active_learning_policy": active_learning_policy,
         "prior_cc_catalog_fingerprint": latest.get("cc_catalog_fingerprint")
         if latest else None,
+        "material_event_priority": material_event_priority,
     }
     result["continuity_logical_hash"] = _logical_hash(result)
     return result
@@ -464,6 +489,11 @@ def classify_desktop_candidate_universe(
         str(value) for value in (published.get("update_chain_identities") or [])
     }
     last_cutoff = _parse_utc(continuity.get("last_terminal_cutoff_utc"))
+    priority = dict(continuity.get("material_event_priority") or {})
+    priority_headline_ids = {str(value) for value in (priority.get("headline_ids") or [])}
+    priority_update_chains = {
+        str(value) for value in (priority.get("update_chain_identities") or [])
+    }
     included: list[dict[str, Any]] = []
     excluded: list[dict[str, Any]] = []
     assigned_ids: set[str] = set()
@@ -485,6 +515,10 @@ def classify_desktop_candidate_universe(
         published_match = (
             cluster_id in published_story_ids or chain_identity in published_chain_ids
         )
+        material_priority_match = bool(
+            set(headline_ids).intersection(priority_headline_ids)
+            or chain_identity in priority_update_chains
+        )
         source_times = [
             _parse_utc(rows_by_id[item].get("source_timestamp_utc"))
             for item in headline_ids
@@ -503,6 +537,9 @@ def classify_desktop_candidate_universe(
             "unseen_headline_ids": unseen_ids,
             "late_arriving_unseen_headline_ids": late_unseen,
             "published_memory_match": published_match,
+            "material_event_priority_match": material_priority_match,
+            "material_event_priority_ids": list(priority.get("priority_ids") or [])
+            if material_priority_match else [],
             "source_timestamp_max_utc": _iso_utc(max(
                 value for value in source_times if value is not None
             )) if any(value is not None for value in source_times) else None,
@@ -515,6 +552,9 @@ def classify_desktop_candidate_universe(
         elif material_update:
             record["decision"] = "INCLUDE_MATERIAL_UPDATE_CHAIN"
             included.append(record)
+        elif material_priority_match:
+            record["decision"] = "INCLUDE_MATERIAL_EVENT_PRIORITY"
+            included.append(record)
         elif unseen_ids:
             record["decision"] = "INCLUDE_UNSEEN_HEADLINE_IDENTITY"
             included.append(record)
@@ -522,6 +562,7 @@ def classify_desktop_candidate_universe(
             record["decision"] = "EXCLUDE_UNCHANGED_PREVIOUSLY_EVALUATED"
             excluded.append(record)
     included.sort(key=lambda value: (
+        0 if value.get("material_event_priority_match") else 1,
         0 if value["decision"] == "INCLUDE_MATERIAL_UPDATE_CHAIN" else 1,
         int(value["rank"]),
         str(value["cluster_id"]),
@@ -545,6 +586,8 @@ def classify_desktop_candidate_universe(
         }),
         "unchanged_or_published_excluded_count": len(excluded),
         "timestamp_only_filter_used": False,
+        "material_event_priority": priority,
+        "material_event_priority_changes_truth_or_publication_authority": False,
         "publication_authority_granted": False,
     }
     result["candidate_universe_logical_hash"] = _logical_hash(result)
@@ -646,6 +689,10 @@ def build_live_zero_write_rehearsal(
         },
         "candidate_universe": universe,
         "active_learning_policy": continuity.get("active_learning_policy"),
+        "material_event_priority": continuity.get("material_event_priority"),
+        "material_event_priority_consumed_by_briefing": bool(
+            (continuity.get("material_event_priority") or {}).get("priority_count")
+        ),
         "learning_policy_consumed_by_next_opportunity": True,
         "learning_policy_grants_factual_or_numeric_authority": False,
         "candidate_or_abstention": (

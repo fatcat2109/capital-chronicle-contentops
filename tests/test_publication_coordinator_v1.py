@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
@@ -22,6 +23,7 @@ from live_contentops.publication_coordinator_v1 import (
     RECONCILED_ABSENT_SAFE_TO_RETRY,
     RECONCILED_CONFIRMED,
     RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
+    DERIVATIVE_EXPIRED_STALE_NO_WRITE,
     UNKNOWN_WRITE,
     DurablePublicationCoordinator,
     normalize_dispatch_result,
@@ -644,6 +646,76 @@ def test_next_run_drains_reconciled_absent_derivative_once_under_same_identity(t
     assert second["publish_calls"] == 0
     assert transport.publish_calls == ["telegram"]
     assert len(store.list_platform_dispatches()) == 1
+
+
+def test_stale_absence_safe_derivative_expires_with_zero_write_and_history_retained(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    registered = coordinator.register_plan("work-1", _plan("telegram"))["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=registered["dispatch_id"], message_id=registered["message_id"],
+        platform="telegram", status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+    )
+    store.set_outbox_status(registered["message_id"], RECONCILED_ABSENT_SAFE_TO_RETRY)
+    store.register_reconciliation(
+        reconciliation_id=registered["reconciliation_id"], work_item_id="work-1",
+        status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+    )
+    coordinator._clock = lambda: datetime(2030, 1, 1, tzinfo=timezone.utc)
+
+    recovery = coordinator.recover_pending()
+
+    assert recovery["stale_expired"] == 1
+    assert recovery["publish_calls"] == 0
+    assert recovery["backlog_remaining"] == 0
+    assert transport.publish_calls == []
+    assert store.get_platform_dispatch(registered["dispatch_id"])["status"] == (
+        DERIVATIVE_EXPIRED_STALE_NO_WRITE
+    )
+    assert store.get_reconciliations_for_work_item("work-1")[0]["status"] == (
+        RECONCILED_ABSENT_SAFE_TO_RETRY
+    )
+
+
+def test_unknown_write_is_read_back_even_when_old_and_never_blindly_retried(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    registered = coordinator.register_plan("work-1", _plan("telegram"))["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=registered["dispatch_id"], message_id=registered["message_id"],
+        platform="telegram", status=UNKNOWN_WRITE, public_object_id="telegram-object-1",
+    )
+    store.set_outbox_status(registered["message_id"], UNKNOWN_WRITE)
+    coordinator._clock = lambda: datetime(2030, 1, 1, tzinfo=timezone.utc)
+
+    recovery = coordinator.recover_pending()
+
+    assert recovery["readbacks"] == 1
+    assert recovery["publish_calls"] == 0
+    assert transport.readback_calls == ["telegram"]
+    assert transport.publish_calls == []
+
+
+def test_new_article_refuses_to_start_while_safe_backlog_remains_after_budget(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    for index in range(20):
+        work_item_id = f"backlog-work-{index}"
+        store.create_work_item(
+            story_id=f"backlog-story-{index}", title="Backlog fixture",
+            target_surface="MULTI_PLATFORM", work_item_id=work_item_id,
+            actor_ref="controlled_test", correlation_id=f"backlog-{index}",
+        )
+        coordinator.register_plan(work_item_id, _plan("telegram"))
+    store.create_work_item(
+        story_id="new-story", title="New article fixture", target_surface="MULTI_PLATFORM",
+        work_item_id="new-work", actor_ref="controlled_test", correlation_id="new-work",
+    )
+
+    result = coordinator.execute_plan("new-work", _plan("telegram"))
+
+    assert result["distribution_status"] == "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS"
+    assert result["registered"] == []
+    assert result["recovery_preflight"]["safely_attempted"] == 9
+    assert result["recovery_preflight"]["backlog_remaining"] == 11
+    assert len(transport.publish_calls) == 9
 
 
 def test_cases_h_i_edge_crash_bootstrap_and_reauth_classification(tmp_path, monkeypatch):

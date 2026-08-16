@@ -106,6 +106,7 @@ def run_rolling_x_newsroom_cycle(
     published_corpus: Sequence[Any] | None = None,
     cc_catalog: Mapping[str, Any] | None = None,
     learning_policy: Mapping[str, Any] | None = None,
+    material_event_priority: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     return _execute(
@@ -136,6 +137,7 @@ def run_rolling_x_newsroom_cycle(
         published_corpus=published_corpus,
         cc_catalog=cc_catalog,
         learning_policy=learning_policy,
+        material_event_priority=material_event_priority,
         destination_readiness_override=destination_readiness_override,
     )
 

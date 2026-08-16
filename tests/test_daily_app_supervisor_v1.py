@@ -100,6 +100,92 @@ def test_editorial_window_id_is_deterministic_and_trigger_kind_aware():
     assert a != c
 
 
+def test_material_event_priority_survives_restart_and_is_consumed_by_scheduled_window(tmp_path):
+    staged_at = datetime(2026, 8, 10, 10, 10, tzinfo=timezone.utc)
+    output_root = tmp_path / "out"
+    first = ContentOpsDailyAppSupervisor(
+        store_path=tmp_path / "store.sqlite3", output_root=output_root,
+        clock=lambda: staged_at, operating_mode="SHADOW_ONLY",
+        newsroom_cycle=lambda **_kwargs: {"classification": "NO_PUBLICATION"},
+    )
+    signal = material_event_due(
+        {
+            "material_event_due": True, "new_material_event_count": 1,
+            "new_material_event_identity": "governed-delta-1",
+            "new_headline_ids": ["headline-priority"],
+            "new_headline_source_refs": ["source-ref-priority"],
+            "update_chain_identities": ["chain-priority"],
+        },
+        first.policy,
+        staged_at,
+    )
+    staged = first._stage_material_event(signal, staged_at)
+
+    captured = []
+    scheduled_at = staged_at + timedelta(minutes=20)
+    restarted = ContentOpsDailyAppSupervisor(
+        store_path=tmp_path / "store.sqlite3", store=first._store,
+        output_root=output_root, clock=lambda: scheduled_at,
+        operating_mode="SHADOW_ONLY",
+        newsroom_cycle=lambda **kwargs: captured.append(kwargs) or {
+            "classification": "NO_PUBLICATION",
+            "public_write_performed": False,
+            "unknown_write_detected": False,
+        },
+    )
+    outcome = restarted._execute_window(
+        {
+            "window_id": "scheduled-material-consumer",
+            "trigger": TRIGGER_SCHEDULED,
+            "start": scheduled_at - timedelta(minutes=5),
+            "end": scheduled_at + timedelta(minutes=5),
+            "session": "controlled-scheduled",
+        },
+        scheduled_at,
+    )
+
+    assert outcome["executed"] is True
+    assert captured[0]["material_event_priority"]["priority_ids"] == [staged["window_id"]]
+    assert captured[0]["material_event_priority"]["headline_ids"] == ["headline-priority"]
+    assert first._store.get_work_item(staged["window_id"])["current_state"] == "REJECTED"
+    assert outcome["material_event_priority_finalization"][staged["window_id"]] == (
+        "MATERIAL_EVENT_PRIORITY_CONSUMED"
+    )
+    assert len(restarted.policy.core_windows) == 4
+
+
+def test_expired_material_event_priority_terminalizes_instead_of_remaining_discovered(tmp_path):
+    staged_at = datetime(2026, 8, 10, 8, 0, tzinfo=timezone.utc)
+    supervisor = ContentOpsDailyAppSupervisor(
+        store_path=tmp_path / "store.sqlite3", output_root=tmp_path / "out",
+        clock=lambda: staged_at, operating_mode="SHADOW_ONLY",
+        newsroom_cycle=lambda **_kwargs: {"classification": "NO_PUBLICATION"},
+    )
+    signal = material_event_due(
+        {
+            "material_event_due": True,
+            "new_material_event_count": 1,
+            "new_material_event_identity": "governed-expiring-delta",
+            "new_headline_ids": ["headline-expiring"],
+        },
+        supervisor.policy,
+        staged_at,
+    )
+    staged = supervisor._stage_material_event(signal, staged_at)
+    priority_path = Path(staged["priority_artifact"])
+    priority = json.loads(priority_path.read_text(encoding="utf-8"))
+    priority["expires_at_utc"] = (staged_at + timedelta(minutes=1)).isoformat()
+    priority_path.write_text(json.dumps(priority), encoding="utf-8")
+
+    pending = supervisor._pending_material_event_priorities(
+        staged_at + timedelta(minutes=2), expire_stale=True
+    )
+
+    assert pending == []
+    assert supervisor._store.get_work_item(staged["window_id"])["current_state"] == "REJECTED"
+    assert len(supervisor.policy.core_windows) == 4
+
+
 def test_next_wake_is_deterministic_for_fixed_clock_and_policy():
     clock_dt = datetime(2026, 8, 9, 10, 0, tzinfo=timezone.utc)  # Sunday: next is Monday
     supervisor, _ = _supervisor(Path(_tempdir()), clock=_fixed_clock(clock_dt))

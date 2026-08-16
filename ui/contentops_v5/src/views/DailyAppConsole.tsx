@@ -464,8 +464,19 @@ function Published({ data }: { data: DailyAppSnapshot }) {
 }
 
 function Performance({ data }: { data: DailyAppSnapshot }) {
-  return <div className="daily-view"><ViewTitle title="Performance" detail="Native platform observations only; unavailable metrics never become zero." />
-    <Panel title="Observation windows">{data.performance.observations.length ? <CardList items={data.performance.observations} titleKey="platform" statusKey="collection_status" /> : <Empty title={words(data.performance.empty_reason)} detail={data.performance.empty_detail ?? 'No native performance observation is recorded.'} />}</Panel>
+  const capabilities = data.performance.collector_capabilities ?? [];
+  const observationsFor = (windowName: string) => data.performance.observations.filter(item => String(item.observation_window) === windowName);
+  const observationGroup = (windowName: string, label: string) => {
+    const rows = observationsFor(windowName);
+    return <Panel title={`${label} observations`} eyebrow={`${rows.length} exact public-object windows`}>{rows.length ? <div className="daily-stack">{rows.map(item => <Panel key={String(item.observation_id)} title={`${words(item.platform)} · ${words(item.observation_window)}`} eyebrow={String(item.collection_status)}><DefinitionRows object={{ scheduled_for_utc: item.scheduled_for_utc, collected_at_utc: item.collected_at_utc, collector_capability_version: item.collector_capability_version, source_identity: item.source_identity, qualified_engagement_score: item.qualified_engagement_score, learning_eligible: item.learning_eligible, native_metrics: item.native_metrics, metric_availability: item.metric_availability, limitations: item.limitations }} /></Panel>)}</div> : <Empty title={`No ${label.toLocaleLowerCase()} observation`} detail="No exact public object has this observation window." />}</Panel>;
+  };
+  return <div className="daily-view"><ViewTitle title="Performance" detail="Native read-only observations only; unavailable, not exposed, and permission-required never become zero." />
+    <div className="daily-grid-3"><Metric label="Observation history" value={data.performance.real_observation_count} /><Metric label="Collected" value={data.performance.collected_observation_count ?? 0} /><Metric label="Scheduled next" value={data.performance.scheduled_observation_count ?? 0} /></div>
+    {observationGroup('EARLY', 'Early')}
+    {observationGroup('INTERMEDIATE', 'Intermediate')}
+    {observationGroup('DAILY', 'Daily')}
+    <Panel title="Collector capability" eyebrow="Current authorized bindings · one probe maximum">{capabilities.length ? <div className="daily-platform-grid">{capabilities.map(item => <article className="daily-platform" key={String(item.destination)}><div><strong>{words(item.destination)}</strong><small>Read-only collector</small></div><Status value={item.collector_state} /><DefinitionRows object={{ metrics: item.metrics, interaction_capability: item.interaction_text_observation, search_capability: item.search_console_channel, max_provider_requests: item.max_provider_requests_per_observation, additional_scope_granted: item.additional_scope_granted }} /></article>)}</div> : <Empty title="Collector matrix unavailable" detail="No capability record is available." />}</Panel>
+    {observationGroup('LONG_TAIL', 'Long-tail')}
   </div>;
 }
 
@@ -480,7 +491,7 @@ function Learning({ data }: { data: DailyAppSnapshot }) {
 
 function Platforms({ data }: { data: DailyAppSnapshot }) {
   return <div className="daily-view"><ViewTitle title="Platforms" detail="Canonical readiness, verified safe identity, readback, and metrics availability by destination." />
-    <div className="daily-platform-grid">{data.platforms.destinations.map(item => <article className="daily-platform" key={String(item.platform_id)}><div><strong>{String(item.display_name)}</strong><small>{words(item.binding_class)}</small></div><Status value={item.readiness} /><DefinitionRows object={{ safe_identity: item.safe_identity, identity_match: item.identity_match, authenticated: item.authenticated, auth_expiry_at_utc: item.auth_expiry_at_utc, auth_days_remaining: item.auth_days_remaining, transport_type: item.transport_type, readback_capability: item.readback_capability, probed_at_utc: item.probed_at_utc, last_dispatch_state: item.last_dispatch_state, last_successful_readback_at_utc: item.last_successful_readback_at_utc, metrics_capability: item.metrics_capability, next_metric_availability: item.next_metric_availability, pending_incident: item.pending_incident }} /></article>)}</div>
+    <div className="daily-platform-grid">{data.platforms.destinations.map(item => <article className="daily-platform" key={String(item.platform_id)}><div><strong>{String(item.display_name)}</strong><small>{words(item.binding_class)}</small></div><Status value={item.readiness} /><DefinitionRows object={{ safe_identity: item.safe_identity, identity_match: item.identity_match, authenticated: item.authenticated, auth_expiry_at_utc: item.auth_expiry_at_utc, auth_days_remaining: item.auth_days_remaining, transport_type: item.transport_type, readback_capability: item.readback_capability, probed_at_utc: item.probed_at_utc, last_dispatch_state: item.last_dispatch_state, last_successful_readback_at_utc: item.last_successful_readback_at_utc, collector_capability: item.collector_capability, observation_history_count: item.observation_history_count, interaction_capability: item.interaction_capability, search_capability: item.search_capability, next_observation_at_utc: item.next_observation_at_utc, next_metric_availability: item.next_metric_availability, pending_incident: item.pending_incident }} /></article>)}</div>
   </div>;
 }
 

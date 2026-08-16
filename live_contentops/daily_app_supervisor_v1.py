@@ -310,6 +310,21 @@ def material_event_due(
         "trigger_kind": TRIGGER_MATERIAL_EVENT,
         "trigger_identity": trigger_identity,
         "new_material_event_count": count,
+        "headline_ids": sorted({
+            str(value)
+            for value in (materiality_metadata.get("new_headline_ids") or [])
+            if str(value)
+        }),
+        "source_refs": sorted({
+            str(value)
+            for value in (materiality_metadata.get("new_headline_source_refs") or [])
+            if str(value)
+        }),
+        "update_chain_identities": sorted({
+            str(value)
+            for value in (materiality_metadata.get("update_chain_identities") or [])
+            if str(value)
+        }),
         "evaluated_at_utc": _iso_utc(now),
         "grants_evidence_or_publication_authority": False,
     }
@@ -1866,6 +1881,40 @@ class ContentOpsDailyAppSupervisor:
             actor_ref="ContentOpsContinuousHeadlineIntake",
             correlation_id=f"corr_{window_id}",
         )
+        priority_path = self._output_root / window_id / "material_event_priority_v1.json"
+        priority_path.parent.mkdir(parents=True, exist_ok=True)
+        if priority_path.exists():
+            try:
+                priority = json.loads(priority_path.read_text(encoding="utf-8"))
+            except (OSError, TypeError, ValueError):
+                priority = {}
+        else:
+            priority = {
+                "schema_version": "contentops.material_event_priority.v1",
+                "priority_id": window_id,
+                "trigger_identity": signal.get("trigger_identity"),
+                "headline_ids": list(signal.get("headline_ids") or []),
+                "source_refs": list(signal.get("source_refs") or []),
+                "update_chain_identities": list(
+                    signal.get("update_chain_identities") or []
+                ),
+                "new_material_event_count": int(
+                    signal.get("new_material_event_count") or 0
+                ),
+                "created_at_utc": _iso_utc(now),
+                "expires_at_utc": _iso_utc(
+                    now + timedelta(hours=self._policy.freshness_max_age_hours)
+                ),
+                "consumption_state": "PENDING_NEXT_SCHEDULED_OPPORTUNITY",
+                "grants_evidence_or_publication_authority": False,
+                "changes_candidate_eligibility_gates": False,
+            }
+            priority["priority_logical_hash"] = _logical_hash(priority)
+            temporary_path = priority_path.with_suffix(priority_path.suffix + ".tmp")
+            temporary_path.write_text(
+                json.dumps(priority, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+            )
+            temporary_path.replace(priority_path)
         return {
             "state": str(item.get("current_state") or "DISCOVERED"),
             "window_id": window_id,
@@ -1873,7 +1922,102 @@ class ContentOpsDailyAppSupervisor:
             "new_material_event_count": signal.get("new_material_event_count"),
             "staged_at_utc": _iso_utc(now),
             "durable_idempotency": True,
+            "priority_artifact": str(priority_path),
+            "headline_ids": list(priority.get("headline_ids") or []),
             "grants_evidence_or_publication_authority": False,
+        }
+
+    def _finalize_material_event_priority(
+        self, priority_id: str, *, reason_code: str
+    ) -> str:
+        """Terminalize one priority through canonical state transitions."""
+        from live_contentops.durable_operational_store_v1 import LeaseConflictError
+
+        if self._window_state(priority_id) != "DISCOVERED":
+            return "ALREADY_TERMINAL"
+        try:
+            lease = self._store.claim_work_item(
+                lease_key=priority_id,
+                work_item_id=priority_id,
+                owner_ref=self._owner_ref,
+                ttl_seconds=self._lease_ttl_seconds,
+            )
+        except LeaseConflictError:
+            return "ACTIVE_OWNER"
+        try:
+            for to_state in ("EVIDENCE_PENDING", "EVIDENCE_BLOCKED", "REJECTED"):
+                self._transition(
+                    window_id=priority_id,
+                    to_state=to_state,
+                    lease_key=str(lease["lease_key"]),
+                    fencing_token=int(lease["fencing_token"]),
+                    reason_code=reason_code,
+                    explanation=(
+                        f"Material-event priority {priority_id} {reason_code.casefold()}"
+                    ),
+                )
+            return reason_code
+        finally:
+            try:
+                self._store.release_lease(
+                    str(lease["lease_id"]), self._owner_ref, int(lease["fencing_token"])
+                )
+            except Exception:  # noqa: BLE001
+                pass
+
+    def _pending_material_event_priorities(
+        self, now: datetime, *, expire_stale: bool
+    ) -> list[dict[str, Any]]:
+        """Load restart-safe current priority artifacts; stale rows terminalize with zero write."""
+        priorities: list[dict[str, Any]] = []
+        for window in self._pending_material_event_windows(now):
+            priority_id = str(window["window_id"])
+            path = self._output_root / priority_id / "material_event_priority_v1.json"
+            try:
+                value = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, TypeError, ValueError):
+                value = {
+                    "schema_version": "contentops.material_event_priority.v1",
+                    "priority_id": priority_id,
+                    "headline_ids": [],
+                    "source_refs": [],
+                    "update_chain_identities": [],
+                    "created_at_utc": _iso_utc(window["start"]),
+                    "expires_at_utc": _iso_utc(
+                        window["start"]
+                        + timedelta(hours=self._policy.freshness_max_age_hours)
+                    ),
+                    "artifact_reconstructed": True,
+                    "grants_evidence_or_publication_authority": False,
+                }
+            try:
+                expires = _parse_utc(str(value.get("expires_at_utc") or ""))
+            except ValueError:
+                expires = window["start"] + timedelta(
+                    hours=self._policy.freshness_max_age_hours
+                )
+            if expires <= now:
+                if expire_stale:
+                    self._finalize_material_event_priority(
+                        priority_id, reason_code="MATERIAL_EVENT_PRIORITY_EXPIRED"
+                    )
+                continue
+            priorities.append(dict(value))
+        return priorities
+
+    @staticmethod
+    def _merge_material_event_priorities(
+        priorities: Sequence[Mapping[str, Any]],
+    ) -> dict[str, Any]:
+        return {
+            "schema_version": "contentops.material_event_priority_briefing.v1",
+            "priority_ids": sorted({str(row.get("priority_id") or "") for row in priorities if str(row.get("priority_id") or "")}),
+            "headline_ids": sorted({str(value) for row in priorities for value in (row.get("headline_ids") or []) if str(value)}),
+            "source_refs": sorted({str(value) for row in priorities for value in (row.get("source_refs") or []) if str(value)}),
+            "update_chain_identities": sorted({str(value) for row in priorities for value in (row.get("update_chain_identities") or []) if str(value)}),
+            "priority_count": len(priorities),
+            "grants_evidence_or_publication_authority": False,
+            "changes_candidate_eligibility_gates": False,
         }
 
     def _pending_material_event_windows(self, now: datetime) -> list[dict[str, Any]]:
@@ -2481,6 +2625,18 @@ class ContentOpsDailyAppSupervisor:
             )
             learning_policy = self._active_learning_policy_briefing()
             portfolio_context["active_learning_policy"] = learning_policy
+            material_priorities: list[dict[str, Any]] = []
+            material_priority: dict[str, Any] = {}
+            if str(window.get("trigger") or "") == TRIGGER_SCHEDULED:
+                material_priorities = self._pending_material_event_priorities(
+                    now, expire_stale=True
+                )
+                material_priority = self._merge_material_event_priorities(
+                    material_priorities
+                )
+                if material_priorities:
+                    cycle_kwargs["material_event_priority"] = material_priority
+                    portfolio_context["material_event_priority"] = material_priority
             try:
                 (output_dir / "editorial_portfolio_context_v1.json").write_text(
                     json.dumps(portfolio_context, indent=2, sort_keys=True, default=str) + "\n",
@@ -2500,6 +2656,14 @@ class ContentOpsDailyAppSupervisor:
 
             with llm_cycle_budget_scope(window_id, now=now):
                 result = dict(self._newsroom_cycle(**cycle_kwargs))
+            material_priority_finalization = {
+                str(row.get("priority_id") or ""): self._finalize_material_event_priority(
+                    str(row.get("priority_id") or ""),
+                    reason_code="MATERIAL_EVENT_PRIORITY_CONSUMED",
+                )
+                for row in material_priorities
+                if str(row.get("priority_id") or "")
+            }
             classification = str(result.get("classification") or "")
             viable = classification not in {"NO_PUBLICATION", "BLOCKED", ""}
             novelty_decision = self._record_editorial_novelty_decision(
@@ -2607,6 +2771,8 @@ class ContentOpsDailyAppSupervisor:
                 "public_write_performed": public_write,
                 "unknown_write_detected": unknown_write,
                 "publication_lifecycle": lifecycle,
+                "material_event_priority": material_priority,
+                "material_event_priority_finalization": material_priority_finalization,
                 "post_publication_performance": post_publication_performance,
                 "published_memory_cycle_proof": memory_proof,
                 "editorial_novelty_decision": novelty_decision,
