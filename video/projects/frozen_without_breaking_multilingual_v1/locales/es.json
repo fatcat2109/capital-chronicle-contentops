@@ -1,0 +1,466 @@
+{
+  "schema": "contentops.v2.localized_editorial_package.v1",
+  "language": "Spanish",
+  "locale": "es",
+  "editor_receipt": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "scope": "LOCALIZATION_EDITORIAL_ONLY",
+    "notes": [
+      "Adaptación a un español neutral y profesional para una audiencia internacional de finanzas y economía.",
+      "Se conservaron cifras, signos, unidades, periodos, autoridades, comparaciones, estados preliminares y de estimación anticipada, así como las distinciones entre observación y análisis de Capital Chronicle.",
+      "No se atribuyen motivos a los cambios de stock de la CPS ni causalidad de inteligencia artificial al resultado de productividad.",
+      "La guía de voz se entrega para una futura prueba humana; no se afirma calidad de voz ni aceptación del propietario."
+    ]
+  },
+  "longform": {
+    "title": "Paralizado, no roto: la paradoja del mercado laboral de EE. UU.",
+    "description": "El empleo en nóminas cayó y la tasa de desempleo también. Este documental examina cómo las revisiones, la menor participación, la debilidad de las contrataciones y las renuncias, la concentración sectorial y una mayor producción con casi las mismas horas de trabajo pueden coexistir sin constituir todavía un colapso generalizado por despidos. Las cifras proceden de fuentes oficiales de EE. UU.; las imágenes documentales son ilustrativas y el diagnóstico de «parálisis» es análisis de Capital Chronicle.",
+    "social_copy": "El 4,1 % de desempleo no cuenta por sí solo toda la historia. Menos contratación, menos renuncias y menos despidos pueden coexistir con una demanda privada firme y una productividad al alza. «Paralizado, no roto» sigue la evidencia —y sus límites— para explicar por qué una economía que aún avanza puede dejar a sus trabajadores con menos margen de movimiento.",
+    "chapter_titles": {
+      "chapter_01": "Nueve días después",
+      "chapter_02": "La tasa que bajó sin más empleo",
+      "chapter_03": "La puerta giratoria se detuvo",
+      "chapter_04": "Un sector sostiene el techo",
+      "chapter_05": "La máquina sigue en marcha",
+      "chapter_06": "La parte que falta",
+      "chapter_07": "Sin salida fácil"
+    },
+    "narration_chapters": {
+      "chapter_01": "[PAUSE 16.1]\n\nNueve días después, el registro público cambió.\n\nEl empleo en nóminas cayó en veintitrés mil puestos en julio.\n\nY el desempleo también bajó, hasta el 4,1 por ciento.\n\nMenos empleo. Menos desempleo. Dos titulares oficiales, procedentes de dos encuestas, avanzando en la misma dirección cuando la intuición dice que deberían moverse en sentidos opuestos.\n\nEntonces, el pasado también cambió.\n\nEl aumento del empleo en nóminas de mayo se publicó inicialmente en ciento setenta y dos mil. Para agosto, había quedado en sesenta y tres mil. Solo en el informe sobre la Situación del Empleo de julio, mayo pasó de ciento veintinueve mil a sesenta y tres mil, y junio, de cincuenta y siete mil a veinte mil: una revisión combinada a la baja de ciento tres mil frente a las estimaciones disponibles justo antes del informe.\n\nCon las estimaciones actuales, el empleo en nóminas creció en promedio apenas veinte mil puestos al mes entre mayo y julio. Durante los doce meses anteriores, el promedio fue de treinta y cuatro mil.\n\nUn solo dato débil no basta para sostener esta historia. La Oficina de Estadísticas Laborales de Estados Unidos, o BLS, señala que un cambio mensual del empleo en nóminas debe rondar los ciento veintidós mil puestos para superar su umbral habitual de significación del noventa por ciento. Una caída de veintitrés mil no lo supera.\n\nY para el veintiocho de agosto está prevista una referencia preliminar basada en los registros fiscales del seguro de desempleo, que someterá el nivel de empleo en nóminas a otra prueba.\n\nAsí que esta película no pretende que una estimación sea exacta. Trata de lo que ocurre cuando las revisiones, la participación, los flujos laborales y los datos sectoriales empiezan a señalar la misma condición.\n\n¿Qué cifra dice la verdad?\n\n[PAUSE 0.45]\n\nTodas pueden ser ciertas.\n\n[PAUSE 1.1]",
+      "chapter_02": "La cifra de nóminas procede de los empleadores y cuenta puestos de trabajo. Una persona con dos empleos en nómina puede aparecer dos veces.\n\nLa tasa de desempleo procede de los hogares y clasifica personas. Cada persona cuenta una sola vez.\n\nEn julio, esa encuesta de hogares no detectó un auge del empleo. Estimó que el empleo cayó en ochenta y siete mil personas. La fuerza laboral se redujo en doscientas sesenta y cuatro mil. Y el número de personas clasificadas como desempleadas bajó en ciento setenta y ocho mil.\n\nEl número de personas fuera de la fuerza laboral aumentó en trescientas ochenta y una mil.\n\nAsí puede bajar la tasa de desempleo mientras también caen el empleo y la fuerza laboral. La tasa del 4,1 por ciento es real según la definición estándar. Pero, por sí sola, no demuestra que el mercado se haya fortalecido.\n\nDesde enero, la tasa de participación en la fuerza laboral ha caído siete décimas de punto porcentual. La proporción de la población con empleo ha bajado medio punto.\n\nBajo la superficie hay una segunda discrepancia. De febrero a julio, el empleo en nóminas aumentó en cuatrocientas veintidós mil personas. Una serie de hogares del BLS ajustada para aproximarse a los conceptos de la encuesta de nóminas cayó en quinientas sesenta y tres mil.\n\nEso no convierte en falsa a ninguna de las dos encuestas. La encuesta de hogares es más pequeña y más volátil. Las encuestas cuentan cosas distintas. Además, el BLS introdujo nuevos controles de población en enero, por lo que la ruptura de diciembre a enero en los niveles de la encuesta de hogares no debe presentarse como movimiento económico real. Comenzar en febrero evita esa ruptura; no elimina la incertidumbre.\n\nLa conclusión honesta no es que doscientas sesenta y cuatro mil personas desempleadas «se rindieron». Los datos no nos dicen eso. La conclusión honesta es más estrecha, y más interesante.\n\nLa tasa de desempleo bajó sin que aumentara el empleo según la encuesta de hogares.\n\nEste mercado no se limita a perder puestos de trabajo.\n\nEstá perdiendo movimiento.\n\n[PAUSE 0.7]",
+      "chapter_03": "Para ver cómo desaparece ese movimiento, deje por un momento de mirar cuántos puestos de trabajo existen. Observe cómo se desplazan las personas entre ellos.\n\nEn junio, los empleadores declararon siete millones trescientas cincuenta y nueve mil vacantes. Pero solo realizaron cinco millones trescientas cuarenta y ocho mil contrataciones. La tasa de contratación fue del 3,4 por ciento, por debajo del 3,9 por ciento de febrero de 2020.\n\nAún había alrededor de 1,04 vacantes por cada persona desempleada. Pero esa proporción es un mapa, no un servicio de colocación. Una vacante puede estar en el lugar equivocado, exigir otra competencia, ofrecer una remuneración inadecuada o no convertirse nunca en una contratación.\n\nDesde lejos, el mercado puede parecer equilibrado. De cerca, la puerta puede seguir siendo estrecha.\n\nLos trabajadores tampoco se movían mucho. La tasa de renuncias fue del 2,0 por ciento, por debajo del 2,3 por ciento de febrero de 2020. Las renuncias son una medida imperfecta, pero captan algo que el total de nóminas no puede mostrar: la voluntad y la capacidad de dejar un empleo por otro.\n\n¿Y los despidos y ceses? Su tasa fue del 1,1 por ciento, también por debajo de febrero de 2020.\n\nLos datos de alta frecuencia sobre solicitudes de prestaciones cuentan la misma historia contenida. Las solicitudes iniciales del seguro de desempleo fueron doscientas nueve mil en la semana terminada el ocho de agosto, menos que en la semana comparable de un año antes. Las solicitudes continuadas también fueron menores.\n\nEsas cifras no muestran una oleada generalizada de despidos cubierta por el seguro.\n\nEso no significa que el mercado sea indoloro. En julio, aproximadamente una cuarta parte de los estadounidenses desempleados ya llevaba al menos veintisiete semanas sin trabajo. Una entrada débil puede causar dificultades duraderas sin un salto espectacular de los despidos.\n\nPor eso, la mejor descripción es: poca contratación, pocas renuncias y pocos despidos.\n\nSi ya tiene trabajo, la escasez de despidos puede sentirse como estabilidad. Si intenta entrar, reingresar o mejorar de puesto, la escasez de contrataciones y renuncias puede sentirse como una habitación cerrada.\n\nLa trampilla no se ha abierto.\n\nLa puerta giratoria casi se ha detenido.\n\nY eso vuelve inevitable la siguiente pregunta: ¿de dónde procede el crecimiento del empleo que aún queda?\n\n[PAUSE 0.7]",
+      "chapter_04": "El sector de la salud añadió alrededor de veintidós mil empleos en nómina en julio.\n\nEn el conjunto del año, añadió aproximadamente trescientos noventa y dos mil.\n\nEl empleo total en nóminas de toda la economía aumentó solo en trescientos dieciséis mil.\n\nSi se excluye el sector de la salud, todos los demás sectores juntos empleaban aproximadamente a setenta y seis mil personas menos que un año antes.\n\nEs una concentración notable. También es fácil utilizarla mal.\n\nLa salud no fue la única industria que creció. La construcción, los servicios profesionales, y el ocio y la hostelería registraron avances en el año. El índice de difusión del sector privado fue de 51,8 en julio, apenas por encima de la línea neutral de cincuenta.\n\nPor tanto, la amplitud estuvo cerca del equilibrio. La magnitud, no. Muchas ganancias pequeñas pueden coexistir con unas pocas pérdidas grandes y una fuente dominante de crecimiento.\n\nLos puntos de presión eran visibles. El comercio minorista perdió alrededor de diecinueve mil empleos en julio. Las actividades financieras perdieron catorce mil y se situaron ciento veintiún mil por debajo de su máximo de mayo de 2025. La educación de los gobiernos locales perdió aproximadamente cincuenta mil.\n\nEsas cifras no demuestran que los consumidores hayan colapsado, que el crédito se haya paralizado o que los servicios públicos estén en un retroceso estructural. El empleo no es un balance.\n\nPero un mercado laboral que depende de un sector socialmente esencial para aportar más que todo su crecimiento neto anual no es dinámico en sentido amplio. Ese sector sostiene la estructura.\n\n[PAUSE 0.7]\n\nY la concentración hace que un titular tranquilo sea más frágil de lo que parece.\n\nEntonces, ¿por qué no se ha detenido una economía con tan poca absorción de mano de obra?\n\n[PAUSE 0.8]",
+      "chapter_05": "Porque la economía está haciendo más con casi ningún tiempo de trabajo adicional.\n\nSegún las estimaciones preliminares del BLS para el segundo trimestre, la producción del sector empresarial no agrícola fue un 2,5 por ciento mayor que un año antes. Las horas de trabajo aumentaron solo un 0,2 por ciento. La productividad subió un 2,2 por ciento. Los costos laborales unitarios aumentaron apenas un 1,4 por ciento.\n\nEsa brecha es la aritmética central de esta película. La producción agregada puede crecer sin que las horas totales de trabajo aumenten al mismo ritmo.\n\nLos datos nos dicen qué ocurrió. No nos dicen que la inteligencia artificial lo causó.\n\nLa productividad es la producción medida dividida por las horas medidas. No viene acompañada de una etiqueta que identifique la máquina, la inversión, la composición sectorial, el cambio en la fuerza laboral, la decisión cíclica o el problema de medición que hay detrás.\n\nY la demanda no había desaparecido.\n\nEl producto interno bruto real creció a una tasa anual del 1,5 por ciento en el segundo trimestre. Más importante para la economía privada subyacente, las ventas finales reales a compradores privados nacionales —el gasto de los consumidores más la inversión fija privada— crecieron a una tasa del 3,9 por ciento.\n\nNo se trataba de una contracción generalizada de la demanda privada disfrazada por un titular sólido. Los consumidores y las empresas seguían gastando e invirtiendo.\n\nEsa es la división: la economía puede seguir comprando, invirtiendo y produciendo mientras crea muy poco empleo neto.\n\nCuando aumenta la producción por hora, la remuneración puede crecer sin que los costos laborales unitarios suban con la misma rapidez. Eso puede sostener los márgenes. Pero la eficiencia agregada no equivale a oportunidades generalizadas.\n\nLa resiliencia de la economía es real.\n\nLa siguiente pregunta es quién llega a sentirla.\n\n[PAUSE 0.7]",
+      "chapter_06": "Los ingresos medios por hora aumentaron un 3,2 por ciento en el año.\n\nOtra medida, el Índice de Costos del Empleo, mostró un alza del 3,1 por ciento en los salarios privados. Como controla con más cuidado los cambios en la composición de empleos e industrias, esa coincidencia corrobora una lectura salarial cercana al 3 por ciento.\n\nPero los precios al consumidor de julio fueron un 3,4 por ciento mayores que un año antes. Los ingresos medios reales por hora bajaron un 0,2 por ciento. Los costos patronales de las prestaciones de seguro médico en la industria privada aumentaron un 6 por ciento.\n\nLos trabajadores no estaban viviendo un auge generalizado del salario real.\n\nLa inflación tampoco era una sola cifra inequívoca. Los precios subyacentes al consumidor, que excluyen alimentos y energía, aumentaron un 2,5 por ciento. La energía contribuyó a elevar la cifra general.\n\nTambién está la participación del trabajo en la producción generada. En el sector empresarial no agrícola, la estimación preliminar del BLS cayó al 52,9 por ciento, el nivel más bajo de una serie que comienza en 1947.\n\nLa cifra llama la atención. También es preliminar y está expuesta a revisiones. No puede decirnos por qué cambió la participación, y no debe sostener por sí sola la tesis.\n\nPor ahora, la conclusión defendible es más estrecha. La economía ha producido recientemente más sin necesitar muchas más horas de trabajo. Los trabajadores completan menos cambios de empleo. El salario real por hora ha retrocedido ligeramente. Y la escasez de renuncias puede reducir la capacidad de negociación que ofrece la posibilidad de marcharse.\n\nEsta es la versión incómoda de la productividad.\n\nUna economía puede volverse más eficiente antes de volverse más generosa.\n\nY esa división alcanza ahora a la institución encargada de equilibrar el empleo y los precios.\n\n[PAUSE 0.8]",
+      "chapter_07": "Vuelva a ordenar las fechas.\n\nEl veintinueve de julio, la Reserva Federal mantuvo su tasa de política monetaria entre el 3,5 y el 3,75 por ciento. La votación fue de nueve a tres. Tres responsables de política monetaria prefirieron un aumento de un cuarto de punto.\n\nEl informe de empleo de julio y sus revisiones llegaron el siete de agosto. La inflación de julio llegó el doce de agosto. Las ventas minoristas de julio llegaron el catorce de agosto.\n\nLa evaluación del veintinueve de julio no podía incorporar esos informes. Todavía no existían en el registro público.\n\n[PAUSE 16.35]\n\nEse es un juicio sobre cómo encajan los dos mandatos.\n\nLos datos posteriores hacen más difícil la decisión de política monetaria, no más simple el principio.\n\nLa contratación es lo bastante débil como para elevar el riesgo para el empleo. La inflación general del 3,4 por ciento es lo bastante alta como para oponerse a una flexibilización automática. La demanda privada del segundo trimestre, a una tasa anualizada del 3,9 por ciento, y el crecimiento interanual de la productividad del 2,2 por ciento complican ambas lecturas.\n\nNada en esas cifras oficiales nos dice cuál será la próxima decisión sobre tasas, el siguiente movimiento del mercado o la fecha de una recesión.\n\nLa pregunta útil es qué cambiaría el diagnóstico.\n\nSi el crecimiento del empleo en nóminas se mantiene cerca de cero después de las revisiones, las contrataciones y renuncias siguen bajas, las solicitudes de prestaciones permanecen contenidas, la participación no se recupera y el sector de la salud continúa dominando el crecimiento neto del empleo, la parálisis persiste.\n\nSi el crecimiento de las nóminas se amplía, el empleo de la encuesta de hogares y la participación se recuperan, y aumentan las contrataciones y renuncias sin más despidos, el mercado se está descongelando.\n\nSi saltan las solicitudes de prestaciones y los despidos, y el desempleo aumenta junto con la pérdida de puestos de trabajo en vez de hacerlo por una contracción de la fuerza laboral, el diagnóstico ha caducado.\n\nLa inmovilidad se ha convertido en ruptura.\n\nLa evidencia disponible ahora no nos dice qué camino vendrá después.\n\nNos dice qué hay bajo el titular del 4,1 por ciento: menos entradas, menos salidas voluntarias, menos despidos, fuentes de crecimiento más estrechas y una economía que está aprendiendo, al menos por ahora, a producir más sin añadir mucho trabajo.\n\nEl titular dice que el mercado laboral no se ha roto.\n\nPero un sistema con tan poco movimiento tiene menos margen para absorber lo que venga después.\n\n[PAUSE 2.2]"
+    },
+    "authority_captions": [
+      {
+        "id": "AUTH_COLD_OPEN",
+        "text": "La economía está mostrando una resiliencia impresionante. Incluso con las perturbaciones recientes, las tendencias son positivas y reflejan un crecimiento sólido. La creación de empleo ha seguido el ritmo de la fuerza laboral y la tasa de desempleo ha variado poco."
+      },
+      {
+        "id": "AUTH_MID_FILM",
+        "text": "No creo que, en términos generales, una parte de nuestro mandato esté en conflicto con la otra. No creo que la estabilidad de precios y el pleno empleo sean una disyuntiva."
+      }
+    ]
+  },
+  "short": {
+    "title": "¿Cómo pueden caer a la vez el empleo y el desempleo?",
+    "description": "En julio, el empleo en nóminas cayó en 23.000 puestos y la tasa de desempleo bajó al 4,1 %. La aritmética de la encuesta de hogares, la menor rotación laboral y una economía que produce más con casi las mismas horas explican la aparente contradicción. Datos oficiales; imágenes ilustrativas; «parálisis» es análisis de Capital Chronicle.",
+    "social_copy": "Menos empleo y menos desempleo: no es una errata. La encuesta de hogares explica la aritmética; las contrataciones, las renuncias y los despidos muestran un mercado con poco movimiento. No es un colapso generalizado. Es una parálisis con menos margen para lo que venga.",
+    "hashtags": [
+      "#Economía",
+      "#Empleo",
+      "#MercadoLaboral",
+      "#BLS",
+      "#CapitalChronicle"
+    ],
+    "strings": {
+      "brand.eyebrow": "CAPITAL CHRONICLE · EMPLEO",
+      "brand.slug": "PARALIZADO, NO ROTO",
+      "hook.jobs": "CAYÓ EL EMPLEO.",
+      "hook.unemployment": "CAYÓ EL DESEMPLEO.",
+      "hook.question": "¿Cómo pueden ser ciertas ambas cosas?",
+      "paradox.payroll.label": "EMPLEO EN NÓMINAS",
+      "paradox.payroll.value": "−23 MIL",
+      "paradox.payroll.period": "JULIO 2026 · PRELIMINAR",
+      "paradox.rate.label": "TASA DE DESEMPLEO",
+      "paradox.rate.value": "4,1 %",
+      "paradox.rate.period": "JULIO 2026 · ENCUESTA DE HOGARES",
+      "paradox.caveat": "El cambio mensual en nóminas no supera el umbral habitual de significación del 90 % del BLS.",
+      "arithmetic.kicker": "LA ARITMÉTICA DE LA TASA",
+      "arithmetic.subtitle.1": "Tres estimaciones mensuales.",
+      "arithmetic.subtitle.2": "Sin atribuir motivos.",
+      "arithmetic.employment.label": "EMPLEO EN HOGARES",
+      "arithmetic.employment.value": "−87 MIL",
+      "arithmetic.laborForce.label": "FUERZA LABORAL",
+      "arithmetic.laborForce.value": "−264 MIL",
+      "arithmetic.unemployed.label": "DESEMPLEADOS",
+      "arithmetic.unemployed.value": "−178 MIL",
+      "arithmetic.result.before": "LA TASA BAJÓ",
+      "arithmetic.result.after": "SIN MÁS EMPLEO",
+      "arithmetic.caveat": "Las estimaciones mensuales de la CPS son volátiles. Los cambios de stock no revelan motivos ni flujos individuales.",
+      "doors.kicker": "AHORA, MIRE LAS PUERTAS",
+      "doors.subtitle.1": "El movimiento se enfrió",
+      "doors.subtitle.2": "en los tres umbrales.",
+      "doors.then": "FEB. 2020",
+      "doors.now": "JUN. 2026",
+      "doors.hires": "CONTRATACIONES",
+      "doors.quits": "RENUNCIAS",
+      "doors.layoffs": "DESPIDOS / CESES",
+      "doors.hires.then": "3,9 %",
+      "doors.hires.now": "3,4 %",
+      "doors.quits.then": "2,3 %",
+      "doors.quits.now": "2,0 %",
+      "doors.layoffs.then": "1,3 %",
+      "doors.layoffs.now": "1,1 %",
+      "doors.thesis.1": "POCA CONTRATACIÓN.",
+      "doors.thesis.2": "POCAS RENUNCIAS.",
+      "doors.thesis.3": "POCOS DESPIDOS.",
+      "doors.caveat": "Un bajo nivel de despidos no demuestra, por sí solo, que el mercado esté sano.",
+      "engine.kicker": "LA ECONOMÍA SIGUIÓ AVANZANDO",
+      "engine.demand.label": "VENTAS FINALES REALES A\nCOMPRADORES PRIVADOS NACIONALES",
+      "engine.demand.value": "+3,9 %",
+      "engine.demand.note": "2.º TRIM. · ANUALIZADO · ESTIMACIÓN ANTICIPADA",
+      "engine.output.label": "PRODUCCIÓN",
+      "engine.output.value": "+2,5 %",
+      "engine.hours.label": "HORAS",
+      "engine.hours.value": "+0,2 %",
+      "engine.sector.label": "SECTOR EMPRESARIAL NO AGRÍCOLA",
+      "engine.productivity.label": "PRODUCTIVIDAD",
+      "engine.productivity.value": "+2,2 %",
+      "engine.productivity.note": "más producción por hora",
+      "engine.period": "2.º TRIM. · INTERANUAL · PRELIMINAR",
+      "engine.caveat": "Los datos miden una brecha. No demuestran que la IA la haya causado.",
+      "resolve.motion": "LA ECONOMÍA PUEDE SEGUIR AVANZANDO",
+      "resolve.stasis": "AUNQUE LOS TRABAJADORES NO.",
+      "resolve.notBreak": "NO ES UN COLAPSO GENERALIZADO POR DESPIDOS",
+      "resolve.freeze": "PARÁLISIS: POCA CONTRATACIÓN · POCAS RENUNCIAS · POCOS DESPIDOS",
+      "resolve.watch": "MENOS MARGEN PARA LO QUE VENGA",
+      "source.bls.employment": "BLS · SITUACIÓN DEL EMPLEO · JULIO 2026",
+      "source.bls.cps": "BLS · ENCUESTA DE HOGARES · JULIO 2026",
+      "source.bls.jolts": "BLS JOLTS · JUNIO 2026",
+      "source.bls.productivity": "PRODUCTIVIDAD BLS + BEA · 2.º TRIM. 2026",
+      "source.illustrative": "IMÁGENES ILUSTRATIVAS · NO REPRESENTAN A LOS TRABAJADORES NI LAS INSTALACIONES MEDIDOS",
+      "source.analysis": "ANÁLISIS DE CAPITAL CHRONICLE",
+      "caption.01": "¿Cómo pueden caer a la vez el empleo y el desempleo?",
+      "caption.02": "En julio, el empleo en nóminas cayó en 23.000 puestos. Ese cambio preliminar no supera el umbral habitual de significación del BLS.",
+      "caption.03": "La encuesta de hogares da la aritmética: el empleo cayó en 87.000; la fuerza laboral, en 264.000; y los desempleados, en 178.000.",
+      "caption.04": "Así, la tasa bajó al 4,1 % sin más empleo según la encuesta de hogares.",
+      "caption.05": "Ahora mire las puertas. En junio, las tasas de contratación y de renuncias, además de la de despidos y ceses, fueron inferiores a las de febrero de 2020: 3,4 %, 2,0 % y 1,1 %.",
+      "caption.06": "Poca contratación. Pocas renuncias. Pocos despidos.",
+      "caption.07": "Aun así, las ventas finales reales a compradores privados nacionales crecieron a una tasa anualizada del 3,9 % en el segundo trimestre.",
+      "caption.08": "La producción del sector empresarial no agrícola subió un 2,5 % interanual con solo un 0,2 % más de horas. La productividad aumentó un 2,2 %: es preliminar y no demuestra que la IA la causara.",
+      "caption.09": "La economía puede seguir avanzando aunque los trabajadores no.",
+      "caption.10": "No es un colapso generalizado por despidos. Es una parálisis, con menos margen para lo que venga."
+    },
+    "narration_segments": [
+      {
+        "id": "caption.01",
+        "text": "¿Cómo pueden caer a la vez el empleo y el desempleo?",
+        "caption_text": "¿Cómo pueden caer a la vez el empleo y el desempleo?"
+      },
+      {
+        "id": "caption.02",
+        "text": "En julio, el empleo en nóminas cayó en veintitrés mil puestos. Ese cambio preliminar no supera el umbral habitual de significación del BLS.",
+        "caption_text": "En julio, el empleo en nóminas cayó en 23.000 puestos. Ese cambio preliminar no supera el umbral habitual de significación del BLS."
+      },
+      {
+        "id": "caption.03",
+        "text": "La encuesta de hogares da la aritmética: el empleo cayó en ochenta y siete mil; la fuerza laboral, en doscientas sesenta y cuatro mil; y los desempleados, en ciento setenta y ocho mil.",
+        "caption_text": "La encuesta de hogares da la aritmética: el empleo cayó en 87.000; la fuerza laboral, en 264.000; y los desempleados, en 178.000."
+      },
+      {
+        "id": "caption.04",
+        "text": "Así, la tasa bajó al 4,1 por ciento sin más empleo según la encuesta de hogares.",
+        "caption_text": "Así, la tasa bajó al 4,1 % sin más empleo según la encuesta de hogares."
+      },
+      {
+        "id": "caption.05",
+        "text": "Ahora mire las puertas. En junio, las tasas de contratación y de renuncias, además de la de despidos y ceses, fueron inferiores a las de febrero de 2020: 3,4, 2,0 y 1,1 por ciento.",
+        "caption_text": "Ahora mire las puertas. En junio, las tasas de contratación y de renuncias, además de la de despidos y ceses, fueron inferiores a las de febrero de 2020: 3,4 %, 2,0 % y 1,1 %."
+      },
+      {
+        "id": "caption.06",
+        "text": "Poca contratación. Pocas renuncias. Pocos despidos.",
+        "caption_text": "Poca contratación. Pocas renuncias. Pocos despidos."
+      },
+      {
+        "id": "caption.07",
+        "text": "Aun así, las ventas finales reales a compradores privados nacionales crecieron a una tasa anualizada del 3,9 por ciento en el segundo trimestre.",
+        "caption_text": "Aun así, las ventas finales reales a compradores privados nacionales crecieron a una tasa anualizada del 3,9 % en el segundo trimestre."
+      },
+      {
+        "id": "caption.08",
+        "text": "La producción del sector empresarial no agrícola subió un 2,5 por ciento interanual con solo un 0,2 por ciento más de horas. La productividad aumentó un 2,2 por ciento: es preliminar y no demuestra que la inteligencia artificial la causara.",
+        "caption_text": "La producción del sector empresarial no agrícola subió un 2,5 % interanual con solo un 0,2 % más de horas. La productividad aumentó un 2,2 %: es preliminar y no demuestra que la IA la causara."
+      },
+      {
+        "id": "caption.09",
+        "text": "La economía puede seguir avanzando aunque los trabajadores no.",
+        "caption_text": "La economía puede seguir avanzando aunque los trabajadores no."
+      },
+      {
+        "id": "caption.10",
+        "text": "No es un colapso generalizado por despidos. Es una parálisis, con menos margen para lo que venga.",
+        "caption_text": "No es un colapso generalizado por despidos. Es una parálisis, con menos margen para lo que venga."
+      }
+    ]
+  },
+  "anchor_assertions": [
+    {
+      "id": "FED001",
+      "canonical": "3.5%-3.75% / July 29, 2026 / policy rate held",
+      "localized_surface": "3,5 %-3,75 % / 29 de julio de 2026 / la tasa de política monetaria se mantuvo"
+    },
+    {
+      "id": "FED002",
+      "canonical": "9-3 vote / three preferred +25bp",
+      "localized_surface": "votación de 9 a 3 / tres responsables prefirieron un aumento de 25 puntos básicos"
+    },
+    {
+      "id": "FED004",
+      "canonical": "July 29 Fed assessment preceded Aug 7 jobs, Aug 12 CPI, Aug 14 retail",
+      "localized_surface": "la evaluación de la Fed del 29 de julio fue anterior a los informes de empleo del 7 de agosto, IPC del 12 de agosto y ventas minoristas del 14 de agosto"
+    },
+    {
+      "id": "EMP001",
+      "canonical": "-23K / July 2026 / preliminary",
+      "localized_surface": "−23.000 puestos / julio de 2026 / preliminar"
+    },
+    {
+      "id": "EMP002",
+      "canonical": "4.1% / July 2026 / CPS",
+      "localized_surface": "4,1 % / julio de 2026 / encuesta de hogares CPS"
+    },
+    {
+      "id": "EMP003",
+      "canonical": "May payroll first reported +172K / revised to +63K by August",
+      "localized_surface": "nóminas de mayo publicadas inicialmente en +172.000 / revisadas a +63.000 para agosto"
+    },
+    {
+      "id": "EMP004",
+      "canonical": "May +129K to +63K; June +57K to +20K / July release",
+      "localized_surface": "mayo pasó de +129.000 a +63.000; junio, de +57.000 a +20.000 / informe de julio"
+    },
+    {
+      "id": "EMP005",
+      "canonical": "-103K combined downward revision / May and June",
+      "localized_surface": "revisión combinada a la baja de −103.000 / mayo y junio"
+    },
+    {
+      "id": "EMP006",
+      "canonical": "+20K average monthly payroll growth / May-July",
+      "localized_surface": "+20.000 puestos de crecimiento mensual promedio en nóminas / mayo-julio"
+    },
+    {
+      "id": "EMP007",
+      "canonical": "+34K average monthly payroll growth / previous 12 months",
+      "localized_surface": "+34.000 puestos de crecimiento mensual promedio en nóminas / doce meses anteriores"
+    },
+    {
+      "id": "UNC002",
+      "canonical": "about 122K / usual 90% one-month payroll significance threshold",
+      "localized_surface": "alrededor de 122.000 / umbral habitual de significación del 90 % para un cambio mensual en nóminas"
+    },
+    {
+      "id": "UNC001",
+      "canonical": "August 28, 2026 / preliminary benchmark scheduled / UI tax records",
+      "localized_surface": "28 de agosto de 2026 / referencia preliminar programada / registros fiscales del seguro de desempleo"
+    },
+    {
+      "id": "EMP011",
+      "canonical": "-87K household employment / July 2026 / monthly CPS",
+      "localized_surface": "−87.000 en el empleo de la encuesta de hogares / julio de 2026 / CPS mensual"
+    },
+    {
+      "id": "EMP010",
+      "canonical": "-264K labor force / July 2026 / no motive inferred",
+      "localized_surface": "−264.000 en la fuerza laboral / julio de 2026 / sin inferir motivos"
+    },
+    {
+      "id": "EMP012",
+      "canonical": "-178K unemployed / July 2026 / CPS",
+      "localized_surface": "−178.000 personas desempleadas / julio de 2026 / CPS"
+    },
+    {
+      "id": "EMP013",
+      "canonical": "+381K not in labor force / July 2026 / CPS",
+      "localized_surface": "+381.000 personas fuera de la fuerza laboral / julio de 2026 / CPS"
+    },
+    {
+      "id": "EMP014",
+      "canonical": "-0.7pp labor-force participation / January-July 2026",
+      "localized_surface": "−0,7 puntos porcentuales de participación en la fuerza laboral / enero-julio de 2026"
+    },
+    {
+      "id": "EMP015",
+      "canonical": "-0.5pp employment-population ratio / January-July 2026",
+      "localized_surface": "−0,5 puntos porcentuales en la proporción de población con empleo / enero-julio de 2026"
+    },
+    {
+      "id": "SUR001",
+      "canonical": "payroll +422K vs concept-adjusted household -563K / February-July 2026",
+      "localized_surface": "nóminas +422.000 frente a hogares ajustados por concepto −563.000 / febrero-julio de 2026"
+    },
+    {
+      "id": "SUR002",
+      "canonical": "January 2026 population-control break / not economic movement",
+      "localized_surface": "ruptura por nuevos controles de población en enero de 2026 / no es movimiento económico"
+    },
+    {
+      "id": "JOL001",
+      "canonical": "7.359M openings; 5.348M hires / June 2026",
+      "localized_surface": "7,359 millones de vacantes; 5,348 millones de contrataciones / junio de 2026"
+    },
+    {
+      "id": "JOL002",
+      "canonical": "3.4% hire rate / June 2026 vs 3.9% / February 2020",
+      "localized_surface": "tasa de contratación del 3,4 % / junio de 2026 frente al 3,9 % / febrero de 2020"
+    },
+    {
+      "id": "JOL003",
+      "canonical": "2.0% quit rate / June 2026 vs 2.3% / February 2020",
+      "localized_surface": "tasa de renuncias del 2,0 % / junio de 2026 frente al 2,3 % / febrero de 2020"
+    },
+    {
+      "id": "JOL004",
+      "canonical": "1.1% layoffs/discharges rate / June 2026 vs 1.3% / February 2020",
+      "localized_surface": "tasa de despidos y ceses del 1,1 % / junio de 2026 frente al 1,3 % / febrero de 2020"
+    },
+    {
+      "id": "JOL005",
+      "canonical": "1.04 openings per unemployed person / June 2026 / mismatch caveat",
+      "localized_surface": "1,04 vacantes por persona desempleada / junio de 2026 / la proporción no garantiza una correspondencia efectiva"
+    },
+    {
+      "id": "CLM001",
+      "canonical": "209K initial UI claims / week ending August 8 / lower year over year",
+      "localized_surface": "209.000 solicitudes iniciales del seguro de desempleo / semana terminada el 8 de agosto / menos que un año antes"
+    },
+    {
+      "id": "CLM002",
+      "canonical": "continued UI claims lower than comparable week a year earlier",
+      "localized_surface": "solicitudes continuadas del seguro de desempleo por debajo de la semana comparable de un año antes"
+    },
+    {
+      "id": "EMP017",
+      "canonical": "about one quarter unemployed for at least 27 weeks / July 2026",
+      "localized_surface": "aproximadamente una cuarta parte de las personas desempleadas llevaba al menos 27 semanas sin trabajo / julio de 2026"
+    },
+    {
+      "id": "SEC004",
+      "canonical": "health care +22K July; +392K year; total payroll +316K year",
+      "localized_surface": "salud +22.000 en julio; +392.000 en el año; nóminas totales +316.000 en el año"
+    },
+    {
+      "id": "SEC005",
+      "canonical": "all sectors excluding health care -76K / year over year / calculation",
+      "localized_surface": "todos los sectores salvo salud −76.000 / interanual / cálculo"
+    },
+    {
+      "id": "SEC006",
+      "canonical": "health care exceeds all net annual payroll growth / calculation",
+      "localized_surface": "el sector de la salud supera todo el crecimiento neto anual del empleo en nóminas / cálculo"
+    },
+    {
+      "id": "SEC007",
+      "canonical": "51.8 private-sector diffusion index / July 2026 / above neutral 50",
+      "localized_surface": "índice de difusión del sector privado de 51,8 / julio de 2026 / por encima del nivel neutral de 50"
+    },
+    {
+      "id": "SEC001",
+      "canonical": "retail -19K / July 2026",
+      "localized_surface": "comercio minorista −19.000 / julio de 2026"
+    },
+    {
+      "id": "SEC002",
+      "canonical": "financial activities -14K July; -121K from May 2025 peak",
+      "localized_surface": "actividades financieras −14.000 en julio; −121.000 desde el máximo de mayo de 2025"
+    },
+    {
+      "id": "SEC003",
+      "canonical": "local government education about -50K / July 2026",
+      "localized_surface": "educación de los gobiernos locales aproximadamente −50.000 / julio de 2026"
+    },
+    {
+      "id": "PRO002",
+      "canonical": "output +2.5% y/y; hours +0.2% y/y / Q2 2026 / preliminary",
+      "localized_surface": "producción del sector empresarial no agrícola +2,5 % interanual; horas +0,2 % interanual / segundo trimestre de 2026 / preliminar"
+    },
+    {
+      "id": "PRO001",
+      "canonical": "productivity +2.2% y/y / Q2 2026 / preliminary / no AI causality",
+      "localized_surface": "productividad del sector empresarial no agrícola +2,2 % interanual / segundo trimestre de 2026 / preliminar / sin atribuir causalidad a la inteligencia artificial"
+    },
+    {
+      "id": "PRO003",
+      "canonical": "unit labor costs +1.4% y/y / Q2 2026 / preliminary",
+      "localized_surface": "costos laborales unitarios +1,4 % interanual / segundo trimestre de 2026 / preliminar"
+    },
+    {
+      "id": "GDP001",
+      "canonical": "real GDP +1.5% annualized / Q2 2026 / advance estimate",
+      "localized_surface": "PIB real +1,5 % anualizado / segundo trimestre de 2026 / estimación anticipada"
+    },
+    {
+      "id": "GDP002",
+      "canonical": "real final sales to private domestic purchasers +3.9% annualized / Q2 2026 / advance estimate",
+      "localized_surface": "ventas finales reales a compradores privados nacionales +3,9 % anualizado / segundo trimestre de 2026 / estimación anticipada"
+    },
+    {
+      "id": "EMP019",
+      "canonical": "average hourly earnings +3.2% y/y / July 2026",
+      "localized_surface": "ingresos medios por hora +3,2 % interanual / julio de 2026"
+    },
+    {
+      "id": "ECI002",
+      "canonical": "private wages +3.1% y/y / Q2 2026 / Employment Cost Index",
+      "localized_surface": "salarios privados +3,1 % interanual / segundo trimestre de 2026 / Índice de Costos del Empleo"
+    },
+    {
+      "id": "CPI001",
+      "canonical": "headline CPI +3.4% y/y; core CPI +2.5% y/y / July 2026",
+      "localized_surface": "IPC general +3,4 % interanual; IPC subyacente +2,5 % interanual / julio de 2026"
+    },
+    {
+      "id": "REA001",
+      "canonical": "real average hourly earnings -0.2% y/y / July 2026",
+      "localized_surface": "ingresos medios reales por hora −0,2 % interanual / julio de 2026"
+    },
+    {
+      "id": "ECI003",
+      "canonical": "private-industry health-insurance benefit costs +6.0% y/y / Q2 2026",
+      "localized_surface": "costos patronales de las prestaciones de seguro médico en la industria privada +6,0 % interanual / segundo trimestre de 2026"
+    },
+    {
+      "id": "PRO004",
+      "canonical": "labor share 52.9% / Q2 2026 / preliminary / lowest since series began 1947",
+      "localized_surface": "participación del trabajo 52,9 % / segundo trimestre de 2026 / preliminar / nivel más bajo desde el inicio de la serie en 1947"
+    },
+    {
+      "id": "RET001",
+      "canonical": "July 2026 retail sales release / August 14, 2026 / chronology only",
+      "localized_surface": "informe de ventas minoristas de julio de 2026 / 14 de agosto de 2026 / solo para establecer la cronología"
+    }
+  ],
+  "tts_guidance": {
+    "voice_character": "Narradora institucional de tono íntimo, controlado y sobrio; ritmo conversacional, sin cadencia de telediario ni énfasis promocional.",
+    "pronunciations": [
+      {
+        "term": "BLS",
+        "guidance": "Pronunciar letra por letra en español: be-ele-ese; en la primera mención larga, decir Oficina de Estadísticas Laborales de Estados Unidos."
+      },
+      {
+        "term": "CPS",
+        "guidance": "Pronunciar ce-pe-ese; aclarar en la primera mención pertinente que se trata de la encuesta de hogares."
+      },
+      {
+        "term": "JOLTS",
+        "guidance": "Pronunciar yolts, de forma breve y sin anglicanizar en exceso."
+      },
+      {
+        "term": "BEA",
+        "guidance": "Pronunciar be-e-a, letra por letra."
+      },
+      {
+        "term": "Kevin Warsh",
+        "guidance": "Aproximación para voz española: Kévin Uórsh."
+      },
+      {
+        "term": "3,5 y 3,75 por ciento",
+        "guidance": "Leer tres coma cinco y tres coma setenta y cinco por ciento; no convertirlo en trescientos cincuenta ni trescientos setenta y cinco puntos básicos."
+      }
+    ],
+    "known_risks": [
+      "La voz de demostración posterior es Kokoro ef_dora con alias de idioma es y requiere escucha humana; esta entrega no valida naturalidad, ritmo ni calidad.",
+      "Vigilar que la voz no omita el signo negativo ni convierta las comas decimales en pausas ambiguas.",
+      "Las secuencias de cifras y revisiones del capítulo 1 requieren pausas limpias para preservar qué estimación pertenece a cada mes y vintage.",
+      "Mantener audibles los calificadores preliminar, estimación anticipada, aproximadamente, puede y no demuestra.",
+      "No expandir IA como causa: cuando aparezca en locución, decir inteligencia artificial y conservar explícitamente la negación causal.",
+      "Conservar las líneas [PAUSE N] como controles literales; no pronunciarlas."
+    ]
+  }
+}

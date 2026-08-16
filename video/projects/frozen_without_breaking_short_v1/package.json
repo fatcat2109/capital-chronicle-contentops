@@ -1,0 +1,22 @@
+{
+  "name": "capital-chronicle-frozen-without-breaking-short-v1",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "compositions": "remotion compositions src/index.ts"
+  },
+  "dependencies": {
+    "@fontsource/manrope": "^5.2.8",
+    "@fontsource/source-serif-4": "^5.2.8",
+    "@remotion/cli": "4.0.512",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.512"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "@types/react-dom": "19.1.7",
+    "typescript": "5.9.2"
+  }
+}

@@ -8,13 +8,21 @@ This override supersedes current V2 planning language where it conflicts. Histor
 
 ## Current task
 
-`TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`
+`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
 
 Required result ceiling:
 
-`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_IMPLEMENTATION_PACKAGES_READY_FOR_JIM_CHATGPT_REVIEW`
 
-Infrastructure-only completion is not PASS. The task must deliver an actual materially improved 1080p owner-review edition of *Frozen Without Breaking*.
+The free-form chapterized 1080p owner-polish edition of *Frozen Without Breaking* is accepted
+as the creative/production substrate and must not be reopened for aesthetic cleanup. The
+current task extends that exact governed input with one fresh XHIGH-authored native 9:16 Short,
+configurable multilingual audio/captions/metadata, and immutable platform-neutral publication
+packages. Infrastructure-only completion is not PASS.
+
+Current sequence:
+
+`free-form creation substrate [ACCEPTED] -> native multiformat/multilingual packages [CURRENT] -> official publication adapters [NEXT AFTER ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
 
 ## Model orchestration
 

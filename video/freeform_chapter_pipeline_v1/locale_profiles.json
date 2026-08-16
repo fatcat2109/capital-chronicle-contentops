@@ -1,0 +1,42 @@
+{
+  "schema": "contentops.v2.locale_registry.v1",
+  "configuration_rule": "Additional locales require an explicit profile and verified backend proof; no code redesign is required.",
+  "locales": {
+    "en": {
+      "tag": "en",
+      "label": "English",
+      "script": "Latin",
+      "direction": "ltr",
+      "support_status": "CANONICAL_EXISTING",
+      "tts_backend": "kokoro-onnx",
+      "voice_acceptance": "ACCEPTED_BASELINE_ONLY"
+    },
+    "es": {
+      "tag": "es",
+      "label": "Spanish",
+      "script": "Latin",
+      "direction": "ltr",
+      "support_status": "DEMONSTRATION_REQUIRED",
+      "tts_backend": null,
+      "voice_acceptance": "OWNER_REVIEW_REQUIRED"
+    },
+    "pt-BR": {
+      "tag": "pt-BR",
+      "label": "Portuguese (Brazil)",
+      "script": "Latin",
+      "direction": "ltr",
+      "support_status": "DEMONSTRATION_REQUIRED",
+      "tts_backend": null,
+      "voice_acceptance": "OWNER_REVIEW_REQUIRED"
+    },
+    "ja": {
+      "tag": "ja",
+      "label": "Japanese",
+      "script": "Jpan",
+      "direction": "ltr",
+      "support_status": "DEMONSTRATION_REQUIRED",
+      "tts_backend": null,
+      "voice_acceptance": "OWNER_REVIEW_REQUIRED"
+    }
+  }
+}

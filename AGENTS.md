@@ -135,13 +135,18 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`
+`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It must
-produce the minimum free-form chapterized production substrate plus an actual materially
-improved 1080 owner-review edition of *Frozen Without Breaking*.
+This is the only active V2 product task unless Jim explicitly changes direction. The accepted
+free-form chapterized *Frozen Without Breaking* substrate is the governed proof input. The task
+must extend it with a native 9:16 Short, configurable multilingual audio/captions/metadata, and
+immutable platform-neutral publication packages with actual owner-review media.
 
 The task must produce actual owner-review media. Infrastructure-only completion is not PASS.
+Current sequence is: free-form creation substrate `[ACCEPTED]` -> native multiformat/
+multilingual packages `[CURRENT]` -> official publication adapters `[NEXT AFTER ACCEPTANCE]`
+-> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling
+`[DEFERRED]`.
 
 Canonical product path:
 

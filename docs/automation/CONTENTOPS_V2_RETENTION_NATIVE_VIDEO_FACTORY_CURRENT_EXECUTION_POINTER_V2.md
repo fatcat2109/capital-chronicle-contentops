@@ -11,7 +11,11 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`
+`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
+
+Current sequence:
+
+`free-form creation substrate [ACCEPTED] -> native multiformat/multilingual packages [CURRENT] -> official publication adapters [NEXT AFTER ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
 
 Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
 short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
@@ -87,11 +91,15 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Exact next task
 
-`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1`
 
 This is the only active V2 product task unless Jim explicitly changes direction.
 
-The task must produce actual owner-review media; infrastructure-only completion is not PASS.
+The accepted *Frozen Without Breaking* picture is the governed longform proof input and must
+not be aesthetically rebuilt. The task must produce a separately authored native 9:16 Short,
+English/Spanish/Portuguese-BR/Japanese localization packages, actual multilingual owner-review
+media, and content-addressed platform-neutral manifests. Infrastructure-only completion is not
+PASS. Official publication adapters are the next task only after owner acceptance.
 
 Canonical proof flow:
 
