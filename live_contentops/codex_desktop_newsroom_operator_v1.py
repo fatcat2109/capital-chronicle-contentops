@@ -84,6 +84,7 @@ BOUNDED_EDITORIAL_CONTEXT_KEYS = frozenset(
         "rights_cleared_media_candidates",
         "governed_chart_inputs",
         "destination_package_constraints",
+        "institutional_edge_editorial_packet",
     }
 )
 DESKTOP_TASK_PROMPT = (
@@ -181,6 +182,7 @@ def build_editorial_worker_routing_packet(
     governed_context: Mapping[str, Any] | None = None,
     readiness_checked_before_editorial: bool = False,
     readiness_state: str = "UNKNOWN",
+    article_mode: str = "STANDARD_ANALYSIS",
 ) -> dict[str, Any]:
     """Return a deterministic Desktop routing decision without spawning or calling a model.
 
@@ -234,6 +236,23 @@ def build_editorial_worker_routing_packet(
         raise ValueError("desktop_editorial_accepted_evidence_packet_required")
     if not bounded_context.get("exact_source_handles"):
         raise ValueError("desktop_editorial_exact_source_handles_required")
+    from live_contentops.capital_chronicle_institutional_edge_v1 import (
+        build_institutional_edge_editorial_packet,
+        validate_institutional_edge_packet,
+    )
+
+    supplied_editorial_packet = bounded_context.get("institutional_edge_editorial_packet")
+    editorial_packet = build_institutional_edge_editorial_packet(
+        article_mode=article_mode,
+        accepted_evidence_packet=bounded_context.get("accepted_evidence_packet"),
+        structured_data_supported=True,
+    )
+    if supplied_editorial_packet is not None and supplied_editorial_packet != editorial_packet:
+        raise ValueError("desktop_editorial_authority_packet_override_forbidden")
+    packet_blockers = validate_institutional_edge_packet(editorial_packet)
+    if packet_blockers:
+        raise ValueError("desktop_editorial_authority_packet_invalid:" + ",".join(packet_blockers))
+    bounded_context["institutional_edge_editorial_packet"] = editorial_packet
     governed_input_hash = _logical_hash(bounded_context)
     result = {
         **base,
@@ -264,6 +283,8 @@ def validate_editorial_worker_return(
     *,
     worker_return: Mapping[str, Any],
     expected_governed_input_hash: str,
+    expected_editorial_packet: Mapping[str, Any] | None = None,
+    accepted_evidence_packet: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Bind one XHIGH result to its exact input and return control to the HIGH coordinator."""
     if str(worker_return.get("governed_input_hash") or "") != expected_governed_input_hash:
@@ -282,6 +303,22 @@ def validate_editorial_worker_return(
     article = worker_return.get("article")
     if not isinstance(article, Mapping) or not str(article.get("title") or "").strip():
         raise ValueError("desktop_editorial_worker_article_invalid")
+    editorial_validation: dict[str, Any] | None = None
+    if expected_editorial_packet is not None:
+        from live_contentops.capital_chronicle_institutional_edge_v1 import (
+            validate_institutional_edge_article,
+        )
+
+        editorial_validation = validate_institutional_edge_article(
+            article,
+            editorial_packet=expected_editorial_packet,
+            accepted_evidence_packet=accepted_evidence_packet,
+        )
+        if editorial_validation.get("classification") != "PASS":
+            raise ValueError(
+                "desktop_editorial_worker_institutional_edge_invalid:"
+                + ",".join(editorial_validation.get("blockers") or [])
+            )
     return_hash = _logical_hash(worker_return)
     return {
         "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
@@ -297,6 +334,7 @@ def validate_editorial_worker_return(
         "coordinator_model": COORDINATOR_MODEL,
         "coordinator_reasoning_effort": COORDINATOR_REASONING_EFFORT,
         "deterministic_validation_required": True,
+        "institutional_edge_editorial_validation": editorial_validation,
         "publication_coordinator_remains_sole_public_writer": True,
         "public_write_performed": False,
     }

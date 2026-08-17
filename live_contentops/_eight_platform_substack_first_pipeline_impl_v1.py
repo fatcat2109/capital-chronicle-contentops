@@ -1193,6 +1193,7 @@ _RELEASE_PREPARATION_ARTIFACTS = (
     "idea_selection_v1.json",
     "media_manifest_v1.json",
     "article_manifest_v1.json",
+    "editorial_seo_package_v1.json",
     "editorial_quality_gate_v1.json",
     "run_context_v1.json",
     "substack_browser_request_v1.json",
@@ -2767,6 +2768,10 @@ def _validate_rolling_x_release_inputs(
     reader_value = evaluate_reader_value(article, media_assets=media_assets)
     if reader_value.get("classification") != "PASS":
         blockers.append("INSUFFICIENT_READER_VALUE")
+    if str(article.get("institutional_edge_editorial_packet_sha256") or ""):
+        validation = article.get("institutional_edge_editorial_validation")
+        if not isinstance(validation, Mapping) or validation.get("classification") != "PASS":
+            blockers.append("institutional_edge_editorial_validation_missing_or_blocked")
     evidence_ids = {
         str(row.get("evidence_id") or row.get("document_id") or row.get("source_id") or "")
         for row in ((viability.get("selected_evidence") or {}).get("evidence_documents") or [])
@@ -2813,6 +2818,11 @@ def _prepare_rolling_x_release_candidate(
     from live_contentops.article_rich_text_v1 import markdown_to_rich_text
 
     final_article = dict(article)
+    from live_contentops.capital_chronicle_institutional_edge_v1 import (
+        build_editorial_seo_package,
+    )
+
+    editorial_seo_package = build_editorial_seo_package(final_article)
     media_packet = dict(media)
     media_assets = [dict(row) for row in media_packet.get("assets") or [] if isinstance(row, Mapping)]
     blockers = _validate_rolling_x_release_inputs(
@@ -2916,6 +2926,7 @@ def _prepare_rolling_x_release_candidate(
         ("idea_selection_v1.json", selection),
         ("media_manifest_v1.json", media_packet),
         ("article_manifest_v1.json", final_article),
+        ("editorial_seo_package_v1.json", editorial_seo_package),
         ("editorial_quality_gate_v1.json", editorial_gate),
     ):
         _write_json(output_dir / name, value)
@@ -2951,6 +2962,7 @@ def _prepare_rolling_x_release_candidate(
         "support": support,
         "media": media_packet,
         "article": final_article,
+        "editorial_seo_package": editorial_seo_package,
         "editorial_gate": editorial_gate,
         "substack_browser_request_path": str(output_dir / "substack_browser_request_v1.json"),
         "substack_browser_request_sha256": _json_sha256(browser_request),
@@ -3026,6 +3038,9 @@ def _prepare_rolling_x_release_candidate(
         "run_id": run_id,
         "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
         "article_body_sha256": final_article.get("substack_body_markdown_sha256"),
+        "editorial_seo_package_sha256": editorial_seo_package.get(
+            "editorial_seo_package_sha256"
+        ),
         "source_packet_sha256": support.get("targeted_evidence_sha256"),
         "media_sha256": {
             str(row.get("asset_id")): row.get("sha256") or (_sha256_file(row.get("path")) if Path(str(row.get("path") or "")).is_file() else None)
@@ -3111,9 +3126,27 @@ def _publication_learning_features(
         "secondary_search_intents": [str(value) for value in (article.get("secondary_search_intents") or [])][:5],
         "keyword_cluster": keyword_values[:8],
         "reader_headline": title,
+        "canonical_editorial_headline": str(
+            article.get("canonical_editorial_headline") or title
+        ),
         "seo_title": str(article.get("seo_title") or ""),
+        "search_title": str(article.get("search_title") or article.get("seo_title") or ""),
+        "social_hook": str(article.get("social_hook") or article.get("social_lede") or ""),
         "slug": str(article.get("slug") or ""),
+        "canonical_slug_candidate": str(
+            article.get("canonical_slug_candidate") or article.get("slug") or ""
+        ),
         "meta_description": str(article.get("meta_description") or ""),
+        "primary_reader_question": str(article.get("primary_reader_question") or ""),
+        "secondary_reader_questions": list(article.get("secondary_reader_questions") or []),
+        "entities": list(article.get("entities") or []),
+        "topics": list(article.get("topics") or []),
+        "search_freshness_class": str(article.get("search_freshness_class") or ""),
+        "internal_link_candidates": list(article.get("internal_link_candidates") or []),
+        "structured_data_packet": dict(article.get("structured_data_packet") or {}),
+        "institutional_edge_editorial_packet_sha256": str(
+            article.get("institutional_edge_editorial_packet_sha256") or ""
+        ),
         "section_structure": headings[:12],
         "headline_frame": "QUESTION" if title.endswith("?") else "DIRECT_NEWS_OR_ANALYSIS",
         "evergreen_balance": str(article.get("evergreen_balance") or "NEWS_CURRENT"),
@@ -3162,6 +3195,7 @@ def _build_rolling_x_publication_plan(
     lock = dict(preparation.get("release_candidate_lock") or {})
     context = dict(preparation.get("context") or {})
     article = dict(context.get("article") or {})
+    editorial_seo_package = dict(context.get("editorial_seo_package") or {})
     article_media_available = bool((context.get("media") or {}).get("assets"))
     delivery_only_media_available = bool(
         (context.get("media") or {}).get("delivery_only_assets")
@@ -3225,6 +3259,9 @@ def _build_rolling_x_publication_plan(
             "package_features": dict(
                 learning_features["packages"].get(destination) or {}
             ),
+            "editorial_seo_package_sha256": editorial_seo_package.get(
+                "editorial_seo_package_sha256"
+            ),
         })
     plan_core = {
         "schema_version": "contentops.publication_plan.v1",
@@ -3243,6 +3280,7 @@ def _build_rolling_x_publication_plan(
         "output_dir": str(output_dir.resolve()),
         "artifact_refs": dict(lock.get("artifacts") or {}),
         "editorial_features": learning_features["editorial"],
+        "editorial_seo_package": editorial_seo_package,
         "learning_policy_version": learning_policy_version,
         "quality_probation_policy_id": V1_QUALITY_PROBATION_POLICY_ID,
         "full_v1_distribution_required": True,
@@ -4747,6 +4785,29 @@ def _run_rolling_x_newsroom_cycle(
             str(value) for value in viability.get("selected_headline_ids") or []
             if str(value)
         ]
+    selected_attempt = next(
+        (
+            row for row in viability.get("rank_attempts") or []
+            if isinstance(row, Mapping) and row.get("rank") == viability.get("selected_rank")
+        ),
+        {},
+    )
+    selected_request = (
+        dict(selected_attempt.get("request") or {})
+        if isinstance(selected_attempt, Mapping)
+        else {}
+    )
+    editorial_article_mode = str(
+        selected_request.get("effective_article_mode")
+        or selected_request.get("resolved_article_mode")
+        or selected_request.get("article_mode")
+        or selected_attempt.get("effective_article_mode")
+        or selected_attempt.get("resolved_article_mode")
+        or (viability.get("selected_cluster") or {}).get("resolved_article_mode")
+        or (viability.get("selected_cluster") or {}).get("article_mode")
+        or (viability.get("selected_cluster") or {}).get("story_mode")
+        or "STANDARD_ANALYSIS"
+    )
     editorial_route = build_editorial_worker_routing_packet(
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
@@ -4759,6 +4820,7 @@ def _run_rolling_x_newsroom_cycle(
         },
         readiness_checked_before_editorial=publication_enabled,
         readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
+        article_mode=editorial_article_mode,
     )
     evidence["editorial_worker_routing"] = editorial_route
 
@@ -4879,6 +4941,15 @@ def _run_rolling_x_newsroom_cycle(
                     worker_validation = validate_editorial_worker_return(
                         worker_return=receipt,
                         expected_governed_input_hash=expected_hash,
+                        expected_editorial_packet=dict(
+                            (
+                                editorial_route.get("worker_request") or {}
+                            ).get("bounded_governed_context", {}).get(
+                                "institutional_edge_editorial_packet"
+                            )
+                            or {}
+                        ),
+                        accepted_evidence_packet=selected_evidence,
                     )
                 except (TypeError, ValueError):
                     raise GroundedArticleBuilderError(
@@ -4890,7 +4961,15 @@ def _run_rolling_x_newsroom_cycle(
                     raise GroundedArticleBuilderError(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
                     )
-                built = {**dict(built), "editorial_worker_validation": worker_validation}
+                built_article = dict((built or {}).get("article") or {})
+                built_article["institutional_edge_editorial_validation"] = dict(
+                    worker_validation.get("institutional_edge_editorial_validation") or {}
+                )
+                built = {
+                    **dict(built),
+                    "article": built_article,
+                    "editorial_worker_validation": worker_validation,
+                }
             if isinstance(built, Mapping):
                 _write_json(candidate_checkpoint_path, built)
                 _write_json(built_checkpoint_path, built)
@@ -4988,6 +5067,34 @@ def _run_rolling_x_newsroom_cycle(
             editorial_reviewer=reviewer,
             article_reviser=reviser,
         )
+        if editorial.get("status") == "PASS":
+            from live_contentops.capital_chronicle_institutional_edge_v1 import (
+                validate_institutional_edge_article,
+            )
+
+            final_editorial_article = dict(editorial.get("article") or {})
+            final_institutional_validation = validate_institutional_edge_article(
+                final_editorial_article,
+                editorial_packet=dict(
+                    (
+                        editorial_route.get("worker_request") or {}
+                    ).get("bounded_governed_context", {}).get(
+                        "institutional_edge_editorial_packet"
+                    )
+                    or {}
+                ),
+                accepted_evidence_packet=selected_evidence,
+            )
+            final_editorial_article["institutional_edge_editorial_validation"] = (
+                final_institutional_validation
+            )
+            editorial = {**dict(editorial), "article": final_editorial_article}
+            if final_institutional_validation.get("classification") != "PASS":
+                editorial = {
+                    **editorial,
+                    "status": "NO_PUBLICATION",
+                    "reason_code": "INSTITUTIONAL_EDGE_EDITORIAL_VALIDATION_BLOCKED",
+                }
         evidence["article"] = editorial.get("article")
         evidence["media"] = media
         evidence["editorial_cycle"] = editorial

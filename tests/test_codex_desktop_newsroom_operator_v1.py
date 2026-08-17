@@ -882,7 +882,17 @@ def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_
     assert worker["isolated"] is True
     assert worker["resume_existing"] is False
     assert worker["governed_input_hash"] == route["governed_input_hash"]
-    assert worker["bounded_governed_context"] == governed_context
+    assert {
+        key: value
+        for key, value in worker["bounded_governed_context"].items()
+        if key != "institutional_edge_editorial_packet"
+    } == governed_context
+    editorial_packet = worker["bounded_governed_context"][
+        "institutional_edge_editorial_packet"
+    ]
+    assert editorial_packet["voice_id"] == "CAPITAL_CHRONICLE_INSTITUTIONAL_EDGE_V1"
+    assert editorial_packet["editorial_packet_sha256"]
+    assert editorial_packet["grants_public_write_authority"] is False
     assert worker["max_bounded_editorial_revisions"] == 1
     assert worker["grants_factual_authority"] is False
     assert worker["grants_numeric_authority"] is False
