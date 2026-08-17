@@ -21,8 +21,9 @@ or any other platform write.
 - Final fetched/remote `master`: `f994a9ed7b730e54d09b29900a527daa9b8f51c9`
 - Synthetic merge/closeout commit: none
 
-The dirty canonical checkout was not mutated. The implementation branch was created in a clean
-dedicated worktree from the freshly verified remote master.
+After a zero-overlap check, the dirty canonical checkout was safely fast-forwarded to the accepted
+helper while every unrelated tracked and untracked path was preserved. The implementation branch
+was created in a clean dedicated worktree from the freshly verified remote master.
 
 ## Storage contract
 
