@@ -1,0 +1,35 @@
+{
+  "accepted_evidence_packet": {
+    "article_mode": "BREAKING_BRIEF",
+    "document_id": "japan-cabinet-office-q2-2026-gdp-first-preliminary",
+    "publisher": "Economic and Social Research Institute, Cabinet Office, Government of Japan",
+    "published_at_utc": "2026-08-17T00:00:00Z",
+    "source_authority_class": "official_public_primary_source",
+    "status": "PASS",
+    "supported_facts": [
+      "Real GDP rose 0.3% quarter on quarter and 1.1% at an annualized rate.",
+      "Domestic demand fell 0.2% and subtracted 0.2 percentage point from GDP growth.",
+      "Net exports contributed 0.5 percentage point; exports rose 0.5% and imports fell 1.5%.",
+      "The release alone does not establish a Bank of Japan policy decision or a durable change in the growth trend."
+    ],
+    "x_content_grants_factual_authority": false
+  },
+  "destination_package_constraints": {
+    "article_media_optional": true,
+    "required_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "tiktok_in_v1": false
+  },
+  "exact_source_handles": [
+    "https://www.esri.cao.go.jp/en/sna/data/sokuhou/files/2026/qe262/pdf/gaiyou2621_e.pdf"
+  ]
+}

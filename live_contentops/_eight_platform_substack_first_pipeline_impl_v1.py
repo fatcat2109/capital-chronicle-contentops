@@ -40,7 +40,12 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     repair_substack_editorial_paragraphs_via_edge,
 )
 from live_contentops.publishing_profile_registry_v1 import browser_doctor
-from live_contentops.media_manifest_authority_v1 import build_delivery_media_manifest, select_primary_chart
+from live_contentops.media_manifest_authority_v1 import (
+    build_delivery_media_manifest,
+    build_delivery_only_editorial_card,
+    select_primary_delivery_media,
+    select_primary_chart,
+)
 from live_contentops.public_dispatch_freeze_guard_v6 import (
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
@@ -69,7 +74,6 @@ EXPECTED_DESTINATIONS = (
     "facebook_page",
     "instagram_business",
     "threads",
-    "tiktok",
     "youtube",
 )
 SUCCESS_STATUSES = {"SUCCESS", "ALREADY_SUCCESSFUL_IDEMPOTENT"}
@@ -91,7 +95,7 @@ UNKNOWN_WRITE_STATUSES = {
     "FAILED_THREADS_REPLY_READBACK",
     "FAILED_X_REPLY_PERMALINK_READBACK",
 }
-TEXT_IMAGE_PASS_DESTINATIONS = tuple(platform for platform in EXPECTED_DESTINATIONS if platform != "tiktok")
+TEXT_IMAGE_PASS_DESTINATIONS = EXPECTED_DESTINATIONS
 
 TREASURY_RC_EDITORIAL_REPLACEMENTS = (
     {
@@ -447,7 +451,6 @@ def build_native_derivative_payloads(
                 "format": "single_root_brief",
                 **{**thread_payload, "platform_limit": 500},
             },
-            "tiktok": {"format": "brief_caption", "text": text},
             "youtube": {
                 "format": "community_brief",
                 "text": text,
@@ -530,10 +533,6 @@ def build_native_derivative_payloads(
             "format": "root_chart_post_with_ordered_media_replies",
             "text": threads_thread["root_text"],
             **threads_thread,
-        },
-        "tiktok": {
-            "format": "source_chart_sequence_caption",
-            "text": f"{title}. Three source-backed charts show the signal, the policy mechanism, and the curve context. Full article: {canonical_url}. {caveat}",
         },
         "youtube": {
             "format": "community_text_image_post",
@@ -827,14 +826,68 @@ def _publish_telegram_photo_verified(
     }
 
 
-def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str, title: str) -> dict[str, Any]:
+def _publish_telegram_text_verified(
+    *, run_id: str, topic_hash: str, text: str, canonical_url: str,
+) -> dict[str, Any]:
+    from live_contentops.telegram_live_adapter_v6 import execute_telegram_post
+
+    public_ledger = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+    payload_hash = build_public_dispatch_payload_hash(
+        platform="telegram", action="post", body_text=text,
+        canonical_url=canonical_url, media_url=None, topic_hash=topic_hash,
+    )
+    marker = make_public_dispatch_approval_marker(
+        run_id=run_id, topic_hash=topic_hash, payload_hash=payload_hash, platform="telegram",
+    )
+    raw = execute_telegram_post(
+        message=text, parse_mode="HTML", dry_run=False,
+        approval_context={
+            "operator_approval_marker": marker,
+            "run_id": run_id,
+            "topic_hash": topic_hash,
+            "payload_hash": payload_hash,
+            "canonical_url": canonical_url,
+            "prior_dispatch_hashes": load_public_dispatch_hashes(public_ledger),
+            "public_dispatch_ledger_path": str(public_ledger),
+            "canonical_packet_status": "PASS",
+        },
+    )
+    response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
+    message = response.get("result") if isinstance(response.get("result"), Mapping) else {}
+    message_id = str(raw.get("id") or message.get("message_id") or "")
+    chat = message.get("chat") if isinstance(message.get("chat"), Mapping) else {}
+    username = str(chat.get("username") or "")
+    visible = str(message.get("text") or "")
+    verified = bool(
+        raw.get("status") == "SUCCESS" and message_id
+        and username.casefold() == "capitalchronicle"
+        and canonical_url in visible
+    )
+    public_url = f"https://t.me/CapitalChronicle/{message_id}" if message_id else None
+    if verified:
+        append_public_dispatch_ledger(
+            ledger_path=public_ledger, platform="telegram", action="post",
+            run_id=run_id, topic_hash=topic_hash, payload_hash=payload_hash,
+            canonical_url=canonical_url, media_url=None, status="SUCCESS",
+        )
+    return {
+        "status": "SUCCESS" if verified else str(raw.get("status") or "FAILED_TELEGRAM_STRICT_READBACK"),
+        "platform": "telegram", "action": "post", "id": message_id or None,
+        "public_url": public_url, "destination_identity": f"@{username}" if username else None,
+        "provider_readback_verified": verified,
+        "readback": {"status": "SUCCESS" if verified else "FAILED_TELEGRAM_STRICT_READBACK",
+                     "visible_body_text": visible, "substack_url_visible": canonical_url in visible,
+                     "meaningful_media_visible": False},
+    }
+
+
+def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str | None, title: str) -> dict[str, Any]:
     from live_contentops.discord_live_adapter_v6 import execute_discord_post
 
-    raw = execute_discord_post(
-        message=text,
-        embeds=[{"title": title, "url": canonical_url, "image": {"url": image_url}}],
-        dry_run=False,
-    )
+    embeds = [{"title": title, "url": canonical_url}]
+    if image_url:
+        embeds[0]["image"] = {"url": image_url}
+    raw = execute_discord_post(message=text, embeds=embeds, dry_run=False)
     response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
     message_id = str(raw.get("id") or response.get("id") or "")
     channel_id = str(response.get("channel_id") or "")
@@ -847,7 +900,10 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str, 
         for item in embeds
         if isinstance(item, Mapping)
     )
-    verified = bool(raw.get("status") == "SUCCESS" and message_id and canonical_url in content and embed_image)
+    verified = bool(
+        raw.get("status") == "SUCCESS" and message_id and canonical_url in content
+        and (embed_image if image_url else True)
+    )
     public_url = f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}" if guild_id and channel_id and message_id else None
     return {
         "status": "SUCCESS" if verified else (
@@ -870,6 +926,25 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str, 
             "attached_article_visual": False,
             "visible_body_text": content,
         },
+    }
+
+
+def _publish_facebook_text_verified(*, text: str, canonical_url: str) -> dict[str, Any]:
+    from live_contentops.facebook_page_adapter_v6 import execute_facebook_post, readback_facebook_post
+
+    raw = execute_facebook_post(message=text, link=canonical_url, dry_run=False)
+    if raw.get("status") != "SUCCESS":
+        return dict(raw)
+    post_id = str(raw.get("id") or "")
+    readback = readback_facebook_post(
+        post_id=post_id, expected_text=text, canonical_url=canonical_url,
+        expected_media_local_path=None,
+    )
+    verified = readback.get("status") == "SUCCESS"
+    return {
+        **raw, "status": "SUCCESS" if verified else "FAILED_FACEBOOK_STRICT_READBACK",
+        "action": "text_link_post", "public_url": readback.get("public_url"),
+        "provider_readback_verified": verified, "readback": readback,
     }
 
 
@@ -2750,6 +2825,39 @@ def _prepare_rolling_x_release_candidate(
         viability=viability,
         article=final_article,
     )
+    delivery_only_assets = [
+        dict(row) for row in media_packet.get("delivery_only_assets") or []
+        if isinstance(row, Mapping)
+    ]
+    if not media_assets and not delivery_only_assets:
+        evidence_packet = viability.get("selected_evidence") or {}
+        evidence_rows = (
+            list(evidence_packet.get("evidence_documents") or [])
+            if isinstance(evidence_packet, Mapping)
+            else list(evidence_packet)
+            if isinstance(evidence_packet, Sequence) and not isinstance(evidence_packet, (str, bytes))
+            else []
+        )
+        first_evidence = dict(evidence_rows[0]) if evidence_rows and isinstance(evidence_rows[0], Mapping) else {}
+        source_label = str(
+            first_evidence.get("publisher")
+            or first_evidence.get("source_label")
+            or first_evidence.get("source_name")
+            or "Governed source"
+        )
+        source_page_url = str(
+            first_evidence.get("url")
+            or first_evidence.get("source_page_url")
+            or first_evidence.get("source_url")
+            or "https://capitalchronicle.substack.com/"
+        )
+        delivery_only_assets = [build_delivery_only_editorial_card(
+            output_path=output_dir / "delivery_only_editorial_card.png",
+            title=str(final_article.get("title") or "Capital Chronicle newsroom brief"),
+            source_label=source_label,
+            source_page_url=source_page_url,
+            published_at=str(first_evidence.get("published_at") or first_evidence.get("published_at_utc") or "") or None,
+        )]
     body = str(final_article.get("substack_body_markdown") or "")
     rendered = str(final_article.get("rendered_body") or body)
     article_path = output_dir / "canonical_article.md"
@@ -2787,6 +2895,10 @@ def _prepare_rolling_x_release_candidate(
             "status": "PASS" if not [item for item in blockers if item.startswith("media_") or item.startswith("three_")] else "BLOCKED",
             "media_asset_count": len(media_assets),
             "assets": media_assets,
+            "delivery_only_assets": delivery_only_assets,
+            "article_media_count": len(media_assets),
+            "delivery_media_count": len(delivery_only_assets),
+            "article_media_optional": True,
             "ai_generated_image": False,
             "contentops_built_or_source_backed_media": True,
         }
@@ -2857,20 +2969,29 @@ def _prepare_rolling_x_release_candidate(
                 media_asset_ids=media_ids,
             )
         except Exception as exc:
-            distribution_warnings.append(
-                f"native_platform_package_invalid:{type(exc).__name__}"
-            )
+            blockers.append(f"native_platform_package_invalid:{type(exc).__name__}")
     _write_json(output_dir / "native_payloads_rehearsal_v1.json", payloads)
     for platform in ("x", "threads"):
         metrics = dict((payloads.get(platform) or {}).get("quality_metrics") or {})
-        if payloads and not (
-            metrics.get("reply_count") == 2
+        package = dict(payloads.get(platform) or {})
+        single_root_valid = bool(
+            package.get("overflow_strategy") == "single_root"
+            and metrics.get("reply_count") == 0
             and metrics.get("sentence_boundary_pass")
             and metrics.get("orphan_fragment_count") == 0
-            and metrics.get("visual_distribution_pass")
-            and metrics.get("complete_article_visual_count") == 3
-        ):
-            distribution_warnings.append(f"{platform}_semantic_layout_failed")
+            and not package.get("hard_truncation_used")
+        )
+        threaded_valid = bool(
+            package.get("overflow_strategy") in {
+                "ordered_reply_chain", "semantic_three_post_thread"
+            }
+            and metrics.get("reply_count", 0) > 0
+            and metrics.get("sentence_boundary_pass")
+            and metrics.get("orphan_fragment_count") == 0
+            and not package.get("hard_truncation_used")
+        )
+        if payloads and not (single_root_valid or threaded_valid):
+            blockers.append(f"{platform}_semantic_layout_failed")
     distribution_warnings = list(dict.fromkeys(distribution_warnings))
     context["distribution_warnings"] = distribution_warnings
     context["derivative_package_ready"] = bool(payloads)
@@ -2886,6 +3007,15 @@ def _prepare_rolling_x_release_candidate(
         context["distribution_warnings"] = distribution_warnings
         _write_json(output_dir / "run_context_v1.json", context)
     locked_artifacts = _release_lock_artifacts(output_dir)
+    for row in delivery_only_assets:
+        asset_id = str(row.get("asset_id") or "delivery_only")
+        path = Path(str(row.get("path") or row.get("local_path") or ""))
+        name = f"delivery_only_media_{asset_id}"
+        locked_artifacts[name] = {
+            "path": str(path),
+            "exists": path.is_file(),
+            "sha256": _sha256_file(path) if path.is_file() else None,
+        }
     for name, row in locked_artifacts.items():
         if not row.get("exists"):
             blockers.append(f"release_preparation_artifact_missing:{name}")
@@ -2900,6 +3030,12 @@ def _prepare_rolling_x_release_candidate(
         "media_sha256": {
             str(row.get("asset_id")): row.get("sha256") or (_sha256_file(row.get("path")) if Path(str(row.get("path") or "")).is_file() else None)
             for row in media_assets
+        },
+        "delivery_only_media_sha256": {
+            str(row.get("asset_id")): row.get("sha256") or (
+                _sha256_file(row.get("path")) if Path(str(row.get("path") or "")).is_file() else None
+            )
+            for row in delivery_only_assets
         },
         "payload_sha256": {
             platform: _sha256(str(row.get("text") or "")) for platform, row in payloads.items()
@@ -3026,7 +3162,11 @@ def _build_rolling_x_publication_plan(
     lock = dict(preparation.get("release_candidate_lock") or {})
     context = dict(preparation.get("context") or {})
     article = dict(context.get("article") or {})
-    media_available = bool((context.get("media") or {}).get("assets"))
+    article_media_available = bool((context.get("media") or {}).get("assets"))
+    delivery_only_media_available = bool(
+        (context.get("media") or {}).get("delivery_only_assets")
+    )
+    delivery_media_available = article_media_available or delivery_only_media_available
     payload_hashes = dict(lock.get("payload_sha256") or {})
     learning_policy_version = str(
         ((viability.get("selected_cluster") or {}).get("learning_policy_version") or "")
@@ -3039,6 +3179,7 @@ def _build_rolling_x_publication_plan(
     )
     destinations: list[dict[str, Any]] = []
     skipped_derivatives: list[dict[str, Any]] = []
+    pre_substack_blockers: list[str] = []
     readiness_rows = dict(readiness.get("destinations") or {})
     for destination in sorted(DESTINATION_TO_SURFACE):
         row = dict(readiness_rows.get(destination) or {})
@@ -3046,33 +3187,12 @@ def _build_rolling_x_publication_plan(
         registration = registration_for_destination(destination)
         derivative_payload_ready = bool(payload_hashes.get(destination))
         media_required_and_unavailable = bool(
-            destination in {
-                "telegram",
-                "discord",
-                "facebook_page",
-                "instagram_business",
-                "youtube",
-            }
-            and not media_available
+            registration.delivery_media_required and not delivery_media_available
         )
-        if destination != "substack" and (
-            not derivative_payload_ready or media_required_and_unavailable
-        ):
-            skipped_derivatives.append(
-                {
-                    "destination": destination,
-                    "surface": registration.surface,
-                    "readiness_state": state,
-                    "disposition": (
-                        "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE"
-                        if media_required_and_unavailable
-                        else "SKIPPED_PACKAGE_UNAVAILABLE"
-                    ),
-                    "attempted": False,
-                    "canonical_truth_affected": False,
-                }
-            )
-            continue
+        if destination != "substack" and not derivative_payload_ready:
+            pre_substack_blockers.append(f"mandatory_derivative_package_unavailable:{destination}")
+        if media_required_and_unavailable:
+            pre_substack_blockers.append(f"mandatory_delivery_media_unavailable:{destination}")
         payload_hash = (
             str(lock.get("article_body_sha256") or "")
             if destination == "substack"
@@ -3094,6 +3214,10 @@ def _build_rolling_x_publication_plan(
                 str(path) for path in (lock.get("artifacts") or {})
                 if str(path).startswith(("media_", "delivery_media_"))
             ),
+            "text_only_supported": registration.text_only_supported,
+            "delivery_media_required": registration.delivery_media_required,
+            "article_media_available": article_media_available,
+            "delivery_media_available": delivery_media_available,
             "canonical_url_dependency": registration.canonical_url_dependency,
             "expected_destination_identity": registration.expected_identity,
             "readiness_state": state,
@@ -3130,6 +3254,10 @@ def _build_rolling_x_publication_plan(
         ),
         "destinations": destinations,
         "skipped_derivative_destinations": skipped_derivatives,
+        "pre_substack_blockers": list(dict.fromkeys(pre_substack_blockers)),
+        "transaction_readiness": (
+            "READY" if not pre_substack_blockers else "HOLD_PRE_SUBSTACK"
+        ),
         "transport_registry_version": REGISTRY_VERSION,
         "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
         "substack_first_dependency": True,
@@ -3149,6 +3277,10 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     selection = dict(context.get("selection") or {})
     media = dict(context.get("media") or {})
     media_assets = [dict(row) for row in (media.get("assets") or []) if isinstance(row, Mapping)]
+    delivery_only_assets = [
+        dict(row) for row in (media.get("delivery_only_assets") or [])
+        if isinstance(row, Mapping)
+    ]
     canonical_url = str(intent.get("canonical_url") or "")
     payloads = build_native_derivative_payloads(
         article=article,
@@ -3170,8 +3302,10 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         "article": article,
         "selection": selection,
         "media_assets": media_assets,
+        "delivery_only_assets": delivery_only_assets,
         "payloads": payloads,
-        "local_media": str(primary.get("absolute_local_source_path") or local_media),
+        "local_media": local_media,
+        "delivery_local_media": str(primary.get("absolute_local_source_path") or ""),
         "public_image_url": str(primary.get("verified_public_delivery_url") or ""),
         "primary_media": primary,
         "canonical_url": canonical_url,
@@ -3263,6 +3397,7 @@ def _publish_one_destination_from_durable_intent(
             subtitle=str(article.get("subtitle") or ""),
             body_markdown=str(article.get("substack_body_markdown") or ""),
             image_assets=data["media_assets"],
+            delivery_only_assets=data.get("delivery_only_assets") or [],
             public_screenshot_path=output_dir / "public_substack_readback.png",
             existing_draft_id=(
                 str(intent.get("recovery_public_object_id") or "") or None
@@ -3271,10 +3406,12 @@ def _publish_one_destination_from_durable_intent(
         _persist_sanitized_substack_transport_attempt(output_dir=output_dir, result=result)
         readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}
         public_images = list(readback.get("public_image_urls") or result.get("public_image_urls") or [])
-        if str(result.get("status") or "") in SUCCESS_STATUSES and public_images:
+        delivery_only_public_images = list(result.get("delivery_only_public_image_urls") or [])
+        delivery_sources = [*data["media_assets"], *(data.get("delivery_only_assets") or [])]
+        if str(result.get("status") or "") in SUCCESS_STATUSES and (public_images or delivery_only_public_images):
             delivery = build_delivery_media_manifest(
-                media_packet={"assets": data["media_assets"]},
-                public_image_urls=public_images,
+                media_packet={"assets": delivery_sources},
+                public_image_urls=[*public_images, *delivery_only_public_images],
                 run_id=str(intent.get("work_item_id") or ""),
             )
             _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
@@ -3314,11 +3451,17 @@ def _publish_one_destination_from_durable_intent(
         )
     if destination == "youtube":
         return publish_youtube_community_post_via_edge(
-            cdp_port=cdp_port, text=text, image_path=image_path,
+            cdp_port=cdp_port, text=text, image_path=image_path or None,
             canonical_url=canonical_url,
             public_screenshot_path=output_dir / "public_youtube_community_readback.png",
         )
     if destination == "telegram":
+        if not image_path:
+            return _publish_telegram_text_verified(
+                run_id=str(intent.get("work_item_id") or ""),
+                topic_hash=_sha256(str(intent.get("package_identity") or "")),
+                text=text, canonical_url=canonical_url,
+            )
         return _publish_telegram_photo_verified(
             run_id=str(intent.get("work_item_id") or ""),
             topic_hash=_sha256(str(intent.get("package_identity") or "")),
@@ -3326,10 +3469,13 @@ def _publish_one_destination_from_durable_intent(
         )
     if destination == "discord":
         return _publish_discord_verified(
-            text=text, canonical_url=canonical_url, image_url=public_image_url,
+            text=text, canonical_url=canonical_url,
+            image_url=public_image_url if image_path else None,
             title=str(article.get("title") or ""),
         )
     if destination == "facebook_page":
+        if not image_path:
+            return _publish_facebook_text_verified(text=text, canonical_url=canonical_url)
         return _publish_facebook_photo_verified(
             text=text, canonical_url=canonical_url, media=data["primary_media"],
         )
@@ -3341,7 +3487,10 @@ def _publish_one_destination_from_durable_intent(
         from live_contentops.threads_adapter_v6 import (
             execute_threads_post, readback_threads_chain, readback_threads_post,
         )
-        root = execute_threads_post(text=text, image_url=public_image_url or None, dry_run=False)
+        root = execute_threads_post(
+            text=text, image_url=(public_image_url or None) if image_path else None,
+            dry_run=False,
+        )
         root_id = str(root.get("id") or "")
         replies = []
         for index, reply_text in enumerate((payloads.get("threads") or {}).get("reply_texts") or [], start=1):
@@ -3417,12 +3566,14 @@ def _readback_one_destination_from_durable_intent(
             cdp_port=cdp_port, public_url=public_object_url, expected_text=text,
             canonical_url=canonical_url,
             public_screenshot_path=output_dir / "public_youtube_community_readback.png",
+            expect_media=bool(image_path),
         )
     elif destination == "youtube":
         result = reconcile_youtube_community_post_by_text_via_edge(
             cdp_port=cdp_port,
             expected_text=text,
             canonical_url=canonical_url,
+            expect_media=bool(image_path),
         )
     elif destination == "facebook_page" and public_object_id:
         from live_contentops.facebook_page_adapter_v6 import readback_facebook_post
@@ -3786,6 +3937,7 @@ def _run_rolling_x_newsroom_cycle(
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
+    runtime_preflight_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if sidecar_glob is None:
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
@@ -3814,6 +3966,25 @@ def _run_rolling_x_newsroom_cycle(
     if evidence_path.exists():
         evidence = _read_json(evidence_path)
         evidence["reentry_guard"] = "existing_cycle_evidence_detected_no_automatic_retry"
+        return evidence
+    from live_contentops.v1_runtime_preflight_v1 import run_v1_runtime_preflight
+
+    runtime_preflight = dict(
+        runtime_preflight_override
+        if runtime_preflight_override is not None
+        else run_v1_runtime_preflight()
+    )
+    if runtime_preflight.get("status") != "PASS":
+        evidence = {
+            "schema_version": "contentops.rolling_x_newsroom_cycle.v1",
+            "run_id": run_id,
+            "classification": "NO_PUBLICATION",
+            "exact_next_blocker": "V1_RUNTIME_PREFLIGHT_BLOCKED",
+            "runtime_preflight": runtime_preflight,
+            "public_write_performed": False,
+            "unknown_write_count": 0,
+        }
+        _write_json(evidence_path, evidence)
         return evidence
     activity = RuntimeActivityRecorderV1(output_dir=output_dir, work_item_id=run_id)
     activity.record("HEADLINE_INGESTION")
@@ -4255,6 +4426,7 @@ def _run_rolling_x_newsroom_cycle(
         ),
         "publishability_candidate_pool": publishability_candidate_pool,
         "ranked_viability": viability,
+        "runtime_preflight": runtime_preflight,
         "public_write_performed": False,
         "publishing_adapter_called": False,
         "unknown_write_detected": False,
@@ -4508,7 +4680,90 @@ def _run_rolling_x_newsroom_cycle(
         _persist_cycle_evidence()
         return evidence
 
+    if publication_enabled:
+        if destination_readiness_override is not None:
+            readiness = dict(destination_readiness_override)
+        else:
+            from live_contentops.destination_transport_registry_v1 import (
+                DestinationReadinessManager,
+            )
+
+            readiness = DestinationReadinessManager().verify_full_v1_transaction_preflight(
+                attempt_identity=run_id,
+                persist=False,
+            )
+        evidence["destination_readiness"] = readiness
+        readiness_rows = dict(readiness.get("destinations") or {})
+        all_ready = bool(readiness.get("all_required_destinations_ready"))
+        if not all_ready:
+            evidence["classification"] = "NO_PUBLICATION"
+            evidence["exact_next_blocker"] = "FULL_DISTRIBUTION_READINESS_BLOCKED"
+            evidence["editorial_worker_count_requested"] = 0
+            evidence["public_write_performed"] = False
+            _persist_candidate_walk(terminal_reason="FULL_DISTRIBUTION_READINESS_BLOCKED")
+            _persist_cycle_evidence()
+            return evidence
+    else:
+        readiness = (
+            dict(destination_readiness_override)
+            if destination_readiness_override is not None
+            else {
+                "schema_version": "contentops.destination_readiness.shadow.v1",
+                "destinations": {},
+                "fixture_bound": False,
+                "public_write_authority": False,
+            }
+        )
+
+    from live_contentops.codex_desktop_newsroom_operator_v1 import (
+        build_editorial_worker_routing_packet,
+    )
+
+    selected_evidence = viability.get("selected_evidence") or {}
+    evidence_documents = (
+        list(selected_evidence.get("evidence_documents") or [])
+        if isinstance(selected_evidence, Mapping)
+        else []
+    )
+    exact_source_handles = [
+        str(
+            row.get("source_url") or row.get("url")
+            or row.get("document_id") or row.get("evidence_id") or ""
+        )
+        for row in evidence_documents
+        if isinstance(row, Mapping)
+    ]
+    exact_source_handles = [value for value in exact_source_handles if value]
+    if not exact_source_handles:
+        exact_source_handles = [
+            str(value) for value in viability.get("selected_headline_ids") or []
+            if str(value)
+        ]
+    editorial_route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context={
+            "accepted_evidence_packet": selected_evidence,
+            "exact_source_handles": exact_source_handles,
+            "destination_package_constraints": {
+                "required_destinations": list(EXPECTED_DESTINATIONS),
+                "article_media_optional": True,
+            },
+        },
+        readiness_checked_before_editorial=publication_enabled,
+        readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
+    )
+    evidence["editorial_worker_routing"] = editorial_route
+
     if article_builder is None:
+        if publication_enabled:
+            evidence["classification"] = "NO_PUBLICATION"
+            evidence["exact_next_blocker"] = "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+            evidence["editorial_worker_count_requested"] = 1
+            evidence["legacy_writer_fallback_used"] = False
+            evidence["public_write_performed"] = False
+            _persist_candidate_walk(terminal_reason="EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID")
+            _persist_cycle_evidence()
+            return evidence
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
             build_rolling_x_grounded_article_and_media,
         )
@@ -4595,12 +4850,54 @@ def _run_rolling_x_newsroom_cycle(
                     },
                 }
             else:
-                built = article_builder(dict(viability))
+                built = article_builder({
+                    **dict(viability),
+                    "editorial_worker_request": dict(
+                        editorial_route.get("worker_request") or {}
+                    ),
+                })
+            if publication_enabled:
+                from live_contentops.codex_desktop_newsroom_operator_v1 import (
+                    validate_editorial_worker_return,
+                )
+
+                receipt = dict((built or {}).get("editorial_worker_receipt") or {})
+                expected_hash = str(editorial_route.get("governed_input_hash") or "")
+                if not expected_hash:
+                    raise GroundedArticleBuilderError(
+                        "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+                    )
+                try:
+                    worker_validation = validate_editorial_worker_return(
+                        worker_return=receipt,
+                        expected_governed_input_hash=expected_hash,
+                    )
+                except (TypeError, ValueError):
+                    raise GroundedArticleBuilderError(
+                        "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+                    ) from None
+                if _json_sha256(dict(receipt.get("article") or {})) != _json_sha256(
+                    dict((built or {}).get("article") or {})
+                ):
+                    raise GroundedArticleBuilderError(
+                        "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+                    )
+                built = {**dict(built), "editorial_worker_validation": worker_validation}
             if isinstance(built, Mapping):
                 _write_json(candidate_checkpoint_path, built)
                 _write_json(built_checkpoint_path, built)
         except GroundedArticleBuilderError as exc:
             blocker_text = str(exc)
+            if blocker_text == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID":
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = blocker_text
+                evidence["editorial_worker_count_requested"] = 1
+                evidence["legacy_writer_fallback_used"] = False
+                evidence["public_write_performed"] = False
+                walk_row["terminal_reason"] = blocker_text
+                _persist_candidate_walk(terminal_reason=blocker_text)
+                _persist_cycle_evidence()
+                return evidence
             if blocker_text == "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE":
                 walk_row.update(
                     {
@@ -4628,16 +4925,8 @@ def _run_rolling_x_newsroom_cycle(
                     "terminal_reason": "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED",
                 }
             )
-            next_viability = _next_viable_after(selected_rank)
-            if next_viability.get("status") == "SUCCESS":
-                viability = next_viability
-                continue
             evidence["classification"] = "NO_PUBLICATION"
-            evidence["exact_next_blocker"] = (
-                next_viability.get("reason_code")
-                if next_viability.get("evidence_request_budget_exhausted")
-                else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
-            )
+            evidence["exact_next_blocker"] = "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
             evidence["grounded_article_builder_blockers"] = walk_row["writer_blockers"]
             evidence["article"] = None
             evidence["media"] = None
@@ -4735,18 +5024,6 @@ def _run_rolling_x_newsroom_cycle(
             return evidence
         activity.record(
             "READER_VALUE_CHECK", story_label=(editorial.get("article") or {}).get("title")
-        )
-        readiness = (
-            dict(destination_readiness_override)
-            if destination_readiness_override is not None
-            else _rolling_x_destination_readiness(cdp_port=cdp_port)
-            if publication_enabled
-            else {
-                "schema_version": "contentops.destination_readiness.shadow.v1",
-                "destinations": {},
-                "fixture_bound": False,
-                "public_write_authority": False,
-            }
         )
         evidence["destination_readiness"] = readiness
         final_article = dict(editorial.get("article") or {})

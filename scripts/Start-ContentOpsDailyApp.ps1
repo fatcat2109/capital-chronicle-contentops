@@ -5,16 +5,8 @@
 $ErrorActionPreference = 'Stop'
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot
-
-function Resolve-Python {
-    foreach ($candidate in @('python', 'py', 'python3')) {
-        $command = Get-Command $candidate -ErrorAction SilentlyContinue
-        if ($command) { return $command.Source }
-    }
-    throw 'PYTHON_NOT_FOUND: install Python 3 and re-run.'
-}
-
-$Python = Resolve-Python
+. (Join-Path $PSScriptRoot 'Resolve-ContentOpsV1Runtime.ps1')
+$Python = Resolve-ContentOpsV1Runtime
 
 Write-Output 'Capital Chronicle ContentOps V1 - one-click morning launcher'
 Write-Output ("Repo: " + $RepoRoot)
@@ -25,6 +17,8 @@ $launcherArgs = @('-m', 'live_contentops.daily_app_launcher_v1') + @($args | Whe
 
 Push-Location $RepoRoot
 try {
+    & $Python -m live_contentops.v1_runtime_preflight_v1 | Out-Host
+    if ($LASTEXITCODE -ne 0) { throw 'CONTENTOPS_V1_RUNTIME_PREFLIGHT_FAILED' }
     & $Python @launcherArgs
     $exitCode = $LASTEXITCODE
 } finally {

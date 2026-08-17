@@ -1,0 +1,8 @@
+# Pinned V1 native Desktop runtime. This file is intentionally separate from
+# build/test toolchains and must never target Codex's private cache runtime.
+playwright==1.58.0
+Pillow==11.1.0
+duckdb==1.5.4
+greenlet==3.5.5
+pyee==13.0.1
+typing-extensions==4.16.0

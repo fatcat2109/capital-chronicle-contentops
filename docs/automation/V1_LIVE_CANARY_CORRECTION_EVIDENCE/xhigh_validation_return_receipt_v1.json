@@ -1,0 +1,16 @@
+{
+  "article": {
+    "effective_article_mode": "BREAKING_BRIEF",
+    "source_url": "https://www.esri.cao.go.jp/en/sna/data/sokuhou/files/2026/qe262/pdf/gaiyou2621_e.pdf",
+    "substack_body_markdown": "Japan’s real GDP rose 0.3% quarter on quarter in the first preliminary Q2 2026 estimate, equivalent to a 1.1% annualized rate, according to the Economic and Social Research Institute at the Cabinet Office.\n\nThe headline gain relied on the external sector. Net exports contributed 0.5 percentage point to GDP growth as exports increased 0.5% and imports declined 1.5%. Domestic demand moved the other way, falling 0.2% and subtracting 0.2 percentage point from growth.\n\nThe composition therefore matters: stronger net exports more than offset weaker domestic demand in this preliminary reading. The release alone does not establish a Bank of Japan policy decision or confirm a durable change in Japan’s growth trend.",
+    "subtitle": "Real output grew at a 1.1% annualized rate, but the preliminary release alone does not establish a durable shift in growth or a Bank of Japan policy decision.",
+    "title": "Japan’s Q2 GDP Rises 0.3% as Net Exports Offset Weaker Domestic Demand"
+  },
+  "bounded_revision_count": 0,
+  "fresh": true,
+  "governed_input_hash": "f3f7c7b90948592d2d787a6544fce2089cb30020ee8684893c740149af6ef8be",
+  "isolated": true,
+  "model": "gpt-5.6-sol",
+  "public_write_attempted": false,
+  "reasoning_effort": "XHIGH"
+}

@@ -9,6 +9,10 @@ from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
     _dispatch_once,
     build_native_derivative_payloads,
 )
+from live_contentops.destination_transport_registry_v1 import (
+    V1_REQUIRED_PUBLICATION_DESTINATIONS,
+)
+from live_contentops.media_manifest_authority_v1 import build_delivery_only_editorial_card
 
 
 def _article() -> dict:
@@ -22,6 +26,89 @@ def _selection() -> dict:
         "policy_context": "Policy communication frames the short end while the curve absorbs growth and inflation uncertainty.",
         "cross_asset_implications": "Cross-asset moves can reflect different repricing channels rather than one simple market verdict.",
     }
+
+
+def test_exact_v1_ordinary_payloads_are_eight_derivatives_without_tiktok():
+    article = {
+        **_article(),
+        "minimum_trustworthy_evidence_packet": {"status": "PASS", "risk_tier": "ORDINARY"},
+    }
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection=_selection(),
+        canonical_url="https://capitalchronicle.substack.com/p/governed-brief",
+        media_asset_ids=(),
+    )
+    assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
+    assert "tiktok" not in payloads
+    assert payloads["x"]["overflow_strategy"] == "single_root"
+    assert payloads["threads"]["overflow_strategy"] == "single_root"
+    assert payloads["x"]["hard_truncation_used"] is False
+    assert payloads["threads"]["hard_truncation_used"] is False
+
+
+def test_delivery_only_card_is_rights_safe_and_never_article_media(tmp_path):
+    asset = build_delivery_only_editorial_card(
+        output_path=tmp_path / "delivery.png",
+        title="Governed official event update",
+        source_label="Official Agency",
+        source_page_url="https://official.example/record",
+        published_at="2026-08-17T00:00:00Z",
+    )
+    assert Path(asset["path"]).is_file()
+    assert asset["media_role"] == "delivery_only"
+    assert asset["article_inclusion"] is False
+    assert asset["canonical_article_media"] is False
+    assert asset["generated_documentary_imagery"] is False
+    assert asset["rights_basis"] == "CONTENTOPS_OWNED_LAYOUT_SOURCE_METADATA_ONLY"
+
+
+def test_zero_article_media_plan_contains_all_nine_and_no_optional_skip(tmp_path):
+    delivery = build_delivery_only_editorial_card(
+        output_path=tmp_path / "delivery.png",
+        title="Governed official event update",
+        source_label="Official Agency",
+        source_page_url="https://official.example/record",
+    )
+    payload_hashes = {
+        destination: destination * 8
+        for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS
+        if destination != "substack"
+    }
+    readiness = {
+        "destinations": {
+            destination: {"readiness_state": "READY_NON_BROWSER_BINDING"}
+            for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS
+        }
+    }
+    plan = pipeline._build_rolling_x_publication_plan(
+        run_id="zero-article-media",
+        output_dir=tmp_path,
+        viability={"selected_cluster_id": "story-1", "selected_cluster": {}},
+        preparation={
+            "release_candidate_lock": {
+                "article_body_sha256": "a" * 64,
+                "lock_sha256": "b" * 64,
+                "payload_sha256": payload_hashes,
+                "artifacts": {"delivery_only_media_delivery_only_editorial_card": {}},
+            },
+            "context": {
+                "article": {"title": "Governed update", "substack_body_markdown": "Governed body."},
+                "media": {"assets": [], "delivery_only_assets": [delivery]},
+            },
+            "payloads": {destination: {"text": destination} for destination in payload_hashes},
+        },
+        readiness=readiness,
+    )
+    assert {row["destination"] for row in plan["destinations"]} == set(
+        V1_REQUIRED_PUBLICATION_DESTINATIONS
+    )
+    assert plan["skipped_derivative_destinations"] == []
+    assert plan["pre_substack_blockers"] == []
+    assert plan["transaction_readiness"] == "READY"
+    assert next(
+        row for row in plan["destinations"] if row["destination"] == "instagram_business"
+    )["delivery_media_required"] is True
 
 
 def test_treasury_rc_editorial_replacements_remove_process_copy_and_repetition() -> None:

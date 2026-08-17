@@ -1,6 +1,18 @@
 # Capital Chronicle ContentOps V1 — Full Automation Nine-Surface Fresh-Session Handoff
 
-Authority date: 2026-08-16
+Authority date: 2026-08-17
+
+## First live canary correction authority
+
+The first `GO` canary `operator-requested-operator-trigger-20ecd9b6930b41a78f7a51ee` is
+`FAIL_LIVE_CANARY / PASS_FAIL_CLOSED_ZERO_WRITE`. Its frozen output and audit copies remain
+immutable. Before a second canary, V1 uses the stable ContentOps-owned runtime preflight; refreshes
+all nine exact destinations before editorial routing; routes every final canonical article,
+including `BREAKING_BRIEF`, through exactly one fresh isolated native `gpt-5.6-sol / XHIGH`
+worker; accepts only the exact hash-bound return; allows zero canonical article media; separates
+delivery-only media; never skips a mandatory derivative for optional media absence; and excludes
+TikTok from V1 payloads, locks, and destination requirements. Worker/runtime/delivery/readiness
+failure is a zero-write hold. The four native scheduled tasks remain exactly four and `PAUSED`.
 Status: `CURRENT_V1_OWNER_HANDOFF`
 
 This file exists so a fresh ChatGPT/Antigravity session can resume V1 without the long prior chat history.

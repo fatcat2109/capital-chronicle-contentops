@@ -1,0 +1,17 @@
+{
+  "bounded_revision_count": 0,
+  "classification": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+  "coordinator_model": "gpt-5.6-sol",
+  "coordinator_reasoning_effort": "HIGH",
+  "coordinator_resumes": true,
+  "deterministic_validation_required": true,
+  "governed_input_hash": "f3f7c7b90948592d2d787a6544fce2089cb30020ee8684893c740149af6ef8be",
+  "public_write_performed": false,
+  "publication_coordinator_remains_sole_public_writer": true,
+  "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
+  "worker_fresh_and_isolated": true,
+  "worker_model": "gpt-5.6-sol",
+  "worker_reasoning_effort": "XHIGH",
+  "worker_return_hash": "6d3058974827c3a08ff94e72499ffbea0d64b9db7064df20a484f222afae8d77",
+  "xhigh_publication_authority": false
+}

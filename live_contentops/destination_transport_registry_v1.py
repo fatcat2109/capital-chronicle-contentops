@@ -66,6 +66,8 @@ class SurfaceTransport:
     expected_stable_id: Optional[str] = None
     expected_public_handle: Optional[str] = None
     expected_domain: Optional[str] = None
+    text_only_supported: bool = True
+    delivery_media_required: bool = False
 
 
 _SURFACES = (
@@ -121,6 +123,7 @@ _SURFACES = (
         "INSTAGRAM_BUSINESS_POST", "instagram_business", "META_GRAPH_API", "instagram_adapter_v6.execute_instagram_post",
         "instagram_business", "official.capitalchronicle", canonical_url_dependency="SUBSTACK_ARTICLE",
         expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="official.capitalchronicle",
+        text_only_supported=False, delivery_media_required=True,
     ),
     SurfaceTransport(
         "THREADS_POST", "threads", "THREADS_API", "threads_adapter_v6.execute_threads_post",
@@ -806,6 +809,38 @@ class DestinationReadinessManager:
             "secret_values_exposed": False,
             "active_browser_probe_performed": False,
             "external_provider_health_poll_performed": False,
+        }
+
+    def verify_full_v1_transaction_preflight(
+        self, *, attempt_identity: str, persist: bool = True
+    ) -> dict[str, Any]:
+        """Refresh all nine required destinations for one qualified transaction.
+
+        This is deliberately unavailable to idle polling. It is called only after governed
+        evidence qualifies an article and before the one XHIGH editorial worker can be created.
+        """
+        rows: dict[str, Any] = {}
+        for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
+            rows[destination] = self.verify_destination_jit(
+                destination,
+                reason="PUBLICATION",
+                persist=persist,
+                attempt_identity=attempt_identity,
+            )
+        ready = all(
+            str(row.get("readiness_state") or "") in READY_STATES
+            for row in rows.values()
+        )
+        return {
+            "schema_version": "contentops.full_v1_transaction_preflight.v1",
+            "attempt_identity": str(attempt_identity),
+            "required_destinations": list(V1_REQUIRED_PUBLICATION_DESTINATIONS),
+            "destinations": rows,
+            "all_required_destinations_ready": ready,
+            "status": "READY" if ready else "HOLD",
+            "active_exact_destination_probes": len(rows),
+            "public_write_performed": False,
+            "unknown_write_count": 0,
         }
 
 

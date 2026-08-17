@@ -180,7 +180,7 @@ def readback_facebook_post(
     post_id: str,
     expected_text: str,
     canonical_url: str,
-    expected_media_local_path: str,
+    expected_media_local_path: str | None = None,
     page_id: str | None = None,
     access_token: str | None = None,
 ) -> dict[str, Any]:
@@ -205,18 +205,21 @@ def readback_facebook_post(
     title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
     picture_url = str(value.get("full_picture") or "")
     similarity = None
-    if picture_url:
+    if picture_url and expected_media_local_path:
         try:
             similarity = visual_similarity_to_local_file(read_public_image_bytes(picture_url), expected_media_local_path)
         except Exception:
             similarity = None
     permalink = str(value.get("permalink_url") or "") or None
     page_identity_verified = bool(not page_id or str((value.get("from") or {}).get("id") or "") == page_id)
+    media_expected = bool(expected_media_local_path)
+    media_verified = bool(
+        similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+    )
     verified = bool(
         title_line.casefold() in message.casefold()
         and canonical_url in message
-        and similarity is not None
-        and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+        and (media_verified if media_expected else True)
         and permalink
         and page_identity_verified
     )
@@ -230,7 +233,8 @@ def readback_facebook_post(
         "visible_body_text": message,
         "body_text_visible": title_line.casefold() in message.casefold(),
         "substack_url_visible": canonical_url in message,
-        "meaningful_media_visible": bool(similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM),
+        "meaningful_media_visible": media_verified,
+        "media_expected": media_expected,
         "expected_chart_visual_similarity": similarity,
         "public_image_url_present": bool(picture_url),
     }

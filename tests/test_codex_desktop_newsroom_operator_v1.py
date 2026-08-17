@@ -554,9 +554,13 @@ def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_
     validated = validate_editorial_worker_return(
         worker_return={
             "governed_input_hash": route["governed_input_hash"],
+            "model": "gpt-5.6-sol",
+            "reasoning_effort": "XHIGH",
+            "fresh": True,
+            "isolated": True,
             "bounded_revision_count": 1,
             "public_write_attempted": False,
-            "article": {"headline": "A publication-quality result"},
+            "article": {"title": "A publication-quality result"},
         },
         expected_governed_input_hash=route["governed_input_hash"],
     )
@@ -578,6 +582,8 @@ def test_xhigh_return_rejects_wrong_hash_second_revision_and_public_write():
         validate_editorial_worker_return(
             worker_return={
                 "governed_input_hash": expected_hash,
+                "model": "gpt-5.6-sol", "reasoning_effort": "XHIGH",
+                "fresh": True, "isolated": True,
                 "bounded_revision_count": 2,
             },
             expected_governed_input_hash=expected_hash,
@@ -586,11 +592,30 @@ def test_xhigh_return_rejects_wrong_hash_second_revision_and_public_write():
         validate_editorial_worker_return(
             worker_return={
                 "governed_input_hash": expected_hash,
+                "model": "gpt-5.6-sol", "reasoning_effort": "XHIGH",
+                "fresh": True, "isolated": True,
                 "bounded_revision_count": 0,
                 "public_write_attempted": True,
             },
             expected_governed_input_hash=expected_hash,
         )
+
+
+def test_breaking_brief_is_article_qualified_and_requests_exactly_one_xhigh_worker():
+    route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context={
+            "accepted_evidence_packet": {
+                "packet_id": "breaking-brief-evidence",
+                "effective_article_mode": "BREAKING_BRIEF",
+            },
+            "exact_source_handles": ["source-breaking-1"],
+        },
+        readiness_checked_before_editorial=True,
+        readiness_state="READY",
+    )
+    assert route["xhigh_worker_count_requested"] == 1
+    assert route["worker_request"]["reasoning_effort"] == "XHIGH"
 
 
 def test_active_policy_sections_reach_next_desktop_briefing(tmp_path):

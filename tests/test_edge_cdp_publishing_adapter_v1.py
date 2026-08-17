@@ -1062,7 +1062,7 @@ def test_visual_markers_define_sequential_three_image_insertion_order():
     assert visual_ids == ["primary", "policy_corridor", "sofr_context"]
 
 
-def test_youtube_community_payload_requires_text_image_and_canonical_url(tmp_path: Path):
+def test_youtube_community_payload_accepts_text_only_and_rejects_bad_supplied_image(tmp_path: Path):
     image = tmp_path / "chart.png"
     image.write_bytes(b"chart")
     canonical_url = "https://capitalchronicle.substack.com/p/example"
@@ -1077,13 +1077,21 @@ def test_youtube_community_payload_requires_text_image_and_canonical_url(tmp_pat
         image_path=tmp_path / "missing.png",
         canonical_url=canonical_url,
     )
+    text_only = validate_youtube_community_payload(
+        text=f"Policy transmission remains in focus. {canonical_url}",
+        image_path=None,
+        canonical_url=canonical_url,
+    )
 
     assert valid["status"] == "VALID"
+    assert text_only["status"] == "VALID"
+    assert text_only["image_present"] is False
+    assert text_only["text_only_supported"] is True
     assert missing["status"] == "INVALID"
     assert set(missing["blockers"]) == {
         "non_empty_text_required",
         "canonical_substack_url_required",
-        "source_backed_image_required",
+        "supplied_image_path_invalid",
     }
 
 

@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `647c697cdd46d4c7998de392a5482e09bcf8fbaa`
-Source tree digest: `22abe26517480f8cae091c06451121973ea60e8be6e069a5bf02de18a4c941c6`
+Source HEAD: `eda25731723a0d80130254fb68533fb42a9d9bee`
+Source tree digest: `3eb32bb3215b1a2f9e351a5ffc9848c8ab8288aec6f9ed13be55fe97f3bd01f3`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.2.1`
 
 This generated map is descriptive, not product authority.
@@ -31,7 +31,9 @@ Open current direction/next-task authority only when product direction matters: 
 | `production_orchestrator` | `live_contentops/production_orchestrator_v1.py` | `ContentOpsProductionOrchestrator` |
 | `tier2_local_factory` | `live_contentops/tier2_video_factory_v1.py` | `python -m live_contentops.cli tier2-video-local` |
 | `operator_script` | `scripts/Audit-ContentOpsV1Hourly.ps1` | `scripts/Audit-ContentOpsV1Hourly.ps1` |
+| `operator_script` | `scripts/Initialize-ContentOpsV1Runtime.ps1` | `scripts/Initialize-ContentOpsV1Runtime.ps1` |
 | `operator_script` | `scripts/Install-ContentOpsV1HourlyAudit.ps1` | `scripts/Install-ContentOpsV1HourlyAudit.ps1` |
+| `operator_script` | `scripts/Resolve-ContentOpsV1Runtime.ps1` | `scripts/Resolve-ContentOpsV1Runtime.ps1` |
 | `operator_script` | `scripts/Resume-ContentOpsLLM.ps1` | `scripts/Resume-ContentOpsLLM.ps1` |
 | `operator_script` | `scripts/Start-ContentOpsDailyApp.ps1` | `scripts/Start-ContentOpsDailyApp.ps1` |
 | `operator_script` | `scripts/Stop-ContentOpsBackground.ps1` | `scripts/Stop-ContentOpsBackground.ps1` |
@@ -144,4 +146,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7012` nodes and `13185` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7029` nodes and `13219` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

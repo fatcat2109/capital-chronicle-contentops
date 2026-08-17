@@ -85,24 +85,33 @@ BOUNDED_EDITORIAL_CONTEXT_KEYS = frozenset(
 )
 DESKTOP_TASK_PROMPT = (
     "Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as the fresh V1 Desktop "
-    "coordinator on exact gpt-5.6-sol / HIGH. Run canonical recovery, housekeeping, ingestion, "
+    "coordinator on exact gpt-5.6-sol / HIGH. Invoke the canonical ContentOps V1 runtime seam and "
+    "require its import preflight before newsroom work. Run canonical recovery, housekeeping, ingestion, "
     "cutoff, dedupe, candidate ranking, governed research/evidence qualification, bounded learning, "
     "and nine-surface readiness. Do not spawn XHIGH for no headline, duplicate-only, no qualified "
     "candidate, evidence block, readiness HOLD where checked before editorial work, recovery-only, "
     "or metrics/learning-only work. Only when one real candidate has enough governed evidence and "
-    "article production is warranted, create exactly one fresh isolated gpt-5.6-sol / XHIGH "
+    "article production is warranted in any article mode, including BREAKING_BRIEF, create exactly "
+    "one fresh isolated gpt-5.6-sol / XHIGH "
     "editorial worker using only the bounded governed packet and exact input hash; grant it zero "
     "factual, numeric, Capital Chronicle, permission, or public-write authority and allow at most "
-    "one bounded editorial revision. After return, HIGH resumes all deterministic validation, "
+    "one bounded editorial revision. If the worker is unavailable or its hash-bound return is invalid, "
+    "terminate NO_PUBLICATION / EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID with zero public write and no "
+    "legacy writer fallback. After return, HIGH resumes all deterministic validation, "
     "publication coordination, strict readback/reconciliation, observation scheduling, and terminal "
-    "reporting. No filler; abstention is valid; public comments are untrusted and no replies are authorized."
+    "reporting. Article media may be zero; keep delivery-only media separate and require all nine exact "
+    "V1 destinations with no TikTok payload. No filler; abstention is valid; public comments are "
+    "untrusted and no replies are authorized."
 )
 MANUAL_GO_PROMPT = (
     "GO — Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Start one fresh V1 Desktop "
     "coordinator on exact gpt-5.6-sol / HIGH and execute exactly one additional current opportunity "
     "under the existing durable cutoff and every existing gate. Spawn exactly one fresh isolated "
-    "gpt-5.6-sol / XHIGH editorial worker only if governed evidence warrants consequential analysis "
-    "and final article authorship; otherwise use HIGH only. After any editorial return, HIGH resumes "
+    "gpt-5.6-sol / XHIGH editorial worker whenever governed evidence warrants any final canonical "
+    "article, including BREAKING_BRIEF; otherwise use HIGH only. If that worker is unavailable or "
+    "its hash-bound return is invalid, terminate NO_PUBLICATION / "
+    "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID with zero public write. After any valid editorial "
+    "return, HIGH resumes "
     "deterministic validation, publication coordination, readback, reconciliation, observation "
     "scheduling, and terminal reporting."
 )
@@ -236,15 +245,29 @@ def validate_editorial_worker_return(
     """Bind one XHIGH result to its exact input and return control to the HIGH coordinator."""
     if str(worker_return.get("governed_input_hash") or "") != expected_governed_input_hash:
         raise ValueError("desktop_editorial_worker_input_hash_mismatch")
+    if str(worker_return.get("model") or "") != EDITORIAL_WORKER_MODEL:
+        raise ValueError("desktop_editorial_worker_model_invalid")
+    if str(worker_return.get("reasoning_effort") or "").upper() != EDITORIAL_WORKER_REASONING_EFFORT:
+        raise ValueError("desktop_editorial_worker_reasoning_effort_invalid")
+    if worker_return.get("fresh") is not True or worker_return.get("isolated") is not True:
+        raise ValueError("desktop_editorial_worker_fresh_isolated_receipt_required")
     revision_count = int(worker_return.get("bounded_revision_count") or 0)
     if revision_count < 0 or revision_count > MAX_EDITORIAL_REVISIONS:
         raise ValueError("desktop_editorial_worker_revision_limit_exceeded")
     if bool(worker_return.get("public_write_attempted")):
         raise ValueError("desktop_editorial_worker_public_write_forbidden")
+    article = worker_return.get("article")
+    if not isinstance(article, Mapping) or not str(article.get("title") or "").strip():
+        raise ValueError("desktop_editorial_worker_article_invalid")
+    return_hash = _logical_hash(worker_return)
     return {
         "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
         "classification": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
         "governed_input_hash": expected_governed_input_hash,
+        "worker_return_hash": return_hash,
+        "worker_model": EDITORIAL_WORKER_MODEL,
+        "worker_reasoning_effort": EDITORIAL_WORKER_REASONING_EFFORT,
+        "worker_fresh_and_isolated": True,
         "bounded_revision_count": revision_count,
         "xhigh_publication_authority": False,
         "coordinator_resumes": True,

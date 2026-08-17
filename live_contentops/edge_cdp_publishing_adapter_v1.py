@@ -471,7 +471,8 @@ def _editor_image_readback(image: Any) -> dict[str, Any]:
     try:
         dimensions = image.evaluate(
             "node => ({complete: Boolean(node.complete), naturalWidth: node.naturalWidth || 0, "
-            "naturalHeight: node.naturalHeight || 0, inBody: Boolean(node.closest('.ProseMirror'))})"
+            "naturalHeight: node.naturalHeight || 0, inBody: Boolean(node.closest('.ProseMirror')), "
+            "src: String(node.currentSrc || node.src || '')})"
         )
         box = image.bounding_box() or {}
         visible = bool(image.is_visible(timeout=1000))
@@ -484,6 +485,7 @@ def _editor_image_readback(image: Any) -> dict[str, Any]:
             "rendered_height": 0,
             "in_article_body": False,
             "visible": False,
+            "src": None,
         }
     return {
         "complete": bool(dimensions.get("complete")),
@@ -493,6 +495,7 @@ def _editor_image_readback(image: Any) -> dict[str, Any]:
         "rendered_height": round(float(box.get("height") or 0), 1),
         "in_article_body": bool(dimensions.get("inBody")),
         "visible": visible,
+        "src": str(dimensions.get("src") or "") or None,
     }
 
 
@@ -659,6 +662,68 @@ def _upload_substack_image(
         "upload_spinner_or_placeholder_cleared": spinner_cleared,
         "draft_saved_after_upload": draft_saved,
         "alt_text_status": alt_status,
+    }
+
+
+def _stage_and_remove_delivery_only_image(
+    page: Any,
+    editor: Any,
+    asset: Mapping[str, Any],
+    *,
+    expected_article_image_count: int,
+) -> dict[str, Any]:
+    """Obtain a Substack-hosted delivery URL, then prove it is absent from the article."""
+    asset_id = str(asset.get("asset_id") or "delivery_only")
+    upload = _upload_substack_image(
+        page,
+        editor,
+        str(asset.get("local_path") or asset.get("path") or ""),
+        str(asset.get("alt_text") or ""),
+        asset_id=asset_id,
+        expected_image_index=expected_article_image_count,
+    )
+    public_url = str((upload.get("image_readback") or {}).get("src") or "")
+    if upload.get("status") != "uploaded" or not public_url.startswith("http"):
+        return {
+            "status": "FAILED_DELIVERY_ONLY_UPLOAD",
+            "asset_id": asset_id,
+            "upload": upload,
+            "public_url": None,
+            "article_inclusion": False,
+        }
+    images = page.locator(".ProseMirror img")
+    if images.count() <= expected_article_image_count:
+        return {
+            "status": "FAILED_DELIVERY_ONLY_IMAGE_NOT_LOCATED",
+            "asset_id": asset_id,
+            "upload": upload,
+            "public_url": public_url,
+            "article_inclusion": False,
+        }
+    staged = images.nth(images.count() - 1)
+    staged.click(timeout=3000)
+    page.keyboard.press("Delete")
+    deadline = time.monotonic() + 12
+    while time.monotonic() < deadline and _editor_image_count(page) > expected_article_image_count:
+        time.sleep(0.4)
+    if _editor_image_count(page) > expected_article_image_count:
+        staged.click(timeout=3000)
+        page.keyboard.press("Backspace")
+        time.sleep(1)
+    removed = _editor_image_count(page) == expected_article_image_count
+    saved_deadline = time.monotonic() + 20
+    saved = _substack_saved(page)
+    while removed and not saved and time.monotonic() < saved_deadline:
+        time.sleep(0.4)
+        saved = _substack_saved(page)
+    return {
+        "status": "STAGED_AND_REMOVED" if removed and saved else "FAILED_DELIVERY_ONLY_REMOVAL_READBACK",
+        "asset_id": asset_id,
+        "public_url": public_url,
+        "article_inclusion": False,
+        "editor_image_count_after_removal": _editor_image_count(page),
+        "draft_saved_after_removal": saved,
+        "upload": upload,
     }
 
 
@@ -2142,6 +2207,7 @@ def publish_substack_article_via_edge(
     subtitle: str,
     body_markdown: str,
     image_assets: Sequence[Mapping[str, Any]],
+    delivery_only_assets: Sequence[Mapping[str, Any]] = (),
     public_screenshot_path: str | Path | None = None,
     existing_draft_id: str | None = None,
     existing_public_url: str | None = None,
@@ -2157,6 +2223,13 @@ def publish_substack_article_via_edge(
     for asset_id in expected_ids:
         if not Path(str(assets[asset_id].get("local_path") or assets[asset_id].get("path") or "")).exists():
             return {"status": "BLOCKED_SUBSTACK_LOCAL_MEDIA_MISSING", "platform": "substack", "asset_id": asset_id}
+    for asset in delivery_only_assets:
+        if not Path(str(asset.get("local_path") or asset.get("path") or "")).is_file():
+            return {
+                "status": "BLOCKED_SUBSTACK_DELIVERY_ONLY_MEDIA_MISSING",
+                "platform": "substack",
+                "asset_id": str(asset.get("asset_id") or "delivery_only"),
+            }
 
     with canonical_edge_page(cdp_port) as page:
         editor_url = "https://capitalchronicle.substack.com/publish/post"
@@ -2310,6 +2383,25 @@ def publish_substack_article_via_edge(
                 "missing_caption_asset_ids": missing_captions,
                 "upload_rows": upload_rows,
             }
+        delivery_stage_rows: list[dict[str, Any]] = []
+        for delivery_asset in delivery_only_assets:
+            stage = _stage_and_remove_delivery_only_image(
+                page,
+                editor,
+                delivery_asset,
+                expected_article_image_count=len(expected_ids),
+            )
+            delivery_stage_rows.append(stage)
+            if stage.get("status") != "STAGED_AND_REMOVED":
+                return {
+                    "status": "FAILED_SUBSTACK_DELIVERY_MEDIA_STAGING",
+                    "platform": "substack",
+                    "draft_id": _substack_draft_id(page.url),
+                    "editor_body_image_count": _editor_image_count(page),
+                    "delivery_only_stage_rows": delivery_stage_rows,
+                    "public_write_attempted": False,
+                    "public_transition_performed": False,
+                }
         native_readback = _editor_native_semantics_readback(editor, body_markdown)
         if not native_readback["native_semantics_verified"]:
             return {
@@ -2332,6 +2424,7 @@ def publish_substack_article_via_edge(
                     "public_write_attempted": False,
                     "public_transition_performed": False,
                     "upload_rows": upload_rows,
+                    "delivery_only_stage_rows": delivery_stage_rows,
                 }
             return {
                 "status": "SUCCESS_DRAFT_QA",
@@ -2345,6 +2438,11 @@ def publish_substack_article_via_edge(
                 "public_transition_performed": False,
                 "publication_state": "draft_nonpublic",
                 "upload_rows": upload_rows,
+                "delivery_only_stage_rows": delivery_stage_rows,
+                "delivery_only_public_image_urls": [
+                    str(row.get("public_url")) for row in delivery_stage_rows
+                    if row.get("public_url")
+                ],
             }
         time.sleep(3)
         draft_id = _substack_draft_id(page.url)
@@ -2364,6 +2462,7 @@ def publish_substack_article_via_edge(
                 "draft_id": draft_id,
                 "editor_body_image_count": editor_image_count,
                 "upload_rows": upload_rows,
+                "delivery_only_stage_rows": delivery_stage_rows,
             }
         time.sleep(7)
         public_url = (
@@ -2424,6 +2523,11 @@ def publish_substack_article_via_edge(
             "editor_body_image_count": editor_image_count,
             "in_body_visual_asset_ids": expected_ids,
             "upload_rows": upload_rows,
+            "delivery_only_stage_rows": delivery_stage_rows,
+            "delivery_only_public_image_urls": [
+                str(row.get("public_url")) for row in delivery_stage_rows
+                if row.get("public_url")
+            ],
             "native_rich_text_readback": native_readback,
             "readback": readback,
             "publish_transition": publish_transition,
@@ -4007,7 +4111,7 @@ def publish_tiktok_video_via_edge(*, cdp_port: int, video_path: str | Path, capt
 def validate_youtube_community_payload(
     *,
     text: str,
-    image_path: str | Path,
+    image_path: str | Path | None,
     canonical_url: str,
 ) -> dict[str, Any]:
     blockers: list[str] = []
@@ -4015,15 +4119,16 @@ def validate_youtube_community_payload(
         blockers.append("non_empty_text_required")
     if not canonical_url or canonical_url not in text:
         blockers.append("canonical_substack_url_required")
-    if not Path(image_path).is_file():
-        blockers.append("source_backed_image_required")
+    if image_path and not Path(image_path).is_file():
+        blockers.append("supplied_image_path_invalid")
     if _TECHNICAL_PUBLIC_TEXT_RE.search(text):
         blockers.append("technical_run_identifier_forbidden")
     return {
         "status": "VALID" if not blockers else "INVALID",
         "blockers": blockers,
         "text_present": bool(_normalised_visible_text(text)),
-        "image_present": Path(image_path).is_file(),
+        "image_present": bool(image_path and Path(image_path).is_file()),
+        "text_only_supported": True,
         "canonical_url_present": bool(canonical_url and canonical_url in text),
         "technical_run_identifier_absent": not bool(_TECHNICAL_PUBLIC_TEXT_RE.search(text)),
     }
@@ -4135,6 +4240,7 @@ def readback_youtube_community_post_via_edge(
     canonical_url: str,
     expected_handle: str = _YOUTUBE_COMMUNITY_HANDLE,
     public_screenshot_path: str | Path | None = None,
+    expect_media: bool = True,
 ) -> dict[str, Any]:
     post_id = _youtube_community_post_id(public_url)
     if not post_id:
@@ -4158,7 +4264,10 @@ def readback_youtube_community_post_via_edge(
             target.parent.mkdir(parents=True, exist_ok=True)
             page.screenshot(path=str(target), full_page=False)
             screenshot = str(target)
-        verified = bool(text_visible and canonical_url_visible and image_readback and channel_identity_verified)
+        verified = bool(
+            text_visible and canonical_url_visible and channel_identity_verified
+            and (bool(image_readback) if expect_media else True)
+        )
         return {
             "status": "SUCCESS" if verified else "FAILED_YOUTUBE_COMMUNITY_STRICT_READBACK",
             "platform": "youtube",
@@ -4175,6 +4284,7 @@ def readback_youtube_community_post_via_edge(
             "visible_link_text": canonical_link.get("visible_link_text"),
             "link_href_kind": canonical_link.get("link_href_kind"),
             "meaningful_media_visible": bool(image_readback),
+            "media_expected": bool(expect_media),
             "media_readback": image_readback,
             "public_screenshot_path": screenshot,
             "browser_write_performed": False,
@@ -4187,6 +4297,7 @@ def reconcile_youtube_community_post_by_text_via_edge(
     expected_text: str,
     canonical_url: str,
     expected_handle: str = _YOUTUBE_COMMUNITY_HANDLE,
+    expect_media: bool = True,
 ) -> dict[str, Any]:
     """Read the exact channel feed to resolve a post attempt that returned no permalink."""
     with canonical_edge_page(cdp_port) as page:
@@ -4206,6 +4317,7 @@ def reconcile_youtube_community_post_by_text_via_edge(
             expected_text=expected_text,
             canonical_url=canonical_url,
             expected_handle=expected_handle,
+            expect_media=expect_media,
         )
     return {
         "status": "YOUTUBE_COMMUNITY_POST_CONFIRMED_ABSENT",
@@ -4367,12 +4479,12 @@ def publish_youtube_community_post_via_edge(
     *,
     cdp_port: int,
     text: str,
-    image_path: str | Path,
+    image_path: str | Path | None,
     canonical_url: str,
     expected_handle: str = _YOUTUBE_COMMUNITY_HANDLE,
     public_screenshot_path: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Publish one channel Community text/image post; video upload is impossible here."""
+    """Publish one Community text post, optionally with an image; never create video."""
     validation = validate_youtube_community_payload(text=text, image_path=image_path, canonical_url=canonical_url)
     if validation["status"] != "VALID":
         return {"status": "BLOCKED_YOUTUBE_COMMUNITY_PAYLOAD_INVALID", "platform": "youtube", "validation": validation}
@@ -4443,6 +4555,81 @@ def publish_youtube_community_post_via_edge(
             composer.fill(text)
         except Exception:
             page.keyboard.insert_text(text)
+
+        if not image_path:
+            post_selector = _click_first_visible(
+                page,
+                (
+                    "ytd-backstage-post-dialog #submit-button button",
+                    "ytd-backstage-post-dialog-renderer #post-button button",
+                    "ytd-backstage-post-dialog-renderer #post-button",
+                    "ytd-backstage-post-dialog button:has-text('Post')",
+                    "ytd-backstage-post-dialog button:has-text('Đăng')",
+                    "ytd-backstage-post-creation-renderer #submit-button button",
+                    "ytd-backstage-post-creation-renderer button:has-text('Post')",
+                    "ytd-backstage-post-creation-renderer button:has-text('Đăng')",
+                    "yt-posts-creation-options-editor-view-model button:has-text('Post')",
+                    "yt-posts-creation-options-editor-view-model button:has-text('Đăng')",
+                    "button:has-text('Post')",
+                    "button:has-text('Đăng')",
+                    "yt-button-shape:has-text('Post')",
+                    "yt-button-shape:has-text('Đăng')",
+                ),
+            )
+            if not post_selector:
+                return {
+                    "status": "BLOCKED_YOUTUBE_COMMUNITY_POST_CONTROL_NOT_FOUND",
+                    "platform": "youtube",
+                    "composer_selector": composer_selector,
+                    "text_only": True,
+                    "diagnostics": _youtube_community_surface_diagnostics(page),
+                }
+            deadline = time.monotonic() + 35
+            public_url = None
+            feed_refreshed = False
+            while time.monotonic() < deadline and not public_url:
+                card = _youtube_community_card_for_text(page, text)
+                public_url = _youtube_community_permalink_from_card(card) if card else None
+                if not public_url:
+                    if not feed_refreshed and time.monotonic() + 20 >= deadline:
+                        page.goto(channel_url, wait_until="domcontentloaded", timeout=45000)
+                        time.sleep(4)
+                        feed_refreshed = True
+                        continue
+                    time.sleep(1)
+            if not public_url:
+                return {
+                    "status": "FAILED_YOUTUBE_COMMUNITY_POST_URL_READBACK",
+                    "platform": "youtube",
+                    "action": "community_text_post",
+                    "text_only": True,
+                    "payload_sha256": _sha256(text),
+                }
+            readback = readback_youtube_community_post_via_edge(
+                cdp_port=cdp_port,
+                public_url=public_url,
+                expected_text=text,
+                canonical_url=canonical_url,
+                expected_handle=expected_handle,
+                public_screenshot_path=public_screenshot_path,
+                expect_media=False,
+            )
+            verified = readback.get("status") == "SUCCESS"
+            return {
+                "status": "SUCCESS" if verified else "FAILED_YOUTUBE_COMMUNITY_POST_READBACK",
+                "platform": "youtube",
+                "action": "community_text_post",
+                "post_id": _youtube_community_post_id(public_url),
+                "public_url": public_url,
+                "destination_identity": expected_handle,
+                "media_transfer": None,
+                "media_preview": None,
+                "provider_readback_verified": verified,
+                "readback": readback,
+                "payload_sha256": _sha256(text),
+                "text_only": True,
+                "video_or_short_created": False,
+            }
 
         image_control, image_control_selector = _first_visible(
             page,

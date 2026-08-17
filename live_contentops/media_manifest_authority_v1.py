@@ -78,6 +78,80 @@ def image_metadata_from_file(path: str | Path) -> dict[str, Any]:
     return {"mime_type": mime, "width": int(image.width), "height": int(image.height)}
 
 
+def build_delivery_only_editorial_card(
+    *,
+    output_path: str | Path,
+    title: str,
+    source_label: str,
+    source_page_url: str,
+    published_at: str | None = None,
+) -> dict[str, Any]:
+    """Render a rights-safe delivery card that is never canonical article media.
+
+    The card contains metadata and editorial packaging only: no synthetic documentary
+    imagery, invented numbers, or claim-bearing chart. Capital Chronicle owns the rendered
+    layout bytes; the source remains attributed and is not claimed as owned.
+    """
+    from PIL import Image, ImageDraw, ImageFont
+
+    target = Path(output_path).resolve()
+    target.parent.mkdir(parents=True, exist_ok=True)
+    image = Image.new("RGB", (1350, 1080), "#07111f")
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.load_default(size=34)
+    small = ImageFont.load_default(size=24)
+
+    def lines(value: str, width: int) -> list[str]:
+        words = " ".join(str(value or "").split()).split()
+        rows: list[str] = []
+        current = ""
+        for word in words:
+            candidate = f"{current} {word}".strip()
+            if len(candidate) > width and current:
+                rows.append(current)
+                current = word
+            else:
+                current = candidate
+        if current:
+            rows.append(current)
+        return rows
+
+    draw.rectangle((72, 72, 1278, 1008), outline="#e0b85a", width=4)
+    draw.text((110, 118), "CAPITAL CHRONICLE", fill="#e0b85a", font=small)
+    draw.text((110, 174), "NEWSROOM BRIEF", fill="#94a3b8", font=small)
+    y = 280
+    for row in lines(title, 50)[:7]:
+        draw.text((110, y), row, fill="#f8fafc", font=font)
+        y += 58
+    source_text = f"Source: {source_label}"
+    if published_at:
+        source_text += f" | {published_at}"
+    draw.text((110, 875), source_text[:92], fill="#cbd5e1", font=small)
+    draw.text((110, 930), "Read the governed analysis on Capital Chronicle", fill="#e0b85a", font=small)
+    image.save(target, format="PNG", optimize=True)
+    metadata = image_metadata_from_file(target)
+    return {
+        "asset_id": "delivery_only_editorial_card",
+        "media_role": "delivery_only",
+        "path": str(target),
+        "local_path": str(target),
+        "absolute_local_source_path": str(target),
+        "sha256": sha256_file(target),
+        "caption": "Capital Chronicle delivery card for the governed article.",
+        "alt_text": f"Capital Chronicle newsroom brief: {' '.join(title.split())}",
+        "source_label": str(source_label),
+        "source_page_url": str(source_page_url),
+        "source_published_at": str(published_at or "") or None,
+        "provenance_status": "VERIFIED_SOURCE_METADATA_CONTENTOPS_RENDER",
+        "rights_basis": "CONTENTOPS_OWNED_LAYOUT_SOURCE_METADATA_ONLY",
+        "article_inclusion": False,
+        "canonical_article_media": False,
+        "delivery_only": True,
+        "generated_documentary_imagery": False,
+        **metadata,
+    }
+
+
 def visual_similarity_to_local_file(value: bytes, local_path: str | Path) -> float:
     from PIL import Image, ImageChops, ImageFilter, ImageStat
 
@@ -108,6 +182,27 @@ def validate_chart_media_object(media: Mapping[str, Any]) -> list[str]:
         blockers.append("chart_dimensions_below_threshold")
     if width and height and 0.90 <= width / height <= 1.10:
         blockers.append("square_branding_or_avatar_rejected")
+    if not str(media.get("sha256") or ""):
+        blockers.append("media_sha256_required")
+    if not str(media.get("verified_public_delivery_url") or ""):
+        blockers.append("verified_public_delivery_url_required")
+    if media.get("local_public_hash_continuity") is not True:
+        blockers.append("local_public_hash_continuity_required")
+    return blockers
+
+
+def validate_delivery_media_object(media: Mapping[str, Any]) -> list[str]:
+    """Validate either an article chart or an explicitly delivery-only asset."""
+    if str(media.get("media_role") or "") == "primary_chart":
+        return validate_chart_media_object(media)
+    blockers: list[str] = []
+    path = Path(str(media.get("absolute_local_source_path") or ""))
+    if not path.is_absolute() or not path.is_file():
+        blockers.append("absolute_local_source_path_required")
+    if str(media.get("media_role") or "") != "delivery_only":
+        blockers.append("delivery_media_role_invalid")
+    if int(media.get("width") or 0) < MIN_CHART_WIDTH or int(media.get("height") or 0) < MIN_CHART_HEIGHT:
+        blockers.append("delivery_media_dimensions_below_threshold")
     if not str(media.get("sha256") or ""):
         blockers.append("media_sha256_required")
     if not str(media.get("verified_public_delivery_url") or ""):
@@ -192,10 +287,12 @@ def build_delivery_media_manifest(
             blockers.append(f"public_object_hash_match_missing:{asset_id}")
 
     primary = next((asset for asset in assets if asset.get("media_role") == "primary_chart"), None)
+    if primary is None:
+        primary = next((asset for asset in assets if asset.get("media_role") == "delivery_only"), None)
     if not primary:
         blockers.append("primary_chart_missing")
     else:
-        blockers.extend(validate_chart_media_object(primary))
+        blockers.extend(validate_delivery_media_object(primary))
     return {
         "schema_version": SCHEMA_VERSION,
         "run_id": run_id,
@@ -216,4 +313,18 @@ def select_primary_chart(manifest: Mapping[str, Any]) -> dict[str, Any]:
     primary = next((dict(asset) for asset in manifest.get("assets") or [] if asset.get("media_role") == "primary_chart"), None)
     if not primary or validate_chart_media_object(primary):
         raise ValueError("approved_primary_chart_not_available")
+    return primary
+
+
+def select_primary_delivery_media(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    if manifest.get("status") != "PASS":
+        raise ValueError("delivery_media_manifest_not_pass")
+    selected_id = str(manifest.get("selected_primary_media_asset_id") or "")
+    primary = next(
+        (dict(asset) for asset in manifest.get("assets") or []
+         if str(asset.get("media_asset_id") or "") == selected_id),
+        None,
+    )
+    if not primary or validate_delivery_media_object(primary):
+        raise ValueError("approved_delivery_media_not_available")
     return primary

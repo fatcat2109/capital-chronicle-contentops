@@ -353,6 +353,10 @@ class DurablePublicationCoordinator:
             "unexpected_destinations": sorted(observed - required),
             "duplicate_destinations": duplicate_destinations,
             "skipped_derivative_destinations": skipped,
+            "pre_substack_blockers": sorted(
+                str(value) for value in (plan.get("pre_substack_blockers") or [])
+                if str(value)
+            ),
         }
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
         readiness_rows: dict[str, Any] = {}

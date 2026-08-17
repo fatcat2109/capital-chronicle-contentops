@@ -1,0 +1,78 @@
+{
+  "article_media_count": 0,
+  "article_mode": "BREAKING_BRIEF",
+  "classification": "PASS_PRODUCTION_SHAPED_ZERO_WRITE_CORRECTION_PROOF",
+  "delivery_only_article_inclusion": false,
+  "delivery_only_media_count": 1,
+  "derivative_payload_count": 8,
+  "derivative_payload_destinations": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "telegram",
+    "threads",
+    "x",
+    "youtube"
+  ],
+  "frozen_artifacts": {
+    "audit_file_count": 11,
+    "byte_identical_before_after": true,
+    "canary_file_count": 29,
+    "critical_sha256": {
+      "article_manifest_v1.json": "cc85a2102e51a52bc39f5b69192da73251ce5d6e547e163a80ff0e910458c8b1",
+      "canonical_article.md": "d924f584af38e7424306c7f0687ba09baad7fe9f6147a099ab80cd588552934f",
+      "media_manifest_v1.json": "dc348de5bba517f51a3d01196976d1fe8542c2511d9ffe60a60b490616a008b2",
+      "no_write_rehearsal_v1.json": "04e2e36fc898326f5d5aafbf40253b25d427f190c930fd0b1e953124d8ec8c70",
+      "release_candidate_lock_v1.json": "91bb2ea32910e1ca2567196184e04b75f539ff283bd932636e57e1a49f672ebd",
+      "rolling_x_newsroom_cycle_evidence_v1.json": "ecf83a38d5f7332c05d313e9b7aa4e0e8d28df020648b4f8b784abf7bf99bfd2",
+      "run_context_v1.json": "104329c75b27bf8f3eee42ec4f220f37c035b94e6d48592477a260af8bb4da54"
+    }
+  },
+  "native_task_inventory": {
+    "count": 4,
+    "model": "gpt-5.6-sol",
+    "prompt_sha256": "f442c452fb6bd42ce408403ae07bd250cfcb61704e4c2121d822bab807f49736",
+    "reasoning_effort": "HIGH",
+    "status": "PAUSED"
+  },
+  "live_full_nine_readiness": {
+    "active_exact_destination_probes": 9,
+    "all_required_destinations_ready": true,
+    "public_write_performed": false,
+    "status": "READY",
+    "unknown_write_count": 0
+  },
+  "pre_substack_blockers": [],
+  "public_write_performed": false,
+  "publication_plan_destination_count": 9,
+  "publishing_adapter_calls": 0,
+  "runtime_preflight": {
+    "capital_chronicle_duckdb_access": "PASS_READ_ONLY",
+    "capital_chronicle_duckdb_store_count": 14,
+    "codex_private_cache_runtime_used": false,
+    "edge_9223": "PASS_TCP_ATTACHABLE",
+    "imports": {
+      "PIL": "PASS",
+      "duckdb": "PASS",
+      "live_contentops": "PASS",
+      "playwright": "PASS",
+      "playwright.sync_api": "PASS"
+    },
+    "python_executable": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v1-runtime\\venv\\Scripts\\python.exe",
+    "status": "PASS"
+  },
+  "skipped_derivative_destinations": [],
+  "threads_layout": "PASS_SINGLE_ROOT_NO_TRUNCATION",
+  "tiktok_in_payloads": false,
+  "transaction_readiness": "READY",
+  "unknown_write_count": 0,
+  "worker_validation": {
+    "classification": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+    "governed_input_hash": "f3f7c7b90948592d2d787a6544fce2089cb30020ee8684893c740149af6ef8be",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "XHIGH",
+    "worker_return_hash": "6d3058974827c3a08ff94e72499ffbea0d64b9db7064df20a484f222afae8d77"
+  },
+  "x_layout": "PASS_SINGLE_ROOT_NO_TRUNCATION"
+}

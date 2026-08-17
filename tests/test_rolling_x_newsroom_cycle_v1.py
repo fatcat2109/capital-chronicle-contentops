@@ -4,6 +4,32 @@ import json
 from pathlib import Path
 
 from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as implementation
+from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_PUBLICATION_DESTINATIONS
+
+
+def _all_ready():
+    return {
+        "all_required_destinations_ready": True,
+        "destinations": {
+            destination: {
+                "readiness_state": "READY_NON_BROWSER_BINDING",
+                "write_eligible": True,
+                "identity_match": True,
+            }
+            for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS
+        },
+    }
+
+
+def _xhigh_receipt(article, governed_input_hash="a" * 64):
+    return {
+        "model": "gpt-5.6-sol", "reasoning_effort": "XHIGH",
+        "fresh": True, "isolated": True,
+        "governed_input_hash": governed_input_hash,
+        "bounded_revision_count": 0,
+        "public_write_attempted": False,
+        "article": article,
+    }
 
 
 def _article(body="Current official event analysis with reader-facing context."):
@@ -159,15 +185,19 @@ def test_same_opportunity_reader_value_failure_advances_and_first_publishable_st
     def builder(value):
         rank = int(value["selected_rank"])
         builder_calls.append(rank)
-        return {
-            "article": {
+        article = {
                 "title": f"Candidate {rank}",
                 "cluster_id": value["selected_cluster_id"],
                 "headline_ids": value["selected_headline_ids"],
                 "effective_article_mode": "BREAKING_BRIEF",
-            },
+            }
+        return {
+            "article": article,
             "media": {"assets": []},
             "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+            "editorial_worker_receipt": _xhigh_receipt(
+                article, value["editorial_worker_request"]["governed_input_hash"]
+            ),
         }
 
     result = implementation._run_rolling_x_newsroom_cycle(
@@ -175,7 +205,7 @@ def test_same_opportunity_reader_value_failure_advances_and_first_publishable_st
         output_dir=tmp_path,
         cutoff_utc="2026-08-15T07:00:00Z",
         article_builder=builder,
-        destination_readiness_override={"destinations": {}},
+        destination_readiness_override=_all_ready(),
         publication_enabled=True,
     )
 
@@ -219,17 +249,20 @@ def test_same_opportunity_evidence_failure_advances_before_writer(monkeypatch, t
         run_id="candidate-walk-evidence",
         output_dir=tmp_path,
         cutoff_utc="2026-08-15T07:00:00Z",
-        article_builder=lambda value: builder_calls.append(value["selected_rank"]) or {
-            "article": {
+        article_builder=lambda value: builder_calls.append(value["selected_rank"]) or (lambda article: {
+            "article": article,
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+            "editorial_worker_receipt": _xhigh_receipt(
+                article, value["editorial_worker_request"]["governed_input_hash"]
+            ),
+        })({
                 "title": "Candidate 2",
                 "cluster_id": value["selected_cluster_id"],
                 "headline_ids": value["selected_headline_ids"],
                 "effective_article_mode": "BREAKING_BRIEF",
-            },
-            "media": {"assets": []},
-            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
-        },
-        destination_readiness_override={"destinations": {}},
+            }),
+        destination_readiness_override=_all_ready(),
         publication_enabled=True,
     )
 
@@ -238,6 +271,38 @@ def test_same_opportunity_evidence_failure_advances_before_writer(monkeypatch, t
     assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"].startswith(
         "EVIDENCE_BLOCKED:"
     )
+
+
+def test_publication_article_without_valid_native_xhigh_receipt_fails_closed(
+    monkeypatch, tmp_path: Path
+):
+    viability = _walk_viability(1)
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        lambda **kwargs: viability,
+        lambda **kwargs: (_ for _ in ()).throw(
+            AssertionError("invalid worker return must stop before editorial review")
+        ),
+    )
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="invalid-native-xhigh-receipt",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-15T07:00:00Z",
+        article_builder=lambda value: {
+            "article": {
+                "title": "Unbound article",
+                "cluster_id": value["selected_cluster_id"],
+                "headline_ids": value["selected_headline_ids"],
+            },
+            "media": {"assets": []},
+        },
+        destination_readiness_override=_all_ready(),
+        publication_enabled=True,
+    )
+    assert result["classification"] == "NO_PUBLICATION"
+    assert result["exact_next_blocker"] == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+    assert result["legacy_writer_fallback_used"] is False
+    assert result["public_write_performed"] is False
 
 
 def test_all_candidate_exhaustion_returns_truthful_no_publication(monkeypatch, tmp_path: Path):
@@ -262,20 +327,28 @@ def test_all_candidate_exhaustion_returns_truthful_no_publication(monkeypatch, t
             "review_history": [],
         },
     )
+    def builder(value):
+        article = {
+            "title": f"Candidate {value['selected_rank']}",
+            "cluster_id": value["selected_cluster_id"],
+            "headline_ids": value["selected_headline_ids"],
+            "effective_article_mode": "BREAKING_BRIEF",
+        }
+        return {
+            "article": article,
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+            "editorial_worker_receipt": _xhigh_receipt(
+                article, value["editorial_worker_request"]["governed_input_hash"]
+            ),
+        }
+
     result = implementation._run_rolling_x_newsroom_cycle(
         run_id="candidate-walk-exhaustion",
         output_dir=tmp_path,
         cutoff_utc="2026-08-15T07:00:00Z",
-        article_builder=lambda value: {
-            "article": {
-                "title": f"Candidate {value['selected_rank']}",
-                "cluster_id": value["selected_cluster_id"],
-                "headline_ids": value["selected_headline_ids"],
-                "effective_article_mode": "BREAKING_BRIEF",
-            },
-            "media": {"assets": []},
-            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
-        },
+        article_builder=builder,
+        destination_readiness_override=_all_ready(),
         publication_enabled=True,
     )
 
@@ -918,9 +991,15 @@ def test_passed_cycle_returns_plan_without_direct_backend_write(monkeypatch, tmp
         run_id="rolling-dispatch",
         output_dir=tmp_path,
         cutoff_utc="2026-08-08T00:00:00Z",
-        article_builder=lambda value: {"article": article, "media": media},
+        article_builder=lambda value: {
+            "article": article, "media": media,
+            "editorial_worker_receipt": _xhigh_receipt(
+                article, value["editorial_worker_request"]["governed_input_hash"]
+            ),
+        },
         editorial_reviewer=lambda value: _semantic("PASS"),
         article_reviser=lambda value, review, round_number: value,
+        destination_readiness_override=_all_ready(),
         publication_enabled=True,
     )
     assert len(calls) == 0
@@ -966,7 +1045,13 @@ def test_router_outage_fallback_has_no_live_publication_authority(monkeypatch, t
         run_id="router-outage-no-publication",
         output_dir=tmp_path,
         cutoff_utc="2026-08-08T00:00:00Z",
-        article_builder=lambda value: {"article": article, "media": media},
+        article_builder=lambda value: {
+            "article": article, "media": media,
+            "editorial_worker_receipt": _xhigh_receipt(
+                article, value["editorial_worker_request"]["governed_input_hash"]
+            ),
+        },
+        destination_readiness_override=_all_ready(),
         publication_enabled=True,
     )
 
@@ -1060,9 +1145,15 @@ def test_revision_router_failure_writes_no_publication_evidence(monkeypatch, tmp
         run_id="revision-router-failure",
         output_dir=tmp_path,
         cutoff_utc="2026-08-08T00:00:00Z",
-        article_builder=lambda value: {"article": article, "media": media},
+        article_builder=lambda value: {
+            "article": article, "media": media,
+            "editorial_worker_receipt": _xhigh_receipt(
+                article, value["editorial_worker_request"]["governed_input_hash"]
+            ),
+        },
         editorial_reviewer=lambda value: _semantic("NEEDS_REVISION"),
         article_reviser=fail_revision,
+        destination_readiness_override=_all_ready(),
         publication_enabled=True,
     )
 
@@ -1120,9 +1211,15 @@ def test_old_backend_unknown_write_fixture_cannot_bypass_plan_coordinator(
         run_id="rolling-unknown",
         output_dir=tmp_path,
         cutoff_utc="2026-08-08T00:00:00Z",
-        article_builder=lambda value: {"article": article, "media": media},
+        article_builder=lambda value: {
+            "article": article, "media": media,
+            "editorial_worker_receipt": _xhigh_receipt(
+                article, value["editorial_worker_request"]["governed_input_hash"]
+            ),
+        },
         editorial_reviewer=lambda value: _semantic("PASS"),
         article_reviser=lambda value, review, round_number: value,
+        destination_readiness_override=_all_ready(),
         publication_enabled=True,
     )
     assert result["unknown_write_detected"] is False

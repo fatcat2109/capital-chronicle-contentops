@@ -1,0 +1,65 @@
+{
+  "active_exact_destination_probes": 9,
+  "all_required_destinations_ready": true,
+  "attempt_identity": "v1-live-canary-correction-readonly-preflight",
+  "destinations": {
+    "discord": {
+      "destination_identity": "discord_channel:1519311669216673802",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:03:04.572560Z",
+      "readiness_state": "READY_NON_BROWSER_BINDING"
+    },
+    "facebook_page": {
+      "destination_identity": "Capital Chronicle",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:03:04.890017Z",
+      "readiness_state": "READY_NON_BROWSER_BINDING"
+    },
+    "instagram_business": {
+      "destination_identity": "official.capitalchronicle",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:03:05.322177Z",
+      "readiness_state": "READY_NON_BROWSER_BINDING"
+    },
+    "linkedin": {
+      "destination_identity": "Jim Pham",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:03:04.589992Z",
+      "readiness_state": "READY_NON_BROWSER_BINDING"
+    },
+    "substack": {
+      "destination_identity": "capitalchronicle.substack.com",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:02:56.602809Z",
+      "readiness_state": "READY_AUTHENTICATED"
+    },
+    "telegram": {
+      "destination_identity": "@CapitalChronicle",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:02:58.173677Z",
+      "readiness_state": "READY_NON_BROWSER_BINDING"
+    },
+    "threads": {
+      "destination_identity": "official.capitalchronicle",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:03:05.683142Z",
+      "readiness_state": "READY_NON_BROWSER_BINDING"
+    },
+    "x": {
+      "destination_identity": "@Capitalnicle",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:03:04.146208Z",
+      "readiness_state": "READY_AUTHENTICATED"
+    },
+    "youtube": {
+      "destination_identity": "@CapitalChronicleYouTube",
+      "identity_match": true,
+      "probed_at_utc": "2026-08-17T06:03:26.257008Z",
+      "readiness_state": "READY_AUTHENTICATED"
+    }
+  },
+  "public_write_performed": false,
+  "schema_version": "contentops.full_v1_transaction_preflight.v1.sanitized_receipt",
+  "status": "READY",
+  "unknown_write_count": 0
+}
