@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `32648b355d3e526c91b412ccb09ca1cb32d6f7df`. Source tree digest: `399b66214e336182e722f79e9d7fced98387e226d2c967da7e554a36dad84424`.
+Generated from source HEAD `32648b355d3e526c91b412ccb09ca1cb32d6f7df`. Source tree digest: `0c24ba5362633897b714c135fcff6f577e7f978e1b895252e1365128747e5232`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This map is descriptive repository state, not product authority. Jim's current direction and
@@ -41,9 +41,12 @@ targets `render-job.mjs`.
   are the canonical V2 product authority. Older V2 and V1 plan sets are historical where they
   conflict with this chain.
 - The current task is
-  `TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`.
-  The parent/deterministic executor is GPT-5.6 Sol HIGH; fresh viewer-facing creative authors
-  and the actual-media critic are GPT-5.6 Sol XHIGH. MAX/ULTRA and mode bakeoffs are retired.
+  `TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`.
+  The parent/deterministic executor is GPT-5.6 Sol HIGH; the fresh per-video CodexJobBrain and
+  same-job actual-media critic are native Codex GPT-5.6 Sol XHIGH. 9Router is research/evidence
+  assistance only on Terra HIGH -> Gemini Pro HIGH -> Gemini Flash HIGH. The old
+  `new/gpt-5.6-sol-xhigh` V2 creative route is superseded, with no creative fallback.
+  MAX/ULTRA and mode bakeoffs are retired.
 - Remotion is deterministic execution, not creative authority. Viewer-facing source remains
   free-form React/Remotion code organized by semantic creative chapters. Chapters are not
   automatically render units, and deterministic aesthetic schemas/gates are forbidden.
@@ -64,14 +67,15 @@ targets `render-job.mjs`.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
+| V2 unattended Codex brain | `video/unattended_core_factory_v1/codex_job_brain.py`, `video/unattended_core_factory_v1/supervisor.py`, `video/unattended_core_factory_v1/store.py` | `tests/test_v2_unattended_core_factory_v1.py` |
 | V2 free-form chapterized authority | `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`, `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`, `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` | Free-form pipeline, V2 North Star, master plan, task graph, Remotion baseline, owner-polish evidence |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |
 
 ## Graph inventory
 
-- Nodes: `7162`
-- Edges: `13448`
+- Nodes: `7161`
+- Edges: `13445`
 - Entrypoints: `16`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-
   implementation edges are included.

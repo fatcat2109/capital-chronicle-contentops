@@ -49,6 +49,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     V1_HIGH_QUALITY_MODEL_POOL,
     V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS,
     V1_GROUNDED_RESEARCH_MODEL_LADDER,
+    V2_CREATIVE_ROLES,
     SUPERSEDES_AUTHORITY_ID,
     TERMINAL_NON_RETRYABLE,
     ModelRouterError,
@@ -193,6 +194,14 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
     assert V1_HIGH_QUALITY_MODEL_POOL == (*ORDERED_MODEL_POOL, CX_FINAL_FALLBACK_MODEL)
     assert CX_FINAL_FALLBACK_MODEL not in NEWSROOM_LEAF_SCAN_MODEL_POOL
     assert authority_packet()["article_writing_uses_quality_first_pool"] is True
+
+
+def test_superseded_v2_creative_roles_fail_closed_before_pool_or_budget() -> None:
+    for role in V2_CREATIVE_ROLES:
+        with pytest.raises(ModelRouterError, match="use_codex_job_brain"):
+            model_pool_for_role(role)
+        with pytest.raises(ModelRouterError, match="use_codex_job_brain"):
+            retry_budget_for_role(role_task_id=role, logical_invocation_id="retired-v2")
 
 
 def test_temporary_gemini_incident_routes_leaf_to_flash_and_quality_to_pro(monkeypatch) -> None:

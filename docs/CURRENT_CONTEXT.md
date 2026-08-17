@@ -221,6 +221,19 @@ Build an autonomous evidence-governed media growth engine for:
 
 The objective is repeatable qualified audience growth and breakout/trending potential. No upload is guaranteed to trend or go viral.
 
+## 2026-08-17 current V2 execution override
+
+The current exact V2 task is
+`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`.
+The durable supervisor substrate is implemented; its first proof quarantined at the superseded
+`new/gpt-5.6-sol-xhigh` 9Router creative route. V2 viewer-facing creation and actual-media review
+now use a fresh per-video native Codex `gpt-5.6-sol / XHIGH` job brain with no creative fallback.
+9Router is research/evidence assistance only on `cx/gpt-5.6-terra(high)` ->
+`vx/gemini-3.1-pro-preview(high)` -> `vx/gemini-3.5-flash(high)`. The older creative-route section
+below is retained as historical context only and is non-controlling. Exactly one fresh
+committed-head actual-media proof is current; production soak remains gated by Jim/ChatGPT media
+acceptance. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling.
+
 ## Current V2 task
 
 `TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`

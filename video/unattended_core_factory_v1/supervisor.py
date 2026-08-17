@@ -8,14 +8,11 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from . import media as local_media
+from .codex_job_brain import CodexJobBrain
 from .creative import (
-    CreativeRouter,
-    editor_prompt,
     hash_file,
     hash_value,
     materialize_source,
-    motion_prompt,
-    revision_prompt,
     validate_editor_artifact,
     validate_input_packet,
     validate_motion_artifact,
@@ -105,8 +102,9 @@ def _safe_cost(receipts: list[Mapping[str, Any]]) -> dict[str, Any]:
     calls = 0
     attempts = 0
     for receipt in receipts:
-        calls += 1
-        attempts += int(receipt.get("attempt_count") or 0)
+        receipt_attempts = int(receipt.get("attempt_count") or 0)
+        calls += 1 if receipt_attempts else 0
+        attempts += receipt_attempts
         cost = receipt.get("cost")
         if isinstance(cost, Mapping):
             for value in cost.values():
@@ -119,8 +117,8 @@ def _safe_cost(receipts: list[Mapping[str, Any]]) -> dict[str, Any]:
                 if isinstance(value, (int, float)):
                     usage[str(key)] = usage.get(str(key), 0.0) + float(value)
     return {
-        "xhigh_call_count": calls,
-        "provider_attempt_count": attempts,
+        "codex_xhigh_execution_count": calls,
+        "codex_execution_attempt_count": attempts,
         "model_cost_usd": round(usd, 8) if exposed else None,
         "model_cost_exposed": exposed,
         "safe_usage": usage or None,
@@ -133,12 +131,12 @@ class UnattendedV2Supervisor:
         *,
         store: V2JobStore,
         config: FactoryConfig,
-        creative_router: CreativeRouter | None = None,
+        creative_brain: CodexJobBrain | None = None,
         media_backend: Any = local_media,
     ) -> None:
         self.store = store
         self.config = config
-        self.router = creative_router or CreativeRouter()
+        self.brain = creative_brain or CodexJobBrain()
         self.media = media_backend
         self.config.validate()
 
@@ -157,19 +155,21 @@ class UnattendedV2Supervisor:
             "root": root,
             "artifacts": artifacts,
             "project": root / "generated_project",
+            "codex_workspace": root / "codex_job",
             "editor": artifacts / "creative_editor.json",
             "editor_validation": artifacts / "creative_editor_validation.json",
-            "editor_receipt": artifacts / "creative_editor_receipt.json",
+            "editor_receipt": artifacts / "codex_initial_execution_receipt.json",
+            "motion_pending": artifacts / "codex_initial_motion_output.json",
             "motion": artifacts / "motion_source.json",
             "motion_validation": artifacts / "motion_source_validation.json",
-            "motion_receipt": artifacts / "motion_source_receipt.json",
+            "motion_receipt": artifacts / "codex_motion_lock_receipt.json",
             "source_validation": artifacts / "hard_source_validation.json",
             "proxy": root / "media" / "proxy.mp4",
             "proxy_sheet": root / "review" / "proxy_contact_sheet.jpg",
             "proxy_report": artifacts / "proxy_media_report.json",
             "review": artifacts / "actual_media_review.json",
             "review_validation": artifacts / "actual_media_review_validation.json",
-            "review_receipt": artifacts / "actual_media_review_receipt.json",
+            "review_receipt": artifacts / "codex_actual_media_review_receipt.json",
             "revision": artifacts / "creative_revision.json",
             "picture": root / "media" / "picture_lock.mp4",
             "narration_dir": root / "audio" / "narration",
@@ -339,18 +339,19 @@ class UnattendedV2Supervisor:
             )
             return
         if stage == "CREATIVE_EDITOR_LOCKED":
-            output, validation, receipt = self.router.invoke(
-                role="V2_CREATIVE_EDITOR",
-                prompt=editor_prompt(packet),
-                work_item_id=str(job["video_job_id"]),
-                input_artifact=packet,
-                validator=lambda value: validate_editor_artifact(value, packet),
+            output, motion_output, receipt = self.brain.create(
+                video_job_id=str(job["video_job_id"]),
+                job_root=paths["root"],
+                packet=packet,
+                asset_root=self.config.asset_root,
             )
+            validation = validate_editor_artifact(output, packet)
             records = [
                 _json_artifact(paths["editor"], output),
                 _json_artifact(paths["editor_validation"], validation),
                 _json_artifact(paths["editor_receipt"], receipt),
             ]
+            _json_artifact(paths["motion_pending"], motion_output)
             self._append(
                 job=job,
                 run_id=run_id,
@@ -360,20 +361,37 @@ class UnattendedV2Supervisor:
                 artifacts=records,
                 result="PASS_CREATIVE_EDITOR_LOCK",
                 next_stage="MOTION_SOURCE_LOCKED",
-                role="V2_CREATIVE_EDITOR",
+                role="CodexJobBrain.initial_creative_execution",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
             return
         editor = _load(paths["editor"])
         if stage == "MOTION_SOURCE_LOCKED":
-            output, validation, receipt = self.router.invoke(
-                role="V2_MOTION_CODE_AUTHOR",
-                prompt=motion_prompt(packet, editor),
-                work_item_id=str(job["video_job_id"]),
-                input_artifact={"packet_hash": input_hash, "editor": editor},
-                validator=lambda value: validate_motion_artifact(value, packet, editor),
+            output = _load(paths["motion_pending"])
+            initial_receipt = _load(paths["editor_receipt"])
+            expected_hash = str(
+                (initial_receipt.get("output_artifact_hashes") or {}).get("motion") or ""
             )
+            if not expected_hash or hash_value(output) != expected_hash:
+                raise SupervisorError("codex_initial_motion_output_hash_mismatch")
+            validation = validate_motion_artifact(output, packet, editor)
+            receipt = {
+                "schema": "contentops.v2.codex_job_brain_motion_lock_receipt.v1",
+                "execution_plane": initial_receipt.get("execution_plane"),
+                "requested_model_family": initial_receipt.get("requested_model_family"),
+                "requested_reasoning_effort": initial_receipt.get("requested_reasoning_effort"),
+                "actual_model_family": initial_receipt.get("actual_model_family"),
+                "actual_reasoning_effort": initial_receipt.get("actual_reasoning_effort"),
+                "thread_id": initial_receipt.get("thread_id"),
+                "source_execution_receipt_sha256": hash_file(paths["editor_receipt"]),
+                "input_artifact_hashes": {"editor": hash_value(editor)},
+                "output_artifact_hashes": {"motion": hash_value(output)},
+                "attempt_count": 0,
+                "fallback_count": 0,
+                "nine_router_route": None,
+                "public_write_authority": False,
+            }
             source_records = materialize_source(output["files"], paths["project"])
             records = [
                 _json_artifact(paths["motion"], output),
@@ -389,7 +407,7 @@ class UnattendedV2Supervisor:
                 artifacts=records,
                 result="PASS_MOTION_SOURCE_LOCK",
                 next_stage="HARD_SOURCE_VALIDATED",
-                role="V2_MOTION_CODE_AUTHOR",
+                role="CodexJobBrain.motion_output_lock",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -451,22 +469,16 @@ class UnattendedV2Supervisor:
             return
         if stage == "ACTUAL_MEDIA_REVIEWED":
             proxy_report = _load(paths["proxy_report"])
-            output, validation, receipt = self.router.invoke(
-                role="V2_CREATIVE_REVISION_AUTHOR",
-                prompt=revision_prompt(packet, editor, motion, proxy_report),
-                work_item_id=str(job["video_job_id"]),
-                input_artifact={
-                    "packet_hash": input_hash,
-                    "editor_hash": hash_value(editor),
-                    "motion_hash": hash_value(motion),
-                    "proxy_sha256": hash_file(paths["proxy"]),
-                    "contact_sheet_sha256": hash_file(paths["proxy_sheet"]),
-                },
-                validator=lambda value: validate_revision_artifact(
-                    value, packet, editor, motion
-                ),
-                image_data_urls=[self.media.image_data_url(paths["proxy_sheet"])],
+            output, receipt = self.brain.review(
+                job_root=paths["root"],
+                packet=packet,
+                editor=editor,
+                motion=motion,
+                proxy_report=proxy_report,
+                contact_sheet=paths["proxy_sheet"],
+                initial_receipt=_load(paths["editor_receipt"]),
             )
+            validation = validate_revision_artifact(output, packet, editor, motion)
             records = [
                 _json_artifact(paths["review"], output),
                 _json_artifact(paths["review_validation"], validation),
@@ -486,7 +498,7 @@ class UnattendedV2Supervisor:
                 artifacts=records,
                 result="PASS_ACTUAL_MEDIA_REVIEW",
                 next_stage=next_stage,
-                role="V2_CREATIVE_REVISION_AUTHOR",
+                role="CodexJobBrain.actual_media_review",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -518,7 +530,7 @@ class UnattendedV2Supervisor:
                 artifacts=[record, *source_records],
                 result="PASS_CREATIVE_REVISION_LOCK",
                 next_stage="PICTURE_LOCKED",
-                role="V2_CREATIVE_REVISION_AUTHOR+deterministic_typecheck",
+                role="CodexJobBrain.localized_revision+deterministic_typecheck",
             )
             return
         if stage == "PICTURE_LOCKED":
@@ -705,7 +717,7 @@ class UnattendedV2Supervisor:
                 "final_mp4": local_media.artifact(paths["final"]),
                 "contact_sheet": final_sheet["artifact"],
                 "technical_media_report": str(paths["technical"]),
-                "creative_role_receipts": [
+                "creative_execution_receipts": [
                     str(paths["editor_receipt"]),
                     str(paths["motion_receipt"]),
                     str(paths["review_receipt"]),
@@ -756,7 +768,7 @@ class UnattendedV2Supervisor:
             self.store.finalize(
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
-                result="PASS_IMPLEMENTATION_UNATTENDED_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
+                result="PASS_IMPLEMENTATION_UNATTENDED_V2_CODEX_BRAIN_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
                 state="OWNER_REVIEW_READY",
             )
             return
@@ -837,15 +849,24 @@ class UnattendedV2Supervisor:
         except BaseException as exc:
             if quarantine_on_failure:
                 try:
+                    failure_artifacts: list[dict[str, Any]] = []
+                    safe_receipt = getattr(exc, "safe_receipt", None)
+                    if isinstance(safe_receipt, Mapping) and safe_receipt:
+                        failure_artifacts.append(
+                            _json_artifact(
+                                paths["artifacts"] / "codex_failure_receipt.json",
+                                dict(safe_receipt),
+                            )
+                        )
                     self.store.append_event(
                         video_job_id=video_job_id,
                         run_id=run_id,
                         stage="HARD_FAILURE",
                         input_hashes={},
                         output_hashes={},
-                        artifacts=[],
+                        artifacts=failure_artifacts,
                         role_tool_identity="UnattendedV2Supervisor",
-                        model_provenance={},
+                        model_provenance=dict(safe_receipt or {}),
                         wall_time_seconds=0,
                         safe_usage={},
                         result="FAIL_QUARANTINED",

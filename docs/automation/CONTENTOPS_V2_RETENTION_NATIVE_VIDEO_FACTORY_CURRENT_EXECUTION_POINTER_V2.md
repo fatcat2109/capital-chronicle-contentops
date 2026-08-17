@@ -11,11 +11,11 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender package factory [ACCEPTED] -> publication adapters [ACCEPTED] -> TikTok credential bootstrap [CLOSED] -> TikTok Sandbox draft canary [PASS/CLOSED] -> unattended V2 core proof [CURRENT] -> unattended production soak [NEXT AFTER OWNER ACCEPTANCE] -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> unattended control plane [IMPLEMENTED / FIRST PROOF QUARANTINED AT SUPERSEDED ROUTE] -> CodexJobBrain routing correction + fresh actual-media proof [CURRENT] -> unattended production soak [NEXT AFTER OWNER ACCEPTANCE] -> V1 integration/scheduling [DEFERRED]`
 
 Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
 short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
@@ -91,13 +91,15 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Current exact task
 
-`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It proves one
-isolated durable job, atomic run-once claim, immutable stage ledger, fresh exact-route creative
-artifacts, restart/resume, local media execution, and an owner-review-ready platform-neutral
-package with zero platform/V1/scheduler write authority. Required result ceiling:
-`PASS_IMPLEMENTATION_UNATTENDED_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`.
+This is the only active V2 product task unless Jim explicitly changes direction. It replaces the
+quarantined obsolete 9Router creative path with a fresh isolated CodexJobBrain on exact
+`gpt-5.6-sol / XHIGH`, preserves the durable supervisor and immutable ledger, and runs exactly one
+new committed-head proof to an owner-review-ready platform-neutral package. 9Router is research
+assistance only on `cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
+`vx/gemini-3.5-flash(high)`, with no V2 creative fallback. Required result ceiling:
+`PASS_IMPLEMENTATION_UNATTENDED_V2_CODEX_BRAIN_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`.
 
 The single exact next task after acceptance is
 `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`.
@@ -106,7 +108,7 @@ authorize that soak or later V1 integration/scheduling.
 
 Current proof flow:
 
-`Frozen Without Breaking governed packet -> durable job -> atomic claim -> fresh creative editor -> fresh motion source -> hard validation -> proxy -> actual-media XHIGH review/bounded revision -> picture/audio locks -> final Short -> package QA -> Jim/ChatGPT Review`
+`Frozen Without Breaking governed packet -> durable job -> atomic claim -> fresh isolated CodexJobBrain -> fresh motion source -> hard validation -> proxy -> same-job Codex XHIGH actual-media review/bounded revision -> picture/audio locks -> final Short -> package QA -> Jim/ChatGPT Review`
 
 # Controlled proof story
 

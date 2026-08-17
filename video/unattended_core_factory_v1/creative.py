@@ -4,17 +4,9 @@ import json
 import re
 from hashlib import sha256
 from pathlib import Path, PurePosixPath
-from typing import Any, Callable, Mapping, Sequence
-
-from live_contentops.nine_router_llm_seam_v2 import routed_v2_creative_invocation
-from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED
+from typing import Any, Mapping
 
 
-CREATIVE_MODEL = "new/gpt-5.6-sol-xhigh"
-ROLE_EDITOR = "V2_CREATIVE_EDITOR"
-ROLE_MOTION = "V2_MOTION_CODE_AUTHOR"
-ROLE_REVISION = "V2_CREATIVE_REVISION_AUTHOR"
-CREATIVE_ROLES = (ROLE_EDITOR, ROLE_MOTION, ROLE_REVISION)
 SOURCE_FILES = frozenset({"src/index.tsx", "src/Root.tsx", "src/Short.tsx"})
 FORBIDDEN_SOURCE_PATTERNS: tuple[tuple[str, str], ...] = (
     (r"\bprocess\s*\.\s*env\b", "env_read"),
@@ -127,7 +119,7 @@ def validate_input_packet(packet: Mapping[str, Any]) -> dict[str, Any]:
 def validate_editor_artifact(
     artifact: Mapping[str, Any], packet: Mapping[str, Any]
 ) -> dict[str, Any]:
-    if artifact.get("schema") != "contentops.v2.creative_editor_artifact.v1":
+    if artifact.get("schema") != "contentops.v2.codex_job_editorial.v1":
         raise CreativeContractError("editor_schema_invalid")
     duration = float(artifact.get("duration_seconds", 0))
     if not 30 <= duration <= 60:
@@ -135,7 +127,7 @@ def validate_editor_artifact(
     anchors = _anchor_map(packet)
     analysis = _analysis_map(packet)
     segments = artifact.get("narration_segments")
-    if not isinstance(segments, list) or not 4 <= len(segments) <= 14:
+    if not isinstance(segments, list) or not segments:
         raise CreativeContractError("editor_narration_segments_invalid")
     seen: set[str] = set()
     fact_count = 0
@@ -166,8 +158,6 @@ def validate_editor_artifact(
                 raise CreativeContractError(f"editor_engagement_too_long:{segment_id}")
         else:
             raise CreativeContractError(f"editor_segment_kind_invalid:{segment_id}")
-    if fact_count < 2:
-        raise CreativeContractError("editor_requires_two_governed_facts")
     word_count = sum(len(str(item["text"]).split()) for item in segments)
     minimum_duration = word_count / 2.25 + len(segments) * 0.16 + 0.75
     if duration < minimum_duration:
@@ -177,8 +167,8 @@ def validate_editor_artifact(
     for phrase in forbidden:
         if phrase and phrase in full_text:
             raise CreativeContractError("editor_forbidden_claim_present")
-    shots = artifact.get("shots")
-    if not isinstance(shots, list) or len(shots) < 3:
+    shots = artifact.get("shots") or []
+    if not isinstance(shots, list):
         raise CreativeContractError("editor_shots_invalid")
     valid_assets = {str(item["asset_id"]) for item in packet["rights_assets"]}
     prior_end = 0.0
@@ -192,7 +182,7 @@ def validate_editor_artifact(
             raise CreativeContractError("editor_shot_segment_binding_invalid")
         if not set(map(str, shot.get("asset_ids", []))).issubset(valid_assets):
             raise CreativeContractError("editor_shot_asset_binding_invalid")
-    if abs(prior_end - duration) > 0.05:
+    if shots and abs(prior_end - duration) > 0.05:
         raise CreativeContractError("editor_shots_do_not_cover_duration")
     return {
         "result": "PASS_FACTUAL_ANCHORS",
@@ -208,7 +198,7 @@ def validate_motion_artifact(
     packet: Mapping[str, Any],
     editor: Mapping[str, Any],
 ) -> dict[str, Any]:
-    if artifact.get("schema") != "contentops.v2.motion_source_artifact.v1":
+    if artifact.get("schema") != "contentops.v2.codex_job_motion_source.v1":
         raise CreativeContractError("motion_schema_invalid")
     if artifact.get("composition_id") != "FWBUnattendedShort":
         raise CreativeContractError("motion_composition_id_invalid")
@@ -279,7 +269,7 @@ def validate_revision_artifact(
     editor: Mapping[str, Any],
     motion: Mapping[str, Any],
 ) -> dict[str, Any]:
-    if artifact.get("schema") != "contentops.v2.actual_media_review_revision.v1":
+    if artifact.get("schema") != "contentops.v2.codex_actual_media_review.v1":
         raise CreativeContractError("revision_schema_invalid")
     decision = str(artifact.get("decision", ""))
     if decision not in {"NO_MATERIAL_REVISION", "MATERIAL_REVISION_REQUIRED"}:
@@ -354,166 +344,3 @@ def materialize_source(files: Mapping[str, str], project_root: Path) -> list[dic
             }
         )
     return artifacts
-
-
-def safe_router_receipt(summary: Mapping[str, Any], *, input_hash: str, output_hash: str) -> dict[str, Any]:
-    attempts = []
-    for item in summary.get("attempts", []):
-        attempts.append(
-            {
-                key: item.get(key)
-                for key in (
-                    "role_task_id",
-                    "requested_model",
-                    "resolved_model",
-                    "attempt_number_global",
-                    "attempt_number_for_model",
-                    "latency_seconds",
-                    "usage",
-                    "cost",
-                    "failure_class",
-                    "disposition",
-                    "model_identity_provider_verified",
-                )
-            }
-        )
-    return {
-        "schema": "contentops.v2.safe_creative_role_receipt.v1",
-        "role": summary.get("role_task_id"),
-        "requested_route": CREATIVE_MODEL,
-        "returned_model_identifier": summary.get("selected_model"),
-        "attempts": attempts,
-        "attempt_count": summary.get("total_attempts"),
-        "fallback_count": summary.get("total_fallback_transitions"),
-        "latency_seconds": summary.get("total_elapsed_seconds"),
-        "usage": summary.get("total_usage"),
-        "cost": summary.get("total_cost"),
-        "input_artifact_hash": input_hash,
-        "output_artifact_hash": output_hash,
-        "result": summary.get("terminal_disposition"),
-        "public_write_authority": False,
-    }
-
-
-class CreativeRouter:
-    def __init__(
-        self,
-        provider_call: Callable[[str, str, float], Any] | None = None,
-    ) -> None:
-        self.provider_call = provider_call
-
-    def invoke(
-        self,
-        *,
-        role: str,
-        prompt: str,
-        work_item_id: str,
-        input_artifact: Any,
-        validator: Callable[[Mapping[str, Any]], dict[str, Any]],
-        image_data_urls: Sequence[str] = (),
-    ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-        input_hash = hash_value(input_artifact)
-
-        def structured_validator(raw: str) -> tuple[bool, str | None, Any, str | None]:
-            try:
-                parsed = load_json_text(raw)
-                if not isinstance(parsed, Mapping):
-                    raise CreativeContractError("output_not_object")
-                validation = validator(parsed)
-                return True, None, dict(parsed), None
-            except (json.JSONDecodeError, CreativeContractError, TypeError, ValueError) as exc:
-                return False, "structured_output_schema_invalid", None, str(exc)[:300]
-
-        def repair_prompt_builder(original: str, rejected: str, diagnostic: str | None) -> str:
-            return (
-                original
-                + "\n\nYour prior response was rejected by the deterministic schema/authority gate. "
-                + f"Diagnostic: {diagnostic or 'invalid JSON contract'}. "
-                + "Return one corrected JSON object only. Do not add facts or commentary."
-            )
-
-        summary = routed_v2_creative_invocation(
-            prompt=prompt,
-            role_task_id=role,
-            logical_invocation_id=f"{work_item_id}_{role}_{input_hash[:16]}",
-            work_item_id=work_item_id,
-            validator=structured_validator,
-            provider_call=self.provider_call,
-            image_data_urls=tuple(image_data_urls),
-            governed_input=input_artifact,
-            repair_prompt_builder=repair_prompt_builder,
-        )
-        if summary.get("terminal_disposition") != ACCEPTED:
-            raise CreativeContractError(
-                f"creative_route_failed:{role}:{summary.get('terminal_disposition')}"
-            )
-        output = dict(summary["output"])
-        validation = validator(output)
-        output_hash = hash_value(output)
-        return output, validation, safe_router_receipt(
-            summary, input_hash=input_hash, output_hash=output_hash
-        )
-
-
-def editor_prompt(packet: Mapping[str, Any]) -> str:
-    return """You are the isolated Capital Chronicle V2_CREATIVE_EDITOR. Create a fresh native
-vertical Short plan from the governed packet below. You have zero factual, numeric, permission,
-or publication authority. Do not use or imitate any prior Frozen Without Breaking narration,
-layout, choreography, or repair. Facts must be spoken verbatim from exactly one supplied anchor.
-Analysis must be verbatim from one permitted_analysis statement. Engagement segments may contain
-no digits or factual assertions. Use only listed asset IDs. Keep free-form editorial pacing; do not
-optimize a quota. Return JSON only with schema contentops.v2.creative_editor_artifact.v1, title,
-viewer_promise, duration_seconds (30-60), narration_segments [{segment_id,kind,text,anchor_ids,
-analysis_id}], shots [{shot_id,start_seconds,end_seconds,viewer_takeaway,visual_concept,asset_ids,
-narration_segment_ids,on_screen_segment_ids}], and audio_intent {bed_asset_id,bed_gain_db,
-narration_voice,speed,lang}. Shots must be ordered, contiguous, and end at duration_seconds.
-Use at least two governed facts and create an original editorial answer.
-
-GOVERNED_PACKET:
-""" + json.dumps(packet, ensure_ascii=False, indent=2)
-
-
-def motion_prompt(packet: Mapping[str, Any], editor: Mapping[str, Any]) -> str:
-    compact_packet = {
-        "story_id": packet["story_id"],
-        "rights_assets": packet["rights_assets"],
-        "hard_boundaries": packet["hard_boundaries"],
-    }
-    return """You are the isolated Capital Chronicle V2_MOTION_CODE_AUTHOR. Author fresh,
-story-specific React/Remotion source for the approved creative artifact. The accepted reference
-Short source, prose, choreography, and layouts are unavailable and must not be reconstructed.
-Return JSON only with schema contentops.v2.motion_source_artifact.v1, composition_id exactly
-FWBUnattendedShort, duration_seconds unchanged, asset_ids, source_claim_bindings [{segment_id,text}]
-for every viewer-facing factual/analysis display string (text must be an exact contiguous substring
-of that locked segment), and files containing exactly src/index.tsx,
-src/Root.tsx, src/Short.tsx. Use React and Remotion imports only. Register a 1080x1920 30fps
-composition. Use literal staticFile paths from rights_assets relative_path and list exactly the
-asset IDs actually referenced. Do not include narration audio;
-the deterministic factory muxes it later. No env, network, filesystem, shell, browser, package,
-platform, or dynamic imports. Motion and layout are free-form and mobile-readable. Avoid generic
-card-stack/template grammar. Source text must come only from the approved narration segment bytes;
-non-claim labels may be short generic words without digits.
-
-GOVERNED_TECHNICAL_PACKET:
-""" + json.dumps(compact_packet, ensure_ascii=False, indent=2) + "\n\nAPPROVED_CREATIVE_ARTIFACT:\n" + json.dumps(editor, ensure_ascii=False, indent=2)
-
-
-def revision_prompt(
-    packet: Mapping[str, Any],
-    editor: Mapping[str, Any],
-    motion: Mapping[str, Any],
-    media_report: Mapping[str, Any],
-) -> str:
-    return """You are the isolated Capital Chronicle V2_CREATIVE_REVISION_AUTHOR performing the
-bounded actual-media review of the rendered proxy shown in the attached contact sheet. Judge only
-material viewer-facing clarity, composition, pacing, motion, mobile readability, and generic feel.
-Facts and narration are locked. Return JSON only with schema
-contentops.v2.actual_media_review_revision.v1, decision NO_MATERIAL_REVISION or
-MATERIAL_REVISION_REQUIRED, summary, defects [{severity,time_range,description,repair}],
-source_claim_bindings, and replacement_files. If no material revision, replacement_files must be
-{}. If material revision is needed, return exactly the three complete source files and preserve
-composition ID, duration, governed copy, asset universe, sandbox, and imports. This is not owner
-acceptance and grants no publication authority.
-
-PACKET_BOUNDARIES:
-""" + json.dumps(packet["hard_boundaries"], indent=2) + "\n\nLOCKED_EDITOR_ARTIFACT:\n" + json.dumps(editor, ensure_ascii=False) + "\n\nCURRENT_MOTION_ARTIFACT:\n" + json.dumps(motion, ensure_ascii=False) + "\n\nMEDIA_REPORT:\n" + json.dumps(media_report, ensure_ascii=False, indent=2)

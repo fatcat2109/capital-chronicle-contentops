@@ -71,9 +71,6 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
     ROLE_PASSIVE_INTERACTION_QUALITY,
-    ROLE_V2_CREATIVE_EDITOR,
-    ROLE_V2_MOTION_CODE_AUTHOR,
-    ROLE_V2_CREATIVE_REVISION_AUTHOR,
 )
 
 #: Stages that are deliberately deterministic. Listed explicitly so a future change that
@@ -230,51 +227,20 @@ def routed_v2_creative_invocation(
     governed_input: Any = None,
     repair_prompt_builder: Callable[[str, str, str | None], str] | None = None,
 ) -> dict[str, Any]:
-    """Route an isolated V2 creative role without touching operational V1 state.
-
-    V2 has its own durable ledger and explicit cost receipts.  This entrypoint deliberately
-    bypasses the V1 operator-control and cost-governor stores while retaining the canonical
-    ordered router, failure classifier, identity checks, provider adapter, and invocation log.
-    The exact V2 role registry binds every accepted call to one owner-locked model with no
-    fallback and at most three provider attempts.
-    """
+    """Fail closed for the superseded V2 9Router creative boundary."""
     if role_task_id not in V2_CREATIVE_ROLES:
         raise ValueError(f"not_an_owner_locked_v2_creative_role:{role_task_id}")
-    if provider_call is None:
-        from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
-
-        def isolated_provider_call(
-            provider_prompt: str, model: str, timeout: float
-        ) -> ProviderResult:
-            return call_nine_router(
-                provider_prompt,
-                model,
-                timeout,
-                image_data_urls=image_data_urls,
-                enforce_operator_fuse=False,
-            )
-
-        provider_call = isolated_provider_call
-    summary = route_llm_invocation(
-        logical_invocation_id=logical_invocation_id,
-        role_task_id=role_task_id,
-        work_item_id=work_item_id,
-        prompt=prompt,
-        provider_call=provider_call,
-        validator=validator,
-        governed_input=governed_input,
-        prompt_template=role_task_id,
-        prompt_version="v1",
-        timeout_seconds=timeout_seconds,
-        budget=retry_budget_for_role(
-            role_task_id=role_task_id,
-            logical_invocation_id=logical_invocation_id,
-        ),
-        repair_prompt_builder=repair_prompt_builder,
-        model_pool=model_pool_for_role(role_task_id),
+    raise RoutedInvocationError(
+        {
+            "terminal_disposition": "V2_CREATIVE_9ROUTER_ROUTE_SUPERSEDED",
+            "role_task_id": role_task_id,
+            "models_attempted_in_order": [],
+            "total_attempts": 0,
+            "total_fallback_transitions": 0,
+            "nine_router_provider_calls": 0,
+            "replacement_boundary": "video.unattended_core_factory_v1.CodexJobBrain",
+        }
     )
-    _INVOCATION_LOG.append(summary)
-    return summary
 
 
 def routed_llm_text(

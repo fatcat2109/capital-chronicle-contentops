@@ -13,11 +13,12 @@ if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
 from video.unattended_core_factory_v1.creative import hash_value, validate_input_packet
+from video.unattended_core_factory_v1.codex_job_brain import CodexCliExecutor, CodexJobBrain
 from video.unattended_core_factory_v1.store import V2JobStore
 from video.unattended_core_factory_v1.supervisor import FactoryConfig, UnattendedV2Supervisor
 
 
-DEFAULT_RUNTIME = REPO / ".task-runtime" / "v2-unattended-core-factory-v1"
+DEFAULT_RUNTIME = REPO / ".task-runtime" / "v2-codex-job-brain-proof-v1"
 DEFAULT_INPUT = (
     REPO
     / "video"
@@ -66,6 +67,8 @@ def main() -> int:
     run.add_argument("--implementation-head", default=None)
     run.add_argument("--proof-run-started-at", default=None)
     run.add_argument("--max-new-stages", type=int)
+    run.add_argument("--codex-executable", type=Path, default=None)
+    run.add_argument("--codex-timeout-seconds", type=float, default=1800.0)
 
     status = sub.add_parser("status", help="Read isolated V2 job and ledger state")
     status.add_argument("--video-job-id", required=True)
@@ -104,7 +107,15 @@ def main() -> int:
             implementation_head=implementation_head,
             worker_id=args.worker_id,
         )
-        result = UnattendedV2Supervisor(store=store, config=config).run_once(
+        brain = CodexJobBrain(
+            CodexCliExecutor(
+                executable=args.codex_executable,
+                timeout_seconds=args.codex_timeout_seconds,
+            )
+        )
+        result = UnattendedV2Supervisor(
+            store=store, config=config, creative_brain=brain
+        ).run_once(
             proof_run_started_at=args.proof_run_started_at,
             max_new_stages=args.max_new_stages,
         )

@@ -8,9 +8,12 @@ Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRE
 > **2026-08-17 current handoff override:** Read
 > `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` before the older
 > evidence below. The active task is
-> `TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`.
-> HIGH owns deterministic implementation/execution; the three owner-locked viewer-facing roles
-> use exact `new/gpt-5.6-sol-xhigh` with zero fallback. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
+> `TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`.
+> HIGH owns deterministic implementation/execution; a fresh per-video CodexJobBrain uses exact
+> native `gpt-5.6-sol / XHIGH` for viewer-facing authorship and same-job actual-media review.
+> 9Router is research assistance only on Terra HIGH → Gemini Pro HIGH → Gemini Flash HIGH; the old
+> `new/gpt-5.6-sol-xhigh` V2 creative route is superseded and no creative fallback exists.
+> `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 > remains controlling. Publication adapters are accepted; TikTok credential bootstrap is closed;
 > the exact TikTok Sandbox draft canary is PASS/CLOSED and its one-write grant is consumed.
 > The single exact next task after acceptance is

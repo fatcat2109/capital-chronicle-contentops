@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13448,
+    "edges": 13445,
     "entrypoints": 16,
-    "nodes": 7162,
+    "nodes": 7161,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 30,
@@ -33,10 +33,10 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 19,
-      "python_class": 613,
-      "python_function": 3895,
-      "python_method": 266,
-      "python_module": 744,
+      "python_class": 616,
+      "python_function": 3891,
+      "python_method": 265,
+      "python_module": 745,
       "schema": 183,
       "test": 719,
       "typescript_export": 506,
@@ -19449,12 +19449,6 @@
       "to": "tests/test_llm_cost_governor_v1.py"
     },
     {
-      "from": "live_contentops/llm_cost_governor_v1.py",
-      "inference": "test_exact_import",
-      "kind": "covered_by",
-      "to": "tests/test_v2_unattended_core_factory_v1.py"
-    },
-    {
       "from": "live_contentops/llm_feedback_summarizer_dry_run_v6.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -19597,12 +19591,6 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.llm_operator_control.v1"
-    },
-    {
-      "from": "live_contentops/llm_operator_control_v1.py",
-      "inference": "test_exact_import",
-      "kind": "covered_by",
-      "to": "tests/test_v2_unattended_core_factory_v1.py"
     },
     {
       "from": "live_contentops/llm_summary_safety_validator_v6.py",
@@ -22597,12 +22585,6 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation"
-    },
-    {
-      "from": "live_contentops/nine_router_llm_seam_v2.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation.isolated_provider_call"
     },
     {
       "from": "live_contentops/nine_router_llm_seam_v2.py",
@@ -55998,19 +55980,7 @@
       "from": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::route_llm_invocation"
+      "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::RoutedInvocationError"
     },
     {
       "from": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.__post_init__",
@@ -56100,6 +56070,12 @@
       "from": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ModelRouterError"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_incident_model_pool_for_role"
     },
     {
@@ -56107,6 +56083,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::build_acceptance_gemini_incident"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ModelRouterError"
     },
     {
       "from": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role",
@@ -67704,6 +67686,18 @@
       "from": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexCliExecutor"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexJobBrain"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
     },
     {
@@ -73177,30 +73171,6 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/v1_runtime_preflight_v1.py"
-    },
-    {
-      "from": "tests/test_v2_unattended_core_factory_v1.py",
-      "inference": "python_ast_import",
-      "kind": "imports",
-      "to": "live_contentops/llm_cost_governor_v1.py"
-    },
-    {
-      "from": "tests/test_v2_unattended_core_factory_v1.py",
-      "inference": "test_exact_import",
-      "kind": "tests",
-      "to": "live_contentops/llm_cost_governor_v1.py"
-    },
-    {
-      "from": "tests/test_v2_unattended_core_factory_v1.py",
-      "inference": "python_ast_import",
-      "kind": "imports",
-      "to": "live_contentops/llm_operator_control_v1.py"
-    },
-    {
-      "from": "tests/test_v2_unattended_core_factory_v1.py",
-      "inference": "test_exact_import",
-      "kind": "tests",
-      "to": "live_contentops/llm_operator_control_v1.py"
     },
     {
       "from": "tests/test_v6_platform_registry_contract.py",
@@ -80421,6 +80391,42 @@
       "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/types.ts::ChapterProps"
     },
     {
+      "from": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexCapability"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexCliExecutor"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexJobBrain"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexJobBrainError"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/__init__.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/creative.py"
+    },
+    {
       "from": "video/unattended_core_factory_v1/creative.py",
       "inference": "python_ast_definition",
       "kind": "defines",
@@ -80430,19 +80436,7 @@
       "from": "video/unattended_core_factory_v1/creative.py",
       "inference": "python_ast_definition",
       "kind": "defines",
-      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeRouter"
-    },
-    {
-      "from": "video/unattended_core_factory_v1/creative.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
       "to": "python_symbol:video/unattended_core_factory_v1/creative.py::canonical_bytes"
-    },
-    {
-      "from": "video/unattended_core_factory_v1/creative.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::editor_prompt"
     },
     {
       "from": "video/unattended_core_factory_v1/creative.py",
@@ -80467,24 +80461,6 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:video/unattended_core_factory_v1/creative.py::materialize_source"
-    },
-    {
-      "from": "video/unattended_core_factory_v1/creative.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::motion_prompt"
-    },
-    {
-      "from": "video/unattended_core_factory_v1/creative.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::revision_prompt"
-    },
-    {
-      "from": "video/unattended_core_factory_v1/creative.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::safe_router_receipt"
     },
     {
       "from": "video/unattended_core_factory_v1/creative.py",
@@ -80718,6 +80694,12 @@
       "from": "video/unattended_core_factory_v1/supervisor.py",
       "inference": "python_ast_import",
       "kind": "imports",
+      "to": "video/unattended_core_factory_v1/codex_job_brain.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
       "to": "video/unattended_core_factory_v1/creative.py"
     },
     {
@@ -80885,7 +80867,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 22133
+      "size_bytes": 22374
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -81105,17 +81087,17 @@
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 24024
+      "size_bytes": 24904
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 5971
+      "size_bytes": 6574
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 20212
+      "size_bytes": 20449
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -81125,7 +81107,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 13493
+      "size_bytes": 13672
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -81140,7 +81122,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 17678
+      "size_bytes": 17575
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -83261,12 +83243,12 @@
     {
       "id": "live_contentops/nine_router_llm_seam_v2.py",
       "kind": "python_module",
-      "size_bytes": 15616
+      "size_bytes": 14309
     },
     {
       "id": "live_contentops/nine_router_ordered_model_router_v2.py",
       "kind": "python_module",
-      "size_bytes": 50235
+      "size_bytes": 49986
     },
     {
       "id": "live_contentops/nine_router_preflight_v2.py",
@@ -83276,7 +83258,7 @@
     {
       "id": "live_contentops/nine_router_provider_adapter_v2.py",
       "kind": "python_module",
-      "size_bytes": 17843
+      "size_bytes": 17866
     },
     {
       "id": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
@@ -102626,357 +102608,350 @@
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::RoutedInvocationError",
       "kind": "python_class",
-      "line": 90,
+      "line": 87,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "RoutedInvocationError"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::RoutedInvocationError.__init__",
       "kind": "python_method",
-      "line": 93,
+      "line": 90,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "RoutedInvocationError.__init__"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::_default_provider_call",
       "kind": "python_function",
-      "line": 124,
+      "line": 121,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "_default_provider_call"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::_derive_invocation_id",
       "kind": "python_function",
-      "line": 313,
+      "line": 279,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "_derive_invocation_id"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::drain_invocation_log",
       "kind": "python_function",
-      "line": 113,
+      "line": 110,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "drain_invocation_log"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::integration_manifest",
       "kind": "python_function",
-      "line": 320,
+      "line": 286,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "integration_manifest"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::peek_invocation_log",
       "kind": "python_function",
-      "line": 120,
+      "line": 117,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "peek_invocation_log"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation",
       "kind": "python_function",
-      "line": 130,
+      "line": 127,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_invocation"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation.guarded_provider_call",
       "kind": "python_method",
-      "line": 163,
+      "line": 160,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_invocation.guarded_provider_call"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_text",
       "kind": "python_function",
-      "line": 280,
+      "line": 246,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_text"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation",
       "kind": "python_function",
-      "line": 220,
+      "line": 217,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_v2_creative_invocation"
     },
     {
-      "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation.isolated_provider_call",
-      "kind": "python_method",
-      "line": 246,
-      "path": "live_contentops/nine_router_llm_seam_v2.py",
-      "symbol": "routed_v2_creative_invocation.isolated_provider_call"
-    },
-    {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ModelRouterError",
       "kind": "python_class",
-      "line": 272,
+      "line": 269,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "ModelRouterError"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ProviderResult",
       "kind": "python_class",
-      "line": 684,
+      "line": 676,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "ProviderResult"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget",
       "kind": "python_class",
-      "line": 548,
+      "line": 540,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.__post_init__",
       "kind": "python_method",
-      "line": 572,
+      "line": 564,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.__post_init__"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.attempts_for",
       "kind": "python_method",
-      "line": 599,
+      "line": 591,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.attempts_for"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.elapsed_seconds",
       "kind": "python_method",
-      "line": 585,
+      "line": 577,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.elapsed_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.exhausted_reason",
       "kind": "python_method",
-      "line": 610,
+      "line": 602,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.exhausted_reason"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.from_snapshot",
       "kind": "python_method",
-      "line": 650,
+      "line": 642,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.from_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.model_attempts_remaining",
       "kind": "python_method",
-      "line": 602,
+      "line": 594,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.model_attempts_remaining"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_attempt",
       "kind": "python_method",
-      "line": 618,
+      "line": 610,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_attempt"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_fallback_transition",
       "kind": "python_method",
-      "line": 622,
+      "line": 614,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_fallback_transition"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_repair_attempt",
       "kind": "python_method",
-      "line": 625,
+      "line": 617,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_repair_attempt"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_sleep",
       "kind": "python_method",
-      "line": 628,
+      "line": 620,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_sleep"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_attempts",
       "kind": "python_method",
-      "line": 590,
+      "line": 582,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_attempts"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_sleep_seconds",
       "kind": "python_method",
-      "line": 593,
+      "line": 585,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_sleep_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_wall_clock_seconds",
       "kind": "python_method",
-      "line": 596,
+      "line": 588,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_wall_clock_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.snapshot",
       "kind": "python_method",
-      "line": 631,
+      "line": 623,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.snapshot"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.start",
       "kind": "python_method",
-      "line": 581,
+      "line": 573,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.start"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_bare_model_id",
       "kind": "python_function",
-      "line": 1020,
+      "line": 1012,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_bare_model_id"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_default_validator",
       "kind": "python_function",
-      "line": 709,
+      "line": 701,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_default_validator"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_hash",
       "kind": "python_function",
-      "line": 276,
+      "line": 273,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_hash"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_incident_model_pool_for_role",
       "kind": "python_function",
-      "line": 169,
+      "line": 166,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_incident_model_pool_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_is_authorized_identity",
       "kind": "python_function",
-      "line": 1045,
+      "line": 1037,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_is_authorized_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_redact",
       "kind": "python_function",
-      "line": 1063,
+      "line": 1055,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_redact"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_same_model_identity",
       "kind": "python_function",
-      "line": 1041,
+      "line": 1033,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_same_model_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_status_class",
       "kind": "python_function",
-      "line": 1050,
+      "line": 1042,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_status_class"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_sum_cost",
       "kind": "python_function",
-      "line": 1087,
+      "line": 1079,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_sum_cost"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_sum_usage",
       "kind": "python_function",
-      "line": 1073,
+      "line": 1065,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_sum_usage"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_summary_without_output",
       "kind": "python_function",
-      "line": 1016,
+      "line": 1008,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_summary_without_output"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::authority_packet",
       "kind": "python_function",
-      "line": 286,
+      "line": 283,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "authority_packet"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::build_acceptance_gemini_incident",
       "kind": "python_function",
-      "line": 136,
+      "line": 133,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "build_acceptance_gemini_incident"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::classify_failure",
       "kind": "python_function",
-      "line": 472,
+      "line": 464,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "classify_failure"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_fallback_eligible",
       "kind": "python_function",
-      "line": 530,
+      "line": 522,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_fallback_eligible"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_retryable",
       "kind": "python_function",
-      "line": 522,
+      "line": 514,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_retryable"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_terminal",
       "kind": "python_function",
-      "line": 526,
+      "line": 518,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_terminal"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role",
       "kind": "python_function",
-      "line": 381,
+      "line": 378,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "model_pool_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role",
       "kind": "python_function",
-      "line": 393,
+      "line": 392,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "retry_budget_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_policy",
       "kind": "python_function",
-      "line": 362,
+      "line": 359,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "retry_budget_policy"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::route_llm_invocation",
       "kind": "python_function",
-      "line": 718,
+      "line": 710,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "route_llm_invocation"
     },
@@ -116766,14 +116741,14 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_outputs",
       "kind": "python_function",
-      "line": 1204,
+      "line": 1208,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::check_outputs",
       "kind": "python_function",
-      "line": 1228,
+      "line": 1232,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "check_outputs"
     },
@@ -116822,7 +116797,7 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::index_markdown",
       "kind": "python_function",
-      "line": 1107,
+      "line": 1111,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "index_markdown"
     },
@@ -116836,7 +116811,7 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::main",
       "kind": "python_function",
-      "line": 1323,
+      "line": 1327,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "main"
     },
@@ -116857,7 +116832,7 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::normalized_for_check",
       "kind": "python_function",
-      "line": 1214,
+      "line": 1218,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "normalized_for_check"
     },
@@ -116955,21 +116930,21 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_context_contract",
       "kind": "python_function",
-      "line": 1278,
+      "line": 1282,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_context_contract"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_graph",
       "kind": "python_function",
-      "line": 1256,
+      "line": 1260,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::write_outputs",
       "kind": "python_function",
-      "line": 1300,
+      "line": 1304,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "write_outputs"
     },
@@ -117179,7 +117154,7 @@
     {
       "id": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
       "kind": "python_function",
-      "line": 50,
+      "line": 51,
       "path": "scripts/run_v2_unattended_core_factory_v1.py",
       "symbol": "main"
     },
@@ -117954,114 +117929,107 @@
       "symbol": "synthesize_file"
     },
     {
+      "id": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexCapability",
+      "kind": "python_class",
+      "line": 35,
+      "path": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "symbol": "CodexCapability"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexCliExecutor",
+      "kind": "python_class",
+      "line": 90,
+      "path": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "symbol": "CodexCliExecutor"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexJobBrain",
+      "kind": "python_class",
+      "line": 280,
+      "path": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "symbol": "CodexJobBrain"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/codex_job_brain.py::CodexJobBrainError",
+      "kind": "python_class",
+      "line": 28,
+      "path": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "symbol": "CodexJobBrainError"
+    },
+    {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError",
       "kind": "python_class",
-      "line": 39,
+      "line": 31,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "CreativeContractError"
     },
     {
-      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeRouter",
-      "kind": "python_class",
-      "line": 398,
-      "path": "video/unattended_core_factory_v1/creative.py",
-      "symbol": "CreativeRouter"
-    },
-    {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::canonical_bytes",
       "kind": "python_function",
-      "line": 43,
+      "line": 35,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "canonical_bytes"
     },
     {
-      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::editor_prompt",
-      "kind": "python_function",
-      "line": 458,
-      "path": "video/unattended_core_factory_v1/creative.py",
-      "symbol": "editor_prompt"
-    },
-    {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file",
       "kind": "python_function",
-      "line": 57,
+      "line": 49,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "hash_file"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value",
       "kind": "python_function",
-      "line": 49,
+      "line": 41,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "hash_value"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::load_json_text",
       "kind": "python_function",
-      "line": 65,
+      "line": 57,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "load_json_text"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::materialize_source",
       "kind": "python_function",
-      "line": 340,
+      "line": 330,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "materialize_source"
     },
     {
-      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::motion_prompt",
-      "kind": "python_function",
-      "line": 476,
-      "path": "video/unattended_core_factory_v1/creative.py",
-      "symbol": "motion_prompt"
-    },
-    {
-      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::revision_prompt",
-      "kind": "python_function",
-      "line": 501,
-      "path": "video/unattended_core_factory_v1/creative.py",
-      "symbol": "revision_prompt"
-    },
-    {
-      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::safe_router_receipt",
-      "kind": "python_function",
-      "line": 359,
-      "path": "video/unattended_core_factory_v1/creative.py",
-      "symbol": "safe_router_receipt"
-    },
-    {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_editor_artifact",
       "kind": "python_function",
-      "line": 127,
+      "line": 119,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "validate_editor_artifact"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_input_packet",
       "kind": "python_function",
-      "line": 84,
+      "line": 76,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "validate_input_packet"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_motion_artifact",
       "kind": "python_function",
-      "line": 206,
+      "line": 196,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "validate_motion_artifact"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_revision_artifact",
       "kind": "python_function",
-      "line": 276,
+      "line": 266,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "validate_revision_artifact"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_source_files",
       "kind": "python_function",
-      "line": 316,
+      "line": 306,
       "path": "video/unattended_core_factory_v1/creative.py",
       "symbol": "validate_source_files"
     },
@@ -118208,21 +118176,21 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/supervisor.py::FactoryConfig",
       "kind": "python_class",
-      "line": 57,
+      "line": 54,
       "path": "video/unattended_core_factory_v1/supervisor.py",
       "symbol": "FactoryConfig"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/supervisor.py::SupervisorError",
       "kind": "python_class",
-      "line": 52,
+      "line": 49,
       "path": "video/unattended_core_factory_v1/supervisor.py",
       "symbol": "SupervisorError"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/supervisor.py::UnattendedV2Supervisor",
       "kind": "python_class",
-      "line": 130,
+      "line": 128,
       "path": "video/unattended_core_factory_v1/supervisor.py",
       "symbol": "UnattendedV2Supervisor"
     },
@@ -119259,7 +119227,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 57483
+      "size_bytes": 57918
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -119374,7 +119342,7 @@
     {
       "id": "scripts/run_v2_unattended_core_factory_v1.py",
       "kind": "python_module",
-      "size_bytes": 4235
+      "size_bytes": 4822
     },
     {
       "id": "tests/AGENTS.md",
@@ -119879,7 +119847,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 9345
+      "size_bytes": 9499
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
@@ -121204,7 +121172,7 @@
     {
       "id": "tests/test_nine_router_ordered_model_router_v2.py",
       "kind": "test",
-      "size_bytes": 41670
+      "size_bytes": 42087
     },
     {
       "id": "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
@@ -122639,7 +122607,7 @@
     {
       "id": "tests/test_v2_unattended_core_factory_v1.py",
       "kind": "test",
-      "size_bytes": 21995
+      "size_bytes": 27200
     },
     {
       "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
@@ -126981,7 +126949,7 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 9182
+      "size_bytes": 9425
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/__init__.py",
@@ -127226,17 +127194,22 @@
     {
       "id": "video/unattended_core_factory_v1/__init__.py",
       "kind": "python_module",
-      "size_bytes": 194
+      "size_bytes": 254
+    },
+    {
+      "id": "video/unattended_core_factory_v1/codex_job_brain.py",
+      "kind": "python_module",
+      "size_bytes": 23854
     },
     {
       "id": "video/unattended_core_factory_v1/creative.py",
       "kind": "python_module",
-      "size_bytes": 23973
+      "size_bytes": 15576
     },
     {
       "id": "video/unattended_core_factory_v1/media.py",
       "kind": "python_module",
-      "size_bytes": 16625
+      "size_bytes": 17132
     },
     {
       "id": "video/unattended_core_factory_v1/scaffold/package.json",
@@ -127251,12 +127224,12 @@
     {
       "id": "video/unattended_core_factory_v1/store.py",
       "kind": "python_module",
-      "size_bytes": 15201
+      "size_bytes": 15581
     },
     {
       "id": "video/unattended_core_factory_v1/supervisor.py",
       "kind": "python_module",
-      "size_bytes": 35781
+      "size_bytes": 38095
     }
   ],
   "protected_boundaries": [
@@ -127323,5 +127296,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "32648b355d3e526c91b412ccb09ca1cb32d6f7df",
-  "source_tree_digest": "399b66214e336182e722f79e9d7fced98387e226d2c967da7e554a36dad84424"
+  "source_tree_digest": "0c24ba5362633897b714c135fcff6f577e7f978e1b895252e1365128747e5232"
 }

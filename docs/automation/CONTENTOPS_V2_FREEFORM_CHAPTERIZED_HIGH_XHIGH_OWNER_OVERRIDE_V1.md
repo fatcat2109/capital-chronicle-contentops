@@ -8,21 +8,26 @@ This override supersedes current V2 planning language where it conflicts. Histor
 
 ## Current task
 
-`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
 
 Required result ceiling:
 
-`PASS_IMPLEMENTATION_UNATTENDED_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_IMPLEMENTATION_UNATTENDED_V2_CODEX_BRAIN_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 
 The accepted creative, package, publication-adapter, TikTok credential-bootstrap, and exact TikTok
-Sandbox draft-canary lanes are closed inputs. The current HIGH-coordinated task proves one durable
-unattended V2 shadow job from governed packet to owner-review-ready media. Only the three exact
-viewer-facing XHIGH roles may call 9Router. Platform adapters remain dormant and
+Sandbox draft-canary lanes are closed inputs. The durable supervisor substrate is implemented; its
+first proof quarantined at a superseded 9Router creative route. The current HIGH-coordinated task
+installs a fresh per-video CodexJobBrain and runs exactly one new committed-head proof from governed
+packet to owner-review-ready media. Codex `gpt-5.6-sol / XHIGH` is the only V2 creative brain and
+has no creative-model fallback. 9Router is research/evidence assistance only, using
+`cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
+`vx/gemini-3.5-flash(high)`. The old `new/gpt-5.6-sol-xhigh` V2 creative route is superseded and
+must not be retried or repaired. Platform adapters remain dormant and
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` controls.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender package factory [ACCEPTED] -> publication adapters [ACCEPTED] -> TikTok credential bootstrap [CLOSED] -> TikTok Sandbox draft canary [PASS/CLOSED] -> unattended V2 core proof [CURRENT] -> unattended production soak [NEXT AFTER OWNER ACCEPTANCE] -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> unattended control plane [IMPLEMENTED / FIRST PROOF QUARANTINED AT SUPERSEDED ROUTE] -> CodexJobBrain routing correction + fresh actual-media proof [CURRENT] -> unattended production soak [NEXT AFTER OWNER ACCEPTANCE] -> V1 integration/scheduling [DEFERRED]`
 
 Single exact next task after acceptance:
 
@@ -34,6 +39,8 @@ The current task does not start or authorize that gate.
 
 - Parent/coordinator/deterministic executor: `GPT-5.6 Sol / HIGH`.
 - Viewer-facing creative workers: fresh isolated `GPT-5.6 Sol / XHIGH` executions.
+- V2 creative execution uses the local Codex job surface, never 9Router; no creative fallback exists.
+- 9Router is restricted to the exact current research ladder and retains zero creative authority.
 - The same chapter or audio-editor XHIGH execution may resume only for creative revision of its own responsibility.
 - `MAX` and `ULTRA` are retired for the current product direction. No mode bakeoff is authorized.
 - XHIGH must not be spent on Git, acquisition, hashing, transcoding, installation, rendering, waits, polling, FFmpeg, tests, cache work, assembly, evidence formatting, commit, or push.

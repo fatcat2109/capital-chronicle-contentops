@@ -149,15 +149,18 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. Publication
-adapters are accepted, TikTok credential bootstrap is closed, and the exact TikTok Sandbox draft
-canary is `PASS/CLOSED`; its one-write grant is consumed. Build one isolated durable V2 shadow job,
-atomic run-once claim, immutable checkpoint ledger, fresh exact-route creative executions,
-restart/resume, actual owner-review media, and a terminal platform-neutral package. Public/platform
-writes, platform credential reads, operational V1 reads or mutations, scheduler installation, and
-V1 trigger integration remain forbidden.
+This is the only active V2 product task unless Jim explicitly changes direction. The unattended
+control plane exists, but its first proof quarantined at the superseded
+`new/gpt-5.6-sol-xhigh` 9Router creative route. Replace that active creative path with a fresh
+per-video `CodexJobBrain` using Codex `gpt-5.6-sol / XHIGH`, preserve the deterministic supervisor
+as durable state owner, and run exactly one new committed-head actual-media proof. 9Router is
+research/evidence assistance only, with exact ladder `cx/gpt-5.6-terra(high)` →
+`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)`; it has no V2 creative authority.
+There is no creative-model fallback. Public/platform writes, platform credential reads,
+operational V1 reads or mutations, scheduler installation, and V1 trigger integration remain
+forbidden.
 
 The single exact next task after Jim/ChatGPT actual-media acceptance is
 `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`. It is not authorized or started by the
@@ -165,7 +168,7 @@ current task; V1 integration/scheduling remains deferred until the core proof an
 
 Current proof path:
 
-`Frozen Without Breaking governed packet -> durable job -> atomic claim -> fresh creative editor -> fresh motion source -> hard validation -> proxy -> actual-media XHIGH review/bounded revision -> picture/audio locks -> final Short -> package QA -> Jim/ChatGPT Review`
+`Frozen Without Breaking governed packet -> durable job -> atomic claim -> fresh isolated CodexJobBrain -> fresh motion source -> hard validation -> proxy -> same-job Codex XHIGH actual-media review/bounded revision -> picture/audio locks -> final Short -> package QA -> Jim/ChatGPT Review`
 
 The accepted Frozen Without Breaking Short is a quality reference only. Reuse its governed
 facts/rights-safe assets and low-level technical scaffold, never its viewer-facing source,

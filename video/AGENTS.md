@@ -14,15 +14,18 @@ For V2/video work, read first:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
 
 Required result ceiling:
 
-`PASS_IMPLEMENTATION_UNATTENDED_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_IMPLEMENTATION_UNATTENDED_V2_CODEX_BRAIN_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 
-The HIGH builder coordinates deterministic work. Only the three owner-locked viewer-facing roles
-use exact `new/gpt-5.6-sol-xhigh` with three same-route attempts and zero fallback. Publication
-adapters remain dormant; do not read platform credentials or perform any platform/browser write.
+The HIGH builder coordinates deterministic work. The fresh per-video CodexJobBrain uses exact
+native `gpt-5.6-sol / XHIGH` for viewer-facing creation and actual-media review, with zero creative
+fallback. Never call 9Router for V2 creative work; it is research assistance only on the exact
+Terra HIGH → Gemini Pro HIGH → Gemini Flash HIGH ladder. The obsolete
+`new/gpt-5.6-sol-xhigh` V2 route is superseded. Publication adapters remain dormant; do not read
+platform credentials or perform any platform/browser write.
 TikTok bootstrap and its Sandbox draft canary are closed. The next task after owner actual-media
 acceptance is `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`; do not start it here.
 

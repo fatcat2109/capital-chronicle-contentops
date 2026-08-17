@@ -123,9 +123,11 @@ def test_generated_v2_context_routes_direct_image_and_retention_native_authority
     assert "gpt-5.5" in normalized
     assert "provisional V2 generated-illustration default" in normalized
     assert "confirmed HTTP 400" in normalized
-    assert "TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1" in normalized
+    assert "TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1" in normalized
     assert "GPT-5.6 Sol HIGH" in normalized
     assert "GPT-5.6 Sol XHIGH" in normalized
+    assert "9Router is research/evidence assistance only" in normalized
+    assert "old `new/gpt-5.6-sol-xhigh` V2 creative route is superseded" in normalized
     assert "MAX/ULTRA and mode bakeoffs are retired" in normalized
     assert "free-form React/Remotion code" in normalized
     assert "NORTH_STAR_V2" in normalized

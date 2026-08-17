@@ -8,17 +8,21 @@ from types import SimpleNamespace
 
 import pytest
 
-from live_contentops.nine_router_llm_seam_v2 import routed_v2_creative_invocation
 from live_contentops.nine_router_ordered_model_router_v2 import (
-    ProviderResult,
-    V2_CREATIVE_MODEL,
-    V2_CREATIVE_ROLES,
-    model_pool_for_role,
-    retry_budget_for_role,
+    V1_GROUNDED_RESEARCH_MODEL_LADDER,
+)
+from live_contentops.nine_router_llm_seam_v2 import (
+    RoutedInvocationError,
+    routed_v2_creative_invocation,
+)
+from video.unattended_core_factory_v1.codex_job_brain import (
+    CODEX_MODEL,
+    CODEX_REASONING_EFFORT,
+    CodexCliExecutor,
+    CodexJobBrainError,
 )
 from video.unattended_core_factory_v1.creative import (
     CreativeContractError,
-    CreativeRouter,
     hash_file,
     hash_value,
     materialize_source,
@@ -65,7 +69,7 @@ def editor_artifact() -> dict[str, object]:
         {"shot_id": "c", "start_seconds": 22, "end_seconds": 36, "viewer_takeaway": "close", "visual_concept": "doors", "asset_ids": ["JOB_INTERVIEW"], "narration_segment_ids": ["s5", "s6"], "on_screen_segment_ids": ["s5"]},
     ]
     return {
-        "schema": "contentops.v2.creative_editor_artifact.v1",
+        "schema": "contentops.v2.codex_job_editorial.v1",
         "title": "Frozen Without Breaking",
         "viewer_promise": "See why low motion differs from collapse.",
         "duration_seconds": 36,
@@ -91,7 +95,7 @@ def source_files() -> dict[str, str]:
 
 def motion_artifact() -> dict[str, object]:
     return {
-        "schema": "contentops.v2.motion_source_artifact.v1",
+        "schema": "contentops.v2.codex_job_motion_source.v1",
         "composition_id": "FWBUnattendedShort",
         "duration_seconds": 36,
         "asset_ids": ["COMMUTER_FLOW"],
@@ -102,7 +106,7 @@ def motion_artifact() -> dict[str, object]:
 
 def review_artifact(*, material: bool = False) -> dict[str, object]:
     return {
-        "schema": "contentops.v2.actual_media_review_revision.v1",
+        "schema": "contentops.v2.codex_actual_media_review.v1",
         "decision": "MATERIAL_REVISION_REQUIRED" if material else "NO_MATERIAL_REVISION",
         "summary": "The proxy is coherent enough for owner review." if not material else "A material hierarchy correction is required.",
         "defects": [] if not material else [{"severity": "MAJOR", "time_range": "0-4", "description": "Hierarchy", "repair": "Clarify hook"}],
@@ -111,28 +115,79 @@ def review_artifact(*, material: bool = False) -> dict[str, object]:
     }
 
 
-class SequencedProvider:
-    def __init__(self) -> None:
-        self.calls: list[str] = []
+class FakeCodexJobBrain:
+    def __init__(self, *, material_revision: bool = False) -> None:
+        self.create_count = 0
+        self.review_count = 0
+        self.material_revision = material_revision
 
-    def __call__(self, prompt: str, model: str, timeout: float) -> ProviderResult:
-        assert model == V2_CREATIVE_MODEL
-        if "V2_CREATIVE_EDITOR" in prompt:
-            role = "editor"
-            output = editor_artifact()
-        elif "V2_MOTION_CODE_AUTHOR" in prompt:
-            role = "motion"
-            output = motion_artifact()
-        else:
-            role = "revision"
-            output = review_artifact()
-        self.calls.append(role)
-        return ProviderResult(
-            text=json.dumps(output),
-            resolved_model="gpt-5.6-sol-xhigh",
-            status_code=200,
-            usage={"total_tokens": 100},
-            cost={"usd": 0.01},
+    def create(self, **kwargs):
+        self.create_count += 1
+        editor = editor_artifact()
+        motion = motion_artifact()
+        return editor, motion, {
+            "schema": "contentops.v2.codex_job_brain_receipt.v1",
+            "execution_plane": "CODEX_CLI_EXEC_FAKE",
+            "execution_kind": "INITIAL_CREATIVE",
+            "requested_model_family": CODEX_MODEL,
+            "requested_reasoning_effort": CODEX_REASONING_EFFORT,
+            "actual_model_family": CODEX_MODEL,
+            "actual_reasoning_effort": CODEX_REASONING_EFFORT,
+            "thread_id": f"thread-{kwargs['video_job_id']}",
+            "fresh_isolated_context": True,
+            "resumed_same_job_thread": False,
+            "input_artifact_hashes": {"governed_packet": hash_value(kwargs["packet"])},
+            "output_artifact_hashes": {
+                "editorial": hash_value(editor),
+                "motion": hash_value(motion),
+            },
+            "attempt_count": 1,
+            "fallback_count": 0,
+            "nine_router_route": None,
+            "usage": {"total_tokens": 100},
+            "cost": None,
+            "public_write_authority": False,
+        }
+
+    def review(self, **kwargs):
+        self.review_count += 1
+        review = review_artifact(material=self.material_revision)
+        return review, {
+            "schema": "contentops.v2.codex_job_brain_receipt.v1",
+            "execution_plane": "CODEX_CLI_EXEC_FAKE",
+            "execution_kind": "ACTUAL_MEDIA_REVIEW",
+            "requested_model_family": CODEX_MODEL,
+            "requested_reasoning_effort": CODEX_REASONING_EFFORT,
+            "actual_model_family": CODEX_MODEL,
+            "actual_reasoning_effort": CODEX_REASONING_EFFORT,
+            "thread_id": kwargs["initial_receipt"]["thread_id"],
+            "fresh_isolated_context": False,
+            "resumed_same_job_thread": True,
+            "input_artifact_hashes": {"proxy": hash_file(kwargs["contact_sheet"])},
+            "output_artifact_hashes": {"review": hash_value(review)},
+            "attempt_count": 1,
+            "fallback_count": 0,
+            "nine_router_route": None,
+            "usage": {"total_tokens": 50},
+            "cost": None,
+            "public_write_authority": False,
+        }
+
+
+class FailingCodexJobBrain(FakeCodexJobBrain):
+    def create(self, **kwargs):
+        raise CodexJobBrainError(
+            "injected_codex_failure",
+            safe_receipt={
+                "schema": "contentops.v2.codex_job_brain_receipt.v1",
+                "execution_plane": "CODEX_CLI_EXEC_FAKE",
+                "requested_model_family": CODEX_MODEL,
+                "requested_reasoning_effort": CODEX_REASONING_EFFORT,
+                "exit_code": 17,
+                "result_classification": "FAIL_CODEX_EXEC",
+                "nine_router_route": None,
+                "public_write_authority": False,
+            },
         )
 
 
@@ -220,7 +275,7 @@ class FakeMedia:
         return result
 
 
-def make_supervisor(tmp_path: Path, *, provider=None, media=None) -> tuple[UnattendedV2Supervisor, V2JobStore, str]:
+def make_supervisor(tmp_path: Path, *, brain=None, media=None) -> tuple[UnattendedV2Supervisor, V2JobStore, str]:
     runtime = tmp_path / "runtime"
     store = V2JobStore(runtime / "jobs.sqlite3")
     p = packet()
@@ -240,8 +295,8 @@ def make_supervisor(tmp_path: Path, *, provider=None, media=None) -> tuple[Unatt
     model.write_bytes(b"model")
     voices.write_bytes(b"voices")
     config = FactoryConfig(runtime_root=runtime, scaffold_root=scaffold, dependency_root=dependency, asset_root=assets, kokoro_model=model, kokoro_voices=voices, implementation_head="a" * 40, worker_id="worker")
-    provider = provider or SequencedProvider()
-    supervisor = UnattendedV2Supervisor(store=store, config=config, creative_router=CreativeRouter(provider), media_backend=media or FakeMedia())
+    brain = brain or FakeCodexJobBrain()
+    supervisor = UnattendedV2Supervisor(store=store, config=config, creative_brain=brain, media_backend=media or FakeMedia())
     return supervisor, store, job_id
 
 
@@ -258,39 +313,73 @@ def test_governed_packet_is_isolated_and_zero_write() -> None:
     assert all(value is False for value in packet()["hard_boundaries"].values())
 
 
-def test_exact_owner_locked_roles_use_one_route_and_three_attempt_budget() -> None:
-    for role in V2_CREATIVE_ROLES:
-        assert model_pool_for_role(role) == (V2_CREATIVE_MODEL,)
-        budget = retry_budget_for_role(role_task_id=role, logical_invocation_id="x")
-        assert budget.max_total_provider_attempts == 3
-        assert budget.max_fallback_transitions == 0
-        assert budget.per_model_max_attempts == (3,)
+def test_codex_job_brain_is_exact_xhigh_and_has_no_creative_fallback() -> None:
+    assert CODEX_MODEL == "gpt-5.6-sol"
+    assert CODEX_REASONING_EFFORT == "xhigh"
+    expected = (
+        "cx/gpt-5.6-terra(high)",
+        "vx/gemini-3.1-pro-preview(high)",
+        "vx/gemini-3.5-flash(high)",
+    )
+    assert V1_GROUNDED_RESEARCH_MODEL_LADDER == expected
+    for relative in (
+        "video/unattended_core_factory_v1/codex_job_brain.py",
+        "video/unattended_core_factory_v1/creative.py",
+        "video/unattended_core_factory_v1/supervisor.py",
+    ):
+        source = (REPO / relative).read_text(encoding="utf-8")
+        assert "routed_v2_creative_invocation" not in source
+        assert "new/gpt-5.6-sol-xhigh" not in source
+        assert not any(model in source for model in expected)
 
 
-def test_same_route_retries_three_times_without_fallback() -> None:
-    calls = []
+def test_superseded_v2_9router_seam_makes_zero_provider_calls() -> None:
+    calls = 0
 
-    def provider(prompt, model, timeout):
-        calls.append(model)
-        if len(calls) < 3:
-            return ProviderResult(failure_class="read_timeout")
-        return ProviderResult(text='{"ok":true}', resolved_model="gpt-5.6-sol-xhigh", status_code=200)
+    def forbidden_provider(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        raise AssertionError("provider_must_not_be_called")
 
-    result = routed_v2_creative_invocation(prompt="x", role_task_id="V2_CREATIVE_EDITOR", logical_invocation_id="inv", work_item_id="job", provider_call=provider, validator=lambda raw: (True, None, json.loads(raw)))
-    assert result["terminal_disposition"] == "ACCEPTED"
-    assert result["total_attempts"] == 3
-    assert result["total_fallback_transitions"] == 0
-    assert calls == [V2_CREATIVE_MODEL] * 3
+    with pytest.raises(RoutedInvocationError) as exc_info:
+        routed_v2_creative_invocation(
+            prompt="retired",
+            role_task_id="V2_CREATIVE_EDITOR",
+            logical_invocation_id="retired",
+            work_item_id="retired",
+            provider_call=forbidden_provider,
+        )
+    assert calls == 0
+    assert exc_info.value.summary["terminal_disposition"] == "V2_CREATIVE_9ROUTER_ROUTE_SUPERSEDED"
+    assert exc_info.value.summary["nine_router_provider_calls"] == 0
 
 
-def test_isolated_v2_route_does_not_call_v1_operator_or_cost_controls(monkeypatch) -> None:
-    import live_contentops.llm_operator_control_v1 as operator
-    import live_contentops.llm_cost_governor_v1 as cost
+def test_cli_capability_probe_requires_exact_model_and_xhigh(tmp_path: Path) -> None:
+    executable = tmp_path / "codex.exe"
+    executable.write_bytes(b"fake")
 
-    monkeypatch.setattr(operator, "assert_llm_operator_execution_enabled", lambda: (_ for _ in ()).throw(AssertionError("v1 operator read")))
-    monkeypatch.setattr(cost, "reserve_logical_invocation", lambda *_: (_ for _ in ()).throw(AssertionError("v1 store mutation")))
-    result = routed_v2_creative_invocation(prompt="x", role_task_id="V2_CREATIVE_EDITOR", logical_invocation_id="inv-isolated", work_item_id="job", provider_call=lambda *args: ProviderResult(text="ok", resolved_model="gpt-5.6-sol-xhigh", status_code=200), validator=lambda raw: (True, None, raw))
-    assert result["terminal_disposition"] == "ACCEPTED"
+    def runner(args, **kwargs):
+        if args[-1] == "--version":
+            return SimpleNamespace(returncode=0, stdout="codex-cli test\n", stderr="")
+        return SimpleNamespace(
+            returncode=0,
+            stdout=json.dumps(
+                [
+                    {
+                        "slug": "gpt-5.6-sol",
+                        "supported_reasoning_levels": [
+                            {"effort": "high"},
+                            {"effort": "xhigh"},
+                        ],
+                    }
+                ]
+            ),
+            stderr="",
+        )
+
+    capability = CodexCliExecutor(executable=executable, runner=runner).inspect_capability(tmp_path)
+    assert capability.model == CODEX_MODEL
+    assert capability.reasoning_effort == CODEX_REASONING_EFFORT
 
 
 def test_factual_gate_rejects_unbound_or_rewritten_fact() -> None:
@@ -338,22 +427,46 @@ def test_stage_events_are_database_immutable(tmp_path: Path) -> None:
 
 
 def test_restart_after_editor_does_not_call_editor_again(tmp_path: Path) -> None:
-    provider = SequencedProvider()
-    supervisor, store, job_id = make_supervisor(tmp_path, provider=provider)
+    brain = FakeCodexJobBrain()
+    supervisor, store, job_id = make_supervisor(tmp_path, brain=brain)
     first = supervisor.run_once(max_new_stages=3)
     assert first["last_valid_checkpoint"] == "CREATIVE_EDITOR_LOCKED"
     supervisor.run_once()
-    assert provider.calls.count("editor") == 1
+    assert brain.create_count == 1
+    assert brain.review_count == 1
     assert store.job(job_id)["state"] == "OWNER_REVIEW_READY"
 
 
+def test_codex_outputs_are_hash_bound_to_immutable_job_input(tmp_path: Path) -> None:
+    brain = FakeCodexJobBrain()
+    supervisor, store, job_id = make_supervisor(tmp_path, brain=brain)
+    supervisor.run_once(max_new_stages=3)
+    event = next(
+        item for item in store.events(job_id) if item["stage"] == "CREATIVE_EDITOR_LOCKED"
+    )
+    provenance = json.loads(event["model_provenance_json"])
+    assert provenance["fresh_isolated_context"] is True
+    assert provenance["resumed_same_job_thread"] is False
+    assert provenance["thread_id"] == f"thread-{job_id}"
+    assert provenance["nine_router_route"] is None
+    assert provenance["fallback_count"] == 0
+    assert provenance["input_artifact_hashes"]["governed_packet"] == hash_value(packet())
+    root = supervisor.config.runtime_root / "jobs" / job_id / "artifacts"
+    assert provenance["output_artifact_hashes"]["editorial"] == hash_value(
+        json.loads((root / "creative_editor.json").read_text(encoding="utf-8"))
+    )
+    assert provenance["output_artifact_hashes"]["motion"] == hash_value(
+        json.loads((root / "codex_initial_motion_output.json").read_text(encoding="utf-8"))
+    )
+
+
 def test_restart_after_motion_does_not_call_motion_author_again(tmp_path: Path) -> None:
-    provider = SequencedProvider()
-    supervisor, _, _ = make_supervisor(tmp_path, provider=provider)
+    brain = FakeCodexJobBrain()
+    supervisor, _, _ = make_supervisor(tmp_path, brain=brain)
     first = supervisor.run_once(max_new_stages=4)
     assert first["last_valid_checkpoint"] == "MOTION_SOURCE_LOCKED"
     supervisor.run_once()
-    assert provider.calls.count("motion") == 1
+    assert brain.create_count == 1
 
 
 def test_valid_render_artifact_is_reused_after_resume(tmp_path: Path) -> None:
@@ -367,20 +480,19 @@ def test_valid_render_artifact_is_reused_after_resume(tmp_path: Path) -> None:
 
 
 def test_corrupt_motion_artifact_invalidates_only_motion_and_downstream(tmp_path: Path) -> None:
-    provider = SequencedProvider()
-    supervisor, store, job_id = make_supervisor(tmp_path, provider=provider)
+    brain = FakeCodexJobBrain()
+    supervisor, store, job_id = make_supervisor(tmp_path, brain=brain)
     supervisor.run_once(max_new_stages=4)
     job_root = supervisor.config.runtime_root / "jobs" / job_id
     (job_root / "artifacts" / "motion_source.json").write_text("{}", encoding="utf-8")
     supervisor.run_once()
-    assert provider.calls.count("editor") == 1
-    assert provider.calls.count("motion") == 2
+    assert brain.create_count == 1
     assert any(event["result"].startswith("INVALIDATED") and event["stage"] == "MOTION_SOURCE_LOCKED" for event in store.events(job_id))
 
 
 def test_terminal_job_is_not_executed_twice(tmp_path: Path) -> None:
-    provider = SequencedProvider()
-    supervisor, store, job_id = make_supervisor(tmp_path, provider=provider)
+    brain = FakeCodexJobBrain()
+    supervisor, store, job_id = make_supervisor(tmp_path, brain=brain)
     result = supervisor.run_once()
     assert result["job"]["state"] == "OWNER_REVIEW_READY"
     count = len(store.events(job_id))
@@ -394,6 +506,22 @@ def test_hard_failure_is_quarantined_and_not_restarted(tmp_path: Path) -> None:
         supervisor.run_once()
     assert store.job(job_id)["state"] == "QUARANTINED"
     assert supervisor.run_once()["result"] == "NO_ELIGIBLE_JOB"
+
+
+def test_failed_codex_execution_quarantines_with_safe_provenance(tmp_path: Path) -> None:
+    supervisor, store, job_id = make_supervisor(tmp_path, brain=FailingCodexJobBrain())
+    with pytest.raises(CodexJobBrainError, match="injected_codex_failure"):
+        supervisor.run_once()
+    assert store.job(job_id)["state"] == "QUARANTINED"
+    events = store.events(job_id)
+    failure = next(event for event in events if event["stage"] == "HARD_FAILURE")
+    provenance = json.loads(failure["model_provenance_json"])
+    assert provenance["requested_model_family"] == CODEX_MODEL
+    assert provenance["requested_reasoning_effort"] == CODEX_REASONING_EFFORT
+    assert provenance["nine_router_route"] is None
+    records = json.loads(failure["artifact_records_json"])
+    assert len(records) == 1
+    assert Path(records[0]["path"]).name == "codex_failure_receipt.json"
 
 
 def test_same_identity_cannot_create_duplicate_active_job_or_run(tmp_path: Path) -> None:
