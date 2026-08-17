@@ -6,6 +6,10 @@ from pathlib import Path
 
 from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as implementation
 from live_contentops import rolling_x_grounded_article_media_builder_v1 as article_builder
+from live_contentops.daily_app_supervisor_v1 import (
+    build_bootstrap_editorial_window_policy,
+    owner_locked_editorial_opportunities,
+)
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     build_prepared_rolling_x_candidate_state,
     validate_prepared_rolling_x_candidate_state,
@@ -56,21 +60,54 @@ def _large_continuity_input(count: int = 30) -> dict:
     }
 
 
-def test_continuity_frontier_advances_held_identities_without_replaying_unchanged():
-    rolling_input = _large_continuity_input()
+def _owner_opportunities(reference: str, through: str) -> list[dict]:
+    return owner_locked_editorial_opportunities(
+        build_bootstrap_editorial_window_policy(effective_at_utc=reference),
+        reference_utc=reference,
+        through_utc=through,
+    )
+
+
+def _current_input(count: int, *, cutoff: str, source_timestamp: str) -> dict:
+    value = _large_continuity_input(count)
+    rows = [
+        {**row, "source_timestamp_utc": source_timestamp}
+        for row in value["headlines"]
+    ]
+    cutoff_dt = datetime.fromisoformat(cutoff.replace("Z", "+00:00"))
+    return {
+        **value,
+        "cutoff_time_utc": cutoff,
+        "window_start_utc": (cutoff_dt - timedelta(hours=24)).isoformat().replace(
+            "+00:00", "Z"
+        ),
+        "headlines": rows,
+    }
+
+
+def test_continuity_frontier_advances_reserved_identities_at_real_owner_windows():
+    rolling_input = _current_input(
+        30, cutoff="2026-08-17T14:00:00Z", source_timestamp="2026-08-17T11:00:00Z"
+    )
+    opportunities = _owner_opportunities(
+        "2026-08-17T14:00:00Z", "2026-08-18T11:00:00Z"
+    )
     first = build_prepared_rolling_x_candidate_state(
         rolling_input=rolling_input,
-        prepared_at_utc="2026-08-17T12:00:00Z",
-        continuity_binding={"last_terminal_cutoff_utc": "2026-08-17T11:00:00Z"},
+        prepared_at_utc="2026-08-17T14:00:00Z",
+        editorial_opportunities=opportunities,
     )
     first_ids = list(first["prepared_frontier"]["selected_headline_ids"])
     held_ids = set(first["prepared_frontier"]["deferred_headline_ids"])
 
     second = build_prepared_rolling_x_candidate_state(
-        rolling_input={**rolling_input, "cutoff_time_utc": "2026-08-17T12:10:00Z"},
-        prepared_at_utc="2026-08-17T12:10:00Z",
+        rolling_input={**rolling_input, "cutoff_time_utc": "2026-08-17T16:01:00Z"},
+        prepared_at_utc="2026-08-17T16:01:00Z",
         evaluated_headline_ids=first_ids,
-        continuity_binding={"last_terminal_cutoff_utc": "2026-08-17T12:00:00Z"},
+        editorial_opportunities=_owner_opportunities(
+            "2026-08-17T16:01:00Z", "2026-08-18T11:00:00Z"
+        ),
+        prior_prepared_state=first,
     )
     second_ids = list(second["prepared_frontier"]["selected_headline_ids"])
 
@@ -79,8 +116,144 @@ def test_continuity_frontier_advances_held_identities_without_replaying_unchange
     assert set(second_ids).issubset(held_ids)
     assert second["prepared_frontier"]["unchanged_evaluated_excluded_count"] == 12
     assert second["prepared_frontier"]["deferred_identity_count"] == 6
+    assert second["prepared_frontier"]["not_promoted_identity_count"] == 0
+    assert second["prepared_frontier"]["frontier_reconciliation_total"] == 18
     assert second["prepared_frontier"]["full_universe_semantic_processing_performed"] is False
     assert second["llm_or_provider_calls"] == 0
+
+
+def test_overnight_gap_over_six_hours_cannot_silently_age_out():
+    rolling_input = _current_input(
+        13, cutoff="2026-08-17T18:01:00Z", source_timestamp="2026-08-17T02:00:00Z"
+    )
+    opportunities = _owner_opportunities(
+        "2026-08-17T18:01:00Z", "2026-08-18T18:01:00Z"
+    )
+    state = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-08-17T18:01:00Z",
+        editorial_opportunities=opportunities,
+    )
+    frontier = state["prepared_frontier"]
+
+    assert opportunities[0]["session"] == "new_york_0100_bangkok"
+    assert opportunities[1]["start_utc"] == "2026-08-18T10:00:00Z"
+    assert frontier["selected_headline_ids"] == [f"frontier-{i:03d}" for i in range(12)]
+    assert frontier["deferred_identity_count"] == 0
+    assert frontier["not_promoted_headline_ids"] == ["frontier-012"]
+    disposition = frontier["identity_dispositions"][-1]
+    assert disposition["rolling_expiry_utc"] == "2026-08-18T02:00:00Z"
+    assert disposition["reason_code"] == (
+        "BOUNDED_FRONTIER_CAPACITY_UNAVAILABLE_BEFORE_ROLLING_EXPIRY"
+    )
+    assert frontier["frontier_reconciliation_valid"] is True
+
+
+def test_large_500_identity_backlog_reconciles_without_semantic_or_model_calls():
+    rolling_input = _current_input(
+        500, cutoff="2026-08-17T12:01:00Z", source_timestamp="2026-08-17T11:59:00Z"
+    )
+    state = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-08-17T12:01:00Z",
+        editorial_opportunities=_owner_opportunities(
+            "2026-08-17T12:01:00Z", "2026-08-18T12:01:00Z"
+        ),
+    )
+    state = validate_prepared_rolling_x_candidate_state(
+        state, publication_cutoff_utc="2026-08-17T12:02:00Z"
+    )
+    frontier = state["prepared_frontier"]
+
+    assert state["prepared_candidate_count"] == 12
+    assert frontier["eligible_identity_count"] == 500
+    assert frontier["deferred_identity_count"] == 36
+    assert frontier["not_promoted_identity_count"] == 452
+    assert frontier["frontier_reconciliation_total"] == 500
+    assert frontier["frontier_reconciliation_valid"] is True
+    assert frontier["full_universe_semantic_processing_performed"] is False
+    assert frontier["full_universe_frontier_accounting_model_or_provider_calls"] == 0
+    assert state["llm_or_provider_calls"] == 0
+
+
+def test_friday_boundary_uses_monday_owner_window_not_fixed_hour_gap():
+    opportunities = _owner_opportunities(
+        "2026-08-21T18:01:00Z", "2026-08-24T11:00:00Z"
+    )
+    assert opportunities[0]["start_utc"] == "2026-08-21T18:00:00Z"
+    assert opportunities[1]["start_utc"] == "2026-08-24T10:00:00Z"
+    assert (
+        datetime.fromisoformat(opportunities[1]["start_utc"].replace("Z", "+00:00"))
+        - datetime.fromisoformat(opportunities[0]["start_utc"].replace("Z", "+00:00"))
+    ) == timedelta(hours=64)
+    weekend_input = _current_input(
+        1,
+        cutoff="2026-08-21T20:01:00Z",
+        source_timestamp="2026-08-21T18:30:00Z",
+    )
+    before_expiry = _owner_opportunities(
+        "2026-08-21T20:01:00Z", "2026-08-22T18:30:00Z"
+    )
+    weekend = build_prepared_rolling_x_candidate_state(
+        rolling_input=weekend_input,
+        prepared_at_utc="2026-08-21T20:01:00Z",
+        editorial_opportunities=before_expiry,
+    )
+    assert before_expiry == []
+    assert weekend["prepared_candidate_count"] == 0
+    assert weekend["prepared_frontier"]["not_promoted_headline_ids"] == [
+        "frontier-000"
+    ]
+    assert weekend["prepared_frontier"]["identity_dispositions"][0][
+        "reason_code"
+    ] == "NO_OWNER_EDITORIAL_OPPORTUNITY_BEFORE_ROLLING_EXPIRY"
+
+
+def test_late_unseen_identity_older_than_terminal_cutoff_stays_eligible():
+    rolling_input = _current_input(
+        1, cutoff="2026-08-17T14:00:00Z", source_timestamp="2026-08-17T12:00:00Z"
+    )
+    state = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-08-17T14:00:00Z",
+        evaluated_headline_ids=[],
+        editorial_opportunities=_owner_opportunities(
+            "2026-08-17T14:00:00Z", "2026-08-18T12:00:00Z"
+        ),
+        continuity_binding={"last_terminal_cutoff_utc": "2026-08-17T13:00:00Z"},
+    )
+    assert state["prepared_frontier"]["selected_headline_ids"] == ["frontier-000"]
+
+
+def test_expired_identity_is_audit_retained_but_not_revived_as_candidate():
+    first_input = _current_input(
+        1, cutoff="2026-08-17T14:00:00Z", source_timestamp="2026-08-17T12:00:00Z"
+    )
+    first = build_prepared_rolling_x_candidate_state(
+        rolling_input=first_input,
+        prepared_at_utc="2026-08-17T14:00:00Z",
+    )
+    empty_input = {
+        **first_input,
+        "cutoff_time_utc": "2026-08-18T13:00:00Z",
+        "unique_headline_ids": [],
+        "headlines": [],
+        "counts": {"accepted": 0, "duplicates": 0},
+    }
+    carried = build_prepared_rolling_x_candidate_state(
+        rolling_input=empty_input,
+        prepared_at_utc="2026-08-18T13:00:00Z",
+        prior_prepared_state=first,
+        editorial_opportunities=_owner_opportunities(
+            "2026-08-18T13:00:00Z", "2026-08-19T13:00:00Z"
+        ),
+    )
+    assert carried["prepared_candidate_count"] == 0
+    assert carried["prepared_frontier"]["identity_dispositions"] == []
+    retained = carried["prepared_frontier"]["retained_audit_dispositions"]
+    assert retained[0]["headline_id"] == "frontier-000"
+    assert retained[0]["disposition"] == "NOT_PROMOTED_BEFORE_EXPIRY"
+    assert retained[0]["evidence_walk_evaluated"] is False
 
 
 def test_material_reentry_survives_evaluated_filter_and_empty_unchanged_frontier_is_valid():
@@ -126,7 +299,7 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
     assert set(prepared["prepared_frontier"]["selected_headline_ids"]).isdisjoint(
         first_ids
     )
-    assert prepared["prepared_frontier"]["deferred_identity_count"] > 0
+    assert prepared["prepared_frontier"]["frontier_reconciliation_valid"] is True
     monkeypatch.setattr(
         "live_contentops.preselection_intelligence_v1.apply_preselection_intelligence",
         lambda clusters, **_kwargs: {

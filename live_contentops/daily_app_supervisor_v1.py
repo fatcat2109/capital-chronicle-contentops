@@ -276,6 +276,66 @@ def editorial_window_id(
     return "editorial-window-" + _logical_hash(identity)[:32]
 
 
+def owner_locked_editorial_opportunities(
+    policy: EditorialWindowPolicy,
+    *,
+    reference_utc: datetime | str,
+    through_utc: datetime | str,
+    active_window_grace_hours: float = 1.0,
+    capacity: int = 12,
+) -> list[dict[str, Any]]:
+    """Enumerate real scheduled opportunities available in a bounded UTC interval.
+
+    The policy owns the Bangkok-equivalent calendar. This helper derives dates, weekdays, and
+    sessions from that policy instead of assuming a fixed gap between opportunities. A currently
+    due window remains available through the supervisor's existing one-hour grace.
+    """
+    reference = _parse_utc(reference_utc) if isinstance(reference_utc, str) else reference_utc
+    through = _parse_utc(through_utc) if isinstance(through_utc, str) else through_utc
+    if reference.tzinfo is None:
+        reference = reference.replace(tzinfo=timezone.utc)
+    if through.tzinfo is None:
+        through = through.replace(tzinfo=timezone.utc)
+    reference = reference.astimezone(timezone.utc)
+    through = through.astimezone(timezone.utc)
+    if through < reference:
+        raise ValueError("editorial_opportunity_interval_invalid")
+    if capacity < 1:
+        raise ValueError("editorial_opportunity_capacity_invalid")
+    grace = timedelta(hours=float(active_window_grace_hours))
+    rows: list[dict[str, Any]] = []
+    first_day = (reference - timedelta(days=1)).date()
+    last_day = through.date()
+    day_count = (last_day - first_day).days
+    for day_offset in range(day_count + 1):
+        day = first_day + timedelta(days=day_offset)
+        base = datetime(day.year, day.month, day.day, tzinfo=timezone.utc)
+        for core in policy.core_windows:
+            if base.weekday() not in set(core.eligible_weekdays_utc):
+                continue
+            start = base + timedelta(hours=core.start_hour_utc)
+            end = base + timedelta(hours=core.end_hour_utc)
+            if end + grace < reference or start > through:
+                continue
+            rows.append({
+                "opportunity_id": editorial_window_id(
+                    policy_version=policy.policy_version,
+                    window_start_utc=start,
+                    window_end_utc=end,
+                    session=core.session,
+                    trigger_kind=TRIGGER_SCHEDULED,
+                ),
+                "trigger": TRIGGER_SCHEDULED,
+                "policy_id": policy.policy_id,
+                "policy_version": policy.policy_version,
+                "session": core.session,
+                "start_utc": _iso_utc(start),
+                "end_utc": _iso_utc(end),
+                "capacity": int(capacity),
+            })
+    return sorted(rows, key=lambda row: (row["start_utc"], row["opportunity_id"]))
+
+
 def material_event_due(
     materiality_metadata: Optional[Mapping[str, Any]],
     policy: EditorialWindowPolicy,
@@ -1426,6 +1486,7 @@ class ContentOpsDailyAppSupervisor:
         try:
             from live_contentops.newsroom_assignment_scheduler_v1 import (
                 DEFAULT_X_SIDECAR_GLOB,
+                PREPARED_CANDIDATE_LIMIT,
                 build_prepared_rolling_x_candidate_state,
                 load_rolling_x_headline_sidecars,
             )
@@ -1438,12 +1499,6 @@ class ContentOpsDailyAppSupervisor:
                 sidecar_glob=self._sidecar_glob or DEFAULT_X_SIDECAR_GLOB,
                 window_hours=24.0,
             )
-            if not (rolling_input.get("headlines") or []):
-                return {
-                    "status": "NO_CURRENT_HEADLINES",
-                    "checkpoint_updated": False,
-                    "llm_or_provider_calls": 0,
-                }
             continuity = load_terminal_editorial_continuity(
                 store_path=self._store_path,
                 output_root=self._output_root,
@@ -1451,11 +1506,35 @@ class ContentOpsDailyAppSupervisor:
             priority = continuity.get("material_event_priority") or {}
             evaluated_ids = list(continuity.get("evaluated_headline_ids") or [])
             reentry_ids = list(priority.get("headline_ids") or [])
+            prior_state: Mapping[str, Any] | None = None
+            checkpoint_path = self._prepared_candidate_checkpoint_path
+            if checkpoint_path.exists():
+                try:
+                    loaded_prior = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+                    if isinstance(loaded_prior, Mapping):
+                        prior_state = loaded_prior
+                except (OSError, TypeError, ValueError):
+                    prior_state = None
+            opportunities = owner_locked_editorial_opportunities(
+                self._policy,
+                reference_utc=now,
+                through_utc=now + timedelta(
+                    hours=float(rolling_input.get("window_hours") or 24.0)
+                ),
+                capacity=PREPARED_CANDIDATE_LIMIT,
+            )
+            opportunities = [
+                row for row in opportunities
+                if self._window_state(str(row["opportunity_id"]))
+                not in WINDOW_EXECUTED_STATES
+            ]
             state = build_prepared_rolling_x_candidate_state(
                 rolling_input=rolling_input,
                 prepared_at_utc=now,
                 evaluated_headline_ids=evaluated_ids,
                 reentry_headline_ids=reentry_ids,
+                editorial_opportunities=opportunities,
+                prior_prepared_state=prior_state,
                 continuity_binding={
                     "terminal_window_id": continuity.get("terminal_window_id"),
                     "last_terminal_cutoff_utc": continuity.get(
@@ -1474,7 +1553,7 @@ class ContentOpsDailyAppSupervisor:
                     ),
                 },
             )
-            path = self._prepared_candidate_checkpoint_path
+            path = checkpoint_path
             path.parent.mkdir(parents=True, exist_ok=True)
             temporary_path = path.with_suffix(path.suffix + ".tmp")
             temporary_path.write_text(

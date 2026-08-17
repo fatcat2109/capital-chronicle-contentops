@@ -447,6 +447,7 @@ ROLLING_X_PUBLISHABILITY_POOL_SCHEMA_VERSION = (
 PREPARED_CANDIDATE_SCHEMA_VERSION = "contentops.rolling_x_prepared_candidate_state.v1"
 PREPARED_CANDIDATE_LIMIT = 12
 PREPARED_CANDIDATE_MAX_AGE_SECONDS = 2 * 60 * 60
+PREPARED_FRONTIER_AUDIT_RETENTION_HOURS = 72.0
 ROLLING_X_LEAF_PROMPT_VERSION = "v2"
 ROLLING_X_GLOBAL_PROMPT_VERSION = "v4"
 ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4"})
@@ -1911,12 +1912,15 @@ def build_prepared_rolling_x_candidate_state(
     evaluated_headline_ids: Sequence[str] = (),
     reentry_headline_ids: Sequence[str] = (),
     continuity_binding: Mapping[str, Any] | None = None,
+    editorial_opportunities: Sequence[Mapping[str, Any]] | None = None,
+    prior_prepared_state: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build the small zero-model candidate checkpoint consumed by an editorial opportunity.
 
     This is continuous newsroom preparation, not a second assignment authority. It excludes
     unchanged terminally evaluated identities, re-enters explicit material-update priorities,
-    advances the oldest at-risk identities through a durable maximum-12 frontier, and grants no
+    advances deadline-bound identities through a durable maximum-12 frontier, cheaply accounts
+    for every remaining eligible identity against real bounded opportunities, and grants no
     factual, evidence, numeric, or publication authority.
     """
     if max_candidates < 1 or max_candidates > PREPARED_CANDIDATE_LIMIT:
@@ -1943,16 +1947,92 @@ def build_prepared_rolling_x_candidate_state(
     ]
     window_hours = float(rolling_input.get("window_hours") or 24.0)
 
-    def frontier_key(row: Mapping[str, Any]) -> tuple[Any, ...]:
-        headline_id = str(row.get("headline_id") or "")
+    def normalized_opportunity(row: Mapping[str, Any]) -> dict[str, Any]:
+        start = _normalize_cutoff_utc(str(row.get("start_utc") or row.get("start") or ""))
+        end = _normalize_cutoff_utc(str(row.get("end_utc") or row.get("end") or ""))
+        if end < start:
+            raise ValueError("rolling_x_editorial_opportunity_interval_invalid")
+        capacity = min(max_candidates, int(row.get("capacity") or max_candidates))
+        if capacity < 1:
+            raise ValueError("rolling_x_editorial_opportunity_capacity_invalid")
+        opportunity_id = str(
+            row.get("opportunity_id") or row.get("window_id")
+            or "prepared-opportunity-" + _logical_hash({
+                "start_utc": _iso_utc(start), "end_utc": _iso_utc(end),
+                "session": str(row.get("session") or ""),
+            })[:32]
+        )
+        return {
+            "opportunity_id": opportunity_id,
+            "trigger": str(row.get("trigger") or "SCHEDULED"),
+            "policy_id": str(row.get("policy_id") or ""),
+            "policy_version": str(row.get("policy_version") or ""),
+            "session": str(row.get("session") or ""),
+            "start_utc": _iso_utc(start),
+            "end_utc": _iso_utc(end),
+            "capacity": capacity,
+        }
+
+    opportunities = [
+        normalized_opportunity(row) for row in (editorial_opportunities or [])
+    ]
+    if editorial_opportunities is None:
+        opportunities = [normalized_opportunity({
+            "opportunity_id": "immediate-prepared-opportunity-" + _logical_hash(
+                {"prepared_at_utc": _iso_utc(prepared_at)}
+            )[:24],
+            "trigger": "EXPLICIT_IMMEDIATE_PREPARATION",
+            "session": "immediate_prepared_frontier",
+            "start_utc": _iso_utc(prepared_at),
+            "end_utc": _iso_utc(prepared_at + timedelta(hours=1)),
+            "capacity": max_candidates,
+        })]
+    opportunities = sorted(
+        opportunities, key=lambda row: (row["start_utc"], row["opportunity_id"])
+    )
+    opportunity_by_id = {row["opportunity_id"]: row for row in opportunities}
+    if len(opportunity_by_id) != len(opportunities):
+        raise ValueError("rolling_x_editorial_opportunity_identity_duplicate")
+    target_opportunity = opportunities[0] if opportunities else None
+    target_effective_at = (
+        max(prepared_at, _normalize_cutoff_utc(target_opportunity["start_utc"]))
+        if target_opportunity else datetime.max.replace(tzinfo=timezone.utc)
+    )
+
+    prior_frontier: Mapping[str, Any] = {}
+    if isinstance(prior_prepared_state, Mapping):
+        prior_hash = str(prior_prepared_state.get("prepared_candidate_logical_hash") or "")
+        prior_material = {
+            key: value for key, value in prior_prepared_state.items()
+            if key != "prepared_candidate_logical_hash"
+        }
+        if (
+            prior_prepared_state.get("schema_version") == PREPARED_CANDIDATE_SCHEMA_VERSION
+            and prior_hash
+            and hmac.compare_digest(prior_hash, _logical_hash(prior_material))
+            and isinstance(prior_prepared_state.get("prepared_frontier"), Mapping)
+        ):
+            prior_frontier = prior_prepared_state["prepared_frontier"]
+    prior_rows = [
+        dict(row) for row in (
+            list(prior_frontier.get("identity_dispositions") or [])
+            + list(prior_frontier.get("retained_audit_dispositions") or [])
+        ) if isinstance(row, Mapping) and str(row.get("headline_id") or "")
+    ]
+    prior_by_id = {str(row["headline_id"]): row for row in prior_rows}
+
+    def row_times(row: Mapping[str, Any]) -> tuple[datetime, datetime]:
         source_time = _normalize_cutoff_utc(
             str(row.get("source_timestamp_utc") or "1970-01-01T00:00:00Z")
         )
-        expires_at = source_time + timedelta(hours=window_hours)
-        seconds_to_expiry = (expires_at - prepared_at).total_seconds()
+        return source_time, source_time + timedelta(hours=window_hours)
+
+    def frontier_key(row: Mapping[str, Any]) -> tuple[Any, ...]:
+        headline_id = str(row.get("headline_id") or "")
+        source_time, expires_at = row_times(row)
         return (
             0 if headline_id in reentry else 1,
-            0 if seconds_to_expiry <= 6 * 60 * 60 else 1,
+            expires_at.timestamp(),
             -int(_rolling_x_publishability_path_profile(
                 [headline_id], records_by_id={headline_id: row}
             )["priority"]),
@@ -1961,9 +2041,211 @@ def build_prepared_rolling_x_candidate_state(
         )
 
     frontier_rows = sorted(eligible_rows, key=frontier_key)
-    prepared_rows = frontier_rows[:max_candidates]
+    rows_by_eligible_id = {str(row["headline_id"]): row for row in frontier_rows}
+    terminal_current: dict[str, dict[str, Any]] = {}
+    for headline_id, row in rows_by_eligible_id.items():
+        prior = prior_by_id.get(headline_id) or {}
+        if headline_id not in reentry and prior.get("disposition") == "NOT_PROMOTED_BEFORE_EXPIRY":
+            terminal_current[headline_id] = {
+                **prior,
+                "headline_id": headline_id,
+                "continuity_carried_at_utc": _iso_utc(prepared_at),
+                "evidence_walk_evaluated": False,
+            }
+
+    selected_limit = (
+        min(max_candidates, int(target_opportunity["capacity"]))
+        if target_opportunity else 0
+    )
+    committed_to_target: list[tuple[int, Mapping[str, Any]]] = []
+    for headline_id, row in rows_by_eligible_id.items():
+        prior = prior_by_id.get(headline_id) or {}
+        if (
+            headline_id not in terminal_current
+            and headline_id not in reentry
+            and prior.get("disposition") == "FUTURE_OPPORTUNITY_PROVEN"
+            and str((prior.get("opportunity") or {}).get("opportunity_id") or "")
+            == str((target_opportunity or {}).get("opportunity_id") or "")
+            and row_times(row)[1] >= target_effective_at
+        ):
+            committed_to_target.append((
+                int(prior.get("capacity_slot") or selected_limit), row
+            ))
+    committed_to_target.sort(key=lambda item: (item[0], frontier_key(item[1])))
+    prepared_rows = [row for _slot, row in committed_to_target[:selected_limit]]
+    selected_id_set = {str(row["headline_id"]) for row in prepared_rows}
+    for row in frontier_rows:
+        headline_id = str(row["headline_id"])
+        if len(prepared_rows) >= selected_limit:
+            break
+        if headline_id in selected_id_set or headline_id in terminal_current:
+            continue
+        _source_time, expires_at = row_times(row)
+        if expires_at < target_effective_at:
+            continue
+        prepared_rows.append(row)
+        selected_id_set.add(headline_id)
     selected_ids = [str(row["headline_id"]) for row in prepared_rows]
-    deferred_ids = [str(row["headline_id"]) for row in frontier_rows[max_candidates:]]
+
+    dispositions: dict[str, dict[str, Any]] = dict(terminal_current)
+    for slot, row in enumerate(prepared_rows, start=1):
+        headline_id = str(row["headline_id"])
+        _source_time, expires_at = row_times(row)
+        dispositions[headline_id] = {
+            "headline_id": headline_id,
+            "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+            "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+            "disposition_at_utc": _iso_utc(prepared_at),
+            "rolling_expiry_utc": _iso_utc(expires_at),
+            "opportunity": dict(target_opportunity or {}),
+            "capacity_slot": slot,
+            "material_reentry": headline_id in reentry,
+            "cheap_frontier_evaluated": True,
+            "evidence_walk_evaluated": False,
+            "factual_or_numeric_authority_granted": False,
+            "publication_authority_granted": False,
+        }
+
+    capacity_slots: dict[str, set[int]] = {
+        row["opportunity_id"]: set() for row in opportunities[1:]
+    }
+    future_rows: dict[str, dict[str, Any]] = {}
+    for row in frontier_rows:
+        headline_id = str(row["headline_id"])
+        if headline_id in dispositions or headline_id in reentry:
+            continue
+        prior = prior_by_id.get(headline_id) or {}
+        if prior.get("disposition") != "FUTURE_OPPORTUNITY_PROVEN":
+            continue
+        prior_opportunity_id = str(
+            (prior.get("opportunity") or {}).get("opportunity_id") or ""
+        )
+        opportunity = opportunity_by_id.get(prior_opportunity_id)
+        if opportunity not in opportunities[1:]:
+            continue
+        _source_time, expires_at = row_times(row)
+        if _normalize_cutoff_utc(opportunity["start_utc"]) > expires_at:
+            continue
+        used = capacity_slots[prior_opportunity_id]
+        preferred_slot = int(prior.get("capacity_slot") or 0)
+        available = [
+            slot for slot in range(1, int(opportunity["capacity"]) + 1)
+            if slot not in used
+        ]
+        if not available:
+            continue
+        slot = preferred_slot if preferred_slot in available else available[0]
+        used.add(slot)
+        future_rows[headline_id] = {
+            **prior,
+            "headline_id": headline_id,
+            "opportunity": dict(opportunity),
+            "capacity_slot": slot,
+            "continuity_carried_at_utc": _iso_utc(prepared_at),
+            "evidence_walk_evaluated": False,
+        }
+
+    for row in frontier_rows:
+        headline_id = str(row["headline_id"])
+        if headline_id in dispositions or headline_id in future_rows:
+            continue
+        _source_time, expires_at = row_times(row)
+        assigned: tuple[dict[str, Any], int] | None = None
+        for opportunity in opportunities[1:]:
+            opportunity_start = _normalize_cutoff_utc(opportunity["start_utc"])
+            if opportunity_start > expires_at:
+                continue
+            used = capacity_slots[opportunity["opportunity_id"]]
+            available = [
+                slot for slot in range(1, int(opportunity["capacity"]) + 1)
+                if slot not in used
+            ]
+            if available:
+                assigned = (opportunity, available[0])
+                used.add(available[0])
+                break
+        if assigned:
+            opportunity, slot = assigned
+            future_rows[headline_id] = {
+                "headline_id": headline_id,
+                "disposition": "FUTURE_OPPORTUNITY_PROVEN",
+                "accounting_level": "CHEAP_FRONTIER_DISPOSITION",
+                "disposition_at_utc": _iso_utc(prepared_at),
+                "rolling_expiry_utc": _iso_utc(expires_at),
+                "opportunity": dict(opportunity),
+                "capacity_slot": slot,
+                "proof_basis": "EXACT_OWNER_WINDOW_AND_RESERVED_BOUNDED_CAPACITY_SLOT",
+                "material_reentry": headline_id in reentry,
+                "cheap_frontier_evaluated": True,
+                "evidence_walk_evaluated": False,
+                "factual_or_numeric_authority_granted": False,
+                "publication_authority_granted": False,
+            }
+            continue
+        if expires_at < prepared_at:
+            reason = "ROLLING_IDENTITY_ALREADY_EXPIRED"
+        elif expires_at < target_effective_at:
+            reason = "NO_OWNER_EDITORIAL_OPPORTUNITY_BEFORE_ROLLING_EXPIRY"
+        else:
+            reason = "BOUNDED_FRONTIER_CAPACITY_UNAVAILABLE_BEFORE_ROLLING_EXPIRY"
+        dispositions[headline_id] = {
+            "headline_id": headline_id,
+            "disposition": "NOT_PROMOTED_BEFORE_EXPIRY",
+            "accounting_level": "CHEAP_FRONTIER_DISPOSITION",
+            "disposition_at_utc": _iso_utc(prepared_at),
+            "rolling_expiry_utc": _iso_utc(expires_at),
+            "reason_code": reason,
+            "target_opportunity": dict(target_opportunity) if target_opportunity else None,
+            "last_opportunity_before_expiry_id": next((
+                opportunity["opportunity_id"] for opportunity in reversed(opportunities)
+                if _normalize_cutoff_utc(opportunity["start_utc"]) <= expires_at
+            ), None),
+            "material_reentry": headline_id in reentry,
+            "cheap_frontier_evaluated": True,
+            "evidence_walk_evaluated": False,
+            "factual_or_numeric_authority_granted": False,
+            "publication_authority_granted": False,
+        }
+    dispositions.update(future_rows)
+
+    retained_audit: list[dict[str, Any]] = []
+    current_ids = set(rows_by_eligible_id)
+    retention_floor = prepared_at - timedelta(hours=PREPARED_FRONTIER_AUDIT_RETENTION_HOURS)
+    for prior in prior_rows:
+        headline_id = str(prior["headline_id"])
+        if headline_id in current_ids or headline_id in evaluated:
+            continue
+        try:
+            expiry = _normalize_cutoff_utc(str(prior.get("rolling_expiry_utc") or ""))
+        except (TypeError, ValueError):
+            continue
+        if expiry < retention_floor:
+            continue
+        carried = dict(prior)
+        if carried.get("disposition") != "NOT_PROMOTED_BEFORE_EXPIRY":
+            carried = {
+                **carried,
+                "prior_disposition": carried.get("disposition"),
+                "disposition": "NOT_PROMOTED_BEFORE_EXPIRY",
+                "accounting_level": "CHEAP_FRONTIER_DISPOSITION",
+                "disposition_at_utc": _iso_utc(prepared_at),
+                "reason_code": "IDENTITY_LEFT_ROLLING_UNIVERSE_WITHOUT_TERMINAL_EVIDENCE_WALK",
+                "cheap_frontier_evaluated": True,
+                "evidence_walk_evaluated": False,
+            }
+        carried["continuity_carried_at_utc"] = _iso_utc(prepared_at)
+        retained_audit.append(carried)
+
+    current_dispositions = sorted(dispositions.values(), key=lambda row: row["headline_id"])
+    retained_audit = sorted(retained_audit, key=lambda row: row["headline_id"])
+    deferred_ids = sorted(
+        headline_id for headline_id, row in dispositions.items()
+        if row.get("disposition") == "FUTURE_OPPORTUNITY_PROVEN"
+    )
+    not_promoted_ids = sorted(
+        headline_id for headline_id, row in dispositions.items()
+        if row.get("disposition") == "NOT_PROMOTED_BEFORE_EXPIRY"
+    )
     prepared_input = {
         **dict(rolling_input),
         "unique_headline_ids": selected_ids,
@@ -2031,10 +2313,10 @@ def build_prepared_rolling_x_candidate_state(
             "publication_authority_granted": False,
         }
     frontier = {
-        "schema_version": "contentops.rolling_x_prepared_frontier.v1",
+        "schema_version": "contentops.rolling_x_prepared_frontier.v2",
         "selection_order": [
             "material_update_or_priority_reentry",
-            "within_six_hours_of_rolling_expiry",
+            "rolling_expiry_ascending_against_exact_owner_calendar",
             "known_evidence_path_priority",
             "source_timestamp_ascending",
             "headline_id",
@@ -2051,9 +2333,35 @@ def build_prepared_rolling_x_candidate_state(
         "deferred_headline_ids": deferred_ids,
         "deferred_headline_ids_hash": _logical_hash(deferred_ids),
         "deferred_identity_count": len(deferred_ids),
+        "not_promoted_headline_ids": not_promoted_ids,
+        "not_promoted_headline_ids_hash": _logical_hash(not_promoted_ids),
+        "not_promoted_identity_count": len(not_promoted_ids),
+        "frontier_accounted_identity_count": len(current_dispositions),
+        "frontier_reconciliation_total": (
+            len(selected_ids) + len(deferred_ids) + len(not_promoted_ids)
+        ),
+        "frontier_reconciliation_valid": (
+            len(selected_ids) + len(deferred_ids) + len(not_promoted_ids)
+            == len(frontier_rows) == len(current_dispositions)
+        ),
+        "identity_dispositions": current_dispositions,
+        "identity_dispositions_hash": _logical_hash(current_dispositions),
+        "retained_audit_dispositions": retained_audit,
+        "retained_audit_dispositions_hash": _logical_hash(retained_audit),
+        "retained_audit_disposition_count": len(retained_audit),
+        "target_editorial_opportunity": (
+            dict(target_opportunity) if target_opportunity else None
+        ),
+        "eligible_editorial_opportunities": opportunities,
+        "eligible_editorial_opportunities_hash": _logical_hash(opportunities),
+        "opportunity_schedule_derived_from_policy": editorial_opportunities is not None,
         "future_evaluation_requires_terminal_refresh": bool(deferred_ids),
         "rolling_window_hours": window_hours,
         "full_universe_semantic_processing_performed": False,
+        "full_universe_frontier_accounting_model_or_provider_calls": 0,
+        "frontier_dispositions_grant_evidence_walk_evaluation": False,
+        "frontier_dispositions_grant_factual_or_numeric_authority": False,
+        "frontier_dispositions_grant_publication_authority": False,
     }
     frontier["frontier_logical_hash"] = _logical_hash(frontier)
     state = {
@@ -2147,6 +2455,103 @@ def validate_prepared_rolling_x_candidate_state(
         str(row.get("headline_id") or "") for row in headlines
     ]:
         raise ValueError("rolling_x_prepared_candidate_frontier_selection_mismatch")
+    dispositions = list(frontier.get("identity_dispositions") or [])
+    if not all(isinstance(row, Mapping) for row in dispositions):
+        raise ValueError("rolling_x_prepared_candidate_dispositions_invalid")
+    disposition_ids = [str(row.get("headline_id") or "") for row in dispositions]
+    if len(disposition_ids) != len(set(disposition_ids)):
+        raise ValueError("rolling_x_prepared_candidate_disposition_identity_duplicate")
+    selected_ids = set(str(value) for value in frontier.get("selected_headline_ids") or [])
+    deferred_ids = set(str(value) for value in frontier.get("deferred_headline_ids") or [])
+    not_promoted_ids = set(
+        str(value) for value in frontier.get("not_promoted_headline_ids") or []
+    )
+    if (
+        selected_ids.intersection(deferred_ids)
+        or selected_ids.intersection(not_promoted_ids)
+        or deferred_ids.intersection(not_promoted_ids)
+        or selected_ids.union(deferred_ids, not_promoted_ids) != set(disposition_ids)
+        or frontier.get("frontier_reconciliation_total") is None
+        or int(frontier.get("frontier_reconciliation_total")) != len(disposition_ids)
+        or frontier.get("frontier_reconciliation_valid") is not True
+    ):
+        raise ValueError("rolling_x_prepared_candidate_disposition_coverage_invalid")
+    if not hmac.compare_digest(
+        str(frontier.get("identity_dispositions_hash") or ""),
+        _logical_hash(dispositions),
+    ):
+        raise ValueError("rolling_x_prepared_candidate_dispositions_hash_invalid")
+    opportunities = list(frontier.get("eligible_editorial_opportunities") or [])
+    if (
+        not all(isinstance(row, Mapping) for row in opportunities)
+        or not hmac.compare_digest(
+            str(frontier.get("eligible_editorial_opportunities_hash") or ""),
+            _logical_hash(opportunities),
+        )
+    ):
+        raise ValueError("rolling_x_prepared_candidate_opportunity_schedule_invalid")
+    opportunity_by_id = {
+        str(row.get("opportunity_id") or ""): row for row in opportunities
+    }
+    if len(opportunity_by_id) != len(opportunities) or "" in opportunity_by_id:
+        raise ValueError("rolling_x_prepared_candidate_opportunity_identity_invalid")
+    target_opportunity = frontier.get("target_editorial_opportunity")
+    if (
+        (opportunities and target_opportunity != opportunities[0])
+        or (not opportunities and target_opportunity is not None)
+        or (
+            target_opportunity is not None
+            and len(selected_ids) > int(target_opportunity.get("capacity") or 0)
+        )
+    ):
+        raise ValueError("rolling_x_prepared_candidate_target_opportunity_invalid")
+    allowed_dispositions = {
+        "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "FUTURE_OPPORTUNITY_PROVEN",
+        "NOT_PROMOTED_BEFORE_EXPIRY",
+    }
+    capacity_slots: set[tuple[str, int]] = set()
+    for row in dispositions:
+        if (
+            row.get("disposition") not in allowed_dispositions
+            or row.get("evidence_walk_evaluated") is not False
+            or row.get("factual_or_numeric_authority_granted") is not False
+            or row.get("publication_authority_granted") is not False
+        ):
+            raise ValueError("rolling_x_prepared_candidate_disposition_authority_invalid")
+        if (
+            row.get("disposition") == "SELECTED_FOR_CURRENT_PREPARED_FRONTIER"
+            and row.get("opportunity") != target_opportunity
+        ):
+            raise ValueError("rolling_x_prepared_candidate_selection_opportunity_invalid")
+        if row.get("disposition") == "FUTURE_OPPORTUNITY_PROVEN":
+            opportunity = row.get("opportunity") or {}
+            start = _normalize_cutoff_utc(str(opportunity.get("start_utc") or ""))
+            expiry = _normalize_cutoff_utc(str(row.get("rolling_expiry_utc") or ""))
+            slot = int(row.get("capacity_slot") or 0)
+            capacity = int(opportunity.get("capacity") or 0)
+            opportunity_id = str(opportunity.get("opportunity_id") or "")
+            slot_key = (opportunity_id, slot)
+            if (
+                not opportunity_id or start > expiry or slot < 1 or slot > capacity
+                or slot_key in capacity_slots
+                or opportunity_by_id.get(opportunity_id) != opportunity
+                or (target_opportunity or {}).get("opportunity_id") == opportunity_id
+            ):
+                raise ValueError("rolling_x_prepared_candidate_future_proof_invalid")
+            capacity_slots.add(slot_key)
+    retained = list(frontier.get("retained_audit_dispositions") or [])
+    if (
+        not all(isinstance(row, Mapping) for row in retained)
+        or set(str(row.get("headline_id") or "") for row in retained).intersection(
+            disposition_ids
+        )
+        or not hmac.compare_digest(
+            str(frontier.get("retained_audit_dispositions_hash") or ""),
+            _logical_hash(retained),
+        )
+    ):
+        raise ValueError("rolling_x_prepared_candidate_retained_audit_invalid")
     return dict(state)
 
 

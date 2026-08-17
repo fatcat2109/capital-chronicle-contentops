@@ -25,6 +25,9 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     load_terminal_editorial_continuity,
     validate_editorial_worker_return,
 )
+from live_contentops.newsroom_assignment_scheduler_v1 import (
+    build_prepared_rolling_x_candidate_state,
+)
 
 
 def _write_json(path: Path, value: object) -> None:
@@ -241,6 +244,50 @@ def test_terminal_continuity_uses_attempted_frontier_not_full_intake_universe(tm
     assert continuity["last_terminal_cutoff_utc"] == "2026-08-16T04:00:00Z"
 
 
+def test_frontier_only_non_promotion_is_not_editorially_evaluated(tmp_path):
+    store = tmp_path / "store.sqlite3"
+    outputs = tmp_path / "outputs"
+    _create_store(store)
+    _terminal_cycle(
+        store,
+        outputs,
+        window_id="window-frontier-disposition",
+        cutoff="2026-08-16T04:00:00Z",
+        headline_ids=["selected", "cheap-only"],
+        updated_at="2026-08-16T04:10:00Z",
+        catalog_fingerprint="catalog-frontier-disposition",
+    )
+    cycle_dir = outputs / "window-frontier-disposition"
+    _write_json(cycle_dir / "rolling_x_assignment_v1.json", {
+        "ranked_clusters": [
+            {"cluster_id": "selected-cluster", "rank": 1, "headline_ids": ["selected"]},
+            {"cluster_id": "cheap-cluster", "rank": 2, "headline_ids": ["cheap-only"]},
+        ],
+    })
+    _write_json(cycle_dir / "rolling_x_prepared_candidate_state_v1.json", {
+        "prepared_frontier": {
+            "selected_headline_ids": ["selected"],
+            "not_promoted_headline_ids": ["cheap-only"],
+            "identity_dispositions": [{
+                "headline_id": "cheap-only",
+                "disposition": "NOT_PROMOTED_BEFORE_EXPIRY",
+                "accounting_level": "CHEAP_FRONTIER_DISPOSITION",
+                "evidence_walk_evaluated": False,
+            }],
+        },
+    })
+
+    continuity = load_terminal_editorial_continuity(
+        store_path=store, output_root=outputs
+    )
+
+    assert continuity["evaluated_headline_ids"] == ["selected"]
+    assert "cheap-only" not in continuity["evaluated_headline_ids"]
+    assert continuity["terminal_records"][0]["evaluated_identity_source"] == (
+        "PREPARED_FRONTIER"
+    )
+
+
 def test_candidate_universe_dedupes_includes_material_and_late_unseen_excludes_published(tmp_path):
     store = tmp_path / "store.sqlite3"
     outputs = tmp_path / "outputs"
@@ -365,6 +412,33 @@ def test_governed_material_relationship_reenters_even_when_identity_was_evaluate
         "INCLUDE_MATERIAL_UPDATE_CHAIN"
     )
     assert universe["included_clusters"][0]["relationship"] == relationship
+    rows = [
+        {"headline_id": "evaluated-update", "source_timestamp_utc": "2026-08-16T05:00:00Z"},
+        {"headline_id": "ordinary", "source_timestamp_utc": "2026-08-16T04:00:00Z"},
+    ]
+    prepared = build_prepared_rolling_x_candidate_state(
+        rolling_input={
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "cutoff_time_utc": "2026-08-16T06:00:00Z",
+            "window_start_utc": "2026-08-15T06:00:00Z",
+            "window_hours": 24.0,
+            "unique_headline_ids": ["evaluated-update", "ordinary"],
+            "headlines": rows,
+            "counts": {"accepted": 2, "duplicates": 0},
+            "canonical_input_hash": "controlled",
+            "complete_input_coverage": True,
+        },
+        prepared_at_utc="2026-08-16T06:00:00Z",
+        max_candidates=1,
+        evaluated_headline_ids=["evaluated-update"],
+        reentry_headline_ids=["evaluated-update"],
+    )
+    assert prepared["prepared_frontier"]["selected_headline_ids"] == [
+        "evaluated-update"
+    ]
+    assert prepared["prepared_frontier"]["identity_dispositions"][0][
+        "material_reentry"
+    ] is True
 
 
 def test_cc_catalog_refreshes_on_estate_or_governed_surface_change_and_remains_read_only(tmp_path):

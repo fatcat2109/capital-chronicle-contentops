@@ -139,11 +139,11 @@ def test_prepared_candidate_state_is_small_zero_model_and_exactly_bound():
 
     state = build_prepared_rolling_x_candidate_state(
         rolling_input=rolling_input,
-        prepared_at_utc="2026-08-08T09:18:54Z",
+        prepared_at_utc="2026-07-08T13:21:16Z",
     )
     validated = validate_prepared_rolling_x_candidate_state(
         state,
-        publication_cutoff_utc="2026-08-08T09:48:54Z",
+        publication_cutoff_utc="2026-07-08T13:51:16Z",
     )
 
     assert validated["status"] == "READY"
@@ -161,18 +161,18 @@ def test_prepared_candidate_state_is_small_zero_model_and_exactly_bound():
 def test_prepared_candidate_state_rejects_stale_or_tampered_checkpoint():
     state = build_prepared_rolling_x_candidate_state(
         rolling_input=_small_input(4),
-        prepared_at_utc="2026-08-08T09:18:54Z",
+        prepared_at_utc="2026-07-08T13:21:16Z",
     )
     with pytest.raises(ValueError, match="rolling_x_prepared_candidate_stale"):
         validate_prepared_rolling_x_candidate_state(
             state,
-            publication_cutoff_utc="2026-08-08T12:18:55Z",
+            publication_cutoff_utc="2026-07-08T16:21:17Z",
         )
     tampered = {**state, "prepared_candidate_count": 99}
     with pytest.raises(ValueError, match="rolling_x_prepared_candidate_hash_mismatch"):
         validate_prepared_rolling_x_candidate_state(
             tampered,
-            publication_cutoff_utc="2026-08-08T09:20:00Z",
+            publication_cutoff_utc="2026-07-08T13:22:00Z",
         )
 
 
