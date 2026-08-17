@@ -26,6 +26,13 @@ class MediaExecutionError(RuntimeError):
     pass
 
 
+WINDOWS_SAFE_EXECUTABLE_PATH_MAX = 259
+REMOTION_BROWSER_RELATIVE = Path(
+    ".remotion/chrome-headless-shell/win64/"
+    "chrome-headless-shell-win64/chrome-headless-shell.exe"
+)
+
+
 def artifact(path: str | Path) -> dict[str, Any]:
     item = Path(path).resolve()
     if not item.is_file():
@@ -80,6 +87,48 @@ def _ensure_junction(link: Path, target: Path) -> None:
         link.symlink_to(target, target_is_directory=True)
 
 
+def resolve_remotion_browser_executable(dependency_root: Path) -> Path:
+    """Resolve Chrome from the canonical dependency root, never the job projection."""
+
+    root = dependency_root.resolve()
+    expected = (root / REMOTION_BROWSER_RELATIVE).resolve()
+    if expected.is_file():
+        candidate = expected
+    else:
+        cache_root = root / ".remotion" / "chrome-headless-shell"
+        matches = sorted(cache_root.rglob("chrome-headless-shell.exe")) if cache_root.is_dir() else []
+        if len(matches) != 1:
+            raise MediaExecutionError(
+                f"canonical_remotion_browser_identity_invalid:{len(matches)}:{cache_root}"
+            )
+        candidate = matches[0].resolve()
+    if root not in candidate.parents:
+        raise MediaExecutionError("canonical_remotion_browser_path_escape")
+    if os.name == "nt" and len(str(candidate)) > WINDOWS_SAFE_EXECUTABLE_PATH_MAX:
+        raise MediaExecutionError(
+            f"canonical_remotion_browser_path_too_long:{len(str(candidate))}"
+        )
+    return candidate
+
+
+def browser_launch_layout(project_root: Path, dependency_root: Path) -> dict[str, Any]:
+    canonical = resolve_remotion_browser_executable(dependency_root)
+    relative = canonical.relative_to(dependency_root.resolve())
+    projected = project_root.resolve() / "node_modules" / relative
+    return {
+        "result": "PASS_WINDOWS_SAFE_REMOTION_BROWSER_LAYOUT",
+        "canonical_browser_executable": str(canonical),
+        "canonical_browser_path_length": len(str(canonical)),
+        "canonical_browser_exists": canonical.is_file(),
+        "projected_browser_executable": str(projected),
+        "projected_browser_path_length": len(str(projected)),
+        "projected_browser_exists": projected.is_file(),
+        "same_file_identity": projected.is_file() and os.path.samefile(projected, canonical),
+        "render_uses_canonical_browser_executable": True,
+        "windows_safe_executable_path_max": WINDOWS_SAFE_EXECUTABLE_PATH_MAX,
+    }
+
+
 def prepare_project(
     *, project_root: Path, scaffold_root: Path, dependency_root: Path, asset_root: Path
 ) -> dict[str, Any]:
@@ -90,12 +139,13 @@ def prepare_project(
         if not destination.exists():
             shutil.copy2(source, destination)
     _ensure_junction(project_root / "node_modules", dependency_root)
-    _ensure_junction(project_root / "public" / "assets", asset_root / "assets")
     return {
         "result": "PASS_PROJECT_SCAFFOLD",
         "project_root": str(project_root.resolve()),
         "dependency_root": str(dependency_root.resolve()),
         "asset_root": str(asset_root.resolve()),
+        "render_uses_canonical_public_root": True,
+        "browser_launch_layout": browser_launch_layout(project_root, dependency_root),
     }
 
 
@@ -122,9 +172,25 @@ def typecheck_project(project_root: Path) -> dict[str, Any]:
 
 
 def render_project(
-    *, project_root: Path, output: Path, crf: int, concurrency: int = 2
+    *,
+    project_root: Path,
+    output: Path,
+    crf: int,
+    browser_executable: Path,
+    public_root: Path,
+    composition_id: str = "FWBUnattendedShort",
+    entry_point: str = "src/index.tsx",
+    concurrency: int = 2,
 ) -> dict[str, Any]:
     output.parent.mkdir(parents=True, exist_ok=True)
+    browser = browser_executable.resolve()
+    if not browser.is_file():
+        raise MediaExecutionError(f"canonical_remotion_browser_missing:{browser}")
+    if os.name == "nt" and len(str(browser)) > WINDOWS_SAFE_EXECUTABLE_PATH_MAX:
+        raise MediaExecutionError(f"canonical_remotion_browser_path_too_long:{len(str(browser))}")
+    public = public_root.resolve()
+    if not public.is_dir() or not (public / "assets").is_dir():
+        raise MediaExecutionError(f"canonical_public_asset_root_invalid:{public}")
     executable = project_root / "node_modules" / ".bin" / (
         "remotion.cmd" if os.name == "nt" else "remotion"
     )
@@ -132,13 +198,15 @@ def render_project(
         [
             str(executable),
             "render",
-            "src/index.tsx",
-            "FWBUnattendedShort",
+            entry_point,
+            composition_id,
             str(output),
             "--codec=h264",
             f"--crf={int(crf)}",
             "--pixel-format=yuv420p",
             f"--concurrency={max(1, int(concurrency))}",
+            f"--browser-executable={browser}",
+            f"--public-dir={public}",
             "--log=verbose",
         ],
         cwd=project_root,
@@ -147,6 +215,9 @@ def render_project(
     return {
         "result": "PASS_RENDER",
         "artifact": artifact(output),
+        "browser_executable": str(browser),
+        "browser_executable_path_length": len(str(browser)),
+        "canonical_public_root": str(public),
         **result,
     }
 

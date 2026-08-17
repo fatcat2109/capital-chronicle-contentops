@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import threading
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -29,12 +30,20 @@ from video.unattended_core_factory_v1.creative import (
 )
 from video.unattended_core_factory_v1.desktop_session import (
     CODEX_MODEL,
-    CODEX_REASONING_EFFORT,
+    CREATIVE_EXECUTION_PLANE,
+    CREATIVE_REASONING_EFFORT,
     CREATIVE_RUNTIME,
-    EXECUTION_PLANE,
-    DesktopSessionProvenance,
+    PARENT_EXECUTION_PLANE,
+    PARENT_REASONING_EFFORT,
+    PARENT_RUNTIME,
+    BoundedCreativeProvenance,
+    ParentSessionProvenance,
 )
 from video.unattended_core_factory_v1.store import V2JobStore
+from video.unattended_core_factory_v1.media import (
+    REMOTION_BROWSER_RELATIVE,
+    resolve_remotion_browser_executable,
+)
 from video.unattended_core_factory_v1.supervisor import (
     DesktopSessionV2Factory,
     FactoryConfig,
@@ -49,7 +58,17 @@ PACKET_PATH = (
     / "unattended_core_factory_v1"
     / "frozen_without_breaking_proof_input_v1.json"
 )
-SESSION = DesktopSessionProvenance(session_label="test-desktop-session")
+PARENT = ParentSessionProvenance(session_label="test-high-parent-session")
+INITIAL_CREATIVE = BoundedCreativeProvenance(
+    parent=PARENT,
+    execution_label="test-initial-xhigh-creative",
+    native_child_task_id="test-child-initial",
+)
+MEDIA_REVIEW = BoundedCreativeProvenance(
+    parent=PARENT,
+    execution_label="test-xhigh-media-review",
+    native_child_task_id="test-child-review",
+)
 
 
 def packet() -> dict[str, object]:
@@ -141,7 +160,12 @@ class FakeMedia:
             raise RuntimeError("injected_typecheck_failure")
         return {"result": "PASS_GENERATED_SOURCE_TYPECHECK"}
 
-    def render_project(self, *, project_root: Path, output: Path, crf: int):
+    def resolve_remotion_browser_executable(self, dependency_root: Path):
+        browser = dependency_root / "chrome-headless-shell.exe"
+        browser.write_bytes(b"browser")
+        return browser
+
+    def render_project(self, *, project_root: Path, output: Path, crf: int, browser_executable: Path, public_root: Path):
         self.render_count += 1
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_bytes(f"render-{self.render_count}-crf-{crf}".encode())
@@ -220,7 +244,7 @@ def make_factory(tmp_path: Path, *, media=None) -> tuple[DesktopSessionV2Factory
     voices = tmp_path / "voices.bin"
     model.write_bytes(b"model")
     voices.write_bytes(b"voices")
-    config = FactoryConfig(runtime_root=runtime, scaffold_root=scaffold, dependency_root=dependency, asset_root=assets, kokoro_model=model, kokoro_voices=voices, implementation_head="a" * 40, worker_id="worker")
+    config = FactoryConfig(runtime_root=runtime, scaffold_root=scaffold, dependency_root=dependency, asset_root=assets, kokoro_model=model, kokoro_voices=voices, implementation_head="a" * 40, worker_id="worker", parent_provenance=PARENT)
     return DesktopSessionV2Factory(store=store, config=config, media_backend=media or FakeMedia()), store, job_id
 
 
@@ -228,7 +252,7 @@ def start_and_submit(factory: DesktopSessionV2Factory) -> tuple[str, str]:
     started = factory.run_once(proof_run_started_at="2026-08-17T00:00:00Z")
     assert started["result"] == "AWAITING_CODEX_DESKTOP_SESSION_INPUT"
     assert started["required_input"] == "INITIAL_CREATIVE"
-    factory.submit_initial_creative(video_job_id=started["video_job_id"], run_id=started["run_id"], editor=editor_artifact(), motion=motion_artifact(), provenance=SESSION)
+    factory.submit_initial_creative(video_job_id=started["video_job_id"], run_id=started["run_id"], editor=editor_artifact(), motion=motion_artifact(), provenance=INITIAL_CREATIVE)
     return started["video_job_id"], started["run_id"]
 
 
@@ -236,7 +260,7 @@ def complete(factory: DesktopSessionV2Factory, *, material: bool = False) -> dic
     job_id, run_id = start_and_submit(factory)
     proxy = factory.resume(video_job_id=job_id, run_id=run_id)
     assert proxy["required_input"] == "ACTUAL_MEDIA_REVIEW"
-    factory.submit_actual_media_review(video_job_id=job_id, run_id=run_id, review=review_artifact(material=material), provenance=SESSION)
+    factory.submit_actual_media_review(video_job_id=job_id, run_id=run_id, review=review_artifact(material=material), provenance=MEDIA_REVIEW)
     return factory.resume(video_job_id=job_id, run_id=run_id)
 
 
@@ -246,11 +270,16 @@ def test_governed_packet_is_isolated_and_zero_write() -> None:
     assert all(value is False for value in packet()["hard_boundaries"].values())
 
 
-def test_active_factory_is_desktop_session_native_and_has_no_external_creative_invoker() -> None:
-    assert (CREATIVE_RUNTIME, EXECUTION_PLANE, CODEX_MODEL, CODEX_REASONING_EFFORT) == (
-        "CODEX_DESKTOP_APP_FRESH_TASK_SESSION",
+def test_active_factory_is_high_parent_bounded_xhigh_and_has_no_external_creative_invoker() -> None:
+    assert (PARENT_RUNTIME, PARENT_EXECUTION_PLANE, CODEX_MODEL, PARENT_REASONING_EFFORT) == (
+        "CODEX_DESKTOP_APP_PARENT_TASK_SESSION",
         "CODEX_DESKTOP_APP_TASK_SESSION",
         "gpt-5.6-sol",
+        "high",
+    )
+    assert (CREATIVE_RUNTIME, CREATIVE_EXECUTION_PLANE, CREATIVE_REASONING_EFFORT) == (
+        "CODEX_DESKTOP_APP_BOUNDED_VIDEO_CREATIVE_REASONING",
+        "CODEX_DESKTOP_APP_BOUNDED_REASONING",
         "xhigh",
     )
     for relative in (
@@ -297,6 +326,16 @@ def test_factual_gate_and_sandbox_remain_fail_closed() -> None:
         validate_source_files(files)
 
 
+def test_remotion_browser_resolves_from_canonical_dependency_root(tmp_path: Path) -> None:
+    dependency = tmp_path / "deps"
+    browser = dependency / REMOTION_BROWSER_RELATIVE
+    browser.parent.mkdir(parents=True)
+    browser.write_bytes(b"browser")
+    resolved = resolve_remotion_browser_executable(dependency)
+    assert resolved == browser.resolve()
+    assert "generated_project" not in str(resolved)
+
+
 def test_atomic_claim_race_has_one_owner(tmp_path: Path) -> None:
     db = tmp_path / "race.sqlite3"
     store = V2JobStore(db)
@@ -318,6 +357,28 @@ def test_atomic_claim_race_has_one_owner(tmp_path: Path) -> None:
     assert sum(item is not None for item in results) == 1
 
 
+def test_parent_high_session_continuity_is_hash_locked(tmp_path: Path) -> None:
+    factory, store, _ = make_factory(tmp_path)
+    started = factory.run_once()
+    drifted_parent = ParentSessionProvenance(session_label="different-high-parent")
+    drifted = DesktopSessionV2Factory(
+        store=store,
+        config=replace(factory.config, parent_provenance=drifted_parent),
+        media_backend=factory.media,
+    )
+    with pytest.raises(Exception, match="parent_high_session_continuity_mismatch"):
+        drifted.submit_initial_creative(
+            video_job_id=started["video_job_id"],
+            run_id=started["run_id"],
+            editor=editor_artifact(),
+            motion=motion_artifact(),
+            provenance=BoundedCreativeProvenance(
+                parent=drifted_parent,
+                execution_label="drifted",
+            ),
+        )
+
+
 def test_stage_events_are_append_only(tmp_path: Path) -> None:
     factory, store, job_id = make_factory(tmp_path)
     factory.run_once()
@@ -329,7 +390,7 @@ def test_session_artifact_e2e_reaches_owner_review_without_live_creative_provide
     factory, store, job_id = make_factory(tmp_path)
     result = complete(factory)
     assert result["job"]["state"] == "OWNER_REVIEW_READY"
-    assert result["job"]["terminal_result"] == "PASS_IMPLEMENTATION_DESKTOP_SESSION_NATIVE_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW"
+    assert result["job"]["terminal_result"] == "PASS_IMPLEMENTATION_HIGH_PARENT_XHIGH_CREATIVE_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW"
     provenance = [json.loads(event["model_provenance_json"]) for event in store.events(job_id)]
     creative = [
         item
@@ -337,6 +398,10 @@ def test_session_artifact_e2e_reaches_owner_review_without_live_creative_provide
         if item.get("execution_kind") in {"INITIAL_CREATIVE", "ACTUAL_MEDIA_REVIEW"}
     ]
     assert len(creative) == 2
+    assert all(item["parent_reasoning_effort"] == "high" for item in creative)
+    assert all(item["declared_creative_reasoning_effort"] == "xhigh" for item in creative)
+    assert all(item["all_session_xhigh"] is False for item in creative)
+    assert all(item["mechanical_work_performed"] is False for item in creative)
     assert all(item["cli_invocation_count"] == item["sdk_api_invocation_count"] == item["provider_creative_invocation_count"] == 0 for item in creative)
 
 
@@ -392,6 +457,11 @@ def test_legal_stage_order_zero_write_and_owner_bundle_truth(tmp_path: Path) -> 
     bundle = json.loads((root / "review" / "owner_review_bundle.json").read_text(encoding="utf-8"))
     assert bundle["owner_acceptance_claimed"] is False
     assert bundle["creative_runtime"] == CREATIVE_RUNTIME
+    assert bundle["parent_runtime"] == PARENT_RUNTIME
+    assert bundle["parent_reasoning_effort"] == "high"
+    assert bundle["creative_reasoning_effort"] == "xhigh"
+    assert bundle["all_session_xhigh"] is False
+    assert bundle["xhigh_mechanical_work_execution_count"] == 0
     assert bundle["creative_cli_invocations"] == bundle["creative_sdk_api_invocations"] == bundle["creative_9router_invocations"] == 0
     assert bundle["unattended"]["manual_source_edits_after_start"] == 0
 

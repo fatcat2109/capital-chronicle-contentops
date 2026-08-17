@@ -19,9 +19,11 @@ from .creative import (
     validate_source_files,
 )
 from .desktop_session import (
-    DesktopSessionProvenance,
-    build_desktop_session_receipt,
-    validate_desktop_session_receipt,
+    BoundedCreativeProvenance,
+    ParentSessionProvenance,
+    build_bounded_creative_receipt,
+    build_parent_session_receipt,
+    validate_bounded_creative_receipt,
 )
 from .store import V2JobStore, utc_now
 
@@ -70,6 +72,7 @@ class FactoryConfig:
     kokoro_voices: Path
     implementation_head: str
     worker_id: str
+    parent_provenance: ParentSessionProvenance
     bed_relative_path: str = "assets/audio/sound/chapter_02_bed.m4a"
 
     def validate(self) -> None:
@@ -86,6 +89,7 @@ class FactoryConfig:
             raise SupervisorError("implementation_head_must_be_exact_commit")
         if not self.worker_id:
             raise SupervisorError("worker_id_required")
+        self.parent_provenance.validate()
 
 
 def _json_artifact(path: Path, value: Any) -> dict[str, Any]:
@@ -140,8 +144,8 @@ def _safe_cost(receipts: list[Mapping[str, Any]]) -> dict[str, Any]:
                 if isinstance(value, (int, float)):
                     usage[str(key)] = usage.get(str(key), 0.0) + float(value)
     return {
-        "desktop_session_creative_stage_count": calls,
-        "desktop_session_submission_attempt_count": attempts,
+        "bounded_xhigh_creative_execution_count": calls,
+        "bounded_xhigh_creative_submission_attempt_count": attempts,
         "model_cost_usd": round(usd, 8) if exposed else None,
         "model_cost_exposed": exposed,
         "safe_usage": usage or None,
@@ -179,6 +183,7 @@ class DesktopSessionV2Factory:
             "session_inbox": root / "desktop_session_inbox",
             "creative_submission": root / "desktop_session_inbox" / "initial_creative.json",
             "review_submission": root / "desktop_session_inbox" / "actual_media_review.json",
+            "parent_receipt": artifacts / "parent_high_session_receipt.json",
             "editor": artifacts / "creative_editor.json",
             "editor_validation": artifacts / "creative_editor_validation.json",
             "editor_receipt": artifacts / "codex_initial_execution_receipt.json",
@@ -232,6 +237,21 @@ class DesktopSessionV2Factory:
             raise SupervisorError("desktop_session_input_hash_missing")
         return job
 
+    def _parent_receipt(
+        self, *, paths: Mapping[str, Path], video_job_id: str, run_id: str
+    ) -> dict[str, Any]:
+        if not paths["parent_receipt"].is_file():
+            raise SupervisorError("parent_high_session_receipt_missing")
+        observed = _load(paths["parent_receipt"])
+        expected = build_parent_session_receipt(
+            provenance=self.config.parent_provenance,
+            video_job_id=video_job_id,
+            run_id=run_id,
+        )
+        if hash_value(observed) != hash_value(expected):
+            raise SupervisorError("parent_high_session_continuity_mismatch")
+        return observed
+
     def submit_initial_creative(
         self,
         *,
@@ -239,14 +259,21 @@ class DesktopSessionV2Factory:
         run_id: str,
         editor: Mapping[str, Any],
         motion: Mapping[str, Any],
-        provenance: DesktopSessionProvenance,
+        provenance: BoundedCreativeProvenance,
     ) -> dict[str, Any]:
         job = self._active_job(video_job_id=video_job_id, run_id=run_id)
         paths = self._paths(video_job_id)
         packet = self._packet(job)
+        parent_receipt = self._parent_receipt(
+            paths=paths, video_job_id=video_job_id, run_id=run_id
+        )
+        if provenance.parent.continuity_key != self.config.parent_provenance.continuity_key:
+            raise SupervisorError("creative_parent_session_continuity_mismatch")
+        if provenance.parent.continuity_key != parent_receipt["parent_session_continuity_key"]:
+            raise SupervisorError("creative_parent_receipt_continuity_mismatch")
         validate_editor_artifact(editor, packet)
         validate_motion_artifact(motion, packet, editor)
-        receipt = build_desktop_session_receipt(
+        receipt = build_bounded_creative_receipt(
             provenance=provenance,
             execution_kind="INITIAL_CREATIVE",
             video_job_id=video_job_id,
@@ -257,7 +284,7 @@ class DesktopSessionV2Factory:
                 "motion": hash_value(motion),
             },
         )
-        validate_desktop_session_receipt(
+        validate_bounded_creative_receipt(
             receipt,
             execution_kind="INITIAL_CREATIVE",
             video_job_id=video_job_id,
@@ -287,7 +314,7 @@ class DesktopSessionV2Factory:
         video_job_id: str,
         run_id: str,
         review: Mapping[str, Any],
-        provenance: DesktopSessionProvenance,
+        provenance: BoundedCreativeProvenance,
     ) -> dict[str, Any]:
         job = self._active_job(video_job_id=video_job_id, run_id=run_id)
         paths = self._paths(video_job_id)
@@ -295,8 +322,15 @@ class DesktopSessionV2Factory:
         editor = _load(paths["editor"])
         motion = _load(paths["motion"])
         initial_receipt = _load(paths["editor_receipt"])
+        parent_receipt = self._parent_receipt(
+            paths=paths, video_job_id=video_job_id, run_id=run_id
+        )
+        if provenance.parent.continuity_key != self.config.parent_provenance.continuity_key:
+            raise SupervisorError("creative_parent_session_continuity_mismatch")
+        if provenance.parent.continuity_key != parent_receipt["parent_session_continuity_key"]:
+            raise SupervisorError("creative_parent_receipt_continuity_mismatch")
         validate_revision_artifact(review, packet, editor, motion)
-        receipt = build_desktop_session_receipt(
+        receipt = build_bounded_creative_receipt(
             provenance=provenance,
             execution_kind="ACTUAL_MEDIA_REVIEW",
             video_job_id=video_job_id,
@@ -307,7 +341,7 @@ class DesktopSessionV2Factory:
             },
             output_artifact_hashes={"review": hash_value(review)},
         )
-        validate_desktop_session_receipt(
+        validate_bounded_creative_receipt(
             receipt,
             execution_kind="ACTUAL_MEDIA_REVIEW",
             video_job_id=video_job_id,
@@ -446,16 +480,23 @@ class DesktopSessionV2Factory:
         started = time.monotonic()
         input_hash = str(job["input_packet_hash"])
         if stage == "CLAIMED":
+            parent_receipt = build_parent_session_receipt(
+                provenance=self.config.parent_provenance,
+                video_job_id=str(job["video_job_id"]),
+                run_id=run_id,
+            )
+            parent_record = _json_artifact(paths["parent_receipt"], parent_receipt)
             self._append(
                 job=job,
                 run_id=run_id,
                 stage=stage,
                 started=started,
                 inputs={"input_packet": input_hash},
-                artifacts=[],
-                result="PASS_ATOMIC_CLAIM",
+                artifacts=[parent_record],
+                result="PASS_ATOMIC_CLAIM_WITH_HIGH_PARENT_PROVENANCE",
                 next_stage="GOVERNED_INPUT_LOCKED",
-                role="V2JobStore.claim_next",
+                role="V2JobStore.claim_next+CodexDesktopHighParent",
+                receipt=parent_receipt,
             )
             return
         if stage == "GOVERNED_INPUT_LOCKED":
@@ -486,12 +527,21 @@ class DesktopSessionV2Factory:
             output = dict(submission.get("editor") or {})
             motion_output = dict(submission.get("motion") or {})
             receipt = dict(submission.get("receipt") or {})
-            validate_desktop_session_receipt(
+            validate_bounded_creative_receipt(
                 receipt,
                 execution_kind="INITIAL_CREATIVE",
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
             )
+            parent_receipt = self._parent_receipt(
+                paths=paths,
+                video_job_id=str(job["video_job_id"]),
+                run_id=run_id,
+            )
+            if receipt.get("parent_session_continuity_key") != parent_receipt.get(
+                "parent_session_continuity_key"
+            ):
+                raise SupervisorError("creative_submission_parent_receipt_mismatch")
             validation = validate_editor_artifact(output, packet)
             validate_motion_artifact(motion_output, packet, output)
             expected = dict(receipt.get("output_artifact_hashes") or {})
@@ -512,7 +562,7 @@ class DesktopSessionV2Factory:
                 artifacts=records,
                 result="PASS_CREATIVE_EDITOR_LOCK",
                 next_stage="MOTION_SOURCE_LOCKED",
-                role="CodexDesktopSessionBrain.initial_creative_submission",
+                role="BoundedXHighVideoCreative.initial_creative_submission",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -528,14 +578,19 @@ class DesktopSessionV2Factory:
                 raise SupervisorError("codex_initial_motion_output_hash_mismatch")
             validation = validate_motion_artifact(output, packet, editor)
             receipt = {
-                "schema": "contentops.v2.codex_desktop_session_motion_lock_receipt.v1",
+                "schema": "contentops.v2.bounded_xhigh_motion_lock_receipt.v1",
+                "parent_runtime": initial_receipt.get("parent_runtime"),
+                "parent_execution_plane": initial_receipt.get("parent_execution_plane"),
+                "parent_model_family": initial_receipt.get("parent_model_family"),
+                "parent_reasoning_effort": initial_receipt.get("parent_reasoning_effort"),
                 "creative_runtime": initial_receipt.get("creative_runtime"),
-                "execution_plane": initial_receipt.get("execution_plane"),
-                "requested_model_family": initial_receipt.get("requested_model_family"),
-                "requested_reasoning_effort": initial_receipt.get("requested_reasoning_effort"),
-                "actual_model_family": initial_receipt.get("actual_model_family"),
-                "actual_reasoning_effort": initial_receipt.get("actual_reasoning_effort"),
-                "session_continuity_key": initial_receipt.get("session_continuity_key"),
+                "creative_execution_plane": initial_receipt.get("creative_execution_plane"),
+                "declared_creative_model_family": initial_receipt.get("declared_creative_model_family"),
+                "declared_creative_reasoning_effort": initial_receipt.get("declared_creative_reasoning_effort"),
+                "parent_session_continuity_key": initial_receipt.get("parent_session_continuity_key"),
+                "same_video_job_continuity_key": initial_receipt.get("same_video_job_continuity_key"),
+                "all_session_xhigh": False,
+                "mechanical_work_performed": False,
                 "source_execution_receipt_sha256": hash_file(paths["editor_receipt"]),
                 "input_artifact_hashes": {"editor": hash_value(editor)},
                 "output_artifact_hashes": {"motion": hash_value(output)},
@@ -559,7 +614,7 @@ class DesktopSessionV2Factory:
                 artifacts=records,
                 result="PASS_MOTION_SOURCE_LOCK",
                 next_stage="HARD_SOURCE_VALIDATED",
-                role="CodexDesktopSessionBrain.motion_output_lock",
+                role="BoundedXHighVideoCreative.motion_output_lock",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -598,8 +653,15 @@ class DesktopSessionV2Factory:
             )
             return
         if stage == "PROXY_RENDERED":
+            browser = self.media.resolve_remotion_browser_executable(
+                self.config.dependency_root
+            )
             render = self.media.render_project(
-                project_root=paths["project"], output=paths["proxy"], crf=26
+                project_root=paths["project"],
+                output=paths["proxy"],
+                crf=26,
+                browser_executable=browser,
+                public_root=self.config.asset_root,
             )
             sheet = self.media.contact_sheet(paths["proxy"], paths["proxy_sheet"])
             probe = self.media.probe_media(paths["proxy"])
@@ -633,7 +695,7 @@ class DesktopSessionV2Factory:
                 raise SupervisorError("desktop_session_review_surface_hash_mismatch")
             output = dict(submission.get("review") or {})
             receipt = dict(submission.get("receipt") or {})
-            validate_desktop_session_receipt(
+            validate_bounded_creative_receipt(
                 receipt,
                 execution_kind="ACTUAL_MEDIA_REVIEW",
                 video_job_id=str(job["video_job_id"]),
@@ -662,7 +724,7 @@ class DesktopSessionV2Factory:
                 artifacts=records,
                 result="PASS_ACTUAL_MEDIA_REVIEW",
                 next_stage=next_stage,
-                role="CodexDesktopSessionBrain.actual_media_review_submission",
+                role="BoundedXHighVideoCreative.actual_media_review_submission",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -694,12 +756,19 @@ class DesktopSessionV2Factory:
                 artifacts=[record, *source_records],
                 result="PASS_CREATIVE_REVISION_LOCK",
                 next_stage="PICTURE_LOCKED",
-                role="CodexDesktopSessionBrain.localized_revision+deterministic_typecheck",
+                role="BoundedXHighVideoCreative.localized_revision+deterministic_typecheck",
             )
             return
         if stage == "PICTURE_LOCKED":
+            browser = self.media.resolve_remotion_browser_executable(
+                self.config.dependency_root
+            )
             render = self.media.render_project(
-                project_root=paths["project"], output=paths["picture"], crf=18
+                project_root=paths["project"],
+                output=paths["picture"],
+                crf=18,
+                browser_executable=browser,
+                public_root=self.config.asset_root,
             )
             self._append(
                 job=job,
@@ -799,6 +868,8 @@ class DesktopSessionV2Factory:
                 "external_media_cost_usd": 0.0,
                 "render_count": 2,
                 "rerender_count": 1 if review["decision"] == "MATERIAL_REVISION_REQUIRED" else 0,
+                "creative_rerender_count": 1 if review["decision"] == "MATERIAL_REVISION_REQUIRED" else 0,
+                "xhigh_mechanical_work_execution_count": 0,
                 "operator_intervention_minutes": 0,
                 "desktop_session_creative_cost": None,
                 "desktop_session_creative_cost_exposed": False,
@@ -888,8 +959,17 @@ class DesktopSessionV2Factory:
                     str(paths["motion_receipt"]),
                     str(paths["review_receipt"]),
                 ],
-                "creative_runtime": "CODEX_DESKTOP_APP_FRESH_TASK_SESSION",
-                "creative_execution_plane": "CODEX_DESKTOP_APP_TASK_SESSION",
+                "parent_session_receipt": str(paths["parent_receipt"]),
+                "parent_runtime": "CODEX_DESKTOP_APP_PARENT_TASK_SESSION",
+                "parent_execution_plane": "CODEX_DESKTOP_APP_TASK_SESSION",
+                "parent_model_family": "gpt-5.6-sol",
+                "parent_reasoning_effort": "high",
+                "creative_runtime": "CODEX_DESKTOP_APP_BOUNDED_VIDEO_CREATIVE_REASONING",
+                "creative_execution_plane": "CODEX_DESKTOP_APP_BOUNDED_REASONING",
+                "creative_model_family": "gpt-5.6-sol",
+                "creative_reasoning_effort": "xhigh",
+                "all_session_xhigh": False,
+                "xhigh_mechanical_work_execution_count": 0,
                 "creative_cli_invocations": 0,
                 "creative_sdk_api_invocations": 0,
                 "creative_headless_invocations": 0,
@@ -940,7 +1020,7 @@ class DesktopSessionV2Factory:
             self.store.finalize(
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
-                result="PASS_IMPLEMENTATION_DESKTOP_SESSION_NATIVE_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
+                result="PASS_IMPLEMENTATION_HIGH_PARENT_XHIGH_CREATIVE_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
                 state="OWNER_REVIEW_READY",
             )
             return

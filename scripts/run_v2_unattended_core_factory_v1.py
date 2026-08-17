@@ -1,4 +1,4 @@
-"""Explicit stage interface for the Codex Desktop-session-native V2 core factory."""
+"""Explicit stage interface for the HIGH-parent/bounded-XHIGH V2 core factory."""
 
 from __future__ import annotations
 
@@ -16,7 +16,10 @@ if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
 from video.unattended_core_factory_v1.creative import hash_value, validate_input_packet
-from video.unattended_core_factory_v1.desktop_session import DesktopSessionProvenance
+from video.unattended_core_factory_v1.desktop_session import (
+    BoundedCreativeProvenance,
+    ParentSessionProvenance,
+)
 from video.unattended_core_factory_v1.store import V2JobStore
 from video.unattended_core_factory_v1.supervisor import DesktopSessionV2Factory, FactoryConfig
 
@@ -83,6 +86,7 @@ def _add_factory_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--kokoro-voices", type=Path, required=True)
     parser.add_argument("--worker-id", default="v2-desktop-session-core-proof")
     parser.add_argument("--implementation-head", default=None)
+    parser.add_argument("--parent-session-label", required=True)
 
 
 def _factory(args: argparse.Namespace, runtime: Path, store: V2JobStore) -> DesktopSessionV2Factory:
@@ -95,6 +99,9 @@ def _factory(args: argparse.Namespace, runtime: Path, store: V2JobStore) -> Desk
         kokoro_voices=args.kokoro_voices.resolve(),
         implementation_head=args.implementation_head or _head(),
         worker_id=args.worker_id,
+        parent_provenance=ParentSessionProvenance(
+            session_label=args.parent_session_label
+        ),
     )
     return DesktopSessionV2Factory(store=store, config=config)
 
@@ -114,7 +121,7 @@ def main() -> int:
     start.add_argument("--proof-run-started-at", default=None)
 
     creative = sub.add_parser(
-        "submit-creative", help="Submit this Desktop task's initial creative artifacts"
+        "submit-creative", help="Submit one bounded XHIGH initial creative execution"
     )
     _add_factory_args(creative)
     creative.add_argument("--video-job-id", required=True)
@@ -122,7 +129,8 @@ def main() -> int:
     creative.add_argument("--editorial", type=Path, required=True)
     creative.add_argument("--source-manifest", type=Path, required=True)
     creative.add_argument("--source-root", type=Path, required=True)
-    creative.add_argument("--session-label", required=True)
+    creative.add_argument("--creative-execution-label", required=True)
+    creative.add_argument("--native-child-task-id")
 
     advance = sub.add_parser(
         "advance", help="Run deterministic stages until the next Desktop-session gate or terminal"
@@ -132,14 +140,15 @@ def main() -> int:
     advance.add_argument("--run-id", required=True)
 
     review = sub.add_parser(
-        "submit-review", help="Submit this same Desktop task's actual-media review"
+        "submit-review", help="Submit one bounded same-video XHIGH actual-media review"
     )
     _add_factory_args(review)
     review.add_argument("--video-job-id", required=True)
     review.add_argument("--run-id", required=True)
     review.add_argument("--review", type=Path, required=True)
     review.add_argument("--replacement-source-root", type=Path)
-    review.add_argument("--session-label", required=True)
+    review.add_argument("--creative-execution-label", required=True)
+    review.add_argument("--native-child-task-id")
 
     status = sub.add_parser("status", help="Read isolated V2 job and immutable ledger")
     status.add_argument("--video-job-id", required=True)
@@ -174,7 +183,11 @@ def main() -> int:
                 run_id=args.run_id,
                 editor=_load_object(args.editorial.resolve()),
                 motion=_load_motion(args.source_manifest.resolve(), args.source_root.resolve()),
-                provenance=DesktopSessionProvenance(session_label=args.session_label),
+                provenance=BoundedCreativeProvenance(
+                    parent=factory.config.parent_provenance,
+                    execution_label=args.creative_execution_label,
+                    native_child_task_id=args.native_child_task_id,
+                ),
             )
         elif args.command == "submit-review":
             result = factory.submit_actual_media_review(
@@ -186,7 +199,11 @@ def main() -> int:
                     if args.replacement_source_root
                     else None,
                 ),
-                provenance=DesktopSessionProvenance(session_label=args.session_label),
+                provenance=BoundedCreativeProvenance(
+                    parent=factory.config.parent_provenance,
+                    execution_label=args.creative_execution_label,
+                    native_child_task_id=args.native_child_task_id,
+                ),
             )
         else:
             result = factory.resume(video_job_id=args.video_job_id, run_id=args.run_id)
