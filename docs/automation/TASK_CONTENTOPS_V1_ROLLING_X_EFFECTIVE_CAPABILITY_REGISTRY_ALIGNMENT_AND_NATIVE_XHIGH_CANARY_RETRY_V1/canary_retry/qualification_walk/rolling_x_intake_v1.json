@@ -1,0 +1,413 @@
+{
+  "canonical_input_hash": "e031912ed7d0ede009c7d5351b7ef39b2d20444e446c419d0be1a005c8e0781c",
+  "complete_input_coverage": false,
+  "counts": {
+    "accepted": 12,
+    "accepted_in_full_rolling_intake": 330,
+    "duplicates": 0,
+    "eligible_after_continuity": 318,
+    "rejected": 8112,
+    "source_files": 47,
+    "source_rows": 8442
+  },
+  "cutoff_time_utc": "2026-08-17T15:37:51.059474Z",
+  "headlines": [
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089014348962238939",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "The Decline Of Higher Education Continues https://t.co/Rq4iuNuvGJ",
+        "official_source_urls": [
+          "https://www.zerohedge.com/political/decline-higher-education-continues"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2089014348962238939"
+      },
+      "headline_id": "cc-x-headline-c895a831169b3115434fbb6e",
+      "source_locator": {
+        "line": 101,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:40:07Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089014662239322213",
+      "external_content": {
+        "author_handle": "ManuelSamuel",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "The Yen\u2019s Real Anchor: Monetary Regime, Not FX Intervention @robin_j_brooks chart illustrates something Richard Werner has argued for decades: FX intervention attacks the symptom, not the monetary architecture. Kuroda changed that architecture in 2013. But Werner\u2019s deeper point",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/ManuelSamuel/status/2089014662239322213"
+      },
+      "headline_id": "cc-x-headline-35f343b7d2581bc4bd23ea4f",
+      "source_locator": {
+        "line": 95,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:41:22Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089015150921896091",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Russian Ministry of Defense: We targeted a cargo ship in the Black Sea east of Odesa that was transporting Western weapons to Ukraine",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089015150921896091"
+      },
+      "headline_id": "cc-x-headline-8ac429a59bc4901661c19a4d",
+      "source_locator": {
+        "line": 100,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:43:18Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089015192839729648",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Russian Defense: We targeted 3 ships and 2 tankers used to deliver military supplies and fuel to Ukrainian forces in the port of Odesa",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089015192839729648"
+      },
+      "headline_id": "cc-x-headline-a2af2969ba2d890acb0ff849",
+      "source_locator": {
+        "line": 99,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:43:28Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089015239878881404",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Settlers establish a new settlement outpost in the village of Burqa in the Ramallah Governorate",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089015239878881404"
+      },
+      "headline_id": "cc-x-headline-5e30545b21b791edf6169988",
+      "source_locator": {
+        "line": 98,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:43:39Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089015830629507499",
+      "external_content": {
+        "author_handle": "MikeZaccardi",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "The stock market loves a Democrat divided government JPMAM $SPY https://t.co/WJNYLkj58I",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/MikeZaccardi/status/2089015830629507499"
+      },
+      "headline_id": "cc-x-headline-7675aa7ed3222501b3dece21",
+      "source_locator": {
+        "line": 97,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:46:00Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089016089355174118",
+      "external_content": {
+        "author_handle": "robin_j_brooks",
+        "follow_up_data_need_candidates": [
+          "official_treasury_or_budget_release"
+        ],
+        "headline_text": "On this morning's live stream, which you can watch on the link below, I talked about the rise in long-term gov't bond yields that's playing out globally and where this is most alarming. Japan is in a de facto debt crisis, but lots of others look wobbly... https://t.co/q5FE7BW0Np https://t.co/ATRIQvjNHk",
+        "official_source_urls": [
+          "https://robinjbrooks.substack.com/p/where-is-the-global-debt-crisis-most-259"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "fiscal"
+        ],
+        "url_or_source_ref": "https://x.com/robin_j_brooks/status/2089016089355174118"
+      },
+      "headline_id": "cc-x-headline-bb2b745a7c08802af301f63b",
+      "source_locator": {
+        "line": 59,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:47:02Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089016473553428594",
+      "external_content": {
+        "author_handle": "robin_j_brooks",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "RT @ManuelSamuel: The Yen\u2019s Real Anchor: Monetary Regime, Not FX Intervention @robin_j_brooks chart illustrates something Richard Werner h...",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/robin_j_brooks/status/2089016473553428594"
+      },
+      "headline_id": "cc-x-headline-81d8672ae1a5814448f9a02a",
+      "source_locator": {
+        "line": 94,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:48:34Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089017590873989544",
+      "external_content": {
+        "author_handle": "TrumpDailyPosts",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "If you are concerned about MAGA taking away the rights of women and LGBTQ, it's time for you to learn about Sharia",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/TrumpDailyPosts/status/2089017590873989544"
+      },
+      "headline_id": "cc-x-headline-551da06c8d70b21af5a49726",
+      "source_locator": {
+        "line": 93,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T15:53:00Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089019355824898110",
+      "external_content": {
+        "author_handle": "steve_hanke",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Aluminum inventories at the London Metal Exchange have reached their lowest level since 1990. MORE EVIDENCE THAT A COMMODITY SUPERCYCLE IS UNDERWAY. STAY LONG ALUMINUM. https://t.co/xKD9fW7hpS",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/steve_hanke/status/2089019355824898110"
+      },
+      "headline_id": "cc-x-headline-0effafd8f8e8858cd0b930d0",
+      "source_locator": {
+        "line": 61,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T16:00:01Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089019448199974954",
+      "external_content": {
+        "author_handle": "CNN",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Lake Powell, the second-largest reservoir in the United States, provides water and electricity to millions in the West. It has now shrunk to its lowest level on record, in the latest sign of the alarming crisis unfolding on the drought-stricken Colorado River. https://t.co/fyPhGrFG3d",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/CNN/status/2089019448199974954"
+      },
+      "headline_id": "cc-x-headline-6941ad6d616b323b78951a6b",
+      "source_locator": {
+        "line": 51,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T16:00:23Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089019605821825309",
+      "external_content": {
+        "author_handle": "MikeZaccardi",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "The stock market loves Year 3 of the Election Cycle JPMAM https://t.co/2OpFgAPEJC",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/MikeZaccardi/status/2089019605821825309"
+      },
+      "headline_id": "cc-x-headline-93b6402b4e8be57a65d69ee3",
+      "source_locator": {
+        "line": 92,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T16:01:00Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    }
+  ],
+  "prepared_candidate_subset": true,
+  "rejection_counts": {
+    "source_timestamp_before_window": 8112
+  },
+  "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_files": [
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_10_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_03_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+  ],
+  "unique_headline_ids": [
+    "cc-x-headline-c895a831169b3115434fbb6e",
+    "cc-x-headline-35f343b7d2581bc4bd23ea4f",
+    "cc-x-headline-8ac429a59bc4901661c19a4d",
+    "cc-x-headline-a2af2969ba2d890acb0ff849",
+    "cc-x-headline-5e30545b21b791edf6169988",
+    "cc-x-headline-7675aa7ed3222501b3dece21",
+    "cc-x-headline-bb2b745a7c08802af301f63b",
+    "cc-x-headline-81d8672ae1a5814448f9a02a",
+    "cc-x-headline-551da06c8d70b21af5a49726",
+    "cc-x-headline-0effafd8f8e8858cd0b930d0",
+    "cc-x-headline-6941ad6d616b323b78951a6b",
+    "cc-x-headline-93b6402b4e8be57a65d69ee3"
+  ],
+  "window_hours": 24.0,
+  "window_start_utc": "2026-08-16T15:37:51.059474Z"
+}

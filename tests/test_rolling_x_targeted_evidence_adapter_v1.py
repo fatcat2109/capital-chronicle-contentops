@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from copy import deepcopy
 
-from live_contentops.newsroom_assignment_scheduler_v1 import _logical_hash
+from live_contentops.newsroom_assignment_scheduler_v1 import (
+    ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
+    _logical_hash,
+    select_first_viable_rolling_x_cluster,
+)
 from live_contentops.official_primary_evidence_loader_v1 import (
     BoundedOfficialPrimaryEvidenceLoader,
 )
@@ -10,6 +14,7 @@ from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
     RollingXTargetedEvidenceAdapter,
 )
 from live_contentops.source_capability_registry_v2 import (
+    effective_rolling_x_capability_registry,
     load_source_capability_registry,
     resolve_story_capabilities,
 )
@@ -26,7 +31,7 @@ def _request(
     required=None,
     families=None,
 ):
-    registry = load_source_capability_registry()
+    registry = effective_rolling_x_capability_registry()
     capability = resolve_story_capabilities(
         {
             "story_type": story_type,
@@ -136,6 +141,126 @@ def _adapter(packet):
         packet_loader=lambda _request: packet,
         evaluation_as_of_utc=AS_OF,
     )
+
+
+def test_neutral_fallback_request_and_adapter_share_effective_registry():
+    public_secondary_calls = []
+
+    def public_secondary_loader(request):
+        public_secondary_calls.append(dict(request))
+        return {
+            "status": "BLOCKED",
+            "rolling_x_story_binding": {
+                "cluster_id": request["cluster_id"],
+                "headline_ids": request["headline_ids"],
+                "request_logical_hash": request["request_logical_hash"],
+            },
+            "evidence_documents": [],
+            "provided_evidence_capabilities": [],
+            "blockers": ["public_source_unavailable"],
+            "provenance": {"request_count": 1},
+        }
+
+    adapter = RollingXTargetedEvidenceAdapter(
+        public_secondary_loader=public_secondary_loader,
+        evaluation_as_of_utc=AS_OF,
+    )
+    result = select_first_viable_rolling_x_cluster(
+        assignment={
+            "schema_version": ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
+            "decision": "SELECT_STORY",
+            "ranked_clusters": [
+                {
+                    "cluster_id": "neutral-current-event",
+                    "rank": 1,
+                    "headline_ids": ["neutral-headline"],
+                    "article_mode": "breaking",
+                    "market_sensitive": False,
+                    "needed_evidence": ["Corroborate the event."],
+                }
+            ],
+        },
+        acquire_evidence=adapter,
+        story_type_by_cluster={
+            "neutral-current-event": "general_public_event"
+        },
+    )
+
+    assert len(public_secondary_calls) == 1
+    request = public_secondary_calls[0]
+    assert request["story_type"] == "general_public_event"
+    assert request["required_evidence_capabilities"] == [
+        "credible_event_confirmation",
+        "basic_attributed_facts",
+    ]
+    assert request["source_adapter_families"] == ["public_secondary"]
+    assert result["status"] == "NO_PUBLICATION"
+    blockers = result["rank_attempts"][0]["blockers"]
+    assert "unsupported_story_type" not in blockers
+    assert "evidence_request_capability_registry_mismatch" not in blockers
+    assert "evidence_request_source_adapter_registry_mismatch" not in blockers
+
+
+def test_effective_registry_preserves_specialized_story_profiles_exactly():
+    base = load_source_capability_registry()
+    effective = effective_rolling_x_capability_registry(base)
+
+    for story_type in (
+        "company_sector_event",
+        "geopolitical_event",
+        "data_release",
+        "policy_decision",
+        "market_move",
+    ):
+        request = {"story_type": story_type}
+        assert resolve_story_capabilities(
+            request, effective
+        ) == resolve_story_capabilities(request, base)
+
+    neutral = resolve_story_capabilities(
+        {"story_type": "general_public_event", "article_mode": "straight_news"},
+        effective,
+    )
+    assert neutral["status"] == "PASS"
+    assert neutral["required_evidence_capabilities"] == [
+        "credible_event_confirmation",
+        "basic_attributed_facts",
+    ]
+    assert neutral["source_adapter_families"] == ["public_secondary"]
+    assert neutral["market_context_required"] is False
+    assert neutral["capital_chronicle_authority_required"] is False
+
+
+def test_effective_registry_keeps_unknown_and_tampered_requests_fail_closed():
+    adapter = RollingXTargetedEvidenceAdapter(
+        public_secondary_loader=lambda _request: (_ for _ in ()).throw(
+            AssertionError("registry-invalid request must stop before acquisition")
+        ),
+        evaluation_as_of_utc=AS_OF,
+    )
+    unknown = _request(story_type="general_public_event")
+    unknown["story_type"] = "arbitrary_unregistered_event"
+    unknown_receipt = adapter(unknown)
+    assert unknown_receipt["status"] == "BLOCKED"
+    assert "unsupported_story_type" in unknown_receipt["blockers"]
+
+    capability_tamper = _request(story_type="general_public_event")
+    capability_tamper["required_evidence_capabilities"] = [
+        "credible_event_confirmation"
+    ]
+    capability_receipt = adapter(capability_tamper)
+    assert capability_receipt["status"] == "BLOCKED"
+    assert "evidence_request_capability_registry_mismatch" in capability_receipt[
+        "blockers"
+    ]
+
+    family_tamper = _request(story_type="general_public_event")
+    family_tamper["source_adapter_families"] = ["official_macro"]
+    family_receipt = adapter(family_tamper)
+    assert family_receipt["status"] == "BLOCKED"
+    assert "evidence_request_source_adapter_registry_mismatch" in family_receipt[
+        "blockers"
+    ]
 
 
 def test_valid_exact_governed_market_packet_satisfies_all_declared_capabilities():

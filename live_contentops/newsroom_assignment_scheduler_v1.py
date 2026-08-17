@@ -3043,73 +3043,6 @@ def _ordinary_minimum_packet_is_exactly_bound(
     )
 
 
-_ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE: dict[str, Any] = {
-    "required_evidence_capabilities": [
-        "credible_event_confirmation",
-        "basic_attributed_facts",
-    ],
-    "optional_evidence_capabilities": [
-        "primary_source_documents",
-        "event_timeline",
-        "affected_entities",
-        "limitations",
-    ],
-    "market_context_required": False,
-    "market_sensitive": False,
-    "market_snapshot_required": False,
-    "article_mode": "straight_news",
-    "freshness_policy": "event_24h",
-    "freshness_requirements": {
-        "max_age_hours": 36,
-        "requires_market_snapshot": False,
-    },
-    "visual_roles": ["lead_contextual", "source_reference", "document_excerpt"],
-    "source_adapter_families": ["public_secondary"],
-    "article_mode_profiles": {
-        "straight_news": {
-            "required_evidence_capabilities": [
-                "credible_event_confirmation",
-                "basic_attributed_facts",
-            ],
-            "optional_evidence_capabilities": [
-                "primary_source_documents",
-                "event_timeline",
-                "affected_entities",
-                "limitations",
-            ],
-            "source_adapter_families": ["public_secondary"],
-        },
-        "analysis": {
-            "required_evidence_capabilities": [
-                "credible_event_confirmation",
-                "basic_attributed_facts",
-            ],
-            "optional_evidence_capabilities": [
-                "primary_source_documents",
-                "event_timeline",
-                "affected_entities",
-                "limitations",
-            ],
-            "source_adapter_families": ["public_secondary"],
-        },
-    },
-}
-
-
-def _with_rolling_x_story_type_profiles(
-    registry: Mapping[str, Any],
-) -> dict[str, Any]:
-    """Add the rolling-X-only neutral profile without mutating hash-bound registry evidence."""
-    resolved = dict(registry)
-    story_types = dict(resolved.get("story_types") or {})
-    story_types.setdefault(
-        "general_public_event",
-        dict(_ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE),
-    )
-    resolved["story_types"] = story_types
-    return resolved
-
-
 def _default_rolling_x_story_type(cluster: Mapping[str, Any]) -> str:
     """Resolve the legacy default for callers that have no semantic routing result."""
     if cluster.get("market_sensitive") is True:
@@ -3124,11 +3057,11 @@ def resolve_rolling_x_story_type(
     capability_registry: Mapping[str, Any] | None = None,
 ) -> str:
     """Resolve an exact registered story type, failing closed on bad routing input."""
-    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
-
-    registry = _with_rolling_x_story_type_profiles(
-        capability_registry or load_source_capability_registry()
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
     )
+
+    registry = effective_rolling_x_capability_registry(capability_registry)
     story_types = registry.get("story_types") or {}
     cluster_id = str(cluster.get("cluster_id") or "")
     story_type = str((story_type_by_cluster or {}).get(cluster_id) or "")
@@ -3196,11 +3129,11 @@ def classify_rolling_x_story_types_with_nine_router(
     )
     from live_contentops.nine_router_llm_seam_v2 import _default_provider_call
 
-    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
-
-    registry = _with_rolling_x_story_type_profiles(
-        capability_registry or load_source_capability_registry()
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
     )
+
+    registry = effective_rolling_x_capability_registry(capability_registry)
     story_types = registry.get("story_types") or {}
     cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
     if (
@@ -3305,11 +3238,11 @@ def classify_rolling_x_story_types_deterministically(
     avoid substring collisions; unresolved stories use the neutral public-evidence profile rather
     than impersonating a regulatory, company, market, or other specialized source family.
     """
-    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
-
-    registry = _with_rolling_x_story_type_profiles(
-        capability_registry or load_source_capability_registry()
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
     )
+
+    registry = effective_rolling_x_capability_registry(capability_registry)
     allowed = set(registry.get("story_types") or {})
     rows: list[dict[str, Any]] = []
     mapping: dict[str, str] = {}
@@ -3459,14 +3392,12 @@ def select_first_viable_rolling_x_cluster(
 
     from live_contentops.source_capability_registry_v2 import (
         capability_mode_for_product_mode,
-        load_source_capability_registry,
+        effective_rolling_x_capability_registry,
         product_mode_downgrade_path,
         resolve_story_capabilities,
     )
 
-    registry = _with_rolling_x_story_type_profiles(
-        capability_registry or load_source_capability_registry()
-    )
+    registry = effective_rolling_x_capability_registry(capability_registry)
     configured_types = dict(story_type_by_cluster or {})
     attempts: list[dict[str, Any]] = []
     selected_cluster: Mapping[str, Any] | None = None

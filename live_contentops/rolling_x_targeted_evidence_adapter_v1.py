@@ -20,7 +20,7 @@ from live_contentops.claim_evidence_contract_v1 import (
     summarize_evidence_substance,
 )
 from live_contentops.source_capability_registry_v2 import (
-    load_source_capability_registry,
+    effective_rolling_x_capability_registry,
     resolve_story_capabilities,
 )
 
@@ -432,8 +432,8 @@ class RollingXTargetedEvidenceAdapter:
                 public_retriever=self._public_secondary_loader,
             )
         self._grounded_researcher = grounded_researcher
-        self._registry = dict(
-            capability_registry or load_source_capability_registry()
+        self._registry = effective_rolling_x_capability_registry(
+            capability_registry
         )
         self._packet: dict[str, Any] | None = None
         self._load_error: str | None = None

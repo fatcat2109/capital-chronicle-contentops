@@ -1,0 +1,17 @@
+{
+  "schema_version": "contentops.rolling_x_canary_blocker_taxonomy.v1",
+  "counting_basis": "blocker occurrences; one candidate may contribute more than one occurrence",
+  "counts": {
+    "DATA_NOT_AVAILABLE": 19,
+    "FACTUAL_OR_RISK_BLOCK": 39,
+    "BUDGET_OR_INFRASTRUCTURE_BLOCK": 1,
+    "SYSTEM_OR_BINDING_BLOCK": 0
+  },
+  "candidate_level_summary": {
+    "attempts_1_through_9": "No publishable packet: accessible/current/source-bound evidence was absent, stale, insufficient, or unsupported.",
+    "attempt_10": "Terminal grounded-research router configuration or authorization failure caused the bounded global-infrastructure stop.",
+    "attempts_11_through_12": "Not attempted after the bounded global-infrastructure stop."
+  },
+  "fixed_registry_defect_contributed_system_or_binding_block": false,
+  "candidate_content_is_untrusted_discovery_input": true
+}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -40,6 +41,58 @@ PRODUCT_MODE_DOWNGRADE_PATHS = {
     "EVERGREEN_EXPLAINER": ("EVERGREEN_EXPLAINER", "BREAKING_BRIEF"),
 }
 
+ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE: dict[str, Any] = {
+    "required_evidence_capabilities": [
+        "credible_event_confirmation",
+        "basic_attributed_facts",
+    ],
+    "optional_evidence_capabilities": [
+        "primary_source_documents",
+        "event_timeline",
+        "affected_entities",
+        "limitations",
+    ],
+    "market_context_required": False,
+    "market_sensitive": False,
+    "market_snapshot_required": False,
+    "article_mode": "straight_news",
+    "freshness_policy": "event_24h",
+    "freshness_requirements": {
+        "max_age_hours": 36,
+        "requires_market_snapshot": False,
+    },
+    "visual_roles": ["lead_contextual", "source_reference", "document_excerpt"],
+    "source_adapter_families": ["public_secondary"],
+    "article_mode_profiles": {
+        "straight_news": {
+            "required_evidence_capabilities": [
+                "credible_event_confirmation",
+                "basic_attributed_facts",
+            ],
+            "optional_evidence_capabilities": [
+                "primary_source_documents",
+                "event_timeline",
+                "affected_entities",
+                "limitations",
+            ],
+            "source_adapter_families": ["public_secondary"],
+        },
+        "analysis": {
+            "required_evidence_capabilities": [
+                "credible_event_confirmation",
+                "basic_attributed_facts",
+            ],
+            "optional_evidence_capabilities": [
+                "primary_source_documents",
+                "event_timeline",
+                "affected_entities",
+                "limitations",
+            ],
+            "source_adapter_families": ["public_secondary"],
+        },
+    },
+}
+
 
 def capability_mode_for_product_mode(product_mode: str) -> str:
     return PRODUCT_MODE_TO_CAPABILITY_MODE.get(str(product_mode or ""), "")
@@ -55,6 +108,27 @@ def load_source_capability_registry(path: str | Path = DEFAULT_PATH) -> dict[str
     if value.get("schema_version") != "contentops.source_evidence_capability_registry.v2":
         raise ValueError("source_capability_registry_version_invalid")
     return value
+
+
+def effective_rolling_x_capability_registry(
+    registry: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Return the single producer/consumer registry for rolling-X evidence work.
+
+    The checked-in base registry remains byte/hash authority. The neutral rolling-X fallback is
+    layered once here so story routing, request construction, and adapter revalidation resolve
+    identical capabilities without weakening unsupported-type or mismatch failures.
+    """
+    resolved = deepcopy(
+        dict(registry) if registry is not None else load_source_capability_registry()
+    )
+    story_types = dict(resolved.get("story_types") or {})
+    story_types.setdefault(
+        "general_public_event",
+        deepcopy(ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE),
+    )
+    resolved["story_types"] = story_types
+    return resolved
 
 
 def resolve_story_capabilities(request: Mapping[str, Any], registry: Mapping[str, Any]) -> dict[str, Any]:

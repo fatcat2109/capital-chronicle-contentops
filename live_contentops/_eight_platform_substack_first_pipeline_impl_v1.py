@@ -3888,16 +3888,15 @@ def _rolling_x_ranked_clusters_with_context(
 def _validate_injected_rolling_x_story_types(
     mapping: Mapping[str, str], *, clusters: Sequence[Mapping[str, Any]]
 ) -> dict[str, Any]:
-    from live_contentops.newsroom_assignment_scheduler_v1 import (
-        _with_rolling_x_story_type_profiles,
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
     )
-    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
 
     cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
     configured = {str(key): str(value) for key, value in mapping.items()}
     if set(configured) != set(cluster_ids) or len(cluster_ids) != len(set(cluster_ids)):
         raise ValueError("rolling_x_story_type_mapping_coverage_invalid")
-    registry = _with_rolling_x_story_type_profiles(load_source_capability_registry())
+    registry = effective_rolling_x_capability_registry()
     allowed = set(registry.get("story_types") or {})
     if any(value not in allowed for value in configured.values()):
         raise ValueError("rolling_x_story_type_unknown")
@@ -3920,13 +3919,12 @@ def _validate_injected_rolling_x_story_types(
 def _validated_rolling_x_story_routing(
     result: Mapping[str, Any], *, clusters: Sequence[Mapping[str, Any]]
 ) -> dict[str, Any]:
-    from live_contentops.newsroom_assignment_scheduler_v1 import (
-        _with_rolling_x_story_type_profiles,
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
     )
-    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
 
     cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
-    registry = _with_rolling_x_story_type_profiles(load_source_capability_registry())
+    registry = effective_rolling_x_capability_registry()
     allowed = set(registry.get("story_types") or {})
     rows = result.get("stories")
     mapping = result.get("story_type_by_cluster")

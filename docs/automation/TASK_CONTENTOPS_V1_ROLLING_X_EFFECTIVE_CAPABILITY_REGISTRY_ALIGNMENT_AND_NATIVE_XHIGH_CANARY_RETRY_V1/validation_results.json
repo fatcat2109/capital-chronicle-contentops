@@ -1,0 +1,43 @@
+{
+  "schema_version": "contentops.rolling_x_effective_registry_validation.v1",
+  "status": "PASS",
+  "focused_tests": {
+    "new_registry_regressions": {
+      "passed": 3,
+      "deselected": 18
+    },
+    "focused_group_1": {
+      "passed": 60
+    },
+    "focused_group_2": {
+      "passed": 52
+    },
+    "pre_evidence_total_passed": 112,
+    "final_combined_focused_passed": 136,
+    "final_combined_focused_duration_seconds": 6.04
+  },
+  "coverage": [
+    "effective registry construction",
+    "general_public_event request and injected public_secondary acquisition",
+    "specialized story profile identity",
+    "unknown and tampered request fail-closed behavior",
+    "article-mode downgrade",
+    "targeted evidence adapter",
+    "evidence calibration",
+    "same-opportunity viability walk",
+    "continuity and prepared frontier",
+    "HIGH-to-XHIGH routing",
+    "Institutional Edge",
+    "zero-write controls"
+  ],
+  "codegraph": {
+    "generation_command": "python scripts/generate_codex_context_index.py",
+    "check_command": "python scripts/generate_codex_context_index.py --check",
+    "check_status": "CODEGRAPH_CURRENT",
+    "descriptive_source_head": "5e16cdd399eddb64c606fdc30b6521e1fd73b79d",
+    "source_tree_digest": "d73f4af4f97b03540fc6c09edcdeebbcc90179654a5c02b21a5fded78618dfeb",
+    "nodes": 7091,
+    "edges": 13321,
+    "effective_registry_symbol_present": true
+  }
+}

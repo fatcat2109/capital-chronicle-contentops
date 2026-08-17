@@ -1,0 +1,45 @@
+{
+  "schema_version": "contentops.rolling_x_effective_registry_canary_summary.v1",
+  "classification": "NO_PUBLICATION_VALID_BUT_ZERO_WRITE_EDITORIAL_CANARY_NOT_PROVEN",
+  "run_id": "v1-effective-registry-native-xhigh-canary-retry-qualification",
+  "rehearsal_cutoff_utc": "2026-08-17T15:37:51.059474Z",
+  "production_runtime_python": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v1-runtime\\venv\\Scripts\\python.exe",
+  "prepared_frontier_count": 12,
+  "deferred_count": 24,
+  "attempted_candidate_count": 10,
+  "unattempted_candidate_count": 2,
+  "cycle_status": "BLOCKED",
+  "reason_code": "INFRASTRUCTURE_BUDGET_OR_PROVIDER_EXHAUSTED",
+  "qualified_candidate_count": 0,
+  "fixed_defect_occurrences": {
+    "evidence_request_capability_registry_mismatch": 0,
+    "evidence_request_source_adapter_registry_mismatch": 0,
+    "unsupported_canonical_story_type": 0
+  },
+  "research_and_retrieval": {
+    "grounded_research_logical_invocations": 2,
+    "grounded_research_accepted_calls": 1,
+    "provider_attempts": 3,
+    "provider_attempt_order": [
+      "cx/gpt-5.6-terra(high)",
+      "vx/gemini-3.1-pro-preview(high)",
+      "cx/gpt-5.6-terra(high)"
+    ],
+    "public_secondary_requests": 12,
+    "official_primary_requests": 1,
+    "total_read_only_public_http_requests": 13
+  },
+  "editorial_calls": {
+    "native_xhigh_workers": 0,
+    "legacy_article_writers": 0,
+    "mandatory_ordinary_semantic_reviews": 0,
+    "article_builder_capture_reached": false
+  },
+  "artifacts": {
+    "article_markdown": null,
+    "article_html": null,
+    "seo_package": null,
+    "nine_surface_packages": null,
+    "reason": "No candidate qualified; manufacturing an article is forbidden."
+  }
+}

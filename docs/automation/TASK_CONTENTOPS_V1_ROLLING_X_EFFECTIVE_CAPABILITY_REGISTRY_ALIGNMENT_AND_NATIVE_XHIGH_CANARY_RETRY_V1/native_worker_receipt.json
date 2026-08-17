@@ -1,0 +1,12 @@
+{
+  "schema_version": "contentops.native_editorial_worker_absence_receipt.v1",
+  "decision": "DO_NOT_SPAWN_NO_QUALIFIED_ARTICLE",
+  "governed_candidate_qualified": false,
+  "native_worker_count": 0,
+  "native_worker_model": null,
+  "native_worker_reasoning_effort": null,
+  "legacy_writer_count": 0,
+  "mandatory_semantic_review_count": 0,
+  "worker_return_validation": "NOT_APPLICABLE",
+  "article_artifacts_produced": false
+}
