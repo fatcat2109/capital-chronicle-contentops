@@ -1,0 +1,110 @@
+{
+  "schema": "contentops.v2.codex_job_brain_actual_media_proof_failure_evidence.v1",
+  "task": "TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1",
+  "classification": "FAIL",
+  "result": "FAIL_NATIVE_CODEX_EXEC_QUARANTINED_NO_MEDIA",
+  "requested_pass_ceiling_reached": false,
+  "owner_acceptance_claimed": false,
+  "git": {
+    "starting_origin_master": "8f6e4422d09fc9794c38ccc036ff1d1d9650034c",
+    "failed_proof_base": "59ad508f98621bcc169c4164dc2b49e15e123ab5",
+    "branch": "task/v2-codex-job-brain-routing-correction-fresh-actual-media-proof-v1",
+    "implementation_execution_head": "622b19e1282d4fbd81fad47f76f399b97c454737",
+    "implementation_commit_subject": "feat(v2): route unattended creative work to Codex job brain",
+    "remote_parity_before_proof": true
+  },
+  "job": {
+    "video_job_id": "v2_fwb_78d20d15daae43c3ed2d",
+    "run_id": "run_d6d887379ea24a4383fffc7d4b3ba292",
+    "input_packet_hash": "78d20d15daae43c3ed2d4a8e94a1a7014dc7d7a3b18d288529aeeb364f9755bd",
+    "target_format": "SHORT_9_16_1080X1920_30FPS",
+    "proof_run_started_at": "2026-08-17T10:35:48.7023717Z",
+    "state": "QUARANTINED",
+    "terminal_result": "HARD_FAILURE:CodexJobBrainError:codex_cli_execution_failed",
+    "safe_failure_receipt_sha256": "63bfc0b8e3a760c273fd3c3b045e8d80ab4b190286434d00cea6204b44f69caf",
+    "immutable_stage_count": 3,
+    "passed_stages": [
+      "CLAIMED",
+      "GOVERNED_INPUT_LOCKED"
+    ],
+    "resume_count": 0,
+    "public_write_authority": false
+  },
+  "codex_execution": {
+    "execution_plane": "CODEX_CLI_EXEC",
+    "execution_kind": "INITIAL_CREATIVE",
+    "requested_model_family": "gpt-5.6-sol",
+    "requested_reasoning_effort": "xhigh",
+    "actual_model_family": null,
+    "actual_reasoning_effort": null,
+    "local_catalog_supports_exact_selection": true,
+    "cli_version": "codex-cli 0.148.0-alpha.9",
+    "thread_id": "01a00f4a-c72a-7dc1-bae0-3b6145df7a3e",
+    "result_classification": "FAIL_CODEX_EXEC",
+    "exit_code": 1,
+    "event_count": 5,
+    "final_message_classification": null,
+    "usage": null,
+    "cost": null,
+    "wall_time_seconds": 4.541618699993705,
+    "nine_router_route": null,
+    "nine_router_creative_provider_calls": 0,
+    "fallback_allowed": false,
+    "fallback_count": 0,
+    "attempt_count": 1,
+    "accepted_creative_artifacts": 0,
+    "input_artifact_hashes": {
+      "governed_packet.json": "d7d2d4778b5b5d2bf8ce44cb75b5cbd215032dd115c923e07330d6959dab07c0",
+      "asset_board.json": "328fdaf14e4d6a286269db8b0fefaedc190904e5f416fe994fe18d02c3856ea9"
+    }
+  },
+  "research_routing": {
+    "creative_use_authorized": false,
+    "ladder": [
+      "cx/gpt-5.6-terra(high)",
+      "vx/gemini-3.1-pro-preview(high)",
+      "vx/gemini-3.5-flash(high)"
+    ]
+  },
+  "unattended": {
+    "proof_jobs_created": 1,
+    "proof_executions_attempted": 1,
+    "second_proof_started": false,
+    "manual_source_edits_after_start": 0,
+    "manual_generated_source_edits_after_start": 0,
+    "manual_narration_edits_after_start": 0,
+    "manual_media_edits_after_start": 0,
+    "manual_checkpoint_edits": 0,
+    "operator_intervention_minutes": 0,
+    "render_count": 0,
+    "rerender_count": 0,
+    "final_media": null,
+    "package_id": null
+  },
+  "safety": {
+    "tiktok_credential_reads": 0,
+    "tiktok_api_calls": 0,
+    "tiktok_drafts": 0,
+    "youtube_api_calls": 0,
+    "meta_api_calls": 0,
+    "other_platform_calls": 0,
+    "public_private_unlisted_writes": 0,
+    "browser_cdp_publication_actions": 0,
+    "v1_operational_reads": 0,
+    "v1_writes": 0,
+    "v1_mutations": 0,
+    "scheduler_mutations": 0,
+    "soak_started": false,
+    "secret_or_session_material_exposed": false
+  },
+  "validation": {
+    "full_affected_tests": "252 passed, 1 skipped",
+    "focused_tests": "125 passed, 1 skipped",
+    "configured_real_source_typecheck_and_asset_hash_test": "1 passed",
+    "python_compile": "PASS",
+    "git_diff_check": "PASS",
+    "native_codex_cli_parser_and_capability": "PASS",
+    "codegraph_before_implementation_commit": "CODEGRAPH_CURRENT"
+  },
+  "exact_next": "JIM_DECISION_REQUIRED_ON_NATIVE_CODEX_EXECUTION_FAILURE_AND_FRESH_PROOF_AUTHORITY"
+}
