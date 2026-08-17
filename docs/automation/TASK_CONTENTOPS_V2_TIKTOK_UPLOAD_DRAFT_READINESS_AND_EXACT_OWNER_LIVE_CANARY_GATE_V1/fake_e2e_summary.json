@@ -1,7 +1,7 @@
 {
   "schema": "contentops.v2.tiktok_sandbox_draft_canary_fake_proof.v1",
   "result": "PASS_FAKE_TIKTOK_SANDBOX_DRAFT_CANARY_E2E",
-  "focused_canary_tests_passed": 16,
+  "focused_canary_tests_passed": 19,
   "success_path": {
     "credential_backend": "INJECTED_FAKE",
     "oauth_transport": "INJECTED_FAKE",
@@ -19,6 +19,8 @@
       "SEND_TO_USER_INBOX"
     ],
     "terminal_classification": "DRAFT_DELIVERY_CONFIRMED",
+    "creator_finalization_observed": false,
+    "public_post_confirmed": false,
     "public_writes": 0,
     "video_publish_calls": 0,
     "direct_post_endpoint_calls": 0,
@@ -30,6 +32,8 @@
     "MISSING_SCOPE_MUTATIONS_0",
     "PACKAGE_HASH_FAILURE_MUTATIONS_0",
     "WRONG_AUTHORITY_ATTEMPT_ID_EXTERNAL_CALLS_0",
+    "EXACT_ATTEMPT_ID_SUFFIX_64_HEX",
+    "TRUNCATED_ATTEMPT_ID_DEPENDENCY_CONSTRUCTIONS_0",
     "AMBIGUOUS_INIT_UNKNOWN_WRITE_NO_RETRY",
     "AMBIGUOUS_TRANSFER_READBACK_ONLY_NO_SECOND_PUT",
     "UNRESOLVED_AMBIGUOUS_TRANSFER_REMAINS_UNKNOWN_WRITE",
@@ -37,7 +41,10 @@
     "STATUS_POLLING_TIMEOUT_NO_REUPLOAD",
     "EXISTING_JOURNAL_PREVENTS_DUPLICATE_CANARY",
     "READBACK_ONLY_CANNOT_INIT_OR_TRANSFER",
-    "UNEXPECTED_PUBLISH_COMPLETE_FAILS_CLOSED",
+    "PUBLISH_COMPLETE_NO_PUBLIC_ID_FINALIZATION_TRUE_PUBLIC_FALSE",
+    "PUBLISH_COMPLETE_PUBLIC_ID_FINALIZATION_TRUE_PUBLIC_TRUE_OUT_OF_SCOPE",
+    "PUBLISH_COMPLETE_RAW_PUBLIC_ID_NOT_SERIALIZED",
+    "SEND_TO_USER_INBOX_FINALIZATION_FALSE_PUBLIC_FALSE",
     "SECRET_LEAK_SCAN_PASS"
   ],
   "real_execution_counters": {

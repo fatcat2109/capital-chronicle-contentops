@@ -23,6 +23,15 @@ UPLOAD_URL = (
     "https://open-upload.tiktokapis.com/video/"
     "?upload_id=fake&upload_token=TEST-ONLY-UPLOAD-TOKEN"
 )
+EXACT_MEDIA_SHA256 = (
+    "1a2bddc40a2db7b019ddd5d7a5f7349182621b6e1ae273bbdd58a7393165c810"
+)
+EXACT_ATTEMPT_ID = (
+    "ttcanary_b9c7a9b18d7ed326d556ba53d75fd0f2f8bb7218558f031dc7e703abf092d27a"
+)
+TRUNCATED_ATTEMPT_ID = (
+    "ttcanary_b9c7a9b18d7ed326d556ba53d75fd0f2f8bb7218558f031dc7e703abf092d"
+)
 
 
 class FakeCredentialBackend:
@@ -319,6 +328,17 @@ def _attempt_id(executor: canary.TikTokSandboxDraftCanaryExecutor) -> str:
     return executor.expected_attempt()[1]
 
 
+def test_exact_production_attempt_id_has_full_64_hex_suffix() -> None:
+    attempt_id = canary.deterministic_canary_attempt_id(
+        package_id=canary.EXACT_PACKAGE_ID,
+        media_sha256=EXACT_MEDIA_SHA256,
+    )
+    suffix = attempt_id.removeprefix("ttcanary_")
+    assert attempt_id == EXACT_ATTEMPT_ID
+    assert len(suffix) == 64
+    assert set(suffix) <= set("0123456789abcdef")
+
+
 def test_fake_e2e_refresh_rotation_identity_upload_and_draft_delivery(
     tmp_path: Path,
 ) -> None:
@@ -351,6 +371,7 @@ def test_fake_e2e_refresh_rotation_identity_upload_and_draft_delivery(
     assert receipt["status_readback_calls"] == 2
     assert receipt["draft_delivery_confirmed"] is True
     assert receipt["creator_finalization_required"] is True
+    assert receipt["creator_finalization_observed"] is False
     assert receipt["public_post_confirmed"] is False
     assert receipt["refresh_token_rotation_persisted"] is True
     assert receipt["access_token_persisted"] is False
@@ -458,6 +479,49 @@ def test_cli_wrong_attempt_constructs_no_credential_dependency(
     receipt = json.loads(capsys.readouterr().out)
     assert receipt["result"] == "OWNER_AUTHORIZED_ATTEMPT_ID_MISMATCH"
     assert receipt["mutation_http_calls"] == 0
+
+
+def test_cli_truncated_authority_id_constructs_no_external_dependency(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    dependency_constructions: list[str] = []
+
+    class ExactAuthorityResolver:
+        def describe_authority(self) -> canary.PackageAuthority:
+            return canary.PackageAuthority(
+                package_id=canary.EXACT_PACKAGE_ID,
+                media_path=Path("unused-exact-authority.mp4"),
+                media_sha256=EXACT_MEDIA_SHA256,
+                manifest_size_bytes=22_101_311,
+            )
+
+    def forbidden_dependency(*_args: object, **_kwargs: object) -> None:
+        dependency_constructions.append("forbidden")
+        raise AssertionError("external dependency must not be constructed")
+
+    monkeypatch.setattr(cli, "AcceptedShortPackageResolver", ExactAuthorityResolver)
+    monkeypatch.setattr(cli, "TikTokRefreshCredentialStore", forbidden_dependency)
+    monkeypatch.setattr(cli, "UrllibFormTokenTransport", forbidden_dependency)
+    monkeypatch.setattr(cli, "UrllibUserInfoTransport", forbidden_dependency)
+    monkeypatch.setattr(cli, "UrllibTikTokCanaryTransport", forbidden_dependency)
+
+    result = cli.main(
+        [
+            "--run-exact-tiktok-sandbox-draft-canary",
+            "--authorized-attempt-id",
+            TRUNCATED_ATTEMPT_ID,
+        ]
+    )
+
+    assert result == 2
+    receipt = json.loads(capsys.readouterr().out)
+    assert receipt["result"] == "OWNER_AUTHORIZED_ATTEMPT_ID_MISMATCH"
+    assert receipt["attempt_id"] == EXACT_ATTEMPT_ID
+    assert receipt["logical_draft_delivery_attempts"] == 0
+    assert receipt["mutation_http_calls"] == 0
+    assert receipt["status_readback_calls"] == 0
+    assert dependency_constructions == []
 
 
 def test_package_hash_failure_blocks_mutation(tmp_path: Path) -> None:
@@ -671,11 +735,60 @@ def test_live_capable_transport_uses_only_exact_upload_draft_contract() -> None:
     assert not any("/v2/video/query/" in url for url in all_urls)
 
 
-def test_unexpected_publish_complete_fails_closed(tmp_path: Path) -> None:
-    transport = FakeCanaryTransport(statuses=[{"status": "PUBLISH_COMPLETE"}])
-    executor, _, _, _ = _executor(tmp_path, transport=transport)
+def test_publish_complete_without_public_id_does_not_confirm_public_post(
+    tmp_path: Path,
+) -> None:
+    transport = FakeCanaryTransport(
+        statuses=[
+            {"status": "PUBLISH_COMPLETE", "publicaly_available_post_id": []}
+        ]
+    )
+    executor, _, _, journal = _executor(tmp_path, transport=transport)
     receipt = executor.run(authorized_attempt_id=_attempt_id(executor))
     assert receipt["result"] == "UNEXPECTED_PUBLISH_COMPLETE"
+    assert receipt["draft_delivery_confirmed"] is False
+    assert receipt["creator_finalization_observed"] is True
+    assert receipt["public_post_confirmed"] is False
+    assert receipt["public_writes"] == 0
+    assert transport.operations == [
+        "POST_INBOX_INIT",
+        "PUT_UPLOAD_URL",
+        "POST_STATUS_FETCH",
+    ]
+    assert transport.upload_calls == 1
+    assert all("VIDEO_QUERY" not in operation for operation in transport.operations)
+    journal_text = journal.path_for(receipt["attempt_id"]).read_text(encoding="utf-8")
+    assert "publicaly_available_post_id" not in journal_text
+
+
+def test_publish_complete_with_public_id_confirms_boolean_without_serializing_id(
+    tmp_path: Path,
+) -> None:
+    public_post_id = 739_123_456_789_012_345
+    transport = FakeCanaryTransport(
+        statuses=[
+            {
+                "status": "PUBLISH_COMPLETE",
+                "publicaly_available_post_id": [public_post_id],
+            }
+        ]
+    )
+    executor, _, _, journal = _executor(tmp_path, transport=transport)
+    receipt = executor.run(authorized_attempt_id=_attempt_id(executor))
+    assert receipt["result"] == "UNEXPECTED_PUBLISH_COMPLETE"
+    assert receipt["draft_delivery_confirmed"] is False
+    assert receipt["creator_finalization_observed"] is True
     assert receipt["public_post_confirmed"] is True
     assert receipt["public_writes"] == 0
-    assert transport.upload_calls == 1
+    assert transport.operations == [
+        "POST_INBOX_INIT",
+        "PUT_UPLOAD_URL",
+        "POST_STATUS_FETCH",
+    ]
+    serialized_receipt = json.dumps(receipt, sort_keys=True)
+    journal_text = journal.path_for(receipt["attempt_id"]).read_text(encoding="utf-8")
+    assert str(public_post_id) not in serialized_receipt
+    assert str(public_post_id) not in journal_text
+    assert "publicaly_available_post_id" not in serialized_receipt
+    assert "publicaly_available_post_id" not in journal_text
+    assert all("VIDEO_QUERY" not in operation for operation in transport.operations)

@@ -80120,7 +80120,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-17T06:55:49Z",
+  "generation_timestamp_utc": "2026-08-17T07:52:11Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -83804,7 +83804,7 @@
     {
       "id": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
       "kind": "python_module",
-      "size_bytes": 45492
+      "size_bytes": 46203
     },
     {
       "id": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
@@ -114212,7 +114212,7 @@
     {
       "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokSandboxDraftCanaryExecutor",
       "kind": "python_class",
-      "line": 849,
+      "line": 850,
       "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
       "symbol": "TikTokSandboxDraftCanaryExecutor"
     },
@@ -114247,14 +114247,14 @@
     {
       "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::nonsecret_readiness_summary",
       "kind": "python_function",
-      "line": 1177,
+      "line": 1191,
       "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
       "symbol": "nonsecret_readiness_summary"
     },
     {
       "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::validate_redacted_canary_receipt",
       "kind": "python_function",
-      "line": 833,
+      "line": 834,
       "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
       "symbol": "validate_redacted_canary_receipt"
     },
@@ -116326,7 +116326,7 @@
     {
       "id": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
       "kind": "python_function",
-      "line": 67,
+      "line": 68,
       "path": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
       "symbol": "main"
     },
@@ -118259,7 +118259,7 @@
     {
       "id": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
       "kind": "python_module",
-      "size_bytes": 5051
+      "size_bytes": 5099
     },
     {
       "id": "scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py",
@@ -121449,7 +121449,7 @@
     {
       "id": "tests/test_tiktok_sandbox_draft_canary_v1.py",
       "kind": "test",
-      "size_bytes": 24682
+      "size_bytes": 29159
     },
     {
       "id": "tests/test_tiktok_secure_persistence_supervised_cli_v1.py",
@@ -126187,6 +126187,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "97cd13c914f1a48029cdc8529ab9ffd31637ec1d",
-  "source_tree_digest": "b8e0f5845f86a17ddeaa49a271cba2c45b6e2c217eb277953ad2a712fc176d5e"
+  "source_head": "f65ef7797061a3202cca16e771b8a6159bc4df0c",
+  "source_tree_digest": "d465b3308b2348b1c29c6595ff3848cc74db1e858e5558ad243fe0270c3951f1"
 }

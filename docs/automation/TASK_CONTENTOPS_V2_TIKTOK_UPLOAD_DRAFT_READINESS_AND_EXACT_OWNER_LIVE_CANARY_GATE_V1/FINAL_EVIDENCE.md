@@ -4,11 +4,31 @@ Authority date: `2026-08-17`
 
 ## Result
 
-`PASS_TIKTOK_SANDBOX_DRAFT_CANARY_GATE_READY_FOR_INDEPENDENT_OWNER_WRITE_AUDIT`
+`PASS_TIKTOK_SANDBOX_DRAFT_CANARY_GATE_CORRECTED_READY_FOR_FINAL_OWNER_WRITE_AUDIT`
 
 This is the implementation ceiling. No TikTok credential was read, no TikTok API was called, no
 media was uploaded, and no draft or public post was created. Independent Jim/ChatGPT audit and a
 later exact one-attempt owner grant are mandatory before execution.
+
+## Bounded public-truth semantics correction
+
+Independent audit accepted the canary architecture and identified one truth-semantics defect in
+the unexpected `PUBLISH_COMPLETE` branch. The correction started from the reviewed branch head
+`f65ef7797061a3202cca16e771b8a6159bc4df0c` and does not change the attempt-ID algorithm, package,
+media hash, destination, environment, provider intent, durable ambiguity handling, or authorized
+success/stop condition.
+
+Current first-party TikTok status authority was reverified on `2026-08-17`:
+
+- `SEND_TO_USER_INBOX` is inbox draft delivery for creator completion in TikTok's editing flow;
+- `PUBLISH_COMPLETE` for Upload Content means the creator completed posting through that flow;
+- `publicaly_available_post_id` contains a post ID only for public viewership after moderation.
+
+The receipt now carries nonsecret `creator_finalization_observed`, default `false`. Unexpected
+`PUBLISH_COMPLETE` sets it to `true` but remains `UNEXPECTED_PUBLISH_COMPLETE`, outside normal
+canary success. `public_post_confirmed` becomes `true` only if the exact status response contains at
+least one actual public post ID. No raw public post ID is copied to the receipt or journal, and no
+`video.query` or additional mutation is performed.
 
 ## Git reconciliation
 
@@ -50,7 +70,9 @@ worktree `A:\Capital Chronicle\ContentOps-worktrees\v2-tiktok-draft-canary-v1`.
 The attempt ID hashes the exact package ID, manifest media SHA-256, destination alias, Sandbox
 environment, draft-delivery intent, and provider intent version. A missing or wrong flag/attempt ID
 causes zero Credential Manager reads, zero environment-secret reads, zero network calls, and zero
-mutations.
+mutations. The exact attempt suffix is 64 lowercase hexadecimal characters; the externally
+truncated value ending in `...f092d` is rejected before any credential or network-capable
+dependency is constructed.
 
 ## Accepted media preflight
 
@@ -102,6 +124,15 @@ The success path has one logical draft delivery, one init mutation, one transfer
 bounded status reads, zero Direct Post calls, zero `video.publish`, zero `video.query`, zero creator
 finalization and zero public writes.
 
+The `SEND_TO_USER_INBOX` regression additionally proves
+`creator_finalization_observed=false` and `public_post_confirmed=false`. Focused unexpected-status
+proofs establish:
+
+- `PUBLISH_COMPLETE` with no public IDs: creator finalization observed, public post not confirmed;
+- `PUBLISH_COMPLETE` with one actual public ID: creator finalization observed and public-post
+  boolean confirmed, while the result still remains out-of-scope `UNEXPECTED_PUBLISH_COMPLETE`;
+- neither case calls `video.query`, performs an additional mutation, or serializes a raw public ID.
+
 Adversarial coverage includes identity mismatch, missing scope, package/hash failure, wrong exact
 authority, ambiguous init, reconciled and unresolved ambiguous transfer, provider failure, polling
 timeout, duplicate prevention, readback-only capability restriction, unexpected
@@ -111,13 +142,13 @@ Machine-readable evidence: `fake_e2e_summary.json`.
 
 ## Validation
 
-- accepted publication adapters, accepted OAuth/secure persistence, new canary, accepted package,
-  zero-rerender, and CodeGraph tests: `122 passed`;
-- new canary focused tests: `16 passed`;
+- accepted publication adapters, accepted OAuth/secure persistence, corrected canary, accepted
+  package, zero-rerender, and CodeGraph tests: `125 passed`;
+- corrected canary focused tests: `19 passed`;
 - Ruff on all new Python paths: `All checks passed`;
 - Python bytecode compilation: passed;
 - accepted real Short manifest/hash/media probe: `ACCEPTED_SHORT_MEDIA_READY`;
-- CodeGraph: `7,099` nodes / `13,326` edges; final check: `CODEGRAPH_CURRENT`.
+- CodeGraph regenerated after the correction; final check: `CODEGRAPH_CURRENT`.
 
 ## Safety counters for this implementation phase
 

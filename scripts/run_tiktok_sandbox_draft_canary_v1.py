@@ -53,6 +53,7 @@ def _not_authorized_receipt(result: str) -> dict[str, Any]:
         "terminal_provider_status": None,
         "draft_delivery_confirmed": False,
         "creator_finalization_required": True,
+        "creator_finalization_observed": False,
         "public_post_confirmed": False,
         "access_token_persisted": False,
         "refresh_token_rotation_persisted": False,

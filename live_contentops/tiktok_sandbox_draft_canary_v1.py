@@ -819,6 +819,7 @@ def _base_receipt(
         "terminal_provider_status": None,
         "draft_delivery_confirmed": False,
         "creator_finalization_required": True,
+        "creator_finalization_observed": False,
         "public_post_confirmed": False,
         "access_token_persisted": False,
         "refresh_token_rotation_persisted": False,
@@ -1118,6 +1119,7 @@ class TikTokSandboxDraftCanaryExecutor:
                 receipt.update(
                     result="DRAFT_DELIVERY_CONFIRMED",
                     draft_delivery_confirmed=True,
+                    creator_finalization_observed=False,
                     public_post_confirmed=False,
                     unknown_write=False,
                 )
@@ -1135,6 +1137,17 @@ class TikTokSandboxDraftCanaryExecutor:
                     receipt, secret_values=secret_values
                 )
             if status == "PUBLISH_COMPLETE":
+                public_post_ids = status_data.get("publicaly_available_post_id")
+                public_post_confirmed = (
+                    isinstance(public_post_ids, Sequence)
+                    and not isinstance(public_post_ids, (str, bytes, bytearray))
+                    and any(
+                        isinstance(post_id, int)
+                        and not isinstance(post_id, bool)
+                        and post_id > 0
+                        for post_id in public_post_ids
+                    )
+                )
                 self._journal.update(
                     journal_data,
                     state="FAILED",
@@ -1142,7 +1155,8 @@ class TikTokSandboxDraftCanaryExecutor:
                 )
                 receipt.update(
                     result="UNEXPECTED_PUBLISH_COMPLETE",
-                    public_post_confirmed=True,
+                    creator_finalization_observed=True,
+                    public_post_confirmed=public_post_confirmed,
                     unknown_write=False,
                 )
                 return validate_redacted_canary_receipt(

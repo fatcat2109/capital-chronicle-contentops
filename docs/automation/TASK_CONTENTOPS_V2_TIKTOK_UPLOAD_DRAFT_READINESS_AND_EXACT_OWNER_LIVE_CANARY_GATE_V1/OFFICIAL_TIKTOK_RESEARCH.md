@@ -35,8 +35,12 @@ Only first-party TikTok for Developers documentation was used:
   condition.
 - For Upload Content, `PUBLISH_COMPLETE` means the creator later used that editing flow and posted
   the media. It is unexpected and fail-closed during this canary.
-- A public post ID is not guaranteed at draft-delivery time. `video.query` requires `video.list`
-  and is not called by this canary.
+- The status response's exact TikTok field spelling is `publicaly_available_post_id`. TikTok returns
+  a `post_id` in that list only when a post is published for public viewership and has passed TikTok
+  moderation. Therefore `PUBLISH_COMPLETE` alone is creator-finalization evidence, not public-post
+  confirmation.
+- A public post ID is not guaranteed at draft-delivery or creator-finalization time. `video.query`
+  requires `video.list` and is not called by this canary.
 - `video.upload` is the draft-sharing scope; `video.publish` is Direct Post and is forbidden here.
 - Sandbox is a restricted test environment and does not establish Production or public-video
   approval. The canary carries Sandbox draft-delivery authority only.
@@ -50,4 +54,8 @@ Only first-party TikTok for Developers documentation was used:
 - An ambiguous upload with a known `publish_id` transitions to status readback only; it cannot issue
   a second `PUT`.
 - `SEND_TO_USER_INBOX` produces `DRAFT_DELIVERY_CONFIRMED`,
-  `creator_finalization_required=true`, and `public_post_confirmed=false`.
+  `creator_finalization_required=true`, `creator_finalization_observed=false`, and
+  `public_post_confirmed=false`.
+- Unexpected `PUBLISH_COMPLETE` produces `creator_finalization_observed=true` while retaining the
+  fail-closed `UNEXPECTED_PUBLISH_COMPLETE` classification. `public_post_confirmed=true` only when
+  at least one actual ID is present in `publicaly_available_post_id`; no raw public ID is persisted.
