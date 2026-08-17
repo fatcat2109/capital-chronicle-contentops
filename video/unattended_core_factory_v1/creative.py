@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from hashlib import sha256
 from pathlib import Path, PurePosixPath
@@ -26,6 +27,9 @@ FORBIDDEN_SOURCE_PATTERNS: tuple[tuple[str, str], ...] = (
     (r"\btiktok\b|\byoutube\b|\binstagram\b|\bfacebook\b", "platform_operation"),
 )
 ALLOWED_IMPORTS = frozenset({"react", "remotion"})
+SHORT_FPS = 30
+SHORT_MAX_SECONDS = 60.0
+MINIMUM_PICTURE_TAIL_ROOM_SECONDS = 0.15
 
 
 class CreativeContractError(RuntimeError):
@@ -119,11 +123,10 @@ def validate_input_packet(packet: Mapping[str, Any]) -> dict[str, Any]:
 def validate_editor_artifact(
     artifact: Mapping[str, Any], packet: Mapping[str, Any]
 ) -> dict[str, Any]:
-    if artifact.get("schema") != "contentops.v2.codex_job_editorial.v1":
+    if artifact.get("schema") != "contentops.v2.codex_job_editorial.v2":
         raise CreativeContractError("editor_schema_invalid")
-    duration = float(artifact.get("duration_seconds", 0))
-    if not 30 <= duration <= 60:
-        raise CreativeContractError("editor_duration_outside_short_contract")
+    if "duration_seconds" in artifact or "shots" in artifact:
+        raise CreativeContractError("editor_cannot_lock_motion_timing")
     anchors = _anchor_map(packet)
     analysis = _analysis_map(packet)
     segments = artifact.get("narration_segments")
@@ -133,7 +136,7 @@ def validate_editor_artifact(
     fact_count = 0
     for segment in segments:
         segment_id = str(segment.get("segment_id", ""))
-        if not segment_id or segment_id in seen:
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+", segment_id) or segment_id in seen:
             raise CreativeContractError("editor_segment_identity_invalid")
         seen.add(segment_id)
         kind = str(segment.get("kind", ""))
@@ -158,38 +161,96 @@ def validate_editor_artifact(
                 raise CreativeContractError(f"editor_engagement_too_long:{segment_id}")
         else:
             raise CreativeContractError(f"editor_segment_kind_invalid:{segment_id}")
-    word_count = sum(len(str(item["text"]).split()) for item in segments)
-    minimum_duration = word_count / 2.25 + len(segments) * 0.16 + 0.75
-    if duration < minimum_duration:
-        raise CreativeContractError("editor_duration_too_short_for_locked_narration")
     forbidden = [str(item).lower() for item in packet.get("forbidden_claims", [])]
     full_text = " ".join(str(item.get("text", "")) for item in segments).lower()
     for phrase in forbidden:
         if phrase and phrase in full_text:
             raise CreativeContractError("editor_forbidden_claim_present")
-    shots = artifact.get("shots") or []
-    if not isinstance(shots, list):
-        raise CreativeContractError("editor_shots_invalid")
-    valid_assets = {str(item["asset_id"]) for item in packet["rights_assets"]}
-    prior_end = 0.0
-    for shot in shots:
-        start = float(shot.get("start_seconds", -1))
-        end = float(shot.get("end_seconds", -1))
-        if abs(start - prior_end) > 0.05 or end <= start or end > duration + 0.001:
-            raise CreativeContractError("editor_shot_timing_invalid")
-        prior_end = end
-        if not set(map(str, shot.get("narration_segment_ids", []))).issubset(seen):
-            raise CreativeContractError("editor_shot_segment_binding_invalid")
-        if not set(map(str, shot.get("asset_ids", []))).issubset(valid_assets):
-            raise CreativeContractError("editor_shot_asset_binding_invalid")
-    if shots and abs(prior_end - duration) > 0.05:
-        raise CreativeContractError("editor_shots_do_not_cover_duration")
     return {
         "result": "PASS_FACTUAL_ANCHORS",
-        "duration_seconds": duration,
         "fact_segment_count": fact_count,
         "narration_segment_count": len(segments),
-        "shot_count": len(shots),
+        "word_count_estimate_only": sum(
+            len(str(item["text"]).split()) for item in segments
+        ),
+        "timing_authority": "ACTUAL_KOKORO_WAVEFORM_ONLY",
+    }
+
+
+def validate_narration_timing_lock(
+    artifact: Mapping[str, Any],
+    *,
+    video_job_id: str,
+    run_id: str,
+    governed_input_hash: str,
+    editor: Mapping[str, Any],
+) -> dict[str, Any]:
+    if artifact.get("schema") != "contentops.v2.actual_narration_timing_lock.v1":
+        raise CreativeContractError("narration_timing_lock_schema_invalid")
+    expected_identity = {
+        "video_job_id": video_job_id,
+        "run_id": run_id,
+        "governed_input_hash": governed_input_hash,
+        "editorial_narration_hash": hash_value(editor),
+    }
+    for key, value in expected_identity.items():
+        if artifact.get(key) != value:
+            raise CreativeContractError(f"narration_timing_lock_identity_mismatch:{key}")
+    if (
+        artifact.get("provider"),
+        artifact.get("model"),
+        artifact.get("voice"),
+        round(float(artifact.get("speed", 0)), 2),
+        artifact.get("lang"),
+        int(artifact.get("sample_rate_hz", 0)),
+    ) != ("kokoro-onnx", "kokoro-v1.0", "af_heart", 1.06, "en-us", 24_000):
+        raise CreativeContractError("narration_timing_lock_voice_route_mismatch")
+    segments = artifact.get("segments")
+    if not isinstance(segments, list) or len(segments) != len(editor["narration_segments"]):
+        raise CreativeContractError("narration_timing_lock_segment_count_mismatch")
+    cursor = float(artifact.get("initial_silence_seconds", -1))
+    if cursor < 0:
+        raise CreativeContractError("narration_timing_lock_initial_silence_invalid")
+    for locked, authored in zip(segments, editor["narration_segments"]):
+        segment_id = str(authored["segment_id"])
+        text = str(authored["text"])
+        if locked.get("segment_id") != segment_id:
+            raise CreativeContractError("narration_timing_lock_segment_identity_mismatch")
+        if locked.get("segment_text_sha256") != hash_value(text):
+            raise CreativeContractError(f"narration_timing_lock_text_hash_mismatch:{segment_id}")
+        audio = locked.get("audio") or {}
+        audio_path = Path(str(audio.get("path", "")))
+        if not audio_path.is_file() or hash_file(audio_path) != str(audio.get("sha256", "")):
+            raise CreativeContractError(f"narration_timing_lock_audio_hash_mismatch:{segment_id}")
+        start = float(locked.get("timeline_start_seconds", -1))
+        duration = float(locked.get("actual_audio_duration_seconds", 0))
+        end = float(locked.get("timeline_end_seconds", -1))
+        pause = float(locked.get("pause_after_seconds", -1))
+        if abs(start - cursor) > 0.00001 or duration <= 0 or pause < 0:
+            raise CreativeContractError(f"narration_timing_lock_placement_invalid:{segment_id}")
+        if abs(end - (start + duration)) > 0.00001:
+            raise CreativeContractError(f"narration_timing_lock_end_invalid:{segment_id}")
+        cursor = end + pause
+    total = float(artifact.get("actual_total_narration_duration_seconds", 0))
+    if abs(cursor - total) > 0.00001:
+        raise CreativeContractError("narration_timing_lock_total_mismatch")
+    narration = artifact.get("locked_narration_audio") or {}
+    narration_path = Path(str(narration.get("path", "")))
+    if not narration_path.is_file() or hash_file(narration_path) != str(
+        narration.get("sha256", "")
+    ):
+        raise CreativeContractError("narration_timing_lock_composite_hash_mismatch")
+    if total + MINIMUM_PICTURE_TAIL_ROOM_SECONDS > SHORT_MAX_SECONDS + 0.00001:
+        raise CreativeContractError("narration_timing_lock_outside_short_contract")
+    lock_payload = dict(artifact)
+    observed_hash = str(lock_payload.pop("timing_lock_hash", ""))
+    if not observed_hash or hash_value(lock_payload) != observed_hash:
+        raise CreativeContractError("narration_timing_lock_hash_mismatch")
+    return {
+        "result": "PASS_ACTUAL_NARRATION_TIMING_LOCK",
+        "timing_lock_hash": observed_hash,
+        "actual_total_narration_duration_seconds": total,
+        "segment_count": len(segments),
     }
 
 
@@ -197,13 +258,32 @@ def validate_motion_artifact(
     artifact: Mapping[str, Any],
     packet: Mapping[str, Any],
     editor: Mapping[str, Any],
+    timing_lock: Mapping[str, Any],
 ) -> dict[str, Any]:
     if artifact.get("schema") != "contentops.v2.codex_job_motion_source.v1":
         raise CreativeContractError("motion_schema_invalid")
     if artifact.get("composition_id") != "FWBUnattendedShort":
         raise CreativeContractError("motion_composition_id_invalid")
-    if abs(float(artifact.get("duration_seconds", 0)) - float(editor["duration_seconds"])) > 0.001:
-        raise CreativeContractError("motion_duration_changed")
+    if artifact.get("narration_timing_lock_hash") != timing_lock.get("timing_lock_hash"):
+        raise CreativeContractError("motion_narration_timing_lock_mismatch")
+    picture_timing = artifact.get("picture_timing")
+    if not isinstance(picture_timing, Mapping):
+        raise CreativeContractError("motion_picture_timing_missing")
+    fps = int(picture_timing.get("fps", 0))
+    head_room = float(picture_timing.get("authored_head_room_seconds", -1))
+    tail_room = float(picture_timing.get("authored_tail_room_seconds", -1))
+    frames = int(picture_timing.get("duration_frames", 0))
+    actual = float(timing_lock["actual_total_narration_duration_seconds"])
+    if fps != SHORT_FPS or abs(head_room - float(timing_lock["initial_silence_seconds"])) > 0.00001:
+        raise CreativeContractError("motion_picture_timing_basis_invalid")
+    if tail_room < MINIMUM_PICTURE_TAIL_ROOM_SECONDS:
+        raise CreativeContractError("motion_picture_tail_room_too_short")
+    expected_frames = math.ceil((actual + tail_room) * fps - 0.0000001)
+    duration = frames / fps
+    if frames != expected_frames or not 30 <= duration <= SHORT_MAX_SECONDS:
+        raise CreativeContractError("motion_picture_duration_not_waveform_derived")
+    if abs(float(artifact.get("duration_seconds", 0)) - duration) > 0.00001:
+        raise CreativeContractError("motion_duration_not_frame_locked")
     files = artifact.get("files")
     if not isinstance(files, Mapping) or set(files) != SOURCE_FILES:
         raise CreativeContractError("motion_source_file_set_invalid")
@@ -227,6 +307,11 @@ def validate_motion_artifact(
     if not set(map(str, artifact.get("asset_ids", []))).issubset(valid_assets):
         raise CreativeContractError("motion_asset_not_governed")
     source = "\n".join(str(value) for value in files.values())
+    root_source = str(files["src/Root.tsx"])
+    if not re.search(rf"durationInFrames=\{{{frames}\}}", root_source):
+        raise CreativeContractError("motion_source_duration_frames_mismatch")
+    if not re.search(r"fps=\{30\}", root_source):
+        raise CreativeContractError("motion_source_fps_mismatch")
     for display_text in bound_display_text:
         if display_text not in source:
             raise CreativeContractError("motion_bound_claim_missing_from_source")
@@ -259,6 +344,9 @@ def validate_motion_artifact(
         "result": "PASS_MOTION_SOURCE_CONTRACT",
         "source_file_count": len(files),
         "claim_binding_count": len(bindings),
+        "duration_frames": frames,
+        "duration_seconds": duration,
+        "timing_lock_hash": timing_lock["timing_lock_hash"],
         "sandbox": sandbox,
     }
 
@@ -268,6 +356,7 @@ def validate_revision_artifact(
     packet: Mapping[str, Any],
     editor: Mapping[str, Any],
     motion: Mapping[str, Any],
+    timing_lock: Mapping[str, Any],
 ) -> dict[str, Any]:
     if artifact.get("schema") != "contentops.v2.codex_actual_media_review.v1":
         raise CreativeContractError("revision_schema_invalid")
@@ -283,7 +372,7 @@ def validate_revision_artifact(
         revised_motion["source_claim_bindings"] = list(
             artifact.get("source_claim_bindings", [])
         )
-        validate_motion_artifact(revised_motion, packet, editor)
+        validate_motion_artifact(revised_motion, packet, editor, timing_lock)
     elif files:
         raise CreativeContractError("revision_files_without_material_decision")
     allowed_segments = {

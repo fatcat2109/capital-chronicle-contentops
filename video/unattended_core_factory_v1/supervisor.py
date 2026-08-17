@@ -9,12 +9,15 @@ from typing import Any, Mapping
 
 from . import media as local_media
 from .creative import (
+    MINIMUM_PICTURE_TAIL_ROOM_SECONDS,
+    SHORT_MAX_SECONDS,
     hash_file,
     hash_value,
     materialize_source,
     validate_editor_artifact,
     validate_input_packet,
     validate_motion_artifact,
+    validate_narration_timing_lock,
     validate_revision_artifact,
     validate_source_files,
 )
@@ -33,6 +36,7 @@ STAGES: tuple[str, ...] = (
     "CLAIMED",
     "GOVERNED_INPUT_LOCKED",
     "CREATIVE_EDITOR_LOCKED",
+    "ACTUAL_NARRATION_TIMING_LOCKED",
     "MOTION_SOURCE_LOCKED",
     "HARD_SOURCE_VALIDATED",
     "PROXY_RENDERED",
@@ -181,13 +185,19 @@ class DesktopSessionV2Factory:
             "artifacts": artifacts,
             "project": root / "generated_project",
             "session_inbox": root / "desktop_session_inbox",
-            "creative_submission": root / "desktop_session_inbox" / "initial_creative.json",
+            "editorial_submission": root / "desktop_session_inbox" / "editorial_narration.json",
+            "editorial_revision_submission": root / "desktop_session_inbox" / "editorial_timing_revision.json",
+            "motion_submission": root / "desktop_session_inbox" / "motion_visual.json",
             "review_submission": root / "desktop_session_inbox" / "actual_media_review.json",
             "parent_receipt": artifacts / "parent_high_session_receipt.json",
+            "editor_initial": artifacts / "creative_editor_initial.json",
             "editor": artifacts / "creative_editor.json",
+            "editor_initial_validation": artifacts / "creative_editor_initial_validation.json",
             "editor_validation": artifacts / "creative_editor_validation.json",
             "editor_receipt": artifacts / "codex_initial_execution_receipt.json",
-            "motion_pending": artifacts / "codex_initial_motion_output.json",
+            "editor_revision_receipt": artifacts / "codex_editorial_timing_revision_receipt.json",
+            "narration_overrun": artifacts / "narration_overrun_pre_motion.json",
+            "timing_lock": artifacts / "actual_narration_timing_lock.json",
             "motion": artifacts / "motion_source.json",
             "motion_validation": artifacts / "motion_source_validation.json",
             "motion_receipt": artifacts / "codex_motion_lock_receipt.json",
@@ -201,7 +211,6 @@ class DesktopSessionV2Factory:
             "revision": artifacts / "creative_revision.json",
             "picture": root / "media" / "picture_lock.mp4",
             "narration_dir": root / "audio" / "narration",
-            "narration_receipt": artifacts / "narration_receipt.json",
             "audio_receipt": artifacts / "audio_build_receipt.json",
             "mix": root / "audio" / "final_mix.wav",
             "final": root / "media" / "frozen_without_breaking_unattended_short_v1.mp4",
@@ -252,13 +261,12 @@ class DesktopSessionV2Factory:
             raise SupervisorError("parent_high_session_continuity_mismatch")
         return observed
 
-    def submit_initial_creative(
+    def submit_editorial_narration(
         self,
         *,
         video_job_id: str,
         run_id: str,
         editor: Mapping[str, Any],
-        motion: Mapping[str, Any],
         provenance: BoundedCreativeProvenance,
     ) -> dict[str, Any]:
         job = self._active_job(video_job_id=video_job_id, run_id=run_id)
@@ -272,40 +280,154 @@ class DesktopSessionV2Factory:
         if provenance.parent.continuity_key != parent_receipt["parent_session_continuity_key"]:
             raise SupervisorError("creative_parent_receipt_continuity_mismatch")
         validate_editor_artifact(editor, packet)
-        validate_motion_artifact(motion, packet, editor)
         receipt = build_bounded_creative_receipt(
             provenance=provenance,
-            execution_kind="INITIAL_CREATIVE",
+            execution_kind="EDITORIAL_NARRATION",
             video_job_id=video_job_id,
             run_id=run_id,
             input_artifact_hashes={"governed_packet": str(job["input_packet_hash"])},
-            output_artifact_hashes={
-                "editorial": hash_value(editor),
-                "motion": hash_value(motion),
-            },
+            output_artifact_hashes={"editorial": hash_value(editor)},
         )
         validate_bounded_creative_receipt(
             receipt,
-            execution_kind="INITIAL_CREATIVE",
+            execution_kind="EDITORIAL_NARRATION",
             video_job_id=video_job_id,
             run_id=run_id,
         )
         envelope = {
-            "schema": "contentops.v2.desktop_session_initial_submission.v1",
+            "schema": "contentops.v2.desktop_session_editorial_submission.v1",
             "video_job_id": video_job_id,
             "run_id": run_id,
             "governed_input_hash": str(job["input_packet_hash"]),
             "editor": dict(editor),
-            "motion": dict(motion),
             "receipt": receipt,
         }
-        artifact = _write_immutable_json(paths["creative_submission"], envelope)
+        artifact = _write_immutable_json(paths["editorial_submission"], envelope)
         return {
-            "result": "PASS_DESKTOP_SESSION_CREATIVE_SUBMITTED",
+            "result": "PASS_DESKTOP_SESSION_EDITORIAL_NARRATION_SUBMITTED",
             "video_job_id": video_job_id,
             "run_id": run_id,
             "submission": artifact,
             "next_legal_stage": "CREATIVE_EDITOR_LOCKED",
+        }
+
+    def submit_editorial_timing_revision(
+        self,
+        *,
+        video_job_id: str,
+        run_id: str,
+        editor: Mapping[str, Any],
+        provenance: BoundedCreativeProvenance,
+    ) -> dict[str, Any]:
+        job = self._active_job(video_job_id=video_job_id, run_id=run_id)
+        paths = self._paths(video_job_id)
+        if not paths["narration_overrun"].is_file():
+            raise SupervisorError("editorial_timing_revision_not_requested")
+        if paths["editorial_revision_submission"].is_file():
+            raise SupervisorError("editorial_timing_revision_budget_exhausted")
+        packet = self._packet(job)
+        validate_editor_artifact(editor, packet)
+        initial_receipt = _load(paths["editor_receipt"])
+        receipt = build_bounded_creative_receipt(
+            provenance=provenance,
+            execution_kind="EDITORIAL_TIMING_REVISION",
+            video_job_id=video_job_id,
+            run_id=run_id,
+            input_artifact_hashes={
+                "governed_packet": str(job["input_packet_hash"]),
+                "initial_editorial": hash_file(paths["editor_initial"]),
+                "overrun_receipt": hash_file(paths["narration_overrun"]),
+            },
+            output_artifact_hashes={"editorial": hash_value(editor)},
+        )
+        validate_bounded_creative_receipt(
+            receipt,
+            execution_kind="EDITORIAL_TIMING_REVISION",
+            video_job_id=video_job_id,
+            run_id=run_id,
+            initial_receipt=initial_receipt,
+        )
+        artifact = _write_immutable_json(
+            paths["editorial_revision_submission"],
+            {
+                "schema": "contentops.v2.desktop_session_editorial_timing_revision.v1",
+                "video_job_id": video_job_id,
+                "run_id": run_id,
+                "governed_input_hash": str(job["input_packet_hash"]),
+                "editor": dict(editor),
+                "receipt": receipt,
+            },
+        )
+        return {
+            "result": "PASS_BOUNDED_EDITORIAL_TIMING_REVISION_SUBMITTED",
+            "video_job_id": video_job_id,
+            "run_id": run_id,
+            "submission": artifact,
+            "next_legal_stage": "ACTUAL_NARRATION_TIMING_LOCKED",
+        }
+
+    def submit_motion_visual(
+        self,
+        *,
+        video_job_id: str,
+        run_id: str,
+        motion: Mapping[str, Any],
+        provenance: BoundedCreativeProvenance,
+    ) -> dict[str, Any]:
+        job = self._active_job(video_job_id=video_job_id, run_id=run_id)
+        paths = self._paths(video_job_id)
+        if not paths["timing_lock"].is_file() or not paths["editor"].is_file():
+            raise SupervisorError("actual_narration_timing_lock_required_before_motion")
+        packet = self._packet(job)
+        editor = _load(paths["editor"])
+        timing_lock = _load(paths["timing_lock"])
+        validate_narration_timing_lock(
+            timing_lock,
+            video_job_id=video_job_id,
+            run_id=run_id,
+            governed_input_hash=str(job["input_packet_hash"]),
+            editor=editor,
+        )
+        validate_motion_artifact(motion, packet, editor, timing_lock)
+        initial_receipt = _load(paths["editor_receipt"])
+        receipt = build_bounded_creative_receipt(
+            provenance=provenance,
+            execution_kind="MOTION_VISUAL_AUTHORSHIP",
+            video_job_id=video_job_id,
+            run_id=run_id,
+            input_artifact_hashes={
+                "governed_packet": str(job["input_packet_hash"]),
+                "editorial": hash_value(editor),
+                "actual_narration_timing_lock": str(timing_lock["timing_lock_hash"]),
+            },
+            output_artifact_hashes={"motion": hash_value(motion)},
+        )
+        validate_bounded_creative_receipt(
+            receipt,
+            execution_kind="MOTION_VISUAL_AUTHORSHIP",
+            video_job_id=video_job_id,
+            run_id=run_id,
+            initial_receipt=initial_receipt,
+        )
+        artifact = _write_immutable_json(
+            paths["motion_submission"],
+            {
+                "schema": "contentops.v2.desktop_session_motion_submission.v1",
+                "video_job_id": video_job_id,
+                "run_id": run_id,
+                "governed_input_hash": str(job["input_packet_hash"]),
+                "editorial_narration_hash": hash_value(editor),
+                "narration_timing_lock_hash": timing_lock["timing_lock_hash"],
+                "motion": dict(motion),
+                "receipt": receipt,
+            },
+        )
+        return {
+            "result": "PASS_DESKTOP_SESSION_MOTION_VISUAL_SUBMITTED",
+            "video_job_id": video_job_id,
+            "run_id": run_id,
+            "submission": artifact,
+            "next_legal_stage": "MOTION_SOURCE_LOCKED",
         }
 
     def submit_actual_media_review(
@@ -320,8 +442,9 @@ class DesktopSessionV2Factory:
         paths = self._paths(video_job_id)
         packet = self._packet(job)
         editor = _load(paths["editor"])
+        timing_lock = _load(paths["timing_lock"])
         motion = _load(paths["motion"])
-        initial_receipt = _load(paths["editor_receipt"])
+        initial_receipt = _load(paths["motion_receipt"])
         parent_receipt = self._parent_receipt(
             paths=paths, video_job_id=video_job_id, run_id=run_id
         )
@@ -329,7 +452,7 @@ class DesktopSessionV2Factory:
             raise SupervisorError("creative_parent_session_continuity_mismatch")
         if provenance.parent.continuity_key != parent_receipt["parent_session_continuity_key"]:
             raise SupervisorError("creative_parent_receipt_continuity_mismatch")
-        validate_revision_artifact(review, packet, editor, motion)
+        validate_revision_artifact(review, packet, editor, motion, timing_lock)
         receipt = build_bounded_creative_receipt(
             provenance=provenance,
             execution_kind="ACTUAL_MEDIA_REVIEW",
@@ -515,21 +638,20 @@ class DesktopSessionV2Factory:
             )
             return
         if stage == "CREATIVE_EDITOR_LOCKED":
-            if not paths["creative_submission"].is_file():
-                raise DesktopSessionInputRequired("INITIAL_CREATIVE")
-            submission = _load(paths["creative_submission"])
-            if submission.get("schema") != "contentops.v2.desktop_session_initial_submission.v1":
-                raise SupervisorError("desktop_session_initial_submission_schema_invalid")
+            if not paths["editorial_submission"].is_file():
+                raise DesktopSessionInputRequired("EDITORIAL_NARRATION")
+            submission = _load(paths["editorial_submission"])
+            if submission.get("schema") != "contentops.v2.desktop_session_editorial_submission.v1":
+                raise SupervisorError("desktop_session_editorial_submission_schema_invalid")
             if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
-                raise SupervisorError("desktop_session_initial_submission_identity_mismatch")
+                raise SupervisorError("desktop_session_editorial_submission_identity_mismatch")
             if submission.get("governed_input_hash") != input_hash:
-                raise SupervisorError("desktop_session_initial_submission_input_hash_mismatch")
+                raise SupervisorError("desktop_session_editorial_submission_input_hash_mismatch")
             output = dict(submission.get("editor") or {})
-            motion_output = dict(submission.get("motion") or {})
             receipt = dict(submission.get("receipt") or {})
             validate_bounded_creative_receipt(
                 receipt,
-                execution_kind="INITIAL_CREATIVE",
+                execution_kind="EDITORIAL_NARRATION",
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
             )
@@ -543,16 +665,14 @@ class DesktopSessionV2Factory:
             ):
                 raise SupervisorError("creative_submission_parent_receipt_mismatch")
             validation = validate_editor_artifact(output, packet)
-            validate_motion_artifact(motion_output, packet, output)
             expected = dict(receipt.get("output_artifact_hashes") or {})
-            if expected.get("editorial") != hash_value(output) or expected.get("motion") != hash_value(motion_output):
-                raise SupervisorError("desktop_session_initial_output_hash_mismatch")
+            if expected.get("editorial") != hash_value(output):
+                raise SupervisorError("desktop_session_editorial_output_hash_mismatch")
             records = [
-                _json_artifact(paths["editor"], output),
-                _json_artifact(paths["editor_validation"], validation),
+                _json_artifact(paths["editor_initial"], output),
+                _json_artifact(paths["editor_initial_validation"], validation),
                 _json_artifact(paths["editor_receipt"], receipt),
             ]
-            _json_artifact(paths["motion_pending"], motion_output)
             self._append(
                 job=job,
                 run_id=run_id,
@@ -561,44 +681,153 @@ class DesktopSessionV2Factory:
                 inputs={"input_packet": input_hash},
                 artifacts=records,
                 result="PASS_CREATIVE_EDITOR_LOCK",
-                next_stage="MOTION_SOURCE_LOCKED",
-                role="BoundedXHighVideoCreative.initial_creative_submission",
+                next_stage="ACTUAL_NARRATION_TIMING_LOCKED",
+                role="BoundedXHighVideoCreative.editorial_narration_submission",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
             return
-        editor = _load(paths["editor"])
-        if stage == "MOTION_SOURCE_LOCKED":
-            output = _load(paths["motion_pending"])
-            initial_receipt = _load(paths["editor_receipt"])
-            expected_hash = str(
-                (initial_receipt.get("output_artifact_hashes") or {}).get("motion") or ""
+        if stage == "ACTUAL_NARRATION_TIMING_LOCKED":
+            editor = _load(paths["editor_initial"])
+            revision_receipt: dict[str, Any] | None = None
+            if paths["editorial_revision_submission"].is_file():
+                submission = _load(paths["editorial_revision_submission"])
+                if submission.get("schema") != "contentops.v2.desktop_session_editorial_timing_revision.v1":
+                    raise SupervisorError("desktop_session_editorial_revision_schema_invalid")
+                if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
+                    raise SupervisorError("desktop_session_editorial_revision_identity_mismatch")
+                if submission.get("governed_input_hash") != input_hash:
+                    raise SupervisorError("desktop_session_editorial_revision_input_hash_mismatch")
+                editor = dict(submission.get("editor") or {})
+                revision_receipt = dict(submission.get("receipt") or {})
+                validate_bounded_creative_receipt(
+                    revision_receipt,
+                    execution_kind="EDITORIAL_TIMING_REVISION",
+                    video_job_id=str(job["video_job_id"]),
+                    run_id=run_id,
+                    initial_receipt=_load(paths["editor_receipt"]),
+                )
+                if dict(revision_receipt.get("output_artifact_hashes") or {}).get(
+                    "editorial"
+                ) != hash_value(editor):
+                    raise SupervisorError("desktop_session_editorial_revision_hash_mismatch")
+            validation = validate_editor_artifact(editor, packet)
+            narration = self.media.synthesize_narration(
+                editor=editor,
+                model_path=self.config.kokoro_model,
+                voices_path=self.config.kokoro_voices,
+                output_dir=paths["narration_dir"],
             )
-            if not expected_hash or hash_value(output) != expected_hash:
-                raise SupervisorError("codex_initial_motion_output_hash_mismatch")
-            validation = validate_motion_artifact(output, packet, editor)
-            receipt = {
-                "schema": "contentops.v2.bounded_xhigh_motion_lock_receipt.v1",
-                "parent_runtime": initial_receipt.get("parent_runtime"),
-                "parent_execution_plane": initial_receipt.get("parent_execution_plane"),
-                "parent_model_family": initial_receipt.get("parent_model_family"),
-                "parent_reasoning_effort": initial_receipt.get("parent_reasoning_effort"),
-                "creative_runtime": initial_receipt.get("creative_runtime"),
-                "creative_execution_plane": initial_receipt.get("creative_execution_plane"),
-                "declared_creative_model_family": initial_receipt.get("declared_creative_model_family"),
-                "declared_creative_reasoning_effort": initial_receipt.get("declared_creative_reasoning_effort"),
-                "parent_session_continuity_key": initial_receipt.get("parent_session_continuity_key"),
-                "same_video_job_continuity_key": initial_receipt.get("same_video_job_continuity_key"),
-                "all_session_xhigh": False,
-                "mechanical_work_performed": False,
-                "source_execution_receipt_sha256": hash_file(paths["editor_receipt"]),
-                "input_artifact_hashes": {"editor": hash_value(editor)},
-                "output_artifact_hashes": {"motion": hash_value(output)},
-                "attempt_count": 0,
-                "fallback_count": 0,
-                "nine_router_route": None,
-                "public_write_authority": False,
+            actual_duration = float(narration["duration_seconds"])
+            if actual_duration + MINIMUM_PICTURE_TAIL_ROOM_SECONDS > SHORT_MAX_SECONDS + 0.00001:
+                _json_artifact(
+                    paths["narration_overrun"],
+                    {
+                        "schema": "contentops.v2.narration_overrun_pre_motion.v1",
+                        "video_job_id": str(job["video_job_id"]),
+                        "run_id": run_id,
+                        "editorial_narration_hash": hash_value(editor),
+                        "actual_total_narration_duration_seconds": actual_duration,
+                        "minimum_picture_tail_room_seconds": MINIMUM_PICTURE_TAIL_ROOM_SECONDS,
+                        "short_max_seconds": SHORT_MAX_SECONDS,
+                        "revision_attempted": revision_receipt is not None,
+                    },
+                )
+                if revision_receipt is None:
+                    raise DesktopSessionInputRequired("EDITORIAL_TIMING_REVISION")
+                raise SupervisorError(
+                    f"narration_timing_revision_still_outside_short_contract:{actual_duration:.6f}"
+                )
+            timing_lock = {
+                "schema": "contentops.v2.actual_narration_timing_lock.v1",
+                "video_job_id": str(job["video_job_id"]),
+                "run_id": run_id,
+                "governed_input_hash": input_hash,
+                "editorial_narration_hash": hash_value(editor),
+                "provider": narration["provider"],
+                "model": narration["model"],
+                "voice": narration["voice"],
+                "speed": narration["speed"],
+                "lang": narration["lang"],
+                "sample_rate_hz": narration["sample_rate_hz"],
+                "initial_silence_seconds": narration["initial_silence_seconds"],
+                "segments": narration["placements"],
+                "locked_narration_audio": narration["artifact"],
+                "actual_total_narration_duration_seconds": actual_duration,
+                "deliberate_pause_policy": {
+                    "between_segments_seconds": 0.16,
+                    "final_silence_seconds": 0.35,
+                },
+                "external_cost_usd": narration["external_cost_usd"],
             }
+            timing_lock["timing_lock_hash"] = hash_value(timing_lock)
+            validate_narration_timing_lock(
+                timing_lock,
+                video_job_id=str(job["video_job_id"]),
+                run_id=run_id,
+                governed_input_hash=input_hash,
+                editor=editor,
+            )
+            records = [
+                _write_immutable_json(paths["editor"], editor),
+                _write_immutable_json(paths["editor_validation"], validation),
+                _write_immutable_json(paths["timing_lock"], timing_lock),
+                dict(narration["artifact"]),
+                *[dict(item["audio"]) for item in narration["placements"]],
+            ]
+            if revision_receipt is not None:
+                records.append(
+                    _write_immutable_json(paths["editor_revision_receipt"], revision_receipt)
+                )
+            self._append(
+                job=job,
+                run_id=run_id,
+                stage=stage,
+                started=started,
+                inputs={"input_packet": input_hash, "editorial": hash_value(editor)},
+                artifacts=records,
+                result="PASS_ACTUAL_NARRATION_TIMING_LOCK",
+                next_stage="MOTION_SOURCE_LOCKED",
+                role="Kokoro.actual_waveform_timing_lock",
+                usage={"external_media_cost_usd": narration["external_cost_usd"]},
+            )
+            return
+        editor = _load(paths["editor"])
+        timing_lock = _load(paths["timing_lock"])
+        validate_narration_timing_lock(
+            timing_lock,
+            video_job_id=str(job["video_job_id"]),
+            run_id=run_id,
+            governed_input_hash=input_hash,
+            editor=editor,
+        )
+        if stage == "MOTION_SOURCE_LOCKED":
+            if not paths["motion_submission"].is_file():
+                raise DesktopSessionInputRequired("MOTION_VISUAL_AUTHORSHIP")
+            submission = _load(paths["motion_submission"])
+            if submission.get("schema") != "contentops.v2.desktop_session_motion_submission.v1":
+                raise SupervisorError("desktop_session_motion_submission_schema_invalid")
+            if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
+                raise SupervisorError("desktop_session_motion_submission_identity_mismatch")
+            if submission.get("governed_input_hash") != input_hash:
+                raise SupervisorError("desktop_session_motion_submission_input_hash_mismatch")
+            if submission.get("editorial_narration_hash") != hash_value(editor):
+                raise SupervisorError("desktop_session_motion_editorial_hash_mismatch")
+            if submission.get("narration_timing_lock_hash") != timing_lock["timing_lock_hash"]:
+                raise SupervisorError("desktop_session_motion_timing_lock_hash_mismatch")
+            output = dict(submission.get("motion") or {})
+            receipt = dict(submission.get("receipt") or {})
+            validate_bounded_creative_receipt(
+                receipt,
+                execution_kind="MOTION_VISUAL_AUTHORSHIP",
+                video_job_id=str(job["video_job_id"]),
+                run_id=run_id,
+                initial_receipt=_load(paths["editor_receipt"]),
+            )
+            expected_hash = str((receipt.get("output_artifact_hashes") or {}).get("motion") or "")
+            if not expected_hash or hash_value(output) != expected_hash:
+                raise SupervisorError("codex_motion_output_hash_mismatch")
+            validation = validate_motion_artifact(output, packet, editor, timing_lock)
             source_records = materialize_source(output["files"], paths["project"])
             records = [
                 _json_artifact(paths["motion"], output),
@@ -610,11 +839,14 @@ class DesktopSessionV2Factory:
                 run_id=run_id,
                 stage=stage,
                 started=started,
-                inputs={"editor": hash_value(editor)},
+                inputs={
+                    "editor": hash_value(editor),
+                    "actual_narration_timing_lock": timing_lock["timing_lock_hash"],
+                },
                 artifacts=records,
                 result="PASS_MOTION_SOURCE_LOCK",
                 next_stage="HARD_SOURCE_VALIDATED",
-                role="BoundedXHighVideoCreative.motion_output_lock",
+                role="BoundedXHighVideoCreative.motion_visual_submission",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -700,9 +932,11 @@ class DesktopSessionV2Factory:
                 execution_kind="ACTUAL_MEDIA_REVIEW",
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
-                initial_receipt=_load(paths["editor_receipt"]),
+                initial_receipt=_load(paths["motion_receipt"]),
             )
-            validation = validate_revision_artifact(output, packet, editor, motion)
+            validation = validate_revision_artifact(
+                output, packet, editor, motion, timing_lock
+            )
             if dict(receipt.get("output_artifact_hashes") or {}).get("review") != hash_value(output):
                 raise SupervisorError("desktop_session_review_output_hash_mismatch")
             records = [
@@ -770,6 +1004,15 @@ class DesktopSessionV2Factory:
                 browser_executable=browser,
                 public_root=self.config.asset_root,
             )
+            picture_probe = self.media.probe_media(paths["picture"])
+            picture_duration = float(picture_probe["format"]["duration"])
+            narration_duration = float(
+                timing_lock["actual_total_narration_duration_seconds"]
+            )
+            if picture_duration + 0.001 < narration_duration + MINIMUM_PICTURE_TAIL_ROOM_SECONDS:
+                raise SupervisorError("picture_ends_before_locked_narration")
+            if abs(picture_duration - float(motion["duration_seconds"])) > 0.05:
+                raise SupervisorError("picture_duration_differs_from_motion_lock")
             self._append(
                 job=job,
                 run_id=run_id,
@@ -778,7 +1021,8 @@ class DesktopSessionV2Factory:
                 inputs={
                     "motion_or_revision": hash_value(
                         review if review["decision"] == "MATERIAL_REVISION_REQUIRED" else motion
-                    )
+                    ),
+                    "actual_narration_timing_lock": timing_lock["timing_lock_hash"],
                 },
                 artifacts=[render["artifact"]],
                 result="PASS_PICTURE_LOCK",
@@ -787,31 +1031,28 @@ class DesktopSessionV2Factory:
             )
             return
         if stage == "AUDIO_BUILT":
-            narration = self.media.synthesize_narration(
-                editor=editor,
-                model_path=self.config.kokoro_model,
-                voices_path=self.config.kokoro_voices,
-                output_dir=paths["narration_dir"],
-            )
             bed_path = self.config.asset_root / self.config.bed_relative_path
             mix = self.media.build_audio_mix(
                 picture=paths["picture"],
-                narration_receipt=narration,
+                timing_lock=timing_lock,
                 bed_path=bed_path,
                 output_dir=paths["mix"].parent,
             )
-            narration_record = _json_artifact(paths["narration_receipt"], narration)
             mix_record = _json_artifact(paths["audio_receipt"], mix)
             self._append(
                 job=job,
                 run_id=run_id,
                 stage=stage,
                 started=started,
-                inputs={"editor": hash_value(editor), "picture": hash_file(paths["picture"])},
-                artifacts=[narration["artifact"], mix["mix"], narration_record, mix_record],
-                result="PASS_AUDIO_BUILD",
+                inputs={
+                    "picture": hash_file(paths["picture"]),
+                    "actual_narration_timing_lock": timing_lock["timing_lock_hash"],
+                    "locked_narration_audio": timing_lock["locked_narration_audio"]["sha256"],
+                },
+                artifacts=[mix["mix"], mix_record],
+                result="PASS_AUDIO_BUILD_REUSING_LOCKED_NARRATION",
                 next_stage="FINAL_MEDIA_BUILT",
-                role="Kokoro+FFmpeg",
+                role="FFmpeg.locked_narration_mix",
                 usage={"external_media_cost_usd": 0.0},
             )
             return
@@ -833,10 +1074,9 @@ class DesktopSessionV2Factory:
             )
             return
         if stage == "PACKAGE_QA_PASSED":
-            narration = _load(paths["narration_receipt"])
             captions = self.media.build_captions(
-                editor=editor,
-                narration_receipt=narration,
+                timing_lock=timing_lock,
+                media_duration_seconds=float(motion["duration_seconds"]),
                 output_dir=paths["captions"],
             )
             technical = self.media.technical_media_report(paths["final"], paths["technical"])
@@ -862,6 +1102,8 @@ class DesktopSessionV2Factory:
                 _load(paths["motion_receipt"]),
                 _load(paths["review_receipt"]),
             ]
+            if paths["editor_revision_receipt"].is_file():
+                receipts.append(_load(paths["editor_revision_receipt"]))
             cost = {
                 "schema": "contentops.v2.cost_runtime_summary.v1",
                 **_safe_cost(receipts),
@@ -902,6 +1144,7 @@ class DesktopSessionV2Factory:
                 evidence_refs=[str(item["source_ref"]) for item in packet["anchors"]],
                 title=str(editor["title"]),
                 input_hash=input_hash,
+                timing_lock=timing_lock,
                 output=paths["package"],
             )
             package_record = package["manifest_artifact"]
@@ -943,6 +1186,13 @@ class DesktopSessionV2Factory:
             technical = _load(paths["technical"])
             package = _load(paths["package"])
             cost = _load(paths["cost"])
+            creative_receipts = [
+                str(paths["editor_receipt"]),
+                str(paths["motion_receipt"]),
+                str(paths["review_receipt"]),
+            ]
+            if paths["editor_revision_receipt"].is_file():
+                creative_receipts.insert(1, str(paths["editor_revision_receipt"]))
             bundle = {
                 "schema": "contentops.v2.owner_review_bundle.v1",
                 "result": "OWNER_REVIEW_READY",
@@ -951,14 +1201,17 @@ class DesktopSessionV2Factory:
                 "run_id": run_id,
                 "implementation_head": self.config.implementation_head,
                 "governed_input_hash": input_hash,
+                "editorial_narration_hash": hash_value(editor),
+                "narration_timing_lock": str(paths["timing_lock"]),
+                "narration_timing_lock_hash": timing_lock["timing_lock_hash"],
+                "actual_narration_duration_seconds": timing_lock[
+                    "actual_total_narration_duration_seconds"
+                ],
+                "picture_duration_seconds": float(motion["duration_seconds"]),
                 "final_mp4": local_media.artifact(paths["final"]),
                 "contact_sheet": final_sheet["artifact"],
                 "technical_media_report": str(paths["technical"]),
-                "creative_execution_receipts": [
-                    str(paths["editor_receipt"]),
-                    str(paths["motion_receipt"]),
-                    str(paths["review_receipt"]),
-                ],
+                "creative_execution_receipts": creative_receipts,
                 "parent_session_receipt": str(paths["parent_receipt"]),
                 "parent_runtime": "CODEX_DESKTOP_APP_PARENT_TASK_SESSION",
                 "parent_execution_plane": "CODEX_DESKTOP_APP_TASK_SESSION",
@@ -993,6 +1246,12 @@ class DesktopSessionV2Factory:
                         "audio quality",
                         "mobile readability",
                         "generic/template feel",
+                        "exact-file reuse",
+                        "visual-family repetition",
+                        "repeated split-panel or vertical-rail grammar",
+                        "concrete-first compliance",
+                        "chart and data stability",
+                        "whether each visual hold earns its duration",
                     ],
                     "identical_creative_choices_required": False,
                 },
@@ -1020,7 +1279,7 @@ class DesktopSessionV2Factory:
             self.store.finalize(
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
-                result="PASS_IMPLEMENTATION_HIGH_PARENT_XHIGH_CREATIVE_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
+                result="PASS_IMPLEMENTATION_ACTUAL_NARRATION_TIMING_LOCK_V2_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
                 state="OWNER_REVIEW_READY",
             )
             return

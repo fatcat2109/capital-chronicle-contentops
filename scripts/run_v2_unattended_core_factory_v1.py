@@ -120,17 +120,37 @@ def main() -> int:
     _add_factory_args(start)
     start.add_argument("--proof-run-started-at", default=None)
 
-    creative = sub.add_parser(
-        "submit-creative", help="Submit one bounded XHIGH initial creative execution"
+    editorial = sub.add_parser(
+        "submit-editorial", help="Submit bounded XHIGH editorial and narration authorship"
     )
-    _add_factory_args(creative)
-    creative.add_argument("--video-job-id", required=True)
-    creative.add_argument("--run-id", required=True)
-    creative.add_argument("--editorial", type=Path, required=True)
-    creative.add_argument("--source-manifest", type=Path, required=True)
-    creative.add_argument("--source-root", type=Path, required=True)
-    creative.add_argument("--creative-execution-label", required=True)
-    creative.add_argument("--native-child-task-id")
+    _add_factory_args(editorial)
+    editorial.add_argument("--video-job-id", required=True)
+    editorial.add_argument("--run-id", required=True)
+    editorial.add_argument("--editorial", type=Path, required=True)
+    editorial.add_argument("--creative-execution-label", required=True)
+    editorial.add_argument("--native-child-task-id")
+
+    editorial_revision = sub.add_parser(
+        "submit-editorial-revision",
+        help="Submit the one allowed bounded XHIGH narration timing revision",
+    )
+    _add_factory_args(editorial_revision)
+    editorial_revision.add_argument("--video-job-id", required=True)
+    editorial_revision.add_argument("--run-id", required=True)
+    editorial_revision.add_argument("--editorial", type=Path, required=True)
+    editorial_revision.add_argument("--creative-execution-label", required=True)
+    editorial_revision.add_argument("--native-child-task-id")
+
+    motion = sub.add_parser(
+        "submit-motion", help="Submit bounded XHIGH motion authored to the locked waveform"
+    )
+    _add_factory_args(motion)
+    motion.add_argument("--video-job-id", required=True)
+    motion.add_argument("--run-id", required=True)
+    motion.add_argument("--source-manifest", type=Path, required=True)
+    motion.add_argument("--source-root", type=Path, required=True)
+    motion.add_argument("--creative-execution-label", required=True)
+    motion.add_argument("--native-child-task-id")
 
     advance = sub.add_parser(
         "advance", help="Run deterministic stages until the next Desktop-session gate or terminal"
@@ -177,11 +197,27 @@ def main() -> int:
         factory = _factory(args, runtime, store)
         if args.command == "start":
             result = factory.run_once(proof_run_started_at=args.proof_run_started_at)
-        elif args.command == "submit-creative":
-            result = factory.submit_initial_creative(
+        elif args.command in {"submit-editorial", "submit-editorial-revision"}:
+            provenance = BoundedCreativeProvenance(
+                parent=factory.config.parent_provenance,
+                execution_label=args.creative_execution_label,
+                native_child_task_id=args.native_child_task_id,
+            )
+            submit = (
+                factory.submit_editorial_narration
+                if args.command == "submit-editorial"
+                else factory.submit_editorial_timing_revision
+            )
+            result = submit(
                 video_job_id=args.video_job_id,
                 run_id=args.run_id,
                 editor=_load_object(args.editorial.resolve()),
+                provenance=provenance,
+            )
+        elif args.command == "submit-motion":
+            result = factory.submit_motion_visual(
+                video_job_id=args.video_job_id,
+                run_id=args.run_id,
                 motion=_load_motion(args.source_manifest.resolve(), args.source_root.resolve()),
                 provenance=BoundedCreativeProvenance(
                     parent=factory.config.parent_provenance,

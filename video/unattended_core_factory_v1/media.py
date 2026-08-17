@@ -19,7 +19,7 @@ from video.freeform_chapter_pipeline_v1.package_factory import (
     write_caption_artifacts,
 )
 
-from .creative import hash_file
+from .creative import hash_file, hash_value
 
 
 class MediaExecutionError(RuntimeError):
@@ -308,32 +308,78 @@ def synthesize_narration(
         raise MediaExecutionError("audio_intent_changed_owner_accepted_voice_route")
     kokoro = Kokoro(str(model_path.resolve()), str(voices_path.resolve()))
     sample_rate = 24_000
-    pieces: list[np.ndarray] = [_silence(0.18, sample_rate)]
+    initial_silence = 0.18
+    pieces: list[np.ndarray] = [_silence(initial_silence, sample_rate)]
     placements: list[dict[str, Any]] = []
     cursor = len(pieces[0]) / sample_rate
     for index, segment in enumerate(editor["narration_segments"], start=1):
         text = str(segment["text"])
-        generated, returned_rate = kokoro.create(text, voice=voice, speed=speed, lang=lang)
-        if int(returned_rate) != sample_rate:
-            raise MediaExecutionError(f"kokoro_sample_rate_unexpected:{returned_rate}")
-        audio = np.asarray(generated, dtype=np.float32)
-        peak = float(np.max(np.abs(audio))) or 1.0
-        audio *= min(1.0, 10 ** (-3 / 20) / peak)
-        segment_path = output_dir / f"segment_{index:02d}.wav"
-        sf.write(segment_path, audio, sample_rate, subtype="PCM_24")
+        segment_id = str(segment["segment_id"])
+        identity = hash_value(
+            {
+                "provider": "kokoro-onnx",
+                "model": "kokoro-v1.0",
+                "voice": voice,
+                "speed": speed,
+                "lang": lang,
+                "sample_rate_hz": sample_rate,
+                "segment_id": segment_id,
+                "text": text,
+            }
+        )
+        segment_path = output_dir / f"segment_{index:02d}_{segment_id}.wav"
+        identity_path = segment_path.with_suffix(".identity.json")
+        audio = None
+        if segment_path.is_file() and identity_path.is_file():
+            cached = json.loads(identity_path.read_text(encoding="utf-8"))
+            if (
+                cached.get("identity") == identity
+                and cached.get("audio_sha256") == hash_file(segment_path)
+            ):
+                cached_audio, cached_rate = sf.read(segment_path, dtype="float32")
+                if int(cached_rate) == sample_rate:
+                    audio = np.asarray(cached_audio, dtype=np.float32)
+        if audio is None:
+            generated, returned_rate = kokoro.create(
+                text, voice=voice, speed=speed, lang=lang
+            )
+            if int(returned_rate) != sample_rate:
+                raise MediaExecutionError(f"kokoro_sample_rate_unexpected:{returned_rate}")
+            audio = np.asarray(generated, dtype=np.float32)
+            peak = float(np.max(np.abs(audio))) or 1.0
+            audio *= min(1.0, 10 ** (-3 / 20) / peak)
+            sf.write(segment_path, audio, sample_rate, subtype="PCM_24")
+            identity_path.write_text(
+                json.dumps(
+                    {
+                        "identity": identity,
+                        "audio_sha256": hash_file(segment_path),
+                    },
+                    indent=2,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
         duration = len(audio) / sample_rate
+        pause_after = 0.16 if index < len(editor["narration_segments"]) else 0.35
+        audio_record = artifact(segment_path)
         placements.append(
             {
-                "cue_id": str(segment["segment_id"]),
+                "cue_id": segment_id,
+                "segment_id": segment_id,
+                "segment_text_sha256": hash_value(text),
                 "timeline_start_seconds": round(cursor, 6),
                 "actual_audio_duration_seconds": round(duration, 6),
+                "timeline_end_seconds": round(cursor + duration, 6),
+                "pause_after_seconds": pause_after,
                 "caption_text": text,
-                "audio_path": str(segment_path),
+                "audio_path": str(segment_path.resolve()),
+                "audio": audio_record,
             }
         )
         pieces.append(audio)
-        pieces.append(_silence(0.16 if index < len(editor["narration_segments"]) else 0.35, sample_rate))
-        cursor += duration + (0.16 if index < len(editor["narration_segments"]) else 0.35)
+        pieces.append(_silence(pause_after, sample_rate))
+        cursor += duration + pause_after
     narration = np.concatenate(pieces)
     output = output_dir / "narration.wav"
     sf.write(output, narration, sample_rate, subtype="PCM_24")
@@ -346,6 +392,7 @@ def synthesize_narration(
         "lang": lang,
         "sample_rate_hz": sample_rate,
         "duration_seconds": round(len(narration) / sample_rate, 6),
+        "initial_silence_seconds": initial_silence,
         "placements": placements,
         "artifact": artifact(output),
         "external_cost_usd": 0.0,
@@ -355,14 +402,14 @@ def synthesize_narration(
 def build_audio_mix(
     *,
     picture: Path,
-    narration_receipt: Mapping[str, Any],
+    timing_lock: Mapping[str, Any],
     bed_path: Path,
     output_dir: Path,
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     picture_probe = probe_media(picture)
     picture_duration = float(picture_probe["format"]["duration"])
-    narration_duration = float(narration_receipt["duration_seconds"])
+    narration_duration = float(timing_lock["actual_total_narration_duration_seconds"])
     if narration_duration > picture_duration - 0.15:
         raise MediaExecutionError(
             f"narration_exceeds_picture:{narration_duration:.3f}>{picture_duration:.3f}"
@@ -385,7 +432,7 @@ def build_audio_mix(
             "error",
             "-y",
             "-i",
-            str(narration_receipt["artifact"]["path"]),
+            str(timing_lock["locked_narration_audio"]["path"]),
             "-stream_loop",
             "-1",
             "-i",
@@ -485,12 +532,12 @@ def loudness_report(path: Path) -> dict[str, Any]:
 
 
 def build_captions(
-    *, editor: Mapping[str, Any], narration_receipt: Mapping[str, Any], output_dir: Path
+    *, timing_lock: Mapping[str, Any], media_duration_seconds: float, output_dir: Path
 ) -> dict[str, Any]:
     caption_set = build_caption_cues(
         language="en",
-        media_duration_seconds=float(editor["duration_seconds"]),
-        segments=narration_receipt["placements"],
+        media_duration_seconds=media_duration_seconds,
+        segments=timing_lock["segments"],
     )
     validation = validate_caption_set(caption_set)
     if validation["result"] != "PASS_CAPTIONS":
@@ -532,6 +579,7 @@ def build_neutral_package(
     evidence_refs: Sequence[str],
     title: str,
     input_hash: str,
+    timing_lock: Mapping[str, Any],
     output: Path,
 ) -> dict[str, Any]:
     artifacts = captions["artifacts"]
@@ -571,6 +619,17 @@ def build_neutral_package(
         }
     )
     package["governed_input_hash"] = input_hash
+    package["narration_timing_lock_hash"] = timing_lock["timing_lock_hash"]
+    package["canonical_spoken_segments"] = [
+        {
+            "segment_id": item["segment_id"],
+            "segment_text_sha256": item["segment_text_sha256"],
+            "caption_text": item["caption_text"],
+            "timeline_start_seconds": item["timeline_start_seconds"],
+            "timeline_end_seconds": item["timeline_end_seconds"],
+        }
+        for item in timing_lock["segments"]
+    ]
     package["final_mux"] = artifact(final_media)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(package, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

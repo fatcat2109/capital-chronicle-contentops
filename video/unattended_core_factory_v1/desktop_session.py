@@ -129,7 +129,12 @@ def build_bounded_creative_receipt(
     output_artifact_hashes: Mapping[str, str],
 ) -> dict[str, Any]:
     provenance.validate()
-    if execution_kind not in {"INITIAL_CREATIVE", "ACTUAL_MEDIA_REVIEW"}:
+    if execution_kind not in {
+        "EDITORIAL_NARRATION",
+        "EDITORIAL_TIMING_REVISION",
+        "MOTION_VISUAL_AUTHORSHIP",
+        "ACTUAL_MEDIA_REVIEW",
+    }:
         raise DesktopSessionContractError("creative_execution_kind_invalid")
     if not video_job_id or not run_id:
         raise DesktopSessionContractError("creative_execution_job_identity_required")
@@ -140,16 +145,22 @@ def build_bounded_creative_receipt(
             "run_id": run_id,
         }
     )
-    scope = (
-        [
+    if execution_kind == "EDITORIAL_NARRATION":
+        scope = [
             "INSTITUTIONAL_VIDEO_ANALYSIS",
             "NARRATIVE_AND_NARRATION_AUTHORSHIP",
+            "EDITORIAL_STRUCTURE",
+        ]
+    elif execution_kind == "EDITORIAL_TIMING_REVISION":
+        scope = ["BOUNDED_NARRATION_TIMING_REVISION"]
+    elif execution_kind == "MOTION_VISUAL_AUTHORSHIP":
+        scope = [
             "VIEWER_FACING_REMOTION_AUTHORSHIP",
             "VISUAL_MOTION_AND_SOUND_EDIT_INTENT",
+            "ACTUAL_WAVEFORM_TIMING_COMPOSITION",
         ]
-        if execution_kind == "INITIAL_CREATIVE"
-        else ["ACTUAL_MEDIA_CREATIVE_REVIEW", "BOUNDED_SAME_VIDEO_CREATIVE_REVISION"]
-    )
+    else:
+        scope = ["ACTUAL_MEDIA_CREATIVE_REVIEW", "BOUNDED_SAME_VIDEO_CREATIVE_REVISION"]
     return {
         "schema": "contentops.v2.bounded_xhigh_video_creative_receipt.v1",
         "parent_runtime": PARENT_RUNTIME,
@@ -174,7 +185,7 @@ def build_bounded_creative_receipt(
         "session_database_inspected": False,
         "bounded_video_creative_execution": True,
         "all_session_xhigh": False,
-        "same_video_job_followup": execution_kind == "ACTUAL_MEDIA_REVIEW",
+        "same_video_job_followup": execution_kind != "EDITORIAL_NARRATION",
         "hidden_chat_memory_state_authority": False,
         "authorized_creative_scope": scope,
         "mechanical_work_performed": False,
@@ -242,7 +253,9 @@ def validate_bounded_creative_receipt(
             raise DesktopSessionContractError("parent_session_continuity_mismatch")
         if job_key != str(initial_receipt.get("same_video_job_continuity_key") or ""):
             raise DesktopSessionContractError("same_video_job_continuity_mismatch")
-    if receipt.get("same_video_job_followup") is not (execution_kind == "ACTUAL_MEDIA_REVIEW"):
+    if receipt.get("same_video_job_followup") is not (
+        execution_kind != "EDITORIAL_NARRATION"
+    ):
         raise DesktopSessionContractError("creative_followup_marker_mismatch")
     return {
         "result": "PASS_HIGH_PARENT_BOUNDED_XHIGH_CREATIVE_PROVENANCE",
