@@ -11,6 +11,12 @@ effort `XHIGH`, created for every final canonical article after a real candidate
 governed evidence to warrant article production, including `BREAKING_BRIEF`. The scheduled task itself does not run at
 `XHIGH`.
 
+Grounded-research/evidence model ladder: exactly `cx/gpt-5.6-terra(high)` →
+`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)`, all through 9Router. The runtime
+loads this policy automatically; operators do not restate it in each `GO`. Preserve the existing
+bounded retry budget and fall back only on eligible provider-layer failure. Model assertions have
+zero factual, numeric, Capital Chronicle, permission, publication, or public-write authority.
+
 This is the reusable instruction for one fresh native Desktop task. It is not a Codex CLI job,
 Desktop bridge, UI-automation lane, second scheduler, second newsroom, or persistent chat-memory
 system. `QUALITY_PROBATION_FOUR_WINDOW_V1` is the current owner-authorized operating policy.

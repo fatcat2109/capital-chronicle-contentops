@@ -17,7 +17,10 @@ from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_ARTICLE_WRITING,
     routed_llm_invocation,
 )
-from live_contentops.nine_router_ordered_model_router_v2 import ProviderResult
+from live_contentops.nine_router_ordered_model_router_v2 import (
+    V1_HIGH_QUALITY_MODEL_POOL,
+    ProviderResult,
+)
 
 
 NOW = datetime(2026, 8, 11, 12, 0, tzinfo=timezone.utc)
@@ -114,12 +117,12 @@ def test_proven_pre_generation_model_rejections_release_only_token_reservations(
 
     assert exhausted["terminal_disposition"] == "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED"
     assert after_rejections["cycle"]["accounted_tokens"] == 0
-    assert after_rejections["cycle"]["provider_attempts"] == 4
+    assert after_rejections["cycle"]["provider_attempts"] == len(V1_HIGH_QUALITY_MODEL_POOL)
     assert success["terminal_disposition"] == "ACCEPTED"
-    assert provider_calls == 5
+    assert provider_calls == len(V1_HIGH_QUALITY_MODEL_POOL) + 1
     final = budget_snapshot("cycle-pre-generation", control_root=tmp_path)
     assert final["cycle"]["accounted_tokens"] == 10
-    assert final["cycle"]["provider_attempts"] == 5
+    assert final["cycle"]["provider_attempts"] == len(V1_HIGH_QUALITY_MODEL_POOL) + 1
 
 
 def test_accepted_fallback_caches_model_scoped_unavailability_for_same_cycle(tmp_path):
@@ -186,7 +189,7 @@ def test_terminal_pool_exhaustion_does_not_poison_later_invocation(tmp_path):
     assert exhausted["terminal_disposition"] == "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED"
     assert recovered["terminal_disposition"] == "ACCEPTED"
     assert recovered["cycle_cached_unavailable_models_skipped"] == []
-    assert provider_calls == 5
+    assert provider_calls == len(V1_HIGH_QUALITY_MODEL_POOL) + 1
 
 
 def test_untrusted_transport_failure_without_usage_retains_reservation(tmp_path):

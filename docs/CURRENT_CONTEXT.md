@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans/status are historical/reference material when they conflict with current V1/V2 direction.
 
-Authority date: 2026-08-16
+Authority date: 2026-08-17
 
 ## Current product lanes
 
@@ -14,9 +14,9 @@ Current accepted implementation branch/product baseline:
 `codex/v1-four-window-closed-loop-current-master-integration-v1` at
 `14d596c114a5ef591a7135e77016e913d262878d`
 
-Current authority-closeout task:
+Current V1 research-routing correction task:
 
-`TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1`
+`TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1`
 
 Exactly four native V1 tasks already exist and are all `PAUSED`:
 
@@ -33,6 +33,14 @@ Do not create, recreate, enable, or add a fifth task. The exact next chain is:
 
 Current operating policy: `QUALITY_PROBATION_FOUR_WINDOW_V1` under
 `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`.
+
+Owner research-routing override (2026-08-17): all future V1 grounded-research/evidence calls use
+the exact deterministic 9Router ladder `cx/gpt-5.6-terra(high)` →
+`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)`. The pre-existing bounded retry and
+eligible provider-fallback semantics remain unchanged. Model output grants no factual, numeric,
+Capital Chronicle, permission, publication, or public-write authority; exact source records remain
+authority. The V1 Desktop coordinator stays `gpt-5.6-sol / HIGH`, and every warranted final article
+still requires one fresh isolated `gpt-5.6-sol / XHIGH` editorial worker.
 
 Exactly four fresh native Codex Desktop `gpt-5.6-sol / HIGH` coordinator opportunities are authorized:
 17:00, 21:00, and 23:00 Monday-Friday plus 01:00 Tuesday-Saturday, all Asia/Bangkok. Current

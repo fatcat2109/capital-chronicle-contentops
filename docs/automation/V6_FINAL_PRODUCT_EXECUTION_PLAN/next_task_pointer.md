@@ -1,11 +1,22 @@
 # ContentOps — Current Next Task Pointer
 
-Authority date: 2026-08-16
+Authority date: 2026-08-17
 Status: `CURRENT_DUAL_LANE_EXECUTION_POINTER`
 
 This file is a compact routing pointer. Detailed V1 history remains in task evidence/current status; detailed V2 execution authority is in the V2 retention-native plan set.
 
-## V1 current authority-closeout lane
+## V1 current research-routing correction
+
+`TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1`
+
+All future V1 grounded-research/evidence calls use exactly
+`cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
+`vx/gemini-3.5-flash(high)` through 9Router with the existing bounded retry policy. No route has
+factual, numeric, Capital Chronicle, permission, publication, or public-write authority. This does
+not authorize a live `GO`; after branch audit/integration, a new live opportunity requires separate
+exact authorization.
+
+## V1 prior accepted authority-closeout lane
 
 `TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1`
 

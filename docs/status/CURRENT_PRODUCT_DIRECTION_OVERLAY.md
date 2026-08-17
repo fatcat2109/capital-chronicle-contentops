@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-16
+Authority date: 2026-08-17
 Status: `CURRENT_DUAL_PRODUCT_DIRECTION_OVERLAY`
 
 GitHub remote refs/commits/diffs/exact fetched bytes remain repo-state authority. Jim's latest explicit instruction remains product-direction authority. This overlay supersedes conflicting sequencing/scope text in older plans while preserving verified historical evidence and safety invariants.
@@ -25,6 +25,14 @@ from existing durable cutoff/update-chain/published memory and retains the canon
 newsroom/store/publication coordinator. Capital Chronicle remains continuously evolving upstream
 intelligence/numeric authority, consumed read-only and dynamically; ContentOps maximizes useful
 integration but never duplicates, mutates, or infers authority from arbitrary database rows.
+
+Current owner V1 research-model override (2026-08-17): grounded research and evidence assistance
+must walk exactly `cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
+`vx/gemini-3.5-flash(high)` through 9Router. The existing bounded retry budget and eligible
+provider-failure fallback semantics remain controlling; there is no load balancing or fallback for
+an inconvenient evidence conclusion. Models never become source, factual/numeric, Capital Chronicle,
+permission, publication, or public-write authority. Coordinator and final editorial-worker authority
+remain `gpt-5.6-sol / HIGH` and fresh isolated `gpt-5.6-sol / XHIGH`, respectively.
 
 Current owner quality-probation override (2026-08-16):
 
@@ -345,7 +353,7 @@ Never inspect/export cookies, storage, tokens, credentials, or session databases
 
 V1 next:
 
-`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
+`TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1`
 
 V2 next:
 

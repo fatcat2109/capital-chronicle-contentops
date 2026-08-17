@@ -76,6 +76,11 @@ ARTICLE_WRITING_CX_RESCUE_ROLE = "v1_article_writing_cx_utility_rescue"
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
 GEMINI_PRO_MODEL = ORDERED_MODEL_POOL[-1]
 CX_FINAL_FALLBACK_MODEL = "cx/gpt-5.6-sol(xhigh)"
+V1_GROUNDED_RESEARCH_MODEL_LADDER: tuple[str, ...] = (
+    "cx/gpt-5.6-terra(high)",
+    "vx/gemini-3.1-pro-preview(high)",
+    "vx/gemini-3.5-flash(high)",
+)
 NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     NEWSROOM_LEAF_SCAN_MODEL,
     *ORDERED_MODEL_POOL,
@@ -85,7 +90,7 @@ V1_HIGH_QUALITY_MODEL_POOL: tuple[str, ...] = (
     CX_FINAL_FALLBACK_MODEL,
 )
 ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = V1_HIGH_QUALITY_MODEL_POOL
-GROUNDED_RESEARCH_MODEL_POOL: tuple[str, ...] = V1_HIGH_QUALITY_MODEL_POOL
+GROUNDED_RESEARCH_MODEL_POOL: tuple[str, ...] = V1_GROUNDED_RESEARCH_MODEL_LADDER
 ARTICLE_WRITING_CX_RESCUE_MODEL_POOL: tuple[str, ...] = (CX_FINAL_FALLBACK_MODEL,)
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
@@ -170,6 +175,11 @@ PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
 NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1, 1)
 NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 2)
 V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 2, 2, 2)
+# Preserve the pre-owner-override grounded-research retry shape for the new three-route
+# ladder: two declared attempts per route (the second remains reserved for the one global
+# structured-output repair), zero infrastructure same-model retries, six total attempts,
+# and the existing four-transition ceiling.
+GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 2)
 
 MAX_TOTAL_PROVIDER_ATTEMPTS = 6
 MAX_FALLBACK_TRANSITIONS = 3
@@ -281,8 +291,13 @@ def authority_packet() -> dict[str, Any]:
         "newsroom_leaf_scan_is_semantic_labor_only": True,
         "newsroom_global_editor_uses_quality_first_pool": True,
         "article_writing_uses_quality_first_pool": True,
+        "v1_grounded_research_gateway": GATEWAY,
+        "v1_grounded_research_model_ladder": list(V1_GROUNDED_RESEARCH_MODEL_LADDER),
+        "v1_grounded_research_model_order_is_deterministic": True,
+        "v1_grounded_research_grants_factual_or_numeric_authority": False,
+        "v1_grounded_research_grants_publication_authority": False,
         "v1_cx_final_fallback_model": CX_FINAL_FALLBACK_MODEL,
-        "v1_cx_final_fallback_roles": [ARTICLE_WRITING_ROLE, GROUNDED_RESEARCH_ROLE],
+        "v1_cx_final_fallback_roles": [ARTICLE_WRITING_ROLE],
         "v1_cx_utility_rescue_is_separate_single_model_invocation": True,
         "v1_high_quality_retry_policy": {
             "max_total_provider_attempts": MAX_TOTAL_PROVIDER_ATTEMPTS,
@@ -291,6 +306,15 @@ def authority_packet() -> dict[str, Any]:
             "max_structured_output_repair_attempts": 1,
             "per_model_max_attempts": list(V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS),
             "bounded": True,
+        },
+        "v1_grounded_research_retry_policy": {
+            "max_total_provider_attempts": MAX_TOTAL_PROVIDER_ATTEMPTS,
+            "max_fallback_transitions": V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "per_model_max_attempts": list(GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS),
+            "bounded": True,
+            "preserves_pre_override_retry_semantics": True,
         },
         "temporary_build_acceptance_gemini_incident_supported": True,
         "temporary_build_acceptance_gemini_incident_max_hours": 24,
@@ -345,6 +369,10 @@ def retry_budget_policy() -> dict[str, Any]:
 
 def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
     """Return the one canonical model ordering for a semantic role."""
+    # The owner-locked V1 research ladder is exact and must not be replaced by the
+    # temporary build-acceptance Gemini incident seam.
+    if str(role_task_id) == GROUNDED_RESEARCH_ROLE:
+        return GROUNDED_RESEARCH_MODEL_POOL
     incident = build_acceptance_gemini_incident()
     if incident is not None:
         return _incident_model_pool_for_role(role_task_id, str(incident["mode"]))
@@ -361,6 +389,15 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
             max_same_model_retries=0,
             max_structured_output_repair_attempts=0,
             per_model_max_attempts=(1,),
+        )
+    if str(role_task_id) == GROUNDED_RESEARCH_ROLE:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=MAX_TOTAL_PROVIDER_ATTEMPTS,
+            max_fallback_transitions=V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
+            max_same_model_retries=0,
+            max_structured_output_repair_attempts=1,
+            per_model_max_attempts=GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS,
         )
     if build_acceptance_gemini_incident() is not None:
         wall_clock_budget_seconds = DEFAULT_WALL_CLOCK_BUDGET_SECONDS
@@ -392,7 +429,7 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
             wall_clock_budget_seconds=NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
             per_model_max_attempts=NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
         )
-    if str(role_task_id) in {ARTICLE_WRITING_ROLE, GROUNDED_RESEARCH_ROLE}:
+    if str(role_task_id) == ARTICLE_WRITING_ROLE:
         # One structured repair may be spent on whichever normal V1 quality model produced the
         # malformed/defective output. Four infrastructure failures plus that one repair still
         # leave the sixth and final slot for CX. Infrastructure never burns a same-model retry.
@@ -740,10 +777,13 @@ def route_llm_invocation(
                 "work_item_id": work_item_id,
                 "role_task_id": role_task_id,
                 "gateway": GATEWAY,
+                "provider": GATEWAY,
                 "model_priority_index": priority_index,
+                "model_ladder_position": priority_index + 1,
                 "requested_model": model,
                 "attempt_number_global": budget.consumed_attempts,
                 "attempt_number_for_model": attempt_number_for_model,
+                "retry_number_for_model": attempt_number_for_model - 1,
                 "fallback_from": fallback_from,
                 "fallback_reason": fallback_reason,
                 "prompt_template": prompt_template,
@@ -901,11 +941,13 @@ def route_llm_invocation(
         "schema_version": SCHEMA_VERSION,
         "authority_id": AUTHORITY_ID,
         "gateway": GATEWAY,
+        "provider": GATEWAY,
         "logical_invocation_id": logical_invocation_id,
         "work_item_id": work_item_id,
         "role_task_id": role_task_id,
         "terminal_disposition": disposition,
         "selected_model": selected_model,
+        "terminal_selected_route": selected_model,
         "models_attempted_in_order": models_attempted,
         "total_attempts": budget.consumed_attempts,
         "total_fallback_transitions": budget.consumed_fallback_transitions,

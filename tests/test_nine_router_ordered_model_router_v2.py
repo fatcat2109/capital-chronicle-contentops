@@ -24,6 +24,8 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV,
     GATEWAY,
     GEMINI_PRO_MODEL,
+    GROUNDED_RESEARCH_MODEL_POOL,
+    GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS,
     GROUNDED_RESEARCH_ROLE,
     CX_FINAL_FALLBACK_MODEL,
     IDENTITY_MISMATCH_CLASS,
@@ -46,6 +48,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
     V1_HIGH_QUALITY_MODEL_POOL,
     V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS,
+    V1_GROUNDED_RESEARCH_MODEL_LADDER,
     SUPERSEDES_AUTHORITY_ID,
     TERMINAL_NON_RETRYABLE,
     ModelRouterError,
@@ -181,11 +184,12 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
     )
     assert PRIMARY_MODEL == "new/claude-fable-5"
     assert len(ORDERED_MODEL_POOL) == 4
-    assert len(AUTHORIZED_MODELS) == 6
+    assert len(AUTHORIZED_MODELS) == 7
     assert "vx/gemini-3.5-flash(high)" in AUTHORIZED_MODELS
     assert ARTICLE_WRITING_MODEL_POOL is V1_HIGH_QUALITY_MODEL_POOL
     assert model_pool_for_role(ARTICLE_WRITING_ROLE) is V1_HIGH_QUALITY_MODEL_POOL
-    assert model_pool_for_role(GROUNDED_RESEARCH_ROLE) is V1_HIGH_QUALITY_MODEL_POOL
+    assert model_pool_for_role(GROUNDED_RESEARCH_ROLE) is GROUNDED_RESEARCH_MODEL_POOL
+    assert GROUNDED_RESEARCH_MODEL_POOL is V1_GROUNDED_RESEARCH_MODEL_LADDER
     assert V1_HIGH_QUALITY_MODEL_POOL == (*ORDERED_MODEL_POOL, CX_FINAL_FALLBACK_MODEL)
     assert CX_FINAL_FALLBACK_MODEL not in NEWSROOM_LEAF_SCAN_MODEL_POOL
     assert authority_packet()["article_writing_uses_quality_first_pool"] is True
@@ -314,7 +318,7 @@ def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_b
     assert grounded.max_total_provider_attempts == 6
     assert grounded.max_fallback_transitions == 4
     assert grounded.max_structured_output_repair_attempts == 1
-    assert grounded.per_model_max_attempts == (2, 2, 2, 2, 2)
+    assert grounded.per_model_max_attempts == GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS == (2, 2, 2)
     rescue = retry_budget_for_role(
         role_task_id=ARTICLE_WRITING_CX_RESCUE_ROLE,
         logical_invocation_id="cx-rescue-budget-test",
@@ -345,10 +349,7 @@ def test_global_editor_authority_packet_declares_exact_bounded_repair_policy() -
 def test_authority_packet_declares_bounded_v1_cx_policy() -> None:
     packet = authority_packet()
     assert packet["v1_cx_final_fallback_model"] == CX_FINAL_FALLBACK_MODEL
-    assert packet["v1_cx_final_fallback_roles"] == [
-        ARTICLE_WRITING_ROLE,
-        GROUNDED_RESEARCH_ROLE,
-    ]
+    assert packet["v1_cx_final_fallback_roles"] == [ARTICLE_WRITING_ROLE]
     assert packet["v1_high_quality_retry_policy"] == {
         "max_total_provider_attempts": 6,
         "max_fallback_transitions": 4,
@@ -796,7 +797,7 @@ def test_v1_factual_failure_stops_before_cx() -> None:
     provider = scripted(
         {
             model: [fail("factual_validation_failure")]
-            for model in V1_HIGH_QUALITY_MODEL_POOL
+            for model in V1_GROUNDED_RESEARCH_MODEL_LADDER
         }
     )
     result = run(
@@ -811,7 +812,7 @@ def test_v1_factual_failure_stops_before_cx() -> None:
     )
 
     assert result["terminal_disposition"] == TERMINAL_NON_RETRYABLE
-    assert result["models_attempted_in_order"] == [ORDERED_MODEL_POOL[0]]
+    assert result["models_attempted_in_order"] == [V1_GROUNDED_RESEARCH_MODEL_LADDER[0]]
     assert CX_FINAL_FALLBACK_MODEL not in result["models_attempted_in_order"]
 
 

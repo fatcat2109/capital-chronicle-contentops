@@ -1,0 +1,56 @@
+{
+  "article_generation_calls": 0,
+  "available_route_count": 3,
+  "capital_chronicle_mutations": 0,
+  "classification": "PASS_ALL_THREE_9ROUTER_RESEARCH_ROUTES_AVAILABLE",
+  "exact_ladder": [
+    "cx/gpt-5.6-terra(high)",
+    "vx/gemini-3.1-pro-preview(high)",
+    "vx/gemini-3.5-flash(high)"
+  ],
+  "factual_or_numeric_authority_granted": false,
+  "generated_at_utc": "2026-08-17T08:01:36.481671Z",
+  "provider": "9router",
+  "public_write_calls": 0,
+  "publication_authority_granted": false,
+  "route_results": [
+    {
+      "failure_class": null,
+      "ladder_position": 1,
+      "latency_seconds": 4.8861,
+      "nonce_exact_match": true,
+      "provider": "9router",
+      "request_classification": "PASS_PROVIDER_ROUTE_AVAILABLE",
+      "requested_route": "cx/gpt-5.6-terra(high)",
+      "response_sha256": "be5af74916205dbfed66e48b19449cb7d1d5eeabcbcd289049e0d5d8835f0da8",
+      "returned_model_identifier": "gpt-5.6-terra"
+    },
+    {
+      "failure_class": null,
+      "ladder_position": 2,
+      "latency_seconds": 5.6098,
+      "nonce_exact_match": true,
+      "provider": "9router",
+      "request_classification": "PASS_PROVIDER_ROUTE_AVAILABLE",
+      "requested_route": "vx/gemini-3.1-pro-preview(high)",
+      "response_sha256": "be5af74916205dbfed66e48b19449cb7d1d5eeabcbcd289049e0d5d8835f0da8",
+      "returned_model_identifier": "gemini-3.1-pro-preview"
+    },
+    {
+      "failure_class": null,
+      "ladder_position": 3,
+      "latency_seconds": 4.6786,
+      "nonce_exact_match": true,
+      "provider": "9router",
+      "request_classification": "PASS_PROVIDER_ROUTE_AVAILABLE",
+      "requested_route": "vx/gemini-3.5-flash(high)",
+      "response_sha256": "be5af74916205dbfed66e48b19449cb7d1d5eeabcbcd289049e0d5d8835f0da8",
+      "returned_model_identifier": "gemini-3.5-flash"
+    }
+  ],
+  "schema_version": "contentops.v1_9router_research_model_ladder_capability_proof.v1",
+  "secrets_persisted": false,
+  "task_id": "TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1",
+  "v2_mutations": 0,
+  "xhigh_editorial_worker_calls": 0
+}

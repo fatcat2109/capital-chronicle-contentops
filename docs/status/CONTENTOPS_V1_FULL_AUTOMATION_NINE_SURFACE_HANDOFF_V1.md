@@ -15,6 +15,16 @@ TikTok from V1 payloads, locks, and destination requirements. Worker/runtime/del
 failure is a zero-write hold. The four native scheduled tasks remain exactly four and `PAUSED`.
 Status: `CURRENT_V1_OWNER_HANDOFF`
 
+## Current grounded-research routing authority
+
+Effective for future V1 opportunities, the exact 9Router research/evidence ladder is
+`cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
+`vx/gemini-3.5-flash(high)`. It replaces the prior V1 research ordering while preserving the
+existing bounded retry policy and eligible provider-layer fallback semantics. Exact source records
+remain authority; the three models have zero factual, numeric, Capital Chronicle, permission,
+publication, or public-write authority. Coordinator `gpt-5.6-sol / HIGH`, final worker fresh isolated
+`gpt-5.6-sol / XHIGH`, four paused tasks, and all nine publication gates are unchanged.
+
 This file exists so a fresh ChatGPT/Antigravity session can resume V1 without the long prior chat history.
 
 Repository-state authority remains fresh GitHub refs/commits/diffs/exact bytes. Jim's latest explicit instruction remains product-direction authority. Fetch current refs before acting.
@@ -43,11 +53,11 @@ Accepted product implementation baseline:
 
 Current continuation task:
 
-`TASK_CONTENTOPS_V1_FINAL_AUTHORITY_CLOSEOUT_AND_SINGLE_CANARY_GATE_PREP_V1`
+`TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1`
 
 Closeout result:
 
-`PASS_V1_FINAL_AUTHORITY_CLOSEOUT_READY_FOR_MASTER_FAST_FORWARD_AND_SINGLE_LIVE_CANARY`
+`PASS_V1_9ROUTER_RESEARCH_LADDER_READY_FOR_CHATGPT_AUDIT_AND_NEW_LIVE_OPPORTUNITY`
 
 Parent task:
 
