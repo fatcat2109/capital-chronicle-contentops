@@ -903,6 +903,41 @@ def test_rolling_x_release_candidate_builds_and_verifies_canonical_lock(tmp_path
     assert payloads["threads"]["quality_metrics"]["reply_count"] == 2
 
 
+def test_enhanced_breaking_brief_uses_text_only_native_packages_without_article_media():
+    article = {
+        "title": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+        "subtitle": (
+            "Secondary-source listings corroborate the Cairo meeting and its Gaza focus, "
+            "but do not establish terms or an outcome."
+        ),
+        "social_hook": (
+            "Jared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks "
+            "with Benjamin Netanyahu scheduled to follow."
+        ),
+        "effective_article_mode": "BREAKING_BRIEF",
+        "minimum_trustworthy_evidence_packet": {
+            "status": "PASS",
+            "risk_tier": "ENHANCED",
+        },
+    }
+    payloads = implementation.build_native_derivative_payloads(
+        article=article,
+        selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/pending-publication",
+        media_asset_ids=(),
+    )
+
+    assert set(payloads) == {
+        "telegram", "x", "linkedin", "discord", "facebook_page",
+        "instagram_business", "threads", "youtube",
+    }
+    for platform in ("x", "threads"):
+        package = payloads[platform]
+        assert package["hard_truncation_used"] is False
+        assert all(not row["media_asset_ids"] for row in package["posts"])
+        assert max(package["quality_metrics"]["post_character_counts"]) <= package["platform_limit"]
+
+
 def test_release_candidate_defers_unready_derivative_to_exact_jit_verification(tmp_path: Path):
     assignment, viability, article, media, editorial, readiness = _release_inputs(tmp_path)
     readiness["all_required_destinations_ready"] = False

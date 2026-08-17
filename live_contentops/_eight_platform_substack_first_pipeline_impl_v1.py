@@ -416,41 +416,62 @@ def build_native_derivative_payloads(
     title = str(article["title"])
     dek = str(article.get("subtitle") or selection.get("dek") or "")
     minimum_packet = article.get("minimum_trustworthy_evidence_packet") or {}
-    if (
+    ordinary_brief = (
         isinstance(minimum_packet, Mapping)
         and minimum_packet.get("status") == "PASS"
         and minimum_packet.get("risk_tier") == "ORDINARY"
-    ):
-        text = "\n\n".join(value for value in (title, dek, canonical_url) if value)
+    )
+    article_mode = str(
+        article.get("effective_article_mode")
+        or article.get("article_mode")
+        or article.get("editorial_mode")
+        or ""
+    ).upper()
+    if ordinary_brief or article_mode == "BREAKING_BRIEF":
+        brief_dek = str(article.get("social_hook") or article.get("social_lede") or dek)
+        text = "\n\n".join(value for value in (title, brief_dek, canonical_url) if value)
         media_ids = [str(value) for value in media_asset_ids if str(value)]
-        thread_payload = {
-            "text": text,
-            "root_text": text,
-            "reply_texts": [],
-            "full_text": text,
-            "platform_limit": 280,
-            "overflow_strategy": "single_root",
-            "hard_truncation_used": False,
-            "posts": [{"text": text, "media_asset_ids": media_ids[:1]}],
-            "quality_metrics": {
-                "reply_count": 0,
-                "sentence_boundary_pass": True,
-                "orphan_fragment_count": 0,
-                "visual_distribution_pass": bool(media_ids),
-                "complete_article_visual_count": len(media_ids),
-            },
-        }
+
+        def brief_layout(limit: int) -> dict[str, Any]:
+            layout = _root_and_replies(
+                title=title,
+                dek=brief_dek,
+                canonical_url=canonical_url,
+                continuation_parts=(),
+                limit=limit,
+            )
+            posts = [
+                {
+                    "order": index,
+                    "role": "root" if index == 0 else "reply",
+                    "text": value,
+                    "media_asset_ids": media_ids[:1] if index == 0 else [],
+                }
+                for index, value in enumerate(
+                    [layout["root_text"], *layout["reply_texts"]]
+                )
+            ]
+            return {
+                **layout,
+                "text": layout["root_text"],
+                "posts": posts,
+                "quality_metrics": _thread_quality(
+                    posts,
+                    limit=limit,
+                    expected_media_ids=media_ids[:1],
+                ),
+            }
+
+        x_brief = brief_layout(280)
+        threads_brief = brief_layout(500)
         return {
             "telegram": {"format": "channel_brief", "text": text, "media_asset_ids": media_ids[:1]},
-            "x": {"format": "single_root_brief", **thread_payload},
+            "x": {"format": "text_brief", **x_brief},
             "linkedin": {"format": "professional_brief", "text": text},
             "discord": {"format": "newsroom_brief", "text": text},
             "facebook_page": {"format": "page_brief", "text": text},
             "instagram_business": {"format": "brief_caption", "text": text},
-            "threads": {
-                "format": "single_root_brief",
-                **{**thread_payload, "platform_limit": 500},
-            },
+            "threads": {"format": "text_brief", **threads_brief},
             "youtube": {
                 "format": "community_brief",
                 "text": text,
