@@ -8,26 +8,25 @@ This override supersedes current V2 planning language where it conflicts. Histor
 
 ## Current task
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`
 
 Required result ceiling:
 
-`PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE`
+`PASS_TIKTOK_SANDBOX_DRAFT_CANARY_GATE_READY_FOR_INDEPENDENT_OWNER_WRITE_AUDIT`
 
-The accepted picture and zero-rerender package outputs are closed inputs. The current HIGH-only
-task reconciles official publication-adapter planning on fresh master, executes only deterministic
-fake-provider shadow proof, and preserves `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`. It performs no
-OAuth, provider call, credential read, private/unlisted/draft upload, or public write.
+The accepted publication adapters and exact Short package are closed inputs. The current HIGH-only
+task implements and fake-tests one package-bound TikTok Sandbox draft canary, redacted receipt,
+durable ambiguity journal, and readback-only recovery. It performs no real Credential Manager or
+environment-secret read, OAuth refresh, user-info call, Content Posting call, media transfer,
+status call, draft delivery, creator finalization, or public write.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED BLOCKER REMOVAL] -> official publication adapter reconciliation [CURRENT] -> TikTok draft readiness/exact owner live-canary gate [NEXT, NOT STARTED] -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED] -> official publication adapter reconciliation [ACCEPTED] -> TikTok Sandbox draft canary gate [CURRENT] -> unattended V2 core proof [NEXT AFTER CANARY] -> V1 integration/scheduling [DEFERRED]`
 
-Single exact next task after acceptance:
-
-`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`
-
-The current task does not start or authorize that gate.
+This implementation may only become eligible for one provider-write attempt after independent
+Jim/ChatGPT audit and an exact owner grant bound to the prepared attempt ID, package, media hash,
+destination alias, draft intent, and one logical delivery. This task does not grant that authority.
 
 ## Model orchestration
 

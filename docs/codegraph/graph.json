@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13284,
+    "edges": 13326,
     "entrypoints": 16,
-    "nodes": 7072,
+    "nodes": 7099,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 27,
@@ -33,12 +33,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 17,
-      "python_class": 590,
-      "python_function": 3854,
+      "python_class": 605,
+      "python_function": 3860,
       "python_method": 265,
-      "python_module": 735,
-      "schema": 178,
-      "test": 716,
+      "python_module": 737,
+      "schema": 181,
+      "test": 717,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -37641,6 +37641,156 @@
       "to": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py"
     },
     {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedSecureSessionProvider"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedShortPackageResolver"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanaryJournal"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanarySecurePreflightError"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanarySecurityContext"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ChunkRange"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::MediaPreflight"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::PackageAuthority"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ProviderCallError"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ProviderInitResult"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::SecureSessionProvider"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryTransport"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokSandboxDraftCanaryExecutor"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::UrllibTikTokCanaryTransport"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::build_chunk_plan"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::deterministic_canary_attempt_id"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ffprobe_media"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::nonsecret_readiness_summary"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::validate_redacted_canary_receipt"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.tiktok_sandbox_draft_canary_attempt.v1"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.tiktok_sandbox_draft_canary_journal.v1"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.tiktok_sandbox_draft_canary_receipt.v1"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_tiktok_sandbox_draft_canary_v1.py"
+    },
+    {
       "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -64983,6 +65133,36 @@
       "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
     },
     {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::build_chunk_plan",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ChunkRange"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::build_chunk_plan",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ffprobe_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::nonsecret_readiness_summary",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::deterministic_canary_attempt_id"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::validate_redacted_canary_receipt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError"
+    },
+    {
       "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::persist_supervised_session_after_preflight",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -67227,6 +67407,60 @@
       "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::read_approved_credentials"
     },
     {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::UrllibFormTokenTransport"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedSecureSessionProvider"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedShortPackageResolver"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanaryJournal"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokSandboxDraftCanaryExecutor"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::UrllibTikTokCanaryTransport"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::deterministic_canary_attempt_id"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokRefreshCredentialStore"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::UrllibUserInfoTransport"
+    },
+    {
       "from": "python_symbol:scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68587,6 +68821,18 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main"
+    },
+    {
+      "from": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main"
+    },
+    {
+      "from": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main"
     },
     {
       "from": "scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py",
@@ -72475,6 +72721,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py"
+    },
+    {
+      "from": "tests/test_tiktok_sandbox_draft_canary_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/tiktok_sandbox_draft_canary_v1.py"
     },
     {
       "from": "tests/test_tiktok_secure_refresh_store_readonly_preflight_v1.py",
@@ -79868,7 +80120,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-17T06:19:35Z",
+  "generation_timestamp_utc": "2026-08-17T06:55:49Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -79901,7 +80153,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 21603
+      "size_bytes": 21345
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -80111,12 +80363,12 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 6004
+      "size_bytes": 6129
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 20153
+      "size_bytes": 20018
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -80126,7 +80378,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 13727
+      "size_bytes": 13597
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -80141,7 +80393,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 17649
+      "size_bytes": 17635
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -83548,6 +83800,11 @@
       "id": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
       "kind": "python_module",
       "size_bytes": 18300
+    },
+    {
+      "id": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "kind": "python_module",
+      "size_bytes": 45492
     },
     {
       "id": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
@@ -113862,6 +114119,146 @@
       "symbol": "refresh_token_session"
     },
     {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedSecureSessionProvider",
+      "kind": "python_class",
+      "line": 420,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "AcceptedSecureSessionProvider"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedShortPackageResolver",
+      "kind": "python_class",
+      "line": 281,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "AcceptedShortPackageResolver"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanaryJournal",
+      "kind": "python_class",
+      "line": 685,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "CanaryJournal"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanarySecurePreflightError",
+      "kind": "python_class",
+      "line": 100,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "CanarySecurePreflightError"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanarySecurityContext",
+      "kind": "python_class",
+      "line": 178,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "CanarySecurityContext"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ChunkRange",
+      "kind": "python_class",
+      "line": 128,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "ChunkRange"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::MediaPreflight",
+      "kind": "python_class",
+      "line": 139,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "MediaPreflight"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::PackageAuthority",
+      "kind": "python_class",
+      "line": 120,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "PackageAuthority"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ProviderCallError",
+      "kind": "python_class",
+      "line": 92,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "ProviderCallError"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ProviderInitResult",
+      "kind": "python_class",
+      "line": 192,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "ProviderInitResult"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::SecureSessionProvider",
+      "kind": "python_class",
+      "line": 202,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "SecureSessionProvider"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError",
+      "kind": "python_class",
+      "line": 84,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "TikTokCanaryError"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryTransport",
+      "kind": "python_class",
+      "line": 206,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "TikTokCanaryTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokSandboxDraftCanaryExecutor",
+      "kind": "python_class",
+      "line": 849,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "TikTokSandboxDraftCanaryExecutor"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::UrllibTikTokCanaryTransport",
+      "kind": "python_class",
+      "line": 511,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "UrllibTikTokCanaryTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::build_chunk_plan",
+      "kind": "python_function",
+      "line": 250,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "build_chunk_plan"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::deterministic_canary_attempt_id",
+      "kind": "python_function",
+      "line": 235,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "deterministic_canary_attempt_id"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ffprobe_media",
+      "kind": "python_function",
+      "line": 374,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "ffprobe_media"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::nonsecret_readiness_summary",
+      "kind": "python_function",
+      "line": 1177,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "nonsecret_readiness_summary"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::validate_redacted_canary_receipt",
+      "kind": "python_function",
+      "line": 833,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "validate_redacted_canary_receipt"
+    },
+    {
       "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::CredentialRecord",
       "kind": "python_class",
       "line": 70,
@@ -115927,6 +116324,13 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "kind": "python_function",
+      "line": 67,
+      "path": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "main"
+    },
+    {
       "id": "python_symbol:scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py::main",
       "kind": "python_function",
       "line": 88,
@@ -117453,6 +117857,21 @@
       "schema_id": "contentops.v1_runtime_preflight.v1"
     },
     {
+      "id": "schema:contentops.v2.tiktok_sandbox_draft_canary_attempt.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.tiktok_sandbox_draft_canary_attempt.v1"
+    },
+    {
+      "id": "schema:contentops.v2.tiktok_sandbox_draft_canary_journal.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.tiktok_sandbox_draft_canary_journal.v1"
+    },
+    {
+      "id": "schema:contentops.v2.tiktok_sandbox_draft_canary_receipt.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.tiktok_sandbox_draft_canary_receipt.v1"
+    },
+    {
       "id": "schema:contentops.v5_ui_source_epoch.v1",
       "kind": "schema",
       "schema_id": "contentops.v5_ui_source_epoch.v1"
@@ -117836,6 +118255,11 @@
       "id": "scripts/run_tiktok_local_desktop_oauth_pkce_v1.py",
       "kind": "python_module",
       "size_bytes": 2000
+    },
+    {
+      "id": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
+      "kind": "python_module",
+      "size_bytes": 5051
     },
     {
       "id": "scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py",
@@ -121021,6 +121445,11 @@
       "id": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py",
       "kind": "test",
       "size_bytes": 18284
+    },
+    {
+      "id": "tests/test_tiktok_sandbox_draft_canary_v1.py",
+      "kind": "test",
+      "size_bytes": 24682
     },
     {
       "id": "tests/test_tiktok_secure_persistence_supervised_cli_v1.py",
@@ -125758,6 +126187,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "e29bd8dfd2217f684c2e9d3819cfeebe91b3da14",
-  "source_tree_digest": "d07ec85ef400a2efce48063178ceb4928e77ab35b36376ed9fe77f3f398f88c8"
+  "source_head": "97cd13c914f1a48029cdc8529ab9ffd31637ec1d",
+  "source_tree_digest": "b8e0f5845f86a17ddeaa49a271cba2c45b6e2c217eb277953ad2a712fc176d5e"
 }

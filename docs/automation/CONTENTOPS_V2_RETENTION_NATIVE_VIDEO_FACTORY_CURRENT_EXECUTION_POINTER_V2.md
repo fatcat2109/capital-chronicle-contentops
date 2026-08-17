@@ -11,11 +11,11 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED BLOCKER REMOVAL] -> official publication adapter reconciliation [CURRENT] -> TikTok draft readiness/exact owner live-canary gate [NEXT, NOT STARTED] -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED] -> official publication adapter reconciliation [ACCEPTED] -> TikTok Sandbox draft canary gate [CURRENT] -> unattended V2 core proof [NEXT AFTER CANARY] -> V1 integration/scheduling [DEFERRED]`
 
 Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
 short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
@@ -91,19 +91,17 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Current exact task
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It ports useful
-historical adapter code without importing stale authority, corrects the YouTube/TikTok/Meta
-contracts, and proves all six surfaces against accepted real package identities with zero network
-or platform operations. Required result ceiling:
-`PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE`.
+This is the only active V2 product task unless Jim explicitly changes direction. It implements and
+fake-tests one exact TikTok Sandbox Upload-to-TikTok draft canary, using the accepted secure refresh
+store and exact Short package while keeping all real credential, OAuth, provider, draft, public,
+V1, and scheduler counters at zero. Required result ceiling:
+`PASS_TIKTOK_SANDBOX_DRAFT_CANARY_GATE_READY_FOR_INDEPENDENT_OWNER_WRITE_AUDIT`.
 
-The single exact next task after acceptance is
-`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
-It must reverify non-secret identity/readiness, obtain exact owner write authority, deliver one
-Upload-to-TikTok draft, stop at `SEND_TO_USER_INBOX`, and require creator finalization. The
-current task does not start or authorize that gate.
+No implementation PASS authorizes execution. A later exact owner grant may cover one prepared
+attempt only. The execution must stop at `SEND_TO_USER_INBOX`; creator finalization remains out of
+scope. Unattended V2 core proof is next only after the canary is independently audited and run.
 
 Canonical proof flow:
 

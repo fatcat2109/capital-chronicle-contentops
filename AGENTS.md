@@ -141,20 +141,15 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
-
-This is the only active V2 product task unless Jim explicitly changes direction. Reconcile the
-historical publication-adapter donor onto fresh current master without merging its stale authority.
-The six-surface shadow control plane must preserve zero public-write authority and exact
-`UNKNOWN_WRITE -> STOP RETRY -> READ BACK -> RECONCILE` behavior while using the corrected
-first-party contracts: YouTube video/Shorts, TikTok Upload-to-TikTok draft delivery, explicit
-Instagram Login versus Facebook Login variants, and Facebook Page Reels.
-The TikTok secure credential/bootstrap detour is accepted
-`COMPLETED_BLOCKER_REMOVAL`; do not reopen it or read the persisted credential in this task.
-
-The single exact next gate after acceptance is
 `TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
-It is not authorized or started by the current task.
+
+This is the only active V2 product task unless Jim explicitly changes direction. It implements and
+fake-tests one exact package-bound TikTok Sandbox Upload-to-TikTok draft canary executor, durable
+ambiguity journal, redacted live receipt, and readback-only resume path. This implementation phase
+has zero real credential, OAuth, user-info, Content Posting, media-transfer, status, draft-delivery,
+public-write, V1, or scheduler authority. Only a later Jim/ChatGPT independent audit plus an exact
+one-attempt owner grant may execute the prepared canary. Stop at `SEND_TO_USER_INBOX`; creator
+finalization and public posting remain out of scope.
 
 Canonical product path:
 

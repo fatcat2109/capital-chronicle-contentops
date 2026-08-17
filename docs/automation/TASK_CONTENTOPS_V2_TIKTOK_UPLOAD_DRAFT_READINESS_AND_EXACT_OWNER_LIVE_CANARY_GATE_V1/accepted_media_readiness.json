@@ -1,0 +1,32 @@
+{
+  "attempt_id": "ttcanary_b9c7a9b18d7ed326d556ba53d75fd0f2f8bb7218558f031dc7e703abf092d27a",
+  "delivery_intent": "DRAFT_DELIVERY",
+  "destination_alias": "TIKTOK_SANDBOX_PRIMARY",
+  "media": {
+    "chunk_size": 22101311,
+    "codec": "h264",
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration_seconds": 58.0,
+    "fps": 30.0,
+    "height": 1920,
+    "media_sha256": "1a2bddc40a2db7b019ddd5d7a5f7349182621b6e1ae273bbdd58a7393165c810",
+    "package_id": "pkg_2dfe4af587fd8135d04bae456b8c5b30a1560be91232b34f520cf7f05a71c0b2",
+    "size_bytes": 22101311,
+    "total_chunk_count": 1,
+    "width": 1080
+  },
+  "provider_intent_version": "UPLOAD_TO_TIKTOK_DRAFT.v1",
+  "public_writes": 0,
+  "real_content_posting_init_calls": 0,
+  "real_credential_reads": 0,
+  "real_draft_deliveries": 0,
+  "real_env_secret_reads": 0,
+  "real_oauth_refresh_calls": 0,
+  "real_status_calls": 0,
+  "real_upload_transfers": 0,
+  "real_user_info_calls": 0,
+  "remotion_renders": 0,
+  "result": "ACCEPTED_SHORT_MEDIA_READY",
+  "scheduler_mutations": 0,
+  "v1_mutations": 0
+}

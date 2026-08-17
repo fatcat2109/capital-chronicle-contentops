@@ -8,14 +8,11 @@ Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRE
 > **2026-08-17 current handoff override:** Read
 > `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` before the older
 > evidence below. The active HIGH-only task is
-> `TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`.
-> It corrects provider contracts using first-party docs and deterministic fake-provider shadow
-> proof only. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling.
-> TikTok secure credential/bootstrap work is `COMPLETED_BLOCKER_REMOVAL`; do not reopen it or
-> read the persisted credential under this task.
-> The single exact next task after acceptance is
-> `TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`;
-> it is named but not started by current authority.
+> `TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
+> It implements and fake-tests one exact package-bound TikTok Sandbox draft canary, redacted
+> receipt, ambiguity journal, and readback-only recovery. No real credential, OAuth, user-info,
+> provider, draft, public, V1, or scheduler operation is authorized during implementation.
+> Independent Jim/ChatGPT audit plus an exact one-attempt owner grant is required before execution.
 
 Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or owner chat history.
 
