@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13151,
+    "edges": 13179,
     "entrypoints": 14,
-    "nodes": 6994,
+    "nodes": 7009,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 27,
@@ -33,12 +33,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 15,
-      "python_class": 559,
-      "python_function": 3830,
+      "python_class": 568,
+      "python_function": 3834,
       "python_method": 264,
-      "python_module": 720,
+      "python_module": 721,
       "schema": 177,
-      "test": 712,
+      "test": 713,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -37605,6 +37605,96 @@
       "to": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py"
     },
     {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::CredentialRecord"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::CredentialStoreBackend"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::IdentityPreflightResult"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::RefreshCredentialSession"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokRefreshCredentialStore"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokSecureSessionError"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::UrllibUserInfoTransport"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::UserInfoTransport"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::WindowsCredentialManagerBackend"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::persist_supervised_session_after_preflight"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::readonly_identity_preflight"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::refresh_stored_session_and_preflight"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::validate_redacted_receipt"
+    },
+    {
+      "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_tiktok_secure_refresh_store_readonly_preflight_v1.py"
+    },
+    {
       "from": "live_contentops/trusted_evidence_canary_evidence_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -64755,6 +64845,78 @@
       "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
     },
     {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::persist_supervised_session_after_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::RefreshCredentialSession"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::persist_supervised_session_after_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokSecureSessionError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::persist_supervised_session_after_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::readonly_identity_preflight"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::persist_supervised_session_after_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::validate_redacted_receipt"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::readonly_identity_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::IdentityPreflightResult"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::readonly_identity_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokSecureSessionError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::refresh_stored_session_and_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::read_approved_credentials"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::refresh_stored_session_and_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::refresh_token_session"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::refresh_stored_session_and_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokSecureSessionError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::refresh_stored_session_and_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::readonly_identity_preflight"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::refresh_stored_session_and_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::validate_redacted_receipt"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::validate_redacted_receipt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokSecureSessionError"
+    },
+    {
       "from": "python_symbol:live_contentops/trusted_evidence_canary_evidence_v1.py::generate_evidence",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -72045,6 +72207,12 @@
       "to": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py"
     },
     {
+      "from": "tests/test_tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py"
+    },
+    {
       "from": "tests/test_unified_approval_outbox_readiness_v6.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -79060,7 +79228,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-16T15:24:28Z",
+  "generation_timestamp_utc": "2026-08-17T04:26:36Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -82739,7 +82907,12 @@
     {
       "id": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
       "kind": "python_module",
-      "size_bytes": 17778
+      "size_bytes": 18300
+    },
+    {
+      "id": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "kind": "python_module",
+      "size_bytes": 19261
     },
     {
       "id": "live_contentops/trusted_evidence_canary_evidence_v1.py",
@@ -113002,6 +113175,97 @@
       "symbol": "refresh_token_session"
     },
     {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::CredentialRecord",
+      "kind": "python_class",
+      "line": 70,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "CredentialRecord"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::CredentialStoreBackend",
+      "kind": "python_class",
+      "line": 99,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "CredentialStoreBackend"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::IdentityPreflightResult",
+      "kind": "python_class",
+      "line": 83,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "IdentityPreflightResult"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::RefreshCredentialSession",
+      "kind": "python_class",
+      "line": 53,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "RefreshCredentialSession"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokRefreshCredentialStore",
+      "kind": "python_class",
+      "line": 261,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "TikTokRefreshCredentialStore"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokSecureSessionError",
+      "kind": "python_class",
+      "line": 44,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "TikTokSecureSessionError"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::UrllibUserInfoTransport",
+      "kind": "python_class",
+      "line": 355,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "UrllibUserInfoTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::UserInfoTransport",
+      "kind": "python_class",
+      "line": 109,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "UserInfoTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::WindowsCredentialManagerBackend",
+      "kind": "python_class",
+      "line": 155,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "WindowsCredentialManagerBackend"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::persist_supervised_session_after_preflight",
+      "kind": "python_function",
+      "line": 472,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "persist_supervised_session_after_preflight"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::readonly_identity_preflight",
+      "kind": "python_function",
+      "line": 398,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "readonly_identity_preflight"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::refresh_stored_session_and_preflight",
+      "kind": "python_function",
+      "line": 501,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "refresh_stored_session_and_preflight"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::validate_redacted_receipt",
+      "kind": "python_function",
+      "line": 459,
+      "path": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "symbol": "validate_redacted_receipt"
+    },
+    {
       "id": "python_symbol:live_contentops/trusted_evidence_canary_evidence_v1.py::build_reports",
       "kind": "python_function",
       "line": 85,
@@ -116605,7 +116869,7 @@
     {
       "id": "scripts/run_tiktok_local_desktop_oauth_pkce_v1.py",
       "kind": "python_module",
-      "size_bytes": 1937
+      "size_bytes": 2000
     },
     {
       "id": "scripts/run_v1_current_yield_shadow_opportunities.py",
@@ -119495,7 +119759,7 @@
     {
       "id": "tests/test_security_scans.py",
       "kind": "test",
-      "size_bytes": 4049
+      "size_bytes": 4059
     },
     {
       "id": "tests/test_seo_editorial_metadata_proposal_v6.py",
@@ -119785,7 +120049,12 @@
     {
       "id": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py",
       "kind": "test",
-      "size_bytes": 17778
+      "size_bytes": 18284
+    },
+    {
+      "id": "tests/test_tiktok_secure_refresh_store_readonly_preflight_v1.py",
+      "kind": "test",
+      "size_bytes": 23042
     },
     {
       "id": "tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py",
@@ -124448,6 +124717,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "c6dc72ee121f0a3bfdef5fcb26691eae98e827bf",
-  "source_tree_digest": "5c8e6a33b5dab2f3094a9dd27468214d071f1fc9547491e8a6ac2e68bf7d6753"
+  "source_head": "f994a9ed7b730e54d09b29900a527daa9b8f51c9",
+  "source_tree_digest": "ca68aac04c25c73da48059fce62e8b5fb14abf0b92e42675b1dc33c971f771f3"
 }
