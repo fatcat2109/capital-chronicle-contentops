@@ -19,116 +19,99 @@ Read in this order:
 7. `docs/automation/CONTENTOPS_V2_NORTH_STAR_MASTER_PLAN_TRANSCRIPT_SEO_MULTILINGUAL_AMENDMENT_V1.md`
 8. `docs/automation/CONTENTOPS_V2_ACTUAL_MEDIA_OWNER_AUDIT_AFTER_HIGH_PARENT_SHORT_PATH_PROOF_V1.md`
 9. `docs/automation/CONTENTOPS_V2_DEPENDENCY_ROOT_PREFLIGHT_OWNER_AUDIT_V1.md`
-10. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
-11. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
-12. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
-13. this file
-14. nearest scoped `AGENTS.md`
-15. exact current task code/tests/evidence.
+10. `docs/automation/CONTENTOPS_V2_OWNED_SURFACE_SECRET_SCAN_OWNER_AUDIT_V1.md`
+11. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+12. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
+13. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
+14. this file
+15. nearest scoped `AGENTS.md`
+16. exact current task code/tests/evidence.
 
 Repository refs/commits/exact bytes remain repo-state authority. Jim's latest explicit direction remains product authority.
 
-## Tool/process decision
+## Tool / reasoning doctrine
 
-CodeGraph is mandatory for meaningful implementation and audit. Use real graph discovery before edits and affected-flow/orphan/duplicate verification after edits. `CODEGRAPH_CURRENT` alone is not proof of graph use.
+CodeGraph is mandatory as a discovery/impact gate before meaningful edits and as affected-flow/orphan/duplicate verification after edits. `CODEGRAPH_CURRENT` alone is insufficient.
 
-Superpowers is not activated. Three-Level Delivery is not activated.
+Superpowers and Three-Level Delivery remain inactive.
 
-## Reasoning-effort topology
+Codex Desktop parent/session runs `GPT-5.6 Sol / HIGH`. Bounded consequential video editorial/visual/review work may use `GPT-5.6 Sol / XHIGH`. No XHIGH for Git, CodeGraph, rendering, FFmpeg, tests, diagnostics, waiting, evidence, commit or push. No Codex CLI/`codex exec`, SDK/API/headless, 9Router/provider creative substitution.
 
-- parent/session: `GPT-5.6 Sol / HIGH`;
-- bounded consequential video editorial/visual/review work: `GPT-5.6 Sol / XHIGH`;
-- no XHIGH for Git, CodeGraph, tests, rendering, FFmpeg, mechanical diagnostics, waiting/polling, evidence, commit, or push;
-- no Codex CLI/`codex exec`, SDK/API/headless, 9Router, Terra/Gemini/provider/generic-model creative substitution.
+## Audited current product truth
 
-## Audited current implementation truth
+Current product branch:
 
-Product branch:
+`task/v2-dependency-root-preflight-fresh-owner-review-media-proof-v1`
 
-`task/v2-actual-narration-timing-lock-fresh-owner-review-media-proof-v1`
+Implementation HEAD:
 
-Narration-timing implementation:
-
-`a163b0ad488e7d628531ac9f218ec72b79073bfb`
+`289abf6c0d329a3c7ab37880bf08c96dc092f3dc`
 
 Frozen pre-proof/CodeGraph HEAD:
 
-`76f3cb2b58aa1b6745b411489850fe25d89403a0`
+`fbcb480ee8cbf31aeb21d348eb6d7d63e0d5dd0f`
 
 Evidence HEAD:
 
-`baa918e10dbca71035a286a05aefca89903784b9`
+`e94c8d090ec1bc3a5f9818eff9503ab3498032f0`
 
 Terminal classification:
 
-`FAIL_QUARANTINED_AT_HARD_SOURCE_VALIDATION_DEPENDENCY_ROOT_CONFIG`
+`PASS_IMPLEMENTATION_DEPENDENCY_ROOT_PREFLIGHT_V2 / FAIL_FRESH_PROOF_QUARANTINED_BEFORE_PACKAGE_QA / BLOCKED_OWNER_REVIEW_READY`
 
-Verified product progress:
+Accepted product progress:
 
-- actual Kokoro waveform timing is now locked before motion authorship;
-- immutable narration timing lock hash: `7bf38d7140183a8a01615402c8897b7a527ac07accd76dbb5d9a41c3aea6dca7`;
-- locked narration: `55.442s / af_heart / speed=1.06 / en-us`;
-- fresh timing-bound motion contract: `56.000s / 1680 frames / 30fps`;
-- proof passed `CLAIMED -> GOVERNED_INPUT_LOCKED -> CREATIVE_EDITOR_LOCKED -> ACTUAL_NARRATION_TIMING_LOCKED -> MOTION_SOURCE_LOCKED`;
-- two bounded XHIGH executions were accepted: editorial/narration and timing-bound motion authorship;
-- XHIGH mechanical work remained zero;
-- CodeGraph was actually queried in the writable worktree before and after implementation;
-- no render, actual-media review, picture lock, final mux, captions, package, owner bundle, V1/platform/scheduler/public write occurred.
+- dependency-root preflight now fails before claim/proof/XHIGH on an invalid project-root argument;
+- correct `node_modules`, Remotion/TypeScript CLIs and canonical 222-character browser path pass;
+- narration timing lock remains before motion authorship;
+- Windows-safe Remotion browser/public-root repair remains active;
+- proof passed through `FINAL_MEDIA_BUILT`;
+- final MP4 exists at `1080x1920 / 30fps / H.264+AAC / 55.333333s`;
+- final MP4 SHA-256 `030668862a34c37f411c0de05f463070e132b50436f08fd775d59467e599e639`;
+- final mix measured approximately `-16.1 LUFS / -1.5 dBFS true peak`;
+- four bounded XHIGH executions occurred with zero XHIGH mechanical work;
+- no retry/resume/second proof, V1/platform/scheduler/public write occurred.
 
-The prior audio-duration sequencing blocker is therefore corrected. Do not reopen that architecture.
+Independent ChatGPT actual-media audit confirms real final media and technical media contract. Visual product is `PASS_WITH_CAVEATS`, not a reason for mandatory rerender: typography/numeric hierarchy/mobile readability are strong; source-family repetition improved; remaining caveats are the longer `MOVEMENT CHECK` family hold, somewhat deck-like `INITIAL CLAIMS`, and abstract final `LOW MOTION` payoff. Audio level/duration/codec integrity pass; subjective listening quality is not claimed by ChatGPT.
 
 ## Current blocker
 
-The one proof supplied the Remotion project directory as `--dependency-root` instead of its `node_modules` directory.
+Package QA performs:
 
-The fail-closed browser resolver therefore searched the wrong `.remotion/chrome-headless-shell` location and quarantined before typecheck/render.
+`self._secret_scan(paths["root"])`
 
-This is an operator invocation error plus a canonical-runner preflight gap: the CLI accepts `--dependency-root` and `FactoryConfig.validate()` currently proves path existence but not the semantic Remotion dependency-root contract.
+and `_secret_scan()` recursively scans all text-like files beneath the whole job root. The generated Remotion project contains a projected `node_modules` dependency tree, so scanning crosses into third-party/vendor code and flagged Zod `string.test.ts`.
 
-Do not fix this by changing renderer architecture or weakening the browser resolver.
+This is a secret-scan **scope/trust-boundary defect**, not evidence that Zod contains a Capital Chronicle secret and not a reason to weaken secret patterns.
 
-Add the smallest fail-fast pre-proof validation so a wrong-but-existing project root is rejected before proof start/job claim/bounded-XHIGH spend, while the correct `node_modules` root is accepted and proves its Remotion CLI/browser identity.
-
-## CodeGraph caveat
-
-The task's actual local CodeGraph discovery/verification evidence is accepted. The deterministic `V2_CONTEXT.md` is generated from the correct product source HEAD but still contains some stale descriptive V2 prose. Current owner authority supersedes that prose. Clean generator wording only if a small in-scope edit is justified; do not turn it into a separate documentation phase.
+The secret scanner must operate on explicit job-owned/governed text surfaces while excluding dependency/vendor projections, caches and any junction/symlink target outside the owned runtime boundary. A secret-like value in owned generated source/package/session artifacts must continue to hard-fail.
 
 ## Exact next task
 
-`TASK_CONTENTOPS_V2_DEPENDENCY_ROOT_PREFLIGHT_GUARD_AND_FRESH_OWNER_REVIEW_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_OWNED_SURFACE_SECRET_SCAN_BOUNDARY_AND_FRESH_OWNER_READY_PROOF_V1`
 
 Use a **fresh Codex Desktop App parent/task session at `GPT-5.6 Sol / HIGH`**.
 
-This is a new implementation task and new governed proof/job. Do not resume or mutate quarantined run:
+Do not resume or mutate quarantined run:
 
-`run_dfbcf87ff70347aca26f28e323df3cba`
+`run_407fd03b00f345df83d477e7bee0d2d4`
 
-Required capability sequence:
+Required sequence:
 
-`HIGH CodeGraph/config trace -> fail-fast dependency-root preflight -> invalid-root rejection + valid-node_modules smoke -> commit/push -> one fresh governed Short -> bounded XHIGH editorial/narration -> HIGH timing lock -> bounded XHIGH timing-bound motion -> hard validation/render -> bounded XHIGH actual-media review/revision if needed -> picture lock -> HIGH audio/captions/final/package -> OWNER_REVIEW_READY`
+`HIGH CodeGraph/secret-scan trace -> explicit owned-surface scan boundary -> vendor false-positive regression + owned-secret hard-fail regression -> commit/push -> one fresh governed Short -> accepted narration timing + motion/render/audio path -> PACKAGE_QA_PASSED -> OWNER_REVIEW_READY`
 
-Preserve the accepted narration timing-lock implementation and Windows-safe Remotion browser/public-root repair.
+Preserve dependency-root preflight, timing-lock architecture, HIGH/XHIGH topology, Windows-safe Remotion handling and zero-public-write authority.
 
-## Creative/media carry-forward
+Do not reopen creative architecture or force a creative rerender solely for this scanner bug. Fresh proof creative work remains fresh, with the current owner visual caveats used as judgment rather than deterministic quotas.
 
-Fresh proof remains `1080x1920 / 30fps / normally 30–60s` with Kokoro `af_heart / 1.06 / en-us`.
+## Build / safety
 
-Carry forward the prior independent owner-media caveats as creative judgment:
+- 1080p only;
+- fresh Short `1080x1920 / 30fps / normally 30–60s`;
+- Kokoro `af_heart / 1.06 / en-us`;
+- no 4K, longform, ElevenLabs/avatar, multilingual activation, V1 trigger/scheduler, platform credential/API/browser publication or production soak;
+- `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`.
 
-- reduce blind station/office/desk/warehouse visual-family reuse;
-- do not default to split/vertical-rail layout grammar;
-- prefer concrete/documentary/native-data carriers before abstract geometry;
-- keep charts/data evidence stable and readable; no ornamental zoom/pan;
-- actual-media XHIGH review must explicitly inspect visual-family/layout repetition.
-
-Do not convert these to machine quotas and do not open a broad asset-infrastructure task.
-
-## Safety / later gates
-
-`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
-
-No 4K, longform, ElevenLabs/avatar, multilingual activation, V1 trigger/scheduler, platform credential/API/browser publication, or production soak in the current task.
-
-Only after a fresh proof reaches `OWNER_REVIEW_READY` and Jim/ChatGPT independently inspect and accept actual final MP4/audio does the next gate become:
+Only after a fresh proof reaches `OWNER_REVIEW_READY` and Jim/ChatGPT independently accept actual final MP4/audio/package does the next gate become:
 
 `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_V1`
