@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13109,
+    "edges": 13151,
     "entrypoints": 14,
-    "nodes": 6972,
+    "nodes": 6994,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 27,
@@ -33,12 +33,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 15,
-      "python_class": 552,
-      "python_function": 3818,
+      "python_class": 559,
+      "python_function": 3830,
       "python_method": 264,
-      "python_module": 718,
+      "python_module": 720,
       "schema": 177,
-      "test": 711,
+      "test": 712,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -37485,6 +37485,126 @@
       "to": "tests/test_tier2_video_factory_v1.py"
     },
     {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::AuthorizationContext"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::CallbackAuthorization"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::FormTokenTransport"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokAppCredentials"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokTokenSession"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::UrllibFormTokenTransport"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::authorize_interactively"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::build_authorization_context"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::derive_tiktok_s256_challenge"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::exchange_authorization_code"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::failure_receipt"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::generate_pkce_verifier"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::generate_state"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::parse_callback_target"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::read_approved_credentials"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::receive_authorization_code"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::refresh_token_session"
+    },
+    {
+      "from": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py"
+    },
+    {
       "from": "live_contentops/trusted_evidence_canary_evidence_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -64545,6 +64665,96 @@
       "to": "python_symbol:live_contentops/tier2_video_factory_v1.py::run_tier2_video"
     },
     {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::authorize_interactively",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::build_authorization_context"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::authorize_interactively",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::exchange_authorization_code"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::authorize_interactively",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::receive_authorization_code"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::build_authorization_context",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::AuthorizationContext"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::build_authorization_context",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::build_authorization_context",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::derive_tiktok_s256_challenge"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::build_authorization_context",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::generate_pkce_verifier"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::build_authorization_context",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::generate_state"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::derive_tiktok_s256_challenge",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::generate_pkce_verifier",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::parse_callback_target",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::CallbackAuthorization"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::parse_callback_target",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::read_approved_credentials",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokAppCredentials"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::receive_authorization_code",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::refresh_token_session",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
+    },
+    {
       "from": "python_symbol:live_contentops/trusted_evidence_canary_evidence_v1.py::generate_evidence",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -66657,6 +66867,30 @@
       "to": "python_symbol:live_contentops/operator_approved_supervised_live_daily_run_v0.py::run_operator_approved_supervised_live_daily_run"
     },
     {
+      "from": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::UrllibFormTokenTransport"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::authorize_interactively"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::failure_receipt"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::read_approved_credentials"
+    },
+    {
       "from": "python_symbol:scripts/run_v1_current_yield_shadow_opportunities.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -67921,6 +68155,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/terra_ultra_north_star_full_automation_v1.py::main"
+    },
+    {
+      "from": "scripts/run_tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main"
+    },
+    {
+      "from": "scripts/run_tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main"
     },
     {
       "from": "scripts/run_v1_current_yield_shadow_opportunities.py",
@@ -71791,6 +72037,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/tier2_video_factory_v1.py"
+    },
+    {
+      "from": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py"
     },
     {
       "from": "tests/test_unified_approval_outbox_readiness_v6.py",
@@ -78808,7 +79060,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-16T14:51:35Z",
+  "generation_timestamp_utc": "2026-08-16T15:24:28Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -82483,6 +82735,11 @@
       "id": "live_contentops/tier2_video_factory_v1.py",
       "kind": "python_module",
       "size_bytes": 54982
+    },
+    {
+      "id": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "kind": "python_module",
+      "size_bytes": 17778
     },
     {
       "id": "live_contentops/trusted_evidence_canary_evidence_v1.py",
@@ -112619,6 +112876,132 @@
       "symbol": "verify_hash_manifest"
     },
     {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::AuthorizationContext",
+      "kind": "python_class",
+      "line": 71,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "AuthorizationContext"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::CallbackAuthorization",
+      "kind": "python_class",
+      "line": 86,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "CallbackAuthorization"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::FormTokenTransport",
+      "kind": "python_class",
+      "line": 148,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "FormTokenTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokAppCredentials",
+      "kind": "python_class",
+      "line": 54,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "TikTokAppCredentials"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError",
+      "kind": "python_class",
+      "line": 45,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "TikTokOAuthError"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokTokenSession",
+      "kind": "python_class",
+      "line": 98,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "TikTokTokenSession"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::UrllibFormTokenTransport",
+      "kind": "python_class",
+      "line": 160,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "UrllibFormTokenTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::authorize_interactively",
+      "kind": "python_function",
+      "line": 478,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "authorize_interactively"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::build_authorization_context",
+      "kind": "python_function",
+      "line": 241,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "build_authorization_context"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::derive_tiktok_s256_challenge",
+      "kind": "python_function",
+      "line": 231,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "derive_tiktok_s256_challenge"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::exchange_authorization_code",
+      "kind": "python_function",
+      "line": 429,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "exchange_authorization_code"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::failure_receipt",
+      "kind": "python_function",
+      "line": 503,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "failure_receipt"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::generate_pkce_verifier",
+      "kind": "python_function",
+      "line": 223,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "generate_pkce_verifier"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::generate_state",
+      "kind": "python_function",
+      "line": 217,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "generate_state"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::parse_callback_target",
+      "kind": "python_function",
+      "line": 292,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "parse_callback_target"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::read_approved_credentials",
+      "kind": "python_function",
+      "line": 205,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "read_approved_credentials"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::receive_authorization_code",
+      "kind": "python_function",
+      "line": 357,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "receive_authorization_code"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::refresh_token_session",
+      "kind": "python_function",
+      "line": 454,
+      "path": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "refresh_token_session"
+    },
+    {
       "id": "python_symbol:live_contentops/trusted_evidence_canary_evidence_v1.py::build_reports",
       "kind": "python_function",
       "line": 85,
@@ -114551,6 +114934,13 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main",
+      "kind": "python_function",
+      "line": 24,
+      "path": "scripts/run_tiktok_local_desktop_oauth_pkce_v1.py",
+      "symbol": "main"
+    },
+    {
       "id": "python_symbol:scripts/run_v1_current_yield_shadow_opportunities.py::main",
       "kind": "python_function",
       "line": 192,
@@ -116211,6 +116601,11 @@
       "id": "scripts/run_terra_ultra_north_star_full_automation_v1.py",
       "kind": "python_module",
       "size_bytes": 280
+    },
+    {
+      "id": "scripts/run_tiktok_local_desktop_oauth_pkce_v1.py",
+      "kind": "python_module",
+      "size_bytes": 1937
     },
     {
       "id": "scripts/run_v1_current_yield_shadow_opportunities.py",
@@ -119100,7 +119495,7 @@
     {
       "id": "tests/test_security_scans.py",
       "kind": "test",
-      "size_bytes": 4059
+      "size_bytes": 4049
     },
     {
       "id": "tests/test_seo_editorial_metadata_proposal_v6.py",
@@ -119386,6 +119781,11 @@
       "id": "tests/test_tier2_video_factory_v1.py",
       "kind": "test",
       "size_bytes": 4394
+    },
+    {
+      "id": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py",
+      "kind": "test",
+      "size_bytes": 17778
     },
     {
       "id": "tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py",
@@ -124048,6 +124448,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "74a3751b2cd28928c437b202dc7cbaac3669924d",
-  "source_tree_digest": "d87fb9494916d4cef798d997b6988cf2ceac3b2f55fc430b365099986a304e09"
+  "source_head": "c6dc72ee121f0a3bfdef5fcb26691eae98e827bf",
+  "source_tree_digest": "5c8e6a33b5dab2f3094a9dd27468214d071f1fc9547491e8a6ac2e68bf7d6753"
 }

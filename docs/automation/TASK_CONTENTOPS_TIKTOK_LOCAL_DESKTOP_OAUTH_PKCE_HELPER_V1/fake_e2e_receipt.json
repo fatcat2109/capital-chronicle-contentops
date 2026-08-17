@@ -1,0 +1,26 @@
+{
+  "access_token_received": true,
+  "callback_uri": "http://127.0.0.1:8765/oauth/tiktok/callback",
+  "content_posting_calls": 0,
+  "environment_mutated": false,
+  "granted_scopes": [
+    "user.info.basic",
+    "video.list",
+    "video.upload"
+  ],
+  "media_uploads": 0,
+  "open_id_received": true,
+  "public_writes": 0,
+  "refresh_capable": true,
+  "refresh_rotation_exercised": true,
+  "refresh_token_received": true,
+  "requested_scopes": [
+    "user.info.basic",
+    "video.list",
+    "video.upload"
+  ],
+  "required_scopes_satisfied": true,
+  "result": "TOKEN_RECEIVED_REQUIRED_SCOPES_SATISFIED",
+  "secrets_persisted": false,
+  "state_validated": true
+}
