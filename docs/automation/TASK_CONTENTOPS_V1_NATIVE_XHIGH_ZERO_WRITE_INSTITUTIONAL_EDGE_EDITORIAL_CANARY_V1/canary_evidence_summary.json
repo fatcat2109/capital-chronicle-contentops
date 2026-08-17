@@ -1,0 +1,70 @@
+{
+  "schema_version": "contentops.v1_native_xhigh_zero_write_institutional_edge_canary_evidence.v1",
+  "classification": "NO_PUBLICATION_VALID_BUT_ZERO_WRITE_EDITORIAL_CANARY_NOT_PROVEN",
+  "accepted_implementation_head": "5e16cdd399eddb64c606fdc30b6521e1fd73b79d",
+  "rehearsal": {
+    "cutoff_utc": "2026-08-17T15:00:43.582097Z",
+    "prepared_candidate_state_source": "REBUILT_FROM_CANONICAL_FRONTIER_INPUTS",
+    "prepared_candidate_count": 12,
+    "deferred_candidate_count": 24,
+    "candidate_decision": "CANDIDATE_FOR_DESKTOP_EDITORIAL_JUDGMENT",
+    "database_writes_performed": false,
+    "filesystem_writes_performed": false,
+    "provider_or_model_calls": 0,
+    "public_requests": 0,
+    "public_writes": 0,
+    "unknown_write_detected": false,
+    "v2_mutations": 0
+  },
+  "continuity": {
+    "terminal_window_id": "operator-requested-operator-trigger-aab3143b39b64dd299bb5517",
+    "last_terminal_cutoff_utc_before": "2026-08-17T08:50:15.794759Z",
+    "last_terminal_cutoff_utc_after": "2026-08-17T08:50:15.794759Z",
+    "continuity_logical_hash_before": "ed1005c4de83e4490aeb69e719dcdd9f6ad61e29287089aa4230cb2d915175a4",
+    "continuity_logical_hash_after": "ed1005c4de83e4490aeb69e719dcdd9f6ad61e29287089aa4230cb2d915175a4",
+    "evaluated_headline_count": 401
+  },
+  "frontier_walk": {
+    "run_id": "v1-native-xhigh-zero-write-institutional-edge-canary-frontier",
+    "classification": "NO_PUBLICATION",
+    "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+    "operating_mode": "KILL_SWITCH",
+    "prepared_candidate_state_reused": true,
+    "candidates_attempted": 12,
+    "article_writer_semantic_calls": 0,
+    "mandatory_semantic_review_calls": 0,
+    "publishing_adapter_called": false,
+    "public_write_performed": false,
+    "unknown_write_detected": false
+  },
+  "call_counts": {
+    "grounded_research_9router_logical_calls": 3,
+    "provider_attempts": 6,
+    "public_read_only_research_requests": 10,
+    "native_xhigh_workers": 0,
+    "legacy_9router_article_writer_calls": 0,
+    "mandatory_ordinary_semantic_review_calls": 0,
+    "public_adapter_calls": 0,
+    "public_writes": 0,
+    "unknown_write": 0
+  },
+  "capital_chronicle": {
+    "connection_mode": "duckdb_read_only",
+    "discovery_complete": true,
+    "store_count_total": 14,
+    "store_count_discovered": 14,
+    "catalog_fingerprint_after": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+    "catalog_changed_since_prior_terminal": false,
+    "authority_mutated": false,
+    "arbitrary_database_context_grants_authority": false
+  },
+  "article": null,
+  "article_mode": null,
+  "sensitivity_class": null,
+  "institutional_edge_packet_hash": null,
+  "native_worker_receipt": null,
+  "seo_package_hash": null,
+  "nine_destination_packages": null,
+  "zero_media_rationale": "No evidence-qualified article existed; media selection was therefore not entered.",
+  "exact_next_blocker": "FRESH_CONTINUITY_BOUND_CANDIDATE_MUST_PASS_EXISTING_EVIDENCE_GATES"
+}

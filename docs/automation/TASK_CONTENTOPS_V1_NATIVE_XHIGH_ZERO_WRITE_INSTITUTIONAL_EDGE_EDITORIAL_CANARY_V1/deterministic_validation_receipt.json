@@ -1,0 +1,11 @@
+{
+  "schema_version": "contentops.v1_native_xhigh_canary_validation_receipt.v1",
+  "classification": "NOT_RUN_NO_EVIDENCE_QUALIFIED_CANDIDATE",
+  "build_editorial_worker_routing_packet_called": false,
+  "validate_editorial_worker_return_called": false,
+  "article_validation_called": false,
+  "seo_package_built": false,
+  "nine_destination_packages_built": false,
+  "reason": "Every prepared candidate was evidence-blocked before the editorial routing boundary.",
+  "public_write_performed": false
+}

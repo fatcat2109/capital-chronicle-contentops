@@ -1,0 +1,39 @@
+{
+  "schema_version": "contentops.v1_native_xhigh_canary_codegraph_report.v1",
+  "previous_source_head": "97cd13c914f1a48029cdc8529ab9ffd31637ec1d",
+  "refreshed_source_head": "5e16cdd399eddb64c606fdc30b6521e1fd73b79d",
+  "check_result": "CODEGRAPH_CURRENT",
+  "query_mechanism": "canonical_checked_in_docs/codegraph/graph.json",
+  "optional_cli_index_present": false,
+  "second_codegraph_system_created": false,
+  "queries": [
+    {
+      "id": "A",
+      "question": "Production call path from build_editorial_worker_routing_packet through the native worker boundary to validate_editorial_worker_return",
+      "nodes": ["live_contentops/codex_desktop_newsroom_operator_v1.py::build_editorial_worker_routing_packet", "live_contentops/codex_desktop_newsroom_operator_v1.py::validate_editorial_worker_return", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle"],
+      "path": "_run_rolling_x_newsroom_cycle builds the deterministic routing packet after evidence qualification; the native Desktop coordinator executes the non-code worker boundary; the injected builder return is then checked by validate_editorial_worker_return before deterministic validation resumes.",
+      "discrepancy": "The static graph records the two definitions and the proof-script validator caller but does not infer the cycle's dynamic imports/calls or the external native Desktop execution boundary. Exact source establishes those links."
+    },
+    {
+      "id": "B",
+      "question": "Callers of build_rolling_x_grounded_article_and_media and custom/native article_builder injection versus legacy default",
+      "nodes": ["live_contentops/rolling_x_grounded_article_media_builder_v1.py::build_rolling_x_grounded_article_and_media", "live_contentops/rolling_x_grounded_article_media_builder_v1.py::_default_article_generator", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle", "scripts/run_v1_current_yield_shadow_opportunities.py::run"],
+      "path": "The facade forwards article_builder into _run_rolling_x_newsroom_cycle. A callable custom builder receives viability plus editorial_worker_request. With article_builder=None, publication-enabled execution fails closed as EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID; only publication-disabled shadow execution installs build_rolling_x_grounded_article_and_media, whose default generator is the legacy 9Router writer.",
+      "discrepancy": "The graph shows direct script/builder relationships but misses the cycle's dynamic import and conditional fallback. Exact source is controlling."
+    },
+    {
+      "id": "C",
+      "question": "Validated article to release preparation, nine packages, and SEO hash propagation",
+      "nodes": ["live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_prepare_rolling_x_release_candidate", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_build_rolling_x_publication_plan", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::build_native_derivative_payloads", "live_contentops/capital_chronicle_institutional_edge_v1.py::build_editorial_seo_package"],
+      "path": "A validated article enters _prepare_rolling_x_release_candidate, which builds editorial SEO, writes/locks the canonical article and eight derivative payloads, then _build_rolling_x_publication_plan adds Substack plus the eight derivatives and copies the same SEO hash to every destination row.",
+      "discrepancy": "The task calls the field seo_package_logical_hash, while current exact source uses editorial_seo_package_sha256. The graph also misses the prepare function's dynamic SEO import."
+    },
+    {
+      "id": "D",
+      "question": "DurablePublicationCoordinator boundary and zero-write avoid list",
+      "nodes": ["live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator", "live_contentops/publication_coordinator_v1.py::execute_plan", "live_contentops/publication_coordinator_v1.py::publish_plan", "live_contentops/publication_coordinator_v1.py::register_plan", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_eight_platform_substack_first_pipeline"],
+      "path": "The newsroom returns a deterministic plan. DurablePublicationCoordinator.publish_plan delegates to execute_plan, which registers durable intent, recovers pending state, dispatches, reads back, and reconciles.",
+      "discrepancy": "None material after exact-source reconciliation. This canary avoided publish_plan, execute_plan, register_plan, _run_eight_platform_substack_first_pipeline, _dispatch_once, and every public adapter."
+    }
+  ]
+}

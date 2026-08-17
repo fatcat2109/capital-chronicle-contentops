@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.v1_native_xhigh_worker_receipt_absence.v1",
+  "status": "NOT_CREATED_NO_EVIDENCE_QUALIFIED_CANDIDATE",
+  "native_xhigh_worker_count": 0,
+  "model": null,
+  "reasoning_effort": null,
+  "fresh": null,
+  "isolated": null,
+  "governed_input_hash": null,
+  "bounded_revision_count": null,
+  "public_write_attempted": false,
+  "legacy_writer_fallback_used": false
+}
