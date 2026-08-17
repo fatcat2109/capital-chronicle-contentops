@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13480,
+    "edges": 13484,
     "entrypoints": 16,
-    "nodes": 7178,
+    "nodes": 7179,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 35,
@@ -34,7 +34,7 @@
       "instructions": 8,
       "manifest": 19,
       "python_class": 619,
-      "python_function": 3898,
+      "python_function": 3899,
       "python_method": 265,
       "python_module": 747,
       "schema": 183,
@@ -67725,6 +67725,12 @@
       "to": "python_symbol:video/unattended_core_factory_v1/media.py::resolve_remotion_browser_executable"
     },
     {
+      "from": "python_symbol:scripts/run_v2_remotion_short_path_smoke_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::validate_dependency_root"
+    },
+    {
       "from": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68653,6 +68659,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::validate_dependency_root",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::validate_dependency_root",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::resolve_remotion_browser_executable"
     },
     {
       "from": "scripts/AGENTS.md",
@@ -80806,6 +80824,12 @@
     },
     {
       "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::validate_dependency_root"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "video/unattended_core_factory_v1/__init__.py"
@@ -81044,7 +81068,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-17T14:50:03Z",
+  "generation_timestamp_utc": "2026-08-17T15:42:37Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -81342,7 +81366,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 8395
+      "size_bytes": 7144
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -117389,14 +117413,14 @@
     {
       "id": "python_symbol:scripts/run_v2_remotion_short_path_smoke_v1.py::main",
       "kind": "python_function",
-      "line": 55,
+      "line": 56,
       "path": "scripts/run_v2_remotion_short_path_smoke_v1.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
       "kind": "python_function",
-      "line": 109,
+      "line": 118,
       "path": "scripts/run_v2_unattended_core_factory_v1.py",
       "symbol": "main"
     },
@@ -118334,77 +118358,77 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::browser_launch_layout",
       "kind": "python_function",
-      "line": 114,
+      "line": 166,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "browser_launch_layout"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_audio_mix",
       "kind": "python_function",
-      "line": 402,
+      "line": 454,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "build_audio_mix"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_captions",
       "kind": "python_function",
-      "line": 534,
+      "line": 586,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "build_captions"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_neutral_package",
       "kind": "python_function",
-      "line": 571,
+      "line": 623,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "build_neutral_package"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::contact_sheet",
       "kind": "python_function",
-      "line": 250,
+      "line": 302,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "contact_sheet"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::image_data_url",
       "kind": "python_function",
-      "line": 280,
+      "line": 332,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "image_data_url"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::loudness_report",
       "kind": "python_function",
-      "line": 500,
+      "line": 552,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "loudness_report"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::mux_final_media",
       "kind": "python_function",
-      "line": 463,
+      "line": 515,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "mux_final_media"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::prepare_project",
       "kind": "python_function",
-      "line": 132,
+      "line": 184,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "prepare_project"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::probe_media",
       "kind": "python_function",
-      "line": 225,
+      "line": 277,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "probe_media"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::render_project",
       "kind": "python_function",
-      "line": 174,
+      "line": 226,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "render_project"
     },
@@ -118425,30 +118449,37 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::synthesize_narration",
       "kind": "python_function",
-      "line": 291,
+      "line": 343,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "synthesize_narration"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report",
       "kind": "python_function",
-      "line": 552,
+      "line": 604,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "technical_media_report"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::typecheck_project",
       "kind": "python_function",
-      "line": 166,
+      "line": 218,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "typecheck_project"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::validate_assets",
       "kind": "python_function",
-      "line": 152,
+      "line": 204,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "validate_assets"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::validate_dependency_root",
+      "kind": "python_function",
+      "line": 117,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "validate_dependency_root"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/store.py::JobStoreError",
@@ -118481,7 +118512,7 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/supervisor.py::DesktopSessionV2Factory",
       "kind": "python_class",
-      "line": 159,
+      "line": 166,
       "path": "video/unattended_core_factory_v1/supervisor.py",
       "symbol": "DesktopSessionV2Factory"
     },
@@ -119532,7 +119563,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 59965
+      "size_bytes": 59961
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -119647,12 +119678,12 @@
     {
       "id": "scripts/run_v2_remotion_short_path_smoke_v1.py",
       "kind": "python_module",
-      "size_bytes": 4231
+      "size_bytes": 4546
     },
     {
       "id": "scripts/run_v2_unattended_core_factory_v1.py",
       "kind": "python_module",
-      "size_bytes": 10446
+      "size_bytes": 10786
     },
     {
       "id": "tests/AGENTS.md",
@@ -120157,7 +120188,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 10903
+      "size_bytes": 10985
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
@@ -122917,7 +122948,7 @@
     {
       "id": "tests/test_v2_unattended_core_factory_v1.py",
       "kind": "test",
-      "size_bytes": 31903
+      "size_bytes": 36580
     },
     {
       "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
@@ -127514,17 +127545,17 @@
     {
       "id": "video/unattended_core_factory_v1/creative.py",
       "kind": "python_module",
-      "size_bytes": 20236
+      "size_bytes": 20382
     },
     {
       "id": "video/unattended_core_factory_v1/desktop_session.py",
       "kind": "python_module",
-      "size_bytes": 11191
+      "size_bytes": 11217
     },
     {
       "id": "video/unattended_core_factory_v1/media.py",
       "kind": "python_module",
-      "size_bytes": 22645
+      "size_bytes": 24920
     },
     {
       "id": "video/unattended_core_factory_v1/scaffold/package.json",
@@ -127544,7 +127575,7 @@
     {
       "id": "video/unattended_core_factory_v1/supervisor.py",
       "kind": "python_module",
-      "size_bytes": 65396
+      "size_bytes": 66211
     }
   ],
   "protected_boundaries": [
@@ -127610,6 +127641,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "a163b0ad488e7d628531ac9f218ec72b79073bfb",
-  "source_tree_digest": "33078bfad4aaedd07c5f3c5076d7d568b0541de04e72db3f64f4e7f774c1f5af"
+  "source_head": "289abf6c0d329a3c7ab37880bf08c96dc092f3dc",
+  "source_tree_digest": "779c797e7a7a643f5a1e6e85f16fd705d6defcc7a1a3d1d7b42685fdc20cee76"
 }

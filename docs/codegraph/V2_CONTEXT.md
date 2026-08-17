@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `a163b0ad488e7d628531ac9f218ec72b79073bfb`. Source tree digest: `33078bfad4aaedd07c5f3c5076d7d568b0541de04e72db3f64f4e7f774c1f5af`.
+Generated from source HEAD `289abf6c0d329a3c7ab37880bf08c96dc092f3dc`. Source tree digest: `779c797e7a7a643f5a1e6e85f16fd705d6defcc7a1a3d1d7b42685fdc20cee76`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This map is descriptive repository state, not product authority. Jim's current direction and
@@ -41,11 +41,13 @@ targets `render-job.mjs`.
   are the canonical V2 product authority. Older V2 and V1 plan sets are historical where they
   conflict with this chain.
 - The current task is
-  `TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`.
-- `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified video
-  job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
-  The session may resume only for bounded revision of that same video job; governed artifacts and
-  checkpoints, not hidden chat memory, remain durable authority.
+  `TASK_CONTENTOPS_V2_DEPENDENCY_ROOT_PREFLIGHT_GUARD_AND_FRESH_OWNER_REVIEW_MEDIA_PROOF_V1`.
+- `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION` remains the explicit
+  governed creative-session boundary.
+- The normal Codex Desktop App parent/task session uses `GPT-5.6 Sol / HIGH`; only consequential
+  editorial/narration, timing-bound motion/visual authorship, actual-media review, and bounded
+  same-video creative revision use fresh `GPT-5.6 Sol / Extra High (XHIGH)` work. Governed
+  artifacts and checkpoints, not hidden chat memory, remain durable authority.
 - `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`: Codex CLI and `codex exec` are forbidden creative
   substitutes. `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`: SDK/API/headless processes are also
   forbidden creative substitutes. If Desktop-App handoff is unavailable, report that boundary;
@@ -59,17 +61,15 @@ targets `render-job.mjs`.
 - Commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its failed
   `codex exec` proof are `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. They prove
   only that the mistaken CLI seam failed, not that canonical Codex Desktop App execution failed.
-- The explicit Desktop-session factory boundary is implemented/pushed at
-  `de0d9748b36334d408f7cc845b8edda109df0ff8`. Its single correct-runtime proof passed governed
-  input, factual, rights, sandbox, hash-lock, and real TypeScript validation, then quarantined
-  before proxy media because Remotion could not spawn its existing browser through a 303-character
-  task-local path (`ENOENT`). Result:
-  `FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`. No repair or second proof followed.
-  `MULTILINGUAL_CLOSED_INPUT` and `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` control.
-- The former generic Desktop-App handoff deep-research pointer is complete/superseded. Exact next:
-  `JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`.
-  Do not patch or resume the quarantined proof and do not run a fresh proof automatically.
-  MAX/ULTRA and mode bakeoffs are retired.
+- Actual Kokoro narration timing is locked before motion at implementation commit
+  `a163b0ad488e7d628531ac9f218ec72b79073bfb`. Its one proof created a 55.442-second immutable
+  timing lock and fresh 56-second motion contract, then quarantined before typecheck/render because
+  the operator passed the Remotion project root instead of its `node_modules` directory. Result:
+  `FAIL_QUARANTINED_AT_HARD_SOURCE_VALIDATION_DEPENDENCY_ROOT_CONFIG`. The current task adds the
+  smallest semantic dependency-root preflight before claim/proof/XHIGH work and authorizes exactly
+  one new governed proof after implementation is committed and pushed. MAX/ULTRA and mode bakeoffs
+  remain retired. `MULTILINGUAL_CLOSED_INPUT` and
+  `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` remain controlling.
 - Remotion is deterministic execution, not creative authority. Viewer-facing source remains
   free-form React/Remotion code organized by semantic creative chapters. Chapters are not
   automatically render units, and deterministic aesthetic schemas/gates are forbidden.
@@ -97,8 +97,8 @@ targets `render-job.mjs`.
 
 ## Graph inventory
 
-- Nodes: `7178`
-- Edges: `13480`
+- Nodes: `7179`
+- Edges: `13484`
 - Entrypoints: `16`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-
   implementation edges are included.
