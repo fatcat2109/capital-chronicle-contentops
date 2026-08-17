@@ -1,0 +1,86 @@
+{
+  "schema_version": "capital_chronicle_editorial_seo_contract_v1",
+  "authority_date": "2026-08-17",
+  "status": "CURRENT_OWNER_SEO_POLICY",
+  "principle": "people_first_evidence_governed_search_packaging",
+  "required_surfaces": [
+    "canonical_editorial_headline",
+    "search_title",
+    "social_hook",
+    "dek",
+    "meta_description",
+    "canonical_slug",
+    "primary_reader_question",
+    "secondary_reader_questions",
+    "entities",
+    "topics",
+    "search_freshness_class",
+    "internal_link_candidates",
+    "structured_data_packet_when_supported"
+  ],
+  "first_screen_contract": {
+    "approximate_word_window": 120,
+    "should_establish": [
+      "what_changed",
+      "relevant_magnitude_or_comparison",
+      "why_it_matters",
+      "leading_mechanism",
+      "principal_uncertainty_when_material"
+    ]
+  },
+  "structured_data": {
+    "types": ["Article", "NewsArticle"],
+    "rules": [
+      "visible author identity must match markup",
+      "publisher identity must be truthful",
+      "datePublished and dateModified must be accurate",
+      "images must be crawlable and actually associated with the article",
+      "markup must not describe content absent from the page",
+      "prefer fewer complete accurate fields over speculative fields"
+    ]
+  },
+  "internal_link_policy": {
+    "eligible_relations": [
+      "same_event_chain",
+      "technical_explainer",
+      "prior_data_release",
+      "prior_capital_chronicle_analysis",
+      "material_update_predecessor"
+    ],
+    "fixed_link_quota": false,
+    "descriptive_anchor_text_required": true
+  },
+  "prohibited": [
+    "keyword_stuffing",
+    "boilerplate_titles",
+    "fixed_word_count_for_search",
+    "mandatory_faq_blocks",
+    "search_engine_first_filler",
+    "title_body_fact_mismatch",
+    "social_hook_new_claim",
+    "hidden_or_misleading_structured_data",
+    "generic_engagement_mutating_search_policy",
+    "seo_strengthening_a_factual_claim"
+  ],
+  "learning": {
+    "status_without_search_specific_evidence": "HOLD",
+    "minimum_evidence_families": [
+      "search_impressions",
+      "search_clicks",
+      "search_ctr",
+      "average_position",
+      "query_page_identity",
+      "date_and_policy_lineage"
+    ],
+    "social_engagement_is_search_evidence": false
+  },
+  "writer_boundary": {
+    "owner": "fresh_isolated_gpt_5_6_sol_xhigh_final_writer",
+    "additional_general_seo_writer": false,
+    "additional_mandatory_semantic_review": false,
+    "factual_authority": false,
+    "numeric_authority": false,
+    "permission_authority": false,
+    "public_write_authority": false
+  }
+}
