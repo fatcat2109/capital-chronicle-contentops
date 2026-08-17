@@ -1,0 +1,60 @@
+{
+  "blockers": [],
+  "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+  "destination_readiness": {
+    "active_exact_destination_probes": 0,
+    "all_required_destinations_ready": false,
+    "destinations": {
+      "discord": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      },
+      "facebook_page": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      },
+      "instagram_business": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      },
+      "linkedin": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      },
+      "substack": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      },
+      "telegram": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      },
+      "threads": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      },
+      "x": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      },
+      "youtube": {
+        "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+        "write_eligible": false
+      }
+    },
+    "public_write_performed": false,
+    "schema_version": "contentops.destination_readiness.zero_write_not_probed.v1",
+    "status": "NOT_PROBED_ZERO_WRITE_CANARY",
+    "unknown_write_count": 0
+  },
+  "distribution_warnings": [
+    "substack_jit_readiness_required"
+  ],
+  "public_write_performed": false,
+  "publishing_adapter_called": false,
+  "release_candidate_lock_path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\release_candidate_lock_v1.json",
+  "release_candidate_lock_sha256": "2cdfa5ac97f07116c552fe2f08bfd08e8696d7240be4121ade45280ee048fbf1",
+  "run_id": "v1-gemini-only-grounded-research-zero-write-canary",
+  "schema_version": "contentops.rolling_x_text_image_release_rehearsal.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b"
+}

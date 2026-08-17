@@ -1,0 +1,28 @@
+{
+  "schema_version": "contentops.codegraph_exploration_report.v1",
+  "optional_dot_codegraph_present": false,
+  "canonical_graph": "docs/codegraph/graph.json",
+  "explorations": [
+    {
+      "query": "V1_GROUNDED_RESEARCH_MODEL_LADDER, GROUNDED_RESEARCH_MODEL_POOL, role routing",
+      "nodes": ["nine_router_ordered_model_router_v2.model_pool_for_role", "nine_router_llm_seam_v2.integration_manifest", "nine_router_llm_seam_v2.routed_llm_invocation"],
+      "call_paths": ["routed_llm_invocation -> model_pool_for_role", "integration_manifest -> model_pool_for_role"]
+    },
+    {
+      "query": "grounded-research retry and fallback budget",
+      "nodes": ["nine_router_ordered_model_router_v2.retry_budget_for_role", "nine_router_ordered_model_router_v2.RetryBudget", "nine_router_ordered_model_router_v2.route_llm_invocation"],
+      "call_paths": ["routed_llm_invocation -> retry_budget_for_role -> RetryBudget", "routed_llm_invocation -> route_llm_invocation"]
+    },
+    {
+      "query": "provider preflight and grounded-news callers",
+      "nodes": ["nine_router_preflight_v2.preflight_model", "nine_router_preflight_v2.run_preflight", "nine_router_provider_adapter_v2.call_nine_router"],
+      "call_paths": ["run_preflight -> preflight_model -> call_nine_router"]
+    },
+    {
+      "query": "focused ladder, adapter/preflight, grounded research and router tests",
+      "nodes": ["tests/test_v1_9router_research_model_ladder_v1.py", "tests/test_nine_router_provider_adapter_and_preflight_v2.py", "tests/test_grounded_news_research_v1.py", "tests/test_nine_router_ordered_model_router_v2.py"],
+      "call_paths": []
+    }
+  ],
+  "exact_source_bytes_verified_after_graph_navigation": true
+}

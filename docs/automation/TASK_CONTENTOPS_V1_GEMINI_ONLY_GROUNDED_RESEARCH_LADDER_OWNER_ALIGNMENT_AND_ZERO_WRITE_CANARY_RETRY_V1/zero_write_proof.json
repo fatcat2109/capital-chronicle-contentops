@@ -1,0 +1,20 @@
+{
+  "schema_version": "contentops.v1_gemini_only_canary_zero_write_proof.v1",
+  "production_store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "production_store_sha256_before": "91DB00518B174CB80E298F7063C08AD1734537FEBCBC52FECC79216263F10909",
+  "production_store_sha256_after": "91DB00518B174CB80E298F7063C08AD1734537FEBCBC52FECC79216263F10909",
+  "production_store_bytes_unchanged": true,
+  "durable_cutoff_before_utc": "2026-08-17T08:50:15.794759Z",
+  "durable_cutoff_after_utc": "2026-08-17T08:50:15.794759Z",
+  "continuity_logical_hash_before": "ed1005c4de83e4490aeb69e719dcdd9f6ad61e29287089aa4230cb2d915175a4",
+  "continuity_logical_hash_after": "ed1005c4de83e4490aeb69e719dcdd9f6ad61e29287089aa4230cb2d915175a4",
+  "public_write_count": 0,
+  "publication_coordinator_calls": 0,
+  "outbox_or_publication_intent_created": 0,
+  "publication_browser_navigation_count": 0,
+  "unknown_write_count": 0,
+  "capital_chronicle_mutation_count": 0,
+  "v2_mutation_count": 0,
+  "scheduled_task_mutation_count": 0,
+  "secret_or_session_material_read_or_persisted": false
+}

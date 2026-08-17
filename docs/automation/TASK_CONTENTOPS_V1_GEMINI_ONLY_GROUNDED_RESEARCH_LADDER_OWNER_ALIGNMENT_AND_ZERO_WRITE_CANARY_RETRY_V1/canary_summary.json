@@ -1,0 +1,63 @@
+{
+  "schema_version": "contentops.v1_gemini_only_zero_write_canary_summary.v1",
+  "classification": "PASS_NATIVE_XHIGH_ZERO_WRITE_INSTITUTIONAL_EDGE_CANARY_READY_FOR_JIM_CHATGPT_ARTICLE_AUDIT",
+  "exact_next_blocker": "JIM_CHATGPT_ARTICLE_AND_ZERO_WRITE_PACKAGE_AUDIT_REQUIRED",
+  "run_id": "v1-gemini-only-grounded-research-zero-write-canary",
+  "fresh_cutoff_utc": "2026-08-17T17:03:28.055185Z",
+  "durable_cutoff_before_utc": "2026-08-17T08:50:15.794759Z",
+  "durable_cutoff_after_utc": "2026-08-17T08:50:15.794759Z",
+  "current_headline_count": 288,
+  "prepared_frontier_count": 12,
+  "deferred_candidate_count": 12,
+  "prepared_candidate_state_source": "REBUILT_FROM_CANONICAL_FRONTIER_INPUTS",
+  "attempted_candidate_count": 4,
+  "unattempted_candidate_count": 8,
+  "selected_candidate_rank": 4,
+  "selected_cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+  "selected_article_mode": "BREAKING_BRIEF",
+  "grounded_research": {
+    "logical_calls": 4,
+    "provider_attempts": 7,
+    "provider_attempts_by_exact_model": {
+      "vx/gemini-3.1-pro-preview(high)": 6,
+      "vx/gemini-3.5-flash(high)": 1,
+      "cx/gpt-5.6-terra(high)": 0
+    },
+    "public_research_requests": 14,
+    "model_assertions_granted_factual_authority": false
+  },
+  "editorial": {
+    "native_xhigh_worker_count": 1,
+    "legacy_article_writer_count": 0,
+    "mandatory_ordinary_semantic_review_count": 0,
+    "worker_model": "gpt-5.6-sol",
+    "worker_reasoning_effort": "XHIGH",
+    "worker_fresh_and_isolated": true,
+    "governed_input_hash": "701ec6023642c19f27c354afe49272ba6365c0f01ba23d29005434d3308c7a19",
+    "worker_return_validation": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+    "institutional_edge_validation": "PASS",
+    "bounded_revision_count": 0
+  },
+  "package": {
+    "release_candidate_classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+    "release_lock_verification": "PASS_RELEASE_CANDIDATE_LOCK",
+    "canonical_article_markdown_present": true,
+    "canonical_article_html_present": true,
+    "seo_package_present": true,
+    "substack_package_present": true,
+    "native_derivative_package_count": 8,
+    "publication_plan_destination_count": 9,
+    "pre_substack_package_blockers": [],
+    "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+    "all_destination_package_hashes_use_same_editorial_seo_package": true,
+    "destination_readiness_probe_performed": false,
+    "destination_readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+    "distribution_warnings": ["substack_jit_readiness_required"]
+  },
+  "public_write_performed": false,
+  "publishing_adapter_called": false,
+  "unknown_write_count": 0,
+  "capital_chronicle_mutation_count": 0,
+  "v2_mutation_count": 0,
+  "scheduled_task_mutation_count": 0
+}

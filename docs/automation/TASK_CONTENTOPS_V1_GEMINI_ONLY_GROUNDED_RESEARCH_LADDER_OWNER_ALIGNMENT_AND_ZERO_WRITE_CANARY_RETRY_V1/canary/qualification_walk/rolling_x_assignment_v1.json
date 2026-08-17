@@ -1,0 +1,662 @@
+{
+  "assignment_logical_hash": "33025703f5c42c2c908814c8aa7ce12440a0b6a6e8ea1542786fe2e6632e6bb9",
+  "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
+  "decision": "SELECT_STORY",
+  "factual_or_numeric_authority_granted": false,
+  "input_binding": {
+    "canonical_input_hash": "5a5b18dac80a8c9d758d34bc33d1e24855c3ad0258211e682a8a5833384c4a16",
+    "held_count": 0,
+    "input_count": 12,
+    "selected_count": 12
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-bc7e6cb4747766d722b1cafd",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-bc7e6cb4747766d722b1cafd"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Beijing Wants Nvidia Out But China's AI Developers Aren't Ready",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-43b4b6ebb81d0cb308c7",
+      "member_headline_ids": [
+        "cc-x-headline-bc7e6cb4747766d722b1cafd"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-71d0ace997dcd931ea74007c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-71d0ace997dcd931ea74007c"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "RT @themarketear: Off-balance-sheet is where the real capex lives now.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-fc3e7ec9c3e2ab5860c0",
+      "member_headline_ids": [
+        "cc-x-headline-71d0ace997dcd931ea74007c"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-058ffc3ec26748bde0240482",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-058ffc3ec26748bde0240482"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-ba72ce93578ec0aab930",
+      "member_headline_ids": [
+        "cc-x-headline-058ffc3ec26748bde0240482"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a4465030a6b8f1cd272a47de",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a4465030a6b8f1cd272a47de"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-2d6882f3b72e9b3fb13b",
+      "member_headline_ids": [
+        "cc-x-headline-a4465030a6b8f1cd272a47de"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-67ae1479fb863048675d5e9b",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-67ae1479fb863048675d5e9b"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "This is how the 3x Long QQQ ETF has performed each year over the last decade 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2 2025:...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-08c9adf4a1b635414239",
+      "member_headline_ids": [
+        "cc-x-headline-67ae1479fb863048675d5e9b"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-fc4348e87a90fd4efc8dc6bf",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-fc4348e87a90fd4efc8dc6bf"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Here's how the ProShares UltraPro QQQ ETF $TQQQ has performed each full year since 2016: 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-abd2df803f5f80804f23",
+      "member_headline_ids": [
+        "cc-x-headline-fc4348e87a90fd4efc8dc6bf"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-067b9b5bc9d2616b08b79b8d",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-067b9b5bc9d2616b08b79b8d"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "CENTCOM: A U.S. Air Force F-35A stealth fighter jet is refueled by a KC-135 Stratotanker while patrolling regional waters over the Middle East.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-f3207d581c9483f3a174",
+      "member_headline_ids": [
+        "cc-x-headline-067b9b5bc9d2616b08b79b8d"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-12eedf9e8738421b90a8feab",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-12eedf9e8738421b90a8feab"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "I wrote a book on why aging, declining potential GDP growth, fiscal indiscipline, political polarization, and ultimately fiscal dominance impacting central bank policies make scarce assets the ultimate investment for the decades ahead....",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-a1e25023df87ff9ee362",
+      "member_headline_ids": [
+        "cc-x-headline-12eedf9e8738421b90a8feab"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-41ce602174aa642cc398a007",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-41ce602174aa642cc398a007"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Iranian media: Iraqi presented a report during today's Iranian government meeting on the latest developments and progress achieved in the negotiations with the Sultanate of Oman.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-8738a9a2ce3b96671578",
+      "member_headline_ids": [
+        "cc-x-headline-41ce602174aa642cc398a007"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-0260db8a546f875654578e6b",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-0260db8a546f875654578e6b"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "When I say 25 basis points instead of 0.25%",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-a52f0229f59125150f4b",
+      "member_headline_ids": [
+        "cc-x-headline-0260db8a546f875654578e6b"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-15e303333ae9225b6edc66c5",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-15e303333ae9225b6edc66c5"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Iranian Vice President: Price hikes have reached an annoying level, and the enemy's strategy is to exploit that.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-295c1c6bfd594235e93e",
+      "member_headline_ids": [
+        "cc-x-headline-15e303333ae9225b6edc66c5"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-22841ef52058126f49b6de02",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-22841ef52058126f49b6de02"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Iran's First Vice President: The enemy seeks to compensate for its military defeat through economic warfare, and we must confront that.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-1bdac81cc421a2515006",
+      "member_headline_ids": [
+        "cc-x-headline-22841ef52058126f49b6de02"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 288,
+    "held_before_semantic_assignment_count": 276,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "5f56b416207a053d0b1ddc45595a4e6bed4d237641648d93d4f282d358789ed9",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+      "headline_ids": [
+        "cc-x-headline-bc7e6cb4747766d722b1cafd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-43b4b6ebb81d0cb308c7"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 1,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-bc7e6cb4747766d722b1cafd",
+        "ordered_headline_ids": [
+          "cc-x-headline-bc7e6cb4747766d722b1cafd"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Beijing Wants Nvidia Out But China's AI Developers Aren't Ready"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+      "headline_ids": [
+        "cc-x-headline-71d0ace997dcd931ea74007c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-fc3e7ec9c3e2ab5860c0"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 2,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-71d0ace997dcd931ea74007c",
+        "ordered_headline_ids": [
+          "cc-x-headline-71d0ace997dcd931ea74007c"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RT @themarketear: Off-balance-sheet is where the real capex lives now."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+      "headline_ids": [
+        "cc-x-headline-058ffc3ec26748bde0240482"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-ba72ce93578ec0aab930"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 3,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-058ffc3ec26748bde0240482",
+        "ordered_headline_ids": [
+          "cc-x-headline-058ffc3ec26748bde0240482"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+      "headline_ids": [
+        "cc-x-headline-a4465030a6b8f1cd272a47de"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-2d6882f3b72e9b3fb13b"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 4,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a4465030a6b8f1cd272a47de",
+        "ordered_headline_ids": [
+          "cc-x-headline-a4465030a6b8f1cd272a47de"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-08c9adf4a1b635414239",
+      "headline_ids": [
+        "cc-x-headline-67ae1479fb863048675d5e9b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-08c9adf4a1b635414239"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 5,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-67ae1479fb863048675d5e9b",
+        "ordered_headline_ids": [
+          "cc-x-headline-67ae1479fb863048675d5e9b"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "This is how the 3x Long QQQ ETF has performed each year over the last decade 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2 2025:..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-abd2df803f5f80804f23",
+      "headline_ids": [
+        "cc-x-headline-fc4348e87a90fd4efc8dc6bf"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-abd2df803f5f80804f23"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 6,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-fc4348e87a90fd4efc8dc6bf",
+        "ordered_headline_ids": [
+          "cc-x-headline-fc4348e87a90fd4efc8dc6bf"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Here's how the ProShares UltraPro QQQ ETF $TQQQ has performed each full year since 2016: 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-f3207d581c9483f3a174",
+      "headline_ids": [
+        "cc-x-headline-067b9b5bc9d2616b08b79b8d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-f3207d581c9483f3a174"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 7,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-067b9b5bc9d2616b08b79b8d",
+        "ordered_headline_ids": [
+          "cc-x-headline-067b9b5bc9d2616b08b79b8d"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "CENTCOM: A U.S. Air Force F-35A stealth fighter jet is refueled by a KC-135 Stratotanker while patrolling regional waters over the Middle East."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-a1e25023df87ff9ee362",
+      "headline_ids": [
+        "cc-x-headline-12eedf9e8738421b90a8feab"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a1e25023df87ff9ee362"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 8,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-12eedf9e8738421b90a8feab",
+        "ordered_headline_ids": [
+          "cc-x-headline-12eedf9e8738421b90a8feab"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "I wrote a book on why aging, declining potential GDP growth, fiscal indiscipline, political polarization, and ultimately fiscal dominance impacting central bank policies make scarce assets the ultimate investment for the decades ahead...."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-8738a9a2ce3b96671578",
+      "headline_ids": [
+        "cc-x-headline-41ce602174aa642cc398a007"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-8738a9a2ce3b96671578"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 9,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-41ce602174aa642cc398a007",
+        "ordered_headline_ids": [
+          "cc-x-headline-41ce602174aa642cc398a007"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Iranian media: Iraqi presented a report during today's Iranian government meeting on the latest developments and progress achieved in the negotiations with the Sultanate of Oman."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-a52f0229f59125150f4b",
+      "headline_ids": [
+        "cc-x-headline-0260db8a546f875654578e6b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a52f0229f59125150f4b"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 10,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0260db8a546f875654578e6b",
+        "ordered_headline_ids": [
+          "cc-x-headline-0260db8a546f875654578e6b"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "When I say 25 basis points instead of 0.25%"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-295c1c6bfd594235e93e",
+      "headline_ids": [
+        "cc-x-headline-15e303333ae9225b6edc66c5"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-295c1c6bfd594235e93e"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 11,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-15e303333ae9225b6edc66c5",
+        "ordered_headline_ids": [
+          "cc-x-headline-15e303333ae9225b6edc66c5"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Iranian Vice President: Price hikes have reached an annoying level, and the enemy's strategy is to exploit that."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-1bdac81cc421a2515006",
+      "headline_ids": [
+        "cc-x-headline-22841ef52058126f49b6de02"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-1bdac81cc421a2515006"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 12,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-22841ef52058126f49b6de02",
+        "ordered_headline_ids": [
+          "cc-x-headline-22841ef52058126f49b6de02"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Iran's First Vice President: The enemy seeks to compensate for its military defeat through economic warfare, and we must confront that."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [],
+  "router_output_grants_publication_authority": false,
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+  "selected_headline_ids": [
+    "cc-x-headline-bc7e6cb4747766d722b1cafd"
+  ],
+  "semantic_assignment_failure_recovered": true,
+  "status": "SUCCESS",
+  "telemetry": {
+    "fallback_transitions": 0,
+    "logical_router_calls": 0,
+    "provider_attempts": 0,
+    "token_usage": {
+      "completion_tokens": 0,
+      "prompt_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "x_content_grants_evidence_authority": false
+}

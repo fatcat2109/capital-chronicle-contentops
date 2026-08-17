@@ -1,0 +1,32 @@
+{
+  "schema_version": "contentops.v1_gemini_only_canary_validation.v1",
+  "status": "PASS",
+  "focused_tests": {
+    "passed": 259,
+    "duration_seconds": 12.19,
+    "files": [
+      "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
+      "tests/test_nine_router_ordered_model_router_v2.py",
+      "tests/test_v1_9router_research_model_ladder_v1.py",
+      "tests/test_grounded_news_research_v1.py",
+      "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
+      "tests/test_rolling_x_evidence_viability_v1.py",
+      "tests/test_rolling_x_hierarchical_assignment_v1.py",
+      "tests/test_rolling_x_newsroom_cycle_v1.py",
+      "tests/test_capital_chronicle_institutional_edge_v1.py",
+      "tests/test_rolling_x_v1_publishability_closure_v1.py"
+    ]
+  },
+  "post_compatibility_focused_tests": {"passed": 61, "duration_seconds": 3.58},
+  "worker_return_validation": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+  "institutional_edge_validation": "PASS",
+  "release_candidate_validation": "PASS_RELEASE_CANDIDATE_LOCK",
+  "codegraph": {
+    "source_head": "d13ab6ac48a3d07c0eac23615ca9ba2155772909",
+    "source_tree_digest": "49cb0bb36c0ed50b520e01d828009725bfbf15a02f236509695ca95f3f45ea5a",
+    "nodes": 7092,
+    "edges": 13324,
+    "check": "CODEGRAPH_CURRENT"
+  },
+  "git_diff_check": "PASS"
+}

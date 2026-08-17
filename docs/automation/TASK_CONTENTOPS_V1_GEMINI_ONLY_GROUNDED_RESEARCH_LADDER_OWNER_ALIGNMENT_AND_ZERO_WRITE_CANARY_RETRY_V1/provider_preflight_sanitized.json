@@ -1,0 +1,48 @@
+{
+  "schema_version": "contentops.v1_gemini_only_provider_preflight.v1",
+  "classification": "PASS_EXACT_TWO_MODEL_PREFLIGHT",
+  "exact_ladder": [
+    "vx/gemini-3.1-pro-preview(high)",
+    "vx/gemini-3.5-flash(high)"
+  ],
+  "credential_presence": {
+    "NINE_ROUTER_API_KEY": "present_redacted",
+    "NINE_ROUTER_BASE_URL": "present_redacted"
+  },
+  "provider_call_count": 2,
+  "terra_call_count": 0,
+  "per_model": [
+    {
+      "requested_model": "vx/gemini-3.1-pro-preview(high)",
+      "health": "HEALTHY",
+      "failure_class": null,
+      "provider_status_class": "2xx",
+      "provider_observed_model_identity": "gemini-3.1-pro-preview",
+      "identity_verifiable": true,
+      "identity_verified": true,
+      "latency_seconds": 5.4769,
+      "usage": {"prompt_tokens": 2015, "completion_tokens": 149, "total_tokens": 2164},
+      "cost": null,
+      "response_matched_READY": true
+    },
+    {
+      "requested_model": "vx/gemini-3.5-flash(high)",
+      "health": "HEALTHY",
+      "failure_class": null,
+      "provider_status_class": "2xx",
+      "provider_observed_model_identity": "gemini-3.5-flash",
+      "identity_verifiable": true,
+      "identity_verified": true,
+      "latency_seconds": 3.7716,
+      "usage": {"prompt_tokens": 2015, "completion_tokens": 81, "total_tokens": 2096},
+      "cost": null,
+      "response_matched_READY": true
+    }
+  ],
+  "total_probe_latency_seconds": 9.2485,
+  "public_research_retrieval_requests": 0,
+  "public_write_performed": false,
+  "platform_action_performed": false,
+  "scheduler_mutated": false,
+  "secret_or_session_material_persisted": false
+}

@@ -1,0 +1,35 @@
+{
+  "ai_generated_image": false,
+  "article_media_count": 0,
+  "article_media_optional": true,
+  "assets": [],
+  "contentops_built_or_source_backed_media": true,
+  "delivery_media_count": 1,
+  "delivery_only_assets": [
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-gemini-only-grounded-research-ladder-canary-retry-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\delivery_only_editorial_card.png",
+      "alt_text": "Capital Chronicle newsroom brief: Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+      "article_inclusion": false,
+      "asset_id": "delivery_only_editorial_card",
+      "canonical_article_media": false,
+      "caption": "Capital Chronicle delivery card for the governed article.",
+      "delivery_only": true,
+      "generated_documentary_imagery": false,
+      "height": 1080,
+      "local_path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-gemini-only-grounded-research-ladder-canary-retry-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\delivery_only_editorial_card.png",
+      "media_role": "delivery_only",
+      "mime_type": "image/png",
+      "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-gemini-only-grounded-research-ladder-canary-retry-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\delivery_only_editorial_card.png",
+      "provenance_status": "VERIFIED_SOURCE_METADATA_CONTENTOPS_RENDER",
+      "rights_basis": "CONTENTOPS_OWNED_LAYOUT_SOURCE_METADATA_ONLY",
+      "sha256": "b2cb798b31b6876e713b0ea825c5128521ff8fc49937d68aea69355681061768",
+      "source_label": "The Jerusalem Post",
+      "source_page_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBkWU5rY1VELUEzQmotaUhNa2lKN05GUWM5WkVvX2dXeld1RWdXMGthNmN2TUFkQ3RWcDRQbW0tY2N1Q19TUDRXXzJLeUdqNENaT2YtelZmY0NVX0RZ?oc=5",
+      "source_published_at": "2026-08-17T10:24:51Z",
+      "width": 1350
+    }
+  ],
+  "media_asset_count": 0,
+  "schema_version": "contentops.rolling_x_media_manifest.v1",
+  "status": "PASS"
+}

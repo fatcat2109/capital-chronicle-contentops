@@ -1,0 +1,1999 @@
+{
+  "cc_catalog_complete": true,
+  "cc_catalog_store_count": 14,
+  "eligible_shortlist_count": 12,
+  "evaluated_at_utc": "2026-08-17T17:03:28.055185Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 12,
+  "learning_policy_consumed": true,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": true,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+    "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+    "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+    "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+    "rolling-x-deterministic-cluster-08c9adf4a1b635414239",
+    "rolling-x-deterministic-cluster-abd2df803f5f80804f23",
+    "rolling-x-deterministic-cluster-f3207d581c9483f3a174",
+    "rolling-x-deterministic-cluster-a1e25023df87ff9ee362",
+    "rolling-x-deterministic-cluster-8738a9a2ce3b96671578",
+    "rolling-x-deterministic-cluster-a52f0229f59125150f4b",
+    "rolling-x-deterministic-cluster-295c1c6bfd594235e93e",
+    "rolling-x-deterministic-cluster-1bdac81cc421a2515006"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-17T17:03:28.055185Z",
+    "daily_target_band": [
+      0,
+      4
+    ],
+    "entity_concentration_top": [],
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "publication_minimum": 0,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 0,
+    "routine_publication_ceiling": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "5bcda7b475667872355a3e3a210b4af3b8365d2b843ed5c5fb6587b628a90b21",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-bc7e6cb4747766d722b1cafd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-43b4b6ebb81d0cb308c7"
+      ],
+      "leaf_summaries": [
+        "Beijing Wants Nvidia Out But China's AI Developers Aren't Ready"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-16T17:25:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-bc7e6cb4747766d722b1cafd",
+          "url": "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 114.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-16T17:25:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-bc7e6cb4747766d722b1cafd",
+          "url": "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+      ],
+      "rank": 1,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-bc7e6cb4747766d722b1cafd",
+        "ordered_headline_ids": [
+          "cc-x-headline-bc7e6cb4747766d722b1cafd"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Beijing Wants Nvidia Out But China's AI Developers Aren't Ready",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-71d0ace997dcd931ea74007c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-fc3e7ec9c3e2ab5860c0"
+      ],
+      "leaf_summaries": [
+        "RT @themarketear: Off-balance-sheet is where the real capex lives now."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-16T17:13:28Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-71d0ace997dcd931ea74007c",
+          "url": "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 112.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-16T17:13:28Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-71d0ace997dcd931ea74007c",
+          "url": "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+      ],
+      "rank": 2,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-71d0ace997dcd931ea74007c",
+        "ordered_headline_ids": [
+          "cc-x-headline-71d0ace997dcd931ea74007c"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RT @themarketear: Off-balance-sheet is where the real capex lives now.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-058ffc3ec26748bde0240482"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-ba72ce93578ec0aab930"
+      ],
+      "leaf_summaries": [
+        "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-058ffc3ec26748bde0240482",
+        "ordered_headline_ids": [
+          "cc-x-headline-058ffc3ec26748bde0240482"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-a4465030a6b8f1cd272a47de"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-2d6882f3b72e9b3fb13b"
+      ],
+      "leaf_summaries": [
+        "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 4,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a4465030a6b8f1cd272a47de",
+        "ordered_headline_ids": [
+          "cc-x-headline-a4465030a6b8f1cd272a47de"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-08c9adf4a1b635414239",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-67ae1479fb863048675d5e9b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-08c9adf4a1b635414239"
+      ],
+      "leaf_summaries": [
+        "This is how the 3x Long QQQ ETF has performed each year over the last decade 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2 2025:..."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 104.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 5,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-67ae1479fb863048675d5e9b",
+        "ordered_headline_ids": [
+          "cc-x-headline-67ae1479fb863048675d5e9b"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-08c9adf4a1b635414239",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "This is how the 3x Long QQQ ETF has performed each year over the last decade 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2 2025:...",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-abd2df803f5f80804f23",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-fc4348e87a90fd4efc8dc6bf"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-abd2df803f5f80804f23"
+      ],
+      "leaf_summaries": [
+        "Here's how the ProShares UltraPro QQQ ETF $TQQQ has performed each full year since 2016: 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2..."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 6,
+      "preselection_score": 102.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 6,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-fc4348e87a90fd4efc8dc6bf",
+        "ordered_headline_ids": [
+          "cc-x-headline-fc4348e87a90fd4efc8dc6bf"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-abd2df803f5f80804f23",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Here's how the ProShares UltraPro QQQ ETF $TQQQ has performed each full year since 2016: 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2...",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-f3207d581c9483f3a174",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-067b9b5bc9d2616b08b79b8d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-f3207d581c9483f3a174"
+      ],
+      "leaf_summaries": [
+        "CENTCOM: A U.S. Air Force F-35A stealth fighter jet is refueled by a KC-135 Stratotanker while patrolling regional waters over the Middle East."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 7,
+      "preselection_score": 100.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 7,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-067b9b5bc9d2616b08b79b8d",
+        "ordered_headline_ids": [
+          "cc-x-headline-067b9b5bc9d2616b08b79b8d"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-f3207d581c9483f3a174",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "CENTCOM: A U.S. Air Force F-35A stealth fighter jet is refueled by a KC-135 Stratotanker while patrolling regional waters over the Middle East.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-a1e25023df87ff9ee362",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-12eedf9e8738421b90a8feab"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a1e25023df87ff9ee362"
+      ],
+      "leaf_summaries": [
+        "I wrote a book on why aging, declining potential GDP growth, fiscal indiscipline, political polarization, and ultimately fiscal dominance impacting central bank policies make scarce assets the ultimate investment for the decades ahead...."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 8,
+      "preselection_score": 98.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 8,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-12eedf9e8738421b90a8feab",
+        "ordered_headline_ids": [
+          "cc-x-headline-12eedf9e8738421b90a8feab"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-a1e25023df87ff9ee362",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "I wrote a book on why aging, declining potential GDP growth, fiscal indiscipline, political polarization, and ultimately fiscal dominance impacting central bank policies make scarce assets the ultimate investment for the decades ahead....",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-8738a9a2ce3b96671578",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-41ce602174aa642cc398a007"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-8738a9a2ce3b96671578"
+      ],
+      "leaf_summaries": [
+        "Iranian media: Iraqi presented a report during today's Iranian government meeting on the latest developments and progress achieved in the negotiations with the Sultanate of Oman."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 9,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 9,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-41ce602174aa642cc398a007",
+        "ordered_headline_ids": [
+          "cc-x-headline-41ce602174aa642cc398a007"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-8738a9a2ce3b96671578",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Iranian media: Iraqi presented a report during today's Iranian government meeting on the latest developments and progress achieved in the negotiations with the Sultanate of Oman.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-a52f0229f59125150f4b",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-0260db8a546f875654578e6b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a52f0229f59125150f4b"
+      ],
+      "leaf_summaries": [
+        "When I say 25 basis points instead of 0.25%"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 10,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 10,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0260db8a546f875654578e6b",
+        "ordered_headline_ids": [
+          "cc-x-headline-0260db8a546f875654578e6b"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-a52f0229f59125150f4b",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "When I say 25 basis points instead of 0.25%",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-295c1c6bfd594235e93e",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-15e303333ae9225b6edc66c5"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-295c1c6bfd594235e93e"
+      ],
+      "leaf_summaries": [
+        "Iranian Vice President: Price hikes have reached an annoying level, and the enemy's strategy is to exploit that."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 11,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 11,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-15e303333ae9225b6edc66c5",
+        "ordered_headline_ids": [
+          "cc-x-headline-15e303333ae9225b6edc66c5"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-295c1c6bfd594235e93e",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Iranian Vice President: Price hikes have reached an annoying level, and the enemy's strategy is to exploit that.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-1bdac81cc421a2515006",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-22841ef52058126f49b6de02"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-1bdac81cc421a2515006"
+      ],
+      "leaf_summaries": [
+        "Iran's First Vice President: The enemy seeks to compensate for its military defeat through economic warfare, and we must confront that."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 12,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 12,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-22841ef52058126f49b6de02",
+        "ordered_headline_ids": [
+          "cc-x-headline-22841ef52058126f49b6de02"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-1bdac81cc421a2515006",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Iran's First Vice President: The enemy seeks to compensate for its military defeat through economic warfare, and we must confront that.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": false,
+  "reranked_order": [
+    "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+    "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+    "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+    "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+    "rolling-x-deterministic-cluster-08c9adf4a1b635414239",
+    "rolling-x-deterministic-cluster-abd2df803f5f80804f23",
+    "rolling-x-deterministic-cluster-f3207d581c9483f3a174",
+    "rolling-x-deterministic-cluster-a1e25023df87ff9ee362",
+    "rolling-x-deterministic-cluster-8738a9a2ce3b96671578",
+    "rolling-x-deterministic-cluster-a52f0229f59125150f4b",
+    "rolling-x-deterministic-cluster-295c1c6bfd594235e93e",
+    "rolling-x-deterministic-cluster-1bdac81cc421a2515006"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

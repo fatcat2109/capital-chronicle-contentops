@@ -1,0 +1,419 @@
+{
+  "canonical_input_hash": "5a5b18dac80a8c9d758d34bc33d1e24855c3ad0258211e682a8a5833384c4a16",
+  "complete_input_coverage": false,
+  "counts": {
+    "accepted": 12,
+    "accepted_in_full_rolling_intake": 288,
+    "duplicates": 0,
+    "eligible_after_continuity": 276,
+    "rejected": 8154,
+    "source_files": 47,
+    "source_rows": 8442
+  },
+  "cutoff_time_utc": "2026-08-17T17:03:28.055185Z",
+  "headlines": [
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089037843490296125",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "RT @themarketear: Off-balance-sheet is where the real capex lives now. https://t.co/12lNo3ShY3",
+        "official_source_urls": [
+          "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2089037843490296125"
+      },
+      "headline_id": "cc-x-headline-71d0ace997dcd931ea74007c",
+      "source_locator": {
+        "line": 288,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:13:28Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089038209141686389",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Iran's First Vice President: The enemy seeks to compensate for its military defeat through economic warfare, and we must confront that.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089038209141686389"
+      },
+      "headline_id": "cc-x-headline-22841ef52058126f49b6de02",
+      "source_locator": {
+        "line": 287,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:14:56Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089038259641016661",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [
+          "official_numeric_source_required_before_truth_use"
+        ],
+        "headline_text": "Iranian Vice President: Price hikes have reached an annoying level, and the enemy's strategy is to exploit that.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089038259641016661"
+      },
+      "headline_id": "cc-x-headline-15e303333ae9225b6edc66c5",
+      "source_locator": {
+        "line": 286,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:15:08Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089039090918236299",
+      "external_content": {
+        "author_handle": "StockMKTNewz",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "When I say 25 basis points instead of 0.25% https://t.co/Gxf5a2f446",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/StockMKTNewz/status/2089039090918236299"
+      },
+      "headline_id": "cc-x-headline-0260db8a546f875654578e6b",
+      "source_locator": {
+        "line": 285,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:18:26Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089040497809785216",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Iranian media: Iraqi presented a report during today's Iranian government meeting on the latest developments and progress achieved in the negotiations with the Sultanate of Oman.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089040497809785216"
+      },
+      "headline_id": "cc-x-headline-41ce602174aa642cc398a007",
+      "source_locator": {
+        "line": 284,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:24:01Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089040772033036653",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Beijing Wants Nvidia Out But China's AI Developers Aren't Ready https://t.co/0zXxck7NMb",
+        "official_source_urls": [
+          "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2089040772033036653"
+      },
+      "headline_id": "cc-x-headline-bc7e6cb4747766d722b1cafd",
+      "source_locator": {
+        "line": 283,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:25:07Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089040938135867458",
+      "external_content": {
+        "author_handle": "jsblokland",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar",
+          "official_growth_or_pmi_release",
+          "official_treasury_or_budget_release"
+        ],
+        "headline_text": "I wrote a book on why aging, declining potential GDP growth, fiscal indiscipline, political polarization, and ultimately fiscal dominance impacting central bank policies make scarce assets the ultimate investment for the decades ahead. The Great Rebalancing. There may even be a https://t.co/mVidb0CSBT",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank",
+          "fiscal",
+          "growth"
+        ],
+        "url_or_source_ref": "https://x.com/jsblokland/status/2089040938135867458"
+      },
+      "headline_id": "cc-x-headline-12eedf9e8738421b90a8feab",
+      "source_locator": {
+        "line": 282,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:25:46Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089041448520085588",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "CENTCOM: A U.S. Air Force F-35A stealth fighter jet is refueled by a KC-135 Stratotanker while patrolling regional waters over the Middle East.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089041448520085588"
+      },
+      "headline_id": "cc-x-headline-067b9b5bc9d2616b08b79b8d",
+      "source_locator": {
+        "line": 281,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:27:48Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089043762647335185",
+      "external_content": {
+        "author_handle": "TheETFTracker",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Here's how the ProShares UltraPro QQQ ETF $TQQQ has performed each full year since 2016: 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2 2025: +34.37% \ud83d\udfe2 So far in 2026: https://t.co/URhHr4UkOb",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/TheETFTracker/status/2089043762647335185"
+      },
+      "headline_id": "cc-x-headline-fc4348e87a90fd4efc8dc6bf",
+      "source_locator": {
+        "line": 280,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:37:00Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089044251300577500",
+      "external_content": {
+        "author_handle": "StockMKTNewz",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "This is how the 3x Long QQQ ETF has performed each year over the last decade 2016: +11.38% \ud83d\udfe2 2017: +118.06% \ud83d\udfe2 2018: -19.81% \ud83d\udd34 2019: +133.83% \ud83d\udfe2 2020: +110.05% \ud83d\udfe2 2021: +82.98% \ud83d\udfe2 2022: -79.08% \ud83d\udd34 2023: +198.26% \ud83d\udfe2 2024: +58.23% \ud83d\udfe2 2025: +34.37% \ud83d\udfe2 2026*: +46.23% \ud83d\udfe2 (So far)",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/StockMKTNewz/status/2089044251300577500"
+      },
+      "headline_id": "cc-x-headline-67ae1479fb863048675d5e9b",
+      "source_locator": {
+        "line": 279,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:38:56Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089045425538085189",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089045425538085189"
+      },
+      "headline_id": "cc-x-headline-a4465030a6b8f1cd272a47de",
+      "source_locator": {
+        "line": 278,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:43:36Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2089045611505193293",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2089045611505193293"
+      },
+      "headline_id": "cc-x-headline-058ffc3ec26748bde0240482",
+      "source_locator": {
+        "line": 277,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-16T17:44:21Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    }
+  ],
+  "prepared_candidate_subset": true,
+  "rejection_counts": {
+    "source_timestamp_before_window": 8154
+  },
+  "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_files": [
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_10_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_03_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl"
+  ],
+  "unique_headline_ids": [
+    "cc-x-headline-71d0ace997dcd931ea74007c",
+    "cc-x-headline-22841ef52058126f49b6de02",
+    "cc-x-headline-15e303333ae9225b6edc66c5",
+    "cc-x-headline-0260db8a546f875654578e6b",
+    "cc-x-headline-41ce602174aa642cc398a007",
+    "cc-x-headline-bc7e6cb4747766d722b1cafd",
+    "cc-x-headline-12eedf9e8738421b90a8feab",
+    "cc-x-headline-067b9b5bc9d2616b08b79b8d",
+    "cc-x-headline-fc4348e87a90fd4efc8dc6bf",
+    "cc-x-headline-67ae1479fb863048675d5e9b",
+    "cc-x-headline-a4465030a6b8f1cd272a47de",
+    "cc-x-headline-058ffc3ec26748bde0240482"
+  ],
+  "window_hours": 24.0,
+  "window_start_utc": "2026-08-16T17:03:28.055185Z"
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "contentops.v1_gemini_only_canary_blocker_taxonomy.v1",
+  "candidate_attempts": [
+    {
+      "rank": 1,
+      "status": "BLOCKED",
+      "blockers": ["evidence_documents_missing", "minimum_trustworthy_evidence_missing", "public_source_unavailable", "required_evidence_capability_missing:basic_attributed_facts", "required_evidence_capability_missing:credible_event_confirmation", "supported_claims_missing"]
+    },
+    {
+      "rank": 2,
+      "status": "BLOCKED",
+      "blockers": ["evidence_documents_missing", "minimum_trustworthy_evidence_missing", "public_source_unavailable", "required_evidence_capability_missing:basic_attributed_facts", "required_evidence_capability_missing:credible_event_confirmation", "supported_claims_missing"]
+    },
+    {
+      "rank": 3,
+      "status": "BLOCKED",
+      "blockers": ["evidence_documents_missing", "grounded_research_source_synthesis_research_fact_binding_invalid", "minimum_trustworthy_evidence_missing", "required_evidence_capability_missing:basic_attributed_facts", "required_evidence_capability_missing:credible_event_confirmation", "supported_claims_missing"]
+    },
+    {"rank": 4, "status": "VIABLE", "blockers": []}
+  ],
+  "aggregate_counts": {
+    "evidence_documents_missing": 3,
+    "minimum_trustworthy_evidence_missing": 3,
+    "public_source_unavailable": 2,
+    "required_evidence_capability_missing:basic_attributed_facts": 3,
+    "required_evidence_capability_missing:credible_event_confirmation": 3,
+    "supported_claims_missing": 3,
+    "grounded_research_source_synthesis_research_fact_binding_invalid": 1
+  },
+  "final_package_blockers": [],
+  "intermediate_compatibility_blocker": "native_platform_package_invalid:ValueError:semantic_thread_requires_three_unique_media_assets",
+  "intermediate_compatibility_blocker_resolution_commit": "d13ab6ac48a3d07c0eac23615ca9ba2155772909",
+  "gates_weakened": false
+}

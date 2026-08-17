@@ -1,0 +1,2878 @@
+{
+  "attempted_candidate_count": 4,
+  "decision": "SELECT_STORY",
+  "evidence_acquired_after_ranking": true,
+  "evidence_friction_taxonomy": {
+    "attempts": [
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "BLOCKED",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 2,
+            "FACTUAL_OR_RISK_BLOCK": 1,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 3
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [
+            {
+              "blocker": "evidence_documents_missing",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "minimum_trustworthy_evidence_missing",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "public_source_unavailable",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "supported_claims_missing",
+              "category": "FACTUAL_OR_RISK_BLOCK"
+            }
+          ],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "BLOCKED",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 2,
+            "FACTUAL_OR_RISK_BLOCK": 1,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 3
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [
+            {
+              "blocker": "evidence_documents_missing",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "minimum_trustworthy_evidence_missing",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "public_source_unavailable",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "supported_claims_missing",
+              "category": "FACTUAL_OR_RISK_BLOCK"
+            }
+          ],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "BLOCKED",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 1,
+            "FACTUAL_OR_RISK_BLOCK": 1,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 4
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [
+            {
+              "blocker": "evidence_documents_missing",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "grounded_research_source_synthesis_research_fact_binding_invalid",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "minimum_trustworthy_evidence_missing",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "supported_claims_missing",
+              "category": "FACTUAL_OR_RISK_BLOCK"
+            }
+          ],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "VIABLE",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 0,
+            "FACTUAL_OR_RISK_BLOCK": 0,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 0
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      }
+    ],
+    "publication_authority": false,
+    "schema_version": "contentops.evidence_friction_taxonomy.v1"
+  },
+  "evidence_request_budget_blockers": [],
+  "evidence_request_budget_exhausted": false,
+  "global_infrastructure_blockers": [],
+  "global_infrastructure_exhausted": false,
+  "publication_authority_granted": false,
+  "publishability_pool_exhausted": false,
+  "rank_attempts": [
+    {
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "freshness_policy": "event_24h",
+        "freshness_requirements": {
+          "max_age_hours": 36,
+          "requires_market_snapshot": false
+        },
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "primary_source_documents",
+          "event_timeline",
+          "affected_entities",
+          "limitations"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "general_public_event",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "source_reference",
+          "document_excerpt"
+        ]
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 2,
+          "FACTUAL_OR_RISK_BLOCK": 1,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 3
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [
+          {
+            "blocker": "evidence_documents_missing",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "minimum_trustworthy_evidence_missing",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "public_source_unavailable",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "supported_claims_missing",
+            "category": "FACTUAL_OR_RISK_BLOCK"
+          }
+        ],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "capital_chronicle_authority_verified": false,
+        "cluster_id": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "grounded_research": {
+            "blockers": [
+              "public_source_unavailable"
+            ],
+            "elapsed_seconds": null,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": null,
+            "infrastructure_failure_class": null,
+            "public_retrieval_requests": 2,
+            "research_calls": 0,
+            "retrieval_result": {
+              "accepted_document_count": 0,
+              "blockers": [
+                "public_source_unavailable"
+              ],
+              "status": "BLOCKED"
+            },
+            "status": "BLOCKED",
+            "telemetry": []
+          }
+        },
+        "evidence_documents": [],
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "BREAKING_BRIEF",
+          "documents": [],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 90,
+          "usable_content_words": 0,
+          "usable_document_count": 0
+        },
+        "headline_ids": [
+          "cc-x-headline-bc7e6cb4747766d722b1cafd"
+        ],
+        "minimum_trustworthy_evidence_packet": {
+          "blockers": [
+            "ordinary_core_factual_proposition_not_directly_bound"
+          ],
+          "evidence_packet_sha256": "b882e3421efaf24d9f7cc2f63bbfd2f2e30639bad9f77fdf3880cb6934d90096",
+          "publication_authority": false,
+          "risk_tier": "ORDINARY",
+          "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+          "status": "BLOCKED"
+        },
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [],
+        "publication_authority": false,
+        "status": "BLOCKED"
+      },
+      "evidence_receipt_sha256": "209a5401a1ecaab42a797a0d9ebffcec7a3eb73ae4796fa33091e259053beac8",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-bc7e6cb4747766d722b1cafd"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "straight_news",
+          "downgrade_reason": null,
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "e87309cc7a90cb2e610f9447a23fc3076994d3bdf9dd51f417ff3bd010015c63",
+          "requested_mode": "BREAKING_BRIEF",
+          "status": "BLOCKED"
+        }
+      ],
+      "mode_downgrade_reason": null,
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 1,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "effective_article_mode": "BREAKING_BRIEF",
+        "freshness_policy": "event_24h",
+        "headline_ids": [
+          "cc-x-headline-bc7e6cb4747766d722b1cafd"
+        ],
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": null,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "optional_evidence_capabilities": [
+          "primary_source_documents",
+          "event_timeline",
+          "affected_entities",
+          "limitations"
+        ],
+        "rank": 1,
+        "request_logical_hash": "e87309cc7a90cb2e610f9447a23fc3076994d3bdf9dd51f417ff3bd010015c63",
+        "requested_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 176,
+            "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+            "cc_context_richness": 0.0,
+            "deep_query_selected_tables": [
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_documents"
+              },
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_events"
+              },
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_records"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_documents"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_events"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_records"
+              },
+              {
+                "score": 9.1,
+                "store_id": "unified_historical_lakehouse_hb10_v1",
+                "table": "unified_event"
+              },
+              {
+                "score": 8.7,
+                "store_id": "unified_historical_lakehouse_hb10_v1",
+                "table": "unified_document"
+              }
+            ],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [],
+            "queried_table_count": 0,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2"
+          },
+          "entities_topics": [],
+          "evidence_reachability": {
+            "capital_chronicle_relevant_context": false,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "mode_downgrade_viable": true,
+            "public_source_candidate_count": 1,
+            "reputable_public_secondary_path": false,
+            "score": 0.1,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "Beijing Wants Nvidia Out But China's AI Developers Aren't Ready"
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [
+            {
+              "feed_published_at_utc": "2026-08-16T17:25:07Z",
+              "feed_publisher_handle": "zerohedge",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-bc7e6cb4747766d722b1cafd",
+              "url": "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+            }
+          ],
+          "official_source_urls": [
+            "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+          ],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 114.8,
+          "public_source_url_bindings": [
+            {
+              "feed_published_at_utc": "2026-08-16T17:25:07Z",
+              "feed_publisher_handle": "zerohedge",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-bc7e6cb4747766d722b1cafd",
+              "url": "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+            }
+          ],
+          "public_source_urls": [
+            "https://www.zerohedge.com/markets/beijing-wants-nvidia-out-chinas-ai-developers-arent-ready"
+          ],
+          "selection_case": "Fresh discovery item with a bounded public evidence path.",
+          "seo_intent": "",
+          "why_now": "Beijing Wants Nvidia Out But China's AI Developers Aren't Ready"
+        },
+        "story_type": "general_public_event",
+        "update_chain_identity": "rolling-x-deterministic-cluster-43b4b6ebb81d0cb308c7",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "BREAKING_BRIEF",
+      "status": "BLOCKED"
+    },
+    {
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "freshness_policy": "event_24h",
+        "freshness_requirements": {
+          "max_age_hours": 36,
+          "requires_market_snapshot": false
+        },
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "primary_source_documents",
+          "event_timeline",
+          "affected_entities",
+          "limitations"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "general_public_event",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "source_reference",
+          "document_excerpt"
+        ]
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 2,
+          "FACTUAL_OR_RISK_BLOCK": 1,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 3
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [
+          {
+            "blocker": "evidence_documents_missing",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "minimum_trustworthy_evidence_missing",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "public_source_unavailable",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "supported_claims_missing",
+            "category": "FACTUAL_OR_RISK_BLOCK"
+          }
+        ],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "capital_chronicle_authority_verified": false,
+        "cluster_id": "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "grounded_research": {
+            "blockers": [
+              "public_source_unavailable"
+            ],
+            "elapsed_seconds": null,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": null,
+            "infrastructure_failure_class": null,
+            "public_retrieval_requests": 2,
+            "research_calls": 0,
+            "retrieval_result": {
+              "accepted_document_count": 0,
+              "blockers": [
+                "public_source_unavailable"
+              ],
+              "status": "BLOCKED"
+            },
+            "status": "BLOCKED",
+            "telemetry": []
+          }
+        },
+        "evidence_documents": [],
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "BREAKING_BRIEF",
+          "documents": [],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 90,
+          "usable_content_words": 0,
+          "usable_document_count": 0
+        },
+        "headline_ids": [
+          "cc-x-headline-71d0ace997dcd931ea74007c"
+        ],
+        "minimum_trustworthy_evidence_packet": {
+          "blockers": [
+            "ordinary_core_factual_proposition_not_directly_bound"
+          ],
+          "evidence_packet_sha256": "b882e3421efaf24d9f7cc2f63bbfd2f2e30639bad9f77fdf3880cb6934d90096",
+          "publication_authority": false,
+          "risk_tier": "ORDINARY",
+          "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+          "status": "BLOCKED"
+        },
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [],
+        "publication_authority": false,
+        "status": "BLOCKED"
+      },
+      "evidence_receipt_sha256": "b5fb2ced8678e7c2ca0d559bf3ae209121fb2edb6fd4c24f03f5b4e71d92cd45",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-71d0ace997dcd931ea74007c"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "straight_news",
+          "downgrade_reason": null,
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "b173f218aa0a1f9f1ae239eec9999a326b736cf6ee3cf385612a6a549cccfc87",
+          "requested_mode": "BREAKING_BRIEF",
+          "status": "BLOCKED"
+        }
+      ],
+      "mode_downgrade_reason": null,
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 2,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "effective_article_mode": "BREAKING_BRIEF",
+        "freshness_policy": "event_24h",
+        "headline_ids": [
+          "cc-x-headline-71d0ace997dcd931ea74007c"
+        ],
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": null,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "optional_evidence_capabilities": [
+          "primary_source_documents",
+          "event_timeline",
+          "affected_entities",
+          "limitations"
+        ],
+        "rank": 2,
+        "request_logical_hash": "b173f218aa0a1f9f1ae239eec9999a326b736cf6ee3cf385612a6a549cccfc87",
+        "requested_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 176,
+            "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+            "cc_context_richness": 0.0,
+            "deep_query_selected_tables": [
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_documents"
+              },
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_events"
+              },
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_records"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_documents"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_events"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_records"
+              },
+              {
+                "score": 9.1,
+                "store_id": "unified_historical_lakehouse_hb10_v1",
+                "table": "unified_event"
+              },
+              {
+                "score": 8.7,
+                "store_id": "unified_historical_lakehouse_hb10_v1",
+                "table": "unified_document"
+              }
+            ],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [],
+            "queried_table_count": 0,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2"
+          },
+          "entities_topics": [],
+          "evidence_reachability": {
+            "capital_chronicle_relevant_context": false,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "mode_downgrade_viable": true,
+            "public_source_candidate_count": 1,
+            "reputable_public_secondary_path": false,
+            "score": 0.1,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "RT @themarketear: Off-balance-sheet is where the real capex lives now."
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [
+            {
+              "feed_published_at_utc": "2026-08-16T17:13:28Z",
+              "feed_publisher_handle": "zerohedge",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-71d0ace997dcd931ea74007c",
+              "url": "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+            }
+          ],
+          "official_source_urls": [
+            "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+          ],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 112.8,
+          "public_source_url_bindings": [
+            {
+              "feed_published_at_utc": "2026-08-16T17:13:28Z",
+              "feed_publisher_handle": "zerohedge",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-71d0ace997dcd931ea74007c",
+              "url": "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+            }
+          ],
+          "public_source_urls": [
+            "https://www.zerohedge.com/the-market-ear/bridgewater-were-entering-crunch-time-capital"
+          ],
+          "selection_case": "Fresh discovery item with a bounded public evidence path.",
+          "seo_intent": "",
+          "why_now": "RT @themarketear: Off-balance-sheet is where the real capex lives now."
+        },
+        "story_type": "general_public_event",
+        "update_chain_identity": "rolling-x-deterministic-cluster-fc3e7ec9c3e2ab5860c0",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "BREAKING_BRIEF",
+      "status": "BLOCKED"
+    },
+    {
+      "blockers": [
+        "evidence_documents_missing",
+        "grounded_research_source_synthesis_research_fact_binding_invalid",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "freshness_policy": "event_24h",
+        "freshness_requirements": {
+          "max_age_hours": 36,
+          "requires_market_snapshot": false
+        },
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "primary_source_documents",
+          "event_timeline",
+          "geography"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "geopolitical_event",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "source_reference",
+          "document_excerpt"
+        ]
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 1,
+          "FACTUAL_OR_RISK_BLOCK": 1,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 4
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [
+          {
+            "blocker": "evidence_documents_missing",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "grounded_research_source_synthesis_research_fact_binding_invalid",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "minimum_trustworthy_evidence_missing",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "supported_claims_missing",
+            "category": "FACTUAL_OR_RISK_BLOCK"
+          }
+        ],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [
+          "evidence_documents_missing",
+          "grounded_research_source_synthesis_research_fact_binding_invalid",
+          "minimum_trustworthy_evidence_missing",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "capital_chronicle_authority_verified": false,
+        "claim_evidence_contract": {
+          "blocked_claims": [
+            {
+              "claim_id": "claim-e2531a274d1789d1",
+              "claim_text": "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION",
+              "reason": "candidate_claim_not_found_in_evidence",
+              "support_status": "OMITTED"
+            }
+          ],
+          "claim_contract_sha256": "4328ddf86ba96fed9f07e9c732aaae53e0f7fb5bade056542eb0093ead92e75d",
+          "fabricated_claim_count": 0,
+          "omitted_claim_count": 1,
+          "omitted_unsupported_claims": [
+            {
+              "claim_id": "claim-e2531a274d1789d1",
+              "claim_text": "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION",
+              "reason": "candidate_claim_not_found_in_evidence",
+              "support_status": "OMITTED"
+            }
+          ],
+          "publication_authority": false,
+          "schema_version": "contentops.claim_evidence_contract.v1",
+          "status": "BLOCKED",
+          "supported_claim_count": 0,
+          "supported_claims": [],
+          "x_content_grants_factual_authority": false
+        },
+        "cluster_id": "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "grounded_research": {
+            "blockers": [
+              "grounded_research_source_synthesis_research_fact_binding_invalid"
+            ],
+            "elapsed_seconds": null,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": null,
+            "infrastructure_failure_class": null,
+            "public_retrieval_requests": 5,
+            "research_calls": 2,
+            "retrieval_result": {
+              "accepted_document_count": 3,
+              "blockers": [],
+              "status": "PASS"
+            },
+            "status": "BLOCKED",
+            "telemetry": [
+              {
+                "attempts": [
+                  {
+                    "provider_status_class": "2xx_success",
+                    "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                    "resolved_model": "gemini-3.1-pro-preview",
+                    "structured_validation_result": "PASS"
+                  }
+                ],
+                "budget_exhausted_reason": null,
+                "cost": {},
+                "logical_invocation_id": "v1_research_plan_109442fdf050a9f14300",
+                "logical_invocation_reserved": true,
+                "models_attempted_in_order": [
+                  "vx/gemini-3.1-pro-preview(high)"
+                ],
+                "phase": "query_plan",
+                "provider_attempt_count": 1,
+                "recoverable_failure_classes": [],
+                "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+                "terminal_disposition": "ACCEPTED",
+                "terminal_failure_class": null,
+                "token_usage": {
+                  "completion_tokens": 881.0,
+                  "prompt_tokens": 2605.0,
+                  "total_tokens": 3486.0
+                },
+                "wall_clock_elapsed_seconds": 10.3493
+              },
+              {
+                "attempts": [
+                  {
+                    "failure_class": "structured_output_schema_invalid",
+                    "provider_status_class": "2xx_success",
+                    "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                    "resolved_model": "gemini-3.1-pro-preview",
+                    "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_core_proposition_not_supported",
+                    "structured_validation_result": "FAIL"
+                  },
+                  {
+                    "failure_class": "structured_output_schema_invalid",
+                    "provider_status_class": "2xx_success",
+                    "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                    "resolved_model": "gemini-3.1-pro-preview",
+                    "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_fact_not_supported_by_bound_source",
+                    "structured_validation_result": "FAIL"
+                  },
+                  {
+                    "failure_class": "structured_output_schema_invalid",
+                    "provider_status_class": "2xx_success",
+                    "requested_model": "vx/gemini-3.5-flash(high)",
+                    "resolved_model": "gemini-3.5-flash",
+                    "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_fact_binding_invalid",
+                    "structured_validation_result": "FAIL"
+                  }
+                ],
+                "budget_exhausted_reason": "max_total_provider_attempts",
+                "cost": {},
+                "logical_invocation_id": "v1_research_synthesis_109442fdf050a9f14300",
+                "logical_invocation_reserved": true,
+                "models_attempted_in_order": [
+                  "vx/gemini-3.1-pro-preview(high)",
+                  "vx/gemini-3.5-flash(high)"
+                ],
+                "phase": "source_synthesis",
+                "provider_attempt_count": 3,
+                "recoverable_failure_classes": [
+                  "structured_output_schema_invalid"
+                ],
+                "resolved_model": null,
+                "terminal_disposition": "LLM_RETRY_BUDGET_EXHAUSTED",
+                "terminal_failure_class": "structured_output_schema_invalid",
+                "token_usage": {
+                  "completion_tokens": 6358.0,
+                  "prompt_tokens": 9791.0,
+                  "total_tokens": 16149.0
+                },
+                "wall_clock_elapsed_seconds": 49.7315
+              }
+            ]
+          }
+        },
+        "evidence_documents": [],
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "BREAKING_BRIEF",
+          "documents": [],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 90,
+          "usable_content_words": 0,
+          "usable_document_count": 0
+        },
+        "headline_ids": [
+          "cc-x-headline-058ffc3ec26748bde0240482"
+        ],
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [],
+        "publication_authority": false,
+        "status": "BLOCKED"
+      },
+      "evidence_receipt_sha256": "18edc6b0fa542c536770e79bf5f1142e04981aa5baa0ead5e0e0e2825e0ff818",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-058ffc3ec26748bde0240482"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "grounded_research_source_synthesis_research_fact_binding_invalid",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "straight_news",
+          "downgrade_reason": null,
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 1,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 4
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "grounded_research_source_synthesis_research_fact_binding_invalid",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "610a35c5da0d52ad07ff22f2998a8706301e78d0e52d19239fe55c1f224f1fd0",
+          "requested_mode": "BREAKING_BRIEF",
+          "status": "BLOCKED"
+        }
+      ],
+      "mode_downgrade_reason": null,
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 3,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "effective_article_mode": "BREAKING_BRIEF",
+        "freshness_policy": "event_24h",
+        "headline_ids": [
+          "cc-x-headline-058ffc3ec26748bde0240482"
+        ],
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": null,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "optional_evidence_capabilities": [
+          "primary_source_documents",
+          "event_timeline",
+          "geography"
+        ],
+        "rank": 3,
+        "request_logical_hash": "610a35c5da0d52ad07ff22f2998a8706301e78d0e52d19239fe55c1f224f1fd0",
+        "requested_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 176,
+            "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+            "cc_context_richness": 0.0,
+            "deep_query_selected_tables": [
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_documents"
+              },
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_events"
+              },
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_records"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_documents"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_events"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_records"
+              },
+              {
+                "score": 9.1,
+                "store_id": "unified_historical_lakehouse_hb10_v1",
+                "table": "unified_event"
+              },
+              {
+                "score": 8.7,
+                "store_id": "unified_historical_lakehouse_hb10_v1",
+                "table": "unified_document"
+              }
+            ],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [],
+            "queried_table_count": 0,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2"
+          },
+          "entities_topics": [],
+          "evidence_reachability": {
+            "capital_chronicle_relevant_context": false,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "mode_downgrade_viable": true,
+            "public_source_candidate_count": 0,
+            "reputable_public_secondary_path": false,
+            "score": 0.0,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION"
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [],
+          "official_source_urls": [],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 108.0,
+          "public_source_url_bindings": [],
+          "public_source_urls": [],
+          "selection_case": "Fresh discovery item with a bounded public evidence path.",
+          "seo_intent": "",
+          "why_now": "THE U.S. HAS DISCUSSED NEW SANCTIONS ON BRAZIL JUDGE DE MORAES, ACCORDING TO THE FINANCIAL TIMES CITING PEOPLE FAMILIAR WITH THE CONSIDERATION"
+        },
+        "story_type": "geopolitical_event",
+        "update_chain_identity": "rolling-x-deterministic-cluster-ba72ce93578ec0aab930",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "BREAKING_BRIEF",
+      "status": "BLOCKED"
+    },
+    {
+      "blockers": [],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "freshness_policy": "event_24h",
+        "freshness_requirements": {
+          "max_age_hours": 36,
+          "requires_market_snapshot": false
+        },
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "primary_source_documents",
+          "event_timeline",
+          "geography"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "geopolitical_event",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "source_reference",
+          "document_excerpt"
+        ]
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 0,
+          "FACTUAL_OR_RISK_BLOCK": 0,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 0
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [],
+        "capital_chronicle_authority_verified": false,
+        "cc_context_bundle": {
+          "cc_context_refs": [],
+          "cc_context_richness": 0.0,
+          "factual_or_numeric_authority_granted": false,
+          "mutated_upstream": false,
+          "ordinary_reporting_blocked_when_unavailable": false,
+          "proprietary_claim_authority_granted": false,
+          "queried_entities": [],
+          "schema_version": "contentops.additive_cc_story_context.v1",
+          "state": "CC_CONTEXT_NOT_RELEVANT"
+        },
+        "claim_evidence_contract": {
+          "blocked_claims": [],
+          "claim_contract_sha256": "301f006594daac2ef4c2732b5f232206d74a4136ad7e144968bf3f94f6e47473",
+          "fabricated_claim_count": 0,
+          "omitted_claim_count": 1,
+          "omitted_unsupported_claims": [
+            {
+              "claim_id": "claim-d078749d00fcfde2",
+              "claim_text": "Kushner was part of a 'Board of Peace delegation' for the talks.",
+              "reason": "secondary_corroboration_insufficient",
+              "support_status": "OMITTED"
+            }
+          ],
+          "publication_authority": false,
+          "schema_version": "contentops.claim_evidence_contract.v1",
+          "status": "PASS",
+          "supported_claim_count": 5,
+          "supported_claims": [
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-2f8793367bbfd74a",
+              "claim_text": "Jared Kushner met with Hamas.",
+              "evidence_document_ids": [
+                "public-news-listing-137034dd29c93b9bde37",
+                "public-news-listing-61afbc9afc4368ac52fe",
+                "public-news-listing-db4d95a1341d227d0bc3"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-67371e9a2334a2d6",
+              "claim_text": "The meeting between Kushner and Hamas took place in Cairo, Egypt.",
+              "evidence_document_ids": [
+                "public-news-listing-137034dd29c93b9bde37",
+                "public-news-listing-db4d95a1341d227d0bc3"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-9d6c55c231cc02f8",
+              "claim_text": "The talks were focused on Gaza, with Kushner pushing 'Trump\u2019s Gaza plan.'",
+              "evidence_document_ids": [
+                "public-news-listing-137034dd29c93b9bde37",
+                "public-news-listing-61afbc9afc4368ac52fe",
+                "public-news-listing-db4d95a1341d227d0bc3"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-c662bee27748196d",
+              "claim_text": "Kushner is scheduled to hold talks with Netanyahu regarding Gaza following his meeting with Hamas.",
+              "evidence_document_ids": [
+                "public-news-listing-61afbc9afc4368ac52fe",
+                "public-news-listing-db4d95a1341d227d0bc3"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-6db67911ea393a90",
+              "claim_text": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP",
+              "evidence_document_ids": [
+                "public-news-listing-137034dd29c93b9bde37",
+                "public-news-listing-61afbc9afc4368ac52fe",
+                "public-news-listing-db4d95a1341d227d0bc3"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+            }
+          ],
+          "x_content_grants_factual_authority": false
+        },
+        "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [
+              {
+                "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+                "source_authority_class": "reputable_secondary_source",
+                "title_only": true,
+                "usable_content_words": 0
+              },
+              {
+                "document_id": "public-news-listing-137034dd29c93b9bde37",
+                "source_authority_class": "reputable_secondary_source",
+                "title_only": true,
+                "usable_content_words": 0
+              },
+              {
+                "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+                "source_authority_class": "reputable_secondary_source",
+                "title_only": true,
+                "usable_content_words": 0
+              }
+            ],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 3
+          },
+          "grounded_research": {
+            "blockers": [],
+            "elapsed_seconds": 52.854,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+            "infrastructure_failure_class": null,
+            "public_retrieval_requests": 5,
+            "research_calls": 2,
+            "retrieval_result": {
+              "accepted_document_count": 3,
+              "blockers": [],
+              "status": "PASS"
+            },
+            "status": "PASS",
+            "telemetry": [
+              {
+                "attempts": [
+                  {
+                    "provider_status_class": "2xx_success",
+                    "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                    "resolved_model": "gemini-3.1-pro-preview",
+                    "structured_validation_result": "PASS"
+                  }
+                ],
+                "budget_exhausted_reason": null,
+                "cost": {},
+                "logical_invocation_id": "v1_research_plan_b70cf5b7876bc0c4c81c",
+                "logical_invocation_reserved": true,
+                "models_attempted_in_order": [
+                  "vx/gemini-3.1-pro-preview(high)"
+                ],
+                "phase": "query_plan",
+                "provider_attempt_count": 1,
+                "recoverable_failure_classes": [],
+                "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+                "terminal_disposition": "ACCEPTED",
+                "terminal_failure_class": null,
+                "token_usage": {
+                  "completion_tokens": 1057.0,
+                  "prompt_tokens": 2576.0,
+                  "total_tokens": 3633.0
+                },
+                "wall_clock_elapsed_seconds": 12.4318
+              },
+              {
+                "attempts": [
+                  {
+                    "failure_class": "structured_output_schema_invalid",
+                    "provider_status_class": "2xx_success",
+                    "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                    "resolved_model": "gemini-3.1-pro-preview",
+                    "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_fact_not_supported_by_bound_source",
+                    "structured_validation_result": "FAIL"
+                  },
+                  {
+                    "provider_status_class": "2xx_success",
+                    "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                    "resolved_model": "gemini-3.1-pro-preview",
+                    "structured_validation_result": "PASS"
+                  }
+                ],
+                "budget_exhausted_reason": null,
+                "cost": {},
+                "logical_invocation_id": "v1_research_synthesis_b70cf5b7876bc0c4c81c",
+                "logical_invocation_reserved": true,
+                "models_attempted_in_order": [
+                  "vx/gemini-3.1-pro-preview(high)"
+                ],
+                "phase": "source_synthesis",
+                "provider_attempt_count": 2,
+                "recoverable_failure_classes": [
+                  "structured_output_schema_invalid"
+                ],
+                "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+                "terminal_disposition": "ACCEPTED",
+                "terminal_failure_class": null,
+                "token_usage": {
+                  "completion_tokens": 4726.0,
+                  "prompt_tokens": 6599.0,
+                  "total_tokens": 11325.0
+                },
+                "wall_clock_elapsed_seconds": 37.5122
+              }
+            ]
+          }
+        },
+        "evidence_documents": [
+          {
+            "byte_length": 975,
+            "canonical_content_sha256": "a1f9d46c11b76f77284cd3d6d9e1903e5cd7d40d08a5f0d6e44d21adf400dc5b",
+            "canonical_content_text": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo",
+            "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+            "content_type": "application/rss+xml",
+            "discovery_path_is_reader_authority": false,
+            "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+            "event_time_utc": "2026-08-17T10:24:51Z",
+            "grounded_source_ref": "SRC_454B4BFE48AF2F69",
+            "public_claim_allowed": true,
+            "published_at_utc": "2026-08-17T10:24:51Z",
+            "publisher": "The Jerusalem Post",
+            "raw_sha256": "db4d95a1341d227d0bc35b36a474bddad556fce44c459cd51d9531c428805bb5",
+            "reader_attribution_mode": "ATTRIBUTION_ONLY",
+            "reader_source_url": null,
+            "research_query_terms": [
+              "US",
+              "envoy",
+              "Kushner",
+              "meets",
+              "Hamas",
+              "leader",
+              "Gaza",
+              "ceasefire"
+            ],
+            "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+            "secondary_listing_only": true,
+            "source_authority_class": "reputable_secondary_source",
+            "source_identity": "jpost.com",
+            "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBkWU5rY1VELUEzQmotaUhNa2lKN05GUWM5WkVvX2dXeld1RWdXMGthNmN2TUFkQ3RWcDRQbW0tY2N1Q19TUDRXXzJLeUdqNENaT2YtelZmY0NVX0RZ?oc=5",
+            "title": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo"
+          },
+          {
+            "byte_length": 1837,
+            "canonical_content_sha256": "afebe6c2544f439717cc5c410d3ff03aee873aaf8dae2a4cc4b27e942ed91493",
+            "canonical_content_text": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan",
+            "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+            "content_type": "application/rss+xml",
+            "discovery_path_is_reader_authority": false,
+            "document_id": "public-news-listing-137034dd29c93b9bde37",
+            "event_time_utc": "2026-08-17T01:30:01Z",
+            "grounded_source_ref": "SRC_55803C277BC8F671",
+            "public_claim_allowed": true,
+            "published_at_utc": "2026-08-17T01:30:01Z",
+            "publisher": "Al Jazeera",
+            "raw_sha256": "137034dd29c93b9bde373dfddc81499d585986aab293bdaac5710e35081e231a",
+            "reader_attribution_mode": "ATTRIBUTION_ONLY",
+            "reader_source_url": null,
+            "research_query_terms": [
+              "US",
+              "envoy",
+              "Kushner",
+              "meets",
+              "Hamas",
+              "leader",
+              "Gaza",
+              "ceasefire"
+            ],
+            "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+            "secondary_listing_only": true,
+            "source_authority_class": "reputable_secondary_source",
+            "source_identity": "aljazeera.com",
+            "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPNmpRRVBLRXhGNDJhZkRHSlhWbWcyemJTNXp4akxyVUpSV0xwTEx5UG9ZdUY3V3U5TkdHd3VuSXhHd0NZVzV2eVM3d3g0ajNZR0tyZzRoZ1cwVjlrTVFVZGNJM2JuWjdOYlBLbVBLWnQwV0dpRFZaT2VNVjFTR3NrTE96M3V4ZGlfbEJtcHZabjlpMHY0TnJFNGVn0gGfAUFVX3lxTE9Cek5VQUEwRmxxbGdtX1RLYlNiZUZqRFlqbkdSQ2RSelVoTi1kdDdwYXV5bl9tTEY5MWdnT2tLMXlHWXJXNTF0SFZRUnVUZEFVMm9wYVEwT3UteWUtdUp6SkVVa1hraXJpVXVmdXVDWlp5SXdrTXg2OTU3bnZ2emhxYUIzcHEwQmh3OWdybFZ5ZUhiNnVlVDY4bGxmV2VxQQ?oc=5",
+            "title": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan"
+          },
+          {
+            "byte_length": 1124,
+            "canonical_content_sha256": "0ff1806facfc9bb737e1f9d6dd929623b3bd803a6885c0dfec7644ee2e91a77e",
+            "canonical_content_text": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza",
+            "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+            "content_type": "application/rss+xml",
+            "discovery_path_is_reader_authority": false,
+            "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+            "event_time_utc": "2026-08-16T22:07:00Z",
+            "grounded_source_ref": "SRC_E4F1E950E89DC35B",
+            "public_claim_allowed": true,
+            "published_at_utc": "2026-08-16T22:07:00Z",
+            "publisher": "The Guardian",
+            "raw_sha256": "61afbc9afc4368ac52fe99efe29c0aa121a9e939c82e04f5f6e2beb7d7aec320",
+            "reader_attribution_mode": "ATTRIBUTION_ONLY",
+            "reader_source_url": null,
+            "research_query_terms": [
+              "US",
+              "envoy",
+              "Kushner",
+              "meets",
+              "Hamas",
+              "leader",
+              "Gaza",
+              "ceasefire"
+            ],
+            "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+            "secondary_listing_only": true,
+            "source_authority_class": "reputable_secondary_source",
+            "source_identity": "theguardian.com",
+            "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbXZ6YVFkbzNpWlNFc1NvNHVMY2xjdGNTdTQ1cFU1cVJUZnk4Njdrb3d5WGNGWE5NUDhaeEFRbXk4WF84VXFKelA3ZkpFcnlZRlluZjZ5a2szQmJ2aUlMcm1jQTltakZtMkNrWWNHWVVfdEJaVHdWM1M1YU00WHU0eWoxa0tXZFk?oc=5",
+            "title": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza"
+          }
+        ],
+        "evidence_review_tier": "ENHANCED",
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "BREAKING_BRIEF",
+          "documents": [
+            {
+              "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+              "source_authority_class": "reputable_secondary_source",
+              "title_only": true,
+              "usable_content_words": 0
+            },
+            {
+              "document_id": "public-news-listing-137034dd29c93b9bde37",
+              "source_authority_class": "reputable_secondary_source",
+              "title_only": true,
+              "usable_content_words": 0
+            },
+            {
+              "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+              "source_authority_class": "reputable_secondary_source",
+              "title_only": true,
+              "usable_content_words": 0
+            }
+          ],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 90,
+          "usable_content_words": 0,
+          "usable_document_count": 3
+        },
+        "grounded_research_packet": {
+          "attributed_numeric_facts": [],
+          "cc_context": {
+            "cc_context_refs": [],
+            "cc_context_richness": 0.0,
+            "factual_or_numeric_authority_granted": false,
+            "mutated_upstream": false,
+            "ordinary_reporting_blocked_when_unavailable": false,
+            "proprietary_claim_authority_granted": false,
+            "queried_entities": [],
+            "schema_version": "contentops.additive_cc_story_context.v1",
+            "state": "CC_CONTEXT_NOT_RELEVANT"
+          },
+          "cc_context_refs": [],
+          "confirmed_facts": [
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "f1",
+              "factual_statement": "Jared Kushner met with Hamas.",
+              "source_refs": [
+                "SRC_454B4BFE48AF2F69",
+                "SRC_55803C277BC8F671",
+                "SRC_E4F1E950E89DC35B"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "f2",
+              "factual_statement": "The meeting between Kushner and Hamas took place in Cairo, Egypt.",
+              "source_refs": [
+                "SRC_454B4BFE48AF2F69",
+                "SRC_55803C277BC8F671"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "f3",
+              "factual_statement": "The talks were focused on Gaza, with Kushner pushing 'Trump\u2019s Gaza plan.'",
+              "source_refs": [
+                "SRC_454B4BFE48AF2F69",
+                "SRC_55803C277BC8F671",
+                "SRC_E4F1E950E89DC35B"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "f4",
+              "factual_statement": "Kushner was part of a 'Board of Peace delegation' for the talks.",
+              "source_refs": [
+                "SRC_454B4BFE48AF2F69"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "f5",
+              "factual_statement": "Kushner is scheduled to hold talks with Netanyahu regarding Gaza following his meeting with Hamas.",
+              "source_refs": [
+                "SRC_E4F1E950E89DC35B"
+              ]
+            }
+          ],
+          "context": [
+            "T",
+            "h",
+            "e",
+            "",
+            "m",
+            "e",
+            "e",
+            "t",
+            "i",
+            "n"
+          ],
+          "contradictions": [],
+          "core_factual_proposition": "Jared Kushner met with Hamas.",
+          "enhanced_review_required": true,
+          "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+          "model_assertion_grants_factual_authority": false,
+          "model_suggested_article_mode": "BREAKING_BRIEF",
+          "post_filter_accepted_evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "post_filter_removed_fact_count": 0,
+          "publication_authority": false,
+          "research_as_of_utc": "2026-08-17T17:03:28.055185Z",
+          "research_logical_hash": "9c4ad91584e4f41de14053ced58ffadf79b91350b372f82d9994d8f9c41bd53f",
+          "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+          "research_status": "PASS",
+          "risk_classification": "ENHANCED",
+          "schema_version": "contentops.grounded_news_research.v1",
+          "sources": [
+            {
+              "access_status": "ACCESSIBLE_SOURCE_RECORD",
+              "content_hash": "a1f9d46c11b76f77284cd3d6d9e1903e5cd7d40d08a5f0d6e44d21adf400dc5b",
+              "evidence_document_id": "public-news-listing-db4d95a1341d227d0bc3",
+              "published_at": "2026-08-17T10:24:51Z",
+              "publisher": "The Jerusalem Post",
+              "reader_source_url": null,
+              "retrieved_at": "2026-08-17T17:05:38.604616Z",
+              "source_authority_class": "reputable_secondary_source",
+              "source_ref": "SRC_454B4BFE48AF2F69",
+              "source_type": "application/rss+xml",
+              "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBkWU5rY1VELUEzQmotaUhNa2lKN05GUWM5WkVvX2dXeld1RWdXMGthNmN2TUFkQ3RWcDRQbW0tY2N1Q19TUDRXXzJLeUdqNENaT2YtelZmY0NVX0RZ?oc=5",
+              "support_metadata": {
+                "retrieved_content_available": true,
+                "secondary_listing_only": true,
+                "source_record_bound": true
+              },
+              "title": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo"
+            },
+            {
+              "access_status": "ACCESSIBLE_SOURCE_RECORD",
+              "content_hash": "afebe6c2544f439717cc5c410d3ff03aee873aaf8dae2a4cc4b27e942ed91493",
+              "evidence_document_id": "public-news-listing-137034dd29c93b9bde37",
+              "published_at": "2026-08-17T01:30:01Z",
+              "publisher": "Al Jazeera",
+              "reader_source_url": null,
+              "retrieved_at": "2026-08-17T17:05:38.604616Z",
+              "source_authority_class": "reputable_secondary_source",
+              "source_ref": "SRC_55803C277BC8F671",
+              "source_type": "application/rss+xml",
+              "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPNmpRRVBLRXhGNDJhZkRHSlhWbWcyemJTNXp4akxyVUpSV0xwTEx5UG9ZdUY3V3U5TkdHd3VuSXhHd0NZVzV2eVM3d3g0ajNZR0tyZzRoZ1cwVjlrTVFVZGNJM2JuWjdOYlBLbVBLWnQwV0dpRFZaT2VNVjFTR3NrTE96M3V4ZGlfbEJtcHZabjlpMHY0TnJFNGVn0gGfAUFVX3lxTE9Cek5VQUEwRmxxbGdtX1RLYlNiZUZqRFlqbkdSQ2RSelVoTi1kdDdwYXV5bl9tTEY5MWdnT2tLMXlHWXJXNTF0SFZRUnVUZEFVMm9wYVEwT3UteWUtdUp6SkVVa1hraXJpVXVmdXVDWlp5SXdrTXg2OTU3bnZ2emhxYUIzcHEwQmh3OWdybFZ5ZUhiNnVlVDY4bGxmV2VxQQ?oc=5",
+              "support_metadata": {
+                "retrieved_content_available": true,
+                "secondary_listing_only": true,
+                "source_record_bound": true
+              },
+              "title": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan"
+            },
+            {
+              "access_status": "ACCESSIBLE_SOURCE_RECORD",
+              "content_hash": "0ff1806facfc9bb737e1f9d6dd929623b3bd803a6885c0dfec7644ee2e91a77e",
+              "evidence_document_id": "public-news-listing-61afbc9afc4368ac52fe",
+              "published_at": "2026-08-16T22:07:00Z",
+              "publisher": "The Guardian",
+              "reader_source_url": null,
+              "retrieved_at": "2026-08-17T17:05:38.604616Z",
+              "source_authority_class": "reputable_secondary_source",
+              "source_ref": "SRC_E4F1E950E89DC35B",
+              "source_type": "application/rss+xml",
+              "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbXZ6YVFkbzNpWlNFc1NvNHVMY2xjdGNTdTQ1cFU1cVJUZnk4Njdrb3d5WGNGWE5NUDhaeEFRbXk4WF84VXFKelA3ZkpFcnlZRlluZjZ5a2szQmJ2aUlMcm1jQTltakZtMkNrWWNHWVVfdEJaVHdWM1M1YU00WHU0eWoxa0tXZFk?oc=5",
+              "support_metadata": {
+                "retrieved_content_available": true,
+                "secondary_listing_only": true,
+                "source_record_bound": true
+              },
+              "title": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza"
+            }
+          ],
+          "story_identity": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+          "suggested_article_mode": "BREAKING_BRIEF",
+          "uncertainties": [
+            "The specific Hamas leaders Kushner met with are not named in the provided sources.",
+            "The exact details and terms of 'Trump's Gaza plan' are not specified in the provided text."
+          ],
+          "unsupported_or_unverified": [
+            "The headline's claim that Kushner is currently acting as a 'U.S. ENVOY' is not supported by the provided sources.",
+            "The headline's claim that the meeting was specifically over a 'CEASEFIRE' is not explicitly stated in the sources, which only mention 'Gaza talks' and 'Trump's Gaza plan.'",
+            "The attribution of the report to the Associated Press ('AP') is unsupported, as the provided sources are The Jerusalem Post, Al Jazeera, and The Guardian."
+          ]
+        },
+        "headline_ids": [
+          "cc-x-headline-a4465030a6b8f1cd272a47de"
+        ],
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [
+          "basic_attributed_facts",
+          "credible_event_confirmation"
+        ],
+        "publication_authority": false,
+        "status": "PASS",
+        "unsupported_claims_removed": 1
+      },
+      "evidence_receipt_sha256": "368c5bda644d936485f64bc635fe4277b7d6abd1d5baf62ac7e1a04907091fec",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-a4465030a6b8f1cd272a47de"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [],
+          "capability_mode": "straight_news",
+          "downgrade_reason": null,
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 0,
+              "FACTUAL_OR_RISK_BLOCK": 0,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 0
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "1ef9973de1f90538a1168b25661ad15679a9dd56f7d5fd514e7c638888506484",
+          "requested_mode": "BREAKING_BRIEF",
+          "status": "VIABLE"
+        }
+      ],
+      "mode_downgrade_reason": null,
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 4,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "effective_article_mode": "BREAKING_BRIEF",
+        "freshness_policy": "event_24h",
+        "headline_ids": [
+          "cc-x-headline-a4465030a6b8f1cd272a47de"
+        ],
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": null,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "optional_evidence_capabilities": [
+          "primary_source_documents",
+          "event_timeline",
+          "geography"
+        ],
+        "rank": 4,
+        "request_logical_hash": "1ef9973de1f90538a1168b25661ad15679a9dd56f7d5fd514e7c638888506484",
+        "requested_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 176,
+            "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+            "cc_context_richness": 0.0,
+            "deep_query_selected_tables": [
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_documents"
+              },
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_events"
+              },
+              {
+                "score": 9.85,
+                "store_id": "public_free_event_text_entity_history_v1",
+                "table": "dbh2_records"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_documents"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_events"
+              },
+              {
+                "score": 9.5,
+                "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+                "table": "dbh2_records"
+              },
+              {
+                "score": 9.1,
+                "store_id": "unified_historical_lakehouse_hb10_v1",
+                "table": "unified_event"
+              },
+              {
+                "score": 8.7,
+                "store_id": "unified_historical_lakehouse_hb10_v1",
+                "table": "unified_document"
+              }
+            ],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [],
+            "queried_table_count": 0,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2"
+          },
+          "entities_topics": [],
+          "evidence_reachability": {
+            "capital_chronicle_relevant_context": false,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "mode_downgrade_viable": true,
+            "public_source_candidate_count": 0,
+            "reputable_public_secondary_path": false,
+            "score": 0.0,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP"
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [],
+          "official_source_urls": [],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 106.0,
+          "public_source_url_bindings": [],
+          "public_source_urls": [],
+          "selection_case": "Fresh discovery item with a bounded public evidence path.",
+          "seo_intent": "",
+          "why_now": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP"
+        },
+        "story_type": "geopolitical_event",
+        "update_chain_identity": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "BREAKING_BRIEF",
+      "status": "VIABLE"
+    }
+  ],
+  "ranked_candidate_count": 12,
+  "reason_code": "FIRST_VIABLE_RANKED_CLUSTER_SELECTED",
+  "schema_version": "capital_chronicle.rolling_x_ranked_evidence_viability.v1",
+  "selected_cluster": {
+    "article_mode": "breaking",
+    "capability_article_mode": "straight_news",
+    "capital_chronicle_context": {
+      "all_discovered_stores_considered": true,
+      "candidate_table_count": 176,
+      "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+      "cc_context_richness": 0.0,
+      "deep_query_selected_tables": [
+        {
+          "score": 9.85,
+          "store_id": "public_free_event_text_entity_history_v1",
+          "table": "dbh2_documents"
+        },
+        {
+          "score": 9.85,
+          "store_id": "public_free_event_text_entity_history_v1",
+          "table": "dbh2_events"
+        },
+        {
+          "score": 9.85,
+          "store_id": "public_free_event_text_entity_history_v1",
+          "table": "dbh2_records"
+        },
+        {
+          "score": 9.5,
+          "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+          "table": "dbh2_documents"
+        },
+        {
+          "score": 9.5,
+          "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+          "table": "dbh2_events"
+        },
+        {
+          "score": 9.5,
+          "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+          "table": "dbh2_records"
+        },
+        {
+          "score": 9.1,
+          "store_id": "unified_historical_lakehouse_hb10_v1",
+          "table": "unified_event"
+        },
+        {
+          "score": 8.7,
+          "store_id": "unified_historical_lakehouse_hb10_v1",
+          "table": "unified_document"
+        }
+      ],
+      "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+      "deep_query_table_limit": 8,
+      "grants_factual_or_numeric_authority": false,
+      "matched_store_count": 0,
+      "matched_store_ids": [],
+      "matched_table_count": 0,
+      "matches": [],
+      "mutated_upstream": false,
+      "queried_entities": [],
+      "queried_table_count": 0,
+      "richness_components": {
+        "bounded_row_density": 0.0,
+        "entity_coverage": 0.0,
+        "matched_freshness_metadata_coverage": 0.0,
+        "matched_store_diversity": 0.0,
+        "quality_lineage_surface_coverage": 0.0
+      },
+      "schema_version": "contentops.story_scoped_cc_context.v2"
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "entities_topics": [],
+    "evidence_reachability": {
+      "capital_chronicle_relevant_context": false,
+      "factual_authority_granted": false,
+      "known_official_path": false,
+      "mode_downgrade_viable": true,
+      "public_source_candidate_count": 0,
+      "reputable_public_secondary_path": false,
+      "score": 0.0,
+      "unregistered_official_suffix_candidate": false
+    },
+    "headline_ids": [
+      "cc-x-headline-a4465030a6b8f1cd272a47de"
+    ],
+    "leaf_cluster_ids": [
+      "rolling-x-deterministic-leaf-2d6882f3b72e9b3fb13b"
+    ],
+    "leaf_summaries": [
+      "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP"
+    ],
+    "learning_policy_confidence": 0.0,
+    "learning_policy_sample_count": 0,
+    "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+    "learning_preference_matches": [],
+    "learning_preferences_change_evidence_or_publication_gates": false,
+    "learning_preferences_grant_factual_or_numeric_authority": false,
+    "learning_priority_bonus": 0.0,
+    "market_sensitive": false,
+    "material_event_priority_bonus": 0.0,
+    "material_event_priority_changes_eligibility_gates": false,
+    "material_event_priority_grants_factual_or_numeric_authority": false,
+    "material_event_priority_ids": [],
+    "material_event_priority_match": false,
+    "material_follow_up_context": null,
+    "needed_evidence": [
+      "Corroborate the limited factual claim from public evidence."
+    ],
+    "official_source_url_bindings": [],
+    "official_source_urls": [],
+    "portfolio_concentration_penalty": 0.0,
+    "portfolio_concentration_penalty_effective": 0.0,
+    "preselection_novelty": {
+      "best_prior_article": null,
+      "best_prior_title": null,
+      "cc_context_richness": 0.0,
+      "decision": "BREAKING_NEW_STORY",
+      "entity_overlap": 0.0,
+      "grants_factual_or_numeric_authority": false,
+      "matched_article_age_hours": null,
+      "material_delta_evaluation": {
+        "delta_summary": "No prior article matched.",
+        "marker_hits": [],
+        "new_official_source_candidate_count": 0,
+        "reason_codes": [],
+        "signal_count": 0,
+        "x_content_grants_factual_authority": false
+      },
+      "material_delta_signals": 0,
+      "recommended_article_mode": "BREAKING_BRIEF",
+      "schema_version": "contentops.editorial_story_novelty.v1",
+      "update_chain_match": false
+    },
+    "preselection_occurs_before_article_generation": true,
+    "preselection_occurs_before_targeted_evidence": true,
+    "preselection_original_rank": 4,
+    "preselection_score": 106.0,
+    "public_source_url_bindings": [],
+    "public_source_urls": [],
+    "rank": 4,
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "selection_case": "Fresh discovery item with a bounded public evidence path.",
+    "seo_intent": "",
+    "seo_learning_preferences": [],
+    "story_mode": "reporting",
+    "update_chain": {
+      "canonical_headline_id": "cc-x-headline-a4465030a6b8f1cd272a47de",
+      "ordered_headline_ids": [
+        "cc-x-headline-a4465030a6b8f1cd272a47de"
+      ],
+      "relationship": "distinct"
+    },
+    "update_chain_identity": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+    "visual_strategy": "Deterministic source-backed title card.",
+    "why_now": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP",
+    "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+  },
+  "selected_cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+  "selected_evidence": {
+    "blockers": [],
+    "capital_chronicle_authority_verified": false,
+    "cc_context_bundle": {
+      "cc_context_refs": [],
+      "cc_context_richness": 0.0,
+      "factual_or_numeric_authority_granted": false,
+      "mutated_upstream": false,
+      "ordinary_reporting_blocked_when_unavailable": false,
+      "proprietary_claim_authority_granted": false,
+      "queried_entities": [],
+      "schema_version": "contentops.additive_cc_story_context.v1",
+      "state": "CC_CONTEXT_NOT_RELEVANT"
+    },
+    "claim_evidence_contract": {
+      "blocked_claims": [],
+      "claim_contract_sha256": "301f006594daac2ef4c2732b5f232206d74a4136ad7e144968bf3f94f6e47473",
+      "fabricated_claim_count": 0,
+      "omitted_claim_count": 1,
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-d078749d00fcfde2",
+          "claim_text": "Kushner was part of a 'Board of Peace delegation' for the talks.",
+          "reason": "secondary_corroboration_insufficient",
+          "support_status": "OMITTED"
+        }
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.claim_evidence_contract.v1",
+      "status": "PASS",
+      "supported_claim_count": 5,
+      "supported_claims": [
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-2f8793367bbfd74a",
+          "claim_text": "Jared Kushner met with Hamas.",
+          "evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-67371e9a2334a2d6",
+          "claim_text": "The meeting between Kushner and Hamas took place in Cairo, Egypt.",
+          "evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-9d6c55c231cc02f8",
+          "claim_text": "The talks were focused on Gaza, with Kushner pushing 'Trump\u2019s Gaza plan.'",
+          "evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-c662bee27748196d",
+          "claim_text": "Kushner is scheduled to hold talks with Netanyahu regarding Gaza following his meeting with Hamas.",
+          "evidence_document_ids": [
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-6db67911ea393a90",
+          "claim_text": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP",
+          "evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        }
+      ],
+      "x_content_grants_factual_authority": false
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [
+          {
+            "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          },
+          {
+            "document_id": "public-news-listing-137034dd29c93b9bde37",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          },
+          {
+            "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          }
+        ],
+        "enough_for_useful_article": false,
+        "enrichment_recommended": true,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 0,
+        "target_usable_content_words": 90,
+        "usable_content_words": 0,
+        "usable_document_count": 3
+      },
+      "grounded_research": {
+        "blockers": [],
+        "elapsed_seconds": 52.854,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+        "infrastructure_failure_class": null,
+        "public_retrieval_requests": 5,
+        "research_calls": 2,
+        "retrieval_result": {
+          "accepted_document_count": 3,
+          "blockers": [],
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_plan_b70cf5b7876bc0c4c81c",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_plan",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1057.0,
+              "prompt_tokens": 2576.0,
+              "total_tokens": 3633.0
+            },
+            "wall_clock_elapsed_seconds": 12.4318
+          },
+          {
+            "attempts": [
+              {
+                "failure_class": "structured_output_schema_invalid",
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_fact_not_supported_by_bound_source",
+                "structured_validation_result": "FAIL"
+              },
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_synthesis_b70cf5b7876bc0c4c81c",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "source_synthesis",
+            "provider_attempt_count": 2,
+            "recoverable_failure_classes": [
+              "structured_output_schema_invalid"
+            ],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 4726.0,
+              "prompt_tokens": 6599.0,
+              "total_tokens": 11325.0
+            },
+            "wall_clock_elapsed_seconds": 37.5122
+          }
+        ]
+      }
+    },
+    "evidence_documents": [
+      {
+        "byte_length": 975,
+        "canonical_content_sha256": "a1f9d46c11b76f77284cd3d6d9e1903e5cd7d40d08a5f0d6e44d21adf400dc5b",
+        "canonical_content_text": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+        "event_time_utc": "2026-08-17T10:24:51Z",
+        "grounded_source_ref": "SRC_454B4BFE48AF2F69",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-17T10:24:51Z",
+        "publisher": "The Jerusalem Post",
+        "raw_sha256": "db4d95a1341d227d0bc35b36a474bddad556fce44c459cd51d9531c428805bb5",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "envoy",
+          "Kushner",
+          "meets",
+          "Hamas",
+          "leader",
+          "Gaza",
+          "ceasefire"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "jpost.com",
+        "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBkWU5rY1VELUEzQmotaUhNa2lKN05GUWM5WkVvX2dXeld1RWdXMGthNmN2TUFkQ3RWcDRQbW0tY2N1Q19TUDRXXzJLeUdqNENaT2YtelZmY0NVX0RZ?oc=5",
+        "title": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo"
+      },
+      {
+        "byte_length": 1837,
+        "canonical_content_sha256": "afebe6c2544f439717cc5c410d3ff03aee873aaf8dae2a4cc4b27e942ed91493",
+        "canonical_content_text": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-137034dd29c93b9bde37",
+        "event_time_utc": "2026-08-17T01:30:01Z",
+        "grounded_source_ref": "SRC_55803C277BC8F671",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-17T01:30:01Z",
+        "publisher": "Al Jazeera",
+        "raw_sha256": "137034dd29c93b9bde373dfddc81499d585986aab293bdaac5710e35081e231a",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "envoy",
+          "Kushner",
+          "meets",
+          "Hamas",
+          "leader",
+          "Gaza",
+          "ceasefire"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "aljazeera.com",
+        "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPNmpRRVBLRXhGNDJhZkRHSlhWbWcyemJTNXp4akxyVUpSV0xwTEx5UG9ZdUY3V3U5TkdHd3VuSXhHd0NZVzV2eVM3d3g0ajNZR0tyZzRoZ1cwVjlrTVFVZGNJM2JuWjdOYlBLbVBLWnQwV0dpRFZaT2VNVjFTR3NrTE96M3V4ZGlfbEJtcHZabjlpMHY0TnJFNGVn0gGfAUFVX3lxTE9Cek5VQUEwRmxxbGdtX1RLYlNiZUZqRFlqbkdSQ2RSelVoTi1kdDdwYXV5bl9tTEY5MWdnT2tLMXlHWXJXNTF0SFZRUnVUZEFVMm9wYVEwT3UteWUtdUp6SkVVa1hraXJpVXVmdXVDWlp5SXdrTXg2OTU3bnZ2emhxYUIzcHEwQmh3OWdybFZ5ZUhiNnVlVDY4bGxmV2VxQQ?oc=5",
+        "title": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan"
+      },
+      {
+        "byte_length": 1124,
+        "canonical_content_sha256": "0ff1806facfc9bb737e1f9d6dd929623b3bd803a6885c0dfec7644ee2e91a77e",
+        "canonical_content_text": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+        "event_time_utc": "2026-08-16T22:07:00Z",
+        "grounded_source_ref": "SRC_E4F1E950E89DC35B",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-16T22:07:00Z",
+        "publisher": "The Guardian",
+        "raw_sha256": "61afbc9afc4368ac52fe99efe29c0aa121a9e939c82e04f5f6e2beb7d7aec320",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "envoy",
+          "Kushner",
+          "meets",
+          "Hamas",
+          "leader",
+          "Gaza",
+          "ceasefire"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "theguardian.com",
+        "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbXZ6YVFkbzNpWlNFc1NvNHVMY2xjdGNTdTQ1cFU1cVJUZnk4Njdrb3d5WGNGWE5NUDhaeEFRbXk4WF84VXFKelA3ZkpFcnlZRlluZjZ5a2szQmJ2aUlMcm1jQTltakZtMkNrWWNHWVVfdEJaVHdWM1M1YU00WHU0eWoxa0tXZFk?oc=5",
+        "title": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza"
+      }
+    ],
+    "evidence_review_tier": "ENHANCED",
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [
+        {
+          "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        },
+        {
+          "document_id": "public-news-listing-137034dd29c93b9bde37",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        },
+        {
+          "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        }
+      ],
+      "enough_for_useful_article": false,
+      "enrichment_recommended": true,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 0,
+      "target_usable_content_words": 90,
+      "usable_content_words": 0,
+      "usable_document_count": 3
+    },
+    "grounded_research_packet": {
+      "attributed_numeric_facts": [],
+      "cc_context": {
+        "cc_context_refs": [],
+        "cc_context_richness": 0.0,
+        "factual_or_numeric_authority_granted": false,
+        "mutated_upstream": false,
+        "ordinary_reporting_blocked_when_unavailable": false,
+        "proprietary_claim_authority_granted": false,
+        "queried_entities": [],
+        "schema_version": "contentops.additive_cc_story_context.v1",
+        "state": "CC_CONTEXT_NOT_RELEVANT"
+      },
+      "cc_context_refs": [],
+      "confirmed_facts": [
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f1",
+          "factual_statement": "Jared Kushner met with Hamas.",
+          "source_refs": [
+            "SRC_454B4BFE48AF2F69",
+            "SRC_55803C277BC8F671",
+            "SRC_E4F1E950E89DC35B"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f2",
+          "factual_statement": "The meeting between Kushner and Hamas took place in Cairo, Egypt.",
+          "source_refs": [
+            "SRC_454B4BFE48AF2F69",
+            "SRC_55803C277BC8F671"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f3",
+          "factual_statement": "The talks were focused on Gaza, with Kushner pushing 'Trump\u2019s Gaza plan.'",
+          "source_refs": [
+            "SRC_454B4BFE48AF2F69",
+            "SRC_55803C277BC8F671",
+            "SRC_E4F1E950E89DC35B"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f4",
+          "factual_statement": "Kushner was part of a 'Board of Peace delegation' for the talks.",
+          "source_refs": [
+            "SRC_454B4BFE48AF2F69"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f5",
+          "factual_statement": "Kushner is scheduled to hold talks with Netanyahu regarding Gaza following his meeting with Hamas.",
+          "source_refs": [
+            "SRC_E4F1E950E89DC35B"
+          ]
+        }
+      ],
+      "context": [
+        "T",
+        "h",
+        "e",
+        "",
+        "m",
+        "e",
+        "e",
+        "t",
+        "i",
+        "n"
+      ],
+      "contradictions": [],
+      "core_factual_proposition": "Jared Kushner met with Hamas.",
+      "enhanced_review_required": true,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "model_assertion_grants_factual_authority": false,
+      "model_suggested_article_mode": "BREAKING_BRIEF",
+      "post_filter_accepted_evidence_document_ids": [
+        "public-news-listing-137034dd29c93b9bde37",
+        "public-news-listing-61afbc9afc4368ac52fe",
+        "public-news-listing-db4d95a1341d227d0bc3"
+      ],
+      "post_filter_removed_fact_count": 0,
+      "publication_authority": false,
+      "research_as_of_utc": "2026-08-17T17:03:28.055185Z",
+      "research_logical_hash": "9c4ad91584e4f41de14053ced58ffadf79b91350b372f82d9994d8f9c41bd53f",
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "risk_classification": "ENHANCED",
+      "schema_version": "contentops.grounded_news_research.v1",
+      "sources": [
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "a1f9d46c11b76f77284cd3d6d9e1903e5cd7d40d08a5f0d6e44d21adf400dc5b",
+          "evidence_document_id": "public-news-listing-db4d95a1341d227d0bc3",
+          "published_at": "2026-08-17T10:24:51Z",
+          "publisher": "The Jerusalem Post",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-17T17:05:38.604616Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_454B4BFE48AF2F69",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBkWU5rY1VELUEzQmotaUhNa2lKN05GUWM5WkVvX2dXeld1RWdXMGthNmN2TUFkQ3RWcDRQbW0tY2N1Q19TUDRXXzJLeUdqNENaT2YtelZmY0NVX0RZ?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo"
+        },
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "afebe6c2544f439717cc5c410d3ff03aee873aaf8dae2a4cc4b27e942ed91493",
+          "evidence_document_id": "public-news-listing-137034dd29c93b9bde37",
+          "published_at": "2026-08-17T01:30:01Z",
+          "publisher": "Al Jazeera",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-17T17:05:38.604616Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_55803C277BC8F671",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPNmpRRVBLRXhGNDJhZkRHSlhWbWcyemJTNXp4akxyVUpSV0xwTEx5UG9ZdUY3V3U5TkdHd3VuSXhHd0NZVzV2eVM3d3g0ajNZR0tyZzRoZ1cwVjlrTVFVZGNJM2JuWjdOYlBLbVBLWnQwV0dpRFZaT2VNVjFTR3NrTE96M3V4ZGlfbEJtcHZabjlpMHY0TnJFNGVn0gGfAUFVX3lxTE9Cek5VQUEwRmxxbGdtX1RLYlNiZUZqRFlqbkdSQ2RSelVoTi1kdDdwYXV5bl9tTEY5MWdnT2tLMXlHWXJXNTF0SFZRUnVUZEFVMm9wYVEwT3UteWUtdUp6SkVVa1hraXJpVXVmdXVDWlp5SXdrTXg2OTU3bnZ2emhxYUIzcHEwQmh3OWdybFZ5ZUhiNnVlVDY4bGxmV2VxQQ?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan"
+        },
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "0ff1806facfc9bb737e1f9d6dd929623b3bd803a6885c0dfec7644ee2e91a77e",
+          "evidence_document_id": "public-news-listing-61afbc9afc4368ac52fe",
+          "published_at": "2026-08-16T22:07:00Z",
+          "publisher": "The Guardian",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-17T17:05:38.604616Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_E4F1E950E89DC35B",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbXZ6YVFkbzNpWlNFc1NvNHVMY2xjdGNTdTQ1cFU1cVJUZnk4Njdrb3d5WGNGWE5NUDhaeEFRbXk4WF84VXFKelA3ZkpFcnlZRlluZjZ5a2szQmJ2aUlMcm1jQTltakZtMkNrWWNHWVVfdEJaVHdWM1M1YU00WHU0eWoxa0tXZFk?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza"
+        }
+      ],
+      "story_identity": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+      "suggested_article_mode": "BREAKING_BRIEF",
+      "uncertainties": [
+        "The specific Hamas leaders Kushner met with are not named in the provided sources.",
+        "The exact details and terms of 'Trump's Gaza plan' are not specified in the provided text."
+      ],
+      "unsupported_or_unverified": [
+        "The headline's claim that Kushner is currently acting as a 'U.S. ENVOY' is not supported by the provided sources.",
+        "The headline's claim that the meeting was specifically over a 'CEASEFIRE' is not explicitly stated in the sources, which only mention 'Gaza talks' and 'Trump's Gaza plan.'",
+        "The attribution of the report to the Associated Press ('AP') is unsupported, as the provided sources are The Jerusalem Post, Al Jazeera, and The Guardian."
+      ]
+    },
+    "headline_ids": [
+      "cc-x-headline-a4465030a6b8f1cd272a47de"
+    ],
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [
+      "basic_attributed_facts",
+      "credible_event_confirmation"
+    ],
+    "publication_authority": false,
+    "status": "PASS",
+    "unsupported_claims_removed": 1
+  },
+  "selected_headline_ids": [
+    "cc-x-headline-a4465030a6b8f1cd272a47de"
+  ],
+  "selected_rank": 4,
+  "start_after_rank": 0,
+  "status": "SUCCESS",
+  "unattempted_candidate_count": 8,
+  "viability_logical_hash": "38216b74740739154e0021f425bfffa3e1d3b4329a512fa01b623c4570c105ba",
+  "x_content_grants_evidence_authority": false
+}

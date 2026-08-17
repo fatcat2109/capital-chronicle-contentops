@@ -1,0 +1,97 @@
+{
+  "discord": {
+    "format": "newsroom_brief",
+    "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "facebook_page": {
+    "format": "page_brief",
+    "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "instagram_business": {
+    "format": "brief_caption",
+    "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "linkedin": {
+    "format": "professional_brief",
+    "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "telegram": {
+    "format": "channel_brief",
+    "media_asset_ids": [],
+    "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "threads": {
+    "format": "text_brief",
+    "full_text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "hard_truncation_used": false,
+    "overflow_strategy": "single_root",
+    "platform_limit": 500,
+    "posts": [
+      {
+        "media_asset_ids": [],
+        "order": 0,
+        "role": "root",
+        "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.482
+      ],
+      "post_character_counts": [
+        241
+      ],
+      "reply_count": 0,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 1.0,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [],
+    "root_text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "x": {
+    "format": "text_brief",
+    "full_text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "hard_truncation_used": false,
+    "overflow_strategy": "single_root",
+    "platform_limit": 280,
+    "posts": [
+      {
+        "media_asset_ids": [],
+        "order": 0,
+        "role": "root",
+        "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.861
+      ],
+      "post_character_counts": [
+        241
+      ],
+      "reply_count": 0,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 1.0,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [],
+    "root_text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "youtube": {
+    "format": "community_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 1000,
+    "text": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza\n\nJared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  }
+}
