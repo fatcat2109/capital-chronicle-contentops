@@ -8,16 +8,17 @@ This override supersedes current V2 planning language where it conflicts. Histor
 
 ## Current task
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
 
-Required result:
+Result:
 
-`PASS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILED_READY_FOR_DEEP_RESEARCH`
+`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
 
 The accepted creative, package, publication-adapter, TikTok credential-bootstrap, and exact TikTok
 Sandbox draft-canary lanes are closed inputs. The durable local V2 control-plane substrate is
-implemented/proven at its bounded substrate level. The current task corrects repository authority
-only; it does not research or implement the replacement integration and does not run media.
+implemented/proven at its bounded substrate level. This task implemented the explicit
+Desktop-session boundary, ran its one authorized proof, quarantined at the first proxy-render
+failure, and now records evidence and the owner decision gate without repair or rerun.
 
 Canonical invariant:
 
@@ -50,7 +51,7 @@ Platform adapters remain dormant and
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam 622b19e [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [CURRENT] -> Desktop App handoff deep research [NEXT] -> correct Desktop App actual-media proof [NOT YET RUN] -> production soak [BLOCKED]`
+`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam 622b19e [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [PASS] -> explicit Desktop-session stage boundary [IMPLEMENTED/PUSHED] -> one correct-runtime proof [QUARANTINED_AT_PROXY_BROWSER_PATH_NO_MEDIA] -> bounded short-path runtime repair decision [NEXT OWNER GATE] -> production soak [BLOCKED]`
 
 The failed `CodexCliExecutor` / `codex exec` implementation at
 `622b19e1282d4fbd81fad47f76f399b97c454737` is
@@ -63,11 +64,16 @@ accept the media, and the unattended production soak is stable.
 
 `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`
 
-Single exact next task after this reconciliation passes:
+The factory implementation is at `de0d9748b36334d408f7cc845b8edda109df0ff8`. Its single proof
+passed governed input, factual, rights, sandbox, hash-lock, and real TypeScript validation, then
+quarantined before proxy media when Remotion could not spawn its existing browser through a
+303-character task-local path (`ENOENT`). No repair or second proof was attempted.
 
-`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
+Single exact next gate:
 
-The current task does not start or authorize that gate.
+`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`
+
+The current task does not authorize runtime repair, proof resumption, or a fresh proof.
 
 ## Model orchestration
 

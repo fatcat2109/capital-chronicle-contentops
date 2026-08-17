@@ -8,7 +8,7 @@ Codex mode state: `HIGH_PARENT / CODEX_DESKTOP_APP_FRESH_TASK_SESSION_XHIGH / MA
 > **2026-08-17 current handoff override:** Read
 > `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` before the older
 > evidence below. The active task is
-> `TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`.
+> `TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`.
 > `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified video
 > job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
 > `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`, `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`, and
@@ -18,14 +18,18 @@ Codex mode state: `HIGH_PARENT / CODEX_DESKTOP_APP_FRESH_TASK_SESSION_XHIGH / MA
 > `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 > remains controlling. Publication adapters are accepted; TikTok credential bootstrap is closed;
 > the exact TikTok Sandbox draft canary is PASS/CLOSED and its one-write grant is consumed.
-> Durable local control-plane substrate is implemented/proven; automated Desktop-App handoff is
-> unresolved; correct-architecture media proof is not yet run. The CLI experiment at `622b19e...`
+> Durable local control-plane substrate and the explicit Desktop-session stage boundary are
+> implemented; implementation HEAD is `de0d9748b36334d408f7cc845b8edda109df0ff8`. The one
+> authorized correct-runtime proof passed creative-input validation, then quarantined before proxy
+> media when Remotion could not spawn its existing browser through a 303-character task-local path
+> (`ENOENT`). No repair, second proof, media, audio, package, or public write followed. Result:
+> `FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`. The CLI experiment at `622b19e...`
 > is `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE` and does not prove Desktop App
 > failure. `MULTILINGUAL_CLOSED_INPUT` and
 > `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` remain controlling.
-> The exact next task after reconciliation PASS is
-> `DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`;
-> do not implement it automatically.
+> The former generic Desktop-App handoff deep-research pointer is complete/superseded. Exact next:
+> `JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`.
+> Do not patch or resume the quarantined proof and do not run a fresh proof automatically.
 
 Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or owner chat history.
 
@@ -462,24 +466,25 @@ Hold starting story/evidence/assets/safety/audio/revision budget constant. No cr
 
 Current task:
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
 
-Required result:
+Result:
 
-`PASS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILED_READY_FOR_DEEP_RESEARCH`
+`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
 
-This task changes authority, generated context, and focused context tests only. It does not research
-or implement Desktop automation and does not run a creative model or media proof.
+The active factory uses an explicit Desktop-session submission boundary. Implementation HEAD
+`de0d9748b36334d408f7cc845b8edda109df0ff8` was pushed before the one proof. The current Desktop
+task authored its creative artifacts and deterministic validation passed through
+`HARD_SOURCE_VALIDATED`; proxy rendering then quarantined on browser spawn `ENOENT` through a
+303-character task-local path. No completed render or downstream media exists.
 
-Exact next task after PASS:
+Exact next gate:
 
-`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
+`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`
 
-The research must preserve the Desktop App invariant and may not select CLI, SDK/API/headless,
-9Router, Terra/Gemini, provider-adapter, or generic model execution as a substitute.
-
-The later correct Desktop-App media proof and production soak each require separate exact owner
-authority. `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`.
+No current authority permits runtime repair, resumption of the quarantined run, or a fresh proof.
+Any later proof must preserve the Desktop App invariant and may not substitute CLI, SDK/API/headless,
+9Router, Terra/Gemini, provider-adapter, or generic model execution. Production soak remains blocked.
 
 # 19. V1 -> V2 future operating loop
 
@@ -509,21 +514,14 @@ Do not mutate/reset V1 runtime/store/scheduler/coordinator/browser/publication a
 
 V2-02 remains blocked.
 
-# 22. Builder workflow for the current task
+# 22. Builder workflow for the exact next gate
 
-1. inspect local status and preserve unrelated work;
-2. fetch origin and verify fresh remote master;
-3. create a clean dedicated V2 worktree/branch from fresh master;
-4. regenerate/check CodeGraph after direct GitHub authority writes;
-5. reconcile current authority and explicitly classify historical failures;
-6. update only the generated-context source/test needed to prevent routing drift;
-7. regenerate/check CodeGraph artifacts;
-8. run focused authority/context and no-V1-routing-regression tests;
-9. do not invoke models, run media, research Desktop automation, or rebuild multilingual;
-10. explicit staging only;
-11. commit/push the authority branch;
-12. stop before the deep-research gate.
+1. stop at the recorded quarantined state;
+2. do not patch or resume that proof;
+3. await Jim's exact decision on a bounded short-path runtime repair and one fresh proof;
+4. preserve the Desktop App creative-runtime invariant and all deterministic gates;
+5. keep production soak, multilingual activation, and all public writes blocked.
 
 # 23. Durable summary
 
-**V2 is Lane B Creative-Authority Hybrid. `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified job maps to one fresh Codex Desktop App task/session using GPT-5.6 Sol / Extra High. Deterministic local code owns truth/safety/rendering/recovery, not viewer-facing authorship. CLI, SDK/API/headless execution, 9Router, and provider routes have zero V2 creative authority. The durable control plane is implemented/proven substrate; automated Desktop-App handoff is unresolved; the correct media proof has not run. The failed CLI seam is historical evidence only. Multilingual is closed input, production soak is blocked, and the exact next gate is `DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`. Zero video public-write authority remains in force.**
+**V2 is Lane B Creative-Authority Hybrid. `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified job maps to one fresh Codex Desktop App task/session using GPT-5.6 Sol / Extra High. Deterministic local code owns truth/safety/rendering/recovery, not viewer-facing authorship. CLI, SDK/API/headless execution, 9Router, and provider routes have zero V2 creative authority. The durable control plane and explicit Desktop-session boundary are implemented at `de0d9748b36334d408f7cc845b8edda109df0ff8`. Its one proof quarantined before proxy media on a 303-character browser-path process-launch `ENOENT`; no repair, second proof, or media followed. The failed CLI seam remains historical evidence only. Multilingual is closed input, production soak is blocked, and the exact next gate is `JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`. Zero video public-write authority remains in force.**

@@ -7,7 +7,7 @@ Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
 > **2026-08-17 task-graph override:** Current task is
-> `TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`.
+> `TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`.
 > `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified video
 > job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
 > `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`, `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`, and
@@ -34,18 +34,20 @@ The controlled A/B and subsequent architecture-recovery proofs establish the fol
 
 # 2. Current exact task
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It reconciles
-current authority only. Do not research or implement Desktop automation, invoke creative models,
-run media, rebuild multilingual, or start soak.
+This is the only active V2 product task unless Jim explicitly changes direction. Result:
+`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`.
 
 Current truth:
 
-- durable local control plane: implemented/proven substrate;
+- durable local control plane and explicit Desktop-session stage boundary: implemented;
 - canonical creative brain: fresh Codex Desktop App task/session;
-- automated Desktop-App handoff: unresolved;
-- correct Desktop-App actual-media proof: not yet run;
+- implementation HEAD: `de0d9748b36334d408f7cc845b8edda109df0ff8`;
+- one correct-runtime proof: creative input passed deterministic validation and the run quarantined
+  before proxy media on browser process launch through a 303-character task-local path (`ENOENT`);
+- completed renders, media, audio, package, and public writes: zero;
+- repair or second proof: not attempted;
 - `CodexJobBrain`: conceptual boundary only, canonically `CodexDesktopSessionBrain`;
 - `622b19e... / CodexCliExecutor / codex exec`:
   `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`;
@@ -59,11 +61,11 @@ authority. All platform adapters and credentials remain dormant.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [CURRENT] -> Desktop App handoff deep research [NEXT] -> correct Desktop App media proof [NOT YET RUN] -> production soak [BLOCKED]`
+`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [PASS] -> explicit Desktop-session stage boundary [IMPLEMENTED/PUSHED] -> one correct-runtime proof [QUARANTINED_AT_PROXY_BROWSER_PATH_NO_MEDIA] -> bounded short-path runtime repair decision [NEXT OWNER GATE] -> production soak [BLOCKED]`
 
-Exact next after reconciliation PASS:
-`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`.
-No current authority starts it.
+Exact next:
+`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`.
+No current authority permits repair, resumption, or a fresh proof.
 
 # 3. Superseded quality-hardening planning context
 

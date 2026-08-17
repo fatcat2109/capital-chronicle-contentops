@@ -11,11 +11,11 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam 622b19e [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [CURRENT] -> Desktop App handoff deep research [NEXT] -> correct Desktop App actual-media proof [NOT YET RUN] -> production soak [BLOCKED]`
+`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam 622b19e [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [PASS] -> explicit Desktop-session stage boundary [IMPLEMENTED/PUSHED] -> one correct-runtime proof [QUARANTINED_AT_PROXY_BROWSER_PATH_NO_MEDIA] -> bounded short-path runtime repair decision [NEXT OWNER GATE] -> production soak [BLOCKED]`
 
 Canonical invariant:
 
@@ -120,31 +120,36 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Current exact task
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It is
-authority-only: correct current docs/generated context/tests, preserve historical evidence, and
-make substitution of CLI/SDK/API/9Router structurally difficult. Do not research or implement
-Desktop automation, invoke a model, or run media.
+Result:
+
+`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
 
 Current truth:
 
-- durable local control plane: implemented/proven substrate;
-- automated Codex Desktop App job handoff: unresolved;
-- correct Desktop-App actual-media proof: not yet run;
+- the active core factory is now explicitly driven by the current Codex Desktop App task/session;
+- initial Desktop-session creative artifacts passed factual, rights, sandbox, hash-lock, and real
+  TypeScript validation with zero CLI/SDK/API/9Router/provider creative invocation;
+- the single authorized proof reached `HARD_SOURCE_VALIDATED` and then quarantined when Remotion
+  could not spawn its existing browser through a 303-character task-local path (`ENOENT`);
+- completed renders, proxy/final media, audio, package, and owner-review surfaces: zero;
+- no runtime repair or second proof was attempted;
 - commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its
   `codex exec` proof: `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`;
-- that failure does not prove canonical Desktop App failure;
+- implementation HEAD: `de0d9748b36334d408f7cc845b8edda109df0ff8`;
+- evidence:
+  `docs/automation/TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1/FINAL_EVIDENCE.md`;
 - production soak: blocked.
 
 9Router remains research/evidence assistance only on `cx/gpt-5.6-terra(high)` →
 `vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)` and has zero creative authority.
 
-The exact next task after this reconciliation passes is:
+The generic Desktop-App handoff deep-research pointer is complete/superseded. The exact next gate is:
 
-`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
+`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`
 
-Do not implement it automatically.
+Do not patch the quarantined proof or run a second proof without exact owner authority.
 
 # Deferred correct-architecture proof story — not current
 
@@ -361,8 +366,9 @@ No current V2 task may:
 
 V2-02 remains blocked.
 
-# Result ceiling
+# Recorded result and ceiling
 
-`PASS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILED_READY_FOR_DEEP_RESEARCH`
+`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
 
-No model/media execution or owner aesthetic/audio acceptance is part of this authority-only task.
+No actual-media or owner aesthetic/audio acceptance is claimed. Runtime repair and another proof
+require the exact owner gate recorded above.

@@ -170,18 +170,21 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
 
-This authority-only task corrects current repository language before any replacement integration
-research or implementation. Current truth:
+Result:
 
-- durable local V2 control-plane substrate: implemented and proven at the bounded substrate level;
-- canonical creative brain: one fresh Codex Desktop App task/session per qualified video job;
-- automated Desktop-App job handoff/integration: unresolved;
-- actual-media proof under the correct Desktop-App architecture: not yet run;
-- `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`;
-- `MULTILINGUAL_CLOSED_INPUT`: localization remains closed/deferred until the correct core proof is
-  accepted and the unattended production soak is stable.
+`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
+
+The active factory now uses an explicit session-driven boundary: this fresh Codex Desktop task
+claims a durable job, authors creative artifacts, and submits them to deterministic validation;
+local code never spawns or emulates the creative brain. Implementation HEAD
+`de0d9748b36334d408f7cc845b8edda109df0ff8` passed the affected validation suite and was pushed
+before proof. The single proof locked fresh Desktop-session editorial/source and passed governed
+input, factual, rights, sandbox, hash, and real TypeScript validation, then quarantined before
+proxy media because Remotion could not spawn its existing browser through a 303-character
+task-local path (`ENOENT`). No repair, second proof, media, audio, package, or public write followed.
+`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` and `MULTILINGUAL_CLOSED_INPUT` remain.
 
 Commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its `codex exec`
 proof are `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. That failure proves only
@@ -192,14 +195,14 @@ execution failed. Preserve its commits and evidence without allowing them to con
 `cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
 `vx/gemini-3.5-flash(high)`. It has zero V2 creative authority. Public/platform writes, platform
 credential reads, operational V1 reads or mutations, scheduler installation, V1 trigger
-integration, proof execution, Desktop automation implementation, and production soak remain
-forbidden in the current task.
+integration, runtime repair, resumption of the quarantined proof, any fresh proof, and production
+soak remain forbidden without the exact next owner authority.
 
-The exact next task after this authority reconciliation passes is:
+The former generic Desktop-App handoff deep-research pointer is complete/superseded. Exact next:
 
-`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
+`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`
 
-Do not implement it automatically.
+Do not patch or resume the quarantined proof and do not run a new proof automatically.
 
 ### Current dominant V2 quality blockers
 

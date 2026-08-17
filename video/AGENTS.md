@@ -14,11 +14,11 @@ For V2/video work, read first:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
 
-Required result:
+Result:
 
-`PASS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILED_READY_FOR_DEEP_RESEARCH`
+`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
 
 `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
@@ -40,8 +40,11 @@ different runtime. `CodexJobBrain` is conceptual only and canonically means
 
 Commit `622b19e...`, `CodexCliExecutor`, and the failed `codex exec` proof are
 `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`; they do not prove canonical Desktop
-App failure. The durable control plane remains implemented/proven substrate, automated Desktop-App
-handoff is unresolved, and the correct actual-media proof has not run.
+App failure. The active factory's explicit Desktop-session boundary was implemented and pushed at
+`de0d9748b36334d408f7cc845b8edda109df0ff8`. The single correct-runtime proof passed creative
+input validation and then quarantined before proxy media when Remotion could not spawn its existing
+browser through a 303-character task-local path (`ENOENT`). No repair, second proof, completed
+render, media, audio, package, or public write followed.
 
 9Router remains research assistance only on the exact Terra HIGH → Gemini Pro HIGH → Gemini Flash
 HIGH ladder. `MULTILINGUAL_CLOSED_INPUT` and
@@ -49,9 +52,9 @@ HIGH ladder. `MULTILINGUAL_CLOSED_INPUT` and
 do not read platform credentials or perform any platform/browser write. TikTok bootstrap and its
 Sandbox draft canary are closed.
 
-Exact next task after reconciliation PASS:
-`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`.
-Do not start it here.
+Exact next gate:
+`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`.
+Do not repair or resume the quarantined proof and do not start a fresh proof here.
 
 For recurring localization, render picture once per editorial format. Language work is governed
 translation, audio, timed captions, metadata and manifests. Locale-specific Remotion source,

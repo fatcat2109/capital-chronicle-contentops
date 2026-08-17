@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `3718155c2b7228fb8b8b3a2d9b97edb49de4fd5f`. Source tree digest: `614e48d85f1ee161f0101dd903c865d9996bfbfafc7a0c2488f032dbf83fffb1`.
+Generated from source HEAD `de0d9748b36334d408f7cc845b8edda109df0ff8`. Source tree digest: `d9f080fdc252ec1084e3046cfff19e5df8057a047ad2b2be8d0264368ff4bdcd`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This map is descriptive repository state, not product authority. Jim's current direction and
@@ -41,7 +41,7 @@ targets `render-job.mjs`.
   are the canonical V2 product authority. Older V2 and V1 plan sets are historical where they
   conflict with this chain.
 - The current task is
-  `TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`.
+  `TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`.
 - `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified video
   job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
   The session may resume only for bounded revision of that same video job; governed artifacts and
@@ -59,12 +59,17 @@ targets `render-job.mjs`.
 - Commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its failed
   `codex exec` proof are `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. They prove
   only that the mistaken CLI seam failed, not that canonical Codex Desktop App execution failed.
-- Durable local control-plane substrate is implemented/proven. Automated Desktop-App handoff is
-  unresolved; the correct Desktop-App actual-media proof has not run.
+- The explicit Desktop-session factory boundary is implemented/pushed at
+  `de0d9748b36334d408f7cc845b8edda109df0ff8`. Its single correct-runtime proof passed governed
+  input, factual, rights, sandbox, hash-lock, and real TypeScript validation, then quarantined
+  before proxy media because Remotion could not spawn its existing browser through a 303-character
+  task-local path (`ENOENT`). Result:
+  `FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`. No repair or second proof followed.
   `MULTILINGUAL_CLOSED_INPUT` and `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` control.
-- The exact next task is
-  `DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`.
-  Do not implement it automatically. MAX/ULTRA and mode bakeoffs are retired.
+- The former generic Desktop-App handoff deep-research pointer is complete/superseded. Exact next:
+  `JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`.
+  Do not patch or resume the quarantined proof and do not run a fresh proof automatically.
+  MAX/ULTRA and mode bakeoffs are retired.
 - Remotion is deterministic execution, not creative authority. Viewer-facing source remains
   free-form React/Remotion code organized by semantic creative chapters. Chapters are not
   automatically render units, and deterministic aesthetic schemas/gates are forbidden.

@@ -224,7 +224,7 @@ The objective is repeatable qualified audience growth and breakout/trending pote
 ## 2026-08-17 current V2 execution override
 
 The current exact V2 task is
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`.
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`.
 
 `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
@@ -240,8 +240,13 @@ Terra/Gemini, provider adapters, and generic model routes cannot perform V2
 creative/editorial/visual authorship. If Desktop-App automation is unavailable, the system must
 report the unresolved integration boundary rather than substitute another runtime.
 
-The durable local control plane remains implemented/proven substrate. Automated Desktop-App job
-handoff is unresolved. The correct Desktop-App actual-media proof has not run.
+The active core factory now exposes an explicit Desktop-session stage boundary and was committed
+and pushed at `de0d9748b36334d408f7cc845b8edda109df0ff8` before proof. In the one authorized
+proof, the current Desktop task authored and submitted the creative artifacts; deterministic input,
+factual, rights, sandbox, hash-lock, and real TypeScript validation passed. The run then quarantined
+before proxy media because Remotion could not spawn its existing browser through a 303-character
+task-local path (`ENOENT`). No repair, second proof, media, audio, package, or public write followed.
+Result: `FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`.
 `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` and `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 remain controlling. `MULTILINGUAL_CLOSED_INPUT`: localization activation remains deferred until
 the correct core proof passes, Jim/ChatGPT accept the actual media, and the soak is stable.
@@ -253,9 +258,9 @@ only that the mistaken CLI seam failed, not that canonical Codex Desktop App exe
 9Router remains research/evidence assistance only on `cx/gpt-5.6-terra(high)` ->
 `vx/gemini-3.1-pro-preview(high)` -> `vx/gemini-3.5-flash(high)`, with zero V2 creative authority.
 
-Exact next task after this reconciliation passes:
-`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`.
-Do not implement it automatically.
+The former generic Desktop-App handoff deep-research pointer is complete/superseded. Exact next:
+`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`.
+Do not patch or resume the quarantined proof and do not run a fresh proof automatically.
 
 ## Historical pre-override V2 task — non-controlling
 

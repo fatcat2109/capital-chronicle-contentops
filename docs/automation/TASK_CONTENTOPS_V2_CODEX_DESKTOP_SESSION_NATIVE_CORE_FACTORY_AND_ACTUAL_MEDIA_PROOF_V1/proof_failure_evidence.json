@@ -1,0 +1,99 @@
+{
+  "schema": "contentops.v2.desktop_session_core_factory_proof_failure_evidence.v1",
+  "task": "TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1",
+  "classification": "FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA",
+  "requested_pass_ceiling_reached": false,
+  "owner_media_acceptance_claimed": false,
+  "git": {
+    "starting_origin_master": "8f6e4422d09fc9794c38ccc036ff1d1d9650034c",
+    "starting_v2_authority_head": "3718155c2b7228fb8b8b3a2d9b97edb49de4fd5f",
+    "branch": "task/v2-codex-desktop-session-native-core-factory-actual-media-proof-v1",
+    "implementation_head": "de0d9748b36334d408f7cc845b8edda109df0ff8",
+    "implementation_remote_parity_before_proof": true
+  },
+  "job": {
+    "proof_run_started_at": "2026-08-17T11:41:14.3631529Z",
+    "video_job_id": "v2_fwb_desktop_session_de0d9748",
+    "run_id": "run_231f3172582d4343a431ef3e2b4a955c",
+    "input_packet_hash": "78d20d15daae43c3ed2d4a8e94a1a7014dc7d7a3b18d288529aeeb364f9755bd",
+    "state": "QUARANTINED",
+    "event_count": 6,
+    "passed_stages": [
+      "CLAIMED",
+      "GOVERNED_INPUT_LOCKED",
+      "CREATIVE_EDITOR_LOCKED",
+      "MOTION_SOURCE_LOCKED",
+      "HARD_SOURCE_VALIDATED"
+    ],
+    "failed_stage": "PROXY_RENDERED",
+    "failure_class": "MediaExecutionError",
+    "resume_count": 0,
+    "public_write_authority": false
+  },
+  "creative": {
+    "runtime": "CODEX_DESKTOP_APP_FRESH_TASK_SESSION",
+    "execution_plane": "CODEX_DESKTOP_APP_TASK_SESSION",
+    "model_family": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "provenance_source": "OWNER_TASK_MODE_DECLARATION",
+    "task_session_id_exposed": false,
+    "session_database_inspected": false,
+    "session_continuity_key": "b007d965e55203cef98bf4b4532d43015b7360e23a129b916bb67771bf2805bd",
+    "initial_creative_submission_sha256": "dcbda7a8168928cf2bb71dd1a2621b4a404035b466f59af717b3da183f15be41",
+    "prior_creative_answer_reused": false,
+    "cli_invocations": 0,
+    "sdk_api_headless_invocations": 0,
+    "nine_router_provider_invocations": 0,
+    "fallback_count": 0,
+    "actual_media_review_reached": false
+  },
+  "runtime_failure": {
+    "operation": "REMOTION_PROXY_RENDER_BROWSER_LAUNCH",
+    "observed_error": "spawn task-local chrome-headless-shell.exe ENOENT",
+    "projected_browser_path_length": 303,
+    "canonical_browser_executable_exists": true,
+    "projected_junction_browser_executable_exists": true,
+    "proxy_exists": false,
+    "inference": "WINDOWS_PROCESS_LAUNCH_PATH_LENGTH_FAILURE",
+    "repair_attempted": false,
+    "second_proof_attempted": false
+  },
+  "media": {
+    "render_attempt_count": 1,
+    "completed_render_count": 0,
+    "rerender_count": 0,
+    "final_mp4": null,
+    "audio": null,
+    "captions": null,
+    "package_id": null,
+    "review_surfaces": []
+  },
+  "manual_intervention": {
+    "implementation_patches_after_proof_start": 0,
+    "operator_generated_source_edits": 0,
+    "operator_narration_edits": 0,
+    "operator_media_repairs": 0,
+    "operator_checkpoint_edits": 0,
+    "desktop_session_creative_authorship_is_canonical_job_activity": true
+  },
+  "safety": {
+    "platform_credential_reads": 0,
+    "platform_api_calls": 0,
+    "platform_writes": 0,
+    "browser_cdp_publication_actions": 0,
+    "v1_operational_reads": 0,
+    "v1_writes_or_mutations": 0,
+    "scheduler_or_automation_mutations": 0,
+    "secret_session_auth_extraction": 0,
+    "unknown_writes": 0
+  },
+  "validation": {
+    "focused_affected_tests_passed": 237,
+    "configured_core_factory_tests_passed": 14,
+    "fake_session_e2e": "PASS_OWNER_REVIEW_READY_ZERO_LIVE_CREATIVE_PROVIDER",
+    "active_external_creative_invoker_scan": "PASS_ZERO_MATCH",
+    "codegraph_before_implementation_commit": "CODEGRAPH_CURRENT",
+    "git_diff_check": "PASS"
+  },
+  "next_gate": "JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY"
+}
