@@ -47,12 +47,15 @@ from video.unattended_core_factory_v1.store import V2JobStore
 from video.unattended_core_factory_v1.media import (
     MediaExecutionError,
     REMOTION_BROWSER_RELATIVE,
+    _ensure_junction,
     resolve_remotion_browser_executable,
     validate_dependency_root,
 )
 from video.unattended_core_factory_v1.supervisor import (
     DesktopSessionV2Factory,
     FactoryConfig,
+    OWNED_TEXT_SURFACE_LABELS,
+    SECRET_PATTERNS,
     STAGES,
     SupervisorError,
 )
@@ -86,6 +89,7 @@ MEDIA_REVIEW = BoundedCreativeProvenance(
     execution_label="test-xhigh-media-review",
     native_child_task_id="test-child-review",
 )
+FAKE_SECRET_MARKER = "client_secret=FAKE_OWNED_SECRET_VALUE_12345"
 
 
 def packet() -> dict[str, object]:
@@ -378,6 +382,128 @@ def locked_timing(factory: DesktopSessionV2Factory, video_job_id: str) -> dict[s
         / "actual_narration_timing_lock.json"
     )
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def owned_scan_paths(
+    factory: DesktopSessionV2Factory, video_job_id: str
+) -> dict[str, Path]:
+    paths = factory._paths(video_job_id)
+    for directory in (
+        paths["artifacts"],
+        paths["session_inbox"],
+        paths["project"] / "src",
+        paths["captions"].parent,
+        paths["technical"].parent,
+    ):
+        directory.mkdir(parents=True, exist_ok=True)
+    return paths
+
+
+def test_owned_surface_secret_patterns_are_unchanged() -> None:
+    assert tuple(pattern.pattern for pattern in SECRET_PATTERNS) == (
+        r"(?i)authorization\s*:\s*bearer\s+\S+",
+        r"\bsk-[A-Za-z0-9_-]{16,}\b",
+        r"\b(?:eyJ[A-Za-z0-9_-]+\.){2}[A-Za-z0-9_-]+\b",
+        r"(?i)(?:api[_-]?key|access[_-]?token|client[_-]?secret)\s*[=:]\s*['\"]?[A-Za-z0-9_./+-]{12,}",
+    )
+
+
+@pytest.mark.parametrize(
+    ("surface", "filename"),
+    (
+        ("artifacts", "governed_owned_artifact.json"),
+        ("desktop_session_inbox", "desktop_submission.json"),
+        ("generated_project_src", "OwnedSource.tsx"),
+        ("package", "owned_package.json"),
+        ("review", "owned_review.json"),
+    ),
+)
+def test_fake_secret_hard_fails_every_explicit_owned_text_surface(
+    tmp_path: Path, surface: str, filename: str
+) -> None:
+    factory, _, job_id = make_factory(tmp_path)
+    paths = owned_scan_paths(factory, job_id)
+    roots = dict(factory._owned_text_surfaces(paths))
+    target = roots[surface] / filename
+    target.write_text(FAKE_SECRET_MARKER, encoding="utf-8")
+
+    with pytest.raises(SupervisorError) as caught:
+        factory._secret_scan(paths)
+
+    message = str(caught.value)
+    assert message.startswith("secret_scan_failed:")
+    assert filename in message
+    assert FAKE_SECRET_MARKER not in message
+
+
+def test_projected_node_modules_vendor_fixture_is_outside_owned_scan_surface(
+    tmp_path: Path,
+) -> None:
+    factory, _, job_id = make_factory(tmp_path)
+    paths = owned_scan_paths(factory, job_id)
+    vendor = (
+        paths["project"]
+        / "node_modules"
+        / "zod"
+        / "src"
+        / "v4"
+        / "mini"
+        / "tests"
+        / "string.test.ts"
+    )
+    vendor.parent.mkdir(parents=True, exist_ok=True)
+    vendor.write_text(FAKE_SECRET_MARKER, encoding="utf-8")
+
+    receipt = factory._secret_scan(paths)
+
+    assert receipt["result"] == "PASS_JOB_OWNED_TEXT_SECRET_SCAN"
+    assert receipt["owned_surface_labels"] == list(OWNED_TEXT_SURFACE_LABELS)
+    assert receipt["external_or_vendor_surface_count"] == 0
+
+
+def test_external_junction_or_symlink_cannot_expand_owned_scan_scope(
+    tmp_path: Path,
+) -> None:
+    factory, _, job_id = make_factory(tmp_path)
+    paths = owned_scan_paths(factory, job_id)
+    external = tmp_path / "external-not-owned"
+    external.mkdir()
+    (external / "not_owned.txt").write_text(FAKE_SECRET_MARKER, encoding="utf-8")
+    projection = paths["artifacts"] / "external_projection"
+    _ensure_junction(projection, external)
+
+    with pytest.raises(
+        SupervisorError,
+        match=r"secret_scan_owned_surface_link_forbidden:artifacts/external_projection",
+    ) as caught:
+        factory._secret_scan(paths)
+
+    assert "not_owned.txt" not in str(caught.value)
+    assert FAKE_SECRET_MARKER not in str(caught.value)
+
+
+def test_package_and_owner_ready_use_the_same_complete_owned_surface_contract(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    factory, _, _ = make_factory(tmp_path)
+    receipts: list[dict[str, object]] = []
+    scan = factory._secret_scan
+
+    def record_scan(paths: dict[str, Path]) -> dict[str, object]:
+        receipt = scan(paths)
+        receipts.append(receipt)
+        return receipt
+
+    monkeypatch.setattr(factory, "_secret_scan", record_scan)
+    result = complete(factory)
+
+    assert result["job"]["state"] == "OWNER_REVIEW_READY"
+    assert len(receipts) == 2
+    assert all(
+        receipt["owned_surface_labels"] == list(OWNED_TEXT_SURFACE_LABELS)
+        for receipt in receipts
+    )
+    assert receipts[1]["scanned_file_count"] > receipts[0]["scanned_file_count"]
 
 
 def test_governed_packet_is_isolated_and_zero_write() -> None:
@@ -727,7 +853,7 @@ def test_session_artifact_e2e_reaches_owner_review_without_live_creative_provide
     factory, store, job_id = make_factory(tmp_path, media=media)
     result = complete(factory)
     assert result["job"]["state"] == "OWNER_REVIEW_READY"
-    assert result["job"]["terminal_result"] == "PASS_IMPLEMENTATION_ACTUAL_NARRATION_TIMING_LOCK_V2_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW"
+    assert result["job"]["terminal_result"] == "PASS_IMPLEMENTATION_OWNED_SURFACE_SECRET_SCAN_V2_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW"
     provenance = [json.loads(event["model_provenance_json"]) for event in store.events(job_id)]
     creative = [
         item

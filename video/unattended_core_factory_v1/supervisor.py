@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 from dataclasses import dataclass
@@ -53,6 +54,16 @@ SECRET_PATTERNS = (
     re.compile(r"\bsk-[A-Za-z0-9_-]{16,}\b"),
     re.compile(r"\b(?:eyJ[A-Za-z0-9_-]+\.){2}[A-Za-z0-9_-]+\b"),
     re.compile(r"(?i)(?:api[_-]?key|access[_-]?token|client[_-]?secret)\s*[=:]\s*['\"]?[A-Za-z0-9_./+-]{12,}"),
+)
+OWNED_TEXT_SUFFIXES = frozenset(
+    {".json", ".md", ".txt", ".tsx", ".ts", ".srt", ".vtt"}
+)
+OWNED_TEXT_SURFACE_LABELS = (
+    "artifacts",
+    "desktop_session_inbox",
+    "generated_project_src",
+    "package",
+    "review",
 )
 
 
@@ -1155,7 +1166,7 @@ class DesktopSessionV2Factory:
                 output=paths["package"],
             )
             package_record = package["manifest_artifact"]
-            self._secret_scan(paths["root"])
+            self._secret_scan(paths)
             caption_records = [dict(value) for value in captions["artifacts"].values()]
             self._append(
                 job=job,
@@ -1271,7 +1282,7 @@ class DesktopSessionV2Factory:
                 "public_write_authority": False,
             }
             bundle_record = _json_artifact(paths["bundle"], bundle)
-            self._secret_scan(paths["root"])
+            self._secret_scan(paths)
             self._append(
                 job=job,
                 run_id=run_id,
@@ -1286,30 +1297,117 @@ class DesktopSessionV2Factory:
             self.store.finalize(
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
-                result="PASS_IMPLEMENTATION_ACTUAL_NARRATION_TIMING_LOCK_V2_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
+                result="PASS_IMPLEMENTATION_OWNED_SURFACE_SECRET_SCAN_V2_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
                 state="OWNER_REVIEW_READY",
             )
             return
         raise SupervisorError(f"unknown_stage:{stage}")
 
-    def _secret_scan(self, root: Path) -> None:
+    def _owned_text_surfaces(
+        self, paths: Mapping[str, Path]
+    ) -> tuple[tuple[str, Path], ...]:
+        return (
+            ("artifacts", paths["artifacts"]),
+            ("desktop_session_inbox", paths["session_inbox"]),
+            ("generated_project_src", paths["project"] / "src"),
+            ("package", paths["captions"].parent),
+            ("review", paths["technical"].parent),
+        )
+
+    @staticmethod
+    def _is_link_or_junction(path: Path) -> bool:
+        if path.is_symlink():
+            return True
+        is_junction = getattr(os.path, "isjunction", None)
+        return bool(is_junction and is_junction(path))
+
+    @staticmethod
+    def _is_within(path: Path, root: Path) -> bool:
+        return path == root or root in path.parents
+
+    @staticmethod
+    def _scan_relative(path: Path, root: Path) -> str:
+        try:
+            return path.relative_to(root).as_posix()
+        except ValueError:
+            return "outside_owned_job_root"
+
+    def _secret_scan(self, paths: Mapping[str, Path]) -> dict[str, Any]:
+        root = paths["root"].resolve()
+        if not root.is_dir():
+            raise SupervisorError("secret_scan_job_root_missing")
+
         violations: list[str] = []
-        for path in root.rglob("*"):
-            if not path.is_file() or path.suffix.lower() not in {
-                ".json",
-                ".md",
-                ".txt",
-                ".tsx",
-                ".ts",
-                ".srt",
-                ".vtt",
-            }:
-                continue
-            text = path.read_text(encoding="utf-8", errors="replace")
-            if any(pattern.search(text) for pattern in SECRET_PATTERNS):
-                violations.append(str(path))
+        scanned_file_count = 0
+        surfaces = self._owned_text_surfaces(paths)
+        if tuple(label for label, _ in surfaces) != OWNED_TEXT_SURFACE_LABELS:
+            raise SupervisorError("secret_scan_owned_surface_contract_drift")
+
+        for label, surface in surfaces:
+            relative_surface = self._scan_relative(surface, root)
+            if self._is_link_or_junction(surface):
+                raise SupervisorError(
+                    f"secret_scan_owned_surface_link_forbidden:{relative_surface}"
+                )
+            if not surface.is_dir():
+                raise SupervisorError(f"secret_scan_owned_surface_missing:{label}")
+            try:
+                resolved_surface = surface.resolve(strict=True)
+            except OSError as exc:
+                raise SupervisorError(
+                    f"secret_scan_owned_surface_unreadable:{label}"
+                ) from exc
+            if not self._is_within(resolved_surface, root):
+                raise SupervisorError(f"secret_scan_owned_surface_escape:{label}")
+
+            pending = [surface]
+            while pending:
+                directory = pending.pop()
+                try:
+                    children = sorted(directory.iterdir(), key=lambda child: child.name)
+                except OSError as exc:
+                    raise SupervisorError(
+                        "secret_scan_owned_surface_unreadable:"
+                        + self._scan_relative(directory, root)
+                    ) from exc
+                for path in children:
+                    relative = self._scan_relative(path, root)
+                    if self._is_link_or_junction(path):
+                        raise SupervisorError(
+                            f"secret_scan_owned_surface_link_forbidden:{relative}"
+                        )
+                    try:
+                        resolved = path.resolve(strict=True)
+                    except OSError as exc:
+                        raise SupervisorError(
+                            f"secret_scan_owned_surface_unreadable:{relative}"
+                        ) from exc
+                    if not self._is_within(resolved, root):
+                        raise SupervisorError(
+                            f"secret_scan_owned_surface_escape:{relative}"
+                        )
+                    if path.is_dir():
+                        pending.append(path)
+                        continue
+                    if not path.is_file() or path.suffix.lower() not in OWNED_TEXT_SUFFIXES:
+                        continue
+                    try:
+                        text = path.read_text(encoding="utf-8", errors="replace")
+                    except OSError as exc:
+                        raise SupervisorError(
+                            f"secret_scan_owned_text_unreadable:{relative}"
+                        ) from exc
+                    scanned_file_count += 1
+                    if any(pattern.search(text) for pattern in SECRET_PATTERNS):
+                        violations.append(relative)
         if violations:
-            raise SupervisorError("secret_scan_failed:" + ",".join(violations))
+            raise SupervisorError("secret_scan_failed:" + ",".join(sorted(violations)))
+        return {
+            "result": "PASS_JOB_OWNED_TEXT_SECRET_SCAN",
+            "owned_surface_labels": list(OWNED_TEXT_SURFACE_LABELS),
+            "scanned_file_count": scanned_file_count,
+            "external_or_vendor_surface_count": 0,
+        }
 
     def _quarantine_failure(
         self,
