@@ -1,0 +1,16 @@
+{
+  "name": "capital-chronicle-v2-unattended-job-runtime",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.512",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.512"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "@types/react-dom": "19.1.7",
+    "typescript": "5.9.2"
+  }
+}

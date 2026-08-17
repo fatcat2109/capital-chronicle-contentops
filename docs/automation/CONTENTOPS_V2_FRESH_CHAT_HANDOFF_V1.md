@@ -7,15 +7,15 @@ Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRE
 
 > **2026-08-17 current handoff override:** Read
 > `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` before the older
-> evidence below. The active HIGH-only task is
-> `TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`.
-> It corrects provider contracts using first-party docs and deterministic fake-provider shadow
-> proof only. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling.
-> TikTok secure credential/bootstrap work is `COMPLETED_BLOCKER_REMOVAL`; do not reopen it or
-> read the persisted credential under this task.
+> evidence below. The active task is
+> `TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`.
+> HIGH owns deterministic implementation/execution; the three owner-locked viewer-facing roles
+> use exact `new/gpt-5.6-sol-xhigh` with zero fallback. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
+> remains controlling. Publication adapters are accepted; TikTok credential bootstrap is closed;
+> the exact TikTok Sandbox draft canary is PASS/CLOSED and its one-write grant is consumed.
 > The single exact next task after acceptance is
-> `TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`;
-> it is named but not started by current authority.
+> `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`; it begins only after Jim/ChatGPT
+> actual-media acceptance and is not started by current authority.
 
 Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or owner chat history.
 

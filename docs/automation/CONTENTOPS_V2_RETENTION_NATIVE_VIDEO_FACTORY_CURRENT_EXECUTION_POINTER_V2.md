@@ -11,11 +11,11 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED BLOCKER REMOVAL] -> official publication adapter reconciliation [CURRENT] -> TikTok draft readiness/exact owner live-canary gate [NEXT, NOT STARTED] -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> zero-rerender package factory [ACCEPTED] -> publication adapters [ACCEPTED] -> TikTok credential bootstrap [CLOSED] -> TikTok Sandbox draft canary [PASS/CLOSED] -> unattended V2 core proof [CURRENT] -> unattended production soak [NEXT AFTER OWNER ACCEPTANCE] -> V1 integration/scheduling [DEFERRED]`
 
 Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
 short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
@@ -91,27 +91,26 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Current exact task
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It ports useful
-historical adapter code without importing stale authority, corrects the YouTube/TikTok/Meta
-contracts, and proves all six surfaces against accepted real package identities with zero network
-or platform operations. Required result ceiling:
-`PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE`.
+This is the only active V2 product task unless Jim explicitly changes direction. It proves one
+isolated durable job, atomic run-once claim, immutable stage ledger, fresh exact-route creative
+artifacts, restart/resume, local media execution, and an owner-review-ready platform-neutral
+package with zero platform/V1/scheduler write authority. Required result ceiling:
+`PASS_IMPLEMENTATION_UNATTENDED_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`.
 
 The single exact next task after acceptance is
-`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
-It must reverify non-secret identity/readiness, obtain exact owner write authority, deliver one
-Upload-to-TikTok draft, stop at `SEND_TO_USER_INBOX`, and require creator finalization. The
-current task does not start or authorize that gate.
+`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`.
+It begins only after Jim/ChatGPT actual-media acceptance. The current task does not start or
+authorize that soak or later V1 integration/scheduling.
 
-Canonical proof flow:
+Current proof flow:
 
-`Fresh Governed Story -> Evidence Expansion -> Visual Entity / Asset Needs -> Fresh Rights-Safe Asset Discovery -> Candidate Asset Board -> ASSET_VISUAL_FIT Gate -> Institutional Analytical Map -> Codex Micro-Beat Storyboard -> Native Map/Data/Document Treatments -> Codex-Authored Viewer-Facing Remotion Source -> Severe Visual Editor Gate -> Proxy -> Bounded Visual Repairs -> Professional Audio -> Native Short + Midform -> QA -> Jim/ChatGPT Review`
+`Frozen Without Breaking governed packet -> durable job -> atomic claim -> fresh creative editor -> fresh motion source -> hard validation -> proxy -> actual-media XHIGH review/bounded revision -> picture/audio locks -> final Short -> package QA -> Jim/ChatGPT Review`
 
-# Story selection
+# Controlled proof story
 
-Prefer a fresh **non-oil/non-Hormuz** governed story with:
+Use **Frozen Without Breaking** as the controlled operational proof with:
 
 - concrete visual entities;
 - strong primary evidence;
@@ -119,9 +118,9 @@ Prefer a fresh **non-oil/non-Hormuz** governed story with:
 - at least two meaningful analytical channels;
 - enough visual variety to exercise the asset-discovery system.
 
-Do not reuse Hormuz merely because the old asset folder already exists.
-
-If no fresh governed story is safely available, use a new governed local fixture/domain rather than inventing facts.
+The accepted existing Short is a quality reference only. Do not feed its viewer-facing source,
+final narration, choreography, layout decisions, or repair answer to the new creative workers.
+No web research or new asset-discovery project is part of this repeatability proof.
 
 # Asset-first requirements
 

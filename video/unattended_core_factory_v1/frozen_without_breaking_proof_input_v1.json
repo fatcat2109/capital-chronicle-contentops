@@ -1,0 +1,150 @@
+{
+  "schema": "contentops.v2.governed_proof_input.v1",
+  "story_id": "frozen_without_breaking_unattended_proof_v1",
+  "authority_version": "accepted_fwb_evidence_2026-08-17",
+  "purpose": "Controlled repeatability proof using accepted upstream factual and rights authority only.",
+  "creative_exclusions": {
+    "prior_viewer_facing_react_source": true,
+    "prior_final_narration": true,
+    "prior_shot_choreography": true,
+    "prior_layout_decisions": true,
+    "prior_creative_repair": true
+  },
+  "anchors": [
+    {
+      "anchor_id": "EMP001",
+      "kind": "OBSERVATION",
+      "statement": "Total nonfarm payroll employment fell by 23,000 in July 2026.",
+      "status": "preliminary",
+      "source_ref": "BLS Employment Situation 2026-08-07 / https://www.bls.gov/news.release/empsit.nr0.htm",
+      "usage_boundary": "Single-month estimate is not statistically different from zero at BLS's 90 percent threshold; use with corroboration."
+    },
+    {
+      "anchor_id": "EMP002",
+      "kind": "OBSERVATION",
+      "statement": "The unemployment rate was 4.1 percent in July.",
+      "status": "official_preliminary",
+      "source_ref": "BLS Employment Situation 2026-08-07 / https://www.bls.gov/news.release/empsit.nr0.htm",
+      "usage_boundary": "CPS estimate; changed little over the year."
+    },
+    {
+      "anchor_id": "EMP005",
+      "kind": "OBSERVATION",
+      "statement": "May and June payrolls combined were 103,000 lower than previously reported.",
+      "status": "revised",
+      "source_ref": "BLS Employment Situation 2026-08-07 / https://www.bls.gov/news.release/empsit.nr0.htm",
+      "usage_boundary": "Use to show that the August 7 information shock included history."
+    },
+    {
+      "anchor_id": "JOL002",
+      "kind": "OBSERVATION",
+      "statement": "Hires were 5.348 million with a 3.4 percent rate in June.",
+      "status": "preliminary",
+      "source_ref": "BLS JOLTS 2026-08-04 / https://www.bls.gov/news.release/jolts.nr0.htm",
+      "usage_boundary": "Below the February 2020 hire rate of 3.9 percent."
+    },
+    {
+      "anchor_id": "JOL003",
+      "kind": "OBSERVATION",
+      "statement": "Quits were 3.232 million with a 2.0 percent rate in June.",
+      "status": "preliminary",
+      "source_ref": "BLS JOLTS 2026-08-04 / https://www.bls.gov/news.release/jolts.nr0.htm",
+      "usage_boundary": "Below the February 2020 quit rate of 2.3 percent."
+    },
+    {
+      "anchor_id": "JOL004",
+      "kind": "OBSERVATION",
+      "statement": "Layoffs and discharges were 1.766 million with a 1.1 percent rate in June.",
+      "status": "preliminary",
+      "source_ref": "BLS JOLTS 2026-08-04 / https://www.bls.gov/news.release/jolts.nr0.htm",
+      "usage_boundary": "Below the February 2020 rate of 1.3 percent."
+    },
+    {
+      "anchor_id": "CLM001",
+      "kind": "OBSERVATION",
+      "statement": "Initial unemployment-insurance claims were 209,000 in the week ended August 8, versus 224,000 in the comparable 2025 week.",
+      "status": "administrative_preliminary",
+      "source_ref": "U.S. Department of Labor weekly claims 2026-08-13 / https://www.dol.gov/ui/data.pdf",
+      "usage_boundary": "Strong check against a broad layoff wave; excludes ineligible and nonfiling job losers."
+    }
+  ],
+  "permitted_analysis": [
+    {
+      "analysis_id": "ANALYSIS_STASIS",
+      "statement": "The labor market looks frozen without yet breaking.",
+      "boundary": "Capital Chronicle accepted qualitative synthesis; not a recession call or forecast."
+    },
+    {
+      "analysis_id": "ANALYSIS_MOBILITY",
+      "statement": "Weak mobility may be a larger immediate worker risk than mass layoffs.",
+      "boundary": "Capital Chronicle accepted conditional analysis; must remain may-language."
+    },
+    {
+      "analysis_id": "ANALYSIS_SHOCK",
+      "statement": "A low-motion labor market has less capacity to absorb the next shock without unemployment changing quickly.",
+      "boundary": "Capital Chronicle accepted conditional inference; not a forecast."
+    }
+  ],
+  "forbidden_claims": [
+    "The United States is in a labor-market recession.",
+    "The 4.1 percent unemployment rate is fake.",
+    "AI caused the job losses.",
+    "The Fed will cut rates at its next meeting.",
+    "Companies are firing workers to protect margins."
+  ],
+  "rights_assets": [
+    {
+      "asset_id": "COMMUTER_FLOW",
+      "relative_path": "assets/documentary/commuters_subway_cc0_pexels_855749.mp4",
+      "sha256": "1806e0509a8edac5fcc5ea241834d9a663637440100f6697bdaac4e4d67707f2",
+      "source": "Pexels source page credits Pixabay; marked CC0",
+      "use_boundary": "London; abstract flow motif only, not U.S. documentary evidence."
+    },
+    {
+      "asset_id": "EMPTY_OFFICE",
+      "relative_path": "assets/documentary/empty_office_pexels_7844843.mp4",
+      "sha256": "eed8257554d527753cc00b3eb4a11c6fae3b3bf999d0848e60fdbf672b4c3710",
+      "source": "RDNE Stock project / Pexels License",
+      "use_boundary": "Generic absence motif only."
+    },
+    {
+      "asset_id": "JOB_INTERVIEW",
+      "relative_path": "assets/documentary/job_interview_pexels_5438891.mp4",
+      "sha256": "3b38bbfc6ac98b4597f9930c2e7817373d08c06301a894b2d38c9d37211d7679",
+      "source": "Tima Miroshnichenko / Pexels License",
+      "use_boundary": "Short detail fragment only; no claim of a real vacancy or failed application."
+    },
+    {
+      "asset_id": "WAREHOUSE_WORKERS",
+      "relative_path": "assets/documentary/warehouse_workers_pexels_4293958.mp4",
+      "sha256": "73001ff2fd8b3c5ea0423da1efa9eeb201549e03bd083d1e96db5b3f51c38545",
+      "source": "Tiger Lily / Pexels License",
+      "use_boundary": "Generic goods-sector physicality only."
+    },
+    {
+      "asset_id": "OFFICE_WORKERS",
+      "relative_path": "assets/documentary/office_workers_pexels_6549254.mp4",
+      "sha256": "6aedd3d855ca6a701b869def023534932a1de6b29d30b3eeb4722231311cbb25",
+      "source": "Tima Miroshnichenko / Pexels License",
+      "use_boundary": "Generic occupied-office wide."
+    },
+    {
+      "asset_id": "ACCEPTED_AUDIO_BED",
+      "relative_path": "assets/audio/sound/chapter_02_bed.m4a",
+      "sha256": "fcf1b94e1485828cde7c8feaf912e618acfea519b97ed9bba2e1f6fa310c4295",
+      "source": "Deterministic local NumPy synthesis, seed 20260815, no third-party samples",
+      "use_boundary": "Accepted low-level audio infrastructure asset; not factual or documentary authority."
+    }
+  ],
+  "hard_boundaries": {
+    "public_write_authority": false,
+    "v1_read_authority": false,
+    "v1_mutation_authority": false,
+    "scheduler_mutation_authority": false,
+    "platform_adapter_authority": false,
+    "new_web_research_authority": false,
+    "generated_real_person_documentary_media": false,
+    "model_factual_or_numeric_authority": false,
+    "owner_acceptance_claimed": false
+  }
+}

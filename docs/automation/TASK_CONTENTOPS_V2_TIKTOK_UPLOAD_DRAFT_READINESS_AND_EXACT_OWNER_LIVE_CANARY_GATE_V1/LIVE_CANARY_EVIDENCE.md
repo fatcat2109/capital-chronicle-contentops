@@ -1,0 +1,28 @@
+# TikTok Sandbox Draft Canary — Live Evidence
+
+- Execution timestamp: `2026-08-17T08:28:44.079215Z`
+- Exact audited execution HEAD: `c555658a4976581cb2bfce9aee35c67370c2d2d0`
+- Attempt ID: `ttcanary_b9c7a9b18d7ed326d556ba53d75fd0f2f8bb7218558f031dc7e703abf092d27a`
+- Package ID: `pkg_2dfe4af587fd8135d04bae456b8c5b30a1560be91232b34f520cf7f05a71c0b2`
+- Media SHA-256: `1a2bddc40a2db7b019ddd5d7a5f7349182621b6e1ae273bbdd58a7393165c810`
+- Destination alias: `TIKTOK_SANDBOX_PRIMARY`
+- Environment: `SANDBOX`
+- Delivery intent: `DRAFT_DELIVERY`
+- CLI exit code: `0`
+- Redacted result: `DRAFT_DELIVERY_CONFIRMED`
+- Logical draft-delivery attempts: `1`
+- Init mutations: `1`
+- Media-transfer mutations: `1`
+- Total mutation HTTP calls: `2`
+- Status readback calls: `5`
+- Terminal provider status: `SEND_TO_USER_INBOX`
+- Draft delivery confirmed: `true`
+- Creator finalization required: `true`
+- Creator finalization observed: `false`
+- Public post confirmed: `false`
+- Unknown write: `false`
+- Access token persisted: `false`
+- Public writes: `0`
+- V1 mutations: `0`
+- Scheduler mutations: `0`
+- No secret-bearing values were inspected or committed.

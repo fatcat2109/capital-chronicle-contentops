@@ -23,7 +23,7 @@ import importlib
 import json
 import os
 import time
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 from urllib.parse import urlparse
 
 from live_contentops.credential_redaction_policy import redacted_presence
@@ -267,6 +267,8 @@ def call_nine_router(
     max_tokens: int = 16000,
     temperature: float = 0.2,
     base_url: str | None = None,
+    image_data_urls: Sequence[str] | None = None,
+    enforce_operator_fuse: bool = True,
 ) -> ProviderResult:
     """Perform one bounded 9router chat completion and report what was observed.
 
@@ -276,11 +278,12 @@ def call_nine_router(
     """
     # Direct adapter callers (notably the bounded preflight) must obey the same persistent
     # operator fuse as routed newsroom calls, before credentials or network I/O are touched.
-    from live_contentops.llm_operator_control_v1 import (
-        assert_llm_operator_execution_enabled,
-    )
+    if enforce_operator_fuse:
+        from live_contentops.llm_operator_control_v1 import (
+            assert_llm_operator_execution_enabled,
+        )
 
-    assert_llm_operator_execution_enabled()
+        assert_llm_operator_execution_enabled()
     if model not in AUTHORIZED_MODELS:
         raise NineRouterAdapterError(f"unauthorized_model:{model}")
 
@@ -293,9 +296,16 @@ def call_nine_router(
     url_request = importlib.import_module("urllib.request")
     url_error = importlib.import_module("urllib.error")
     wire_model, effort = split_model_and_effort(model)
+    content: str | list[dict[str, Any]] = prompt
+    if image_data_urls:
+        content = [{"type": "text", "text": prompt}]
+        content.extend(
+            {"type": "image_url", "image_url": {"url": str(url)}}
+            for url in image_data_urls
+        )
     request_payload: dict[str, Any] = {
         "model": wire_model,
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": [{"role": "user", "content": content}],
         "max_tokens": max_tokens,
         "temperature": temperature,
     }

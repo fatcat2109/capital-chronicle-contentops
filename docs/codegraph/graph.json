@@ -22,23 +22,23 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13289,
+    "edges": 13448,
     "entrypoints": 16,
-    "nodes": 7076,
+    "nodes": 7162,
     "nodes_by_kind": {
       "authority_doc": 17,
-      "cli_command": 27,
+      "cli_command": 30,
       "directory_scope": 8,
-      "durable_table": 36,
+      "durable_table": 39,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 17,
-      "python_class": 590,
-      "python_function": 3856,
-      "python_method": 265,
-      "python_module": 736,
-      "schema": 178,
-      "test": 717,
+      "manifest": 19,
+      "python_class": 613,
+      "python_function": 3895,
+      "python_method": 266,
+      "python_module": 744,
+      "schema": 183,
+      "test": 719,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -12390,6 +12390,12 @@
       "from": "live_contentops/durable_operational_store_v1.py",
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
+      "to": "durable_table:job_runs"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
       "to": "durable_table:learning_policy_versions"
     },
     {
@@ -12598,6 +12604,12 @@
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:stage_events"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
       "inference": "sql_create_table_regex",
       "kind": "owns_table_definition",
       "to": "durable_table:story_versions"
@@ -12637,6 +12649,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:transition_events_v3"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:video_jobs"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -19431,6 +19449,12 @@
       "to": "tests/test_llm_cost_governor_v1.py"
     },
     {
+      "from": "live_contentops/llm_cost_governor_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_v2_unattended_core_factory_v1.py"
+    },
+    {
       "from": "live_contentops/llm_feedback_summarizer_dry_run_v6.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -19573,6 +19597,12 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.llm_operator_control.v1"
+    },
+    {
+      "from": "live_contentops/llm_operator_control_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_v2_unattended_core_factory_v1.py"
     },
     {
       "from": "live_contentops/llm_summary_safety_validator_v6.py",
@@ -22561,6 +22591,18 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_text"
+    },
+    {
+      "from": "live_contentops/nine_router_llm_seam_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation"
+    },
+    {
+      "from": "live_contentops/nine_router_llm_seam_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation.isolated_provider_call"
     },
     {
       "from": "live_contentops/nine_router_llm_seam_v2.py",
@@ -37639,6 +37681,156 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedSecureSessionProvider"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedShortPackageResolver"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanaryJournal"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanarySecurePreflightError"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanarySecurityContext"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ChunkRange"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::MediaPreflight"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::PackageAuthority"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ProviderCallError"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ProviderInitResult"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::SecureSessionProvider"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryTransport"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokSandboxDraftCanaryExecutor"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::UrllibTikTokCanaryTransport"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::build_chunk_plan"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::deterministic_canary_attempt_id"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ffprobe_media"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::nonsecret_readiness_summary"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::validate_redacted_canary_receipt"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.tiktok_sandbox_draft_canary_attempt.v1"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.tiktok_sandbox_draft_canary_journal.v1"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.tiktok_sandbox_draft_canary_receipt.v1"
+    },
+    {
+      "from": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_tiktok_sandbox_draft_canary_v1.py"
     },
     {
       "from": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
@@ -55803,6 +55995,24 @@
       "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation"
     },
     {
+      "from": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::route_llm_invocation"
+    },
+    {
       "from": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.__post_init__",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -64983,6 +65193,36 @@
       "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::TikTokOAuthError"
     },
     {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::build_chunk_plan",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ChunkRange"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::build_chunk_plan",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ffprobe_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::nonsecret_readiness_summary",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::deterministic_canary_attempt_id"
+    },
+    {
+      "from": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::validate_redacted_canary_receipt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError"
+    },
+    {
       "from": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::persist_supervised_session_after_preflight",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -67239,6 +67479,60 @@
       "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::read_approved_credentials"
     },
     {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_local_desktop_oauth_pkce_v1.py::UrllibFormTokenTransport"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedSecureSessionProvider"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedShortPackageResolver"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanaryJournal"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokSandboxDraftCanaryExecutor"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::UrllibTikTokCanaryTransport"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::deterministic_canary_attempt_id"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::TikTokRefreshCredentialStore"
+    },
+    {
+      "from": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::UrllibUserInfoTransport"
+    },
+    {
       "from": "python_symbol:scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -67405,6 +67699,24 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/visual_asset_discovery_v1.py::discover_visual_assets_for_article"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/supervisor.py::FactoryConfig"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/supervisor.py::UnattendedV2Supervisor"
     },
     {
       "from": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::add_flow_pulse",
@@ -67999,6 +68311,264 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::speech_chunks"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::canonical_bytes"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::materialize_source",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::materialize_source",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::materialize_source",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_source_files"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_editor_artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_input_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_input_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_motion_artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_motion_artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_source_files"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_revision_artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_revision_artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_motion_artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_source_files",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_audio_mix",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_audio_mix",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_audio_mix",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::probe_media"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_audio_mix",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::run_command"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_captions",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_caption_cues"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_captions",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_caption_set"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_captions",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::write_caption_artifacts"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_captions",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_neutral_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_publication_package"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::build_neutral_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::contact_sheet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::contact_sheet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::probe_media"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::contact_sheet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::run_command"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::loudness_report",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::mux_final_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::mux_final_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::run_command"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::probe_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::render_project",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::render_project",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::run_command"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::run_command",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::synthesize_narration",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::synthesize_narration",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_media_probe"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::loudness_report"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::probe_media"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::typecheck_project",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::run_command"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::validate_assets",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/media.py::validate_assets",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
     },
     {
       "from": "scripts/AGENTS.md",
@@ -68619,6 +69189,18 @@
       "to": "python_symbol:scripts/run_tiktok_local_desktop_oauth_pkce_v1.py::main"
     },
     {
+      "from": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main"
+    },
+    {
+      "from": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main"
+    },
+    {
       "from": "scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68695,6 +69277,36 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/run_v1_real_media_discovery_and_friction_proofs.py::run"
+    },
+    {
+      "from": "scripts/run_v2_unattended_core_factory_v1.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:run-once"
+    },
+    {
+      "from": "scripts/run_v2_unattended_core_factory_v1.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:seed"
+    },
+    {
+      "from": "scripts/run_v2_unattended_core_factory_v1.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:status"
+    },
+    {
+      "from": "scripts/run_v2_unattended_core_factory_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main"
+    },
+    {
+      "from": "scripts/run_v2_unattended_core_factory_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main"
     },
     {
       "from": "tests/AGENTS.md",
@@ -72507,6 +73119,12 @@
       "to": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py"
     },
     {
+      "from": "tests/test_tiktok_sandbox_draft_canary_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/tiktok_sandbox_draft_canary_v1.py"
+    },
+    {
       "from": "tests/test_tiktok_secure_refresh_store_readonly_preflight_v1.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -72559,6 +73177,30 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/v1_runtime_preflight_v1.py"
+    },
+    {
+      "from": "tests/test_v2_unattended_core_factory_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/llm_cost_governor_v1.py"
+    },
+    {
+      "from": "tests/test_v2_unattended_core_factory_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/llm_cost_governor_v1.py"
+    },
+    {
+      "from": "tests/test_v2_unattended_core_factory_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/llm_operator_control_v1.py"
+    },
+    {
+      "from": "tests/test_v2_unattended_core_factory_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/llm_operator_control_v1.py"
     },
     {
       "from": "tests/test_v6_platform_registry_contract.py",
@@ -79777,6 +80419,318 @@
       "inference": "typescript_export_regex",
       "kind": "defines",
       "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/types.ts::ChapterProps"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeRouter"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::canonical_bytes"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::editor_prompt"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::load_json_text"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::materialize_source"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::motion_prompt"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::revision_prompt"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::safe_router_receipt"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_editor_artifact"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_input_packet"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_motion_artifact"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_revision_artifact"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_source_files"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/creative.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/__init__.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::build_audio_mix"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::build_captions"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::build_neutral_package"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::contact_sheet"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::image_data_url"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::loudness_report"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::mux_final_media"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::prepare_project"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::probe_media"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::render_project"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::run_command"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::synthesize_narration"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::typecheck_project"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::validate_assets"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/__init__.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/media.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/creative.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:job_runs"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:stage_events"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:video_jobs"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/store.py::JobStoreError"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/store.py::V2JobStore"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/store.py::utc_now"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.unattended_job_store.v1"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/__init__.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/supervisor.py::FactoryConfig"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/supervisor.py::SupervisorError"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/supervisor.py::UnattendedV2Supervisor"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.unattended_core_factory_supervisor.v1"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/__init__.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/creative.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/media.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/store.py"
     }
   ],
   "entrypoints": [
@@ -79898,7 +80852,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-17T06:55:49Z",
+  "generation_timestamp_utc": "2026-08-17T08:12:51Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -79931,7 +80885,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 22220
+      "size_bytes": 22133
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -80054,13 +81008,28 @@
       "kind": "cli_command"
     },
     {
+      "command": "run-once",
+      "id": "cli:run-once",
+      "kind": "cli_command"
+    },
+    {
       "command": "scope-decision-x-live-click",
       "id": "cli:scope-decision-x-live-click",
       "kind": "cli_command"
     },
     {
+      "command": "seed",
+      "id": "cli:seed",
+      "kind": "cli_command"
+    },
+    {
       "command": "shutdown-preflight",
       "id": "cli:shutdown-preflight",
+      "kind": "cli_command"
+    },
+    {
+      "command": "status",
+      "id": "cli:status",
       "kind": "cli_command"
     },
     {
@@ -80136,17 +81105,17 @@
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 24010
+      "size_bytes": 24024
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 6004
+      "size_bytes": 5971
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 20153
+      "size_bytes": 20212
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -80156,7 +81125,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 13727
+      "size_bytes": 13493
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -80171,12 +81140,12 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 17649
+      "size_bytes": 17678
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 16571
+      "size_bytes": 16586
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
@@ -80186,7 +81155,7 @@
     {
       "id": "docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 14718
+      "size_bytes": 14735
     },
     {
       "id": "docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md",
@@ -80201,7 +81170,7 @@
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
       "kind": "authority_doc",
-      "size_bytes": 20921
+      "size_bytes": 20934
     },
     {
       "id": "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -80257,6 +81226,11 @@
       "id": "durable_table:incidents",
       "kind": "durable_table",
       "table": "incidents"
+    },
+    {
+      "id": "durable_table:job_runs",
+      "kind": "durable_table",
+      "table": "job_runs"
     },
     {
       "id": "durable_table:learning_policy_versions",
@@ -80369,6 +81343,11 @@
       "table": "schema_migrations"
     },
     {
+      "id": "durable_table:stage_events",
+      "kind": "durable_table",
+      "table": "stage_events"
+    },
+    {
       "id": "durable_table:story_versions",
       "kind": "durable_table",
       "table": "story_versions"
@@ -80387,6 +81366,11 @@
       "id": "durable_table:transition_events_v3",
       "kind": "durable_table",
       "table": "transition_events_v3"
+    },
+    {
+      "id": "durable_table:video_jobs",
+      "kind": "durable_table",
+      "table": "video_jobs"
     },
     {
       "id": "durable_table:work_items",
@@ -82277,12 +83261,12 @@
     {
       "id": "live_contentops/nine_router_llm_seam_v2.py",
       "kind": "python_module",
-      "size_bytes": 12968
+      "size_bytes": 15616
     },
     {
       "id": "live_contentops/nine_router_ordered_model_router_v2.py",
       "kind": "python_module",
-      "size_bytes": 49333
+      "size_bytes": 50235
     },
     {
       "id": "live_contentops/nine_router_preflight_v2.py",
@@ -82292,7 +83276,7 @@
     {
       "id": "live_contentops/nine_router_provider_adapter_v2.py",
       "kind": "python_module",
-      "size_bytes": 17444
+      "size_bytes": 17843
     },
     {
       "id": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
@@ -83578,6 +84562,11 @@
       "id": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
       "kind": "python_module",
       "size_bytes": 18300
+    },
+    {
+      "id": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "kind": "python_module",
+      "size_bytes": 47426
     },
     {
       "id": "live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py",
@@ -101637,343 +102626,357 @@
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::RoutedInvocationError",
       "kind": "python_class",
-      "line": 83,
+      "line": 90,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "RoutedInvocationError"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::RoutedInvocationError.__init__",
       "kind": "python_method",
-      "line": 86,
+      "line": 93,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "RoutedInvocationError.__init__"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::_default_provider_call",
       "kind": "python_function",
-      "line": 117,
+      "line": 124,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "_default_provider_call"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::_derive_invocation_id",
       "kind": "python_function",
-      "line": 246,
+      "line": 313,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "_derive_invocation_id"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::drain_invocation_log",
       "kind": "python_function",
-      "line": 106,
+      "line": 113,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "drain_invocation_log"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::integration_manifest",
       "kind": "python_function",
-      "line": 253,
+      "line": 320,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "integration_manifest"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::peek_invocation_log",
       "kind": "python_function",
-      "line": 113,
+      "line": 120,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "peek_invocation_log"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation",
       "kind": "python_function",
-      "line": 123,
+      "line": 130,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_invocation"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation.guarded_provider_call",
       "kind": "python_method",
-      "line": 156,
+      "line": 163,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_invocation.guarded_provider_call"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_text",
       "kind": "python_function",
-      "line": 213,
+      "line": 280,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_text"
     },
     {
+      "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation",
+      "kind": "python_function",
+      "line": 220,
+      "path": "live_contentops/nine_router_llm_seam_v2.py",
+      "symbol": "routed_v2_creative_invocation"
+    },
+    {
+      "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_v2_creative_invocation.isolated_provider_call",
+      "kind": "python_method",
+      "line": 246,
+      "path": "live_contentops/nine_router_llm_seam_v2.py",
+      "symbol": "routed_v2_creative_invocation.isolated_provider_call"
+    },
+    {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ModelRouterError",
       "kind": "python_class",
-      "line": 261,
+      "line": 272,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "ModelRouterError"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ProviderResult",
       "kind": "python_class",
-      "line": 664,
+      "line": 684,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "ProviderResult"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget",
       "kind": "python_class",
-      "line": 528,
+      "line": 548,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.__post_init__",
       "kind": "python_method",
-      "line": 552,
+      "line": 572,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.__post_init__"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.attempts_for",
       "kind": "python_method",
-      "line": 579,
+      "line": 599,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.attempts_for"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.elapsed_seconds",
       "kind": "python_method",
-      "line": 565,
+      "line": 585,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.elapsed_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.exhausted_reason",
       "kind": "python_method",
-      "line": 590,
+      "line": 610,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.exhausted_reason"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.from_snapshot",
       "kind": "python_method",
-      "line": 630,
+      "line": 650,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.from_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.model_attempts_remaining",
       "kind": "python_method",
-      "line": 582,
+      "line": 602,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.model_attempts_remaining"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_attempt",
       "kind": "python_method",
-      "line": 598,
+      "line": 618,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_attempt"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_fallback_transition",
       "kind": "python_method",
-      "line": 602,
+      "line": 622,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_fallback_transition"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_repair_attempt",
       "kind": "python_method",
-      "line": 605,
+      "line": 625,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_repair_attempt"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_sleep",
       "kind": "python_method",
-      "line": 608,
+      "line": 628,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_sleep"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_attempts",
       "kind": "python_method",
-      "line": 570,
+      "line": 590,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_attempts"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_sleep_seconds",
       "kind": "python_method",
-      "line": 573,
+      "line": 593,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_sleep_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_wall_clock_seconds",
       "kind": "python_method",
-      "line": 576,
+      "line": 596,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_wall_clock_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.snapshot",
       "kind": "python_method",
-      "line": 611,
+      "line": 631,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.snapshot"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.start",
       "kind": "python_method",
-      "line": 561,
+      "line": 581,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.start"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_bare_model_id",
       "kind": "python_function",
-      "line": 1000,
+      "line": 1020,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_bare_model_id"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_default_validator",
       "kind": "python_function",
-      "line": 689,
+      "line": 709,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_default_validator"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_hash",
       "kind": "python_function",
-      "line": 265,
+      "line": 276,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_hash"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_incident_model_pool_for_role",
       "kind": "python_function",
-      "line": 158,
+      "line": 169,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_incident_model_pool_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_is_authorized_identity",
       "kind": "python_function",
-      "line": 1025,
+      "line": 1045,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_is_authorized_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_redact",
       "kind": "python_function",
-      "line": 1043,
+      "line": 1063,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_redact"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_same_model_identity",
       "kind": "python_function",
-      "line": 1021,
+      "line": 1041,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_same_model_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_status_class",
       "kind": "python_function",
-      "line": 1030,
+      "line": 1050,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_status_class"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_sum_cost",
       "kind": "python_function",
-      "line": 1067,
+      "line": 1087,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_sum_cost"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_sum_usage",
       "kind": "python_function",
-      "line": 1053,
+      "line": 1073,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_sum_usage"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_summary_without_output",
       "kind": "python_function",
-      "line": 996,
+      "line": 1016,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_summary_without_output"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::authority_packet",
       "kind": "python_function",
-      "line": 275,
+      "line": 286,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "authority_packet"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::build_acceptance_gemini_incident",
       "kind": "python_function",
-      "line": 125,
+      "line": 136,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "build_acceptance_gemini_incident"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::classify_failure",
       "kind": "python_function",
-      "line": 452,
+      "line": 472,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "classify_failure"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_fallback_eligible",
       "kind": "python_function",
-      "line": 510,
+      "line": 530,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_fallback_eligible"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_retryable",
       "kind": "python_function",
-      "line": 502,
+      "line": 522,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_retryable"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_terminal",
       "kind": "python_function",
-      "line": 506,
+      "line": 526,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_terminal"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role",
       "kind": "python_function",
-      "line": 370,
+      "line": 381,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "model_pool_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role",
       "kind": "python_function",
-      "line": 382,
+      "line": 393,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "retry_budget_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_policy",
       "kind": "python_function",
-      "line": 351,
+      "line": 362,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "retry_budget_policy"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::route_llm_invocation",
       "kind": "python_function",
-      "line": 698,
+      "line": 718,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "route_llm_invocation"
     },
@@ -102015,7 +103018,7 @@
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error",
       "kind": "python_function",
-      "line": 397,
+      "line": 407,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_classify_http_error"
     },
@@ -102071,7 +103074,7 @@
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers",
       "kind": "python_function",
-      "line": 413,
+      "line": 423,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_retry_after_from_headers"
     },
@@ -113892,6 +114895,146 @@
       "symbol": "refresh_token_session"
     },
     {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedSecureSessionProvider",
+      "kind": "python_class",
+      "line": 420,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "AcceptedSecureSessionProvider"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::AcceptedShortPackageResolver",
+      "kind": "python_class",
+      "line": 281,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "AcceptedShortPackageResolver"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanaryJournal",
+      "kind": "python_class",
+      "line": 685,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "CanaryJournal"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanarySecurePreflightError",
+      "kind": "python_class",
+      "line": 100,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "CanarySecurePreflightError"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::CanarySecurityContext",
+      "kind": "python_class",
+      "line": 178,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "CanarySecurityContext"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ChunkRange",
+      "kind": "python_class",
+      "line": 128,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "ChunkRange"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::MediaPreflight",
+      "kind": "python_class",
+      "line": 139,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "MediaPreflight"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::PackageAuthority",
+      "kind": "python_class",
+      "line": 120,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "PackageAuthority"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ProviderCallError",
+      "kind": "python_class",
+      "line": 92,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "ProviderCallError"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ProviderInitResult",
+      "kind": "python_class",
+      "line": 192,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "ProviderInitResult"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::SecureSessionProvider",
+      "kind": "python_class",
+      "line": 202,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "SecureSessionProvider"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryError",
+      "kind": "python_class",
+      "line": 84,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "TikTokCanaryError"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokCanaryTransport",
+      "kind": "python_class",
+      "line": 206,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "TikTokCanaryTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::TikTokSandboxDraftCanaryExecutor",
+      "kind": "python_class",
+      "line": 850,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "TikTokSandboxDraftCanaryExecutor"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::UrllibTikTokCanaryTransport",
+      "kind": "python_class",
+      "line": 511,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "UrllibTikTokCanaryTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::build_chunk_plan",
+      "kind": "python_function",
+      "line": 250,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "build_chunk_plan"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::deterministic_canary_attempt_id",
+      "kind": "python_function",
+      "line": 235,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "deterministic_canary_attempt_id"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::ffprobe_media",
+      "kind": "python_function",
+      "line": 374,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "ffprobe_media"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::nonsecret_readiness_summary",
+      "kind": "python_function",
+      "line": 1191,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "nonsecret_readiness_summary"
+    },
+    {
+      "id": "python_symbol:live_contentops/tiktok_sandbox_draft_canary_v1.py::validate_redacted_canary_receipt",
+      "kind": "python_function",
+      "line": 834,
+      "path": "live_contentops/tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "validate_redacted_canary_receipt"
+    },
+    {
       "id": "python_symbol:live_contentops/tiktok_secure_refresh_store_readonly_preflight_v1.py::CredentialRecord",
       "kind": "python_class",
       "line": 70,
@@ -115971,6 +117114,13 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/run_tiktok_sandbox_draft_canary_v1.py::main",
+      "kind": "python_function",
+      "line": 68,
+      "path": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
+      "symbol": "main"
+    },
+    {
       "id": "python_symbol:scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py::main",
       "kind": "python_function",
       "line": 88,
@@ -116025,6 +117175,13 @@
       "line": 177,
       "path": "scripts/run_v1_real_media_discovery_and_friction_proofs.py",
       "symbol": "run"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_unattended_core_factory_v1.py::main",
+      "kind": "python_function",
+      "line": 50,
+      "path": "scripts/run_v2_unattended_core_factory_v1.py",
+      "symbol": "main"
     },
     {
       "id": "python_symbol:video/freeform_chapter_pipeline_v1/build_authored_audio.py::AudioBuildError",
@@ -116797,6 +117954,279 @@
       "symbol": "synthesize_file"
     },
     {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeContractError",
+      "kind": "python_class",
+      "line": 39,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "CreativeContractError"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::CreativeRouter",
+      "kind": "python_class",
+      "line": 398,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "CreativeRouter"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::canonical_bytes",
+      "kind": "python_function",
+      "line": 43,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "canonical_bytes"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::editor_prompt",
+      "kind": "python_function",
+      "line": 458,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "editor_prompt"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file",
+      "kind": "python_function",
+      "line": 57,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "hash_file"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value",
+      "kind": "python_function",
+      "line": 49,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "hash_value"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::load_json_text",
+      "kind": "python_function",
+      "line": 65,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "load_json_text"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::materialize_source",
+      "kind": "python_function",
+      "line": 340,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "materialize_source"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::motion_prompt",
+      "kind": "python_function",
+      "line": 476,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "motion_prompt"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::revision_prompt",
+      "kind": "python_function",
+      "line": 501,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "revision_prompt"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::safe_router_receipt",
+      "kind": "python_function",
+      "line": 359,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "safe_router_receipt"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_editor_artifact",
+      "kind": "python_function",
+      "line": 127,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "validate_editor_artifact"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_input_packet",
+      "kind": "python_function",
+      "line": 84,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "validate_input_packet"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_motion_artifact",
+      "kind": "python_function",
+      "line": 206,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "validate_motion_artifact"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_revision_artifact",
+      "kind": "python_function",
+      "line": 276,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "validate_revision_artifact"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/creative.py::validate_source_files",
+      "kind": "python_function",
+      "line": 316,
+      "path": "video/unattended_core_factory_v1/creative.py",
+      "symbol": "validate_source_files"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::MediaExecutionError",
+      "kind": "python_class",
+      "line": 25,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "MediaExecutionError"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::artifact",
+      "kind": "python_function",
+      "line": 29,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "artifact"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_audio_mix",
+      "kind": "python_function",
+      "line": 284,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "build_audio_mix"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_captions",
+      "kind": "python_function",
+      "line": 416,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "build_captions"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_neutral_package",
+      "kind": "python_function",
+      "line": 453,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "build_neutral_package"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::contact_sheet",
+      "kind": "python_function",
+      "line": 179,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "contact_sheet"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::image_data_url",
+      "kind": "python_function",
+      "line": 209,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "image_data_url"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::loudness_report",
+      "kind": "python_function",
+      "line": 382,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "loudness_report"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::mux_final_media",
+      "kind": "python_function",
+      "line": 345,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "mux_final_media"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::prepare_project",
+      "kind": "python_function",
+      "line": 83,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "prepare_project"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::probe_media",
+      "kind": "python_function",
+      "line": 154,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "probe_media"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::render_project",
+      "kind": "python_function",
+      "line": 124,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "render_project"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::run_command",
+      "kind": "python_function",
+      "line": 40,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "run_command"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::synthesize_narration",
+      "kind": "python_function",
+      "line": 220,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "synthesize_narration"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report",
+      "kind": "python_function",
+      "line": 434,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "technical_media_report"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::typecheck_project",
+      "kind": "python_function",
+      "line": 116,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "typecheck_project"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/media.py::validate_assets",
+      "kind": "python_function",
+      "line": 102,
+      "path": "video/unattended_core_factory_v1/media.py",
+      "symbol": "validate_assets"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/store.py::JobStoreError",
+      "kind": "python_class",
+      "line": 24,
+      "path": "video/unattended_core_factory_v1/store.py",
+      "symbol": "JobStoreError"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/store.py::V2JobStore",
+      "kind": "python_class",
+      "line": 28,
+      "path": "video/unattended_core_factory_v1/store.py",
+      "symbol": "V2JobStore"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/store.py::utc_now",
+      "kind": "python_function",
+      "line": 16,
+      "path": "video/unattended_core_factory_v1/store.py",
+      "symbol": "utc_now"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/supervisor.py::FactoryConfig",
+      "kind": "python_class",
+      "line": 57,
+      "path": "video/unattended_core_factory_v1/supervisor.py",
+      "symbol": "FactoryConfig"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/supervisor.py::SupervisorError",
+      "kind": "python_class",
+      "line": 52,
+      "path": "video/unattended_core_factory_v1/supervisor.py",
+      "symbol": "SupervisorError"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/supervisor.py::UnattendedV2Supervisor",
+      "kind": "python_class",
+      "line": 130,
+      "path": "video/unattended_core_factory_v1/supervisor.py",
+      "symbol": "UnattendedV2Supervisor"
+    },
+    {
       "id": "schema:0.1.0",
       "kind": "schema",
       "schema_id": "0.1.0"
@@ -117497,6 +118927,31 @@
       "schema_id": "contentops.v1_runtime_preflight.v1"
     },
     {
+      "id": "schema:contentops.v2.tiktok_sandbox_draft_canary_attempt.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.tiktok_sandbox_draft_canary_attempt.v1"
+    },
+    {
+      "id": "schema:contentops.v2.tiktok_sandbox_draft_canary_journal.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.tiktok_sandbox_draft_canary_journal.v1"
+    },
+    {
+      "id": "schema:contentops.v2.tiktok_sandbox_draft_canary_receipt.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.tiktok_sandbox_draft_canary_receipt.v1"
+    },
+    {
+      "id": "schema:contentops.v2.unattended_core_factory_supervisor.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.unattended_core_factory_supervisor.v1"
+    },
+    {
+      "id": "schema:contentops.v2.unattended_job_store.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.unattended_job_store.v1"
+    },
+    {
       "id": "schema:contentops.v5_ui_source_epoch.v1",
       "kind": "schema",
       "schema_id": "contentops.v5_ui_source_epoch.v1"
@@ -117829,7 +119284,7 @@
     {
       "id": "scripts/prove_v1_9router_research_model_ladder_v1.py",
       "kind": "python_module",
-      "size_bytes": 4311
+      "size_bytes": 4423
     },
     {
       "id": "scripts/prove_v1_final_product_four_window_closed_loop_v1.py",
@@ -117887,6 +119342,11 @@
       "size_bytes": 2000
     },
     {
+      "id": "scripts/run_tiktok_sandbox_draft_canary_v1.py",
+      "kind": "python_module",
+      "size_bytes": 5249
+    },
+    {
       "id": "scripts/run_tiktok_secure_persistence_oauth_readonly_preflight_v1.py",
       "kind": "python_module",
       "size_bytes": 4942
@@ -117910,6 +119370,11 @@
       "id": "scripts/run_v1_real_media_discovery_and_friction_proofs.py",
       "kind": "python_module",
       "size_bytes": 13485
+    },
+    {
+      "id": "scripts/run_v2_unattended_core_factory_v1.py",
+      "kind": "python_module",
+      "size_bytes": 4235
     },
     {
       "id": "tests/AGENTS.md",
@@ -119434,7 +120899,7 @@
     {
       "id": "tests/test_llm_cost_governor_v1.py",
       "kind": "test",
-      "size_bytes": 10811
+      "size_bytes": 10819
     },
     {
       "id": "tests/test_llm_feedback_summarizer_dry_run_v6.py",
@@ -119739,7 +121204,7 @@
     {
       "id": "tests/test_nine_router_ordered_model_router_v2.py",
       "kind": "test",
-      "size_bytes": 41652
+      "size_bytes": 41670
     },
     {
       "id": "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
@@ -121072,6 +122537,11 @@
       "size_bytes": 18284
     },
     {
+      "id": "tests/test_tiktok_sandbox_draft_canary_v1.py",
+      "kind": "test",
+      "size_bytes": 29953
+    },
+    {
       "id": "tests/test_tiktok_secure_persistence_supervised_cli_v1.py",
       "kind": "test",
       "size_bytes": 14677
@@ -121124,7 +122594,7 @@
     {
       "id": "tests/test_v1_9router_research_model_ladder_v1.py",
       "kind": "test",
-      "size_bytes": 5301
+      "size_bytes": 5447
     },
     {
       "id": "tests/test_v1_current_yield_shadow_runner_v1.py",
@@ -121165,6 +122635,11 @@
       "id": "tests/test_v2_official_platform_publication_adapters_shadow_v1.py",
       "kind": "test",
       "size_bytes": 24109
+    },
+    {
+      "id": "tests/test_v2_unattended_core_factory_v1.py",
+      "kind": "test",
+      "size_bytes": 21995
     },
     {
       "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
@@ -125506,7 +126981,7 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 9028
+      "size_bytes": 9182
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/__init__.py",
@@ -125747,6 +127222,41 @@
       "id": "video/projects/frozen_without_breaking_v1/tsconfig.json",
       "kind": "manifest",
       "size_bytes": 428
+    },
+    {
+      "id": "video/unattended_core_factory_v1/__init__.py",
+      "kind": "python_module",
+      "size_bytes": 194
+    },
+    {
+      "id": "video/unattended_core_factory_v1/creative.py",
+      "kind": "python_module",
+      "size_bytes": 23973
+    },
+    {
+      "id": "video/unattended_core_factory_v1/media.py",
+      "kind": "python_module",
+      "size_bytes": 16625
+    },
+    {
+      "id": "video/unattended_core_factory_v1/scaffold/package.json",
+      "kind": "manifest",
+      "size_bytes": 353
+    },
+    {
+      "id": "video/unattended_core_factory_v1/scaffold/tsconfig.json",
+      "kind": "manifest",
+      "size_bytes": 406
+    },
+    {
+      "id": "video/unattended_core_factory_v1/store.py",
+      "kind": "python_module",
+      "size_bytes": 15201
+    },
+    {
+      "id": "video/unattended_core_factory_v1/supervisor.py",
+      "kind": "python_module",
+      "size_bytes": 35781
     }
   ],
   "protected_boundaries": [
@@ -125812,6 +127322,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "97cd13c914f1a48029cdc8529ab9ffd31637ec1d",
-  "source_tree_digest": "5400f04ec141e750e005c3d4f772a806ad3e2c019c5ce6c01ae8434db2d52be6"
+  "source_head": "8f6e4422d09fc9794c38ccc036ff1d1d9650034c",
+  "source_tree_digest": "399b66214e336182e722f79e9d7fced98387e226d2c967da7e554a36dad84424"
 }

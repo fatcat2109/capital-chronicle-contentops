@@ -73,6 +73,15 @@ NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
 GROUNDED_RESEARCH_ROLE = "v1_grounded_researcher"
 ARTICLE_WRITING_CX_RESCUE_ROLE = "v1_article_writing_cx_utility_rescue"
+V2_CREATIVE_EDITOR_ROLE = "V2_CREATIVE_EDITOR"
+V2_MOTION_CODE_AUTHOR_ROLE = "V2_MOTION_CODE_AUTHOR"
+V2_CREATIVE_REVISION_AUTHOR_ROLE = "V2_CREATIVE_REVISION_AUTHOR"
+V2_CREATIVE_MODEL = "new/gpt-5.6-sol-xhigh"
+V2_CREATIVE_ROLES: tuple[str, ...] = (
+    V2_CREATIVE_EDITOR_ROLE,
+    V2_MOTION_CODE_AUTHOR_ROLE,
+    V2_CREATIVE_REVISION_AUTHOR_ROLE,
+)
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
 GEMINI_PRO_MODEL = ORDERED_MODEL_POOL[-1]
 CX_FINAL_FALLBACK_MODEL = "cx/gpt-5.6-sol(xhigh)"
@@ -92,6 +101,7 @@ V1_HIGH_QUALITY_MODEL_POOL: tuple[str, ...] = (
 ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = V1_HIGH_QUALITY_MODEL_POOL
 GROUNDED_RESEARCH_MODEL_POOL: tuple[str, ...] = V1_GROUNDED_RESEARCH_MODEL_LADDER
 ARTICLE_WRITING_CX_RESCUE_MODEL_POOL: tuple[str, ...] = (CX_FINAL_FALLBACK_MODEL,)
+V2_CREATIVE_MODEL_POOL: tuple[str, ...] = (V2_CREATIVE_MODEL,)
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
     PASSIVE_INTERACTION_QUALITY_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
@@ -100,6 +110,7 @@ ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,
     GROUNDED_RESEARCH_ROLE: GROUNDED_RESEARCH_MODEL_POOL,
     ARTICLE_WRITING_CX_RESCUE_ROLE: ARTICLE_WRITING_CX_RESCUE_MODEL_POOL,
+    **{role: V2_CREATIVE_MODEL_POOL for role in V2_CREATIVE_ROLES},
 }
 AUTHORIZED_MODELS = frozenset(
     model
@@ -381,6 +392,15 @@ def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
 
 def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
     """Allocate one immutable bounded budget appropriate to the canonical role pool."""
+    if str(role_task_id) in V2_CREATIVE_ROLES:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=3,
+            max_fallback_transitions=0,
+            max_same_model_retries=2,
+            max_structured_output_repair_attempts=1,
+            per_model_max_attempts=(3,),
+        )
     if str(role_task_id) == ARTICLE_WRITING_CX_RESCUE_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,

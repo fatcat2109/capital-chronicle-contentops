@@ -12,18 +12,19 @@ For V2/video work, read first:
 6. `../docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
 7. `../docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md` only for historical rationale/details already folded into V2 authority
 
-Current next task:
+Current task:
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
 
-Required result:
+Required result ceiling:
 
-`PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE`
+`PASS_IMPLEMENTATION_UNATTENDED_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 
-This task is HIGH-only. Do not use XHIGH, OAuth, credentials, provider calls, browser actions,
-private/unlisted/draft uploads, or public writes. The next gate is
-`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`;
-do not start it under this authority.
+The HIGH builder coordinates deterministic work. Only the three owner-locked viewer-facing roles
+use exact `new/gpt-5.6-sol-xhigh` with three same-route attempts and zero fallback. Publication
+adapters remain dormant; do not read platform credentials or perform any platform/browser write.
+TikTok bootstrap and its Sandbox draft canary are closed. The next task after owner actual-media
+acceptance is `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`; do not start it here.
 
 For recurring localization, render picture once per editorial format. Language work is governed
 translation, audio, timed captions, metadata and manifests. Locale-specific Remotion source,

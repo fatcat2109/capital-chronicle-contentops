@@ -149,26 +149,27 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. Reconcile the
-historical publication-adapter donor onto fresh current master without merging its stale authority.
-The six-surface shadow control plane must preserve zero public-write authority and exact
-`UNKNOWN_WRITE -> STOP RETRY -> READ BACK -> RECONCILE` behavior while using the corrected
-first-party contracts: YouTube video/Shorts, TikTok Upload-to-TikTok draft delivery, explicit
-Instagram Login versus Facebook Login variants, and Facebook Page Reels.
-The TikTok secure credential/bootstrap detour is accepted
-`COMPLETED_BLOCKER_REMOVAL`; do not reopen it or read the persisted credential in this task.
+This is the only active V2 product task unless Jim explicitly changes direction. Publication
+adapters are accepted, TikTok credential bootstrap is closed, and the exact TikTok Sandbox draft
+canary is `PASS/CLOSED`; its one-write grant is consumed. Build one isolated durable V2 shadow job,
+atomic run-once claim, immutable checkpoint ledger, fresh exact-route creative executions,
+restart/resume, actual owner-review media, and a terminal platform-neutral package. Public/platform
+writes, platform credential reads, operational V1 reads or mutations, scheduler installation, and
+V1 trigger integration remain forbidden.
 
-The single exact next gate after acceptance is
-`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
-It is not authorized or started by the current task.
+The single exact next task after Jim/ChatGPT actual-media acceptance is
+`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`. It is not authorized or started by the
+current task; V1 integration/scheduling remains deferred until the core proof and soak are accepted.
 
-Canonical product path:
+Current proof path:
 
-`Fresh Governed Story -> Evidence Expansion -> Visual Entity/Asset Needs -> Fresh Rights-Safe Asset Discovery -> Candidate Asset Board -> ASSET_VISUAL_FIT Gate -> Institutional Analytical Map -> Codex Micro-Beat Storyboard -> Native Map/Data/Document Treatments -> Codex-Authored Remotion Source -> Severe Visual Editor Gate -> Proxy -> Bounded Creative Repairs -> Professional Audio -> Native Short + Midform -> QA -> Jim/ChatGPT Review`
+`Frozen Without Breaking governed packet -> durable job -> atomic claim -> fresh creative editor -> fresh motion source -> hard validation -> proxy -> actual-media XHIGH review/bounded revision -> picture/audio locks -> final Short -> package QA -> Jim/ChatGPT Review`
 
-Prefer a fresh non-oil/non-Hormuz governed story so the task proves cross-domain generalization and cannot pass merely by reusing the old oil asset universe.
+The accepted Frozen Without Breaking Short is a quality reference only. Reuse its governed
+facts/rights-safe assets and low-level technical scaffold, never its viewer-facing source,
+narration, choreography, layouts, or repair answer as creative input.
 
 ### Current dominant V2 quality blockers
 
