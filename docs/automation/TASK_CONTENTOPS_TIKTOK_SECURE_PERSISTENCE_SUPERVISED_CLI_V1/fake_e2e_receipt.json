@@ -1,0 +1,15 @@
+{
+  "access_token_persisted": false,
+  "content_posting_calls": 0,
+  "credential_target": "CapitalChronicle.ContentOps/TikTok/Sandbox/primary",
+  "display_name_received": true,
+  "environment_mutated": false,
+  "identity_preflight_success": true,
+  "media_uploads": 0,
+  "open_id_match": true,
+  "public_writes": 0,
+  "refresh_token_persisted": true,
+  "required_scopes_satisfied": true,
+  "result": "TIKTOK_SECURE_REFRESH_AND_IDENTITY_PREFLIGHT_READY",
+  "state_validated": true
+}
