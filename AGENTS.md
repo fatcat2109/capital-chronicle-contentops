@@ -109,7 +109,27 @@ Older V2 plan/status/model-override docs remain historical/reference where they 
 
 `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY / HIGH_PARENT_XHIGH_CREATIVE`
 
-Codex is the **fresh per-video creative/editorial brain, viewer-facing Remotion author, and actual-media visual reviewer**.
+`V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
+
+One qualified V2 video job maps to one fresh **Codex Desktop App task/session** using
+`GPT-5.6 Sol / Extra High (XHIGH)`. That Desktop App session is the per-video
+creative/editorial brain, viewer-facing Remotion author, and actual-media visual reviewer. It may
+continue or resume only for bounded creative revision belonging to that same video job, then it
+terminates. Do not keep a persistent 24/7 shared conversation. Explicit governed artifacts and
+durable checkpoints remain state authority; chat memory does not.
+
+For V2 creative/editorial/visual authorship, the following are forbidden substitutions:
+
+- `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`: Codex CLI and `codex exec`;
+- `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`: Codex SDK, API, or any headless process;
+- `9ROUTER_RESEARCH_ONLY`: 9Router, Terra, Gemini, provider adapters, or any generic LLM route.
+
+If automated Codex Desktop App handoff is unavailable or unresolved, report that boundary
+truthfully and stop. Never select a different creative runtime merely to make unattended operation
+easier. `CodexJobBrain`, where retained in architecture prose or historical code, is only a
+conceptual per-job boundary; its canonical execution is the fresh Codex Desktop App task/session.
+It must not imply `CodexCliExecutor`, a subprocess, SDK, API, or provider route. Prefer
+`CodexDesktopSessionBrain` in new planning prose.
 
 Deterministic local V2 infrastructure is the **durable control plane, governed evidence/numeric binder, rights/provenance system, low-level visual safety toolkit, source sandbox, renderer, QA/recovery system, cost ledger, and publication gate**.
 
@@ -121,7 +141,8 @@ Do not let Codex become factual/numeric authority.
 
 Do not maintain separate Lane A and Lane B renderer/control stacks.
 
-Lane A / `cx/gpt-5.6-sol(xhigh)` remains a lower-cost shadow benchmark and possible future alternative brain only after the shared Creative-Authority Hybrid substrate is accepted and measured fairly.
+Lane A / `cx/gpt-5.6-sol(xhigh)` remains historical A/B evidence only. It grants no current or
+future V2 creative authority without a new explicit owner decision.
 
 ### Current architecture evidence
 
@@ -149,30 +170,36 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. The unattended
-control plane exists, but its first proof quarantined at the superseded
-`new/gpt-5.6-sol-xhigh` 9Router creative route. Replace that active creative path with a fresh
-per-video `CodexJobBrain` using Codex `gpt-5.6-sol / XHIGH`, preserve the deterministic supervisor
-as durable state owner, and run exactly one new committed-head actual-media proof. 9Router is
-research/evidence assistance only, with exact ladder `cx/gpt-5.6-terra(high)` →
-`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)`; it has no V2 creative authority.
-There is no creative-model fallback. Public/platform writes, platform credential reads,
-operational V1 reads or mutations, scheduler installation, and V1 trigger integration remain
-forbidden.
+This authority-only task corrects current repository language before any replacement integration
+research or implementation. Current truth:
 
-The single exact next task after Jim/ChatGPT actual-media acceptance is
-`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`. It is not authorized or started by the
-current task; V1 integration/scheduling remains deferred until the core proof and soak are accepted.
+- durable local V2 control-plane substrate: implemented and proven at the bounded substrate level;
+- canonical creative brain: one fresh Codex Desktop App task/session per qualified video job;
+- automated Desktop-App job handoff/integration: unresolved;
+- actual-media proof under the correct Desktop-App architecture: not yet run;
+- `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`;
+- `MULTILINGUAL_CLOSED_INPUT`: localization remains closed/deferred until the correct core proof is
+  accepted and the unattended production soak is stable.
 
-Current proof path:
+Commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its `codex exec`
+proof are `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. That failure proves only
+that the mistaken CLI seam failed. It does not show that canonical Codex Desktop App creative
+execution failed. Preserve its commits and evidence without allowing them to control routing.
 
-`Frozen Without Breaking governed packet -> durable job -> atomic claim -> fresh isolated CodexJobBrain -> fresh motion source -> hard validation -> proxy -> same-job Codex XHIGH actual-media review/bounded revision -> picture/audio locks -> final Short -> package QA -> Jim/ChatGPT Review`
+9Router remains research/evidence assistance only, with exact ladder
+`cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
+`vx/gemini-3.5-flash(high)`. It has zero V2 creative authority. Public/platform writes, platform
+credential reads, operational V1 reads or mutations, scheduler installation, V1 trigger
+integration, proof execution, Desktop automation implementation, and production soak remain
+forbidden in the current task.
 
-The accepted Frozen Without Breaking Short is a quality reference only. Reuse its governed
-facts/rights-safe assets and low-level technical scaffold, never its viewer-facing source,
-narration, choreography, layouts, or repair answer as creative input.
+The exact next task after this authority reconciliation passes is:
+
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
+
+Do not implement it automatically.
 
 ### Current dominant V2 quality blockers
 
@@ -282,8 +309,10 @@ Use the best currently authorized professional V2 audio path. Kokoro is a valid 
 Current model orchestration is selected:
 
 - parent/coordinator/deterministic executor: `GPT-5.6 Sol / HIGH`;
-- fresh isolated viewer-facing creative authors: `GPT-5.6 Sol / XHIGH`;
-- same creative thread may resume only for its own chapter or audio revision.
+- fresh Codex Desktop App task/session viewer-facing creative author:
+  `GPT-5.6 Sol / Extra High (XHIGH)`;
+- the same Desktop App task/session may resume only for its own bounded chapter, audio, or
+  actual-media revision.
 
 `MAX` and `ULTRA` are retired. Do not run a mode bakeoff. Do not spend XHIGH on Git,
 acquisition, hashing, transcoding, installation, rendering, waiting, polling, FFmpeg, tests,
@@ -298,7 +327,7 @@ Performance signals influence priority/packaging only. They cannot alter truth, 
 
 Canonical long-term execution is:
 
-`durable qualified job -> fresh isolated Codex execution/thread -> explicit artifacts/checkpoints -> bounded same-job revision -> terminate`.
+`durable qualified job -> fresh Codex Desktop App task/session -> explicit artifacts/checkpoints -> bounded same-job revision -> terminate`.
 
 Do not use hidden persistent conversation memory as state authority.
 

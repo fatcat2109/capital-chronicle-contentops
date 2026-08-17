@@ -3,22 +3,29 @@
 Authority date: 2026-08-17
 Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
-Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRED`
+Codex mode state: `HIGH_PARENT / CODEX_DESKTOP_APP_FRESH_TASK_SESSION_XHIGH / MAX_ULTRA_RETIRED`
 
 > **2026-08-17 current handoff override:** Read
 > `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` before the older
 > evidence below. The active task is
-> `TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`.
-> HIGH owns deterministic implementation/execution; a fresh per-video CodexJobBrain uses exact
-> native `gpt-5.6-sol / XHIGH` for viewer-facing authorship and same-job actual-media review.
-> 9Router is research assistance only on Terra HIGH → Gemini Pro HIGH → Gemini Flash HIGH; the old
-> `new/gpt-5.6-sol-xhigh` V2 creative route is superseded and no creative fallback exists.
+> `TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`.
+> `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified video
+> job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
+> `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`, `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`, and
+> `9ROUTER_RESEARCH_ONLY` control. CLI/`codex exec`, SDK/API/headless processes, 9Router,
+> Terra/Gemini, provider adapters, and generic model routes are not substitutes. `CodexJobBrain`
+> is conceptual only and canonically means `CodexDesktopSessionBrain`.
 > `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 > remains controlling. Publication adapters are accepted; TikTok credential bootstrap is closed;
 > the exact TikTok Sandbox draft canary is PASS/CLOSED and its one-write grant is consumed.
-> The single exact next task after acceptance is
-> `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`; it begins only after Jim/ChatGPT
-> actual-media acceptance and is not started by current authority.
+> Durable local control-plane substrate is implemented/proven; automated Desktop-App handoff is
+> unresolved; correct-architecture media proof is not yet run. The CLI experiment at `622b19e...`
+> is `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE` and does not prove Desktop App
+> failure. `MULTILINGUAL_CLOSED_INPUT` and
+> `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` remain controlling.
+> The exact next task after reconciliation PASS is
+> `DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`;
+> do not implement it automatically.
 
 Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or owner chat history.
 
@@ -97,7 +104,8 @@ Owner decision:
 
 `LANE_B_HYBRID`
 
-Lane A/CX remains a lower-cost shadow benchmark only.
+Lane A/CX remains historical lower-cost A/B evidence only and has zero current V2 creative
+authority.
 
 ## 3.3 Failed fixed-renderer H1 mode bakeoff
 
@@ -157,9 +165,10 @@ Owner/operator classification:
 
 # 4. Canonical architecture now
 
-## Codex owns the viewer-facing creative surface
+## Fresh Codex Desktop App task/session owns the viewer-facing creative surface
 
-Codex owns:
+One fresh Codex Desktop App task/session per qualified video job, using
+`GPT-5.6 Sol / Extra High (XHIGH)`, owns:
 
 - institutional analytical decomposition;
 - story angle;
@@ -449,47 +458,32 @@ Each mode must independently author:
 
 Hold starting story/evidence/assets/safety/audio/revision budget constant. No cross-mode creative leakage. Jim + ChatGPT select the default/escalation policy from actual media and quota/TCO evidence.
 
-# 17. Current exact next task
+# 17. Current task and exact next gate
 
-`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+Current task:
 
-This is the only active V2 product task unless Jim explicitly changes direction.
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
 
-Required real-media proof:
+Required result:
 
-`Fresh non-Hormuz governed story -> Evidence Expansion -> Visual Entity/Asset Needs -> Fresh Asset Discovery -> Candidate Asset Board -> ASSET_VISUAL_FIT -> Native Map/Data/Document as needed -> Codex Micro-Beat Storyboard -> Codex-Authored Remotion Source -> Severe Visual Gate -> Proxy -> Bounded Repair -> Professional Audio -> Native Short + Midform -> Jim/ChatGPT Review`
+`PASS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILED_READY_FOR_DEEP_RESEARCH`
 
-The task must produce actual media. Infrastructure-only completion is not PASS.
+This task changes authority, generated context, and focused context tests only. It does not research
+or implement Desktop automation and does not run a creative model or media proof.
 
-Recommended proof targets:
+Exact next task after PASS:
 
-- short approximately 55–70 seconds if story supports it;
-- midform approximately 130–180 seconds for this generalization/quality proof when evidence supports it;
-- no padding merely to reach duration.
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
 
-Maximum builder result:
+The research must preserve the Desktop App invariant and may not select CLI, SDK/API/headless,
+9Router, Terra/Gemini, provider-adapter, or generic model execution as a substitute.
 
-`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
-
-# 18. Next after current owner gate
-
-Only after Jim/ChatGPT accept the asset-first quality-hardening media should the product proceed to a corrected high-bar reasoning-effort bakeoff.
-
-Likely next task:
-
-`MAX vs ULTRA` on the accepted substrate, with a longer/more abundant analytical challenge.
-
-Then follow with:
-
-- repeated cross-domain production validation;
-- live read-only V1 performance trigger integration;
-- roughly ten-job unattended shadow soak;
-- optional fair CX cost-quality benchmark through the same accepted substrate;
-- only later V2-02/publication expansion.
+The later correct Desktop-App media proof and production soak each require separate exact owner
+authority. `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`.
 
 # 19. V1 -> V2 future operating loop
 
-`V1 publishes useful articles -> performance metrics -> candidate scorer -> top genuinely qualified video opportunities -> durable V2 outbox -> fresh Codex job`
+`V1 publishes useful articles -> performance metrics -> candidate scorer -> top genuinely qualified video opportunities -> durable V2 outbox -> fresh Codex Desktop App task/session`
 
 Target roughly the top one or two genuinely qualified opportunities when available, never a forced quota.
 
@@ -501,7 +495,7 @@ Do not implement a 24/7 Codex conversation.
 
 Canonical production shape remains:
 
-`durable qualified job -> fresh isolated Codex execution -> explicit artifacts/checkpoints -> bounded same-job revision -> terminate`
+`durable qualified job -> fresh Codex Desktop App task/session -> explicit artifacts/checkpoints -> bounded same-job revision -> terminate`
 
 State lives in durable artifacts/ledger, not hidden chat memory.
 
@@ -521,16 +515,15 @@ V2-02 remains blocked.
 2. fetch origin and verify fresh remote master;
 3. create a clean dedicated V2 worktree/branch from fresh master;
 4. regenerate/check CodeGraph after direct GitHub authority writes;
-5. read current authority including `CONTENTOPS_V2_CREATIVE_AUTHORITY_QUALITY_HARDENING_OWNER_AUDIT_V1.md`;
-6. inspect `e977f963...` as positive architecture proof and `03087d19...` only as negative fixed-renderer evidence;
-7. choose/fetch a fresh governed non-Hormuz benchmark or fail honestly if authority cannot support one;
-8. implement the asset-first quality-hardening vertical slice and actual media;
-9. do not run MAX/ULTRA bakeoff;
+5. reconcile current authority and explicitly classify historical failures;
+6. update only the generated-context source/test needed to prevent routing drift;
+7. regenerate/check CodeGraph artifacts;
+8. run focused authority/context and no-V1-routing-regression tests;
+9. do not invoke models, run media, research Desktop automation, or rebuild multilingual;
 10. explicit staging only;
-11. commit/push task branch;
-12. return actual media/evidence;
-13. STOP for Jim/ChatGPT owner review.
+11. commit/push the authority branch;
+12. stop before the deep-research gate.
 
 # 23. Durable summary
 
-**V2 is Lane B Creative-Authority Hybrid. Codex owns the viewer-facing creative surface and actual-media repair; deterministic local code owns truth/safety/execution, not high-level creative composition. The fixed renderer bakeoff is negative evidence. The latest architecture proof recovered visual quality but exposed the next bottleneck: stale/narrow assets, weak asset visual-fitness/taste gating, the poor legacy Hormuz map, insufficient semantic asset diversity, long scene-level holds, and second-order analysis without enough hard-data anchors. The exact next task is `TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`: use a fresh non-Hormuz story, actively discover better rights-safe assets before storyboard, build a candidate asset board and visual-fit gate, create native map/data/document treatments as needed, author micro-beats and story-specific Remotion source, run severe visual review and bounded repairs, and deliver real short/midform media. Do not run MAX/ULTRA yet. After this quality substrate is accepted, run a corrected MAX-versus-ULTRA high-bar bakeoff on longer/more analytically abundant content. Zero video public-write authority remains in force.**
+**V2 is Lane B Creative-Authority Hybrid. `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified job maps to one fresh Codex Desktop App task/session using GPT-5.6 Sol / Extra High. Deterministic local code owns truth/safety/rendering/recovery, not viewer-facing authorship. CLI, SDK/API/headless execution, 9Router, and provider routes have zero V2 creative authority. The durable control plane is implemented/proven substrate; automated Desktop-App handoff is unresolved; the correct media proof has not run. The failed CLI seam is historical evidence only. Multilingual is closed input, production soak is blocked, and the exact next gate is `DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`. Zero video public-write authority remains in force.**

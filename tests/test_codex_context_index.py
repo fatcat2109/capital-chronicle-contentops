@@ -123,11 +123,17 @@ def test_generated_v2_context_routes_direct_image_and_retention_native_authority
     assert "gpt-5.5" in normalized
     assert "provisional V2 generated-illustration default" in normalized
     assert "confirmed HTTP 400" in normalized
-    assert "TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1" in normalized
-    assert "GPT-5.6 Sol HIGH" in normalized
-    assert "GPT-5.6 Sol XHIGH" in normalized
-    assert "9Router is research/evidence assistance only" in normalized
-    assert "old `new/gpt-5.6-sol-xhigh` V2 creative route is superseded" in normalized
+    assert "TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1" in normalized
+    assert "CODEX_DESKTOP_APP_FRESH_TASK_SESSION" in normalized
+    assert "GPT-5.6 Sol / Extra High" in normalized
+    assert "CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY" in normalized
+    assert "CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY" in normalized
+    assert "9ROUTER_RESEARCH_ONLY" in normalized
+    assert "MULTILINGUAL_CLOSED_INPUT" in normalized
+    assert "PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF" in normalized
+    assert "CodexDesktopSessionBrain" in normalized
+    assert "NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE" in normalized
+    assert "DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION" in normalized
     assert "MAX/ULTRA and mode bakeoffs are retired" in normalized
     assert "free-form React/Remotion code" in normalized
     assert "NORTH_STAR_V2" in normalized
@@ -137,6 +143,23 @@ def test_generated_v2_context_routes_direct_image_and_retention_native_authority
     assert "LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END" not in normalized
     assert "8b043a5" in normalized
     assert "do not import" in normalized
+
+
+def test_generated_v2_context_fresh_reader_cannot_substitute_cli_sdk_or_9router(graph):
+    normalized = " ".join(index.context_markdown(graph).split())
+    for invariant in (
+        "CODEX_DESKTOP_APP_FRESH_TASK_SESSION",
+        "GPT-5.6 Sol / Extra High",
+        "CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY",
+        "CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY",
+        "9ROUTER_RESEARCH_ONLY",
+        "MULTILINGUAL_CLOSED_INPUT",
+        "PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF",
+    ):
+        assert invariant in normalized
+    assert "Automated Desktop-App handoff is unresolved" in normalized
+    assert "correct Desktop-App actual-media proof has not run" in normalized
+    assert "zero V2 creative authority" in normalized
 
 
 def test_context_contract_paths_exist_and_outputs_have_no_secret_shapes(graph):

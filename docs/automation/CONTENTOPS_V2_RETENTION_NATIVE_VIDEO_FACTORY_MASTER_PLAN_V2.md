@@ -14,6 +14,17 @@ Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AU
 > gates, short/midform envelopes, mode-bakeoff sequencing, and aesthetic thresholds below are
 > historical planning context where they conflict.
 
+> **2026-08-17 Codex Desktop App authority correction:**
+> `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`. One qualified job maps
+> to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
+> `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`, `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`, and
+> `9ROUTER_RESEARCH_ONLY` are controlling. Any older “fresh/isolated/headless Codex” language
+> below is superseded where it could imply CLI, SDK/API, subprocess, provider, or generic model
+> execution. Automated Desktop-App handoff remains unresolved.
+> The durable local control plane is implemented/proven substrate; the correct Desktop-App
+> actual-media proof has not run. `MULTILINGUAL_CLOSED_INPUT` and
+> `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` remain controlling.
+
 # 0. Executive summary
 
 Capital Chronicle V2 will be completed as a **Lane B Hybrid** system.
@@ -26,7 +37,8 @@ The canonical architecture is not “one LLM writes JSON then a fixed renderer a
 - **institutional analytical depth** beyond the controlled oil benchmark;
 - **social-retention pacing and restrained financial wit** rather than textbook narration;
 - **conditional V1-to-V2 triggering** from real article performance rather than automatic conversion of every story;
-- **fresh isolated Codex execution per video job**, not a 24/7 conversation;
+- **one fresh Codex Desktop App task/session using GPT-5.6 Sol / Extra High per video job**, not a
+  24/7 conversation;
 - **zero video public-write authority** until separately granted.
 
 The near-term product objective is one heavy vertical slice proving that the Hybrid architecture can generate a new shadow video end-to-end with the visual quality of the best Lane B scenes, materially less operator babysitting, durable resume behavior, and measurable cost/runtime.
@@ -80,7 +92,7 @@ DURABLE V2 OUTBOX / JOB LEDGER
         ↓
 V2 SUPERVISOR CLAIMS EXACT JOB
         ↓
-FRESH ISOLATED CODEX JOB / THREAD
+        FRESH CODEX DESKTOP APP TASK / SESSION
         ↓
 GOVERNED STORY + EVIDENCE LOCK
         ↓
@@ -221,8 +233,9 @@ Responsibilities:
 - wake periodically/event-driven;
 - claim one eligible job;
 - validate kill switches/permissions;
-- create isolated runtime/worktree/thread identity;
-- invoke the creative-brain adapter;
+- create isolated runtime/worktree/job identity;
+- request the explicitly authorized Codex Desktop App task/session handoff when that integration is
+  proven;
 - observe the stage ledger;
 - retry only according to declared policy;
 - quarantine hard failures;
@@ -235,7 +248,8 @@ The supervisor may be woken by Windows Task Scheduler or equivalent. Scheduling 
 
 ## 4.1 Fresh job principle
 
-Each qualified video gets a fresh Codex execution context.
+Each qualified video gets one fresh Codex Desktop App task/session using
+`GPT-5.6 Sol / Extra High (XHIGH)`.
 
 Inputs are explicit files/artifacts, not previous chat memory.
 
@@ -284,11 +298,14 @@ Every method emits an explicit immutable artifact and provenance record.
 ## 4.4 Canonical and shadow brains
 
 ```text
-CodexJobBrain      → canonical primary
-NineRouterCXBrain  → shadow / cost-quality benchmark
+CodexDesktopSessionBrain → canonical primary
+NineRouterResearchAssist → research/evidence only
 ```
 
-Do not maintain two independent renderer stacks. Both brains must eventually drive the same Hybrid control/render/QA system.
+`CodexJobBrain`, where retained in historical code or interface prose, is only the conceptual
+per-job boundary and canonically means `CodexDesktopSessionBrain`. It must not imply
+`CodexCliExecutor`, `codex exec`, subprocess, SDK/API, provider adapter, or generic model route.
+9Router has zero current V2 creative authority. Do not maintain independent renderer stacks.
 
 # 5. Institutional editorial engine
 
@@ -987,12 +1004,15 @@ Task Scheduler
 → periodic/event-triggered supervisor
 → run_once
 → inspect/claim outbox
-→ spawn fresh isolated Codex job
+→ request fresh Codex Desktop App task/session handoff
 → wait/monitor or persist external job handle
 → update ledger
 ```
 
-The exact supported Codex headless mechanism must be proven empirically in-repo. Prefer structured/headless execution interfaces over brittle UI automation.
+The automated Codex Desktop App handoff boundary is unresolved. It must be researched in the exact
+next task before implementation. If it cannot be integrated automatically, report that truthfully;
+do not substitute Codex CLI/`codex exec`, SDK/API/headless processes, 9Router, Terra/Gemini,
+provider adapters, or generic LLM execution.
 
 Do not rely only on shell exit code; require expected stage receipts and artifact hashes.
 
@@ -1027,10 +1047,9 @@ Do not discard Lane A learnings.
 
 After Hybrid visual infrastructure exists:
 
-1. feed the same governed story to CodexJobBrain and NineRouterCXBrain;
-2. route both through the same asset broker, visual primitives, compilers, renderer, and QA;
-3. compare final quality, cost, wall-clock, failure rate, and revision count;
-4. allow Jim to change primary brain only on measured evidence.
+1. preserve the historical Lane A evidence without granting it current creative authority;
+2. route research assistance only through the current research ladder;
+3. require a new explicit owner decision before any future non-Desktop creative-brain experiment.
 
 This prevents an unfair comparison where one brain benefits from a better renderer than the other.
 
@@ -1085,18 +1104,10 @@ Generated illustration must be disclosed internally and cannot act as factual ev
 
 Task:
 
-`TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
 
-Deliver one actual video using:
-
-- new analytical engine;
-- new shared visual safety/design system;
-- durable outbox fixture/contract;
-- fresh isolated Codex job;
-- stage ledger/resume;
-- full actual media QA.
-
-This phase must create product capability, not just schemas.
+Research only the Desktop-App job-handoff and durable-control-plane continuation boundary. Do not
+implement the replacement integration or run media in the authority-reconciliation task.
 
 ## Phase 2 — Generalization proof
 
@@ -1152,13 +1163,13 @@ The next builder task must:
 
 - start from fresh verified GitHub authority;
 - reuse A/B proof only as positive/negative reference, not merge blindly;
-- implement the minimal durable Hybrid architecture required for one real video;
-- produce actual short/midform media as justified;
-- use a fresh Codex execution boundary;
+- preserve the exact Desktop App creative-runtime invariant;
+- determine the truthful supported handoff/control boundary without choosing a substitute runtime;
+- leave implementation and actual-media proof to later exact authority;
 - keep public writes zero;
 - capture cost/runtime;
 - push one explicit task branch;
-- return actual media for Jim/ChatGPT review.
+- return deep-research/design findings for owner review.
 
 Do not split into separate weeks of “schema,” “scheduler,” “design system,” and “editorial engine” tasks if one bounded vertical slice can prove them together.
 

@@ -7,50 +7,71 @@ Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
 > **2026-08-17 task-graph override:** Current task is
-> `TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`,
-> replacing the quarantined superseded 9Router creative path with one fresh per-video native
-> Codex `gpt-5.6-sol / XHIGH` job brain, then proving one isolated durable run-once V2 shadow job
-> through restart/resume, actual media, and owner-review-ready platform-neutral packaging.
-> QH1/QH2 and MAX/ULTRA sequencing below are superseded planning history. No current or
-> future mode bakeoff is authorized by this graph.
+> `TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`.
+> `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified video
+> job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
+> `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`, `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`, and
+> `9ROUTER_RESEARCH_ONLY` control. QH1/QH2, headless/alternative creative-brain plans, and
+> MAX/ULTRA sequencing below are superseded planning history. No current or future mode bakeoff
+> is authorized by this graph.
 
 # 1. Current position
 
 The controlled A/B and subsequent architecture-recovery proofs establish the following durable product conclusions:
 
 - R4 remains `FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE / NEGATIVE_CREATIVE_REFERENCE_ONLY`.
-- Lane A / CX XHIGH remains a useful lower-cost creative-brain benchmark, not the canonical final-media lane.
+- Lane A / CX XHIGH remains historical A/B evidence, not a current V2 creative-brain option.
 - Authentic Lane B demonstrated the highest early visual ceiling because Codex authored story-specific Remotion composition and motion.
 - The first Lane B Hybrid mode-bakeoff implementation at `03087d19c7e18bea6f3812c63a871f33659b6312` is retained as `FAIL_VISUAL_MODE_BAKEOFF_VALIDITY_DUE_TO_FIXED_RENDERER_CEILING`: the shared high-level compositor reduced HIGH/XHIGH/ULTRA to content-slot selection and therefore confounded visual-capability comparison.
 - The Creative-Authority Hybrid architecture proof at `e977f9637b5c461991b1ad76707e7b7d3c9ff917` restored Codex ownership of viewer-facing Remotion code and materially recovered visual quality.
 - The Creative-Authority Hybrid boundary is now canonical: **Codex owns viewer-facing creative composition/code/review; deterministic local infrastructure owns truth, evidence, rights, sandboxing, low-level safety, rendering, QA, durable state, recovery, cost telemetry, and publication boundaries.**
 - The current primary quality bottleneck is no longer the fixed renderer. It is the quality and breadth of the visual asset universe, weak/legacy map presentation, insufficient visual-fitness/taste gating, scene-level rather than micro-beat editing, and incomplete hard-data anchoring of second-order institutional analysis.
 - Current professional media should not use the legacy EIA Hormuz raster as a final presentation map. It may remain factual/reference evidence only.
-- The active creative mode is selected: fresh native Codex `gpt-5.6-sol / XHIGH`. MAX/ULTRA and mode bakeoffs are retired.
+- The active creative runtime is selected: one fresh Codex Desktop App task/session using
+  `GPT-5.6 Sol / Extra High (XHIGH)` per qualified video job. MAX/ULTRA and mode bakeoffs are retired.
 - `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains unchanged.
 - V2-02 distribution/publication expansion remains blocked.
 
 # 2. Current exact task
 
-`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. The accepted
-creative/package/publication-adapter line and closed TikTok canary are immutable inputs. HIGH owns
-the deterministic control plane; a fresh per-video native Codex `gpt-5.6-sol / XHIGH` job brain
-owns viewer-facing work and actual-media review. 9Router is research/evidence assistance only on
-Terra HIGH -> Gemini Pro HIGH -> Gemini Flash HIGH. The obsolete
-`new/gpt-5.6-sol-xhigh` V2 creative route is superseded and no creative fallback exists. All
-platform adapters and credentials remain dormant.
+This is the only active V2 product task unless Jim explicitly changes direction. It reconciles
+current authority only. Do not research or implement Desktop automation, invoke creative models,
+run media, rebuild multilingual, or start soak.
+
+Current truth:
+
+- durable local control plane: implemented/proven substrate;
+- canonical creative brain: fresh Codex Desktop App task/session;
+- automated Desktop-App handoff: unresolved;
+- correct Desktop-App actual-media proof: not yet run;
+- `CodexJobBrain`: conceptual boundary only, canonically `CodexDesktopSessionBrain`;
+- `622b19e... / CodexCliExecutor / codex exec`:
+  `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`;
+- the failed CLI seam does not prove canonical Desktop App failure;
+- `MULTILINGUAL_CLOSED_INPUT`;
+- `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`.
+
+9Router is research/evidence assistance only on `cx/gpt-5.6-terra(high)` ->
+`vx/gemini-3.1-pro-preview(high)` -> `vx/gemini-3.5-flash(high)` and has zero V2 creative
+authority. All platform adapters and credentials remain dormant.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> unattended control plane [IMPLEMENTED / FIRST PROOF QUARANTINED AT SUPERSEDED ROUTE] -> CodexJobBrain routing correction + fresh actual-media proof [CURRENT] -> unattended production soak [NEXT AFTER OWNER ACCEPTANCE] -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [CURRENT] -> Desktop App handoff deep research [NEXT] -> correct Desktop App media proof [NOT YET RUN] -> production soak [BLOCKED]`
 
-Exact next after acceptance:
-`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1` after Jim/ChatGPT actual-media acceptance.
+Exact next after reconciliation PASS:
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`.
 No current authority starts it.
 
-# 3. User problem
+# 3. Superseded quality-hardening planning context
+
+Sections 3–9 below are retained historical planning context only. Labels such as “current,”
+“next,” isolated/headless Codex, alternative creative brain, QH1/QH2, or mode bakeoff do not
+override sections 1–2 above.
+
+## 3.1 Historical user problem
 
 The Creative-Authority Hybrid proof successfully restored the kind of story-specific Codex codecraft that made authentic Lane B materially better than the fixed H1 template bakeoff. The current short/midform are now directionally strong, but owner review still finds important defects below the desired public bar:
 
@@ -85,7 +106,7 @@ The next task must improve the substrate first. Once it demonstrates richer, mor
 
 # 6. V2-QH1 — Asset-First Editorial Visual Quality Hardening Vertical Slice
 
-Status: `CURRENT / NEXT`
+Status: `HISTORICAL / SUPERSEDED_BY_DESKTOP_APP_AUTHORITY_RECONCILIATION`
 
 Task label:
 

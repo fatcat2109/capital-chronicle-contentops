@@ -8,6 +8,12 @@ Owner: Jim
 
 This document records the owner/operator conclusions after direct review of the actual Creative-Authority Hybrid architecture-proof media and GitHub verification of its implementation/evidence. It exists so that the product lessons do not disappear with the ChatGPT conversation and so future Codex sessions do not regress into the fixed-template interpretation of Lane B Hybrid.
 
+> **2026-08-17 current owner correction:** This audit's `CODEX_TASK_SESSION` is historical
+> positive architecture evidence. Current canonical runtime is
+> `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one fresh Codex Desktop
+> App task/session per qualified video using `GPT-5.6 Sol / Extra High (XHIGH)`. It does not mean
+> CLI/`codex exec`, SDK/API/headless execution, 9Router, provider adapters, or generic model routes.
+
 Reviewed proof branch:
 
 `task/v2-codex-creative-authority-visual-repair-loop-v1`

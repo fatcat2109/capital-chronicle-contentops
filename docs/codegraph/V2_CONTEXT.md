@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `32648b355d3e526c91b412ccb09ca1cb32d6f7df`. Source tree digest: `0c24ba5362633897b714c135fcff6f577e7f978e1b895252e1365128747e5232`.
+Generated from source HEAD `622b19e1282d4fbd81fad47f76f399b97c454737`. Source tree digest: `24321a2bdfc326e7924af1ce6d2d911e947a2b7162dc8d5afb7febfd895a7b00`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This map is descriptive repository state, not product authority. Jim's current direction and
@@ -41,12 +41,30 @@ targets `render-job.mjs`.
   are the canonical V2 product authority. Older V2 and V1 plan sets are historical where they
   conflict with this chain.
 - The current task is
-  `TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`.
-  The parent/deterministic executor is GPT-5.6 Sol HIGH; the fresh per-video CodexJobBrain and
-  same-job actual-media critic are native Codex GPT-5.6 Sol XHIGH. 9Router is research/evidence
-  assistance only on Terra HIGH -> Gemini Pro HIGH -> Gemini Flash HIGH. The old
-  `new/gpt-5.6-sol-xhigh` V2 creative route is superseded, with no creative fallback.
-  MAX/ULTRA and mode bakeoffs are retired.
+  `TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`.
+- `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`: one qualified video
+  job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
+  The session may resume only for bounded revision of that same video job; governed artifacts and
+  checkpoints, not hidden chat memory, remain durable authority.
+- `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`: Codex CLI and `codex exec` are forbidden creative
+  substitutes. `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`: SDK/API/headless processes are also
+  forbidden creative substitutes. If Desktop-App handoff is unavailable, report that boundary;
+  never switch execution surfaces for convenience.
+- `9ROUTER_RESEARCH_ONLY`: 9Router is research/evidence assistance only on
+  `cx/gpt-5.6-terra(high)` -> `vx/gemini-3.1-pro-preview(high)` ->
+  `vx/gemini-3.5-flash(high)` and has zero V2 creative authority.
+- `CodexJobBrain` is a conceptual per-job boundary only; canonically it means
+  `CodexDesktopSessionBrain`, not `CodexCliExecutor`, subprocess, SDK/API, provider adapter, or
+  generic model route.
+- Commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its failed
+  `codex exec` proof are `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. They prove
+  only that the mistaken CLI seam failed, not that canonical Codex Desktop App execution failed.
+- Durable local control-plane substrate is implemented/proven. Automated Desktop-App handoff is
+  unresolved; the correct Desktop-App actual-media proof has not run.
+  `MULTILINGUAL_CLOSED_INPUT` and `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` control.
+- The exact next task is
+  `DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`.
+  Do not implement it automatically. MAX/ULTRA and mode bakeoffs are retired.
 - Remotion is deterministic execution, not creative authority. Viewer-facing source remains
   free-form React/Remotion code organized by semantic creative chapters. Chapters are not
   automatically render units, and deterministic aesthetic schemas/gates are forbidden.
@@ -67,7 +85,7 @@ targets `render-job.mjs`.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
-| V2 unattended Codex brain | `video/unattended_core_factory_v1/codex_job_brain.py`, `video/unattended_core_factory_v1/supervisor.py`, `video/unattended_core_factory_v1/store.py` | `tests/test_v2_unattended_core_factory_v1.py` |
+| V2 durable control plane / non-canonical CLI experiment | `video/unattended_core_factory_v1/codex_job_brain.py`, `video/unattended_core_factory_v1/supervisor.py`, `video/unattended_core_factory_v1/store.py` | Control-plane substrate plus `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`; `tests/test_v2_unattended_core_factory_v1.py` |
 | V2 free-form chapterized authority | `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`, `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`, `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` | Free-form pipeline, V2 North Star, master plan, task graph, Remotion baseline, owner-polish evidence |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |

@@ -3,7 +3,7 @@
 Authority date: 2026-08-17
 Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
 Product direction: `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY`
-Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRED`
+Codex mode state: `HIGH_PARENT / CODEX_DESKTOP_APP_FRESH_TASK_SESSION_XHIGH / MAX_ULTRA_RETIRED`
 
 Current controlling owner override:
 
@@ -11,11 +11,37 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> unattended control plane [IMPLEMENTED / FIRST PROOF QUARANTINED AT SUPERSEDED ROUTE] -> CodexJobBrain routing correction + fresh actual-media proof [CURRENT] -> unattended production soak [NEXT AFTER OWNER ACCEPTANCE] -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam 622b19e [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [CURRENT] -> Desktop App handoff deep research [NEXT] -> correct Desktop App actual-media proof [NOT YET RUN] -> production soak [BLOCKED]`
+
+Canonical invariant:
+
+`V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
+
+One qualified job maps to one fresh Codex Desktop App task/session using
+`GPT-5.6 Sol / Extra High (XHIGH)`. The session may resume only for bounded creative revision of
+that same video job. Governed artifacts/checkpoints remain durable authority; hidden chat memory
+does not.
+
+Forbidden substitutions:
+
+- `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`;
+- `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`;
+- `9ROUTER_RESEARCH_ONLY`.
+
+Codex CLI/`codex exec`, SDK/API/headless processes, 9Router, Terra/Gemini, provider adapters, and
+generic model routes cannot perform V2 creative/editorial/visual authorship. If automated Desktop
+App handoff is unavailable, report that boundary; do not change runtime.
+
+`CodexJobBrain` is conceptual only and canonically means `CodexDesktopSessionBrain`, not
+`CodexCliExecutor` or another execution surface.
+
+`MULTILINGUAL_CLOSED_INPUT`
+
+`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`
 
 Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
 short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
@@ -49,10 +75,13 @@ If local CodeGraph reports stale after direct GitHub authority updates, regenera
 
 Canonical architecture remains **Lane B Hybrid**, with the corrected boundary now explicit:
 
-- Codex is the fresh per-video creative/editorial brain and owns viewer-facing composition, story-specific Remotion source, typography hierarchy, asset composition, timing, transitions, motion, actual-media review, and bounded creative repairs;
+- one fresh Codex Desktop App task/session using GPT-5.6 Sol / Extra High is the per-video
+  creative/editorial brain and owns viewer-facing composition, story-specific Remotion source,
+  typography hierarchy, asset composition, timing, transitions, motion, actual-media review, and
+  bounded same-video creative repairs;
 - deterministic local V2 infrastructure owns the durable control plane, governed evidence/numeric boundaries, rights/provenance, low-level safe visual components, source sandboxing, rendering, QA, recovery, cost telemetry, and publication gate;
 - the failed H1 fixed high-level compositor must not return as the professional final-media path;
-- Lane A/CX remains a lower-cost shadow benchmark, not the canonical final renderer;
+- Lane A/CX remains historical A/B evidence only and has zero current V2 creative authority;
 - do not keep a persistent 24/7 Codex conversation;
 - do not maintain two independent renderer stacks.
 
@@ -91,26 +120,33 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Current exact task
 
-`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It replaces the
-quarantined obsolete 9Router creative path with a fresh isolated CodexJobBrain on exact
-`gpt-5.6-sol / XHIGH`, preserves the durable supervisor and immutable ledger, and runs exactly one
-new committed-head proof to an owner-review-ready platform-neutral package. 9Router is research
-assistance only on `cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)`, with no V2 creative fallback. Required result ceiling:
-`PASS_IMPLEMENTATION_UNATTENDED_V2_CODEX_BRAIN_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`.
+This is the only active V2 product task unless Jim explicitly changes direction. It is
+authority-only: correct current docs/generated context/tests, preserve historical evidence, and
+make substitution of CLI/SDK/API/9Router structurally difficult. Do not research or implement
+Desktop automation, invoke a model, or run media.
 
-The single exact next task after acceptance is
-`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`.
-It begins only after Jim/ChatGPT actual-media acceptance. The current task does not start or
-authorize that soak or later V1 integration/scheduling.
+Current truth:
 
-Current proof flow:
+- durable local control plane: implemented/proven substrate;
+- automated Codex Desktop App job handoff: unresolved;
+- correct Desktop-App actual-media proof: not yet run;
+- commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its
+  `codex exec` proof: `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`;
+- that failure does not prove canonical Desktop App failure;
+- production soak: blocked.
 
-`Frozen Without Breaking governed packet -> durable job -> atomic claim -> fresh isolated CodexJobBrain -> fresh motion source -> hard validation -> proxy -> same-job Codex XHIGH actual-media review/bounded revision -> picture/audio locks -> final Short -> package QA -> Jim/ChatGPT Review`
+9Router remains research/evidence assistance only on `cx/gpt-5.6-terra(high)` →
+`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)` and has zero creative authority.
 
-# Controlled proof story
+The exact next task after this reconciliation passes is:
+
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
+
+Do not implement it automatically.
+
+# Deferred correct-architecture proof story — not current
 
 Use **Frozen Without Breaking** as the controlled operational proof with:
 
@@ -268,18 +304,14 @@ Kokoro-versus-ElevenLabs may be tested later as a separate quality/cost question
 
 # Codex reasoning-effort policy
 
-`UNSELECTED`
+`GPT-5.6 Sol / Extra High (XHIGH) / CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
-Do **not** run another reasoning-effort bakeoff in the current quality-hardening task.
+Do **not** run a reasoning-effort bakeoff in the current authority task.
 
 Future high-bar comparison is deferred until Jim/ChatGPT accept the richer visual/evidence substrate.
 
-Current intended future comparison is at least:
-
-- `MAX`;
-- `ULTRA`;
-
-subject to non-secret rediscovery of the actual supported local Codex capabilities at execution time.
+MAX/ULTRA are retired under current authority. Any historical comparison language below is
+non-controlling.
 
 Future challenge should use longer, more analytically abundant content, preferably a ~150–210 second midform when the evidence supports it.
 
@@ -309,7 +341,7 @@ No cross-mode creative leakage. Jim + ChatGPT choose default/escalation policy o
 
 Future live loop remains:
 
-`V1 publishes useful articles -> performance metrics -> candidate scorer -> top genuinely qualified video opportunities -> V2 durable outbox -> fresh Codex job`
+`V1 publishes useful articles -> performance metrics -> candidate scorer -> top genuinely qualified video opportunities -> V2 durable outbox -> fresh Codex Desktop App task/session`
 
 The target is roughly the top one or two qualified opportunities when available, not a forced quota.
 
@@ -331,6 +363,6 @@ V2-02 remains blocked.
 
 # Result ceiling
 
-`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILED_READY_FOR_DEEP_RESEARCH`
 
-Only Jim/ChatGPT may grant owner aesthetic/audio acceptance.
+No model/media execution or owner aesthetic/audio acceptance is part of this authority-only task.

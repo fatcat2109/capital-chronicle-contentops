@@ -224,17 +224,40 @@ The objective is repeatable qualified audience growth and breakout/trending pote
 ## 2026-08-17 current V2 execution override
 
 The current exact V2 task is
-`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`.
-The durable supervisor substrate is implemented; its first proof quarantined at the superseded
-`new/gpt-5.6-sol-xhigh` 9Router creative route. V2 viewer-facing creation and actual-media review
-now use a fresh per-video native Codex `gpt-5.6-sol / XHIGH` job brain with no creative fallback.
-9Router is research/evidence assistance only on `cx/gpt-5.6-terra(high)` ->
-`vx/gemini-3.1-pro-preview(high)` -> `vx/gemini-3.5-flash(high)`. The older creative-route section
-below is retained as historical context only and is non-controlling. Exactly one fresh
-committed-head actual-media proof is current; production soak remains gated by Jim/ChatGPT media
-acceptance. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling.
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`.
 
-## Current V2 task
+`V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
+
+One qualified video job maps to one fresh Codex Desktop App task/session using
+`GPT-5.6 Sol / Extra High (XHIGH)`. It may resume only for bounded creative revision belonging to
+that same video job. Explicit governed artifacts/checkpoints remain durable authority; no shared
+24/7 conversation or hidden chat memory is state authority.
+
+Forbidden creative-runtime substitutions are explicit:
+`CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`, `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`, and
+`9ROUTER_RESEARCH_ONLY`. Codex CLI/`codex exec`, SDK/API/headless processes, 9Router,
+Terra/Gemini, provider adapters, and generic model routes cannot perform V2
+creative/editorial/visual authorship. If Desktop-App automation is unavailable, the system must
+report the unresolved integration boundary rather than substitute another runtime.
+
+The durable local control plane remains implemented/proven substrate. Automated Desktop-App job
+handoff is unresolved. The correct Desktop-App actual-media proof has not run.
+`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` and `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
+remain controlling. `MULTILINGUAL_CLOSED_INPUT`: localization activation remains deferred until
+the correct core proof passes, Jim/ChatGPT accept the actual media, and the soak is stable.
+
+Commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and the failed
+`codex exec` proof are `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. They prove
+only that the mistaken CLI seam failed, not that canonical Codex Desktop App execution failed.
+
+9Router remains research/evidence assistance only on `cx/gpt-5.6-terra(high)` ->
+`vx/gemini-3.1-pro-preview(high)` -> `vx/gemini-3.5-flash(high)`, with zero V2 creative authority.
+
+Exact next task after this reconciliation passes:
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`.
+Do not implement it automatically.
+
+## Historical pre-override V2 task — non-controlling
 
 `TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
 
@@ -244,9 +267,9 @@ Required result:
 
 Do not advance to V2-02 until Jim/ChatGPT accepts actual MP4/audio.
 
-## Exact V2 creative-code authority
+## Historical V2 creative-code authority — non-canonical
 
-Exact primary model through the canonical 9Router seam:
+Historical primary model through the former 9Router seam (not current authority):
 
 `new/gpt-5.6-sol-xhigh`
 
@@ -262,7 +285,7 @@ Remotion is deterministic execution/rendering infrastructure, not creative autho
 
 If a creative role falls back to a different model, mark the package `DEGRADED_CREATIVE_MODEL`; it cannot self-advance through professional visual/audio acceptance.
 
-## Current V2 architecture
+## Historical V2 architecture — non-controlling
 
 ```text
 canonical story universe

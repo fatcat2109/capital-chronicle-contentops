@@ -160,7 +160,8 @@ Preferred workflow:
 2. If internet/current GitHub access is available, verify official `main` has not materially changed; if it has, record the new exact commit before using it.
 3. Read the two selected community skill files only for motion-design heuristics/review prompts.
 4. Extract a compact task-local design checklist.
-5. Let exact `new/gpt-5.6-sol-xhigh` author the actual shot/edit/motion code for this story.
+5. Let the authorized fresh Codex Desktop App task/session using
+   `GPT-5.6 Sol / Extra High (XHIGH)` author the actual shot/edit/motion code for this story.
 6. Validate generated code against ContentOps sandbox/import/path rules.
 7. Render real media and inspect it; never promote a skill's checklist score to visual acceptance.
 

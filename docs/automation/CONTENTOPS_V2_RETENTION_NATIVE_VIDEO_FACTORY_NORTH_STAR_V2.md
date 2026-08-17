@@ -13,6 +13,16 @@ Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AU
 > free-form Remotion authorship, no MAX/ULTRA, no 4K, and no deterministic aesthetic gates.
 > Lower sections retain earlier architecture history and heuristics as non-controlling context.
 
+> **2026-08-17 Codex Desktop App owner correction:**
+> `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`. One qualified video
+> job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`.
+> `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`, `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`, and
+> `9ROUTER_RESEARCH_ONLY` are controlling. Any older “fresh,” “isolated,” “native,” or
+> “headless Codex execution” phrase in this document means the Desktop App task/session when it
+> describes current architecture; otherwise it is historical/non-canonical planning evidence.
+> `CodexJobBrain` is conceptual only and canonically means `CodexDesktopSessionBrain`, never a
+> CLI subprocess, SDK/API, provider adapter, or generic model route.
+
 # 1. Mission
 
 Capital Chronicle ContentOps V2 exists to turn the strongest Capital Chronicle journalism and analysis into **institutional-grade, retention-native financial video** that is useful enough for sophisticated viewers, clear enough for a cold audience, visually strong enough to build a premium media brand, and automated enough to operate repeatedly at bounded cost.
@@ -23,7 +33,7 @@ V2 should feel like a sharp institutional macro desk that understands modern soc
 
 The north-star outcome is:
 
-> **A durable, evidence-governed media growth engine that conditionally selects the best V1 stories, builds high-retention short and mid/long-form video through a fresh per-job Codex creative brain plus deterministic local production infrastructure, and learns from real audience behavior without weakening truth, rights, safety, or Capital Chronicle analytical authority.**
+> **A durable, evidence-governed media growth engine that conditionally selects the best V1 stories, builds high-retention short and mid/long-form video through a fresh per-job Codex Desktop App task/session plus deterministic local production infrastructure, and learns from real audience behavior without weakening truth, rights, safety, or Capital Chronicle analytical authority.**
 
 No-publication and no-video remain valid outcomes. V2 must never manufacture filler to satisfy a daily quota.
 
@@ -94,7 +104,11 @@ Codex owns high-entropy decisions where judgment and creative codecraft material
 - inspecting actual proxy/full media;
 - performing bounded localized creative revision.
 
-Codex must operate as a **fresh isolated execution/thread per qualified video job**. One video job may resume its own bounded thread during revision, but a general Codex conversation must not remain alive indefinitely waiting for future work.
+Codex must operate as one **fresh Codex Desktop App task/session per qualified video job** using
+`GPT-5.6 Sol / Extra High (XHIGH)`. One video job may resume its own bounded Desktop App session
+during revision, but a general Codex conversation must not remain alive indefinitely waiting for
+future work. If Desktop-App handoff cannot be automated, that unresolved boundary must be reported;
+no alternative creative runtime may be substituted.
 
 ## 3.2 Deterministic local V2 engine is the control plane
 
@@ -132,13 +146,17 @@ Conceptually:
 
 ```text
 CreativeBrain
-├── CodexJobBrain          [CANONICAL PRIMARY]
-└── NineRouterCXBrain      [SHADOW / COST BENCHMARK]
+├── CodexDesktopSessionBrain [CANONICAL PRIMARY]
+└── NineRouterResearchAssist [RESEARCH/EVIDENCE ONLY]
 ```
 
-The exact implementation mechanism may evolve, but both brains must consume and emit explicit artifacts rather than hidden state.
+`CodexJobBrain`, if retained in historical code or interface prose, names only the conceptual
+per-job boundary whose canonical implementation is `CodexDesktopSessionBrain`. It must not imply
+`CodexCliExecutor`, `codex exec`, a subprocess, SDK/API, or provider route. Creative outputs and
+governed state remain explicit artifacts rather than hidden chat memory.
 
-Codex is canonical because it demonstrated the highest current visual ceiling. CX remains strategically useful because Jim observed approximately half the generation cost in the controlled comparison. Once the shared Hybrid engine is hardened, CX should be rerun through the same deterministic visual system to measure true quality/cost parity.
+Codex Desktop App is canonical because it demonstrated the highest current visual ceiling. Lane A
+CX remains historical cost/quality evidence only and has zero current V2 creative authority.
 
 # 4. Product promise
 
@@ -670,12 +688,12 @@ V1 publication + analytics
 → candidate scorer
 → durable V2 outbox
 → V2 supervisor claims one job
-→ fresh isolated Codex execution
+→ fresh Codex Desktop App task/session (GPT-5.6 Sol / Extra High)
 → evidence lock
 → institutional editorial engine
 → asset broker
 → storyboard/proxy
-→ Codex visual review
+→ same-video Codex Desktop App actual-media review
 → deterministic compiler + Remotion
 → machine QA
 → localized Codex revision
@@ -727,12 +745,15 @@ Preferred shape:
 Task Scheduler / equivalent wakeup
 → run-once V2 supervisor
 → atomically claim durable outbox row
-→ spawn one fresh Codex job
+→ request one fresh Codex Desktop App task/session handoff
 → monitor stage ledger
 → finalize or quarantine
 ```
 
-Do not keep a 24/7 Codex conversation alive waiting for events.
+Automated Desktop-App job handoff is currently unresolved and requires the exact next deep-research
+task. Until that boundary is proven, the supervisor must stop truthfully; it must not call Codex
+CLI/`codex exec`, SDK/API/headless processes, 9Router, Terra/Gemini, provider adapters, or generic
+LLM routes for creative work. Do not keep a 24/7 Codex conversation alive waiting for events.
 
 # 12. Tool ownership
 
@@ -899,22 +920,20 @@ These are proof thresholds, not public-write permission.
 
 # 18. Exact next product task
 
-`TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
 
-The task must be a heavy bounded vertical slice, not a documentation project.
+This research must start from the cleaned repository authority and preserve the Desktop App
+invariant. It must not select CLI, SDK/API, headless, 9Router, provider-adapter, or generic LLM
+execution merely because those surfaces are easier to automate. No replacement implementation or
+media proof is authorized by this North Star update.
 
-It must minimally produce:
+Current state is:
 
-1. reusable Lane B visual primitives and visual-safety compiler necessary for one real proof;
-2. institutional editorial/analytical contract;
-3. controlled financial-wit layer;
-4. durable V1-to-V2 candidate/outbox contract;
-5. fresh isolated/headless Codex creative-brain seam;
-6. durable stage ledger and resume behavior;
-7. one actual zero-public-write shadow video from qualified input through final media;
-8. actual media review evidence;
-9. cost/runtime telemetry;
-10. exact remaining blocker to unattended production.
+- durable local V2 control plane: implemented/proven substrate;
+- automated Desktop-App job handoff: unresolved;
+- correct Desktop-App actual-media proof: not yet run;
+- `MULTILINGUAL_CLOSED_INPUT`;
+- `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`.
 
 # 19. Anti-drift rules
 
@@ -922,6 +941,8 @@ Future sessions must not:
 
 - reactivate R4 creative grammar;
 - treat `new/gpt-5.6-sol-xhigh` as still canonical merely because older docs said so;
+- treat Codex CLI/`codex exec`, SDK/API/headless execution, 9Router, Terra/Gemini, provider
+  adapters, or a generic “native Codex” surface as equivalent to a Codex Desktop App task/session;
 - make CX the primary final-media lane solely because it is cheaper;
 - keep a permanent Codex conversation alive 24/7;
 - let Codex become truth/numeric authority;
@@ -934,4 +955,4 @@ Future sessions must not:
 
 # 20. Durable one-paragraph summary
 
-**Capital Chronicle V2 is now a Lane B Hybrid product. Fresh per-video Codex execution provides institutional editorial reasoning, narration, restrained wit, storyboard/motion strategy, novel scene code, actual media review, and bounded creative revision. A deterministic local V2 engine owns V1-trigger intake, evidence/numeric authority, durable job state, rights, assets, visual design primitives, chart/map/document compilers, layout safety, captions, rendering, QA, recovery, package identity, and publication boundaries. V1 performance selects only truly qualified video opportunities. Lane A/CX remains a lower-cost shadow benchmark. The quality target is the best second-half Lane B visual craft applied consistently across the whole video, with deeper institutional mechanics and conversational high-retention pacing. No persistent 24/7 Codex session and no V2 public write authority.**
+**Capital Chronicle V2 is a Lane B Hybrid product. One fresh Codex Desktop App task/session per qualified video, using GPT-5.6 Sol / Extra High, provides institutional editorial reasoning, narration, restrained wit, storyboard/motion strategy, novel scene code, actual-media review, and bounded same-video creative revision. A deterministic local V2 engine owns V1-trigger intake, evidence/numeric authority, durable job state, rights, assets, visual design primitives, chart/map/document compilers, layout safety, captions, rendering, QA, recovery, package identity, and publication boundaries. CLI, SDK/API/headless processes, 9Router, and provider routes have zero V2 creative authority. V1 performance selects only truly qualified opportunities. No persistent 24/7 Codex session and no V2 public-write authority.**

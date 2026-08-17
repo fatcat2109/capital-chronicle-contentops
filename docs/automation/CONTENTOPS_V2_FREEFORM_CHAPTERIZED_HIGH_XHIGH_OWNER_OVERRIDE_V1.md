@@ -8,40 +8,77 @@ This override supersedes current V2 planning language where it conflicts. Histor
 
 ## Current task
 
-`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
 
-Required result ceiling:
+Required result:
 
-`PASS_IMPLEMENTATION_UNATTENDED_V2_CODEX_BRAIN_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILED_READY_FOR_DEEP_RESEARCH`
 
 The accepted creative, package, publication-adapter, TikTok credential-bootstrap, and exact TikTok
-Sandbox draft-canary lanes are closed inputs. The durable supervisor substrate is implemented; its
-first proof quarantined at a superseded 9Router creative route. The current HIGH-coordinated task
-installs a fresh per-video CodexJobBrain and runs exactly one new committed-head proof from governed
-packet to owner-review-ready media. Codex `gpt-5.6-sol / XHIGH` is the only V2 creative brain and
-has no creative-model fallback. 9Router is research/evidence assistance only, using
+Sandbox draft-canary lanes are closed inputs. The durable local V2 control-plane substrate is
+implemented/proven at its bounded substrate level. The current task corrects repository authority
+only; it does not research or implement the replacement integration and does not run media.
+
+Canonical invariant:
+
+`V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
+
+One qualified video job maps to one fresh Codex Desktop App task/session using
+`GPT-5.6 Sol / Extra High (XHIGH)`. That session owns viewer-facing creative/editorial/visual
+authorship and actual-media review. It may continue or resume only for bounded creative revision of
+that same video job, then terminates. There is no shared 24/7 conversation. Explicit governed
+artifacts/checkpoints remain durable authority, not chat memory.
+
+For V2 creative work, all substitutions are forbidden:
+
+- `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`: Codex CLI and `codex exec`;
+- `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`: Codex SDK, API, and headless processes;
+- `9ROUTER_RESEARCH_ONLY`: 9Router, Terra/Gemini, provider adapters, and generic model routes.
+
+If automatic Desktop-App handoff is unavailable, the system must report that integration boundary
+truthfully. It must not substitute a more convenient execution surface. `CodexJobBrain` is retained
+only as a conceptual job boundary: canonical execution means a fresh Codex Desktop App task/session,
+never `CodexCliExecutor`, subprocess, SDK, API, or provider route. New planning prose should prefer
+`CodexDesktopSessionBrain` where useful.
+
+9Router is research/evidence assistance only, using
 `cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)`. The old `new/gpt-5.6-sol-xhigh` V2 creative route is superseded and
-must not be retried or repaired. Platform adapters remain dormant and
+`vx/gemini-3.5-flash(high)`. It has zero V2 creative authority. The old
+`new/gpt-5.6-sol-xhigh` V2 creative route is superseded and must not be retried or repaired.
+Platform adapters remain dormant and
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` controls.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> unattended control plane [IMPLEMENTED / FIRST PROOF QUARANTINED AT SUPERSEDED ROUTE] -> CodexJobBrain routing correction + fresh actual-media proof [CURRENT] -> unattended production soak [NEXT AFTER OWNER ACCEPTANCE] -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam 622b19e [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [CURRENT] -> Desktop App handoff deep research [NEXT] -> correct Desktop App actual-media proof [NOT YET RUN] -> production soak [BLOCKED]`
 
-Single exact next task after acceptance:
+The failed `CodexCliExecutor` / `codex exec` implementation at
+`622b19e1282d4fbd81fad47f76f399b97c454737` is
+`NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. Its failure proves only that the
+mistaken CLI seam failed. It does not prove canonical Codex Desktop App execution failed.
 
-`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`
+`MULTILINGUAL_CLOSED_INPUT`: do not rebuild, activate, benchmark, or redesign localization.
+Activation hardening remains deferred until the correct Desktop-App proof passes, Jim/ChatGPT
+accept the media, and the unattended production soak is stable.
+
+`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`
+
+Single exact next task after this reconciliation passes:
+
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
 
 The current task does not start or authorize that gate.
 
 ## Model orchestration
 
-- Parent/coordinator/deterministic executor: `GPT-5.6 Sol / HIGH`.
-- Viewer-facing creative workers: fresh isolated `GPT-5.6 Sol / XHIGH` executions.
-- V2 creative execution uses the local Codex job surface, never 9Router; no creative fallback exists.
+- Parent/coordinator/deterministic executor for repository/control-plane work:
+  `GPT-5.6 Sol / HIGH`.
+- Viewer-facing creative worker: one fresh Codex Desktop App task/session using
+  `GPT-5.6 Sol / Extra High (XHIGH)` per qualified video job.
+- V2 creative execution uses only that Desktop App session; no CLI, SDK/API, headless, 9Router,
+  provider-adapter, or generic LLM fallback exists.
 - 9Router is restricted to the exact current research ladder and retains zero creative authority.
-- The same chapter or audio-editor XHIGH execution may resume only for creative revision of its own responsibility.
+- The same Desktop App session may resume only for bounded creative revision of its own video job.
 - `MAX` and `ULTRA` are retired for the current product direction. No mode bakeoff is authorized.
 - XHIGH must not be spent on Git, acquisition, hashing, transcoding, installation, rendering, waits, polling, FFmpeg, tests, cache work, assembly, evidence formatting, commit, or push.
 - Preserve a non-secret model/reasoning receipt where the runtime exposes it. Never fabricate creative provenance or silently substitute HIGH for an assigned XHIGH creative step.

@@ -14,20 +14,44 @@ For V2/video work, read first:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_CODEX_JOB_BRAIN_ROUTING_CORRECTION_AND_FRESH_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILIATION_V1`
 
-Required result ceiling:
+Required result:
 
-`PASS_IMPLEMENTATION_UNATTENDED_V2_CODEX_BRAIN_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+`PASS_V2_CODEX_DESKTOP_APP_AUTHORITY_RECONCILED_READY_FOR_DEEP_RESEARCH`
 
-The HIGH builder coordinates deterministic work. The fresh per-video CodexJobBrain uses exact
-native `gpt-5.6-sol / XHIGH` for viewer-facing creation and actual-media review, with zero creative
-fallback. Never call 9Router for V2 creative work; it is research assistance only on the exact
-Terra HIGH → Gemini Pro HIGH → Gemini Flash HIGH ladder. The obsolete
-`new/gpt-5.6-sol-xhigh` V2 route is superseded. Publication adapters remain dormant; do not read
-platform credentials or perform any platform/browser write.
-TikTok bootstrap and its Sandbox draft canary are closed. The next task after owner actual-media
-acceptance is `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_V1`; do not start it here.
+`V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
+
+One qualified video job maps to one fresh Codex Desktop App task/session using
+`GPT-5.6 Sol / Extra High (XHIGH)` for viewer-facing creation and actual-media review. The session
+may resume only for bounded creative revision of that same video job. Explicit artifacts and
+checkpoints remain state authority; no 24/7 shared conversation is allowed.
+
+Forbidden substitutions are explicit:
+
+- `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`: no Codex CLI or `codex exec`;
+- `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`: no SDK, API, or headless process;
+- `9ROUTER_RESEARCH_ONLY`: no 9Router, Terra/Gemini, provider adapter, or generic route for
+  creative/editorial/visual work.
+
+If Desktop-App handoff cannot be automated, report that unresolved boundary. Never substitute a
+different runtime. `CodexJobBrain` is conceptual only and canonically means
+`CodexDesktopSessionBrain`; it does not mean `CodexCliExecutor`, subprocess, SDK, or API.
+
+Commit `622b19e...`, `CodexCliExecutor`, and the failed `codex exec` proof are
+`NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`; they do not prove canonical Desktop
+App failure. The durable control plane remains implemented/proven substrate, automated Desktop-App
+handoff is unresolved, and the correct actual-media proof has not run.
+
+9Router remains research assistance only on the exact Terra HIGH → Gemini Pro HIGH → Gemini Flash
+HIGH ladder. `MULTILINGUAL_CLOSED_INPUT` and
+`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` control. Publication adapters remain dormant;
+do not read platform credentials or perform any platform/browser write. TikTok bootstrap and its
+Sandbox draft canary are closed.
+
+Exact next task after reconciliation PASS:
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`.
+Do not start it here.
 
 For recurring localization, render picture once per editorial format. Language work is governed
 translation, audio, timed captions, metadata and manifests. Locale-specific Remotion source,
@@ -40,7 +64,8 @@ not a typography quota or deterministic creative gate.
 
 - Parent/coordinator and every deterministic operation: `GPT-5.6 Sol / HIGH`.
 - Viewer-facing creative direction, chapter authorship, audio-edit authorship, and whole-film
-  criticism: fresh isolated `GPT-5.6 Sol / XHIGH` executions.
+  criticism: the fresh per-video Codex Desktop App task/session using
+  `GPT-5.6 Sol / Extra High (XHIGH)`.
 - `MAX` and `ULTRA` are forbidden. No mode bakeoff.
 - Never silently use HIGH for an assigned XHIGH creative responsibility. Record a non-secret
   receipt when model/reasoning metadata is exposed.

@@ -6,9 +6,21 @@ Owner: Jim
 
 > This document records the owner-level product decision reached after direct review of the authentic Lane A and Lane B short/midform masters, GitHub verification of the A/B implementation branch, and review of the builder execution history. It exists so that future ChatGPT sessions, Codex sessions, local workers, and worktrees do not lose the decisive context that previously lived only in chat.
 
+> **2026-08-17 Codex Desktop App owner correction:**
+> `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`. The episodic Codex
+> brain named below is exactly one fresh Codex Desktop App task/session per qualified video job,
+> using `GPT-5.6 Sol / Extra High (XHIGH)`. It is not Codex CLI/`codex exec`, SDK/API/headless
+> execution, 9Router, Terra/Gemini, a provider adapter, or a generic model surface.
+> `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`, `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`, and
+> `9ROUTER_RESEARCH_ONLY` control. Older headless/alternative-brain planning below is historical
+> and non-canonical where it conflicts.
+> Durable local control-plane substrate is implemented/proven; Desktop-App handoff is unresolved;
+> correct-architecture media proof is not yet run. `MULTILINGUAL_CLOSED_INPUT` and
+> `PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` remain controlling.
+
 ## 1. Decision in one sentence
 
-**Capital Chronicle V2 will converge on a Lane B Hybrid architecture: Codex is the episodic creative/editorial brain and visual editor for each qualified video job, while a deterministic local V2 engine owns the durable control plane, evidence binding, institutional design system, reusable visual compilers, rendering, QA, recovery, safety, and publication authority.**
+**Capital Chronicle V2 will converge on a Lane B Hybrid architecture: one fresh Codex Desktop App task/session using GPT-5.6 Sol / Extra High is the episodic creative/editorial brain and visual editor for each qualified video job, while a deterministic local V2 engine owns the durable control plane, evidence binding, institutional design system, reusable visual compilers, rendering, QA, recovery, safety, and publication authority.**
 
 Lane A remains a low-cost benchmark and alternative creative-brain experiment, not the canonical final-media architecture.
 
@@ -137,7 +149,8 @@ Codex does **not** become durable truth authority, scheduler authority, publicat
 
 ### 4.2 Deterministic local V2 engine owns durable execution
 
-The local/headless V2 engine owns:
+The deterministic local V2 engine owns (this “local” boundary never includes V2 creative
+authorship):
 
 - V1 -> V2 candidate event intake;
 - durable outbox/job queue;
@@ -178,7 +191,8 @@ Reasons:
 
 Canonical operating model:
 
-**one fresh isolated Codex execution/thread per qualified video job, with immutable input packets and durable stage checkpoints.**
+**one fresh Codex Desktop App task/session per qualified video job, using GPT-5.6 Sol / Extra High,
+with immutable input packets and durable stage checkpoints.**
 
 The run may resume its own thread for bounded revisions within that one video job, then terminate when the final package is complete or the job fails/abstains.
 
@@ -600,11 +614,11 @@ Exact windows remain calibration parameters.
 
 The product target is approximately the top one or two truly qualified daily opportunities, not a forced quota.
 
-## 9. Headless unattended execution blueprint
+## 9. Desktop-App unattended execution blueprint
 
 Canonical execution model:
 
-`V1 metrics -> Video Candidate Scorer -> Durable V2 Outbox -> V2 Supervisor -> Fresh isolated Codex job -> Evidence lock -> Editorial engine -> Assets -> Storyboard/proxy -> Codex visual review -> Local compilers/Remotion -> QA -> localized revision -> final package -> owner/publication gate`
+`V1 metrics -> Video Candidate Scorer -> Durable V2 Outbox -> V2 Supervisor -> Fresh Codex Desktop App task/session -> Evidence lock -> Editorial engine -> Assets -> Storyboard/proxy -> same-video Desktop App visual review -> Local compilers/Remotion -> QA -> bounded revision -> final package -> owner/publication gate`
 
 ### 9.1 Durable states
 
@@ -645,13 +659,16 @@ A local scheduler such as Windows Task Scheduler may wake a small V2 supervisor,
 
 Preferred shape:
 
-`Task Scheduler -> run_once supervisor -> atomically claim durable job -> spawn isolated Codex execution -> monitor stage ledger -> finalize/quarantine`
+`Task Scheduler -> run_once supervisor -> atomically claim durable job -> request fresh Codex Desktop App task/session handoff -> monitor stage ledger -> finalize/quarantine`
 
 Do not keep a general-purpose Codex conversation alive waiting for events.
 
-### 9.3 Codex execution abstraction
+### 9.3 Codex Desktop App session abstraction
 
-The architecture should expose a stable creative-brain boundary so the implementation can use the best supported headless Codex execution mechanism without coupling the product to a specific desktop conversation.
+The architecture should expose a stable conceptual creative-brain boundary, but its canonical
+execution is specifically a fresh Codex Desktop App task/session. Automated handoff is unresolved.
+If it cannot be integrated automatically, report that boundary truthfully; never substitute CLI,
+SDK/API/headless execution, 9Router, provider adapters, or generic LLM routes.
 
 Conceptual interface:
 
@@ -765,19 +782,17 @@ The next work should **not** be V2-02 distribution expansion.
 
 The next bounded product task is:
 
-`TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
+`DEEP_RESEARCH_V2_CODEX_DESKTOP_APP_JOB_HANDOFF_AND_UNATTENDED_CONTROL_PLANE_CONTINUATION`
 
-It must be a real vertical slice, not a documentation/infrastructure-only program.
+It is a deep-research/design gate, not replacement implementation or a media proof.
 
 It should minimally deliver in one bounded task:
 
-1. reusable Lane B design-system primitives and visual-safety compiler needed for one proof;
-2. institutional editorial/analytical contract and controlled-wit layer;
-3. a durable V1->V2 candidate/outbox contract, using synthetic/local trigger fixtures only if live V1 performance signals are not yet available;
-4. a headless/isolated Codex creative-brain adapter or the closest production-compatible execution seam supported by the current environment;
-5. stage ledger and resume behavior;
-6. one complete zero-public-write shadow video through storyboard, proxy, visual review, full render, QA, and final package;
-7. measured cost/runtime and exact remaining blocker to unattended operation.
+1. preserve `CODEX_DESKTOP_APP_FRESH_TASK_SESSION` as non-negotiable;
+2. research the truthful supported Desktop-App job-handoff/control boundary;
+3. define how durable artifacts/checkpoints continue around the episodic Desktop session;
+4. refuse CLI, SDK/API/headless, 9Router, provider-adapter, and generic LLM substitutions;
+5. identify the later exact implementation/proof gate without starting it.
 
 ## 16. What must not happen next
 
@@ -797,4 +812,4 @@ Do not:
 
 If a future ChatGPT/Codex session reads only one decision summary, it should retain this:
 
-**V2 is now Lane B Hybrid. Codex provides fresh per-video creative/editorial intelligence and visual review; deterministic local infrastructure owns truth binding, reusable visual systems, rendering, QA, recovery, safety, and publication boundaries. The product target is institutional-grade macro analysis delivered with social-retention pacing and restrained financial wit. V1 performance selects only truly qualified video opportunities. Lane A remains a low-cost shadow benchmark. No persistent 24/7 Codex conversation. No V2 public writes yet. The next task is the Hybrid institutional-editorial/headless-triggered vertical slice.**
+**V2 is Lane B Hybrid. One fresh Codex Desktop App task/session per qualified video, using GPT-5.6 Sol / Extra High, provides creative/editorial intelligence and visual review; deterministic local infrastructure owns truth binding, reusable visual systems, rendering, QA, recovery, safety, and publication boundaries. CLI, SDK/API/headless execution, 9Router, and provider routes have zero V2 creative authority. V1 performance selects only truly qualified video opportunities. Lane A remains historical A/B evidence. No persistent 24/7 Codex conversation. No V2 public writes. Automated Desktop-App handoff is unresolved; the next gate is its exact deep-research task.**
