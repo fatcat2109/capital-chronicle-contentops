@@ -1,0 +1,127 @@
+{
+  "schema": "contentops.v2.actual_narration_timing_lock_fresh_owner_review_media_proof.final_evidence.v1",
+  "task": "TASK_CONTENTOPS_V2_ACTUAL_NARRATION_TIMING_LOCK_AND_FRESH_OWNER_REVIEW_MEDIA_PROOF_V1",
+  "classification": "FAIL_QUARANTINED_AT_HARD_SOURCE_VALIDATION_DEPENDENCY_ROOT_CONFIG",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/v2-actual-narration-timing-lock-fresh-owner-review-media-proof-v1",
+  "origin_master": "8f6e4422d09fc9794c38ccc036ff1d1d9650034c",
+  "starting_authority_head": "e5ddbdedc1649f15c1eefd3cd7f72891835e29d2",
+  "implementation": {
+    "product_head": "a163b0ad488e7d628531ac9f218ec72b79073bfb",
+    "product_message": "fix(v2): lock actual narration timing before motion",
+    "frozen_pre_proof_head": "76f3cb2b58aa1b6745b411489850fe25d89403a0",
+    "frozen_pre_proof_message": "docs(codegraph): sync narration timing lock flow",
+    "remote_parity_before_proof": true
+  },
+  "validation": {
+    "focused_factory": "21 passed, 1 skipped",
+    "caption_and_deterministic_e2e": "3 passed",
+    "python_compile": "PASS",
+    "codegraph": "CODEGRAPH_CURRENT_AND_ACTIVE_BEFORE_AFTER_QUERIES_PERSISTED",
+    "git_diff_check": "PASS"
+  },
+  "proof": {
+    "started_at": "2026-08-17T14:55:20.8268907Z",
+    "quarantined_at": "2026-08-17T15:09:43.779858Z",
+    "wall_time_seconds": 862.952967,
+    "runtime_root": "A:\\c2proof_76f3",
+    "video_job_id": "v2_fwb_narration_lock_76f3cb2b",
+    "run_id": "run_dfbcf87ff70347aca26f28e323df3cba",
+    "governed_input_hash": "78d20d15daae43c3ed2d4a8e94a1a7014dc7d7a3b18d288529aeeb364f9755bd",
+    "state": "QUARANTINED",
+    "terminal_result": "HARD_FAILURE:MediaExecutionError:canonical_remotion_browser_identity_invalid:0:<project>\\.remotion\\chrome-headless-shell",
+    "passed_stages": [
+      "CLAIMED",
+      "GOVERNED_INPUT_LOCKED",
+      "CREATIVE_EDITOR_LOCKED",
+      "ACTUAL_NARRATION_TIMING_LOCKED",
+      "MOTION_SOURCE_LOCKED"
+    ],
+    "resume_count": 0,
+    "public_write_authority": 0,
+    "render_count": 0,
+    "rerender_count": 0
+  },
+  "narration_timing_lock": {
+    "timing_lock_hash": "7bf38d7140183a8a01615402c8897b7a527ac07accd76dbb5d9a41c3aea6dca7",
+    "artifact_sha256": "e485c47b2fbc5c7da7d13352490b28de545034cf638d5105deee78dca96778a3",
+    "editorial_narration_hash": "7c7ea758eaa2a1ce4b250d2a66b165ce6acbf7eeea25bab61653993a219058f1",
+    "locked_narration_sha256": "ccda02c0510fc4ba252c0c76f30811133b4d2bb2f665e5505b1feef22e562a9a",
+    "provider": "kokoro-onnx",
+    "model": "kokoro-v1.0",
+    "voice": "af_heart",
+    "speed": 1.06,
+    "lang": "en-us",
+    "sample_rate_hz": 24000,
+    "codec": "pcm_s24le",
+    "channels": 1,
+    "duration_seconds": 55.442,
+    "raw_integrated_lufs": -22.4,
+    "raw_true_peak_dbfs": -4.0,
+    "external_media_cost_usd": 0.0
+  },
+  "motion": {
+    "source_sha256": "d0f9d0cf62a909ffd27b4f79c811ae64d604411ab8ea4365881e5f6f97a1670d",
+    "duration_frames": 1680,
+    "fps": 30,
+    "duration_seconds": 56.0,
+    "authored_head_room_seconds": 0.18,
+    "authored_tail_room_seconds": 0.558
+  },
+  "bounded_xhigh": {
+    "accepted_execution_count": 2,
+    "roles": [
+      {
+        "kind": "EDITORIAL_NARRATION",
+        "native_child_task_id": "/root/fwb_editorial_xhigh",
+        "receipt_sha256": "b5f73b7de2a15a61f2e19c87b1a4700b4d522700f831db4a9f09008b851cd15e",
+        "mechanical_work_performed": false
+      },
+      {
+        "kind": "MOTION_VISUAL_AUTHORSHIP",
+        "native_child_task_id": "/root/fwb_motion_xhigh",
+        "receipt_sha256": "004c00153e11dcd1411ec90d999e7c52d17c946f6f04940838de46666830c30d",
+        "mechanical_work_performed": false
+      }
+    ],
+    "actual_media_review_execution_count": 0,
+    "mechanical_work_execution_count": 0,
+    "cli_sdk_api_headless_provider_9router_invocations": 0,
+    "usage": null,
+    "cost": null
+  },
+  "media": {
+    "proxy": null,
+    "picture_lock": null,
+    "final_muxed_mp4": null,
+    "final_mix": null,
+    "captions": null,
+    "package_manifest": null,
+    "contact_sheet": null,
+    "owner_review_bundle": null,
+    "final_loudness": null,
+    "final_true_peak": null
+  },
+  "manual_intervention": {
+    "operator_narration_edits": 0,
+    "operator_viewer_facing_source_edits": 0,
+    "manual_media_repairs": 0,
+    "checkpoint_mutations": 0,
+    "proof_retries_or_resumes": 0,
+    "second_proof_attempts": 0,
+    "same_worker_pre_submission_contract_corrections": 2
+  },
+  "safety": {
+    "v1_reads": 0,
+    "v1_writes_or_mutations": 0,
+    "scheduler_or_automation_mutations": 0,
+    "platform_browser_cdp_api_credential_operations": 0,
+    "public_private_unlisted_draft_writes": 0,
+    "video_public_write_authority": false
+  },
+  "exact_blocker": "The proof passed the project root instead of its node_modules directory as the Remotion dependency root. HARD_SOURCE_VALIDATED therefore found zero canonical browser matches and quarantined before typecheck/render. Read-only diagnosis confirmed the correct existing node_modules root and 222-character canonical browser, but the one-proof rule forbids correction/resume/second proof.",
+  "owner_review_ready": false,
+  "owner_acceptance_claimed": false,
+  "production_soak_authorized": false,
+  "final_evidence_commit_message": "docs(v2): record quarantined narration timing proof"
+}
