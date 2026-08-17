@@ -1,0 +1,43 @@
+{
+  "schema_version": "contentops.v1_provider_authorization_canary_blocker_taxonomy.v1",
+  "root_cause_classification": "PROVIDER_AUTHORIZATION_BLOCK",
+  "root_cause_count": 1,
+  "root_cause": "Terra returned http_401_unauthorized during the canary's first grounded-research invocation.",
+  "existing_friction_classifier_occurrences": {
+    "DATA_NOT_AVAILABLE": 2,
+    "FACTUAL_OR_RISK_BLOCK": 1,
+    "POLICY_CEREMONY_BLOCK": 0,
+    "SYSTEM_OR_BINDING_BLOCK": 3
+  },
+  "existing_friction_rows": [
+    {
+      "blocker": "evidence_documents_missing",
+      "category": "DATA_NOT_AVAILABLE"
+    },
+    {
+      "blocker": "grounded_research_router_configuration_or_authorization_unavailable",
+      "category": "DATA_NOT_AVAILABLE"
+    },
+    {
+      "blocker": "minimum_trustworthy_evidence_missing",
+      "category": "SYSTEM_OR_BINDING_BLOCK"
+    },
+    {
+      "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+      "category": "SYSTEM_OR_BINDING_BLOCK"
+    },
+    {
+      "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+      "category": "SYSTEM_OR_BINDING_BLOCK"
+    },
+    {
+      "blocker": "supported_claims_missing",
+      "category": "FACTUAL_OR_RISK_BLOCK"
+    }
+  ],
+  "interpretation": "The system/binding rows are downstream consequences of an evidence packet that could not be synthesized after terminal provider authorization failure; they are not registry-drift occurrences.",
+  "registry_mismatch_count": 0,
+  "source_adapter_mismatch_count": 0,
+  "unsupported_canonical_story_type_count": 0,
+  "router_policy_weakened": false
+}

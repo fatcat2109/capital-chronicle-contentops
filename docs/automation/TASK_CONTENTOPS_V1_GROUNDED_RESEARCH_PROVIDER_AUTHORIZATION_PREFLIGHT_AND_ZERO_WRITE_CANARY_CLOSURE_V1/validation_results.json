@@ -1,0 +1,31 @@
+{
+  "schema_version": "contentops.v1_provider_authorization_canary_validation.v1",
+  "status": "PASS",
+  "focused_tests": {
+    "passed": 257,
+    "duration_seconds": 32.36,
+    "files": [
+      "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
+      "tests/test_nine_router_ordered_model_router_v2.py",
+      "tests/test_v1_9router_research_model_ladder_v1.py",
+      "tests/test_grounded_news_research_v1.py",
+      "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
+      "tests/test_rolling_x_evidence_viability_v1.py",
+      "tests/test_rolling_x_hierarchical_assignment_v1.py",
+      "tests/test_rolling_x_newsroom_cycle_v1.py",
+      "tests/test_capital_chronicle_institutional_edge_v1.py",
+      "tests/test_rolling_x_v1_publishability_closure_v1.py"
+    ]
+  },
+  "codegraph": {
+    "before_source_head": "5e16cdd399eddb64c606fdc30b6521e1fd73b79d",
+    "after_source_head": "b4f8624f540e21dc60e17a83a3eeb8a9db3a0e0d",
+    "source_tree_digest": "d73f4af4f97b03540fc6c09edcdeebbcc90179654a5c02b21a5fded78618dfeb",
+    "nodes": 7091,
+    "edges": 13321,
+    "check": "CODEGRAPH_CURRENT",
+    "product_source_changed_by_this_task": false
+  },
+  "json_validation": "PASS_16_JSON_FILES",
+  "git_diff_check": "PASS"
+}

@@ -1,0 +1,662 @@
+{
+  "assignment_logical_hash": "17d92ee56a53aa8e54272581ed98bb7f544f0ae2c2245e3be509651078d17675",
+  "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
+  "decision": "SELECT_STORY",
+  "factual_or_numeric_authority_granted": false,
+  "input_binding": {
+    "canonical_input_hash": "90c04341cb8d7658467f6c250b0e10d5c5b441195f587d2ce51311f9f04eb2e1",
+    "held_count": 0,
+    "input_count": 12,
+    "selected_count": 12
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-3e844df3b09338f9ac3aa909",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-3e844df3b09338f9ac3aa909"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "JD Vance called stablecoins a force multiplier for U.S. dollar in 2025.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-ec1a71792dbd1ece53ce",
+      "member_headline_ids": [
+        "cc-x-headline-3e844df3b09338f9ac3aa909"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-19de5c2a97e3f2012ae0ceb1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-19de5c2a97e3f2012ae0ceb1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Lebanese media: Israeli artillery shelling between the towns of Beit Yahoun and Braashit in southern Lebanon",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-d7a940523f07567a0792",
+      "member_headline_ids": [
+        "cc-x-headline-19de5c2a97e3f2012ae0ceb1"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c4c193b0f7a2f6e755820daf",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-c4c193b0f7a2f6e755820daf"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Joint Arab and Islamic Statement: The Israeli Refusal Threatens the Intensive Efforts Being Made by Trump to End the War in Gaza",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-18233a82ab429135127a",
+      "member_headline_ids": [
+        "cc-x-headline-c4c193b0f7a2f6e755820daf"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c1ae4d589a4d999a6f754589",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-c1ae4d589a4d999a6f754589"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Joint Arab and Islamic Statement: Israel Bears Responsibility for Obstructing Peace Efforts in Gaza and the Palestinian Territories",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-dc190bdd148decac47a9",
+      "member_headline_ids": [
+        "cc-x-headline-c1ae4d589a4d999a6f754589"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d20ca6e119bc9f4e572ff83f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d20ca6e119bc9f4e572ff83f"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Joint Emirati-Qatari-Jordanian-Indonesian-Pakistani-Turkish-Saudi-Egyptian Statement Condemns Israel's Rejection of Trump's Gaza Plan",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-07e86313e5b4771ef547",
+      "member_headline_ids": [
+        "cc-x-headline-d20ca6e119bc9f4e572ff83f"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-61c47f0d9a642c65f112923d",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-61c47f0d9a642c65f112923d"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Axios: The Peace Council demanded that Israel conduct \"reciprocal withdrawal operations\" in Gaza if Hamas begins to relinquish its weapons.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-20b707fc76e20d766163",
+      "member_headline_ids": [
+        "cc-x-headline-61c47f0d9a642c65f112923d"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-91a1ae15e777183a5c5ec909",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-91a1ae15e777183a5c5ec909"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Axios on the Peace Council: Gaza cannot be allowed to become again a source of terrorism against Israel",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-c3d3717048ac499eebf2",
+      "member_headline_ids": [
+        "cc-x-headline-91a1ae15e777183a5c5ec909"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-dfd9efad70ddd44fc1ce4857",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-dfd9efad70ddd44fc1ce4857"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Axios: The Peace Council wants a plan that includes allowing the deployment of an international force to achieve stability and facilitate reconstruction in Gaza.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-ebf32fa3fc876a2667f6",
+      "member_headline_ids": [
+        "cc-x-headline-dfd9efad70ddd44fc1ce4857"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-25b139901a1034430fff9069",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-25b139901a1034430fff9069"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Axios: Kushner's meeting with a Hamas delegation aimed to translate Hamas's commitments to disarm the Gaza Strip into concrete and verifiable steps.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-6c914e577594ba87d1a4",
+      "member_headline_ids": [
+        "cc-x-headline-25b139901a1034430fff9069"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e238961d147187182079e09b",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e238961d147187182079e09b"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Axios: The Peace Council wants Hamas to begin dismantling weapons and military infrastructure",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-6256128a1ccdf572be7d",
+      "member_headline_ids": [
+        "cc-x-headline-e238961d147187182079e09b"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-21a659b569572b5deb7a9553",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-21a659b569572b5deb7a9553"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Axios: The next steps include transferring power in Gaza to a Palestinian technocratic government and not granting Hamas any role in governing the sector in the future",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-fc543514fd1902f76a43",
+      "member_headline_ids": [
+        "cc-x-headline-21a659b569572b5deb7a9553"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-6eece7654fbc750481319d85",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-6eece7654fbc750481319d85"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Axios citing a source: Kushner's meeting with Hamas leaders in Egypt aims to translate the movement's commitments to disarmament into concrete steps",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-63778c56ef8a3887daa2",
+      "member_headline_ids": [
+        "cc-x-headline-6eece7654fbc750481319d85"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 310,
+    "held_before_semantic_assignment_count": 298,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "ce133eeda8f8f6486ffe188968ffc738fa437a7e95224aa13ad4953f188d15d7",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-ec1a71792dbd1ece53ce",
+      "headline_ids": [
+        "cc-x-headline-3e844df3b09338f9ac3aa909"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-ec1a71792dbd1ece53ce"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 1,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-3e844df3b09338f9ac3aa909",
+        "ordered_headline_ids": [
+          "cc-x-headline-3e844df3b09338f9ac3aa909"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "JD Vance called stablecoins a force multiplier for U.S. dollar in 2025."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-d7a940523f07567a0792",
+      "headline_ids": [
+        "cc-x-headline-19de5c2a97e3f2012ae0ceb1"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-d7a940523f07567a0792"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 2,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-19de5c2a97e3f2012ae0ceb1",
+        "ordered_headline_ids": [
+          "cc-x-headline-19de5c2a97e3f2012ae0ceb1"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Lebanese media: Israeli artillery shelling between the towns of Beit Yahoun and Braashit in southern Lebanon"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-18233a82ab429135127a",
+      "headline_ids": [
+        "cc-x-headline-c4c193b0f7a2f6e755820daf"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-18233a82ab429135127a"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 3,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c4c193b0f7a2f6e755820daf",
+        "ordered_headline_ids": [
+          "cc-x-headline-c4c193b0f7a2f6e755820daf"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Joint Arab and Islamic Statement: The Israeli Refusal Threatens the Intensive Efforts Being Made by Trump to End the War in Gaza"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-dc190bdd148decac47a9",
+      "headline_ids": [
+        "cc-x-headline-c1ae4d589a4d999a6f754589"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-dc190bdd148decac47a9"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 4,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c1ae4d589a4d999a6f754589",
+        "ordered_headline_ids": [
+          "cc-x-headline-c1ae4d589a4d999a6f754589"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Joint Arab and Islamic Statement: Israel Bears Responsibility for Obstructing Peace Efforts in Gaza and the Palestinian Territories"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-07e86313e5b4771ef547",
+      "headline_ids": [
+        "cc-x-headline-d20ca6e119bc9f4e572ff83f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-07e86313e5b4771ef547"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 5,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-d20ca6e119bc9f4e572ff83f",
+        "ordered_headline_ids": [
+          "cc-x-headline-d20ca6e119bc9f4e572ff83f"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Joint Emirati-Qatari-Jordanian-Indonesian-Pakistani-Turkish-Saudi-Egyptian Statement Condemns Israel's Rejection of Trump's Gaza Plan"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-20b707fc76e20d766163",
+      "headline_ids": [
+        "cc-x-headline-61c47f0d9a642c65f112923d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-20b707fc76e20d766163"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 6,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-61c47f0d9a642c65f112923d",
+        "ordered_headline_ids": [
+          "cc-x-headline-61c47f0d9a642c65f112923d"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: The Peace Council demanded that Israel conduct \"reciprocal withdrawal operations\" in Gaza if Hamas begins to relinquish its weapons."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-c3d3717048ac499eebf2",
+      "headline_ids": [
+        "cc-x-headline-91a1ae15e777183a5c5ec909"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-c3d3717048ac499eebf2"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 7,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-91a1ae15e777183a5c5ec909",
+        "ordered_headline_ids": [
+          "cc-x-headline-91a1ae15e777183a5c5ec909"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios on the Peace Council: Gaza cannot be allowed to become again a source of terrorism against Israel"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-ebf32fa3fc876a2667f6",
+      "headline_ids": [
+        "cc-x-headline-dfd9efad70ddd44fc1ce4857"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-ebf32fa3fc876a2667f6"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 8,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-dfd9efad70ddd44fc1ce4857",
+        "ordered_headline_ids": [
+          "cc-x-headline-dfd9efad70ddd44fc1ce4857"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: The Peace Council wants a plan that includes allowing the deployment of an international force to achieve stability and facilitate reconstruction in Gaza."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-6c914e577594ba87d1a4",
+      "headline_ids": [
+        "cc-x-headline-25b139901a1034430fff9069"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-6c914e577594ba87d1a4"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 9,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-25b139901a1034430fff9069",
+        "ordered_headline_ids": [
+          "cc-x-headline-25b139901a1034430fff9069"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: Kushner's meeting with a Hamas delegation aimed to translate Hamas's commitments to disarm the Gaza Strip into concrete and verifiable steps."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-6256128a1ccdf572be7d",
+      "headline_ids": [
+        "cc-x-headline-e238961d147187182079e09b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-6256128a1ccdf572be7d"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 10,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e238961d147187182079e09b",
+        "ordered_headline_ids": [
+          "cc-x-headline-e238961d147187182079e09b"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: The Peace Council wants Hamas to begin dismantling weapons and military infrastructure"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-fc543514fd1902f76a43",
+      "headline_ids": [
+        "cc-x-headline-21a659b569572b5deb7a9553"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-fc543514fd1902f76a43"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 11,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-21a659b569572b5deb7a9553",
+        "ordered_headline_ids": [
+          "cc-x-headline-21a659b569572b5deb7a9553"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: The next steps include transferring power in Gaza to a Palestinian technocratic government and not granting Hamas any role in governing the sector in the future"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-63778c56ef8a3887daa2",
+      "headline_ids": [
+        "cc-x-headline-6eece7654fbc750481319d85"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-63778c56ef8a3887daa2"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 12,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-6eece7654fbc750481319d85",
+        "ordered_headline_ids": [
+          "cc-x-headline-6eece7654fbc750481319d85"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios citing a source: Kushner's meeting with Hamas leaders in Egypt aims to translate the movement's commitments to disarmament into concrete steps"
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [],
+  "router_output_grants_publication_authority": false,
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-ec1a71792dbd1ece53ce",
+  "selected_headline_ids": [
+    "cc-x-headline-3e844df3b09338f9ac3aa909"
+  ],
+  "semantic_assignment_failure_recovered": true,
+  "status": "SUCCESS",
+  "telemetry": {
+    "fallback_transitions": 0,
+    "logical_router_calls": 0,
+    "provider_attempts": 0,
+    "token_usage": {
+      "completion_tokens": 0,
+      "prompt_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "x_content_grants_evidence_authority": false
+}
