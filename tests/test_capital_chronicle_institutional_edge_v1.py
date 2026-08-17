@@ -190,3 +190,36 @@ def test_editorial_seo_package_is_deterministic_and_zero_authority():
     assert first["publication_authority"] is False
     assert first["public_write_authority"] is False
     assert first["search_learning_status"] == "HOLD_WITHOUT_SEARCH_SPECIFIC_EVIDENCE"
+
+
+def test_superseded_kushner_future_state_cannot_pass_any_reader_facing_surface():
+    evidence = _evidence()
+    evidence["latest_event_state_closure"] = {
+        "status": "PASS",
+        "latest_supported_state": "OCCURRED_OR_OUTCOME_REPORTED",
+        "target_terms": ["netanyahu", "gaza"],
+        "supporting_document_ids": ["ev-1"],
+        "model_assertion_grants_event_state_authority": False,
+    }
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="BREAKING_BRIEF", accepted_evidence_packet=evidence
+    )
+    article = _article(packet)
+    stale = "Kushner was scheduled to meet Netanyahu afterward regarding Gaza."
+    article["substack_body_markdown"] += "\n\n" + stale
+    article["secondary_reader_questions"] = [
+        "What should readers watch after the planned Netanyahu talks on Gaza?"
+    ]
+    article["structured_data_packet"]["description"] = (
+        "Kushner met Hamas ahead of scheduled Netanyahu talks on Gaza."
+    )
+    article["meta_description"] = article["structured_data_packet"]["description"]
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "BLOCKED"
+    assert "superseded_forward_event_state_in_public_copy" in result["blockers"]

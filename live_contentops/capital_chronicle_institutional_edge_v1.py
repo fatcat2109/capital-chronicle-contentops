@@ -348,6 +348,59 @@ def validate_institutional_edge_article(
     evidence_text = _evidence_text(accepted_evidence_packet)
     evidence_folded = evidence_text.casefold()
 
+    accepted_packet = (
+        accepted_evidence_packet
+        if isinstance(accepted_evidence_packet, Mapping)
+        else {}
+    )
+    latest_state = accepted_packet.get("latest_event_state_closure")
+    if not isinstance(latest_state, Mapping):
+        research_packet = accepted_packet.get("grounded_research_packet")
+        latest_state = (
+            research_packet.get("latest_event_state_closure")
+            if isinstance(research_packet, Mapping)
+            else {}
+        )
+    latest_state = latest_state if isinstance(latest_state, Mapping) else {}
+    if str(latest_state.get("latest_supported_state") or "") in {
+        "OCCURRED_OR_OUTCOME_REPORTED",
+        "CHANGED_OR_CANCELLED",
+    }:
+        from live_contentops.grounded_news_research_v1 import (
+            _FORWARD_EVENT_STATE_RE,
+        )
+
+        target_terms = {
+            str(value).casefold()
+            for value in latest_state.get("target_terms") or []
+            if str(value)
+        }
+        structured = package.get("structured_data_packet")
+        stale_state_surfaces = [
+            title,
+            dek,
+            search_title,
+            social_hook,
+            meta,
+            body,
+            *[str(value) for value in article.get("secondary_reader_questions") or []],
+            *(
+                [
+                    str(structured.get("headline") or ""),
+                    str(structured.get("description") or ""),
+                ]
+                if isinstance(structured, Mapping)
+                else []
+            ),
+        ]
+        required_overlap = 1 if len(target_terms) == 1 else 2
+        if any(
+            _FORWARD_EVENT_STATE_RE.search(surface)
+            and len(_tokens(surface).intersection(target_terms)) >= required_overlap
+            for surface in stale_state_surfaces
+        ):
+            blockers.append("superseded_forward_event_state_in_public_copy")
+
     if _normalise(article.get("title")) != title:
         blockers.append("canonical_editorial_headline_title_mismatch")
     if _normalise(article.get("subtitle")) != dek:

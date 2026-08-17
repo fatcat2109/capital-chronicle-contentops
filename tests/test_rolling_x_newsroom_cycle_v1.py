@@ -905,14 +905,14 @@ def test_rolling_x_release_candidate_builds_and_verifies_canonical_lock(tmp_path
 
 def test_enhanced_breaking_brief_uses_text_only_native_packages_without_article_media():
     article = {
-        "title": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+        "title": "Kushner's Gaza Talks With Netanyahu End Without a Breakthrough",
         "subtitle": (
-            "Secondary-source listings corroborate the Cairo meeting and its Gaza focus, "
-            "but do not establish terms or an outcome."
+            "Newer pre-cutoff reporting closes the earlier scheduled-meeting state and "
+            "reports that the Netanyahu talks produced no breakthrough."
         ),
         "social_hook": (
-            "Jared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks "
-            "with Benjamin Netanyahu scheduled to follow."
+            "Jared Kushner's Gaza talks with Benjamin Netanyahu have occurred, with "
+            "newer reporting describing no breakthrough."
         ),
         "effective_article_mode": "BREAKING_BRIEF",
         "minimum_trustworthy_evidence_packet": {
@@ -936,6 +936,10 @@ def test_enhanced_breaking_brief_uses_text_only_native_packages_without_article_
         assert package["hard_truncation_used"] is False
         assert all(not row["media_asset_ids"] for row in package["posts"])
         assert max(package["quality_metrics"]["post_character_counts"]) <= package["platform_limit"]
+    all_payload_text = str(payloads).casefold()
+    assert "ahead of netanyahu talks" not in all_payload_text
+    assert "scheduled to meet netanyahu" not in all_payload_text
+    assert "planned netanyahu talks" not in all_payload_text
 
 
 def test_release_candidate_defers_unready_derivative_to_exact_jit_verification(tmp_path: Path):
