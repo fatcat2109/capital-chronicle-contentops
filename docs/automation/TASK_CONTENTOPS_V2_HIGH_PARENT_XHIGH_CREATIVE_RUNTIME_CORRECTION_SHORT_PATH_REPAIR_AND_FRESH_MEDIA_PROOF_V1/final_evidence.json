@@ -1,0 +1,123 @@
+{
+  "schema": "contentops.v2.high_parent_xhigh_runtime_short_path_fresh_media_proof.final_evidence.v1",
+  "task": "TASK_CONTENTOPS_V2_HIGH_PARENT_XHIGH_CREATIVE_RUNTIME_CORRECTION_SHORT_PATH_REPAIR_AND_FRESH_MEDIA_PROOF_V1",
+  "classification": "FAIL_QUARANTINED_AT_AUDIO_DURATION_GATE",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/v2-high-parent-xhigh-runtime-short-path-fresh-media-proof-v1",
+  "origin_master": "8f6e4422d09fc9794c38ccc036ff1d1d9650034c",
+  "starting_authority_head": "558acbdf766754f9ad2902c67c181bb4a7e14cac",
+  "implementation": {
+    "head": "8ed062577b7cb61d4ee8aec69e74822d1946c759",
+    "message": "fix(v2): align HIGH parent and bound Windows render paths",
+    "remote_parity_before_proof": true
+  },
+  "provenance": {
+    "parent": {
+      "runtime": "CODEX_DESKTOP_APP_PARENT_TASK_SESSION",
+      "execution_plane": "CODEX_DESKTOP_APP_TASK_SESSION",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "all_session_xhigh": false
+    },
+    "bounded_xhigh_execution_count": 2,
+    "bounded_xhigh_executions": [
+      {
+        "kind": "INITIAL_CREATIVE",
+        "native_child_task_id": "/root/fwb_initial_xhigh",
+        "mechanical_work_performed": false,
+        "receipt_sha256": "53609aef35526320487437196c5bd8ebbe186cd582729217d6f515ec6908d915"
+      },
+      {
+        "kind": "ACTUAL_MEDIA_REVIEW",
+        "native_child_task_id": "/root/fwb_actual_media_xhigh",
+        "decision": "NO_MATERIAL_REVISION",
+        "mechanical_work_performed": false,
+        "receipt_sha256": "e52bd2fda2a85c2fbb6efce8534d3f05ffd771635e91b4ec4545d804d24e6365"
+      }
+    ],
+    "codex_usage": null,
+    "codex_cost": null
+  },
+  "browser_repair": {
+    "root_cause": "CONFIRMED_WINDOWS_PROCESS_LAUNCH_PATH_DEFECT",
+    "failed_projected_executable_path_length": 303,
+    "passing_canonical_executable_path_length": 222,
+    "explicit_browser_executable": true,
+    "explicit_canonical_public_dir": true
+  },
+  "smoke": {
+    "result": "PASS_NON_CREATIVE_REMOTION_BROWSER_SMOKE",
+    "creative_proof_consumed": false,
+    "output": "A:\\c2smk_558b\\remotion_browser_smoke.mp4",
+    "sha256": "0ac34207af9ff2179ef369636672f275416c57ab9419076bf71da085058337ff",
+    "width": 320,
+    "height": 568,
+    "fps": 30,
+    "duration_seconds": 1.045333
+  },
+  "validation": {
+    "focused_tests_passed": 22,
+    "deterministic_e2e_passed": 1,
+    "python_compile": "PASS",
+    "active_forbidden_creative_substitution_matches": 0,
+    "git_diff_check": "PASS",
+    "codegraph_status": "CODEGRAPH_CURRENT_COMMITTED_GRAPH_NO_ROOT_DOT_CODEGRAPH_INDEX"
+  },
+  "proof": {
+    "started_at": "2026-08-17T13:32:54.9705764Z",
+    "video_job_id": "v2_fwb_high_parent_xhigh_8ed06257",
+    "run_id": "run_1286d389e8fc4e7b8f645c6bf69b43bf",
+    "input_packet_sha256": "78d20d15daae43c3ed2d4a8e94a1a7014dc7d7a3b18d288529aeeb364f9755bd",
+    "state": "QUARANTINED",
+    "terminal_result": "HARD_FAILURE:MediaExecutionError:narration_exceeds_picture:57.789>54.059",
+    "last_valid_media_stage": "PICTURE_LOCKED",
+    "wall_time_seconds": 1786.714929,
+    "resume_count": 0,
+    "public_write_authority": 0,
+    "render_count": 2,
+    "creative_rerender_count": 0
+  },
+  "media": {
+    "proxy": {
+      "path": "A:\\c2proof_8ed0\\jobs\\v2_fwb_high_parent_xhigh_8ed06257\\media\\proxy.mp4",
+      "sha256": "c07b3c995d7d7f99015eeefb41a87f5a66ddf0e075c3fe47a3a68ead728e32a0"
+    },
+    "picture_lock": {
+      "path": "A:\\c2proof_8ed0\\jobs\\v2_fwb_high_parent_xhigh_8ed06257\\media\\picture_lock.mp4",
+      "sha256": "5633cefa7aebbb3b62820be8a0b2c411a11a6610b1a56cc90c8eacc8898925d2",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "codec": "h264",
+      "duration_seconds": 54.058667
+    },
+    "narration": {
+      "path": "A:\\c2proof_8ed0\\jobs\\v2_fwb_high_parent_xhigh_8ed06257\\audio\\narration\\narration.wav",
+      "sha256": "3a6f6a937b3b3f3c4fe8278409278edc77a9a98a8fbb9a730cc134482a0a71fc",
+      "codec": "pcm_s24le",
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "duration_seconds": 57.788667,
+      "provider": "kokoro-onnx",
+      "model": "kokoro-v1.0",
+      "voice": "af_heart",
+      "speed": 1.06,
+      "language": "en-us",
+      "external_cost_usd": 0.0
+    },
+    "final_muxed_mp4": null,
+    "captions": null,
+    "package_manifest": null,
+    "owner_bundle": null
+  },
+  "manual_intervention": {
+    "viewer_facing_source_edits_after_proof_start": 0,
+    "narration_edits_after_proof_start": 0,
+    "manual_media_repairs": 0,
+    "checkpoint_mutations": 0,
+    "proof_retries": 0,
+    "second_proof_attempts": 0
+  },
+  "exact_remaining_blocker": "Kokoro narration is 57.788667 seconds while the picture is 54.058667 seconds; the deterministic audio fit gate rejects the 3.730-second overrun.",
+  "next_gate_authorized": false
+}
