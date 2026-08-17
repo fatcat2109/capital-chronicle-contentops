@@ -11,7 +11,7 @@ import hashlib
 import json
 import sqlite3
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterator, Mapping, Sequence
 from urllib.parse import urlsplit
@@ -31,8 +31,10 @@ from live_contentops.destination_transport_registry_v1 import (
 )
 from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 from live_contentops.newsroom_assignment_scheduler_v1 import (
+    PREPARED_CANDIDATE_LIMIT,
     build_prepared_rolling_x_candidate_state,
     load_rolling_x_headline_sidecars,
+    validate_prepared_rolling_x_candidate_state,
 )
 
 SCHEMA_VERSION = "contentops.codex_desktop_newsroom_operator_continuity.v1"
@@ -151,6 +153,26 @@ def _logical_hash(value: Any) -> str:
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
     ).hexdigest()
+
+
+def prepared_candidate_continuity_binding(
+    *,
+    continuity: Mapping[str, Any],
+    evaluated_headline_ids: Sequence[str],
+    reentry_headline_ids: Sequence[str],
+) -> dict[str, Any]:
+    """Build the shared durable-continuity binding for canonical frontier preparation."""
+    evaluated = sorted(str(value) for value in evaluated_headline_ids if str(value))
+    reentry = sorted(str(value) for value in reentry_headline_ids if str(value))
+    return {
+        "terminal_window_id": continuity.get("terminal_window_id"),
+        "last_terminal_cutoff_utc": continuity.get("last_terminal_cutoff_utc"),
+        "evaluated_headline_count": len(evaluated),
+        "evaluated_headline_ids_hash": _logical_hash(evaluated),
+        "material_reentry_headline_count": len(reentry),
+        "material_reentry_headline_ids_hash": _logical_hash(reentry),
+        "continuity_logical_hash": continuity.get("continuity_logical_hash"),
+    }
 
 
 def build_editorial_worker_routing_packet(
@@ -844,6 +866,87 @@ def classify_desktop_candidate_universe(
     return result
 
 
+def _executed_editorial_window_ids(
+    store_path: Path,
+    opportunity_ids: Sequence[str],
+    *,
+    executed_states: frozenset[str],
+) -> set[str]:
+    identifiers = sorted({str(value) for value in opportunity_ids if str(value)})
+    if not identifiers or not store_path.exists():
+        return set()
+    try:
+        with _read_only_store(store_path) as connection:
+            if "work_items" not in _table_names(connection):
+                return set()
+            placeholders = ",".join("?" for _value in identifiers)
+            rows = connection.execute(
+                f"SELECT work_item_id, current_state FROM work_items "
+                f"WHERE work_item_id IN ({placeholders})",
+                identifiers,
+            ).fetchall()
+    except (OSError, sqlite3.Error):
+        return set()
+    return {
+        str(row["work_item_id"])
+        for row in rows
+        if str(row["current_state"] or "") in executed_states
+    }
+
+
+def _continuous_prepared_checkpoint(
+    *,
+    output_root: Path,
+    checkpoint_name: str,
+) -> tuple[Path, dict[str, Any] | None]:
+    path = output_root / "_continuous_newsroom" / checkpoint_name
+    return path, _read_json_object(path)
+
+
+def _checkpoint_matches_live_authority(
+    state: Mapping[str, Any],
+    *,
+    current_input: Mapping[str, Any],
+    continuity: Mapping[str, Any],
+    opportunities: Sequence[Mapping[str, Any]],
+) -> bool:
+    frontier = state.get("prepared_frontier") or {}
+    binding = state.get("continuity_binding") or {}
+    selected_ids = {
+        str(value) for value in frontier.get("selected_headline_ids") or [] if str(value)
+    }
+    current_rows = {
+        str(row.get("headline_id") or ""): {
+            key: value for key, value in row.items() if key != "source_locator"
+        }
+        for row in current_input.get("headlines") or []
+        if isinstance(row, Mapping) and str(row.get("headline_id") or "")
+    }
+    prepared_rows = {
+        str(row.get("headline_id") or ""): {
+            key: value for key, value in row.items() if key != "source_locator"
+        }
+        for row in (state.get("prepared_input") or {}).get("headlines") or []
+        if isinstance(row, Mapping) and str(row.get("headline_id") or "")
+    }
+    expected_binding = prepared_candidate_continuity_binding(
+        continuity=continuity,
+        evaluated_headline_ids=continuity.get("evaluated_headline_ids") or [],
+        reentry_headline_ids=(
+            continuity.get("material_event_priority") or {}
+        ).get("headline_ids") or [],
+    )
+    expected_target = dict(opportunities[0]) if opportunities else None
+    target = frontier.get("target_editorial_opportunity")
+    return bool(
+        frontier.get("opportunity_schedule_derived_from_policy") is True
+        and target == expected_target
+        and set(prepared_rows) == selected_ids
+        and all(current_rows.get(headline_id) == prepared_rows[headline_id] for headline_id in selected_ids)
+        and binding == expected_binding
+    )
+
+
 def build_live_zero_write_rehearsal(
     *,
     cutoff_utc: datetime | str | None = None,
@@ -916,26 +1019,116 @@ def build_live_zero_write_rehearsal(
     continuity_evaluated_ids = {
         str(value) for value in continuity.get("evaluated_headline_ids") or [] if str(value)
     }
-    prepared_preview = build_prepared_rolling_x_candidate_state(
-        rolling_input=current_input,
-        prepared_at_utc=cutoff,
-        evaluated_headline_ids=sorted(continuity_evaluated_ids.union(excluded_ids)),
-        reentry_headline_ids=material_reentry_ids,
-        continuity_binding={
-            "terminal_window_id": continuity.get("terminal_window_id"),
-            "last_terminal_cutoff_utc": continuity.get("last_terminal_cutoff_utc"),
-            "continuity_logical_hash": continuity.get("continuity_logical_hash"),
-            "candidate_universe_logical_hash": universe.get(
-                "candidate_universe_logical_hash"
-            ),
-        },
+    from live_contentops.daily_app_supervisor_v1 import (
+        PREPARED_CANDIDATE_CHECKPOINT_NAME,
+        WINDOW_EXECUTED_STATES,
+        build_bootstrap_editorial_window_policy,
+        owner_locked_editorial_opportunities,
     )
+
+    evaluated_ids = sorted(continuity_evaluated_ids.union(excluded_ids))
+    priority_reentry_ids = {
+        str(value)
+        for value in (continuity.get("material_event_priority") or {}).get("headline_ids") or []
+        if str(value)
+    }
+    reentry_ids = sorted(set(material_reentry_ids).union(priority_reentry_ids))
+    policy = build_bootstrap_editorial_window_policy(
+        effective_at_utc=_iso_utc(cutoff)
+    )
+    opportunities = owner_locked_editorial_opportunities(
+        policy,
+        reference_utc=cutoff,
+        through_utc=cutoff + timedelta(
+            hours=float(current_input.get("window_hours") or 24.0)
+        ),
+        capacity=PREPARED_CANDIDATE_LIMIT,
+    )
+    executed_ids = _executed_editorial_window_ids(
+        Path(store_path),
+        [str(row.get("opportunity_id") or "") for row in opportunities],
+        executed_states=WINDOW_EXECUTED_STATES,
+    )
+    opportunities = [
+        row for row in opportunities
+        if str(row.get("opportunity_id") or "") not in executed_ids
+    ]
+    checkpoint_path, prior_prepared_state = _continuous_prepared_checkpoint(
+        output_root=Path(output_root),
+        checkpoint_name=PREPARED_CANDIDATE_CHECKPOINT_NAME,
+    )
+    prepared_preview: dict[str, Any] | None = None
+    prepared_state_source = "REBUILT_FROM_CANONICAL_FRONTIER_INPUTS"
+    if prior_prepared_state is not None:
+        try:
+            validated = validate_prepared_rolling_x_candidate_state(
+                prior_prepared_state,
+                publication_cutoff_utc=cutoff,
+            )
+            if _checkpoint_matches_live_authority(
+                validated,
+                current_input=current_input,
+                continuity=continuity,
+                opportunities=opportunities,
+            ):
+                prepared_preview = validated
+                prepared_state_source = "REUSED_VALID_CONTINUOUS_CHECKPOINT"
+        except (TypeError, ValueError):
+            prepared_preview = None
+    if prepared_preview is None:
+        prepared_preview = build_prepared_rolling_x_candidate_state(
+            rolling_input=current_input,
+            prepared_at_utc=cutoff,
+            evaluated_headline_ids=evaluated_ids,
+            reentry_headline_ids=reentry_ids,
+            editorial_opportunities=opportunities,
+            prior_prepared_state=prior_prepared_state,
+            continuity_binding=prepared_candidate_continuity_binding(
+                continuity=continuity,
+                evaluated_headline_ids=evaluated_ids,
+                reentry_headline_ids=reentry_ids,
+            ),
+        )
     catalog = discover_cc_data_estate(cc_root=cc_root, use_cache=False)
     governed = inspect_governed_cc_surfaces(catalog)
-    selected = next(iter(universe.get("included_clusters") or []), None)
+    selected_frontier_ids = {
+        str(value)
+        for value in (prepared_preview.get("prepared_frontier") or {}).get(
+            "selected_headline_ids"
+        ) or []
+        if str(value)
+    }
+    selected_assignment = next(
+        iter((prepared_preview.get("assignment") or {}).get("ranked_clusters") or []),
+        None,
+    )
+    selected_headline_ids = [
+        str(value)
+        for value in (selected_assignment or {}).get("headline_ids") or []
+        if str(value) in selected_frontier_ids
+    ]
+    selected = (
+        {
+            "cluster_id": (selected_assignment or {}).get("cluster_id"),
+            "headline_ids": selected_headline_ids,
+            "relationship": "prepared_frontier",
+        }
+        if selected_assignment and selected_headline_ids
+        else None
+    )
+    raw_selected = next(
+        (
+            row for row in universe.get("included_clusters") or []
+            if selected_headline_ids
+            and selected_headline_ids[0] in {
+                str(value) for value in row.get("headline_ids") or []
+            }
+        ),
+        None,
+    )
     entities: list[str] = []
     if selected:
-        entities = [str(value) for value in (selected.get("entities_topics") or [])]
+        entities = [str(value) for value in (raw_selected or {}).get("entities_topics") or []]
         if not entities:
             selected_id = next(iter(selected.get("headline_ids") or []), None)
             selected_row = next(
@@ -969,6 +1162,9 @@ def build_live_zero_write_rehearsal(
         },
         "candidate_universe": universe,
         "prepared_candidate_state_preview": prepared_preview,
+        "prepared_candidate_state_source": prepared_state_source,
+        "prepared_candidate_checkpoint_path": str(checkpoint_path.resolve()),
+        "prepared_checkpoint_written_by_rehearsal": False,
         "prepared_candidate_count": int(
             prepared_preview.get("prepared_candidate_count") or 0
         ),
@@ -992,6 +1188,7 @@ def build_live_zero_write_rehearsal(
                 "cluster_id": selected.get("cluster_id"),
                 "headline_ids": selected.get("headline_ids"),
                 "relationship": selected.get("relationship"),
+                "prepared_frontier_bound": True,
             }
             if selected else {"decision": "ABSTAIN_NO_CURRENT_UNSEEN_OR_MATERIAL_UPDATE"}
         ),
@@ -1016,7 +1213,11 @@ def build_live_zero_write_rehearsal(
         "database_writes_performed": False,
         "filesystem_writes_performed": False,
         "provider_or_model_calls": 0,
+        "model_calls": 0,
+        "provider_calls": 0,
+        "public_requests": 0,
         "public_writes": 0,
+        "unknown_write_detected": False,
         "publication_coordinator_sole_public_writer_unchanged": True,
         "v2_mutations": 0,
     }

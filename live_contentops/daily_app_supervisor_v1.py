@@ -1492,6 +1492,7 @@ class ContentOpsDailyAppSupervisor:
             )
             from live_contentops.codex_desktop_newsroom_operator_v1 import (
                 load_terminal_editorial_continuity,
+                prepared_candidate_continuity_binding,
             )
 
             rolling_input = load_rolling_x_headline_sidecars(
@@ -1535,23 +1536,11 @@ class ContentOpsDailyAppSupervisor:
                 reentry_headline_ids=reentry_ids,
                 editorial_opportunities=opportunities,
                 prior_prepared_state=prior_state,
-                continuity_binding={
-                    "terminal_window_id": continuity.get("terminal_window_id"),
-                    "last_terminal_cutoff_utc": continuity.get(
-                        "last_terminal_cutoff_utc"
-                    ),
-                    "evaluated_headline_count": len(evaluated_ids),
-                    "evaluated_headline_ids_hash": _logical_hash(
-                        sorted(str(value) for value in evaluated_ids)
-                    ),
-                    "material_reentry_headline_count": len(reentry_ids),
-                    "material_reentry_headline_ids_hash": _logical_hash(
-                        sorted(str(value) for value in reentry_ids)
-                    ),
-                    "continuity_logical_hash": continuity.get(
-                        "continuity_logical_hash"
-                    ),
-                },
+                continuity_binding=prepared_candidate_continuity_binding(
+                    continuity=continuity,
+                    evaluated_headline_ids=evaluated_ids,
+                    reentry_headline_ids=reentry_ids,
+                ),
             )
             path = checkpoint_path
             path.parent.mkdir(parents=True, exist_ok=True)

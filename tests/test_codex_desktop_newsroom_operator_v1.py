@@ -1,6 +1,7 @@
 import hashlib
 import json
 import sqlite3
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
@@ -27,7 +28,9 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
 )
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     build_prepared_rolling_x_candidate_state,
+    load_rolling_x_headline_sidecars,
 )
+from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
 
 
 def _write_json(path: Path, value: object) -> None:
@@ -546,15 +549,15 @@ def test_real_shape_zero_write_rehearsal_constructs_next_cutoff_without_parallel
         store,
         outputs,
         window_id="window-last",
-        cutoff="2026-08-16T04:00:00Z",
+        cutoff="2026-08-17T12:00:00Z",
         headline_ids=["h-unrelated-prior"],
-        updated_at="2026-08-16T04:10:00Z",
+        updated_at="2026-08-17T12:10:00Z",
         catalog_fingerprint="catalog-prior",
     )
-    (sidecars / "step1_headline_sidecar_2026_08_16.jsonl").write_text(
+    (sidecars / "step1_headline_sidecar_2026_08_17.jsonl").write_text(
         json.dumps({
             "tweet_id": "live-1",
-            "timestamp": "2026-08-16T05:00:00Z",
+            "timestamp": "2026-08-17T13:00:00Z",
             "text": "Federal Reserve publishes a current official update",
             "linked_urls": ["https://federalreserve.gov/example"],
         }) + "\n",
@@ -566,14 +569,14 @@ def test_real_shape_zero_write_rehearsal_constructs_next_cutoff_without_parallel
     output_files_before = sorted(path.relative_to(outputs) for path in outputs.rglob("*"))
 
     rehearsal = build_live_zero_write_rehearsal(
-        cutoff_utc="2026-08-16T06:00:00Z",
+        cutoff_utc="2026-08-17T14:00:00Z",
         store_path=store,
         output_root=outputs,
         sidecar_glob=str(sidecars / "*.jsonl"),
         cc_root=cc_root,
     )
 
-    assert rehearsal["continuity"]["last_terminal_cutoff_utc"] == "2026-08-16T04:00:00Z"
+    assert rehearsal["continuity"]["last_terminal_cutoff_utc"] == "2026-08-17T12:00:00Z"
     assert rehearsal["current_intake"]["headline_count"] == 1
     assert rehearsal["candidate_or_abstention"]["decision"] == (
         "CANDIDATE_FOR_DESKTOP_EDITORIAL_JUDGMENT"
@@ -591,6 +594,190 @@ def test_real_shape_zero_write_rehearsal_constructs_next_cutoff_without_parallel
     assert rehearsal["continuity"]["parallel_state_authority_created"] is False
     assert hashlib.sha256(store.read_bytes()).hexdigest() == store_before
     assert sorted(path.relative_to(outputs) for path in outputs.rglob("*")) == output_files_before
+
+
+def test_desktop_rehearsal_reuses_canonical_reserved_frontier_and_never_promotes_raw_rank_one(
+    tmp_path, monkeypatch,
+):
+    from live_contentops import codex_desktop_newsroom_operator_v1 as desktop_operator
+
+    store = tmp_path / "store.sqlite3"
+    outputs = tmp_path / "outputs"
+    sidecars = tmp_path / "sidecars"
+    sidecars.mkdir()
+    sidecar = sidecars / "step1_headline_sidecar_2026_08_17.jsonl"
+    original_ids = [f"reserved-seam-{index:02d}" for index in range(25)]
+    urgent_tweet_id = "raw-rank-one-new-urgent"
+    rows = [
+        {
+            "tweet_id": headline_id,
+            "timestamp": "2026-08-17T13:00:00Z",
+            "text": f"Controlled current development {headline_id}",
+            "linked_urls": [f"https://reuters.com/{headline_id}"],
+        }
+        for headline_id in original_ids
+    ] + [{
+        "tweet_id": urgent_tweet_id,
+        "timestamp": "2026-08-17T15:59:00Z",
+        "text": "Controlled newly arrived urgent development",
+        "linked_urls": ["https://reuters.com/new-urgent"],
+    }]
+    sidecar.write_text(
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows),
+        encoding="utf-8",
+    )
+    cc_root = tmp_path / "Main App"
+    _create_cc_root(cc_root)
+    continuity = {
+        "terminal_window_id": "terminal-before-target",
+        "last_terminal_cutoff_utc": "2026-08-17T13:59:00Z",
+        "evaluated_headline_ids": [],
+        "published_memory": {"story_identities": [], "update_chain_identities": []},
+        "material_event_priority": {"headline_ids": [], "priority_count": 0},
+        "active_learning_policy": {},
+        "continuity_logical_hash": "continuity-before-target",
+        "prior_cc_catalog_fingerprint": None,
+    }
+    monkeypatch.setattr(
+        desktop_operator,
+        "load_terminal_editorial_continuity",
+        lambda **_kwargs: dict(continuity),
+    )
+    supervisor = ContentOpsDailyAppSupervisor(
+        store_path=store,
+        output_root=outputs,
+        operating_mode="SHADOW_ONLY",
+        clock=lambda: datetime(2026, 8, 17, 14, tzinfo=timezone.utc),
+        newsroom_cycle=lambda **_kwargs: {"classification": "NO_PUBLICATION"},
+        sidecar_glob=str(sidecar),
+    )
+    first_refresh = supervisor._refresh_prepared_candidate_checkpoint(
+        datetime(2026, 8, 17, 14, tzinfo=timezone.utc)
+    )
+    assert first_refresh["status"] == "READY"
+    checkpoint_path = supervisor._prepared_candidate_checkpoint_path
+    earlier = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+    earlier_frontier = earlier["prepared_frontier"]
+    first_selected = list(earlier_frontier["selected_headline_ids"])
+    reserved_for_target = {
+        row["headline_id"]
+        for row in earlier_frontier["identity_dispositions"]
+        if row["disposition"] == "FUTURE_OPPORTUNITY_PROVEN"
+        and row["opportunity"]["start_utc"] == "2026-08-17T16:00:00Z"
+    }
+    assert len(first_selected) == len(reserved_for_target) == 12
+
+    continuity["evaluated_headline_ids"] = first_selected
+    continuity["continuity_logical_hash"] = "continuity-at-reserved-target"
+    target_cutoff = datetime(2026, 8, 17, 16, 1, tzinfo=timezone.utc)
+    target_input = load_rolling_x_headline_sidecars(
+        cutoff_utc=target_cutoff,
+        sidecar_glob=str(sidecar),
+        window_hours=24.0,
+    )
+    current_ids = list(target_input["unique_headline_ids"])
+    urgent_id = next(
+        row["headline_id"]
+        for row in target_input["headlines"]
+        if (row.get("external_content") or {}).get("headline_text")
+        == "Controlled newly arrived urgent development"
+    )
+    current_clusters = [{
+        "cluster_id": "raw-urgent-rank-one",
+        "rank": 1,
+        "headline_ids": [urgent_id],
+        "relationship": "distinct",
+        "entities_topics": ["urgent"],
+    }] + [
+        {
+            "cluster_id": f"cluster-{headline_id}",
+            "rank": index + 2,
+            "headline_ids": [headline_id],
+            "relationship": "distinct",
+            "entities_topics": [headline_id],
+        }
+        for index, headline_id in enumerate(
+            value for value in current_ids if value != urgent_id
+        )
+    ]
+    stale_checkpoint_before = hashlib.sha256(checkpoint_path.read_bytes()).hexdigest()
+    rebuilt_rehearsal = build_live_zero_write_rehearsal(
+        cutoff_utc=target_cutoff,
+        store_path=store,
+        output_root=outputs,
+        sidecar_glob=str(sidecar),
+        cc_root=cc_root,
+        current_clusters=current_clusters,
+    )
+    rebuilt_frontier = rebuilt_rehearsal["prepared_candidate_state_preview"][
+        "prepared_frontier"
+    ]
+    assert rebuilt_rehearsal["prepared_candidate_state_source"] == (
+        "REBUILT_FROM_CANONICAL_FRONTIER_INPUTS"
+    )
+    assert set(rebuilt_frontier["selected_headline_ids"]) == reserved_for_target
+    assert urgent_id not in rebuilt_frontier["selected_headline_ids"]
+    assert hashlib.sha256(checkpoint_path.read_bytes()).hexdigest() == stale_checkpoint_before
+
+    target_refresh = supervisor._refresh_prepared_candidate_checkpoint(target_cutoff)
+    assert target_refresh["status"] == "READY"
+    canonical = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+    canonical_frontier = canonical["prepared_frontier"]
+    assert set(canonical_frontier["selected_headline_ids"]) == reserved_for_target
+    assert urgent_id not in canonical_frontier["selected_headline_ids"]
+    store_before = hashlib.sha256(store.read_bytes()).hexdigest()
+    output_before = {
+        path.relative_to(outputs): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in outputs.rglob("*")
+        if path.is_file()
+    }
+    rehearsal = build_live_zero_write_rehearsal(
+        cutoff_utc=target_cutoff,
+        store_path=store,
+        output_root=outputs,
+        sidecar_glob=str(sidecar),
+        cc_root=cc_root,
+        current_clusters=current_clusters,
+    )
+    rehearsal_frontier = rehearsal["prepared_candidate_state_preview"][
+        "prepared_frontier"
+    ]
+
+    assert len(current_ids) > 12
+    assert rehearsal["prepared_candidate_state_source"] == (
+        "REUSED_VALID_CONTINUOUS_CHECKPOINT"
+    )
+    for key in (
+        "selected_headline_ids",
+        "deferred_headline_ids",
+        "not_promoted_headline_ids",
+        "identity_dispositions",
+    ):
+        assert rehearsal_frontier[key] == canonical_frontier[key]
+    assert set(rehearsal_frontier["selected_headline_ids"]) == reserved_for_target
+    candidate_ids = set(rehearsal["candidate_or_abstention"]["headline_ids"])
+    assert rehearsal["candidate_or_abstention"]["decision"] == (
+        "CANDIDATE_FOR_DESKTOP_EDITORIAL_JUDGMENT"
+    )
+    assert candidate_ids.issubset(rehearsal_frontier["selected_headline_ids"])
+    assert urgent_id not in candidate_ids
+    assert rehearsal["candidate_universe"]["included_clusters"][0]["cluster_id"] == (
+        "raw-urgent-rank-one"
+    )
+    assert rehearsal["prepared_candidate_count"] == 12
+    assert all(
+        row["evidence_walk_evaluated"] is False
+        for row in rehearsal_frontier["identity_dispositions"]
+    )
+    assert rehearsal["model_calls"] == rehearsal["provider_calls"] == 0
+    assert rehearsal["public_requests"] == rehearsal["public_writes"] == 0
+    assert rehearsal["unknown_write_detected"] is False
+    assert hashlib.sha256(store.read_bytes()).hexdigest() == store_before
+    assert {
+        path.relative_to(outputs): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in outputs.rglob("*")
+        if path.is_file()
+    } == output_before
 
 
 def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
