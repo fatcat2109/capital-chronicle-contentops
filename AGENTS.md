@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Codex Root Contract
 
-Authority date: 2026-08-16
+Authority date: 2026-08-17
 
 This is the compact repository-wide contract. A nearer `AGENTS.md` adds local routing without overriding these boundaries.
 
@@ -141,19 +141,20 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. It corrects the
-accepted multilingual package factory before merge. Canonical production is
-`AUDIO_SIDECAR_FIRST / PICTURE_RENDER_ONCE / NO_LOCALE_PICTURE_RENDER_BY_DEFAULT /
-NO_XHIGH_PER_LOCALE / GLOBAL_LANGUAGE_REACH / BURNED_CAPTION_OPTIONAL_ONLY`.
+This is the only active V2 product task unless Jim explicitly changes direction. Reconcile the
+historical publication-adapter donor onto fresh current master without merging its stale authority.
+The six-surface shadow control plane must preserve zero public-write authority and exact
+`UNKNOWN_WRITE -> STOP RETRY -> READ BACK -> RECONCILE` behavior while using the corrected
+first-party contracts: YouTube video/Shorts, TikTok Upload-to-TikTok draft delivery, explicit
+Instagram Login versus Facebook Login variants, and Facebook Page Reels.
+The TikTok secure credential/bootstrap detour is accepted
+`COMPLETED_BLOCKER_REMOVAL`; do not reopen it or read the persisted credential in this task.
 
-One clean picture is rendered once per editorial format. Recurring locale work may translate
-governed semantic segments locally, validate factual anchors, synthesize/mix audio, write timed
-caption and metadata sidecars, and perform cheap `-c:v copy` muxing only when a destination
-requires a separate localized file. Existing burned-caption proofs remain historical evidence.
-Official publication adapters are next after merge/acceptance; V1 integration and scheduling
-remain deferred.
+The single exact next gate after acceptance is
+`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
+It is not authorized or started by the current task.
 
 Canonical product path:
 

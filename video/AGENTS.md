@@ -1,6 +1,6 @@
 # `video/` — Retention-Native V2 Creative-Code / Renderer Scope
 
-Authority date: 2026-08-12
+Authority date: 2026-08-17
 
 For V2/video work, read first:
 
@@ -14,11 +14,16 @@ For V2/video work, read first:
 
 Current next task:
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
 
 Required result:
 
-`PASS_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_READY_FOR_MERGE_AUDIT`
+`PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE`
+
+This task is HIGH-only. Do not use XHIGH, OAuth, credentials, provider calls, browser actions,
+private/unlisted/draft uploads, or public writes. The next gate is
+`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`;
+do not start it under this authority.
 
 For recurring localization, render picture once per editorial format. Language work is governed
 translation, audio, timed captions, metadata and manifests. Locale-specific Remotion source,

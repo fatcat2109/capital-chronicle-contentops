@@ -1,6 +1,6 @@
 # ContentOps V2 — Free-form Chapterized HIGH/XHIGH Owner Override V1
 
-Authority date: 2026-08-16
+Authority date: 2026-08-17
 Status: `CURRENT_CANONICAL_V2_OWNER_OVERRIDE`
 Owner: Jim
 
@@ -8,21 +8,26 @@ This override supersedes current V2 planning language where it conflicts. Histor
 
 ## Current task
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
 
 Required result ceiling:
 
-`PASS_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_READY_FOR_MERGE_AUDIT`
+`PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE`
 
-The accepted longform and Short pictures are closed creative inputs. The current correction
-changes the recurring language cost model without reopening media: render one clean picture per
-editorial format, then produce governed translation, audio, timed captions, metadata and package
-sidecars. No locale-specific picture source, Remotion render, or recurring XHIGH localization
-session is canonical. Burned-caption renders are `OPTIONAL_ONLY` under later exact authority.
+The accepted picture and zero-rerender package outputs are closed inputs. The current HIGH-only
+task reconciles official publication-adapter planning on fresh master, executes only deterministic
+fake-provider shadow proof, and preserves `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`. It performs no
+OAuth, provider call, credential read, private/unlisted/draft upload, or public write.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [CURRENT] -> official publication adapters [NEXT AFTER MERGE/ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED BLOCKER REMOVAL] -> official publication adapter reconciliation [CURRENT] -> TikTok draft readiness/exact owner live-canary gate [NEXT, NOT STARTED] -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+
+Single exact next task after acceptance:
+
+`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`
+
+The current task does not start or authorize that gate.
 
 ## Model orchestration
 

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Current Execution Pointer V2
 
-Authority date: 2026-08-14
+Authority date: 2026-08-17
 Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
 Product direction: `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY`
 Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRED`
@@ -11,11 +11,11 @@ Current controlling owner override:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [CURRENT] -> official publication adapters [NEXT AFTER MERGE/ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED BLOCKER REMOVAL] -> official publication adapter reconciliation [CURRENT] -> TikTok draft readiness/exact owner live-canary gate [NEXT, NOT STARTED] -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
 
 Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
 short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
@@ -89,16 +89,21 @@ unless Jim explicitly reverses this decision.
 
 Do not use it as a professional-final presentation map in a new owner-review candidate.
 
-# Exact next task
+# Current exact task
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. The previously
-accepted longform and Short pictures must not be rerendered. Canonical language delivery is one
-clean picture per format plus localized audio, timed caption, metadata and package sidecars.
-Locale-specific muxes may use FFmpeg stream copy where a later authorized platform requires a
-separate file. No locale-specific picture render or recurring XHIGH localization lane is allowed
-by default. Official publication adapters remain next after merge/acceptance.
+This is the only active V2 product task unless Jim explicitly changes direction. It ports useful
+historical adapter code without importing stale authority, corrects the YouTube/TikTok/Meta
+contracts, and proves all six surfaces against accepted real package identities with zero network
+or platform operations. Required result ceiling:
+`PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE`.
+
+The single exact next task after acceptance is
+`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
+It must reverify non-secret identity/readiness, obtain exact owner write authority, deliver one
+Upload-to-TikTok draft, stop at `SEND_TO_USER_INBOX`, and require creator finalization. The
+current task does not start or authorize that gate.
 
 Canonical proof flow:
 

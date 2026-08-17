@@ -1,15 +1,21 @@
 # Capital Chronicle ContentOps V2 — Fresh Chat / Builder Handoff V1
 
-Authority date: 2026-08-14
+Authority date: 2026-08-17
 Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `HIGH_PARENT / FRESH_XHIGH_CREATIVE_WORKERS / MAX_ULTRA_RETIRED`
 
-> **2026-08-16 current handoff override:** Read
+> **2026-08-17 current handoff override:** Read
 > `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` before the older
-> evidence below. The active task is the free-form chapterized HIGH/XHIGH 1080 owner-polish
-> task for *Frozen Without Breaking*. MAX/ULTRA, 4K, deterministic creative gates, normative
-> micro-beat rules, and fixed creative-repair budgets are no longer current direction.
+> evidence below. The active HIGH-only task is
+> `TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`.
+> It corrects provider contracts using first-party docs and deterministic fake-provider shadow
+> proof only. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling.
+> TikTok secure credential/bootstrap work is `COMPLETED_BLOCKER_REMOVAL`; do not reopen it or
+> read the persisted credential under this task.
+> The single exact next task after acceptance is
+> `TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`;
+> it is named but not started by current authority.
 
 Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or owner chat history.
 

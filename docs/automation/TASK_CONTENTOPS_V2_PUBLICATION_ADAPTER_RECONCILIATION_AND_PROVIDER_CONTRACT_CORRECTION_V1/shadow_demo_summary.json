@@ -1,0 +1,41 @@
+{
+  "schema": "contentops.v2.publication_adapter_reconciliation_summary.v1",
+  "execution_date": "2026-08-17",
+  "result": "PASS_SHADOW_PUBLICATION_CLOSED_LOOP",
+  "packages": {
+    "longform": "pkg_33715fff75a0204cf430bbb763cb5ff9b6339e370b323c1d754aa6a91f24b4db",
+    "short": "pkg_2dfe4af587fd8135d04bae456b8c5b30a1560be91232b34f520cf7f05a71c0b2"
+  },
+  "surfaces": {
+    "count": 6,
+    "all_reconciled": true,
+    "tiktok": {
+      "delivery_state": "DRAFT_DELIVERED_TO_CREATOR",
+      "status": "SEND_TO_USER_INBOX",
+      "provider_object_id": null,
+      "public_post_confirmed": false,
+      "creator_finalization_required": true
+    }
+  },
+  "unknown_write": {
+    "positive_recovery_state": "READBACK_CONFIRMED",
+    "unresolved_negative_state": "UNKNOWN_WRITE",
+    "blind_retry_blocked": true
+  },
+  "operations": {
+    "real_provider_calls": 0,
+    "real_provider_writes": 0,
+    "private_unlisted_draft_writes": 0,
+    "oauth_operations": 0,
+    "credential_reads": 0,
+    "browser_actions": 0,
+    "v1_mutations": 0,
+    "scheduler_mutations": 0,
+    "remotion_renders": 0,
+    "localized_picture_renders": 0,
+    "audio_generations": 0,
+    "xhigh_calls": 0,
+    "max_calls": 0,
+    "ultra_calls": 0
+  }
+}

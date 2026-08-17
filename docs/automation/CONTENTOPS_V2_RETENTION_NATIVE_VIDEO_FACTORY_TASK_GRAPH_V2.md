@@ -1,15 +1,15 @@
 # Capital Chronicle ContentOps V2 — Task Graph V2
 
-Authority date: 2026-08-14
+Authority date: 2026-08-17
 Status: `CURRENT_CANONICAL_V2_TASK_GRAPH`
 Companion plan: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
-> **2026-08-16 task-graph override:** Current task is
-> `TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`, correcting the
-> accepted multilingual factory to render one picture per editorial format and use language
-> audio/caption/metadata sidecars without recurring per-locale XHIGH or picture renders.
+> **2026-08-17 task-graph override:** Current task is
+> `TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`,
+> reconciling the historical adapter donor on fresh master and correcting the first-party
+> YouTube, TikTok, Instagram and Facebook contracts under zero-write shadow execution.
 > QH1/QH2 and MAX/ULTRA sequencing below are superseded planning history. No current or
 > future mode bakeoff is authorized by this graph.
 
@@ -30,21 +30,22 @@ The controlled A/B and subsequent architecture-recovery proofs establish the fol
 - `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains unchanged.
 - V2-02 distribution/publication expansion remains blocked.
 
-# 2. Current exact next task
+# 2. Current exact task
 
-`TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. The
-free-form 1080 production substrate, native Short picture, and prior multilingual proofs are
-accepted historical inputs. The correction must make `AUDIO_SIDECAR_FIRST`,
-`PICTURE_RENDER_ONCE`, `NO_LOCALE_PICTURE_RENDER_BY_DEFAULT`, `NO_XHIGH_PER_LOCALE`,
-`GLOBAL_LANGUAGE_REACH`, and `BURNED_CAPTION_OPTIONAL_ONLY` canonical.
+This is the only active V2 product task unless Jim explicitly changes direction. The accepted
+zero-rerender packages are immutable inputs. The task is HIGH-only, has no live provider or
+credential authority, and must retain six distinct surfaces plus positive and unresolved
+`UNKNOWN_WRITE` proofs.
 
 Current sequence:
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [CURRENT] -> official publication adapters [NEXT AFTER MERGE/ACCEPTANCE] -> live readback/reconciliation -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED BLOCKER REMOVAL] -> official publication adapter reconciliation [CURRENT] -> TikTok draft readiness/exact owner live-canary gate [NEXT, NOT STARTED] -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
 
-The task must be a heavy bounded real-media vertical slice, not a documentation or generic infrastructure program.
+Exact next after acceptance:
+`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
+No current authority starts it.
 
 # 3. User problem
 
