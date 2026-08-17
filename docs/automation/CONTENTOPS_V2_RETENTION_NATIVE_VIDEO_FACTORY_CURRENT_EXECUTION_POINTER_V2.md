@@ -4,6 +4,7 @@ Authority date: 2026-08-17
 Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
 Product direction: `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY / TRANSCRIPT_FIRST_V2_PRODUCTION`
 Reasoning topology: `HIGH_PARENT_SESSION -> BOUNDED_XHIGH_VIDEO_CREATIVE_WORK`
+Workflow topology: `GITHUB_AUTHORITY -> CODEGRAPH -> EXACT_SOURCE_TESTS -> IMPLEMENTATION -> CODEGRAPH_VERIFY -> FOCUSED_TESTS_REAL_E2E -> GITHUB_AUDIT`
 
 ## Current authority chain
 
@@ -12,107 +13,109 @@ Read in this order:
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/codegraph/V2_CONTEXT.md`
-4. `docs/automation/CONTENTOPS_V2_HIGH_PARENT_XHIGH_VIDEO_CREATIVE_REASONING_OWNER_CORRECTION_V1.md`
-5. `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
-6. `docs/automation/CONTENTOPS_V2_NORTH_STAR_MASTER_PLAN_TRANSCRIPT_SEO_MULTILINGUAL_AMENDMENT_V1.md`
-7. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
-8. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
-9. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+4. `docs/automation/CONTENTOPS_CODEGRAPH_MANDATORY_AND_ORCHESTRATION_TOOL_DECISION_V1.md`
+5. `docs/automation/CONTENTOPS_V2_HIGH_PARENT_XHIGH_VIDEO_CREATIVE_REASONING_OWNER_CORRECTION_V1.md`
+6. `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
+7. `docs/automation/CONTENTOPS_V2_NORTH_STAR_MASTER_PLAN_TRANSCRIPT_SEO_MULTILINGUAL_AMENDMENT_V1.md`
+8. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+9. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 10. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
 11. this file
-12. `docs/automation/CONTENTOPS_V2_TRANSCRIPT_SEO_MULTILINGUAL_PLATFORM_RESEARCH_V1.md`
-13. `docs/automation/CONTENTOPS_V2_30_VIDEO_TRANSCRIPT_CORPUS_MANIFEST_V1.md`
-14. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
-15. nearest scoped `AGENTS.md`
-16. exact current task code/tests/evidence.
+12. nearest scoped `AGENTS.md`
+13. exact current task code/tests/evidence.
 
-Repository refs/commits/exact bytes remain repo-state authority. Jim's latest explicit direction remains product authority. If root AGENTS, generated CodeGraph, or older V2 documents still say the whole Desktop session is XHIGH, the reasoning-effort correction above supersedes that wording until regenerated/reconciled.
+Repository refs/commits/exact bytes remain repo-state authority. Jim's latest explicit direction remains product authority.
 
-## Canonical reasoning-effort topology
+## Tool/process decision
 
-`V2_DESKTOP_PARENT_REASONING_EFFORT = HIGH`
+CodeGraph is mandatory for meaningful implementation and audit. It must be used for discovery/impact routing before edits and for affected-flow/orphan/duplicate verification after edits. `CODEGRAPH_CURRENT` by itself is not proof of proper graph use.
 
-The normal Codex Desktop App parent/session runs `GPT-5.6 Sol / HIGH` for waiting/intake, coordination, repository/evidence work, mechanical diagnostics, deterministic execution, render/audio/package orchestration, waiting/polling, and ordinary V2 tasks.
+Superpowers is not installed/activated for the current project. Three-Level Delivery is not activated. Do not add another process/control plane. Reuse useful debugging/TDD/verification principles directly when they add value.
 
-`V2_VIDEO_CREATIVE_REASONING_EFFORT = XHIGH`
+## Reasoning-effort topology
 
-The HIGH parent/session invokes bounded `GPT-5.6 Sol / XHIGH` work only when the job reaches consequential video-creative/editorial/review stages: analytical decomposition, narrative, narration, viewer-facing Remotion source, typography/motion/pacing/sound intent, actual-media critique, and bounded same-video creative revision.
-
-Do not run the whole waiting/parent task at XHIGH. XHIGH must not be spent on Git, rendering, transcoding, tests, path repair, waiting, polling, evidence formatting, commit, or push.
-
-Forbidden creative substitutes remain Codex CLI/`codex exec`, Codex SDK/API/headless creative execution, 9Router creative execution, Terra/Gemini/provider/generic-model creative fallback.
+- Parent/session: `GPT-5.6 Sol / HIGH`.
+- Bounded consequential video creative/editorial/review work: `GPT-5.6 Sol / XHIGH`.
+- Do not spend XHIGH on Git, CodeGraph, tests, rendering, FFmpeg/transcoding, mechanical diagnostics, waiting/polling, evidence formatting, commit, or push.
+- No Codex CLI/`codex exec`, SDK/API/headless, 9Router, Terra/Gemini, provider, or generic-model creative substitution.
 
 ## Audited current implementation/proof truth
 
-Desktop-session-native core implementation:
+Branch:
 
-`de0d9748b36334d408f7cc845b8edda109df0ff8`
+`task/v2-high-parent-xhigh-runtime-short-path-fresh-media-proof-v1`
 
-Evidence commit:
+Implementation HEAD:
 
-`c8a42fecee5dba6708fb380f442d663a519f1b8c`
+`8ed062577b7cb61d4ee8aec69e74822d1946c759`
 
-Proof result:
+Evidence HEAD:
 
-`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
+`d81ea603d729269d903e72e8a47e9375771ddd88`
 
-The proof passed through `HARD_SOURCE_VALIDATED` and failed at first `PROXY_RENDERED` because Remotion could not spawn an existing Chrome headless shell through a 303-character task-local Windows path (`ENOENT`). No repair, resume, second proof, media, audio, captions, package, V1/platform/scheduler/public write followed.
+Classification:
 
-The prior implementation's provenance contract marks the parent Desktop session itself as `xhigh`; that contract is now known to be wrong and must be repaired before the next fresh proof.
+`FAIL_QUARANTINED_AT_AUDIO_DURATION_GATE`
 
-Do not resume or mutate:
+Verified product progress:
 
-`run_231f3172582d4343a431ef3e2b4a955c`
+- HIGH parent provenance is implemented;
+- exactly two bounded XHIGH creative executions were recorded: initial creative work and actual-media review;
+- XHIGH receipts report zero mechanical work and zero CLI/API/headless/provider/9Router fallback;
+- Windows Remotion browser launch defect was confirmed: projected 303-character executable path failed while canonical 222-character executable path launched;
+- explicit canonical `--browser-executable` and `--public-dir` handling passed a non-creative Remotion smoke;
+- the real proof passed `CLAIMED -> GOVERNED_INPUT_LOCKED -> CREATIVE_EDITOR_LOCKED -> MOTION_SOURCE_LOCKED -> HARD_SOURCE_VALIDATED -> PROXY_RENDERED -> ACTUAL_MEDIA_REVIEWED -> PICTURE_LOCKED`;
+- actual-media XHIGH review returned `NO_MATERIAL_REVISION`;
+- picture lock exists at `1080x1920 / 30fps / h264 / 54.058667s`;
+- Kokoro `af_heart / speed=1.06 / en-us` narration exists at `57.788667s`;
+- deterministic audio fit correctly rejected the 3.730-second overrun;
+- no retry, second proof, operator creative edit, manual media repair, V1/platform/scheduler/public write occurred;
+- no final mux, captions, package, or `OWNER_REVIEW_READY` bundle exists.
 
-## Build contract
+Production soak remains blocked.
 
-`V2_BUILD_1080P_ONLY`
+## CodeGraph audit caveat
 
-- Short: `1080x1920`, 30 fps, normally 30–60 seconds.
-- Current proof: one Short.
-- Longform build default max: 5 minutes.
-- Longform hard exception max: 10 minutes only when explicitly justified.
-- No 4K during build/pre-soak.
-- Voice: `KOKORO_AF_HEART / speed=1.06 / lang=en-us`.
-- `ELEVENLABS_AND_AI_AVATAR_DEFERRED`.
+The evidence packet labels CodeGraph current, but the committed `docs/codegraph/V2_CONTEXT.md` at evidence HEAD states it was generated from source HEAD `558acbdf766754f9ad2902c67c181bb4a7e14cac`, predating implementation HEAD `8ed062577b7cb61d4ee8aec69e74822d1946c759`.
 
-## Transcript / SEO / multilingual
+Therefore the next task must regenerate CodeGraph in the actual writable worktree and actively query the audio timing call path before edits.
 
-`TRANSCRIPT_FIRST_V2_PRODUCTION`
+## Current root cause / product design conclusion
 
-Final captions/SEO should reconcile to final accepted audio. The 30-video publisher corpus is craft-learning evidence only.
+The audio gate itself is correct and must not be weakened.
 
-`MULTILINGUAL_PACKAGE_SUBSTRATE_CLOSED_INPUT`
+Current sequencing is the blocker:
 
-No locale activation during the current repair/proof. Music and official clips require exact rights scope.
+`editor word-count duration estimate -> motion/picture duration lock -> actual Kokoro synthesis -> audio duration gate`
+
+`validate_editor_artifact()` only performs a coarse word-count duration lower-bound estimate. Actual Kokoro waveform timing is not known until `AUDIO_BUILT`, after proxy review and `PICTURE_LOCKED`. This allows a truthful script/picture contract to pass while the real waveform exceeds the locked picture.
+
+Do not fix this by truncating narration, globally speeding Kokoro above the owner voice setting, silently stretching picture, relaxing the audio gate, or adding arbitrary duration padding.
+
+The next capability should make actual narration timing a first-class pre-motion timing authority.
 
 ## Exact next task
 
-`TASK_CONTENTOPS_V2_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_FRESH_DESKTOP_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_ACTUAL_NARRATION_TIMING_LOCK_AND_FRESH_OWNER_REVIEW_MEDIA_PROOF_V1`
 
-Launch the fresh Codex Desktop App parent/session at `GPT-5.6 Sol / HIGH`.
+Required capability sequence:
 
-Required order:
+`HIGH claim/governed input -> bounded XHIGH editorial/narration artifact -> HIGH Kokoro segment synthesis -> ACTUAL_NARRATION_TIMING_LOCKED -> bounded XHIGH motion/visual authorship using exact segment/audio timing -> deterministic validation -> proxy -> bounded XHIGH actual-media review/revision if needed -> picture lock -> HIGH audio mix/captions/final/package -> OWNER_REVIEW_READY`
 
-1. regenerate/reconcile stale CodeGraph/current context if needed;
-2. correct runtime provenance from all-session-XHIGH to HIGH parent + bounded XHIGH video-creative work;
-3. prove/falsify the Windows browser/path diagnosis with a minimal non-creative diagnostic;
-4. implement only the smallest mechanical short-path repair;
-5. prove a non-creative Remotion/browser smoke;
-6. commit/push before proof;
-7. run exactly one new Frozen Without Breaking governed Short proof;
-8. use XHIGH only for actual video-creative/review work;
-9. use 1080x1920/30 fps and Kokoro `af_heart`;
-10. reach actual owner-review media or quarantine truthfully.
+The implementation may choose the smallest compatible contract, but actual measured narration timing must be available before canonical motion/picture timing is finalized.
 
-`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`
+Prefer segment-level audio/timing artifacts and bounded resynthesis of changed lines. Do not introduce a generic timing framework unrelated to the real pipeline.
 
-`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
+## Build/media contract
+
+- 1080p only.
+- Fresh proof: one `1080x1920 / 30fps / normally 30–60s` Short.
+- Kokoro `af_heart / 1.06 / en-us` remains fixed for current build proof.
+- No 4K, longform, ElevenLabs, avatar, multilingual activation, V1 trigger/scheduler, platform credential/API/public write.
+- Do not resume or mutate the quarantined prior proof.
 
 ## Next gate after success
 
-Only after Jim/ChatGPT inspect and accept the actual MP4/audio:
+Only after the fresh proof reaches `OWNER_REVIEW_READY` and Jim/ChatGPT independently inspect and accept the actual MP4/audio:
 
 `TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_V1`
-
-Then locale activation; premium voice/avatar and V1 scheduling/publication remain later exact-authority gates.
