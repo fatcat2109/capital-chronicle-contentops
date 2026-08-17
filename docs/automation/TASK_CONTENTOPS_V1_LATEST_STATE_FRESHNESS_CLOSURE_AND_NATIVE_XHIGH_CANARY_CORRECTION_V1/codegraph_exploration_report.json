@@ -1,0 +1,32 @@
+{
+  "schema_version": "contentops.v1_latest_state_codegraph_exploration.v1",
+  "graph_source": "docs/codegraph/graph.json",
+  "root_dot_codegraph_present": false,
+  "queries": [
+    "build_grounded_research_request; grounded research; official locator and source synthesis",
+    "RollingXTargetedEvidenceAdapter; select_first_viable_rolling_x_cluster",
+    "pre-XHIGH freshness validation; _prepare_rolling_x_release_candidate",
+    "focused tests for grounded research, targeted evidence, viability, Institutional Edge, and newsroom cycle"
+  ],
+  "call_path": [
+    "production orchestrator / rolling-X facade",
+    "_run_rolling_x_newsroom_cycle",
+    "select_first_viable_rolling_x_cluster",
+    "RollingXTargetedEvidenceAdapter.__call__",
+    "GroundedNewsResearchV1.__call__",
+    "deterministic locator/query planning",
+    "existing public retriever",
+    "deterministic latest-event-state closure",
+    "source synthesis and exact validation",
+    "viability selection",
+    "build_editorial_worker_routing_packet",
+    "one native XHIGH worker only if qualified",
+    "Institutional Edge validation",
+    "_prepare_rolling_x_release_candidate",
+    "canonical plus eight derivative packages"
+  ],
+  "source_commit": "fe33c7fa62bcbe28ca271896fb8d298dec2ba4b4",
+  "generated_nodes": 7093,
+  "generated_edges": 13324,
+  "check": "CODEGRAPH_CURRENT"
+}

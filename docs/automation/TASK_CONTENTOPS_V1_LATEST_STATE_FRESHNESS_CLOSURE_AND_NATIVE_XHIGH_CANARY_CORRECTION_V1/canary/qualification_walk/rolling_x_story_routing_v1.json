@@ -1,0 +1,81 @@
+{
+  "compatibility_injection_used": true,
+  "router_summary": null,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-997537506695c666b046",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-5da161c8801536296ea6",
+      "reason": "Focused compatibility injection.",
+      "story_type": "supply_chain_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-fa5aeada39dd95f685ef",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-a658b3f36703cb4f708b",
+      "reason": "Focused compatibility injection.",
+      "story_type": "geopolitical_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-119ebde1d50d62d70501",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-cd4213610bd02d5ba02a",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-b79ba501c048f8dc2e53",
+      "reason": "Focused compatibility injection.",
+      "story_type": "geopolitical_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-eabefac911698e0ccc41",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-b196c5f78a369539c290",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-6d08ca877e2e34e14bdb",
+      "reason": "Focused compatibility injection.",
+      "story_type": "company_sector_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-a1fd62ebd41d38529912",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-f8c1daf72709625087a1",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-deterministic-cluster-119ebde1d50d62d70501": "general_public_event",
+    "rolling-x-deterministic-cluster-5da161c8801536296ea6": "supply_chain_event",
+    "rolling-x-deterministic-cluster-6d08ca877e2e34e14bdb": "company_sector_event",
+    "rolling-x-deterministic-cluster-997537506695c666b046": "general_public_event",
+    "rolling-x-deterministic-cluster-a1fd62ebd41d38529912": "general_public_event",
+    "rolling-x-deterministic-cluster-a658b3f36703cb4f708b": "geopolitical_event",
+    "rolling-x-deterministic-cluster-b196c5f78a369539c290": "general_public_event",
+    "rolling-x-deterministic-cluster-b79ba501c048f8dc2e53": "geopolitical_event",
+    "rolling-x-deterministic-cluster-cd4213610bd02d5ba02a": "general_public_event",
+    "rolling-x-deterministic-cluster-eabefac911698e0ccc41": "general_public_event",
+    "rolling-x-deterministic-cluster-f8c1daf72709625087a1": "general_public_event",
+    "rolling-x-deterministic-cluster-fa5aeada39dd95f685ef": "general_public_event"
+  }
+}

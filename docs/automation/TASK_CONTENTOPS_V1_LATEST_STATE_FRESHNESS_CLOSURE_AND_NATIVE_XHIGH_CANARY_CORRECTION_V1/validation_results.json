@@ -1,0 +1,49 @@
+{
+  "schema_version": "contentops.v1_latest_state_correction_validation.v1",
+  "status": "PASS",
+  "source_commit": "fe33c7fa62bcbe28ca271896fb8d298dec2ba4b4",
+  "focused_test_command": "python -m pytest tests/test_grounded_news_research_v1.py tests/test_latest_event_state_closure_v1.py tests/test_rolling_x_targeted_evidence_adapter_v1.py tests/test_rolling_x_evidence_viability_v1.py tests/test_v1_9router_research_model_ladder_v1.py tests/test_codex_desktop_newsroom_operator_v1.py tests/test_capital_chronicle_institutional_edge_v1.py tests/test_rolling_x_newsroom_cycle_v1.py tests/test_rolling_x_v1_publishability_closure_v1.py -q",
+  "focused_test_result": {
+    "passed": 170,
+    "failed": 0,
+    "elapsed_seconds": 7.56
+  },
+  "coverage": [
+    "grounded research",
+    "deterministic latest-state closure",
+    "targeted evidence adapter receipt propagation",
+    "evidence viability",
+    "frozen Kushner superseded-event regression",
+    "source cutoff enforcement",
+    "Gemini-only router",
+    "HIGH to XHIGH routing boundary",
+    "Institutional Edge validation",
+    "SEO and package consistency",
+    "text-only BREAKING_BRIEF compatibility",
+    "zero-write release/package path"
+  ],
+  "frozen_kushner_regression": {
+    "status": "PASS",
+    "initial_state": "Kushner met Hamas; a Netanyahu meeting was scheduled afterward",
+    "newer_pre_cutoff_state": "the Netanyahu meeting occurred and produced no breakthrough",
+    "result": "newer state bound and older forward-state source superseded",
+    "stale_phrases_rejected": [
+      "ahead of Netanyahu talks",
+      "scheduled to meet Netanyahu afterward",
+      "planned Netanyahu talks",
+      "watch for statements after the planned talks"
+    ],
+    "post_cutoff_source_rejected": true,
+    "model_event_state_authority": false
+  },
+  "non_overfitting": {
+    "completed_event_extra_retrieval": 0,
+    "future_event_requires_distinct_newer_support": true,
+    "older_completed_document_cannot_override_newer_future_state": true,
+    "factual_rejection_triggers_model_shopping": false,
+    "enhanced_risk_rules_weakened": false,
+    "new_semantic_review_required": false
+  },
+  "codegraph_check": "CODEGRAPH_CURRENT",
+  "codegraph_source_head": "fe33c7fa62bcbe28ca271896fb8d298dec2ba4b4"
+}
