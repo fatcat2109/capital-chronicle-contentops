@@ -201,6 +201,46 @@ def test_terminal_cutoff_uses_latest_terminal_artifact_and_read_only_store(tmp_p
     assert hashlib.sha256(store.read_bytes()).hexdigest() == before
 
 
+def test_terminal_continuity_uses_attempted_frontier_not_full_intake_universe(tmp_path):
+    store = tmp_path / "store.sqlite3"
+    outputs = tmp_path / "outputs"
+    _create_store(store)
+    full_ids = [f"headline-{index:02d}" for index in range(20)]
+    _terminal_cycle(
+        store,
+        outputs,
+        window_id="window-frontier",
+        cutoff="2026-08-16T04:00:00Z",
+        headline_ids=full_ids,
+        updated_at="2026-08-16T04:10:00Z",
+        catalog_fingerprint="catalog-frontier",
+    )
+    cycle_dir = outputs / "window-frontier"
+    _write_json(cycle_dir / "rolling_x_assignment_v1.json", {
+        "ranked_clusters": [
+            {"cluster_id": "attempted", "rank": 1, "headline_ids": full_ids[:2]},
+            {"cluster_id": "held", "rank": 2, "headline_ids": full_ids[2:4]},
+        ],
+    })
+    _write_json(cycle_dir / "rolling_x_newsroom_cycle_evidence_v1.json", {
+        "classification": "NO_PUBLICATION",
+        "candidate_walk": {
+            "candidate_attempts": [{"rank": 1, "cluster_id": "attempted"}],
+        },
+        "public_write_performed": False,
+    })
+
+    continuity = load_terminal_editorial_continuity(
+        store_path=store, output_root=outputs
+    )
+
+    assert continuity["evaluated_headline_ids"] == full_ids[:2]
+    assert continuity["terminal_records"][0]["evaluated_identity_source"] == (
+        "CANDIDATE_WALK_ATTEMPTS"
+    )
+    assert continuity["last_terminal_cutoff_utc"] == "2026-08-16T04:00:00Z"
+
+
 def test_candidate_universe_dedupes_includes_material_and_late_unseen_excludes_published(tmp_path):
     store = tmp_path / "store.sqlite3"
     outputs = tmp_path / "outputs"
@@ -290,6 +330,41 @@ def test_candidate_universe_dedupes_includes_material_and_late_unseen_excludes_p
         "published-story": "EXCLUDE_PUBLISHED_WITHOUT_MATERIAL_DELTA",
     }
     assert universe["timestamp_only_filter_used"] is False
+
+
+@pytest.mark.parametrize(
+    "relationship", ["material_update", "correction", "contradiction", "new_phase"]
+)
+def test_governed_material_relationship_reenters_even_when_identity_was_evaluated(
+    relationship,
+):
+    universe = classify_desktop_candidate_universe(
+        current_headlines=[{
+            "headline_id": "evaluated-update",
+            "source_timestamp_utc": "2026-08-16T05:00:00Z",
+        }],
+        current_clusters=[{
+            "cluster_id": "update-cluster",
+            "rank": 1,
+            "headline_ids": ["evaluated-update"],
+            "update_chain_identity": "durable-chain",
+            "update_chain": {"relationship": relationship},
+        }],
+        continuity={
+            "evaluated_headline_ids": ["evaluated-update"],
+            "last_terminal_cutoff_utc": "2026-08-16T04:00:00Z",
+            "published_memory": {
+                "story_identities": [], "update_chain_identities": [],
+            },
+            "material_event_priority": {},
+        },
+    )
+
+    assert universe["included_cluster_count"] == 1
+    assert universe["included_clusters"][0]["decision"] == (
+        "INCLUDE_MATERIAL_UPDATE_CHAIN"
+    )
+    assert universe["included_clusters"][0]["relationship"] == relationship
 
 
 def test_cc_catalog_refreshes_on_estate_or_governed_surface_change_and_remains_read_only(tmp_path):
@@ -429,6 +504,9 @@ def test_real_shape_zero_write_rehearsal_constructs_next_cutoff_without_parallel
     assert rehearsal["candidate_or_abstention"]["decision"] == (
         "CANDIDATE_FOR_DESKTOP_EDITORIAL_JUDGMENT"
     )
+    assert rehearsal["prepared_frontier_is_continuity_bound"] is True
+    assert rehearsal["prepared_candidate_count"] == 1
+    assert rehearsal["deferred_candidate_count"] == 0
     assert rehearsal["capital_chronicle"]["discovery_complete"] is True
     assert rehearsal["capital_chronicle"]["story_scoped_context"][
         "grants_factual_or_numeric_authority"

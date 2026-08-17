@@ -1908,46 +1908,70 @@ def build_prepared_rolling_x_candidate_state(
     rolling_input: Mapping[str, Any],
     prepared_at_utc: datetime | str,
     max_candidates: int = PREPARED_CANDIDATE_LIMIT,
+    evaluated_headline_ids: Sequence[str] = (),
+    reentry_headline_ids: Sequence[str] = (),
+    continuity_binding: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build the small zero-model candidate checkpoint consumed by an editorial opportunity.
 
-    This is continuous newsroom preparation, not a second assignment authority.  It reduces the
-    already-loaded rolling universe to an evidence-reachable set, binds a conservative story-type
-    profile, and grants no factual, evidence, numeric, or publication authority.
+    This is continuous newsroom preparation, not a second assignment authority. It excludes
+    unchanged terminally evaluated identities, re-enters explicit material-update priorities,
+    advances the oldest at-risk identities through a durable maximum-12 frontier, and grants no
+    factual, evidence, numeric, or publication authority.
     """
-    from live_contentops.preselection_intelligence_v1 import (
-        compact_rolling_x_assignment_universe,
-    )
-
     if max_candidates < 1 or max_candidates > PREPARED_CANDIDATE_LIMIT:
         raise ValueError("rolling_x_prepared_candidate_limit_invalid")
     if rolling_input.get("schema_version") != ROLLING_X_INPUT_SCHEMA_VERSION:
         raise ValueError("rolling_x_prepared_candidate_input_invalid")
     prepared_at = _normalize_cutoff_utc(prepared_at_utc)
-    compact_input, compaction = compact_rolling_x_assignment_universe(rolling_input)
-    first_pass = build_deterministic_rolling_x_assignment_fallback(
-        rolling_input=compact_input,
-        max_ranked_clusters=max_candidates,
-    )
-    selected_ids = [
-        str(headline_id)
-        for cluster in first_pass.get("ranked_clusters") or []
-        for headline_id in cluster.get("headline_ids") or []
-    ]
-    rows_by_id = {
+    all_rows_by_id = {
         str(row.get("headline_id") or ""): dict(row)
-        for row in compact_input.get("headlines") or []
+        for row in rolling_input.get("headlines") or []
         if isinstance(row, Mapping) and row.get("headline_id")
     }
-    prepared_rows = [rows_by_id[headline_id] for headline_id in selected_ids]
-    if not prepared_rows:
-        raise ValueError("rolling_x_prepared_candidate_rows_missing")
+    all_ids = [str(value) for value in (rolling_input.get("unique_headline_ids") or [])]
+    if set(all_rows_by_id) != set(all_ids):
+        raise ValueError("rolling_x_prepared_candidate_input_coverage_invalid")
+    evaluated = {str(value) for value in evaluated_headline_ids if str(value)}
+    reentry = {
+        str(value) for value in reentry_headline_ids
+        if str(value) and str(value) in all_rows_by_id
+    }
+    eligible_rows = [
+        row for headline_id, row in all_rows_by_id.items()
+        if headline_id not in evaluated or headline_id in reentry
+    ]
+    window_hours = float(rolling_input.get("window_hours") or 24.0)
+
+    def frontier_key(row: Mapping[str, Any]) -> tuple[Any, ...]:
+        headline_id = str(row.get("headline_id") or "")
+        source_time = _normalize_cutoff_utc(
+            str(row.get("source_timestamp_utc") or "1970-01-01T00:00:00Z")
+        )
+        expires_at = source_time + timedelta(hours=window_hours)
+        seconds_to_expiry = (expires_at - prepared_at).total_seconds()
+        return (
+            0 if headline_id in reentry else 1,
+            0 if seconds_to_expiry <= 6 * 60 * 60 else 1,
+            -int(_rolling_x_publishability_path_profile(
+                [headline_id], records_by_id={headline_id: row}
+            )["priority"]),
+            source_time.timestamp(),
+            headline_id,
+        )
+
+    frontier_rows = sorted(eligible_rows, key=frontier_key)
+    prepared_rows = frontier_rows[:max_candidates]
+    selected_ids = [str(row["headline_id"]) for row in prepared_rows]
+    deferred_ids = [str(row["headline_id"]) for row in frontier_rows[max_candidates:]]
     prepared_input = {
-        **dict(compact_input),
+        **dict(rolling_input),
         "unique_headline_ids": selected_ids,
         "headlines": prepared_rows,
         "counts": {
-            **dict(compact_input.get("counts") or {}),
+            **dict(rolling_input.get("counts") or {}),
+            "accepted_in_full_rolling_intake": len(all_rows_by_id),
+            "eligible_after_continuity": len(frontier_rows),
             "accepted": len(prepared_rows),
         },
         "complete_input_coverage": False,
@@ -1956,31 +1980,99 @@ def build_prepared_rolling_x_candidate_state(
     prepared_input["canonical_input_hash"] = _logical_hash(
         _rolling_x_canonical_hash_material(prepared_input)
     )
-    assignment = build_deterministic_rolling_x_assignment_fallback(
-        rolling_input=prepared_input,
-        max_ranked_clusters=max_candidates,
-    )
-    story_routing = classify_rolling_x_story_types_deterministically(
-        clusters=list(assignment.get("ranked_clusters") or [])
-    )
+    if prepared_rows:
+        assignment = build_deterministic_rolling_x_assignment_fallback(
+            rolling_input=prepared_input,
+            max_ranked_clusters=max_candidates,
+        )
+        story_routing = classify_rolling_x_story_types_deterministically(
+            clusters=list(assignment.get("ranked_clusters") or [])
+        )
+    else:
+        assignment = {
+            "schema_version": ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
+            "status": "SUCCESS",
+            "decision": "NO_PUBLICATION",
+            "reason_code": "CONTINUITY_NO_UNSEEN_OR_MATERIAL_UPDATE",
+            "input_binding": {
+                "canonical_input_hash": prepared_input["canonical_input_hash"],
+                "input_count": 0,
+                "selected_count": 0,
+                "held_count": 0,
+            },
+            "leaf_clusters": [],
+            "ranked_clusters": [],
+            "selected_cluster_id": None,
+            "selected_headline_ids": [],
+            "router_calls": [],
+            "telemetry": {
+                "logical_router_calls": 0,
+                "provider_attempts": 0,
+                "fallback_transitions": 0,
+                "token_usage": {
+                    "prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0,
+                },
+            },
+            "assignment_method": "DETERMINISTIC_CONTINUITY_EMPTY_FRONTIER",
+            "x_content_grants_evidence_authority": False,
+            "factual_or_numeric_authority_granted": False,
+            "router_output_grants_publication_authority": False,
+        }
+        assignment["assignment_logical_hash"] = _logical_hash(assignment)
+        story_routing = {
+            "stories": [],
+            "story_type_by_cluster": {},
+            "router_summary": None,
+            "routing_method": "DETERMINISTIC_CONTINUITY_EMPTY_FRONTIER",
+            "semantic_router_failure_recovered": False,
+            "llm_or_provider_calls": 0,
+            "factual_or_numeric_authority_granted": False,
+            "semantic_routing_grants_authority": False,
+            "publication_authority_granted": False,
+        }
+    frontier = {
+        "schema_version": "contentops.rolling_x_prepared_frontier.v1",
+        "selection_order": [
+            "material_update_or_priority_reentry",
+            "within_six_hours_of_rolling_expiry",
+            "known_evidence_path_priority",
+            "source_timestamp_ascending",
+            "headline_id",
+        ],
+        "full_current_headline_count": len(all_rows_by_id),
+        "evaluated_identity_count": len(evaluated),
+        "eligible_identity_count": len(frontier_rows),
+        "unchanged_evaluated_excluded_count": len(
+            set(all_rows_by_id).intersection(evaluated) - reentry
+        ),
+        "reentry_identity_count": len(reentry),
+        "selected_headline_ids": selected_ids,
+        "selected_headline_ids_hash": _logical_hash(selected_ids),
+        "deferred_headline_ids": deferred_ids,
+        "deferred_headline_ids_hash": _logical_hash(deferred_ids),
+        "deferred_identity_count": len(deferred_ids),
+        "future_evaluation_requires_terminal_refresh": bool(deferred_ids),
+        "rolling_window_hours": window_hours,
+        "full_universe_semantic_processing_performed": False,
+    }
+    frontier["frontier_logical_hash"] = _logical_hash(frontier)
     state = {
         "schema_version": PREPARED_CANDIDATE_SCHEMA_VERSION,
         "status": "READY",
         "prepared_at_utc": _iso_utc(prepared_at),
-        "source_cutoff_utc": str(compact_input.get("cutoff_time_utc") or ""),
+        "source_cutoff_utc": str(rolling_input.get("cutoff_time_utc") or ""),
         "full_rolling_headline_count": int(
             (rolling_input.get("counts") or {}).get("accepted")
             or len(rolling_input.get("headlines") or [])
         ),
-        "compact_headline_count": int(
-            (compaction or {}).get("assignment_headline_count")
-            or len(compact_input.get("headlines") or [])
-        ),
+        "compact_headline_count": len(prepared_rows),
         "prepared_candidate_count": len(prepared_rows),
         "prepared_input": prepared_input,
         "assignment": assignment,
         "story_routing": story_routing,
-        "preparation_method": "DETERMINISTIC_INCREMENTAL_EVIDENCE_REACHABLE",
+        "prepared_frontier": frontier,
+        "continuity_binding": dict(continuity_binding or {}),
+        "preparation_method": "DETERMINISTIC_CONTINUITY_FRONTIER_EVIDENCE_REACHABLE",
         "full_universe_semantic_assignment_calls": 0,
         "story_type_semantic_calls": 0,
         "llm_or_provider_calls": 0,
@@ -2019,11 +2111,12 @@ def validate_prepared_rolling_x_candidate_state(
     headlines = prepared_input.get("headlines")
     if (
         not isinstance(headlines, list)
-        or not headlines
         or len(headlines) > PREPARED_CANDIDATE_LIMIT
         or int(state.get("prepared_candidate_count") or 0) != len(headlines)
     ):
         raise ValueError("rolling_x_prepared_candidate_cardinality_invalid")
+    if not headlines and assignment.get("decision") != "NO_PUBLICATION":
+        raise ValueError("rolling_x_prepared_candidate_empty_assignment_invalid")
     expected_input_hash = _logical_hash(_rolling_x_canonical_hash_material(prepared_input))
     if str(prepared_input.get("canonical_input_hash") or "") != expected_input_hash:
         raise ValueError("rolling_x_prepared_candidate_input_hash_invalid")
@@ -2037,8 +2130,23 @@ def validate_prepared_rolling_x_candidate_state(
     routed_ids = set(
         str(value) for value in (story_routing or {}).get("story_type_by_cluster", {})
     ) if isinstance(story_routing, Mapping) else set()
-    if not cluster_ids or set(cluster_ids) != routed_ids:
+    if set(cluster_ids) != routed_ids or (headlines and not cluster_ids):
         raise ValueError("rolling_x_prepared_candidate_story_routing_invalid")
+    frontier = state.get("prepared_frontier")
+    if not isinstance(frontier, Mapping):
+        raise ValueError("rolling_x_prepared_candidate_frontier_missing")
+    frontier_hash = str(frontier.get("frontier_logical_hash") or "")
+    frontier_material = {
+        key: value for key, value in frontier.items() if key != "frontier_logical_hash"
+    }
+    if not frontier_hash or not hmac.compare_digest(
+        frontier_hash, _logical_hash(frontier_material)
+    ):
+        raise ValueError("rolling_x_prepared_candidate_frontier_hash_invalid")
+    if list(frontier.get("selected_headline_ids") or []) != [
+        str(row.get("headline_id") or "") for row in headlines
+    ]:
+        raise ValueError("rolling_x_prepared_candidate_frontier_selection_mismatch")
     return dict(state)
 
 
@@ -2530,11 +2638,78 @@ def _ordinary_minimum_packet_is_exactly_bound(
     )
 
 
+_ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE: dict[str, Any] = {
+    "required_evidence_capabilities": [
+        "credible_event_confirmation",
+        "basic_attributed_facts",
+    ],
+    "optional_evidence_capabilities": [
+        "primary_source_documents",
+        "event_timeline",
+        "affected_entities",
+        "limitations",
+    ],
+    "market_context_required": False,
+    "market_sensitive": False,
+    "market_snapshot_required": False,
+    "article_mode": "straight_news",
+    "freshness_policy": "event_24h",
+    "freshness_requirements": {
+        "max_age_hours": 36,
+        "requires_market_snapshot": False,
+    },
+    "visual_roles": ["lead_contextual", "source_reference", "document_excerpt"],
+    "source_adapter_families": ["public_secondary"],
+    "article_mode_profiles": {
+        "straight_news": {
+            "required_evidence_capabilities": [
+                "credible_event_confirmation",
+                "basic_attributed_facts",
+            ],
+            "optional_evidence_capabilities": [
+                "primary_source_documents",
+                "event_timeline",
+                "affected_entities",
+                "limitations",
+            ],
+            "source_adapter_families": ["public_secondary"],
+        },
+        "analysis": {
+            "required_evidence_capabilities": [
+                "credible_event_confirmation",
+                "basic_attributed_facts",
+            ],
+            "optional_evidence_capabilities": [
+                "primary_source_documents",
+                "event_timeline",
+                "affected_entities",
+                "limitations",
+            ],
+            "source_adapter_families": ["public_secondary"],
+        },
+    },
+}
+
+
+def _with_rolling_x_story_type_profiles(
+    registry: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Add the rolling-X-only neutral profile without mutating hash-bound registry evidence."""
+    resolved = dict(registry)
+    story_types = dict(resolved.get("story_types") or {})
+    story_types.setdefault(
+        "general_public_event",
+        dict(_ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE),
+    )
+    resolved["story_types"] = story_types
+    return resolved
+
+
 def _default_rolling_x_story_type(cluster: Mapping[str, Any]) -> str:
     """Resolve the legacy default for callers that have no semantic routing result."""
     if cluster.get("market_sensitive") is True:
         return "market_move"
-    return "regulatory_fiscal_event"
+    return "general_public_event"
 
 
 def resolve_rolling_x_story_type(
@@ -2546,7 +2721,9 @@ def resolve_rolling_x_story_type(
     """Resolve an exact registered story type, failing closed on bad routing input."""
     from live_contentops.source_capability_registry_v2 import load_source_capability_registry
 
-    registry = dict(capability_registry or load_source_capability_registry())
+    registry = _with_rolling_x_story_type_profiles(
+        capability_registry or load_source_capability_registry()
+    )
     story_types = registry.get("story_types") or {}
     cluster_id = str(cluster.get("cluster_id") or "")
     story_type = str((story_type_by_cluster or {}).get(cluster_id) or "")
@@ -2616,7 +2793,9 @@ def classify_rolling_x_story_types_with_nine_router(
 
     from live_contentops.source_capability_registry_v2 import load_source_capability_registry
 
-    registry = dict(capability_registry or load_source_capability_registry())
+    registry = _with_rolling_x_story_type_profiles(
+        capability_registry or load_source_capability_registry()
+    )
     story_types = registry.get("story_types") or {}
     cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
     if (
@@ -2717,28 +2896,69 @@ def classify_rolling_x_story_types_deterministically(
     """Conservative zero-model fallback when semantic story routing is unavailable.
 
     This only chooses an evidence profile. It cannot support a claim, weaken that profile,
-    grant numeric/factual authority, or grant publication authority. Ambiguous stories use the
-    corroboration-sensitive regulatory/fiscal profile rather than a permissive default.
+    grant numeric/factual authority, or grant publication authority. Token-bound domain matches
+    avoid substring collisions; unresolved stories use the neutral public-evidence profile rather
+    than impersonating a regulatory, company, market, or other specialized source family.
     """
     from live_contentops.source_capability_registry_v2 import load_source_capability_registry
 
-    registry = dict(capability_registry or load_source_capability_registry())
+    registry = _with_rolling_x_story_type_profiles(
+        capability_registry or load_source_capability_registry()
+    )
     allowed = set(registry.get("story_types") or {})
     rows: list[dict[str, Any]] = []
     mapping: dict[str, str] = {}
 
     rules = (
-        ("data_release", ("cpi", "gdp", "payroll", "inflation data", "jobs report", "data release")),
-        ("policy_decision", ("central bank", "federal reserve", "fed decision", "rate decision", "policy decision")),
-        ("geopolitical_event", ("sanction", "war", "military", "diplomatic", "geopolit", "trade tensions", "economic pressure", "export restriction", "iran", "blockade")),
-        ("supply_chain_event", ("shipping", "cargo", "supply chain", "trade route", "logistics", "chokepoint", "port ")),
-        ("company_sector_event", ("company", "corporate", "earnings", "revenue", "profit", "merger", "acquisition", "partnership", "financing deal", "wall street firms")),
-        ("structural_analysis", ("long-term", "structural", "debt-servicing", "debt servicing", "five years", "fiscal trajectory")),
-        ("physical_event", ("earthquake", "wildfire", "flood", "hurricane", "explosion")),
+        ("data_release", (
+            r"\bcpi\b", r"\bpce\b", r"\bgdp\b", r"\bpayrolls?\b",
+            r"\binflation (?:data|report|rate)\b", r"\bjobs report\b",
+            r"\bunemployment rate\b", r"\bretail sales\b", r"\bdata release\b",
+        )),
+        ("policy_decision", (
+            r"\bcentral bank\b", r"\bfederal reserve\b", r"\bfomc\b",
+            r"\b(?:fed|ecb|boj|boe) (?:decision|meeting|cuts?|raises?|holds?)\b",
+            r"\b(?:interest |policy )?rate decision\b", r"\bmonetary policy\b",
+        )),
+        ("geopolitical_event", (
+            r"\bsanctions?\b", r"\bwar\b", r"\bmilitary\b", r"\bmissiles?\b",
+            r"\bdiplomatic\b", r"\bgeopolit(?:ic|ical|ics)\b", r"\btrade tensions?\b",
+            r"\bexport restrictions?\b", r"\bblockade\b", r"\bceasefire\b",
+            r"\binvasion\b", r"\barmed forces\b",
+        )),
+        ("supply_chain_event", (
+            r"\bshipping\b", r"\bcargo\b", r"\bsupply chain\b", r"\btrade route\b",
+            r"\blogistics\b", r"\bchokepoint\b", r"\bport\b", r"\bfreight\b",
+            r"\bcontainer ships?\b",
+        )),
+        ("company_sector_event", (
+            r"\bcompan(?:y|ies)\b", r"\bcorporate\b", r"\bearnings\b",
+            r"\brevenue\b", r"\bprofit\b", r"\bmerger\b", r"\bacquisition\b",
+            r"\bacquir(?:e|es|ed|ing)\b", r"\bpartnership\b", r"\bfinancing deal\b",
+            r"\bipo\b", r"\bbankruptcy\b", r"\bstartup\b",
+        )),
+        ("regulatory_fiscal_event", (
+            r"\bregulator(?:y|s)?\b", r"\bgovernment\b", r"\blegislation\b",
+            r"\b(?:law|bill|budget|tariff|tax|subsidy|funding)\b", r"\bsec\b",
+            r"\bjustice department\b", r"\bdoj\b", r"\bcourt ruling\b",
+        )),
+        ("structural_analysis", (
+            r"\blong[- ]term\b", r"\bstructural\b", r"\bdebt[- ]servicing\b",
+            r"\bfiscal trajectory\b", r"\bsecular trend\b", r"\bdemographics?\b",
+        )),
+        ("physical_event", (
+            r"\bearthquakes?\b", r"\bwildfires?\b", r"\bflood(?:s|ing)?\b",
+            r"\bhurricanes?\b", r"\bexplosions?\b", r"\btyphoons?\b",
+            r"\bvolcan(?:o|ic)\b", r"\blandslides?\b",
+        )),
     )
-    market_terms = (
-        "price action", "prices", "rally", "selloff", "breakout", "per ounce",
-        "intraday", "market move", "stocks", "bonds", "gold", "oil markets",
+    market_asset = re.compile(
+        r"\b(?:stocks?|shares?|equities|bonds?|treasur(?:y|ies)|yields?|gold|oil|"
+        r"bitcoin|crypto|dollar|yen|euro|sterling|commodit(?:y|ies)|volatility)\b"
+    )
+    market_action = re.compile(
+        r"\b(?:prices?|rall(?:y|ies|ied)|selloff|slump|surge|jump|fall|fell|drop|"
+        r"rise|rose|gain|loss|breakout|intraday|record high|record low|market move)\b"
     )
     for cluster in clusters:
         cluster_id = str(cluster.get("cluster_id") or "")
@@ -2753,16 +2973,21 @@ def classify_rolling_x_story_types_deterministically(
                 cluster.get("selection_case"),
             )
         ).casefold()
-        if cluster.get("market_sensitive") is True or any(term in text for term in market_terms):
+        if cluster.get("market_sensitive") is True or (
+            market_asset.search(text) and market_action.search(text)
+        ):
             story_type = "market_move"
             matched_basis = "MARKET_SENSITIVE_OR_PRICE_ACTION"
+            confidence = "HIGH"
         else:
-            story_type = "regulatory_fiscal_event"
-            matched_basis = "CONSERVATIVE_AMBIGUOUS_DEFAULT"
-            for candidate, terms in rules:
-                if any(term in text for term in terms):
+            story_type = "general_public_event"
+            matched_basis = "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK"
+            confidence = "BOUNDED_FALLBACK"
+            for candidate, patterns in rules:
+                if any(re.search(pattern, text) for pattern in patterns):
                     story_type = candidate
-                    matched_basis = "KEYWORD_PROFILE_MATCH"
+                    matched_basis = "TOKEN_BOUNDARY_PROFILE_MATCH"
+                    confidence = "HIGH"
                     break
         if story_type not in allowed:
             raise ValueError("rolling_x_deterministic_story_type_unknown")
@@ -2771,6 +2996,8 @@ def classify_rolling_x_story_types_deterministically(
             "cluster_id": cluster_id,
             "story_type": story_type,
             "reason": matched_basis,
+            "routing_confidence": confidence,
+            "evidence_profile_authoritative_for_exact_story_type": True,
         })
     return {
         "stories": rows,
@@ -2832,7 +3059,9 @@ def select_first_viable_rolling_x_cluster(
         resolve_story_capabilities,
     )
 
-    registry = dict(capability_registry or load_source_capability_registry())
+    registry = _with_rolling_x_story_type_profiles(
+        capability_registry or load_source_capability_registry()
+    )
     configured_types = dict(story_type_by_cluster or {})
     attempts: list[dict[str, Any]] = []
     selected_cluster: Mapping[str, Any] | None = None

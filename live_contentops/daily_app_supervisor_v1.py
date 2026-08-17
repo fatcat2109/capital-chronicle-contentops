@@ -1429,6 +1429,9 @@ class ContentOpsDailyAppSupervisor:
                 build_prepared_rolling_x_candidate_state,
                 load_rolling_x_headline_sidecars,
             )
+            from live_contentops.codex_desktop_newsroom_operator_v1 import (
+                load_terminal_editorial_continuity,
+            )
 
             rolling_input = load_rolling_x_headline_sidecars(
                 cutoff_utc=now,
@@ -1441,9 +1444,35 @@ class ContentOpsDailyAppSupervisor:
                     "checkpoint_updated": False,
                     "llm_or_provider_calls": 0,
                 }
+            continuity = load_terminal_editorial_continuity(
+                store_path=self._store_path,
+                output_root=self._output_root,
+            )
+            priority = continuity.get("material_event_priority") or {}
+            evaluated_ids = list(continuity.get("evaluated_headline_ids") or [])
+            reentry_ids = list(priority.get("headline_ids") or [])
             state = build_prepared_rolling_x_candidate_state(
                 rolling_input=rolling_input,
                 prepared_at_utc=now,
+                evaluated_headline_ids=evaluated_ids,
+                reentry_headline_ids=reentry_ids,
+                continuity_binding={
+                    "terminal_window_id": continuity.get("terminal_window_id"),
+                    "last_terminal_cutoff_utc": continuity.get(
+                        "last_terminal_cutoff_utc"
+                    ),
+                    "evaluated_headline_count": len(evaluated_ids),
+                    "evaluated_headline_ids_hash": _logical_hash(
+                        sorted(str(value) for value in evaluated_ids)
+                    ),
+                    "material_reentry_headline_count": len(reentry_ids),
+                    "material_reentry_headline_ids_hash": _logical_hash(
+                        sorted(str(value) for value in reentry_ids)
+                    ),
+                    "continuity_logical_hash": continuity.get(
+                        "continuity_logical_hash"
+                    ),
+                },
             )
             path = self._prepared_candidate_checkpoint_path
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -1459,6 +1488,15 @@ class ContentOpsDailyAppSupervisor:
                 "prepared_at_utc": state.get("prepared_at_utc"),
                 "full_rolling_headline_count": state.get("full_rolling_headline_count"),
                 "prepared_candidate_count": state.get("prepared_candidate_count"),
+                "deferred_candidate_count": int(
+                    (state.get("prepared_frontier") or {}).get(
+                        "deferred_identity_count"
+                    )
+                    or 0
+                ),
+                "continuity_terminal_cutoff_utc": (
+                    state.get("continuity_binding") or {}
+                ).get("last_terminal_cutoff_utc"),
                 "prepared_candidate_logical_hash": state.get(
                     "prepared_candidate_logical_hash"
                 ),

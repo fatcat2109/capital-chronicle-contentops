@@ -18,9 +18,14 @@ SCHEMA_VERSION = "contentops.v1_runtime_preflight.v1"
 REQUIRED_IMPORTS = (
     "live_contentops",
     "playwright",
+    "playwright.async_api",
     "playwright.sync_api",
     "PIL",
     "duckdb",
+    "websocket",
+)
+INGESTION_LOADING_SEAM = (
+    "live_contentops.x_list_ingest_capture_v1.load_data_ingestion_module"
 )
 CANONICAL_EDGE_CDP_PORT = 9223
 
@@ -52,6 +57,38 @@ def run_v1_runtime_preflight(
                 "error_class": type(exc).__name__,
             }
             blockers.append(f"required_import_unavailable:{module_name}")
+
+    ingestion_closure: dict[str, Any] = {
+        "status": "NOT_RUN_REQUIRED_IMPORT_BLOCKED",
+        "loading_seam": INGESTION_LOADING_SEAM,
+        "capture_entrypoint": "live_contentops.x_list_ingest_capture_v1._run_direct_cdp_capture",
+        "direct_cdp_transport": "websocket-client",
+        "browser_navigation_performed": False,
+        "capture_performed": False,
+        "session_material_read": False,
+    }
+    if not any(
+        imports.get(name, {}).get("status") != "PASS"
+        for name in ("playwright.async_api", "websocket")
+    ):
+        try:
+            from live_contentops.x_list_ingest_capture_v1 import (
+                load_data_ingestion_module,
+            )
+
+            module = load_data_ingestion_module()
+            if not callable(getattr(module, "recursive_tweet_extractor", None)):
+                raise ValueError("data_ingestion_supported_export_missing")
+            ingestion_closure["status"] = "PASS"
+            ingestion_closure["module_name"] = str(
+                getattr(module, "__name__", "contentops_headline_ingestion_data_ingestion")
+            )
+        except Exception as exc:
+            ingestion_closure.update({
+                "status": "FAIL",
+                "error_class": type(exc).__name__,
+            })
+            blockers.append("ingestion_dependency_closure_unavailable")
 
     executable = str(Path(sys.executable).resolve())
     if _cache_runtime(executable):
@@ -112,6 +149,7 @@ def run_v1_runtime_preflight(
         "contentops_owned_runtime_expected": True,
         "codex_private_cache_runtime_used": _cache_runtime(executable),
         "imports": imports,
+        "ingestion_dependency_closure": ingestion_closure,
         "edge_attach": edge,
         "capital_chronicle_duckdb": duckdb_probe,
         "blockers": blockers,

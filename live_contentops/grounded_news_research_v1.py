@@ -974,7 +974,13 @@ class GroundedNewsResearchV1:
         documents = _normalize_documents(
             [*initial_documents, *(retrieved.get("evidence_documents") or [])]
         )
-        public_requests = int((retrieved.get("provenance") or {}).get("request_count") or 0)
+        retrieved_provenance = retrieved.get("provenance") or {}
+        first_request_delta = retrieved_provenance.get("request_count_for_candidate")
+        public_requests = int(
+            first_request_delta
+            if first_request_delta is not None
+            else retrieved_provenance.get("request_count") or 0
+        )
         if enhanced and not documents:
             replan_prompt = "\n".join(
                 [
@@ -1063,13 +1069,17 @@ class GroundedNewsResearchV1:
                         *(recovered.get("evidence_documents") or []),
                     ]
                 )
-                public_requests = max(
-                    public_requests,
-                    int(
-                        (recovered.get("provenance") or {}).get("request_count")
-                        or 0
-                    ),
+                recovered_provenance = recovered.get("provenance") or {}
+                recovery_request_delta = recovered_provenance.get(
+                    "request_count_for_candidate"
                 )
+                if recovery_request_delta is not None:
+                    public_requests += int(recovery_request_delta)
+                else:
+                    public_requests = max(
+                        public_requests,
+                        int(recovered_provenance.get("request_count") or 0),
+                    )
                 plan = {**plan, "recovery_queries": recovery_queries}
         if not documents:
             return {

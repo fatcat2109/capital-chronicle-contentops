@@ -31,6 +31,7 @@ from live_contentops.destination_transport_registry_v1 import (
 )
 from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 from live_contentops.newsroom_assignment_scheduler_v1 import (
+    build_prepared_rolling_x_candidate_state,
     load_rolling_x_headline_sidecars,
 )
 
@@ -485,6 +486,7 @@ def load_terminal_editorial_continuity(
             "state": "CANONICAL_STORE_MISSING",
             "last_terminal_cutoff_utc": None,
             "terminal_window_id": None,
+            "terminal_records": [],
             "evaluated_headline_ids": [],
             "evaluated_update_chain_identities": [],
             "published_memory": {
@@ -565,14 +567,72 @@ def load_terminal_editorial_continuity(
         if not intake or not evidence:
             continue
         cutoff = _parse_utc(intake.get("cutoff_time_utc"))
-        headline_ids = {
-            str(value) for value in (intake.get("unique_headline_ids") or []) if str(value)
-        }
-        if cutoff is None or not headline_ids:
+        if cutoff is None:
             continue
-        evaluated_ids.update(headline_ids)
         assignment = _read_json_object(output_dir / "rolling_x_assignment_v1.json") or {}
-        for cluster in assignment.get("ranked_clusters") or []:
+        prepared = _read_json_object(
+            output_dir / "rolling_x_prepared_candidate_state_v1.json"
+        ) or {}
+        clusters_by_id = {
+            str(cluster.get("cluster_id") or ""): dict(cluster)
+            for cluster in assignment.get("ranked_clusters") or []
+            if isinstance(cluster, Mapping) and str(cluster.get("cluster_id") or "")
+        }
+        attempted_cluster_ids = {
+            str(attempt.get("cluster_id") or "")
+            for attempt in (
+                *((evidence.get("candidate_walk") or {}).get("candidate_attempts") or []),
+                *((evidence.get("ranked_viability") or {}).get("rank_attempts") or []),
+            )
+            if isinstance(attempt, Mapping) and str(attempt.get("cluster_id") or "")
+        }
+        if attempted_cluster_ids:
+            evaluated_clusters = [
+                clusters_by_id[cluster_id]
+                for cluster_id in sorted(attempted_cluster_ids)
+                if cluster_id in clusters_by_id
+            ]
+            headline_ids = {
+                str(value)
+                for cluster in evaluated_clusters
+                for value in cluster.get("headline_ids") or []
+                if str(value)
+            }
+            evaluated_identity_source = "CANDIDATE_WALK_ATTEMPTS"
+        elif prepared:
+            headline_ids = {
+                str(value)
+                for value in (
+                    (prepared.get("prepared_frontier") or {}).get(
+                        "selected_headline_ids"
+                    )
+                    or (prepared.get("prepared_input") or {}).get(
+                        "unique_headline_ids"
+                    )
+                    or []
+                )
+                if str(value)
+            }
+            evaluated_clusters = [
+                cluster for cluster in clusters_by_id.values()
+                if set(str(value) for value in cluster.get("headline_ids") or []).intersection(
+                    headline_ids
+                )
+            ]
+            evaluated_identity_source = "PREPARED_FRONTIER"
+        else:
+            # Legacy cycles may lack candidate-walk telemetry. The ranked assignment is the
+            # narrowest durable proof of consideration; the full intake universe is not.
+            evaluated_clusters = list(clusters_by_id.values())
+            headline_ids = {
+                str(value)
+                for cluster in evaluated_clusters
+                for value in cluster.get("headline_ids") or []
+                if str(value)
+            }
+            evaluated_identity_source = "LEGACY_RANKED_ASSIGNMENT"
+        evaluated_ids.update(headline_ids)
+        for cluster in evaluated_clusters:
             if not isinstance(cluster, Mapping):
                 continue
             chain = str(
@@ -602,6 +662,7 @@ def load_terminal_editorial_continuity(
             "cutoff_utc": _iso_utc(cutoff),
             "classification": evidence.get("classification"),
             "evaluated_headline_count": len(headline_ids),
+            "evaluated_identity_source": evaluated_identity_source,
             "cc_catalog_fingerprint": cc_model.get("catalog_fingerprint")
             if isinstance(cc_model, Mapping) else None,
         })
@@ -626,6 +687,7 @@ def load_terminal_editorial_continuity(
         "terminal_state": latest.get("terminal_state") if latest else None,
         "terminal_classification": latest.get("classification") if latest else None,
         "terminal_record_count": len(terminal_records),
+        "terminal_records": terminal_records,
         "evaluated_headline_ids": sorted(evaluated_ids),
         "evaluated_headline_count": len(evaluated_ids),
         "evaluated_update_chain_identities": sorted(evaluated_chains),
@@ -838,6 +900,36 @@ def build_live_zero_write_rehearsal(
         current_clusters=clusters,
         continuity=continuity,
     )
+    material_reentry_ids = sorted({
+        str(headline_id)
+        for row in universe.get("included_clusters") or []
+        if str(row.get("relationship") or "").casefold() in MATERIAL_RELATIONSHIPS
+        for headline_id in row.get("headline_ids") or []
+        if str(headline_id)
+    })
+    excluded_ids = {
+        str(headline_id)
+        for row in universe.get("excluded_clusters") or []
+        for headline_id in row.get("headline_ids") or []
+        if str(headline_id)
+    }
+    continuity_evaluated_ids = {
+        str(value) for value in continuity.get("evaluated_headline_ids") or [] if str(value)
+    }
+    prepared_preview = build_prepared_rolling_x_candidate_state(
+        rolling_input=current_input,
+        prepared_at_utc=cutoff,
+        evaluated_headline_ids=sorted(continuity_evaluated_ids.union(excluded_ids)),
+        reentry_headline_ids=material_reentry_ids,
+        continuity_binding={
+            "terminal_window_id": continuity.get("terminal_window_id"),
+            "last_terminal_cutoff_utc": continuity.get("last_terminal_cutoff_utc"),
+            "continuity_logical_hash": continuity.get("continuity_logical_hash"),
+            "candidate_universe_logical_hash": universe.get(
+                "candidate_universe_logical_hash"
+            ),
+        },
+    )
     catalog = discover_cc_data_estate(cc_root=cc_root, use_cache=False)
     governed = inspect_governed_cc_surfaces(catalog)
     selected = next(iter(universe.get("included_clusters") or []), None)
@@ -876,6 +968,17 @@ def build_live_zero_write_rehearsal(
             ),
         },
         "candidate_universe": universe,
+        "prepared_candidate_state_preview": prepared_preview,
+        "prepared_candidate_count": int(
+            prepared_preview.get("prepared_candidate_count") or 0
+        ),
+        "deferred_candidate_count": int(
+            (prepared_preview.get("prepared_frontier") or {}).get(
+                "deferred_identity_count"
+            )
+            or 0
+        ),
+        "prepared_frontier_is_continuity_bound": True,
         "active_learning_policy": continuity.get("active_learning_policy"),
         "material_event_priority": continuity.get("material_event_priority"),
         "material_event_priority_consumed_by_briefing": bool(
