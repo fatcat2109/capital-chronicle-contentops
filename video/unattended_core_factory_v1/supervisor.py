@@ -79,7 +79,7 @@ class FactoryConfig:
     parent_provenance: ParentSessionProvenance
     bed_relative_path: str = "assets/audio/sound/chapter_02_bed.m4a"
 
-    def validate(self) -> None:
+    def validate(self) -> dict[str, Any]:
         for label, path in (
             ("scaffold_root", self.scaffold_root),
             ("dependency_root", self.dependency_root),
@@ -89,11 +89,18 @@ class FactoryConfig:
         ):
             if not Path(path).exists():
                 raise SupervisorError(f"configured_path_missing:{label}:{path}")
+        try:
+            dependency_preflight = local_media.validate_dependency_root(
+                self.dependency_root
+            )
+        except local_media.MediaExecutionError as exc:
+            raise SupervisorError(f"dependency_root_preflight_failed:{exc}") from exc
         if not re.fullmatch(r"[0-9a-f]{40}", self.implementation_head):
             raise SupervisorError("implementation_head_must_be_exact_commit")
         if not self.worker_id:
             raise SupervisorError("worker_id_required")
         self.parent_provenance.validate()
+        return dependency_preflight
 
 
 def _json_artifact(path: Path, value: Any) -> dict[str, Any]:
@@ -167,7 +174,7 @@ class DesktopSessionV2Factory:
         self.store = store
         self.config = config
         self.media = media_backend
-        self.config.validate()
+        self.dependency_root_preflight = self.config.validate()
 
     def _job_root(self, video_job_id: str) -> Path:
         root = (self.config.runtime_root / "jobs" / video_job_id).resolve()

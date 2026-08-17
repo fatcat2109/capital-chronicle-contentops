@@ -80,7 +80,16 @@ def _load_review(review_path: Path, replacement_source_root: Path | None) -> dic
 
 
 def _add_factory_args(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--dependency-root", type=Path, required=True)
+    parser.add_argument(
+        "--dependency-root",
+        type=Path,
+        required=True,
+        metavar="PROJECT_NODE_MODULES",
+        help=(
+            "Exact Remotion project's node_modules directory; do not pass the project root. "
+            "The Remotion/TypeScript CLIs and canonical browser are validated before job claim."
+        ),
+    )
     parser.add_argument("--asset-root", type=Path, required=True)
     parser.add_argument("--kokoro-model", type=Path, required=True)
     parser.add_argument("--kokoro-voices", type=Path, required=True)

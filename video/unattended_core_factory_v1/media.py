@@ -92,16 +92,19 @@ def resolve_remotion_browser_executable(dependency_root: Path) -> Path:
 
     root = dependency_root.resolve()
     expected = (root / REMOTION_BROWSER_RELATIVE).resolve()
-    if expected.is_file():
-        candidate = expected
-    else:
-        cache_root = root / ".remotion" / "chrome-headless-shell"
-        matches = sorted(cache_root.rglob("chrome-headless-shell.exe")) if cache_root.is_dir() else []
-        if len(matches) != 1:
-            raise MediaExecutionError(
-                f"canonical_remotion_browser_identity_invalid:{len(matches)}:{cache_root}"
-            )
-        candidate = matches[0].resolve()
+    cache_root = root / ".remotion" / "chrome-headless-shell"
+    matches = (
+        sorted({path.resolve() for path in cache_root.rglob("chrome-headless-shell.exe")})
+        if cache_root.is_dir()
+        else []
+    )
+    if len(matches) != 1:
+        raise MediaExecutionError(
+            f"canonical_remotion_browser_identity_invalid:{len(matches)}:{cache_root}"
+        )
+    candidate = matches[0]
+    if expected.is_file() and candidate != expected:
+        raise MediaExecutionError("canonical_remotion_browser_expected_identity_mismatch")
     if root not in candidate.parents:
         raise MediaExecutionError("canonical_remotion_browser_path_escape")
     if os.name == "nt" and len(str(candidate)) > WINDOWS_SAFE_EXECUTABLE_PATH_MAX:
@@ -109,6 +112,55 @@ def resolve_remotion_browser_executable(dependency_root: Path) -> Path:
             f"canonical_remotion_browser_path_too_long:{len(str(candidate))}"
         )
     return candidate
+
+
+def validate_dependency_root(dependency_root: Path) -> dict[str, Any]:
+    """Fail fast unless *dependency_root* is the canonical project node_modules.
+
+    This intentionally validates the exact configured root rather than guessing a nested
+    directory.  The returned paths are the same execution surface projected into each generated
+    Remotion project by :func:`prepare_project`.
+    """
+
+    root = dependency_root.resolve()
+    if not root.is_dir():
+        raise MediaExecutionError(f"dependency_root_directory_missing:{root}")
+    if root.name.casefold() != "node_modules":
+        nested = root / "node_modules"
+        if nested.is_dir():
+            raise MediaExecutionError(
+                f"dependency_root_is_project_root:use_node_modules:{nested.resolve()}"
+            )
+        raise MediaExecutionError(
+            f"dependency_root_must_be_node_modules_directory:{root}"
+        )
+
+    executable_suffix = ".cmd" if os.name == "nt" else ""
+    remotion_cli = (root / ".bin" / f"remotion{executable_suffix}").resolve()
+    typescript_cli = (root / ".bin" / f"tsc{executable_suffix}").resolve()
+    for label, executable in (
+        ("remotion_cli", remotion_cli),
+        ("typescript_cli", typescript_cli),
+    ):
+        if root not in executable.parents:
+            raise MediaExecutionError(f"dependency_root_{label}_path_escape")
+        if not executable.is_file():
+            raise MediaExecutionError(
+                f"dependency_root_{label}_missing:{executable}"
+            )
+
+    browser = resolve_remotion_browser_executable(root)
+    return {
+        "result": "PASS_REMOTION_DEPENDENCY_ROOT_PREFLIGHT",
+        "dependency_root": str(root),
+        "root_contract": "PROJECT_NODE_MODULES",
+        "remotion_cli": str(remotion_cli),
+        "typescript_cli": str(typescript_cli),
+        "canonical_browser_executable": str(browser),
+        "canonical_browser_path_length": len(str(browser)),
+        "windows_safe_executable_path_max": WINDOWS_SAFE_EXECUTABLE_PATH_MAX,
+        "suitable_for_project_node_modules_projection": True,
+    }
 
 
 def browser_launch_layout(project_root: Path, dependency_root: Path) -> dict[str, Any]:

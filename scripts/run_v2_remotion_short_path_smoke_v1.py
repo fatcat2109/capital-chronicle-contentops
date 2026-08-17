@@ -20,6 +20,7 @@ from video.unattended_core_factory_v1.media import (
     probe_media,
     render_project,
     resolve_remotion_browser_executable,
+    validate_dependency_root,
 )
 
 
@@ -55,7 +56,13 @@ SMOKE_SOURCE = {
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runtime-root", type=Path, required=True)
-    parser.add_argument("--dependency-root", type=Path, required=True)
+    parser.add_argument(
+        "--dependency-root",
+        type=Path,
+        required=True,
+        metavar="PROJECT_NODE_MODULES",
+        help="Exact Remotion project's node_modules directory; do not pass the project root.",
+    )
     parser.add_argument("--asset-root", type=Path, required=True)
     args = parser.parse_args()
 
@@ -63,6 +70,7 @@ def main() -> int:
     project = runtime / "p"
     output = runtime / "remotion_browser_smoke.mp4"
     receipt_path = runtime / "remotion_browser_smoke_receipt.json"
+    dependency_preflight = validate_dependency_root(args.dependency_root)
     materialize_source(SMOKE_SOURCE, project)
     scaffold = prepare_project(
         project_root=project,
@@ -97,6 +105,7 @@ def main() -> int:
         "creative_proof_consumed": False,
         "creative_reasoning_used": False,
         "parent_reasoning_effort": "high",
+        "dependency_root_preflight": dependency_preflight,
         "scaffold": scaffold,
         "browser_launch_layout": browser_launch_layout(project, args.dependency_root),
         "render": render,

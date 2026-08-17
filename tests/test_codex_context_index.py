@@ -123,8 +123,9 @@ def test_generated_v2_context_routes_direct_image_and_retention_native_authority
     assert "gpt-5.5" in normalized
     assert "provisional V2 generated-illustration default" in normalized
     assert "confirmed HTTP 400" in normalized
-    assert "TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1" in normalized
+    assert "TASK_CONTENTOPS_V2_DEPENDENCY_ROOT_PREFLIGHT_GUARD_AND_FRESH_OWNER_REVIEW_MEDIA_PROOF_V1" in normalized
     assert "CODEX_DESKTOP_APP_FRESH_TASK_SESSION" in normalized
+    assert "GPT-5.6 Sol / HIGH" in normalized
     assert "GPT-5.6 Sol / Extra High" in normalized
     assert "CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY" in normalized
     assert "CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY" in normalized
@@ -133,10 +134,10 @@ def test_generated_v2_context_routes_direct_image_and_retention_native_authority
     assert "PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF" in normalized
     assert "CodexDesktopSessionBrain" in normalized
     assert "NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE" in normalized
-    assert "FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA" in normalized
-    assert "de0d9748b36334d408f7cc845b8edda109df0ff8" in normalized
-    assert "JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY" in normalized
-    assert "MAX/ULTRA and mode bakeoffs are retired" in normalized
+    assert "FAIL_QUARANTINED_AT_HARD_SOURCE_VALIDATION_DEPENDENCY_ROOT_CONFIG" in normalized
+    assert "a163b0ad488e7d628531ac9f218ec72b79073bfb" in normalized
+    assert "project root instead of its `node_modules` directory" in normalized
+    assert "MAX/ULTRA and mode bakeoffs remain retired" in normalized
     assert "free-form React/Remotion code" in normalized
     assert "NORTH_STAR_V2" in normalized
     assert "d231b54e" in normalized
@@ -151,6 +152,7 @@ def test_generated_v2_context_fresh_reader_cannot_substitute_cli_sdk_or_9router(
     normalized = " ".join(index.context_markdown(graph).split())
     for invariant in (
         "CODEX_DESKTOP_APP_FRESH_TASK_SESSION",
+        "GPT-5.6 Sol / HIGH",
         "GPT-5.6 Sol / Extra High",
         "CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY",
         "CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY",
@@ -159,9 +161,9 @@ def test_generated_v2_context_fresh_reader_cannot_substitute_cli_sdk_or_9router(
         "PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF",
     ):
         assert invariant in normalized
-    assert "explicit Desktop-session factory boundary is implemented/pushed" in normalized
-    assert "303-character" in normalized
-    assert "No repair or second proof followed" in normalized
+    assert "smallest semantic dependency-root preflight before claim/proof/XHIGH work" in normalized
+    assert "project root instead of its `node_modules` directory" in normalized
+    assert "exactly one new governed proof" in normalized
     assert "zero V2 creative authority" in normalized
 
 

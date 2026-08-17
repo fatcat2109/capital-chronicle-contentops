@@ -3,12 +3,14 @@ from __future__ import annotations
 import json
 import math
 import os
+import sys
 import threading
 from dataclasses import replace
 from pathlib import Path
 
 import pytest
 
+from scripts import run_v2_unattended_core_factory_v1 as canonical_runner
 from live_contentops.nine_router_llm_seam_v2 import (
     RoutedInvocationError,
     routed_v2_creative_invocation,
@@ -43,8 +45,10 @@ from video.unattended_core_factory_v1.desktop_session import (
 )
 from video.unattended_core_factory_v1.store import V2JobStore
 from video.unattended_core_factory_v1.media import (
+    MediaExecutionError,
     REMOTION_BROWSER_RELATIVE,
     resolve_remotion_browser_executable,
+    validate_dependency_root,
 )
 from video.unattended_core_factory_v1.supervisor import (
     DesktopSessionV2Factory,
@@ -158,6 +162,20 @@ def review_artifact(*, material: bool = False) -> dict[str, object]:
 
 def _artifact(path: Path) -> dict[str, object]:
     return {"path": str(path.resolve()), "sha256": hash_file(path), "size_bytes": path.stat().st_size}
+
+
+def dependency_surface(root: Path, *, browser: bool = True) -> Path:
+    root.mkdir(parents=True, exist_ok=True)
+    suffix = ".cmd" if os.name == "nt" else ""
+    binaries = root / ".bin"
+    binaries.mkdir(parents=True, exist_ok=True)
+    (binaries / f"remotion{suffix}").write_bytes(b"remotion-cli")
+    (binaries / f"tsc{suffix}").write_bytes(b"typescript-cli")
+    if browser:
+        executable = root / REMOTION_BROWSER_RELATIVE
+        executable.parent.mkdir(parents=True, exist_ok=True)
+        executable.write_bytes(b"browser")
+    return root
 
 
 class FakeMedia:
@@ -300,10 +318,10 @@ def make_factory(tmp_path: Path, *, media=None) -> tuple[DesktopSessionV2Factory
     job_id = "job_test"
     store.seed_job(video_job_id=job_id, input_packet_path=input_path, input_packet_hash=hash_value(p), target_format="SHORT_9_16_1080X1920_30FPS")
     scaffold = tmp_path / "scaffold"
-    dependency = tmp_path / "deps"
+    dependency = tmp_path / "node_modules"
     assets = tmp_path / "assets-root"
     scaffold.mkdir()
-    dependency.mkdir()
+    dependency_surface(dependency)
     (assets / "assets" / "audio" / "sound").mkdir(parents=True)
     (assets / "assets" / "audio" / "sound" / "chapter_02_bed.m4a").write_bytes(b"bed")
     model = tmp_path / "kokoro.onnx"
@@ -425,13 +443,116 @@ def test_factual_gate_and_sandbox_remain_fail_closed() -> None:
 
 
 def test_remotion_browser_resolves_from_canonical_dependency_root(tmp_path: Path) -> None:
-    dependency = tmp_path / "deps"
+    dependency = dependency_surface(tmp_path / "node_modules")
     browser = dependency / REMOTION_BROWSER_RELATIVE
-    browser.parent.mkdir(parents=True)
-    browser.write_bytes(b"browser")
     resolved = resolve_remotion_browser_executable(dependency)
     assert resolved == browser.resolve()
     assert "generated_project" not in str(resolved)
+
+
+def test_dependency_root_preflight_rejects_project_root_and_accepts_node_modules(
+    tmp_path: Path,
+) -> None:
+    project = tmp_path / "remotion-project"
+    dependency = dependency_surface(project / "node_modules")
+
+    with pytest.raises(
+        MediaExecutionError,
+        match=r"dependency_root_is_project_root:use_node_modules:.*node_modules",
+    ):
+        validate_dependency_root(project)
+
+    receipt = validate_dependency_root(dependency)
+    assert receipt["result"] == "PASS_REMOTION_DEPENDENCY_ROOT_PREFLIGHT"
+    assert receipt["root_contract"] == "PROJECT_NODE_MODULES"
+    assert Path(receipt["remotion_cli"]).is_file()
+    assert Path(receipt["typescript_cli"]).is_file()
+    assert Path(receipt["canonical_browser_executable"]).is_file()
+    assert receipt["suitable_for_project_node_modules_projection"] is True
+
+
+def test_dependency_root_preflight_fails_closed_for_missing_and_ambiguous_browser(
+    tmp_path: Path,
+) -> None:
+    missing = dependency_surface(tmp_path / "missing" / "node_modules", browser=False)
+    with pytest.raises(
+        MediaExecutionError, match="canonical_remotion_browser_identity_invalid:0"
+    ):
+        validate_dependency_root(missing)
+
+    ambiguous = dependency_surface(
+        tmp_path / "ambiguous" / "node_modules", browser=False
+    )
+    cache = ambiguous / ".remotion" / "chrome-headless-shell"
+    for variant in ("candidate-a", "candidate-b"):
+        executable = cache / variant / "chrome-headless-shell.exe"
+        executable.parent.mkdir(parents=True, exist_ok=True)
+        executable.write_bytes(variant.encode())
+    with pytest.raises(
+        MediaExecutionError, match="canonical_remotion_browser_identity_invalid:2"
+    ):
+        validate_dependency_root(ambiguous)
+
+
+def test_canonical_runner_rejects_invalid_dependency_root_before_claim_or_proof_epoch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    runtime = tmp_path / "runtime"
+    store = V2JobStore(runtime / "v2_jobs.sqlite3")
+    input_path = tmp_path / "input.json"
+    input_path.write_text(json.dumps(packet()), encoding="utf-8")
+    store.seed_job(
+        video_job_id="invalid-root-job",
+        input_packet_path=input_path,
+        input_packet_hash=hash_value(packet()),
+        target_format="SHORT_9_16_1080X1920_30FPS",
+    )
+    project = tmp_path / "remotion-project"
+    dependency_surface(project / "node_modules")
+    assets = tmp_path / "assets"
+    assets.mkdir()
+    model = tmp_path / "kokoro.onnx"
+    voices = tmp_path / "voices.bin"
+    model.write_bytes(b"model")
+    voices.write_bytes(b"voices")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "run_v2_unattended_core_factory_v1.py",
+            "--runtime-root",
+            str(runtime),
+            "start",
+            "--dependency-root",
+            str(project),
+            "--asset-root",
+            str(assets),
+            "--kokoro-model",
+            str(model),
+            "--kokoro-voices",
+            str(voices),
+            "--implementation-head",
+            "a" * 40,
+            "--parent-session-label",
+            "invalid-root-preflight-test",
+            "--proof-run-started-at",
+            "2026-08-17T00:00:00Z",
+        ],
+    )
+
+    with pytest.raises(
+        SupervisorError,
+        match=r"dependency_root_preflight_failed:dependency_root_is_project_root",
+    ):
+        canonical_runner.main()
+
+    job = store.job("invalid-root-job")
+    assert job["state"] == "QUEUED"
+    assert job["claimed_by"] is None
+    assert job["run_id"] is None
+    assert store.events("invalid-root-job") == []
+    with store.connect() as connection:
+        assert connection.execute("SELECT COUNT(*) FROM job_runs").fetchone()[0] == 0
 
 
 def test_atomic_claim_race_has_one_owner(tmp_path: Path) -> None:
