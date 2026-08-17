@@ -1,0 +1,77 @@
+{
+  "schema": "contentops.v2.unattended_core_factory_proof_failure_evidence.v1",
+  "task": "TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1",
+  "result": "FAIL_QUARANTINED_AT_OWNER_LOCKED_CREATIVE_EDITOR_ROUTE",
+  "requested_pass_ceiling_reached": false,
+  "owner_acceptance_claimed": false,
+  "git": {
+    "starting_origin_master": "8f6e4422d09fc9794c38ccc036ff1d1d9650034c",
+    "accepted_canary_head": "9af400a42829db3b0ee2f679e09e6aab7f8266dd",
+    "merge_base": "97cd13c914f1a48029cdc8529ab9ffd31637ec1d",
+    "divergence_master_only": 1,
+    "divergence_canary_only": 3,
+    "branch": "task/v2-unattended-core-factory-durable-supervisor-actual-media-proof-v1",
+    "implementation_execution_head": "32648b355d3e526c91b412ccb09ca1cb32d6f7df"
+  },
+  "job": {
+    "video_job_id": "v2_fwb_78d20d15daae43c3ed2d",
+    "run_id": "run_6ff9b22f0617423cb8467ef2cf0ff9e0",
+    "input_packet_hash": "78d20d15daae43c3ed2d4a8e94a1a7014dc7d7a3b18d288529aeeb364f9755bd",
+    "target_format": "SHORT_9_16_1080X1920_30FPS",
+    "proof_run_started_at": "2026-08-17T09:19:37.1061463Z",
+    "state": "QUARANTINED",
+    "terminal_result": "HARD_FAILURE:CreativeContractError:creative_route_failed:V2_CREATIVE_EDITOR:BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED",
+    "immutable_stage_count": 3,
+    "passed_stages": [
+      "CLAIMED",
+      "GOVERNED_INPUT_LOCKED"
+    ],
+    "resume_count": 0,
+    "public_write_authority": false
+  },
+  "creative": {
+    "prior_creative_source_reused_as_input": false,
+    "role": "V2_CREATIVE_EDITOR",
+    "requested_route": "new/gpt-5.6-sol-xhigh",
+    "terminal_disposition": "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED",
+    "fallback_count": 0,
+    "accepted_creative_artifacts": 0,
+    "safe_attempt_receipt_available": false
+  },
+  "unattended": {
+    "manual_source_edits_after_start": 0,
+    "manual_generated_source_edits_after_start": 0,
+    "manual_media_edits_after_start": 0,
+    "manual_checkpoint_edits": 0,
+    "operator_intervention_minutes": 0,
+    "render_count": 0,
+    "rerender_count": 0,
+    "final_media": null,
+    "package_id": null
+  },
+  "safety": {
+    "tiktok_credential_reads": 0,
+    "tiktok_api_calls": 0,
+    "tiktok_drafts": 0,
+    "youtube_api_calls": 0,
+    "meta_api_calls": 0,
+    "other_platform_calls": 0,
+    "public_private_unlisted_writes": 0,
+    "browser_cdp_publication_actions": 0,
+    "v1_operational_reads": 0,
+    "v1_writes": 0,
+    "v1_mutations": 0,
+    "scheduler_mutations": 0,
+    "secret_exposure": false
+  },
+  "validation": {
+    "focused_and_affected_tests_passed": 226,
+    "python_compile": "PASS",
+    "real_generated_source_typecheck": "PASS",
+    "accepted_asset_hash_validation": "PASS",
+    "kokoro_toolchain": "PASS",
+    "remotion_browser_frame_render": "PASS",
+    "codegraph_before_implementation_commit": "CODEGRAPH_CURRENT"
+  },
+  "exact_next": "JIM_DECISION_REQUIRED_ON_BOUNDED_PROOF_REPAIR_AND_FRESH_RETRY_AUTHORITY"
+}
