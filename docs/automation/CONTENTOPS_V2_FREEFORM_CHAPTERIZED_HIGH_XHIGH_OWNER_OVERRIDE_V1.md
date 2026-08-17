@@ -4,148 +4,226 @@ Authority date: 2026-08-17
 Status: `CURRENT_CANONICAL_V2_OWNER_OVERRIDE`
 Owner: Jim
 
-This override supersedes current V2 planning language where it conflicts. Historical experiment and audit records remain historical evidence and are not rewritten.
+This file is current owner authority. It supersedes older V2 plan, North Star, task-graph, model-routing, duration, voice, multilingual, and execution language wherever they conflict. Historical experiments and evidence remain historical and must not be rewritten to look current.
 
-## Current task
+Companion current amendment:
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
+`docs/automation/CONTENTOPS_V2_NORTH_STAR_MASTER_PLAN_TRANSCRIPT_SEO_MULTILINGUAL_AMENDMENT_V1.md`
 
-Result:
+Research authority input:
+
+`docs/automation/CONTENTOPS_V2_TRANSCRIPT_SEO_MULTILINGUAL_PLATFORM_RESEARCH_V1.md`
+
+## Current audited state
+
+The canonical Desktop-session implementation is committed at:
+
+`de0d9748b36334d408f7cc845b8edda109df0ff8`
+
+Implementation result:
+
+`PASS_DESKTOP_SESSION_NATIVE_CORE_FACTORY_IMPLEMENTATION`
+
+The single authorized actual-media proof is recorded at evidence HEAD:
+
+`c8a42fecee5dba6708fb380f442d663a519f1b8c`
+
+Proof result:
 
 `FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
 
-The accepted creative, package, publication-adapter, TikTok credential-bootstrap, and exact TikTok
-Sandbox draft-canary lanes are closed inputs. The durable local V2 control-plane substrate is
-implemented/proven at its bounded substrate level. This task implemented the explicit
-Desktop-session boundary, ran its one authorized proof, quarantined at the first proxy-render
-failure, and now records evidence and the owner decision gate without repair or rerun.
+The proof passed atomic claim, governed-input lock, Desktop-session creative/editorial lock, motion-source lock, factual/source/sandbox validation, and real TypeScript validation. It failed at the first `PROXY_RENDERED` attempt because Remotion could not spawn the existing task-local Chrome headless shell through a 303-character Windows path and returned `ENOENT`. Both checked browser executable locations existed. `WINDOWS_PROCESS_LAUNCH_PATH_LENGTH_FAILURE` is a strong diagnosis but remains an inference until a bounded reproduction/repair proves it.
 
-Canonical invariant:
+No repair, proof resumption, fallback, second proof, completed render, audio, captions, package, platform operation, V1 mutation, scheduler mutation, or public write occurred.
+
+This is a narrow mechanical render/runtime blocker. It is not evidence that the canonical creative architecture failed.
+
+## Canonical V2 creative runtime
 
 `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
-One qualified video job maps to one fresh Codex Desktop App task/session using
-`GPT-5.6 Sol / Extra High (XHIGH)`. That session owns viewer-facing creative/editorial/visual
-authorship and actual-media review. It may continue or resume only for bounded creative revision of
-that same video job, then terminates. There is no shared 24/7 conversation. Explicit governed
-artifacts/checkpoints remain durable authority, not chat memory.
+One qualified video job maps to one fresh Codex Desktop App task/session using:
 
-For V2 creative work, all substitutions are forbidden:
+`GPT-5.6 Sol / Extra High (XHIGH)`
+
+The Desktop App task/session owns high-entropy viewer-facing work:
+
+- editorial angle;
+- institutional analytical decomposition;
+- narration and spoken-language craft;
+- hook/re-hook/pacing;
+- restrained financial wit;
+- asset-to-purpose decisions;
+- story-specific React/Remotion source;
+- typography/layout/motion/transition decisions;
+- actual-media creative review;
+- bounded same-job creative revision.
+
+The deterministic local V2 substrate owns durable job state, evidence/numeric authority, rights/provenance, source sandboxing, render/audio execution, checkpointing, recovery, technical/factual/package QA, cost telemetry, and public-write boundaries.
+
+Forbidden substitutions for V2 creative/editorial/visual authorship:
 
 - `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`: Codex CLI and `codex exec`;
-- `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`: Codex SDK, API, and headless processes;
-- `9ROUTER_RESEARCH_ONLY`: 9Router, Terra/Gemini, provider adapters, and generic model routes.
+- `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`: Codex SDK/API/headless creative execution;
+- `9ROUTER_RESEARCH_ONLY`: 9Router, Terra, Gemini, provider adapters, and generic model routes.
 
-If automatic Desktop-App handoff is unavailable, the system must report that integration boundary
-truthfully. It must not substitute a more convenient execution surface. `CodexJobBrain` is retained
-only as a conceptual job boundary: canonical execution means a fresh Codex Desktop App task/session,
-never `CodexCliExecutor`, subprocess, SDK, API, or provider route. New planning prose should prefer
-`CodexDesktopSessionBrain` where useful.
+The historical `CodexCliExecutor`/`CodexJobBrain` seam at `622b19e...` remains `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE` and must stay fail-closed.
 
-9Router is research/evidence assistance only, using
-`cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)`. It has zero V2 creative authority. The old
-`new/gpt-5.6-sol-xhigh` V2 creative route is superseded and must not be retried or repaired.
-Platform adapters remain dormant and
-`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` controls.
+9Router is research/evidence assistance only, using exactly:
 
-Current sequence:
+1. `cx/gpt-5.6-terra(high)`
+2. `vx/gemini-3.1-pro-preview(high)`
+3. `vx/gemini-3.5-flash(high)`
 
-`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam 622b19e [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [PASS] -> explicit Desktop-session stage boundary [IMPLEMENTED/PUSHED] -> one correct-runtime proof [QUARANTINED_AT_PROXY_BROWSER_PATH_NO_MEDIA] -> bounded short-path runtime repair decision [NEXT OWNER GATE] -> production soak [BLOCKED]`
+It has zero V2 creative authority.
 
-The failed `CodexCliExecutor` / `codex exec` implementation at
-`622b19e1282d4fbd81fad47f76f399b97c454737` is
-`NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. Its failure proves only that the
-mistaken CLI seam failed. It does not prove canonical Codex Desktop App execution failed.
+## Build-phase resource envelope
 
-`MULTILINGUAL_CLOSED_INPUT`: do not rebuild, activate, benchmark, or redesign localization.
-Activation hardening remains deferred until the correct Desktop-App proof passes, Jim/ChatGPT
-accept the media, and the unattended production soak is stable.
+`V2_BUILD_1080P_ONLY`
 
-`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`
+Current construction and pre-soak validation use 1080p only.
 
-The factory implementation is at `de0d9748b36334d408f7cc845b8edda109df0ff8`. Its single proof
-passed governed input, factual, rights, sandbox, hash-lock, and real TypeScript validation, then
-quarantined before proxy media when Remotion could not spawn its existing browser through a
-303-character task-local path (`ENOENT`). No repair or second proof was attempted.
+- Short: native `1080x1920`, 30 fps, normally 30–60 seconds.
+- Current core proof: one Short only.
+- Longform build default ceiling: `5:00`.
+- Longform build hard exception ceiling: `10:00`, only when an explicit story or validation objective earns it.
+- No 4K during build.
+- Historical 14-minute and 4K experiments remain capability evidence, not current cost/runtime authority.
 
-Single exact next gate:
+`V2_BUILD_VOICE = KOKORO_AF_HEART`
 
-`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`
+Current development narrator is local Kokoro `af_heart`, using the accepted starting settings `speed=1.06`, `lang=en-us` unless bounded human-listening evidence requires correction.
 
-The current task does not authorize runtime repair, proof resumption, or a fresh proof.
+`ELEVENLABS_AND_AI_AVATAR_DEFERRED`
 
-## Model orchestration
+Do not introduce ElevenLabs, paid voice cloning, synthetic presenter, HeyGen, or other AI avatar systems until the correct core media proof is accepted and the unattended production soak is stable. Later adoption requires measurable quality/retention value that justifies cost, rights, disclosure, and operating complexity.
 
-- Parent/coordinator/deterministic executor for repository/control-plane work:
-  `GPT-5.6 Sol / HIGH`.
-- Viewer-facing creative worker: one fresh Codex Desktop App task/session using
-  `GPT-5.6 Sol / Extra High (XHIGH)` per qualified video job.
-- V2 creative execution uses only that Desktop App session; no CLI, SDK/API, headless, 9Router,
-  provider-adapter, or generic LLM fallback exists.
-- 9Router is restricted to the exact current research ladder and retains zero creative authority.
-- The same Desktop App session may resume only for bounded creative revision of its own video job.
-- `MAX` and `ULTRA` are retired for the current product direction. No mode bakeoff is authorized.
-- XHIGH must not be spent on Git, acquisition, hashing, transcoding, installation, rendering, waits, polling, FFmpeg, tests, cache work, assembly, evidence formatting, commit, or push.
-- Preserve a non-secret model/reasoning receipt where the runtime exposes it. Never fabricate creative provenance or silently substitute HIGH for an assigned XHIGH creative step.
+## Transcript-first product doctrine
 
-## Format and resolution
+`TRANSCRIPT_FIRST_V2_PRODUCTION`
 
-- Development, review, and owner masters are 1080-first.
-- Longform: native `1920×1080`, 30 fps, minimum 5:00, maximum 45:00, with duration earned by story and evidence.
-- Short: native `1080×1920`, normally 30–60 seconds.
-- Do not render 4K. 4K capability is already proven and deferred.
+The next product-facing hardening direction is spoken-language quality and SEO, not another generic infrastructure program.
 
-## Creative authority
+Every accepted video must converge on a hash-bound canonical spoken transcript that governs:
 
-The positive architecture is free-form Codex creative authority with semantic chapterization.
+- narration;
+- interview/speech clip boundaries;
+- captions;
+- chapter markers;
+- title/description/SEO packaging;
+- pronunciation notes;
+- later localized scripts and dubbed-audio timing.
 
-A creative chapter is an authorship/review unit, not automatically a render unit. Codex/XHIGH may freely author story-specific viewer-facing React/Remotion source, composition, typography, picture selection, motion, pacing, transitions, narration language, and sound-edit intent.
+Final captions and SEO metadata must derive from the actual final audio state, not from a stale draft narration and not from unreviewed platform auto-captions.
 
-Do not require or machine-enforce:
+Blocking transcript defects include:
 
-- a fixed compositor, layout enum, template renderer, mandatory storyboard or visual-state schema;
-- scene, word, asset, material-family, chart, documentary, cut, or transition quotas;
-- a two-to-four-second motion rule or hold-duration target;
-- creative/taste scores or thresholds;
-- must-use-all-assets rules;
-- a fixed number of creative repairs.
+- person/company/institution name mismatch;
+- number, percentage, currency, unit, or date mismatch;
+- negation/meaning reversal;
+- observation-versus-forecast drift;
+- speaker identity or official-clip boundary mismatch;
+- missing, duplicated, or materially corrupted transcript segments;
+- caption timing that no longer matches the final audio.
 
-Aesthetic telemetry may be descriptive only. XHIGH actual-media creative review and Jim/ChatGPT owner review replace deterministic creative-direction gates.
+Truth, Analysis, and Engagement remain separate. SEO and humor may change packaging; they may not manufacture factual/numeric claims or silently upgrade uncertainty.
 
-## Deterministic control plane
+## Editorial benchmark and younger-viewer tone
 
-The local HIGH-owned substrate may block only genuine hard boundaries:
+The 30-video Bloomberg/Bloomberg Television/CNBC/Reuters/WSJ research corpus is craft-learning evidence only. It grants no reuse rights and must never become a publisher-video scraping dependency.
 
-- factual or numeric authority violation;
-- rights or provenance violation;
-- secret, security, or sandbox violation;
-- corrupt or unrenderable media;
-- format-contract violation;
-- unauthorized publication or public write.
+Adopt useful patterns:
 
-It owns evidence binding, rights/provenance, immutable source hashes, media normalization, chapter/range cache identity, dirty-range renders, bundle/render execution, independent audio stems, concat/mux, technical media QA, performance telemetry, and recovery.
+- concrete object/place/person before abstraction where possible;
+- one clear viewer promise;
+- contradiction or unresolved mechanism in the hook;
+- hard evidence before interpretation;
+- visible physical/institutional mechanism;
+- counter-case/uncertainty;
+- clean watch/confirmation condition;
+- title/thumbnail/opening alignment.
 
-## Audio and authority media
+Capital Chronicle may use sparse mechanism-aware deadpan wit for younger viewers. Normal budget:
 
-- Audio editing is viewer-facing creative authorship. XHIGH decides music architecture, silence, J/L cuts, fades, crossfades, authentic room-tone tails, ambience bridges, pickups, ducking, and boundary intent. HIGH executes the plan.
-- No universal source-clip fade formula is allowed.
-- Real governed authority clips are a valid visual and audio carrier when rights, identity, chronology, meaning, and prohibited marks/third-party material are controlled.
-- Authentic authority speech must not be synthetically extended or altered to say something it did not say.
-- Current synthetic narrator for this owner-polish task is the already owner-preferred local Kokoro `af_heart`, using the accepted Narrow Door settings (`speed=1.06`, `lang=en-us`).
-- Procedural broadband/low-frequency noise is not an acceptable substitute for music.
-- Synthetic avatar/HeyGen remains deferred.
+- Short: zero or one line;
+- up to 5 minutes: zero to two lines;
+- 5–10 minutes: zero to three lines.
 
-## Current production substrate
+Humor is forbidden when it creates a claim, implies trading advice, distorts official speech, appears inside casualty/human-hardship evidence, replaces mechanism, or turns the product into meme-finance.
 
-Minimum target:
+## Background music and official media
 
-`governed film packet -> whole-film XHIGH repair director -> only necessary XHIGH chapter authors -> local dirty-range review -> chapter picture locks -> one XHIGH audio editor -> independent picture/audio assembly -> XHIGH whole-film critic -> bounded localized repair -> high-quality 1080 owner master -> Jim/ChatGPT review`
+Grounded search may discover music metadata and candidates. Accessibility or scraping does not grant reuse rights.
 
-Picture and audio remain independently cached. An audio repair must not render video; a video-only repair must not regenerate TTS. Locked compatible chapter pictures should assemble by stream copy when technically correct.
+Preferred music-rights order:
+
+1. owned/commissioned music;
+2. explicit cross-platform production license;
+3. verified public-domain/CC0/permissive license;
+4. YouTube Audio Library for YouTube-scoped derivatives;
+5. TikTok Commercial Music Library for TikTok-scoped derivatives;
+6. no music.
+
+Do not assume YouTube-safe music is TikTok-safe or vice versa. Preserve dry narration, music, official-speech/interview, and SFX/ambience stems separately where practical.
+
+Official interview/speech footage may be used only with exact speaker, institution, date, source, clip range, rights/restrictions, and permitted-use evidence. Preserve authentic public-figure speech; do not synthetically extend or make a real person appear to speak a translated language during the current build phase.
+
+## Multilingual platform truth
+
+`MULTILINGUAL_PACKAGE_SUBSTRATE_CLOSED_INPUT`
+
+Do not rebuild multilingual/package infrastructure during the current core proof or targeted render repair.
+
+Later activation rules:
+
+- YouTube longform: one approved picture master may carry multiple audio tracks, subtitle tracks, translated title/description metadata, and localized thumbnails where account/product support exists.
+- YouTube Shorts: multilingual audio is supported, but exact viewer switching/default-routing behavior must be validated on the Capital Chronicle target account and clients before universal compatibility is claimed.
+- TikTok organic: treat one ordinary post as one audio program. Localized dubs are separate remuxed media/post packages unless future official product evidence proves a selectable multi-audio organic player.
+- Locale activation hardening—translation runtime benchmark, language prioritization, voice selection, human listening, CJK/Indic/RTL QA, and account-level platform validation—occurs only after the correct core proof and stable production soak.
+
+## Current exact next task
+
+Jim authorizes the next bounded correction task:
+
+`TASK_CONTENTOPS_V2_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_FRESH_DESKTOP_MEDIA_PROOF_V1`
+
+Its purpose is not infrastructure hardening. It must:
+
+1. preserve the correct Desktop-session architecture;
+2. reproduce/confirm the proxy browser-launch failure with the smallest safe diagnostic;
+3. implement the smallest Windows short-path/runtime-root repair if confirmed;
+4. prove browser/process launch with a bounded non-creative render smoke;
+5. commit/push before proof;
+6. run exactly one fresh governed Frozen Without Breaking Short proof from a new job/run;
+7. use 1080x1920/30 fps and Kokoro `af_heart` only;
+8. produce actual owner-review media or quarantine truthfully;
+9. perform no multilingual activation, V1 integration, scheduler work, platform API call, or public write.
+
+Do not resume or mutate the quarantined `run_231f3172582d4343a431ef3e2b4a955c` proof.
+
+If the fresh proof reaches `OWNER_REVIEW_READY`, Jim/ChatGPT must inspect the actual MP4/audio before production soak is authorized.
+
+## Sequence after media acceptance
+
+Only after actual-media acceptance:
+
+`correct Desktop core proof -> Jim/ChatGPT actual-media acceptance -> unattended production soak WITH transcript/voice-over/SEO editorial hardening -> stable soak -> locale activation hardening -> later premium voice/avatar evaluation -> later V1 trigger/scheduling -> later controlled publication expansion`
+
+Transcript/SEO hardening belongs inside the production soak, not as a detached horizontal infrastructure program.
 
 ## Safety
 
-`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling.
+`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 
-No public/private/unlisted upload, social/platform write, browser/CDP publication action, V1 runtime/store/scheduler/publication mutation, V2-02, secret exposure, or synthetic real-person documentary media is authorized.
+No current V2 task may:
+
+- upload public/private/unlisted/draft media;
+- call TikTok/YouTube/Meta publication APIs;
+- use browser/CDP for publication;
+- read platform credentials without exact later scope;
+- mutate V1 runtime/store/publication/scheduler authority;
+- expose secrets/session/auth material;
+- create synthetic real-person documentary media;
+- silently substitute another creative runtime.
+
+Production soak remains blocked until the fresh correct-runtime proof creates actual media and Jim/ChatGPT accept it.

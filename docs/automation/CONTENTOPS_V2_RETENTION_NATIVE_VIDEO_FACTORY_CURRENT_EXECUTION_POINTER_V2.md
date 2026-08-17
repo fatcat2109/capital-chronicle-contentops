@@ -2,373 +2,163 @@
 
 Authority date: 2026-08-17
 Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
-Product direction: `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY`
-Codex mode state: `HIGH_PARENT / CODEX_DESKTOP_APP_FRESH_TASK_SESSION_XHIGH / MAX_ULTRA_RETIRED`
+Product direction: `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY / TRANSCRIPT_FIRST_V2_PRODUCTION`
+Codex runtime: `CODEX_DESKTOP_APP_FRESH_TASK_SESSION / GPT-5.6_SOL_XHIGH`
 
-Current controlling owner override:
+## Current authority chain
 
-`CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
-
-Current task:
-
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
-
-Current sequence:
-
-`free-form creation substrate [ACCEPTED] -> durable local control plane [IMPLEMENTED/PROVEN SUBSTRATE] -> obsolete 9Router proof [HISTORICAL FAILURE] -> Codex CLI seam 622b19e [NON-CANONICAL FAILED HISTORICAL EVIDENCE] -> Desktop App authority reconciliation [PASS] -> explicit Desktop-session stage boundary [IMPLEMENTED/PUSHED] -> one correct-runtime proof [QUARANTINED_AT_PROXY_BROWSER_PATH_NO_MEDIA] -> bounded short-path runtime repair decision [NEXT OWNER GATE] -> production soak [BLOCKED]`
-
-Canonical invariant:
-
-`V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
-
-One qualified job maps to one fresh Codex Desktop App task/session using
-`GPT-5.6 Sol / Extra High (XHIGH)`. The session may resume only for bounded creative revision of
-that same video job. Governed artifacts/checkpoints remain durable authority; hidden chat memory
-does not.
-
-Forbidden substitutions:
-
-- `CODEX_CLI_NOT_V2_CREATIVE_AUTHORITY`;
-- `CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY`;
-- `9ROUTER_RESEARCH_ONLY`.
-
-Codex CLI/`codex exec`, SDK/API/headless processes, 9Router, Terra/Gemini, provider adapters, and
-generic model routes cannot perform V2 creative/editorial/visual authorship. If automated Desktop
-App handoff is unavailable, report that boundary; do not change runtime.
-
-`CodexJobBrain` is conceptual only and canonically means `CodexDesktopSessionBrain`, not
-`CodexCliExecutor` or another execution surface.
-
-`MULTILINGUAL_CLOSED_INPUT`
-
-`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`
-
-Current output contract is 1080-first: longform `1920×1080 / 30 fps / 5–45 minutes`,
-short `1080×1920 / normally 30–60 seconds`, no 4K. Creative chapters are semantic
-authorship units, not mandatory render units. Deterministic infrastructure may enforce hard
-truth/rights/security/media/format/publication boundaries but may not enforce aesthetic
-schemas, quotas, motion intervals, scores, or fixed repair counts.
-
-# Canonical V2 read order
-
-Fresh ChatGPT/Codex sessions working on V2 should read, in order:
+Read in this order:
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/codegraph/V2_CONTEXT.md`
-4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
-5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
-6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
-7. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
-8. `docs/automation/CONTENTOPS_V2_CREATIVE_AUTHORITY_QUALITY_HARDENING_OWNER_AUDIT_V1.md`
-9. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-10. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
-11. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
-12. nearest scoped `AGENTS.md`
-13. exact current task implementation/tests/evidence.
+4. `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
+5. `docs/automation/CONTENTOPS_V2_NORTH_STAR_MASTER_PLAN_TRANSCRIPT_SEO_MULTILINGUAL_AMENDMENT_V1.md`
+6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+7. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
+8. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+9. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
+10. this file
+11. `docs/automation/CONTENTOPS_V2_TRANSCRIPT_SEO_MULTILINGUAL_PLATFORM_RESEARCH_V1.md`
+12. `docs/automation/CONTENTOPS_V2_30_VIDEO_TRANSCRIPT_CORPUS_MANIFEST_V1.md`
+13. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
+14. nearest scoped `AGENTS.md`
+15. exact current task code/tests/evidence.
 
-Repository refs/commits/fetched bytes remain repo-state authority. Jim's latest explicit direction remains product authority.
+Repository refs/commits/exact bytes remain repo-state authority. Jim's latest explicit direction remains product authority. If generated CodeGraph is stale after this direct GitHub authority update, regenerate it before implementation.
 
-If local CodeGraph reports stale after direct GitHub authority updates, regenerate it before implementation rather than treating stale generated context as authority.
+## Canonical V2 architecture
 
-# Current product decision
+`V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
-Canonical architecture remains **Lane B Hybrid**, with the corrected boundary now explicit:
+One qualified video job maps to one fresh Codex Desktop App task/session using `GPT-5.6 Sol / Extra High (XHIGH)`. The same Desktop task/session may continue only for bounded revision belonging to that same video job.
 
-- one fresh Codex Desktop App task/session using GPT-5.6 Sol / Extra High is the per-video
-  creative/editorial brain and owns viewer-facing composition, story-specific Remotion source,
-  typography hierarchy, asset composition, timing, transitions, motion, actual-media review, and
-  bounded same-video creative repairs;
-- deterministic local V2 infrastructure owns the durable control plane, governed evidence/numeric boundaries, rights/provenance, low-level safe visual components, source sandboxing, rendering, QA, recovery, cost telemetry, and publication gate;
-- the failed H1 fixed high-level compositor must not return as the professional final-media path;
-- Lane A/CX remains historical A/B evidence only and has zero current V2 creative authority;
-- do not keep a persistent 24/7 Codex conversation;
-- do not maintain two independent renderer stacks.
+Forbidden V2 creative substitutions:
 
-Positive architecture proof:
+- Codex CLI / `codex exec`;
+- Codex SDK/API/headless creative execution;
+- 9Router creative execution;
+- Terra/Gemini/provider/generic-model creative fallback.
 
-- branch: `task/v2-codex-creative-authority-visual-repair-loop-v1`;
-- verified tip: `e977f9637b5c461991b1ad76707e7b7d3c9ff917`;
-- product commit: `c4fe1e5bc12ff13cf09c9d9152bfe6414d7bdd09`.
+9Router remains research/evidence assistance only on:
 
-Owner/operator classification:
+`cx/gpt-5.6-terra(high) -> vx/gemini-3.1-pro-preview(high) -> vx/gemini-3.5-flash(high)`.
 
-`PASS_CREATIVE_AUTHORITY_ARCHITECTURE / PASS_MAJOR_QUALITY_RECOVERY / BLOCKED_BELOW_FINAL_PUBLIC_BAR_BY_ASSET_AND_EDITORIAL_VISUAL_DEPTH`
+The old `CodexCliExecutor` / `CodexJobBrain` execution seam is historical and fail-closed.
 
-The proof records `CODEX_TASK_SESSION / gpt-5.6-sol / reasoning_effort=not_exposed_to_task_session / nine_router_route=null`. Do not infer a HIGH/XHIGH/MAX/ULTRA winner from its visual quality.
+## Audited current implementation/proof truth
 
-# Current dominant quality blockers
+Desktop-session-native core implementation:
 
-1. narrow/reused visual asset universe;
-2. rights-safe assets that are visually poor still entering storyboards;
-3. the legacy EIA Hormuz raster is below professional presentation quality;
-4. diversity metrics overcount file IDs and under-measure visual-family/semantic repetition;
-5. pre-motion review is not severe enough on taste, novelty, asset quality, and publishability;
-6. several long scenes need micro-beat progression rather than one visual state plus text;
-7. second-order analytical channels need stronger hard-data/evidence anchoring;
-8. map/data visualization craft remains below the desired institutional ceiling.
+`de0d9748b36334d408f7cc845b8edda109df0ff8`
 
-# Retired professional presentation asset
+Evidence commit:
 
-The legacy EIA Hormuz raster is now:
+`c8a42fecee5dba6708fb380f442d663a519f1b8c`
 
-`REFERENCE_EVIDENCE_ONLY`
-
-unless Jim explicitly reverses this decision.
-
-Do not use it as a professional-final presentation map in a new owner-review candidate.
-
-# Current exact task
-
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
-
-Result:
+Proof result:
 
 `FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
 
-Current truth:
+The one authorized proof passed:
 
-- the active core factory is now explicitly driven by the current Codex Desktop App task/session;
-- initial Desktop-session creative artifacts passed factual, rights, sandbox, hash-lock, and real
-  TypeScript validation with zero CLI/SDK/API/9Router/provider creative invocation;
-- the single authorized proof reached `HARD_SOURCE_VALIDATED` and then quarantined when Remotion
-  could not spawn its existing browser through a 303-character task-local path (`ENOENT`);
-- completed renders, proxy/final media, audio, package, and owner-review surfaces: zero;
-- no runtime repair or second proof was attempted;
-- commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its
-  `codex exec` proof: `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`;
-- implementation HEAD: `de0d9748b36334d408f7cc845b8edda109df0ff8`;
-- evidence:
-  `docs/automation/TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1/FINAL_EVIDENCE.md`;
-- production soak: blocked.
+- atomic claim;
+- governed-input lock;
+- fresh Desktop-session creative/editorial lock;
+- motion-source lock;
+- factual/source/sandbox/hash validation;
+- real TypeScript validation.
 
-9Router remains research/evidence assistance only on `cx/gpt-5.6-terra(high)` →
-`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)` and has zero creative authority.
+It failed at the first `PROXY_RENDERED` attempt because Remotion could not spawn an existing Chrome headless shell through a 303-character task-local Windows path and returned `ENOENT`. Both checked executable paths existed. `WINDOWS_PROCESS_LAUNCH_PATH_LENGTH_FAILURE` is the leading inference, not yet proven repair truth.
 
-The generic Desktop-App handoff deep-research pointer is complete/superseded. The exact next gate is:
+No proxy/final MP4, audio, captions, package, actual-media review, repair, proof resumption, fallback, second proof, V1 mutation, platform operation, scheduler change, credential read, or public write followed.
 
-`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`
+Do not resume or mutate quarantined run:
 
-Do not patch the quarantined proof or run a second proof without exact owner authority.
+`run_231f3172582d4343a431ef3e2b4a955c`
 
-# Deferred correct-architecture proof story — not current
+## Build-phase resource contract
 
-Use **Frozen Without Breaking** as the controlled operational proof with:
+`V2_BUILD_1080P_ONLY`
 
-- concrete visual entities;
-- strong primary evidence;
-- hard data;
-- at least two meaningful analytical channels;
-- enough visual variety to exercise the asset-discovery system.
+- Short: native `1080x1920`, 30 fps, normally 30–60 seconds.
+- Current proof: one Short only.
+- Longform build default max: 5 minutes.
+- Longform hard build exception max: 10 minutes, only when an explicit story/validation objective earns it.
+- No 4K during build/pre-soak.
+- Historical longer/4K experiments remain evidence only.
 
-The accepted existing Short is a quality reference only. Do not feed its viewer-facing source,
-final narration, choreography, layout decisions, or repair answer to the new creative workers.
-No web research or new asset-discovery project is part of this repeatability proof.
+Current voice:
 
-# Asset-first requirements
+`KOKORO_AF_HEART / speed=1.06 / lang=en-us`
 
-Before storyboard:
+`ELEVENLABS_AND_AI_AVATAR_DEFERRED`
 
-1. derive visual entity/asset needs from the analytical map;
-2. actively discover/acquire fresh story-specific rights-safe candidates through authorized mechanisms;
-3. build a visually inspectable candidate asset board;
-4. record source, rights, resolution, orientation, focal subject, crop viability, embedded text, semantic role, visual family, and prior/recent use;
-5. reject poor professional-presentation assets even when rights-safe.
+Do not add premium voice, voice cloning, AI avatar/presenter, or equivalent paid media systems before correct core-media acceptance and stable production soak.
 
-Rights-safe is necessary, not sufficient.
+## Transcript / voice-over / SEO direction
 
-## ASSET_VISUAL_FIT gate
+`TRANSCRIPT_FIRST_V2_PRODUCTION`
 
-Evaluate:
+A hash-bound canonical spoken transcript must become the shared source for narration, final-audio reconciliation, captions, chapters, SEO metadata, and later localized scripts/dubs.
 
-- semantic match;
-- resolution;
-- focal clarity;
-- clutter;
-- baked-in text;
-- crop flexibility;
-- tone/lighting;
-- orientation fitness;
-- uniqueness;
-- recent reuse;
-- professional editorial feel.
+After picture/audio lock, captions and SEO must reconcile to the actual accepted final audio state. Draft narration and unreviewed platform auto-captions are not transcript authority.
 
-The legacy EIA Hormuz raster is the canonical negative example.
+Blocking transcript defects include names/entities, numbers/dates/currencies/units, negation/modality, observation-vs-forecast status, speaker/official-clip boundaries, missing/duplicated/corrupted text, and caption timing mismatch.
 
-## Diversity truth
+The committed 30-video benchmark corpus is craft-learning evidence only. Adopt mechanisms and editorial patterns, never copyrighted transcript/video content by default.
 
-Derive metrics from actual rendered dependencies, not only creative-plan asset IDs.
+Younger-viewer tone may include sparse, mechanism-aware deadpan wit. Humor can never create facts, imply trading advice, distort official speech, trivialize casualties/hardship, or replace explanation.
 
-Track:
+## Multilingual state
 
-- exact-file reuse;
-- visual-family concentration;
-- semantic-purpose reuse;
-- consecutive reuse;
-- recent-video reuse;
-- cumulative screen time by visual family.
+`MULTILINGUAL_PACKAGE_SUBSTRATE_CLOSED_INPUT`
 
-Do not allow a high asset-ID count to hide tanker/refinery/storage visual fatigue.
+Do not activate/rebuild multilingual capability during the current targeted render repair or core proof.
 
-# Native visual capability
+Later platform model:
 
-Build only what the real proof needs.
+- YouTube longform: one picture master + multiple audio/subtitle/translated-metadata tracks where supported;
+- YouTube Shorts: multilingual audio exists, but exact target-account/client switching/default-routing behavior must be validated before universal compatibility is claimed;
+- TikTok organic: treat one ordinary post as one audio program; localized dubs are separate remux/post packages unless future official product evidence changes that contract.
 
-Priority:
+Locale activation hardening starts only after stable production soak.
 
-1. **Native Map Compiler** — geographically truthful, Capital Chronicle-controlled typography/labels/route overlays, native 9:16 and 16:9; satellite/geographic bases may be used when rights-safe and useful.
-2. **Richer Data Visualization** — observed/forecast distinction, real date anchors, direct labels, useful history/context, aspect-native composition; complexity only when explanatory.
-3. **Document Evidence Treatment** — readable exact excerpt, controlled highlight, source/date, no competing baked-in overlays.
+## Music and authority clips
 
-Do not build a giant GIS/chart framework before actual media exists.
+Grounded search may discover music/clip candidates but accessibility or scraping is not rights authority.
 
-# Institutional editorial depth
+Prefer owned/commissioned -> explicit cross-platform license -> verified public-domain/CC0/permissive -> platform-specific library -> no music.
 
-Depth must come from evidence, mechanism, and useful data—not more paragraphs.
+Official interviews/speeches require exact speaker, institution/event/date, source, clip range, transcript, rights/restrictions, and permitted-use basis. Do not synthetically extend authentic speech or silently make a real speaker appear to speak another language.
 
-After the core story is locked:
+## Exact next task
 
-- select roughly two to four highest-value analytical channels;
-- seek additional primary/strong evidence and hard-data anchors where they materially improve those channels;
-- if strong authority is unavailable, keep the implication qualitative in narration or omit it;
-- do not manufacture institutional-looking numeric precision.
+`TASK_CONTENTOPS_V2_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_FRESH_DESKTOP_MEDIA_PROOF_V1`
 
-Narration carries nuance. Screen carries the visual thesis.
+Scope:
 
-# Micro-beat doctrine
+1. prove or falsify the Windows short-path/process-launch diagnosis with the smallest safe non-creative diagnostic;
+2. implement only the minimal render/runtime short-path repair if confirmed;
+3. run a bounded non-creative browser/render smoke;
+4. commit and push implementation before proof;
+5. run exactly one fresh Frozen Without Breaking governed Short proof with a new job/run under the same Codex Desktop App task/session architecture;
+6. use 1080x1920/30 fps and Kokoro `af_heart` only;
+7. create actual owner-review media or quarantine truthfully;
+8. no proof resumption, broad refactor, multilingual activation, premium voice/avatar, V1 trigger/scheduler, platform credential/API/public write.
 
-Major analytical scenes should contain meaningful visual-state progression.
-
-Starting heuristic:
-
-- meaningful visual state change approximately every 2–4 seconds;
-- longer evidence/document/data holds only when viewer reading/comprehension requires them;
-- visual change follows information change, not an arbitrary cut/motion quota.
-
-A 10-second physical/mechanism idea may progress through several real visual states rather than one photo plus text.
-
-# Material rhythm
-
-Maintain Capital Chronicle brand tokens while varying the material language intentionally:
-
-- documentary full-bleed;
-- clean map;
-- primary document;
-- dark data scene;
-- micro-montage;
-- minimal thesis frame;
-- chart;
-- physical-mechanism sequence.
-
-Brand consistency does not require every scene to look like the same navy card.
-
-# Severe visual-editor gate
-
-Before expensive final motion, explicitly answer:
-
-`Would an institutional media editor approve this exact asset and composition for publication?`
-
-Evaluate:
-
-- asset quality;
-- taste;
-- novelty;
-- visual richness;
-- hierarchy;
-- crop/focal object;
-- embedded-text clutter;
-- visual-family repetition;
-- asset fatigue;
-- template feel;
-- evidence clarity;
-- professional Capital Chronicle feel.
-
-If the answer is not clearly yes, revise before final motion even if deterministic layout/collision QA passes.
-
-Worker/critic self-PASS remains evidence, not owner visual authority.
-
-# Creative repair loop
-
-Use bounded, evidence-driven repair:
-
-1. storyboard/keyframes: up to one systemic creative revision;
-2. motion proxy: up to two creative visual repairs;
-3. final master: at most one final localized material-defect repair;
-4. mechanical fixes preserving creative intent do not consume creative budget;
-5. stop early when quality passes; do not create an endless polish loop.
-
-Persist scene/timestamp/frame/defect/before-after evidence for each creative repair.
-
-# Audio
-
-SAPI remains `DIAGNOSTIC_FALLBACK_ONLY / NOT_PROFESSIONAL_MEDIA_ELIGIBLE`.
-
-Use the best currently authorized professional-quality V2 path. Clean master plus sidecar captions remains preferred.
-
-Kokoro-versus-ElevenLabs may be tested later as a separate quality/cost question; do not mix that test into the current asset-first task or the Codex mode bakeoff.
-
-# Codex reasoning-effort policy
-
-`GPT-5.6 Sol / Extra High (XHIGH) / CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
-
-Do **not** run a reasoning-effort bakeoff in the current authority task.
-
-Future high-bar comparison is deferred until Jim/ChatGPT accept the richer visual/evidence substrate.
-
-MAX/ULTRA are retired under current authority. Any historical comparison language below is
-non-controlling.
-
-Future challenge should use longer, more analytically abundant content, preferably a ~150–210 second midform when the evidence supports it.
-
-Hold constant:
-
-- governed story/evidence;
-- starting asset universe;
-- rights;
-- low-level safety toolkit;
-- professional audio;
-- revision ceiling;
-- QA rubric.
-
-Allow each mode to independently author:
-
-- analytical map;
-- narration;
-- storyboard;
-- asset selection;
-- viewer-facing Remotion source;
-- micro-beat editing;
-- localized visual repairs.
-
-No cross-mode creative leakage. Jim + ChatGPT choose default/escalation policy only after actual media plus quota/TCO evidence.
-
-# V1 trigger direction
-
-Future live loop remains:
-
-`V1 publishes useful articles -> performance metrics -> candidate scorer -> top genuinely qualified video opportunities -> V2 durable outbox -> fresh Codex Desktop App task/session`
-
-The target is roughly the top one or two qualified opportunities when available, not a forced quota.
-
-Engagement changes priority/packaging only. It may not change facts, Capital Chronicle analysis, numeric authority, rights, permissions, or publication scope.
-
-# Public-write authority
+`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF`
 
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 
-No current V2 task may:
+## Next gate after success
 
-- upload to YouTube/TikTok;
-- create private/unlisted/draft platform uploads;
-- publish via browser/CDP;
-- schedule platform writes;
-- mutate V1 publication/runtime state.
+Only if the fresh proof reaches `OWNER_REVIEW_READY` and Jim/ChatGPT inspect and accept the actual MP4/audio:
 
-V2-02 remains blocked.
+`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_V1`
 
-# Recorded result and ceiling
+After stable soak:
 
-`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
+`LOCALE_ACTIVATION_HARDENING`
 
-No actual-media or owner aesthetic/audio acceptance is claimed. Runtime repair and another proof
-require the exact owner gate recorded above.
+Premium voice/avatar evaluation, V1 trigger/scheduling, and controlled publication expansion remain later exact-authority gates.
