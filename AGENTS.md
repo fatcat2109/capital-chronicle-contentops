@@ -67,8 +67,8 @@ broader 5–8 useful-article band is historical portfolio context, not a current
 cadence authority. Read the V1 handoff for prior evidence and hard stops.
 
 For every future V1 opportunity, grounded research/evidence assistance uses exactly this deterministic
-9Router ladder: `cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)`. Preserve the existing bounded research retry policy and advance only on
+9Router ladder: `vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)`.
+`cx/gpt-5.6-terra(high)` is excluded from this role. Preserve the bounded research retry policy and advance only on
 eligible provider-layer failure. These routes have no factual, numeric, Capital Chronicle,
 permission, publication, or public-write authority; exact source records remain authority. This
 research ladder does not change the Desktop `gpt-5.6-sol / HIGH` coordinator or the fresh isolated

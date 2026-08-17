@@ -16,7 +16,7 @@ Current accepted implementation branch/product baseline:
 
 Current V1 research-routing correction task:
 
-`TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1`
+`TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1`
 
 Exactly four native V1 tasks already exist and are all `PAUSED`:
 
@@ -35,9 +35,9 @@ Current operating policy: `QUALITY_PROBATION_FOUR_WINDOW_V1` under
 `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`.
 
 Owner research-routing override (2026-08-17): all future V1 grounded-research/evidence calls use
-the exact deterministic 9Router ladder `cx/gpt-5.6-terra(high)` →
-`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)`. The pre-existing bounded retry and
-eligible provider-fallback semantics remain unchanged. Model output grants no factual, numeric,
+the exact deterministic 9Router ladder `vx/gemini-3.1-pro-preview(high)` →
+`vx/gemini-3.5-flash(high)`. `cx/gpt-5.6-terra(high)` is excluded from this role. The bounded retry
+and eligible provider-fallback semantics remain unchanged. Model output grants no factual, numeric,
 Capital Chronicle, permission, publication, or public-write authority; exact source records remain
 authority. The V1 Desktop coordinator stays `gpt-5.6-sol / HIGH`, and every warranted final article
 still requires one fresh isolated `gpt-5.6-sol / XHIGH` editorial worker.

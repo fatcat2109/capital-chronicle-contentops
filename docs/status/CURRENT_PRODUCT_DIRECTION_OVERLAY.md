@@ -27,8 +27,8 @@ intelligence/numeric authority, consumed read-only and dynamically; ContentOps m
 integration but never duplicates, mutates, or infers authority from arbitrary database rows.
 
 Current owner V1 research-model override (2026-08-17): grounded research and evidence assistance
-must walk exactly `cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)` through 9Router. The existing bounded retry budget and eligible
+must walk exactly `vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)` through
+9Router. `cx/gpt-5.6-terra(high)` is excluded from this role. The bounded retry budget and eligible
 provider-failure fallback semantics remain controlling; there is no load balancing or fallback for
 an inconvenient evidence conclusion. Models never become source, factual/numeric, Capital Chronicle,
 permission, publication, or public-write authority. Coordinator and final editorial-worker authority
@@ -353,7 +353,7 @@ Never inspect/export cookies, storage, tokens, credentials, or session databases
 
 V1 next:
 
-`TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1`
+`TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1`
 
 V2 next:
 

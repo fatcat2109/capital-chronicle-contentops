@@ -77,7 +77,6 @@ NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
 GEMINI_PRO_MODEL = ORDERED_MODEL_POOL[-1]
 CX_FINAL_FALLBACK_MODEL = "cx/gpt-5.6-sol(xhigh)"
 V1_GROUNDED_RESEARCH_MODEL_LADDER: tuple[str, ...] = (
-    "cx/gpt-5.6-terra(high)",
     "vx/gemini-3.1-pro-preview(high)",
     "vx/gemini-3.5-flash(high)",
 )
@@ -175,11 +174,12 @@ PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
 NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1, 1)
 NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 2)
 V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 2, 2, 2)
-# Preserve the pre-owner-override grounded-research retry shape for the new three-route
-# ladder: two declared attempts per route (the second remains reserved for the one global
-# structured-output repair), zero infrastructure same-model retries, six total attempts,
-# and the existing four-transition ceiling.
-GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 2)
+# The two-route grounded-research pool permits one attempt per provider plus at most one
+# bounded same-model structured-output repair. Infrastructure failures never retry the same
+# model, and Flash is the only fallback.
+GROUNDED_RESEARCH_MAX_TOTAL_PROVIDER_ATTEMPTS = 3
+GROUNDED_RESEARCH_MAX_FALLBACK_TRANSITIONS = 1
+GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2)
 
 MAX_TOTAL_PROVIDER_ATTEMPTS = 6
 MAX_FALLBACK_TRANSITIONS = 3
@@ -308,13 +308,13 @@ def authority_packet() -> dict[str, Any]:
             "bounded": True,
         },
         "v1_grounded_research_retry_policy": {
-            "max_total_provider_attempts": MAX_TOTAL_PROVIDER_ATTEMPTS,
-            "max_fallback_transitions": V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
+            "max_total_provider_attempts": GROUNDED_RESEARCH_MAX_TOTAL_PROVIDER_ATTEMPTS,
+            "max_fallback_transitions": GROUNDED_RESEARCH_MAX_FALLBACK_TRANSITIONS,
             "max_same_model_retries": 0,
             "max_structured_output_repair_attempts": 1,
             "per_model_max_attempts": list(GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS),
             "bounded": True,
-            "preserves_pre_override_retry_semantics": True,
+            "two_model_pool_aligned": True,
         },
         "temporary_build_acceptance_gemini_incident_supported": True,
         "temporary_build_acceptance_gemini_incident_max_hours": 24,
@@ -393,8 +393,8 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
     if str(role_task_id) == GROUNDED_RESEARCH_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=MAX_TOTAL_PROVIDER_ATTEMPTS,
-            max_fallback_transitions=V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
+            max_total_provider_attempts=GROUNDED_RESEARCH_MAX_TOTAL_PROVIDER_ATTEMPTS,
+            max_fallback_transitions=GROUNDED_RESEARCH_MAX_FALLBACK_TRANSITIONS,
             max_same_model_retries=0,
             max_structured_output_repair_attempts=1,
             per_model_max_attempts=GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS,

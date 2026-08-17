@@ -18,10 +18,10 @@ Status: `CURRENT_V1_OWNER_HANDOFF`
 ## Current grounded-research routing authority
 
 Effective for future V1 opportunities, the exact 9Router research/evidence ladder is
-`cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)`. It replaces the prior V1 research ordering while preserving the
-existing bounded retry policy and eligible provider-layer fallback semantics. Exact source records
-remain authority; the three models have zero factual, numeric, Capital Chronicle, permission,
+`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)`.
+`cx/gpt-5.6-terra(high)` is excluded from this role. It replaces the prior V1 research ordering while preserving the
+bounded retry policy and eligible provider-layer fallback semantics. Exact source records
+remain authority; both models have zero factual, numeric, Capital Chronicle, permission,
 publication, or public-write authority. Coordinator `gpt-5.6-sol / HIGH`, final worker fresh isolated
 `gpt-5.6-sol / XHIGH`, four paused tasks, and all nine publication gates are unchanged.
 
@@ -53,7 +53,7 @@ Accepted product implementation baseline:
 
 Current continuation task:
 
-`TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1`
+`TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1`
 
 Closeout result:
 

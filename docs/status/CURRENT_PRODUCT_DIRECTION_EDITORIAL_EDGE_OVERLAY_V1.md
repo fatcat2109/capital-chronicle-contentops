@@ -29,7 +29,7 @@ The four existing tasks remain:
 
 No fifth task or schedule mutation is authorized.
 
-V1 coordinator remains native Codex Desktop `gpt-5.6-sol / HIGH`. Every warranted final canonical article uses exactly one fresh isolated `gpt-5.6-sol / XHIGH` writer. Grounded research remains exactly `cx/gpt-5.6-terra(high)` -> `vx/gemini-3.1-pro-preview(high)` -> `vx/gemini-3.5-flash(high)` with existing eligible provider fallback semantics.
+V1 coordinator remains native Codex Desktop `gpt-5.6-sol / HIGH`. Every warranted final canonical article uses exactly one fresh isolated `gpt-5.6-sol / XHIGH` writer. Grounded research is exactly `vx/gemini-3.1-pro-preview(high)` -> `vx/gemini-3.5-flash(high)` with existing eligible provider fallback semantics; `cx/gpt-5.6-terra(high)` is excluded from this role.
 
 ## Editorial/SEO authority
 
