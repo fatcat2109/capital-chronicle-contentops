@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from . import media as local_media
-from .codex_job_brain import CodexJobBrain
 from .creative import (
     hash_file,
     hash_value,
@@ -18,6 +17,11 @@ from .creative import (
     validate_motion_artifact,
     validate_revision_artifact,
     validate_source_files,
+)
+from .desktop_session import (
+    DesktopSessionProvenance,
+    build_desktop_session_receipt,
+    validate_desktop_session_receipt,
 )
 from .store import V2JobStore, utc_now
 
@@ -48,6 +52,12 @@ SECRET_PATTERNS = (
 
 class SupervisorError(RuntimeError):
     pass
+
+
+class DesktopSessionInputRequired(SupervisorError):
+    def __init__(self, input_kind: str) -> None:
+        super().__init__(f"desktop_session_input_required:{input_kind}")
+        self.input_kind = input_kind
 
 
 @dataclass(frozen=True)
@@ -95,6 +105,19 @@ def _load(path: Path) -> dict[str, Any]:
     return loaded
 
 
+def _write_immutable_json(path: Path, value: Mapping[str, Any]) -> dict[str, Any]:
+    if path.is_file():
+        existing = _load(path)
+        if hash_value(existing) != hash_value(value):
+            raise SupervisorError(f"immutable_session_submission_conflict:{path.name}")
+        return {
+            "path": str(path.resolve()),
+            "sha256": hash_file(path),
+            "size_bytes": path.stat().st_size,
+        }
+    return _json_artifact(path, dict(value))
+
+
 def _safe_cost(receipts: list[Mapping[str, Any]]) -> dict[str, Any]:
     usd = 0.0
     exposed = False
@@ -117,26 +140,24 @@ def _safe_cost(receipts: list[Mapping[str, Any]]) -> dict[str, Any]:
                 if isinstance(value, (int, float)):
                     usage[str(key)] = usage.get(str(key), 0.0) + float(value)
     return {
-        "codex_xhigh_execution_count": calls,
-        "codex_execution_attempt_count": attempts,
+        "desktop_session_creative_stage_count": calls,
+        "desktop_session_submission_attempt_count": attempts,
         "model_cost_usd": round(usd, 8) if exposed else None,
         "model_cost_exposed": exposed,
         "safe_usage": usage or None,
     }
 
 
-class UnattendedV2Supervisor:
+class DesktopSessionV2Factory:
     def __init__(
         self,
         *,
         store: V2JobStore,
         config: FactoryConfig,
-        creative_brain: CodexJobBrain | None = None,
         media_backend: Any = local_media,
     ) -> None:
         self.store = store
         self.config = config
-        self.brain = creative_brain or CodexJobBrain()
         self.media = media_backend
         self.config.validate()
 
@@ -155,7 +176,9 @@ class UnattendedV2Supervisor:
             "root": root,
             "artifacts": artifacts,
             "project": root / "generated_project",
-            "codex_workspace": root / "codex_job",
+            "session_inbox": root / "desktop_session_inbox",
+            "creative_submission": root / "desktop_session_inbox" / "initial_creative.json",
+            "review_submission": root / "desktop_session_inbox" / "actual_media_review.json",
             "editor": artifacts / "creative_editor.json",
             "editor_validation": artifacts / "creative_editor_validation.json",
             "editor_receipt": artifacts / "codex_initial_execution_receipt.json",
@@ -196,6 +219,118 @@ class UnattendedV2Supervisor:
         if hash_value(packet) != str(job["input_packet_hash"]):
             raise SupervisorError("seeded_input_packet_hash_mismatch")
         return packet
+
+    def _active_job(self, *, video_job_id: str, run_id: str) -> dict[str, Any]:
+        job = self.store.job(video_job_id)
+        if str(job.get("run_id") or "") != run_id:
+            raise SupervisorError("desktop_session_run_identity_mismatch")
+        if str(job.get("claimed_by") or "") != self.config.worker_id:
+            raise SupervisorError("desktop_session_worker_does_not_own_claim")
+        if job.get("state") != "RUNNING":
+            raise SupervisorError(f"desktop_session_job_not_running:{job.get('state')}")
+        if str(job.get("input_packet_hash") or "") == "":
+            raise SupervisorError("desktop_session_input_hash_missing")
+        return job
+
+    def submit_initial_creative(
+        self,
+        *,
+        video_job_id: str,
+        run_id: str,
+        editor: Mapping[str, Any],
+        motion: Mapping[str, Any],
+        provenance: DesktopSessionProvenance,
+    ) -> dict[str, Any]:
+        job = self._active_job(video_job_id=video_job_id, run_id=run_id)
+        paths = self._paths(video_job_id)
+        packet = self._packet(job)
+        validate_editor_artifact(editor, packet)
+        validate_motion_artifact(motion, packet, editor)
+        receipt = build_desktop_session_receipt(
+            provenance=provenance,
+            execution_kind="INITIAL_CREATIVE",
+            video_job_id=video_job_id,
+            run_id=run_id,
+            input_artifact_hashes={"governed_packet": str(job["input_packet_hash"])},
+            output_artifact_hashes={
+                "editorial": hash_value(editor),
+                "motion": hash_value(motion),
+            },
+        )
+        validate_desktop_session_receipt(
+            receipt,
+            execution_kind="INITIAL_CREATIVE",
+            video_job_id=video_job_id,
+            run_id=run_id,
+        )
+        envelope = {
+            "schema": "contentops.v2.desktop_session_initial_submission.v1",
+            "video_job_id": video_job_id,
+            "run_id": run_id,
+            "governed_input_hash": str(job["input_packet_hash"]),
+            "editor": dict(editor),
+            "motion": dict(motion),
+            "receipt": receipt,
+        }
+        artifact = _write_immutable_json(paths["creative_submission"], envelope)
+        return {
+            "result": "PASS_DESKTOP_SESSION_CREATIVE_SUBMITTED",
+            "video_job_id": video_job_id,
+            "run_id": run_id,
+            "submission": artifact,
+            "next_legal_stage": "CREATIVE_EDITOR_LOCKED",
+        }
+
+    def submit_actual_media_review(
+        self,
+        *,
+        video_job_id: str,
+        run_id: str,
+        review: Mapping[str, Any],
+        provenance: DesktopSessionProvenance,
+    ) -> dict[str, Any]:
+        job = self._active_job(video_job_id=video_job_id, run_id=run_id)
+        paths = self._paths(video_job_id)
+        packet = self._packet(job)
+        editor = _load(paths["editor"])
+        motion = _load(paths["motion"])
+        initial_receipt = _load(paths["editor_receipt"])
+        validate_revision_artifact(review, packet, editor, motion)
+        receipt = build_desktop_session_receipt(
+            provenance=provenance,
+            execution_kind="ACTUAL_MEDIA_REVIEW",
+            video_job_id=video_job_id,
+            run_id=run_id,
+            input_artifact_hashes={
+                "proxy": hash_file(paths["proxy"]),
+                "proxy_contact_sheet": hash_file(paths["proxy_sheet"]),
+            },
+            output_artifact_hashes={"review": hash_value(review)},
+        )
+        validate_desktop_session_receipt(
+            receipt,
+            execution_kind="ACTUAL_MEDIA_REVIEW",
+            video_job_id=video_job_id,
+            run_id=run_id,
+            initial_receipt=initial_receipt,
+        )
+        envelope = {
+            "schema": "contentops.v2.desktop_session_review_submission.v1",
+            "video_job_id": video_job_id,
+            "run_id": run_id,
+            "proxy_sha256": hash_file(paths["proxy"]),
+            "proxy_contact_sheet_sha256": hash_file(paths["proxy_sheet"]),
+            "review": dict(review),
+            "receipt": receipt,
+        }
+        artifact = _write_immutable_json(paths["review_submission"], envelope)
+        return {
+            "result": "PASS_DESKTOP_SESSION_REVIEW_SUBMITTED",
+            "video_job_id": video_job_id,
+            "run_id": run_id,
+            "submission": artifact,
+            "next_legal_stage": "ACTUAL_MEDIA_REVIEWED",
+        }
 
     def _latest(self, video_job_id: str) -> dict[str, dict[str, Any]]:
         return self.store.latest_success_by_stage(video_job_id)
@@ -339,13 +474,29 @@ class UnattendedV2Supervisor:
             )
             return
         if stage == "CREATIVE_EDITOR_LOCKED":
-            output, motion_output, receipt = self.brain.create(
+            if not paths["creative_submission"].is_file():
+                raise DesktopSessionInputRequired("INITIAL_CREATIVE")
+            submission = _load(paths["creative_submission"])
+            if submission.get("schema") != "contentops.v2.desktop_session_initial_submission.v1":
+                raise SupervisorError("desktop_session_initial_submission_schema_invalid")
+            if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
+                raise SupervisorError("desktop_session_initial_submission_identity_mismatch")
+            if submission.get("governed_input_hash") != input_hash:
+                raise SupervisorError("desktop_session_initial_submission_input_hash_mismatch")
+            output = dict(submission.get("editor") or {})
+            motion_output = dict(submission.get("motion") or {})
+            receipt = dict(submission.get("receipt") or {})
+            validate_desktop_session_receipt(
+                receipt,
+                execution_kind="INITIAL_CREATIVE",
                 video_job_id=str(job["video_job_id"]),
-                job_root=paths["root"],
-                packet=packet,
-                asset_root=self.config.asset_root,
+                run_id=run_id,
             )
             validation = validate_editor_artifact(output, packet)
+            validate_motion_artifact(motion_output, packet, output)
+            expected = dict(receipt.get("output_artifact_hashes") or {})
+            if expected.get("editorial") != hash_value(output) or expected.get("motion") != hash_value(motion_output):
+                raise SupervisorError("desktop_session_initial_output_hash_mismatch")
             records = [
                 _json_artifact(paths["editor"], output),
                 _json_artifact(paths["editor_validation"], validation),
@@ -361,7 +512,7 @@ class UnattendedV2Supervisor:
                 artifacts=records,
                 result="PASS_CREATIVE_EDITOR_LOCK",
                 next_stage="MOTION_SOURCE_LOCKED",
-                role="CodexJobBrain.initial_creative_execution",
+                role="CodexDesktopSessionBrain.initial_creative_submission",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -377,13 +528,14 @@ class UnattendedV2Supervisor:
                 raise SupervisorError("codex_initial_motion_output_hash_mismatch")
             validation = validate_motion_artifact(output, packet, editor)
             receipt = {
-                "schema": "contentops.v2.codex_job_brain_motion_lock_receipt.v1",
+                "schema": "contentops.v2.codex_desktop_session_motion_lock_receipt.v1",
+                "creative_runtime": initial_receipt.get("creative_runtime"),
                 "execution_plane": initial_receipt.get("execution_plane"),
                 "requested_model_family": initial_receipt.get("requested_model_family"),
                 "requested_reasoning_effort": initial_receipt.get("requested_reasoning_effort"),
                 "actual_model_family": initial_receipt.get("actual_model_family"),
                 "actual_reasoning_effort": initial_receipt.get("actual_reasoning_effort"),
-                "thread_id": initial_receipt.get("thread_id"),
+                "session_continuity_key": initial_receipt.get("session_continuity_key"),
                 "source_execution_receipt_sha256": hash_file(paths["editor_receipt"]),
                 "input_artifact_hashes": {"editor": hash_value(editor)},
                 "output_artifact_hashes": {"motion": hash_value(output)},
@@ -407,7 +559,7 @@ class UnattendedV2Supervisor:
                 artifacts=records,
                 result="PASS_MOTION_SOURCE_LOCK",
                 next_stage="HARD_SOURCE_VALIDATED",
-                role="CodexJobBrain.motion_output_lock",
+                role="CodexDesktopSessionBrain.motion_output_lock",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -468,17 +620,29 @@ class UnattendedV2Supervisor:
             )
             return
         if stage == "ACTUAL_MEDIA_REVIEWED":
-            proxy_report = _load(paths["proxy_report"])
-            output, receipt = self.brain.review(
-                job_root=paths["root"],
-                packet=packet,
-                editor=editor,
-                motion=motion,
-                proxy_report=proxy_report,
-                contact_sheet=paths["proxy_sheet"],
+            if not paths["review_submission"].is_file():
+                raise DesktopSessionInputRequired("ACTUAL_MEDIA_REVIEW")
+            submission = _load(paths["review_submission"])
+            if submission.get("schema") != "contentops.v2.desktop_session_review_submission.v1":
+                raise SupervisorError("desktop_session_review_submission_schema_invalid")
+            if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
+                raise SupervisorError("desktop_session_review_submission_identity_mismatch")
+            if submission.get("proxy_sha256") != hash_file(paths["proxy"]):
+                raise SupervisorError("desktop_session_review_proxy_hash_mismatch")
+            if submission.get("proxy_contact_sheet_sha256") != hash_file(paths["proxy_sheet"]):
+                raise SupervisorError("desktop_session_review_surface_hash_mismatch")
+            output = dict(submission.get("review") or {})
+            receipt = dict(submission.get("receipt") or {})
+            validate_desktop_session_receipt(
+                receipt,
+                execution_kind="ACTUAL_MEDIA_REVIEW",
+                video_job_id=str(job["video_job_id"]),
+                run_id=run_id,
                 initial_receipt=_load(paths["editor_receipt"]),
             )
             validation = validate_revision_artifact(output, packet, editor, motion)
+            if dict(receipt.get("output_artifact_hashes") or {}).get("review") != hash_value(output):
+                raise SupervisorError("desktop_session_review_output_hash_mismatch")
             records = [
                 _json_artifact(paths["review"], output),
                 _json_artifact(paths["review_validation"], validation),
@@ -498,7 +662,7 @@ class UnattendedV2Supervisor:
                 artifacts=records,
                 result="PASS_ACTUAL_MEDIA_REVIEW",
                 next_stage=next_stage,
-                role="CodexJobBrain.actual_media_review",
+                role="CodexDesktopSessionBrain.actual_media_review_submission",
                 receipt=receipt,
                 usage=receipt.get("usage") or {},
             )
@@ -530,7 +694,7 @@ class UnattendedV2Supervisor:
                 artifacts=[record, *source_records],
                 result="PASS_CREATIVE_REVISION_LOCK",
                 next_stage="PICTURE_LOCKED",
-                role="CodexJobBrain.localized_revision+deterministic_typecheck",
+                role="CodexDesktopSessionBrain.localized_revision+deterministic_typecheck",
             )
             return
         if stage == "PICTURE_LOCKED":
@@ -636,6 +800,8 @@ class UnattendedV2Supervisor:
                 "render_count": 2,
                 "rerender_count": 1 if review["decision"] == "MATERIAL_REVISION_REQUIRED" else 0,
                 "operator_intervention_minutes": 0,
+                "desktop_session_creative_cost": None,
+                "desktop_session_creative_cost_exposed": False,
             }
             cost_record = _json_artifact(paths["cost"], cost)
             safety = {
@@ -722,6 +888,12 @@ class UnattendedV2Supervisor:
                     str(paths["motion_receipt"]),
                     str(paths["review_receipt"]),
                 ],
+                "creative_runtime": "CODEX_DESKTOP_APP_FRESH_TASK_SESSION",
+                "creative_execution_plane": "CODEX_DESKTOP_APP_TASK_SESSION",
+                "creative_cli_invocations": 0,
+                "creative_sdk_api_invocations": 0,
+                "creative_headless_invocations": 0,
+                "creative_9router_invocations": 0,
                 "factual_anchor_audit": str(paths["factual_audit"]),
                 "rights_provenance_summary": str(paths["rights"]),
                 "stage_ledger_summary": str(paths["ledger"]),
@@ -768,7 +940,7 @@ class UnattendedV2Supervisor:
             self.store.finalize(
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
-                result="PASS_IMPLEMENTATION_UNATTENDED_V2_CODEX_BRAIN_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
+                result="PASS_IMPLEMENTATION_DESKTOP_SESSION_NATIVE_V2_CORE_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
                 state="OWNER_REVIEW_READY",
             )
             return
@@ -793,20 +965,54 @@ class UnattendedV2Supervisor:
         if violations:
             raise SupervisorError("secret_scan_failed:" + ",".join(violations))
 
-    def run_once(
+    def _quarantine_failure(
         self,
         *,
-        proof_run_started_at: str | None = None,
-        max_new_stages: int | None = None,
-        quarantine_on_failure: bool = True,
-    ) -> dict[str, Any]:
-        claimed = self.store.claim_next(
-            worker_id=self.config.worker_id,
-            implementation_head=self.config.implementation_head,
-            proof_run_started_at=proof_run_started_at,
+        claimed: Mapping[str, Any],
+        paths: Mapping[str, Path],
+        error: BaseException,
+    ) -> None:
+        video_job_id = str(claimed["video_job_id"])
+        run_id = str(claimed["run_id"])
+        failure_artifacts: list[dict[str, Any]] = []
+        safe_receipt = getattr(error, "safe_receipt", None)
+        if isinstance(safe_receipt, Mapping) and safe_receipt:
+            failure_artifacts.append(
+                _json_artifact(
+                    paths["artifacts"] / "creative_failure_receipt.json",
+                    dict(safe_receipt),
+                )
+            )
+        self.store.append_event(
+            video_job_id=video_job_id,
+            run_id=run_id,
+            stage="HARD_FAILURE",
+            input_hashes={},
+            output_hashes={},
+            artifacts=failure_artifacts,
+            role_tool_identity="DesktopSessionV2Factory",
+            model_provenance=dict(safe_receipt or {}),
+            wall_time_seconds=0,
+            safe_usage={},
+            result="FAIL_QUARANTINED",
+            retry_state={"error_type": type(error).__name__},
+            next_legal_stage=None,
+            state_pointer="QUARANTINED",
+            terminal_result=f"HARD_FAILURE:{type(error).__name__}:{str(error)[:300]}",
         )
-        if claimed is None:
-            return {"result": "NO_ELIGIBLE_JOB"}
+        self.store.quarantine(
+            video_job_id=video_job_id,
+            run_id=run_id,
+            reason=f"HARD_FAILURE:{type(error).__name__}:{str(error)[:300]}",
+        )
+
+    def _progress_claimed(
+        self,
+        *,
+        claimed: Mapping[str, Any],
+        max_new_stages: int | None,
+        quarantine_on_failure: bool,
+    ) -> dict[str, Any]:
         video_job_id = str(claimed["video_job_id"])
         run_id = str(claimed["run_id"])
         paths = self._paths(video_job_id)
@@ -846,40 +1052,66 @@ class UnattendedV2Supervisor:
                         "executed_stages": executed,
                         "last_valid_checkpoint": executed[-1],
                     }
+        except DesktopSessionInputRequired as required:
+            return {
+                "result": "AWAITING_CODEX_DESKTOP_SESSION_INPUT",
+                "required_input": required.input_kind,
+                "video_job_id": video_job_id,
+                "run_id": run_id,
+                "executed_stages": executed,
+                "last_valid_checkpoint": (
+                    executed[-1]
+                    if executed
+                    else self.store.job(video_job_id).get("last_valid_checkpoint")
+                ),
+                "public_write_authority": False,
+            }
         except BaseException as exc:
             if quarantine_on_failure:
                 try:
-                    failure_artifacts: list[dict[str, Any]] = []
-                    safe_receipt = getattr(exc, "safe_receipt", None)
-                    if isinstance(safe_receipt, Mapping) and safe_receipt:
-                        failure_artifacts.append(
-                            _json_artifact(
-                                paths["artifacts"] / "codex_failure_receipt.json",
-                                dict(safe_receipt),
-                            )
-                        )
-                    self.store.append_event(
-                        video_job_id=video_job_id,
-                        run_id=run_id,
-                        stage="HARD_FAILURE",
-                        input_hashes={},
-                        output_hashes={},
-                        artifacts=failure_artifacts,
-                        role_tool_identity="UnattendedV2Supervisor",
-                        model_provenance=dict(safe_receipt or {}),
-                        wall_time_seconds=0,
-                        safe_usage={},
-                        result="FAIL_QUARANTINED",
-                        retry_state={"error_type": type(exc).__name__},
-                        next_legal_stage=None,
-                        state_pointer="QUARANTINED",
-                        terminal_result=f"HARD_FAILURE:{type(exc).__name__}:{str(exc)[:300]}",
-                    )
-                    self.store.quarantine(
-                        video_job_id=video_job_id,
-                        run_id=run_id,
-                        reason=f"HARD_FAILURE:{type(exc).__name__}:{str(exc)[:300]}",
-                    )
+                    self._quarantine_failure(claimed=claimed, paths=paths, error=exc)
                 except BaseException:
                     pass
             raise
+
+    def run_once(
+        self,
+        *,
+        proof_run_started_at: str | None = None,
+        max_new_stages: int | None = None,
+        quarantine_on_failure: bool = True,
+    ) -> dict[str, Any]:
+        claimed = self.store.claim_next(
+            worker_id=self.config.worker_id,
+            implementation_head=self.config.implementation_head,
+            proof_run_started_at=proof_run_started_at,
+            lease_seconds=43_200,
+        )
+        if claimed is None:
+            return {"result": "NO_ELIGIBLE_JOB"}
+        return self._progress_claimed(
+            claimed=claimed,
+            max_new_stages=max_new_stages,
+            quarantine_on_failure=quarantine_on_failure,
+        )
+
+    def resume(
+        self,
+        *,
+        video_job_id: str,
+        run_id: str,
+        max_new_stages: int | None = None,
+        quarantine_on_failure: bool = True,
+    ) -> dict[str, Any]:
+        claimed = self._active_job(video_job_id=video_job_id, run_id=run_id)
+        claimed["run_id"] = run_id
+        return self._progress_claimed(
+            claimed=claimed,
+            max_new_stages=max_new_stages,
+            quarantine_on_failure=quarantine_on_failure,
+        )
+
+
+# Backward-compatible name for callers that imported the old supervisor class. The class itself
+# is session-driven and contains no creative runtime invocation.
+UnattendedV2Supervisor = DesktopSessionV2Factory

@@ -1,7 +1,7 @@
-"""Durable, isolated, zero-public-write V2 run-once factory."""
+"""Durable, Desktop-session-native, zero-public-write V2 core factory."""
 
-from .codex_job_brain import CodexJobBrain
+from .desktop_session import DesktopSessionProvenance
 from .store import V2JobStore
-from .supervisor import UnattendedV2Supervisor
+from .supervisor import DesktopSessionV2Factory
 
-__all__ = ["CodexJobBrain", "UnattendedV2Supervisor", "V2JobStore"]
+__all__ = ["DesktopSessionProvenance", "DesktopSessionV2Factory", "V2JobStore"]
