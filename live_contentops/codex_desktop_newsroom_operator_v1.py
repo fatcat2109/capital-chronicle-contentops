@@ -176,6 +176,15 @@ def prepared_candidate_continuity_binding(
     }
 
 
+from live_contentops.execution_framework_v1 import (
+    DEFAULT_EXECUTION_FRAMEWORK,
+    DISALLOWED_SUB_MODEL_SPOOFS,
+    FRAMEWORK_MAIN_CODEX,
+    FRAMEWORK_SUB_ANTIGRAVITY,
+    validate_execution_framework,
+)
+
+
 def build_editorial_worker_routing_packet(
     *,
     opportunity_state: str,
@@ -183,12 +192,25 @@ def build_editorial_worker_routing_packet(
     readiness_checked_before_editorial: bool = False,
     readiness_state: str = "UNKNOWN",
     article_mode: str = "STANDARD_ANALYSIS",
+    execution_framework: str = DEFAULT_EXECUTION_FRAMEWORK,
+    sub_model_identity: str | None = None,
 ) -> dict[str, Any]:
-    """Return a deterministic Desktop routing decision without spawning or calling a model.
+    """Return a deterministic routing decision without spawning or calling a model.
 
-    The native HIGH coordinator consumes this contract. The actual fresh child is created by the
-    Desktop task only at the editorial boundary; this function is not a Desktop bridge.
+    In MAIN_CODEX, the native HIGH coordinator consumes this contract and spawns a fresh
+    isolated XHIGH editorial worker. In SUB_ANTIGRAVITY, the active Antigravity model executes
+    both coordinator and editorial roles with truthful identity and zero Sol spoofing.
     """
+    framework_info = validate_execution_framework(
+        execution_framework, sub_model_identity=sub_model_identity
+    )
+    active_framework = str(framework_info["framework"])
+    is_main = bool(framework_info["is_main"])
+    coordinator_model = str(framework_info["coordinator_model"])
+    coordinator_effort = str(framework_info["coordinator_reasoning_effort"])
+    worker_model = str(framework_info["editorial_worker_model"])
+    worker_effort = str(framework_info["editorial_worker_reasoning_effort"])
+
     state = str(opportunity_state or "").strip().upper()
     current_readiness = str(readiness_state or "UNKNOWN").strip().upper()
     if state == "ARTICLE_QUALIFIED" and readiness_checked_before_editorial and current_readiness != "READY":
@@ -198,9 +220,10 @@ def build_editorial_worker_routing_packet(
 
     base = {
         "schema_version": "contentops.desktop_editorial_worker_routing.v1",
+        "execution_framework": active_framework,
         "coordinator": {
-            "model": COORDINATOR_MODEL,
-            "reasoning_effort": COORDINATOR_REASONING_EFFORT,
+            "model": coordinator_model,
+            "reasoning_effort": coordinator_effort,
             "owns_deterministic_validation_after_return": True,
             "owns_publication_coordination": True,
         },
@@ -214,8 +237,9 @@ def build_editorial_worker_routing_packet(
     if state in NO_EDITORIAL_WORKER_PATHS:
         result = {
             **base,
-            "decision": "HIGH_ONLY_NO_EDITORIAL_WORKER",
+            "decision": "HIGH_ONLY_NO_EDITORIAL_WORKER" if is_main else "COORDINATOR_ONLY_NO_EDITORIAL_WORKER",
             "xhigh_worker_count_requested": 0,
+            "editorial_worker_count_requested": 0,
             "worker_request": None,
             "governed_input_hash": None,
         }
@@ -254,26 +278,36 @@ def build_editorial_worker_routing_packet(
         raise ValueError("desktop_editorial_authority_packet_invalid:" + ",".join(packet_blockers))
     bounded_context["institutional_edge_editorial_packet"] = editorial_packet
     governed_input_hash = _logical_hash(bounded_context)
+
+    decision = (
+        "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
+        if is_main
+        else "EXECUTE_ONE_SUB_ANTIGRAVITY_EDITORIAL_WORKER"
+    )
+    worker_request = {
+        "execution_framework": active_framework,
+        "model": worker_model,
+        "reasoning_effort": worker_effort,
+        "fresh": is_main,
+        "isolated": is_main,
+        "logical_role_isolated": True,
+        "resume_existing": False,
+        "governed_input_hash": governed_input_hash,
+        "bounded_governed_context": bounded_context,
+        "max_bounded_editorial_revisions": MAX_EDITORIAL_REVISIONS,
+        "grants_factual_authority": False,
+        "grants_numeric_authority": False,
+        "grants_capital_chronicle_authority": False,
+        "grants_permission_authority": False,
+        "grants_public_write_authority": False,
+    }
     result = {
         **base,
-        "decision": "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER",
-        "xhigh_worker_count_requested": 1,
+        "decision": decision,
+        "xhigh_worker_count_requested": 1 if is_main else 0,
+        "editorial_worker_count_requested": 1,
         "governed_input_hash": governed_input_hash,
-        "worker_request": {
-            "model": EDITORIAL_WORKER_MODEL,
-            "reasoning_effort": EDITORIAL_WORKER_REASONING_EFFORT,
-            "fresh": True,
-            "isolated": True,
-            "resume_existing": False,
-            "governed_input_hash": governed_input_hash,
-            "bounded_governed_context": bounded_context,
-            "max_bounded_editorial_revisions": MAX_EDITORIAL_REVISIONS,
-            "grants_factual_authority": False,
-            "grants_numeric_authority": False,
-            "grants_capital_chronicle_authority": False,
-            "grants_permission_authority": False,
-            "grants_public_write_authority": False,
-        },
+        "worker_request": worker_request,
     }
     result["routing_logical_hash"] = _logical_hash(result)
     return result
@@ -285,16 +319,45 @@ def validate_editorial_worker_return(
     expected_governed_input_hash: str,
     expected_editorial_packet: Mapping[str, Any] | None = None,
     accepted_evidence_packet: Mapping[str, Any] | None = None,
+    execution_framework: str = DEFAULT_EXECUTION_FRAMEWORK,
+    expected_model_identity: str | None = None,
 ) -> dict[str, Any]:
-    """Bind one XHIGH result to its exact input and return control to the HIGH coordinator."""
+    """Bind one editorial result to its exact input and return control to the coordinator."""
     if str(worker_return.get("governed_input_hash") or "") != expected_governed_input_hash:
         raise ValueError("desktop_editorial_worker_input_hash_mismatch")
-    if str(worker_return.get("model") or "") != EDITORIAL_WORKER_MODEL:
-        raise ValueError("desktop_editorial_worker_model_invalid")
-    if str(worker_return.get("reasoning_effort") or "").upper() != EDITORIAL_WORKER_REASONING_EFFORT:
-        raise ValueError("desktop_editorial_worker_reasoning_effort_invalid")
-    if worker_return.get("fresh") is not True or worker_return.get("isolated") is not True:
-        raise ValueError("desktop_editorial_worker_fresh_isolated_receipt_required")
+
+    framework_info = validate_execution_framework(
+        execution_framework, sub_model_identity=expected_model_identity
+    )
+    active_framework = str(framework_info["framework"])
+    is_main = bool(framework_info["is_main"])
+
+    return_framework = str(
+        worker_return.get("execution_framework") or (FRAMEWORK_MAIN_CODEX if is_main else "")
+    ).strip().upper()
+
+    if is_main:
+        if return_framework != FRAMEWORK_MAIN_CODEX:
+            raise ValueError("desktop_editorial_worker_framework_invalid")
+        if str(worker_return.get("model") or "") != EDITORIAL_WORKER_MODEL:
+            raise ValueError("desktop_editorial_worker_model_invalid")
+        if str(worker_return.get("reasoning_effort") or "").upper() != EDITORIAL_WORKER_REASONING_EFFORT:
+            raise ValueError("desktop_editorial_worker_reasoning_effort_invalid")
+        if worker_return.get("fresh") is not True or worker_return.get("isolated") is not True:
+            raise ValueError("desktop_editorial_worker_fresh_isolated_receipt_required")
+    else:
+        if return_framework != FRAMEWORK_SUB_ANTIGRAVITY:
+            raise ValueError("sub_editorial_worker_framework_invalid")
+        return_model = str(worker_return.get("model") or "").strip()
+        if not return_model:
+            raise ValueError("sub_editorial_worker_model_identity_missing")
+        if return_model.casefold() in DISALLOWED_SUB_MODEL_SPOOFS:
+            raise ValueError("sub_editorial_worker_cannot_spoof_main_model")
+        if expected_model_identity and return_model != str(expected_model_identity).strip():
+            raise ValueError("sub_editorial_worker_model_identity_mismatch")
+        if str(worker_return.get("reasoning_effort") or "").upper() in ("HIGH", "XHIGH") and return_model.casefold() in ("gpt-5.6-sol", "sol"):
+            raise ValueError("sub_editorial_worker_cannot_spoof_xhigh_sol")
+
     revision_count = int(worker_return.get("bounded_revision_count") or 0)
     if revision_count < 0 or revision_count > MAX_EDITORIAL_REVISIONS:
         raise ValueError("desktop_editorial_worker_revision_limit_exceeded")
@@ -320,19 +383,26 @@ def validate_editorial_worker_return(
                 + ",".join(editorial_validation.get("blockers") or [])
             )
     return_hash = _logical_hash(worker_return)
+    classification = (
+        "PASS_BOUND_XHIGH_EDITORIAL_RETURN"
+        if is_main
+        else "PASS_BOUND_SUB_ANTIGRAVITY_EDITORIAL_RETURN"
+    )
     return {
         "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
-        "classification": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+        "classification": classification,
+        "execution_framework": active_framework,
         "governed_input_hash": expected_governed_input_hash,
         "worker_return_hash": return_hash,
-        "worker_model": EDITORIAL_WORKER_MODEL,
-        "worker_reasoning_effort": EDITORIAL_WORKER_REASONING_EFFORT,
-        "worker_fresh_and_isolated": True,
+        "worker_model": framework_info["editorial_worker_model"],
+        "worker_reasoning_effort": framework_info["editorial_worker_reasoning_effort"],
+        "worker_fresh_and_isolated": is_main,
         "bounded_revision_count": revision_count,
         "xhigh_publication_authority": False,
+        "sub_framework_publication_authority": False,
         "coordinator_resumes": True,
-        "coordinator_model": COORDINATOR_MODEL,
-        "coordinator_reasoning_effort": COORDINATOR_REASONING_EFFORT,
+        "coordinator_model": framework_info["coordinator_model"],
+        "coordinator_reasoning_effort": framework_info["coordinator_reasoning_effort"],
         "deterministic_validation_required": True,
         "institutional_edge_editorial_validation": editorial_validation,
         "publication_coordinator_remains_sole_public_writer": True,

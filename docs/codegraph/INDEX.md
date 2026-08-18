@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `5701f1039a7f229f636d54bdf0a2133bb2bdcf23`
-Source tree digest: `01c807da52519f8edce0e63af8ee03de07dc2bacb5efabb4684d2b86d38f3fcd`
+Source HEAD: `959c3c23226e6ee6e553162fa7cd7462649a9c9a`
+Source tree digest: `514021c9d98462a8594b29cb3dbb2d2506bbf5715fa7847172dd44db80c12cc9`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.2.1`
 
 This generated map is descriptive, not product authority.
@@ -22,6 +22,12 @@ Open current direction/next-task authority only when product direction matters: 
 
 | Kind | Path | Command or symbol |
 |---|---|---|
+| `operator_script` | `.codex_v2_patch_link/RESUME_CONTENTOPS_LLM.cmd` | `.codex_v2_patch_link/RESUME_CONTENTOPS_LLM.cmd` |
+| `operator_script` | `.codex_v2_patch_link/STOP_ALL_CONTENTOPS_BACKGROUND.cmd` | `.codex_v2_patch_link/STOP_ALL_CONTENTOPS_BACKGROUND.cmd` |
+| `operator_script` | `.codex_v2_patch_link/Start_ContentOps_Daily_App.cmd` | `.codex_v2_patch_link/Start_ContentOps_Daily_App.cmd` |
+| `operator_script` | `.codex_v2_patch_link/scripts/Resume-ContentOpsLLM.ps1` | `.codex_v2_patch_link/scripts/Resume-ContentOpsLLM.ps1` |
+| `operator_script` | `.codex_v2_patch_link/scripts/Start-ContentOpsDailyApp.ps1` | `.codex_v2_patch_link/scripts/Start-ContentOpsDailyApp.ps1` |
+| `operator_script` | `.codex_v2_patch_link/scripts/Stop-ContentOpsBackground.ps1` | `.codex_v2_patch_link/scripts/Stop-ContentOpsBackground.ps1` |
 | `explicit_llm_resume` | `RESUME_CONTENTOPS_LLM.cmd` | `RESUME_CONTENTOPS_LLM.cmd` |
 | `one_click_emergency_stop` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` |
 | `one_click_launcher` | `Start_ContentOps_Daily_App.cmd` | `Start_ContentOps_Daily_App.cmd` |
@@ -146,4 +152,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7107` nodes and `13368` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`26513` nodes and `35856` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

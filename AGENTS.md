@@ -20,7 +20,14 @@ Read `docs/CURRENT_CONTEXT.md`, current product-direction overlays, and the V1/V
 
 Repository state, highest first: fetched GitHub refs/commits/diffs/exact bytes; committed code, tests, schemas, and evidence; current authority/status; redacted runtime readback; historical logs. Fetch before branch-sensitive work and reconcile conflicts.
 
-Product direction, highest first: Jim's latest explicit instruction; current direction/owner overlays and execution pointers; older plans. Never let stale routing override a newer owner decision.
+Product direction, highest first: Jim's latest explicit instruction; current direction/owner overlays and execution pointers (`docs/automation/CONTENTOPS_MAIN_CODEX_AND_ANTIGRAVITY_SUBFRAMEWORK_OWNER_OVERRIDE_V1.md`, `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`); older plans. Never let stale routing override a newer owner decision.
+
+## Execution Frameworks
+
+ContentOps operates under two canonical execution frameworks:
+
+- **MAIN_CODEX** (Default): Codex Desktop `gpt-5.6-sol / HIGH` coordinator and fresh isolated `gpt-5.6-sol / XHIGH` editorial worker whenever Codex quota/capacity is available.
+- **SUB_ANTIGRAVITY** (Explicit Fallback): Antigravity IDE framework used strictly when Codex capacity is unavailable, bound to the active Antigravity model identity with zero Sol/XHIGH spoofing and zero public write authority. Currently probationary. See `docs/automation/CONTENTOPS_MAIN_CODEX_AND_ANTIGRAVITY_SUBFRAMEWORK_OWNER_OVERRIDE_V1.md`.
 
 ## Current V1 product
 

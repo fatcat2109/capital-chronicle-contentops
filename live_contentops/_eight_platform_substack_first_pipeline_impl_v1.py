@@ -4227,7 +4227,19 @@ def _run_rolling_x_newsroom_cycle(
     material_event_priority: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
+    execution_framework: str = "MAIN_CODEX",
+    sub_model_identity: str | None = None,
 ) -> dict[str, Any]:
+    from live_contentops.execution_framework_v1 import (
+        DEFAULT_EXECUTION_FRAMEWORK,
+        validate_execution_framework,
+    )
+
+    framework_info = validate_execution_framework(
+        execution_framework, sub_model_identity=sub_model_identity
+    )
+    active_framework = str(framework_info["framework"])
+
     if sidecar_glob is None:
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 
@@ -4692,6 +4704,8 @@ def _run_rolling_x_newsroom_cycle(
         "run_id": run_id,
         "created_at": _utc_now(),
         "operating_mode": operating_mode,
+        "execution_framework": active_framework,
+        "framework_model_identity": framework_info["coordinator_model"],
         "intake": intake,
         "assignment": assignment,
         "preselection_intelligence": preselection,
@@ -5064,6 +5078,8 @@ def _run_rolling_x_newsroom_cycle(
         readiness_checked_before_editorial=publication_enabled,
         readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
         article_mode=editorial_article_mode,
+        execution_framework=active_framework,
+        sub_model_identity=sub_model_identity,
     )
     evidence["editorial_worker_routing"] = editorial_route
 
@@ -5193,6 +5209,8 @@ def _run_rolling_x_newsroom_cycle(
                             or {}
                         ),
                         accepted_evidence_packet=selected_evidence,
+                        execution_framework=active_framework,
+                        expected_model_identity=sub_model_identity,
                     )
                 except (TypeError, ValueError):
                     raise GroundedArticleBuilderError(

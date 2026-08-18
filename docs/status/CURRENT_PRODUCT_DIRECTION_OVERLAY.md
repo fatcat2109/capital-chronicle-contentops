@@ -7,6 +7,13 @@ GitHub remote refs/commits/diffs/exact fetched bytes remain repo-state authority
 
 ## 1. Current owner decision
 
+### Execution Frameworks
+
+ContentOps operates under two canonical execution frameworks (see `docs/automation/CONTENTOPS_MAIN_CODEX_AND_ANTIGRAVITY_SUBFRAMEWORK_OWNER_OVERRIDE_V1.md`):
+
+1. **MAIN_CODEX** (Default): Codex Desktop `gpt-5.6-sol / HIGH` coordinator and fresh isolated `gpt-5.6-sol / XHIGH` editorial worker whenever Codex quota/capacity is available.
+2. **SUB_ANTIGRAVITY** (Explicit Fallback): Antigravity IDE framework used strictly when Codex capacity is unavailable, bound to the actual selected Antigravity model identity with zero Sol/XHIGH spoofing and zero public write authority. Currently probationary.
+
 ContentOps now has two concurrent product lanes:
 
 ### V1 — Final Daily App

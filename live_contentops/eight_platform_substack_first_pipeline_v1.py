@@ -108,6 +108,9 @@ def run_rolling_x_newsroom_cycle(
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
+    runtime_preflight_override: Mapping[str, Any] | None = None,
+    execution_framework: str = "MAIN_CODEX",
+    sub_model_identity: str | None = None,
 ) -> dict[str, Any]:
     return _execute(
         "run_rolling_x_newsroom_cycle",
@@ -139,6 +142,9 @@ def run_rolling_x_newsroom_cycle(
         learning_policy=learning_policy,
         material_event_priority=material_event_priority,
         destination_readiness_override=destination_readiness_override,
+        runtime_preflight_override=runtime_preflight_override,
+        execution_framework=execution_framework,
+        sub_model_identity=sub_model_identity,
     )
 
 
