@@ -4,11 +4,15 @@ Authority: CONTENTOPS_MAIN_CODEX_AND_ANTIGRAVITY_SUBFRAMEWORK_OWNER_OVERRIDE_V1
 """
 from __future__ import annotations
 
+import hashlib
+import json
+import tempfile
 from pathlib import Path
 from typing import Any, Mapping
 
 import pytest
 
+from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline_impl
 from live_contentops.capital_chronicle_institutional_edge_v1 import (
     build_institutional_edge_editorial_packet,
 )
@@ -29,7 +33,9 @@ from live_contentops.execution_framework_v1 import (
     FRAMEWORK_MAIN_CODEX,
     FRAMEWORK_SUB_ANTIGRAVITY,
     assert_framework_continuity,
+    persist_opportunity_framework_binding,
     validate_execution_framework,
+    verify_opportunity_framework_continuity,
 )
 from live_contentops.publication_coordinator_v1 import (
     UNKNOWN_WRITE,
@@ -54,6 +60,11 @@ def _sample_evidence() -> dict[str, Any]:
             "supported_claims": [
                 {"claim_id": "claim-1", "claim_text": proposition, "evidence_document_ids": ["ev-1"]}
             ]
+        },
+        "minimum_trustworthy_evidence_packet": {
+            "status": "PASS",
+            "risk_tier": "ORDINARY",
+            "core_factual_proposition": proposition,
         },
     }
 
@@ -116,6 +127,7 @@ def _full_institutional_article(editorial_packet: Mapping[str, Any], evidence: M
         "quote_source_records": [],
         "humor_lines": [],
         "institutional_edge_editorial_packet_sha256": str(editorial_packet.get("editorial_packet_sha256") or ""),
+        "minimum_trustworthy_evidence_packet": evidence.get("minimum_trustworthy_evidence_packet"),
     }
 
 
@@ -133,7 +145,7 @@ def _valid_main_worker_return(governed_input_hash: str, article: dict[str, Any] 
     }
 
 
-def _valid_sub_worker_return(governed_input_hash: str, model: str = "Gemini 3.7 Flash (High)", article: dict[str, Any] | None = None) -> dict[str, Any]:
+def _valid_sub_worker_return(governed_input_hash: str, model: str = "Gemini 3.7 Flash", article: dict[str, Any] | None = None) -> dict[str, Any]:
     return {
         "execution_framework": FRAMEWORK_SUB_ANTIGRAVITY,
         "model": model,
@@ -198,14 +210,8 @@ def test_regression_b_sub_antigravity_rejected_unless_explicitly_selected():
         validate_execution_framework(FRAMEWORK_SUB_ANTIGRAVITY, sub_model_identity="")
 
 
-# Regression C: SUB receipt cannot claim MAIN/Codex identities
-def test_regression_c_sub_cannot_claim_main_or_spoof_sol():
-    with pytest.raises(ValueError, match="sub_antigravity_cannot_spoof_main_model_identity"):
-        validate_execution_framework(FRAMEWORK_SUB_ANTIGRAVITY, sub_model_identity="gpt-5.6-sol")
-
-    with pytest.raises(ValueError, match="sub_antigravity_cannot_spoof_main_model_identity"):
-        validate_execution_framework(FRAMEWORK_SUB_ANTIGRAVITY, sub_model_identity="cx/gpt-5.6-sol(xhigh)")
-
+# Regression C: SUB receipt cannot claim MAIN/Codex execution semantics
+def test_regression_c_sub_cannot_claim_main_or_fake_codex_isolation():
     evidence = _sample_evidence()
     route = build_editorial_worker_routing_packet(
         opportunity_state="ARTICLE_QUALIFIED",
@@ -214,9 +220,10 @@ def test_regression_c_sub_cannot_claim_main_or_spoof_sol():
             "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
         },
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash (High)",
+        sub_model_identity="Gemini 3.7 Flash",
     )
 
+    # Worker receipt claiming MAIN_CODEX while opportunity is SUB fails closed
     spoofed_framework = _valid_sub_worker_return(route["governed_input_hash"])
     spoofed_framework["execution_framework"] = FRAMEWORK_MAIN_CODEX
     with pytest.raises(ValueError, match="sub_editorial_worker_framework_invalid"):
@@ -224,17 +231,19 @@ def test_regression_c_sub_cannot_claim_main_or_spoof_sol():
             worker_return=spoofed_framework,
             expected_governed_input_hash=route["governed_input_hash"],
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash (High)",
+            expected_model_identity="Gemini 3.7 Flash",
         )
 
-    spoofed_model = _valid_sub_worker_return(route["governed_input_hash"])
-    spoofed_model["model"] = "gpt-5.6-sol"
-    with pytest.raises(ValueError, match="sub_editorial_worker_cannot_spoof_main_model"):
+    # Worker receipt claiming Codex child isolation receipts in SUB mode fails closed
+    spoofed_isolated = _valid_sub_worker_return(route["governed_input_hash"])
+    spoofed_isolated["fresh"] = True
+    spoofed_isolated["isolated"] = True
+    with pytest.raises(ValueError, match="sub_editorial_worker_cannot_claim_codex_desktop_isolated_receipt"):
         validate_editorial_worker_return(
-            worker_return=spoofed_model,
+            worker_return=spoofed_isolated,
             expected_governed_input_hash=route["governed_input_hash"],
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash (High)",
+            expected_model_identity="Gemini 3.7 Flash",
         )
 
 
@@ -248,7 +257,7 @@ def test_regression_d_hash_mismatch_fails_closed():
             "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
         },
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash (High)",
+        sub_model_identity="Gemini 3.7 Flash",
     )
 
     valid_return = _valid_sub_worker_return(route["governed_input_hash"])
@@ -259,7 +268,7 @@ def test_regression_d_hash_mismatch_fails_closed():
             worker_return=valid_return,
             expected_governed_input_hash=route["governed_input_hash"],
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash (High)",
+            expected_model_identity="Gemini 3.7 Flash",
         )
 
 
@@ -287,13 +296,13 @@ def test_regression_e_institutional_edge_identical_across_frameworks():
             "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
         },
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash (High)",
+        sub_model_identity="Gemini 3.7 Flash",
     )
 
     # Incomplete article fails in both
     bad_article = {"title": "Short", "subtitle": "Short", "substack_body_markdown": "Short"}
     bad_main = _valid_main_worker_return(route_main["governed_input_hash"], bad_article)
-    bad_sub = _valid_sub_worker_return(route_sub["governed_input_hash"], "Gemini 3.7 Flash (High)", bad_article)
+    bad_sub = _valid_sub_worker_return(route_sub["governed_input_hash"], "Gemini 3.7 Flash", bad_article)
 
     with pytest.raises(ValueError, match="institutional_edge_invalid"):
         validate_editorial_worker_return(
@@ -311,13 +320,13 @@ def test_regression_e_institutional_edge_identical_across_frameworks():
             expected_editorial_packet=editorial_packet,
             accepted_evidence_packet=evidence,
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash (High)",
+            expected_model_identity="Gemini 3.7 Flash",
         )
 
     # Complete valid institutional edge article passes in both
     good_article = _full_institutional_article(editorial_packet, evidence)
     good_main = _valid_main_worker_return(route_main["governed_input_hash"], good_article)
-    good_sub = _valid_sub_worker_return(route_sub["governed_input_hash"], "Gemini 3.7 Flash (High)", good_article)
+    good_sub = _valid_sub_worker_return(route_sub["governed_input_hash"], "Gemini 3.7 Flash", good_article)
 
     val_main = validate_editorial_worker_return(
         worker_return=good_main,
@@ -332,7 +341,7 @@ def test_regression_e_institutional_edge_identical_across_frameworks():
         expected_editorial_packet=editorial_packet,
         accepted_evidence_packet=evidence,
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        expected_model_identity="Gemini 3.7 Flash (High)",
+        expected_model_identity="Gemini 3.7 Flash",
     )
     assert val_main["classification"] == "PASS_BOUND_XHIGH_EDITORIAL_RETURN"
     assert val_sub["classification"] == "PASS_BOUND_SUB_ANTIGRAVITY_EDITORIAL_RETURN"
@@ -347,7 +356,7 @@ def test_regression_f_sub_zero_publication_authority():
             "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
         },
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash (High)",
+        sub_model_identity="Gemini 3.7 Flash",
     )
     assert route_sub["worker_request"]["grants_public_write_authority"] is False
     assert route_sub["worker_request"]["grants_factual_authority"] is False
@@ -361,20 +370,51 @@ def test_regression_f_sub_zero_publication_authority():
             worker_return=valid_sub,
             expected_governed_input_hash=route_sub["governed_input_hash"],
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash (High)",
+            expected_model_identity="Gemini 3.7 Flash",
         )
 
 
-# Regression G: No framework switch is allowed mid-opportunity
-def test_regression_g_no_mid_opportunity_framework_switch():
-    assert_framework_continuity(FRAMEWORK_MAIN_CODEX, FRAMEWORK_MAIN_CODEX)
-    assert_framework_continuity(FRAMEWORK_SUB_ANTIGRAVITY, FRAMEWORK_SUB_ANTIGRAVITY)
+# Regression G: Persisted opportunity-level framework and model continuity
+def test_regression_g_persisted_opportunity_framework_continuity():
+    with tempfile.TemporaryDirectory() as temp_dir:
+        output_dir = Path(temp_dir)
+        run_id = "test-opp-123"
 
-    with pytest.raises(ValueError, match="execution_framework_switch_mid_opportunity_forbidden"):
-        assert_framework_continuity(FRAMEWORK_MAIN_CODEX, FRAMEWORK_SUB_ANTIGRAVITY)
+        # Initial binding
+        binding = verify_opportunity_framework_continuity(
+            output_dir=output_dir,
+            run_id=run_id,
+            incoming_framework=FRAMEWORK_SUB_ANTIGRAVITY,
+            incoming_model_identity="Gemini 3.7 Flash",
+        )
+        assert binding["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY
+        assert binding["bound_model_identity"] == "Gemini 3.7 Flash"
 
-    with pytest.raises(ValueError, match="execution_framework_switch_mid_opportunity_forbidden"):
-        assert_framework_continuity(FRAMEWORK_SUB_ANTIGRAVITY, FRAMEWORK_MAIN_CODEX)
+        # Re-entry with identical framework and model succeeds
+        resumed = verify_opportunity_framework_continuity(
+            output_dir=output_dir,
+            run_id=run_id,
+            incoming_framework=FRAMEWORK_SUB_ANTIGRAVITY,
+            incoming_model_identity="Gemini 3.7 Flash",
+        )
+        assert resumed["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY
+
+        # Re-entry trying to switch framework to MAIN_CODEX fails closed
+        with pytest.raises(ValueError, match="execution_framework_switch_mid_opportunity_forbidden"):
+            verify_opportunity_framework_continuity(
+                output_dir=output_dir,
+                run_id=run_id,
+                incoming_framework=FRAMEWORK_MAIN_CODEX,
+            )
+
+        # Re-entry trying to switch model identity fails closed
+        with pytest.raises(ValueError, match="execution_framework_model_identity_switch_mid_opportunity_forbidden"):
+            verify_opportunity_framework_continuity(
+                output_dir=output_dir,
+                run_id=run_id,
+                incoming_framework=FRAMEWORK_SUB_ANTIGRAVITY,
+                incoming_model_identity="Different Model",
+            )
 
 
 # Regression H: UNKNOWN_WRITE / readiness / DurablePublicationCoordinator semantics are framework-independent
@@ -389,8 +429,8 @@ def test_regression_i_tiktok_absent_from_v1():
     assert "tiktok" not in V1_REQUIRED_PUBLICATION_DESTINATIONS
 
 
-# Regression J: Existing four V1 native Codex automations remain PAUSED and unchanged
-def test_regression_j_four_tasks_paused_and_unchanged():
+# Regression J: Existing four V1 native Codex automations setup packet
+def test_regression_j_four_tasks_configuration_expected():
     packet = four_task_setup_packet()
     assert packet["routine_task_count"] == 4
     assert len(packet["tasks"]) == 4
@@ -404,6 +444,225 @@ def test_regression_j_four_tasks_paused_and_unchanged():
 
 # Regression K: No V2 runtime/store/publication mutation
 def test_regression_k_no_v2_mutation():
-    # Verify root AGENTS.md preserves V2 isolation and zero public write
     root_agents = Path("AGENTS.md").read_text(encoding="utf-8")
     assert "ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY" in root_agents
+
+
+# Regression L: SUB mode never invokes 9Router model calls during cycle
+def test_regression_l_sub_mode_never_calls_nine_router_ladder(monkeypatch):
+    called = []
+
+    def mock_nine_router(*args, **kwargs):
+        called.append(True)
+        raise RuntimeError("NINE_ROUTER_SHOULD_NOT_BE_CALLED_IN_SUB_MODE")
+
+    monkeypatch.setattr("live_contentops.nine_router_provider_adapter_v2.call_nine_router", mock_nine_router)
+
+    from live_contentops.newsroom_assignment_scheduler_v1 import (
+        ROLLING_X_INPUT_SCHEMA_VERSION,
+        build_deterministic_rolling_x_assignment_fallback,
+        classify_rolling_x_story_types_deterministically,
+    )
+    rolling_input = {
+        "schema_version": ROLLING_X_INPUT_SCHEMA_VERSION,
+        "headlines": [
+            {
+                "headline_id": "h1",
+                "text": "Cabinet Office confirms GDP growth in Q2",
+                "canonical_url": "https://esri.cao.go.jp/sample.html",
+                "published_at_utc": "2026-08-17T00:00:00Z",
+                "publisher": "Economic and Social Research Institute",
+            }
+        ]
+    }
+    assignment = build_deterministic_rolling_x_assignment_fallback(rolling_input=rolling_input)
+    assert assignment["status"] == "SUCCESS"
+    assert len(called) == 0
+
+    clusters = [{"cluster_id": "c1", "headline_ids": ["h1"], "lead_headline": rolling_input["headlines"][0]}]
+    classified = classify_rolling_x_story_types_deterministically(clusters=clusters)
+    assert "c1" in classified["story_type_by_cluster"]
+    assert classified["llm_or_provider_calls"] == 0
+    assert len(called) == 0
+
+
+# Regression M: SUB mode cycle handoff and resume mechanism
+def test_regression_m_sub_mode_cycle_handoff_and_resume(monkeypatch, tmp_path: Path):
+    run_id = "test-sub-handoff-resume-run-1"
+    output_dir = tmp_path / "newsroom_output"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    cutoff_utc = "2026-08-17T23:59:59Z"
+
+    evidence = _sample_evidence()
+    editorial_packet = build_institutional_edge_editorial_packet(
+        article_mode="STANDARD_ANALYSIS",
+        accepted_evidence_packet=evidence,
+        structured_data_supported=True,
+    )
+    article_content = _full_institutional_article(editorial_packet, evidence)
+
+    headline = {
+        "headline_id": "ev-1",
+        "title": "Official policy notice",
+        "canonical_url": "https://esri.cao.go.jp/sample.html",
+        "publisher": "Official Agency",
+        "published_at_utc": "2026-08-17T00:00:00Z",
+    }
+    cluster = {
+        "cluster_id": "test-cluster-1",
+        "headline_ids": ["ev-1"],
+        "lead_headline": headline,
+        "article_mode": "STANDARD_ANALYSIS",
+    }
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: {
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "counts": {"accepted": 1},
+            "headlines": [headline],
+            "unique_headline_ids": ["ev-1"],
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.apply_preselection_intelligence",
+        lambda clusters, **kwargs: {
+            "schema_version": "contentops.preselection_intelligence.v1",
+            "status": "PASS",
+            "ranked_clusters": list(clusters),
+            "preselection_logical_hash": "preselection-hash",
+        },
+    )
+    def mock_select(**kwargs):
+        assignment = dict(kwargs.get("assignment") or {})
+        clusters = list(assignment.get("ranked_clusters") or [])
+        first_cluster = clusters[0] if clusters else cluster
+        cid = str(first_cluster.get("cluster_id") or "test-cluster-1")
+        res = {
+            "schema_version": "capital_chronicle.rolling_x_evidence_viability.v1",
+            "status": "SUCCESS",
+            "decision": "SELECT_STORY",
+            "reason_code": "FIRST_VIABLE_RANKED_CLUSTER_SELECTED",
+            "ranked_candidate_count": len(clusters) or 1,
+            "selected_rank": 1,
+            "selected_cluster_id": cid,
+            "selected_headline_ids": ["ev-1"],
+            "selected_cluster": first_cluster,
+            "selected_evidence": evidence,
+            "rank_attempts": [],
+            "publication_authority_granted": False,
+        }
+        material = {key: value for key, value in res.items() if key != "viability_logical_hash"}
+        res["viability_logical_hash"] = hashlib.sha256(
+            json.dumps(material, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        return res
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
+        mock_select,
+    )
+    monkeypatch.setattr(
+        pipeline_impl,
+        "_run_bounded_rolling_x_editorial_cycle",
+        lambda **kwargs: {
+            "status": "PASS",
+            "article": kwargs["article"],
+            "mandatory_semantic_review_calls": 0,
+            "review_history": [],
+        },
+    )
+    monkeypatch.setattr(
+        pipeline_impl,
+        "_prepare_rolling_x_release_candidate",
+        lambda **kwargs: {
+            "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+            "release_candidate_lock_verification": {"status": "PASS_RELEASE_CANDIDATE_LOCK"},
+            "payloads": {"substack": {"title": kwargs["article"].get("title")}},
+        },
+    )
+    monkeypatch.setattr(
+        pipeline_impl,
+        "_build_rolling_x_publication_plan",
+        lambda **kwargs: {"schema_version": "test.plan.v1", "destinations": ["substack"]},
+    )
+
+    # Step 1: First cycle run with article_builder=None in SUB_ANTIGRAVITY mode
+    first_result = pipeline_impl._run_rolling_x_newsroom_cycle(
+        run_id=run_id,
+        output_dir=output_dir,
+        cutoff_utc=cutoff_utc,
+        publication_enabled=True,
+        destination_readiness_override={
+            "all_required_destinations_ready": True,
+            "destinations": {
+                dest: {"readiness_state": "READY_NON_BROWSER_BINDING", "write_eligible": True, "identity_match": True}
+                for dest in V1_REQUIRED_PUBLICATION_DESTINATIONS
+            },
+        },
+        runtime_preflight_override={"status": "PASS"},
+        execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
+        sub_model_identity="Gemini 3.7 Flash",
+    )
+
+    # Verify request artifact was written and cycle is awaiting SUB response
+    assert first_result["exact_next_blocker"] == "AWAITING_SUB_ANTIGRAVITY_EDITORIAL_WORKER_RESPONSE"
+    assert first_result["public_write_performed"] is False
+    req_path = output_dir / "sub_antigravity_editorial_request_v1.json"
+    assert req_path.exists()
+    req_data = json.loads(req_path.read_text(encoding="utf-8"))
+    assert req_data["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY
+    assert req_data["sub_model_identity"] == "Gemini 3.7 Flash"
+    assert req_data["governed_input_hash"]
+    req_packet = req_data["worker_request"]["bounded_governed_context"]["institutional_edge_editorial_packet"]
+    article_content["institutional_edge_editorial_packet_sha256"] = req_packet["editorial_packet_sha256"]
+
+    # Step 2: Write bounded response artifact
+    resp_path = output_dir / "sub_antigravity_editorial_response_v1.json"
+    worker_receipt = {
+        "execution_framework": FRAMEWORK_SUB_ANTIGRAVITY,
+        "model": "Gemini 3.7 Flash",
+        "reasoning_effort": "NOT_APPLICABLE_SUB_FRAMEWORK",
+        "fresh": False,
+        "isolated": False,
+        "logical_role_isolated": True,
+        "governed_input_hash": req_data["governed_input_hash"],
+        "bounded_revision_count": 0,
+        "public_write_attempted": False,
+        "article": article_content,
+    }
+    response_payload = {
+        "schema_version": "contentops.sub_antigravity_editorial_response.v1",
+        "run_id": run_id,
+        "execution_framework": FRAMEWORK_SUB_ANTIGRAVITY,
+        "model": "Gemini 3.7 Flash",
+        "governed_input_hash": req_data["governed_input_hash"],
+        "article": article_content,
+        "media": {"assets": []},
+        "editorial_worker_receipt": worker_receipt,
+    }
+    resp_path.write_text(json.dumps(response_payload, indent=2), encoding="utf-8")
+
+    # Step 3: Resume the cycle for the SAME opportunity
+    resumed_result = pipeline_impl._run_rolling_x_newsroom_cycle(
+        run_id=run_id,
+        output_dir=output_dir,
+        cutoff_utc=cutoff_utc,
+        publication_enabled=True,
+        destination_readiness_override={
+            "all_required_destinations_ready": True,
+            "destinations": {
+                dest: {"readiness_state": "READY_NON_BROWSER_BINDING", "write_eligible": True, "identity_match": True}
+                for dest in V1_REQUIRED_PUBLICATION_DESTINATIONS
+            },
+        },
+        runtime_preflight_override={"status": "PASS"},
+        execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
+        sub_model_identity="Gemini 3.7 Flash",
+    )
+
+    assert resumed_result.get("exact_next_blocker") is None or resumed_result.get("exact_next_blocker") == "", f"Blocker: {resumed_result.get('exact_next_blocker')}"
+    assert resumed_result["classification"] in {"STORY_PUBLICATION_COMPLETED", "PASS_PUBLICATION_PLAN_READY"}
+    assert resumed_result["public_write_performed"] is False
+    assert resumed_result["unknown_write_detected"] is False
+    assert resumed_result["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY

@@ -75,6 +75,12 @@ EXCLUDED_PARTS = {
     ".venv",
     ".pytest_cache",
     ".ruff_cache",
+    ".codex_v2_patch_link",
+    ".remotion",
+    ".agents",
+    ".claude",
+    ".gemini",
+    "artifacts",
     "node_modules",
     "dist",
     "build",
@@ -106,6 +112,8 @@ EXCLUDED_ROOTS = (
     ".git/",
     ".task-runtime/",
     ".venv/ and virtualenvs/",
+    ".codex_v2_patch_link/",
+    ".remotion/",
     "node_modules/",
     "Runtime outputs/",
     "headline_ingestion/data/raw_archive/",
@@ -213,7 +221,14 @@ def included(path: Path) -> bool:
         and not path.name == "AGENTS.md"
     ):
         return False
-    if any(part.lower() in EXCLUDED_PARTS for part in PurePosixPath(relative).parts):
+    parts = PurePosixPath(relative).parts
+    if any(
+        part.lower() in EXCLUDED_PARTS
+        or (part.startswith(".") and part not in {".", ".."})
+        for part in parts[:-1]
+    ):
+        return False
+    if parts[-1].lower() in EXCLUDED_PARTS:
         return False
     return (
         path.suffix.lower() in CODE_SUFFIXES
@@ -229,7 +244,7 @@ def source_files() -> list[Path]:
         directories[:] = sorted(
             directory
             for directory in directories
-            if directory.lower() not in EXCLUDED_PARTS
+            if directory.lower() not in EXCLUDED_PARTS and not directory.startswith(".")
         )
         base = Path(current)
         for filename in sorted(filenames):

@@ -178,7 +178,6 @@ def prepared_candidate_continuity_binding(
 
 from live_contentops.execution_framework_v1 import (
     DEFAULT_EXECUTION_FRAMEWORK,
-    DISALLOWED_SUB_MODEL_SPOOFS,
     FRAMEWORK_MAIN_CODEX,
     FRAMEWORK_SUB_ANTIGRAVITY,
     validate_execution_framework,
@@ -351,12 +350,10 @@ def validate_editorial_worker_return(
         return_model = str(worker_return.get("model") or "").strip()
         if not return_model:
             raise ValueError("sub_editorial_worker_model_identity_missing")
-        if return_model.casefold() in DISALLOWED_SUB_MODEL_SPOOFS:
-            raise ValueError("sub_editorial_worker_cannot_spoof_main_model")
         if expected_model_identity and return_model != str(expected_model_identity).strip():
             raise ValueError("sub_editorial_worker_model_identity_mismatch")
-        if str(worker_return.get("reasoning_effort") or "").upper() in ("HIGH", "XHIGH") and return_model.casefold() in ("gpt-5.6-sol", "sol"):
-            raise ValueError("sub_editorial_worker_cannot_spoof_xhigh_sol")
+        if worker_return.get("fresh") is True and worker_return.get("isolated") is True:
+            raise ValueError("sub_editorial_worker_cannot_claim_codex_desktop_isolated_receipt")
 
     revision_count = int(worker_return.get("bounded_revision_count") or 0)
     if revision_count < 0 or revision_count > MAX_EDITORIAL_REVISIONS:

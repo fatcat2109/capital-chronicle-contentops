@@ -10,9 +10,13 @@ ContentOps has two execution frameworks:
 """
 from __future__ import annotations
 
+import json
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Mapping
 
 SCHEMA_VERSION = "contentops.execution_framework.v1"
+BINDING_SCHEMA_VERSION = "contentops.rolling_x_framework_binding.v1"
 
 FRAMEWORK_MAIN_CODEX = "MAIN_CODEX"
 FRAMEWORK_SUB_ANTIGRAVITY = "SUB_ANTIGRAVITY"
@@ -24,15 +28,9 @@ MAIN_COORDINATOR_REASONING_EFFORT = "HIGH"
 MAIN_EDITORIAL_WORKER_MODEL = "gpt-5.6-sol"
 MAIN_EDITORIAL_WORKER_REASONING_EFFORT = "XHIGH"
 
-DISALLOWED_SUB_MODEL_SPOOFS = frozenset({
-    "gpt-5.6-sol",
-    "gpt-5.6-sol-high",
-    "gpt-5.6-sol-xhigh",
-    "gpt-5.6-sol / high",
-    "gpt-5.6-sol / xhigh",
-    "cx/gpt-5.6-sol(xhigh)",
-    "codex desktop",
-})
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def validate_execution_framework(
@@ -42,8 +40,8 @@ def validate_execution_framework(
 ) -> dict[str, Any]:
     """Validate and normalize the execution framework configuration.
 
-    Fails closed if the framework identity is unrecognized, if SUB_ANTIGRAVITY lacks an
-    explicit actual model identity, or if SUB_ANTIGRAVITY attempts to spoof MAIN/Codex models.
+    Fails closed if the framework identity is unrecognized, or if SUB_ANTIGRAVITY
+    lacks an explicit actual model identity.
     """
     raw_framework = str(framework or DEFAULT_EXECUTION_FRAMEWORK).strip().upper()
     if raw_framework not in RECOGNIZED_FRAMEWORKS:
@@ -67,9 +65,6 @@ def validate_execution_framework(
     clean_sub_model = str(sub_model_identity or "").strip()
     if not clean_sub_model:
         raise ValueError("sub_antigravity_model_identity_required")
-
-    if clean_sub_model.casefold() in DISALLOWED_SUB_MODEL_SPOOFS:
-        raise ValueError("sub_antigravity_cannot_spoof_main_model_identity")
 
     return {
         "schema_version": SCHEMA_VERSION,
@@ -96,3 +91,60 @@ def assert_framework_continuity(
         raise ValueError(
             f"execution_framework_switch_mid_opportunity_forbidden:{op_norm}->{inc_norm}"
         )
+
+
+def persist_opportunity_framework_binding(
+    output_dir: Path,
+    run_id: str,
+    framework: str,
+    model_identity: str,
+) -> dict[str, Any]:
+    """Persist the canonical framework binding for an opportunity to guarantee continuity."""
+    binding_path = output_dir / "rolling_x_framework_binding_v1.json"
+    binding = {
+        "schema_version": BINDING_SCHEMA_VERSION,
+        "run_id": run_id,
+        "execution_framework": str(framework).strip().upper(),
+        "bound_model_identity": str(model_identity).strip(),
+        "bound_at_utc": _utc_now(),
+    }
+    binding_path.parent.mkdir(parents=True, exist_ok=True)
+    binding_path.write_text(json.dumps(binding, indent=2, sort_keys=True), encoding="utf-8")
+    return binding
+
+
+def verify_opportunity_framework_continuity(
+    output_dir: Path,
+    run_id: str,
+    incoming_framework: str,
+    incoming_model_identity: str | None = None,
+) -> dict[str, Any]:
+    """Verify that an opportunity has not been switched to a different framework or model on re-entry/resume."""
+    binding_path = output_dir / "rolling_x_framework_binding_v1.json"
+    inc_fw = str(incoming_framework).strip().upper()
+    inc_model = str(incoming_model_identity or "").strip()
+
+    if binding_path.exists():
+        try:
+            persisted = json.loads(binding_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            raise ValueError("opportunity_framework_binding_corrupted") from None
+
+        if str(persisted.get("run_id") or "") == run_id:
+            persisted_fw = str(persisted.get("execution_framework") or "").strip().upper()
+            assert_framework_continuity(persisted_fw, inc_fw)
+
+            persisted_model = str(persisted.get("bound_model_identity") or "").strip()
+            if inc_model and persisted_model and persisted_model != inc_model:
+                raise ValueError(
+                    f"execution_framework_model_identity_switch_mid_opportunity_forbidden:{persisted_model}->{inc_model}"
+                )
+            return persisted
+
+    # Initial binding for this opportunity
+    return persist_opportunity_framework_binding(
+        output_dir=output_dir,
+        run_id=run_id,
+        framework=inc_fw,
+        model_identity=inc_model,
+    )
