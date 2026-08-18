@@ -81938,7 +81938,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-18T14:03:47Z",
+  "generation_timestamp_utc": "2026-08-18T14:36:19Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -124185,7 +124185,7 @@
     {
       "id": "tests/test_v2_v1_readonly_daily_operator_v1.py",
       "kind": "test",
-      "size_bytes": 10826
+      "size_bytes": 10825
     },
     {
       "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
@@ -128903,6 +128903,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "edbdb948d40fd589ea2df001c86af2faf1ef4c8f",
-  "source_tree_digest": "8b15b6dc2dbce38934a53251657d098d2c69cd33c6654d5e77ee28ca73ac1ce5"
+  "source_head": "93f12332fc1ab974fa2e7d5953f9d7d026880b6a",
+  "source_tree_digest": "b2f34d046ec9f15670f761ba95834eaf93730ec23a991146fa1e7c9ff14a498f"
 }
