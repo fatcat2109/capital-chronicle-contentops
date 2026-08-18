@@ -1,0 +1,107 @@
+{
+  "schema": "contentops.v2.task3_final_evidence.v1",
+  "classification": "BLOCKED_NATIVE_CODEX_APP_FRESH_XHIGH_HANDOFF",
+  "pass_claimed": false,
+  "git": {
+    "repository": "fatcat2109/capital-chronicle-contentops",
+    "branch": "task/v2-v1-readonly-trigger-codex-daily-operator-shadow-v1",
+    "origin_master": "95e8373efd000085df22ed7e7f3623e9444e8aee",
+    "task2_correction_head": "edbdb948d40fd589ea2df001c86af2faf1ef4c8f",
+    "frozen_implementation_head": "1d9bfa80e17a39e41aadac173587a000911e9308",
+    "frozen_remote_parity": true
+  },
+  "v1_read": {
+    "surface": "published_corpus_read_model_v1.load_published_corpus + performance_observations(query_only)",
+    "snapshot_hash": "80f5d0403558cf7e538318d3dd5a2de6122e535c31de34e02603571086f2fbb2",
+    "database_sha256_before_after": "aadf204d473b3a769d7f471043f99f8aa9498a5553782b30d2710d5dbba1bb45",
+    "sqlite_uri_mode": "ro",
+    "pragma_query_only": 1,
+    "connection_total_changes": 0,
+    "v1_write_count": 0,
+    "v1_scheduler_mutation_count": 0
+  },
+  "candidate_decisions": [
+    {
+      "candidate_version_id": "v1candver_3150e993545261fa52dffbfa24b13180",
+      "decision": "DEFERRED",
+      "reason": "approved_content_too_thin_for_video_qualification",
+      "video_job_id": null
+    },
+    {
+      "candidate_version_id": "v1candver_34a1720234457fb6171ed8414a578a6e",
+      "decision": "ABSTAIN",
+      "reason": "candidate_outside_freshness_window",
+      "video_job_id": null
+    }
+  ],
+  "idempotence": {
+    "first_run_id": "v2shadow_20260818T144522Z_01a01553_a",
+    "repeat_run_id": "v2shadow_20260818T144522Z_01a01553_b",
+    "same_snapshot": true,
+    "repeat_decisions_idempotent": 2,
+    "durable_decision_count": 2,
+    "created_video_job_count": 0,
+    "duplicate_video_job_count": 0
+  },
+  "automation": {
+    "id": "v2-daily-operator-shadow",
+    "name": "V2 Daily Operator — Shadow",
+    "project_id": "2fa93564-32a4-4a4b-aa79-bb4aeb1cd4fb",
+    "schedule_local": "daily at 21:43",
+    "final_status": "PAUSED_AFTER_BLOCKER",
+    "parent_task_id": "01a01553-c7d7-7972-b2ae-a34fa9b4c369",
+    "parent_model": "gpt-5.6-sol",
+    "parent_reasoning_effort": "high",
+    "fresh_child_task_id": null,
+    "fresh_child_model": null,
+    "fresh_child_reasoning_effort": null,
+    "fresh_child_worktree": null,
+    "blocker_evidence": "Native project lookup returned no metadata, task ID, or worktree after more than five minutes."
+  },
+  "review_queue": {
+    "result": "NO_GENUINE_QUALIFIED_CANDIDATE_NO_VIDEO",
+    "item_count": 0,
+    "owner_review_ready_count": 0,
+    "public_write_authority": false
+  },
+  "screenshots": [
+    {
+      "path": "screenshots/automation_configuration_actual_app.png",
+      "sha256": "123f22c693c39c91a2cbe75191abfa09e11c4a3187822a0b4118561b95af06b0"
+    },
+    {
+      "path": "screenshots/automation_run_blocked_actual_app.png",
+      "sha256": "626fa3b81182712b228632dd33143ca7bd612767144a65a6ca8d87ccff3bbb08"
+    },
+    {
+      "path": "screenshots/automation_paused_after_blocker_actual_app.png",
+      "sha256": "bcfd22f0c6ba488aef0ffd29e688ca11f82aee419f6c7aab5549394cb66ce5dd"
+    }
+  ],
+  "validation": {
+    "pytest": "68 passed, 1 skipped in 16.72s",
+    "ruff": "PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "codegraph_before": {"nodes": 7226, "edges": 13596},
+    "codegraph_after": {"nodes": 7243, "edges": 13629},
+    "codegraph_current": true
+  },
+  "write_counts": {
+    "v1": 0,
+    "v1_scheduler": 0,
+    "platform_public": 0,
+    "publication_adapter": 0,
+    "browser_cdp": 0,
+    "creative_cli": 0,
+    "creative_sdk_api": 0,
+    "creative_9router": 0
+  },
+  "automation_mutations": [
+    "created v2-daily-operator-shadow",
+    "paused v2-daily-operator-shadow after native XHIGH handoff blocker"
+  ],
+  "v1_automation_mutations": 0,
+  "task4_started": false,
+  "v2_current_execution_pointer_updated": false
+}
