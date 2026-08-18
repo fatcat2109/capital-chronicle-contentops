@@ -20,7 +20,13 @@ Always fetch remote `master` before relying on a SHA recorded in any document.
 
 ## Current product state
 
-Capital Chronicle is the intelligence/data/numeric-authority engine. ContentOps is its publishing, media-growth, observation, and bounded-learning engine.
+Capital Chronicle/Core Analyzer is the intelligence, decision, and proprietary numeric-authority engine. ContentOps is its public publishing, media-growth, observation, and bounded content-learning engine.
+
+Internal Core Analyzer authority is not automatically ContentOps publication authority. Current code intentionally separates:
+
+- arbitrary CC database/context discovery — non-authoritative for publication;
+- governed Analyzer closed-loop/internal handoff — may be internally validated but remains publication-blocked unless explicitly granted;
+- exact story-scoped publication-safe CC packets — may authorize the intended ContentOps public use only under exact consumer/story/permission/freshness/lineage conditions.
 
 V1 remains the canonical Final Daily App/live newsroom-publication runtime. Its substantial foundation is retained, but final current live acceptance is not yet proven. A legitimate `NO_PUBLICATION` remains valid and is not equivalent to final publication canary proof.
 
@@ -28,17 +34,24 @@ V2 remains an isolated retention-native media factory. Its creative/media founda
 
 ## Immediate product priority
 
-`P0-1 — CAPITAL_CHRONICLE_INTELLIGENCE_UTILIZATION_2_0 + LATEST_WEB_SOURCE_REACHABILITY`
+`P0-1 — CORE_ANALYZER_PUBLICATION_AUTHORITY_UTILIZATION + CC_CONTEXT_ACTIVATION + LATEST_WEB_SOURCE_REACHABILITY`
 
-Verified recent canaries show broad CC discovery but shallow actual activation: 14 stores and 176 candidate tables can be discovered/ranked while story semantics remain empty and actual queried-table count is zero. Fix the shared semantic activation -> bounded read-only query -> context/governed-authority -> chart/data consumption -> telemetry path; do not query everything.
+The goal is not to maximize database queries. The slice must:
 
-The same slice should improve current accessible-source resolution so a blocked discovery URL does not unnecessarily end a viable story, while preserving exact source authority and no paywall/login/anti-bot bypass.
+1. detect and consume the strongest exact publication-authorized Capital Chronicle/Core Analyzer packet when relevant;
+2. keep internal Analyzer handoffs, decision/forecast/scenario/paper records, candidate snapshots, degraded/proxy states, and arbitrary DB rows non-public unless an explicit publication contract grants use;
+3. fix the shared semantic activation path so bounded read-only CC context queries actually run when useful;
+4. expose a lossless V1/V2 projection of publication-authorized chart/data inputs rather than regenerating numeric truth;
+5. improve current accessible-source resolution while preserving exact source authority;
+6. emit class-aware telemetry for publication-authorized use, context use, zero-use, and exact rejection/block reasons.
+
+Verified recent canaries still show the contextual activation symptom: broad CC discovery can rank 176 candidate tables while empty story semantics produce zero actual table queries. That is a contextual enrichment defect, not permission to promote arbitrary database rows.
 
 Next after a clean P0-1 is V1 final real canary plus unattended/cold-start acceptance. V2 final creative soak and V1->V2 qualification follow as P1 capabilities.
 
 ## CodeGraph status
 
-The generated CodeGraph snapshot present before this authority rewrite was behind current `master`. Treat generated contexts as discovery aids only until refreshed.
+The generated CodeGraph snapshot present before this authority rewrite was behind current `master`. This second documentation correction makes it further behind. Treat generated contexts as discovery aids only until refreshed.
 
 The first future Codex repo operation must:
 
@@ -53,6 +66,8 @@ Do not fabricate generated graph bytes in documentation-only maintenance.
 
 Current execution framework is `MAIN_CODEX` only. Fresh owner-authorized XHIGH workers may be used only at the bounded editorial/creative boundaries defined by current lane authority. Approved 9Router models remain bounded non-authority helpers.
 
-No model receives factual, numeric, Capital Chronicle, permission, credential, destination-identity, or public-write authority.
+No model receives factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, or public-write authority.
+
+Audience/engagement learning may change ContentOps priority and packaging or motivate a request for fresh upstream analysis. It may never rewrite Core Analyzer probabilities, scenarios, forecasts, regimes, decisions, paper records, or realized-outcome attribution.
 
 Protected `v1.0` release history remains immutable. `UNKNOWN_WRITE` remains `STOP RETRY -> READ BACK -> RECONCILE`.
