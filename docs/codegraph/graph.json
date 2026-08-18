@@ -22,14 +22,14 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13629,
+    "edges": 13637,
     "entrypoints": 16,
-    "nodes": 7243,
+    "nodes": 7249,
     "nodes_by_kind": {
       "authority_doc": 17,
-      "cli_command": 41,
+      "cli_command": 45,
       "directory_scope": 8,
-      "durable_table": 43,
+      "durable_table": 45,
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 19,
@@ -12343,6 +12343,18 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:candidate_job_links"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:creative_relay_events"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:creative_relay_requests"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -69840,7 +69852,31 @@
       "from": "scripts/run_v2_daily_operator_shadow_v1.py",
       "inference": "python_ast_add_parser",
       "kind": "registers_cli_command",
+      "to": "cli:claim-creative-request"
+    },
+    {
+      "from": "scripts/run_v2_daily_operator_shadow_v1.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:create-creative-request"
+    },
+    {
+      "from": "scripts/run_v2_daily_operator_shadow_v1.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
       "to": "cli:finalize-automation"
+    },
+    {
+      "from": "scripts/run_v2_daily_operator_shadow_v1.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:finalize-creative-request"
+    },
+    {
+      "from": "scripts/run_v2_daily_operator_shadow_v1.py",
+      "inference": "python_ast_add_parser",
+      "kind": "registers_cli_command",
+      "to": "cli:record-creative-result"
     },
     {
       "from": "scripts/run_v2_daily_operator_shadow_v1.py",
@@ -81606,6 +81642,18 @@
       "from": "video/unattended_core_factory_v1/store.py",
       "inference": "sql_create_table_regex",
       "kind": "owns_table_definition",
+      "to": "durable_table:creative_relay_events"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:creative_relay_requests"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/store.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
       "to": "durable_table:daily_operator_runs"
     },
     {
@@ -82024,6 +82072,16 @@
       "kind": "cli_command"
     },
     {
+      "command": "claim-creative-request",
+      "id": "cli:claim-creative-request",
+      "kind": "cli_command"
+    },
+    {
+      "command": "create-creative-request",
+      "id": "cli:create-creative-request",
+      "kind": "cli_command"
+    },
+    {
       "command": "doctor",
       "id": "cli:doctor",
       "kind": "cli_command"
@@ -82046,6 +82104,11 @@
     {
       "command": "finalize-automation",
       "id": "cli:finalize-automation",
+      "kind": "cli_command"
+    },
+    {
+      "command": "finalize-creative-request",
+      "id": "cli:finalize-creative-request",
       "kind": "cli_command"
     },
     {
@@ -82091,6 +82154,11 @@
     {
       "command": "probe",
       "id": "cli:probe",
+      "kind": "cli_command"
+    },
+    {
+      "command": "record-creative-result",
+      "id": "cli:record-creative-result",
       "kind": "cli_command"
     },
     {
@@ -82347,6 +82415,16 @@
       "id": "durable_table:candidate_job_links",
       "kind": "durable_table",
       "table": "candidate_job_links"
+    },
+    {
+      "id": "durable_table:creative_relay_events",
+      "kind": "durable_table",
+      "table": "creative_relay_events"
+    },
+    {
+      "id": "durable_table:creative_relay_requests",
+      "kind": "durable_table",
+      "table": "creative_relay_requests"
     },
     {
       "id": "durable_table:daily_operator_runs",
@@ -118333,7 +118411,7 @@
     {
       "id": "python_symbol:scripts/run_v2_daily_operator_shadow_v1.py::main",
       "kind": "python_function",
-      "line": 67,
+      "line": 71,
       "path": "scripts/run_v2_daily_operator_shadow_v1.py",
       "symbol": "main"
     },
@@ -119586,21 +119664,21 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/store.py::JobStoreError",
       "kind": "python_class",
-      "line": 26,
+      "line": 33,
       "path": "video/unattended_core_factory_v1/store.py",
       "symbol": "JobStoreError"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/store.py::V2JobStore",
       "kind": "python_class",
-      "line": 30,
+      "line": 37,
       "path": "video/unattended_core_factory_v1/store.py",
       "symbol": "V2JobStore"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/store.py::utc_now",
       "kind": "python_function",
-      "line": 18,
+      "line": 25,
       "path": "video/unattended_core_factory_v1/store.py",
       "symbol": "utc_now"
     },
@@ -120885,7 +120963,7 @@
     {
       "id": "scripts/run_v2_daily_operator_shadow_v1.py",
       "kind": "python_module",
-      "size_bytes": 10128
+      "size_bytes": 17555
     },
     {
       "id": "scripts/run_v2_locale_activation_hardening_v1.py",
@@ -124185,7 +124263,7 @@
     {
       "id": "tests/test_v2_v1_readonly_daily_operator_v1.py",
       "kind": "test",
-      "size_bytes": 10825
+      "size_bytes": 18391
     },
     {
       "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
@@ -128532,7 +128610,7 @@
     {
       "id": "video/daily_operator_v1.py",
       "kind": "python_module",
-      "size_bytes": 28867
+      "size_bytes": 29591
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/__init__.py",
@@ -128792,7 +128870,7 @@
     {
       "id": "video/unattended_core_factory_v1/__init__.py",
       "kind": "python_module",
-      "size_bytes": 372
+      "size_bytes": 375
     },
     {
       "id": "video/unattended_core_factory_v1/codex_job_brain.py",
@@ -128827,7 +128905,7 @@
     {
       "id": "video/unattended_core_factory_v1/store.py",
       "kind": "python_module",
-      "size_bytes": 41526
+      "size_bytes": 66929
     },
     {
       "id": "video/unattended_core_factory_v1/supervisor.py",
@@ -128904,5 +128982,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "e0f082d39d179bb17d272e223782bef011d67f49",
-  "source_tree_digest": "4350f371c54aed09b36f520aad415c5d52d6e2f90afa42e3b238cb344fc09734"
+  "source_tree_digest": "3a07098419f14f48f537912740fcabbe05f8ec066ea3c2066263ddafe2711d19"
 }

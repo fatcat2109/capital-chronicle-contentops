@@ -13,6 +13,13 @@ from typing import Any, Iterator, Mapping
 SCHEMA_VERSION = "contentops.v2.unattended_job_store.v2"
 TERMINAL_STATES = frozenset({"OWNER_REVIEW_READY", "TERMINAL", "QUARANTINED"})
 CANDIDATE_DECISIONS = frozenset({"QUALIFIED", "DEFERRED", "ABSTAIN"})
+CREATIVE_RELAY_STATES = (
+    "READY_FOR_CREATIVE",
+    "CREATIVE_CLAIMED",
+    "CREATIVE_READY",
+    "HIGH_FINALIZATION",
+    "LOCAL_TERMINAL_RESULT",
+)
 
 
 def utc_now() -> str:
@@ -211,6 +218,65 @@ class V2JobStore:
                 CREATE TRIGGER IF NOT EXISTS native_creative_handoffs_immutable_delete
                 BEFORE DELETE ON native_creative_handoffs BEGIN
                     SELECT RAISE(ABORT, 'native_creative_handoffs_are_append_only');
+                END;
+                CREATE TABLE IF NOT EXISTS creative_relay_requests (
+                    request_id TEXT PRIMARY KEY,
+                    idempotence_key TEXT NOT NULL UNIQUE,
+                    operator_run_id TEXT NOT NULL,
+                    candidate_version_id TEXT,
+                    video_job_id TEXT REFERENCES video_jobs(video_job_id),
+                    purpose TEXT NOT NULL,
+                    governed_input_path TEXT NOT NULL,
+                    governed_input_hash TEXT NOT NULL,
+                    parent_task_id TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    zero_public_write_state TEXT NOT NULL,
+                    public_write_authority INTEGER NOT NULL DEFAULT 0 CHECK(public_write_authority = 0),
+                    v1_write_count INTEGER NOT NULL DEFAULT 0 CHECK(v1_write_count = 0),
+                    platform_write_count INTEGER NOT NULL DEFAULT 0 CHECK(platform_write_count = 0)
+                );
+                CREATE TRIGGER IF NOT EXISTS creative_relay_requests_immutable_update
+                BEFORE UPDATE ON creative_relay_requests BEGIN
+                    SELECT RAISE(ABORT, 'creative_relay_requests_are_append_only');
+                END;
+                CREATE TRIGGER IF NOT EXISTS creative_relay_requests_immutable_delete
+                BEFORE DELETE ON creative_relay_requests BEGIN
+                    SELECT RAISE(ABORT, 'creative_relay_requests_are_append_only');
+                END;
+                CREATE TABLE IF NOT EXISTS creative_relay_events (
+                    event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    request_id TEXT NOT NULL REFERENCES creative_relay_requests(request_id),
+                    sequence_no INTEGER NOT NULL,
+                    state TEXT NOT NULL CHECK(state IN (
+                        'READY_FOR_CREATIVE','CREATIVE_CLAIMED','CREATIVE_READY',
+                        'HIGH_FINALIZATION','LOCAL_TERMINAL_RESULT'
+                    )),
+                    actor_role TEXT NOT NULL,
+                    actor_task_id TEXT NOT NULL,
+                    actor_run_id TEXT NOT NULL,
+                    actor_thread_id TEXT NOT NULL,
+                    actor_model TEXT NOT NULL,
+                    actor_reasoning_effort TEXT NOT NULL,
+                    actor_worktree TEXT NOT NULL,
+                    input_hashes_json TEXT NOT NULL,
+                    output_hashes_json TEXT NOT NULL,
+                    result_path TEXT,
+                    result_hash TEXT,
+                    terminal_result TEXT,
+                    occurred_at TEXT NOT NULL,
+                    public_write_authority INTEGER NOT NULL DEFAULT 0 CHECK(public_write_authority = 0),
+                    v1_write_count INTEGER NOT NULL DEFAULT 0 CHECK(v1_write_count = 0),
+                    platform_write_count INTEGER NOT NULL DEFAULT 0 CHECK(platform_write_count = 0),
+                    UNIQUE(request_id, sequence_no),
+                    UNIQUE(request_id, state)
+                );
+                CREATE TRIGGER IF NOT EXISTS creative_relay_events_immutable_update
+                BEFORE UPDATE ON creative_relay_events BEGIN
+                    SELECT RAISE(ABORT, 'creative_relay_events_are_append_only');
+                END;
+                CREATE TRIGGER IF NOT EXISTS creative_relay_events_immutable_delete
+                BEFORE DELETE ON creative_relay_events BEGIN
+                    SELECT RAISE(ABORT, 'creative_relay_events_are_append_only');
                 END;
                 """
             )
@@ -543,6 +609,470 @@ class V2JobStore:
                 ).fetchone()
             )
 
+    @staticmethod
+    def _validate_relay_identity(label: str, value: str) -> None:
+        if not value.strip():
+            raise JobStoreError(f"{label}_required")
+
+    @staticmethod
+    def _relay_latest_event(
+        connection: sqlite3.Connection, request_id: str
+    ) -> sqlite3.Row | None:
+        return connection.execute(
+            """
+            SELECT * FROM creative_relay_events
+            WHERE request_id=? ORDER BY sequence_no DESC LIMIT 1
+            """,
+            (request_id,),
+        ).fetchone()
+
+    @staticmethod
+    def _relay_request_with_state(
+        connection: sqlite3.Connection, request_id: str
+    ) -> dict[str, Any]:
+        request = connection.execute(
+            "SELECT * FROM creative_relay_requests WHERE request_id=?", (request_id,)
+        ).fetchone()
+        if request is None:
+            raise JobStoreError(f"creative_request_unknown:{request_id}")
+        latest = V2JobStore._relay_latest_event(connection, request_id)
+        if latest is None:
+            raise JobStoreError("creative_request_missing_initial_event")
+        value = dict(request)
+        value["state"] = str(latest["state"])
+        value["latest_event"] = dict(latest)
+        return value
+
+    def create_creative_request(
+        self,
+        *,
+        request_id: str,
+        idempotence_key: str,
+        operator_run_id: str,
+        purpose: str,
+        governed_input_path: str | Path,
+        governed_input_hash: str,
+        parent_task_id: str,
+        parent_run_id: str,
+        parent_thread_id: str,
+        parent_worktree: str,
+        parent_model: str = "gpt-5.6-sol",
+        parent_reasoning_effort: str = "high",
+        candidate_version_id: str | None = None,
+        video_job_id: str | None = None,
+    ) -> dict[str, Any]:
+        for label, value in (
+            ("request_id", request_id),
+            ("idempotence_key", idempotence_key),
+            ("operator_run_id", operator_run_id),
+        ):
+            if not re.fullmatch(r"[A-Za-z0-9_.-]+", value):
+                raise JobStoreError(f"{label}_invalid")
+        for label, value in (
+            ("purpose", purpose),
+            ("parent_task_id", parent_task_id),
+            ("parent_run_id", parent_run_id),
+            ("parent_thread_id", parent_thread_id),
+            ("parent_worktree", parent_worktree),
+        ):
+            self._validate_relay_identity(label, value)
+        if (parent_model, parent_reasoning_effort) != ("gpt-5.6-sol", "high"):
+            raise JobStoreError("creative_request_parent_model_or_reasoning_mismatch")
+        if not re.fullmatch(r"[0-9a-f]{64}", governed_input_hash):
+            raise JobStoreError("governed_input_hash_invalid")
+        governed_path = str(Path(governed_input_path).resolve())
+        expected = {
+            "idempotence_key": idempotence_key,
+            "operator_run_id": operator_run_id,
+            "candidate_version_id": candidate_version_id,
+            "video_job_id": video_job_id,
+            "purpose": purpose,
+            "governed_input_path": governed_path,
+            "governed_input_hash": governed_input_hash,
+            "parent_task_id": parent_task_id,
+        }
+        with self.transaction(immediate=True) as connection:
+            if connection.execute(
+                "SELECT 1 FROM daily_operator_runs WHERE operator_run_id=?",
+                (operator_run_id,),
+            ).fetchone() is None:
+                raise JobStoreError("creative_request_operator_run_missing")
+            existing = connection.execute(
+                """
+                SELECT * FROM creative_relay_requests
+                WHERE request_id=? OR idempotence_key=?
+                """,
+                (request_id, idempotence_key),
+            ).fetchone()
+            if existing is not None:
+                existing_value = dict(existing)
+                for key, value in expected.items():
+                    if existing_value[key] != value:
+                        raise JobStoreError("creative_request_idempotence_conflict")
+                result = self._relay_request_with_state(
+                    connection, str(existing_value["request_id"])
+                )
+                result["idempotent_replay"] = True
+                return result
+            if video_job_id is not None and connection.execute(
+                "SELECT 1 FROM video_jobs WHERE video_job_id=?", (video_job_id,)
+            ).fetchone() is None:
+                raise JobStoreError("creative_request_video_job_missing")
+            connection.execute(
+                """
+                INSERT INTO creative_relay_requests(
+                    request_id,idempotence_key,operator_run_id,candidate_version_id,
+                    video_job_id,purpose,governed_input_path,governed_input_hash,
+                    parent_task_id,created_at,zero_public_write_state,
+                    public_write_authority,v1_write_count,platform_write_count
+                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,0,0,0)
+                """,
+                (
+                    request_id,
+                    idempotence_key,
+                    operator_run_id,
+                    candidate_version_id,
+                    video_job_id,
+                    purpose,
+                    governed_path,
+                    governed_input_hash,
+                    parent_task_id,
+                    utc_now(),
+                    "ZERO_VIDEO_PUBLIC_WRITE",
+                ),
+            )
+            connection.execute(
+                """
+                INSERT INTO creative_relay_events(
+                    request_id,sequence_no,state,actor_role,actor_task_id,
+                    actor_run_id,actor_thread_id,actor_model,actor_reasoning_effort,
+                    actor_worktree,input_hashes_json,output_hashes_json,
+                    occurred_at,public_write_authority,v1_write_count,platform_write_count
+                ) VALUES(?,1,'READY_FOR_CREATIVE','HIGH_DAILY_OPERATOR',?,?,?,?,?,?,?,'{}',?,0,0,0)
+                """,
+                (
+                    request_id,
+                    parent_task_id,
+                    parent_run_id,
+                    parent_thread_id,
+                    parent_model,
+                    parent_reasoning_effort,
+                    parent_worktree,
+                    _json({"governed_input_hash": governed_input_hash}),
+                    utc_now(),
+                ),
+            )
+            result = self._relay_request_with_state(connection, request_id)
+            result["idempotent_replay"] = False
+            return result
+
+    def claim_creative_request(
+        self,
+        *,
+        worker_task_id: str,
+        worker_run_id: str,
+        worker_thread_id: str,
+        worker_worktree: str,
+        worker_model: str,
+        worker_reasoning_effort: str,
+        request_id: str | None = None,
+    ) -> dict[str, Any] | None:
+        for label, value in (
+            ("worker_task_id", worker_task_id),
+            ("worker_run_id", worker_run_id),
+            ("worker_thread_id", worker_thread_id),
+            ("worker_worktree", worker_worktree),
+        ):
+            self._validate_relay_identity(label, value)
+        if (worker_model, worker_reasoning_effort) != ("gpt-5.6-sol", "xhigh"):
+            raise JobStoreError("creative_worker_model_or_reasoning_mismatch")
+        with self.transaction(immediate=True) as connection:
+            if request_id is not None:
+                request = connection.execute(
+                    "SELECT * FROM creative_relay_requests WHERE request_id=?", (request_id,)
+                ).fetchone()
+            else:
+                request = connection.execute(
+                    """
+                    SELECT r.* FROM creative_relay_requests r
+                    JOIN creative_relay_events e ON e.request_id=r.request_id
+                    WHERE e.sequence_no=(
+                        SELECT MAX(e2.sequence_no) FROM creative_relay_events e2
+                        WHERE e2.request_id=r.request_id
+                    ) AND e.state='READY_FOR_CREATIVE'
+                    ORDER BY r.created_at,r.request_id LIMIT 1
+                    """
+                ).fetchone()
+            if request is None:
+                return None
+            selected_id = str(request["request_id"])
+            latest = self._relay_latest_event(connection, selected_id)
+            assert latest is not None
+            if str(latest["state"]) != "READY_FOR_CREATIVE":
+                claim = connection.execute(
+                    """
+                    SELECT * FROM creative_relay_events
+                    WHERE request_id=? AND state='CREATIVE_CLAIMED'
+                    """,
+                    (selected_id,),
+                ).fetchone()
+                if claim is not None and all(
+                    str(claim[key]) == expected
+                    for key, expected in (
+                        ("actor_task_id", worker_task_id),
+                        ("actor_run_id", worker_run_id),
+                        ("actor_thread_id", worker_thread_id),
+                    )
+                ):
+                    result = self._relay_request_with_state(connection, selected_id)
+                    result["idempotent_replay"] = True
+                    return result
+                raise JobStoreError(f"creative_request_not_claimable:{latest['state']}")
+            connection.execute(
+                """
+                INSERT INTO creative_relay_events(
+                    request_id,sequence_no,state,actor_role,actor_task_id,
+                    actor_run_id,actor_thread_id,actor_model,actor_reasoning_effort,
+                    actor_worktree,input_hashes_json,output_hashes_json,
+                    occurred_at,public_write_authority,v1_write_count,platform_write_count
+                ) VALUES(?,2,'CREATIVE_CLAIMED','XHIGH_CREATIVE_WORKER',?,?,?,?,?,?,?,'{}',?,0,0,0)
+                """,
+                (
+                    selected_id,
+                    worker_task_id,
+                    worker_run_id,
+                    worker_thread_id,
+                    worker_model,
+                    worker_reasoning_effort,
+                    worker_worktree,
+                    _json({"governed_input_hash": str(request["governed_input_hash"])}),
+                    utc_now(),
+                ),
+            )
+            result = self._relay_request_with_state(connection, selected_id)
+            result["idempotent_replay"] = False
+            return result
+
+    def record_creative_result(
+        self,
+        *,
+        request_id: str,
+        worker_task_id: str,
+        worker_run_id: str,
+        worker_thread_id: str,
+        result_path: str | Path,
+        result_hash: str,
+        output_hashes: Mapping[str, str],
+    ) -> dict[str, Any]:
+        if not re.fullmatch(r"[0-9a-f]{64}", result_hash):
+            raise JobStoreError("creative_result_hash_invalid")
+        resolved_result = str(Path(result_path).resolve())
+        output_payload = _json(dict(output_hashes))
+        with self.transaction(immediate=True) as connection:
+            request = connection.execute(
+                "SELECT * FROM creative_relay_requests WHERE request_id=?", (request_id,)
+            ).fetchone()
+            if request is None:
+                raise JobStoreError(f"creative_request_unknown:{request_id}")
+            claim = connection.execute(
+                """
+                SELECT * FROM creative_relay_events
+                WHERE request_id=? AND state='CREATIVE_CLAIMED'
+                """,
+                (request_id,),
+            ).fetchone()
+            if claim is None:
+                raise JobStoreError("creative_request_not_claimed")
+            for key, expected in (
+                ("actor_task_id", worker_task_id),
+                ("actor_run_id", worker_run_id),
+                ("actor_thread_id", worker_thread_id),
+            ):
+                if str(claim[key]) != expected:
+                    raise JobStoreError("creative_result_claim_identity_mismatch")
+            ready = connection.execute(
+                """
+                SELECT * FROM creative_relay_events
+                WHERE request_id=? AND state='CREATIVE_READY'
+                """,
+                (request_id,),
+            ).fetchone()
+            if ready is not None:
+                if (
+                    str(ready["result_path"]) != resolved_result
+                    or str(ready["result_hash"]) != result_hash
+                    or str(ready["output_hashes_json"]) != output_payload
+                ):
+                    raise JobStoreError("creative_result_replay_conflict")
+                result = self._relay_request_with_state(connection, request_id)
+                result["idempotent_replay"] = True
+                return result
+            latest = self._relay_latest_event(connection, request_id)
+            assert latest is not None
+            if str(latest["state"]) != "CREATIVE_CLAIMED":
+                raise JobStoreError(f"creative_result_not_recordable:{latest['state']}")
+            connection.execute(
+                """
+                INSERT INTO creative_relay_events(
+                    request_id,sequence_no,state,actor_role,actor_task_id,
+                    actor_run_id,actor_thread_id,actor_model,actor_reasoning_effort,
+                    actor_worktree,input_hashes_json,output_hashes_json,result_path,
+                    result_hash,occurred_at,public_write_authority,v1_write_count,
+                    platform_write_count
+                ) VALUES(?,3,'CREATIVE_READY','XHIGH_CREATIVE_WORKER',?,?,?,?,?,?,?,?,?,?,?,0,0,0)
+                """,
+                (
+                    request_id,
+                    worker_task_id,
+                    worker_run_id,
+                    worker_thread_id,
+                    str(claim["actor_model"]),
+                    str(claim["actor_reasoning_effort"]),
+                    str(claim["actor_worktree"]),
+                    _json({"governed_input_hash": str(request["governed_input_hash"])}),
+                    output_payload,
+                    resolved_result,
+                    result_hash,
+                    utc_now(),
+                ),
+            )
+            result = self._relay_request_with_state(connection, request_id)
+            result["idempotent_replay"] = False
+            return result
+
+    def finalize_creative_request(
+        self,
+        *,
+        request_id: str,
+        finalizer_task_id: str,
+        finalizer_run_id: str,
+        finalizer_thread_id: str,
+        finalizer_worktree: str,
+        finalizer_model: str,
+        finalizer_reasoning_effort: str,
+        output_hashes: Mapping[str, str],
+        terminal_result: str,
+    ) -> dict[str, Any]:
+        for label, value in (
+            ("finalizer_task_id", finalizer_task_id),
+            ("finalizer_run_id", finalizer_run_id),
+            ("finalizer_thread_id", finalizer_thread_id),
+            ("finalizer_worktree", finalizer_worktree),
+            ("terminal_result", terminal_result),
+        ):
+            self._validate_relay_identity(label, value)
+        if (finalizer_model, finalizer_reasoning_effort) != ("gpt-5.6-sol", "high"):
+            raise JobStoreError("creative_finalizer_model_or_reasoning_mismatch")
+        output_payload = _json(dict(output_hashes))
+        with self.transaction(immediate=True) as connection:
+            request = connection.execute(
+                "SELECT * FROM creative_relay_requests WHERE request_id=?", (request_id,)
+            ).fetchone()
+            if request is None:
+                raise JobStoreError(f"creative_request_unknown:{request_id}")
+            creative_ready = connection.execute(
+                """
+                SELECT * FROM creative_relay_events
+                WHERE request_id=? AND state='CREATIVE_READY'
+                """,
+                (request_id,),
+            ).fetchone()
+            if creative_ready is None:
+                raise JobStoreError("creative_result_not_ready")
+            terminal = connection.execute(
+                """
+                SELECT * FROM creative_relay_events
+                WHERE request_id=? AND state='LOCAL_TERMINAL_RESULT'
+                """,
+                (request_id,),
+            ).fetchone()
+            if terminal is not None:
+                if (
+                    str(terminal["terminal_result"]) != terminal_result
+                    or str(terminal["output_hashes_json"]) != output_payload
+                ):
+                    raise JobStoreError("creative_finalization_replay_conflict")
+                result = self._relay_request_with_state(connection, request_id)
+                result["idempotent_replay"] = True
+                return result
+            latest = self._relay_latest_event(connection, request_id)
+            assert latest is not None
+            if str(latest["state"]) != "CREATIVE_READY":
+                raise JobStoreError(f"creative_request_not_finalizable:{latest['state']}")
+            identity = (
+                finalizer_task_id,
+                finalizer_run_id,
+                finalizer_thread_id,
+                finalizer_model,
+                finalizer_reasoning_effort,
+                finalizer_worktree,
+            )
+            connection.execute(
+                """
+                INSERT INTO creative_relay_events(
+                    request_id,sequence_no,state,actor_role,actor_task_id,
+                    actor_run_id,actor_thread_id,actor_model,actor_reasoning_effort,
+                    actor_worktree,input_hashes_json,output_hashes_json,
+                    occurred_at,public_write_authority,v1_write_count,platform_write_count
+                ) VALUES(?,4,'HIGH_FINALIZATION','HIGH_FINALIZER',?,?,?,?,?,?,?,?,?,0,0,0)
+                """,
+                (
+                    request_id,
+                    *identity,
+                    _json({"creative_result_hash": str(creative_ready["result_hash"])}),
+                    output_payload,
+                    utc_now(),
+                ),
+            )
+            connection.execute(
+                """
+                INSERT INTO creative_relay_events(
+                    request_id,sequence_no,state,actor_role,actor_task_id,
+                    actor_run_id,actor_thread_id,actor_model,actor_reasoning_effort,
+                    actor_worktree,input_hashes_json,output_hashes_json,
+                    terminal_result,occurred_at,public_write_authority,v1_write_count,
+                    platform_write_count
+                ) VALUES(?,5,'LOCAL_TERMINAL_RESULT','HIGH_FINALIZER',?,?,?,?,?,?,?,?,?,?,0,0,0)
+                """,
+                (
+                    request_id,
+                    *identity,
+                    _json({"creative_result_hash": str(creative_ready["result_hash"])}),
+                    output_payload,
+                    terminal_result,
+                    utc_now(),
+                ),
+            )
+            result = self._relay_request_with_state(connection, request_id)
+            result["idempotent_replay"] = False
+            return result
+
+    def creative_relay_requests(self) -> list[dict[str, Any]]:
+        with self.connect() as connection:
+            request_ids = [
+                str(row["request_id"])
+                for row in connection.execute(
+                    "SELECT request_id FROM creative_relay_requests ORDER BY created_at,request_id"
+                )
+            ]
+            return [self._relay_request_with_state(connection, value) for value in request_ids]
+
+    def creative_relay_events(self, request_id: str | None = None) -> list[dict[str, Any]]:
+        with self.connect() as connection:
+            if request_id is None:
+                rows = connection.execute(
+                    "SELECT * FROM creative_relay_events ORDER BY event_id"
+                )
+            else:
+                rows = connection.execute(
+                    """
+                    SELECT * FROM creative_relay_events
+                    WHERE request_id=? ORDER BY sequence_no
+                    """,
+                    (request_id,),
+                )
+            return [dict(row) for row in rows]
+
     def operator_runs(self) -> list[dict[str, Any]]:
         with self.connect() as connection:
             return [
@@ -577,6 +1107,20 @@ class V2JobStore:
                     """
                 )
             ]
+            relay_states = [
+                str(row["state"])
+                for row in connection.execute(
+                    """
+                    SELECT e.state FROM creative_relay_requests r
+                    JOIN creative_relay_events e ON e.request_id=r.request_id
+                    WHERE e.sequence_no=(
+                        SELECT MAX(e2.sequence_no) FROM creative_relay_events e2
+                        WHERE e2.request_id=r.request_id
+                    )
+                    ORDER BY r.created_at,r.request_id
+                    """
+                )
+            ]
         deduped: dict[str, dict[str, Any]] = {}
         for row in rows:
             deduped.setdefault(str(row["video_job_id"]), row)
@@ -591,6 +1135,12 @@ class V2JobStore:
             "waiting_governed_input_count": sum(
                 str(item["state"]) == "WAITING_GOVERNED_INPUT" for item in items
             ),
+            "creative_relay_request_count": len(relay_states),
+            "ready_for_creative_count": relay_states.count("READY_FOR_CREATIVE"),
+            "creative_claimed_count": relay_states.count("CREATIVE_CLAIMED"),
+            "creative_ready_count": relay_states.count("CREATIVE_READY"),
+            "high_finalization_count": relay_states.count("HIGH_FINALIZATION"),
+            "local_terminal_result_count": relay_states.count("LOCAL_TERMINAL_RESULT"),
             "public_write_authority": False,
         }
 

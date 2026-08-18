@@ -53,6 +53,10 @@ def _sha256_text(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def _write_immutable(path: Path, value: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
@@ -86,6 +90,58 @@ def main() -> int:
     activate.add_argument("--video-job-id", required=True)
     activate.add_argument("--governed-input", type=Path, required=True)
 
+    create_request = sub.add_parser(
+        "create-creative-request",
+        help="Append one idempotent READY_FOR_CREATIVE request for a separate native automation",
+    )
+    create_request.add_argument("--request-id", required=True)
+    create_request.add_argument("--idempotence-key", required=True)
+    create_request.add_argument("--operator-run-id", required=True)
+    create_request.add_argument("--parent-task-id", required=True)
+    create_request.add_argument("--parent-run-id", required=True)
+    create_request.add_argument("--parent-thread-id", required=True)
+    create_request.add_argument("--parent-worktree", required=True)
+    create_request.add_argument("--purpose", required=True)
+    create_request.add_argument("--governed-input", type=Path, required=True)
+    create_request.add_argument("--candidate-version-id")
+    create_request.add_argument("--video-job-id")
+
+    claim_request = sub.add_parser(
+        "claim-creative-request",
+        help="Atomically claim at most one READY_FOR_CREATIVE request as the native XHIGH worker",
+    )
+    claim_request.add_argument("--request-id")
+    claim_request.add_argument("--worker-task-id", required=True)
+    claim_request.add_argument("--worker-run-id", required=True)
+    claim_request.add_argument("--worker-thread-id", required=True)
+    claim_request.add_argument("--worker-worktree", required=True)
+    claim_request.add_argument("--worker-model", required=True)
+    claim_request.add_argument("--worker-reasoning-effort", required=True)
+
+    creative_result = sub.add_parser(
+        "record-creative-result",
+        help="Append one immutable CREATIVE_READY result from the claiming native XHIGH worker",
+    )
+    creative_result.add_argument("--request-id", required=True)
+    creative_result.add_argument("--worker-task-id", required=True)
+    creative_result.add_argument("--worker-run-id", required=True)
+    creative_result.add_argument("--worker-thread-id", required=True)
+    creative_result.add_argument("--result-file", type=Path, required=True)
+
+    finalize_request = sub.add_parser(
+        "finalize-creative-request",
+        help="Validate one CREATIVE_READY result and append the HIGH finalization terminal receipt",
+    )
+    finalize_request.add_argument("--request-id", required=True)
+    finalize_request.add_argument("--finalizer-task-id", required=True)
+    finalize_request.add_argument("--finalizer-run-id", required=True)
+    finalize_request.add_argument("--finalizer-thread-id", required=True)
+    finalize_request.add_argument("--finalizer-worktree", required=True)
+    finalize_request.add_argument("--finalizer-model", required=True)
+    finalize_request.add_argument("--finalizer-reasoning-effort", required=True)
+    finalize_request.add_argument("--finalizer-output-file", type=Path, required=True)
+    finalize_request.add_argument("--terminal-result", required=True)
+
     handoff = sub.add_parser(
         "record-handoff",
         help="Record actual native fresh-XHIGH child provenance after app readback",
@@ -112,6 +168,8 @@ def main() -> int:
     finalize.add_argument("--automation-name", required=True)
     finalize.add_argument("--schedule-proof", required=True)
     finalize.add_argument("--parent-task-id", required=True)
+    finalize.add_argument("--creative-worker-automation-id")
+    finalize.add_argument("--finalizer-automation-id")
 
     sub.add_parser("review-queue", help="Read the durable Daily Operator review queue")
     sub.add_parser("status", help="Read decisions, jobs, runs, and native handoffs")
@@ -145,6 +203,66 @@ def main() -> int:
                 video_job_id=args.video_job_id,
                 governed_input_packet_path=packet_path,
                 governed_input_packet_hash=hash_value(packet),
+            )
+        elif args.command == "create-creative-request":
+            packet_path = args.governed_input.resolve()
+            packet = _load(packet_path)
+            validate_input_packet(packet)
+            result = store.create_creative_request(
+                request_id=args.request_id,
+                idempotence_key=args.idempotence_key,
+                operator_run_id=args.operator_run_id,
+                parent_task_id=args.parent_task_id,
+                parent_run_id=args.parent_run_id,
+                parent_thread_id=args.parent_thread_id,
+                parent_worktree=args.parent_worktree,
+                purpose=args.purpose,
+                governed_input_path=packet_path,
+                governed_input_hash=hash_value(packet),
+                candidate_version_id=args.candidate_version_id,
+                video_job_id=args.video_job_id,
+            )
+        elif args.command == "claim-creative-request":
+            result = store.claim_creative_request(
+                request_id=args.request_id,
+                worker_task_id=args.worker_task_id,
+                worker_run_id=args.worker_run_id,
+                worker_thread_id=args.worker_thread_id,
+                worker_worktree=args.worker_worktree,
+                worker_model=args.worker_model,
+                worker_reasoning_effort=args.worker_reasoning_effort,
+            )
+            if result is None:
+                result = {
+                    "schema": "contentops.v2.creative_relay_claim.v1",
+                    "result": "NO_READY_FOR_CREATIVE_REQUEST",
+                    "public_write_authority": False,
+                }
+        elif args.command == "record-creative-result":
+            result_path = args.result_file.resolve()
+            result_hash = _sha256_file(result_path)
+            result = store.record_creative_result(
+                request_id=args.request_id,
+                worker_task_id=args.worker_task_id,
+                worker_run_id=args.worker_run_id,
+                worker_thread_id=args.worker_thread_id,
+                result_path=result_path,
+                result_hash=result_hash,
+                output_hashes={"creative_artifact_sha256": result_hash},
+            )
+        elif args.command == "finalize-creative-request":
+            output_path = args.finalizer_output_file.resolve()
+            output_hash = _sha256_file(output_path)
+            result = store.finalize_creative_request(
+                request_id=args.request_id,
+                finalizer_task_id=args.finalizer_task_id,
+                finalizer_run_id=args.finalizer_run_id,
+                finalizer_thread_id=args.finalizer_thread_id,
+                finalizer_worktree=args.finalizer_worktree,
+                finalizer_model=args.finalizer_model,
+                finalizer_reasoning_effort=args.finalizer_reasoning_effort,
+                output_hashes={"finalizer_receipt_sha256": output_hash},
+                terminal_result=args.terminal_result,
             )
         elif args.command == "record-handoff":
             result_text = (
@@ -181,10 +299,22 @@ def main() -> int:
             ]
             if not handoffs:
                 raise ValueError("native_xhigh_handoff_not_recorded")
+            relay_requests = [
+                row
+                for row in store.creative_relay_requests()
+                if str(row["operator_run_id"]) == args.operator_run_id
+            ]
+            if not relay_requests:
+                raise ValueError("creative_relay_request_not_recorded")
+            if not all(
+                str(row["state"]) == "LOCAL_TERMINAL_RESULT"
+                for row in relay_requests
+            ):
+                raise ValueError("creative_relay_not_terminal")
             decisions = store.candidate_decisions()
             jobs = store.jobs()
             result = {
-                "schema": "contentops.v2.native_automation_shadow_review_result.v1",
+                "schema": "contentops.v2.native_automation_shadow_review_result.v2",
                 "result": "READY_FOR_OWNER_APP_UI_AUDIT",
                 "owner_app_ui_acceptance_claimed": False,
                 "operator_run_id": args.operator_run_id,
@@ -195,6 +325,8 @@ def main() -> int:
                     "standalone_new_task_per_run": True,
                     "model": "gpt-5.6-sol",
                     "reasoning_effort": "high",
+                    "creative_worker_automation_id": args.creative_worker_automation_id,
+                    "finalizer_automation_id": args.finalizer_automation_id,
                 },
                 "parent_task_id": args.parent_task_id,
                 "parent_model": "gpt-5.6-sol",
@@ -207,6 +339,12 @@ def main() -> int:
                 ],
                 "video_job_ids": [str(row["video_job_id"]) for row in jobs],
                 "native_handoffs": handoffs,
+                "creative_relay_requests": relay_requests,
+                "creative_relay_events": [
+                    event
+                    for row in relay_requests
+                    for event in store.creative_relay_events(str(row["request_id"]))
+                ],
                 "review_queue": store.daily_review_queue(),
                 "idempotence": {
                     "operator_run_count": len(runs),
@@ -241,6 +379,8 @@ def main() -> int:
                 "jobs": store.jobs(),
                 "operator_runs": store.operator_runs(),
                 "native_handoffs": store.native_handoffs(),
+                "creative_relay_requests": store.creative_relay_requests(),
+                "creative_relay_events": store.creative_relay_events(),
                 "review_queue": store.daily_review_queue(),
                 "public_write_authority": False,
             }

@@ -270,6 +270,183 @@ def test_native_xhigh_handoff_receipt_is_distinct_append_only_and_zero_write(
     )["handoff_id"] == receipt["handoff_id"]
 
 
+def test_native_staggered_relay_is_append_only_exactly_once_and_zero_write(
+    tmp_path: Path,
+) -> None:
+    store = V2JobStore(tmp_path / "v2.sqlite3")
+    store.record_operator_run(
+        operator_run_id="daily_relay_probe",
+        summary={"result": "NO_GENUINE_QUALIFIED_CANDIDATE_NO_VIDEO"},
+        parent_model="gpt-5.6-sol",
+        parent_reasoning_effort="high",
+        parent_task_id="high-daily-task",
+        v1_read_snapshot_hash="a" * 64,
+        decision_count=0,
+        qualified_count=0,
+        created_job_count=0,
+        result="NO_GENUINE_QUALIFIED_CANDIDATE_NO_VIDEO",
+    )
+    packet = json.loads(GOVERNED_PACKET.read_text(encoding="utf-8"))
+    governed_hash = hash_value(packet)
+    request = store.create_creative_request(
+        request_id="creative_req_shadow_probe_v1",
+        idempotence_key="shadow_probe_task3_correction_v1",
+        operator_run_id="daily_relay_probe",
+        purpose="SHADOW_ISOLATION_PROBE",
+        governed_input_path=GOVERNED_PACKET,
+        governed_input_hash=governed_hash,
+        parent_task_id="high-daily-task",
+        parent_run_id="high-daily-run",
+        parent_thread_id="high-daily-task",
+        parent_worktree=str(tmp_path / "high-worktree"),
+    )
+    assert request["state"] == "READY_FOR_CREATIVE"
+    assert request["idempotent_replay"] is False
+    replay = store.create_creative_request(
+        request_id="creative_req_shadow_probe_v1",
+        idempotence_key="shadow_probe_task3_correction_v1",
+        operator_run_id="daily_relay_probe",
+        purpose="SHADOW_ISOLATION_PROBE",
+        governed_input_path=GOVERNED_PACKET,
+        governed_input_hash=governed_hash,
+        parent_task_id="high-daily-task",
+        parent_run_id="high-daily-run",
+        parent_thread_id="high-daily-task",
+        parent_worktree=str(tmp_path / "high-worktree"),
+    )
+    assert replay["idempotent_replay"] is True
+    assert len(store.creative_relay_requests()) == 1
+
+    claimed = store.claim_creative_request(
+        request_id="creative_req_shadow_probe_v1",
+        worker_task_id="xhigh-worker-task",
+        worker_run_id="xhigh-worker-run",
+        worker_thread_id="xhigh-worker-task",
+        worker_worktree=str(tmp_path / "xhigh-worktree"),
+        worker_model="gpt-5.6-sol",
+        worker_reasoning_effort="xhigh",
+    )
+    assert claimed is not None
+    assert claimed["state"] == "CREATIVE_CLAIMED"
+    claim_replay = store.claim_creative_request(
+        request_id="creative_req_shadow_probe_v1",
+        worker_task_id="xhigh-worker-task",
+        worker_run_id="xhigh-worker-run",
+        worker_thread_id="xhigh-worker-task",
+        worker_worktree=str(tmp_path / "xhigh-worktree"),
+        worker_model="gpt-5.6-sol",
+        worker_reasoning_effort="xhigh",
+    )
+    assert claim_replay is not None
+    assert claim_replay["idempotent_replay"] is True
+
+    creative_artifact = tmp_path / "creative-result.json"
+    creative_artifact.write_text(
+        json.dumps({"beats": ["evidence", "mechanism", "implication"]}),
+        encoding="utf-8",
+    )
+    creative_hash = _sha(creative_artifact)
+    ready = store.record_creative_result(
+        request_id="creative_req_shadow_probe_v1",
+        worker_task_id="xhigh-worker-task",
+        worker_run_id="xhigh-worker-run",
+        worker_thread_id="xhigh-worker-task",
+        result_path=creative_artifact,
+        result_hash=creative_hash,
+        output_hashes={"creative_artifact_sha256": creative_hash},
+    )
+    assert ready["state"] == "CREATIVE_READY"
+    assert store.claim_creative_request(
+        worker_task_id="second-xhigh-task",
+        worker_run_id="second-xhigh-run",
+        worker_thread_id="second-xhigh-task",
+        worker_worktree=str(tmp_path / "second-xhigh-worktree"),
+        worker_model="gpt-5.6-sol",
+        worker_reasoning_effort="xhigh",
+    ) is None
+
+    terminal = store.finalize_creative_request(
+        request_id="creative_req_shadow_probe_v1",
+        finalizer_task_id="high-finalizer-task",
+        finalizer_run_id="high-finalizer-run",
+        finalizer_thread_id="high-finalizer-task",
+        finalizer_worktree=str(tmp_path / "finalizer-worktree"),
+        finalizer_model="gpt-5.6-sol",
+        finalizer_reasoning_effort="high",
+        output_hashes={"finalizer_receipt_sha256": "b" * 64},
+        terminal_result="SHADOW_ISOLATION_PROBE_RELAY_COMPLETE_NO_CONTENT_OUTCOME",
+    )
+    assert terminal["state"] == "LOCAL_TERMINAL_RESULT"
+    terminal_replay = store.finalize_creative_request(
+        request_id="creative_req_shadow_probe_v1",
+        finalizer_task_id="high-finalizer-task",
+        finalizer_run_id="high-finalizer-run",
+        finalizer_thread_id="high-finalizer-task",
+        finalizer_worktree=str(tmp_path / "finalizer-worktree"),
+        finalizer_model="gpt-5.6-sol",
+        finalizer_reasoning_effort="high",
+        output_hashes={"finalizer_receipt_sha256": "b" * 64},
+        terminal_result="SHADOW_ISOLATION_PROBE_RELAY_COMPLETE_NO_CONTENT_OUTCOME",
+    )
+    assert terminal_replay["idempotent_replay"] is True
+    events = store.creative_relay_events("creative_req_shadow_probe_v1")
+    assert [row["state"] for row in events] == [
+        "READY_FOR_CREATIVE",
+        "CREATIVE_CLAIMED",
+        "CREATIVE_READY",
+        "HIGH_FINALIZATION",
+        "LOCAL_TERMINAL_RESULT",
+    ]
+    assert all(row["public_write_authority"] == 0 for row in events)
+    assert all(row["v1_write_count"] == 0 for row in events)
+    assert all(row["platform_write_count"] == 0 for row in events)
+    queue = store.daily_review_queue()
+    assert queue["creative_relay_request_count"] == 1
+    assert queue["local_terminal_result_count"] == 1
+
+
+def test_native_staggered_relay_rejects_non_xhigh_worker(tmp_path: Path) -> None:
+    store = V2JobStore(tmp_path / "v2.sqlite3")
+    store.record_operator_run(
+        operator_run_id="daily_relay_model_gate",
+        summary={},
+        parent_model="gpt-5.6-sol",
+        parent_reasoning_effort="high",
+        parent_task_id="parent",
+        v1_read_snapshot_hash="c" * 64,
+        decision_count=0,
+        qualified_count=0,
+        created_job_count=0,
+        result="NO_GENUINE_QUALIFIED_CANDIDATE_NO_VIDEO",
+    )
+    packet = json.loads(GOVERNED_PACKET.read_text(encoding="utf-8"))
+    store.create_creative_request(
+        request_id="creative_req_model_gate",
+        idempotence_key="creative_req_model_gate",
+        operator_run_id="daily_relay_model_gate",
+        purpose="SHADOW_ISOLATION_PROBE",
+        governed_input_path=GOVERNED_PACKET,
+        governed_input_hash=hash_value(packet),
+        parent_task_id="parent",
+        parent_run_id="parent-run",
+        parent_thread_id="parent",
+        parent_worktree=str(tmp_path / "parent-worktree"),
+    )
+    try:
+        store.claim_creative_request(
+            worker_task_id="worker",
+            worker_run_id="worker-run",
+            worker_thread_id="worker",
+            worker_worktree=str(tmp_path / "worker-worktree"),
+            worker_model="gpt-5.6-sol",
+            worker_reasoning_effort="high",
+        )
+    except Exception as exc:
+        assert str(exc) == "creative_worker_model_or_reasoning_mismatch"
+    else:
+        raise AssertionError("HIGH worker must not satisfy the XHIGH creative relay")
+
+
 def test_daily_operator_has_no_forbidden_creative_execution_path() -> None:
     for relative in (
         "video/daily_operator_v1.py",
