@@ -1,13 +1,13 @@
 {
   "schema": "contentops.v2.windows_process_launch_geometry_repair_fresh_soak_final_evidence.v1",
   "task_id": "TASK_CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1",
-  "recorded_at": "2026-08-18T11:42:00Z",
-  "classification": "PASS_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR__FAIL_UNATTENDED_OWNER_REVIEW_READY_SOAK_WITH_EXTERNAL_SHUTDOWN_INTERRUPTION",
-  "task1_success_classification": "FAIL_ZERO_OWNER_REVIEW_READY",
+  "recorded_at": "2026-08-18T12:22:08Z",
+  "classification": "PASS_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR__PASS_OWNER_AUTHORIZED_FRESH_RECOVERY_SOAK",
+  "task1_success_classification": "PASS_V2_UNATTENDED_PRODUCTION_SOAK_TRANSCRIPT_VOICEOVER_SEO_HARDENING",
   "repository": "fatcat2109/capital-chronicle-contentops",
   "branch": "task/v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1",
   "starting_head": "117d7526bbba17bca7a96804cdc2a968b2fb4f74",
-  "implementation_head": "575333fb2a37c494f122780f318cf11f94e8bf2d",
+  "implementation_head": "9d70c15c9d14c0d8b2d1462724ccb95d9bbd73bd",
   "evidence_head_binding": "COMMIT_CONTAINING_THIS_RECEIPT",
   "implementation_remote_parity_before_soak": true,
   "original_root_cause": {
@@ -35,6 +35,22 @@
     "preflight": "all TypeScript, Remotion, browser, cwd, and serialized-command geometry is measured before claim and refreshed before claim/resume",
     "projected_cli_selected": false
   },
+  "owner_authorized_recovery_correction": {
+    "authorization": "Jim explicitly authorized completion of the main task after quota shutdown and bypassed the original no-second-correction ceremony; deterministic safety, provenance, zero-write, and owner-review boundaries remained enforced.",
+    "correction_commit": "9d70c15c9d14c0d8b2d1462724ccb95d9bbd73bd",
+    "correction_remote_parity_before_recovery": true,
+    "retail_root_cause": "The picture lock video stream was exactly 58.4 seconds, while AAC/container padding made the format duration 58.453333 seconds. Comparing the padded container duration to the motion lock exceeded the 0.05-second tolerance by 0.003333 seconds.",
+    "retail_repair": "Picture-lock validation now uses the actual video-stream duration and retains the immutable motion-duration gate.",
+    "japan_shutdown_audit": "The prior Japan failure was external quota shutdown, confirmed by the exact evidence-only 1680/1680-frame render; no persistent TypeScript, Remotion, browser, or source defect remained.",
+    "euro_recovery": "Fresh XHIGH editorial placed the half-year payoff inside the first 30 seconds and preserved exact numeric-unit synthesis surfaces before the new timing lock.",
+    "changed_paths": [
+      "video/unattended_core_factory_v1/supervisor.py",
+      "tests/test_v2_unattended_core_factory_v1.py",
+      "docs/codegraph/INDEX.md",
+      "docs/codegraph/V2_CONTEXT.md",
+      "docs/codegraph/graph.json"
+    ]
+  },
   "changed_paths": [
     "docs/automation/CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1/pre_soak_implementation_validation_v1.json",
     "docs/automation/CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1/windows_process_launch_geometry_diagnostic_v1.json",
@@ -52,6 +68,7 @@
     "compileall": "PASS",
     "ruff_changed_surface_excluding_pre_existing_E402_F401": "PASS",
     "git_diff_check": "PASS",
+    "post_recovery_duration_regression": "42 passed, 1 skipped in 12.96s",
     "real_windows_smoke": {
       "result": "PASS_NON_CREATIVE_REMOTION_BROWSER_SMOKE",
       "receipt": "A:\\Capital Chronicle\\Temp\\v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1\\production-like-long-runtime-root-20260818\\remotion_browser_smoke_receipt.json",
@@ -147,9 +164,104 @@
       }
     ]
   },
+  "owner_authorized_fresh_recovery": {
+    "runtime_root": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1",
+    "proof_epoch_started_at": "2026-08-18T11:50:04.8404372Z",
+    "implementation_head": "9d70c15c9d14c0d8b2d1462724ccb95d9bbd73bd",
+    "fresh_job_and_run_identities": true,
+    "old_quarantined_runs_resumed": false,
+    "job_count": 3,
+    "started_job_count": 3,
+    "owner_review_ready_count": 3,
+    "quarantined_job_count": 0,
+    "queued_or_running_count": 0,
+    "all_started_jobs_succeeded": true,
+    "resume_count": 0,
+    "bounded_xhigh_creative_execution_count": 9,
+    "total_stage_wall_time_seconds": 548.370647,
+    "external_media_cost_usd": 0.0,
+    "manual_source_edits_after_start": 0,
+    "manual_media_edits_after_start": 0,
+    "manual_checkpoint_edits": 0,
+    "public_write_authority": false,
+    "process_launch_geometry": {
+      "selected_typescript_cli_characters": 143,
+      "selected_remotion_cli_characters": 148,
+      "selected_browser_characters": 222,
+      "projected_cli_selected": false,
+      "all_three_jobs_passed_preflight_typecheck_and_actual_render": true
+    },
+    "jobs": [
+      {
+        "video_job_id": "v2_recovery2_us_retail_july_2026",
+        "run_id": "run_40771a1dbc73494ea202e15492bb9255",
+        "input_packet_hash": "9d89f8c68910afd19df5e7d51d878afc865524ac4ed7ae3398be9e8491b1c372",
+        "terminal_state": "OWNER_REVIEW_READY",
+        "terminal_result": "PASS_V2_UNATTENDED_PRODUCTION_JOB_OWNER_REVIEW_READY",
+        "timing_lock_hash": "4e55f169fdc758a25fbf0164ea9e5583793fa31b90e358d21a521bd4285dce62",
+        "canonical_transcript_hash": "d62e974ebfc863fdfce70dd1ac563ab4abb2afc660bc7913ba7b11a875fb0044",
+        "asset_selection_hash": "affad9f59f548a4d77a2b537690742cbabe5dc13d4306f4cf583d671a6650cdc",
+        "actual_media_review": "NO_MATERIAL_REVISION",
+        "picture_duration_seconds": 58.4,
+        "final_media_path": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_us_retail_july_2026\\media\\contentops_v2_owner_review_short.mp4",
+        "final_media_sha256": "85f0c99a798de0d59cd53b9c8c3b616f3145830283d81ee44b764103595b1cb6",
+        "final_media_size_bytes": 15632510,
+        "owner_review_bundle_path": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_us_retail_july_2026\\review\\owner_review_bundle.json",
+        "owner_review_bundle_sha256": "39735820653c925845f713e641abcc5b2f68c4bc79ca41f52919789280c36745",
+        "package_id": "pkg_50b0824b95dae19620a235ec2247c2d44f1a9d87462147a37f0727fefe3d43b8",
+        "proof_note": "The real picture lock passed using the 58.4-second video stream even though AAC/container padding reports 58.453333 seconds, proving the duration repair end to end."
+      },
+      {
+        "video_job_id": "v2_recovery2_japan_gdp_q2_2026",
+        "run_id": "run_9dc4f8084f194166b092ff653a47adf2",
+        "input_packet_hash": "5cbded87bcf0f5ce2ec27c6b0a243c0424345041e5366135155805370fb942d6",
+        "terminal_state": "OWNER_REVIEW_READY",
+        "terminal_result": "PASS_V2_UNATTENDED_PRODUCTION_JOB_OWNER_REVIEW_READY",
+        "timing_lock_hash": "151b1e5231a925e5b683c1341de2036add695f304d26887029cdc104d6176527",
+        "canonical_transcript_hash": "1d703b78bb0df687660290861917f52247bacb08df1e46fbf2e5482a88816479",
+        "asset_selection_hash": "43e083d20004bcb9c9d64449c1b562b20980229bf0addb65a8d9e992e0b817c2",
+        "actual_media_review": "MATERIAL_REVISION_REQUIRED",
+        "bounded_revision_applied": "Move domestic-demand and net-export numeric labels above their animated bars so the values remain continuously legible.",
+        "post_revision_contact_sheet_check": "PASS_LABELS_FULLY_LEGIBLE",
+        "picture_duration_seconds": 56.0,
+        "final_media_path": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_japan_gdp_q2_2026\\media\\contentops_v2_owner_review_short.mp4",
+        "final_media_sha256": "70fa52cbbefb96c0f194ba803a0441dfa45097561f80c284a097cf2b773f34f3",
+        "final_media_size_bytes": 5952886,
+        "owner_review_bundle_path": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_japan_gdp_q2_2026\\review\\owner_review_bundle.json",
+        "owner_review_bundle_sha256": "090cd6af670de5a22e3d857d96af4f1ab19aa874fc7894c4ed4777c9bd4f2b77",
+        "package_id": "pkg_6c0f50247721c31fc8899088ea092226558b197a8cc4d9652d8dd56ea66bf947"
+      },
+      {
+        "video_job_id": "v2_recovery2_euro_area_trade_june_2026",
+        "run_id": "run_a5b22591c4bc469990ef837b2dde8c2d",
+        "input_packet_hash": "0ea1f4e12d46bc7f3571f3c25782b6252cea1e101e609760e9f983b697dbed1c",
+        "terminal_state": "OWNER_REVIEW_READY",
+        "terminal_result": "PASS_V2_UNATTENDED_PRODUCTION_JOB_OWNER_REVIEW_READY",
+        "timing_lock_hash": "0c4ee18353fc3ee5c4901de325c5679b3a33afa8398ed97a0cd312070b2ed17a",
+        "canonical_transcript_hash": "cf19c10cfff30bbdef338a319e6450a51a4065a291c85988d9a55b8df9a3040a",
+        "asset_selection_hash": "60d68ad4287e5803e68990c2fb3fa38a6e5ea7673c38030679d8df9b44945821",
+        "actual_media_review": "NO_MATERIAL_REVISION",
+        "picture_duration_seconds": 56.8,
+        "final_media_path": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_euro_area_trade_june_2026\\media\\contentops_v2_owner_review_short.mp4",
+        "final_media_sha256": "a57436ac6f3fecfe1b1d1247bc4490ed62e731048025a88401e92f83e2290cdb",
+        "final_media_size_bytes": 18158623,
+        "owner_review_bundle_path": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_euro_area_trade_june_2026\\review\\owner_review_bundle.json",
+        "owner_review_bundle_sha256": "7131ff29514e7c37eceb43b91e685b6b25a3fd4f54d193b12b76101269372d41",
+        "package_id": "pkg_a1557a98a3b2fbc355b59665c8f9057bd26b5e6af92cffc4e7aea2e9fe7274f7"
+      }
+    ]
+  },
   "final_media_or_package": {
-    "owner_review_ready_packages": [],
-    "final_media_paths": [],
+    "owner_review_ready_packages": [
+      "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_us_retail_july_2026\\review\\owner_review_bundle.json",
+      "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_japan_gdp_q2_2026\\review\\owner_review_bundle.json",
+      "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_euro_area_trade_june_2026\\review\\owner_review_bundle.json"
+    ],
+    "final_media_paths": [
+      "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_us_retail_july_2026\\media\\contentops_v2_owner_review_short.mp4",
+      "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_japan_gdp_q2_2026\\media\\contentops_v2_owner_review_short.mp4",
+      "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-owner-override-recovery-v1\\jobs\\v2_recovery2_euro_area_trade_june_2026\\media\\contentops_v2_owner_review_short.mp4"
+    ],
     "proxy_media_paths_are_evidence_only": true
   },
   "post_shutdown_audit": {
@@ -171,13 +283,9 @@
       "projected_remotion_cli_selected": false,
       "used_as_owner_package": false
     },
-    "verdict": "The Japan picture-lock failure was caused by external Codex quota shutdown. Recovery inside the durable run would require forbidden checkpoint mutation; the task preserves quarantine truth."
+    "verdict": "The original Japan picture-lock failure was caused by external Codex quota shutdown. Its quarantined checkpoint remains immutable; the successful owner-authorized proof used a new job/run identity in a new runtime."
   },
-  "remaining_blockers": [
-    "Voiceover QA needs eligible creative output that preserves numeric-unit rendering and retention-payoff timing without operator repair.",
-    "The bounded replacement-source path must preserve the immutable motion duration through the picture lock.",
-    "The Japan durable run was externally interrupted and is quarantined; completing it requires a separately authorized fresh recovery job/run because this task forbids checkpoint mutation and a second soak epoch."
-  ],
+  "remaining_blockers": [],
   "authority_boundaries": {
     "video_public_write_count": 0,
     "public_write_authority": false,
