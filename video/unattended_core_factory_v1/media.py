@@ -28,6 +28,7 @@ class MediaExecutionError(RuntimeError):
 
 
 WINDOWS_SAFE_EXECUTABLE_PATH_MAX = 259
+WINDOWS_CREATEPROCESS_COMMAND_LINE_MAX = 32_767
 REMOTION_BROWSER_RELATIVE = Path(
     ".remotion/chrome-headless-shell/win64/"
     "chrome-headless-shell-win64/chrome-headless-shell.exe"
@@ -72,6 +73,152 @@ def run_command(
             + completed.stdout[-8000:]
         )
     return result
+
+
+def _canonical_cli(dependency_root: Path, name: str) -> Path:
+    suffix = ".cmd" if os.name == "nt" else ""
+    return (dependency_root.resolve() / ".bin" / f"{name}{suffix}").resolve()
+
+
+def _validate_windows_launch_geometry(
+    *, label: str, executable: Path, cwd: Path, command: Sequence[str]
+) -> dict[str, Any]:
+    serialized = subprocess.list2cmdline(list(map(str, command))) if os.name == "nt" else None
+    receipt = {
+        "label": label,
+        "executable": str(executable),
+        "executable_path_length": len(str(executable)),
+        "executable_exists": executable.is_file(),
+        "cwd": str(cwd),
+        "cwd_path_length": len(str(cwd)),
+        "cwd_exists": cwd.is_dir(),
+        "argv_shape": [Path(str(command[0])).name, *map(str, command[1:])],
+        "windows_serialized_command_line_length": (
+            len(serialized) if serialized is not None else None
+        ),
+        "shell": False,
+    }
+    if not executable.is_file():
+        raise MediaExecutionError(f"{label}_executable_missing:{executable}")
+    if not cwd.is_dir():
+        raise MediaExecutionError(f"{label}_cwd_missing:{cwd}")
+    if os.name == "nt":
+        if len(str(executable)) > WINDOWS_SAFE_EXECUTABLE_PATH_MAX:
+            raise MediaExecutionError(
+                f"{label}_executable_path_too_long:{len(str(executable))}"
+            )
+        if len(str(cwd)) > WINDOWS_SAFE_EXECUTABLE_PATH_MAX:
+            raise MediaExecutionError(f"{label}_cwd_path_too_long:{len(str(cwd))}")
+        if len(serialized or "") >= WINDOWS_CREATEPROCESS_COMMAND_LINE_MAX:
+            raise MediaExecutionError(
+                f"{label}_serialized_command_line_too_long:{len(serialized or '')}"
+            )
+    return receipt
+
+
+def typescript_launch_geometry(
+    project_root: Path, dependency_root: Path
+) -> dict[str, Any]:
+    project = project_root.resolve()
+    dependency = dependency_root.resolve()
+    executable = _canonical_cli(dependency, "tsc")
+    cwd = dependency.parent
+    command = [str(executable), "--project", str(project / "tsconfig.json"), "--noEmit"]
+    receipt = _validate_windows_launch_geometry(
+        label="typescript", executable=executable, cwd=cwd, command=command
+    )
+    projected = project / "node_modules" / ".bin" / executable.name
+    return {
+        "result": "PASS_TYPESCRIPT_PROCESS_LAUNCH_GEOMETRY",
+        "launch_topology": "CANONICAL_DEPENDENCY_ROOT_CLI_EXPLICIT_PROJECT",
+        "project_root": str(project),
+        "project_root_path_length": len(str(project)),
+        "projected_executable": str(projected),
+        "projected_executable_path_length": len(str(projected)),
+        "projected_executable_selected": False,
+        "command": command,
+        **receipt,
+    }
+
+
+def remotion_launch_geometry(
+    *,
+    project_root: Path,
+    dependency_root: Path,
+    output: Path,
+    crf: int,
+    browser_executable: Path,
+    public_root: Path,
+    composition_id: str = "ContentOpsV2Short",
+    entry_point: str = "src/index.tsx",
+    concurrency: int = 2,
+) -> dict[str, Any]:
+    project = project_root.resolve()
+    dependency = dependency_root.resolve()
+    executable = _canonical_cli(dependency, "remotion")
+    cwd = dependency.parent
+    browser = browser_executable.resolve()
+    public = public_root.resolve()
+    entry = (project / entry_point).resolve()
+    command = [
+        str(executable),
+        "render",
+        str(entry),
+        composition_id,
+        str(output.resolve()),
+        "--codec=h264",
+        f"--crf={int(crf)}",
+        "--pixel-format=yuv420p",
+        f"--concurrency={max(1, int(concurrency))}",
+        f"--browser-executable={browser}",
+        f"--public-dir={public}",
+        "--log=verbose",
+    ]
+    receipt = _validate_windows_launch_geometry(
+        label="remotion", executable=executable, cwd=cwd, command=command
+    )
+    projected = project / "node_modules" / ".bin" / executable.name
+    return {
+        "result": "PASS_REMOTION_PROCESS_LAUNCH_GEOMETRY",
+        "launch_topology": "CANONICAL_DEPENDENCY_ROOT_CLI_ABSOLUTE_ENTRY_POINT",
+        "project_root": str(project),
+        "project_root_path_length": len(str(project)),
+        "entry_point": str(entry),
+        "entry_point_path_length": len(str(entry)),
+        "projected_executable": str(projected),
+        "projected_executable_path_length": len(str(projected)),
+        "projected_executable_selected": False,
+        "browser_executable": str(browser),
+        "browser_executable_path_length": len(str(browser)),
+        "public_root": str(public),
+        "public_root_path_length": len(str(public)),
+        "output": str(output.resolve()),
+        "output_path_length": len(str(output.resolve())),
+        "command": command,
+        **receipt,
+    }
+
+
+def validate_process_launch_geometry(
+    *, project_root: Path, dependency_root: Path, public_root: Path, output: Path
+) -> dict[str, Any]:
+    browser = resolve_remotion_browser_executable(dependency_root)
+    return {
+        "result": "PASS_V2_MEDIA_PROCESS_LAUNCH_GEOMETRY_PREFLIGHT",
+        "typescript": typescript_launch_geometry(project_root, dependency_root),
+        "remotion": remotion_launch_geometry(
+            project_root=project_root,
+            dependency_root=dependency_root,
+            output=output,
+            crf=26,
+            browser_executable=browser,
+            public_root=public_root,
+        ),
+        "canonical_browser_executable": str(browser),
+        "canonical_browser_path_length": len(str(browser)),
+        "windows_safe_executable_path_max": WINDOWS_SAFE_EXECUTABLE_PATH_MAX,
+        "windows_createprocess_command_line_max": WINDOWS_CREATEPROCESS_COMMAND_LINE_MAX,
+    }
 
 
 def _ensure_junction(link: Path, target: Path) -> None:
@@ -136,9 +283,8 @@ def validate_dependency_root(dependency_root: Path) -> dict[str, Any]:
             f"dependency_root_must_be_node_modules_directory:{root}"
         )
 
-    executable_suffix = ".cmd" if os.name == "nt" else ""
-    remotion_cli = (root / ".bin" / f"remotion{executable_suffix}").resolve()
-    typescript_cli = (root / ".bin" / f"tsc{executable_suffix}").resolve()
+    remotion_cli = _canonical_cli(root, "remotion")
+    typescript_cli = _canonical_cli(root, "tsc")
     for label, executable in (
         ("remotion_cli", remotion_cli),
         ("typescript_cli", typescript_cli),
@@ -149,8 +295,17 @@ def validate_dependency_root(dependency_root: Path) -> dict[str, Any]:
             raise MediaExecutionError(
                 f"dependency_root_{label}_missing:{executable}"
             )
+        if os.name == "nt" and len(str(executable)) > WINDOWS_SAFE_EXECUTABLE_PATH_MAX:
+            raise MediaExecutionError(
+                f"dependency_root_{label}_path_too_long:{len(str(executable))}"
+            )
 
     browser = resolve_remotion_browser_executable(root)
+    selected_cwd = root.parent
+    if os.name == "nt" and len(str(selected_cwd)) > WINDOWS_SAFE_EXECUTABLE_PATH_MAX:
+        raise MediaExecutionError(
+            f"dependency_root_selected_cwd_path_too_long:{len(str(selected_cwd))}"
+        )
     return {
         "result": "PASS_REMOTION_DEPENDENCY_ROOT_PREFLIGHT",
         "dependency_root": str(root),
@@ -159,7 +314,12 @@ def validate_dependency_root(dependency_root: Path) -> dict[str, Any]:
         "typescript_cli": str(typescript_cli),
         "canonical_browser_executable": str(browser),
         "canonical_browser_path_length": len(str(browser)),
+        "selected_cli_cwd": str(selected_cwd),
+        "selected_cli_cwd_path_length": len(str(selected_cwd)),
+        "launch_topology": "CANONICAL_DEPENDENCY_ROOT_CLI_WITH_EXPLICIT_PROJECT_PATHS",
         "windows_safe_executable_path_max": WINDOWS_SAFE_EXECUTABLE_PATH_MAX,
+        "windows_createprocess_command_line_max": WINDOWS_CREATEPROCESS_COMMAND_LINE_MAX,
+        "projected_cli_execution_required": False,
         "suitable_for_project_node_modules_projection": True,
     }
 
@@ -216,17 +376,22 @@ def validate_assets(packet: Mapping[str, Any], asset_root: Path) -> dict[str, An
     return {"result": "PASS_ASSET_HASHES_AND_RIGHTS_BINDING", "assets": records}
 
 
-def typecheck_project(project_root: Path) -> dict[str, Any]:
-    executable = project_root / "node_modules" / ".bin" / (
-        "tsc.cmd" if os.name == "nt" else "tsc"
+def typecheck_project(project_root: Path, dependency_root: Path) -> dict[str, Any]:
+    geometry = typescript_launch_geometry(project_root, dependency_root)
+    result = run_command(
+        geometry["command"], cwd=geometry["cwd"], timeout=300
     )
-    result = run_command([str(executable), "--noEmit"], cwd=project_root, timeout=300)
-    return {"result": "PASS_GENERATED_SOURCE_TYPECHECK", **result}
+    return {
+        "result": "PASS_GENERATED_SOURCE_TYPECHECK",
+        "process_launch_geometry": geometry,
+        **result,
+    }
 
 
 def render_project(
     *,
     project_root: Path,
+    dependency_root: Path,
     output: Path,
     crf: int,
     browser_executable: Path,
@@ -244,25 +409,20 @@ def render_project(
     public = public_root.resolve()
     if not public.is_dir() or not (public / "assets").is_dir():
         raise MediaExecutionError(f"canonical_public_asset_root_invalid:{public}")
-    executable = project_root / "node_modules" / ".bin" / (
-        "remotion.cmd" if os.name == "nt" else "remotion"
+    geometry = remotion_launch_geometry(
+        project_root=project_root,
+        dependency_root=dependency_root,
+        output=output,
+        crf=crf,
+        browser_executable=browser,
+        public_root=public,
+        composition_id=composition_id,
+        entry_point=entry_point,
+        concurrency=concurrency,
     )
     result = run_command(
-        [
-            str(executable),
-            "render",
-            entry_point,
-            composition_id,
-            str(output),
-            "--codec=h264",
-            f"--crf={int(crf)}",
-            "--pixel-format=yuv420p",
-            f"--concurrency={max(1, int(concurrency))}",
-            f"--browser-executable={browser}",
-            f"--public-dir={public}",
-            "--log=verbose",
-        ],
-        cwd=project_root,
+        geometry["command"],
+        cwd=geometry["cwd"],
         timeout=3600,
     )
     return {
@@ -271,6 +431,7 @@ def render_project(
         "browser_executable": str(browser),
         "browser_executable_path_length": len(str(browser)),
         "canonical_public_root": str(public),
+        "process_launch_geometry": geometry,
         **result,
     }
 

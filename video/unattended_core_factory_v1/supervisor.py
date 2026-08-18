@@ -193,6 +193,28 @@ class DesktopSessionV2Factory:
         self.config = config
         self.media = media_backend
         self.dependency_root_preflight = self.config.validate()
+        self.process_launch_geometry_preflight: dict[str, dict[str, Any]] = {}
+        self._ensure_process_launch_geometry_preflight()
+
+    def _ensure_process_launch_geometry_preflight(self) -> None:
+        for queued_job in self.store.jobs():
+            video_job_id = str(queued_job["video_job_id"])
+            if video_job_id in self.process_launch_geometry_preflight:
+                continue
+            root = (self.config.runtime_root / "jobs" / video_job_id).resolve()
+            try:
+                self.process_launch_geometry_preflight[video_job_id] = (
+                    local_media.validate_process_launch_geometry(
+                        project_root=root / "generated_project",
+                        dependency_root=self.config.dependency_root,
+                        public_root=self.config.asset_root,
+                        output=root / "media" / "proxy.mp4",
+                    )
+                )
+            except local_media.MediaExecutionError as exc:
+                raise SupervisorError(
+                    f"process_launch_geometry_preflight_failed:{video_job_id}:{exc}"
+                ) from exc
 
     def _job_root(self, video_job_id: str) -> Path:
         root = (self.config.runtime_root / "jobs" / video_job_id).resolve()
@@ -940,7 +962,9 @@ class DesktopSessionV2Factory:
                 asset_root=self.config.asset_root,
             )
             sandbox = validate_source_files(motion["files"])
-            typecheck = self.media.typecheck_project(paths["project"])
+            typecheck = self.media.typecheck_project(
+                paths["project"], self.config.dependency_root
+            )
             record = _json_artifact(
                 paths["source_validation"],
                 {
@@ -948,6 +972,9 @@ class DesktopSessionV2Factory:
                     "scaffold": scaffold,
                     "sandbox": sandbox,
                     "typecheck": typecheck,
+                    "process_launch_geometry_preflight": self.process_launch_geometry_preflight[
+                        str(job["video_job_id"])
+                    ],
                 },
             )
             self._append(
@@ -968,6 +995,7 @@ class DesktopSessionV2Factory:
             )
             render = self.media.render_project(
                 project_root=paths["project"],
+                dependency_root=self.config.dependency_root,
                 output=paths["proxy"],
                 crf=26,
                 browser_executable=browser,
@@ -1047,7 +1075,9 @@ class DesktopSessionV2Factory:
                 raise SupervisorError("revision_stage_without_material_decision")
             source_records = materialize_source(review["replacement_files"], paths["project"])
             validate_source_files(review["replacement_files"])
-            typecheck = self.media.typecheck_project(paths["project"])
+            typecheck = self.media.typecheck_project(
+                paths["project"], self.config.dependency_root
+            )
             record = _json_artifact(
                 paths["revision"],
                 {
@@ -1077,6 +1107,7 @@ class DesktopSessionV2Factory:
             )
             render = self.media.render_project(
                 project_root=paths["project"],
+                dependency_root=self.config.dependency_root,
                 output=paths["picture"],
                 crf=18,
                 browser_executable=browser,
@@ -1667,6 +1698,7 @@ class DesktopSessionV2Factory:
         max_new_stages: int | None = None,
         quarantine_on_failure: bool = True,
     ) -> dict[str, Any]:
+        self._ensure_process_launch_geometry_preflight()
         claimed = self.store.claim_next(
             worker_id=self.config.worker_id,
             implementation_head=self.config.implementation_head,
@@ -1675,11 +1707,15 @@ class DesktopSessionV2Factory:
         )
         if claimed is None:
             return {"result": "NO_ELIGIBLE_JOB"}
-        return self._progress_claimed(
+        result = self._progress_claimed(
             claimed=claimed,
             max_new_stages=max_new_stages,
             quarantine_on_failure=quarantine_on_failure,
         )
+        result["process_launch_geometry_preflight"] = (
+            self.process_launch_geometry_preflight[str(claimed["video_job_id"])]
+        )
+        return result
 
     def resume(
         self,
@@ -1689,13 +1725,18 @@ class DesktopSessionV2Factory:
         max_new_stages: int | None = None,
         quarantine_on_failure: bool = True,
     ) -> dict[str, Any]:
+        self._ensure_process_launch_geometry_preflight()
         claimed = self._active_job(video_job_id=video_job_id, run_id=run_id)
         claimed["run_id"] = run_id
-        return self._progress_claimed(
+        result = self._progress_claimed(
             claimed=claimed,
             max_new_stages=max_new_stages,
             quarantine_on_failure=quarantine_on_failure,
         )
+        result["process_launch_geometry_preflight"] = (
+            self.process_launch_geometry_preflight[video_job_id]
+        )
+        return result
 
 
 # Backward-compatible name for callers that imported the old supervisor class. The class itself

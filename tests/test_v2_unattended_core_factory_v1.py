@@ -49,8 +49,11 @@ from video.unattended_core_factory_v1.media import (
     MediaExecutionError,
     REMOTION_BROWSER_RELATIVE,
     _ensure_junction,
+    render_project,
     resolve_remotion_browser_executable,
+    typecheck_project,
     validate_dependency_root,
+    validate_process_launch_geometry,
 )
 from video.unattended_core_factory_v1 import media as production_media
 from video.unattended_core_factory_v1.supervisor import (
@@ -265,7 +268,7 @@ class FakeMedia:
     def validate_assets(self, packet, asset_root):
         return {"result": "PASS_ASSET_HASHES_AND_RIGHTS_BINDING", "assets": []}
 
-    def typecheck_project(self, project_root: Path):
+    def typecheck_project(self, project_root: Path, dependency_root: Path):
         if self.fail_typecheck:
             raise RuntimeError("injected_typecheck_failure")
         return {"result": "PASS_GENERATED_SOURCE_TYPECHECK"}
@@ -275,7 +278,7 @@ class FakeMedia:
         browser.write_bytes(b"browser")
         return browser
 
-    def render_project(self, *, project_root: Path, output: Path, crf: int, browser_executable: Path, public_root: Path):
+    def render_project(self, *, project_root: Path, dependency_root: Path, output: Path, crf: int, browser_executable: Path, public_root: Path):
         self.render_count += 1
         root_source = (project_root / "src" / "Root.tsx").read_text(encoding="utf-8")
         frames = int(root_source.split("durationInFrames={", 1)[1].split("}", 1)[0])
@@ -674,6 +677,96 @@ def test_dependency_root_preflight_rejects_project_root_and_accepts_node_modules
     assert Path(receipt["typescript_cli"]).is_file()
     assert Path(receipt["canonical_browser_executable"]).is_file()
     assert receipt["suitable_for_project_node_modules_projection"] is True
+    assert receipt["projected_cli_execution_required"] is False
+    assert receipt["launch_topology"] == (
+        "CANONICAL_DEPENDENCY_ROOT_CLI_WITH_EXPLICIT_PROJECT_PATHS"
+    )
+
+
+def test_production_like_windows_geometry_selects_only_canonical_tool_launches(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    dependency = dependency_surface(tmp_path / "canonical-tool-root" / "node_modules")
+    assets = tmp_path / "canonical-public-root"
+    (assets / "assets").mkdir(parents=True)
+    runtime = (
+        tmp_path
+        / "Capital Chronicle Worktrees"
+        / "v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1"
+        / ".task-runtime"
+        / "v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1"
+    )
+    job_id = "v2_" + "long_valid_qualified_story_identity_" * 3 + "2026"
+    project = runtime / "jobs" / job_id / "generated_project"
+    materialize_source(source_files(), project)
+    production_media.prepare_project(
+        project_root=project,
+        scaffold_root=REPO / "video" / "unattended_core_factory_v1" / "scaffold",
+        dependency_root=dependency,
+        asset_root=assets,
+    )
+    projected_tsc = project / "node_modules" / ".bin" / (
+        "tsc.cmd" if os.name == "nt" else "tsc"
+    )
+    projected_remotion = project / "node_modules" / ".bin" / (
+        "remotion.cmd" if os.name == "nt" else "remotion"
+    )
+    if os.name == "nt":
+        assert len(str(projected_tsc)) > 259
+        assert len(str(projected_remotion)) > 259
+
+    output = runtime / "jobs" / job_id / "media" / "proxy.mp4"
+    geometry = validate_process_launch_geometry(
+        project_root=project,
+        dependency_root=dependency,
+        public_root=assets,
+        output=output,
+    )
+    assert geometry["typescript"]["projected_executable_selected"] is False
+    assert geometry["remotion"]["projected_executable_selected"] is False
+    assert Path(geometry["typescript"]["executable"]) == (
+        dependency / ".bin" / ("tsc.cmd" if os.name == "nt" else "tsc")
+    ).resolve()
+    assert Path(geometry["remotion"]["executable"]) == (
+        dependency / ".bin" / ("remotion.cmd" if os.name == "nt" else "remotion")
+    ).resolve()
+    assert Path(geometry["typescript"]["cwd"]) == dependency.parent.resolve()
+    assert Path(geometry["remotion"]["cwd"]) == dependency.parent.resolve()
+
+    calls: list[tuple[list[str], Path]] = []
+
+    def fake_run(command, *, cwd=None, timeout=1800):
+        command = list(map(str, command))
+        calls.append((command, Path(str(cwd))))
+        if len(command) > 1 and command[1] == "render":
+            rendered = Path(command[4])
+            rendered.parent.mkdir(parents=True, exist_ok=True)
+            rendered.write_bytes(b"rendered")
+        return {
+            "command": command,
+            "returncode": 0,
+            "wall_time_seconds": 0.01,
+            "output_tail": "",
+        }
+
+    monkeypatch.setattr(production_media, "run_command", fake_run)
+    checked = typecheck_project(project, dependency)
+    browser = resolve_remotion_browser_executable(dependency)
+    rendered = render_project(
+        project_root=project,
+        dependency_root=dependency,
+        output=output,
+        crf=26,
+        browser_executable=browser,
+        public_root=assets,
+    )
+    assert checked["result"] == "PASS_GENERATED_SOURCE_TYPECHECK"
+    assert rendered["result"] == "PASS_RENDER"
+    assert calls[0][0][0] == geometry["typescript"]["executable"]
+    assert calls[0][0][1:3] == ["--project", str(project.resolve() / "tsconfig.json")]
+    assert calls[1][0][0] == geometry["remotion"]["executable"]
+    assert calls[1][0][2] == str(project.resolve() / "src" / "index.tsx")
+    assert calls[0][1] == calls[1][1] == dependency.parent.resolve()
 
 
 def test_dependency_root_preflight_fails_closed_for_missing_and_ambiguous_browser(
@@ -756,6 +849,58 @@ def test_canonical_runner_rejects_invalid_dependency_root_before_claim_or_proof_
     assert job["claimed_by"] is None
     assert job["run_id"] is None
     assert store.events("invalid-root-job") == []
+    with store.connect() as connection:
+        assert connection.execute("SELECT COUNT(*) FROM job_runs").fetchone()[0] == 0
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows CreateProcess geometry contract")
+def test_process_geometry_preflight_rejects_unsupported_actual_job_before_claim(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    runtime = tmp_path / "runtime"
+    store = V2JobStore(runtime / "v2_jobs.sqlite3")
+    input_path = tmp_path / "input.json"
+    input_path.write_text(json.dumps(packet()), encoding="utf-8")
+    job_id = "v2_" + "valid_long_job_identity_" * 3
+    store.seed_job(
+        video_job_id=job_id,
+        input_packet_path=input_path,
+        input_packet_hash=hash_value(packet()),
+        target_format="SHORT_9_16_1080X1920_30FPS",
+    )
+    dependency = dependency_surface(tmp_path / "canonical" / "node_modules")
+    assets = tmp_path / "assets"
+    assets.mkdir()
+    model = tmp_path / "kokoro.onnx"
+    voices = tmp_path / "voices.bin"
+    model.write_bytes(b"model")
+    voices.write_bytes(b"voices")
+    monkeypatch.setattr(
+        production_media, "WINDOWS_CREATEPROCESS_COMMAND_LINE_MAX", 180
+    )
+    config = FactoryConfig(
+        runtime_root=runtime,
+        scaffold_root=tmp_path,
+        dependency_root=dependency,
+        asset_root=assets,
+        kokoro_model=model,
+        kokoro_voices=voices,
+        implementation_head="a" * 40,
+        worker_id="geometry-preflight-worker",
+        parent_provenance=PARENT,
+    )
+
+    with pytest.raises(
+        SupervisorError,
+        match=r"process_launch_geometry_preflight_failed:.*serialized_command_line_too_long",
+    ):
+        DesktopSessionV2Factory(store=store, config=config)
+
+    job = store.job(job_id)
+    assert job["state"] == "QUEUED"
+    assert job["claimed_by"] is None
+    assert job["run_id"] is None
+    assert store.events(job_id) == []
     with store.connect() as connection:
         assert connection.execute("SELECT COUNT(*) FROM job_runs").fetchone()[0] == 0
 
@@ -1276,15 +1421,27 @@ def test_legal_stage_order_zero_write_and_owner_bundle_truth(tmp_path: Path) -> 
     assert bundle["unattended"]["manual_source_edits_after_start"] == 0
 
 
-def test_real_generated_source_typecheck_and_asset_hashes_when_configured(tmp_path: Path) -> None:
+def test_real_generated_source_typecheck_render_and_browser_when_configured(
+    tmp_path: Path,
+) -> None:
     dependency = os.environ.get("V2_REMOTION_DEPENDENCY_ROOT")
     assets = os.environ.get("V2_FWB_ACCEPTED_ASSET_ROOT")
     if not dependency or not assets:
         pytest.skip("real accepted V2 media roots not configured")
     from video.unattended_core_factory_v1 import media
 
-    project = tmp_path / "generated_project"
-    materialize_source(source_files(), project)
+    from scripts.run_v2_remotion_short_path_smoke_v1 import SMOKE_SOURCE
+
+    runtime = (
+        tmp_path
+        / "Capital Chronicle Worktrees"
+        / "v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1"
+        / ".task-runtime"
+        / "v2-production-like-process-smoke-runtime-root"
+    )
+    job_id = "v2_" + "long_valid_job_identity_" * 3 + "process_smoke"
+    project = runtime / "jobs" / job_id / "generated_project"
+    materialize_source(SMOKE_SOURCE, project)
     media.prepare_project(
         project_root=project,
         scaffold_root=REPO / "video" / "unattended_core_factory_v1" / "scaffold",
@@ -1292,4 +1449,27 @@ def test_real_generated_source_typecheck_and_asset_hashes_when_configured(tmp_pa
         asset_root=Path(assets),
     )
     assert media.validate_assets(packet(), Path(assets))["result"] == "PASS_ASSET_HASHES_AND_RIGHTS_BINDING"
-    assert media.typecheck_project(project)["result"] == "PASS_GENERATED_SOURCE_TYPECHECK"
+    output = runtime / "jobs" / job_id / "media" / "process_smoke.mp4"
+    geometry = media.validate_process_launch_geometry(
+        project_root=project,
+        dependency_root=Path(dependency),
+        public_root=Path(assets),
+        output=output,
+    )
+    assert geometry["typescript"]["projected_executable_selected"] is False
+    assert geometry["remotion"]["projected_executable_selected"] is False
+    assert media.typecheck_project(project, Path(dependency))["result"] == "PASS_GENERATED_SOURCE_TYPECHECK"
+    browser = media.resolve_remotion_browser_executable(Path(dependency))
+    render = media.render_project(
+        project_root=project,
+        dependency_root=Path(dependency),
+        output=output,
+        crf=28,
+        browser_executable=browser,
+        public_root=Path(assets),
+        composition_id="V2RenderSmoke",
+        concurrency=1,
+    )
+    assert render["result"] == "PASS_RENDER"
+    assert output.is_file()
+    assert render["browser_executable"] == str(browser)

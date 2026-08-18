@@ -1,0 +1,106 @@
+{
+  "schema": "contentops.v2.windows_process_launch_geometry_diagnostic.v1",
+  "task_id": "TASK_CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1",
+  "measured_at": "2026-08-18T09:31:43.3069268Z",
+  "source_evidence_head": "117d7526bbba17bca7a96804cdc2a968b2fb4f74",
+  "frozen_implementation_head": "0a17bf3cb98a6c7024a4f474f526f054a781ed33",
+  "quarantined_job_read_only": true,
+  "runtime_root": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1",
+    "characters": 191,
+    "exists": true
+  },
+  "project_root": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\jobs\\v2_soak_us_retail_july_2026\\generated_project",
+    "characters": 242,
+    "exists": true
+  },
+  "failed_typecheck_cwd": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\jobs\\v2_soak_us_retail_july_2026\\generated_project",
+    "characters": 242,
+    "exists": true
+  },
+  "launch_paths": {
+    "projected_typescript_cli": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\jobs\\v2_soak_us_retail_july_2026\\generated_project\\node_modules\\.bin\\tsc.cmd",
+      "characters": 268,
+      "exists": true
+    },
+    "canonical_typescript_cli": {
+      "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v2-freeform-xhigh-owner-polish-v1\\video\\projects\\frozen_without_breaking_v1\\node_modules\\.bin\\tsc.cmd",
+      "characters": 143,
+      "exists": true
+    },
+    "projected_remotion_cli": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\jobs\\v2_soak_us_retail_july_2026\\generated_project\\node_modules\\.bin\\remotion.cmd",
+      "characters": 273,
+      "exists": true
+    },
+    "canonical_remotion_cli": {
+      "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v2-freeform-xhigh-owner-polish-v1\\video\\projects\\frozen_without_breaking_v1\\node_modules\\.bin\\remotion.cmd",
+      "characters": 148,
+      "exists": true
+    },
+    "projected_browser": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\jobs\\v2_soak_us_retail_july_2026\\generated_project\\node_modules\\.remotion\\chrome-headless-shell\\win64\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+      "characters": 347,
+      "exists": true
+    },
+    "canonical_browser": {
+      "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v2-freeform-xhigh-owner-polish-v1\\video\\projects\\frozen_without_breaking_v1\\node_modules\\.remotion\\chrome-headless-shell\\win64\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+      "characters": 222,
+      "exists": true
+    }
+  },
+  "dependency_projection": {
+    "link": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\jobs\\v2_soak_us_retail_july_2026\\generated_project\\node_modules",
+    "link_type": "Junction",
+    "target": "A:\\Capital Chronicle\\ContentOps-worktrees\\v2-freeform-xhigh-owner-polish-v1\\video\\projects\\frozen_without_breaking_v1\\node_modules",
+    "target_exists": true
+  },
+  "failed_launch": {
+    "argv": [
+      "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\jobs\\v2_soak_us_retail_july_2026\\generated_project\\node_modules\\.bin\\tsc.cmd",
+      "--noEmit"
+    ],
+    "windows_serialized_command_line": "\"A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\.task-runtime\\v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1\\jobs\\v2_soak_us_retail_july_2026\\generated_project\\node_modules\\.bin\\tsc.cmd\" --noEmit",
+    "windows_serialized_command_line_characters": 279,
+    "shell": false,
+    "python_version": "3.13.4",
+    "python_executable_identity": "Python313/python.exe",
+    "launch_mode": "subprocess.run(shell=False default) -> CreateProcessW with direct .cmd wrapper argv"
+  },
+  "host_state": {
+    "windows_long_paths_enabled": 1,
+    "state_read_only": true,
+    "environment_or_path_values_recorded": false
+  },
+  "bounded_reproduction": {
+    "attempts": 1,
+    "durable_job_state_mutated": false,
+    "launch": "RAISED_BEFORE_CHILD_PROCESS",
+    "exception_type": "FileNotFoundError",
+    "winerror": 206,
+    "errno": 2,
+    "message": "[WinError 206] The filename or extension is too long",
+    "wall_time_seconds": 0.0024
+  },
+  "root_cause": {
+    "classification": "A_EXECUTABLE_MODULE_PATH_WITH_PROJECTED_CMD_WRAPPER",
+    "exact_vector": "The job-projected tsc.cmd executable path is 268 characters and crosses the legacy CreateProcess executable/module path boundary before the child starts.",
+    "cwd_vector": "EXCLUDED_BY_MEASUREMENT: existing cwd is 242 characters and below the legacy MAX_PATH boundary.",
+    "serialized_command_vector": "EXCLUDED_BY_MEASUREMENT: the serialized command line is 279 characters, far below the Windows CreateProcess command-line limit.",
+    "other_constraint": "NOT_OBSERVED",
+    "affected_sibling": "The projected remotion.cmd path is 273 characters and has the same pre-launch exposure.",
+    "canonical_escape": "The canonical dependency-root tsc.cmd and remotion.cmd paths are 143 and 148 characters; the canonical browser is 222 characters."
+  },
+  "codegraph_before": {
+    "source": "frozen failed-soak worktree .codegraph index",
+    "nodes": 7195,
+    "edges": 13521,
+    "query_result": "typecheck_project -> run_command; render_project -> run_command; supervisor stage executor -> both; shared FFmpeg helpers -> run_command",
+    "new_repair_worktree_index": "UNAVAILABLE_NO_DOT_CODEGRAPH"
+  },
+  "public_write_authority": false,
+  "locale_activation_started": false
+}

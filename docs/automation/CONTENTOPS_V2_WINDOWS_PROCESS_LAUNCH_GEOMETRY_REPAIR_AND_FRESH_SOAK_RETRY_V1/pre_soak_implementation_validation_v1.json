@@ -1,0 +1,76 @@
+{
+  "schema": "contentops.v2.windows_process_launch_geometry_pre_soak_validation.v1",
+  "task_id": "TASK_CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1",
+  "starting_head": "117d7526bbba17bca7a96804cdc2a968b2fb4f74",
+  "implementation_head_binding": "COMMIT_CONTAINING_THIS_RECEIPT; exact SHA is recorded in the post-commit parity receipt and final task handoff",
+  "root_cause_receipt": "docs/automation/CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1/windows_process_launch_geometry_diagnostic_v1.json",
+  "root_cause": "A_EXECUTABLE_MODULE_PATH_WITH_PROJECTED_CMD_WRAPPER",
+  "repair": {
+    "typescript": "canonical dependency-root tsc.cmd with --project <absolute generated_project/tsconfig.json> --noEmit",
+    "remotion": "canonical dependency-root remotion.cmd with absolute generated-project entry point",
+    "cwd": "canonical dependency project root, independent of task/runtime/job path growth",
+    "browser": "unchanged canonical dependency-root chrome-headless-shell identity",
+    "dependency_projection": "retained only for Node module resolution; projected CLI/browser paths are not selected for process launch",
+    "preflight": "all current jobs are measured before claim and refreshed before claim/resume; unsupported executable, cwd, browser, or serialized command geometry fails before proof mutation"
+  },
+  "real_windows_process_smoke": {
+    "result": "PASS_NON_CREATIVE_REMOTION_BROWSER_SMOKE",
+    "receipt_path": "A:\\Capital Chronicle\\Temp\\v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1\\production-like-long-runtime-root-20260818\\remotion_browser_smoke_receipt.json",
+    "receipt_sha256": "8ec5d096631a9b1f8ab04c5c9700e99ac573c693c37fa654acb672fbb2ccfdd3",
+    "receipt_size_bytes": 37281,
+    "project_root_characters": 252,
+    "projected_typescript_cli_characters": 278,
+    "selected_typescript_cli_characters": 143,
+    "typescript_serialized_command_characters": 433,
+    "typescript_returncode": 0,
+    "typescript_wall_time_seconds": 5.6983,
+    "projected_remotion_cli_characters": 283,
+    "selected_remotion_cli_characters": 148,
+    "remotion_serialized_command_characters": 1245,
+    "canonical_browser_characters": 222,
+    "projected_browser_characters": 357,
+    "selected_browser": "CANONICAL",
+    "remotion_wall_time_seconds": 115.5666,
+    "media_path": "A:\\Capital Chronicle\\Temp\\v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1\\production-like-long-runtime-root-20260818\\jobs\\v2_process_geometry_smoke_long_valid_job_identity_long_valid_job_identity_long_valid_job_identity_\\media\\remotion_browser_smoke.mp4",
+    "media_path_characters": 267,
+    "media_sha256": "0ac34207af9ff2179ef369636672f275416c57ab9419076bf71da085058337ff",
+    "media_size_bytes": 46514,
+    "probe": "320x568 / 30fps / H.264 High / 30 frames / 1.0s video",
+    "canonical_browser_launch": "PASS",
+    "creative_reasoning_used": false,
+    "public_write_authority": false
+  },
+  "tests": {
+    "focused_supervisor_and_graph_suite": "53 passed, 1 skipped in 86.88s",
+    "configured_real_process_regression": "1 passed in 41.97s",
+    "compileall": "PASS",
+    "ruff_changed_surface_excluding_pre_existing_E402_F401": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "codegraph": {
+    "frozen_committed_before": {
+      "nodes": 7195,
+      "edges": 13521
+    },
+    "committed_after": {
+      "nodes": 7198,
+      "edges": 13531,
+      "check": "CODEGRAPH_CURRENT"
+    },
+    "cli_before": {
+      "nodes": 48164,
+      "edges": 124451
+    },
+    "cli_after": {
+      "nodes": 48174,
+      "edges": 124526,
+      "status": "INDEX_UP_TO_DATE"
+    },
+    "post_query": "typecheck_project and render_project have one canonical media launcher seam; supervisor calls both; no production caller selects generated_project/node_modules/.bin CLI wrappers"
+  },
+  "soak_epoch_started": false,
+  "old_quarantined_runs_resumed": false,
+  "locale_activation_started": false,
+  "video_public_write_count": 0,
+  "v1_mutation_count": 0
+}

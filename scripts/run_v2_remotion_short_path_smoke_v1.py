@@ -20,7 +20,9 @@ from video.unattended_core_factory_v1.media import (
     probe_media,
     render_project,
     resolve_remotion_browser_executable,
+    typecheck_project,
     validate_dependency_root,
+    validate_process_launch_geometry,
 )
 
 
@@ -67,10 +69,17 @@ def main() -> int:
     args = parser.parse_args()
 
     runtime = args.runtime_root.resolve()
-    project = runtime / "p"
-    output = runtime / "remotion_browser_smoke.mp4"
+    job_id = "v2_process_geometry_smoke_" + "long_valid_job_identity_" * 3
+    project = runtime / "jobs" / job_id / "generated_project"
+    output = runtime / "jobs" / job_id / "media" / "remotion_browser_smoke.mp4"
     receipt_path = runtime / "remotion_browser_smoke_receipt.json"
     dependency_preflight = validate_dependency_root(args.dependency_root)
+    process_geometry_preflight = validate_process_launch_geometry(
+        project_root=project,
+        dependency_root=args.dependency_root,
+        public_root=args.asset_root,
+        output=output,
+    )
     materialize_source(SMOKE_SOURCE, project)
     scaffold = prepare_project(
         project_root=project,
@@ -78,9 +87,11 @@ def main() -> int:
         dependency_root=args.dependency_root.resolve(),
         asset_root=args.asset_root.resolve(),
     )
+    typecheck = typecheck_project(project, args.dependency_root)
     browser = resolve_remotion_browser_executable(args.dependency_root)
     render = render_project(
         project_root=project,
+        dependency_root=args.dependency_root,
         output=output,
         crf=28,
         browser_executable=browser,
@@ -106,7 +117,9 @@ def main() -> int:
         "creative_reasoning_used": False,
         "parent_reasoning_effort": "high",
         "dependency_root_preflight": dependency_preflight,
+        "process_launch_geometry_preflight": process_geometry_preflight,
         "scaffold": scaffold,
+        "typecheck": typecheck,
         "browser_launch_layout": browser_launch_layout(project, args.dependency_root),
         "render": render,
         "media": artifact(output),
