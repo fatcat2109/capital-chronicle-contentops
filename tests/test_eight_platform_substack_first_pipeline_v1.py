@@ -843,6 +843,61 @@ def test_substack_draft_id_readback_uses_exact_read_only_resolver(
     assert result["public_object_id"] == "210796285"
 
 
+def test_text_only_substack_readback_preserves_delivery_only_manifest(
+    monkeypatch, tmp_path
+):
+    existing = {
+        "status": "PASS",
+        "assets": [
+            {
+                "media_asset_id": "delivery_only_editorial_card",
+                "media_role": "delivery_only",
+                "local_public_hash_continuity": True,
+                "verified_public_delivery_url": "https://res.cloudinary.com/example/card.png",
+            }
+        ],
+    }
+    manifest_path = tmp_path / "delivery_media_manifest_v1.json"
+    manifest_path.write_text(json.dumps(existing), encoding="utf-8")
+    monkeypatch.setattr(
+        pipeline,
+        "_durable_intent_inputs",
+        lambda _intent: {
+            "output_dir": tmp_path,
+            "article": {
+                "title": "Exact title",
+                "subtitle": "Exact subtitle",
+                "substack_body_markdown": "Exact body",
+            },
+            "payloads": {"substack": {"text": ""}},
+            "canonical_url": "https://capitalchronicle.substack.com/p/exact",
+            "local_media": "",
+            "delivery_local_media": "",
+            "media_assets": [],
+            "primary_media": existing["assets"][0],
+        },
+    )
+    monkeypatch.setattr(
+        pipeline,
+        "audit_public_substack_article_via_edge",
+        lambda **_kwargs: {
+            "status": "SUCCESS",
+            "post_id": "123",
+            "public_url": "https://capitalchronicle.substack.com/p/exact",
+            "readback": {"public_image_urls": ["https://substackcdn.example/old.png"]},
+        },
+    )
+
+    pipeline._readback_one_destination_from_durable_intent(
+        destination="substack",
+        public_object_id="123",
+        public_object_url="https://capitalchronicle.substack.com/p/exact",
+        intent={"output_dir": str(tmp_path)},
+    )
+
+    assert json.loads(manifest_path.read_text(encoding="utf-8")) == existing
+
+
 def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
     monkeypatch, tmp_path
 ):

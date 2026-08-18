@@ -1,0 +1,143 @@
+{
+  "schema_version": "contentops.v1.final_blocked_platform_recovery_closeout.v1",
+  "task_label": "TASK_CONTENTOPS_V1_FINAL_BLOCKED_PLATFORM_RECOVERY_CLOSEOUT_V1",
+  "owner_instruction": "Use Instagram and Facebook user environment API bindings, keep X on canonical Edge CDP, and finish the remaining blocked platforms.",
+  "recorded_at_utc": "2026-08-18T12:25:00Z",
+  "work_item_id": "operator-requested-operator-trigger-27e8edb0a5764d4898d6fee0",
+  "source_draft_id": "211677374",
+  "branch": "codex/v1-final-blocked-platform-recovery-v1",
+  "base_commit": "458be8c7e011c617e04433e52523448e2f2b6fba",
+  "classification": "PASS_NINE_SURFACE_LIVE_TRANSACTION_RECOVERED_AWAITING_OWNER_AUDIT",
+  "v1_final_product_accepted": false,
+  "automations_enabled": false,
+  "unknown_write_count": 0,
+  "recovery_backlog_count": 0,
+  "surface_count": 9,
+  "confirmed_surface_count": 9,
+  "strict_reconciled_surface_count": 8,
+  "surfaces": {
+    "substack": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_CONFIRMED",
+      "public_object_id": "211677374",
+      "public_url": "https://capitalchronicle.substack.com/p/ft-flags-lender-insurance-gap-around"
+    },
+    "telegram": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_CONFIRMED",
+      "public_object_id": "65",
+      "public_url": "https://t.me/CapitalChronicle/65"
+    },
+    "x": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_CONFIRMED",
+      "public_object_id": "2089681225246233006",
+      "public_url": "https://x.com/Capitalnicle/status/2089681225246233006",
+      "reply_object_id": "2089688511884726540",
+      "reply_public_url": "https://x.com/Capitalnicle/status/2089688511884726540",
+      "transport": "EDGE_CDP_9223",
+      "strict_readback": "SUCCESS"
+    },
+    "discord": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_CONFIRMED",
+      "public_object_id": "1539239791525105735",
+      "public_url": null
+    },
+    "linkedin": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_object_id": "urn:li:share:7495446784773632000",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:share:7495446784773632000/"
+    },
+    "facebook_page": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1374645701520513",
+      "public_url": "https://www.facebook.com/1342369584748125/posts/1374645701520513",
+      "transport": "META_GRAPH_API",
+      "page_identity_verified": true,
+      "canonical_attachment_link_verified": true,
+      "strict_readback": "SUCCESS"
+    },
+    "instagram_business": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_CONFIRMED",
+      "public_object_id": "18121788067908118",
+      "public_url": "https://www.instagram.com/p/DcLmvL4mMLk/",
+      "transport": "META_GRAPH_API",
+      "account_identity_verified": true,
+      "canonical_caption_url_verified": true,
+      "media_visual_similarity": 0.9982,
+      "strict_readback": "SUCCESS"
+    },
+    "threads": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_CONFIRMED",
+      "public_object_id": "17927800539395903",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/DcLi0J6kmmc"
+    },
+    "youtube": {
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation": "RECONCILED_CONFIRMED",
+      "public_object_id": "Ugkx8XUSqXNmpj1I78WHaHOfak2V1HX20oOS",
+      "public_url": "https://www.youtube.com/post/Ugkx8XUSqXNmpj1I78WHaHOfak2V1HX20oOS"
+    }
+  },
+  "recovery_sequence": [
+    "Facebook canonical URL was verified inside the Graph attachment target rather than the message field; the existing object was reconciled without a new write.",
+    "The unique existing X root was recovered from the pinned @Capitalnicle profile; only the missing reply was written, then the complete thread was strictly read back.",
+    "The deterministic Cloudinary delivery object was reverified from exact public bytes and the lost delivery-only manifest row was restored without duplicate upload.",
+    "The first Instagram correction received Graph code 9007 before any public media existed; two recent-media reads proved exact absence and cleared UNKNOWN_WRITE.",
+    "The Instagram adapter then waited for container status FINISHED before one separately audited completion; exact caption, canonical URL, username, permalink, and image similarity passed."
+  ],
+  "delivery_media_manifest": {
+    "status": "PASS",
+    "provider": "cloudinary",
+    "asset_count": 1,
+    "all_local_public_hash_continuity": true,
+    "duplicate_upload_performed_during_recovery": false
+  },
+  "frozen_semantic_identities": {
+    "governed_input_hash": "d44cafe9c6e48bc21e1024a333c07e951c9ded95cefb675409410afa443c2235",
+    "article_body_sha256": "33d48d5b8ad1250673009c93fc3f1469688b15ec05d3b1a327074f9b69827ddc",
+    "package_identity": "7083c6fd088d3190cb948a4e656eacd11ad18aca95dbf51756c18ece4d2e607d"
+  },
+  "frozen_file_hashes": {
+    "desktop_manual_live_canary_terminal_evidence_v1.json": "1001e996db29e5c9d5412185f9208c432cda5709e0e6a52e6e64db7184c12ca0",
+    "delivery_only_editorial_card.png": "0839a7488a843299767f560bffc2f8e819719593750dcff730a4944dbc7b0ad7",
+    "canonical_article.md": "20b0e54efa007f9ad8beae45ef3c0aff415199383228c783e67fec08b27d42a5",
+    "article_manifest_v1.json": "6fa03d129639316de1ffe5cca66fe2ed46b2050b2a6f19459b54d7724639fab5",
+    "release_candidate_lock_v1.json": "ab1a38ce68509b1027d77bab7ebf52a7b665742c632df64353db803f15da27f3",
+    "run_context_v1.json": "592fecad7ebd30d5bc27ad81d741c50e2fc60428dd08bb7083134e3fd46abfe9"
+  },
+  "automations": {
+    "count": 4,
+    "all_paused": true,
+    "ids": [
+      "v1-newsroom-london-1700",
+      "v1-newsroom-new-york-2100",
+      "v1-newsroom-new-york-2300",
+      "v1-newsroom-new-york-0100"
+    ]
+  },
+  "validation": {
+    "focused_tests": "157 passed",
+    "python_compile": "PASS",
+    "git_diff_check": "PASS",
+    "post_closeout_recovery_readbacks": 0,
+    "post_closeout_recovery_publish_calls": 0,
+    "post_closeout_backlog": 0,
+    "known_unrelated_baseline_test_collection_issue": "tests/test_security_scans.py:45 IndentationError on unchanged origin/master"
+  },
+  "authority_boundaries": {
+    "new_go_or_editorial_run_created": false,
+    "substack_republished": false,
+    "x_root_republished": false,
+    "blind_retry_performed": false,
+    "secrets_persisted": false,
+    "v2_mutated": false,
+    "fifth_automation_created": false
+  },
+  "next_gate": "Jim/ChatGPT audits the real article and all nine public surfaces. Existing four automations remain PAUSED unless that audit explicitly passes and authorizes enablement."
+}

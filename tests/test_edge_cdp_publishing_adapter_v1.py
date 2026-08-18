@@ -16,6 +16,24 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
 )
 
 
+def test_x_permalink_is_canonicalized_and_payload_match_tolerates_mojibake():
+    assert adapter._public_x_url(
+        "https://x.com/Capitalnicle/status/2089681225246233006/analytics?x=1"
+    ) == "https://x.com/Capitalnicle/status/2089681225246233006"
+    assert adapter._x_visible_text_matches(
+        "FT flags lender insurance gap around Meta�BlackRock�s data-centre debt",
+        "FT flags lender insurance gap around Meta–BlackRock’s data-centre debt",
+    )
+
+
+def test_x_payload_match_requires_a_meaningful_stable_prefix():
+    assert not adapter._x_visible_text_matches("short post", "short post")
+    assert not adapter._x_visible_text_matches(
+        "FT flags lender insurance gap around a transaction",
+        "FT flags a different unrelated item",
+    )
+
+
 def test_substack_update_mode_preserves_public_url_and_confirms_update() -> None:
     source = inspect.getsource(adapter.publish_substack_article_via_edge)
     transition_source = inspect.getsource(

@@ -96,9 +96,12 @@ def test_upload_promotes_only_exact_remote_bytes_and_persists_governed_fields(
         }
 
     monkeypatch.setattr(cloudinary, "_upload_asset", upload)
-    monkeypatch.setattr(
-        cloudinary, "read_public_image_bytes", lambda _url: Path(asset["path"]).read_bytes()
-    )
+    def read_remote(url):
+        if url == remote_url:
+            return Path(asset["path"]).read_bytes()
+        raise FileNotFoundError("deterministic object not present before upload")
+
+    monkeypatch.setattr(cloudinary, "read_public_image_bytes", read_remote)
 
     result = cloudinary.prepare_cloudinary_delivery_media(
         work_item_id="work-item-1",
@@ -118,6 +121,36 @@ def test_upload_promotes_only_exact_remote_bytes_and_persists_governed_fields(
     assert row["article_inclusion"] is False
     assert row["canonical_article_media"] is False
     assert result["manifest"]["article_media_authority"] is False
+
+
+def test_missing_manifest_reuses_deterministic_existing_object_without_upload(
+    tmp_path, monkeypatch
+):
+    asset = _asset(tmp_path)
+    monkeypatch.setattr(
+        cloudinary,
+        "_upload_asset",
+        lambda **_kwargs: (_ for _ in ()).throw(AssertionError("must not duplicate")),
+    )
+    monkeypatch.setattr(
+        cloudinary,
+        "read_public_image_bytes",
+        lambda _url: Path(asset["path"]).read_bytes(),
+    )
+
+    result = cloudinary.prepare_cloudinary_delivery_media(
+        work_item_id="work-item-1",
+        delivery_only_assets=[asset],
+        existing_manifest={},
+        environment=_environment(),
+    )
+
+    assert result["status"] == cloudinary.READY
+    assert result["provider_calls"] == 0
+    assert result["reused_asset_count"] == 1
+    row = result["manifest"]["assets"][0]
+    assert row["provider_object_reused"] is True
+    assert row["verified_public_delivery_url"].endswith(asset["sha256"] + ".png")
 
 
 def test_exact_persisted_object_is_reverified_and_reused_without_upload(

@@ -36,6 +36,7 @@ _MEANINGFUL_IMAGE_MIN_WIDTH = 200
 _MEANINGFUL_IMAGE_MIN_HEIGHT = 100
 _LINKEDIN_CHART_SIMILARITY_MINIMUM = 0.78
 _YOUTUBE_COMMUNITY_HANDLE = "@CapitalChronicleYouTube"
+_X_PUBLIC_HANDLE = "@Capitalnicle"
 _TECHNICAL_PUBLIC_TEXT_RE = re.compile(
     r"(?:eight[_ -]?platform[_ -]?live|run[_ -]?id|recovery\d+|docs[\\/]automation|[A-Za-z]:\\)",
     re.IGNORECASE,
@@ -80,8 +81,9 @@ def _public_x_url(value: str | None) -> str | None:
     if not value:
         return None
     parsed = urllib.parse.urlparse(value)
-    if parsed.scheme == "https" and parsed.netloc in {"x.com", "www.x.com"} and "/status/" in parsed.path:
-        return value.split("?", 1)[0]
+    match = re.fullmatch(r"/([^/]+)/status/(\d+)(?:/.*)?", parsed.path)
+    if parsed.scheme == "https" and parsed.netloc in {"x.com", "www.x.com"} and match:
+        return f"https://x.com/{match.group(1)}/status/{match.group(2)}"
     return None
 
 
@@ -2616,25 +2618,176 @@ def repair_substack_editorial_paragraphs_via_edge(
         }
 
 
+def _x_text_signature(value: str, *, limit: int = 6) -> tuple[str, ...]:
+    first_line = next((line for line in str(value or "").splitlines() if line.strip()), value)
+    return tuple(re.findall(r"[a-z0-9]+", str(first_line).casefold())[:limit])
+
+
+def _x_visible_text_matches(expected_text: str, visible_text: str) -> bool:
+    signature = _x_text_signature(expected_text)
+    visible_tokens = tuple(re.findall(r"[a-z0-9]+", str(visible_text or "").casefold()))
+    if len(signature) < 4 or sum(map(len, signature)) < 20:
+        return False
+    cursor = 0
+    for token in visible_tokens:
+        if cursor < len(signature) and token == signature[cursor]:
+            cursor += 1
+    return cursor == len(signature)
+
+
+def _x_status_url_from_article(article: Any, handle: str) -> str | None:
+    expected_handle = str(handle or "").lstrip("@").casefold()
+    candidates: list[str] = []
+    for link in article.locator("a[href*='/status/']").all():
+        href = str(link.get_attribute("href") or "")
+        candidate = _public_x_url(f"https://x.com{href}" if href.startswith("/") else href)
+        if not candidate:
+            continue
+        parsed = urllib.parse.urlparse(candidate)
+        observed_handle = parsed.path.strip("/").split("/", 1)[0].casefold()
+        if observed_handle == expected_handle:
+            candidates.append(candidate)
+    unique = list(dict.fromkeys(candidates))
+    return unique[0] if len(unique) == 1 else None
+
+
 def _x_permalink_from_profile(page: Any, handle: str | None, expected_text: str) -> str | None:
     if not handle:
         return None
     page.goto(f"https://x.com/{handle.lstrip('@')}", wait_until="domcontentloaded", timeout=45000)
     time.sleep(5)
-    needle = expected_text[:80].lower()
+    matches: list[str] = []
     for article in page.locator("article").all():
         try:
-            if needle not in (article.inner_text(timeout=1200) or "").lower():
+            if not _x_visible_text_matches(expected_text, article.inner_text(timeout=1200) or ""):
                 continue
-            for link in article.locator("a[href*='/status/']").all():
-                href = link.get_attribute("href")
-                candidate = f"https://x.com{href}" if href and href.startswith("/") else href
-                public_url = _public_x_url(candidate)
-                if public_url:
-                    return public_url
+            public_url = _x_status_url_from_article(article, handle)
+            if public_url:
+                matches.append(public_url)
         except Exception:
             continue
-    return None
+    unique = list(dict.fromkeys(matches))
+    return unique[0] if len(unique) == 1 else None
+
+
+def reconcile_x_thread_by_text_via_edge(
+    *,
+    cdp_port: int,
+    expected_text: str,
+    canonical_url: str,
+    expected_reply_texts: Sequence[str],
+    root_url: str | None = None,
+    expected_handle: str = _X_PUBLIC_HANDLE,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Find one exact X root and its replies without crossing a write boundary."""
+    handle = str(expected_handle or _X_PUBLIC_HANDLE).lstrip("@")
+    canonical_root = _public_x_url(root_url)
+    if canonical_root:
+        observed_handle = urllib.parse.urlparse(canonical_root).path.strip("/").split("/", 1)[0]
+        if observed_handle.casefold() != handle.casefold():
+            return {"status": "X_ROOT_IDENTITY_MISMATCH", "platform": "x"}
+    with canonical_edge_page(cdp_port) as page:
+        root_article = None
+        if canonical_root:
+            page.goto(canonical_root, wait_until="domcontentloaded", timeout=45000)
+            time.sleep(5)
+            root_id = canonical_root.rstrip("/").rsplit("/", 1)[-1]
+            candidate = _x_article_for_status(page, root_id)
+            visible = _normalised_visible_text(candidate.inner_text(timeout=2500)) if candidate else ""
+            if (
+                candidate
+                and _x_visible_text_matches(expected_text, visible)
+                and _canonical_reference_visible(visible, canonical_url)
+            ):
+                root_article = candidate
+        else:
+            page.goto(f"https://x.com/{handle}", wait_until="domcontentloaded", timeout=45000)
+            time.sleep(5)
+            matches: list[tuple[str, Any]] = []
+            for article in page.locator("article").all():
+                try:
+                    visible = _normalised_visible_text(article.inner_text(timeout=1800))
+                    if not (
+                        _x_visible_text_matches(expected_text, visible)
+                        and _canonical_reference_visible(visible, canonical_url)
+                    ):
+                        continue
+                    candidate_url = _x_status_url_from_article(article, handle)
+                    if candidate_url:
+                        matches.append((candidate_url, article))
+                except Exception:
+                    continue
+            unique_urls = list(dict.fromkeys(url for url, _article in matches))
+            if len(unique_urls) != 1:
+                return {
+                    "status": (
+                        "X_ROOT_NOT_FOUND_READBACK_INCONCLUSIVE"
+                        if not unique_urls
+                        else "AMBIGUOUS_X_ROOT_MATCH"
+                    ),
+                    "platform": "x",
+                    "match_count": len(unique_urls),
+                }
+            canonical_root = unique_urls[0]
+            root_article = next(article for url, article in matches if url == canonical_root)
+            page.goto(canonical_root, wait_until="domcontentloaded", timeout=45000)
+            time.sleep(5)
+        root_id = str(canonical_root).rstrip("/").rsplit("/", 1)[-1]
+        root_article = _x_article_for_status(page, root_id) or root_article
+        root_text = _normalised_visible_text(root_article.inner_text(timeout=2500)) if root_article else ""
+        replies: list[dict[str, Any]] = []
+        missing_indexes: list[int] = []
+        articles = page.locator("article").all()
+        for index, expected_reply in enumerate(expected_reply_texts, start=1):
+            reply_matches: list[tuple[str, str]] = []
+            for article in articles:
+                try:
+                    visible = _normalised_visible_text(article.inner_text(timeout=1600))
+                    if not _x_visible_text_matches(str(expected_reply), visible):
+                        continue
+                    candidate_url = _x_status_url_from_article(article, handle)
+                    if candidate_url and candidate_url != canonical_root:
+                        reply_matches.append((candidate_url, visible))
+                except Exception:
+                    continue
+            unique_reply_urls = list(dict.fromkeys(url for url, _visible in reply_matches))
+            if len(unique_reply_urls) != 1:
+                missing_indexes.append(index)
+                continue
+            reply_url = unique_reply_urls[0]
+            replies.append(
+                {
+                    "order": index,
+                    "text": str(expected_reply),
+                    "post_id": reply_url.rstrip("/").rsplit("/", 1)[-1],
+                    "public_url": reply_url,
+                    "parent_id": root_id if index == 1 else replies[-1]["post_id"],
+                }
+            )
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+        complete = bool(
+            root_article
+            and _x_visible_text_matches(expected_text, root_text)
+            and _canonical_reference_visible(root_text, canonical_url)
+            and not missing_indexes
+            and len(replies) == len(expected_reply_texts)
+        )
+        return {
+            "status": "SUCCESS" if complete else "X_ROOT_RECONCILED_REPLY_CHAIN_INCOMPLETE",
+            "platform": "x",
+            "post_id": root_id,
+            "public_url": canonical_root,
+            "destination_identity": "@" + handle,
+            "write_exists": bool(root_article),
+            "root_visible_text": root_text,
+            "substack_url_visible": _canonical_reference_visible(root_text, canonical_url),
+            "reply_chain": replies,
+            "missing_reply_indexes": missing_indexes,
+        }
 
 
 def publish_x_post_via_edge(*, cdp_port: int, text: str, image_path: str | Path | None = None) -> dict[str, Any]:
@@ -2810,11 +2963,18 @@ def readback_x_thread_via_edge(
             page.screenshot(path=str(target), full_page=False)
             screenshot = str(target)
         canonical_visible = _canonical_reference_visible(root_text, canonical_url)
+        media_expected = bool(str(expected_chart_path or ""))
+        media_verified = bool(
+            not media_expected
+            or (
+                chart_similarity is not None
+                and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM
+            )
+        )
         verified = bool(
             root
             and canonical_visible
-            and chart_similarity is not None
-            and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM
+            and media_verified
             and ordered
             and all(row["text_verified"] and row["parent_child_verified"] and row["media_verified"] for row in ordered)
         )
@@ -2825,11 +2985,12 @@ def readback_x_thread_via_edge(
             "root_public_url": root_url,
             "root_visible_text": root_text,
             "substack_url_visible": canonical_visible,
-            "meaningful_media_visible": bool(chart_similarity is not None and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM),
+            "meaningful_media_visible": bool(media_expected and media_verified),
+            "media_expected": media_expected,
             "expected_chart_visual_similarity": chart_similarity,
             "ordered_replies": ordered,
             "reply_chain_complete": bool(ordered and all(row["text_verified"] and row["parent_child_verified"] and row["media_verified"] for row in ordered)),
-            "complete_article_visual_count": 1 + sum(1 for row in ordered if row["media_required"] and row["media_verified"]),
+            "complete_article_visual_count": int(media_expected and media_verified) + sum(1 for row in ordered if row["media_required"] and row["media_verified"]),
             "public_screenshot_path": screenshot,
         }
 

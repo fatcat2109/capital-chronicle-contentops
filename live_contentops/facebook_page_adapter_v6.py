@@ -67,6 +67,59 @@ def _get_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
         return json.loads(response.read().decode("utf-8"))
 
 
+def _canonical_link_matches(expected_url: str, observed_url: str) -> bool:
+    """Match a canonical link even when Facebook wraps it in its click redirect."""
+    try:
+        expected = urllib.parse.urlsplit(str(expected_url or ""))
+        observed = urllib.parse.urlsplit(str(observed_url or ""))
+    except ValueError:
+        return False
+    if (observed.hostname or "").casefold() in {"l.facebook.com", "lm.facebook.com"}:
+        wrapped = urllib.parse.parse_qs(observed.query).get("u") or []
+        if len(wrapped) != 1:
+            return False
+        try:
+            observed = urllib.parse.urlsplit(urllib.parse.unquote(wrapped[0]))
+        except ValueError:
+            return False
+    return bool(
+        expected.scheme.casefold() == "https"
+        and observed.scheme.casefold() == "https"
+        and (expected.hostname or "").casefold()
+        == (observed.hostname or "").casefold()
+        and expected.path.rstrip("/") == observed.path.rstrip("/")
+        and expected.username is None
+        and expected.password is None
+        and observed.username is None
+        and observed.password is None
+    )
+
+
+def _attachment_urls(value: Any) -> list[str]:
+    """Extract only public link fields from Graph attachment objects."""
+    urls: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key == "url" and isinstance(child, str):
+                urls.append(child)
+            elif key in {"attachments", "data", "target", "subattachments"}:
+                urls.extend(_attachment_urls(child))
+    elif isinstance(value, list):
+        for child in value:
+            urls.extend(_attachment_urls(child))
+    return urls
+
+
+def _canonical_link_visible(value: dict[str, Any], canonical_url: str) -> bool:
+    message = " ".join(str(value.get("message") or "").split())
+    if canonical_url in message:
+        return True
+    return any(
+        _canonical_link_matches(canonical_url, candidate)
+        for candidate in _attachment_urls(value.get("attachments") or {})
+    )
+
+
 def compile_facebook_post_payload(message: str, link: str | None = None) -> dict[str, Any]:
     """Compiles the payload for a Facebook page feed post."""
     payload: dict[str, Any] = {"message": message}
@@ -193,7 +246,10 @@ def readback_facebook_post(
         value = _get_json(
             f"https://graph.facebook.com/{GRAPH_VERSION}/{post_id}",
             {
-                "fields": "id,message,permalink_url,full_picture,from",
+                "fields": (
+                    "id,message,permalink_url,full_picture,from,"
+                    "attachments{target,url,subattachments{target,url}}"
+                ),
                 "access_token": access_token,
             },
         )
@@ -216,9 +272,10 @@ def readback_facebook_post(
     media_verified = bool(
         similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
     )
+    canonical_link_visible = _canonical_link_visible(value, canonical_url)
     verified = bool(
         title_line.casefold() in message.casefold()
-        and canonical_url in message
+        and canonical_link_visible
         and (media_verified if media_expected else True)
         and permalink
         and page_identity_verified
@@ -232,7 +289,7 @@ def readback_facebook_post(
         "page_identity_verified": page_identity_verified,
         "visible_body_text": message,
         "body_text_visible": title_line.casefold() in message.casefold(),
-        "substack_url_visible": canonical_url in message,
+        "substack_url_visible": canonical_link_visible,
         "meaningful_media_visible": media_verified,
         "media_expected": media_expected,
         "expected_chart_visual_similarity": similarity,
@@ -256,7 +313,14 @@ def find_recent_facebook_post(
     try:
         feed = _get_json(
             f"https://graph.facebook.com/{GRAPH_VERSION}/{page_id}/posts",
-            {"fields": "id,message,permalink_url,full_picture,from", "limit": "10", "access_token": access_token},
+            {
+                "fields": (
+                    "id,message,permalink_url,full_picture,from,"
+                    "attachments{target,url,subattachments{target,url}}"
+                ),
+                "limit": "10",
+                "access_token": access_token,
+            },
         )
     except urllib.error.HTTPError as error:
         return _parse_http_error(error, "FAILED_RECONCILIATION")
@@ -265,7 +329,10 @@ def find_recent_facebook_post(
     title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
     for row in feed.get("data") or []:
         message = " ".join(str(row.get("message") or "").split())
-        if title_line.casefold() not in message.casefold() or canonical_url not in message:
+        if (
+            title_line.casefold() not in message.casefold()
+            or not _canonical_link_visible(row, canonical_url)
+        ):
             continue
         post_id = str(row.get("id") or "")
         readback = readback_facebook_post(

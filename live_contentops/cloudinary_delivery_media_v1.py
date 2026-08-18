@@ -51,6 +51,25 @@ def deterministic_cloudinary_public_id(*, work_item_id: str, asset_sha256: str) 
     return f"capital_chronicle/v1/delivery_only/{safe_work_item}/{digest}"
 
 
+def deterministic_cloudinary_delivery_url(
+    *, cloud_name: str, public_id: str, mime_type: str
+) -> str:
+    """Return the versionless URL for the immutable deterministic provider object."""
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", cloud_name):
+        raise ValueError("cloudinary_cloud_name_invalid")
+    extension_by_mime = {
+        "image/png": "png",
+        "image/jpeg": "jpg",
+        "image/webp": "webp",
+        "image/gif": "gif",
+    }
+    extension = extension_by_mime.get(str(mime_type or "").casefold())
+    if not extension:
+        raise ValueError("cloudinary_delivery_mime_type_unsupported")
+    encoded_id = urllib.parse.quote(str(public_id), safe="/_-")
+    return f"https://res.cloudinary.com/{cloud_name}/image/upload/{encoded_id}.{extension}"
+
+
 def _multipart_body(
     *, fields: Mapping[str, str], file_path: Path, mime_type: str, boundary: str
 ) -> bytes:
@@ -264,6 +283,26 @@ def prepare_cloudinary_delivery_media(
             provider_asset_id = prior.get("provider_asset_id")
             reused = True
         else:
+            candidate_url = deterministic_cloudinary_delivery_url(
+                cloud_name=cloud_name,
+                public_id=public_id,
+                mime_type=str(local["mime_type"]),
+            )
+            candidate_verification = _verify_remote_object(
+                public_url=candidate_url,
+                expected_sha256=str(local["sha256"]),
+                expected_metadata=local,
+            )
+            if candidate_verification.get("status") == "PASS":
+                public_url = candidate_url
+                reused = True
+            elif candidate_verification.get("status") == "BLOCKED_CLOUDINARY_HOSTED_MEDIA_MISMATCH":
+                blockers.extend(
+                    [f"{value}:{asset_id}" for value in candidate_verification.get("blockers") or []]
+                    or [f"cloudinary_deterministic_object_mismatch:{asset_id}"]
+                )
+                continue
+        if not public_url:
             try:
                 upload = _upload_asset(
                     cloud_name=cloud_name,

@@ -161,7 +161,10 @@ def normalize_readback_result(
         observed_id
         and (
             (public_object_id and observed_id == str(public_object_id))
-            or (not public_object_id and verified_flag)
+            or (
+                not public_object_id
+                and (verified_flag or raw.get("write_exists") is True)
+            )
         )
     )
     return {
@@ -245,6 +248,40 @@ class DurablePublicationCoordinator:
             work_item_id=work_item_id,
             severity="RECOVERY_AUDIT",
             description="One bounded absence-safe derivative retry crossed the write boundary.",
+        )
+
+    def _transport_correction_incident_id(
+        self, dispatch_id: str, correction_id: str
+    ) -> str:
+        return "incident_transport_correction_" + _hash(
+            f"{dispatch_id}:{correction_id}"
+        )[:24]
+
+    def _transport_correction_already_attempted(
+        self, dispatch_id: str, correction_id: str
+    ) -> bool:
+        try:
+            with self.store.get_read_only_connection() as conn:
+                return conn.execute(
+                    "SELECT 1 FROM incidents WHERE incident_id=?",
+                    (self._transport_correction_incident_id(dispatch_id, correction_id),),
+                ).fetchone() is not None
+        except Exception:
+            return True
+
+    def _record_transport_correction_attempt(
+        self, dispatch_id: str, correction_id: str, work_item_id: str
+    ) -> None:
+        self.store.register_incident(
+            incident_id=self._transport_correction_incident_id(
+                dispatch_id, correction_id
+            ),
+            work_item_id=work_item_id,
+            severity="RECOVERY_AUDIT",
+            description=(
+                "One explicit transport-correction derivative completion crossed "
+                "the write boundary under the preserved dispatch identity."
+            ),
         )
 
     def _expire_stale_derivative(
@@ -588,6 +625,16 @@ class DurablePublicationCoordinator:
             # gate failed. Clear UNKNOWN_WRITE and end retry recovery without overstating strict
             # content/metrics readback. Stable provider identity still confirms publication.
             status = RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+            recovered_id = str(normalized.get("observed_public_object_id") or "") or object_id
+            if recovered_id:
+                self.store.register_platform_dispatch(
+                    dispatch_id=dispatch_id,
+                    message_id=str(dispatch["message_id"]),
+                    platform=destination,
+                    status=DISPATCH_CONFIRMED,
+                    public_object_id=recovered_id,
+                    public_object_url=observed_url,
+                )
             self.store.set_dispatch_status(dispatch_id, DISPATCH_CONFIRMED)
             self.store.set_outbox_status(str(dispatch["message_id"]), DISPATCH_CONFIRMED)
         else:
@@ -605,6 +652,8 @@ class DurablePublicationCoordinator:
         *,
         canonical_url: Optional[str],
         explicit_reconciled_absent_retry: bool = False,
+        explicit_transport_correction_retry: bool = False,
+        recovery_public_object_url: Optional[str] = None,
     ) -> dict[str, Any]:
         intent = json.loads(str(message["payload"]))
         destination = str(message["destination"])
@@ -631,7 +680,31 @@ class DurablePublicationCoordinator:
                 and reconciliation_status == RECONCILED_ABSENT_SAFE_TO_RETRY
                 and (destination != "substack" or recovery_object_id)
             )
-            if not retry_eligible:
+            correction_retry_eligible = bool(
+                explicit_transport_correction_retry
+                and (
+                    (
+                        destination == "instagram_business"
+                        and str(existing.get("status") or "") in {
+                            DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+                            RECONCILED_ABSENT_SAFE_TO_RETRY,
+                        }
+                        and reconciliation_status == RECONCILED_ABSENT_SAFE_TO_RETRY
+                    )
+                    or (
+                        destination == "x"
+                        and str(existing.get("status") or "") == DISPATCH_CONFIRMED
+                        and reconciliation_status
+                        == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+                        and str(
+                            recovery_public_object_url
+                            or existing.get("public_object_url")
+                            or ""
+                        ).startswith("https://x.com/")
+                    )
+                )
+            )
+            if not (retry_eligible or correction_retry_eligible):
                 return {
                     "destination": destination,
                     "status": str(existing["status"]),
@@ -642,11 +715,20 @@ class DurablePublicationCoordinator:
                 }
             if destination == "substack":
                 intent = {**intent, "recovery_public_object_id": recovery_object_id}
+            elif correction_retry_eligible and destination == "x":
+                intent = {
+                    **intent,
+                    "recovery_public_object_url": str(
+                        recovery_public_object_url
+                        or existing.get("public_object_url")
+                        or ""
+                    ),
+                }
         dependency = item.get("canonical_url_dependency")
         if dependency and not (canonical_url or intent.get("canonical_url")):
             return {"destination": destination, "status": "WAITING_CANONICAL_URL", "publish_called": False}
         if dependency and canonical_url:
-            if explicit_reconciled_absent_retry:
+            if explicit_reconciled_absent_retry or explicit_transport_correction_retry:
                 # The original attempt already froze exact canonical-bound bytes before its
                 # dispatch marker. Recovery must reuse them byte-for-byte, never mutate them.
                 if str(intent.get("canonical_url") or "") != canonical_url:
@@ -692,6 +774,8 @@ class DurablePublicationCoordinator:
         self.store.register_platform_dispatch(
             dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
             platform=destination, status=ATTEMPT_STARTED,
+            public_object_id=(existing or {}).get("public_object_id"),
+            public_object_url=(existing or {}).get("public_object_url"),
         )
         authorization = {
             "schema_version": "contentops.canonical_machine_authorization.v1",
@@ -896,6 +980,129 @@ class DurablePublicationCoordinator:
             canonical_url=None,
             explicit_reconciled_absent_retry=True,
         )
+
+    def complete_derivative_after_transport_correction(
+        self, dispatch_id: str, *, correction_id: str
+    ) -> dict[str, Any]:
+        """Spend one explicit, durable correction budget for an exact incomplete derivative."""
+        dispatch = self.store.get_platform_dispatch(str(dispatch_id))
+        if not dispatch:
+            return {
+                "status": "CORRECTION_BLOCKED_DISPATCH_NOT_FOUND",
+                "publish_called": False,
+            }
+        message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+        destination = str((message or {}).get("destination") or "")
+        if not message or destination not in {"x", "instagram_business"}:
+            return {
+                "status": "CORRECTION_BLOCKED_DESTINATION_NOT_AUTHORIZED",
+                "publish_called": False,
+            }
+        normalized_correction_id = str(correction_id or "").strip()
+        if not normalized_correction_id:
+            return {
+                "status": "CORRECTION_BLOCKED_ID_REQUIRED",
+                "publish_called": False,
+            }
+        if self._transport_correction_already_attempted(
+            str(dispatch_id), normalized_correction_id
+        ):
+            return {
+                "status": "CORRECTION_ALREADY_ATTEMPTED_NO_WRITE",
+                "publish_called": False,
+            }
+        intent = json.loads(str(message["payload"]))
+        work_item_id = str(intent.get("work_item_id") or "")
+        if not self._full_v1_distribution_required(intent):
+            return {
+                "status": "CORRECTION_BLOCKED_NOT_FULL_V1_OBLIGATION",
+                "publish_called": False,
+            }
+        if self._message_is_stale(message, intent):
+            return {
+                "status": "CORRECTION_BLOCKED_DERIVATIVE_STALE",
+                "publish_called": False,
+            }
+        canonical_url = self._confirmed_canonical_url_for_work_item(work_item_id) or ""
+        if not canonical_url or str(intent.get("canonical_url") or "") != canonical_url:
+            return {
+                "status": "CORRECTION_BLOCKED_CANONICAL_IDENTITY_MISMATCH",
+                "publish_called": False,
+            }
+        unknown_write_count = sum(
+            str(row.get("status") or "") == UNKNOWN_WRITE
+            for row in self.store.list_platform_dispatches()
+        )
+        if unknown_write_count:
+            return {
+                "status": "CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT",
+                "publish_called": False,
+                "unknown_write_count": unknown_write_count,
+            }
+        intents = [
+            json.loads(str(row["payload"]))
+            for row in self.store.list_outbox_messages()
+            if str(row.get("work_item_id") or "") == work_item_id
+        ]
+        correction_plan = {
+            "plan_hash": intent.get("plan_hash"),
+            "output_dir": intent.get("output_dir"),
+            "quality_probation_policy_id": intent.get(
+                "quality_probation_policy_id"
+            ),
+            "full_v1_distribution_required": True,
+            "destinations": [
+                dict(row.get("destination_plan") or {}) for row in intents
+            ],
+            "skipped_derivative_destinations": [],
+            "pre_substack_blockers": [],
+        }
+        quality_preflight = self._full_v1_distribution_preflight(
+            work_item_id, correction_plan
+        )
+        if quality_preflight["status"] != "FULL_V1_DISTRIBUTION_READY":
+            return {
+                "status": HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
+                "publish_called": False,
+                "quality_preflight": quality_preflight,
+            }
+        delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
+        if callable(delivery_preparer):
+            delivery = dict(
+                delivery_preparer(
+                    work_item_id=work_item_id,
+                    plan=correction_plan,
+                    preconditions={
+                        "full_v1_distribution_status": quality_preflight["status"],
+                        "unknown_write_count": 0,
+                    },
+                )
+                or {}
+            )
+            if str(delivery.get("status") or "") not in {
+                "CLOUDINARY_DELIVERY_MEDIA_READY",
+                "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED",
+            }:
+                return {
+                    "status": str(
+                        delivery.get("status")
+                        or "CORRECTION_BLOCKED_DELIVERY_MEDIA_PREPARATION"
+                    ),
+                    "publish_called": False,
+                    "delivery_media_preparation": delivery,
+                }
+        outcome = self._dispatch_message(
+            message,
+            canonical_url=canonical_url,
+            explicit_transport_correction_retry=True,
+            recovery_public_object_url=str(dispatch.get("public_object_url") or "")
+            or None,
+        )
+        if outcome.get("publish_called") is True:
+            self._record_transport_correction_attempt(
+                str(dispatch_id), normalized_correction_id, work_item_id
+            )
+        return {**outcome, "correction_id": normalized_correction_id}
 
     def replay_persisted_verified_readback(self, dispatch_id: str) -> dict[str, Any]:
         """Restore monotonic confirmed state from an earlier durable verified readback."""

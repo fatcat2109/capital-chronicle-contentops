@@ -33,6 +33,7 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     reconcile_substack_publication_by_draft_id_via_edge,
     readback_linkedin_activity_via_edge,
     readback_youtube_community_post_via_edge,
+    reconcile_x_thread_by_text_via_edge,
     reconcile_youtube_community_post_by_text_via_edge,
     readback_x_thread_via_edge,
     reconcile_existing_linkedin_post_via_edge,
@@ -3580,6 +3581,82 @@ def _publish_one_destination_from_durable_intent(
                 "reason_code": "CANONICAL_SUBSTACK_URL_UNAVAILABLE"}
     text = str((payloads.get(destination) or {}).get("text") or "")
     if destination == "x":
+        recovery_root_url = str(intent.get("recovery_public_object_url") or "")
+        expected_reply_texts = [
+            str(value) for value in ((payloads.get("x") or {}).get("reply_texts") or [])
+        ]
+        if recovery_root_url:
+            observed = reconcile_x_thread_by_text_via_edge(
+                cdp_port=cdp_port,
+                expected_text=text,
+                canonical_url=canonical_url,
+                expected_reply_texts=expected_reply_texts,
+                root_url=recovery_root_url,
+                public_screenshot_path=output_dir / "public_x_thread_readback.png",
+            )
+            if str(observed.get("status") or "") == "SUCCESS":
+                return {
+                    **observed,
+                    "provider_readback_verified": True,
+                    "reply_chain": list(observed.get("reply_chain") or []),
+                }
+            if observed.get("write_exists") is not True:
+                return {
+                    **observed,
+                    "status": "FAILED_X_ROOT_RECOVERY_READBACK",
+                }
+            existing_replies = list(observed.get("reply_chain") or [])
+            missing_indexes = list(observed.get("missing_reply_indexes") or [])
+            expected_missing = list(range(len(existing_replies) + 1, len(expected_reply_texts) + 1))
+            if missing_indexes != expected_missing:
+                return {
+                    **observed,
+                    "status": "FAILED_X_REPLY_RECOVERY_AMBIGUOUS_GAP",
+                }
+            replies = list(existing_replies)
+            parent_url = str(replies[-1].get("public_url") or recovery_root_url) if replies else recovery_root_url
+            for index in missing_indexes:
+                reply_text = expected_reply_texts[index - 1]
+                reply = publish_x_reply_via_edge(
+                    cdp_port=cdp_port,
+                    parent_url=parent_url,
+                    text=reply_text,
+                    image_path=None,
+                )
+                replies.append(
+                    {
+                        **reply,
+                        "order": index,
+                        "text": reply_text,
+                        "expected_media_local_path": None,
+                    }
+                )
+                if str(reply.get("status") or "") not in SUCCESS_STATUSES:
+                    return {
+                        **observed,
+                        "status": str(reply.get("status") or "FAILED_X_REPLY_RECOVERY"),
+                        "reply_chain": replies,
+                    }
+                parent_url = str(reply.get("public_url") or "")
+            strict = readback_x_thread_via_edge(
+                cdp_port=cdp_port,
+                root_url=recovery_root_url,
+                canonical_url=canonical_url,
+                expected_chart_path=image_path,
+                replies=replies,
+                public_screenshot_path=output_dir / "public_x_thread_readback.png",
+            )
+            verified = str(strict.get("status") or "") == "SUCCESS"
+            return {
+                "status": "SUCCESS" if verified else "FAILED_X_STRICT_READBACK",
+                "platform": "x",
+                "post_id": str(observed.get("post_id") or ""),
+                "public_url": recovery_root_url,
+                "destination_identity": observed.get("destination_identity"),
+                "reply_chain": replies,
+                "readback": strict,
+                "provider_readback_verified": verified,
+            }
         root = publish_x_post_via_edge(cdp_port=cdp_port, text=text, image_path=image_path or None)
         root_url = str(root.get("public_url") or root.get("url") or "")
         replies = []
@@ -3715,10 +3792,15 @@ def _readback_one_destination_from_durable_intent(
             expected_image_assets=data["media_assets"],
             public_screenshot_path=output_dir / "public_substack_readback.png",
         )
-    elif destination == "x" and public_object_url:
-        result = readback_x_thread_via_edge(
-            cdp_port=cdp_port, root_url=public_object_url, canonical_url=canonical_url,
-            expected_chart_path=image_path, replies=[],
+    elif destination == "x":
+        result = reconcile_x_thread_by_text_via_edge(
+            cdp_port=cdp_port,
+            expected_text=text,
+            canonical_url=canonical_url,
+            expected_reply_texts=[
+                str(value) for value in ((payloads.get("x") or {}).get("reply_texts") or [])
+            ],
+            root_url=public_object_url,
             public_screenshot_path=output_dir / "public_x_thread_readback.png",
         )
     elif destination == "linkedin":
@@ -3750,7 +3832,14 @@ def _readback_one_destination_from_durable_intent(
         from live_contentops.instagram_adapter_v6 import readback_instagram_media
         result = readback_instagram_media(
             media_id=public_object_id, expected_caption=text, canonical_url=canonical_url,
-            expected_media_local_path=image_path,
+            expected_media_local_path=data["delivery_local_media"],
+        )
+    elif destination == "instagram_business" and data["primary_media"]:
+        from live_contentops.instagram_adapter_v6 import find_recent_instagram_media
+        result = find_recent_instagram_media(
+            expected_caption=text,
+            canonical_url=canonical_url,
+            expected_media_local_path=data["delivery_local_media"],
         )
     elif destination == "discord" and public_object_id:
         from live_contentops.discord_live_adapter_v6 import readback_discord_post
@@ -3787,13 +3876,42 @@ def _readback_one_destination_from_durable_intent(
     )}
     if destination == "substack" and success:
         public_images = list((result.get("readback") or {}).get("public_image_urls") or [])
-        if public_images:
-            delivery = build_delivery_media_manifest(
+        if public_images and data["media_assets"]:
+            article_delivery = build_delivery_media_manifest(
                 media_packet={"assets": data["media_assets"]},
                 public_image_urls=public_images,
                 run_id=str(intent.get("work_item_id") or ""),
             )
-            _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
+            delivery_path = output_dir / "delivery_media_manifest_v1.json"
+            existing_delivery = _read_json(delivery_path) if delivery_path.is_file() else {}
+            delivery_only_rows = [
+                dict(row)
+                for row in (existing_delivery.get("assets") or [])
+                if isinstance(row, Mapping)
+                and str(row.get("media_role") or "") == "delivery_only"
+            ]
+            delivery = {
+                **dict(article_delivery),
+                "assets": [
+                    *[dict(row) for row in (article_delivery.get("assets") or [])],
+                    *delivery_only_rows,
+                ],
+                "provider_contract_version": existing_delivery.get(
+                    "provider_contract_version"
+                ),
+                "delivery_only_asset_count": len(delivery_only_rows),
+                "article_media_asset_count": len(article_delivery.get("assets") or []),
+                "status": (
+                    "PASS"
+                    if article_delivery.get("status") == "PASS"
+                    and all(
+                        row.get("local_public_hash_continuity") is True
+                        for row in delivery_only_rows
+                    )
+                    else "BLOCKED"
+                ),
+            }
+            _write_json(delivery_path, delivery)
     return normalized
 
 

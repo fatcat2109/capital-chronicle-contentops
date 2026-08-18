@@ -6,11 +6,21 @@ from unittest.mock import MagicMock
 import urllib.error
 import urllib.request
 
+import pytest
+
 from live_contentops import instagram_adapter_v6 as adapter
+from live_contentops import live_telemetry_v6
 
 ONE_PIXEL_PNG = base64.b64decode(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII="
 )
+
+
+@pytest.fixture(autouse=True)
+def _disable_persistent_live_telemetry(monkeypatch):
+    monkeypatch.setattr(
+        live_telemetry_v6, "classify_and_record_dispatch", lambda *_args, **_kwargs: None
+    )
 
 
 def test_compile_payload():
@@ -45,6 +55,11 @@ def test_execute_post_success(monkeypatch):
     calls = [mock_resp1, mock_resp2]
     monkeypatch.setattr(urllib.request, "urlopen", MagicMock(side_effect=lambda *a, **k: calls.pop(0)))
     monkeypatch.setattr(adapter, "validate_instagram_image_url", lambda image_url: [])
+    monkeypatch.setattr(
+        adapter,
+        "_wait_for_instagram_container",
+        lambda **_kwargs: {"status": "CONTAINER_READY", "ready": True},
+    )
 
     res = adapter.execute_instagram_post("instagram_123", "fake_token", "https://example.com/image.jpg", "Success flow test")
     assert res["status"] == "SUCCESS"
@@ -79,6 +94,11 @@ def test_execute_post_step2_failure(monkeypatch):
         return val
     monkeypatch.setattr(urllib.request, "urlopen", MagicMock(side_effect=side_effect))
     monkeypatch.setattr(adapter, "validate_instagram_image_url", lambda image_url: [])
+    monkeypatch.setattr(
+        adapter,
+        "_wait_for_instagram_container",
+        lambda **_kwargs: {"status": "CONTAINER_READY", "ready": True},
+    )
 
     res = adapter.execute_instagram_post("instagram_123", "fake_token", "https://example.com/image.jpg", "Step 2 failure test")
     assert res["status"] == "FAILED_STEP_2"
@@ -127,6 +147,48 @@ def test_feed_caption_link_semantics_do_not_require_clickable_url(monkeypatch):
     assert result["caption_link_clickable"] is False
     assert result["caption_link_clickable_required"] is False
     assert result["cta_mode"] == "canonical_url_text"
+
+
+def test_container_processing_is_polled_before_publish(monkeypatch):
+    states = iter(
+        [
+            {"status_code": "IN_PROGRESS"},
+            {"status_code": "FINISHED"},
+        ]
+    )
+    monkeypatch.setattr(adapter, "_get_json", lambda *_args, **_kwargs: next(states))
+    monkeypatch.setattr(adapter.time, "sleep", lambda _seconds: None)
+
+    result = adapter._wait_for_instagram_container(
+        container_id="container-1",
+        access_token="token",
+        attempts=3,
+        interval_seconds=0,
+    )
+
+    assert result == {
+        "status": "CONTAINER_READY",
+        "ready": True,
+        "definite_no_write": True,
+        "attempts": 2,
+    }
+
+
+def test_recent_media_absence_is_explicitly_safe_to_retry(monkeypatch):
+    monkeypatch.setattr(adapter, "_get_json", lambda *_args, **_kwargs: {"data": []})
+    monkeypatch.setattr(adapter.time, "sleep", lambda _seconds: None)
+
+    result = adapter.find_recent_instagram_media(
+        expected_caption="Exact governed title\nFull analysis: https://example.test/p/story",
+        canonical_url="https://example.test/p/story",
+        expected_media_local_path="card.png",
+        ig_id="ig-1",
+        access_token="token",
+    )
+
+    assert result["status"] == "ABSENT_SAFE_TO_RETRY"
+    assert result["write_absent"] is True
+    assert result["readback_attempts"] == 2
 
 
 def test_validate_instagram_image_url_rejects_non_http():
