@@ -68901,7 +68901,7 @@
       "to": "python_symbol:scripts/prove_v1_live_canary_correction_zero_write.py::sha256_file"
     },
     {
-      "from": "python_symbol:scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py::run_canonical_sub_antigravity_zero_write_proof",
+      "from": "python_symbol:scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py::run_single_conversation_sub_antigravity_zero_write_proof",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::four_task_setup_packet"
@@ -71400,19 +71400,19 @@
       "from": "scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py::run_canonical_sub_antigravity_zero_write_proof"
+      "to": "python_symbol:scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py::run_single_conversation_sub_antigravity_zero_write_proof"
     },
     {
       "from": "scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
-      "to": "python_symbol:scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py::run_canonical_sub_antigravity_zero_write_proof"
+      "to": "python_symbol:scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py::run_single_conversation_sub_antigravity_zero_write_proof"
     },
     {
       "from": "scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py",
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
-      "to": "schema:contentops.v1_sub_antigravity_canonical_zero_write_proof.v1"
+      "to": "schema:contentops.v1_sub_antigravity_single_conversation_zero_write_proof.v1"
     },
     {
       "from": "scripts/run_direct_image_bakeoff_v1.py",
@@ -82840,7 +82840,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-18T16:33:29Z",
+  "generation_timestamp_utc": "2026-08-18T17:13:06Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -83394,7 +83394,7 @@
     {
       "id": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "kind": "python_module",
-      "size_bytes": 371131
+      "size_bytes": 369116
     },
     {
       "id": "live_contentops/accepted_review_editorial_workflow_v6.py",
@@ -83944,7 +83944,7 @@
     {
       "id": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "kind": "python_module",
-      "size_bytes": 59172
+      "size_bytes": 58409
     },
     {
       "id": "live_contentops/community_feedback_capture_contract_v6.py",
@@ -84529,7 +84529,7 @@
     {
       "id": "live_contentops/execution_framework_v1.py",
       "kind": "python_module",
-      "size_bytes": 5908
+      "size_bytes": 5144
     },
     {
       "id": "live_contentops/explicit_live_scope_source_intake_parser_v6.py",
@@ -86898,7 +86898,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_apply_exact_editorial_replacements",
       "kind": "python_function",
-      "line": 6552,
+      "line": 6518,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_apply_exact_editorial_replacements"
     },
@@ -86989,7 +86989,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_dispatch_canonical_operation",
       "kind": "python_function",
-      "line": 7504,
+      "line": 7470,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_dispatch_canonical_operation"
     },
@@ -87010,7 +87010,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_ensure_canonical_edge_publishing_runtime",
       "kind": "python_function",
-      "line": 7464,
+      "line": 7430,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_ensure_canonical_edge_publishing_runtime"
     },
@@ -87024,7 +87024,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_implementation_main",
       "kind": "python_function",
-      "line": 7196,
+      "line": 7162,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_implementation_main"
     },
@@ -87192,21 +87192,21 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_existing_derivative_readbacks",
       "kind": "python_function",
-      "line": 6326,
+      "line": 6292,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_existing_derivative_readbacks"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_linkedin_activity_pair",
       "kind": "python_function",
-      "line": 6913,
+      "line": 6879,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_linkedin_activity_pair"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_public_substack_for_derivative_resume",
       "kind": "python_function",
-      "line": 5559,
+      "line": 5525,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_public_substack_for_derivative_resume"
     },
@@ -87227,28 +87227,28 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_substack_caption_fragment",
       "kind": "python_function",
-      "line": 6476,
+      "line": 6442,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_substack_caption_fragment"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_treasury_release_candidate_editorial",
       "kind": "python_function",
-      "line": 6563,
+      "line": 6529,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_treasury_release_candidate_editorial"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_final_treasury_auction_logic",
       "kind": "python_function",
-      "line": 6683,
+      "line": 6649,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_final_treasury_auction_logic"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_resume_eight_platform_derivatives",
       "kind": "python_function",
-      "line": 5591,
+      "line": 5557,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_resume_eight_platform_derivatives"
     },
@@ -87325,42 +87325,42 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._candidate_walk_row",
       "kind": "python_method",
-      "line": 4930,
+      "line": 4925,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._candidate_walk_row"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._merge_viability_attempts",
       "kind": "python_method",
-      "line": 4834,
+      "line": 4829,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._merge_viability_attempts"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._next_viable_after",
       "kind": "python_method",
-      "line": 4960,
+      "line": 4955,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._next_viable_after"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._persist_candidate_walk",
       "kind": "python_method",
-      "line": 4933,
+      "line": 4928,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._persist_candidate_walk"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._persist_cycle_evidence",
       "kind": "python_method",
-      "line": 4772,
+      "line": 4767,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._persist_cycle_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle.tracked_evidence_acquirer",
       "kind": "python_method",
-      "line": 4651,
+      "line": 4646,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle.tracked_evidence_acquirer"
     },
@@ -87493,14 +87493,14 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::compile_variant_reliability_evidence",
       "kind": "python_function",
-      "line": 7035,
+      "line": 7001,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "compile_variant_reliability_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::finalize_reliability_hardening_evidence",
       "kind": "python_function",
-      "line": 7073,
+      "line": 7039,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "finalize_reliability_hardening_evidence"
     },
@@ -91868,14 +91868,14 @@
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::build_live_zero_write_rehearsal",
       "kind": "python_function",
-      "line": 1055,
+      "line": 1042,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "build_live_zero_write_rehearsal"
     },
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::classify_desktop_candidate_universe",
       "kind": "python_function",
-      "line": 841,
+      "line": 828,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "classify_desktop_candidate_universe"
     },
@@ -91889,7 +91889,7 @@
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::load_terminal_editorial_continuity",
       "kind": "python_function",
-      "line": 588,
+      "line": 575,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "load_terminal_editorial_continuity"
     },
@@ -91903,7 +91903,7 @@
     {
       "id": "python_symbol:live_contentops/codex_desktop_newsroom_operator_v1.py::validate_editorial_worker_return",
       "kind": "python_function",
-      "line": 315,
+      "line": 312,
       "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
       "symbol": "validate_editorial_worker_return"
     },
@@ -98784,14 +98784,14 @@
     {
       "id": "python_symbol:live_contentops/execution_framework_v1.py::assert_framework_continuity",
       "kind": "python_function",
-      "line": 83,
+      "line": 77,
       "path": "live_contentops/execution_framework_v1.py",
       "symbol": "assert_framework_continuity"
     },
     {
       "id": "python_symbol:live_contentops/execution_framework_v1.py::persist_opportunity_framework_binding",
       "kind": "python_function",
-      "line": 96,
+      "line": 90,
       "path": "live_contentops/execution_framework_v1.py",
       "symbol": "persist_opportunity_framework_binding"
     },
@@ -98805,7 +98805,7 @@
     {
       "id": "python_symbol:live_contentops/execution_framework_v1.py::verify_opportunity_framework_continuity",
       "kind": "python_function",
-      "line": 116,
+      "line": 108,
       "path": "live_contentops/execution_framework_v1.py",
       "symbol": "verify_opportunity_framework_continuity"
     },
@@ -120286,11 +120286,11 @@
       "symbol": "snapshot"
     },
     {
-      "id": "python_symbol:scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py::run_canonical_sub_antigravity_zero_write_proof",
+      "id": "python_symbol:scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py::run_single_conversation_sub_antigravity_zero_write_proof",
       "kind": "python_function",
-      "line": 173,
+      "line": 76,
       "path": "scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py",
-      "symbol": "run_canonical_sub_antigravity_zero_write_proof"
+      "symbol": "run_single_conversation_sub_antigravity_zero_write_proof"
     },
     {
       "id": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::Cell",
@@ -121893,9 +121893,9 @@
       "schema_id": "contentops.v1_runtime_preflight.v1"
     },
     {
-      "id": "schema:contentops.v1_sub_antigravity_canonical_zero_write_proof.v1",
+      "id": "schema:contentops.v1_sub_antigravity_single_conversation_zero_write_proof.v1",
       "kind": "schema",
-      "schema_id": "contentops.v1_sub_antigravity_canonical_zero_write_proof.v1"
+      "schema_id": "contentops.v1_sub_antigravity_single_conversation_zero_write_proof.v1"
     },
     {
       "id": "schema:contentops.v5_ui_source_epoch.v1",
@@ -122335,7 +122335,7 @@
     {
       "id": "scripts/prove_v1_sub_antigravity_zero_write_proof_v1.py",
       "kind": "python_module",
-      "size_bytes": 17745
+      "size_bytes": 10661
     },
     {
       "id": "scripts/run_direct_image_bakeoff_v1.py",
@@ -123500,7 +123500,7 @@
     {
       "id": "tests/test_execution_framework_v1.py",
       "kind": "test",
-      "size_bytes": 29125
+      "size_bytes": 22352
     },
     {
       "id": "tests/test_explicit_live_scope_gate_source_candidate_ui_guardrail_v6.py",
@@ -130343,6 +130343,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "b23e8bac5d55622dd15852e199fff890f6f48437",
-  "source_tree_digest": "6670240c74f9dcc9ca599b6425408eb2f3108c716ca45499c5e8b64756b21a72"
+  "source_head": "93dd5c2de30141d5cfae6af57f0d3df8e5b10f29",
+  "source_tree_digest": "ff25bf59ed7d4bedee387e2aa2fc31fa2b0bcc2f3aeb1d28b468863787e60f0c"
 }

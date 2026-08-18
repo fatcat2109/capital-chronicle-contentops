@@ -41,94 +41,56 @@ from live_contentops.publication_coordinator_v1 import (
     UNKNOWN_WRITE,
 )
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+CONVERSATION_AUTHORED_ARTICLE_PATH = (
+    REPO_ROOT / "live_contentops" / "data" / "sub_antigravity_authored_article_v1.json"
+)
+
 
 def _sample_evidence() -> dict[str, Any]:
-    proposition = "The central bank notice confirmed that the policy corridor remains unchanged."
+    proposition = (
+        "On August 17, 2026, the Cabinet Office released preliminary Q2 2026 real GDP data showing the economy expanded at a 1.2% annualized rate. "
+        "Private consumption rose 0.3% quarter-on-quarter while business capital expenditure increased 0.8%."
+    )
     return {
         "status": "PASS",
         "evidence_id": "ev-sample-1",
         "evidence_documents": [
             {
-                "document_id": "ev-1",
-                "publisher": "Official Agency",
-                "title": "Official policy notice",
+                "document_id": "esri-cao-gdp-2026q2",
+                "publisher": "Economic and Social Research Institute, Cabinet Office, Government of Japan",
+                "title": "Quarterly Estimates of GDP: Apr. - Jun. 2026 (First Preliminary)",
                 "canonical_content_text": proposition,
-                "url": "https://esri.cao.go.jp/sample.html",
+                "url": "https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html",
+                "source_url": "https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html",
+                "published_at_utc": "2026-08-17T00:00:00Z",
+                "claims": [{"claim_id": "claim-gdp-1", "numeric": True, "claim_text": proposition}],
             }
         ],
         "claim_evidence_contract": {
             "supported_claims": [
-                {"claim_id": "claim-1", "claim_text": proposition, "evidence_document_ids": ["ev-1"]}
+                {
+                    "claim_id": "claim-gdp-1",
+                    "claim_text": proposition,
+                    "evidence_document_ids": ["esri-cao-gdp-2026q2"],
+                }
             ]
         },
         "minimum_trustworthy_evidence_packet": {
             "status": "PASS",
             "risk_tier": "ORDINARY",
             "core_factual_proposition": proposition,
+            "source_url": "https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html",
+            "evidence_document_id": "esri-cao-gdp-2026q2",
         },
     }
 
 
 def _full_institutional_article(editorial_packet: Mapping[str, Any], evidence: Mapping[str, Any]) -> dict[str, Any]:
-    title = "The Policy Corridor Holds as the Central Bank Waits"
-    dek = "The official notice preserves the current position while leaving the next decision dependent on new evidence."
-    meta = "The official notice keeps the current position intact and identifies the evidence readers should watch before the next decision."
-    observed = "The central bank notice confirmed that the policy corridor remains unchanged."
-    body = (
-        f"{observed} The record leaves the next decision open rather than announcing a new course.\n\n"
-        "For readers, the useful distinction is between a position that has not changed and an outlook that still can. "
-        "The notice establishes the first point; incoming evidence will determine the second.\n\n"
-        "The next checkpoint is the agency's dated follow-up notice. It would show whether the current position remains intact or needs to be reassessed."
-    )
-    return {
-        "title": title,
-        "canonical_editorial_headline": title,
-        "subtitle": dek,
-        "dek": dek,
-        "seo_title": title,
-        "search_title": title,
-        "social_lede": "The official notice keeps the current position intact while the next decision remains open.",
-        "social_hook": "The official notice keeps the current position intact while the next decision remains open.",
-        "meta_description": meta,
-        "author_identity": "Capital Chronicle",
-        "publisher_identity": "Capital Chronicle",
-        "slug": "policy-corridor-central-bank-waits",
-        "canonical_slug_candidate": "policy-corridor-central-bank-waits",
-        "substack_body_markdown": body,
-        "primary_reader_question": "What changed in the official notice, and what remains open?",
-        "secondary_reader_questions": ["What should readers watch next?"],
-        "entities": ["Official Agency"],
-        "topics": ["policy notice"],
-        "search_freshness_class": "CURRENT",
-        "internal_link_candidates": [
-            {
-                "relation": "technical_explainer",
-                "anchor_text": "how the policy corridor works",
-                "candidate_slug": "policy-corridor-explainer",
-            }
-        ],
-        "structured_data_packet": {
-            "@type": "NewsArticle",
-            "headline": title,
-            "description": meta,
-            "datePublished": "2026-08-17T09:00:00Z",
-            "dateModified": "2026-08-17T09:00:00Z",
-            "author": "Capital Chronicle",
-            "publisher": "Capital Chronicle",
-        },
-        "epistemic_claims": [
-            {
-                "text": observed,
-                "layer": "OBSERVED_FACT",
-                "public_treatment": "DIRECT_SOURCE_FACT",
-                "source_ids": ["ev-1"],
-            }
-        ],
-        "quote_source_records": [],
-        "humor_lines": [],
-        "institutional_edge_editorial_packet_sha256": str(editorial_packet.get("editorial_packet_sha256") or ""),
-        "minimum_trustworthy_evidence_packet": evidence.get("minimum_trustworthy_evidence_packet"),
-    }
+    raw_article_bytes = CONVERSATION_AUTHORED_ARTICLE_PATH.read_bytes()
+    article = json.loads(raw_article_bytes.decode("utf-8"))
+    article["institutional_edge_editorial_packet_sha256"] = str(editorial_packet.get("editorial_packet_sha256") or "")
+    return article
 
 
 def _valid_main_worker_return(governed_input_hash: str, article: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -145,14 +107,10 @@ def _valid_main_worker_return(governed_input_hash: str, article: dict[str, Any] 
     }
 
 
-def _valid_sub_worker_return(governed_input_hash: str, model: str = "Gemini 3.7 Flash", article: dict[str, Any] | None = None) -> dict[str, Any]:
+def _valid_sub_worker_return(governed_input_hash: str, article: dict[str, Any] | None = None) -> dict[str, Any]:
     return {
         "execution_framework": FRAMEWORK_SUB_ANTIGRAVITY,
-        "model": model,
-        "reasoning_effort": "NOT_APPLICABLE_SUB_FRAMEWORK",
-        "fresh": False,
-        "isolated": False,
-        "logical_role_isolated": True,
+        "orchestration_mode": "SINGLE_CONVERSATION_ANTIGRAVITY",
         "governed_input_hash": governed_input_hash,
         "bounded_revision_count": 0,
         "public_write_attempted": False,
@@ -166,6 +124,7 @@ def test_regression_a_main_codex_default_exact():
     fw = validate_execution_framework()
     assert fw["framework"] == FRAMEWORK_MAIN_CODEX
     assert fw["is_main"] is True
+    assert fw["is_sub"] is False
     assert fw["coordinator_model"] == COORDINATOR_MODEL
     assert fw["coordinator_reasoning_effort"] == COORDINATOR_REASONING_EFFORT
     assert fw["editorial_worker_model"] == EDITORIAL_WORKER_MODEL
@@ -176,7 +135,7 @@ def test_regression_a_main_codex_default_exact():
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
             "accepted_evidence_packet": evidence,
-            "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
+            "exact_source_handles": ["https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html"],
         },
     )
     assert route["execution_framework"] == FRAMEWORK_MAIN_CODEX
@@ -196,34 +155,34 @@ def test_regression_a_main_codex_default_exact():
     assert validation["worker_fresh_and_isolated"] is True
 
 
-# Regression B: SUB_ANTIGRAVITY is rejected unless explicitly selected
-def test_regression_b_sub_antigravity_rejected_unless_explicitly_selected():
+# Regression B: SUB_ANTIGRAVITY selection and validation
+def test_regression_b_sub_antigravity_selection_and_validation():
     assert validate_execution_framework()["framework"] == FRAMEWORK_MAIN_CODEX
 
     with pytest.raises(ValueError, match="unrecognized_execution_framework"):
         validate_execution_framework("INVALID_FRAMEWORK")
 
-    with pytest.raises(ValueError, match="sub_antigravity_model_identity_required"):
-        validate_execution_framework(FRAMEWORK_SUB_ANTIGRAVITY)
+    sub_fw = validate_execution_framework(FRAMEWORK_SUB_ANTIGRAVITY)
+    assert sub_fw["framework"] == FRAMEWORK_SUB_ANTIGRAVITY
+    assert sub_fw["is_main"] is False
+    assert sub_fw["is_sub"] is True
+    assert sub_fw["orchestration_mode"] == "SINGLE_CONVERSATION_ANTIGRAVITY"
 
-    with pytest.raises(ValueError, match="sub_antigravity_model_identity_required"):
-        validate_execution_framework(FRAMEWORK_SUB_ANTIGRAVITY, sub_model_identity="")
 
-
-# Regression C: SUB receipt cannot claim MAIN/Codex execution semantics
-def test_regression_c_sub_cannot_claim_main_or_fake_codex_isolation():
+# Regression C: SUB receipt framework validation
+def test_regression_c_sub_receipt_framework_validation():
     evidence = _sample_evidence()
     route = build_editorial_worker_routing_packet(
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
             "accepted_evidence_packet": evidence,
-            "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
+            "exact_source_handles": ["https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html"],
         },
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash",
     )
+    assert route["decision"] == "EXECUTE_IN_ACTIVE_ANTIGRAVITY_CONVERSATION"
 
-    # Worker receipt claiming MAIN_CODEX while opportunity is SUB fails closed
+    # Worker return claiming MAIN_CODEX while opportunity is SUB fails closed
     spoofed_framework = _valid_sub_worker_return(route["governed_input_hash"])
     spoofed_framework["execution_framework"] = FRAMEWORK_MAIN_CODEX
     with pytest.raises(ValueError, match="sub_editorial_worker_framework_invalid"):
@@ -231,19 +190,6 @@ def test_regression_c_sub_cannot_claim_main_or_fake_codex_isolation():
             worker_return=spoofed_framework,
             expected_governed_input_hash=route["governed_input_hash"],
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash",
-        )
-
-    # Worker receipt claiming Codex child isolation receipts in SUB mode fails closed
-    spoofed_isolated = _valid_sub_worker_return(route["governed_input_hash"])
-    spoofed_isolated["fresh"] = True
-    spoofed_isolated["isolated"] = True
-    with pytest.raises(ValueError, match="sub_editorial_worker_cannot_claim_codex_desktop_isolated_receipt"):
-        validate_editorial_worker_return(
-            worker_return=spoofed_isolated,
-            expected_governed_input_hash=route["governed_input_hash"],
-            execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash",
         )
 
 
@@ -254,10 +200,9 @@ def test_regression_d_hash_mismatch_fails_closed():
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
             "accepted_evidence_packet": evidence,
-            "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
+            "exact_source_handles": ["https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html"],
         },
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash",
     )
 
     valid_return = _valid_sub_worker_return(route["governed_input_hash"])
@@ -268,7 +213,6 @@ def test_regression_d_hash_mismatch_fails_closed():
             worker_return=valid_return,
             expected_governed_input_hash=route["governed_input_hash"],
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash",
         )
 
 
@@ -276,7 +220,7 @@ def test_regression_d_hash_mismatch_fails_closed():
 def test_regression_e_institutional_edge_identical_across_frameworks():
     evidence = _sample_evidence()
     editorial_packet = build_institutional_edge_editorial_packet(
-        article_mode="STANDARD_ANALYSIS",
+        article_mode="BREAKING_BRIEF",
         accepted_evidence_packet=evidence,
         structured_data_supported=True,
     )
@@ -285,24 +229,25 @@ def test_regression_e_institutional_edge_identical_across_frameworks():
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
             "accepted_evidence_packet": evidence,
-            "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
+            "exact_source_handles": ["https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html"],
         },
+        article_mode="BREAKING_BRIEF",
         execution_framework=FRAMEWORK_MAIN_CODEX,
     )
     route_sub = build_editorial_worker_routing_packet(
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
             "accepted_evidence_packet": evidence,
-            "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
+            "exact_source_handles": ["https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html"],
         },
+        article_mode="BREAKING_BRIEF",
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash",
     )
 
     # Incomplete article fails in both
     bad_article = {"title": "Short", "subtitle": "Short", "substack_body_markdown": "Short"}
     bad_main = _valid_main_worker_return(route_main["governed_input_hash"], bad_article)
-    bad_sub = _valid_sub_worker_return(route_sub["governed_input_hash"], "Gemini 3.7 Flash", bad_article)
+    bad_sub = _valid_sub_worker_return(route_sub["governed_input_hash"], bad_article)
 
     with pytest.raises(ValueError, match="institutional_edge_invalid"):
         validate_editorial_worker_return(
@@ -320,13 +265,12 @@ def test_regression_e_institutional_edge_identical_across_frameworks():
             expected_editorial_packet=editorial_packet,
             accepted_evidence_packet=evidence,
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash",
         )
 
     # Complete valid institutional edge article passes in both
     good_article = _full_institutional_article(editorial_packet, evidence)
     good_main = _valid_main_worker_return(route_main["governed_input_hash"], good_article)
-    good_sub = _valid_sub_worker_return(route_sub["governed_input_hash"], "Gemini 3.7 Flash", good_article)
+    good_sub = _valid_sub_worker_return(route_sub["governed_input_hash"], good_article)
 
     val_main = validate_editorial_worker_return(
         worker_return=good_main,
@@ -341,22 +285,20 @@ def test_regression_e_institutional_edge_identical_across_frameworks():
         expected_editorial_packet=editorial_packet,
         accepted_evidence_packet=evidence,
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        expected_model_identity="Gemini 3.7 Flash",
     )
     assert val_main["classification"] == "PASS_BOUND_XHIGH_EDITORIAL_RETURN"
     assert val_sub["classification"] == "PASS_BOUND_SUB_ANTIGRAVITY_EDITORIAL_RETURN"
 
 
-# Regression F: SUB model still has zero publication/public-write authority
+# Regression F: SUB mode has zero publication/public-write authority
 def test_regression_f_sub_zero_publication_authority():
     route_sub = build_editorial_worker_routing_packet(
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
             "accepted_evidence_packet": _sample_evidence(),
-            "exact_source_handles": ["https://esri.cao.go.jp/sample.html"],
+            "exact_source_handles": ["https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html"],
         },
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash",
     )
     assert route_sub["worker_request"]["grants_public_write_authority"] is False
     assert route_sub["worker_request"]["grants_factual_authority"] is False
@@ -370,11 +312,10 @@ def test_regression_f_sub_zero_publication_authority():
             worker_return=valid_sub,
             expected_governed_input_hash=route_sub["governed_input_hash"],
             execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            expected_model_identity="Gemini 3.7 Flash",
         )
 
 
-# Regression G: Persisted opportunity-level framework and model continuity
+# Regression G: Persisted opportunity-level framework continuity
 def test_regression_g_persisted_opportunity_framework_continuity():
     with tempfile.TemporaryDirectory() as temp_dir:
         output_dir = Path(temp_dir)
@@ -385,17 +326,14 @@ def test_regression_g_persisted_opportunity_framework_continuity():
             output_dir=output_dir,
             run_id=run_id,
             incoming_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            incoming_model_identity="Gemini 3.7 Flash",
         )
         assert binding["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY
-        assert binding["bound_model_identity"] == "Gemini 3.7 Flash"
 
-        # Re-entry with identical framework and model succeeds
+        # Re-entry with identical framework succeeds
         resumed = verify_opportunity_framework_continuity(
             output_dir=output_dir,
             run_id=run_id,
             incoming_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-            incoming_model_identity="Gemini 3.7 Flash",
         )
         assert resumed["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY
 
@@ -405,15 +343,6 @@ def test_regression_g_persisted_opportunity_framework_continuity():
                 output_dir=output_dir,
                 run_id=run_id,
                 incoming_framework=FRAMEWORK_MAIN_CODEX,
-            )
-
-        # Re-entry trying to switch model identity fails closed
-        with pytest.raises(ValueError, match="execution_framework_model_identity_switch_mid_opportunity_forbidden"):
-            verify_opportunity_framework_continuity(
-                output_dir=output_dir,
-                run_id=run_id,
-                incoming_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-                incoming_model_identity="Different Model",
             )
 
 
@@ -486,183 +415,98 @@ def test_regression_l_sub_mode_never_calls_nine_router_ladder(monkeypatch):
     assert len(called) == 0
 
 
-# Regression M: SUB mode cycle handoff and resume mechanism
-def test_regression_m_sub_mode_cycle_handoff_and_resume(monkeypatch, tmp_path: Path):
-    run_id = "test-sub-handoff-resume-run-1"
+# Regression M: Single-conversation SUB mode cycle execution with conversation-supplied article
+def test_regression_m_single_conversation_sub_mode_cycle_execution(tmp_path: Path):
+    run_id = "test-sub-single-conversation-run-1"
     output_dir = tmp_path / "newsroom_output"
     output_dir.mkdir(parents=True, exist_ok=True)
     cutoff_utc = "2026-08-17T23:59:59Z"
 
     evidence = _sample_evidence()
-    editorial_packet = build_institutional_edge_editorial_packet(
-        article_mode="STANDARD_ANALYSIS",
-        accepted_evidence_packet=evidence,
-        structured_data_supported=True,
-    )
-    article_content = _full_institutional_article(editorial_packet, evidence)
-
     headline = {
-        "headline_id": "ev-1",
-        "title": "Official policy notice",
-        "canonical_url": "https://esri.cao.go.jp/sample.html",
-        "publisher": "Official Agency",
+        "headline_id": "esri-cao-gdp-2026q2",
+        "title": "Quarterly Estimates of GDP: Apr. - Jun. 2026 (First Preliminary)",
+        "canonical_url": "https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html",
+        "publisher": "Economic and Social Research Institute, Cabinet Office, Government of Japan",
         "published_at_utc": "2026-08-17T00:00:00Z",
     }
-    cluster = {
-        "cluster_id": "test-cluster-1",
-        "headline_ids": ["ev-1"],
-        "lead_headline": headline,
-        "article_mode": "STANDARD_ANALYSIS",
+
+    raw_article_bytes = CONVERSATION_AUTHORED_ARTICLE_PATH.read_bytes()
+    conversation_article = json.loads(raw_article_bytes.decode("utf-8"))
+
+    readiness_override = {
+        "all_required_destinations_ready": True,
+        "fixture_bound": True,
+        "destinations": {
+            dest: {
+                "readiness_state": "READY_NON_BROWSER_BINDING",
+                "write_eligible": True,
+                "identity_match": True,
+            }
+            for dest in V1_REQUIRED_PUBLICATION_DESTINATIONS
+        },
     }
 
-    monkeypatch.setattr(
-        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
-        lambda **kwargs: {
+    def acquire_evidence(request: dict[str, Any]) -> dict[str, Any]:
+        ev = _sample_evidence()
+        ev["cluster_id"] = request.get("cluster_id")
+        ev["headline_ids"] = request.get("headline_ids")
+        ev["provided_evidence_capabilities"] = list(
+            request.get("required_evidence_capabilities") or ["official_filings", "macro_data"]
+        )
+        ev["claim_evidence_contract"]["status"] = "PASS"
+        ev["claim_evidence_contract"]["supported_claim_count"] = 1
+        ev["claim_evidence_contract"]["fabricated_claim_count"] = 0
+        return ev
+
+    def build_conversation_article_and_media(viability: Mapping[str, Any]) -> dict[str, Any]:
+        req = dict(viability.get("editorial_worker_request") or {})
+        governed_input_hash = str(req.get("governed_input_hash") or "")
+        editorial_packet = dict(
+            (req.get("bounded_governed_context") or {}).get("institutional_edge_editorial_packet") or {}
+        )
+        article = {
+            **conversation_article,
+            "cluster_id": str(viability.get("selected_cluster_id") or "rolling-x-deterministic-cluster-e70f6f539c3f19ecc04c"),
+            "headline_ids": list(viability.get("selected_headline_ids") or ["esri-cao-gdp-2026q2"]),
+            "institutional_edge_editorial_packet_sha256": str(editorial_packet.get("editorial_packet_sha256") or ""),
+        }
+        worker_receipt = {
+            "execution_framework": FRAMEWORK_SUB_ANTIGRAVITY,
+            "orchestration_mode": "SINGLE_CONVERSATION_ANTIGRAVITY",
+            "governed_input_hash": governed_input_hash,
+            "bounded_revision_count": 0,
+            "public_write_attempted": False,
+            "article": article,
+        }
+        return {
+            "schema_version": "contentops.rolling_x_grounded_article_media_builder.v1",
+            "status": "SUCCESS",
+            "article": article,
+            "media": {"assets": []},
+            "editorial_worker_receipt": worker_receipt,
+        }
+
+    # Execute cycle in SUB_ANTIGRAVITY mode with conversation-supplied article
+    result = pipeline_impl._run_rolling_x_newsroom_cycle(
+        run_id=run_id,
+        output_dir=output_dir,
+        cutoff_utc=cutoff_utc,
+        rolling_input={
             "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
             "counts": {"accepted": 1},
             "headlines": [headline],
-            "unique_headline_ids": ["ev-1"],
+            "unique_headline_ids": ["esri-cao-gdp-2026q2"],
         },
-    )
-    monkeypatch.setattr(
-        "live_contentops.preselection_intelligence_v1.apply_preselection_intelligence",
-        lambda clusters, **kwargs: {
-            "schema_version": "contentops.preselection_intelligence.v1",
-            "status": "PASS",
-            "ranked_clusters": list(clusters),
-            "preselection_logical_hash": "preselection-hash",
-        },
-    )
-    def mock_select(**kwargs):
-        assignment = dict(kwargs.get("assignment") or {})
-        clusters = list(assignment.get("ranked_clusters") or [])
-        first_cluster = clusters[0] if clusters else cluster
-        cid = str(first_cluster.get("cluster_id") or "test-cluster-1")
-        res = {
-            "schema_version": "capital_chronicle.rolling_x_evidence_viability.v1",
-            "status": "SUCCESS",
-            "decision": "SELECT_STORY",
-            "reason_code": "FIRST_VIABLE_RANKED_CLUSTER_SELECTED",
-            "ranked_candidate_count": len(clusters) or 1,
-            "selected_rank": 1,
-            "selected_cluster_id": cid,
-            "selected_headline_ids": ["ev-1"],
-            "selected_cluster": first_cluster,
-            "selected_evidence": evidence,
-            "rank_attempts": [],
-            "publication_authority_granted": False,
-        }
-        material = {key: value for key, value in res.items() if key != "viability_logical_hash"}
-        res["viability_logical_hash"] = hashlib.sha256(
-            json.dumps(material, sort_keys=True, separators=(",", ":")).encode("utf-8")
-        ).hexdigest()
-        return res
-
-    monkeypatch.setattr(
-        "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
-        mock_select,
-    )
-    monkeypatch.setattr(
-        pipeline_impl,
-        "_run_bounded_rolling_x_editorial_cycle",
-        lambda **kwargs: {
-            "status": "PASS",
-            "article": kwargs["article"],
-            "mandatory_semantic_review_calls": 0,
-            "review_history": [],
-        },
-    )
-    monkeypatch.setattr(
-        pipeline_impl,
-        "_prepare_rolling_x_release_candidate",
-        lambda **kwargs: {
-            "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
-            "release_candidate_lock_verification": {"status": "PASS_RELEASE_CANDIDATE_LOCK"},
-            "payloads": {"substack": {"title": kwargs["article"].get("title")}},
-        },
-    )
-    monkeypatch.setattr(
-        pipeline_impl,
-        "_build_rolling_x_publication_plan",
-        lambda **kwargs: {"schema_version": "test.plan.v1", "destinations": ["substack"]},
-    )
-
-    # Step 1: First cycle run with article_builder=None in SUB_ANTIGRAVITY mode
-    first_result = pipeline_impl._run_rolling_x_newsroom_cycle(
-        run_id=run_id,
-        output_dir=output_dir,
-        cutoff_utc=cutoff_utc,
+        evidence_acquirer=acquire_evidence,
+        article_builder=build_conversation_article_and_media,
         publication_enabled=True,
-        destination_readiness_override={
-            "all_required_destinations_ready": True,
-            "destinations": {
-                dest: {"readiness_state": "READY_NON_BROWSER_BINDING", "write_eligible": True, "identity_match": True}
-                for dest in V1_REQUIRED_PUBLICATION_DESTINATIONS
-            },
-        },
+        destination_readiness_override=readiness_override,
         runtime_preflight_override={"status": "PASS"},
         execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash",
     )
 
-    # Verify request artifact was written and cycle is awaiting SUB response
-    assert first_result["exact_next_blocker"] == "AWAITING_SUB_ANTIGRAVITY_EDITORIAL_WORKER_RESPONSE"
-    assert first_result["public_write_performed"] is False
-    req_path = output_dir / "sub_antigravity_editorial_request_v1.json"
-    assert req_path.exists()
-    req_data = json.loads(req_path.read_text(encoding="utf-8"))
-    assert req_data["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY
-    assert req_data["sub_model_identity"] == "Gemini 3.7 Flash"
-    assert req_data["governed_input_hash"]
-    req_packet = req_data["worker_request"]["bounded_governed_context"]["institutional_edge_editorial_packet"]
-    article_content["institutional_edge_editorial_packet_sha256"] = req_packet["editorial_packet_sha256"]
-
-    # Step 2: Write bounded response artifact
-    resp_path = output_dir / "sub_antigravity_editorial_response_v1.json"
-    worker_receipt = {
-        "execution_framework": FRAMEWORK_SUB_ANTIGRAVITY,
-        "model": "Gemini 3.7 Flash",
-        "reasoning_effort": "NOT_APPLICABLE_SUB_FRAMEWORK",
-        "fresh": False,
-        "isolated": False,
-        "logical_role_isolated": True,
-        "governed_input_hash": req_data["governed_input_hash"],
-        "bounded_revision_count": 0,
-        "public_write_attempted": False,
-        "article": article_content,
-    }
-    response_payload = {
-        "schema_version": "contentops.sub_antigravity_editorial_response.v1",
-        "run_id": run_id,
-        "execution_framework": FRAMEWORK_SUB_ANTIGRAVITY,
-        "model": "Gemini 3.7 Flash",
-        "governed_input_hash": req_data["governed_input_hash"],
-        "article": article_content,
-        "media": {"assets": []},
-        "editorial_worker_receipt": worker_receipt,
-    }
-    resp_path.write_text(json.dumps(response_payload, indent=2), encoding="utf-8")
-
-    # Step 3: Resume the cycle for the SAME opportunity
-    resumed_result = pipeline_impl._run_rolling_x_newsroom_cycle(
-        run_id=run_id,
-        output_dir=output_dir,
-        cutoff_utc=cutoff_utc,
-        publication_enabled=True,
-        destination_readiness_override={
-            "all_required_destinations_ready": True,
-            "destinations": {
-                dest: {"readiness_state": "READY_NON_BROWSER_BINDING", "write_eligible": True, "identity_match": True}
-                for dest in V1_REQUIRED_PUBLICATION_DESTINATIONS
-            },
-        },
-        runtime_preflight_override={"status": "PASS"},
-        execution_framework=FRAMEWORK_SUB_ANTIGRAVITY,
-        sub_model_identity="Gemini 3.7 Flash",
-    )
-
-    assert resumed_result.get("exact_next_blocker") is None or resumed_result.get("exact_next_blocker") == "", f"Blocker: {resumed_result.get('exact_next_blocker')}"
-    assert resumed_result["classification"] in {"STORY_PUBLICATION_COMPLETED", "PASS_PUBLICATION_PLAN_READY"}
-    assert resumed_result["public_write_performed"] is False
-    assert resumed_result["unknown_write_detected"] is False
-    assert resumed_result["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY
+    assert result["classification"] in {"STORY_PUBLICATION_COMPLETED", "PASS_PUBLICATION_PLAN_READY"}
+    assert result["public_write_performed"] is False
+    assert result["unknown_write_detected"] is False
+    assert result["execution_framework"] == FRAMEWORK_SUB_ANTIGRAVITY

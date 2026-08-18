@@ -192,17 +192,14 @@ def build_editorial_worker_routing_packet(
     readiness_state: str = "UNKNOWN",
     article_mode: str = "STANDARD_ANALYSIS",
     execution_framework: str = DEFAULT_EXECUTION_FRAMEWORK,
-    sub_model_identity: str | None = None,
 ) -> dict[str, Any]:
     """Return a deterministic routing decision without spawning or calling a model.
 
     In MAIN_CODEX, the native HIGH coordinator consumes this contract and spawns a fresh
-    isolated XHIGH editorial worker. In SUB_ANTIGRAVITY, the active Antigravity model executes
-    both coordinator and editorial roles with truthful identity and zero Sol spoofing.
+    isolated XHIGH editorial worker. In SUB_ANTIGRAVITY, the single active Antigravity conversation
+    performs all task reasoning and authors the article directly.
     """
-    framework_info = validate_execution_framework(
-        execution_framework, sub_model_identity=sub_model_identity
-    )
+    framework_info = validate_execution_framework(execution_framework)
     active_framework = str(framework_info["framework"])
     is_main = bool(framework_info["is_main"])
     coordinator_model = str(framework_info["coordinator_model"])
@@ -281,7 +278,7 @@ def build_editorial_worker_routing_packet(
     decision = (
         "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
         if is_main
-        else "EXECUTE_ONE_SUB_ANTIGRAVITY_EDITORIAL_WORKER"
+        else "EXECUTE_IN_ACTIVE_ANTIGRAVITY_CONVERSATION"
     )
     worker_request = {
         "execution_framework": active_framework,
@@ -319,15 +316,12 @@ def validate_editorial_worker_return(
     expected_editorial_packet: Mapping[str, Any] | None = None,
     accepted_evidence_packet: Mapping[str, Any] | None = None,
     execution_framework: str = DEFAULT_EXECUTION_FRAMEWORK,
-    expected_model_identity: str | None = None,
 ) -> dict[str, Any]:
     """Bind one editorial result to its exact input and return control to the coordinator."""
     if str(worker_return.get("governed_input_hash") or "") != expected_governed_input_hash:
         raise ValueError("desktop_editorial_worker_input_hash_mismatch")
 
-    framework_info = validate_execution_framework(
-        execution_framework, sub_model_identity=expected_model_identity
-    )
+    framework_info = validate_execution_framework(execution_framework)
     active_framework = str(framework_info["framework"])
     is_main = bool(framework_info["is_main"])
 
@@ -347,13 +341,6 @@ def validate_editorial_worker_return(
     else:
         if return_framework != FRAMEWORK_SUB_ANTIGRAVITY:
             raise ValueError("sub_editorial_worker_framework_invalid")
-        return_model = str(worker_return.get("model") or "").strip()
-        if not return_model:
-            raise ValueError("sub_editorial_worker_model_identity_missing")
-        if expected_model_identity and return_model != str(expected_model_identity).strip():
-            raise ValueError("sub_editorial_worker_model_identity_mismatch")
-        if worker_return.get("fresh") is True and worker_return.get("isolated") is True:
-            raise ValueError("sub_editorial_worker_cannot_claim_codex_desktop_isolated_receipt")
 
     revision_count = int(worker_return.get("bounded_revision_count") or 0)
     if revision_count < 0 or revision_count > MAX_EDITORIAL_REVISIONS:

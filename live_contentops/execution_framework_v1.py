@@ -4,16 +4,16 @@ Authority: ``CONTENTOPS_MAIN_CODEX_AND_ANTIGRAVITY_SUBFRAMEWORK_OWNER_OVERRIDE_V
 Status: ``OWNER_OVERRIDE_ACTIVE``
 
 ContentOps has two execution frameworks:
-1. ``MAIN_CODEX`` (Default): Primary execution framework whenever Codex quota/capacity is available.
-2. ``SUB_ANTIGRAVITY`` (Explicit Fallback): Fallback framework used strictly when Codex quota/capacity
-   is unavailable. The active Antigravity model performs all model-driven roles without Sol/XHIGH spoofing.
+1. ``MAIN_CODEX`` (Default): Primary multi-session execution framework whenever Codex quota/capacity is available.
+2. ``SUB_ANTIGRAVITY`` (Explicit Fallback): Single-session framework where ONE already-configured
+   Antigravity conversation performs all model-driven roles directly.
 """
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 SCHEMA_VERSION = "contentops.execution_framework.v1"
 BINDING_SCHEMA_VERSION = "contentops.rolling_x_framework_binding.v1"
@@ -35,13 +35,10 @@ def _utc_now() -> str:
 
 def validate_execution_framework(
     framework: str | None = None,
-    *,
-    sub_model_identity: str | None = None,
 ) -> dict[str, Any]:
     """Validate and normalize the execution framework configuration.
 
-    Fails closed if the framework identity is unrecognized, or if SUB_ANTIGRAVITY
-    lacks an explicit actual model identity.
+    Fails closed if the framework identity is unrecognized.
     """
     raw_framework = str(framework or DEFAULT_EXECUTION_FRAMEWORK).strip().upper()
     if raw_framework not in RECOGNIZED_FRAMEWORKS:
@@ -53,6 +50,7 @@ def validate_execution_framework(
             "framework": FRAMEWORK_MAIN_CODEX,
             "is_main": True,
             "is_sub": False,
+            "orchestration_mode": "MULTI_SESSION_CODEX",
             "coordinator_model": MAIN_COORDINATOR_MODEL,
             "coordinator_reasoning_effort": MAIN_COORDINATOR_REASONING_EFFORT,
             "editorial_worker_model": MAIN_EDITORIAL_WORKER_MODEL,
@@ -61,19 +59,15 @@ def validate_execution_framework(
             "public_write_authority": False,
         }
 
-    # SUB_ANTIGRAVITY validation
-    clean_sub_model = str(sub_model_identity or "").strip()
-    if not clean_sub_model:
-        raise ValueError("sub_antigravity_model_identity_required")
-
     return {
         "schema_version": SCHEMA_VERSION,
         "framework": FRAMEWORK_SUB_ANTIGRAVITY,
         "is_main": False,
         "is_sub": True,
-        "coordinator_model": clean_sub_model,
+        "orchestration_mode": "SINGLE_CONVERSATION_ANTIGRAVITY",
+        "coordinator_model": "ACTIVE_ANTIGRAVITY_CONVERSATION",
         "coordinator_reasoning_effort": "NOT_APPLICABLE_SUB_FRAMEWORK",
-        "editorial_worker_model": clean_sub_model,
+        "editorial_worker_model": "ACTIVE_ANTIGRAVITY_CONVERSATION",
         "editorial_worker_reasoning_effort": "NOT_APPLICABLE_SUB_FRAMEWORK",
         "requires_fresh_isolated_worker": False,
         "public_write_authority": False,
@@ -97,7 +91,6 @@ def persist_opportunity_framework_binding(
     output_dir: Path,
     run_id: str,
     framework: str,
-    model_identity: str,
 ) -> dict[str, Any]:
     """Persist the canonical framework binding for an opportunity to guarantee continuity."""
     binding_path = output_dir / "rolling_x_framework_binding_v1.json"
@@ -105,7 +98,6 @@ def persist_opportunity_framework_binding(
         "schema_version": BINDING_SCHEMA_VERSION,
         "run_id": run_id,
         "execution_framework": str(framework).strip().upper(),
-        "bound_model_identity": str(model_identity).strip(),
         "bound_at_utc": _utc_now(),
     }
     binding_path.parent.mkdir(parents=True, exist_ok=True)
@@ -117,12 +109,10 @@ def verify_opportunity_framework_continuity(
     output_dir: Path,
     run_id: str,
     incoming_framework: str,
-    incoming_model_identity: str | None = None,
 ) -> dict[str, Any]:
-    """Verify that an opportunity has not been switched to a different framework or model on re-entry/resume."""
+    """Verify that an opportunity has not been switched to a different framework on re-entry/resume."""
     binding_path = output_dir / "rolling_x_framework_binding_v1.json"
     inc_fw = str(incoming_framework).strip().upper()
-    inc_model = str(incoming_model_identity or "").strip()
 
     if binding_path.exists():
         try:
@@ -133,12 +123,6 @@ def verify_opportunity_framework_continuity(
         if str(persisted.get("run_id") or "") == run_id:
             persisted_fw = str(persisted.get("execution_framework") or "").strip().upper()
             assert_framework_continuity(persisted_fw, inc_fw)
-
-            persisted_model = str(persisted.get("bound_model_identity") or "").strip()
-            if inc_model and persisted_model and persisted_model != inc_model:
-                raise ValueError(
-                    f"execution_framework_model_identity_switch_mid_opportunity_forbidden:{persisted_model}->{inc_model}"
-                )
             return persisted
 
     # Initial binding for this opportunity
@@ -146,5 +130,4 @@ def verify_opportunity_framework_continuity(
         output_dir=output_dir,
         run_id=run_id,
         framework=inc_fw,
-        model_identity=inc_model,
     )

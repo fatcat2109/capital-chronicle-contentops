@@ -4228,7 +4228,6 @@ def _run_rolling_x_newsroom_cycle(
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
     execution_framework: str = "MAIN_CODEX",
-    sub_model_identity: str | None = None,
 ) -> dict[str, Any]:
     from live_contentops.execution_framework_v1 import (
         DEFAULT_EXECUTION_FRAMEWORK,
@@ -4239,18 +4238,14 @@ def _run_rolling_x_newsroom_cycle(
     )
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    framework_info = validate_execution_framework(
-        execution_framework, sub_model_identity=sub_model_identity
-    )
+    framework_info = validate_execution_framework(execution_framework)
     active_framework = str(framework_info["framework"])
-    active_model_identity = str(framework_info["coordinator_model"])
 
     # Persist and verify opportunity-level framework continuity across re-entries/resumes
     verify_opportunity_framework_continuity(
         output_dir=output_dir,
         run_id=run_id,
         incoming_framework=active_framework,
-        incoming_model_identity=active_model_identity,
     )
 
     if sidecar_glob is None:
@@ -5104,47 +5099,19 @@ def _run_rolling_x_newsroom_cycle(
         readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
         article_mode=editorial_article_mode,
         execution_framework=active_framework,
-        sub_model_identity=sub_model_identity,
     )
     evidence["editorial_worker_routing"] = editorial_route
 
-    sub_response_path = output_dir / "sub_antigravity_editorial_response_v1.json"
-    if active_framework == FRAMEWORK_SUB_ANTIGRAVITY and sub_response_path.exists():
-        sub_resp = _read_json(sub_response_path)
-        sub_article = dict(sub_resp.get("article") or sub_resp)
-        sub_receipt = dict(sub_resp.get("editorial_worker_receipt") or sub_resp)
-        sub_media = dict(sub_resp.get("media") or {"assets": []})
-        article_builder = lambda viability: {  # noqa: E731
-            "schema_version": "contentops.rolling_x_grounded_article_media_builder.v1",
-            "status": "SUCCESS",
-            "article": sub_article,
-            "media": sub_media,
-            "editorial_worker_receipt": sub_receipt,
-        }
-    elif article_builder is None:
+    if article_builder is None:
         if publication_enabled:
             if active_framework == FRAMEWORK_SUB_ANTIGRAVITY:
-                sub_request_path = output_dir / "sub_antigravity_editorial_request_v1.json"
-                sub_request = {
-                    "schema_version": "contentops.sub_antigravity_editorial_request.v1",
-                    "run_id": run_id,
-                    "execution_framework": FRAMEWORK_SUB_ANTIGRAVITY,
-                    "sub_model_identity": sub_model_identity,
-                    "role": "desktop_editorial_worker",
-                    "governed_input_hash": editorial_route.get("governed_input_hash"),
-                    "worker_request": dict(editorial_route.get("worker_request") or {}),
-                    "opportunity_state": "ARTICLE_QUALIFIED",
-                    "selected_cluster_id": viability.get("selected_cluster_id"),
-                    "created_at_utc": _utc_now(),
-                }
-                _write_json(sub_request_path, sub_request)
                 evidence["classification"] = "NO_PUBLICATION"
-                evidence["exact_next_blocker"] = "AWAITING_SUB_ANTIGRAVITY_EDITORIAL_WORKER_RESPONSE"
+                evidence["exact_next_blocker"] = "STORY_ARTICLE_VISUAL_BUILDER_UNAVAILABLE"
                 evidence["editorial_worker_count_requested"] = 1
                 evidence["governed_input_hash"] = editorial_route.get("governed_input_hash")
                 evidence["legacy_writer_fallback_used"] = False
                 evidence["public_write_performed"] = False
-                _persist_candidate_walk(terminal_reason="AWAITING_SUB_ANTIGRAVITY_EDITORIAL_WORKER_RESPONSE")
+                _persist_candidate_walk(terminal_reason="STORY_ARTICLE_VISUAL_BUILDER_UNAVAILABLE")
                 _persist_cycle_evidence()
                 return evidence
 
@@ -5281,7 +5248,6 @@ def _run_rolling_x_newsroom_cycle(
                         ),
                         accepted_evidence_packet=selected_evidence,
                         execution_framework=active_framework,
-                        expected_model_identity=sub_model_identity,
                     )
                 except (TypeError, ValueError):
                     raise GroundedArticleBuilderError(

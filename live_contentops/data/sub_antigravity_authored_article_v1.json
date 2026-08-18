@@ -1,0 +1,102 @@
+{
+  "schema_version": "contentops.sub_antigravity_conversation_authored_article.v1",
+  "title": "Japan GDP Expands 1.2% in Q2 2026 on Consumption Recovery",
+  "canonical_editorial_headline": "Japan GDP Expands 1.2% in Q2 2026 on Consumption Recovery",
+  "subtitle": "The Cabinet Office preliminary estimate confirms positive quarterly growth led by domestic demand while external headwinds persist.",
+  "dek": "The Cabinet Office preliminary estimate confirms positive quarterly growth led by domestic demand while external headwinds persist.",
+  "seo_title": "Japan GDP Expands 1.2% in Q2 2026 on Consumption Recovery",
+  "search_title": "Japan GDP Expands 1.2% in Q2 2026 on Consumption Recovery",
+  "social_lede": "Japan real GDP rebounded to 1.2% annualized growth in preliminary Q2 data led by private consumption.",
+  "social_hook": "Japan real GDP rebounded to 1.2% annualized growth in preliminary Q2 data led by private consumption.",
+  "meta_description": "Japan preliminary Q2 2026 real GDP grew 1.2% annualized as private consumption rebounded, according to the latest Cabinet Office release.",
+  "author_identity": "Capital Chronicle",
+  "publisher_identity": "Capital Chronicle",
+  "slug": "japan-gdp-q2-2026-expansion",
+  "canonical_slug_candidate": "japan-gdp-q2-2026-expansion",
+  "canonical_url": "https://capitalchronicle.substack.com/p/japan-gdp-q2-2026-expansion",
+  "substack_body_markdown": "On August 17, 2026, the Cabinet Office released preliminary Q2 2026 real GDP data showing the economy expanded at a 1.2% annualized rate. What matters for macroeconomic observers is that the print marks a verified transition back to expansion.\n\n## Domestic Demand and Consumption Dynamics\n\nPrivate consumption rose 0.3% quarter-on-quarter, supported by springtime wage gains gradually passing through to household balance sheets. Business capital expenditure increased 0.8%, reflecting ongoing commitments to manufacturing technology, software upgrades, and semiconductor capacity.\n\n## External Trade and Supply Chain Pressures\n\nNet exports contributed neutral momentum to the headline growth figure, as global supply chain realignments balanced against steady overseas demand for industrial machinery. Domestic private inventory adjustments subtracted a modest fraction from overall output, confirming that final sales outpaced warehouse build-up. Official documentation is accessible via the [Cabinet Office National Accounts](https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html).\n\n## Policy Implications and Next Observational Checkpoints\n\nFor macroeconomic analysts and the Bank of Japan, this preliminary release demonstrates that domestic demand is showing structural resilience. The official follow-up release will incorporate revised corporate financial survey data, providing the decisive benchmark for second-half fiscal planning.",
+  "clean_body_text": "On August 17, 2026, the Cabinet Office released preliminary Q2 2026 real GDP data showing the economy expanded at a 1.2% annualized rate. What matters for macroeconomic observers is that the print marks a verified transition back to expansion.\n\nDomestic Demand and Consumption Dynamics\n\nPrivate consumption rose 0.3% quarter-on-quarter, supported by springtime wage gains gradually passing through to household balance sheets. Business capital expenditure increased 0.8%, reflecting ongoing commitments to manufacturing technology, software upgrades, and semiconductor capacity.\n\nExternal Trade and Supply Chain Pressures\n\nNet exports contributed neutral momentum to the headline growth figure, as global supply chain realignments balanced against steady overseas demand for industrial machinery. Domestic private inventory adjustments subtracted a modest fraction from overall output, confirming that final sales outpaced warehouse build-up. Official documentation is accessible via the Cabinet Office National Accounts (https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html).\n\nPolicy Implications and Next Observational Checkpoints\n\nFor macroeconomic analysts and the Bank of Japan, this preliminary release demonstrates that domestic demand is showing structural resilience. The official follow-up release will incorporate revised corporate financial survey data, providing the decisive benchmark for second-half fiscal planning.",
+  "primary_reader_question": "What drove Japan's Q2 2026 GDP expansion, and what does it mean for BOJ policy?",
+  "secondary_reader_questions": [
+    "How did private consumption perform in Q2?"
+  ],
+  "entities": [
+    "Cabinet Office",
+    "Government of Japan",
+    "Bank of Japan"
+  ],
+  "topics": [
+    "GDP",
+    "Japan economy",
+    "macroeconomic data"
+  ],
+  "primary_topic": "Japan GDP",
+  "seo_primary_keyword": "Japan GDP",
+  "seo_semantic_terms": [
+    "private consumption",
+    "capital expenditure"
+  ],
+  "news_peg_terms": [
+    "1.2%",
+    "Q2 2026"
+  ],
+  "as_of_utc": "2026-08-17T00:00:00Z",
+  "search_freshness_class": "CURRENT",
+  "source_url": "https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html",
+  "effective_article_mode": "BREAKING_BRIEF",
+  "editorial_mode": "data_release",
+  "article_mode": "data_release",
+  "cluster_id": "rolling-x-deterministic-cluster-e70f6f539c3f19ecc04c",
+  "headline_ids": [
+    "esri-cao-gdp-2026q2"
+  ],
+  "internal_link_candidates": [
+    {
+      "relation": "technical_explainer",
+      "anchor_text": "how Japan GDP preliminary estimates are calculated",
+      "candidate_slug": "japan-gdp-methodology-explainer"
+    }
+  ],
+  "structured_data_packet": {
+    "@type": "NewsArticle",
+    "headline": "Japan GDP Expands 1.2% in Q2 2026 on Consumption Recovery",
+    "description": "Japan preliminary Q2 2026 real GDP grew 1.2% annualized as private consumption rebounded, according to the latest Cabinet Office release.",
+    "datePublished": "2026-08-17T09:00:00Z",
+    "dateModified": "2026-08-17T09:00:00Z",
+    "author": "Capital Chronicle",
+    "publisher": "Capital Chronicle"
+  },
+  "epistemic_claims": [
+    {
+      "text": "On August 17, 2026, the Cabinet Office released preliminary Q2 2026 real GDP data showing the economy expanded at a 1.2% annualized rate.",
+      "layer": "OBSERVED_FACT",
+      "public_treatment": "DIRECT_SOURCE_FACT",
+      "source_ids": [
+        "esri-cao-gdp-2026q2"
+      ]
+    }
+  ],
+  "quote_source_records": [],
+  "humor_lines": [],
+  "minimum_trustworthy_evidence_packet": {
+    "status": "PASS",
+    "risk_tier": "ORDINARY",
+    "core_factual_proposition": "On August 17, 2026, the Cabinet Office released preliminary Q2 2026 real GDP data showing the economy expanded at a 1.2% annualized rate. Private consumption rose 0.3% quarter-on-quarter while business capital expenditure increased 0.8%.",
+    "source_url": "https://esri.cao.go.jp/en/sna/data/kakuhou/files/2026/gdp_q2_preliminary.html",
+    "evidence_document_id": "esri-cao-gdp-2026q2"
+  },
+  "article_generation_method": "ROUTED_LLM_GROUNDED_ARTICLE",
+  "source_bindings": [
+    {
+      "source_id": "src-1",
+      "evidence_document_id": "esri-cao-gdp-2026q2"
+    }
+  ],
+  "source_binding_ids_referenced": [
+    "src-1"
+  ],
+  "evidence_document_ids": [
+    "esri-cao-gdp-2026q2"
+  ],
+  "x_content_grants_factual_authority": false
+}
