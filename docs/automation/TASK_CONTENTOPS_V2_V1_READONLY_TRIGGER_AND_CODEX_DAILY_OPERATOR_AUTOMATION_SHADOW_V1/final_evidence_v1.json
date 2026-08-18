@@ -79,7 +79,7 @@
     }
   ],
   "validation": {
-    "pytest": "68 passed, 1 skipped in 16.72s",
+    "pytest": "68 passed, 1 skipped in 16.13s",
     "ruff": "PASS",
     "compileall": "PASS",
     "git_diff_check": "PASS",

@@ -83,7 +83,7 @@ Builder evidence does not claim Jim/ChatGPT App-UI acceptance.
 
 ## Validation
 
-- Focused compatibility suite: `68 passed, 1 skipped in 16.72s`.
+- Final focused compatibility suite: `68 passed, 1 skipped in 16.13s`.
 - Ruff: passed.
 - `compileall`: passed.
 - `git diff --check`: passed before the real proof.
