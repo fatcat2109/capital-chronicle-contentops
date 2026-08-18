@@ -97,7 +97,9 @@ def main() -> int:
     handoff.add_argument("--child-worktree", required=True)
     handoff.add_argument("--purpose", required=True)
     handoff.add_argument("--governed-input-hash", required=True)
-    handoff.add_argument("--result-text", required=True)
+    result_source = handoff.add_mutually_exclusive_group(required=True)
+    result_source.add_argument("--result-text")
+    result_source.add_argument("--result-file", type=Path)
     handoff.add_argument("--candidate-version-id")
     handoff.add_argument("--video-job-id")
 
@@ -145,6 +147,11 @@ def main() -> int:
                 governed_input_packet_hash=hash_value(packet),
             )
         elif args.command == "record-handoff":
+            result_text = (
+                args.result_file.resolve().read_text(encoding="utf-8")
+                if args.result_file
+                else str(args.result_text)
+            )
             result = store.record_native_handoff(
                 handoff_id=args.handoff_id,
                 operator_run_id=args.operator_run_id,
@@ -155,7 +162,7 @@ def main() -> int:
                 child_worktree=args.child_worktree,
                 purpose=args.purpose,
                 governed_input_hash=args.governed_input_hash,
-                result_hash=_sha256_text(args.result_text),
+                result_hash=_sha256_text(result_text),
                 candidate_version_id=args.candidate_version_id,
                 video_job_id=args.video_job_id,
             )
