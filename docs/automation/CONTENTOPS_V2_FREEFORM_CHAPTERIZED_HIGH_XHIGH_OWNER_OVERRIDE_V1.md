@@ -1,100 +1,48 @@
-# ContentOps V2 — Free-form Chapterized HIGH/XHIGH Owner Override V1
+# Capital Chronicle ContentOps — V2 Creative Authority Override
 
-Authority date: 2026-08-17
-Status: `CURRENT_CANONICAL_V2_OWNER_OVERRIDE`
-Owner: Jim
+Authority date: 2026-08-19
+Status: `CURRENT_V2_CREATIVE_POLICY`
 
-This override supersedes current V2 planning language where it conflicts. Historical experiment and audit records remain historical evidence and are not rewritten.
+This file governs viewer-facing creative judgment only. Root product/task authority remains:
 
-## Current task
+- `AGENTS.md`
+- `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+- `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+- `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
 
-`TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
+## Current creative model authority
 
-Required result ceiling:
+`MAIN_CODEX` owns repo coordination, mechanics, deterministic validation, rights/permission checks, provenance, caching/recovery, and evidence packaging.
 
-`PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE`
+For consequential viewer-facing V2 editorial/visual/review work, a fresh owner-authorized `GPT-5.6 Sol / XHIGH` session/worker may be invoked with bounded governed inputs. It may own creative judgment but receives zero factual, numeric, Capital Chronicle, rights, permission, destination-identity, credential, or public-write authority.
 
-The accepted picture and zero-rerender package outputs are closed inputs. The current HIGH-only
-task reconciles official publication-adapter planning on fresh master, executes only deterministic
-fake-provider shadow proof, and preserves `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`. It performs no
-OAuth, provider call, credential read, private/unlisted/draft upload, or public write.
+Do not resume an old creative worker as authority for a materially new story or final-media acceptance.
 
-Current sequence:
+## Creative doctrine
 
-`free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED BLOCKER REMOVAL] -> official publication adapter reconciliation [CURRENT] -> TikTok draft readiness/exact owner live-canary gate [NEXT, NOT STARTED] -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
+Use `CONCRETE_FIRST_ABSTRACT_SECOND`:
 
-Single exact next task after acceptance:
+1. real/contextual rights-safe media;
+2. primary documents and source excerpts within reuse rights;
+3. governed native charts/maps/data visuals;
+4. story-specific explanatory graphics;
+5. abstract geometry only when it adds meaning rather than replacing evidence.
 
-`TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`
+Viewer-facing source should remain free-form and story-specific. Remotion is deterministic editing/render infrastructure, not the creative authority and not a substitute for asset-rich storytelling.
 
-The current task does not start or authorize that gate.
+For charts/data where the full chart is the evidence, hold it legibly rather than adding arbitrary zoom/pan effects. Motion should serve comprehension.
 
-## Model orchestration
+Asset diversity is qualitative: avoid conspicuous reuse of the same image/clip family when fresh relevant assets exist. Do not replace editorial judgment with file-count quotas.
 
-- Parent/coordinator/deterministic executor: `GPT-5.6 Sol / HIGH`.
-- Viewer-facing creative workers: fresh isolated `GPT-5.6 Sol / XHIGH` executions.
-- The same chapter or audio-editor XHIGH execution may resume only for creative revision of its own responsibility.
-- `MAX` and `ULTRA` are retired for the current product direction. No mode bakeoff is authorized.
-- XHIGH must not be spent on Git, acquisition, hashing, transcoding, installation, rendering, waits, polling, FFmpeg, tests, cache work, assembly, evidence formatting, commit, or push.
-- Preserve a non-secret model/reasoning receipt where the runtime exposes it. Never fabricate creative provenance or silently substitute HIGH for an assigned XHIGH creative step.
+## Actual-media acceptance
 
-## Format and resolution
+Deterministic checks can validate dimensions, duration, audio presence, rights/provenance, asset availability, text overflow, source binding, and other hard boundaries.
 
-- Development, review, and owner masters are 1080-first.
-- Longform: native `1920×1080`, 30 fps, minimum 5:00, maximum 45:00, with duration earned by story and evidence.
-- Short: native `1080×1920`, normally 30–60 seconds.
-- Do not render 4K. 4K capability is already proven and deferred.
+They cannot grant final visual/audio quality PASS.
 
-## Creative authority
+Final short/longform acceptance requires inspection of the actual rendered media by Jim/ChatGPT or another explicitly owner-authorized independent reviewer. At most one bounded correction loop should follow a substantive independent audit unless a hard blocker requires more.
 
-The positive architecture is free-form Codex creative authority with semantic chapterization.
+## Public-write boundary
 
-A creative chapter is an authorship/review unit, not automatically a render unit. Codex/XHIGH may freely author story-specific viewer-facing React/Remotion source, composition, typography, picture selection, motion, pacing, transitions, narration language, and sound-edit intent.
-
-Do not require or machine-enforce:
-
-- a fixed compositor, layout enum, template renderer, mandatory storyboard or visual-state schema;
-- scene, word, asset, material-family, chart, documentary, cut, or transition quotas;
-- a two-to-four-second motion rule or hold-duration target;
-- creative/taste scores or thresholds;
-- must-use-all-assets rules;
-- a fixed number of creative repairs.
-
-Aesthetic telemetry may be descriptive only. XHIGH actual-media creative review and Jim/ChatGPT owner review replace deterministic creative-direction gates.
-
-## Deterministic control plane
-
-The local HIGH-owned substrate may block only genuine hard boundaries:
-
-- factual or numeric authority violation;
-- rights or provenance violation;
-- secret, security, or sandbox violation;
-- corrupt or unrenderable media;
-- format-contract violation;
-- unauthorized publication or public write.
-
-It owns evidence binding, rights/provenance, immutable source hashes, media normalization, chapter/range cache identity, dirty-range renders, bundle/render execution, independent audio stems, concat/mux, technical media QA, performance telemetry, and recovery.
-
-## Audio and authority media
-
-- Audio editing is viewer-facing creative authorship. XHIGH decides music architecture, silence, J/L cuts, fades, crossfades, authentic room-tone tails, ambience bridges, pickups, ducking, and boundary intent. HIGH executes the plan.
-- No universal source-clip fade formula is allowed.
-- Real governed authority clips are a valid visual and audio carrier when rights, identity, chronology, meaning, and prohibited marks/third-party material are controlled.
-- Authentic authority speech must not be synthetically extended or altered to say something it did not say.
-- Current synthetic narrator for this owner-polish task is the already owner-preferred local Kokoro `af_heart`, using the accepted Narrow Door settings (`speed=1.06`, `lang=en-us`).
-- Procedural broadband/low-frequency noise is not an acceptable substitute for music.
-- Synthetic avatar/HeyGen remains deferred.
-
-## Current production substrate
-
-Minimum target:
-
-`governed film packet -> whole-film XHIGH repair director -> only necessary XHIGH chapter authors -> local dirty-range review -> chapter picture locks -> one XHIGH audio editor -> independent picture/audio assembly -> XHIGH whole-film critic -> bounded localized repair -> high-quality 1080 owner master -> Jim/ChatGPT review`
-
-Picture and audio remain independently cached. An audio repair must not render video; a video-only repair must not regenerate TTS. Locked compatible chapter pictures should assemble by stream copy when technically correct.
-
-## Safety
-
-`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling.
-
-No public/private/unlisted upload, social/platform write, browser/CDP publication action, V1 runtime/store/scheduler/publication mutation, V2-02, secret exposure, or synthetic real-person documentary media is authorized.
+Current V2 video public-write authority is zero. Creative approval never implies upload/publication authority.
