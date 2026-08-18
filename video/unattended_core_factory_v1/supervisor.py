@@ -12,6 +12,7 @@ from . import media as local_media
 from .creative import (
     MINIMUM_PICTURE_TAIL_ROOM_SECONDS,
     SHORT_MAX_SECONDS,
+    governed_assets_for_motion,
     hash_file,
     hash_value,
     materialize_source,
@@ -30,6 +31,12 @@ from .desktop_session import (
     validate_bounded_creative_receipt,
 )
 from .store import V2JobStore, utc_now
+from .transcript import (
+    build_canonical_spoken_transcript,
+    build_transcript_derived_seo,
+    build_voiceover_qa,
+    validate_transcript_derived_seo,
+)
 
 
 SCHEMA_VERSION = "contentops.v2.unattended_core_factory_supervisor.v1"
@@ -217,6 +224,8 @@ class DesktopSessionV2Factory:
             "narration_overrun": artifacts / "narration_overrun_pre_motion.json",
             "timing_lock": artifacts / "actual_narration_timing_lock.json",
             "motion": artifacts / "motion_source.json",
+            "asset_selection": artifacts / "post_transcript_asset_selection.json",
+            "asset_selection_validation": artifacts / "post_transcript_asset_selection_validation.json",
             "motion_validation": artifacts / "motion_source_validation.json",
             "motion_receipt": artifacts / "codex_motion_lock_receipt.json",
             "source_validation": artifacts / "hard_source_validation.json",
@@ -231,9 +240,11 @@ class DesktopSessionV2Factory:
             "narration_dir": root / "audio" / "narration",
             "audio_receipt": artifacts / "audio_build_receipt.json",
             "mix": root / "audio" / "final_mix.wav",
-            "final": root / "media" / "frozen_without_breaking_unattended_short_v1.mp4",
+            "final": root / "media" / "contentops_v2_owner_review_short.mp4",
             "final_receipt": artifacts / "final_media_receipt.json",
             "captions": root / "package" / "captions",
+            "voiceover_qa": root / "review" / "transcript_voiceover_qa.json",
+            "seo": root / "package" / "transcript_derived_seo.json",
             "technical": root / "review" / "technical_media_report.json",
             "factual_audit": root / "review" / "factual_anchor_audit.json",
             "rights": root / "review" / "rights_provenance_summary.json",
@@ -406,7 +417,9 @@ class DesktopSessionV2Factory:
             governed_input_hash=str(job["input_packet_hash"]),
             editor=editor,
         )
-        validate_motion_artifact(motion, packet, editor, timing_lock)
+        motion_validation = validate_motion_artifact(
+            motion, packet, editor, timing_lock
+        )
         initial_receipt = _load(paths["editor_receipt"])
         receipt = build_bounded_creative_receipt(
             provenance=provenance,
@@ -417,8 +430,18 @@ class DesktopSessionV2Factory:
                 "governed_packet": str(job["input_packet_hash"]),
                 "editorial": hash_value(editor),
                 "actual_narration_timing_lock": str(timing_lock["timing_lock_hash"]),
+                "canonical_transcript": str(
+                    timing_lock["canonical_spoken_transcript"][
+                        "canonical_transcript_hash"
+                    ]
+                ),
             },
-            output_artifact_hashes={"motion": hash_value(motion)},
+            output_artifact_hashes={
+                "motion": hash_value(motion),
+                "post_transcript_asset_selection": motion_validation[
+                    "asset_selection_hash"
+                ],
+            },
         )
         validate_bounded_creative_receipt(
             receipt,
@@ -436,6 +459,7 @@ class DesktopSessionV2Factory:
                 "governed_input_hash": str(job["input_packet_hash"]),
                 "editorial_narration_hash": hash_value(editor),
                 "narration_timing_lock_hash": timing_lock["timing_lock_hash"],
+                "asset_selection_hash": motion_validation["asset_selection_hash"],
                 "motion": dict(motion),
                 "receipt": receipt,
             },
@@ -756,8 +780,17 @@ class DesktopSessionV2Factory:
                 raise SupervisorError(
                     f"narration_timing_revision_still_outside_short_contract:{actual_duration:.6f}"
                 )
+            transcript = build_canonical_spoken_transcript(
+                video_job_id=str(job["video_job_id"]),
+                run_id=run_id,
+                governed_input_hash=input_hash,
+                editor=editor,
+                placements=narration["placements"],
+                locked_narration_audio=narration["artifact"],
+            )
+            voiceover_qa = build_voiceover_qa(transcript=transcript, editor=editor)
             timing_lock = {
-                "schema": "contentops.v2.actual_narration_timing_lock.v1",
+                "schema": "contentops.v2.actual_narration_timing_lock.v2",
                 "video_job_id": str(job["video_job_id"]),
                 "run_id": run_id,
                 "governed_input_hash": input_hash,
@@ -771,6 +804,8 @@ class DesktopSessionV2Factory:
                 "initial_silence_seconds": narration["initial_silence_seconds"],
                 "segments": narration["placements"],
                 "locked_narration_audio": narration["artifact"],
+                "canonical_spoken_transcript": transcript,
+                "voiceover_qa": voiceover_qa,
                 "actual_total_narration_duration_seconds": actual_duration,
                 "deliberate_pause_policy": {
                     "between_segments_seconds": 0.16,
@@ -842,14 +877,32 @@ class DesktopSessionV2Factory:
                 run_id=run_id,
                 initial_receipt=_load(paths["editor_receipt"]),
             )
-            expected_hash = str((receipt.get("output_artifact_hashes") or {}).get("motion") or "")
+            expected_outputs = dict(receipt.get("output_artifact_hashes") or {})
+            expected_hash = str(expected_outputs.get("motion") or "")
             if not expected_hash or hash_value(output) != expected_hash:
                 raise SupervisorError("codex_motion_output_hash_mismatch")
             validation = validate_motion_artifact(output, packet, editor, timing_lock)
+            if submission.get("asset_selection_hash") != validation["asset_selection_hash"]:
+                raise SupervisorError("desktop_session_asset_selection_hash_mismatch")
+            if expected_outputs.get("post_transcript_asset_selection") != validation[
+                "asset_selection_hash"
+            ]:
+                raise SupervisorError("codex_asset_selection_output_hash_mismatch")
             source_records = materialize_source(output["files"], paths["project"])
             records = [
                 _json_artifact(paths["motion"], output),
                 _json_artifact(paths["motion_validation"], validation),
+                _json_artifact(paths["asset_selection"], output["asset_selection"]),
+                _json_artifact(
+                    paths["asset_selection_validation"],
+                    {
+                        "result": "PASS_POST_TRANSCRIPT_ASSET_SELECTION",
+                        "asset_selection_hash": validation["asset_selection_hash"],
+                        "canonical_transcript_hash": timing_lock[
+                            "canonical_spoken_transcript"
+                        ]["canonical_transcript_hash"],
+                    },
+                ),
                 _json_artifact(paths["motion_receipt"], receipt),
             ]
             self._append(
@@ -860,6 +913,9 @@ class DesktopSessionV2Factory:
                 inputs={
                     "editor": hash_value(editor),
                     "actual_narration_timing_lock": timing_lock["timing_lock_hash"],
+                    "post_transcript_asset_selection": validation[
+                        "asset_selection_hash"
+                    ],
                 },
                 artifacts=records,
                 result="PASS_MOTION_SOURCE_LOCK",
@@ -872,7 +928,11 @@ class DesktopSessionV2Factory:
         motion = _load(paths["motion"])
         if stage == "HARD_SOURCE_VALIDATED":
             materialize_source(motion["files"], paths["project"])
-            asset_validation = self.media.validate_assets(packet, self.config.asset_root)
+            asset_packet = dict(packet)
+            asset_packet["rights_assets"] = governed_assets_for_motion(packet, motion)
+            asset_validation = self.media.validate_assets(
+                asset_packet, self.config.asset_root
+            )
             scaffold = self.media.prepare_project(
                 project_root=paths["project"],
                 scaffold_root=self.config.scaffold_root,
@@ -1056,6 +1116,13 @@ class DesktopSessionV2Factory:
                 bed_path=bed_path,
                 output_dir=paths["mix"].parent,
             )
+            mix["canonical_transcript_hash"] = timing_lock[
+                "canonical_spoken_transcript"
+            ]["canonical_transcript_hash"]
+            mix["locked_narration_audio_sha256"] = timing_lock[
+                "locked_narration_audio"
+            ]["sha256"]
+            mix["final_audio_sha256"] = mix["mix"]["sha256"]
             mix_record = _json_artifact(paths["audio_receipt"], mix)
             self._append(
                 job=job,
@@ -1092,6 +1159,14 @@ class DesktopSessionV2Factory:
             )
             return
         if stage == "PACKAGE_QA_PASSED":
+            transcript = dict(timing_lock["canonical_spoken_transcript"])
+            voiceover_qa = build_voiceover_qa(transcript=transcript, editor=editor)
+            voiceover_validation_record = _write_immutable_json(
+                paths["voiceover_qa"], voiceover_qa
+            )
+            seo = build_transcript_derived_seo(transcript=transcript, editor=editor)
+            validate_transcript_derived_seo(seo, transcript=transcript, editor=editor)
+            seo_record = _write_immutable_json(paths["seo"], seo)
             captions = self.media.build_captions(
                 timing_lock=timing_lock,
                 media_duration_seconds=float(motion["duration_seconds"]),
@@ -1104,15 +1179,49 @@ class DesktopSessionV2Factory:
                 "input_packet_hash": input_hash,
                 "editor_validation": _load(paths["editor_validation"]),
                 "motion_validation": _load(paths["motion_validation"]),
+                "canonical_transcript_hash": transcript[
+                    "canonical_transcript_hash"
+                ],
+                "voiceover_qa_hash": voiceover_qa["voiceover_qa_hash"],
+                "seo_package_hash": seo["seo_package_hash"],
                 "prior_creative_source_reused_as_input": False,
             }
             factual_record = _json_artifact(paths["factual_audit"], factual)
+            all_rights_assets = governed_assets_for_motion(packet, motion)
+            selected_assets = {
+                str(item["asset_id"]): item for item in all_rights_assets
+            }
+            rendered_assets = [
+                selected_assets[asset_id]
+                for asset_id in map(str, motion.get("asset_ids", []))
+            ]
+            visual_family_counts: dict[str, int] = {}
+            semantic_purpose_counts: dict[str, int] = {}
+            for asset in rendered_assets:
+                family = str(asset.get("visual_family") or "UNDECLARED")
+                purpose = str(asset.get("semantic_purpose") or "UNDECLARED")
+                visual_family_counts[family] = visual_family_counts.get(family, 0) + 1
+                semantic_purpose_counts[purpose] = (
+                    semantic_purpose_counts.get(purpose, 0) + 1
+                )
             rights = {
                 "schema": "contentops.v2.rights_provenance_summary.v1",
                 "result": "PASS_RIGHTS_REFERENCES",
-                "assets": packet["rights_assets"],
+                "assets": all_rights_assets,
+                "post_transcript_asset_selection_hash": motion[
+                    "asset_selection"
+                ]["asset_selection_hash"],
+                "rendered_asset_ids": [
+                    str(item["asset_id"]) for item in rendered_assets
+                ],
+                "rendered_visual_family_counts": visual_family_counts,
+                "rendered_semantic_purpose_counts": semantic_purpose_counts,
                 "generated_real_person_documentary_media": False,
-                "new_asset_discovery_performed": False,
+                "new_asset_discovery_performed": bool(
+                    motion["asset_selection"].get(
+                        "fresh_web_discovery_performed", False
+                    )
+                ),
             }
             rights_record = _json_artifact(paths["rights"], rights)
             receipts = [
@@ -1126,6 +1235,13 @@ class DesktopSessionV2Factory:
                 "schema": "contentops.v2.cost_runtime_summary.v1",
                 **_safe_cost(receipts),
                 "external_media_cost_usd": 0.0,
+                "completed_stage_wall_time_seconds": round(
+                    sum(
+                        float(event["wall_time_seconds"])
+                        for event in self.store.events(str(job["video_job_id"]))
+                    ),
+                    6,
+                ),
                 "render_count": 2,
                 "rerender_count": 1 if review["decision"] == "MATERIAL_REVISION_REQUIRED" else 0,
                 "creative_rerender_count": 1 if review["decision"] == "MATERIAL_REVISION_REQUIRED" else 0,
@@ -1158,11 +1274,11 @@ class DesktopSessionV2Factory:
                 final_media=paths["final"],
                 audio=paths["mix"],
                 captions=captions,
-                rights_refs=[str(item["sha256"]) for item in packet["rights_assets"]],
+                rights_refs=[str(item["sha256"]) for item in all_rights_assets],
                 evidence_refs=[str(item["source_ref"]) for item in packet["anchors"]],
-                title=str(editor["title"]),
                 input_hash=input_hash,
                 timing_lock=timing_lock,
+                seo_package=seo,
                 output=paths["package"],
             )
             package_record = package["manifest_artifact"]
@@ -1181,6 +1297,8 @@ class DesktopSessionV2Factory:
                     cost_record,
                     safety_record,
                     package_record,
+                    voiceover_validation_record,
+                    seo_record,
                     *caption_records,
                 ],
                 result="PASS_PACKAGE_QA",
@@ -1222,6 +1340,29 @@ class DesktopSessionV2Factory:
                 "editorial_narration_hash": hash_value(editor),
                 "narration_timing_lock": str(paths["timing_lock"]),
                 "narration_timing_lock_hash": timing_lock["timing_lock_hash"],
+                "post_transcript_asset_selection": str(paths["asset_selection"]),
+                "post_transcript_asset_selection_hash": motion[
+                    "asset_selection"
+                ]["asset_selection_hash"],
+                "canonical_transcript_path": str(paths["timing_lock"]),
+                "canonical_transcript_hash": timing_lock[
+                    "canonical_spoken_transcript"
+                ]["canonical_transcript_hash"],
+                "locked_narration_audio_sha256": timing_lock[
+                    "locked_narration_audio"
+                ]["sha256"],
+                "final_audio_sha256": local_media.artifact(paths["mix"])["sha256"],
+                "caption_artifact_hashes": {
+                    key.removeprefix("caption_"): value["sha256"]
+                    for key, value in package["artifacts"].items()
+                    if key in {"caption_json", "caption_srt", "caption_vtt"}
+                },
+                "transcript_voiceover_qa": str(paths["voiceover_qa"]),
+                "transcript_voiceover_qa_hash": timing_lock["voiceover_qa"][
+                    "voiceover_qa_hash"
+                ],
+                "transcript_derived_seo": str(paths["seo"]),
+                "transcript_derived_seo_hash": package["seo_package_hash"],
                 "actual_narration_duration_seconds": timing_lock[
                     "actual_total_narration_duration_seconds"
                 ],
@@ -1273,6 +1414,7 @@ class DesktopSessionV2Factory:
                     ],
                     "identical_creative_choices_required": False,
                 },
+                "actual_media_review_checks": review["review_checks"],
                 "unattended": {
                     "manual_source_edits_after_start": 0,
                     "manual_media_edits_after_start": 0,
@@ -1297,7 +1439,7 @@ class DesktopSessionV2Factory:
             self.store.finalize(
                 video_job_id=str(job["video_job_id"]),
                 run_id=run_id,
-                result="PASS_IMPLEMENTATION_OWNED_SURFACE_SECRET_SCAN_V2_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW",
+                result="PASS_V2_UNATTENDED_PRODUCTION_JOB_OWNER_REVIEW_READY",
                 state="OWNER_REVIEW_READY",
             )
             return

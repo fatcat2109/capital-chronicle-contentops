@@ -123,7 +123,7 @@ def test_generated_v2_context_routes_direct_image_and_retention_native_authority
     assert "gpt-5.5" in normalized
     assert "provisional V2 generated-illustration default" in normalized
     assert "confirmed HTTP 400" in normalized
-    assert "TASK_CONTENTOPS_V2_DEPENDENCY_ROOT_PREFLIGHT_GUARD_AND_FRESH_OWNER_REVIEW_MEDIA_PROOF_V1" in normalized
+    assert "TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_V1" in normalized
     assert "CODEX_DESKTOP_APP_FRESH_TASK_SESSION" in normalized
     assert "GPT-5.6 Sol / HIGH" in normalized
     assert "GPT-5.6 Sol / Extra High" in normalized
@@ -131,12 +131,13 @@ def test_generated_v2_context_routes_direct_image_and_retention_native_authority
     assert "CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY" in normalized
     assert "9ROUTER_RESEARCH_ONLY" in normalized
     assert "MULTILINGUAL_CLOSED_INPUT" in normalized
-    assert "PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF" in normalized
+    assert "ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY" in normalized
     assert "CodexDesktopSessionBrain" in normalized
     assert "NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE" in normalized
-    assert "FAIL_QUARANTINED_AT_HARD_SOURCE_VALIDATION_DEPENDENCY_ROOT_CONFIG" in normalized
-    assert "a163b0ad488e7d628531ac9f218ec72b79073bfb" in normalized
-    assert "project root instead of its `node_modules` directory" in normalized
+    assert "CORE_PROOF_ACCEPTED_FOR_PRODUCTION_SOAK" in normalized
+    assert "52c92ec1e097ef2441a2cb916132576c241b5def" in normalized
+    assert "001ca4e7c2a06224d1d3e7c0d098b3d965376fc3" in normalized
+    assert "77d7ac16432415afcbb113596554d551cd4f0fb9" in normalized
     assert "MAX/ULTRA and mode bakeoffs remain retired" in normalized
     assert "free-form React/Remotion code" in normalized
     assert "NORTH_STAR_V2" in normalized
@@ -158,12 +159,12 @@ def test_generated_v2_context_fresh_reader_cannot_substitute_cli_sdk_or_9router(
         "CODEX_SDK_API_NOT_V2_CREATIVE_AUTHORITY",
         "9ROUTER_RESEARCH_ONLY",
         "MULTILINGUAL_CLOSED_INPUT",
-        "PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF",
+        "ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY",
     ):
         assert invariant in normalized
-    assert "smallest semantic dependency-root preflight before claim/proof/XHIGH work" in normalized
-    assert "project root instead of its `node_modules` directory" in normalized
-    assert "exactly one new governed proof" in normalized
+    assert "up to three distinct qualified Shorts with no filler" in normalized
+    assert "locked-audio captions" in normalized
+    assert "multi-job isolation/cost truth" in normalized
     assert "zero V2 creative authority" in normalized
 
 

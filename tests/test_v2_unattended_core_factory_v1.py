@@ -7,6 +7,7 @@ import sys
 import threading
 from dataclasses import replace
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -51,6 +52,7 @@ from video.unattended_core_factory_v1.media import (
     resolve_remotion_browser_executable,
     validate_dependency_root,
 )
+from video.unattended_core_factory_v1 import media as production_media
 from video.unattended_core_factory_v1.supervisor import (
     DesktopSessionV2Factory,
     FactoryConfig,
@@ -58,6 +60,11 @@ from video.unattended_core_factory_v1.supervisor import (
     SECRET_PATTERNS,
     STAGES,
     SupervisorError,
+)
+from video.unattended_core_factory_v1.transcript import (
+    build_transcript_derived_seo,
+    synthesis_text_for_segment,
+    validate_transcript_derived_seo,
 )
 
 
@@ -93,7 +100,12 @@ FAKE_SECRET_MARKER = "client_secret=FAKE_OWNED_SECRET_VALUE_12345"
 
 
 def packet() -> dict[str, object]:
-    return json.loads(PACKET_PATH.read_text(encoding="utf-8"))
+    value = json.loads(PACKET_PATH.read_text(encoding="utf-8"))
+    value["pronunciation_lexicon"] = [
+        {"surface": "23,000", "spoken_as": "twenty three thousand"},
+        {"surface": "23,000", "spoken_as": "twenty-three thousand"},
+    ]
+    return value
 
 
 def editor_artifact() -> dict[str, object]:
@@ -101,19 +113,24 @@ def editor_artifact() -> dict[str, object]:
     anchors = {item["anchor_id"]: item["statement"] for item in p["anchors"]}
     analysis = {item["analysis_id"]: item["statement"] for item in p["permitted_analysis"]}
     segments = [
-        {"segment_id": "s1", "kind": "ENGAGEMENT", "text": "The headline moved. The market did not break.", "anchor_ids": [], "analysis_id": ""},
-        {"segment_id": "s2", "kind": "FACT", "text": anchors["EMP001"], "anchor_ids": ["EMP001"], "analysis_id": ""},
-        {"segment_id": "s3", "kind": "FACT", "text": anchors["EMP002"], "anchor_ids": ["EMP002"], "analysis_id": ""},
-        {"segment_id": "s4", "kind": "FACT", "text": anchors["JOL002"], "anchor_ids": ["JOL002"], "analysis_id": ""},
-        {"segment_id": "s5", "kind": "ANALYSIS", "text": analysis["ANALYSIS_STASIS"], "anchor_ids": [], "analysis_id": "ANALYSIS_STASIS"},
-        {"segment_id": "s6", "kind": "ENGAGEMENT", "text": "Watch the motion, not just the level.", "anchor_ids": [], "analysis_id": ""},
+        {"segment_id": "s1", "kind": "ENGAGEMENT", "text": "The headline moved. The market did not break.", "anchor_ids": [], "analysis_id": "", "pronunciation_notes": []},
+        {"segment_id": "s2", "kind": "FACT", "text": anchors["EMP001"], "anchor_ids": ["EMP001"], "analysis_id": "", "pronunciation_notes": [{"surface": "23,000", "spoken_as": "twenty three thousand"}]},
+        {"segment_id": "s3", "kind": "FACT", "text": anchors["EMP002"], "anchor_ids": ["EMP002"], "analysis_id": "", "pronunciation_notes": []},
+        {"segment_id": "s4", "kind": "FACT", "text": anchors["JOL002"], "anchor_ids": ["JOL002"], "analysis_id": "", "pronunciation_notes": []},
+        {"segment_id": "s5", "kind": "ANALYSIS", "text": analysis["ANALYSIS_STASIS"], "anchor_ids": [], "analysis_id": "ANALYSIS_STASIS", "pronunciation_notes": []},
+        {"segment_id": "s6", "kind": "ENGAGEMENT", "text": "Watch the motion, not just the level.", "anchor_ids": [], "analysis_id": "", "pronunciation_notes": []},
     ]
     return {
-        "schema": "contentops.v2.codex_job_editorial.v2",
+        "schema": "contentops.v2.codex_job_editorial.v3",
         "title": "Frozen Without Breaking",
         "viewer_promise": "See why low motion differs from collapse.",
         "narration_segments": segments,
         "editorial_structure": ["hook", "evidence", "mechanism", "watch condition"],
+        "retention_contract": {
+            "promise_segment_ids": ["s1"],
+            "payoff_segment_ids": ["s4"],
+        },
+        "search_entities": ["July", "Total nonfarm payroll employment"],
         "audio_intent": {
             "bed_asset_id": "ACCEPTED_AUDIO_BED",
             "bed_gain_db": -27,
@@ -127,7 +144,7 @@ def editor_artifact() -> dict[str, object]:
 def source_files(*, duration_frames: int = 1050) -> dict[str, str]:
     return {
         "src/index.tsx": "import {registerRoot} from 'remotion';\nimport {Root} from './Root';\nregisterRoot(Root);",
-        "src/Root.tsx": f"import React from 'react';\nimport {{Composition}} from 'remotion';\nimport {{Short}} from './Short';\nexport const Root: React.FC=()=> <Composition id='FWBUnattendedShort' component={{Short}} durationInFrames={{{duration_frames}}} fps={{30}} width={{1080}} height={{1920}}/>;",
+        "src/Root.tsx": f"import React from 'react';\nimport {{Composition}} from 'remotion';\nimport {{Short}} from './Short';\nexport const Root: React.FC=()=> <Composition id='ContentOpsV2Short' component={{Short}} durationInFrames={{{duration_frames}}} fps={{30}} width={{1080}} height={{1920}}/>;",
         "src/Short.tsx": "import React from 'react';\nimport {AbsoluteFill,OffthreadVideo,interpolate,staticFile,useCurrentFrame} from 'remotion';\nexport const Short: React.FC=()=>{const f=useCurrentFrame();const o=interpolate(f,[0,30],[0,1],{extrapolateRight:'clamp'});return <AbsoluteFill style={{background:'#071116',color:'#f5f0e6',justifyContent:'center',alignItems:'center',opacity:o,fontSize:72}}><OffthreadVideo muted src={staticFile('assets/documentary/commuters_subway_cc0_pexels_855749.mp4')}/><div>FROZEN / MOVING?</div></AbsoluteFill>};",
     }
 
@@ -136,9 +153,41 @@ def motion_artifact(timing_lock: dict[str, object]) -> dict[str, object]:
     actual = float(timing_lock["actual_total_narration_duration_seconds"])
     tail_room = 0.67
     frames = math.ceil((actual + tail_room) * 30 - 0.0000001)
+    asset_selection = {
+        "schema": "contentops.v2.post_transcript_asset_selection.v1",
+        "governed_input_hash": timing_lock["governed_input_hash"],
+        "editorial_narration_hash": timing_lock["editorial_narration_hash"],
+        "narration_timing_lock_hash": timing_lock["timing_lock_hash"],
+        "canonical_transcript_hash": timing_lock["canonical_spoken_transcript"][
+            "canonical_transcript_hash"
+        ],
+        "prior_creative_source_reused_as_input": False,
+        "fresh_web_discovery_performed": True,
+        "visual_needs": [
+            {
+                "need_id": "need_commuter_motion",
+                "transcript_segment_ids": ["s1", "s2"],
+                "visual_purpose": "Show the physical distinction between motion and stasis.",
+            }
+        ],
+        "candidate_board": [
+            {
+                "candidate_id": "candidate_commuter_flow",
+                "need_id": "need_commuter_motion",
+                "source_url": "https://www.pexels.com/video/855749/",
+                "rights_basis": "Pexels reusable media terms recorded in governed input.",
+                "visual_fit_assessment": "Vertical-safe real commuter motion with useful depth.",
+                "selected_asset_id": "COMMUTER_FLOW",
+                "rejection_reason": "",
+            }
+        ],
+        "selected_existing_asset_ids": ["COMMUTER_FLOW"],
+        "selected_assets": [],
+    }
+    asset_selection["asset_selection_hash"] = hash_value(asset_selection)
     return {
         "schema": "contentops.v2.codex_job_motion_source.v1",
-        "composition_id": "FWBUnattendedShort",
+        "composition_id": "ContentOpsV2Short",
         "duration_seconds": frames / 30,
         "narration_timing_lock_hash": timing_lock["timing_lock_hash"],
         "picture_timing": {
@@ -148,6 +197,7 @@ def motion_artifact(timing_lock: dict[str, object]) -> dict[str, object]:
             "duration_frames": frames,
         },
         "asset_ids": ["COMMUTER_FLOW"],
+        "asset_selection": asset_selection,
         "source_claim_bindings": [],
         "files": source_files(duration_frames=frames),
     }
@@ -160,6 +210,15 @@ def review_artifact(*, material: bool = False) -> dict[str, object]:
         "summary": "The proxy is coherent enough for owner review." if not material else "A material hierarchy correction is required.",
         "defects": [] if not material else [{"severity": "MAJOR", "time_range": "0-4", "description": "Hierarchy", "repair": "Clarify hook"}],
         "source_claim_bindings": [],
+        "review_checks": {
+            "real_contextual_material_density": "Reviewed against the actual proxy.",
+            "exact_or_near_asset_reuse": "No material exact or near reuse defect.",
+            "visual_family_and_layout_repetition": "No material repetition defect.",
+            "phone_readability": "Primary information remains phone readable.",
+            "chart_document_stability": "No unstable chart or document treatment.",
+            "captions_hidden_comprehension": "The visual thesis remains comprehensible.",
+            "stronger_concrete_media_replacement_opportunity": "No material replacement required.",
+        },
         "replacement_files": source_files() if material else {},
     }
 
@@ -247,12 +306,14 @@ class FakeMedia:
         cursor = 0.18
         for index, item in enumerate(editor["narration_segments"], start=1):
             segment = output_dir / f"segment_{index:02d}_{item['segment_id']}.wav"
-            segment.write_bytes(f"segment-{item['segment_id']}-{item['text']}".encode())
+            synthesis_text = synthesis_text_for_segment(item)
+            segment.write_bytes(f"segment-{item['segment_id']}-{synthesis_text}".encode())
             pause = 0.16 if index < len(editor["narration_segments"]) else 0.35
             placements.append({
                 "cue_id": item["segment_id"],
                 "segment_id": item["segment_id"],
                 "segment_text_sha256": hash_value(item["text"]),
+                "synthesis_text_sha256": hash_value(synthesis_text),
                 "timeline_start_seconds": round(cursor, 6),
                 "actual_audio_duration_seconds": self.segment_duration,
                 "timeline_end_seconds": round(cursor + self.segment_duration, 6),
@@ -260,6 +321,7 @@ class FakeMedia:
                 "caption_text": item["text"],
                 "audio_path": str(segment.resolve()),
                 "audio": _artifact(segment),
+                "synthesis_action": "SYNTHESIZED",
             })
             cursor += self.segment_duration + pause
         return {
@@ -289,14 +351,19 @@ class FakeMedia:
         return {"result": "PASS_FINAL_MUX", "final_media": _artifact(output)}
 
     def build_captions(self, *, timing_lock, media_duration_seconds, output_dir):
-        self.caption_segments = timing_lock["segments"]
+        self.caption_segments = timing_lock["canonical_spoken_transcript"]["segments"]
         output_dir.mkdir(parents=True, exist_ok=True)
         values = {}
         for kind in ("json", "srt", "vtt"):
             path = output_dir / f"captions.en.{kind}"
             path.write_text("{}" if kind == "json" else "caption", encoding="utf-8")
             values[kind] = _artifact(path)
-        return {"result": "PASS_CAPTIONS", "artifacts": values}
+        return {
+            "result": "PASS_CAPTIONS",
+            "canonical_transcript_hash": timing_lock["canonical_spoken_transcript"]["canonical_transcript_hash"],
+            "locked_narration_audio_sha256": timing_lock["locked_narration_audio"]["sha256"],
+            "artifacts": values,
+        }
 
     def technical_media_report(self, path, output):
         result = {"artifact": _artifact(path), "probe": self.probe_media(path), "media_validation": {"result": "PASS_MEDIA_CONTRACT", "duration_seconds": 36}, "loudness": {"integrated_lufs": -16.0, "true_peak_dbfs": -1.5}}
@@ -305,8 +372,20 @@ class FakeMedia:
         result["report_artifact"] = _artifact(output)
         return result
 
-    def build_neutral_package(self, *, output, final_media, **kwargs):
-        result = {"package_id": "pkg_test", "final_mux": _artifact(final_media)}
+    def build_neutral_package(self, *, output, final_media, audio, captions, timing_lock, seo_package, **kwargs):
+        result = {
+            "package_id": "pkg_test",
+            "final_mux": _artifact(final_media),
+            "final_audio": _artifact(audio),
+            "artifacts": {
+                "caption_json": captions["artifacts"]["json"],
+                "caption_srt": captions["artifacts"]["srt"],
+                "caption_vtt": captions["artifacts"]["vtt"],
+            },
+            "canonical_transcript_hash": timing_lock["canonical_spoken_transcript"]["canonical_transcript_hash"],
+            "voiceover_qa_hash": timing_lock["voiceover_qa"]["voiceover_qa_hash"],
+            "seo_package_hash": seo_package["seo_package_hash"],
+        }
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(result), encoding="utf-8")
         result["manifest_artifact"] = _artifact(output)
@@ -798,6 +877,80 @@ def test_actual_timing_within_short_contract_locks_before_motion(tmp_path: Path)
     assert timing["actual_total_narration_duration_seconds"] < 60
     passed = [event["stage"] for event in store.events(video_job_id) if event["result"].startswith("PASS")]
     assert passed.index("ACTUAL_NARRATION_TIMING_LOCKED") < passed.index("MOTION_SOURCE_LOCKED")
+    root = factory.config.runtime_root / "jobs" / video_job_id / "artifacts"
+    selection = json.loads(
+        (root / "post_transcript_asset_selection.json").read_text(encoding="utf-8")
+    )
+    assert selection["canonical_transcript_hash"] == timing[
+        "canonical_spoken_transcript"
+    ]["canonical_transcript_hash"]
+    assert selection["fresh_web_discovery_performed"] is True
+
+
+def test_motion_rejects_asset_board_not_bound_to_canonical_transcript(
+    tmp_path: Path,
+) -> None:
+    factory, _, _ = make_factory(tmp_path)
+    started = factory.run_once()
+    factory.submit_editorial_narration(
+        video_job_id=started["video_job_id"],
+        run_id=started["run_id"],
+        editor=editor_artifact(),
+        provenance=EDITORIAL_CREATIVE,
+    )
+    pending = factory.resume(
+        video_job_id=started["video_job_id"], run_id=started["run_id"]
+    )
+    assert pending["required_input"] == "MOTION_VISUAL_AUTHORSHIP"
+    timing = locked_timing(factory, started["video_job_id"])
+    motion = motion_artifact(timing)
+    motion["asset_selection"]["canonical_transcript_hash"] = "0" * 64
+    hash_basis = dict(motion["asset_selection"])
+    hash_basis.pop("asset_selection_hash")
+    motion["asset_selection"]["asset_selection_hash"] = hash_value(hash_basis)
+    with pytest.raises(
+        CreativeContractError,
+        match="asset_selection_identity_mismatch:canonical_transcript_hash",
+    ):
+        factory.submit_motion_visual(
+            video_job_id=started["video_job_id"],
+            run_id=started["run_id"],
+            motion=motion,
+            provenance=MOTION_CREATIVE,
+        )
+
+
+def test_motion_cannot_use_governed_asset_skipped_by_post_transcript_selection(
+    tmp_path: Path,
+) -> None:
+    factory, _, _ = make_factory(tmp_path)
+    started = factory.run_once()
+    factory.submit_editorial_narration(
+        video_job_id=started["video_job_id"],
+        run_id=started["run_id"],
+        editor=editor_artifact(),
+        provenance=EDITORIAL_CREATIVE,
+    )
+    factory.resume(video_job_id=started["video_job_id"], run_id=started["run_id"])
+    motion = motion_artifact(locked_timing(factory, started["video_job_id"]))
+    motion["asset_selection"]["selected_existing_asset_ids"] = [
+        "ACCEPTED_AUDIO_BED"
+    ]
+    motion["asset_selection"]["candidate_board"][0][
+        "selected_asset_id"
+    ] = "ACCEPTED_AUDIO_BED"
+    hash_basis = dict(motion["asset_selection"])
+    hash_basis.pop("asset_selection_hash")
+    motion["asset_selection"]["asset_selection_hash"] = hash_value(hash_basis)
+    with pytest.raises(
+        CreativeContractError, match="motion_asset_not_post_transcript_selected"
+    ):
+        factory.submit_motion_visual(
+            video_job_id=started["video_job_id"],
+            run_id=started["run_id"],
+            motion=motion,
+            provenance=MOTION_CREATIVE,
+        )
 
 
 def test_over_sixty_seconds_gets_one_revision_then_quarantines_before_render(
@@ -853,7 +1006,7 @@ def test_session_artifact_e2e_reaches_owner_review_without_live_creative_provide
     factory, store, job_id = make_factory(tmp_path, media=media)
     result = complete(factory)
     assert result["job"]["state"] == "OWNER_REVIEW_READY"
-    assert result["job"]["terminal_result"] == "PASS_IMPLEMENTATION_OWNED_SURFACE_SECRET_SCAN_V2_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW"
+    assert result["job"]["terminal_result"] == "PASS_V2_UNATTENDED_PRODUCTION_JOB_OWNER_REVIEW_READY"
     provenance = [json.loads(event["model_provenance_json"]) for event in store.events(job_id)]
     creative = [
         item
@@ -873,7 +1026,128 @@ def test_session_artifact_e2e_reaches_owner_review_without_live_creative_provide
     timing = locked_timing(factory, job_id)
     assert media.synthesis_count == 1
     assert media.mix_timing_lock_hash == timing["timing_lock_hash"]
-    assert media.caption_segments == timing["segments"]
+    assert media.caption_segments == timing["canonical_spoken_transcript"]["segments"]
+    transcript = timing["canonical_spoken_transcript"]
+    assert timing["voiceover_qa"]["result"] == "PASS_TRANSCRIPT_VOICEOVER_QA"
+    assert timing["voiceover_qa"]["pronunciation_changed_segment_ids"] == ["s2"]
+    assert transcript["locked_narration_audio_sha256"] == timing["locked_narration_audio"]["sha256"]
+
+
+def test_canonical_transcript_drives_locked_audio_captions_seo_and_package_identity(
+    tmp_path: Path,
+) -> None:
+    factory, _, _ = make_factory(tmp_path)
+    video_job_id, run_id = start_and_submit(factory)
+    timing = locked_timing(factory, video_job_id)
+    transcript = timing["canonical_spoken_transcript"]
+    captions = production_media.build_captions(
+        timing_lock=timing,
+        media_duration_seconds=35.0,
+        output_dir=tmp_path / "real-captions",
+    )
+    caption_json = json.loads(
+        Path(captions["artifacts"]["json"]["path"]).read_text(encoding="utf-8")
+    )
+    assert caption_json["canonical_transcript_hash"] == transcript["canonical_transcript_hash"]
+    assert caption_json["locked_narration_audio_sha256"] == timing["locked_narration_audio"]["sha256"]
+    assert [cue["text"] for cue in caption_json["cues"]] == [
+        segment["text"] for segment in transcript["segments"]
+    ]
+    assert [cue["source_audio_sha256"] for cue in caption_json["cues"]] == [
+        segment["audio"]["sha256"] for segment in transcript["segments"]
+    ]
+
+    seo = build_transcript_derived_seo(transcript=transcript, editor=editor_artifact())
+    assert validate_transcript_derived_seo(
+        seo, transcript=transcript, editor=editor_artifact()
+    )["result"] == "PASS_TRANSCRIPT_DERIVED_SEO"
+    assert seo["invented_or_strengthened_fact_count"] == 0
+    final_media = tmp_path / "owner-review.mp4"
+    final_audio = tmp_path / "final-audio.wav"
+    final_media.write_bytes(b"final")
+    final_audio.write_bytes(b"audio")
+    package = production_media.build_neutral_package(
+        story_id=str(packet()["story_id"]),
+        run_id=run_id,
+        final_media=final_media,
+        audio=final_audio,
+        captions=captions,
+        rights_refs=["a" * 64],
+        evidence_refs=["source-ref"],
+        input_hash=hash_value(packet()),
+        timing_lock=timing,
+        seo_package=seo,
+        output=tmp_path / "package.json",
+    )
+    assert package["canonical_transcript_hash"] == transcript["canonical_transcript_hash"]
+    assert package["seo_package_hash"] == seo["seo_package_hash"]
+    assert package["canonical_transcript_identity"]["final_audio_sha256"] == hash_file(final_audio)
+
+
+def test_transcript_qa_rejects_duplicate_garbled_or_invented_seo_surfaces() -> None:
+    duplicate = editor_artifact()
+    duplicate["narration_segments"][1]["text"] = duplicate["narration_segments"][0]["text"]
+    duplicate["narration_segments"][1]["kind"] = "ENGAGEMENT"
+    duplicate["narration_segments"][1]["anchor_ids"] = []
+    duplicate["narration_segments"][1]["pronunciation_notes"] = []
+    with pytest.raises(CreativeContractError, match="duplicate_spoken_segment"):
+        validate_editor_artifact(duplicate, packet())
+
+    garbled = editor_artifact()
+    garbled["narration_segments"][0]["text"] = "\ufffd\ufffd\ufffd"
+    with pytest.raises(CreativeContractError, match="garbled_or_empty_segment"):
+        validate_editor_artifact(garbled, packet())
+
+    invented_title = editor_artifact()
+    invented_title["title"] = "Guaranteed recession call"
+    with pytest.raises(CreativeContractError, match="title_not_transcript_derived"):
+        validate_editor_artifact(invented_title, packet())
+
+
+def test_kokoro_cache_resynthesizes_only_the_pronunciation_changed_segment(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import numpy as np
+
+    created: list[str] = []
+
+    class FakeKokoro:
+        def __init__(self, model: str, voices: str) -> None:
+            pass
+
+        def create(self, text: str, *, voice: str, speed: float, lang: str):
+            created.append(text)
+            return np.full(2400, 0.1, dtype=np.float32), 24_000
+
+    monkeypatch.setitem(sys.modules, "kokoro_onnx", SimpleNamespace(Kokoro=FakeKokoro))
+    output = tmp_path / "narration"
+    base = editor_artifact()
+    production_media.synthesize_narration(
+        editor=base,
+        model_path=tmp_path / "model.onnx",
+        voices_path=tmp_path / "voices.bin",
+        output_dir=output,
+    )
+    assert len(created) == len(base["narration_segments"])
+    created.clear()
+    production_media.synthesize_narration(
+        editor=base,
+        model_path=tmp_path / "model.onnx",
+        voices_path=tmp_path / "voices.bin",
+        output_dir=output,
+    )
+    assert created == []
+    changed = editor_artifact()
+    changed["narration_segments"][1]["pronunciation_notes"][0][
+        "spoken_as"
+    ] = "twenty-three thousand"
+    production_media.synthesize_narration(
+        editor=changed,
+        model_path=tmp_path / "model.onnx",
+        voices_path=tmp_path / "voices.bin",
+        output_dir=output,
+    )
+    assert created == [synthesis_text_for_segment(changed["narration_segments"][1])]
 
 
 def test_restart_and_checkpoint_invalidation_remain_correct(tmp_path: Path) -> None:
@@ -903,6 +1177,71 @@ def test_hard_deterministic_failure_quarantines_and_is_terminal(tmp_path: Path) 
         factory.resume(video_job_id=video_job_id, run_id=run_id)
     assert store.job(job_id)["state"] == "QUARANTINED"
     assert factory.run_once()["result"] == "NO_ELIGIBLE_JOB"
+
+
+def test_deterministic_three_job_e2e_isolates_quarantine_identity_and_aggregate_truth(
+    tmp_path: Path,
+) -> None:
+    factory, store, first_job_id = make_factory(tmp_path)
+    first = complete(factory)
+    assert first["job"]["state"] == "OWNER_REVIEW_READY"
+
+    def seed_distinct(label: str) -> str:
+        value = packet()
+        value["story_id"] = f"distinct_story_{label}"
+        value["authority_version"] = f"test_authority_{label}"
+        path = tmp_path / f"input-{label}.json"
+        path.write_text(json.dumps(value), encoding="utf-8")
+        job_id = f"job_{label}"
+        store.seed_job(
+            video_job_id=job_id,
+            input_packet_path=path,
+            input_packet_hash=hash_value(value),
+            target_format="SHORT_9_16_1080X1920_30FPS",
+        )
+        return job_id
+
+    quarantined_job_id = seed_distinct("quarantined")
+    final_job_id = seed_distinct("after_quarantine")
+    bad_factory = DesktopSessionV2Factory(
+        store=store,
+        config=factory.config,
+        media_backend=FakeMedia(fail_typecheck=True),
+    )
+    bad_job_id, bad_run_id = start_and_submit(bad_factory)
+    assert bad_job_id == quarantined_job_id
+    with pytest.raises(RuntimeError, match="injected_typecheck_failure"):
+        bad_factory.resume(video_job_id=bad_job_id, run_id=bad_run_id)
+    assert store.job(quarantined_job_id)["state"] == "QUARANTINED"
+
+    final = complete(factory)
+    assert final["video_job_id"] == final_job_id
+    assert final["job"]["state"] == "OWNER_REVIEW_READY"
+    assert store.job(first_job_id)["state"] == "OWNER_REVIEW_READY"
+    roots = {
+        job_id: factory._paths(job_id)["root"]
+        for job_id in (first_job_id, quarantined_job_id, final_job_id)
+    }
+    assert len({str(path) for path in roots.values()}) == 3
+    first_transcript = locked_timing(factory, first_job_id)[
+        "canonical_spoken_transcript"
+    ]["canonical_transcript_hash"]
+    final_transcript = locked_timing(factory, final_job_id)[
+        "canonical_spoken_transcript"
+    ]["canonical_transcript_hash"]
+    assert first_transcript != final_transcript
+    assert not (roots[quarantined_job_id] / "package" / "platform_neutral_package_manifest.json").exists()
+    assert (roots[final_job_id] / "review" / "owner_review_bundle.json").is_file()
+
+    summary = store.soak_summary()
+    assert summary["job_count"] == summary["started_job_count"] == 3
+    assert summary["owner_review_ready_count"] == 2
+    assert summary["quarantined_job_count"] == 1
+    assert summary["all_started_jobs_succeeded"] is False
+    assert summary["public_write_authority"] is False
+    assert summary["manual_source_edits_after_start"] == 0
+    assert summary["manual_media_edits_after_start"] == 0
+    assert summary["manual_checkpoint_edits"] == 0
 
 
 def test_duplicate_job_run_and_terminal_execution_are_idempotent(tmp_path: Path) -> None:

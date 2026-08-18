@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 import uuid
 from contextlib import contextmanager
@@ -131,6 +132,12 @@ class V2JobStore:
         target_format: str,
         priority: int = 100,
     ) -> dict[str, Any]:
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+", video_job_id):
+            raise JobStoreError("video_job_id_invalid")
+        if not re.fullmatch(r"[0-9a-f]{64}", input_packet_hash):
+            raise JobStoreError("input_packet_hash_invalid")
+        if not target_format:
+            raise JobStoreError("target_format_required")
         with self.transaction(immediate=True) as connection:
             existing = connection.execute(
                 "SELECT * FROM video_jobs WHERE input_packet_hash=? AND target_format=?",
@@ -338,6 +345,80 @@ class V2JobStore:
             if row is None:
                 raise JobStoreError(f"unknown_job:{video_job_id}")
             return dict(row)
+
+    def jobs(self) -> list[dict[str, Any]]:
+        with self.connect() as connection:
+            return [
+                dict(row)
+                for row in connection.execute(
+                    "SELECT * FROM video_jobs ORDER BY created_at, video_job_id"
+                )
+            ]
+
+    def soak_summary(self) -> dict[str, Any]:
+        jobs = self.jobs()
+        with self.connect() as connection:
+            runs = [dict(row) for row in connection.execute("SELECT * FROM job_runs")]
+            events = [dict(row) for row in connection.execute("SELECT * FROM stage_events")]
+        state_counts: dict[str, int] = {}
+        for item in jobs:
+            state = str(item["state"])
+            state_counts[state] = state_counts.get(state, 0) + 1
+        xhigh_executions = 0
+        external_media_cost = 0.0
+        exposed_model_cost = 0.0
+        model_cost_exposed = False
+        for event in events:
+            provenance = json.loads(str(event["model_provenance_json"]))
+            if provenance.get("declared_creative_reasoning_effort") == "xhigh":
+                xhigh_executions += 1
+            usage = json.loads(str(event["safe_usage_json"]))
+            external_media_cost += float(usage.get("external_media_cost_usd") or 0.0)
+            if usage.get("model_cost_usd") is not None:
+                exposed_model_cost += float(usage["model_cost_usd"])
+                model_cost_exposed = True
+        public_write_values = [
+            int(item["public_write_authority"]) for item in [*jobs, *runs, *events]
+        ]
+        if any(public_write_values):
+            raise JobStoreError("soak_summary_public_write_authority_violation")
+        started_jobs = sum(item.get("run_id") is not None for item in jobs)
+        completed = int(state_counts.get("OWNER_REVIEW_READY", 0))
+        quarantined = int(state_counts.get("QUARANTINED", 0))
+        return {
+            "schema": "contentops.v2.unattended_production_soak_summary.v1",
+            "job_count": len(jobs),
+            "started_job_count": started_jobs,
+            "owner_review_ready_count": completed,
+            "quarantined_job_count": quarantined,
+            "queued_or_running_count": int(state_counts.get("QUEUED", 0))
+            + int(state_counts.get("RUNNING", 0)),
+            "all_started_jobs_succeeded": started_jobs > 0 and completed == started_jobs,
+            "state_counts": state_counts,
+            "run_count": len(runs),
+            "resume_count": sum(int(item["resume_count"]) for item in jobs),
+            "bounded_xhigh_creative_execution_count": xhigh_executions,
+            "total_stage_wall_time_seconds": round(
+                sum(float(event["wall_time_seconds"]) for event in events), 6
+            ),
+            "external_media_cost_usd": round(external_media_cost, 8),
+            "model_cost_usd": round(exposed_model_cost, 8)
+            if model_cost_exposed
+            else None,
+            "model_cost_exposed": model_cost_exposed,
+            "manual_source_edits_after_start": sum(
+                int(item["manual_source_edits_after_start"]) for item in runs
+            ),
+            "manual_media_edits_after_start": sum(
+                int(item["manual_media_edits_after_start"]) for item in runs
+            ),
+            "manual_checkpoint_edits": sum(
+                int(item["manual_checkpoint_edits"]) for item in runs
+            ),
+            "public_write_authority": False,
+            "video_job_ids": [str(item["video_job_id"]) for item in jobs],
+            "run_ids": [str(item["run_id"]) for item in runs],
+        }
 
     def finalize(
         self, *, video_job_id: str, run_id: str, result: str, state: str

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -120,7 +121,7 @@ def main() -> int:
     parser.add_argument("--runtime-root", type=Path, default=DEFAULT_RUNTIME)
     sub = parser.add_subparsers(dest="command", required=True)
 
-    seed = sub.add_parser("seed", help="Seed exactly one content-addressed shadow job")
+    seed = sub.add_parser("seed", help="Seed one content-addressed isolated V2 job")
     seed.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     seed.add_argument("--video-job-id")
     seed.add_argument("--priority", type=int, default=100)
@@ -181,6 +182,7 @@ def main() -> int:
 
     status = sub.add_parser("status", help="Read isolated V2 job and immutable ledger")
     status.add_argument("--video-job-id", required=True)
+    sub.add_parser("soak-summary", help="Read aggregate multi-job reliability/cost truth")
 
     args = parser.parse_args()
     runtime = args.runtime_root.resolve()
@@ -190,7 +192,10 @@ def main() -> int:
         packet = _load_object(packet_path)
         validate_input_packet(packet)
         packet_hash = hash_value(packet)
-        job_id = args.video_job_id or f"v2_fwb_{packet_hash[:20]}"
+        story_slug = re.sub(r"[^A-Za-z0-9_.-]+", "_", str(packet["story_id"])).strip("_.-")
+        if not story_slug:
+            raise ValueError("story_id cannot produce a safe job identity")
+        job_id = args.video_job_id or f"v2_{story_slug}_{packet_hash[:12]}"
         result = store.seed_job(
             video_job_id=job_id,
             input_packet_path=packet_path,
@@ -202,6 +207,8 @@ def main() -> int:
         result["public_write_authority"] = False
     elif args.command == "status":
         result = {"job": store.job(args.video_job_id), "events": store.events(args.video_job_id)}
+    elif args.command == "soak-summary":
+        result = store.soak_summary()
     else:
         factory = _factory(args, runtime, store)
         if args.command == "start":

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Codex Root Contract
 
-Authority date: 2026-08-17
+Authority date: 2026-08-18
 
 This is the compact repository-wide contract. A nearer `AGENTS.md` adds local routing without overriding these boundaries.
 
@@ -111,12 +111,11 @@ Older V2 plan/status/model-override docs remain historical/reference where they 
 
 `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
-One qualified V2 video job maps to one fresh **Codex Desktop App task/session** using
-`GPT-5.6 Sol / Extra High (XHIGH)`. That Desktop App session is the per-video
-creative/editorial brain, viewer-facing Remotion author, and actual-media visual reviewer. It may
-continue or resume only for bounded creative revision belonging to that same video job, then it
-terminates. Do not keep a persistent 24/7 shared conversation. Explicit governed artifacts and
-durable checkpoints remain state authority; chat memory does not.
+The parent/coordinator and every deterministic operation use a fresh `GPT-5.6 Sol / HIGH` Codex
+Desktop App task/session. Consequential per-video editorial/narration, timing-bound visual/Remotion
+authorship, actual-media review, and bounded same-video creative revision use fresh isolated
+`GPT-5.6 Sol / Extra High (XHIGH)` work. Explicit governed artifacts and durable checkpoints remain
+state authority; chat memory does not.
 
 For V2 creative/editorial/visual authorship, the following are forbidden substitutions:
 
@@ -170,39 +169,29 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
+`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_V1`
 
-Result:
+The accepted core proof is `PASS_WITH_CAVEAT / CORE_PROOF_ACCEPTED_FOR_PRODUCTION_SOAK` at owner
+lineage `77d7ac16432415afcbb113596554d551cd4f0fb9`. The current bounded task processes up to three
+distinct independently qualified Shorts, with no filler, and hardens the canonical spoken
+transcript, Kokoro pronunciation/voice-over, locked-audio captions, transcript-derived SEO,
+asset-rich visuals, and multi-job isolation/cost evidence. Fewer or zero videos is valid when the
+grounded opportunities do not qualify.
 
-`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
+For this exact soak, the per-job creative order is
+`transcript/voice-over -> visual needs -> grounded web discovery -> candidate board -> rights-safe selection -> story-specific Remotion`.
+The post-transcript asset selection is immutable and hash-bound to the canonical transcript and
+actual narration timing lock before motion source can lock. HIGH retains acquisition, rights,
+hash, sandbox, and QA authority.
 
-The active factory now uses an explicit session-driven boundary: this fresh Codex Desktop task
-claims a durable job, authors creative artifacts, and submits them to deterministic validation;
-local code never spawns or emulates the creative brain. Implementation HEAD
-`de0d9748b36334d408f7cc845b8edda109df0ff8` passed the affected validation suite and was pushed
-before proof. The single proof locked fresh Desktop-session editorial/source and passed governed
-input, factual, rights, sandbox, hash, and real TypeScript validation, then quarantined before
-proxy media because Remotion could not spawn its existing browser through a 303-character
-task-local path (`ENOENT`). No repair, second proof, media, audio, package, or public write followed.
-`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` and `MULTILINGUAL_CLOSED_INPUT` remain.
+9Router remains research/evidence assistance only on
+`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)`; Terra is excluded from this role.
+It has zero V2 creative, factual, numeric, publication, or public-write authority.
 
-Commit `622b19e1282d4fbd81fad47f76f399b97c454737`, `CodexCliExecutor`, and its `codex exec`
-proof are `NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`. That failure proves only
-that the mistaken CLI seam failed. It does not show that canonical Codex Desktop App creative
-execution failed. Preserve its commits and evidence without allowing them to control routing.
-
-9Router remains research/evidence assistance only, with exact ladder
-`cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)`. It has zero V2 creative authority. Public/platform writes, platform
-credential reads, operational V1 reads or mutations, scheduler installation, V1 trigger
-integration, runtime repair, resumption of the quarantined proof, any fresh proof, and production
-soak remain forbidden without the exact next owner authority.
-
-The former generic Desktop-App handoff deep-research pointer is complete/superseded. Exact next:
-
-`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`
-
-Do not patch or resume the quarantined proof and do not run a new proof automatically.
+`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` and `MULTILINGUAL_CLOSED_INPUT` remain controlling. Do not read
+platform credentials, mutate V1 or schedulers, perform platform/browser writes, activate locales,
+or start premium voice/avatar work. The next gate after an independently accepted stable soak is
+`TASK_CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1`; do not start it automatically.
 
 ### Current dominant V2 quality blockers
 

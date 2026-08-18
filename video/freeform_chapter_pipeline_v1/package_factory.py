@@ -417,6 +417,37 @@ def build_publication_package(spec: Mapping[str, Any]) -> dict[str, Any]:
         "generation_version": str(spec.get("generation_version", "v1")),
         "hard_boundaries": dict(spec["hard_boundaries"]),
     }
+    if spec.get("canonical_transcript_identity") is not None:
+        transcript_identity = dict(spec["canonical_transcript_identity"])
+        required_transcript_keys = {
+            "canonical_transcript_hash",
+            "plain_text_sha256",
+            "locked_narration_audio_sha256",
+            "final_audio_sha256",
+            "voiceover_qa_hash",
+        }
+        if set(transcript_identity) != required_transcript_keys or not all(
+            re.fullmatch(r"[0-9a-f]{64}", str(value))
+            for value in transcript_identity.values()
+        ):
+            raise PackageFactoryError("Canonical transcript identity is incomplete or invalid")
+        if transcript_identity["final_audio_sha256"] != artifacts["audio"]["sha256"]:
+            raise PackageFactoryError("Canonical transcript final-audio identity mismatch")
+        seo_derivation = dict(spec.get("seo_derivation") or {})
+        if (
+            seo_derivation.get("canonical_transcript_hash")
+            != transcript_identity["canonical_transcript_hash"]
+            or int(seo_derivation.get("invented_or_strengthened_fact_count", -1)) != 0
+            or not re.fullmatch(
+                r"[0-9a-f]{64}", str(seo_derivation.get("seo_package_hash", ""))
+            )
+        ):
+            raise PackageFactoryError("Transcript-derived SEO identity is invalid")
+        search_entities = metadata.get("search_entities")
+        if not isinstance(search_entities, list) or not search_entities:
+            raise PackageFactoryError("Transcript-derived search entities are required")
+        identity_payload["canonical_transcript_identity"] = transcript_identity
+        identity_payload["seo_derivation"] = seo_derivation
     digest = hashlib.sha256(canonical_json(identity_payload)).hexdigest()
     return {
         **identity_payload,

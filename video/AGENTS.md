@@ -1,6 +1,6 @@
 # `video/` — Retention-Native V2 Creative-Code / Renderer Scope
 
-Authority date: 2026-08-17
+Authority date: 2026-08-18
 
 For V2/video work, read first:
 
@@ -14,18 +14,15 @@ For V2/video work, read first:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_CODEX_DESKTOP_SESSION_NATIVE_CORE_FACTORY_AND_ACTUAL_MEDIA_PROOF_V1`
-
-Result:
-
-`FAIL_QUARANTINED_AT_PROXY_BROWSER_PROCESS_LAUNCH_NO_MEDIA`
+`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_V1`
 
 `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
-One qualified video job maps to one fresh Codex Desktop App task/session using
-`GPT-5.6 Sol / Extra High (XHIGH)` for viewer-facing creation and actual-media review. The session
-may resume only for bounded creative revision of that same video job. Explicit artifacts and
-checkpoints remain state authority; no 24/7 shared conversation is allowed.
+The parent/coordinator and every deterministic operation use a fresh Codex Desktop App
+`GPT-5.6 Sol / HIGH` task/session. Fresh isolated `GPT-5.6 Sol / Extra High (XHIGH)` work is bounded
+to per-video editorial/narration, timing-bound viewer-facing Remotion authorship, actual-media
+review, and same-video creative revision. Explicit artifacts and checkpoints remain state
+authority; no 24/7 shared conversation is allowed.
 
 Forbidden substitutions are explicit:
 
@@ -38,23 +35,24 @@ If Desktop-App handoff cannot be automated, report that unresolved boundary. Nev
 different runtime. `CodexJobBrain` is conceptual only and canonically means
 `CodexDesktopSessionBrain`; it does not mean `CodexCliExecutor`, subprocess, SDK, or API.
 
-Commit `622b19e...`, `CodexCliExecutor`, and the failed `codex exec` proof are
-`NON_CANONICAL_FAILED_EXECUTION_SEAM / HISTORICAL EVIDENCE`; they do not prove canonical Desktop
-App failure. The active factory's explicit Desktop-session boundary was implemented and pushed at
-`de0d9748b36334d408f7cc845b8edda109df0ff8`. The single correct-runtime proof passed creative
-input validation and then quarantined before proxy media when Remotion could not spawn its existing
-browser through a 303-character task-local path (`ENOENT`). No repair, second proof, completed
-render, media, audio, package, or public write followed.
+The core factory is accepted `PASS_WITH_CAVEAT / CORE_PROOF_ACCEPTED_FOR_PRODUCTION_SOAK` at owner
+lineage `77d7ac16432415afcbb113596554d551cd4f0fb9`. This task processes up to three distinct qualified
+Shorts, with no filler, and hardens the existing narration/timing authority into one hash-bound
+canonical transcript tied to final audio, captions, transcript-derived SEO, package identity, and
+multi-job reliability/cost evidence.
 
-9Router remains research assistance only on the exact Terra HIGH → Gemini Pro HIGH → Gemini Flash
-HIGH ladder. `MULTILINGUAL_CLOSED_INPUT` and
-`PRODUCTION_SOAK_BLOCKED_PENDING_CORRECT_MEDIA_PROOF` control. Publication adapters remain dormant;
-do not read platform credentials or perform any platform/browser write. TikTok bootstrap and its
-Sandbox draft canary are closed.
+For every job in this soak, use
+`transcript/voice-over -> visual needs -> grounded web discovery -> candidate board -> rights-safe selection -> story-specific Remotion`.
+Motion source must carry the immutable post-transcript asset board/selection bound to the canonical
+transcript and waveform timing lock. HIGH owns download/cache, rights/provenance, hashing, sandbox,
+and deterministic QA.
 
-Exact next gate:
-`JIM_DECISION_REQUIRED_ON_BOUNDED_SHORT_PATH_RUNTIME_REPAIR_AND_ONE_FRESH_PROOF_AUTHORITY`.
-Do not repair or resume the quarantined proof and do not start a fresh proof here.
+9Router remains research assistance only on Gemini Pro HIGH → Gemini Flash HIGH; Terra is excluded
+from this role. `MULTILINGUAL_CLOSED_INPUT` and `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` control. Do not
+read platform credentials or perform any platform/browser write.
+
+Exact next gate after independent acceptance of a stable soak:
+`TASK_CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1`. Do not start it automatically.
 
 For recurring localization, render picture once per editorial format. Language work is governed
 translation, audio, timed captions, metadata and manifests. Locale-specific Remotion source,
@@ -66,9 +64,8 @@ not a typography quota or deterministic creative gate.
 ## Exact model split
 
 - Parent/coordinator and every deterministic operation: `GPT-5.6 Sol / HIGH`.
-- Viewer-facing creative direction, chapter authorship, audio-edit authorship, and whole-film
-  criticism: the fresh per-video Codex Desktop App task/session using
-  `GPT-5.6 Sol / Extra High (XHIGH)`.
+- Consequential per-video editorial/narration, viewer-facing Remotion authorship, actual-media
+  review, and same-video creative revision: fresh isolated `GPT-5.6 Sol / Extra High (XHIGH)` work.
 - `MAX` and `ULTRA` are forbidden. No mode bakeoff.
 - Never silently use HIGH for an assigned XHIGH creative responsibility. Record a non-secret
   receipt when model/reasoning metadata is exposed.

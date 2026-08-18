@@ -30,6 +30,17 @@ ALLOWED_IMPORTS = frozenset({"react", "remotion"})
 SHORT_FPS = 30
 SHORT_MAX_SECONDS = 60.0
 MINIMUM_PICTURE_TAIL_ROOM_SECONDS = 0.15
+ACTUAL_MEDIA_REVIEW_CHECKS = frozenset(
+    {
+        "real_contextual_material_density",
+        "exact_or_near_asset_reuse",
+        "visual_family_and_layout_repetition",
+        "phone_readability",
+        "chart_document_stability",
+        "captions_hidden_comprehension",
+        "stronger_concrete_media_replacement_opportunity",
+    }
+)
 
 
 class CreativeContractError(RuntimeError):
@@ -112,6 +123,19 @@ def validate_input_packet(packet: Mapping[str, Any]) -> dict[str, Any]:
         path = PurePosixPath(str(asset.get("relative_path", "")))
         if path.is_absolute() or ".." in path.parts:
             raise CreativeContractError(f"asset_path_invalid:{asset.get('asset_id')}")
+    pronunciation_lexicon = packet.get("pronunciation_lexicon", [])
+    if not isinstance(pronunciation_lexicon, list):
+        raise CreativeContractError("pronunciation_lexicon_not_list")
+    seen_pronunciations: set[tuple[str, str]] = set()
+    for item in pronunciation_lexicon:
+        if not isinstance(item, Mapping):
+            raise CreativeContractError("pronunciation_lexicon_entry_not_object")
+        surface = str(item.get("surface", "")).strip()
+        spoken_as = str(item.get("spoken_as", "")).strip()
+        pair = (surface, spoken_as)
+        if not surface or not spoken_as or pair in seen_pronunciations:
+            raise CreativeContractError("pronunciation_lexicon_entry_invalid")
+        seen_pronunciations.add(pair)
     return {
         "result": "PASS_GOVERNED_INPUT",
         "anchor_count": len(anchors),
@@ -123,7 +147,7 @@ def validate_input_packet(packet: Mapping[str, Any]) -> dict[str, Any]:
 def validate_editor_artifact(
     artifact: Mapping[str, Any], packet: Mapping[str, Any]
 ) -> dict[str, Any]:
-    if artifact.get("schema") != "contentops.v2.codex_job_editorial.v2":
+    if artifact.get("schema") != "contentops.v2.codex_job_editorial.v3":
         raise CreativeContractError("editor_schema_invalid")
     if "duration_seconds" in artifact or "shots" in artifact:
         raise CreativeContractError("editor_cannot_lock_motion_timing")
@@ -166,6 +190,22 @@ def validate_editor_artifact(
     for phrase in forbidden:
         if phrase and phrase in full_text:
             raise CreativeContractError("editor_forbidden_claim_present")
+    from .transcript import TranscriptContractError, validate_editor_transcript_fields
+
+    try:
+        transcript_fields = validate_editor_transcript_fields(artifact)
+    except TranscriptContractError as exc:
+        raise CreativeContractError(str(exc)) from exc
+    allowed_pronunciations = {
+        (str(item["surface"]), str(item["spoken_as"]))
+        for item in packet.get("pronunciation_lexicon", [])
+    }
+    for segment in segments:
+        for note in segment.get("pronunciation_notes", []):
+            if (str(note["surface"]), str(note["spoken_as"])) not in allowed_pronunciations:
+                raise CreativeContractError(
+                    f"pronunciation_not_governed:{segment['segment_id']}"
+                )
     return {
         "result": "PASS_FACTUAL_ANCHORS",
         "fact_segment_count": fact_count,
@@ -174,6 +214,7 @@ def validate_editor_artifact(
             len(str(item["text"]).split()) for item in segments
         ),
         "timing_authority": "ACTUAL_KOKORO_WAVEFORM_ONLY",
+        "transcript_fields": transcript_fields,
     }
 
 
@@ -185,7 +226,7 @@ def validate_narration_timing_lock(
     governed_input_hash: str,
     editor: Mapping[str, Any],
 ) -> dict[str, Any]:
-    if artifact.get("schema") != "contentops.v2.actual_narration_timing_lock.v1":
+    if artifact.get("schema") != "contentops.v2.actual_narration_timing_lock.v2":
         raise CreativeContractError("narration_timing_lock_schema_invalid")
     expected_identity = {
         "video_job_id": video_job_id,
@@ -242,6 +283,46 @@ def validate_narration_timing_lock(
         raise CreativeContractError("narration_timing_lock_composite_hash_mismatch")
     if total + MINIMUM_PICTURE_TAIL_ROOM_SECONDS > SHORT_MAX_SECONDS + 0.00001:
         raise CreativeContractError("narration_timing_lock_outside_short_contract")
+    from .transcript import (
+        TranscriptContractError,
+        build_voiceover_qa,
+        validate_canonical_spoken_transcript,
+    )
+
+    transcript = artifact.get("canonical_spoken_transcript")
+    if not isinstance(transcript, Mapping):
+        raise CreativeContractError("canonical_spoken_transcript_missing")
+    try:
+        transcript_validation = validate_canonical_spoken_transcript(
+            transcript,
+            video_job_id=video_job_id,
+            run_id=run_id,
+            governed_input_hash=governed_input_hash,
+            editor=editor,
+            locked_narration_audio=narration,
+        )
+        expected_voiceover_qa = build_voiceover_qa(transcript=transcript, editor=editor)
+    except TranscriptContractError as exc:
+        raise CreativeContractError(str(exc)) from exc
+    if artifact.get("voiceover_qa") != expected_voiceover_qa:
+        raise CreativeContractError("narration_timing_lock_voiceover_qa_mismatch")
+    for canonical_segment, placement in zip(transcript["segments"], segments):
+        for key in (
+            "segment_id",
+            "segment_text_sha256",
+            "synthesis_text_sha256",
+            "timeline_start_seconds",
+            "actual_audio_duration_seconds",
+            "timeline_end_seconds",
+            "pause_after_seconds",
+            "audio_path",
+            "audio",
+            "synthesis_action",
+        ):
+            if canonical_segment.get(key) != placement.get(key):
+                raise CreativeContractError(
+                    f"canonical_transcript_placement_mismatch:{key}"
+                )
     lock_payload = dict(artifact)
     observed_hash = str(lock_payload.pop("timing_lock_hash", ""))
     if not observed_hash or hash_value(lock_payload) != observed_hash:
@@ -251,7 +332,164 @@ def validate_narration_timing_lock(
         "timing_lock_hash": observed_hash,
         "actual_total_narration_duration_seconds": total,
         "segment_count": len(segments),
+        "canonical_transcript_hash": transcript_validation[
+            "canonical_transcript_hash"
+        ],
+        "voiceover_qa_hash": expected_voiceover_qa["voiceover_qa_hash"],
     }
+
+
+def validate_post_transcript_asset_selection(
+    selection: Mapping[str, Any],
+    packet: Mapping[str, Any],
+    editor: Mapping[str, Any],
+    timing_lock: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Validate the immutable asset board selected after narration is waveform-locked."""
+    if selection.get("schema") != "contentops.v2.post_transcript_asset_selection.v1":
+        raise CreativeContractError("asset_selection_schema_invalid")
+    transcript = timing_lock.get("canonical_spoken_transcript") or {}
+    expected_identity = {
+        "governed_input_hash": timing_lock.get("governed_input_hash"),
+        "editorial_narration_hash": timing_lock.get("editorial_narration_hash"),
+        "narration_timing_lock_hash": timing_lock.get("timing_lock_hash"),
+        "canonical_transcript_hash": transcript.get("canonical_transcript_hash"),
+    }
+    for key, value in expected_identity.items():
+        if selection.get(key) != value:
+            raise CreativeContractError(f"asset_selection_identity_mismatch:{key}")
+    if selection.get("prior_creative_source_reused_as_input") is not False:
+        raise CreativeContractError("asset_selection_prior_creative_source_forbidden")
+    if selection.get("fresh_web_discovery_performed") is not True:
+        raise CreativeContractError("asset_selection_fresh_discovery_required")
+
+    transcript_segment_ids = {
+        str(item["segment_id"]) for item in transcript.get("segments", [])
+    }
+    editor_segment_ids = {
+        str(item["segment_id"]) for item in editor.get("narration_segments", [])
+    }
+    if not transcript_segment_ids or transcript_segment_ids != editor_segment_ids:
+        raise CreativeContractError("asset_selection_transcript_segment_identity_invalid")
+    visual_needs = selection.get("visual_needs")
+    if not isinstance(visual_needs, list) or not visual_needs:
+        raise CreativeContractError("asset_selection_visual_needs_missing")
+    need_ids: set[str] = set()
+    for need in visual_needs:
+        need_id = str(need.get("need_id", ""))
+        segment_ids = set(map(str, need.get("transcript_segment_ids", [])))
+        if (
+            not re.fullmatch(r"[A-Za-z0-9_.-]+", need_id)
+            or need_id in need_ids
+            or not str(need.get("visual_purpose", "")).strip()
+            or not segment_ids
+            or not segment_ids.issubset(transcript_segment_ids)
+        ):
+            raise CreativeContractError("asset_selection_visual_need_invalid")
+        need_ids.add(need_id)
+
+    governed_assets = {
+        str(item["asset_id"]): item for item in packet.get("rights_assets", [])
+    }
+    selected_existing = list(map(str, selection.get("selected_existing_asset_ids", [])))
+    if len(selected_existing) != len(set(selected_existing)) or not set(
+        selected_existing
+    ).issubset(governed_assets):
+        raise CreativeContractError("asset_selection_existing_asset_invalid")
+
+    selected_assets = selection.get("selected_assets")
+    if not isinstance(selected_assets, list):
+        raise CreativeContractError("asset_selection_selected_assets_not_list")
+    new_assets: dict[str, Mapping[str, Any]] = {}
+    new_paths: set[str] = set()
+    for asset in selected_assets:
+        asset_id = str(asset.get("asset_id", ""))
+        relative_path = str(asset.get("relative_path", ""))
+        path = PurePosixPath(relative_path)
+        required_text = (
+            "source_url",
+            "rights_basis",
+            "visual_family",
+            "semantic_purpose",
+        )
+        if (
+            not re.fullmatch(r"[A-Za-z0-9_.-]+", asset_id)
+            or asset_id in governed_assets
+            or asset_id in new_assets
+            or path.is_absolute()
+            or ".." in path.parts
+            or not relative_path
+            or relative_path in new_paths
+            or not re.fullmatch(r"[0-9a-f]{64}", str(asset.get("sha256", "")))
+            or any(not str(asset.get(key, "")).strip() for key in required_text)
+        ):
+            raise CreativeContractError(f"asset_selection_new_asset_invalid:{asset_id}")
+        new_assets[asset_id] = asset
+        new_paths.add(relative_path)
+
+    selected_ids = set(selected_existing) | set(new_assets)
+    if not selected_ids:
+        raise CreativeContractError("asset_selection_requires_selected_asset")
+    board = selection.get("candidate_board")
+    if not isinstance(board, list) or not board:
+        raise CreativeContractError("asset_selection_candidate_board_missing")
+    candidate_ids: set[str] = set()
+    candidate_need_ids: set[str] = set()
+    board_selected_ids: set[str] = set()
+    for candidate in board:
+        candidate_id = str(candidate.get("candidate_id", ""))
+        need_id = str(candidate.get("need_id", ""))
+        source_url = str(candidate.get("source_url", ""))
+        selected_asset_id = str(candidate.get("selected_asset_id", ""))
+        if (
+            not re.fullmatch(r"[A-Za-z0-9_.-]+", candidate_id)
+            or candidate_id in candidate_ids
+            or need_id not in need_ids
+            or not re.fullmatch(r"https://[^\s]+", source_url)
+            or not str(candidate.get("rights_basis", "")).strip()
+            or not str(candidate.get("visual_fit_assessment", "")).strip()
+        ):
+            raise CreativeContractError("asset_selection_candidate_invalid")
+        candidate_ids.add(candidate_id)
+        candidate_need_ids.add(need_id)
+        if selected_asset_id:
+            if selected_asset_id not in selected_ids or selected_asset_id in board_selected_ids:
+                raise CreativeContractError("asset_selection_candidate_selected_id_invalid")
+            if selected_asset_id in new_assets and source_url != str(
+                new_assets[selected_asset_id]["source_url"]
+            ):
+                raise CreativeContractError("asset_selection_candidate_source_mismatch")
+            board_selected_ids.add(selected_asset_id)
+        elif not str(candidate.get("rejection_reason", "")).strip():
+            raise CreativeContractError("asset_selection_rejection_reason_required")
+    if board_selected_ids != selected_ids:
+        raise CreativeContractError("asset_selection_board_does_not_cover_selection")
+    if candidate_need_ids != need_ids:
+        raise CreativeContractError("asset_selection_board_does_not_cover_visual_needs")
+
+    observed_hash = str(selection.get("asset_selection_hash", ""))
+    hash_basis = dict(selection)
+    hash_basis.pop("asset_selection_hash", None)
+    if observed_hash != hash_value(hash_basis):
+        raise CreativeContractError("asset_selection_hash_mismatch")
+    return {
+        "result": "PASS_POST_TRANSCRIPT_ASSET_SELECTION",
+        "asset_selection_hash": observed_hash,
+        "visual_need_count": len(visual_needs),
+        "candidate_count": len(board),
+        "selected_existing_asset_count": len(selected_existing),
+        "selected_new_asset_count": len(new_assets),
+    }
+
+
+def governed_assets_for_motion(
+    packet: Mapping[str, Any], motion: Mapping[str, Any]
+) -> list[dict[str, Any]]:
+    """Return the governed base assets plus immutable post-transcript additions."""
+    combined = [dict(item) for item in packet.get("rights_assets", [])]
+    selection = motion.get("asset_selection") or {}
+    combined.extend(dict(item) for item in selection.get("selected_assets", []))
+    return combined
 
 
 def validate_motion_artifact(
@@ -262,10 +500,16 @@ def validate_motion_artifact(
 ) -> dict[str, Any]:
     if artifact.get("schema") != "contentops.v2.codex_job_motion_source.v1":
         raise CreativeContractError("motion_schema_invalid")
-    if artifact.get("composition_id") != "FWBUnattendedShort":
+    if artifact.get("composition_id") != "ContentOpsV2Short":
         raise CreativeContractError("motion_composition_id_invalid")
     if artifact.get("narration_timing_lock_hash") != timing_lock.get("timing_lock_hash"):
         raise CreativeContractError("motion_narration_timing_lock_mismatch")
+    selection = artifact.get("asset_selection")
+    if not isinstance(selection, Mapping):
+        raise CreativeContractError("motion_post_transcript_asset_selection_missing")
+    asset_validation = validate_post_transcript_asset_selection(
+        selection, packet, editor, timing_lock
+    )
     picture_timing = artifact.get("picture_timing")
     if not isinstance(picture_timing, Mapping):
         raise CreativeContractError("motion_picture_timing_missing")
@@ -303,9 +547,15 @@ def validate_motion_artifact(
         if not display_text or display_text not in editor_segments.get(segment_id, ""):
             raise CreativeContractError("motion_claim_not_bound_to_editor")
         bound_display_text.add(display_text)
-    valid_assets = {str(item["asset_id"]) for item in packet["rights_assets"]}
+    combined_assets = governed_assets_for_motion(packet, artifact)
+    selected_assets = set(map(str, selection.get("selected_existing_asset_ids", []))) | {
+        str(item["asset_id"]) for item in selection.get("selected_assets", [])
+    }
+    valid_assets = {str(item["asset_id"]) for item in combined_assets}
     if not set(map(str, artifact.get("asset_ids", []))).issubset(valid_assets):
         raise CreativeContractError("motion_asset_not_governed")
+    if not set(map(str, artifact.get("asset_ids", []))).issubset(selected_assets):
+        raise CreativeContractError("motion_asset_not_post_transcript_selected")
     source = "\n".join(str(value) for value in files.values())
     root_source = str(files["src/Root.tsx"])
     if not re.search(rf"durationInFrames=\{{{frames}\}}", root_source):
@@ -317,7 +567,7 @@ def validate_motion_artifact(
             raise CreativeContractError("motion_bound_claim_missing_from_source")
     allowed_paths = {
         str(item["relative_path"]): str(item["asset_id"])
-        for item in packet["rights_assets"]
+        for item in combined_assets
     }
     referenced_paths = set(
         re.findall(r"staticFile\(\s*['\"]([^'\"]+)['\"]\s*\)", source)
@@ -327,7 +577,11 @@ def validate_motion_artifact(
     expected_asset_ids = {allowed_paths[path] for path in referenced_paths}
     if expected_asset_ids != set(map(str, artifact.get("asset_ids", []))):
         raise CreativeContractError("motion_asset_ids_do_not_match_source")
-    allowed_numeric_strings = set(bound_display_text) | referenced_paths
+    allowed_numeric_strings = (
+        set(bound_display_text)
+        | referenced_paths
+        | {str(artifact["composition_id"])}
+    )
     literals = []
     for match in re.finditer(
         r"'((?:\\.|[^'\\\r\n])*)'|\"((?:\\.|[^\"\\\r\n])*)\"",
@@ -347,6 +601,7 @@ def validate_motion_artifact(
         "duration_frames": frames,
         "duration_seconds": duration,
         "timing_lock_hash": timing_lock["timing_lock_hash"],
+        "asset_selection_hash": asset_validation["asset_selection_hash"],
         "sandbox": sandbox,
     }
 
@@ -363,6 +618,11 @@ def validate_revision_artifact(
     decision = str(artifact.get("decision", ""))
     if decision not in {"NO_MATERIAL_REVISION", "MATERIAL_REVISION_REQUIRED"}:
         raise CreativeContractError("revision_decision_invalid")
+    review_checks = artifact.get("review_checks")
+    if not isinstance(review_checks, Mapping) or set(review_checks) != ACTUAL_MEDIA_REVIEW_CHECKS:
+        raise CreativeContractError("actual_media_review_checks_incomplete")
+    if not all(str(value).strip() for value in review_checks.values()):
+        raise CreativeContractError("actual_media_review_check_empty")
     files = artifact.get("replacement_files") or {}
     if decision == "MATERIAL_REVISION_REQUIRED":
         if not isinstance(files, Mapping) or set(files) != SOURCE_FILES:

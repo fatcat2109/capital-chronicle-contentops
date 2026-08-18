@@ -20,6 +20,7 @@ from video.freeform_chapter_pipeline_v1.package_factory import (
 )
 
 from .creative import hash_file, hash_value
+from .transcript import synthesis_text_for_segment, validate_seo_transcript_identity
 
 
 class MediaExecutionError(RuntimeError):
@@ -230,7 +231,7 @@ def render_project(
     crf: int,
     browser_executable: Path,
     public_root: Path,
-    composition_id: str = "FWBUnattendedShort",
+    composition_id: str = "ContentOpsV2Short",
     entry_point: str = "src/index.tsx",
     concurrency: int = 2,
 ) -> dict[str, Any]:
@@ -366,6 +367,7 @@ def synthesize_narration(
     cursor = len(pieces[0]) / sample_rate
     for index, segment in enumerate(editor["narration_segments"], start=1):
         text = str(segment["text"])
+        synthesis_text = synthesis_text_for_segment(segment)
         segment_id = str(segment["segment_id"])
         identity = hash_value(
             {
@@ -376,7 +378,7 @@ def synthesize_narration(
                 "lang": lang,
                 "sample_rate_hz": sample_rate,
                 "segment_id": segment_id,
-                "text": text,
+                "text": synthesis_text,
             }
         )
         segment_path = output_dir / f"segment_{index:02d}_{segment_id}.wav"
@@ -391,9 +393,10 @@ def synthesize_narration(
                 cached_audio, cached_rate = sf.read(segment_path, dtype="float32")
                 if int(cached_rate) == sample_rate:
                     audio = np.asarray(cached_audio, dtype=np.float32)
+        synthesis_action = "REUSED_CACHE"
         if audio is None:
             generated, returned_rate = kokoro.create(
-                text, voice=voice, speed=speed, lang=lang
+                synthesis_text, voice=voice, speed=speed, lang=lang
             )
             if int(returned_rate) != sample_rate:
                 raise MediaExecutionError(f"kokoro_sample_rate_unexpected:{returned_rate}")
@@ -412,6 +415,7 @@ def synthesize_narration(
                 + "\n",
                 encoding="utf-8",
             )
+            synthesis_action = "SYNTHESIZED"
         duration = len(audio) / sample_rate
         pause_after = 0.16 if index < len(editor["narration_segments"]) else 0.35
         audio_record = artifact(segment_path)
@@ -420,6 +424,7 @@ def synthesize_narration(
                 "cue_id": segment_id,
                 "segment_id": segment_id,
                 "segment_text_sha256": hash_value(text),
+                "synthesis_text_sha256": hash_value(synthesis_text),
                 "timeline_start_seconds": round(cursor, 6),
                 "actual_audio_duration_seconds": round(duration, 6),
                 "timeline_end_seconds": round(cursor + duration, 6),
@@ -427,6 +432,7 @@ def synthesize_narration(
                 "caption_text": text,
                 "audio_path": str(segment_path.resolve()),
                 "audio": audio_record,
+                "synthesis_action": synthesis_action,
             }
         )
         pieces.append(audio)
@@ -586,17 +592,34 @@ def loudness_report(path: Path) -> dict[str, Any]:
 def build_captions(
     *, timing_lock: Mapping[str, Any], media_duration_seconds: float, output_dir: Path
 ) -> dict[str, Any]:
+    transcript = timing_lock.get("canonical_spoken_transcript")
+    if not isinstance(transcript, Mapping):
+        raise MediaExecutionError("canonical_spoken_transcript_missing_for_captions")
+    if transcript.get("locked_narration_audio_sha256") != timing_lock.get(
+        "locked_narration_audio", {}
+    ).get("sha256"):
+        raise MediaExecutionError("caption_transcript_audio_identity_mismatch")
     caption_set = build_caption_cues(
         language="en",
         media_duration_seconds=media_duration_seconds,
-        segments=timing_lock["segments"],
+        segments=transcript["segments"],
     )
+    caption_set["canonical_transcript_hash"] = transcript[
+        "canonical_transcript_hash"
+    ]
+    caption_set["locked_narration_audio_sha256"] = transcript[
+        "locked_narration_audio_sha256"
+    ]
     validation = validate_caption_set(caption_set)
     if validation["result"] != "PASS_CAPTIONS":
         raise MediaExecutionError(f"caption_validation_failed:{validation['errors']}")
     return {
         "result": "PASS_CAPTIONS",
         "validation": validation,
+        "canonical_transcript_hash": transcript["canonical_transcript_hash"],
+        "locked_narration_audio_sha256": transcript[
+            "locked_narration_audio_sha256"
+        ],
         "artifacts": write_caption_artifacts(caption_set, output_dir),
     }
 
@@ -629,12 +652,15 @@ def build_neutral_package(
     captions: Mapping[str, Any],
     rights_refs: Sequence[str],
     evidence_refs: Sequence[str],
-    title: str,
     input_hash: str,
     timing_lock: Mapping[str, Any],
+    seo_package: Mapping[str, Any],
     output: Path,
 ) -> dict[str, Any]:
     artifacts = captions["artifacts"]
+    transcript = dict(timing_lock["canonical_spoken_transcript"])
+    validate_seo_transcript_identity(seo_package, transcript=transcript)
+    final_audio = artifact(audio)
     package = build_publication_package(
         {
             "source_story_id": story_id,
@@ -648,14 +674,38 @@ def build_neutral_package(
             "caption_srt": artifacts["srt"]["path"],
             "caption_vtt": artifacts["vtt"]["path"],
             "metadata": {
-                "title": title,
-                "description": "Shadow owner-review package. No platform delivery authorized.",
+                "title": seo_package["title"],
+                "description": seo_package["description"],
+                "search_entities": list(seo_package["search_entities"]),
             },
-            "chapters": [{"start_seconds": 0, "title": title}],
+            "chapters": list(seo_package["chapters"]),
             "rights_provenance_refs": list(rights_refs),
             "factual_evidence_refs": [input_hash, *evidence_refs],
             "intended_future_surfaces": [],
             "generation_version": "v1",
+            "canonical_transcript_identity": {
+                "canonical_transcript_hash": transcript[
+                    "canonical_transcript_hash"
+                ],
+                "plain_text_sha256": transcript["plain_text_sha256"],
+                "locked_narration_audio_sha256": transcript[
+                    "locked_narration_audio_sha256"
+                ],
+                "final_audio_sha256": final_audio["sha256"],
+                "voiceover_qa_hash": timing_lock["voiceover_qa"][
+                    "voiceover_qa_hash"
+                ],
+            },
+            "seo_derivation": {
+                "schema": seo_package["schema"],
+                "seo_package_hash": seo_package["seo_package_hash"],
+                "canonical_transcript_hash": seo_package[
+                    "canonical_transcript_hash"
+                ],
+                "invented_or_strengthened_fact_count": seo_package[
+                    "invented_or_strengthened_fact_count"
+                ],
+            },
             "delivery_policy": {
                 "picture_render_scope": "ONCE_PER_EDITORIAL_FORMAT",
                 "locale_picture_render_default": False,
@@ -672,17 +722,11 @@ def build_neutral_package(
     )
     package["governed_input_hash"] = input_hash
     package["narration_timing_lock_hash"] = timing_lock["timing_lock_hash"]
-    package["canonical_spoken_segments"] = [
-        {
-            "segment_id": item["segment_id"],
-            "segment_text_sha256": item["segment_text_sha256"],
-            "caption_text": item["caption_text"],
-            "timeline_start_seconds": item["timeline_start_seconds"],
-            "timeline_end_seconds": item["timeline_end_seconds"],
-        }
-        for item in timing_lock["segments"]
-    ]
+    package["canonical_transcript_hash"] = transcript["canonical_transcript_hash"]
+    package["voiceover_qa_hash"] = timing_lock["voiceover_qa"]["voiceover_qa_hash"]
+    package["seo_package_hash"] = seo_package["seo_package_hash"]
     package["final_mux"] = artifact(final_media)
+    package["final_audio"] = final_audio
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(package, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     package["manifest_artifact"] = artifact(output)
