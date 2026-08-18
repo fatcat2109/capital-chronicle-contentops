@@ -7,6 +7,7 @@ from pathlib import Path
 from live_contentops import edge_cdp_publishing_adapter_v1 as adapter
 from live_contentops.edge_cdp_publishing_adapter_v1 import (
     _activate_file_upload,
+    _exact_substack_article_media_contract,
     _file_input_snapshot,
     _meaningful_image_dimensions,
     _newest_activated_media_input,
@@ -302,6 +303,11 @@ def test_substack_partial_exact_draft_reconciles_public_write_absent(monkeypatch
     monkeypatch.setattr(adapter, "_editor_image_count", lambda _page: 1)
     monkeypatch.setattr(
         adapter,
+        "_editor_image_identity_rows",
+        lambda _page: [{"sha256": "a" * 64}],
+    )
+    monkeypatch.setattr(
+        adapter,
         "_substack_exact_enabled_button",
         lambda _page, *, labels, **_kwargs: (
             (object(), "Continue") if "Continue" in labels else (None, None)
@@ -314,7 +320,11 @@ def test_substack_partial_exact_draft_reconciles_public_write_absent(monkeypatch
         expected_title=title,
         expected_subtitle=subtitle,
         expected_body_markdown=body,
-        expected_image_assets=[{"asset_id": "a"}, {"asset_id": "b"}, {"asset_id": "c"}],
+        expected_image_assets=[
+            {"asset_id": "a", "sha256": "a" * 64},
+            {"asset_id": "b", "sha256": "b" * 64},
+            {"asset_id": "c", "sha256": "c" * 64},
+        ],
     )
 
     assert result["status"] == "SUBSTACK_PARTIAL_DRAFT_CONFIRMED_NOT_PUBLIC"
@@ -777,6 +787,390 @@ def test_public_substack_content_checks_allow_a_source_backed_article_without_vi
     assert soft_mismatches["content_readback_verified"] is True
 
 
+def test_substack_article_media_contract_is_exact_for_text_only_and_media_articles() -> None:
+    text_only = _exact_substack_article_media_contract(
+        expected_image_assets=[], observed_image_rows=[]
+    )
+    assert text_only["article_media_manifest_exact_match"] is True
+    assert text_only["expected_article_media_count"] == 0
+    assert text_only["actual_article_media_count"] == 0
+
+    for stale_count in (1, 2):
+        stale = _exact_substack_article_media_contract(
+            expected_image_assets=[],
+            observed_image_rows=[
+                {
+                    "src": f"https://substack.example/stale-{index}.png",
+                    "original_url": f"https://substack.example/stale-{index}.png",
+                    "sha256": "f" * 64,
+                }
+                for index in range(stale_count)
+            ],
+        )
+        assert stale["article_media_manifest_exact_match"] is False
+        assert stale["article_media_count_exact"] is False
+        assert "unexpected_public_body_media" in stale["article_media_contract_blockers"]
+
+    duplicate_dom_nodes = _exact_substack_article_media_contract(
+        expected_image_assets=[],
+        observed_image_rows=[
+            {
+                "src": "https://substack.example/same-stale-card.png",
+                "original_url": "https://substack.example/same-stale-card.png",
+                "sha256": "f" * 64,
+            },
+            {
+                "src": "https://substack.example/same-stale-card.png",
+                "original_url": "https://substack.example/same-stale-card.png",
+                "sha256": "f" * 64,
+            },
+        ],
+    )
+    assert duplicate_dom_nodes["actual_article_media_count"] == 2
+    assert duplicate_dom_nodes["article_media_manifest_exact_match"] is False
+
+    expected = [
+        {"asset_id": "first", "sha256": "a" * 64},
+        {"asset_id": "second", "sha256": "b" * 64},
+    ]
+    exact = _exact_substack_article_media_contract(
+        expected_image_assets=expected,
+        observed_image_rows=[
+            {"src": "https://substack.example/second", "sha256": "b" * 64},
+            {"src": "https://substack.example/first", "sha256": "a" * 64},
+        ],
+    )
+    assert exact["article_media_manifest_exact_match"] is True
+    extra = _exact_substack_article_media_contract(
+        expected_image_assets=expected,
+        observed_image_rows=[
+            {"src": "https://substack.example/first", "sha256": "a" * 64},
+            {"src": "https://substack.example/second", "sha256": "b" * 64},
+            {"src": "https://substack.example/extra", "sha256": "c" * 64},
+        ],
+    )
+    assert extra["article_media_manifest_exact_match"] is False
+    assert extra["unexpected_article_media_sha256"] == ["c" * 64]
+
+
+def test_substack_existing_draft_unexpected_media_blocks_before_public_transition(
+    monkeypatch,
+) -> None:
+    class Title:
+        def input_value(self, timeout=None):
+            del timeout
+            return "Exact text-only title"
+
+    class Editor:
+        pass
+
+    class Page:
+        url = "https://capitalchronicle.substack.com/publish/post/211677374"
+
+        def goto(self, url, **_kwargs):
+            self.url = url
+
+    page = Page()
+
+    @contextmanager
+    def edge_page(_cdp_port):
+        yield page
+
+    def first_visible(_page, selectors):
+        if selectors[0] == "#post-title":
+            return Title(), selectors[0]
+        if selectors[0] == "div.ProseMirror":
+            return Editor(), selectors[0]
+        return None, None
+
+    monkeypatch.setattr(adapter, "canonical_edge_page", edge_page)
+    monkeypatch.setattr(adapter, "_first_visible", first_visible)
+    monkeypatch.setattr(adapter.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(
+        adapter,
+        "_editor_image_identity_rows",
+        lambda _page: [
+            {
+                "src": "https://substack.example/stale.png",
+                "original_url": "https://substack.example/stale.png",
+                "sha256": "f" * 64,
+            }
+        ],
+    )
+    monkeypatch.setattr(
+        adapter,
+        "_complete_substack_editor_publication_transition",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("public transition must not run")
+        ),
+    )
+
+    result = adapter.publish_substack_article_via_edge(
+        cdp_port=9223,
+        title="Exact text-only title",
+        subtitle="",
+        body_markdown="Exact text-only body.",
+        image_assets=[],
+        existing_draft_id="211677374",
+        publication_mode="publish",
+    )
+
+    assert result["status"] == "BLOCKED_SUBSTACK_RESUME_UNEXPECTED_MEDIA"
+    assert result["public_write_attempted"] is False
+    assert result["public_transition_performed"] is False
+    assert result["automatic_media_cleanup_performed"] is False
+
+
+def _exact_media_repair_authorization(
+    *,
+    draft_id: str,
+    public_url: str,
+    title: str,
+    subtitle: str,
+    body: str,
+    expected_assets,
+    unexpected,
+):
+    expected_rows, _ = adapter._expected_article_media_identity_rows(expected_assets)
+    expected_manifest = [
+        {"asset_id": row["asset_id"], "sha256": row["sha256"]}
+        for row in expected_rows
+    ]
+    unexpected_manifest = [
+        {
+            "src": row["src"],
+            "original_url": row["original_url"],
+            "sha256": row["sha256"],
+        }
+        for row in unexpected
+    ]
+    return {
+        "scope": adapter._EXACT_SUBSTACK_MEDIA_REPAIR_SCOPE,
+        "destination": "substack",
+        "draft_id": draft_id,
+        "public_url": public_url,
+        "expected_title_sha256": adapter._sha256(title),
+        "expected_subtitle_sha256": adapter._sha256(subtitle),
+        "expected_body_sha256": adapter._sha256(body),
+        "expected_article_media_manifest_sha256": adapter._canonical_json_sha256(
+            expected_manifest
+        ),
+        "unexpected_media_manifest_sha256": adapter._canonical_json_sha256(
+            unexpected_manifest
+        ),
+    }
+
+
+def test_exact_substack_media_repair_rejects_wrong_object_content_or_media_binding(
+    monkeypatch,
+) -> None:
+    title = "Exact title"
+    subtitle = "Exact subtitle"
+    body = "Exact governed body with enough stable words for identity binding."
+    public_url = "https://capitalchronicle.substack.com/p/exact"
+    unexpected = [
+        {
+            "src": "https://substackcdn.example/stale.png",
+            "original_url": "https://substack-post-media.example/stale.png",
+            "sha256": "f" * 64,
+        }
+    ]
+    authorization = _exact_media_repair_authorization(
+        draft_id="211677374",
+        public_url=public_url,
+        title=title,
+        subtitle=subtitle,
+        body=body,
+        expected_assets=[],
+        unexpected=unexpected,
+    )
+    monkeypatch.setattr(
+        adapter,
+        "canonical_edge_page",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("browser must not open for a bad binding")
+        ),
+    )
+
+    cases = [
+        {"draft_id": "wrong"},
+        {"public_url": "https://other.substack.com/p/exact"},
+        {"expected_title": "Wrong title"},
+        {"expected_body_sha256": "0" * 64},
+        {
+            "unexpected_media_identities": [
+                {**unexpected[0], "sha256": "e" * 64}
+            ]
+        },
+    ]
+    base = {
+        "cdp_port": 9223,
+        "draft_id": "211677374",
+        "public_url": public_url,
+        "expected_title": title,
+        "expected_subtitle": subtitle,
+        "expected_body_markdown": body,
+        "expected_body_sha256": adapter._sha256(body),
+        "expected_image_assets": [],
+        "unexpected_media_identities": unexpected,
+        "repair_authorization": authorization,
+    }
+    for changes in cases:
+        result = adapter._repair_exact_unexpected_substack_media_via_edge(
+            **{**base, **changes}
+        )
+        assert result["status"] == "BLOCKED_SUBSTACK_EXACT_MEDIA_REPAIR_AUTHORIZATION"
+        assert result["browser_write_performed"] is False
+        assert result["public_write_attempted"] is False
+
+
+def test_exact_substack_media_repair_mock_preserves_prose_and_canonical_media(
+    monkeypatch,
+) -> None:
+    title = "Exact title"
+    subtitle = "Exact subtitle"
+    body = "Opening governed paragraph.\n\n[[VISUAL:canonical]]\n\nClosing governed paragraph."
+    public_url = "https://capitalchronicle.substack.com/p/exact"
+    expected_assets = [{"asset_id": "canonical", "sha256": "a" * 64}]
+    unexpected = [
+        {
+            "src": "https://substackcdn.example/stale.png",
+            "original_url": "https://substack-post-media.example/stale.png",
+            "sha256": "f" * 64,
+        }
+    ]
+    state = {
+        "rows": [
+            {
+                "src": "https://substackcdn.example/canonical.png",
+                "original_url": "https://substack-post-media.example/canonical.png",
+                "sha256": "a" * 64,
+            },
+            dict(unexpected[0]),
+        ],
+        "removed": [],
+    }
+    expected_prose = adapter._expected_substack_editor_prose(body, expected_assets)
+
+    class Input:
+        def __init__(self, value):
+            self.value = value
+
+        def input_value(self, timeout=None):
+            del timeout
+            return self.value
+
+    class ImageNode:
+        def __init__(self, index):
+            self.index = index
+
+    class Images:
+        def nth(self, index):
+            return ImageNode(index)
+
+    class Editor:
+        def inner_text(self, timeout=None):
+            del timeout
+            return expected_prose
+
+        def locator(self, selector):
+            assert selector == "img"
+            return Images()
+
+    class Keyboard:
+        pass
+
+    class Page:
+        url = ""
+        keyboard = Keyboard()
+
+        def goto(self, url, **_kwargs):
+            self.url = url
+
+    page = Page()
+    editor = Editor()
+
+    @contextmanager
+    def edge_page(_cdp_port):
+        yield page
+
+    def first_visible(_page, selectors):
+        if selectors[0] == "#post-title":
+            return Input(title), selectors[0]
+        if selectors[0].startswith("textarea"):
+            return Input(subtitle), selectors[0]
+        return editor, selectors[0]
+
+    def audit(*_args, **_kwargs):
+        contract = _exact_substack_article_media_contract(
+            expected_image_assets=expected_assets,
+            observed_image_rows=state["rows"],
+        )
+        return {
+            **contract,
+            "text_content_readback_verified": True,
+            "strict_content_visual_readback_verified": contract[
+                "article_media_manifest_exact_match"
+            ],
+        }
+
+    def remove(_page, node):
+        removed = state["rows"].pop(node.index)
+        state["removed"].append(removed["sha256"])
+
+    monkeypatch.setattr(adapter, "canonical_edge_page", edge_page)
+    monkeypatch.setattr(adapter, "_audit_public_substack_article", audit)
+    monkeypatch.setattr(adapter, "_first_visible", first_visible)
+    monkeypatch.setattr(adapter, "_editor_image_identity_rows", lambda _page: list(state["rows"]))
+    monkeypatch.setattr(adapter, "_remove_exact_substack_editor_image_node", remove)
+    monkeypatch.setattr(adapter, "_substack_saved", lambda _page: True)
+    monkeypatch.setattr(adapter.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(
+        adapter,
+        "_substack_exact_enabled_button",
+        lambda _page, *, labels, **_kwargs: (
+            (object(), "Update") if labels == ("Update",) else (None, None)
+        ),
+    )
+    monkeypatch.setattr(
+        adapter,
+        "_complete_substack_editor_publication_transition",
+        lambda *_args, **_kwargs: {
+            "status": "SUCCESS",
+            "publication_write_mode": "update_existing_public_article",
+            "public_url": public_url,
+        },
+    )
+    authorization = _exact_media_repair_authorization(
+        draft_id="211677374",
+        public_url=public_url,
+        title=title,
+        subtitle=subtitle,
+        body=body,
+        expected_assets=expected_assets,
+        unexpected=unexpected,
+    )
+
+    result = adapter._repair_exact_unexpected_substack_media_via_edge(
+        cdp_port=9223,
+        draft_id="211677374",
+        public_url=public_url,
+        expected_title=title,
+        expected_subtitle=subtitle,
+        expected_body_markdown=body,
+        expected_body_sha256=adapter._sha256(body),
+        expected_image_assets=expected_assets,
+        unexpected_media_identities=unexpected,
+        repair_authorization=authorization,
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert result["title_subtitle_prose_preserved"] is True
+    assert result["removed_unexpected_media_count"] == 1
+    assert state["removed"] == ["f" * 64]
+    assert [row["sha256"] for row in state["rows"]] == ["a" * 64]
+
+
 def test_substack_resume_index_preserves_exact_sequential_visual_prefix() -> None:
     from live_contentops.edge_cdp_publishing_adapter_v1 import (
         _segment_index_after_visual_prefix,
@@ -883,6 +1277,15 @@ def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypa
     monkeypatch.setattr(
         adapter, "_editor_image_count", lambda _page: 0 if state["poll"] == 1 else 3
     )
+    monkeypatch.setattr(
+        adapter,
+        "_editor_image_identity_rows",
+        lambda _page: [
+            {"sha256": "a" * 64},
+            {"sha256": "b" * 64},
+            {"sha256": "c" * 64},
+        ],
+    )
 
     result = adapter.reconcile_substack_publication_by_draft_id_via_edge(
         cdp_port=9223,
@@ -891,9 +1294,9 @@ def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypa
         expected_subtitle=expected_subtitle,
         expected_body_markdown=expected_body,
         expected_image_assets=[
-            {"asset_id": "source"},
-            {"asset_id": "facts"},
-            {"asset_id": "metadata"},
+            {"asset_id": "source", "sha256": "a" * 64},
+            {"asset_id": "facts", "sha256": "b" * 64},
+            {"asset_id": "metadata", "sha256": "c" * 64},
         ],
     )
 

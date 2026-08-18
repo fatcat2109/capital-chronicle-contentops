@@ -1,0 +1,99 @@
+{
+  "schema_version": "contentops.v1.final_public_visual_integrity_bounded_correction.v1",
+  "task_label": "TASK_CONTENTOPS_V1_FINAL_PUBLIC_VISUAL_INTEGRITY_BOUNDED_CORRECTION_V1",
+  "recorded_at": "2026-08-18T20:45:00+07:00",
+  "classification": "PASS_PUBLIC_VISUAL_INTEGRITY_SOURCE_CORRECTION_READY_FOR_CHATGPT_AUDIT",
+  "task_2_pass": false,
+  "v1_final_product_accepted": false,
+  "verified_origin_master": "458be8c7e011c617e04433e52523448e2f2b6fba",
+  "verified_recovery_base": "5701f1039a7f229f636d54bdf0a2133bb2bdcf23",
+  "recovery_commit_message": "Close V1 Facebook X and Instagram recovery",
+  "branch": "codex/v1-final-public-visual-integrity-bounded-correction-v1",
+  "substack_contract": {
+    "public_url": "https://capitalchronicle.substack.com/p/ft-flags-lender-insurance-gap-around",
+    "draft_id": "211677374",
+    "expected_article_media_count": 0,
+    "actual_public_body_image_count": 2,
+    "article_media_manifest_exact_match": false,
+    "corrected_classification": "FAILED_SUBSTACK_PUBLIC_VISUAL_READBACK",
+    "observed_public_media": [
+      {
+        "url": "https://substack-post-media.s3.amazonaws.com/public/images/8e9d6c48-a23a-4052-b92e-217bcbce2c52_1350x1080.png",
+        "byte_length": 38986,
+        "sha256": "0839a7488a843299767f560bffc2f8e819719593750dcff730a4944dbc7b0ad7"
+      },
+      {
+        "url": "https://substack-post-media.s3.amazonaws.com/public/images/69cef86a-d321-402a-bb66-806f2500706d_1350x1080.png",
+        "byte_length": 38986,
+        "sha256": "0839a7488a843299767f560bffc2f8e819719593750dcff730a4944dbc7b0ad7"
+      }
+    ]
+  },
+  "screenshots": {
+    "substack": {
+      "path": "substack_public_defect_before_source_correction.png",
+      "sha256": "d9d078a00318d687c260604852984ebf63a0ed5559de7e43ef0d5e1837aca0d5"
+    },
+    "instagram": {
+      "path": "instagram_public_readonly_before_source_correction.png",
+      "sha256": "c35d1d6acc6189e9e662794e9dbafa9328119172d9a0aa5a50260e819e11140b"
+    },
+    "post_implementation_browser_gap": "canonical_edge_profile_not_owner_of_requested_cdp_port; registry READY_TO_LAUNCH; no bypass used"
+  },
+  "instagram_repair_classification": "OWNER_DECISION_REQUIRED_FOR_INSTAGRAM_DESTRUCTIVE_REPAIR",
+  "frozen_canary": {
+    "work_item_id": "operator-requested-operator-trigger-27e8edb0a5764d4898d6fee0",
+    "article_body_sha256": "33d48d5b8ad1250673009c93fc3f1469688b15ec05d3b1a327074f9b69827ddc",
+    "article_media_count": 0,
+    "delivery_media_count": 1,
+    "delivery_only_article_inclusion": false,
+    "delivery_only_canonical_article_media": false,
+    "frozen_file_hashes": {
+      "desktop_manual_live_canary_terminal_evidence_v1.json": "1001e996db29e5c9d5412185f9208c432cda5709e0e6a52e6e64db7184c12ca0",
+      "delivery_only_editorial_card.png": "0839a7488a843299767f560bffc2f8e819719593750dcff730a4944dbc7b0ad7",
+      "canonical_article.md": "20b0e54efa007f9ad8beae45ef3c0aff415199383228c783e67fec08b27d42a5",
+      "article_manifest_v1.json": "6fa03d129639316de1ffe5cca66fe2ed46b2050b2a6f19459b54d7724639fab5",
+      "release_candidate_lock_v1.json": "ab1a38ce68509b1027d77bab7ebf52a7b665742c632df64353db803f15da27f3",
+      "run_context_v1.json": "592fecad7ebd30d5bc27ad81d741c50e2fc60428dd08bb7083134e3fd46abfe9"
+    },
+    "hashes_unchanged": true
+  },
+  "zero_write_smoke": {
+    "classification": "PASS_FROZEN_CANARY_ZERO_WRITE_SMOKE",
+    "status": "BLOCKED_SUBSTACK_RESUME_UNEXPECTED_MEDIA",
+    "resume_media_safe": false,
+    "public_write_attempted": false,
+    "public_transition_performed": false,
+    "automatic_media_cleanup_performed": false,
+    "provider_write_count": 0,
+    "production_store_mutation": 0,
+    "model_go_count": 0
+  },
+  "validation": {
+    "python_compile": "PASS",
+    "combined_focused_and_codegraph_tests": "176 passed",
+    "codegraph_check": "CODEGRAPH_CURRENT",
+    "git_diff_check": "PASS"
+  },
+  "automations": {
+    "count": 4,
+    "all_paused": true,
+    "mutation_count": 0,
+    "ids": [
+      "v1-newsroom-london-1700",
+      "v1-newsroom-new-york-2100",
+      "v1-newsroom-new-york-2300",
+      "v1-newsroom-new-york-0100"
+    ]
+  },
+  "authority_boundaries": {
+    "public_provider_write_count": 0,
+    "production_store_mutation": 0,
+    "model_go_count": 0,
+    "automation_mutation": 0,
+    "fifth_automation_created": false,
+    "v2_mutation": 0,
+    "live_substack_repair_executed": false,
+    "live_instagram_repair_executed": false
+  }
+}

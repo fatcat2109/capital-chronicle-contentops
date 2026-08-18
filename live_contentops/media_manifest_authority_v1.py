@@ -5,6 +5,7 @@ import hashlib
 import io
 import mimetypes
 import re
+import unicodedata
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -16,6 +17,21 @@ MIN_CHART_WIDTH = 800
 MIN_CHART_HEIGHT = 400
 MAX_IMAGE_BYTES = 20 * 1024 * 1024
 PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM = 0.93
+
+_DISPLAY_PUNCTUATION_FALLBACK = str.maketrans(
+    {
+        "\u2010": "-",
+        "\u2011": "-",
+        "\u2012": "-",
+        "\u2013": "-",
+        "\u2014": "-",
+        "\u2018": "'",
+        "\u2019": "'",
+        "\u201c": '"',
+        "\u201d": '"',
+        "\u00a0": " ",
+    }
+)
 
 _CHART_TITLES = {
     "primary": "Effective Fed Funds Rate Inside the Policy Corridor",
@@ -78,6 +94,40 @@ def image_metadata_from_file(path: str | Path) -> dict[str, Any]:
     return {"mime_type": mime, "width": int(image.width), "height": int(image.height)}
 
 
+def _delivery_card_fonts() -> tuple[Any, Any, str, bool]:
+    """Prefer repository-established Arial; retain a deterministic glyph-safe fallback."""
+    from PIL import ImageFont
+
+    candidates = (
+        ("C:/Windows/Fonts/arial.ttf", "C:/Windows/Fonts/arial.ttf"),
+        ("arial.ttf", "arial.ttf"),
+        ("DejaVuSans.ttf", "DejaVuSans.ttf"),
+    )
+    for font_path, label in candidates:
+        try:
+            return (
+                ImageFont.truetype(font_path, 34),
+                ImageFont.truetype(font_path, 24),
+                label,
+                True,
+            )
+        except OSError:
+            continue
+    return ImageFont.load_default(), ImageFont.load_default(), "PIL_DEFAULT_ASCII_SAFE", False
+
+
+def _glyph_safe_display_text(value: str, *, unicode_font_loaded: bool) -> str:
+    source = " ".join(str(value or "").split())
+    if unicode_font_loaded:
+        return source
+    punctuation_safe = source.translate(_DISPLAY_PUNCTUATION_FALLBACK)
+    return (
+        unicodedata.normalize("NFKD", punctuation_safe)
+        .encode("ascii", errors="ignore")
+        .decode("ascii")
+    )
+
+
 def build_delivery_only_editorial_card(
     *,
     output_path: str | Path,
@@ -92,14 +142,17 @@ def build_delivery_only_editorial_card(
     imagery, invented numbers, or claim-bearing chart. Capital Chronicle owns the rendered
     layout bytes; the source remains attributed and is not claimed as owned.
     """
-    from PIL import Image, ImageDraw, ImageFont
+    from PIL import Image, ImageDraw
 
     target = Path(output_path).resolve()
     target.parent.mkdir(parents=True, exist_ok=True)
     image = Image.new("RGB", (1350, 1080), "#07111f")
     draw = ImageDraw.Draw(image)
-    font = ImageFont.load_default(size=34)
-    small = ImageFont.load_default(size=24)
+    font, small, font_identity, unicode_font_loaded = _delivery_card_fonts()
+    source_title = " ".join(str(title or "").split())
+    display_title = _glyph_safe_display_text(
+        source_title, unicode_font_loaded=unicode_font_loaded
+    )
 
     def lines(value: str, width: int) -> list[str]:
         words = " ".join(str(value or "").split()).split()
@@ -120,7 +173,7 @@ def build_delivery_only_editorial_card(
     draw.text((110, 118), "CAPITAL CHRONICLE", fill="#e0b85a", font=small)
     draw.text((110, 174), "NEWSROOM BRIEF", fill="#94a3b8", font=small)
     y = 280
-    for row in lines(title, 50)[:7]:
+    for row in lines(display_title, 50)[:7]:
         draw.text((110, y), row, fill="#f8fafc", font=font)
         y += 58
     source_text = f"Source: {source_label}"
@@ -139,6 +192,14 @@ def build_delivery_only_editorial_card(
         "sha256": sha256_file(target),
         "caption": "Capital Chronicle delivery card for the governed article.",
         "alt_text": f"Capital Chronicle newsroom brief: {' '.join(title.split())}",
+        "source_title": source_title,
+        "display_title": display_title,
+        "display_font_identity": font_identity,
+        "unicode_font_loaded": unicode_font_loaded,
+        "display_fallback_applied": display_title != source_title,
+        "display_replacement_glyph_present": any(
+            marker in display_title for marker in ("\ufffd", "\u25a1", "\u25a0")
+        ),
         "source_label": str(source_label),
         "source_page_url": str(source_page_url),
         "source_published_at": str(published_at or "") or None,

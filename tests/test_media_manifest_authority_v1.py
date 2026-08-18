@@ -7,6 +7,7 @@ from PIL import Image
 
 from live_contentops.media_manifest_authority_v1 import (
     PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM,
+    build_delivery_only_editorial_card,
     build_delivery_media_manifest,
     select_primary_chart,
     sha256_file,
@@ -102,3 +103,26 @@ def test_public_chart_readback_rejects_logo_visual(tmp_path: Path):
 
     assert visual_similarity_to_local_file(chart_bytes, chart) >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
     assert visual_similarity_to_local_file(logo_bytes, chart) < PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+
+
+def test_delivery_card_renders_newsroom_unicode_without_missing_glyphs(tmp_path: Path):
+    title = "FT flags lender insurance gap around Meta–BlackRock’s $14bn data centre"
+    card = build_delivery_only_editorial_card(
+        output_path=tmp_path / "unicode-delivery-card.png",
+        title=title,
+        source_label="Financial Times",
+        source_page_url="https://www.ft.com/",
+    )
+
+    assert Path(card["path"]).is_file()
+    assert card["source_title"] == title
+    assert card["display_replacement_glyph_present"] is False
+    assert "�" not in card["display_title"]
+    assert "□" not in card["display_title"]
+    if card["unicode_font_loaded"]:
+        assert card["display_title"] == title
+    else:
+        assert card["display_title"] == (
+            "FT flags lender insurance gap around Meta-BlackRock's $14bn data centre"
+        )
+        assert card["display_fallback_applied"] is True
