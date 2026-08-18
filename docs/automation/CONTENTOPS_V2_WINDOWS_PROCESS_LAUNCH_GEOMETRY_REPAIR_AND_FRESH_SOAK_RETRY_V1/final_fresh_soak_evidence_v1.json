@@ -1,0 +1,190 @@
+{
+  "schema": "contentops.v2.windows_process_launch_geometry_repair_fresh_soak_final_evidence.v1",
+  "task_id": "TASK_CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1",
+  "recorded_at": "2026-08-18T11:42:00Z",
+  "classification": "PASS_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR__FAIL_UNATTENDED_OWNER_REVIEW_READY_SOAK_WITH_EXTERNAL_SHUTDOWN_INTERRUPTION",
+  "task1_success_classification": "FAIL_ZERO_OWNER_REVIEW_READY",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1",
+  "starting_head": "117d7526bbba17bca7a96804cdc2a968b2fb4f74",
+  "implementation_head": "575333fb2a37c494f122780f318cf11f94e8bf2d",
+  "evidence_head_binding": "COMMIT_CONTAINING_THIS_RECEIPT",
+  "implementation_remote_parity_before_soak": true,
+  "original_root_cause": {
+    "classification": "A_EXECUTABLE_MODULE_PATH_WITH_PROJECTED_CMD_WRAPPER",
+    "runtime_root_characters": 191,
+    "project_root_characters": 242,
+    "failed_typecheck_cwd_characters": 242,
+    "projected_typescript_cli_characters": 268,
+    "canonical_typescript_cli_characters": 143,
+    "projected_remotion_cli_characters": 273,
+    "canonical_remotion_cli_characters": 148,
+    "projected_browser_characters": 347,
+    "canonical_browser_characters": 222,
+    "failed_serialized_command_line_characters": 279,
+    "python": "3.13.4",
+    "launch_mode": "subprocess.run(shell=False default) -> CreateProcessW with direct .cmd wrapper argv",
+    "bounded_reproduction": "ONE_ATTEMPT_FILE_NOT_FOUND_WINERROR_206_BEFORE_CHILD_PROCESS",
+    "exact_vector": "The job-projected tsc.cmd executable path was 268 characters and crossed the legacy CreateProcess executable/module path boundary before the child started; cwd and serialized command length were excluded by measurement."
+  },
+  "repair": {
+    "typescript": "canonical dependency-root tsc.cmd with --project <absolute generated_project/tsconfig.json> --noEmit",
+    "remotion": "canonical dependency-root remotion.cmd with an absolute generated-project entry point",
+    "cwd": "canonical dependency project root",
+    "browser": "canonical dependency-root chrome-headless-shell",
+    "preflight": "all TypeScript, Remotion, browser, cwd, and serialized-command geometry is measured before claim and refreshed before claim/resume",
+    "projected_cli_selected": false
+  },
+  "changed_paths": [
+    "docs/automation/CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1/pre_soak_implementation_validation_v1.json",
+    "docs/automation/CONTENTOPS_V2_WINDOWS_PROCESS_LAUNCH_GEOMETRY_REPAIR_AND_FRESH_SOAK_RETRY_V1/windows_process_launch_geometry_diagnostic_v1.json",
+    "docs/codegraph/INDEX.md",
+    "docs/codegraph/V2_CONTEXT.md",
+    "docs/codegraph/graph.json",
+    "scripts/run_v2_remotion_short_path_smoke_v1.py",
+    "tests/test_v2_unattended_core_factory_v1.py",
+    "video/unattended_core_factory_v1/media.py",
+    "video/unattended_core_factory_v1/supervisor.py"
+  ],
+  "validation": {
+    "focused_supervisor_and_graph_suite": "53 passed, 1 skipped in 86.88s",
+    "configured_real_process_regression": "1 passed in 41.97s",
+    "compileall": "PASS",
+    "ruff_changed_surface_excluding_pre_existing_E402_F401": "PASS",
+    "git_diff_check": "PASS",
+    "real_windows_smoke": {
+      "result": "PASS_NON_CREATIVE_REMOTION_BROWSER_SMOKE",
+      "receipt": "A:\\Capital Chronicle\\Temp\\v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1\\production-like-long-runtime-root-20260818\\remotion_browser_smoke_receipt.json",
+      "receipt_sha256": "8ec5d096631a9b1f8ab04c5c9700e99ac573c693c37fa654acb672fbb2ccfdd3",
+      "project_root_characters": 252,
+      "projected_typescript_cli_characters": 278,
+      "selected_typescript_cli_characters": 143,
+      "typescript_returncode": 0,
+      "projected_remotion_cli_characters": 283,
+      "selected_remotion_cli_characters": 148,
+      "canonical_browser_characters": 222,
+      "projected_browser_characters": 357,
+      "media_path_characters": 267,
+      "media_sha256": "0ac34207af9ff2179ef369636672f275416c57ab9419076bf71da085058337ff",
+      "probe": "320x568 / 30fps / H.264 High / 30 frames / 1.0s"
+    }
+  },
+  "codegraph": {
+    "committed_before": {
+      "nodes": 7195,
+      "edges": 13521
+    },
+    "committed_after": {
+      "nodes": 7198,
+      "edges": 13531,
+      "check": "CODEGRAPH_CURRENT"
+    },
+    "cli_before": {
+      "nodes": 48164,
+      "edges": 124451
+    },
+    "cli_after": {
+      "nodes": 48174,
+      "edges": 124526,
+      "status": "INDEX_UP_TO_DATE"
+    },
+    "post_query": "one canonical media launcher seam; no production caller selects generated_project/node_modules/.bin CLI wrappers"
+  },
+  "fresh_soak": {
+    "runtime_root": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1",
+    "soak_epoch_started_at": "2026-08-18T09:55:16.7545588Z",
+    "freshness_rechecked": true,
+    "old_quarantined_runs_resumed": false,
+    "job_count": 3,
+    "started_job_count": 3,
+    "owner_review_ready_count": 0,
+    "quarantined_job_count": 3,
+    "queued_or_running_count": 0,
+    "all_started_jobs_terminal": true,
+    "proceeded_beyond_hard_source_validated_and_actual_render": true,
+    "bounded_xhigh_creative_execution_count": 7,
+    "manual_source_edits_after_start": 0,
+    "manual_media_edits_after_start": 0,
+    "manual_checkpoint_edits": 0,
+    "external_shutdown_interruption_count": 1,
+    "external_media_cost_usd": 0.0,
+    "jobs": [
+      {
+        "video_job_id": "v2_retry_us_retail_july_2026",
+        "run_id": "run_4c26218398574d71977a8001aaa1ff89",
+        "input_packet_hash": "9d89f8c68910afd19df5e7d51d878afc865524ac4ed7ae3398be9e8491b1c372",
+        "terminal_state": "QUARANTINED",
+        "terminal_result": "HARD_FAILURE:SupervisorError:picture_duration_differs_from_motion_lock",
+        "proxy_path": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1\\jobs\\v2_retry_us_retail_july_2026\\media\\proxy.mp4",
+        "proxy_sha256": "fb9bbc2f7f5d261922ef10828dec0f6d828f3978b05ccfd1e24d6962ba79bffc",
+        "proxy_size_bytes": 6178020,
+        "proxy_probe": "1080x1920 / 30fps / 58.4s / H.264 High + AAC",
+        "actual_media_review": "MATERIAL_REVISION_REQUIRED",
+        "failure_context": "The bounded XHIGH repair was accepted, but the immutable picture-duration check rejected the re-rendered picture. No operator repair or retry followed."
+      },
+      {
+        "video_job_id": "v2_retry_japan_gdp_q2_2026",
+        "run_id": "run_4f8c7cc18f934d3881aaf9943c52e319",
+        "input_packet_hash": "5cbded28c0f3cf634a729939826806609a3c1d59f4d2ae07b61e268cd2dcce13",
+        "terminal_state": "QUARANTINED",
+        "terminal_result": "HARD_FAILURE:MediaExecutionError:command_failed:remotion.cmd:1",
+        "proxy_path": "A:\\Capital Chronicle\\ContentOps-wt-v2-winlaunch\\.task-runtime\\v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1\\jobs\\v2_retry_japan_gdp_q2_2026\\media\\proxy.mp4",
+        "proxy_sha256": "c1d51be7cc81d23293d9b731ed24d9fad039ffe37236d043f2bf339a6c27a3ab",
+        "proxy_size_bytes": 4367770,
+        "proxy_probe": "1080x1920 / 30fps / 56.0s / H.264 High + AAC",
+        "actual_media_review": "NO_MATERIAL_REVISION",
+        "failure_context": "The subsequent picture-lock render lost its browser session at frame 102 when the Codex task was shut down after exhausting quota. The earlier full proxy render had passed. A post-restart evidence-only render of the exact project completed 1680/1680 frames in 102.9343 seconds, proving the durable failure was an external interruption rather than a persistent launch or source defect. The quarantined checkpoint was not reopened or mutated."
+      },
+      {
+        "video_job_id": "v2_retry_euro_area_trade_june_2026",
+        "run_id": "run_f6726b81eedc4072a095ad1ffe09d625",
+        "input_packet_hash": "0ea1f4e12d46bc7f3571f3c25782b6252cea1e101e609760e9f983b697dbed1c",
+        "terminal_state": "QUARANTINED",
+        "terminal_result": "HARD_FAILURE:TranscriptContractError:voiceover_qa_failed:june_flows:numbers_units_currencies:272.5 billion,june_flows:numbers_units_currencies:264.0 billion,retention_payoff_outside_first_30_seconds",
+        "proxy_path": null,
+        "actual_media_review": null,
+        "failure_context": "Deterministic voiceover QA rejected the fresh XHIGH editorial artifact before motion. No operator repair or retry followed."
+      }
+    ]
+  },
+  "final_media_or_package": {
+    "owner_review_ready_packages": [],
+    "final_media_paths": [],
+    "proxy_media_paths_are_evidence_only": true
+  },
+  "post_shutdown_audit": {
+    "orphaned_task_python_processes": 0,
+    "orphaned_task_remotion_processes": 0,
+    "orphaned_task_browser_processes": 0,
+    "orphaned_task_ffmpeg_processes": 0,
+    "durable_store_mutated_for_recovery": false,
+    "checkpoint_reopened": false,
+    "evidence_only_exact_japan_render": {
+      "result": "PASS_RENDER",
+      "path": "A:\\Capital Chronicle\\Temp\\v2-winlaunch-post-shutdown-diagnostic-20260818\\japan_picture_lock_diagnostic.mp4",
+      "sha256": "7e152d50d6c037975b18fac928fe4f87c55191ca4640609299cf0f7923921139",
+      "size_bytes": 8589440,
+      "frames": 1680,
+      "wall_time_seconds": 102.9343,
+      "selected_remotion_cli_characters": 148,
+      "selected_browser_characters": 222,
+      "projected_remotion_cli_selected": false,
+      "used_as_owner_package": false
+    },
+    "verdict": "The Japan picture-lock failure was caused by external Codex quota shutdown. Recovery inside the durable run would require forbidden checkpoint mutation; the task preserves quarantine truth."
+  },
+  "remaining_blockers": [
+    "Voiceover QA needs eligible creative output that preserves numeric-unit rendering and retention-payoff timing without operator repair.",
+    "The bounded replacement-source path must preserve the immutable motion duration through the picture lock.",
+    "The Japan durable run was externally interrupted and is quarantined; completing it requires a separately authorized fresh recovery job/run because this task forbids checkpoint mutation and a second soak epoch."
+  ],
+  "authority_boundaries": {
+    "video_public_write_count": 0,
+    "public_write_authority": false,
+    "locale_activation_started": false,
+    "v1_mutation_count": 0,
+    "scheduler_mutation_count": 0,
+    "publication_attempt_count": 0,
+    "owner_media_acceptance_claimed": false
+  }
+}
