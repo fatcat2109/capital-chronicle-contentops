@@ -14,7 +14,7 @@ For V2/video work, read first:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1`
+`TASK_CONTENTOPS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_BOUNDED_CORRECTION_V1`
 
 `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
@@ -36,9 +36,11 @@ different runtime. `CodexJobBrain` is conceptual only and canonically means
 `CodexDesktopSessionBrain`; it does not mean `CodexCliExecutor`, subprocess, SDK, or API.
 
 The three-job production soak is accepted at Task-1 remote HEAD `fc338caa020aaeae0f87ca066064714405ced729`.
-The locale task activates governed `zh-Hans`, `hi`, `vi`, and `ko` packages from the accepted US
-Retail picture without a locale-specific picture render. Builder PASS remains subject to GitHub/
-package audit and Jim listening acceptance.
+The bounded correction reuses the exact existing Vietnamese synthesized phrases, aligns them to
+their governed source narrative windows, derives captions from actual corrected placements, and
+stream-copy remuxes the accepted US Retail picture. Do not resynthesize unchanged locales or
+rerender/transcode the picture. Builder PASS remains subject to GitHub/package audit and Jim
+listening acceptance.
 
 For every job in this soak, use
 `transcript/voice-over -> visual needs -> grounded web discovery -> candidate board -> rights-safe selection -> story-specific Remotion`.
@@ -50,7 +52,7 @@ and deterministic QA.
 from this role. `MULTILINGUAL_CLOSED_INPUT` and `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` control. Do not
 read platform credentials or perform any platform/browser write.
 
-Exact next gate only after GitHub/package audit and Jim locale listening acceptance:
+Exact next gate only after independent owner audit accepts the corrected Vietnamese package:
 `TASK_CONTENTOPS_V2_V1_READONLY_TRIGGER_AND_CODEX_DAILY_OPERATOR_AUTOMATION_SHADOW_V1`.
 Do not start it automatically.
 

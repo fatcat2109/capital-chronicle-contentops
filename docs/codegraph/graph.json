@@ -22,9 +22,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13563,
+    "edges": 13596,
     "entrypoints": 16,
-    "nodes": 7216,
+    "nodes": 7226,
     "nodes_by_kind": {
       "authority_doc": 17,
       "cli_command": 36,
@@ -34,11 +34,11 @@
       "instructions": 8,
       "manifest": 19,
       "python_class": 623,
-      "python_function": 3920,
+      "python_function": 3927,
       "python_method": 265,
-      "python_module": 751,
+      "python_module": 753,
       "schema": 189,
-      "test": 720,
+      "test": 721,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -67689,6 +67689,12 @@
       "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::activate_locales"
     },
     {
+      "from": "python_symbol:scripts/run_v2_locale_audio_timeline_alignment_correction_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::run_bounded_correction"
+    },
+    {
       "from": "python_symbol:scripts/run_v2_remotion_short_path_smoke_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68322,6 +68328,12 @@
       "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::activate_locales",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_timeline_alignment"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::activate_locales",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_translation_packet"
     },
     {
@@ -68343,6 +68355,24 @@
       "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
     },
     {
+      "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::align_phrases_to_source_windows",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::LocaleActivationError"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::align_phrases_to_source_windows",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::SynthesizedPhrase"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::align_phrases_to_source_windows",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
       "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::inspect_picture",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68353,6 +68383,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::meaningful_speech_bounds",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::LocaleActivationError"
     },
     {
       "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::mux_picture_identical_locale",
@@ -68367,6 +68403,18 @@
       "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::inspect_picture"
     },
     {
+      "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_timeline_alignment",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::LocaleActivationError"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_timeline_alignment",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
       "from": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_translation_packet",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68377,6 +68425,102 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::LocaleActivationError"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::build_existing_timing_artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::meaningful_speech_bounds"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::build_existing_timing_artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::align_phrases_to_source_windows"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::inspect_picture"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::meaningful_speech_bounds"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::mux_picture_identical_locale"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_timeline_alignment"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_translation_packet"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::canonical_bytes"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::artifact"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::run_bounded_correction",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::inspect_picture"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::run_bounded_correction",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_timeline_alignment"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::run_bounded_correction",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::build_existing_timing_artifact"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::run_bounded_correction",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline"
+    },
+    {
+      "from": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::run_bounded_correction",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
     },
     {
       "from": "python_symbol:video/official_platform_publication_v1/models.py::assert_no_secret_serialization",
@@ -69631,6 +69775,18 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/run_v2_locale_activation_hardening_v1.py::main"
+    },
+    {
+      "from": "scripts/run_v2_locale_audio_timeline_alignment_correction_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_locale_audio_timeline_alignment_correction_v1.py::main"
+    },
+    {
+      "from": "scripts/run_v2_locale_audio_timeline_alignment_correction_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_locale_audio_timeline_alignment_correction_v1.py::main"
     },
     {
       "from": "scripts/run_v2_remotion_short_path_smoke_v1.py",
@@ -79884,7 +80040,19 @@
       "from": "video/locale_activation_hardening_v1/factory.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::align_phrases_to_source_windows"
+    },
+    {
+      "from": "video/locale_activation_hardening_v1/factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::inspect_picture"
+    },
+    {
+      "from": "video/locale_activation_hardening_v1/factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::meaningful_speech_bounds"
     },
     {
       "from": "video/locale_activation_hardening_v1/factory.py",
@@ -79897,6 +80065,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::mux_picture_identical_locale"
+    },
+    {
+      "from": "video/locale_activation_hardening_v1/factory.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_timeline_alignment"
     },
     {
       "from": "video/locale_activation_hardening_v1/factory.py",
@@ -79930,6 +80104,30 @@
     },
     {
       "from": "video/locale_activation_hardening_v1/factory.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/locale_activation_hardening_v1/__init__.py"
+    },
+    {
+      "from": "video/locale_activation_hardening_v1/timeline_correction.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::build_existing_timing_artifact"
+    },
+    {
+      "from": "video/locale_activation_hardening_v1/timeline_correction.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline"
+    },
+    {
+      "from": "video/locale_activation_hardening_v1/timeline_correction.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::run_bounded_correction"
+    },
+    {
+      "from": "video/locale_activation_hardening_v1/timeline_correction.py",
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "video/locale_activation_hardening_v1/__init__.py"
@@ -81542,7 +81740,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-18T11:49:31Z",
+  "generation_timestamp_utc": "2026-08-18T13:34:14Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -81845,7 +82043,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 7065
+      "size_bytes": 7364
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -117897,6 +118095,13 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/run_v2_locale_audio_timeline_alignment_correction_v1.py::main",
+      "kind": "python_function",
+      "line": 22,
+      "path": "scripts/run_v2_locale_audio_timeline_alignment_correction_v1.py",
+      "symbol": "main"
+    },
+    {
       "id": "python_symbol:scripts/run_v2_remotion_short_path_smoke_v1.py::main",
       "kind": "python_function",
       "line": 58,
@@ -118431,65 +118636,107 @@
     {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::LocaleActivationError",
       "kind": "python_class",
-      "line": 49,
+      "line": 51,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "LocaleActivationError"
     },
     {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::SynthesizedPhrase",
       "kind": "python_class",
-      "line": 54,
+      "line": 56,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "SynthesizedPhrase"
     },
     {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::TTSRoute",
       "kind": "python_class",
-      "line": 66,
+      "line": 68,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "TTSRoute"
     },
     {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::activate_locales",
       "kind": "python_function",
-      "line": 696,
+      "line": 992,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "activate_locales"
     },
     {
+      "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::align_phrases_to_source_windows",
+      "kind": "python_function",
+      "line": 403,
+      "path": "video/locale_activation_hardening_v1/factory.py",
+      "symbol": "align_phrases_to_source_windows"
+    },
+    {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::inspect_picture",
       "kind": "python_function",
-      "line": 147,
+      "line": 149,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "inspect_picture"
     },
     {
+      "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::meaningful_speech_bounds",
+      "kind": "python_function",
+      "line": 521,
+      "path": "video/locale_activation_hardening_v1/factory.py",
+      "symbol": "meaningful_speech_bounds"
+    },
+    {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::media_metadata_verdict",
       "kind": "python_function",
-      "line": 167,
+      "line": 169,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "media_metadata_verdict"
     },
     {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::mux_picture_identical_locale",
       "kind": "python_function",
-      "line": 620,
+      "line": 916,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "mux_picture_identical_locale"
     },
     {
+      "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_timeline_alignment",
+      "kind": "python_function",
+      "line": 540,
+      "path": "video/locale_activation_hardening_v1/factory.py",
+      "symbol": "validate_timeline_alignment"
+    },
+    {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::validate_translation_packet",
       "kind": "python_function",
-      "line": 188,
+      "line": 190,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "validate_translation_packet"
     },
     {
       "id": "python_symbol:video/locale_activation_hardening_v1/factory.py::video_stream_sha256",
       "kind": "python_function",
-      "line": 121,
+      "line": 123,
       "path": "video/locale_activation_hardening_v1/factory.py",
       "symbol": "video_stream_sha256"
+    },
+    {
+      "id": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::build_existing_timing_artifact",
+      "kind": "python_function",
+      "line": 90,
+      "path": "video/locale_activation_hardening_v1/timeline_correction.py",
+      "symbol": "build_existing_timing_artifact"
+    },
+    {
+      "id": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::correct_vietnamese_timeline",
+      "kind": "python_function",
+      "line": 198,
+      "path": "video/locale_activation_hardening_v1/timeline_correction.py",
+      "symbol": "correct_vietnamese_timeline"
+    },
+    {
+      "id": "python_symbol:video/locale_activation_hardening_v1/timeline_correction.py::run_bounded_correction",
+      "kind": "python_function",
+      "line": 348,
+      "path": "video/locale_activation_hardening_v1/timeline_correction.py",
+      "symbol": "run_bounded_correction"
     },
     {
       "id": "python_symbol:video/official_platform_publication_v1/control_plane.py::PublicationControlPlane",
@@ -120362,7 +120609,12 @@
     {
       "id": "scripts/run_v2_locale_activation_hardening_v1.py",
       "kind": "python_module",
-      "size_bytes": 1347
+      "size_bytes": 1390
+    },
+    {
+      "id": "scripts/run_v2_locale_audio_timeline_alignment_correction_v1.py",
+      "kind": "python_module",
+      "size_bytes": 1279
     },
     {
       "id": "scripts/run_v2_remotion_short_path_smoke_v1.py",
@@ -123627,7 +123879,12 @@
     {
       "id": "tests/test_v2_locale_activation_hardening_v1.py",
       "kind": "test",
-      "size_bytes": 7664
+      "size_bytes": 7842
+    },
+    {
+      "id": "tests/test_v2_locale_audio_timeline_alignment_correction_v1.py",
+      "kind": "test",
+      "size_bytes": 5085
     },
     {
       "id": "tests/test_v2_multiformat_multilingual_package_factory_v1.py",
@@ -123642,12 +123899,12 @@
     {
       "id": "tests/test_v2_unattended_core_factory_v1.py",
       "kind": "test",
-      "size_bytes": 64302
+      "size_bytes": 64303
     },
     {
       "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
       "kind": "test",
-      "size_bytes": 5109
+      "size_bytes": 5116
     },
     {
       "id": "tests/test_v6_north_star_authority_consistency.py",
@@ -127984,7 +128241,7 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 10925
+      "size_bytes": 11121
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/__init__.py",
@@ -128049,12 +128306,17 @@
     {
       "id": "video/locale_activation_hardening_v1/__init__.py",
       "kind": "python_module",
-      "size_bytes": 198
+      "size_bytes": 203
     },
     {
       "id": "video/locale_activation_hardening_v1/factory.py",
       "kind": "python_module",
-      "size_bytes": 34475
+      "size_bytes": 50985
+    },
+    {
+      "id": "video/locale_activation_hardening_v1/timeline_correction.py",
+      "kind": "python_module",
+      "size_bytes": 19779
     },
     {
       "id": "video/official_platform_publication_v1/__init__.py",
@@ -128284,7 +128546,7 @@
     {
       "id": "video/unattended_core_factory_v1/transcript.py",
       "kind": "python_module",
-      "size_bytes": 24509
+      "size_bytes": 24655
     }
   ],
   "protected_boundaries": [
@@ -128350,6 +128612,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "9d70c15c9d14c0d8b2d1462724ccb95d9bbd73bd",
-  "source_tree_digest": "344b55f2ac9c33c76d5f33c7c804825ede91ac83f07b92e9df15ddddd5ae388c"
+  "source_head": "9ffa8c32e8e1af006a9f3d0961876a6bc5897a8d",
+  "source_tree_digest": "340e4e344d69a3e28cb6917533237753f0161d91a80c5ef0bd43e36c2e574f60"
 }

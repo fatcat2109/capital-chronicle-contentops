@@ -118,22 +118,25 @@ Audio technical integrity passes. Subjective voice/music listening quality is no
 
 ## Current exact task and gate
 
-`TASK_CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1`
+`TASK_CONTENTOPS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_BOUNDED_CORRECTION_V1`
 
 Builder result:
 
-`PASS_IMPLEMENTATION_V2_LOCALE_ACTIVATION_PACKAGES_READY_FOR_JIM_LISTENING_REVIEW`
+`PASS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_CORRECTION_READY_FOR_OWNER_REVIEW`
 
-The accepted US Retail Short now has governed `zh-Hans`, `hi`, `vi`, and `ko` transcript,
-pronunciation, audio, timed SRT/VTT, transcript-derived metadata, listening-sample, YouTube
-sidecar, and one-audio-program short-form packages. All four variants reuse the same accepted
-58.4-second / 1,752-frame picture stream without Remotion rerender or `-shortest` truncation.
-Evidence is under `docs/automation/CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1/`.
+The Task-2 Vietnamese package was corrected after owner audit found 15.38 seconds of unexplained
+final silence. Its exact existing synthesized phrases are now placed in their corresponding
+accepted picture/narrative windows; captions derive from those actual placements. Meaningful
+Vietnamese speech now ends at 57.68 seconds with 0.72 seconds of final headroom. The 58.4-second /
+1,752-frame accepted picture stream is unchanged, with no Remotion rerender, transcode, TTS call,
+or `-shortest` truncation. `zh-Hans`, `hi`, and `ko` pass the new deterministic tail/placement audit
+without regeneration. Evidence is under
+`docs/automation/CONTENTOPS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_BOUNDED_CORRECTION_V1/`.
 
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling. Builder validation does not claim Jim's
 subjective language/voice/listening acceptance.
 
-Only after GitHub/package audit plus Jim listening acceptance is the next gate:
+Only after independent owner audit accepts the corrected Vietnamese package is the next gate:
 
 `TASK_CONTENTOPS_V2_V1_READONLY_TRIGGER_AND_CODEX_DAILY_OPERATOR_AUTOMATION_SHADOW_V1`
 

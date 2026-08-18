@@ -40,6 +40,8 @@ SAMPLE_RATE = 24_000
 INITIAL_SILENCE_SECONDS = 0.18
 BETWEEN_PHRASES_SECONDS = 0.10
 FINAL_HEADROOM_SECONDS = 0.08
+MAX_UNEXPLAINED_FINAL_TAIL_SECONDS = 3.0
+MAX_NATURAL_INTER_PHRASE_PAUSE_SECONDS = 0.55
 ELEVENLABS_URL = "https://api.elevenlabs.io/v1"
 FORBIDDEN_MANIFEST_KEYS = re.compile(
     r"(?:api.?key|credential|cookie|session|authorization|access.?token|refresh.?token)", re.I
@@ -364,12 +366,278 @@ def _route_for_locale(locale: str) -> TTSRoute:
     raise LocaleActivationError(f"unsupported_locale:{locale}")
 
 
+def _source_segment_windows(
+    source_segments: Sequence[Mapping[str, Any]], *, picture_duration: float
+) -> list[dict[str, Any]]:
+    """Bind each governed source segment to its accepted picture/narrative window."""
+    if not source_segments:
+        raise LocaleActivationError("source_timing_segments_missing")
+    windows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for index, segment in enumerate(source_segments):
+        segment_id = _nonempty_text(segment.get("segment_id"), "source_segment_id")
+        if segment_id in seen:
+            raise LocaleActivationError(f"duplicate_source_timing_segment:{segment_id}")
+        seen.add(segment_id)
+        start = float(segment.get("timeline_start_seconds", -1))
+        narrative_end = float(segment.get("timeline_end_seconds", -1))
+        if index + 1 < len(source_segments):
+            window_end = float(source_segments[index + 1].get("timeline_start_seconds", -1))
+        else:
+            window_end = float(picture_duration)
+        if start < 0 or narrative_end < start or window_end <= start:
+            raise LocaleActivationError(f"source_timing_window_invalid:{segment_id}")
+        if narrative_end > window_end + 0.001 or window_end > picture_duration + 0.001:
+            raise LocaleActivationError(f"source_timing_window_exceeds_picture:{segment_id}")
+        windows.append(
+            {
+                "source_segment_id": segment_id,
+                "source_timeline_start_seconds": round(start, 6),
+                "source_narrative_end_seconds": round(narrative_end, 6),
+                "source_window_end_seconds": round(window_end, 6),
+            }
+        )
+    return windows
+
+
+def align_phrases_to_source_windows(
+    *,
+    locale: str,
+    phrases: Sequence[SynthesizedPhrase],
+    source_segments: Sequence[Mapping[str, Any]],
+    picture_duration: float,
+) -> tuple[list[SynthesizedPhrase], dict[str, Any]]:
+    """Place measured localized phrases inside their governed source narrative windows.
+
+    This never changes audio speed or wording. If measured speech cannot fit with a natural
+    minimum pause, the caller must perform a bounded localization rewrite and resynthesize only
+    the affected source segment.
+    """
+    windows = _source_segment_windows(source_segments, picture_duration=picture_duration)
+    phrase_ids = [phrase.source_segment_id for phrase in phrases]
+    expected_ids = [window["source_segment_id"] for window in windows]
+    if set(phrase_ids) != set(expected_ids):
+        raise LocaleActivationError(f"localized_source_segment_binding_incomplete:{locale}")
+
+    aligned: list[SynthesizedPhrase] = []
+    segment_records: list[dict[str, Any]] = []
+    for index, window in enumerate(windows):
+        segment_id = str(window["source_segment_id"])
+        linked = [phrase for phrase in phrases if phrase.source_segment_id == segment_id]
+        if not linked:
+            raise LocaleActivationError(f"localized_segment_audio_missing:{locale}:{segment_id}")
+        window_start = float(window["source_timeline_start_seconds"])
+        window_end = float(window["source_window_end_seconds"])
+        usable_end = window_end - (FINAL_HEADROOM_SECONDS if index == len(windows) - 1 else 0.0)
+        audio_duration = sum(float(phrase.duration_seconds) for phrase in linked)
+        minimum_pause = BETWEEN_PHRASES_SECONDS * max(0, len(linked) - 1)
+        if audio_duration + minimum_pause > usable_end - window_start + 0.001:
+            raise LocaleActivationError(
+                "localized_segment_exceeds_picture_window_rewrite_required:"
+                f"{locale}:{segment_id}:{audio_duration + minimum_pause:.3f}>"
+                f"{usable_end - window_start:.3f}"
+            )
+        if len(linked) > 1:
+            available_pause = (usable_end - window_start - audio_duration) / (len(linked) - 1)
+            phrase_pause = min(
+                MAX_NATURAL_INTER_PHRASE_PAUSE_SECONDS,
+                max(BETWEEN_PHRASES_SECONDS, available_pause),
+            )
+        else:
+            phrase_pause = 0.0
+        cursor = window_start
+        placements: list[dict[str, Any]] = []
+        for phrase_index, phrase in enumerate(linked):
+            placed = SynthesizedPhrase(
+                cue_id=phrase.cue_id,
+                source_segment_id=phrase.source_segment_id,
+                text=phrase.text,
+                synthesis_text=phrase.synthesis_text,
+                start_seconds=round(cursor, 6),
+                duration_seconds=round(float(phrase.duration_seconds), 6),
+                audio_path=phrase.audio_path,
+                audio_sha256=phrase.audio_sha256,
+            )
+            aligned.append(placed)
+            end = float(placed.start_seconds) + float(placed.duration_seconds)
+            placements.append(
+                {
+                    "cue_id": placed.cue_id,
+                    "source_segment_id": segment_id,
+                    "timeline_start_seconds": placed.start_seconds,
+                    "actual_audio_duration_seconds": placed.duration_seconds,
+                    "timeline_end_seconds": round(end, 6),
+                    "audio_sha256": placed.audio_sha256,
+                }
+            )
+            cursor = end
+            if phrase_index + 1 < len(linked):
+                cursor += phrase_pause
+        segment_end = float(placements[-1]["timeline_end_seconds"])
+        segment_records.append(
+            {
+                **window,
+                "actual_segment_start_seconds": placements[0]["timeline_start_seconds"],
+                "actual_segment_end_seconds": round(segment_end, 6),
+                "actual_synthesized_duration_seconds": round(audio_duration, 6),
+                "inter_phrase_pause_seconds": round(phrase_pause, 6),
+                "trailing_window_slack_seconds": round(window_end - segment_end, 6),
+                "placement_mode": "INSIDE_GOVERNED_SOURCE_WINDOW",
+                "placements": placements,
+            }
+        )
+    timing = {
+        "schema": "contentops.v2.localized_timeline_alignment.v1",
+        "locale": locale,
+        "picture_duration_seconds": round(float(picture_duration), 6),
+        "max_unexplained_final_tail_seconds": MAX_UNEXPLAINED_FINAL_TAIL_SECONDS,
+        "segments": segment_records,
+    }
+    timing["timeline_alignment_hash"] = hash_value(timing)
+    return aligned, timing
+
+
+def _write_aligned_audio_program(
+    *, locale: str, phrases: Sequence[SynthesizedPhrase], output: Path, picture_duration: float
+) -> dict[str, Any]:
+    bus = np.zeros(round(picture_duration * SAMPLE_RATE), dtype=np.float32)
+    for phrase in phrases:
+        clip, rate = sf.read(phrase.audio_path, dtype="float32")
+        if int(rate) != SAMPLE_RATE:
+            raise LocaleActivationError("locale_phrase_sample_rate_mismatch")
+        if clip.ndim == 2:
+            clip = np.mean(clip, axis=1)
+        start = round(phrase.start_seconds * SAMPLE_RATE)
+        end = start + len(clip)
+        if end > len(bus):
+            raise LocaleActivationError(f"locale_audio_overflow:{locale}:{phrase.cue_id}")
+        bus[start:end] += clip
+    output.parent.mkdir(parents=True, exist_ok=True)
+    peak = float(np.max(np.abs(bus))) or 1.0
+    sf.write(output, bus * min(1.0, 0.88 / peak), SAMPLE_RATE, subtype="PCM_24")
+    return artifact(output)
+
+
+def meaningful_speech_bounds(path: Path, *, threshold_db: float = -45.0) -> dict[str, float]:
+    """Measure meaningful speech bounds with deterministic 10 ms RMS windows."""
+    audio, rate = sf.read(path, dtype="float32")
+    if audio.ndim == 2:
+        audio = np.mean(audio, axis=1)
+    window = max(1, round(int(rate) * 0.01))
+    padded = np.pad(audio, (0, (-len(audio)) % window))
+    blocks = padded.reshape(-1, window)
+    rms = np.sqrt(np.mean(np.square(blocks, dtype=np.float64), axis=1))
+    threshold = 10.0 ** (threshold_db / 20.0)
+    active = np.flatnonzero(rms >= threshold)
+    if not len(active):
+        raise LocaleActivationError(f"localized_audio_contains_no_meaningful_speech:{path.name}")
+    return {
+        "speech_start_seconds": round(float(active[0] * window / rate), 6),
+        "speech_end_seconds": round(float(min(len(audio), (active[-1] + 1) * window) / rate), 6),
+    }
+
+
+def validate_timeline_alignment(
+    timing: Mapping[str, Any],
+    *,
+    source_segments: Sequence[Mapping[str, Any]],
+    picture_duration: float,
+    strict_inside_windows: bool,
+) -> dict[str, Any]:
+    """Fail closed on identity drift, overlap, picture overflow, or tail concentration."""
+    if timing.get("schema") != "contentops.v2.localized_timeline_alignment.v1":
+        raise LocaleActivationError("localized_timeline_alignment_schema_invalid")
+    locale = _nonempty_text(timing.get("locale"), "timeline_locale")
+    if abs(float(timing.get("picture_duration_seconds", -1)) - picture_duration) > 0.001:
+        raise LocaleActivationError(f"localized_timeline_picture_duration_mismatch:{locale}")
+    expected_windows = _source_segment_windows(
+        source_segments, picture_duration=picture_duration
+    )
+    observed_segments = timing.get("segments")
+    if not isinstance(observed_segments, list) or [
+        str(value.get("source_segment_id")) for value in observed_segments
+    ] != [value["source_segment_id"] for value in expected_windows]:
+        raise LocaleActivationError(f"localized_timeline_segment_identity_mismatch:{locale}")
+
+    speech_start = float(timing.get("meaningful_speech_start_seconds", -1))
+    speech_end = float(timing.get("meaningful_speech_end_seconds", -1))
+    if speech_start < 0 or speech_end <= speech_start or speech_end > picture_duration + 0.001:
+        raise LocaleActivationError(f"localized_meaningful_speech_bounds_invalid:{locale}")
+    tail = picture_duration - speech_end
+    allowed_tail = float(
+        timing.get(
+            "max_unexplained_final_tail_seconds", MAX_UNEXPLAINED_FINAL_TAIL_SECONDS
+        )
+    )
+    if tail > allowed_tail + 0.001 and not bool(timing.get("intentional_ending_silence")):
+        raise LocaleActivationError(
+            f"localized_unexplained_final_tail_exceeds_limit:{locale}:{tail:.3f}>{allowed_tail:.3f}"
+        )
+
+    previous_end = 0.0
+    cue_ids: set[str] = set()
+    for observed, expected in zip(observed_segments, expected_windows):
+        segment_id = str(expected["source_segment_id"])
+        placements = observed.get("placements")
+        if not isinstance(placements, list) or not placements:
+            raise LocaleActivationError(f"localized_timeline_placements_missing:{locale}:{segment_id}")
+        segment_start = float(placements[0].get("timeline_start_seconds", -1))
+        segment_end = float(placements[-1].get("timeline_end_seconds", -1))
+        for placement in placements:
+            cue_id = _nonempty_text(placement.get("cue_id"), "timeline_cue_id")
+            if cue_id in cue_ids:
+                raise LocaleActivationError(f"localized_timeline_duplicate_cue:{locale}:{cue_id}")
+            cue_ids.add(cue_id)
+            if placement.get("source_segment_id") != segment_id:
+                raise LocaleActivationError(
+                    f"localized_timeline_source_binding_mismatch:{locale}:{cue_id}"
+                )
+            start = float(placement.get("timeline_start_seconds", -1))
+            duration = float(placement.get("actual_audio_duration_seconds", -1))
+            end = float(placement.get("timeline_end_seconds", -1))
+            if duration <= 0 or abs(start + duration - end) > 0.001:
+                raise LocaleActivationError(f"localized_timeline_duration_invalid:{locale}:{cue_id}")
+            if start < previous_end - 0.001:
+                raise LocaleActivationError(f"localized_timeline_overlap:{locale}:{cue_id}")
+            if end > picture_duration + 0.001:
+                raise LocaleActivationError(f"localized_timeline_exceeds_picture:{locale}:{cue_id}")
+            previous_end = end
+        window_start = float(expected["source_timeline_start_seconds"])
+        window_end = float(expected["source_window_end_seconds"])
+        if strict_inside_windows:
+            if segment_start < window_start - 0.001 or segment_end > window_end + 0.001:
+                raise LocaleActivationError(
+                    f"localized_timeline_outside_source_window:{locale}:{segment_id}"
+                )
+        elif segment_end < window_start - 0.001 or segment_start > window_end + 0.001:
+            raise LocaleActivationError(
+                f"localized_timeline_misses_source_window:{locale}:{segment_id}"
+            )
+
+    unsigned = dict(timing)
+    observed_hash = str(unsigned.pop("timeline_alignment_hash", ""))
+    if not observed_hash or hash_value(unsigned) != observed_hash:
+        raise LocaleActivationError(f"localized_timeline_alignment_hash_mismatch:{locale}")
+    return {
+        "result": "PASS_LOCALIZED_TIMELINE_ALIGNMENT",
+        "locale": locale,
+        "strict_inside_source_windows": strict_inside_windows,
+        "segment_count": len(observed_segments),
+        "cue_count": len(cue_ids),
+        "meaningful_speech_start_seconds": round(speech_start, 6),
+        "meaningful_speech_end_seconds": round(speech_end, 6),
+        "final_tail_seconds": round(tail, 6),
+        "timeline_alignment_hash": observed_hash,
+    }
+
+
 def _assemble_locale_audio(
     *,
     locale: str,
     localized: Mapping[str, Any],
     output_root: Path,
     picture_duration: float,
+    source_segments: Sequence[Mapping[str, Any]],
     kokoro: Kokoro,
     api_key: str | None,
 ) -> tuple[dict[str, Any], list[SynthesizedPhrase]]:
@@ -378,7 +646,6 @@ def _assemble_locale_audio(
         raise LocaleActivationError(f"tts_capability_blocked:{locale}:ELEVENLABS_API_KEY_absent")
     segments_root = output_root / "audio" / "segments"
     phrases: list[SynthesizedPhrase] = []
-    cursor = INITIAL_SILENCE_SECONDS
     requested_characters = 0
     corrections: list[dict[str, Any]] = []
     ordinal = 0
@@ -413,13 +680,12 @@ def _assemble_locale_audio(
                     source_segment_id=segment_id,
                     text=display,
                     synthesis_text=spoken,
-                    start_seconds=round(cursor, 6),
+                    start_seconds=0.0,
                     duration_seconds=round(duration, 6),
                     audio_path=str(output.resolve()),
                     audio_sha256=_sha256_file(output),
                 )
             )
-            cursor += duration + BETWEEN_PHRASES_SECONDS
         for anchor in segment.get("truth_anchors", []):
             if anchor["display_surface"] != anchor["spoken_surface"]:
                 corrections.append(
@@ -429,27 +695,31 @@ def _assemble_locale_audio(
                         "spoken_as": anchor["spoken_surface"],
                     }
                 )
-    spoken_end = cursor - BETWEEN_PHRASES_SECONDS
-    if spoken_end > picture_duration - FINAL_HEADROOM_SECONDS:
-        raise LocaleActivationError(
-            f"localized_speech_exceeds_accepted_picture:{locale}:{spoken_end:.3f}>{picture_duration:.3f}"
-        )
-    bus = np.zeros(round(picture_duration * SAMPLE_RATE), dtype=np.float32)
-    for phrase in phrases:
-        clip, rate = sf.read(phrase.audio_path, dtype="float32")
-        if int(rate) != SAMPLE_RATE:
-            raise LocaleActivationError("locale_phrase_sample_rate_mismatch")
-        if clip.ndim == 2:
-            clip = np.mean(clip, axis=1)
-        start = round(phrase.start_seconds * SAMPLE_RATE)
-        end = start + len(clip)
-        if end > len(bus):
-            raise LocaleActivationError(f"locale_audio_overflow:{locale}:{phrase.cue_id}")
-        bus[start:end] += clip
+    phrases, timing = align_phrases_to_source_windows(
+        locale=locale,
+        phrases=phrases,
+        source_segments=source_segments,
+        picture_duration=picture_duration,
+    )
+    spoken_end = max(phrase.start_seconds + phrase.duration_seconds for phrase in phrases)
     narration = output_root / "audio" / f"narration.{locale}.wav"
-    narration.parent.mkdir(parents=True, exist_ok=True)
-    peak = float(np.max(np.abs(bus))) or 1.0
-    sf.write(narration, bus * min(1.0, 0.88 / peak), SAMPLE_RATE, subtype="PCM_24")
+    audio_artifact = _write_aligned_audio_program(
+        locale=locale,
+        phrases=phrases,
+        output=narration,
+        picture_duration=picture_duration,
+    )
+    speech_bounds = meaningful_speech_bounds(narration)
+    timing.pop("timeline_alignment_hash", None)
+    timing.update(
+        {
+            "localized_audio_sha256": audio_artifact["sha256"],
+            "meaningful_speech_start_seconds": speech_bounds["speech_start_seconds"],
+            "meaningful_speech_end_seconds": speech_bounds["speech_end_seconds"],
+            "intentional_ending_silence": False,
+        }
+    )
+    timing["timeline_alignment_hash"] = hash_value(timing)
     transcript_plain = " ".join(str(item["text"]) for item in localized["segments"])
     synthesis_plain = " ".join(str(item["synthesis_text"]) for item in localized["segments"])
     receipt = {
@@ -462,13 +732,20 @@ def _assemble_locale_audio(
         "speed": route.speed,
         "transcript_hash": hash_value(transcript_plain),
         "synthesis_text_hash": hash_value(synthesis_plain),
-        "audio": artifact(narration),
+        "audio": audio_artifact,
         "actual_spoken_end_seconds": round(spoken_end, 6),
+        "meaningful_speech_start_seconds": speech_bounds["speech_start_seconds"],
+        "meaningful_speech_end_seconds": speech_bounds["speech_end_seconds"],
+        "final_meaningful_speech_tail_seconds": round(
+            picture_duration - speech_bounds["speech_end_seconds"], 6
+        ),
         "audio_program_duration_seconds": round(float(sf.info(narration).duration), 6),
         "requested_characters": requested_characters,
         "external_cost_usd": route.external_cost_usd,
         "cost_status": "LOCAL_ZERO_COST" if route.provider == "kokoro-onnx" else "NOT_EXPOSED_BY_TTS_RESPONSE",
         "pronunciation_corrections": corrections,
+        "timeline_alignment_hash": timing["timeline_alignment_hash"],
+        "segment_placements": timing["segments"],
         "secret_material_persisted": False,
     }
     receipt["tts_receipt_hash"] = hash_value(receipt)
@@ -511,9 +788,18 @@ def _build_transcript_and_captions(
     output_root: Path,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     segments = []
+    timing_by_segment = {
+        str(value["source_segment_id"]): value
+        for value in receipt.get("segment_placements", [])
+    }
     for item in localized["segments"]:
         segment_id = str(item["segment_id"])
         linked = [phrase for phrase in phrases if phrase.source_segment_id == segment_id]
+        timing = timing_by_segment.get(segment_id)
+        if timing is None:
+            raise LocaleActivationError(
+                f"localized_transcript_timing_binding_missing:{locale}:{segment_id}"
+            )
         segments.append(
             {
                 "segment_id": segment_id,
@@ -525,6 +811,15 @@ def _build_transcript_and_captions(
                 "source_text_sha256": item["source_text_sha256"],
                 "truth_anchor_ids": [str(value["id"]) for value in item.get("truth_anchors", [])],
                 "cue_ids": [value.cue_id for value in linked],
+                "source_timing_window": {
+                    key: timing[key]
+                    for key in (
+                        "source_timeline_start_seconds",
+                        "source_narrative_end_seconds",
+                        "source_window_end_seconds",
+                    )
+                },
+                "actual_placements": list(timing["placements"]),
             }
         )
     plain_text = " ".join(str(item["text"]) for item in localized["segments"])
@@ -537,6 +832,7 @@ def _build_transcript_and_captions(
         "plain_text_sha256": hash_value(plain_text),
         "synthesis_text_sha256": hash_value(synthesis_text),
         "locked_localized_audio_sha256": receipt["audio"]["sha256"],
+        "timeline_alignment_hash": receipt["timeline_alignment_hash"],
         "segments": segments,
     }
     transcript["localized_transcript_hash"] = hash_value(transcript)
@@ -730,6 +1026,7 @@ def activate_locales(
             localized=localized,
             output_root=locale_root,
             picture_duration=source_picture["video_duration_seconds"],
+            source_segments=source_transcript["segments"],
             kokoro=kokoro,
             api_key=api_key,
         )
@@ -743,9 +1040,28 @@ def activate_locales(
             output_root=locale_root,
         )
         metadata = _metadata_from_transcript(localized, transcript, phrases)
+        timing = {
+            "schema": "contentops.v2.localized_timeline_alignment.v1",
+            "locale": locale,
+            "picture_duration_seconds": source_picture["video_duration_seconds"],
+            "max_unexplained_final_tail_seconds": MAX_UNEXPLAINED_FINAL_TAIL_SECONDS,
+            "segments": receipt["segment_placements"],
+            "localized_audio_sha256": receipt["audio"]["sha256"],
+            "meaningful_speech_start_seconds": receipt["meaningful_speech_start_seconds"],
+            "meaningful_speech_end_seconds": receipt["meaningful_speech_end_seconds"],
+            "intentional_ending_silence": False,
+            "timeline_alignment_hash": receipt["timeline_alignment_hash"],
+        }
+        timing_validation = validate_timeline_alignment(
+            timing,
+            source_segments=source_transcript["segments"],
+            picture_duration=source_picture["video_duration_seconds"],
+            strict_inside_windows=True,
+        )
         transcript_artifact = _write_json(locale_root / "localized_transcript.json", transcript)
         metadata_artifact = _write_json(locale_root / "localized_metadata.json", metadata)
         tts_artifact = _write_json(locale_root / "tts_receipt.json", receipt)
+        timing_artifact = _write_json(locale_root / "localized_timing.json", timing)
         mux_path = locale_root / "media" / f"us-retail-short.{locale}.mp4"
         picture_identity = mux_picture_identical_locale(
             picture=picture,
@@ -765,6 +1081,8 @@ def activate_locales(
             "picture_identity_proof": picture_identity,
             "localized_audio": receipt["audio"],
             "tts_receipt": tts_artifact,
+            "localized_timing": timing_artifact,
+            "timeline_alignment_qa": timing_validation,
             "localized_transcript": transcript_artifact,
             "captions": caption_artifacts,
             "metadata": metadata_artifact,
@@ -792,6 +1110,7 @@ def activate_locales(
             "package_id": package["package_id"],
             "package_manifest": package_artifact,
             "localized_transcript_hash": transcript["localized_transcript_hash"],
+            "timeline_alignment_hash": receipt["timeline_alignment_hash"],
             "audio_sha256": receipt["audio"]["sha256"],
             "caption_sha256": {key: value["sha256"] for key, value in caption_artifacts.items()},
             "metadata_sha256": metadata_artifact["sha256"],
