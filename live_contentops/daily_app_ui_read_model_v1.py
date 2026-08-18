@@ -49,6 +49,9 @@ from live_contentops.daily_app_performance_v1 import (
     _normalized_policy_payload,
     qualified_engagement_score,
 )
+from live_contentops.contentops_observation_read_model_v1 import (
+    build_observation_read_model,
+)
 
 SNAPSHOT_SCHEMA_VERSION = "contentops.daily_app_ui_snapshot.v1"
 REQUIRED_STORE_SCHEMA_VERSION = 9
@@ -426,6 +429,7 @@ def build_daily_app_snapshot(
     store_path: str | Path,
     *,
     now: Optional[datetime] = None,
+    runtime_root: Optional[Path] = None,
 ) -> dict[str, Any]:
     """Project one truthful UI snapshot from the configured canonical durable store."""
     generated = (now or _utc_now()).astimezone(timezone.utc)
@@ -1577,6 +1581,13 @@ def build_daily_app_snapshot(
             "provenance": "ContentOpsDurableStore read-only projection",
         },
     }
+    snapshot["observation"] = build_observation_read_model(
+        conn=conn,
+        runtime_root=runtime_root or path.parent,
+        now=generated,
+        cockpit_data=cockpit,
+        daily_snapshot_data=snapshot,
+    )
     _assert_nonsecret(snapshot)
     return snapshot
 

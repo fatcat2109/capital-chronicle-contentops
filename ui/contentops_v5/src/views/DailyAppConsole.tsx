@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Activity, AlertTriangle, Archive, BarChart3, BookOpenCheck, CalendarClock,
-  ChevronRight, CircleOff, Database, Gauge, Menu, PanelLeftClose, RefreshCw,
+  Camera, ChevronRight, CircleOff, Database, Eye, Gauge, Menu, PanelLeftClose, RefreshCw,
   ScrollText, Shield, ShieldAlert, SlidersHorizontal, Sparkles, ExternalLink,
 } from 'lucide-react';
-import type { BackgroundLogTail, DailyAppSnapshot, DailyView, HourlyAudit, LoadState, OperatingMode, RuntimeCockpit, RuntimePrimaryState } from '../dailyAppTypes';
+import type { BackgroundLogTail, DailyAppSnapshot, DailyView, HourlyAudit, LoadState, ObservationLane, OperatingMode, RuntimeCockpit, RuntimePrimaryState } from '../dailyAppTypes';
 
 const API_ROOT = 'http://127.0.0.1:5174';
 const POLL_MS = 3_000;
@@ -12,6 +12,7 @@ const POLL_MS = 3_000;
 const NAV: Array<{ group: string; items: Array<{ id: DailyView; label: string; icon: typeof Activity }> }> = [
   { group: 'Daily app', items: [
     { id: 'today', label: 'Today', icon: Activity },
+    { id: 'observation', label: 'Observation / Learning', icon: Eye },
     { id: 'queue', label: 'Queue', icon: CalendarClock },
     { id: 'published', label: 'Published', icon: Archive },
     { id: 'performance', label: 'Performance', icon: BarChart3 },
@@ -160,8 +161,16 @@ export function formatUtcDateTime(value: unknown): string {
 function statusTone(value: unknown): 'good' | 'warn' | 'bad' | 'neutral' {
   const status = String(value ?? '').toUpperCase();
   if (/UNKNOWN|KILL|CRITICAL|FAILED|BLOCKED|OFFLINE|STOPPED|ACTION_REQUIRED/.test(status)) return 'bad';
-  if (/PENDING|STALE|DUE|REVIEW|UNAVAILABLE|HELD|SUPERVISED|DEGRADED/.test(status)) return 'warn';
-  if (/HEALTHY|READY|CONFIRMED|PUBLISHED|CURRENT|ACTIVE|RECONCILED|AVAILABLE|RUNNING|INGESTING|PREPARING|RESEARCHING|WRITING|MEDIA_BUILDING|PACKAGING|PUBLISHING|READING_BACK|RECONCILING/.test(status)) return 'good';
+  if (/PENDING|STALE|DUE|REVIEW|UNAVAILABLE|HELD|SUPERVISED|DEGRADED|INSUFFICIENT|SETUP_REQUIRED|WAITING/.test(status)) return 'warn';
+  if (/HEALTHY|READY|CONFIRMED|PUBLISHED|CURRENT|ACTIVE|RECONCILED|AVAILABLE|RUNNING|INGESTING|PREPARING|RESEARCHING|WRITING|MEDIA_BUILDING|PACKAGING|PUBLISHING|READING_BACK|RECONCILING|LIVE_OBSERVATION|SHADOW_READ_ONLY/.test(status)) return 'good';
+  return 'neutral';
+}
+
+function laneStateTone(state: unknown): 'good' | 'warn' | 'bad' | 'neutral' {
+  const s = String(state ?? '').toUpperCase();
+  if (s === 'LIVE_OBSERVATION' || s === 'SHADOW_READ_ONLY') return 'good';
+  if (s.includes('BLOCKED') || s.includes('FAILED') || s.includes('CRITICAL')) return 'bad';
+  if (s.includes('INSUFFICIENT') || s.includes('WAITING') || s.includes('SETUP_REQUIRED') || s.includes('DEGRADED') || s.includes('PENDING')) return 'warn';
   return 'neutral';
 }
 
@@ -271,7 +280,7 @@ function legacyCockpit(data: DailyAppSnapshot): RuntimeCockpit {
     runtime_sha_short: 'UNAVAILABLE', local_timezone: 'Asia/Ho_Chi_Minh', current_time_utc: data.generated_at_utc,
     heartbeat_age_seconds: null, current_activity: null, timeline: [],
     schedule: { idle_healthy: primary === 'RUNNING_IDLE', next_editorial_wake_utc: data.runtime.next_wake_utc,
-      next_editorial_wake_reason: 'SCHEDULED_EDITORIAL_WINDOW', operator_trigger_pending: Boolean(data.runtime.operator_cycle_trigger),
+      next_editorial_wake_reason: (data.runtime.next_editorial_window as { provenance?: string } | null)?.provenance ?? 'SCHEDULED_EDITORIAL_WINDOW', operator_trigger_pending: Boolean(data.runtime.operator_cycle_trigger),
       next_x_eligible_capture_utc: data.runtime.headline_ingestion.next_eligible_capture_utc ?? null,
       x_cadence_state: data.runtime.headline_ingestion.cadence_state ?? 'UNAVAILABLE' },
     last_completed_editorial: null,
@@ -448,6 +457,130 @@ function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh
     </div>
   </div>;
 }
+function LaneCard({ lane }: { lane: ObservationLane }) {
+  const tone = laneStateTone(lane.state);
+  return <article className={`daily-lane-card daily-lane-card--${tone}`} data-lane-id={lane.lane_id}>
+    <header className="daily-lane-header">
+      <div className="daily-lane-title-group">
+        <span className={`daily-lane-group-tag is-${lane.group.toLowerCase()}`}>{lane.group}</span>
+        <strong>{lane.lane_id}</strong>
+      </div>
+      <Status value={lane.state} />
+    </header>
+    <div className="daily-lane-body">
+      <div className="daily-lane-meta-grid">
+        <div><span>Authority</span><b>{words(lane.authority_class)}</b></div>
+        <div><span>Data Source</span><b>{words(lane.data_source)}</b></div>
+        <div><span>Confidence</span><b>{words(lane.confidence)}</b></div>
+        <div><span>Freshness</span><b>{words(lane.freshness)}</b></div>
+        <div><span>Last Observed</span><b>{lane.last_observed_at_utc ? formatUtcDateTime(lane.last_observed_at_utc) : 'Never / Unavailable'}</b></div>
+        <div><span>Sample Count</span><b>{lane.sample_count !== null && lane.sample_count !== undefined ? String(lane.sample_count) : 'Unavailable'}</b></div>
+        <div><span>Write Authority</span><b className={lane.write_authority.includes('ZERO') ? 'is-zero-write' : ''}>{words(lane.write_authority)}</b></div>
+        <div><span>Blocker</span><b className={lane.blocker ? 'is-blocker' : ''}>{words(lane.blocker ?? 'None')}</b></div>
+      </div>
+      {lane.coverage && <p className="daily-lane-coverage"><strong>Coverage:</strong> {lane.coverage}</p>}
+      {lane.notes && <p className="daily-lane-notes"><strong>Notes:</strong> {lane.notes}</p>}
+      {lane.metrics && Object.keys(lane.metrics).length > 0 && <div className="daily-lane-metrics">
+        <span className="daily-metrics-heading">Telemetry & Metric Payload</span>
+        <DefinitionRows object={lane.metrics} />
+      </div>}
+    </div>
+  </article>;
+}
+
+function Observation({ data, reportMode, setReportMode }: { data: DailyAppSnapshot; reportMode: boolean; setReportMode: (val: boolean) => void }) {
+  const model = data.observation;
+  if (!model) {
+    return <div className="daily-view">
+      <ViewTitle title="Observation / Learning" detail="Unified longitudinal observation across V1 live and V2 shadow lanes." />
+      <Empty title="Observation read model unavailable" detail="The canonical durable projection does not include observation data." />
+    </div>;
+  }
+
+  const v1Lanes = model.lanes.filter(l => l.group === 'V1');
+  const v2Lanes = model.lanes.filter(l => l.group === 'V2');
+  const crossLanes = model.lanes.filter(l => l.group === 'CROSS_LANE');
+
+  return <div className={`daily-view daily-observation-view ${reportMode ? 'is-report-mode' : ''}`}>
+    {!reportMode && <header className="daily-view-title daily-observation-header-row">
+      <div>
+        <div className="daily-eyebrow">Capital Chronicle · Natural Observation & Closed Learning</div>
+        <h1>Observation / Learning</h1>
+        <p>19 locked lanes across V1 natural observation, V2 shadow soak, and cross-lane governance. Read-only; zero public writes.</p>
+      </div>
+      <div className="daily-observation-actions">
+        <button type="button" className="daily-report-toggle-btn" onClick={() => setReportMode(true)}>
+          <Camera aria-hidden="true" /> Screenshot / Report Mode
+        </button>
+      </div>
+    </header>}
+
+    {reportMode && <div className="daily-report-banner">
+      <div className="daily-report-header">
+        <div>
+          <span className="daily-live-mark"><i />AUDIT REPORT</span>
+          <h2>Capital Chronicle ContentOps — Natural Observation & Closed Learning Control Room</h2>
+          <p>Longitudinal Review Surface · Generated {formatUtcDateTime(model.generated_at_utc)} · SHA {data.runtime.operator_cockpit?.runtime_sha_short ?? 'UNAVAILABLE'}</p>
+        </div>
+        <button type="button" className="daily-exit-report-btn" onClick={() => setReportMode(false)}>Exit Report Mode</button>
+      </div>
+      <div className="daily-report-legend">
+        <span className="daily-legend-tag is-live"><i />LIVE OBSERVATION (V1)</span>
+        <span className="daily-legend-tag is-shadow"><i />SHADOW READ ONLY (V2)</span>
+        <span className="daily-legend-tag is-waiting"><i />WAITING FOR REAL OBJECT</span>
+        <span className="daily-legend-tag is-insufficient"><i />INSUFFICIENT SAMPLE</span>
+        <span className="daily-legend-tag is-setup"><i />OPERATOR SETUP REQUIRED</span>
+        <span className="daily-legend-tag is-blocked"><i />BLOCKED OWNER AUTHORITY</span>
+      </div>
+    </div>}
+
+    <div className="daily-grid-4 daily-observation-summary">
+      <Metric label="Total Observation Lanes" value={model.summary.total_lanes} />
+      <Metric label="V1 Live Lanes" value={`${model.summary.v1_live_count} / ${model.summary.v1_lane_count}`} status={model.summary.v1_live_count > 0 ? 'LIVE_OBSERVATION' : 'UNAVAILABLE'} />
+      <Metric label="V2 Shadow Lanes" value={`${model.summary.v2_shadow_count} / ${model.summary.v2_lane_count}`} status="SHADOW_READ_ONLY" />
+      <Metric label="Blocked / Setup Required" value={`${model.summary.blocked_count + model.summary.operator_setup_required_count}`} status={model.summary.blocked_count > 0 ? 'BLOCKED_OWNER_AUTHORITY' : 'CLEAR'} />
+    </div>
+
+    <section className="daily-observation-section">
+      <div className="daily-section-title">
+        <div>
+          <span className="daily-section-badge v1">V1 CANONICAL</span>
+          <h2>V1 Natural Observation Lanes (1 – 9)</h2>
+        </div>
+        <small>{v1Lanes.length} locked lanes · Durable Operational Store Authority</small>
+      </div>
+      <div className="daily-lane-grid">
+        {v1Lanes.map(lane => <LaneCard key={lane.lane_id} lane={lane} />)}
+      </div>
+    </section>
+
+    <section className="daily-observation-section">
+      <div className="daily-section-title">
+        <div>
+          <span className="daily-section-badge v2">V2 SHADOW</span>
+          <h2>V2 Shadow / Soak / Blocked Learning Lanes (10 – 17)</h2>
+        </div>
+        <small>{v2Lanes.length} locked lanes · Zero Video Public Write Authority</small>
+      </div>
+      <div className="daily-lane-grid">
+        {v2Lanes.map(lane => <LaneCard key={lane.lane_id} lane={lane} />)}
+      </div>
+    </section>
+
+    <section className="daily-observation-section">
+      <div className="daily-section-title">
+        <div>
+          <span className="daily-section-badge cross">CROSS-LANE</span>
+          <h2>Cross-Lane Source Access & Freshness Authority (18 – 19)</h2>
+        </div>
+        <small>{crossLanes.length} locked lanes · Unified Provenance</small>
+      </div>
+      <div className="daily-lane-grid">
+        {crossLanes.map(lane => <LaneCard key={lane.lane_id} lane={lane} />)}
+      </div>
+    </section>
+  </div>;
+}
 
 function Queue({ data }: { data: DailyAppSnapshot }) {
   return <div className="daily-view"><ViewTitle title="Queue" detail="Editorial windows, lifecycle recovery, and due performance observations." />
@@ -590,14 +723,19 @@ function ViewTitle({ title, detail }: { title: string; detail: string }) {
 }
 
 export function DailyAppConsole() {
-  const [view, setView] = useState<DailyView>('today');
+  const searchParams = new URLSearchParams(window.location.search);
+  const initialView = (searchParams.get('view') as DailyView) || 'today';
+  const initialReport = searchParams.get('report') === '1';
+
+  const [view, setView] = useState<DailyView>(initialView);
+  const [reportMode, setReportMode] = useState<boolean>(initialReport);
   const [navOpen, setNavOpen] = useState(false);
   const [state, refresh] = useDailyAppSnapshot();
   const snapshot = state.snapshot;
   const qaFixture = runtimeQaFixtureName();
   const activeLabel = useMemo(() => NAV.flatMap(group => group.items).find(item => item.id === view)?.label ?? 'Today', [view]);
 
-  return <div className="daily-shell" data-theme="daily-dark">
+  return <div className={`daily-shell ${reportMode ? 'is-report-mode' : ''}`} data-theme="daily-dark">
     {navOpen && <button type="button" className="daily-scrim" aria-label="Close navigation" onClick={() => setNavOpen(false)} />}
     <aside className={`daily-nav ${navOpen ? 'is-open' : ''}`} aria-label="Primary navigation">
       <div className="daily-brand"><div className="daily-mark">CC</div><div><strong>ContentOps</strong><small>Daily App · V1</small></div><button type="button" onClick={() => setNavOpen(false)} aria-label="Close navigation"><PanelLeftClose /></button></div>
@@ -613,6 +751,7 @@ export function DailyAppConsole() {
         {!snapshot && state.kind === 'offline' && <Empty title="Operating state unavailable" detail="Start the loopback API with an explicit canonical store binding. This surface has no fixture fallback." />}
         {snapshot && <>
           {view === 'today' && <Today data={snapshot} refresh={refresh} hourlyAudit={snapshot.hourly_audit ?? null} />}
+          {view === 'observation' && <Observation data={snapshot} reportMode={reportMode} setReportMode={setReportMode} />}
           {view === 'queue' && <Queue data={snapshot} />}
           {view === 'published' && <Published data={snapshot} />}
           {view === 'performance' && <Performance data={snapshot} />}

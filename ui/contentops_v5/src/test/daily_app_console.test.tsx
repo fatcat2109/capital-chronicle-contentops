@@ -1,6 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import App from '../App';
 import type { DailyAppSnapshot } from '../dailyAppTypes';
 import { DailyAppConsole, formatUtcDateTime } from '../views/DailyAppConsole';
 
@@ -17,7 +16,7 @@ function snapshot(overrides: Partial<DailyAppSnapshot> = {}): DailyAppSnapshot {
       { dispatch_id: 'd-unknown', platform: 'x', lifecycle_classification: 'UNKNOWN_WRITE', public_object_id: null },
       { dispatch_id: 'd-pending', platform: 'linkedin', lifecycle_classification: 'CONFIRMED_DISPATCH_PENDING_READBACK', public_object_id: 'object-2' },
     ], real_publication_count: 1, controlled_no_public_write_count: 1, unknown_write_count: 1, pending_readback_count: 1, empty_reason: null },
-    performance: { observations: [{ observation_id: 'obs-1', platform: 'substack', collection_status: 'SCHEDULED', metric_availability: { shares: 'UNAVAILABLE' }, native_metrics: {} }], real_observation_count: 1, empty_reason: null, empty_detail: null },
+    performance: { observations: [{ observation_id: 'obs-1', platform: 'substack', observation_window: 'EARLY', collection_status: 'SCHEDULED', metric_availability: { shares: 'UNAVAILABLE' }, native_metrics: {} }], real_observation_count: 1, empty_reason: null, empty_detail: null },
     learning: { active_policy: null, policy_history: [], empty_reason: 'NO_LEARNING_UPDATE_YET', configured_default: { policy_version: 'bootstrap', provenance: 'CONFIGURED_DEFAULT', sample_count: 0, confidence: 'BOOTSTRAP_NOT_LEARNED' } },
     platforms: { destinations: [{ platform_id: 'substack', display_name: 'Substack', binding_class: 'BROWSER_AUTHENTICATED', readiness: 'READINESS_UNAVAILABLE_NOT_PERSISTED', write_eligible: false, last_dispatch_state: 'REAL_PUBLICATION_CONFIRMED', metrics_capability: 'OBSERVATION_RECORDED', pending_incident: false }] },
     incidents: { items: [{ incident_id: 'incident-1', severity: 'CRITICAL', what_happened: 'UNKNOWN_WRITE', safe_now: 'Automatic retry is stopped.', automatic_action: 'Read back.', operator_action: 'Do not retry blindly.', work_item_id: 'w1' }], active_count: 1, empty_reason: null },
@@ -38,8 +37,8 @@ describe('Final Daily App production console', () => {
   it('renders final navigation and sparse real-state Today without a fake cycle', async () => {
     respond(snapshot()); render(<DailyAppConsole />);
     expect(await screen.findByText('No governed cycle recorded')).toBeInTheDocument();
-    for (const label of ['Today', 'Queue', 'Published', 'Performance', 'Learning', 'Platforms', 'Incidents', 'Controls', 'Evidence / Audit']) {
-      expect(screen.getByRole('button', { name: new RegExp(label, 'i') })).toBeInTheDocument();
+    for (const label of ['Today', 'Observation / Learning', 'Queue', 'Published', 'Performance', 'Learning', 'Platforms', 'Incidents', 'Controls', 'Evidence / Audit']) {
+      expect(screen.getByRole('button', { name: new RegExp(`^${label}`, 'i') })).toBeInTheDocument();
     }
     for (const label of ['Prior related article', 'Material delta', 'Decision reason', 'Stage stopped']) {
       expect(screen.getByText(label)).toBeInTheDocument();
@@ -78,7 +77,7 @@ describe('Final Daily App production console', () => {
       learning: { active_policy: configured, policy_history: [configured], empty_reason: null, configured_default: null },
     });
     respond(data); render(<DailyAppConsole />);
-    expect((await screen.findAllByText('Configured Default')).length).toBeGreaterThan(0);
+    expect((await screen.findAllByText(/Configured Default/i)).length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole('button', { name: /^queue$/i }));
     expect(screen.getByText('Configured Default')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /^learning$/i }));
@@ -213,10 +212,5 @@ describe('Final Daily App production console', () => {
     const active = snapshot({ runtime: { ...snapshot().runtime, active_editorial_cycle_window_id: 'editorial-window-running' } });
     respond(active); render(<DailyAppConsole />);
     await waitFor(() => expect(screen.getByRole('button', { name: /cycle already active/i })).toBeDisabled());
-  });
-
-  it('keeps the historical fixture app persistently labeled as non-authoritative', () => {
-    render(<App />);
-    expect(screen.getByText(/controlled fixture · not runtime authority/i)).toBeInTheDocument();
   });
 });

@@ -6,6 +6,7 @@ export type OperatingMode =
 
 export type DailyView =
   | 'today'
+  | 'observation'
   | 'queue'
   | 'published'
   | 'performance'
@@ -15,6 +16,61 @@ export type DailyView =
   | 'controls'
   | 'background_logs'
   | 'audit';
+
+export type ObservationLaneState =
+  | 'LIVE_OBSERVATION'
+  | 'SHADOW_READ_ONLY'
+  | 'WAITING_FOR_REAL_OBJECT'
+  | 'INSUFFICIENT_SAMPLE'
+  | 'OPERATOR_SETUP_REQUIRED'
+  | 'BLOCKED_OWNER_AUTHORITY'
+  | 'DEGRADED'
+  | 'UNAVAILABLE';
+
+export interface ObservationLane {
+  lane_contract_version: string;
+  lane_id: string;
+  group: 'V1' | 'V2' | 'CROSS_LANE';
+  state: ObservationLaneState | string;
+  data_source: string;
+  authority_class: string;
+  last_observed_at_utc: string | null;
+  next_due_at_utc: string | null;
+  sample_count: number | null;
+  coverage: string | null;
+  confidence: string | null;
+  freshness: string | null;
+  blocker: string | null;
+  write_authority: string;
+  notes: string | null;
+  metrics: Record<string, unknown>;
+}
+
+export interface ObservationReadModel {
+  schema_version: string;
+  generated_at_utc: string;
+  summary: {
+    total_lanes: number;
+    v1_lane_count: number;
+    v2_lane_count: number;
+    cross_lane_count: number;
+    state_counts: Record<string, number>;
+    v1_live_count: number;
+    v2_shadow_count: number;
+    blocked_count: number;
+    insufficient_sample_count: number;
+    operator_setup_required_count: number;
+    zero_public_write_enforced: boolean;
+  };
+  v1_performance_windows: {
+    '15m_early': number;
+    '2h_intermediate': number;
+    '24h_daily': number;
+    '7d_long_tail': number;
+  };
+  v2_packages_detected: string[];
+  lanes: ObservationLane[];
+}
 
 export interface HourlyAudit {
   schema_version: string;
@@ -250,6 +306,7 @@ export interface DailyAppSnapshot {
     unsafe_controls_available: boolean;
   };
   authority: Record<string, unknown>;
+  observation?: ObservationReadModel;
   audit: {
     work_item_count: number;
     transition_event_count: number;
