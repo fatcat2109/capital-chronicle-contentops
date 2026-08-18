@@ -320,6 +320,13 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
         writer_calls.append(prompt)
         governed = json.loads(prompt.split("GOVERNED_INPUT:\n", 1)[1])
         claim = str(governed["supported_claims"][0]["claim_text"]).rstrip(".")
+        title = claim[:95]
+        subtitle = "A concise sourced update on the confirmed development."
+        seo_title = claim[:70]
+        meta_description = (
+            f"{claim}. A sourced Capital Chronicle update explaining the confirmed scope."
+        )[:165]
+        social_hook = "The report establishes the current public position."
         markers = "\n\n".join(
             f"[[VISUAL:{asset_id}]]" for asset_id in governed["visual_asset_ids"]
         )
@@ -337,20 +344,43 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
         if markers:
             body += "\n\n" + markers
         return {
-            "title": claim[:95],
-            "subtitle": "A concise sourced update on the confirmed development.",
-            "seo_title": claim[:70],
-            "meta_description": (
-                f"{claim}. A sourced Capital Chronicle update explaining the confirmed scope."
-            )[:165],
+            "title": title,
+            "canonical_editorial_headline": title,
+            "subtitle": subtitle,
+            "dek": subtitle,
+            "seo_title": seo_title,
+            "search_title": seo_title,
+            "meta_description": meta_description,
+            "author_identity": "Capital Chronicle",
+            "publisher_identity": "Capital Chronicle",
+            "canonical_slug_candidate": "confirmed-development-update",
+            "primary_reader_question": "What does the confirmed report establish?",
+            "secondary_reader_questions": [],
+            "entities": ["Professional News Source"],
+            "topics": ["confirmed development"],
+            "search_freshness_class": "CURRENT",
+            "internal_link_candidates": [],
+            "structured_data_packet": {
+                "@type": "NewsArticle",
+                "headline": title,
+                "description": meta_description,
+                "datePublished": "2026-07-08T13:00:00Z",
+                "dateModified": "2026-07-08T13:00:00Z",
+                "author": "Capital Chronicle",
+                "publisher": "Capital Chronicle",
+            },
             "market_mechanism": "No unsupported market mechanism is asserted.",
             "policy_context": "The report establishes only the current public position.",
             "cross_asset_implications": "No cross-asset implication is asserted.",
-            "social_lede": claim,
+            "social_lede": social_hook,
+            "social_hook": social_hook,
             "social_mechanism_summary": "The confirmed scope is limited to the report.",
             "social_policy_summary": "The public report defines the current position.",
             "social_cross_asset_summary": "No unsupported market implication is asserted.",
             "substack_body_markdown": body,
+            "epistemic_claims": [],
+            "quote_source_records": [],
+            "humor_lines": [],
         }
 
     monkeypatch.setattr(article_builder, "_default_article_generator", quality_writer)
@@ -471,6 +501,10 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
     ] == "BLOCKED"
     assert result["candidate_walk"]["selected_publication_candidate_rank"] == 2
     assert result["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
+    assert result["article"]["institutional_edge_editorial_validation"][
+        "classification"
+    ] == "PASS"
+    assert result["article"]["structured_data_packet"]["@type"] == "NewsArticle"
     assert result["editorial_cycle"]["status"] == "PASS"
     assert result["editorial_cycle"]["mandatory_semantic_review_calls"] == 0
     assert result["shadow_publication_plan_ready"] is True
