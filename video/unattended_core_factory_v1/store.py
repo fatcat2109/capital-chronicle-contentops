@@ -10,8 +10,9 @@ from pathlib import Path
 from typing import Any, Iterator, Mapping
 
 
-SCHEMA_VERSION = "contentops.v2.unattended_job_store.v1"
+SCHEMA_VERSION = "contentops.v2.unattended_job_store.v2"
 TERMINAL_STATES = frozenset({"OWNER_REVIEW_READY", "TERMINAL", "QUARANTINED"})
+CANDIDATE_DECISIONS = frozenset({"QUALIFIED", "DEFERRED", "ABSTAIN"})
 
 
 def utc_now() -> str:
@@ -120,8 +121,478 @@ class V2JobStore:
                 BEFORE DELETE ON stage_events BEGIN
                     SELECT RAISE(ABORT, 'stage_events_are_append_only');
                 END;
+                CREATE TABLE IF NOT EXISTS candidate_job_links (
+                    candidate_key TEXT PRIMARY KEY,
+                    video_job_id TEXT NOT NULL UNIQUE REFERENCES video_jobs(video_job_id),
+                    source_content_hash TEXT NOT NULL,
+                    trigger_packet_hash TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    public_write_authority INTEGER NOT NULL DEFAULT 0 CHECK(public_write_authority = 0)
+                );
+                CREATE TABLE IF NOT EXISTS candidate_decisions (
+                    candidate_version_id TEXT PRIMARY KEY,
+                    candidate_key TEXT NOT NULL,
+                    operator_run_id TEXT NOT NULL,
+                    candidate_source_json TEXT NOT NULL,
+                    qualification_inputs_json TEXT NOT NULL,
+                    decision TEXT NOT NULL CHECK(decision IN ('QUALIFIED','DEFERRED','ABSTAIN')),
+                    reason_codes_json TEXT NOT NULL,
+                    freshness_json TEXT NOT NULL,
+                    evidence_refs_json TEXT NOT NULL,
+                    source_v1_identity_json TEXT NOT NULL,
+                    trigger_packet_path TEXT NOT NULL,
+                    trigger_packet_hash TEXT NOT NULL,
+                    video_job_id TEXT REFERENCES video_jobs(video_job_id),
+                    created_at TEXT NOT NULL,
+                    zero_public_write_state TEXT NOT NULL,
+                    public_write_authority INTEGER NOT NULL DEFAULT 0 CHECK(public_write_authority = 0),
+                    v1_write_count INTEGER NOT NULL DEFAULT 0 CHECK(v1_write_count = 0),
+                    platform_write_count INTEGER NOT NULL DEFAULT 0 CHECK(platform_write_count = 0)
+                );
+                CREATE INDEX IF NOT EXISTS candidate_decisions_candidate_key
+                    ON candidate_decisions(candidate_key, created_at);
+                CREATE TRIGGER IF NOT EXISTS candidate_decisions_immutable_update
+                BEFORE UPDATE ON candidate_decisions BEGIN
+                    SELECT RAISE(ABORT, 'candidate_decisions_are_append_only');
+                END;
+                CREATE TRIGGER IF NOT EXISTS candidate_decisions_immutable_delete
+                BEFORE DELETE ON candidate_decisions BEGIN
+                    SELECT RAISE(ABORT, 'candidate_decisions_are_append_only');
+                END;
+                CREATE TABLE IF NOT EXISTS daily_operator_runs (
+                    operator_run_id TEXT PRIMARY KEY,
+                    completed_at TEXT NOT NULL,
+                    summary_json TEXT NOT NULL,
+                    parent_model TEXT NOT NULL,
+                    parent_reasoning_effort TEXT NOT NULL,
+                    parent_task_id TEXT,
+                    v1_read_snapshot_hash TEXT NOT NULL,
+                    decision_count INTEGER NOT NULL,
+                    qualified_count INTEGER NOT NULL,
+                    created_job_count INTEGER NOT NULL,
+                    result TEXT NOT NULL,
+                    public_write_authority INTEGER NOT NULL DEFAULT 0 CHECK(public_write_authority = 0),
+                    v1_write_count INTEGER NOT NULL DEFAULT 0 CHECK(v1_write_count = 0),
+                    platform_write_count INTEGER NOT NULL DEFAULT 0 CHECK(platform_write_count = 0)
+                );
+                CREATE TRIGGER IF NOT EXISTS daily_operator_runs_immutable_update
+                BEFORE UPDATE ON daily_operator_runs BEGIN
+                    SELECT RAISE(ABORT, 'daily_operator_runs_are_append_only');
+                END;
+                CREATE TRIGGER IF NOT EXISTS daily_operator_runs_immutable_delete
+                BEFORE DELETE ON daily_operator_runs BEGIN
+                    SELECT RAISE(ABORT, 'daily_operator_runs_are_append_only');
+                END;
+                CREATE TABLE IF NOT EXISTS native_creative_handoffs (
+                    handoff_id TEXT PRIMARY KEY,
+                    operator_run_id TEXT NOT NULL,
+                    candidate_version_id TEXT,
+                    video_job_id TEXT REFERENCES video_jobs(video_job_id),
+                    parent_task_id TEXT,
+                    child_task_id TEXT NOT NULL UNIQUE,
+                    child_model TEXT NOT NULL,
+                    child_reasoning_effort TEXT NOT NULL,
+                    child_worktree TEXT NOT NULL,
+                    purpose TEXT NOT NULL,
+                    governed_input_hash TEXT NOT NULL,
+                    result_hash TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    cli_invocation_count INTEGER NOT NULL DEFAULT 0 CHECK(cli_invocation_count = 0),
+                    sdk_api_invocation_count INTEGER NOT NULL DEFAULT 0 CHECK(sdk_api_invocation_count = 0),
+                    nine_router_creative_invocation_count INTEGER NOT NULL DEFAULT 0 CHECK(nine_router_creative_invocation_count = 0),
+                    public_write_authority INTEGER NOT NULL DEFAULT 0 CHECK(public_write_authority = 0),
+                    v1_write_count INTEGER NOT NULL DEFAULT 0 CHECK(v1_write_count = 0),
+                    platform_write_count INTEGER NOT NULL DEFAULT 0 CHECK(platform_write_count = 0)
+                );
+                CREATE TRIGGER IF NOT EXISTS native_creative_handoffs_immutable_update
+                BEFORE UPDATE ON native_creative_handoffs BEGIN
+                    SELECT RAISE(ABORT, 'native_creative_handoffs_are_append_only');
+                END;
+                CREATE TRIGGER IF NOT EXISTS native_creative_handoffs_immutable_delete
+                BEFORE DELETE ON native_creative_handoffs BEGIN
+                    SELECT RAISE(ABORT, 'native_creative_handoffs_are_append_only');
+                END;
                 """
             )
+
+    def record_candidate_decision(
+        self,
+        *,
+        candidate_version_id: str,
+        candidate_key: str,
+        operator_run_id: str,
+        candidate_source: Mapping[str, Any],
+        qualification_inputs: Mapping[str, Any],
+        decision: str,
+        reason_codes: list[str],
+        freshness: Mapping[str, Any],
+        evidence_refs: list[str],
+        source_v1_identity: Mapping[str, Any],
+        trigger_packet_path: str | Path,
+        trigger_packet_hash: str,
+        source_content_hash: str,
+        video_job_id: str | None = None,
+        target_format: str = "SHORT_9_16_1080X1920_30FPS",
+        priority: int = 100,
+    ) -> dict[str, Any]:
+        if decision not in CANDIDATE_DECISIONS:
+            raise JobStoreError(f"candidate_decision_invalid:{decision}")
+        for label, value in (
+            ("candidate_version_id", candidate_version_id),
+            ("candidate_key", candidate_key),
+            ("operator_run_id", operator_run_id),
+        ):
+            if not re.fullmatch(r"[A-Za-z0-9_.-]+", value):
+                raise JobStoreError(f"{label}_invalid")
+        for label, value in (
+            ("trigger_packet_hash", trigger_packet_hash),
+            ("source_content_hash", source_content_hash),
+        ):
+            if not re.fullmatch(r"[0-9a-f]{64}", value):
+                raise JobStoreError(f"{label}_invalid")
+        if decision == "QUALIFIED" and not video_job_id:
+            raise JobStoreError("qualified_candidate_video_job_id_required")
+        if decision != "QUALIFIED" and video_job_id is not None:
+            raise JobStoreError("nonqualified_candidate_cannot_create_job")
+
+        created_job = False
+        linked_job_id: str | None = None
+        with self.transaction(immediate=True) as connection:
+            existing_decision = connection.execute(
+                "SELECT * FROM candidate_decisions WHERE candidate_version_id=?",
+                (candidate_version_id,),
+            ).fetchone()
+            if existing_decision is not None:
+                row = dict(existing_decision)
+                row["job_created"] = False
+                row["idempotent_replay"] = True
+                return row
+
+            if decision == "QUALIFIED":
+                assert video_job_id is not None
+                if not re.fullmatch(r"[A-Za-z0-9_.-]+", video_job_id):
+                    raise JobStoreError("video_job_id_invalid")
+                link = connection.execute(
+                    "SELECT * FROM candidate_job_links WHERE candidate_key=?",
+                    (candidate_key,),
+                ).fetchone()
+                if link is not None:
+                    if str(link["source_content_hash"]) != source_content_hash:
+                        raise JobStoreError("candidate_key_content_hash_conflict")
+                    linked_job_id = str(link["video_job_id"])
+                else:
+                    existing_job = connection.execute(
+                        "SELECT * FROM video_jobs WHERE video_job_id=?",
+                        (video_job_id,),
+                    ).fetchone()
+                    if existing_job is not None:
+                        raise JobStoreError("candidate_video_job_id_conflict")
+                    connection.execute(
+                        """
+                        INSERT INTO video_jobs(
+                            video_job_id,input_packet_path,input_packet_hash,target_format,
+                            priority,created_at,state,public_write_authority
+                        ) VALUES(?,?,?,?,?,?,?,0)
+                        """,
+                        (
+                            video_job_id,
+                            str(Path(trigger_packet_path).resolve()),
+                            trigger_packet_hash,
+                            target_format,
+                            int(priority),
+                            utc_now(),
+                            "WAITING_GOVERNED_INPUT",
+                        ),
+                    )
+                    connection.execute(
+                        """
+                        INSERT INTO candidate_job_links(
+                            candidate_key,video_job_id,source_content_hash,
+                            trigger_packet_hash,created_at,public_write_authority
+                        ) VALUES(?,?,?,?,?,0)
+                        """,
+                        (
+                            candidate_key,
+                            video_job_id,
+                            source_content_hash,
+                            trigger_packet_hash,
+                            utc_now(),
+                        ),
+                    )
+                    linked_job_id = video_job_id
+                    created_job = True
+
+            connection.execute(
+                """
+                INSERT INTO candidate_decisions(
+                    candidate_version_id,candidate_key,operator_run_id,candidate_source_json,
+                    qualification_inputs_json,decision,reason_codes_json,freshness_json,
+                    evidence_refs_json,source_v1_identity_json,trigger_packet_path,
+                    trigger_packet_hash,video_job_id,created_at,zero_public_write_state,
+                    public_write_authority,v1_write_count,platform_write_count
+                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,0,0)
+                """,
+                (
+                    candidate_version_id,
+                    candidate_key,
+                    operator_run_id,
+                    _json(dict(candidate_source)),
+                    _json(dict(qualification_inputs)),
+                    decision,
+                    _json(sorted(set(reason_codes))),
+                    _json(dict(freshness)),
+                    _json(sorted(set(evidence_refs))),
+                    _json(dict(source_v1_identity)),
+                    str(Path(trigger_packet_path).resolve()),
+                    trigger_packet_hash,
+                    linked_job_id,
+                    utc_now(),
+                    "ZERO_VIDEO_PUBLIC_WRITE",
+                ),
+            )
+            row = dict(
+                connection.execute(
+                    "SELECT * FROM candidate_decisions WHERE candidate_version_id=?",
+                    (candidate_version_id,),
+                ).fetchone()
+            )
+            row["job_created"] = created_job
+            row["idempotent_replay"] = False
+            return row
+
+    def activate_candidate_job(
+        self,
+        *,
+        video_job_id: str,
+        governed_input_packet_path: str | Path,
+        governed_input_packet_hash: str,
+    ) -> dict[str, Any]:
+        if not re.fullmatch(r"[0-9a-f]{64}", governed_input_packet_hash):
+            raise JobStoreError("governed_input_packet_hash_invalid")
+        resolved = str(Path(governed_input_packet_path).resolve())
+        with self.transaction(immediate=True) as connection:
+            link = connection.execute(
+                "SELECT * FROM candidate_job_links WHERE video_job_id=?",
+                (video_job_id,),
+            ).fetchone()
+            if link is None:
+                raise JobStoreError("candidate_job_link_missing")
+            job = connection.execute(
+                "SELECT * FROM video_jobs WHERE video_job_id=?",
+                (video_job_id,),
+            ).fetchone()
+            if job is None:
+                raise JobStoreError(f"unknown_job:{video_job_id}")
+            if str(job["state"]) == "QUEUED":
+                if (
+                    str(job["input_packet_path"]) != resolved
+                    or str(job["input_packet_hash"]) != governed_input_packet_hash
+                ):
+                    raise JobStoreError("candidate_job_governed_input_conflict")
+                return dict(job)
+            if str(job["state"]) != "WAITING_GOVERNED_INPUT":
+                raise JobStoreError(f"candidate_job_not_activatable:{job['state']}")
+            connection.execute(
+                """
+                UPDATE video_jobs SET input_packet_path=?,input_packet_hash=?,state='QUEUED'
+                WHERE video_job_id=? AND state='WAITING_GOVERNED_INPUT'
+                  AND public_write_authority=0
+                """,
+                (resolved, governed_input_packet_hash, video_job_id),
+            )
+            return dict(
+                connection.execute(
+                    "SELECT * FROM video_jobs WHERE video_job_id=?", (video_job_id,)
+                ).fetchone()
+            )
+
+    def candidate_decisions(self) -> list[dict[str, Any]]:
+        with self.connect() as connection:
+            return [
+                dict(row)
+                for row in connection.execute(
+                    "SELECT * FROM candidate_decisions ORDER BY created_at,candidate_version_id"
+                )
+            ]
+
+    def record_operator_run(
+        self,
+        *,
+        operator_run_id: str,
+        summary: Mapping[str, Any],
+        parent_model: str,
+        parent_reasoning_effort: str,
+        parent_task_id: str | None,
+        v1_read_snapshot_hash: str,
+        decision_count: int,
+        qualified_count: int,
+        created_job_count: int,
+        result: str,
+    ) -> dict[str, Any]:
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+", operator_run_id):
+            raise JobStoreError("operator_run_id_invalid")
+        if not re.fullmatch(r"[0-9a-f]{64}", v1_read_snapshot_hash):
+            raise JobStoreError("v1_read_snapshot_hash_invalid")
+        payload = _json(dict(summary))
+        with self.transaction(immediate=True) as connection:
+            existing = connection.execute(
+                "SELECT * FROM daily_operator_runs WHERE operator_run_id=?",
+                (operator_run_id,),
+            ).fetchone()
+            if existing is not None:
+                if str(existing["summary_json"]) != payload:
+                    raise JobStoreError("operator_run_id_conflict")
+                return dict(existing)
+            connection.execute(
+                """
+                INSERT INTO daily_operator_runs(
+                    operator_run_id,completed_at,summary_json,parent_model,
+                    parent_reasoning_effort,parent_task_id,v1_read_snapshot_hash,
+                    decision_count,qualified_count,created_job_count,result,
+                    public_write_authority,v1_write_count,platform_write_count
+                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,0,0,0)
+                """,
+                (
+                    operator_run_id,
+                    utc_now(),
+                    payload,
+                    parent_model,
+                    parent_reasoning_effort,
+                    parent_task_id,
+                    v1_read_snapshot_hash,
+                    int(decision_count),
+                    int(qualified_count),
+                    int(created_job_count),
+                    result,
+                ),
+            )
+            return dict(
+                connection.execute(
+                    "SELECT * FROM daily_operator_runs WHERE operator_run_id=?",
+                    (operator_run_id,),
+                ).fetchone()
+            )
+
+    def record_native_handoff(
+        self,
+        *,
+        handoff_id: str,
+        operator_run_id: str,
+        child_task_id: str,
+        child_model: str,
+        child_reasoning_effort: str,
+        child_worktree: str,
+        purpose: str,
+        governed_input_hash: str,
+        result_hash: str,
+        parent_task_id: str | None = None,
+        candidate_version_id: str | None = None,
+        video_job_id: str | None = None,
+    ) -> dict[str, Any]:
+        for label, value in (("handoff_id", handoff_id), ("operator_run_id", operator_run_id)):
+            if not re.fullmatch(r"[A-Za-z0-9_.-]+", value):
+                raise JobStoreError(f"{label}_invalid")
+        if not child_task_id.strip() or not child_worktree.strip():
+            raise JobStoreError("native_child_identity_required")
+        if (child_model, child_reasoning_effort) != ("gpt-5.6-sol", "xhigh"):
+            raise JobStoreError("native_child_model_or_reasoning_mismatch")
+        for label, value in (
+            ("governed_input_hash", governed_input_hash),
+            ("result_hash", result_hash),
+        ):
+            if not re.fullmatch(r"[0-9a-f]{64}", value):
+                raise JobStoreError(f"{label}_invalid")
+        with self.transaction(immediate=True) as connection:
+            existing = connection.execute(
+                "SELECT * FROM native_creative_handoffs WHERE handoff_id=? OR child_task_id=?",
+                (handoff_id, child_task_id),
+            ).fetchone()
+            if existing is not None:
+                return dict(existing)
+            connection.execute(
+                """
+                INSERT INTO native_creative_handoffs(
+                    handoff_id,operator_run_id,candidate_version_id,video_job_id,
+                    parent_task_id,child_task_id,child_model,child_reasoning_effort,
+                    child_worktree,purpose,governed_input_hash,result_hash,created_at,
+                    cli_invocation_count,sdk_api_invocation_count,
+                    nine_router_creative_invocation_count,public_write_authority,
+                    v1_write_count,platform_write_count
+                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,0,0,0,0,0,0)
+                """,
+                (
+                    handoff_id,
+                    operator_run_id,
+                    candidate_version_id,
+                    video_job_id,
+                    parent_task_id,
+                    child_task_id,
+                    child_model,
+                    child_reasoning_effort,
+                    child_worktree,
+                    purpose,
+                    governed_input_hash,
+                    result_hash,
+                    utc_now(),
+                ),
+            )
+            return dict(
+                connection.execute(
+                    "SELECT * FROM native_creative_handoffs WHERE handoff_id=?",
+                    (handoff_id,),
+                ).fetchone()
+            )
+
+    def operator_runs(self) -> list[dict[str, Any]]:
+        with self.connect() as connection:
+            return [
+                dict(row)
+                for row in connection.execute(
+                    "SELECT * FROM daily_operator_runs ORDER BY completed_at,operator_run_id"
+                )
+            ]
+
+    def native_handoffs(self) -> list[dict[str, Any]]:
+        with self.connect() as connection:
+            return [
+                dict(row)
+                for row in connection.execute(
+                    "SELECT * FROM native_creative_handoffs ORDER BY created_at,handoff_id"
+                )
+            ]
+
+    def daily_review_queue(self) -> dict[str, Any]:
+        with self.connect() as connection:
+            rows = [
+                dict(row)
+                for row in connection.execute(
+                    """
+                    SELECT j.video_job_id,j.state,j.terminal_result,j.created_at,
+                           l.candidate_key,l.source_content_hash,
+                           d.candidate_version_id,d.decision,d.operator_run_id
+                    FROM video_jobs j
+                    JOIN candidate_job_links l ON l.video_job_id=j.video_job_id
+                    LEFT JOIN candidate_decisions d ON d.video_job_id=j.video_job_id
+                    ORDER BY j.created_at,j.video_job_id,d.created_at DESC
+                    """
+                )
+            ]
+        deduped: dict[str, dict[str, Any]] = {}
+        for row in rows:
+            deduped.setdefault(str(row["video_job_id"]), row)
+        items = list(deduped.values())
+        return {
+            "schema": "contentops.v2.daily_operator_review_queue.v1",
+            "items": items,
+            "item_count": len(items),
+            "owner_review_ready_count": sum(
+                str(item["state"]) == "OWNER_REVIEW_READY" for item in items
+            ),
+            "waiting_governed_input_count": sum(
+                str(item["state"]) == "WAITING_GOVERNED_INPUT" for item in items
+            ),
+            "public_write_authority": False,
+        }
 
     def seed_job(
         self,
