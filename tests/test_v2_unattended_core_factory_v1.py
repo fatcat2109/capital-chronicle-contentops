@@ -1196,7 +1196,7 @@ def test_session_artifact_e2e_reaches_owner_review_without_live_creative_provide
     assert media.caption_segments == timing["canonical_spoken_transcript"]["segments"]
     transcript = timing["canonical_spoken_transcript"]
     assert timing["voiceover_qa"]["result"] == "PASS_TRANSCRIPT_VOICEOVER_QA"
-    assert timing["voiceover_qa"]["pronunciation_changed_segment_ids"] == ["s2"]
+    assert timing["voiceover_qa"]["pronunciation_changed_segment_ids"] == ["s2", "s3", "s4"]
     assert transcript["locked_narration_audio_sha256"] == timing["locked_narration_audio"]["sha256"]
 
 

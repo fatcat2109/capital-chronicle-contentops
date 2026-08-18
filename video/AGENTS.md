@@ -14,7 +14,7 @@ For V2/video work, read first:
 
 Current task:
 
-`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_V1`
+`TASK_CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1`
 
 `V2_CANONICAL_CREATIVE_RUNTIME = CODEX_DESKTOP_APP_FRESH_TASK_SESSION`
 
@@ -35,11 +35,10 @@ If Desktop-App handoff cannot be automated, report that unresolved boundary. Nev
 different runtime. `CodexJobBrain` is conceptual only and canonically means
 `CodexDesktopSessionBrain`; it does not mean `CodexCliExecutor`, subprocess, SDK, or API.
 
-The core factory is accepted `PASS_WITH_CAVEAT / CORE_PROOF_ACCEPTED_FOR_PRODUCTION_SOAK` at owner
-lineage `77d7ac16432415afcbb113596554d551cd4f0fb9`. This task processes up to three distinct qualified
-Shorts, with no filler, and hardens the existing narration/timing authority into one hash-bound
-canonical transcript tied to final audio, captions, transcript-derived SEO, package identity, and
-multi-job reliability/cost evidence.
+The three-job production soak is accepted at Task-1 remote HEAD `fc338caa020aaeae0f87ca066064714405ced729`.
+The locale task activates governed `zh-Hans`, `hi`, `vi`, and `ko` packages from the accepted US
+Retail picture without a locale-specific picture render. Builder PASS remains subject to GitHub/
+package audit and Jim listening acceptance.
 
 For every job in this soak, use
 `transcript/voice-over -> visual needs -> grounded web discovery -> candidate board -> rights-safe selection -> story-specific Remotion`.
@@ -51,8 +50,9 @@ and deterministic QA.
 from this role. `MULTILINGUAL_CLOSED_INPUT` and `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` control. Do not
 read platform credentials or perform any platform/browser write.
 
-Exact next gate after independent acceptance of a stable soak:
-`TASK_CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1`. Do not start it automatically.
+Exact next gate only after GitHub/package audit and Jim locale listening acceptance:
+`TASK_CONTENTOPS_V2_V1_READONLY_TRIGGER_AND_CODEX_DAILY_OPERATOR_AUTOMATION_SHADOW_V1`.
+Do not start it automatically.
 
 For recurring localization, render picture once per editorial format. Language work is governed
 translation, audio, timed captions, metadata and manifests. Locale-specific Remotion source,

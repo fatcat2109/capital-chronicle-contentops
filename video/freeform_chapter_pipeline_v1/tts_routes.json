@@ -10,7 +10,7 @@
   },
   "routes": {
     "en": ["kokoro_local", "eleven_multilingual_v2"], "es": ["kokoro_local", "eleven_multilingual_v2"], "pt-BR": ["kokoro_local", "eleven_multilingual_v2"],
-    "zh-Hans": ["kokoro_local_candidate", "eleven_multilingual_v2"], "hi": ["kokoro_local_candidate", "eleven_multilingual_v2"], "id": ["eleven_multilingual_v2"],
+    "zh-Hans": ["eleven_multilingual_v2", "kokoro_local_requires_validated_chinese_g2p"], "hi": ["kokoro_local", "eleven_multilingual_v2"], "id": ["eleven_multilingual_v2"],
     "ar": ["eleven_multilingual_v2"], "vi": ["eleven_flash_v2_5", "eleven_v3_quality_escalation"], "ja": ["kokoro_local", "eleven_multilingual_v2"],
     "ko": ["eleven_multilingual_v2"], "fr": ["kokoro_local_candidate", "eleven_multilingual_v2"], "de": ["eleven_multilingual_v2"],
     "zh-Hant": ["share_zh_Hans_mandarin_when_appropriate", "eleven_multilingual_v2"], "bn": ["eleven_v3"], "ta": ["eleven_multilingual_v2"],

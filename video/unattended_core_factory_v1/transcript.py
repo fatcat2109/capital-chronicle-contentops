@@ -65,12 +65,136 @@ def _pronunciation_notes(segment: Mapping[str, Any]) -> list[dict[str, str]]:
     return normalized
 
 
+_SMALL_NUMBER_WORDS = (
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+)
+_TENS_WORDS = (
+    "",
+    "",
+    "twenty",
+    "thirty",
+    "forty",
+    "fifty",
+    "sixty",
+    "seventy",
+    "eighty",
+    "ninety",
+)
+_NUMBER_SUFFIXES = {
+    "%": "percent",
+    "percent": "percent",
+    "percentage point": "percentage point",
+    "percentage points": "percentage points",
+    "pp": "percentage points",
+    "bp": "basis points",
+    "bps": "basis points",
+    "kg": "kilograms",
+    "km": "kilometers",
+    "m": "meters",
+}
+_CURRENCY_WORDS = {"$": "dollars", "€": "euros", "£": "pounds", "¥": "yen"}
+_SPOKEN_NUMBER_RE = re.compile(
+    r"(?<![\w.])(?:(?P<currency>[$€£¥])\s*)?(?P<sign>[+−-])?"
+    r"(?P<number>\d[\d,]*(?:\.\d+)?)"
+    r"(?P<scale>\s+(?:thousand|million|billion|trillion))?"
+    r"(?P<suffix>\s*(?:percentage points?|percent|%|pp|bps?|kg|km|m))?"
+    r"(?!\w|\.\d|\s+(?:thousand|million|billion|trillion|percentage points?|percent|pp|bps?|kg|km|m)\b)",
+    flags=re.I,
+)
+
+
+def _integer_words(value: int) -> str:
+    if value < 0:
+        return "negative " + _integer_words(-value)
+    if value < 20:
+        return _SMALL_NUMBER_WORDS[value]
+    if value < 100:
+        tens, remainder = divmod(value, 10)
+        return _TENS_WORDS[tens] + (f" {_integer_words(remainder)}" if remainder else "")
+    if value < 1_000:
+        hundreds, remainder = divmod(value, 100)
+        return (
+            f"{_SMALL_NUMBER_WORDS[hundreds]} hundred"
+            + (f" {_integer_words(remainder)}" if remainder else "")
+        )
+    for magnitude, word in (
+        (1_000_000_000_000, "trillion"),
+        (1_000_000_000, "billion"),
+        (1_000_000, "million"),
+        (1_000, "thousand"),
+    ):
+        if value >= magnitude:
+            leading, remainder = divmod(value, magnitude)
+            return (
+                f"{_integer_words(leading)} {word}"
+                + (f" {_integer_words(remainder)}" if remainder else "")
+            )
+    raise TranscriptContractError("spoken_number_out_of_range")
+
+
+def _decimal_words(value: str) -> str:
+    integer, dot, fraction = value.replace(",", "").partition(".")
+    result = _integer_words(int(integer))
+    if dot:
+        result += " point " + " ".join(_SMALL_NUMBER_WORDS[int(digit)] for digit in fraction)
+    return result
+
+
+def normalize_english_spoken_numbers(text: str) -> str:
+    """Return synthesis-only English with every numeric concept pronounced explicitly.
+
+    Display/caption text remains untouched. Decimal digits are spoken one by one, including
+    a governed trailing zero, so 5.0 can never collapse to five and -0.2 pp retains both its
+    sign and percentage-point unit.
+    """
+
+    def replacement(match: re.Match[str]) -> str:
+        words: list[str] = []
+        sign = match.group("sign")
+        if sign in {"-", "−"}:
+            words.append("negative")
+        elif sign == "+":
+            words.append("positive")
+        words.append(_decimal_words(match.group("number")))
+        scale = (match.group("scale") or "").strip().casefold()
+        if scale:
+            words.append(scale)
+        suffix = (match.group("suffix") or "").strip().casefold()
+        if suffix:
+            words.append(_NUMBER_SUFFIXES[suffix])
+        currency = match.group("currency")
+        if currency:
+            words.append(_CURRENCY_WORDS[currency])
+        return " ".join(words)
+
+    return _SPOKEN_NUMBER_RE.sub(replacement, text)
+
+
 def synthesis_text_for_segment(segment: Mapping[str, Any]) -> str:
     text = str(segment.get("text", ""))
     notes = _pronunciation_notes(segment)
     for note in sorted(notes, key=lambda item: len(item["surface"]), reverse=True):
         text = text.replace(note["surface"], note["spoken_as"])
-    return text
+    return normalize_english_spoken_numbers(text)
 
 
 def validate_editor_transcript_fields(editor: Mapping[str, Any]) -> dict[str, Any]:
@@ -209,7 +333,7 @@ def _critical_terms(segments: Sequence[Mapping[str, Any]]) -> dict[str, list[dic
     seen: set[tuple[str, str, str]] = set()
     month = (
         r"(?:January|February|March|April|May|June|July|August|September|October|"
-        r"November|December)\s+\d{1,2}(?:,\s+\d{4})?"
+        r"November|December)\s+(?:\d{1,2},\s+\d{4}|\d{4})"
     )
     for segment in segments:
         segment_id = str(segment["segment_id"])
@@ -329,7 +453,12 @@ def build_voiceover_qa(
                 if record["segment_id"] != segment_id:
                     continue
                 surface = record["surface"]
-                if surface not in synthesis_text and surface not in notes:
+                deterministic_spoken_surface = normalize_english_spoken_numbers(surface)
+                if (
+                    surface not in synthesis_text
+                    and surface not in notes
+                    and deterministic_spoken_surface not in synthesis_text
+                ):
                     failures.append(f"{segment_id}:{kind}:{surface}")
     payoff_ids = set(validation["retention_payoff_segment_ids"])
     payoff_ends = [

@@ -86,8 +86,13 @@ def test_tts_and_voice_registries_cover_all_declared_locales_and_lock_english_ow
     assert "am_michael" not in json.dumps(english)
     assert routes["routes"]["vi"][0] == "eleven_flash_v2_5"
     assert routes["routes"]["bn"] == ["eleven_v3"]
-    assert voices["entries"]["vi"]["sample_path"] is None
-    assert "PENDING" in voices["entries"]["vi"]["acceptance_status"]
+    for locale in ("zh-Hans", "hi", "vi", "ko"):
+        activated = voices["entries"][locale]
+        assert activated["sample_path"].startswith(
+            ".task-runtime/v2-locale-activation-hardening-v1/"
+        )
+        assert len(activated["sample_sha256"]) == 64
+        assert activated["acceptance_status"] == "JIM_LISTENING_GATE_REQUIRED"
     assert routes["voice_safety"]["real_person_voice_cloning"] is False
 
 

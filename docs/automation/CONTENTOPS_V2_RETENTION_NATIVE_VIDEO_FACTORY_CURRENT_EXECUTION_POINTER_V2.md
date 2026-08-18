@@ -116,38 +116,25 @@ Use these as soak-learning signals. Do not turn them into deterministic aestheti
 
 Audio technical integrity passes. Subjective voice/music listening quality is not independently claimed by ChatGPT. Kokoro `af_heart / 1.06 / en-us` remains the current build baseline until real listening/retention evidence justifies change.
 
-## Exact next task
-
-`TASK_CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_V1`
-
-Use a **fresh Codex Desktop App parent/task session at `GPT-5.6 Sol / HIGH`**.
-
-The first bounded soak processes up to three distinct independently qualified V2 Shorts. No filler: if fewer than three genuine publication-quality story opportunities exist within the bounded task window, process fewer and report that truth.
-
-Each started job remains isolated and uses the accepted core pipeline. The soak adds product-facing hardening on real outputs rather than another generic infrastructure phase:
-
-- canonical spoken transcript/segment identity;
-- transcript truth/analysis/engagement binding;
-- pronunciation and Kokoro segment QA;
-- captions derived from locked actual audio placements;
-- transcript-derived title/description/chapter/search-entity package;
-- viewer-facing VO craft and first-30-second promise/payoff;
-- concrete/documentary/native-data-first visual selection;
-- rights/provenance and package integrity;
-- per-job and aggregate reliability/cost/manual-intervention telemetry.
-
-A job quarantine must not corrupt later independent jobs. If a genuine implementation defect appears, preserve the truth and use at most one bounded correction under current doctrine; do not enter an endless repair chain.
-
-## Soak safety
-
-`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
-
-The soak does not authorize YouTube/TikTok/Meta upload, draft/private/unlisted write, platform credential read, publication browser/CDP, V1 runtime/publication mutation, scheduler mutation, locale activation, 4K/longform expansion, ElevenLabs/avatar work, or Codex App Automation.
-
-## Next gate after stable soak
-
-If the bounded soak demonstrates stable unattended operation and owner-reviewable outputs, the next product gate is:
+## Current exact task and gate
 
 `TASK_CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1`
 
-After that: premium voice/avatar evaluation if justified, then later V1 trigger/scheduling and controlled publication expansion. Do not start any later gate automatically.
+Builder result:
+
+`PASS_IMPLEMENTATION_V2_LOCALE_ACTIVATION_PACKAGES_READY_FOR_JIM_LISTENING_REVIEW`
+
+The accepted US Retail Short now has governed `zh-Hans`, `hi`, `vi`, and `ko` transcript,
+pronunciation, audio, timed SRT/VTT, transcript-derived metadata, listening-sample, YouTube
+sidecar, and one-audio-program short-form packages. All four variants reuse the same accepted
+58.4-second / 1,752-frame picture stream without Remotion rerender or `-shortest` truncation.
+Evidence is under `docs/automation/CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1/`.
+
+`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling. Builder validation does not claim Jim's
+subjective language/voice/listening acceptance.
+
+Only after GitHub/package audit plus Jim listening acceptance is the next gate:
+
+`TASK_CONTENTOPS_V2_V1_READONLY_TRIGGER_AND_CODEX_DAILY_OPERATOR_AUTOMATION_SHADOW_V1`
+
+Do not start it automatically.
