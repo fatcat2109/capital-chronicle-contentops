@@ -251,11 +251,13 @@ class FakeMedia:
         fail_typecheck: bool = False,
         segment_duration: float = 5.5,
         picture_duration_override: float | None = None,
+        container_duration_padding: float = 0.0,
     ) -> None:
         self.render_count = 0
         self.fail_typecheck = fail_typecheck
         self.segment_duration = segment_duration
         self.picture_duration_override = picture_duration_override
+        self.container_duration_padding = container_duration_padding
         self.motion_duration = 35.0
         self.synthesis_count = 0
         self.mix_timing_lock_hash = None
@@ -298,7 +300,18 @@ class FakeMedia:
             if self.picture_duration_override is not None and path.name == "picture_lock.mp4"
             else self.motion_duration
         )
-        return {"streams": [{"codec_type": "video", "width": 1080, "height": 1920, "r_frame_rate": "30/1"}], "format": {"duration": str(duration)}}
+        return {
+            "streams": [
+                {
+                    "codec_type": "video",
+                    "width": 1080,
+                    "height": 1920,
+                    "r_frame_rate": "30/1",
+                    "duration": str(duration),
+                }
+            ],
+            "format": {"duration": str(duration + self.container_duration_padding)},
+        }
 
     def synthesize_narration(self, *, editor, model_path, voices_path, output_dir):
         self.synthesis_count += 1
@@ -1144,6 +1157,15 @@ def test_picture_cannot_end_before_locked_narration(tmp_path: Path) -> None:
         factory.resume(video_job_id=job_id, run_id=run_id)
     assert store.job(job_id)["state"] == "QUARANTINED"
     assert proxy["required_input"] == "ACTUAL_MEDIA_REVIEW"
+
+
+def test_picture_lock_uses_video_stream_duration_not_container_audio_padding(
+    tmp_path: Path,
+) -> None:
+    media = FakeMedia(container_duration_padding=0.053333)
+    factory, _, _ = make_factory(tmp_path, media=media)
+    result = complete(factory)
+    assert result["job"]["state"] == "OWNER_REVIEW_READY"
 
 
 def test_session_artifact_e2e_reaches_owner_review_without_live_creative_provider(tmp_path: Path) -> None:

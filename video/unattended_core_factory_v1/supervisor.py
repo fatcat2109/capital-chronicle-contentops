@@ -181,6 +181,17 @@ def _safe_cost(receipts: list[Mapping[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _video_stream_duration_seconds(probe: Mapping[str, Any]) -> float:
+    """Read authored picture duration without container/audio encoder padding."""
+    for stream in probe.get("streams", []):
+        if stream.get("codec_type") != "video":
+            continue
+        duration = stream.get("duration")
+        if duration is not None:
+            return float(duration)
+    raise SupervisorError("picture_video_stream_duration_missing")
+
+
 class DesktopSessionV2Factory:
     def __init__(
         self,
@@ -1114,7 +1125,7 @@ class DesktopSessionV2Factory:
                 public_root=self.config.asset_root,
             )
             picture_probe = self.media.probe_media(paths["picture"])
-            picture_duration = float(picture_probe["format"]["duration"])
+            picture_duration = _video_stream_duration_seconds(picture_probe)
             narration_duration = float(
                 timing_lock["actual_total_narration_duration_seconds"]
             )

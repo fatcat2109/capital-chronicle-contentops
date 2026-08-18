@@ -81350,7 +81350,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-18T08:06:18Z",
+  "generation_timestamp_utc": "2026-08-18T09:52:13Z",
   "generator_version": "2.2.1",
   "included_roots": [
     "live_contentops/",
@@ -118834,7 +118834,7 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/supervisor.py::DesktopSessionV2Factory",
       "kind": "python_class",
-      "line": 184,
+      "line": 195,
       "path": "video/unattended_core_factory_v1/supervisor.py",
       "symbol": "DesktopSessionV2Factory"
     },
@@ -123348,7 +123348,7 @@
     {
       "id": "tests/test_v2_unattended_core_factory_v1.py",
       "kind": "test",
-      "size_bytes": 63389
+      "size_bytes": 64056
     },
     {
       "id": "tests/test_v2_zero_rerender_global_language_sidecars_v1.py",
@@ -127975,7 +127975,7 @@
     {
       "id": "video/unattended_core_factory_v1/supervisor.py",
       "kind": "python_module",
-      "size_bytes": 79742
+      "size_bytes": 80186
     },
     {
       "id": "video/unattended_core_factory_v1/transcript.py",
@@ -128046,6 +128046,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "9590f275ba086f5f874e872639c71d146d2461e6",
-  "source_tree_digest": "343fbffb0eceaf21ef69411fa3c7d7c9e8622c42664b6f91d881f1d2fea3ae7f"
+  "source_head": "575333fb2a37c494f122780f318cf11f94e8bf2d",
+  "source_tree_digest": "066b5325ad82c8b19a9d9d981e5026de54274750ea67f3300f36c6b0d3002c98"
 }
