@@ -207,6 +207,65 @@ def test_quality_probation_preflight_holds_all_writes_when_one_surface_not_ready
     assert store.list_outbox_messages() == []
 
 
+def test_delivery_media_preparation_is_after_full_nine_preflight_and_before_substack(
+    tmp_path,
+):
+    class PreparingTransport(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.prepare_calls = []
+
+        def prepare_delivery_media(self, **kwargs):
+            assert self.publish_calls == []
+            self.prepare_calls.append(kwargs)
+            return {
+                "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+                "provider_calls": 1,
+                "public_write_performed": False,
+            }
+
+    transport = PreparingTransport()
+    _store_value, _transport, coordinator = _coordinator(
+        tmp_path, runtime=transport
+    )
+
+    result = coordinator.execute_plan("work-1", _quality_plan())
+
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+    assert len(transport.prepare_calls) == 1
+    preconditions = transport.prepare_calls[0]["preconditions"]
+    assert preconditions == {
+        "full_v1_distribution_status": "FULL_V1_DISTRIBUTION_READY",
+        "unknown_write_count": 0,
+    }
+    assert transport.publish_calls[0] == "substack"
+
+
+def test_delivery_media_preparation_failure_blocks_before_outbox_or_substack(tmp_path):
+    class FailingPreparationTransport(FixtureTransport):
+        def prepare_delivery_media(self, **_kwargs):
+            return {
+                "status": "BLOCKED_CLOUDINARY_HOSTED_MEDIA_MISMATCH",
+                "provider_calls": 1,
+                "public_write_performed": False,
+            }
+
+    store, transport, coordinator = _coordinator(
+        tmp_path, runtime=FailingPreparationTransport()
+    )
+
+    result = coordinator.execute_plan("work-1", _quality_plan())
+
+    assert result["distribution_status"] == "BLOCKED_DELIVERY_MEDIA_PREPARATION"
+    assert result["canonical_article_status"] == "NOT_STARTED"
+    assert result["registered"] == []
+    assert result["outbox_count"] == 0
+    assert result["public_write_performed"] is False
+    assert transport.publish_calls == []
+    assert store.list_outbox_messages() == []
+    assert store.list_platform_dispatches() == []
+
+
 def test_quality_probation_full_nine_surface_confirmation(tmp_path):
     _store_value, transport, coordinator = _coordinator(tmp_path)
 

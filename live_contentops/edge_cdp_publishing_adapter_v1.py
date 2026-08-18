@@ -665,68 +665,6 @@ def _upload_substack_image(
     }
 
 
-def _stage_and_remove_delivery_only_image(
-    page: Any,
-    editor: Any,
-    asset: Mapping[str, Any],
-    *,
-    expected_article_image_count: int,
-) -> dict[str, Any]:
-    """Obtain a Substack-hosted delivery URL, then prove it is absent from the article."""
-    asset_id = str(asset.get("asset_id") or "delivery_only")
-    upload = _upload_substack_image(
-        page,
-        editor,
-        str(asset.get("local_path") or asset.get("path") or ""),
-        str(asset.get("alt_text") or ""),
-        asset_id=asset_id,
-        expected_image_index=expected_article_image_count,
-    )
-    public_url = str((upload.get("image_readback") or {}).get("src") or "")
-    if upload.get("status") != "uploaded" or not public_url.startswith("http"):
-        return {
-            "status": "FAILED_DELIVERY_ONLY_UPLOAD",
-            "asset_id": asset_id,
-            "upload": upload,
-            "public_url": None,
-            "article_inclusion": False,
-        }
-    images = page.locator(".ProseMirror img")
-    if images.count() <= expected_article_image_count:
-        return {
-            "status": "FAILED_DELIVERY_ONLY_IMAGE_NOT_LOCATED",
-            "asset_id": asset_id,
-            "upload": upload,
-            "public_url": public_url,
-            "article_inclusion": False,
-        }
-    staged = images.nth(images.count() - 1)
-    staged.click(timeout=3000)
-    page.keyboard.press("Delete")
-    deadline = time.monotonic() + 12
-    while time.monotonic() < deadline and _editor_image_count(page) > expected_article_image_count:
-        time.sleep(0.4)
-    if _editor_image_count(page) > expected_article_image_count:
-        staged.click(timeout=3000)
-        page.keyboard.press("Backspace")
-        time.sleep(1)
-    removed = _editor_image_count(page) == expected_article_image_count
-    saved_deadline = time.monotonic() + 20
-    saved = _substack_saved(page)
-    while removed and not saved and time.monotonic() < saved_deadline:
-        time.sleep(0.4)
-        saved = _substack_saved(page)
-    return {
-        "status": "STAGED_AND_REMOVED" if removed and saved else "FAILED_DELIVERY_ONLY_REMOVAL_READBACK",
-        "asset_id": asset_id,
-        "public_url": public_url,
-        "article_inclusion": False,
-        "editor_image_count_after_removal": _editor_image_count(page),
-        "draft_saved_after_removal": saved,
-        "upload": upload,
-    }
-
-
 class _InstrumentedPersistentPage:
     """Transparent Playwright page proxy that records only sanitized interaction classes."""
 
@@ -2207,7 +2145,6 @@ def publish_substack_article_via_edge(
     subtitle: str,
     body_markdown: str,
     image_assets: Sequence[Mapping[str, Any]],
-    delivery_only_assets: Sequence[Mapping[str, Any]] = (),
     public_screenshot_path: str | Path | None = None,
     existing_draft_id: str | None = None,
     existing_public_url: str | None = None,
@@ -2223,14 +2160,6 @@ def publish_substack_article_via_edge(
     for asset_id in expected_ids:
         if not Path(str(assets[asset_id].get("local_path") or assets[asset_id].get("path") or "")).exists():
             return {"status": "BLOCKED_SUBSTACK_LOCAL_MEDIA_MISSING", "platform": "substack", "asset_id": asset_id}
-    for asset in delivery_only_assets:
-        if not Path(str(asset.get("local_path") or asset.get("path") or "")).is_file():
-            return {
-                "status": "BLOCKED_SUBSTACK_DELIVERY_ONLY_MEDIA_MISSING",
-                "platform": "substack",
-                "asset_id": str(asset.get("asset_id") or "delivery_only"),
-            }
-
     with canonical_edge_page(cdp_port) as page:
         editor_url = "https://capitalchronicle.substack.com/publish/post"
         if existing_draft_id:
@@ -2383,25 +2312,6 @@ def publish_substack_article_via_edge(
                 "missing_caption_asset_ids": missing_captions,
                 "upload_rows": upload_rows,
             }
-        delivery_stage_rows: list[dict[str, Any]] = []
-        for delivery_asset in delivery_only_assets:
-            stage = _stage_and_remove_delivery_only_image(
-                page,
-                editor,
-                delivery_asset,
-                expected_article_image_count=len(expected_ids),
-            )
-            delivery_stage_rows.append(stage)
-            if stage.get("status") != "STAGED_AND_REMOVED":
-                return {
-                    "status": "FAILED_SUBSTACK_DELIVERY_MEDIA_STAGING",
-                    "platform": "substack",
-                    "draft_id": _substack_draft_id(page.url),
-                    "editor_body_image_count": _editor_image_count(page),
-                    "delivery_only_stage_rows": delivery_stage_rows,
-                    "public_write_attempted": False,
-                    "public_transition_performed": False,
-                }
         native_readback = _editor_native_semantics_readback(editor, body_markdown)
         if not native_readback["native_semantics_verified"]:
             return {
@@ -2424,7 +2334,6 @@ def publish_substack_article_via_edge(
                     "public_write_attempted": False,
                     "public_transition_performed": False,
                     "upload_rows": upload_rows,
-                    "delivery_only_stage_rows": delivery_stage_rows,
                 }
             return {
                 "status": "SUCCESS_DRAFT_QA",
@@ -2438,11 +2347,6 @@ def publish_substack_article_via_edge(
                 "public_transition_performed": False,
                 "publication_state": "draft_nonpublic",
                 "upload_rows": upload_rows,
-                "delivery_only_stage_rows": delivery_stage_rows,
-                "delivery_only_public_image_urls": [
-                    str(row.get("public_url")) for row in delivery_stage_rows
-                    if row.get("public_url")
-                ],
             }
         time.sleep(3)
         draft_id = _substack_draft_id(page.url)
@@ -2462,7 +2366,6 @@ def publish_substack_article_via_edge(
                 "draft_id": draft_id,
                 "editor_body_image_count": editor_image_count,
                 "upload_rows": upload_rows,
-                "delivery_only_stage_rows": delivery_stage_rows,
             }
         time.sleep(7)
         public_url = (
@@ -2523,11 +2426,6 @@ def publish_substack_article_via_edge(
             "editor_body_image_count": editor_image_count,
             "in_body_visual_asset_ids": expected_ids,
             "upload_rows": upload_rows,
-            "delivery_only_stage_rows": delivery_stage_rows,
-            "delivery_only_public_image_urls": [
-                str(row.get("public_url")) for row in delivery_stage_rows
-                if row.get("public_url")
-            ],
             "native_rich_text_readback": native_readback,
             "readback": readback,
             "publish_transition": publish_transition,

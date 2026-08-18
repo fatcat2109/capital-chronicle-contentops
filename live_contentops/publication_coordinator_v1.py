@@ -823,6 +823,74 @@ class DurablePublicationCoordinator:
         message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
         if not message or str(message.get("destination") or "") != "substack":
             return {"status": "RETRY_BLOCKED_NOT_EXACT_SUBSTACK_OUTBOX", "publish_called": False}
+        intent = json.loads(str(message["payload"]))
+        work_item_id = str(intent.get("work_item_id") or "")
+        if not self._full_v1_distribution_required(intent):
+            return self._dispatch_message(
+                message,
+                canonical_url=None,
+                explicit_reconciled_absent_retry=True,
+            )
+        intents = [
+            json.loads(str(row["payload"]))
+            for row in self.store.list_outbox_messages()
+            if str(row.get("work_item_id") or "") == work_item_id
+        ]
+        retry_plan = {
+            "plan_hash": intent.get("plan_hash"),
+            "output_dir": intent.get("output_dir"),
+            "quality_probation_policy_id": intent.get("quality_probation_policy_id"),
+            "full_v1_distribution_required": intent.get("full_v1_distribution_required") is True,
+            "destinations": [
+                dict(row.get("destination_plan") or {}) for row in intents
+            ],
+            "skipped_derivative_destinations": [],
+            "pre_substack_blockers": [],
+        }
+        quality_preflight = self._full_v1_distribution_preflight(
+            work_item_id, retry_plan
+        )
+        if quality_preflight["status"] != "FULL_V1_DISTRIBUTION_READY":
+            return {
+                "status": HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
+                "publish_called": False,
+                "quality_preflight": quality_preflight,
+            }
+        unknown_write_count = sum(
+            str(row.get("status") or "") == UNKNOWN_WRITE
+            for row in self.store.list_platform_dispatches()
+        )
+        if unknown_write_count:
+            return {
+                "status": "RETRY_BLOCKED_UNKNOWN_WRITE_PRESENT",
+                "publish_called": False,
+                "unknown_write_count": unknown_write_count,
+            }
+        delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
+        if callable(delivery_preparer):
+            delivery_media_preparation = dict(
+                delivery_preparer(
+                    work_item_id=work_item_id,
+                    plan=retry_plan,
+                    preconditions={
+                        "full_v1_distribution_status": quality_preflight["status"],
+                        "unknown_write_count": 0,
+                    },
+                )
+                or {}
+            )
+            if str(delivery_media_preparation.get("status") or "") not in {
+                "CLOUDINARY_DELIVERY_MEDIA_READY",
+                "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED",
+            }:
+                return {
+                    "status": str(
+                        delivery_media_preparation.get("status")
+                        or "RETRY_BLOCKED_DELIVERY_MEDIA_PREPARATION"
+                    ),
+                    "publish_called": False,
+                    "delivery_media_preparation": delivery_media_preparation,
+                }
         return self._dispatch_message(
             message,
             canonical_url=None,
@@ -925,6 +993,57 @@ class DurablePublicationCoordinator:
                         recovery_preflight.get("publish_calls")
                     ),
                     "unknown_write_detected": False,
+                }
+        delivery_media_preparation: dict[str, Any] = {
+            "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+            "provider_calls": 0,
+            "public_write_performed": False,
+        }
+        delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
+        if callable(delivery_preparer) and quality_preflight is not None:
+            unknown_write_count = sum(
+                str(row.get("status") or "") == UNKNOWN_WRITE
+                for row in self.store.list_platform_dispatches()
+            )
+            delivery_media_preparation = dict(
+                delivery_preparer(
+                    work_item_id=work_item_id,
+                    plan=plan,
+                    preconditions={
+                        "full_v1_distribution_status": quality_preflight["status"],
+                        "unknown_write_count": unknown_write_count,
+                    },
+                )
+                or {}
+            )
+            if str(delivery_media_preparation.get("status") or "") not in {
+                "CLOUDINARY_DELIVERY_MEDIA_READY",
+                "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED",
+            }:
+                return {
+                    "plan_hash": str(
+                        plan.get("plan_hash") or _hash(_canonical_json(plan))
+                    ),
+                    "registered": [],
+                    "outbox_count": 0,
+                    "per_destination": quality_preflight["per_destination"],
+                    "canonical_article_status": "NOT_STARTED",
+                    "canonical_article_real_published": False,
+                    "canonical_url": None,
+                    "canonical_publication_status": str(
+                        delivery_media_preparation.get("status")
+                        or "BLOCKED_DELIVERY_MEDIA_PREPARATION"
+                    ),
+                    "distribution_status": "BLOCKED_DELIVERY_MEDIA_PREPARATION",
+                    "transaction_classification": "BLOCKED_DELIVERY_MEDIA_PREPARATION",
+                    "quality_preflight": quality_preflight,
+                    "recovery_preflight": recovery_preflight,
+                    "delivery_media_preparation": delivery_media_preparation,
+                    "current_transaction_public_write_performed": False,
+                    "public_write_performed": bool(
+                        recovery_preflight.get("publish_calls")
+                    ),
+                    "unknown_write_detected": unknown_write_count > 0,
                 }
         registration = self.register_plan(work_item_id, plan)
         outcomes: dict[str, Any] = {
@@ -1081,6 +1200,7 @@ class DurablePublicationCoordinator:
             "distribution_status": distribution_status,
             "transaction_classification": distribution_status,
             "quality_preflight": quality_preflight,
+            "delivery_media_preparation": delivery_media_preparation,
             "recovery_required_destinations": recovery_destinations,
             "readback_limitation_destinations": readback_limitation_destinations,
             "metrics_availability_independent_from_publication_confirmation": True,
@@ -1462,6 +1582,23 @@ class CanonicalDestinationTransportRuntimeV1:
             )
             linkedin_transport = LinkedInOfficialMemberApiTransportV1()
         self._linkedin_transport = linkedin_transport
+
+    def prepare_delivery_media(
+        self,
+        *,
+        work_item_id: str,
+        plan: Mapping[str, Any],
+        preconditions: Mapping[str, Any],
+    ) -> Mapping[str, Any]:
+        from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
+            _prepare_cloudinary_delivery_media_for_plan,
+        )
+
+        return _prepare_cloudinary_delivery_media_for_plan(
+            work_item_id=work_item_id,
+            plan=plan,
+            preconditions=preconditions,
+        )
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:

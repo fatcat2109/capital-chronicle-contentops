@@ -111,6 +111,198 @@ def test_zero_article_media_plan_contains_all_nine_and_no_optional_skip(tmp_path
     )["delivery_media_required"] is True
 
 
+def test_cloudinary_precondition_runs_only_after_full_nine_and_unknown_write_zero(
+    tmp_path, monkeypatch
+):
+    delivery = build_delivery_only_editorial_card(
+        output_path=tmp_path / "delivery.png",
+        title="Governed official event update",
+        source_label="Official Agency",
+        source_page_url="https://official.example/record",
+    )
+    (tmp_path / "run_context_v1.json").write_text(
+        json.dumps({"media": {"assets": [], "delivery_only_assets": [delivery]}}),
+        encoding="utf-8",
+    )
+    calls = []
+    manifest = {
+        "status": "PASS",
+        "assets": [
+            {
+                "media_asset_id": delivery["asset_id"],
+                "media_role": "delivery_only",
+                "sha256": delivery["sha256"],
+                "public_delivery_sha256": delivery["sha256"],
+                "local_public_hash_continuity": True,
+                "verified_public_delivery_url": "https://res.cloudinary.com/example/delivery.png",
+            }
+        ],
+    }
+
+    def prepare(**kwargs):
+        calls.append(kwargs)
+        return {
+            "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+            "manifest": manifest,
+            "provider_calls": 1,
+        }
+
+    monkeypatch.setattr(pipeline, "prepare_cloudinary_delivery_media", prepare)
+    blocked = pipeline._prepare_cloudinary_delivery_media_for_plan(
+        work_item_id="work-1",
+        plan={"output_dir": str(tmp_path)},
+        preconditions={
+            "full_v1_distribution_status": "HOLD_FULL_V1_DISTRIBUTION_NOT_READY",
+            "unknown_write_count": 0,
+        },
+    )
+    assert blocked["status"] == "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_PRECONDITIONS"
+    assert calls == []
+
+    ready = pipeline._prepare_cloudinary_delivery_media_for_plan(
+        work_item_id="work-1",
+        plan={"output_dir": str(tmp_path)},
+        preconditions={
+            "full_v1_distribution_status": "FULL_V1_DISTRIBUTION_READY",
+            "unknown_write_count": 0,
+        },
+    )
+    assert ready["status"] == "CLOUDINARY_DELIVERY_MEDIA_READY"
+    assert len(calls) == 1
+    assert json.loads(
+        (tmp_path / "delivery_media_manifest_v1.json").read_text(encoding="utf-8")
+    ) == manifest
+
+
+def test_substack_transport_receives_only_canonical_article_media(monkeypatch, tmp_path):
+    article_media = {"asset_id": "article-chart", "path": str(tmp_path / "chart.png")}
+    delivery_only = {"asset_id": "delivery-card", "media_role": "delivery_only"}
+    captured = {}
+    monkeypatch.setattr(
+        pipeline,
+        "_durable_intent_inputs",
+        lambda _intent: {
+            "output_dir": tmp_path,
+            "article": {
+                "title": "Exact title",
+                "subtitle": "Exact subtitle",
+                "substack_body_markdown": "[[VISUAL:article-chart]]",
+            },
+            "payloads": {},
+            "canonical_url": "",
+            "local_media": article_media["path"],
+            "public_image_url": "",
+            "primary_media": {},
+            "media_assets": [article_media],
+            "delivery_only_assets": [delivery_only],
+        },
+    )
+
+    def publish(**kwargs):
+        captured.update(kwargs)
+        return {"status": "FAILED_SUBSTACK_IMAGE_UPLOAD", "draft_id": "draft-1"}
+
+    monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", publish)
+    result = pipeline._publish_one_destination_from_durable_intent(
+        destination="substack",
+        intent={"attempt_identity": "dispatch-1", "output_dir": str(tmp_path)},
+        authorization_context={
+            "operating_mode": "AUTONOMOUS_DEFAULT",
+            "dispatch_attempt_identity": "dispatch-1",
+        },
+    )
+
+    assert result["status"] == "FAILED_SUBSTACK_IMAGE_UPLOAD"
+    assert captured["image_assets"] == [article_media]
+    assert "delivery_only_assets" not in captured
+
+
+def test_instagram_consumes_only_verified_delivery_manifest_media(monkeypatch, tmp_path):
+    media = {
+        "media_asset_id": "delivery-card",
+        "verified_public_delivery_url": "https://res.cloudinary.com/example/delivery.png",
+        "sha256": "a" * 64,
+        "public_delivery_sha256": "a" * 64,
+        "local_public_hash_continuity": True,
+        "absolute_local_source_path": str(tmp_path / "delivery.png"),
+    }
+    captured = {}
+    monkeypatch.setattr(
+        pipeline,
+        "_durable_intent_inputs",
+        lambda _intent: {
+            "output_dir": tmp_path,
+            "article": {"title": "Exact title"},
+            "payloads": {"instagram_business": {"text": "Caption"}},
+            "canonical_url": "https://capitalchronicle.substack.com/p/exact",
+            "local_media": "",
+            "delivery_local_media": media["absolute_local_source_path"],
+            "public_image_url": media["verified_public_delivery_url"],
+            "primary_media": media,
+            "media_assets": [],
+            "delivery_only_assets": [],
+        },
+    )
+    monkeypatch.setattr(
+        pipeline,
+        "_publish_instagram_media_verified",
+        lambda **kwargs: captured.update(kwargs) or {"status": "SUCCESS"},
+    )
+
+    result = pipeline._publish_one_destination_from_durable_intent(
+        destination="instagram_business",
+        intent={"attempt_identity": "dispatch-1", "output_dir": str(tmp_path)},
+        authorization_context={
+            "operating_mode": "AUTONOMOUS_DEFAULT",
+            "dispatch_attempt_identity": "dispatch-1",
+        },
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert captured["media"] == media
+    assert captured["media"]["verified_public_delivery_url"].startswith("https://")
+
+
+def test_instagram_fails_definite_no_write_without_verified_delivery_media(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setattr(
+        pipeline,
+        "_durable_intent_inputs",
+        lambda _intent: {
+            "output_dir": tmp_path,
+            "article": {"title": "Exact title"},
+            "payloads": {"instagram_business": {"text": "Caption"}},
+            "canonical_url": "https://capitalchronicle.substack.com/p/exact",
+            "local_media": "",
+            "public_image_url": "",
+            "primary_media": {},
+            "media_assets": [],
+            "delivery_only_assets": [],
+        },
+    )
+    monkeypatch.setattr(
+        pipeline,
+        "_publish_instagram_media_verified",
+        lambda **_kwargs: (_ for _ in ()).throw(AssertionError("must not publish")),
+    )
+
+    result = pipeline._publish_one_destination_from_durable_intent(
+        destination="instagram_business",
+        intent={"attempt_identity": "dispatch-1", "output_dir": str(tmp_path)},
+        authorization_context={
+            "operating_mode": "AUTONOMOUS_DEFAULT",
+            "dispatch_attempt_identity": "dispatch-1",
+        },
+    )
+
+    assert result == {
+        "status": "DEFINITE_NO_WRITE",
+        "definite_no_write": True,
+        "reason_code": "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE",
+    }
+
+
 def test_treasury_rc_editorial_replacements_remove_process_copy_and_repetition() -> None:
     original = "\n\n".join(str(row["old"]) for row in pipeline.TREASURY_RC_EDITORIAL_REPLACEMENTS)
     revised = pipeline._apply_exact_editorial_replacements(

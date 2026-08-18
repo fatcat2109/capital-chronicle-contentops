@@ -39,6 +39,11 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     repair_substack_duplicate_caption_fragment_via_edge,
     repair_substack_editorial_paragraphs_via_edge,
 )
+from live_contentops.cloudinary_delivery_media_v1 import (
+    NOT_REQUIRED as CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED,
+    READY as CLOUDINARY_DELIVERY_MEDIA_READY,
+    prepare_cloudinary_delivery_media,
+)
 from live_contentops.publishing_profile_registry_v1 import browser_doctor
 from live_contentops.media_manifest_authority_v1 import (
     build_delivery_media_manifest,
@@ -3326,6 +3331,59 @@ def _build_rolling_x_publication_plan(
     return {**plan_core, "plan_hash": _json_sha256(plan_core)}
 
 
+def _prepare_cloudinary_delivery_media_for_plan(
+    *,
+    work_item_id: str,
+    plan: Mapping[str, Any],
+    preconditions: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Prepare derivative-only media after all-nine gates and before Substack."""
+    if (
+        str(preconditions.get("full_v1_distribution_status") or "")
+        != "FULL_V1_DISTRIBUTION_READY"
+        or int(preconditions.get("unknown_write_count") or 0) != 0
+    ):
+        return {
+            "status": "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_PRECONDITIONS",
+            "provider_calls": 0,
+            "public_write_performed": False,
+        }
+    output_dir = Path(str(plan.get("output_dir") or ""))
+    if not output_dir.is_dir():
+        return {
+            "status": "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_OUTPUT_DIR_UNAVAILABLE",
+            "provider_calls": 0,
+            "public_write_performed": False,
+        }
+    context = _read_json(output_dir / "run_context_v1.json")
+    media = dict(context.get("media") or {})
+    delivery_only_assets = [
+        dict(row)
+        for row in (media.get("delivery_only_assets") or [])
+        if isinstance(row, Mapping)
+    ]
+    manifest_path = output_dir / "delivery_media_manifest_v1.json"
+    existing_manifest = _read_json(manifest_path) if manifest_path.is_file() else {}
+    prepared = prepare_cloudinary_delivery_media(
+        work_item_id=work_item_id,
+        delivery_only_assets=delivery_only_assets,
+        existing_manifest=existing_manifest,
+    )
+    if str(prepared.get("status") or "") == CLOUDINARY_DELIVERY_MEDIA_READY:
+        _write_json(manifest_path, dict(prepared["manifest"]))
+    return {
+        key: value
+        for key, value in prepared.items()
+        if key != "manifest"
+    } | {
+        "public_write_performed": False,
+        "canonical_publication_attempted": False,
+        "delivery_manifest_path": str(manifest_path)
+        if str(prepared.get("status") or "") == CLOUDINARY_DELIVERY_MEDIA_READY
+        else None,
+    }
+
+
 def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     """Resolve immutable artifact references for one coordinator-owned transport call."""
     output_dir = Path(str(intent.get("output_dir") or ""))
@@ -3355,7 +3413,17 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     delivery_path = output_dir / "delivery_media_manifest_v1.json"
     delivery = _read_json(delivery_path) if delivery_path.is_file() else {}
     delivery_assets = [dict(row) for row in (delivery.get("assets") or []) if isinstance(row, Mapping)]
-    primary = next((row for row in delivery_assets if row.get("verified_public_delivery_url")), {})
+    primary = next(
+        (
+            row
+            for row in delivery_assets
+            if str(row.get("verified_public_delivery_url") or "").startswith("https://")
+            and row.get("local_public_hash_continuity") is True
+            and str(row.get("sha256") or "")
+            == str(row.get("public_delivery_sha256") or "")
+        ),
+        {},
+    )
     return {
         "output_dir": output_dir,
         "article": article,
@@ -3456,7 +3524,6 @@ def _publish_one_destination_from_durable_intent(
             subtitle=str(article.get("subtitle") or ""),
             body_markdown=str(article.get("substack_body_markdown") or ""),
             image_assets=data["media_assets"],
-            delivery_only_assets=data.get("delivery_only_assets") or [],
             public_screenshot_path=output_dir / "public_substack_readback.png",
             existing_draft_id=(
                 str(intent.get("recovery_public_object_id") or "") or None
@@ -3465,14 +3532,47 @@ def _publish_one_destination_from_durable_intent(
         _persist_sanitized_substack_transport_attempt(output_dir=output_dir, result=result)
         readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}
         public_images = list(readback.get("public_image_urls") or result.get("public_image_urls") or [])
-        delivery_only_public_images = list(result.get("delivery_only_public_image_urls") or [])
-        delivery_sources = [*data["media_assets"], *(data.get("delivery_only_assets") or [])]
-        if str(result.get("status") or "") in SUCCESS_STATUSES and (public_images or delivery_only_public_images):
-            delivery = build_delivery_media_manifest(
-                media_packet={"assets": delivery_sources},
-                public_image_urls=[*public_images, *delivery_only_public_images],
+        if (
+            str(result.get("status") or "") in SUCCESS_STATUSES
+            and data["media_assets"]
+            and public_images
+        ):
+            article_delivery = build_delivery_media_manifest(
+                media_packet={"assets": data["media_assets"]},
+                public_image_urls=public_images,
                 run_id=str(intent.get("work_item_id") or ""),
             )
+            existing_delivery_path = output_dir / "delivery_media_manifest_v1.json"
+            existing_delivery = (
+                _read_json(existing_delivery_path)
+                if existing_delivery_path.is_file()
+                else {}
+            )
+            delivery_only_rows = [
+                dict(row)
+                for row in (existing_delivery.get("assets") or [])
+                if isinstance(row, Mapping)
+                and str(row.get("media_role") or "") == "delivery_only"
+            ]
+            combined_assets = [
+                *[dict(row) for row in (article_delivery.get("assets") or [])],
+                *delivery_only_rows,
+            ]
+            delivery = {
+                **dict(article_delivery),
+                "assets": combined_assets,
+                "provider_contract_version": existing_delivery.get(
+                    "provider_contract_version"
+                ),
+                "delivery_only_asset_count": len(delivery_only_rows),
+                "article_media_asset_count": len(article_delivery.get("assets") or []),
+                "status": (
+                    "PASS"
+                    if article_delivery.get("status") == "PASS"
+                    and all(row.get("local_public_hash_continuity") is True for row in delivery_only_rows)
+                    else "BLOCKED"
+                ),
+            }
             _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
         return result
     if not canonical_url:
@@ -3539,6 +3639,12 @@ def _publish_one_destination_from_durable_intent(
             text=text, canonical_url=canonical_url, media=data["primary_media"],
         )
     if destination == "instagram_business":
+        if not data["primary_media"] or not public_image_url:
+            return {
+                "status": "DEFINITE_NO_WRITE",
+                "definite_no_write": True,
+                "reason_code": "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE",
+            }
         return _publish_instagram_media_verified(
             caption=text, canonical_url=canonical_url, media=data["primary_media"],
         )
