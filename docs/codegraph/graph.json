@@ -12,9 +12,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13405,
+    "edges": 13404,
     "entrypoints": 16,
-    "nodes": 7114,
+    "nodes": 7112,
     "nodes_by_kind": {
       "authority_doc": 7,
       "cli_command": 27,
@@ -24,9 +24,9 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 590,
-      "python_function": 3879,
+      "python_function": 3878,
       "python_method": 274,
-      "python_module": 741,
+      "python_module": 740,
       "schema": 183,
       "test": 722,
       "typescript_export": 506,
@@ -34,12 +34,6 @@
     }
   },
   "edges": [
-    {
-      "from": ".github/hybrid_policy_anchor_patch.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:.github/hybrid_policy_anchor_patch.py::replace_once"
-    },
     {
       "from": "AGENTS.md",
       "inference": "agents_directory_scope",
@@ -80584,7 +80578,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-19T12:34:45Z",
+  "generation_timestamp_utc": "2026-08-19T12:36:38Z",
   "generator_version": "2.4.0",
   "included_roots": [
     "live_contentops/",
@@ -80614,11 +80608,6 @@
     "typescript_relative_import_regex"
   ],
   "nodes": [
-    {
-      "id": ".github/hybrid_policy_anchor_patch.py",
-      "kind": "python_module",
-      "size_bytes": 5225
-    },
     {
       "id": "AGENTS.md",
       "kind": "instructions",
@@ -84479,13 +84468,6 @@
       "id": "pyproject.toml",
       "kind": "manifest",
       "size_bytes": 547
-    },
-    {
-      "id": "python_symbol:.github/hybrid_policy_anchor_patch.py::replace_once",
-      "kind": "python_function",
-      "line": 8,
-      "path": ".github/hybrid_policy_anchor_patch.py",
-      "symbol": "replace_once"
     },
     {
       "id": "python_symbol:headline_ingestion/Data_Ingestion.py::append_headline_sidecars",
@@ -126752,6 +126734,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "0d6b4cb88d0b0fc7edc51a7d9361d60b8aa4ae57",
-  "source_tree_digest": "6f2ec3208530e4fbab455666fa1ab949ef488f8ac1685c45f6dec68f13abefbe"
+  "source_head": "55485776272aec9341773911896a1b6f0a4dd95e",
+  "source_tree_digest": "15ca509ae8fcd51ce6dd08a63682dd5e944a0e97dcf497678ce8337f3f63c5c9"
 }
