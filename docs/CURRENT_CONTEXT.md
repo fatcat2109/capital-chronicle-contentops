@@ -10,64 +10,58 @@ This file is a compact bootstrap only. It does not override root authority.
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-6. lane CodeGraph context and current lane pointer
-7. nearest scoped `AGENTS.md`
-8. exact code/tests/evidence
+4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+7. lane CodeGraph context and current lane pointer
+8. nearest scoped `AGENTS.md`
+9. exact code/tests/evidence
 
-Always fetch remote `master` before relying on a SHA recorded in any document.
+Always fetch remote `master` and the relevant accepted/task branch before relying on a recorded SHA.
 
 ## Current product state
 
-Capital Chronicle/Core Analyzer is the intelligence, decision, and proprietary numeric-authority engine. ContentOps is its public publishing, media-growth, observation, and bounded content-learning engine.
+Capital Chronicle/Core Analyzer remains the intelligence, decision, and proprietary numeric-authority engine. ContentOps remains its evidence-governed public publishing, media-growth, observation, and bounded content-learning engine.
 
-Internal Core Analyzer authority is not automatically ContentOps publication authority. Current code intentionally separates:
+The accepted P0 implementation lineage now distinguishes and enforces:
 
-- arbitrary CC database/context discovery — non-authoritative for publication;
-- governed Analyzer closed-loop/internal handoff — may be internally validated but remains publication-blocked unless explicitly granted;
-- exact story-scoped publication-safe CC packets — may authorize the intended ContentOps public use only under exact consumer/story/permission/freshness/lineage conditions.
+- context/discovery-only Capital Chronicle material with zero public factual/numeric authority;
+- governed internal Analyzer handoffs that remain non-public without an explicit publication contract;
+- exact story-scoped publication-authorized CC packets whose consumer/use, story binding, permissions, lineage, freshness/source health, blockers, and `llm_numeric_authority=false` permit the intended ContentOps use.
 
-V1 remains the canonical Final Daily App/live newsroom-publication runtime. Its substantial foundation is retained, but final current live acceptance is not yet proven. A legitimate `NO_PUBLICATION` remains valid and is not equivalent to final publication canary proof.
+P0-1/P0-1B publication-authority utilization, semantic context activation, exact use-binding, compatibility-state preservation, and latest-web source reachability corrections are accepted on the current integration lineage.
 
-V2 remains an isolated retention-native media factory. Its creative/media foundation is retained. It has zero video public-write authority under current root authority and may not mutate V1 runtime/store/browser/publication state.
+P0-2 final V1 acceptance is still not proven. Two explicitly authorized real opportunities truthfully produced `NO_PUBLICATION`. P0-2A then proved and corrected one real public-secondary source-resolution defect, validated exact publisher-byte recovery, and retried exactly one fresh manual opportunity. That retry again found no source-qualified article and correctly abstained with zero XHIGH workers, zero public writes, `UNKNOWN_WRITE=0`, and no pending reconciliation.
+
+The four existing V1 native tasks remain `PAUSED`. V2 remains isolated and has zero video public-write authority.
 
 ## Immediate product priority
 
-`P0-1 — CORE_ANALYZER_PUBLICATION_AUTHORITY_UTILIZATION + CC_CONTEXT_ACTIVATION + LATEST_WEB_SOURCE_REACHABILITY`
+Do **not** reopen P0-1 or add another source-reachability correction merely to increase publication yield. The accepted resolver must continue to fail closed when trustworthy current evidence is unavailable.
 
-The goal is not to maximize database queries. The slice must:
+The remaining V1 P0 acceptance requirement is one genuine future qualifying opportunity that reaches:
 
-1. detect and consume the strongest exact publication-authorized Capital Chronicle/Core Analyzer packet when relevant;
-2. keep internal Analyzer handoffs, decision/forecast/scenario/paper records, candidate snapshots, degraded/proxy states, and arbitrary DB rows non-public unless an explicit publication contract grants use;
-3. fix the shared semantic activation path so bounded read-only CC context queries actually run when useful;
-4. expose a lossless V1/V2 projection of publication-authorized chart/data inputs rather than regenerating numeric truth;
-5. improve current accessible-source resolution while preserving exact source authority;
-6. emit class-aware telemetry for publication-authorized use, context use, zero-use, and exact rejection/block reasons.
+`real candidate -> accepted evidence -> warranted article -> current nine-destination readiness -> canonical Substack -> eight derivatives -> exact readback/reconciliation -> UNKNOWN_WRITE=0 -> owner artifact audit`.
 
-Verified recent canaries still show the contextual activation symptom: broad CC discovery can rank 176 candidate tables while empty story semantics produce zero actual table queries. That is a contextual enrichment defect, not permission to promote arbitrary database rows.
+A `NO_PUBLICATION` result remains valid but does not prove this acceptance gate.
 
-Next after a clean P0-1 is V1 final real canary plus unattended/cold-start acceptance. V2 final creative soak and V1->V2 qualification follow as P1 capabilities.
+Do not repeatedly fire manual `GO` merely to force a canary. When a genuinely qualified opportunity exists, the canary is `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` because correctness requires the production runtime, exact account/destination identity, public write, readback, and reconciliation.
+
+Only after the real nine-surface canary is owner-accepted should the existing four V1 tasks be enabled under their current scheduler authority, followed by unattended/cold-start proof. P1 observation/control-room and V2 final production work remain downstream of that acceptance sequence.
+
+## Execution framework
+
+Engineering execution uses `CAPABILITY_ROUTED_HYBRID` under the owner-authorized policy candidate:
+
+- `WEB_STATIC` for repository-static work provable from fresh GitHub bytes;
+- `WEB_CI` for bounded deterministic implementation provable by safe GitHub Actions;
+- `CODEX_EXECUTION` when interactive runtime/environment/browser/debug feedback is required;
+- `OWNER_GATED_EXTERNAL` for secrets, live/public writes, destructive canonical changes, provider/browser publication expansion, rights/legal release boundaries, material Core Analyzer numeric-authority changes, or equivalent irreversible actions.
+
+Execution routing never widens factual, numeric, permission, rights, credential, destination-identity, or public-write authority.
 
 ## CodeGraph status
 
-The generated CodeGraph snapshot present before this authority rewrite was behind current `master`. This second documentation correction makes it further behind. Treat generated contexts as discovery aids only until refreshed.
+CodeGraph is discovery tooling, not product authority. The accepted P0 lineage includes a generated checkpoint for its indexed source epoch. Any later authority/source edits on the integration branch must regenerate/check CodeGraph before claiming it current. A recorded source epoch mismatch makes generated context stale discovery-only; exact GitHub bytes and current authority remain stronger.
 
-The first future Codex repo operation must:
-
-1. sync/fetch current `master` safely;
-2. regenerate/check CodeGraph from that exact source epoch;
-3. verify `docs/codegraph/INDEX.md`, `V1_CONTEXT.md`, and `V2_CONTEXT.md` point at the refreshed source;
-4. only then begin implementation.
-
-Do not fabricate generated graph bytes in documentation-only maintenance.
-
-## Framework and safety
-
-Current execution framework is `MAIN_CODEX` only. Fresh owner-authorized XHIGH workers may be used only at the bounded editorial/creative boundaries defined by current lane authority. Approved 9Router models remain bounded non-authority helpers.
-
-No model receives factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, or public-write authority.
-
-Audience/engagement learning may change ContentOps priority and packaging or motivate a request for fresh upstream analysis. It may never rewrite Core Analyzer probabilities, scenarios, forecasts, regimes, decisions, paper records, or realized-outcome attribution.
-
-Protected `v1.0` release history remains immutable. `UNKNOWN_WRITE` remains `STOP RETRY -> READ BACK -> RECONCILE`.
+Protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`. `UNKNOWN_WRITE` remains `STOP RETRY -> READ BACK -> RECONCILE`.

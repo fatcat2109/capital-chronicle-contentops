@@ -20,6 +20,12 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from .content_intelligence_contracts_v2 import logical_hash
+from .cc_publication_authority_v1 import (
+    PUBLICATION_PACKET_AVAILABLE,
+    build_publication_authorized_projection,
+    resolve_publication_authority,
+    validate_projection_for_consumer,
+)
 from .media_manifest_authority_v1 import sha256_file
 
 
@@ -157,12 +163,36 @@ def load_governed_input(input_dir: str | Path) -> dict[str, Any]:
     if blockers:
         raise RuntimeError("governed_input_blocked:" + ",".join(blockers))
     packet = support["official_source_packet"]
-    claims = {str(row["claim_id"]): dict(row) for row in packet.get("numeric_claims") or []}
+    story_id = str(
+        (packet.get("publication_assignment") or {}).get("duplicate_key") or ""
+    )
+    resolution = resolve_publication_authority(
+        packet,
+        story_binding={"story_id": story_id},
+        intended_use="public_media_display",
+    )
+    if resolution.get("state") != PUBLICATION_PACKET_AVAILABLE:
+        raise RuntimeError(
+            "governed_input_blocked:publication_authority_resolution_failed:"
+            + ",".join(str(value) for value in resolution.get("reason_codes") or [])
+        )
+    projection = build_publication_authorized_projection(packet, resolution)
+    projection_blockers = validate_projection_for_consumer(
+        projection, consumer="v2_media"
+    )
+    if projection_blockers:
+        raise RuntimeError(
+            "governed_input_blocked:" + ",".join(projection_blockers)
+        )
+    claims = {
+        str(row["claim_id"]): dict(row)
+        for row in projection.get("exact_numeric_claims") or []
+    }
     return {
         "input_root": str(root),
         "packet_id": packet["packet_id"],
         "packet_sha256": packet["provenance"]["publication_packet"]["sha256"],
-        "story_id": packet["publication_assignment"]["duplicate_key"],
+        "story_id": story_id,
         "story_version": packet["as_of_utc"],
         "title": article.get("title") or packet["publication_assignment"]["title"],
         "summary": packet["publication_assignment"]["summary"],
@@ -170,7 +200,9 @@ def load_governed_input(input_dir: str | Path) -> dict[str, Any]:
         "source_document": dict((packet.get("official_source_documents") or [])[0]),
         "source_documents": packet.get("official_source_documents") or [],
         "media_assets": media.get("assets") or [],
-        "curve_history": packet.get("time_series", {}).get("curve_history") or [],
+        "curve_history": projection.get("exact_time_series", {}).get("curve_history") or [],
+        "publication_authorized_cc_projection": projection,
+        "capital_chronicle_publication_authority": resolution,
         "article_hash": str(article.get("article_markdown_sha256") or ""),
     }
 

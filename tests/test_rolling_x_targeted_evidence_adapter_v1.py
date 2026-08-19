@@ -129,6 +129,7 @@ def _packet(request, *, prior=True):
             "decision": "ALLOW",
             "reporting_allowed": True,
             "numeric_claims_allowed": True,
+            "consumer_class": ["contentops_publication"],
             "llm_numeric_authority": False,
         },
         "blockers": [],
@@ -275,6 +276,14 @@ def test_valid_exact_governed_market_packet_satisfies_all_declared_capabilities(
     ]
     assert receipt["capital_chronicle_authority_verified"] is True
     assert receipt["publication_authority"] is False
+    assert receipt["capital_chronicle_publication_authority"]["state"] == (
+        "PUBLICATION_PACKET_AVAILABLE"
+    )
+    assert receipt["publication_authorized_cc_projection"]["exact_numeric_claims"] == (
+        _packet(request)["numeric_claims"]
+    )
+    assert receipt["cc_authority_utilization"]["authorized_claim_count_consumed"] == 1
+    assert receipt["cc_authority_utilization"]["values_regenerated_or_repaired"] is False
     document = receipt["evidence_documents"][0]
     assert document["cluster_id"] == request["cluster_id"]
     assert document["headline_ids"] == request["headline_ids"]
@@ -306,6 +315,10 @@ def test_x_or_candidate_context_cannot_satisfy_evidence():
     assert "governed_packet_not_publication_authorized" in receipt["blockers"]
     assert "governed_reporting_permission_not_granted" in receipt["blockers"]
     assert receipt["capital_chronicle_authority_verified"] is False
+    assert receipt["capital_chronicle_publication_authority"]["state"] == (
+        "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED"
+    )
+    assert receipt["publication_authorized_cc_projection"] == {}
 
 
 def test_stale_governed_packet_fails_current_operator_readiness():
@@ -328,6 +341,9 @@ def test_stale_governed_packet_fails_current_operator_readiness():
     assert receipt["status"] == "BLOCKED"
     assert "market_sensitive_story_snapshot_stale_or_missing" in receipt["blockers"]
     assert "market_sensitive_story_ingest_stale_or_missing" in receipt["blockers"]
+    assert receipt["capital_chronicle_publication_authority"]["state"] == (
+        "PUBLICATION_PACKET_STALE_OR_BLOCKED"
+    )
 
 
 def test_exact_cluster_headline_and_request_hash_binding_is_required():

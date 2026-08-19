@@ -234,6 +234,15 @@ def extract_governed_story_context(viability: Mapping[str, Any]) -> dict[str, An
         "cc_context_bundle": dict(
             selected_evidence.get("cc_context_bundle") or {}
         ),
+        "capital_chronicle_publication_authority": dict(
+            selected_evidence.get("capital_chronicle_publication_authority") or {}
+        ),
+        "publication_authorized_cc_projection": dict(
+            selected_evidence.get("publication_authorized_cc_projection") or {}
+        ),
+        "cc_authority_utilization": dict(
+            selected_evidence.get("cc_authority_utilization") or {}
+        ),
         "evidence_substance": dict(selected_evidence.get("evidence_substance") or {}),
         "evidence_review_tier": str(selected_evidence.get("evidence_review_tier") or ""),
         "framing": {
@@ -278,6 +287,11 @@ def _evidence_text_bundle(context: Mapping[str, Any]) -> str:
             value = document.get(field)
             if value:
                 parts.append(str(value))
+    projection = context.get("publication_authorized_cc_projection")
+    if isinstance(projection, Mapping):
+        for claim in projection.get("exact_numeric_claims") or []:
+            if isinstance(claim, Mapping):
+                parts.append(json.dumps(dict(claim), sort_keys=True, default=str))
     return "\n".join(parts)
 
 
@@ -946,6 +960,15 @@ def build_article_generation_prompt(
             }
         },
         "cc_additive_context": dict(context.get("cc_context_bundle") or {}),
+        "publication_authorized_cc_projection": dict(
+            context.get("publication_authorized_cc_projection") or {}
+        ),
+        "capital_chronicle_publication_authority": dict(
+            context.get("capital_chronicle_publication_authority") or {}
+        ),
+        "cc_authority_utilization": dict(
+            context.get("cc_authority_utilization") or {}
+        ),
         "evidence_substance": dict(context.get("evidence_substance") or {}),
         "omitted_unsupported_claims": [
             {

@@ -22,9 +22,9 @@ GOVERNED_HANDOFF_ROOT = Path(
 GOVERNED_FINAL_EVIDENCE = GOVERNED_HANDOFF_ROOT / "DATABASE_FINAL_EVIDENCE_PACKET_V1.json"
 GOVERNED_HANDOFF = GOVERNED_HANDOFF_ROOT / "ANALYZER_CLOSED_LOOP_DATA_HANDOFF_V1.json"
 GOVERNED_VALIDATION = GOVERNED_HANDOFF_ROOT / "ANALYZER_HANDOFF_VALIDATION_V1.json"
-PUBLICATION_EVIDENCE = Path(
-    "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json"
-)
+PUBLICATION_EVIDENCE_DIRECTORY = Path("docs/research/publication_evidence/current")
+PREFERRED_PUBLICATION_EVIDENCE_NAME = "CapitalChroniclePublicationEvidencePacketV1.json"
+PUBLICATION_EVIDENCE_SCHEMA_V1 = "capital_chronicle.publication_evidence_packet.v1"
 NEWSROOM_POOL_EVIDENCE = Path(
     "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json"
 )
@@ -34,6 +34,147 @@ PUBLIC_REPORTING_CONSUMERS = {
     "public_claim",
     "public_reporting",
 }
+
+
+def _publication_evidence_paths(root: Path) -> list[Path]:
+    """Discover explicit packet successors without scanning outside the governed directory."""
+    directory = root / PUBLICATION_EVIDENCE_DIRECTORY
+    if not directory.is_dir():
+        return []
+    paths = sorted(
+        path
+        for path in directory.glob("CapitalChroniclePublicationEvidencePacket*.json")
+        if path.is_file()
+    )
+    return sorted(
+        paths,
+        key=lambda path: (
+            path.name != PREFERRED_PUBLICATION_EVIDENCE_NAME,
+            path.name.casefold(),
+        ),
+    )
+
+
+def _publication_schema_compatibility(source: Mapping[str, Any]) -> tuple[bool, str]:
+    schema = str(source.get("schema_version") or "")
+    if schema == PUBLICATION_EVIDENCE_SCHEMA_V1:
+        return True, "EXACT_V1"
+    compatibility = source.get("contentops_compatibility")
+    compatibility = compatibility if isinstance(compatibility, Mapping) else {}
+    compatible_with = {
+        str(value) for value in (compatibility.get("compatible_with") or [])
+    }
+    required_semantics = {
+        "consumer_class",
+        "story_authority",
+        "public_claim_permissions",
+        "source_health",
+        "blockers",
+    }
+    explicit_story_binding = isinstance(
+        source.get("rolling_x_story_binding") or source.get("publication_assignment"),
+        Mapping,
+    )
+    explicit_successor = bool(
+        schema.startswith("capital_chronicle.publication_evidence_packet.v")
+        and PUBLICATION_EVIDENCE_SCHEMA_V1 in compatible_with
+        and compatibility.get("essential_authority_semantics_preserved") is True
+        and required_semantics.issubset(source)
+        and explicit_story_binding
+    )
+    return explicit_successor, (
+        "EXPLICIT_COMPATIBLE_SUCCESSOR" if explicit_successor else "COMPATIBILITY_REQUIRED"
+    )
+
+
+def _publication_evidence_selection(
+    root: Path,
+    *,
+    story_binding: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    """Select once while preserving present-but-incompatible and binding-mismatch truth."""
+    paths = _publication_evidence_paths(root)
+    if not paths:
+        return {
+            "state": "ABSENT",
+            "reason_codes": ["NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"],
+            "selected_path": None,
+            "considered": [],
+        }
+    considered: list[dict[str, Any]] = []
+    compatible_binding_mismatch: Path | None = None
+    incompatible: Path | None = None
+    for path in paths:
+        relative = str(path.relative_to(root)).replace("\\", "/")
+        try:
+            source = _read_json(path)
+        except (OSError, UnicodeError, ValueError, TypeError):
+            considered.append({
+                "relative_path": relative,
+                "compatibility_mode": "UNREADABLE",
+                "binding_matches": False,
+            })
+            if incompatible is None:
+                incompatible = path
+            continue
+        compatible, compatibility_mode = _publication_schema_compatibility(source)
+        binding_matches = compatible and _raw_binding_matches(source, story_binding)
+        considered.append({
+            "relative_path": relative,
+            "schema_version": source.get("schema_version"),
+            "compatibility_mode": compatibility_mode,
+            "binding_matches": binding_matches,
+        })
+        if compatible and binding_matches:
+            return {
+                "state": "SELECTED",
+                "reason_codes": [],
+                "selected_path": path,
+                "considered": considered,
+            }
+        if compatible and compatible_binding_mismatch is None:
+            compatible_binding_mismatch = path
+        if not compatible and incompatible is None:
+            incompatible = path
+    if compatible_binding_mismatch is not None:
+        return {
+            "state": "PRESENT_STORY_BINDING_MISMATCH",
+            "reason_codes": ["CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH"],
+            "selected_path": compatible_binding_mismatch,
+            "considered": considered,
+        }
+    return {
+        "state": "PRESENT_INCOMPATIBLE",
+        "reason_codes": ["CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED"],
+        "selected_path": incompatible or paths[0],
+        "considered": considered,
+    }
+
+
+def _selection_telemetry(selection: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "state": selection.get("state"),
+        "reason_codes": list(selection.get("reason_codes") or []),
+        "considered": [dict(row) for row in (selection.get("considered") or [])],
+    }
+
+
+def _raw_binding_matches(
+    source: Mapping[str, Any], story_binding: Mapping[str, Any] | None
+) -> bool:
+    if not story_binding:
+        return True
+    binding = source.get("rolling_x_story_binding")
+    if not isinstance(binding, Mapping):
+        return False
+    if str(binding.get("cluster_id") or "") != str(story_binding.get("cluster_id") or ""):
+        return False
+    if [str(value) for value in (binding.get("headline_ids") or [])] != [
+        str(value) for value in (story_binding.get("headline_ids") or [])
+    ]:
+        return False
+    request_hash = str(story_binding.get("request_logical_hash") or "")
+    return not request_hash or str(binding.get("request_logical_hash") or "") == request_hash
 
 
 def _sha256_file(path: Path) -> str:
@@ -97,17 +238,21 @@ def _has_public_reporting_permission(sources: Sequence[Mapping[str, Any]]) -> bo
 def _build_evidence_packet_from_publication_packet(
     root: Path,
     *,
+    source_path: Path,
     as_of_utc: str | None,
     story_window_hours: int,
+    selection: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Translate the story-scoped database product without widening global DQR."""
-    source_path = root / PUBLICATION_EVIDENCE
     source = _read_json(source_path)
-    if source.get("schema_version") != "capital_chronicle.publication_evidence_packet.v1":
+    compatible, compatibility_mode = _publication_schema_compatibility(source)
+    if not compatible:
         raise ValueError("unsupported_publication_evidence_packet_schema")
-    consumers = {str(value) for value in source.get("consumer_class") or []}
     story_authority = dict(source.get("story_authority") or {})
     permissions = dict(source.get("public_claim_permissions") or {})
+    consumers = {str(value) for value in source.get("consumer_class") or []}
+    if permissions.get("consumer"):
+        consumers.add(str(permissions.get("consumer")))
     contract_blockers: list[str] = []
     if source.get("status") != "PASS_PUBLICATION_AUTHORIZED":
         contract_blockers.append("publication_evidence_packet_not_authorized")
@@ -120,7 +265,7 @@ def _build_evidence_packet_from_publication_packet(
     if (source.get("global_authority") or {}).get("dqr") != "BLOCKED":
         contract_blockers.append("global_dqr_boundary_not_preserved")
 
-    packet_ref = str(PUBLICATION_EVIDENCE).replace("\\", "/")
+    packet_ref = str(source_path.relative_to(root)).replace("\\", "/")
     numeric_claims = []
     for index, source_claim in enumerate(source.get("numeric_claims") or []):
         claim = dict(source_claim)
@@ -193,9 +338,12 @@ def _build_evidence_packet_from_publication_packet(
             }
         },
         "public_claim_permissions": {
-            "numeric_claims_allowed": bool(permissions.get("reporting_allowed")) and not blockers,
-            "narrative_synthesis_allowed": bool(permissions.get("reporting_allowed")) and not blockers,
+            "numeric_claims_allowed": permissions.get("numeric_claims_allowed") is True and not blockers,
+            "narrative_synthesis_allowed": permissions.get("narrative_synthesis_allowed") is True and not blockers,
             "reporting_allowed": bool(permissions.get("reporting_allowed")) and not blockers,
+            "public_display_allowed": permissions.get("public_display_allowed"),
+            "reuse_allowed": permissions.get("reuse_allowed"),
+            "allowed_uses": list(permissions.get("allowed_uses") or []),
             "llm_numeric_authority": False,
             "decision": "ALLOW" if not blockers else "BLOCK",
             "consumer_class": sorted(consumers),
@@ -203,10 +351,15 @@ def _build_evidence_packet_from_publication_packet(
         "blockers": blockers,
         "governed_contract": {
             "mode": "story_scoped_publication_evidence_v1",
+            "upstream_schema_version": source.get("schema_version"),
+            "schema_compatibility_mode": compatibility_mode,
             "global_dqr_override": False,
             "upstream_packet_id": source.get("packet_id"),
             "upstream_packet_sha256": _sha256_file(source_path),
             "upstream_database_commit": (source.get("provenance") or {}).get("database_commit"),
+            "publication_selection": _selection_telemetry(selection or {
+                "state": "SELECTED", "reason_codes": [], "considered": []
+            }),
         },
         "bridge_safety": {
             "source_repo_modified": False,
@@ -227,6 +380,113 @@ def _build_evidence_packet_from_publication_packet(
         else "FAIL_SCHEMA" if packet["validation_blockers"] else "PASS_CONTRACT_BLOCKED_PUBLICATION"
     )
     return packet
+
+
+def _build_rejected_publication_selection_packet(
+    root: Path,
+    *,
+    selection: Mapping[str, Any],
+    as_of_utc: str | None,
+    story_window_hours: int,
+) -> dict[str, Any]:
+    """Represent a discovered but unusable publication packet without collapsing it to absent."""
+    source_path = selection.get("selected_path")
+    source: dict[str, Any] = {}
+    if isinstance(source_path, Path):
+        try:
+            source = _read_json(source_path)
+        except (OSError, UnicodeError, ValueError, TypeError):
+            source = {}
+    reasons = list(selection.get("reason_codes") or [
+        "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED"
+    ])
+    as_of = as_of_utc or str(source.get("as_of_utc") or _iso_now())
+    as_of_dt = _parse_timestamp(as_of)
+    if as_of_dt is None:
+        raise ValueError("invalid_as_of_utc")
+    packet_hash = _sha256_file(source_path) if isinstance(source_path, Path) else None
+    permissions = source.get("public_claim_permissions")
+    permissions = permissions if isinstance(permissions, Mapping) else {}
+    consumers = {str(value) for value in (source.get("consumer_class") or [])}
+    if permissions.get("consumer"):
+        consumers.add(str(permissions.get("consumer")))
+    packet_core = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_at_utc": _iso_now(),
+        "as_of_utc": as_of,
+        "story_window": {
+            "hours": story_window_hours,
+            "start_utc": (as_of_dt - timedelta(hours=story_window_hours)).isoformat().replace("+00:00", "Z"),
+            "end_utc": as_of,
+        },
+        "publication_assignment": dict(source.get("assignment") or {}),
+        "rolling_x_story_binding": dict(source.get("rolling_x_story_binding") or {}),
+        "events": [],
+        "headlines": [],
+        "official_source_documents": [],
+        "numeric_claims": [],
+        "market_snapshots": [],
+        "time_series": {},
+        "time_series_references": [],
+        "candidate_visual_inputs": [],
+        "citation_map": {},
+        "source_state": {
+            "source_health_status": (source.get("source_health") or {}).get("status"),
+            "story_scoped_reporting_allowed": False,
+            "global_state_unchanged": True,
+        },
+        "provenance": {
+            "publication_packet": {
+                "relative_path": (
+                    str(source_path.relative_to(root)).replace("\\", "/")
+                    if isinstance(source_path, Path) else None
+                ),
+                "sha256": packet_hash,
+                "upstream_packet_id": source.get("packet_id"),
+            }
+        },
+        "public_claim_permissions": {
+            "numeric_claims_allowed": False,
+            "narrative_synthesis_allowed": False,
+            "reporting_allowed": False,
+            "public_display_allowed": permissions.get("public_display_allowed"),
+            "reuse_allowed": permissions.get("reuse_allowed"),
+            "allowed_uses": list(permissions.get("allowed_uses") or []),
+            "llm_numeric_authority": False,
+            "decision": "BLOCK",
+            "consumer_class": sorted(consumers),
+        },
+        "blockers": reasons,
+        "governed_contract": {
+            "mode": "story_scoped_publication_evidence_v1",
+            "upstream_schema_version": source.get("schema_version"),
+            "schema_compatibility_mode": (
+                "COMPATIBILITY_REQUIRED"
+                if selection.get("state") == "PRESENT_INCOMPATIBLE"
+                else "COMPATIBLE_STORY_BINDING_MISMATCH"
+            ),
+            "upstream_packet_id": source.get("packet_id"),
+            "upstream_packet_sha256": packet_hash,
+            "global_dqr_override": False,
+            "publication_selection": _selection_telemetry(selection),
+        },
+        "bridge_safety": {
+            "source_repo_modified": False,
+            "secret_files_read": False,
+            "network_call_made": False,
+            "database_open_mode": "packet_read_only",
+            "legacy_state_fallback_used": False,
+        },
+    }
+    packet_id = "cc-evidence-rejected-" + hashlib.sha256(
+        json.dumps(packet_core, sort_keys=True, default=str).encode()
+    ).hexdigest()[:16]
+    return {
+        "packet_id": packet_id,
+        **packet_core,
+        "validation_blockers": [],
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+    }
 
 
 def _build_evidence_packet_from_governed_handoff(
@@ -615,11 +875,24 @@ def _build_evidence_packet_from_pool_candidate(
     as_of_utc: str | None,
     story_window_hours: int,
 ) -> dict[str, Any]:
-    packet = _build_evidence_packet_from_publication_packet(
-        root,
-        as_of_utc=as_of_utc,
-        story_window_hours=story_window_hours,
-    )
+    selection = _publication_evidence_selection(root, story_binding=None)
+    if selection["state"] == "ABSENT":
+        raise FileNotFoundError("publication_evidence_packet_not_available")
+    if selection["state"] == "SELECTED":
+        packet = _build_evidence_packet_from_publication_packet(
+            root,
+            source_path=selection["selected_path"],
+            as_of_utc=as_of_utc,
+            story_window_hours=story_window_hours,
+            selection=selection,
+        )
+    else:
+        packet = _build_rejected_publication_selection_packet(
+            root,
+            selection=selection,
+            as_of_utc=as_of_utc,
+            story_window_hours=story_window_hours,
+        )
     packet_ref = str(pool_path.relative_to(pool_path.parents[2])).replace("\\", "/")
     packet["provenance"]["pool_candidate"] = {
         "relative_path": packet_ref,
@@ -641,6 +914,7 @@ def build_evidence_packet_from_cc_root(
     as_of_utc: str | None = None,
     story_window_hours: int = 24,
     candidate_id: str | None = None,
+    story_binding: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     root = Path(capital_chronicle_root).resolve()
     if candidate_id:
@@ -664,9 +938,19 @@ def build_evidence_packet_from_cc_root(
             raise ValueError(f"candidate_not_found_in_pool:{candidate_id}")
         raise FileNotFoundError(f"missing_candidate_pool_file:{pool_path}")
 
-    if (root / PUBLICATION_EVIDENCE).is_file():
+    selection = _publication_evidence_selection(root, story_binding=story_binding)
+    if selection["state"] == "SELECTED":
         return _build_evidence_packet_from_publication_packet(
             root,
+            source_path=selection["selected_path"],
+            as_of_utc=as_of_utc,
+            story_window_hours=story_window_hours,
+            selection=selection,
+        )
+    if selection["state"] != "ABSENT":
+        return _build_rejected_publication_selection_packet(
+            root,
+            selection=selection,
             as_of_utc=as_of_utc,
             story_window_hours=story_window_hours,
         )

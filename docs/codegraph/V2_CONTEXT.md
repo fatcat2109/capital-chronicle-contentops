@@ -1,60 +1,37 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `5701f1039a7f229f636d54bdf0a2133bb2bdcf23`. Source tree digest: `01c807da52519f8edce0e63af8ee03de07dc2bacb5efabb4684d2b86d38f3fcd`.
+Generated from source HEAD `55485776272aec9341773911896a1b6f0a4dd95e`. Source tree digest: `15ca509ae8fcd51ce6dd08a63682dd5e944a0e97dcf497678ce8337f3f63c5c9`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
-This map is descriptive repository state, not product authority. Jim's current direction and
-the committed status/next-task documents remain authoritative.
+This generated map is descriptive repository state and is subordinate to root `AGENTS.md`.
+Current authority must be read from the V3 authority spine rather than inferred from generated
+task summaries.
 
-## Accepted master capabilities
+## Current authority spine
 
-- Canonical V1 Daily App runtime, durable operational store, production orchestrator, router
-  seam, bounded publication/readback/reconciliation, and canonical V5 UI.
-- Tier2-A local renderer-neutral `VideoProgram` factory in
-  `live_contentops/tier2_video_factory_v1.py`, with no provider/platform/public write.
-- Current 9Router text/model authority in `live_contentops/nine_router_*_v2.py`.
-- `TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1` accepted
-  `PASS_WITH_CAVEAT` at `a859d5ff82707842f59163e4ec5150b22fbe6b0e`: the dedicated direct
-  `https://ai.api-cheap.site/v1/images/generations` route using `AI_API_CHEAP_API_KEY` is
-  proven end to end for `gpt-5.5`. Evidence:
-  `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/README.md`.
+1. `AGENTS.md`
+2. `docs/codegraph/INDEX.md`
+3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+7. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
+8. the appropriate current lane pointer
+9. the nearest scoped `AGENTS.md`
+10. exact implementation, tests, and evidence
 
-## Rejected or unmerged experiments
+## Current product boundary
 
-- `task/tier2-b-remotion-multimodal-bakeoff-v1`: rejected visual product; reference only.
-- `task/tier2-image-generation-9router-contract-correction-v1` at `8b043a5`: rejected; do not
-  import its implementation or add `ai.api-cheap.site` to the generic 9Router adapter.
-
-Reference-only Remotion relationships are recorded descriptively in `graph.json` but its source
-files are not imported into master: `Root.tsx` composes `SceneRenderer`, `SceneRenderer`
-dispatches to `primitives.tsx` inside `scaffold.tsx`, and the renderer-neutral Python factory
-targets `render-job.mjs`.
-
-## Current V2 free-form chapterized authority and route
-
-- `gpt-5.5` is the provisional V2 generated-illustration default pending future product
-  evidence; generated illustration is never factual or documentary authority.
-- `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed HTTP 400 responses on the tested
-  contract and remain unresolved without blocking V2.
-- The V2 free-form chapterized owner override, `NORTH_STAR_V2`, `MASTER_PLAN_V2`,
-  `TASK_GRAPH_V2`, current V2 execution pointer, Remotion baseline, and fresh-session handoff
-  are the canonical V2 product authority. Older V2 and V1 plan sets are historical where they
-  conflict with this chain.
-- The current task is
-  `TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`.
-  The parent/deterministic executor is GPT-5.6 Sol HIGH; fresh viewer-facing creative authors
-  and the actual-media critic are GPT-5.6 Sol XHIGH. MAX/ULTRA and mode bakeoffs are retired.
-- Remotion is deterministic execution, not creative authority. Viewer-facing source remains
-  free-form React/Remotion code organized by semantic creative chapters. Chapters are not
-  automatically render units, and deterministic aesthetic schemas/gates are forbidden.
-- The rejected creative branch `task/tier2-v2-creative-system-rebuild-v1` at `d231b54e` is
-  reference only: do not merge or continue its slideshow-heavy creative product.
-- The rejected first retention-native attempt at `b6f50029` is also reference only; do not
-  continue its repetitive creative grammar.
-- Output is 1080-first with real authored audio/music, rights-aware assets, dirty-range review,
-  chapter caching, stream-copy assembly, bounded XHIGH actual-media critique, and Jim/ChatGPT
-  owner review. 4K is deferred/forbidden in the current contract. Virality is never guaranteed.
-- V2 is isolated from V1 and has zero public-write authority.
+- Capital Chronicle/Core Analyzer owns proprietary analytical and numeric truth.
+- ContentOps may use only an exact upstream packet whose consumer and intended use are explicitly
+  granted; internal, candidate, proxy, degraded, stale, or incompatible material is non-public.
+- V1 is the canonical newsroom/publication runtime. Its current lane pointer is
+  `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
+- V2 is an isolated retention-native media lane with zero video public-write authority. Its
+  current lane pointer is
+  `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`.
+- Do not infer a current task, model route, provider, or acceptance state from this generated file;
+  read the current authority map and lane pointer bytes.
 
 ## Subsystem map
 
@@ -64,14 +41,14 @@ targets `render-job.mjs`.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
-| V2 free-form chapterized authority | `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`, `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`, `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` | Free-form pipeline, V2 North Star, master plan, task graph, Remotion baseline, owner-polish evidence |
+| Current authority | `AGENTS.md`, `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` | V3 North Star, V3 master plan, current lane pointers |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |
 
 ## Graph inventory
 
-- Nodes: `7107`
-- Edges: `13368`
+- Nodes: `7112`
+- Edges: `13404`
 - Entrypoints: `16`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-
   implementation edges are included.

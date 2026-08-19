@@ -13,12 +13,13 @@ For any current ContentOps implementation, audit, task framing, or owner decisio
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-6. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md` as appropriate
-7. the current lane pointer
-8. the nearest scoped `AGENTS.md`
-9. exact implementation, tests, and evidence
+4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+7. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md` as appropriate
+8. the current lane pointer
+9. the nearest scoped `AGENTS.md`
+10. exact implementation, tests, and evidence
 
 Do not start from an old plan, handoff, task evidence folder, generated status file, sidecar/lab repository, or chat SHA.
 
@@ -48,13 +49,22 @@ Capital Chronicle/Core Analyzer analytical authority is external upstream produc
 
 ## 3. Main execution framework
 
-Current repository execution framework is `MAIN_CODEX` only.
+Current repository execution framework is `CAPABILITY_ROUTED_HYBRID`.
 
-- The primary Codex conversation/session owns repo reading, CodeGraph discovery, planning, implementation, self-debugging, focused validation, evidence collection, intentional staging, commit, and push.
-- Separate owner-authorized `GPT-5.6 Sol / XHIGH` editorial or creative sessions/workers may be invoked only where current lane authority assigns consequential viewer-facing judgment.
-- Authorized low-cost 9Router models remain available only for already-approved bounded filtering, research, classification, or similar non-authority roles.
-- No alternate IDE/framework routing, fallback framework, or framework-specific model contract is current authority.
-- Models never receive factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, or public-write authority.
+Execution is routed by the strongest evidence required for the correctness claim:
+
+- `WEB_STATIC` — ChatGPT Web + GitHub for repository-static reasoning, archaeology, review, bounded edits, documentation/authority maintenance, branch/PR operations, and other work whose correctness is provable from fresh GitHub bytes without runtime truth.
+- `WEB_CI` — ChatGPT Web + GitHub plus deterministic GitHub Actions for bounded implementation when CI can prove the required mechanics safely. Normal Web/CI runs are no-secret, no-public-write, and no-production-mutation.
+- `CODEX_EXECUTION` — Codex when correctness materially requires a real execution environment, interactive runtime/debug feedback, stateful services/databases, current network behavior not reproducible in CI, browser/runtime inspection, performance work, or real rendered mechanics.
+- `OWNER_GATED_EXTERNAL` — explicit owner scope for secrets/session boundaries, live/public writes, destructive canonical changes, provider/browser publication expansion, legal/rights release boundaries, material Core Analyzer numeric-authority changes, or equivalent irreversible external actions.
+
+Use the cheapest lane that can produce evidence strong enough for the actual claim. Do not downgrade a runtime requirement into static reasoning merely because an execution lane is unavailable. CI PASS never substitutes for external runtime truth, current public-write/readback truth, visual/audio acceptance, production account identity, or real canary/unattended acceptance.
+
+`docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md` defines routing, Web/GitHub mutation discipline, bounded repair/escalation, and the Actions trust boundary.
+
+Separate owner-authorized `GPT-5.6 Sol / XHIGH` editorial or creative sessions/workers may be invoked only where current lane authority assigns consequential viewer-facing judgment. Authorized low-cost 9Router models remain available only for already-approved bounded filtering, research, classification, or similar non-authority roles.
+
+Execution framework changes never widen factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, rights, or public-write authority. Models receive none of those authorities.
 
 ## 4. One final product architecture
 

@@ -10,12 +10,13 @@ This file prevents fresh sessions from treating historical plans, task handoffs,
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. this map
-4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-6. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-7. current lane pointer
-8. nearest scoped `AGENTS.md`
-9. exact code/tests/evidence
+4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+7. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+8. current lane pointer
+9. nearest scoped `AGENTS.md`
+10. exact code/tests/evidence
 
 If CodeGraph's recorded source HEAD differs from freshly fetched `master`, use it only for discovery until regenerated.
 
@@ -23,10 +24,28 @@ If CodeGraph's recorded source HEAD differs from freshly fetched `master`, use i
 
 - `AGENTS.md` — repository operating contract and authority hierarchy.
 - `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` — this classification/routing map.
+- `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md` — current execution-routing policy candidate on its owner-authorized pilot branch; it changes execution mechanics only and cannot widen product/truth/public-write authority.
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` — durable final-product objective and boundaries.
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md` — ordered root capability plan and final acceptance criteria.
-- `docs/CURRENT_CONTEXT.md` — compact bootstrap/current-status pointer; never stronger than the four files above.
+- `docs/CURRENT_CONTEXT.md` — compact bootstrap/current-status pointer; never stronger than the root files above.
 - `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md` — compact owner-direction pointer; subordinate to root authority.
+
+## EXECUTION ROUTING SUPERSESSION
+
+On the owner-authorized hybrid pilot branch, `CAPABILITY_ROUTED_HYBRID` supersedes older `MAIN_CODEX only` wording **for execution routing only**.
+
+The capability router is:
+
+- `WEB_STATIC` for repository-static work provable from fresh GitHub bytes;
+- `WEB_CI` for bounded implementation whose required mechanics can be proven by safe deterministic GitHub Actions;
+- `CODEX_EXECUTION` when correctness requires an interactive runtime/environment/browser/debug loop;
+- `OWNER_GATED_EXTERNAL` for secrets, live/public writes, destructive canonical changes, provider/browser publication expansion, legal/rights release boundaries, material Core Analyzer numeric-authority changes, or equivalent irreversible external actions.
+
+Older `MAIN_CODEX only` execution statements in `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`, `docs/CURRENT_CONTEXT.md`, `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`, current lane pointers, `video/AGENTS.md`, or V2 creative-policy documents are superseded only to the extent they conflict with this execution router. Their product, truth, numeric, rights, V1/V2 isolation, public-write, recovery, and actual-artifact acceptance rules remain in force.
+
+No execution lane receives factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, rights, or public-write authority by implication.
+
+Remote `master` remains repository authority until the pilot branch is explicitly owner-approved for merge.
 
 ## CURRENT_LANE_AUTHORITY
 
@@ -58,7 +77,7 @@ No V2 document, adapter, credential, or branch grants video public-write authori
 - nearest scoped `AGENTS.md`
 - exact implementation modules, tests, current evidence packets, and real rendered/public artifacts.
 
-As of this authority rewrite, generated CodeGraph context predates current `master` and must be regenerated/checkpointed before the next implementation task. It remains useful only as a call-path/discovery aid until refreshed.
+Generated CodeGraph is discovery tooling, not product authority. If its recorded source epoch differs from the fetched ref/task branch being operated on, treat it as stale until regenerated/checkpointed by an execution lane that can prove the result.
 
 ## HISTORICAL_EVIDENCE_ONLY
 
@@ -85,6 +104,7 @@ The following working-tree families are explicitly non-routing after this rewrit
 - `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` — prior task handoff; retained only as a redirect to current authority.
 - any status/pointer document whose exact task/branch/HEAD conflicts with this map, root V3, or a freshly fetched GitHub ref.
 - any old plan that assigns model/factual/numeric/public-write authority more broadly than root V3.
+- older `MAIN_CODEX only` wording where it conflicts with the owner-authorized capability router; execution-only supersession does not alter the product/safety meaning of the containing document.
 
 ## ARCHIVE_DELETE_CANDIDATE
 
@@ -99,7 +119,7 @@ Candidates should be reviewed in bounded cleanup batches. Do not delete accepted
 
 ## Branch authority
 
-A remote branch is not current authority merely because it is ahead of `master`. Unmerged experimental branch work is historical/non-authoritative unless Jim explicitly accepts it under current root authority. Product concepts may be independently rebuilt under `MAIN_CODEX` when root V3 schedules them.
+A remote branch is not current repository authority merely because it is ahead of `master`. Jim may explicitly authorize a branch-scoped pilot or candidate policy without authorizing a merge. Product concepts may be implemented under the execution lane selected by the capability router when current product authority schedules them.
 
 ## Conflict resolution
 
@@ -108,7 +128,8 @@ When documents conflict:
 1. Jim's latest explicit instruction wins.
 2. Fresh GitHub refs/commits/diffs/exact code/evidence establish repository truth.
 3. Root V3 authority governs product boundaries and sequence.
-4. Current lane authority governs lane-specific implementation detail only where compatible.
-5. Historical plans/status/handoffs provide context, not routing.
+4. The current execution policy governs engineering execution routing only.
+5. Current lane authority governs lane-specific product/implementation detail where compatible.
+6. Historical plans/status/handoffs provide context, not routing.
 
-No builder should resurrect a superseded task merely because its plan is more detailed.
+No builder or Web lane should resurrect a superseded task or authority merely because its older plan is more detailed.

@@ -10,6 +10,7 @@ import copy
 import hashlib
 import json
 import re
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -17,7 +18,8 @@ from typing import Any, Mapping, Sequence
 CATALOG_SCHEMA_VERSION = "contentops.capital_chronicle_data_catalog.v2"
 DEFAULT_CC_ROOT = Path(r"A:\Capital Chronicle\Main App")
 LOCAL_DB_SUBPATH = Path("data") / "local_db"
-PUBLICATION_EVIDENCE_SUBPATH = Path("docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json")
+PUBLICATION_EVIDENCE_DIRECTORY = Path("docs/research/publication_evidence/current")
+PREFERRED_PUBLICATION_EVIDENCE_NAME = "CapitalChroniclePublicationEvidencePacketV1.json"
 NEWSROOM_POOL_SUBPATH = Path("docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json")
 PUBLICATION_EVIDENCE_SCHEMA_VERSION = "capital_chronicle.publication_evidence_packet.v1"
 NEWSROOM_POOL_SCHEMA_VERSION = "capital_chronicle.newsroom_candidate_pool.v1"
@@ -33,6 +35,13 @@ SEARCH_SCHEMA_MARKERS = (
 )
 
 _CATALOG_CACHE: dict[str, tuple[str, dict[str, Any]]] = {}
+
+_SEMANTIC_CONCEPTS = (
+    "Federal Reserve", "Treasury", "European Central Bank", "ECB", "SEC", "OPEC",
+    "CPI", "inflation", "employment", "unemployment", "GDP", "interest rates",
+    "yield curve", "Treasury yields", "bonds", "equities", "credit", "oil", "gold",
+    "dollar", "euro", "yen", "tariffs", "sanctions", "earnings", "revenue",
+)
 
 
 class CapitalChronicleCatalogError(RuntimeError):
@@ -82,6 +91,81 @@ def _surface_file_metadata(path: Path) -> dict[str, Any]:
     }
 
 
+def _publication_evidence_candidate_paths(root: Path) -> list[Path]:
+    directory = root / PUBLICATION_EVIDENCE_DIRECTORY
+    paths = sorted(directory.glob("CapitalChroniclePublicationEvidencePacket*.json")) if directory.is_dir() else []
+    return sorted(
+        [path for path in paths if path.is_file()],
+        key=lambda path: (
+            path.name != PREFERRED_PUBLICATION_EVIDENCE_NAME,
+            path.name.casefold(),
+        ),
+    )
+
+
+def derive_story_scoped_cc_semantics(story: Mapping[str, Any]) -> dict[str, Any]:
+    """Derive bounded query intent from existing story evidence, with field provenance."""
+    structured_fields = (
+        "entities_topics", "entities", "institutions", "countries", "regions",
+        "sectors", "assets", "instruments", "economic_concepts", "releases",
+        "event_type", "policy_type", "story_type",
+    )
+    candidates: list[tuple[str, str]] = []
+    for field in structured_fields:
+        raw = story.get(field)
+        values = raw if isinstance(raw, (list, tuple)) else [raw]
+        for value in values:
+            text = " ".join(str(value or "").split())
+            if text:
+                candidates.append((text, field))
+    narrative_fields = (
+        "normalized_headline_proposition", "leaf_summaries", "why_now",
+        "selection_case", "needed_evidence",
+    )
+    narrative_values: list[tuple[str, str]] = []
+    for field in narrative_fields:
+        raw = story.get(field)
+        values = raw if isinstance(raw, (list, tuple)) else [raw]
+        for value in values:
+            text = " ".join(str(value or "").split())
+            if text:
+                narrative_values.append((text, field))
+                for concept in _SEMANTIC_CONCEPTS:
+                    if re.search(rf"\b{re.escape(concept)}\b", text, re.IGNORECASE):
+                        candidates.append((concept, field))
+                for phrase in re.findall(
+                    r"\b(?:[A-Z]{2,8}|[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3})\b", text
+                ):
+                    candidates.append((phrase, field))
+
+    terms: list[str] = []
+    provenance: list[dict[str, Any]] = []
+    for value, field in candidates:
+        normalized = " ".join(value.split()).strip(" ,.;:-")
+        if len(normalized) < 2 or normalized.casefold() in {
+            item.casefold() for item in terms
+        }:
+            continue
+        terms.append(normalized)
+        provenance.append({
+            "query_term": normalized,
+            "source_field": field,
+            "source_value_sha256": _canonical_hash(value),
+        })
+        if len(terms) >= STORY_QUERY_ENTITY_LIMIT:
+            break
+    return {
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "state": "CONTEXT_ONLY_AVAILABLE" if terms else "NO_RELEVANT_CC_CONTEXT",
+        "query_terms": terms,
+        "semantic_dimensions": sorted({row["source_field"] for row in provenance}),
+        "derivation_provenance": provenance,
+        "narrative_fields_considered": [field for _, field in narrative_values],
+        "zero_context_reason": None if terms else "MEANINGFUL_STORY_SEMANTICS_ABSENT",
+        "grants_factual_or_numeric_authority": False,
+    }
+
+
 def discover_cc_data_estate(
     *,
     cc_root: str | Path = DEFAULT_CC_ROOT,
@@ -96,13 +180,19 @@ def discover_cc_data_estate(
     root = Path(cc_root).resolve()
     local_db_dir = root / LOCAL_DB_SUBPATH
     store_paths = sorted(local_db_dir.glob("*.duckdb")) if local_db_dir.is_dir() else []
-    publication_packet = root / PUBLICATION_EVIDENCE_SUBPATH
+    publication_candidates = _publication_evidence_candidate_paths(root)
+    publication_packet = publication_candidates[0] if publication_candidates else (
+        root / PUBLICATION_EVIDENCE_DIRECTORY / PREFERRED_PUBLICATION_EVIDENCE_NAME
+    )
     newsroom_pool = root / NEWSROOM_POOL_SUBPATH
     database_file_fingerprint = (
         _estate_file_fingerprint(store_paths) if store_paths else _canonical_hash([])
     )
     governed_surface_files = {
         "publication_evidence_packet": _surface_file_metadata(publication_packet),
+        "publication_evidence_candidates": [
+            _surface_file_metadata(path) for path in publication_candidates
+        ],
         "newsroom_candidate_pool": _surface_file_metadata(newsroom_pool),
     }
     governed_surface_file_fingerprint = _canonical_hash(governed_surface_files)
@@ -137,6 +227,11 @@ def discover_cc_data_estate(
                 "exists": publication_packet.is_file(),
                 "role": "governed_publication_authority_surface",
                 "file_identity": governed_surface_files["publication_evidence_packet"],
+                "candidate_paths": [str(path) for path in publication_candidates],
+                "candidate_count": len(publication_candidates),
+                "candidate_file_identities": governed_surface_files[
+                    "publication_evidence_candidates"
+                ],
             },
             "newsroom_candidate_pool": {
                 "path": str(newsroom_pool),
@@ -300,7 +395,12 @@ def inspect_governed_cc_surfaces(catalog: Mapping[str, Any]) -> dict[str, Any]:
             "generated_at_utc": value.get("generated_at_utc"),
         })
         if surface_name == "publication_evidence_packet":
-            if value.get("schema_version") != PUBLICATION_EVIDENCE_SCHEMA_VERSION:
+            from live_contentops.cc_evidence_bridge_v2 import (
+                _publication_schema_compatibility,
+            )
+
+            compatible, compatibility_mode = _publication_schema_compatibility(value)
+            if not compatible:
                 row["state"] = "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED"
                 compatibility_required.append(surface_name)
                 result["surfaces"][surface_name] = row
@@ -348,6 +448,7 @@ def inspect_governed_cc_surfaces(catalog: Mapping[str, Any]) -> dict[str, Any]:
                 "time_series_count": len(value.get("time_series") or []),
                 "blockers": blockers,
                 "packet_contract_authorized_for_exact_scope": packet_authorized,
+                "schema_compatibility_mode": compatibility_mode,
                 "freshness_must_be_reassessed_for_current_story": True,
                 "exact_story_scope_binding_required": True,
             })
@@ -425,8 +526,10 @@ def query_story_scoped_cc_context(
     entities: Sequence[str],
     *,
     max_rows_per_entity: int = STORY_QUERY_ROWS_PER_ENTITY,
+    semantic_activation: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Selectively query actual matching rows and return compact auditable pointers."""
+    started = time.perf_counter()
     normalized_entities: list[str] = []
     for entity in entities:
         text = " ".join(str(entity or "").split())
@@ -434,6 +537,36 @@ def query_story_scoped_cc_context(
             normalized_entities.append(text)
     normalized_entities = normalized_entities[:STORY_QUERY_ENTITY_LIMIT]
     row_limit = max(1, min(int(max_rows_per_entity), 20))
+    if not normalized_entities:
+        return {
+            "schema_version": "contentops.story_scoped_cc_context.v2",
+            "state": "NO_RELEVANT_CC_CONTEXT",
+            "queried_entities": [],
+            "matches": [],
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matched_table_count": 0,
+            "candidate_table_count": 0,
+            "deep_query_table_limit": MAX_DEEP_QUERY_TABLES,
+            "deep_query_selected_tables": [],
+            "queried_table_count": 0,
+            "catalog_fingerprint": catalog.get("catalog_fingerprint"),
+            "semantic_activation": dict(semantic_activation or {}),
+            "zero_context_reason": str(
+                (semantic_activation or {}).get("zero_context_reason")
+                or "MEANINGFUL_STORY_SEMANTICS_ABSENT"
+            ),
+            "query_elapsed_ms": round((time.perf_counter() - started) * 1000.0, 3),
+            "query_budget": {
+                "entity_limit": STORY_QUERY_ENTITY_LIMIT,
+                "rows_per_entity": row_limit,
+                "deep_query_table_limit": MAX_DEEP_QUERY_TABLES,
+            },
+            "connection_mode": "duckdb_read_only_no_query_needed",
+            "grants_factual_or_numeric_authority": False,
+            "mutated_upstream": False,
+        }
     matches: list[dict[str, Any]] = []
     scored_candidates: list[tuple[float, str, str]] = []
     for store_entry in catalog.get("stores") or []:
@@ -561,6 +694,7 @@ def query_story_scoped_cc_context(
     ) if matches else 0.0
     return {
         "schema_version": "contentops.story_scoped_cc_context.v2",
+        "state": "CONTEXT_ONLY_AVAILABLE" if matches else "NO_RELEVANT_CC_CONTEXT",
         "queried_entities": normalized_entities,
         "matches": matches,
         "cc_context_richness": round(richness, 4),
@@ -583,6 +717,15 @@ def query_story_scoped_cc_context(
         ],
         "queried_table_count": tables_queried,
         "catalog_fingerprint": catalog.get("catalog_fingerprint"),
+        "semantic_activation": dict(semantic_activation or {}),
+        "zero_context_reason": None if matches else "BOUNDED_CC_CONTEXT_NO_MATCHES",
+        "query_elapsed_ms": round((time.perf_counter() - started) * 1000.0, 3),
+        "query_budget": {
+            "entity_limit": STORY_QUERY_ENTITY_LIMIT,
+            "rows_per_entity": row_limit,
+            "deep_query_table_limit": MAX_DEEP_QUERY_TABLES,
+        },
+        "connection_mode": "duckdb_read_only",
         "all_discovered_stores_considered": True,
         "grants_factual_or_numeric_authority": False,
         "mutated_upstream": False,

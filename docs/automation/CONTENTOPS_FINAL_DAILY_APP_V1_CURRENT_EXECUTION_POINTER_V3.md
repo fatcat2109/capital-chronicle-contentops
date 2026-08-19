@@ -7,6 +7,7 @@ Root authority:
 
 - `AGENTS.md`
 - `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+- `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 
@@ -16,43 +17,44 @@ V1 lane detail:
 - `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_MASTER_PLAN.md`
 - `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-Where older V1 documents describe root sequencing outside V1 (including statements that V2 must remain deferred until V1 freeze), root V3 supersedes that sequencing. Their V1 runtime, publication, recovery, browser, destination, and safety detail remains current where compatible.
+Where older V1 documents describe root sequencing outside V1, root V3 and this current pointer supersede that sequencing. Their V1 runtime, publication, recovery, browser, destination, and safety detail remains current where compatible.
 
 ## Current V1 state
 
-V1 is the canonical Final Daily App/live newsroom-publication runtime. The current foundation includes continuous intake, candidate ranking/abstention, current evidence qualification, read-only Capital Chronicle context, exact publication-authorized CC evidence seams, bounded editorial-worker routing, article/media/package generation, Substack-first plus eight derivatives, exact readback/reconciliation/recovery, supported observation/learning, and the V5 operator UI.
+V1 remains the canonical Final Daily App/live newsroom-publication runtime.
 
-Final product acceptance is not yet proven by current evidence.
+P0-1/P0-1B is accepted on the current implementation lineage. The shared story path now has explicit publication-authority classification/use-binding, bounded semantic CC context activation, compatibility-state preservation, and corrected current-source reachability without promoting internal Analyzer material.
 
-The current root P0-1 is:
+P0-2 final acceptance remains unproven. The first authorized real canary and the single P0-2A retry both truthfully returned `NO_PUBLICATION`. P0-2A identified one genuine mechanical public-secondary resolution defect, corrected it with same-publisher locator resolution to exact publisher bytes, and proved the correction on a real accessible source. The subsequent current candidate universe still contained no source-qualified article.
 
-`CORE_ANALYZER_PUBLICATION_AUTHORITY_UTILIZATION + CC_CONTEXT_ACTIVATION + LATEST_WEB_SOURCE_REACHABILITY`.
+The correct state is therefore:
 
-Before final-canary acceptance, the shared story path must reliably distinguish and use:
+`P0_1_ACCEPTED / P0_2_WAITING_FOR_GENUINE_QUALIFYING_OPPORTUNITY`
 
-- exact story-scoped CC/Core Analyzer publication-authorized material when available and relevant;
-- bounded read-only CC database/history context as non-authoritative investigative enrichment;
-- current accessible public evidence from latest-web/source resolution.
+This is not permission to weaken evidence gates, increase request loops without a demonstrated defect, promote discovery-only material, or repeatedly trigger manual opportunities merely to obtain a publication.
 
-Internal Analyzer handoffs, private decision/forecast/scenario/paper records, candidate-only snapshots, arbitrary database rows, and degraded/proxy states must never be promoted into publication authority merely because they are governed or validated.
+## Exact remaining V1 P0 acceptance path
 
-After P0-1, V1 priority is exactly one fresh current real acceptance path:
+When a genuinely qualified current opportunity exists:
 
-1. recover/reconcile current obligations;
+1. recover/reconcile current obligations and require `UNKNOWN_WRITE=0`;
 2. ingest/qualify the real current candidate universe;
-3. resolve publication-authorized CC/Core Analyzer material for the exact story and keep internal/context-only material correctly classified;
-4. use bounded relevant CC context plus accessible latest-web evidence where useful;
+3. resolve exact publication-authorized CC/Core Analyzer material for the story and preserve internal/context-only classifications;
+4. use bounded relevant CC context plus accepted current public evidence where useful;
 5. abstain if no useful qualified article exists;
-6. if warranted, invoke the current bounded fresh XHIGH editorial worker;
+6. if warranted, invoke the current bounded fresh XHIGH editorial worker under zero factual/numeric/permission/public-write authority;
 7. validate article/media/SEO/packages deterministically and for reader value;
-8. verify all nine destination readiness/identity states;
-9. publish canonical Substack first and attempt all eight derivatives;
-10. read back/reconcile exact public objects with `UNKNOWN_WRITE=0`;
-11. Jim/ChatGPT review the actual public article and derivative artifacts.
+8. verify current readiness/identity for all nine V1 destinations;
+9. publish canonical Substack first and establish the exact public `/p/...` object;
+10. attempt exactly eight derivatives;
+11. read back/reconcile every attempted public object and require `UNKNOWN_WRITE=0` with no unresolved recovery;
+12. Jim/ChatGPT review the actual public article and derivative artifacts.
 
-`NO_PUBLICATION` remains valid but does not prove final publication canary acceptance.
+A valid `NO_PUBLICATION` still does not prove final publication-canary acceptance.
 
-Only after that real canary is accepted should the already-authorized four current V1 native tasks be enabled under existing schedule ownership, followed by unattended/cold-start proof. Do not create a fifth task or invent a new scheduler authority.
+This live acceptance path is `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` because correctness depends on the production runtime, current browser/account/destination state, live public writes, and readback/reconciliation. Static or CI evidence must never substitute for those facts.
+
+Only after that real canary is owner-accepted should the already-authorized four current V1 native tasks be enabled under existing schedule ownership, followed by unattended/cold-start proof. Do not create a fifth task or invent a new scheduler authority.
 
 ## Non-negotiable V1 boundaries
 
@@ -67,3 +69,4 @@ Only after that real canary is accepted should the already-authorized four curre
 - Edge `contentops-social-main` CDP 9223 remains publication/media/readback and explicitly authorized observation only.
 - `UNKNOWN_WRITE`: `STOP RETRY -> READ BACK -> RECONCILE`.
 - No-publication, zero images, and zero CC context queries are valid.
+- All four existing V1 tasks remain paused until the real canary is owner-accepted.
