@@ -98,10 +98,10 @@ jobs:
           echo 'Committed CodeGraph is stale; commit the generated artifact bytes and rerun.'
           exit 1
 
-  branch-codegraph-refresh:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/agent/web-')
+  branch-hybrid-policy-anchor-refresh:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/agent/web-contentops-p0-hybrid-integration-v2'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     permissions:
       contents: write
     steps:
@@ -111,29 +111,48 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.sha }}
 
-      - name: Generate exact CodeGraph bytes when stale
-        id: refresh
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install focused test runner
+        run: python -m pip install --disable-pip-version-check pytest
+
+      - name: Apply bounded authority anchor patch
+        run: python .github/hybrid_policy_anchor_patch.py
+
+      - name: Validate source patch
         shell: bash
         run: |
-          set +e
-          python scripts/generate_codex_context_index.py --check
-          rc=$?
-          set -e
-          echo "rc=$rc" >> "$GITHUB_OUTPUT"
-          if [ "$rc" -ne 0 ]; then
-            python scripts/generate_codex_context_index.py
-          fi
+          python -m pytest -q tests/test_codex_context_index.py
+          git diff --check -- scripts/generate_codex_context_index.py tests/test_codex_context_index.py
 
-      - name: Commit only generated CodeGraph outputs
-        if: steps.refresh.outputs.rc != '0'
+      - name: Commit source contract first
         shell: bash
         run: |
           git config user.name 'contentops-ci'
           git config user.email 'contentops-ci@users.noreply.github.com'
+          git add scripts/generate_codex_context_index.py tests/test_codex_context_index.py
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix: bind hybrid policy into CodeGraph authority'
+          fi
+
+      - name: Regenerate from committed source epoch
+        shell: bash
+        run: |
+          python scripts/generate_codex_context_index.py
+          python scripts/generate_codex_context_index.py --check
           git add docs/codegraph/INDEX.md docs/codegraph/V2_CONTEXT.md docs/codegraph/graph.json
-          if git diff --cached --quiet; then
-            echo 'No generated CodeGraph changes to commit.'
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: checkpoint CodeGraph at hybrid policy source epoch'
+          fi
+
+      - name: Push bounded source and generated commits
+        shell: bash
+        run: |
+          if [ "$(git rev-parse HEAD)" = "${GITHUB_SHA}" ]; then
+            echo 'No hybrid authority anchor changes required.'
             exit 0
           fi
-          git commit -m 'chore: refresh CodeGraph for integration source epoch'
           git push origin HEAD:${GITHUB_REF_NAME}
