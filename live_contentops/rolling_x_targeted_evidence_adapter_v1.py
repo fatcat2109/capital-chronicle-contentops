@@ -12,6 +12,12 @@ from live_contentops.cc_evidence_bridge_v2 import (
     build_evidence_packet_from_cc_root,
     validate_evidence_packet,
 )
+from live_contentops.cc_publication_authority_v1 import (
+    PUBLICATION_PACKET_AVAILABLE,
+    build_publication_authorized_projection,
+    resolve_publication_authority,
+    validate_projection_for_consumer,
+)
 from live_contentops.freshness_market_state_v2 import evaluate_freshness
 from live_contentops.claim_evidence_contract_v1 import (
     build_claim_evidence_contract,
@@ -29,8 +35,61 @@ MARKET_CAPABILITIES = frozenset({"current_market_snapshot", "prior_close"})
 EVIDENCE_LOADER_BUDGET_BLOCKERS = frozenset({
     "official_source_request_budget_exhausted",
     "public_source_request_budget_exhausted",
+    "public_source_candidate_request_budget_exhausted",
 })
 TRUSTED_PROFESSIONAL_FEED_HANDLES = frozenset({"financialjuice"})
+
+
+def _with_cc_authority_evidence(
+    receipt: Mapping[str, Any],
+    *,
+    packet: Mapping[str, Any] | None,
+    resolution: Mapping[str, Any],
+    consume_projection: bool,
+) -> dict[str, Any]:
+    result = dict(receipt)
+    projection: dict[str, Any] = {}
+    projection_blockers: list[str] = []
+    if resolution.get("state") == PUBLICATION_PACKET_AVAILABLE and packet is not None:
+        try:
+            projection = build_publication_authorized_projection(packet, resolution)
+            projection_blockers = validate_projection_for_consumer(
+                projection, consumer="v1_article"
+            )
+        except ValueError as exc:
+            projection_blockers = [str(exc)]
+    consumed = bool(consume_projection and projection and not projection_blockers)
+    result["capital_chronicle_publication_authority"] = dict(resolution)
+    result["publication_authorized_cc_projection"] = projection if consumed else {}
+    result["cc_authority_utilization"] = {
+        "packet_discovered": packet is not None,
+        "packet_selected": resolution.get("packet_id") if packet is not None else None,
+        "authority_class": resolution.get("authority_class"),
+        "packet_sha256": resolution.get("packet_sha256"),
+        "authorized_claim_count_available": len(projection.get("exact_numeric_claims") or []),
+        "authorized_series_count_available": len(projection.get("exact_time_series") or {}),
+        "authorized_chart_count_available": len(projection.get("exact_chart_inputs") or []),
+        "authorized_claim_count_consumed": (
+            len(projection.get("exact_numeric_claims") or []) if consumed else 0
+        ),
+        "authorized_series_count_consumed": (
+            len(projection.get("exact_time_series") or {}) if consumed else 0
+        ),
+        "authorized_chart_count_consumed": (
+            len(projection.get("exact_chart_inputs") or []) if consumed else 0
+        ),
+        "zero_use_reason": (
+            None
+            if consumed
+            else "PUBLICATION_AUTHORIZED_CC_NOT_REQUIRED_BY_EFFECTIVE_STORY_CAPABILITY"
+            if resolution.get("state") == PUBLICATION_PACKET_AVAILABLE
+            else (resolution.get("reason_codes") or ["PUBLICATION_PACKET_NOT_AVAILABLE"])[0]
+        ),
+        "projection_validation_blockers": projection_blockers,
+        "values_regenerated_or_repaired": False,
+        "llm_numeric_authority": False,
+    }
+    return result
 
 
 def _restrict_grounded_packet_to_documents(
@@ -435,7 +494,6 @@ class RollingXTargetedEvidenceAdapter:
         self._registry = effective_rolling_x_capability_registry(
             capability_registry
         )
-        self._packet: dict[str, Any] | None = None
         self._load_error: str | None = None
 
     def _run_grounded_research(
@@ -470,6 +528,9 @@ class RollingXTargetedEvidenceAdapter:
         return dict(raw)
 
     def _load_packet(self, request: Mapping[str, Any]) -> dict[str, Any] | None:
+        # Packet selection is story-bound. Do not cache one story's packet across the rolling
+        # candidate walk now that compatible successor files may coexist in the governed folder.
+        self._load_error = None
         if self._packet_loader is not None:
             try:
                 raw = self._packet_loader(request)
@@ -483,13 +544,16 @@ class RollingXTargetedEvidenceAdapter:
                 self._load_error = "capital_chronicle_evidence_packet_not_object"
                 return None
             return dict(raw)
-        if self._packet is not None or self._load_error is not None:
-            return self._packet
         try:
             if self._root is not None:
                 raw = build_evidence_packet_from_cc_root(
                     self._root,
                     as_of_utc=self._evaluation_as_of_utc,
+                    story_binding={
+                        "cluster_id": request.get("cluster_id"),
+                        "headline_ids": list(request.get("headline_ids") or []),
+                        "request_logical_hash": request.get("request_logical_hash"),
+                    },
                 )
             else:
                 self._load_error = "capital_chronicle_evidence_root_not_bound"
@@ -497,13 +561,13 @@ class RollingXTargetedEvidenceAdapter:
             if not isinstance(raw, Mapping):
                 self._load_error = "capital_chronicle_evidence_packet_not_object"
                 return None
-            self._packet = dict(raw)
+            return dict(raw)
         except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
             self._load_error = (
                 "capital_chronicle_evidence_packet_unavailable:"
                 + type(exc).__name__
             )
-        return self._packet
+        return None
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         if request.get("x_content_is_discovery_and_ranking_only") is not True:
@@ -535,6 +599,23 @@ class RollingXTargetedEvidenceAdapter:
 
         families = set(capability.get("source_adapter_families") or [])
         cc_families = {"capital_chronicle_market_state", "capital_chronicle_database"}
+        packet = (
+            self._load_packet(request)
+            if self._root is not None
+            or (
+                self._packet_loader is not None
+                and bool(families.intersection(cc_families))
+            )
+            else None
+        )
+        authority_resolution = resolve_publication_authority(
+            packet,
+            story_binding={
+                "cluster_id": request.get("cluster_id"),
+                "headline_ids": list(request.get("headline_ids") or []),
+                "request_logical_hash": request.get("request_logical_hash"),
+            },
+        )
         if not families.intersection(cc_families):
             from live_contentops.official_primary_evidence_loader_v1 import (
                 OFFICIAL_HOSTS_BY_FAMILY,
@@ -883,8 +964,13 @@ class RollingXTargetedEvidenceAdapter:
                 receipt["latest_event_state_closure"] = (
                     grounded_latest_state_closure
                 )
-                return receipt
-            return {
+                return _with_cc_authority_evidence(
+                    receipt,
+                    packet=packet,
+                    resolution=authority_resolution,
+                    consume_projection=False,
+                )
+            return _with_cc_authority_evidence({
                 "status": "PASS",
                 "cluster_id": request.get("cluster_id"),
                 "headline_ids": list(request.get("headline_ids") or []),
@@ -908,13 +994,24 @@ class RollingXTargetedEvidenceAdapter:
                 "blockers": [],
                 "publication_authority": False,
                 "evidence_acquisition_provenance": diagnostics,
-            }
+            }, packet=packet, resolution=authority_resolution, consume_projection=False)
 
-        packet = self._load_packet(request)
         if packet is None:
-            return _blocked_receipt(
-                request,
-                [self._load_error or "capital_chronicle_evidence_packet_unavailable"],
+            return _with_cc_authority_evidence(
+                _blocked_receipt(
+                    request,
+                    [
+                        self._load_error
+                        or (
+                            "capital_chronicle_evidence_root_not_bound"
+                            if self._root is None
+                            else "capital_chronicle_evidence_packet_unavailable"
+                        )
+                    ],
+                ),
+                packet=None,
+                resolution=authority_resolution,
+                consume_projection=False,
             )
         blockers.extend(validate_evidence_packet(packet))
         if packet.get("status") != PUBLICATION_AUTHORIZED:
@@ -951,6 +1048,19 @@ class RollingXTargetedEvidenceAdapter:
             "FRESH_CURRENT_OPERATOR_READINESS"
             if freshness.get("decision") == "PASS"
             else "STALE_OR_MISSING"
+        )
+        authority_resolution = resolve_publication_authority(
+            packet,
+            story_binding={
+                "cluster_id": request.get("cluster_id"),
+                "headline_ids": list(request.get("headline_ids") or []),
+                "request_logical_hash": request.get("request_logical_hash"),
+            },
+            current_readiness_blockers=(
+                list(freshness.get("blockers") or [])
+                if freshness.get("decision") != "PASS"
+                else []
+            ),
         )
         documents, document_blockers = _document_receipts(
             packet, request, freshness_state=freshness_state
@@ -1112,8 +1222,13 @@ class RollingXTargetedEvidenceAdapter:
                     "grounded_research": grounded_diagnostics
                 }
             receipt["latest_event_state_closure"] = grounded_latest_state_closure
-            return receipt
-        return {
+            return _with_cc_authority_evidence(
+                receipt,
+                packet=packet,
+                resolution=authority_resolution,
+                consume_projection=False,
+            )
+        return _with_cc_authority_evidence({
             "status": "PASS",
             "cluster_id": request.get("cluster_id"),
             "headline_ids": list(request.get("headline_ids") or []),
@@ -1146,4 +1261,4 @@ class RollingXTargetedEvidenceAdapter:
             "publication_authority": False,
             "governed_packet_id": packet.get("packet_id"),
             "freshness_decision": freshness,
-        }
+        }, packet=packet, resolution=authority_resolution, consume_projection=True)

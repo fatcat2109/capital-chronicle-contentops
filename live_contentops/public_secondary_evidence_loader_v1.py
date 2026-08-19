@@ -188,6 +188,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         *,
         evaluation_as_of_utc: str,
         max_requests: int = 24,
+        max_requests_per_candidate: int = 6,
         timeout_seconds: float = 12.0,
         max_response_bytes: int = 800_000,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
@@ -198,21 +199,34 @@ class BoundedPublicSecondaryEvidenceLoader:
             raise ValueError("public_source_evaluation_time_timezone_required")
         self._evaluation_as_of_utc = _iso_utc(cutoff)
         self._max_requests = max_requests
+        self._max_requests_per_candidate = max(1, min(max_requests_per_candidate, max_requests))
         self._timeout_seconds = timeout_seconds
         self._max_response_bytes = max_response_bytes
         self._http_get = http_get or _default_public_http_get
         self._validate_dns = http_get is None
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._request_count = 0
+        self._candidate_request_start = 0
 
     def _get(self, url: str) -> dict[str, Any]:
         if self._request_count >= self._max_requests:
             raise RuntimeError("public_source_request_budget_exhausted")
+        if (
+            self._request_count - self._candidate_request_start
+            >= self._max_requests_per_candidate
+        ):
+            raise RuntimeError("public_source_candidate_request_budget_exhausted")
         _public_host(url, resolve_dns=self._validate_dns)
         self._request_count += 1
         return dict(self._http_get(url, self._timeout_seconds, self._max_response_bytes))
 
-    def _direct_document(self, url: str, headline_id: str) -> dict[str, Any] | None:
+    def _direct_document(
+        self,
+        url: str,
+        headline_id: str,
+        *,
+        published_at_hint: str | None = None,
+    ) -> dict[str, Any] | None:
         host = _public_host(url, resolve_dns=self._validate_dns)
         discovery_redirect = host == "news.google.com"
         if host not in REPUTABLE_SECONDARY_HOSTS and not discovery_redirect:
@@ -231,7 +245,11 @@ class BoundedPublicSecondaryEvidenceLoader:
             raise ValueError("public_source_body_invalid")
         raw = body.decode("utf-8", errors="replace")
         title = _title(raw) or final_url.rsplit("/", 1)[-1].replace("-", " ")
-        published = _html_timestamp(raw) or _parse_timestamp(headers.get("last-modified"))
+        published = (
+            _html_timestamp(raw)
+            or _parse_timestamp(headers.get("last-modified"))
+            or _parse_timestamp(published_at_hint)
+        )
         if not published:
             raise ValueError("public_source_published_timestamp_unavailable")
         if datetime.fromisoformat(published.replace("Z", "+00:00")) > datetime.fromisoformat(
@@ -254,6 +272,12 @@ class BoundedPublicSecondaryEvidenceLoader:
             "discovery_path_is_reader_authority": False,
             "source_headline_id": headline_id,
             "published_at_utc": published,
+            "published_at_source": (
+                "EXACT_BOUND_DISCOVERY_TIMESTAMP"
+                if published_at_hint
+                and published == _parse_timestamp(published_at_hint)
+                else "PUBLISHER_BYTES_OR_HEADERS"
+            ),
             "event_time_utc": published,
             "raw_sha256": sha256(body).hexdigest(),
             "canonical_content_sha256": sha256(text.encode("utf-8")).hexdigest(),
@@ -401,6 +425,8 @@ class BoundedPublicSecondaryEvidenceLoader:
                     listing["canonical_resolution_status"] = (
                         "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY"
                     )
+                    listing["public_claim_allowed"] = False
+                    listing["locator_or_attribution_only"] = True
                     document = listing
                 resolved.append(document)
                 if self._enough_with_existing(request, existing_documents + resolved):
@@ -411,6 +437,7 @@ class BoundedPublicSecondaryEvidenceLoader:
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         request_count_at_start = self._request_count
+        self._candidate_request_start = request_count_at_start
         context = request.get("story_context") or {}
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
         rows = [
@@ -428,7 +455,14 @@ class BoundedPublicSecondaryEvidenceLoader:
         for row in rows[:2]:
             try:
                 document = self._direct_document(
-                    str(row.get("url") or ""), str(row.get("headline_id") or "")
+                    str(row.get("url") or ""),
+                    str(row.get("headline_id") or ""),
+                    published_at_hint=str(
+                        row.get("feed_published_at_utc")
+                        or row.get("source_timestamp_utc")
+                        or row.get("published_at_utc")
+                        or ""
+                    ) or None,
                 )
                 if document:
                     documents.append(document)
@@ -451,6 +485,12 @@ class BoundedPublicSecondaryEvidenceLoader:
         for document in documents:
             unique[(str(document.get("publisher") or "").casefold(), str(document.get("title") or "").casefold())] = document
         documents = list(unique.values())[:4]
+        locator_only_documents = [
+            row for row in documents if row.get("public_claim_allowed") is not True
+        ]
+        documents = [
+            row for row in documents if row.get("public_claim_allowed") is True
+        ]
         retrieved = self._clock()
         if not isinstance(retrieved, datetime) or retrieved.utcoffset() is None:
             raise ValueError("public_source_retrieval_time_timezone_required")
@@ -462,6 +502,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "request_logical_hash": request.get("request_logical_hash"),
             },
             "evidence_documents": documents,
+            "locator_only_records": locator_only_documents,
             "provided_evidence_capabilities": (
                 ["credible_event_confirmation", "basic_attributed_facts"] if documents else []
             ),
@@ -474,6 +515,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                     self._request_count - request_count_at_start
                 ),
                 "request_limit": self._max_requests,
+                "request_limit_per_candidate": self._max_requests_per_candidate,
                 "read_only_public_gets": True,
                 "paywall_or_access_control_bypass": False,
                 "bounded_enrichment_requested": bool(
@@ -496,6 +538,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                 ),
                 "additional_source_is_eligibility_requirement": False,
                 "diagnostics": sorted(set(diagnostics)),
+                "locator_only_record_count": len(locator_only_documents),
             },
             "blockers": [] if documents else sorted(set(diagnostics or ["public_source_unavailable"])),
             "publication_authority": False,

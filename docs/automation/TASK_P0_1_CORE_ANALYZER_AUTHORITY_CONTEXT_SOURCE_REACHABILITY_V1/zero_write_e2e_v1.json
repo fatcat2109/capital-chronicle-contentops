@@ -1,0 +1,157 @@
+{
+  "as_of_utc": "2026-08-19T08:00:00Z",
+  "classification": "PASS",
+  "reachable_high_level_states": [
+    "CONTEXT_ONLY_AVAILABLE",
+    "NO_RELEVANT_CC_CONTEXT",
+    "PUBLICATION_PACKET_AVAILABLE",
+    "PUBLICATION_PACKET_NOT_AVAILABLE",
+    "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED",
+    "PUBLICATION_PACKET_STALE_OR_BLOCKED"
+  ],
+  "safety": {
+    "browser_or_cdp_used": false,
+    "external_network_call_made": false,
+    "llm_numeric_authority": false,
+    "model_created_numeric_substitution": false,
+    "provider_call_made": false,
+    "public_write_performed": false,
+    "secret_or_session_material_read": false,
+    "upstream_mutated": false
+  },
+  "schema_version": "contentops.p0_1_zero_write_demo.v1",
+  "story_cases": {
+    "internal_analyzer_non_public": {
+      "resolution": {
+        "authority_class": "CORE_ANALYZER_GOVERNED_INTERNAL",
+        "authorized": false,
+        "intended_consumer": "contentops_publication",
+        "intended_use": "public_reporting",
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": "demo-cc-packet-1",
+        "packet_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "reason_codes": [
+          "CC_INTERNAL_ANALYZER_HANDOFF_NOT_PUBLICATION_AUTHORITY",
+          "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:reporting",
+          "CC_PUBLICATION_PACKET_PRESENT_NOT_AUTHORIZED"
+        ],
+        "schema_version": "contentops.cc_publication_authority_resolution.v1",
+        "state": "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED",
+        "story_binding": {
+          "cluster_id": "authorized-policy-story",
+          "headline_ids": [
+            "policy-headline"
+          ],
+          "request_logical_hash": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+        },
+        "upstream_packet_id": "upstream-demo-1"
+      }
+    },
+    "missing_cc_ordinary_latest_web": {
+      "accepted_document_count": 1,
+      "content_hash_present": true,
+      "published_at_source": "EXACT_BOUND_DISCOVERY_TIMESTAMP",
+      "resolution": {
+        "authority_class": "CONTEXT_DISCOVERY_ONLY",
+        "authorized": false,
+        "intended_consumer": "contentops_publication",
+        "intended_use": "public_reporting",
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "schema_version": "contentops.cc_publication_authority_resolution.v1",
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "source_url": "https://reuters.com/world/accessible-current-policy-report",
+      "web_status": "PASS"
+    },
+    "no_relevant_context": {
+      "queried_table_count": 0,
+      "semantic_activation": {
+        "derivation_provenance": [],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries"
+        ],
+        "query_terms": [],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [],
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "MEANINGFUL_STORY_SEMANTICS_ABSENT"
+      },
+      "zero_context_reason": "MEANINGFUL_STORY_SEMANTICS_ABSENT"
+    },
+    "publication_authorized_consumed": {
+      "exact_values_preserved": true,
+      "projection_fingerprint": "b1809b9756b0d30b8610e83ae8f40a6cac7516dc924739a45c055fffe013390f",
+      "resolution": {
+        "authority_class": "CONTENTOPS_PUBLICATION_AUTHORIZED_CC",
+        "authorized": true,
+        "intended_consumer": "contentops_publication",
+        "intended_use": "public_reporting",
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": false,
+        "packet_id": "demo-cc-packet-1",
+        "packet_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "reason_codes": [],
+        "schema_version": "contentops.cc_publication_authority_resolution.v1",
+        "state": "PUBLICATION_PACKET_AVAILABLE",
+        "story_binding": {
+          "cluster_id": "authorized-policy-story",
+          "headline_ids": [
+            "policy-headline"
+          ],
+          "request_logical_hash": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+        },
+        "upstream_packet_id": "upstream-demo-1"
+      },
+      "v1_projection_blockers": [],
+      "v2_projection_blockers": []
+    },
+    "relevant_context": {
+      "catalog_fingerprint": "6115a7190c52664e219efd380b99dd92e28a719dac16faf4e63bbcf4f860406c",
+      "database_sha256_unchanged": true,
+      "matched_table_count": 1,
+      "queried_table_count": 1,
+      "query_budget": {
+        "deep_query_table_limit": 8,
+        "entity_limit": 6,
+        "rows_per_entity": 5
+      },
+      "query_elapsed_ms": 563.92,
+      "semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Federal Reserve",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "124a7daed73968c567e34c704dcd0aa22e42df0a5e21a3ed65381295806f4414"
+          },
+          {
+            "query_term": "interest rates",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "2aa5fe70cd80383e479cb01769f90b7fa27f8c81c45f45b243970f9fb7d6e6ba"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries"
+        ],
+        "query_terms": [
+          "Federal Reserve",
+          "interest rates"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      }
+    }
+  }
+}

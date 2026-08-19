@@ -16,6 +16,8 @@ from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
 
 from live_contentops.capital_chronicle_data_catalog_v1 import (
+    derive_story_scoped_cc_semantics,
+    inspect_governed_cc_surfaces,
     query_story_scoped_cc_context,
 )
 from live_contentops.editorial_portfolio_v1 import (
@@ -245,6 +247,11 @@ def apply_preselection_intelligence(
     ][:3]
     seo_policy = dict(active_policy.get("seo") or {})
     material_priority = dict(material_event_priority or {})
+    governed_surfaces = inspect_governed_cc_surfaces(cc_catalog)
+    publication_surface = dict(
+        (governed_surfaces.get("surfaces") or {}).get("publication_evidence_packet")
+        or {}
+    )
     priority_headline_ids = {
         str(value) for value in (material_priority.get("headline_ids") or []) if str(value)
     }
@@ -262,9 +269,33 @@ def apply_preselection_intelligence(
             cluster.get("update_chain_identity") or cluster.get("cluster_id") or ""
         )
         cluster["update_chain_identity"] = update_chain_identity
+        semantic_activation = derive_story_scoped_cc_semantics(cluster)
         cc_context = query_story_scoped_cc_context(
-            cc_catalog, [str(value) for value in (cluster.get("entities_topics") or [])]
+            cc_catalog,
+            [str(value) for value in semantic_activation.get("query_terms") or []],
         )
+        cc_context = dict(cc_context)
+        cc_context.setdefault("semantic_activation", semantic_activation)
+        cc_context.setdefault("zero_context_reason", semantic_activation.get("zero_context_reason"))
+        publication_discovery = {
+            "state": (
+                "PUBLICATION_PACKET_NOT_AVAILABLE"
+                if publication_surface.get("state") == "MISSING"
+                else "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED"
+            ),
+            "authority_class": publication_surface.get("authority_class"),
+            "packet_id": publication_surface.get("packet_id"),
+            "packet_sha256": publication_surface.get("sha256"),
+            "catalog_fingerprint": cc_catalog.get("catalog_fingerprint"),
+            "reason_codes": [
+                "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+                if publication_surface.get("state") == "MISSING"
+                else "EXACT_STORY_CONSUMER_USE_BINDING_PENDING_EVIDENCE_ADAPTER"
+            ],
+            "publication_authority_granted_at_preselection": False,
+            "ordinary_latest_web_article_may_continue": True,
+            "llm_numeric_authority": False,
+        }
         novelty = classify_story_novelty(
             cluster,
             published_corpus=published_corpus,
@@ -336,6 +367,8 @@ def apply_preselection_intelligence(
             "resolved_article_mode": resolved_mode,
             "capability_article_mode": _CAPABILITY_MODE.get(resolved_mode),
             "capital_chronicle_context": cc_context,
+            "capital_chronicle_semantic_activation": semantic_activation,
+            "capital_chronicle_publication_authority_discovery": publication_discovery,
             "portfolio_concentration_penalty": concentration,
             "portfolio_concentration_penalty_effective": round(effective_concentration, 4),
             "preselection_score": round(score, 4),

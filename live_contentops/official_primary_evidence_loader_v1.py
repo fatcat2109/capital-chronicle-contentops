@@ -405,7 +405,16 @@ class BoundedOfficialPrimaryEvidenceLoader:
             for host in OFFICIAL_HOSTS_BY_FAMILY[family]
         }
         bindings = [
-            {"url": str(row.get("url") or ""), "headline_id": str(row.get("headline_id") or "")}
+            {
+                "url": str(row.get("url") or ""),
+                "headline_id": str(row.get("headline_id") or ""),
+                "published_at_hint": str(
+                    row.get("feed_published_at_utc")
+                    or row.get("source_timestamp_utc")
+                    or row.get("published_at_utc")
+                    or ""
+                ) or None,
+            }
             for row in (context.get("official_source_url_bindings") or [])
             if isinstance(row, Mapping)
             and row.get("url")
@@ -443,7 +452,11 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     )
                     if candidate_url:
                         headline_id = str((request.get("headline_ids") or [""])[0])
-                        bindings = [{"url": candidate_url, "headline_id": headline_id}]
+                        bindings = [{
+                            "url": candidate_url,
+                            "headline_id": headline_id,
+                            "published_at_hint": (locator or {}).get("source_published_at_utc"),
+                        }]
                         urls = [candidate_url]
                     else:
                         blockers.extend(
@@ -516,6 +529,14 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     or _html_timestamp(text)
                     or _parse_timestamp(headers.get("last-modified"))
                     or _parse_timestamp((locator or {}).get("source_published_at_utc"))
+                    or _parse_timestamp(next(
+                        (
+                            row.get("published_at_hint")
+                            for row in bindings
+                            if row["url"] == requested_url
+                        ),
+                        None,
+                    ))
                 )
                 if not published_at:
                     raise ValueError("official_source_published_timestamp_unavailable")
@@ -541,6 +562,15 @@ class BoundedOfficialPrimaryEvidenceLoader:
                         row["headline_id"] for row in bindings if row["url"] == requested_url
                     ),
                     "published_at_utc": published_at,
+                    "published_at_source": (
+                        "EXACT_BOUND_DISCOVERY_TIMESTAMP"
+                        if any(
+                            _parse_timestamp(row.get("published_at_hint")) == published_at
+                            for row in bindings
+                            if row["url"] == requested_url
+                        )
+                        else "OFFICIAL_BYTES_HEADERS_OR_LOCATOR"
+                    ),
                     "event_time_utc": published_at,
                     "raw_sha256": sha256(body).hexdigest(),
                     "canonical_content_sha256": sha256(body).hexdigest(),

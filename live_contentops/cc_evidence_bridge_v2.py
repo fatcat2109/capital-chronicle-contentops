@@ -22,9 +22,9 @@ GOVERNED_HANDOFF_ROOT = Path(
 GOVERNED_FINAL_EVIDENCE = GOVERNED_HANDOFF_ROOT / "DATABASE_FINAL_EVIDENCE_PACKET_V1.json"
 GOVERNED_HANDOFF = GOVERNED_HANDOFF_ROOT / "ANALYZER_CLOSED_LOOP_DATA_HANDOFF_V1.json"
 GOVERNED_VALIDATION = GOVERNED_HANDOFF_ROOT / "ANALYZER_HANDOFF_VALIDATION_V1.json"
-PUBLICATION_EVIDENCE = Path(
-    "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json"
-)
+PUBLICATION_EVIDENCE_DIRECTORY = Path("docs/research/publication_evidence/current")
+PREFERRED_PUBLICATION_EVIDENCE_NAME = "CapitalChroniclePublicationEvidencePacketV1.json"
+PUBLICATION_EVIDENCE_SCHEMA_V1 = "capital_chronicle.publication_evidence_packet.v1"
 NEWSROOM_POOL_EVIDENCE = Path(
     "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json"
 )
@@ -34,6 +34,75 @@ PUBLIC_REPORTING_CONSUMERS = {
     "public_claim",
     "public_reporting",
 }
+
+
+def _publication_evidence_paths(root: Path) -> list[Path]:
+    """Discover explicit packet successors without scanning outside the governed directory."""
+    directory = root / PUBLICATION_EVIDENCE_DIRECTORY
+    if not directory.is_dir():
+        return []
+    paths = sorted(
+        path
+        for path in directory.glob("CapitalChroniclePublicationEvidencePacket*.json")
+        if path.is_file()
+    )
+    return sorted(
+        paths,
+        key=lambda path: (
+            path.name != PREFERRED_PUBLICATION_EVIDENCE_NAME,
+            path.name.casefold(),
+        ),
+    )
+
+
+def _publication_schema_compatibility(source: Mapping[str, Any]) -> tuple[bool, str]:
+    schema = str(source.get("schema_version") or "")
+    if schema == PUBLICATION_EVIDENCE_SCHEMA_V1:
+        return True, "EXACT_V1"
+    compatibility = source.get("contentops_compatibility")
+    compatibility = compatibility if isinstance(compatibility, Mapping) else {}
+    compatible_with = {
+        str(value) for value in (compatibility.get("compatible_with") or [])
+    }
+    required_semantics = {
+        "consumer_class",
+        "story_authority",
+        "public_claim_permissions",
+        "source_health",
+        "blockers",
+    }
+    explicit_story_binding = isinstance(
+        source.get("rolling_x_story_binding") or source.get("publication_assignment"),
+        Mapping,
+    )
+    explicit_successor = bool(
+        schema.startswith("capital_chronicle.publication_evidence_packet.v")
+        and PUBLICATION_EVIDENCE_SCHEMA_V1 in compatible_with
+        and compatibility.get("essential_authority_semantics_preserved") is True
+        and required_semantics.issubset(source)
+        and explicit_story_binding
+    )
+    return explicit_successor, (
+        "EXPLICIT_COMPATIBLE_SUCCESSOR" if explicit_successor else "COMPATIBILITY_REQUIRED"
+    )
+
+
+def _raw_binding_matches(
+    source: Mapping[str, Any], story_binding: Mapping[str, Any] | None
+) -> bool:
+    if not story_binding:
+        return True
+    binding = source.get("rolling_x_story_binding")
+    if not isinstance(binding, Mapping):
+        return False
+    if str(binding.get("cluster_id") or "") != str(story_binding.get("cluster_id") or ""):
+        return False
+    if [str(value) for value in (binding.get("headline_ids") or [])] != [
+        str(value) for value in (story_binding.get("headline_ids") or [])
+    ]:
+        return False
+    request_hash = str(story_binding.get("request_logical_hash") or "")
+    return not request_hash or str(binding.get("request_logical_hash") or "") == request_hash
 
 
 def _sha256_file(path: Path) -> str:
@@ -97,13 +166,14 @@ def _has_public_reporting_permission(sources: Sequence[Mapping[str, Any]]) -> bo
 def _build_evidence_packet_from_publication_packet(
     root: Path,
     *,
+    source_path: Path,
     as_of_utc: str | None,
     story_window_hours: int,
 ) -> dict[str, Any]:
     """Translate the story-scoped database product without widening global DQR."""
-    source_path = root / PUBLICATION_EVIDENCE
     source = _read_json(source_path)
-    if source.get("schema_version") != "capital_chronicle.publication_evidence_packet.v1":
+    compatible, compatibility_mode = _publication_schema_compatibility(source)
+    if not compatible:
         raise ValueError("unsupported_publication_evidence_packet_schema")
     consumers = {str(value) for value in source.get("consumer_class") or []}
     story_authority = dict(source.get("story_authority") or {})
@@ -120,7 +190,7 @@ def _build_evidence_packet_from_publication_packet(
     if (source.get("global_authority") or {}).get("dqr") != "BLOCKED":
         contract_blockers.append("global_dqr_boundary_not_preserved")
 
-    packet_ref = str(PUBLICATION_EVIDENCE).replace("\\", "/")
+    packet_ref = str(source_path.relative_to(root)).replace("\\", "/")
     numeric_claims = []
     for index, source_claim in enumerate(source.get("numeric_claims") or []):
         claim = dict(source_claim)
@@ -203,6 +273,8 @@ def _build_evidence_packet_from_publication_packet(
         "blockers": blockers,
         "governed_contract": {
             "mode": "story_scoped_publication_evidence_v1",
+            "upstream_schema_version": source.get("schema_version"),
+            "schema_compatibility_mode": compatibility_mode,
             "global_dqr_override": False,
             "upstream_packet_id": source.get("packet_id"),
             "upstream_packet_sha256": _sha256_file(source_path),
@@ -615,8 +687,12 @@ def _build_evidence_packet_from_pool_candidate(
     as_of_utc: str | None,
     story_window_hours: int,
 ) -> dict[str, Any]:
+    publication_paths = _publication_evidence_paths(root)
+    if not publication_paths:
+        raise FileNotFoundError("publication_evidence_packet_not_available")
     packet = _build_evidence_packet_from_publication_packet(
         root,
+        source_path=publication_paths[0],
         as_of_utc=as_of_utc,
         story_window_hours=story_window_hours,
     )
@@ -641,6 +717,7 @@ def build_evidence_packet_from_cc_root(
     as_of_utc: str | None = None,
     story_window_hours: int = 24,
     candidate_id: str | None = None,
+    story_binding: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     root = Path(capital_chronicle_root).resolve()
     if candidate_id:
@@ -664,9 +741,21 @@ def build_evidence_packet_from_cc_root(
             raise ValueError(f"candidate_not_found_in_pool:{candidate_id}")
         raise FileNotFoundError(f"missing_candidate_pool_file:{pool_path}")
 
-    if (root / PUBLICATION_EVIDENCE).is_file():
+    publication_paths = _publication_evidence_paths(root)
+    if publication_paths:
+        selected_path = publication_paths[0]
+        for path in publication_paths:
+            try:
+                source = _read_json(path)
+            except (OSError, UnicodeError, ValueError, TypeError, json.JSONDecodeError):
+                continue
+            compatible, _ = _publication_schema_compatibility(source)
+            if compatible and _raw_binding_matches(source, story_binding):
+                selected_path = path
+                break
         return _build_evidence_packet_from_publication_packet(
             root,
+            source_path=selected_path,
             as_of_utc=as_of_utc,
             story_window_hours=story_window_hours,
         )

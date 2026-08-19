@@ -30,6 +30,13 @@ def test_real_governed_treasury_input_is_video_selected():
     assert len(program["chapters"]) == 5
     assert len(program["scenes"]) == 10
     assert len(program["short_variant"]["scenes"]) == 5
+    assert story["capital_chronicle_publication_authority"]["state"] == (
+        "PUBLICATION_PACKET_AVAILABLE"
+    )
+    assert story["publication_authorized_cc_projection"]["exact_numeric_claims"] == list(
+        story["claims"].values()
+    )
+    assert story["publication_authorized_cc_projection"]["values_regenerated_or_repaired"] is False
 
 
 def test_every_factual_scene_has_exact_claim_and_source_bindings():
