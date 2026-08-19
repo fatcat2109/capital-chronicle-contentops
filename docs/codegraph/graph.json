@@ -81524,7 +81524,7 @@
     {
       "id": "live_contentops/capital_chronicle_data_catalog_v1.py",
       "kind": "python_module",
-      "size_bytes": 34264
+      "size_bytes": 34433
     },
     {
       "id": "live_contentops/capital_chronicle_ingestion_headline_idea_connector_precheck.py",
@@ -81569,12 +81569,12 @@
     {
       "id": "live_contentops/cc_evidence_bridge_v2.py",
       "kind": "python_module",
-      "size_bytes": 44531
+      "size_bytes": 44860
     },
     {
       "id": "live_contentops/cc_publication_authority_v1.py",
       "kind": "python_module",
-      "size_bytes": 17249
+      "size_bytes": 17645
     },
     {
       "id": "live_contentops/citation_guardrail.py",
@@ -82374,7 +82374,7 @@
     {
       "id": "live_contentops/grounded_news_research_v1.py",
       "kind": "python_module",
-      "size_bytes": 75215
+      "size_bytes": 75229
     },
     {
       "id": "live_contentops/grounded_research.py",
@@ -82944,7 +82944,7 @@
     {
       "id": "live_contentops/official_primary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 26934
+      "size_bytes": 26971
     },
     {
       "id": "live_contentops/official_primary_source_locator_v1.py",
@@ -83474,7 +83474,7 @@
     {
       "id": "live_contentops/preselection_intelligence_v1.py",
       "kind": "python_module",
-      "size_bytes": 20641
+      "size_bytes": 20682
     },
     {
       "id": "live_contentops/primary_payload_classes_contract.py",
@@ -83584,7 +83584,7 @@
     {
       "id": "live_contentops/public_secondary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 25189
+      "size_bytes": 25253
     },
     {
       "id": "live_contentops/publication_audit_record_contract_v6.py",
@@ -83769,12 +83769,12 @@
     {
       "id": "live_contentops/rolling_x_grounded_article_media_builder_v1.py",
       "kind": "python_module",
-      "size_bytes": 114082
+      "size_bytes": 114113
     },
     {
       "id": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "kind": "python_module",
-      "size_bytes": 57402
+      "size_bytes": 57563
     },
     {
       "id": "live_contentops/runtime_activity_projection_v1.py",
@@ -84204,7 +84204,7 @@
     {
       "id": "live_contentops/tier2_video_factory_v1.py",
       "kind": "python_module",
-      "size_bytes": 56146
+      "size_bytes": 56186
     },
     {
       "id": "live_contentops/tiktok_local_desktop_oauth_pkce_v1.py",
@@ -118678,7 +118678,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 54680
+      "size_bytes": 54770
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -118748,7 +118748,7 @@
     {
       "id": "scripts/run_p0_core_analyzer_zero_write_demo_v1.py",
       "kind": "python_module",
-      "size_bytes": 17919
+      "size_bytes": 18336
     },
     {
       "id": "scripts/run_substack_first_north_star_pipeline_loop_v1.py",
@@ -119303,7 +119303,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 8914
+      "size_bytes": 8934
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
@@ -119858,7 +119858,7 @@
     {
       "id": "tests/test_evidence_gate_calibration_v1.py",
       "kind": "test",
-      "size_bytes": 36133
+      "size_bytes": 36148
     },
     {
       "id": "tests/test_exact_env_key_membership_check_gate_v6.py",
@@ -120923,7 +120923,7 @@
     {
       "id": "tests/test_p0_core_analyzer_authority_context_source_v1.py",
       "kind": "test",
-      "size_bytes": 19315
+      "size_bytes": 19769
     },
     {
       "id": "tests/test_packet_audit.py",
@@ -121528,7 +121528,7 @@
     {
       "id": "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
       "kind": "test",
-      "size_bytes": 32736
+      "size_bytes": 32764
     },
     {
       "id": "tests/test_rolling_x_v1_publishability_closure_v1.py",
@@ -121963,7 +121963,7 @@
     {
       "id": "tests/test_tier2_video_factory_v1.py",
       "kind": "test",
-      "size_bytes": 5769
+      "size_bytes": 5811
     },
     {
       "id": "tests/test_tiktok_local_desktop_oauth_pkce_v1.py",
@@ -126712,5 +126712,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "16cb39db7987126c0cab272c41016f5adae0906e",
-  "source_tree_digest": "a8c5fb3d55fc21d47edbf1b80a8715497e812290a3fd5770ebdb950579b330f1"
+  "source_tree_digest": "ee20c893e82e4177771c733fd35cdae678add01f217683da8b05079e42303d59"
 }
