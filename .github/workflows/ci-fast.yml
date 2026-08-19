@@ -40,7 +40,7 @@ jobs:
       - name: Run deterministic CodeGraph generator tests
         run: python -m pytest -q tests/test_codex_context_index.py
 
-      - name: Validate hybrid execution authority candidate
+      - name: Validate current hybrid execution authority
         shell: bash
         run: |
           python - <<'PY'
@@ -55,7 +55,7 @@ jobs:
           assert '## EXECUTION ROUTING SUPERSESSION' in authority_map
           assert '`WEB_STATIC`' in authority_map and '`WEB_CI`' in authority_map
           assert '`CODEX_EXECUTION`' in authority_map and '`OWNER_GATED_EXTERNAL`' in authority_map
-          assert 'Status: `OWNER_AUTHORIZED_EXECUTION_POLICY_CANDIDATE`' in policy
+          assert 'Status: `CURRENT_EXECUTION_POLICY`' in policy
           assert 'no merge without explicit owner authorization' in policy
           PY
 
