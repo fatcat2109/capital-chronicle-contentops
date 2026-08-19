@@ -47,6 +47,8 @@ REPUTABLE_SECONDARY_NAMES = frozenset(
     }
 )
 NEWS_RSS_ENDPOINT = "https://news.google.com/rss/search"
+PUBLISHER_NEWS_SITEMAP_PATH = "/news-sitemap.xml"
+MAX_PUBLISHER_RESOLUTION_ATTEMPTS = 2
 _TAG_RE = re.compile(r"<[^>]+>")
 _SCRIPT_RE = re.compile(r"<(?:script|style|noscript)[^>]*>.*?</(?:script|style|noscript)>", re.I | re.S)
 _RSS_QUERY_STOPWORDS = frozenset(
@@ -172,12 +174,36 @@ def _rss_query_terms(summary: str) -> list[str]:
 
 
 def _rss_relevance_score(query_terms: list[str], title: str) -> float:
-    """Score a listing against the event-bearing query before applying the result cap."""
-    query = {token.casefold() for token in query_terms}
-    if not query:
+    """Score a short publisher title against a longer event-bearing locator query.
+
+    The previous query-denominator-only score rejected exact short headlines when a
+    proposition contained attribution boilerplate. A symmetric denominator plus a
+    conservative four-character morphology match retains precision while recognizing
+    pairs such as ``Iranian``/``Iran`` and ``market``/``markets``.
+    """
+    query = {token.casefold().strip("'\"") for token in query_terms}
+    title_terms = {
+        token.casefold().strip("'\"") for token in _rss_query_terms(title)
+    }
+    if not query or not title_terms:
         return 0.0
-    title_terms = {token.casefold() for token in _rss_query_terms(title)}
-    return len(query.intersection(title_terms)) / len(query)
+
+    def same_family(left: str, right: str) -> bool:
+        if left == right:
+            return True
+        common = min(len(left), len(right))
+        return common >= 4 and (
+            left.startswith(right)
+            or right.startswith(left)
+            or left[:4] == right[:4]
+        )
+
+    matched_title_terms = {
+        title_term
+        for title_term in title_terms
+        if any(same_family(query_term, title_term) for query_term in query)
+    }
+    return len(matched_title_terms) / min(len(query), len(title_terms))
 
 
 class BoundedPublicSecondaryEvidenceLoader:
@@ -188,6 +214,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         *,
         evaluation_as_of_utc: str,
         max_requests: int = 24,
+        max_requests_per_candidate: int = 6,
         timeout_seconds: float = 12.0,
         max_response_bytes: int = 800_000,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
@@ -198,21 +225,34 @@ class BoundedPublicSecondaryEvidenceLoader:
             raise ValueError("public_source_evaluation_time_timezone_required")
         self._evaluation_as_of_utc = _iso_utc(cutoff)
         self._max_requests = max_requests
+        self._max_requests_per_candidate = max(1, min(max_requests_per_candidate, max_requests))
         self._timeout_seconds = timeout_seconds
         self._max_response_bytes = max_response_bytes
         self._http_get = http_get or _default_public_http_get
         self._validate_dns = http_get is None
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._request_count = 0
+        self._candidate_request_start = 0
 
     def _get(self, url: str) -> dict[str, Any]:
         if self._request_count >= self._max_requests:
             raise RuntimeError("public_source_request_budget_exhausted")
+        if (
+            self._request_count - self._candidate_request_start
+            >= self._max_requests_per_candidate
+        ):
+            raise RuntimeError("public_source_candidate_request_budget_exhausted")
         _public_host(url, resolve_dns=self._validate_dns)
         self._request_count += 1
         return dict(self._http_get(url, self._timeout_seconds, self._max_response_bytes))
 
-    def _direct_document(self, url: str, headline_id: str) -> dict[str, Any] | None:
+    def _direct_document(
+        self,
+        url: str,
+        headline_id: str,
+        *,
+        published_at_hint: str | None = None,
+    ) -> dict[str, Any] | None:
         host = _public_host(url, resolve_dns=self._validate_dns)
         discovery_redirect = host == "news.google.com"
         if host not in REPUTABLE_SECONDARY_HOSTS and not discovery_redirect:
@@ -231,7 +271,10 @@ class BoundedPublicSecondaryEvidenceLoader:
             raise ValueError("public_source_body_invalid")
         raw = body.decode("utf-8", errors="replace")
         title = _title(raw) or final_url.rsplit("/", 1)[-1].replace("-", " ")
-        published = _html_timestamp(raw) or _parse_timestamp(headers.get("last-modified"))
+        publisher_timestamp = _html_timestamp(raw) or _parse_timestamp(
+            headers.get("last-modified")
+        )
+        published = publisher_timestamp or _parse_timestamp(published_at_hint)
         if not published:
             raise ValueError("public_source_published_timestamp_unavailable")
         if datetime.fromisoformat(published.replace("Z", "+00:00")) > datetime.fromisoformat(
@@ -254,6 +297,11 @@ class BoundedPublicSecondaryEvidenceLoader:
             "discovery_path_is_reader_authority": False,
             "source_headline_id": headline_id,
             "published_at_utc": published,
+            "published_at_source": (
+                "PUBLISHER_BYTES_OR_HEADERS"
+                if publisher_timestamp
+                else "EXACT_BOUND_DISCOVERY_TIMESTAMP"
+            ),
             "event_time_utc": published,
             "raw_sha256": sha256(body).hexdigest(),
             "canonical_content_sha256": sha256(text.encode("utf-8")).hexdigest(),
@@ -269,6 +317,154 @@ class BoundedPublicSecondaryEvidenceLoader:
                 else "DIRECT_PUBLISHER_URL"
             ),
         }
+
+    def _publisher_sitemap_candidate(
+        self, listing: Mapping[str, Any]
+    ) -> dict[str, Any] | None:
+        """Resolve a discovery listing through one same-publisher news sitemap.
+
+        The sitemap is locator evidence only. Its candidate must strongly match the
+        discovery title and the exact publisher article is fetched separately before
+        any public-claim authority is granted.
+        """
+        source_host = str(listing.get("source_identity") or "").casefold()
+        if source_host not in REPUTABLE_SECONDARY_HOSTS:
+            return None
+        publisher_home_url = str(listing.get("publisher_home_url") or "")
+        publisher_home_host = _public_host(
+            publisher_home_url, resolve_dns=self._validate_dns
+        )
+        if publisher_home_host.removeprefix("www.") != source_host.removeprefix(
+            "www."
+        ):
+            raise ValueError("publisher_news_sitemap_identity_mismatch")
+        locator_url = (
+            publisher_home_url.rstrip("/") + PUBLISHER_NEWS_SITEMAP_PATH
+        )
+        response = self._get(locator_url)
+        if int(response.get("status") or 0) != 200:
+            raise ValueError("publisher_news_sitemap_http_status_not_200")
+        body = response.get("body")
+        if not isinstance(body, bytes) or not body:
+            raise ValueError("publisher_news_sitemap_body_invalid")
+        try:
+            root = ET.fromstring(body)
+        except ET.ParseError as exc:
+            raise ValueError("publisher_news_sitemap_xml_invalid") from exc
+
+        listing_title = str(listing.get("title") or "")
+        listing_terms = _rss_query_terms(listing_title)
+        cutoff = datetime.fromisoformat(
+            self._evaluation_as_of_utc.replace("Z", "+00:00")
+        )
+        candidates: list[tuple[float, float, str, str | None, str]] = []
+        for url_row in root.iter():
+            if not str(url_row.tag).casefold().endswith("url"):
+                continue
+            fields: dict[str, str] = {}
+            for child in url_row.iter():
+                local_name = str(child.tag).rsplit("}", 1)[-1].casefold()
+                value = " ".join(str(child.text or "").split())
+                if value and local_name in {"loc", "title", "publication_date"}:
+                    fields[local_name] = value
+            candidate_url = fields.get("loc", "")
+            candidate_title = fields.get("title", "")
+            if not candidate_url or not candidate_title:
+                continue
+            try:
+                candidate_host = _public_host(candidate_url, resolve_dns=False)
+            except ValueError:
+                continue
+            if candidate_host.removeprefix("www.") != source_host.removeprefix("www."):
+                continue
+            relevance = _rss_relevance_score(listing_terms, candidate_title)
+            if relevance < 0.72:
+                continue
+            published = _parse_timestamp(fields.get("publication_date"))
+            if published:
+                observed = datetime.fromisoformat(published.replace("Z", "+00:00"))
+                if observed > cutoff:
+                    continue
+                distance = abs(
+                    observed.timestamp()
+                    - datetime.fromisoformat(
+                        str(listing.get("published_at_utc") or published).replace(
+                            "Z", "+00:00"
+                        )
+                    ).timestamp()
+                )
+            else:
+                distance = float("inf")
+            candidates.append(
+                (relevance, distance, candidate_url, published, candidate_title)
+            )
+        if not candidates:
+            return None
+        relevance, _distance, candidate_url, published, candidate_title = sorted(
+            candidates,
+            key=lambda row: (-row[0], row[1], row[2]),
+        )[0]
+        return {
+            "source_url": candidate_url,
+            "published_at_utc": published,
+            "title": candidate_title,
+            "title_relevance": round(relevance, 4),
+            "locator_url": locator_url,
+            "locator_sha256": sha256(body).hexdigest(),
+        }
+
+    def _resolve_listing_to_publisher_document(
+        self, listing: Mapping[str, Any]
+    ) -> tuple[dict[str, Any] | None, list[str]]:
+        diagnostics: list[str] = []
+        candidate: dict[str, Any] | None = None
+        try:
+            candidate = self._publisher_sitemap_candidate(listing)
+        except (OSError, RuntimeError, TypeError, ValueError) as exc:
+            diagnostics.append(str(exc) or type(exc).__name__)
+        if candidate is not None:
+            try:
+                document = self._direct_document(
+                    str(candidate["source_url"]),
+                    str(listing.get("source_headline_id") or ""),
+                    published_at_hint=str(candidate.get("published_at_utc") or "")
+                    or str(listing.get("published_at_utc") or "")
+                    or None,
+                )
+                if document is not None:
+                    document.update(
+                        {
+                            "discovery_path_url": listing.get("source_url"),
+                            "discovery_path_is_reader_authority": False,
+                            "publisher_locator_url": candidate["locator_url"],
+                            "publisher_locator_sha256": candidate["locator_sha256"],
+                            "publisher_locator_title_relevance": candidate[
+                                "title_relevance"
+                            ],
+                            "canonical_resolution_status": (
+                                "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP"
+                            ),
+                        }
+                    )
+                    return document, diagnostics
+            except (OSError, RuntimeError, TypeError, ValueError) as exc:
+                diagnostics.append(str(exc) or type(exc).__name__)
+
+        # Retain the bounded legacy redirect path for Google News link forms that do
+        # issue a direct redirect to an allowlisted publisher.
+        try:
+            return (
+                self._direct_document(
+                    str(listing.get("source_url") or ""),
+                    str(listing.get("source_headline_id") or ""),
+                    published_at_hint=str(listing.get("published_at_utc") or "")
+                    or None,
+                ),
+                diagnostics,
+            )
+        except (OSError, RuntimeError, TypeError, ValueError) as exc:
+            diagnostics.append(str(exc) or type(exc).__name__)
+            return None, diagnostics
 
     def _enough_with_existing(
         self, request: Mapping[str, Any], documents: list[dict[str, Any]]
@@ -289,7 +485,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         request: Mapping[str, Any],
         *,
         existing_documents: list[dict[str, Any]],
-    ) -> list[dict[str, Any]]:
+    ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
         context = request.get("story_context") or {}
         planned_queries = [
             " ".join(str(value).split())
@@ -305,13 +501,19 @@ class BoundedPublicSecondaryEvidenceLoader:
             terms for terms in (_rss_query_terms(value) for value in summaries[:3]) if terms
         ]
         if not query_terms:
-            return []
+            return [], {
+                "locator_candidate_count": 0,
+                "publisher_resolution_attempt_count": 0,
+                "publisher_resolution_diagnostics": [],
+            }
         cutoff = datetime.fromisoformat(
             self._evaluation_as_of_utc.replace("Z", "+00:00")
         )
         resolved: list[dict[str, Any]] = []
         seen_publishers: set[str] = set()
         source_resolution_attempts = 0
+        locator_candidate_count = 0
+        resolution_diagnostics: list[str] = []
         for terms in query_terms:
             url = NEWS_RSS_ENDPOINT + "?" + urlencode(
                 {"q": " ".join(terms), "hl": "en-US", "gl": "US", "ceid": "US:en"}
@@ -354,6 +556,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                     "title": title,
                     "publisher": publisher,
                     "source_identity": identity,
+                    "publisher_home_url": str(source.get("url") or ""),
                     "source_authority_class": "reputable_secondary_source",
                     "source_url": link,
                     "published_at_utc": published,
@@ -367,6 +570,9 @@ class BoundedPublicSecondaryEvidenceLoader:
                     "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
                     "secondary_listing_only": True,
                     "research_query_terms": terms,
+                    "source_headline_id": str(
+                        (request.get("headline_ids") or [""])[0]
+                    ),
                 }
                 existing = candidates.get(identity)
                 candidate = (relevance, observed, document)
@@ -381,19 +587,21 @@ class BoundedPublicSecondaryEvidenceLoader:
                     str(row[2].get("title") or "").casefold(),
                 ),
             )
+            locator_candidate_count += len(ranked)
             for _relevance, _observed, listing in ranked:
                 identity = str(listing.get("source_identity") or "").casefold()
-                if identity in seen_publishers or source_resolution_attempts >= 3:
+                if (
+                    identity in seen_publishers
+                    or source_resolution_attempts
+                    >= MAX_PUBLISHER_RESOLUTION_ATTEMPTS
+                ):
                     continue
                 seen_publishers.add(identity)
                 source_resolution_attempts += 1
-                try:
-                    document = self._direct_document(
-                        str(listing.get("source_url") or ""),
-                        str(listing.get("source_headline_id") or ""),
-                    )
-                except (OSError, RuntimeError, TypeError, ValueError):
-                    document = None
+                document, failures = self._resolve_listing_to_publisher_document(
+                    listing
+                )
+                resolution_diagnostics.extend(failures)
                 if document is None:
                     listing["reader_source_url"] = None
                     listing["reader_attribution_mode"] = "ATTRIBUTION_ONLY"
@@ -401,16 +609,31 @@ class BoundedPublicSecondaryEvidenceLoader:
                     listing["canonical_resolution_status"] = (
                         "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY"
                     )
+                    listing["public_claim_allowed"] = False
+                    listing["locator_or_attribution_only"] = True
                     document = listing
                 resolved.append(document)
                 if self._enough_with_existing(request, existing_documents + resolved):
-                    return resolved
-            if source_resolution_attempts >= 3:
+                    return resolved, {
+                        "locator_candidate_count": locator_candidate_count,
+                        "publisher_resolution_attempt_count": source_resolution_attempts,
+                        "publisher_resolution_diagnostics": sorted(
+                            set(resolution_diagnostics)
+                        ),
+                    }
+            if source_resolution_attempts >= MAX_PUBLISHER_RESOLUTION_ATTEMPTS:
                 break
-        return resolved
+        return resolved, {
+            "locator_candidate_count": locator_candidate_count,
+            "publisher_resolution_attempt_count": source_resolution_attempts,
+            "publisher_resolution_diagnostics": sorted(
+                set(resolution_diagnostics)
+            ),
+        }
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         request_count_at_start = self._request_count
+        self._candidate_request_start = request_count_at_start
         context = request.get("story_context") or {}
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
         rows = [
@@ -425,10 +648,22 @@ class BoundedPublicSecondaryEvidenceLoader:
         ]
         documents: list[dict[str, Any]] = []
         diagnostics: list[str] = []
+        rss_provenance: dict[str, Any] = {
+            "locator_candidate_count": 0,
+            "publisher_resolution_attempt_count": 0,
+            "publisher_resolution_diagnostics": [],
+        }
         for row in rows[:2]:
             try:
                 document = self._direct_document(
-                    str(row.get("url") or ""), str(row.get("headline_id") or "")
+                    str(row.get("url") or ""),
+                    str(row.get("headline_id") or ""),
+                    published_at_hint=str(
+                        row.get("feed_published_at_utc")
+                        or row.get("source_timestamp_utc")
+                        or row.get("published_at_utc")
+                        or ""
+                    ) or None,
                 )
                 if document:
                     documents.append(document)
@@ -442,8 +677,12 @@ class BoundedPublicSecondaryEvidenceLoader:
                 break
         if not self._enough_with_existing(request, documents):
             try:
-                documents.extend(
-                    self._rss_documents(request, existing_documents=documents)
+                rss_documents, rss_provenance = self._rss_documents(
+                    request, existing_documents=documents
+                )
+                documents.extend(rss_documents)
+                diagnostics.extend(
+                    rss_provenance.get("publisher_resolution_diagnostics") or []
                 )
             except (OSError, RuntimeError, TypeError, ValueError) as exc:
                 diagnostics.append(str(exc) or type(exc).__name__)
@@ -451,6 +690,12 @@ class BoundedPublicSecondaryEvidenceLoader:
         for document in documents:
             unique[(str(document.get("publisher") or "").casefold(), str(document.get("title") or "").casefold())] = document
         documents = list(unique.values())[:4]
+        locator_only_documents = [
+            row for row in documents if row.get("public_claim_allowed") is not True
+        ]
+        documents = [
+            row for row in documents if row.get("public_claim_allowed") is True
+        ]
         retrieved = self._clock()
         if not isinstance(retrieved, datetime) or retrieved.utcoffset() is None:
             raise ValueError("public_source_retrieval_time_timezone_required")
@@ -462,6 +707,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "request_logical_hash": request.get("request_logical_hash"),
             },
             "evidence_documents": documents,
+            "locator_only_records": locator_only_documents,
             "provided_evidence_capabilities": (
                 ["credible_event_confirmation", "basic_attributed_facts"] if documents else []
             ),
@@ -474,6 +720,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                     self._request_count - request_count_at_start
                 ),
                 "request_limit": self._max_requests,
+                "request_limit_per_candidate": self._max_requests_per_candidate,
                 "read_only_public_gets": True,
                 "paywall_or_access_control_bypass": False,
                 "bounded_enrichment_requested": bool(
@@ -496,6 +743,16 @@ class BoundedPublicSecondaryEvidenceLoader:
                 ),
                 "additional_source_is_eligibility_requirement": False,
                 "diagnostics": sorted(set(diagnostics)),
+                "locator_only_record_count": len(locator_only_documents),
+                "locator_candidate_count": int(
+                    rss_provenance.get("locator_candidate_count") or 0
+                ),
+                "publisher_resolution_attempt_count": int(
+                    rss_provenance.get("publisher_resolution_attempt_count") or 0
+                ),
+                "publisher_resolution_diagnostics": list(
+                    rss_provenance.get("publisher_resolution_diagnostics") or []
+                ),
             },
             "blockers": [] if documents else sorted(set(diagnostics or ["public_source_unavailable"])),
             "publication_authority": False,

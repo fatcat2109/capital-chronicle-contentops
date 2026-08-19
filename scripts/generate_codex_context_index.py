@@ -27,7 +27,7 @@ INDEX_PATH = OUTPUT_DIR / "INDEX.md"
 V2_CONTEXT_PATH = OUTPUT_DIR / "V2_CONTEXT.md"
 V1_CONTEXT_PATH = OUTPUT_DIR / "V1_CONTEXT.md"
 SCHEMA_VERSION = "contentops.codex_context_graph.v2"
-GENERATOR_VERSION = "2.2.1"
+GENERATOR_VERSION = "2.3.0"
 
 CODE_SUFFIXES = {
     ".py",
@@ -45,22 +45,11 @@ MANIFEST_NAMES = {"pyproject.toml", "package.json", "tsconfig.json", "vite.confi
 AUTHORITY_DOCS = {
     "AGENTS.md",
     "docs/AGENTS.md",
-    "docs/CURRENT_CONTEXT.md",
-    "docs/AI_BUILDER_BOOTSTRAP.md",
-    "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
-    "docs/status/CURRENT_PROJECT_STATUS.md",
-    "docs/status/current_project_status.json",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
-    "docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md",
-    "docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md",
-    "docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md",
-    "docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md",
-    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
-    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
-    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
+    "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
+    "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
+    "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
+    "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
     "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
-    "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
-    "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
     "docs/codegraph/V1_CONTEXT.md",
     "docs/codegraph/V2_CONTEXT.md",
 }
@@ -1028,58 +1017,34 @@ def context_markdown(graph: dict[str, Any]) -> str:
 Generated from source HEAD `{graph["source_head"]}`. Source tree digest: `{graph["source_tree_digest"]}`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
-This map is descriptive repository state, not product authority. Jim's current direction and
-the committed status/next-task documents remain authoritative.
+This generated map is descriptive repository state and is subordinate to root `AGENTS.md`.
+Current authority must be read from the V3 authority spine rather than inferred from generated
+task summaries.
 
-## Accepted master capabilities
+## Current authority spine
 
-- Canonical V1 Daily App runtime, durable operational store, production orchestrator, router
-  seam, bounded publication/readback/reconciliation, and canonical V5 UI.
-- Tier2-A local renderer-neutral `VideoProgram` factory in
-  `live_contentops/tier2_video_factory_v1.py`, with no provider/platform/public write.
-- Current 9Router text/model authority in `live_contentops/nine_router_*_v2.py`.
-- `TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1` accepted
-  `PASS_WITH_CAVEAT` at `a859d5ff82707842f59163e4ec5150b22fbe6b0e`: the dedicated direct
-  `https://ai.api-cheap.site/v1/images/generations` route using `AI_API_CHEAP_API_KEY` is
-  proven end to end for `gpt-5.5`. Evidence:
-  `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/README.md`.
+1. `AGENTS.md`
+2. `docs/codegraph/INDEX.md`
+3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+6. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
+7. the appropriate current lane pointer
+8. the nearest scoped `AGENTS.md`
+9. exact implementation, tests, and evidence
 
-## Rejected or unmerged experiments
+## Current product boundary
 
-- `task/tier2-b-remotion-multimodal-bakeoff-v1`: rejected visual product; reference only.
-- `task/tier2-image-generation-9router-contract-correction-v1` at `8b043a5`: rejected; do not
-  import its implementation or add `ai.api-cheap.site` to the generic 9Router adapter.
-
-Reference-only Remotion relationships are recorded descriptively in `graph.json` but its source
-files are not imported into master: `Root.tsx` composes `SceneRenderer`, `SceneRenderer`
-dispatches to `primitives.tsx` inside `scaffold.tsx`, and the renderer-neutral Python factory
-targets `render-job.mjs`.
-
-## Current V2 free-form chapterized authority and route
-
-- `gpt-5.5` is the provisional V2 generated-illustration default pending future product
-  evidence; generated illustration is never factual or documentary authority.
-- `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed HTTP 400 responses on the tested
-  contract and remain unresolved without blocking V2.
-- The V2 free-form chapterized owner override, `NORTH_STAR_V2`, `MASTER_PLAN_V2`,
-  `TASK_GRAPH_V2`, current V2 execution pointer, Remotion baseline, and fresh-session handoff
-  are the canonical V2 product authority. Older V2 and V1 plan sets are historical where they
-  conflict with this chain.
-- The current task is
-  `TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1`.
-  The parent/deterministic executor is GPT-5.6 Sol HIGH; fresh viewer-facing creative authors
-  and the actual-media critic are GPT-5.6 Sol XHIGH. MAX/ULTRA and mode bakeoffs are retired.
-- Remotion is deterministic execution, not creative authority. Viewer-facing source remains
-  free-form React/Remotion code organized by semantic creative chapters. Chapters are not
-  automatically render units, and deterministic aesthetic schemas/gates are forbidden.
-- The rejected creative branch `task/tier2-v2-creative-system-rebuild-v1` at `d231b54e` is
-  reference only: do not merge or continue its slideshow-heavy creative product.
-- The rejected first retention-native attempt at `b6f50029` is also reference only; do not
-  continue its repetitive creative grammar.
-- Output is 1080-first with real authored audio/music, rights-aware assets, dirty-range review,
-  chapter caching, stream-copy assembly, bounded XHIGH actual-media critique, and Jim/ChatGPT
-  owner review. 4K is deferred/forbidden in the current contract. Virality is never guaranteed.
-- V2 is isolated from V1 and has zero public-write authority.
+- Capital Chronicle/Core Analyzer owns proprietary analytical and numeric truth.
+- ContentOps may use only an exact upstream packet whose consumer and intended use are explicitly
+  granted; internal, candidate, proxy, degraded, stale, or incompatible material is non-public.
+- V1 is the canonical newsroom/publication runtime. Its current lane pointer is
+  `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
+- V2 is an isolated retention-native media lane with zero video public-write authority. Its
+  current lane pointer is
+  `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`.
+- Do not infer a current task, model route, provider, or acceptance state from this generated file;
+  read the current authority map and lane pointer bytes.
 
 ## Subsystem map
 
@@ -1089,7 +1054,7 @@ targets `render-job.mjs`.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
-| V2 free-form chapterized authority | `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`, `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`, `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` | Free-form pipeline, V2 North Star, master plan, task graph, Remotion baseline, owner-polish evidence |
+| Current authority | `AGENTS.md`, `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` | V3 North Star, V3 master plan, current lane pointers |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |
 
@@ -1121,13 +1086,16 @@ def index_markdown(graph: dict[str, Any]) -> str:
         "",
         "1. `AGENTS.md`",
         "2. `docs/codegraph/INDEX.md` (this page)",
-        "3. nearest scoped `AGENTS.md`",
-        "4. `docs/codegraph/V1_CONTEXT.md` when V1 product/state context matters",
-        "5. exact implementation and focused tests",
+        "3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`",
+        "4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`",
+        "5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`",
+        "6. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`",
+        "7. the appropriate current V1/V2 lane pointer",
+        "8. nearest scoped `AGENTS.md`",
+        "9. exact implementation, focused tests, and task evidence",
         "",
-        "Open current direction/next-task authority only when product direction matters: "
-        "`docs/CURRENT_CONTEXT.md`, `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`, and "
-        "`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`.",
+        "This generated router is subordinate to root `AGENTS.md`. Never use it to bypass the "
+        "current V3 authority spine or a newer owner decision.",
         "",
         "## Entrypoints",
         "",
@@ -1150,29 +1118,24 @@ def index_markdown(graph: dict[str, Any]) -> str:
             "V5 tests are under `ui/contentops_v5/src/test/`. Generator coverage is "
             "`tests/test_codex_context_index.py`.",
             "",
-            "## Current V1 closeout",
+            "## Current authority routing",
             "",
-            "Accepted implementation: four-window / full-nine-surface / closed-loop branch "
-            "`codex/v1-four-window-closed-loop-current-master-integration-v1`. Exactly four native "
-            "Desktop `gpt-5.6-sol / HIGH` coordinator tasks already exist and are all `PAUSED`; do not create, "
-            "recreate, enable, or add a fifth task.",
+            "Root authority and supersession: "
+            "`docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`.",
             "",
-            "Current task: "
-            "`TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1`. First "
-            "fast-forward the accepted branch, synchronize the canonical checkout, and verify all "
-            "nine readiness/identity states plus `UNKNOWN_WRITE=0`. Jim then runs exactly one fresh "
-            "Desktop HIGH coordinator manual `GO` canary; it creates one fresh isolated XHIGH "
-            "editorial worker only if an article is warranted. Only a Jim/ChatGPT audit PASS of the actual article "
-            "and all nine public surfaces enables the existing four tasks. "
-            "`V1_FINAL_PRODUCT_ACCEPTED` is forbidden before real evidence.",
+            "Product direction: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` and "
+            "`docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`.",
+            "",
+            "V1 lane: `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.",
+            "V2 lane: `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`.",
+            "Read the current pointer bytes; generated context does not declare a current task.",
             "",
             "## Tier2 separation",
             "",
             "Tier2/video is isolated from the V1 runtime and has no public-write authority. Read "
             "`docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. "
-            "The retention-native authority set and accepted direct-image boundary are routed "
-            "there; rejected Tier2-B, `8b043a5`, and creative branch `d231b54e` remain reference "
-            "only.",
+            "Current V2 direction must come from the V3 authority spine and current V2 lane pointer, "
+            "not historical task summaries embedded in generated context.",
             "",
             "## Generated graph files",
             "",
@@ -1212,17 +1175,9 @@ def build_outputs() -> dict[str, str]:
 
 
 def normalized_for_check(path: str, value: str) -> str:
-    if path.endswith("graph.json"):
-        parsed = json.loads(value)
-        parsed["source_head"] = "<HEAD>"
-        parsed["generation_timestamp_utc"] = "<TIMESTAMP>"
-        return json.dumps(parsed, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
-    return re.sub(
-        r"((?:source HEAD|Source HEAD)\s*:?\s*)`?[0-9a-f]+`?",
-        r"\1`<HEAD>`",
-        value,
-        flags=re.IGNORECASE,
-    )
+    """Normalize line endings only; recorded source epoch is part of freshness truth."""
+    del path
+    return value.replace("\r\n", "\n")
 
 
 def check_outputs() -> int:
@@ -1294,6 +1249,17 @@ def validate_context_contract(graph: dict[str, Any]) -> list[str]:
         errors.append("graph_generator_version_mismatch")
     if sorted(graph.get("authority_anchor_paths") or []) != sorted(AUTHORITY_DOCS):
         errors.append("authority_anchor_list_mismatch")
+    required_v3_anchors = {
+        "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
+        "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
+        "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
+        "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
+        "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
+    }
+    if not required_v3_anchors.issubset(set(graph.get("authority_anchor_paths") or [])):
+        errors.append("current_v3_authority_anchor_missing")
+    if any("V6_FINAL_PRODUCT_EXECUTION_PLAN" in path for path in graph.get("authority_anchor_paths") or []):
+        errors.append("superseded_v6_authority_anchor_present")
     return errors
 
 

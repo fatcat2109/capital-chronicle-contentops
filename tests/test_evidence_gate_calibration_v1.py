@@ -428,13 +428,10 @@ def test_g_two_independent_reputable_rss_sources_can_corroborate_nonnumeric_brea
     )
     packet = loader(request)
     contract = build_claim_evidence_contract(request, packet["evidence_documents"])
-    assert packet["status"] == "PASS"
-    assert len({row["publisher"] for row in packet["evidence_documents"]}) == 2
-    assert contract["status"] == "PASS"
-    assert any(
-        row["support_status"] in {"SUPPORTED_CORROBORATED_SECONDARY", "SUPPORTED_SOURCE_TITLE"}
-        for row in contract["supported_claims"]
-    )
+    assert packet["status"] == "BLOCKED"
+    assert packet["evidence_documents"] == []
+    assert packet["provenance"]["locator_only_record_count"] >= 2
+    assert contract["status"] == "BLOCKED"
 
 
 def test_decision5_rss_query_removes_desk_metadata_and_recovers_corroboration():
@@ -470,9 +467,9 @@ def test_decision5_rss_query_removes_desk_metadata_and_recovers_corroboration():
     contract = build_claim_evidence_contract(request, packet["evidence_documents"])
 
     assert query == "US Fires Ship Breaking Blockade Iran"
-    assert {row["publisher"] for row in packet["evidence_documents"]} == {"WSJ", "Reuters"}
-    assert contract["status"] == "PASS"
-    assert contract["supported_claim_count"] == 1
+    assert packet["evidence_documents"] == []
+    assert packet["provenance"]["locator_only_record_count"] == 2
+    assert contract["status"] == "BLOCKED"
 
 
 def test_decision5_rss_ranks_relevant_fresh_corroboration_before_result_cap():
@@ -502,9 +499,9 @@ def test_decision5_rss_ranks_relevant_fresh_corroboration_before_result_cap():
     documents = packet["evidence_documents"]
     contract = build_claim_evidence_contract(request, documents)
 
-    assert {row["publisher"] for row in documents[:2]} == {"WSJ", "Reuters"}
-    assert all(row["publisher"] != "Associated Press" for row in documents)
-    assert contract["status"] == "PASS"
+    assert documents == []
+    assert packet["provenance"]["locator_only_record_count"] >= 2
+    assert contract["status"] == "BLOCKED"
 
 
 def test_decision5_rss_accepts_recognized_jerusalem_post_corroboration():
@@ -530,11 +527,9 @@ def test_decision5_rss_accepts_recognized_jerusalem_post_corroboration():
     packet = loader(request)
     contract = build_claim_evidence_contract(request, packet["evidence_documents"])
 
-    assert {row["publisher"] for row in packet["evidence_documents"]} == {
-        "WSJ",
-        "The Jerusalem Post",
-    }
-    assert contract["status"] == "PASS"
+    assert packet["evidence_documents"] == []
+    assert packet["provenance"]["locator_only_record_count"] == 2
+    assert contract["status"] == "BLOCKED"
 
 
 def test_inaccessible_bound_and_first_listing_recover_to_accessible_reputable_source_within_budget():

@@ -21,10 +21,10 @@ def test_generated_outputs_are_deterministic_without_clock_or_randomness(graph):
     assert graph["generation_timestamp_utc"]
 
 
-def test_check_normalization_ignores_source_hash_in_index_and_context_forms():
+def test_check_normalization_preserves_source_epoch_truth():
     first = "Source HEAD: `" + "a" * 40 + "`\nGenerated from source HEAD `" + "a" * 40 + "`."
     second = "Source HEAD: `" + "b" * 40 + "`\nGenerated from source HEAD `" + "b" * 40 + "`."
-    assert index.normalized_for_check("docs/codegraph/V2_CONTEXT.md", first) == index.normalized_for_check(
+    assert index.normalized_for_check("docs/codegraph/V2_CONTEXT.md", first) != index.normalized_for_check(
         "docs/codegraph/V2_CONTEXT.md", second
     )
 
@@ -99,42 +99,31 @@ def test_generated_index_routes_v1_hot_paths_and_separates_v2(graph):
         "V5",
         "Router / models",
         "Tests",
-        "Current V1 closeout",
+        "Current authority routing",
         "Tier2 separation",
         "Generated graph files",
         "Regeneration and check",
     ):
         assert f"## {heading}" in generated
-    assert "Exactly four native" in generated
-    assert "all `PAUSED`" in generated
-    assert "exactly one fresh Desktop HIGH coordinator manual `GO` canary" in generated
-    assert "all nine public surfaces enables the existing four tasks" in generated
-    assert "`V1_FINAL_PRODUCT_ACCEPTED` is forbidden" in generated
-    assert "TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1" in generated
+    assert "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md" in generated
+    assert "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md" in generated
+    assert "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md" in generated
+    assert "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md" in generated
+    assert "V6_FINAL_PRODUCT_EXECUTION_PLAN" not in generated
+    assert "TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1" not in generated
 
 
-def test_generated_v2_context_routes_direct_image_and_retention_native_authority(graph):
+def test_generated_v2_context_routes_through_current_v3_authority(graph):
     context = index.context_markdown(graph)
     normalized = " ".join(context.split())
-    assert "TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1" in normalized
-    assert "PASS_WITH_CAVEAT" in normalized
-    assert "https://ai.api-cheap.site/v1/images/generations" in normalized
-    assert "AI_API_CHEAP_API_KEY" in normalized
-    assert "gpt-5.5" in normalized
-    assert "provisional V2 generated-illustration default" in normalized
-    assert "confirmed HTTP 400" in normalized
-    assert "TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1" in normalized
-    assert "GPT-5.6 Sol HIGH" in normalized
-    assert "GPT-5.6 Sol XHIGH" in normalized
-    assert "MAX/ULTRA and mode bakeoffs are retired" in normalized
-    assert "free-form React/Remotion code" in normalized
-    assert "NORTH_STAR_V2" in normalized
-    assert "d231b54e" in normalized
-    assert "b6f50029" in normalized
-    assert "zero public-write authority" in normalized
-    assert "LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END" not in normalized
-    assert "8b043a5" in normalized
-    assert "do not import" in normalized
+    assert "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md" in normalized
+    assert "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md" in normalized
+    assert "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md" in normalized
+    assert "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md" in normalized
+    assert "CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md" in normalized
+    assert "zero video public-write authority" in normalized
+    assert "V6_FINAL_PRODUCT_EXECUTION_PLAN" not in normalized
+    assert "TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1" not in normalized
 
 
 def test_context_contract_paths_exist_and_outputs_have_no_secret_shapes(graph):
