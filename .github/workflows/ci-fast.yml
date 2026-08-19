@@ -23,7 +23,7 @@ jobs:
       - name: Checkout exact commit
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -39,5 +39,28 @@ jobs:
       - name: Run deterministic CodeGraph generator tests
         run: python -m pytest -q tests/test_codex_context_index.py
 
-      - name: Check committed diff hygiene
-        run: git diff --check HEAD^ HEAD
+      - name: Validate hybrid execution authority candidate
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          agents = Path('AGENTS.md').read_text(encoding='utf-8')
+          authority_map = Path('docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md').read_text(encoding='utf-8')
+          policy = Path('docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md').read_text(encoding='utf-8')
+
+          assert 'Current repository execution framework is `CAPABILITY_ROUTED_HYBRID`.' in agents
+          assert 'CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md' in agents
+          assert '## EXECUTION ROUTING SUPERSESSION' in authority_map
+          assert '`WEB_STATIC`' in authority_map and '`WEB_CI`' in authority_map
+          assert '`CODEX_EXECUTION`' in authority_map and '`OWNER_GATED_EXTERNAL`' in authority_map
+          assert 'Status: `OWNER_AUTHORIZED_EXECUTION_POLICY_CANDIDATE`' in policy
+          assert 'no merge without explicit owner authorization' in policy
+          PY
+
+      - name: Check branch diff hygiene
+        shell: bash
+        run: |
+          git fetch --no-tags origin master
+          base="$(git merge-base HEAD origin/master)"
+          git diff --check "$base" HEAD
