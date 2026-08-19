@@ -1,0 +1,106 @@
+{
+  "schema_version": "contentops.p0_2a_evidence_summary.v1",
+  "classification": "NO_PUBLICATION_VALID / P0_2_ACCEPTANCE_NOT_PROVEN",
+  "verified_refs": {
+    "origin_master_at_start": "407233d0aad603ecfa53a248b8c3ebdff580d13a",
+    "starting_head": "c1e1969b49b49bba643abee82adfe27d3a156fd0",
+    "source_correction_commit": "8c08455fe094bdd74a92ccbc1a6ecc5955196803",
+    "protected_v1_0_peeled": "6983bfb3ef300414b744f3f8f97ca81ff699348b"
+  },
+  "prior_raw_bindings": [
+    {"artifact":"manual GO result","sha256":"20986c851550b6bcdb16f5e985b4486e6b954dfe98023fac6fb5bdceb231b3f1"},
+    {"artifact":"rolling_x_newsroom_cycle_evidence_v1.json","sha256":"1db9d8d8e402aebc9112bac794a9845ba4c4bfce064e4d26086a71c4ec989b30"},
+    {"artifact":"rolling_x_intake_v1.json","sha256":"46860645f1a6d23a72ab4dce0513365f106a29eb5cd2976b8b700cfff51f7a2d"},
+    {"artifact":"rolling_x_ranked_viability_v1.json","sha256":"ec3b4dd606faf251d2d0771a48c611511f235cc2e526fde30bba4e0beab6562c"},
+    {"artifact":"production database after P0-2","sha256":"a817ae80b487c3878850b5cb3b6742188700693c4b3199409d28f3826e8a7f88"}
+  ],
+  "root_causes": [
+    "Long-query normalization under-scored short exact publisher titles.",
+    "Opaque Google News RSS article locators had no bounded practical same-publisher resolution route.",
+    "Publisher publishedDate metadata was not recognized by the timestamp parser."
+  ],
+  "correction": {
+    "discovery_only": "Google News RSS and sitemap metadata never grant factual authority",
+    "publisher_resolution_limit": 2,
+    "publisher_host_must_be_reputable": true,
+    "publisher_identity_must_match_locator_source": true,
+    "cross_host_sitemap_retarget_forbidden": true,
+    "exact_publisher_bytes_required": true,
+    "no_browser_or_access_bypass": true
+  },
+  "real_probe": {
+    "request_count": 3,
+    "redirects": "Google opaque locator was not treated as a publisher redirect; bounded same-publisher sitemap resolution was used",
+    "publisher_url": "https://www.aljazeera.com/news/2026/8/18/qatar-rejects-irans-false-claims-about-missing-pilots",
+    "published_at_utc": "2026-08-18T12:39:43Z",
+    "authority_class": "PUBLIC_SECONDARY_PUBLISHER_BYTES",
+    "raw_bytes": 202493,
+    "raw_sha256": "bffca90648681a7c3a7ce1058cb88b65336b5ac458b7fd0dcf3c2784648c260f",
+    "canonical_text_sha256": "453d57d843f1db43430428c887236aa349915f41f232e54edef75619011de1f8",
+    "visible_words": 768,
+    "resolution_status": "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP",
+    "public_claim_allowed": true
+  },
+  "focused_validation": {
+    "evidence_research_loader_adapter_viability": "84 passed in 12.98s",
+    "p0_authority_context": "9 passed in 5.47s",
+    "publication_readback": "101 passed in 172.33s",
+    "runtime_preflight": "PASS",
+    "py_compile": "PASS",
+    "diff_check": "PASS",
+    "baseline_caveat": "One broader continuous-intelligence fixture failure reproduced unchanged on the untouched starting worktree."
+  },
+  "canonical_recovery": {
+    "safe_resumes": 0,
+    "publish_calls": 0,
+    "readbacks": 0,
+    "backlog_remaining": 0,
+    "database_sha256_before_and_after": "a817ae80b487c3878850b5cb3b6742188700693c4b3199409d28f3826e8a7f88"
+  },
+  "manual_go": {
+    "trigger_id": "operator-trigger-c1443a4dfd9f44d1835c1c80",
+    "work_item_id": "operator-requested-operator-trigger-c1443a4dfd9f44d1835c1c80",
+    "trigger_state": "CONSUMED",
+    "work_item_state": "REJECTED",
+    "classification": "NO_PUBLICATION",
+    "exact_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+    "fresh_ingested_headlines": 46,
+    "ranked_candidates": 12,
+    "attempted_candidates": 12,
+    "public_retrieval_requests": 22,
+    "accepted_documents": 0,
+    "xhigh_worker_count": 0,
+    "destination_readiness_stage_reached": false,
+    "publication_adapter_called": false,
+    "public_write_count": 0,
+    "unknown_write_count": 0,
+    "pending_reconciliation_count": 0,
+    "pending_trigger_count": 0,
+    "production_db_sha256_after": "7a1ccdc17769fef900f2fa78ab69af9569010fe41f32913ef30917aa2676ab8a",
+    "cycle_artifact_sha256": "ef0477d11ffdf7f1922bee0c05fa4830cf57a954dcb94515eebb2231a2ea5862",
+    "intake_artifact_sha256": "c1e060c449770df54b7977974178bbe7f76978f937a10b000fd380980dbd4b84",
+    "viability_artifact_sha256": "365a0e97dbe7e2893d199bdc147231d8b2d2aaf475adadf21ee0cee0c4424da9"
+  },
+  "capital_chronicle": {
+    "authority_class": "CONTEXT_DISCOVERY_ONLY",
+    "publication_packet_state": "PUBLICATION_PACKET_NOT_AVAILABLE",
+    "values_regenerated_or_repaired": false,
+    "unrelated_treasury_packet_promoted": false,
+    "public_media_display_granted": false
+  },
+  "automation_state": {
+    "existing_v1_task_count": 4,
+    "all_paused": true,
+    "tasks_created_or_enabled": 0
+  },
+  "scope": {
+    "secrets_or_session_material_inspected": false,
+    "source_probe_browser_use": false,
+    "ingestion_browser_role": "CHROME_CDP_9222_INGESTION_ONLY",
+    "publication_browser_use": false,
+    "public_writes": 0,
+    "v2_touched": false,
+    "antigravity_started": false
+  },
+  "exact_remaining_blocker": "A genuine future article plus all eight derivatives must be confirmed and reconciled before owner artifact audit can pass."
+}
