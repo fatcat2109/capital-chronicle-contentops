@@ -3,7 +3,7 @@
 Authority date: 2026-08-20
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
-This file prevents fresh sessions from treating historical plans, task handoffs, machine status, or unmerged branches as current routing.
+This map prevents fresh sessions from treating historical plans, stale current-state prose, task branches, or generated context as current routing.
 
 ## Canonical read path
 
@@ -18,116 +18,122 @@ This file prevents fresh sessions from treating historical plans, task handoffs,
 9. nearest scoped `AGENTS.md`
 10. exact code/tests/evidence
 
-CodeGraph's recorded `Source HEAD` is the newest commit that changed an indexed source, so it may legitimately differ from the current branch/master tip after generated-only or tree-identical merge commits. Do not infer staleness from that SHA mismatch alone. Use the deterministic generator/check or exact indexed-source digest on the ref being operated on; if it detects indexed-source drift, use CodeGraph only for discovery until regenerated.
+CodeGraph's recorded `Source HEAD` is the newest commit that changed indexed source. It may legitimately differ from the branch tip after generated-only or tree-identical commits. Use the deterministic generator/check or exact indexed-source digest/bytes to establish freshness.
 
-## CURRENT_ROOT_AUTHORITY
+## Current root authority
 
-- `AGENTS.md` — repository operating contract and authority hierarchy.
-- `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` — this classification/routing map.
-- `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md` — current execution-routing policy; it changes execution mechanics only and cannot widen product/truth/public-write authority.
-- `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` — durable final-product objective and boundaries.
-- `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md` — ordered root capability plan and final acceptance criteria.
-- `docs/CURRENT_CONTEXT.md` — compact bootstrap/current-status pointer; never stronger than the root files above.
-- `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md` — compact owner-direction pointer; subordinate to root authority.
+- `AGENTS.md` — root operating/product contract.
+- `CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` — this routing/supersession map.
+- `CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md` — current engineering-execution routing only.
+- `CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` — current final-product objective and hard product boundaries.
+- `CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md` — current ordered root capability plan.
+- `docs/CURRENT_CONTEXT.md` — compact bootstrap/current-status pointer, subordinate to root.
+- `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md` — concise latest owner-direction pointer, subordinate to root but newer owner direction still wins over older detail.
 
 ## EXECUTION ROUTING SUPERSESSION
 
-`CAPABILITY_ROUTED_HYBRID` is current execution routing on `master` and supersedes older `MAIN_CODEX only` wording **for execution routing only**.
+`CAPABILITY_ROUTED_HYBRID` is current execution routing on `master` and supersedes older `MAIN_CODEX only` wording for engineering routing only.
 
-The capability router is:
+- `WEB_STATIC` — repo-static work provable from fresh GitHub bytes.
+- `WEB_CI` — bounded implementation provable by deterministic safe CI.
+- `CODEX_EXECUTION` — real execution environment/runtime/browser/stateful/debug evidence required.
+- `OWNER_GATED_EXTERNAL` — secrets/session, live/public writes, destructive canonical changes, provider/browser publication expansion, rights/legal release, material Core Analyzer numeric-authority change, or equivalent irreversible external action.
 
-- `WEB_STATIC` for repository-static work provable from fresh GitHub bytes;
-- `WEB_CI` for bounded implementation whose required mechanics can be proven by safe deterministic GitHub Actions;
-- `CODEX_EXECUTION` when correctness requires an interactive runtime/environment/browser/debug loop;
-- `OWNER_GATED_EXTERNAL` for secrets, live/public writes, destructive canonical changes, provider/browser publication expansion, legal/rights release boundaries, material Core Analyzer numeric-authority changes, or equivalent irreversible external actions.
+No execution lane receives factual, numeric, permission, credential, destination, rights, or public-write authority by implication.
 
-Older `MAIN_CODEX only` execution statements in `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`, `docs/CURRENT_CONTEXT.md`, `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`, current lane pointers, `video/AGENTS.md`, or V2 creative-policy documents are superseded only to the extent they conflict with this execution router. Their product, truth, numeric, rights, V1/V2 isolation, public-write, recovery, and actual-artifact acceptance rules remain in force.
+## Current product supersession — growth-first V1
 
-No execution lane receives factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, rights, or public-write authority by implication.
+Jim's latest owner direction and the rewritten root V3 North Star/Master Plan supersede older V1 wording where it conflicts with the following current product rules:
 
-## CURRENT_LANE_AUTHORITY
+1. V1 is an autonomous **growth newsroom**, not a pipeline whose primary success is safe abstention.
+2. Evidence burden is **claim- and editorial-mode-specific**, not one blanket article threshold.
+3. An exact authentic official primary source can be sufficient for a narrow attributed `BREAKING_BRIEF`; broader causal/numeric/analytical claims still require broader authority/evidence. An issuer/party-authored source proves the existence and contents of its own announcement/filing, not automatically disputed third-party or misconduct assertions.
+4. Quiet days should evaluate useful follow-up, house-view/critical, contrarian, explainer, document/data, and watch/week-ahead modes before `NO_PUBLICATION`; quiet-day behavior may lower materiality or change mode, never factual truth.
+5. Strong evidence-backed opinion and criticism are first-class editorial modes. ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence, but that must not be represented as Core Analyzer output or used to invent reserved proprietary numeric/forecast/probability/scenario/regime/decision truth.
+6. Organic audience acquisition, shares/discussion/subscriptions/product conversion, and native platform packaging are first-class V1 product objectives.
+7. For a future owner-authorized publication, derivative-specific temporary unavailability is a destination-local hold/recovery condition, not an automatic veto of an otherwise qualified and Substack-ready canonical article. Final nine-surface canary acceptance still requires exact proof across the canonical article plus eight required derivatives with strict readback/reconciliation and `UNKNOWN_WRITE=0`.
+8. Public reply/comment automation remains separately owner-gated; this growth-first change does not grant reply/DM authority.
+9. Fast breaking coverage requires a bounded material-event wake path as well as a lighter evidence path. Before the live canary this path may be implemented/proved only under `NO_PUBLIC_WRITE`. After the owner-accepted canary, final V1 should support idempotent material-event wakes through the existing Daily App supervisor under the same spacing, evidence, publication, KILL_SWITCH, destination, readback, and recovery gates. **Live activation of automatic material-event public-write opportunities is a separate trigger-scope expansion and requires an explicit owner grant that covers that scope; the canary authorization alone does not imply it.** This is not a fifth scheduled task and does not authorize a second scheduler.
+10. The current nine-surface distribution set is the baseline acceptance contract, not permanent permission for extra public surfaces. Any future newsletter-native discovery/referral, search/discovery, collaboration/cross-promotion, or public conversation surface expansion requires exact owner-approved identity/permission/write/readback/measurement scope.
 
-### V1
+These changes preserve the hard truth/numeric/permission/rights/destination/recovery boundaries.
 
-- `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md` — current V1 lane pointer and exact root-compatible acceptance sequence.
-- `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_NORTH_STAR.md` — durable V1 product detail where compatible with root V3.
-- `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_MASTER_PLAN.md` — V1 implementation/runtime detail where compatible with root V3.
-- `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md` — current implementation/status evidence only; it does not override root sequencing.
+## Current V1 lane authority
 
-Any statement inside older V1 material that V2 must remain deferred until a full V1 freeze is superseded by root V3. V1 runtime/publication authority itself remains unchanged.
+Current V1 routing:
 
-### V2
+- `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md` — exact current V1 state/next route.
+- `docs/codegraph/V1_CONTEXT.md` — curated implementation/context map, subordinate to root authority.
+- `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_NORTH_STAR.md` — durable V1 detail where compatible with root V3/current pointer.
+- `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_MASTER_PLAN.md` — V1 implementation detail where compatible with root V3/current pointer.
+- `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md` — implementation/status evidence only; never stronger than root routing.
 
-- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md` — V2 durable creative/product detail where compatible with root V3.
-- `docs/automation/CONTENTOPS_V2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md` — V2 architecture/creative detail where compatible with root V3.
-- `docs/automation/CONTENTOPS_V2_FINAL_PRODUCT_TASK_GRAPH_V1.md` — current capability graph; not an independent task/publication grant.
-- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md` — current lane pointer, subordinate to root V3 and zero-public-write root boundary.
-- `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` — current creative-worker policy detail only; no independent task/publication authority.
-- `video/AGENTS.md` — scoped implementation rules, subordinate to root authority.
+The following older V1 details are explicitly superseded where present:
 
-No V2 document, adapter, credential, or branch grants video public-write authority. Root V3 currently grants zero.
+- any statement that P0-1 is still the next/current implementation capability;
+- stale branch/HEAD/fast-forward instructions;
+- stale manual-GO sequencing as the next product task;
+- “all nine destinations must be ready before canonical Substack can ever publish” as a blanket product rule;
+- “no more yield-oriented work” when used to block the current growth-first editorial-spectrum implementation;
+- any wording that treats “material events only prioritize the next scheduled window” as the final V1 breaking-news architecture after the owner-accepted canary; current pre-canary public-write restrictions remain, but the final product direction is one bounded supervisor-owned material-event wake path rather than a fifth scheduled task;
+- V2 must remain deferred until an older full-V1 freeze sequence, where root V3 says otherwise;
+- exact old task labels/pointers that conflict with the current root plan.
 
-## CURRENT_IMPLEMENTATION_CONTEXT
+Current V1 safety still preserves exact identity, `UNKNOWN_WRITE`, readback/reconciliation, one canonical runtime/store/publisher, browser-role separation, and four-task quality-probation ownership.
+
+## Current V2 lane authority
+
+- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md` — durable V2 creative detail where compatible with root V3.
+- `docs/automation/CONTENTOPS_V2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md` — V2 architecture detail where compatible with root V3.
+- `docs/automation/CONTENTOPS_V2_FINAL_PRODUCT_TASK_GRAPH_V1.md` — capability graph, not an independent task/publication grant.
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md` — current V2 lane pointer.
+- `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` — creative-worker policy detail only.
+- `video/AGENTS.md` — scoped implementation rules.
+
+V2 currently has zero public-write authority. No V2 document, adapter, credential, or branch grants publication authority.
+
+## Current implementation context
+
+Use:
 
 - `docs/codegraph/INDEX.md`
 - `docs/codegraph/V1_CONTEXT.md`
 - `docs/codegraph/V2_CONTEXT.md`
 - nearest scoped `AGENTS.md`
-- exact implementation modules, tests, current evidence packets, and real rendered/public artifacts.
+- exact implementation/tests/current evidence/actual artifacts.
 
-Generated CodeGraph is discovery tooling, not product authority. A recorded `Source HEAD` may legitimately lag the operated ref tip after generated-only or tree-identical merge commits. Treat CodeGraph as stale only when the deterministic check/source digest shows indexed-source drift; until regeneration, exact current code/tests/evidence outrank it.
+Generated CodeGraph is descriptive discovery tooling, not product authority.
 
-## HISTORICAL_EVIDENCE_ONLY
+## Historical evidence only
 
-These families may contain durable evidence but must never route a fresh task by themselves:
+These may be useful evidence/provenance but must never route a fresh task by themselves:
 
 - completed `docs/automation/TASK_*` evidence folders;
 - dated canary/rehearsal/soak/closeout packets;
 - historical publication/readback/media artifacts;
 - protected `v1.0` release evidence;
 - `docs/archive/**`;
-- old design/browser QA evidence;
+- old browser/design QA evidence;
 - prior generated status snapshots;
-- historical strategy/recovery maps;
-- branch-specific handoffs after their implementation has merged or been superseded.
+- branch-specific handoffs after merge/supersession;
+- old strategy/recovery maps.
 
-Historical evidence remains valuable for regression comparison, audit, and provenance. It is not current sequencing authority.
+## Explicit non-routing families
 
-## SUPERSEDED_NON_ROUTING
-
-The following working-tree families are explicitly non-routing after this rewrite:
-
-- `docs/CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md` — legacy operating/framework instructions; retained only as a historical supersession marker.
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md` — older V1-first/V2-deferred routing summary; root V3 supersedes its sequencing.
-- `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` — prior task handoff; retained only as a redirect to current authority.
-- any status/pointer document whose exact task/branch/HEAD conflicts with this map, root V3, or a freshly fetched GitHub ref.
-- any old plan that assigns model/factual/numeric/public-write authority more broadly than root V3.
-- older `MAIN_CODEX only` wording where it conflicts with the owner-authorized capability router; execution-only supersession does not alter the product/safety meaning of the containing document.
-
-## ARCHIVE_DELETE_CANDIDATE
-
-Only delete a historical document later when all are true:
-
-- it is redundant with another preserved artifact;
-- it contains no unique accepted evidence/provenance;
-- its only function is obsolete routing/handoff;
-- deletion materially reduces context confusion.
-
-Candidates should be reviewed in bounded cleanup batches. Do not delete accepted evidence, actual-media artifacts, or protected release records merely to reduce file count.
-
-## Branch authority
-
-A remote branch is not current repository authority merely because it is ahead of `master`. Jim may explicitly authorize a branch-scoped pilot or candidate policy without authorizing a merge. Product concepts may be implemented under the execution lane selected by the capability router when current product authority schedules them.
+- `docs/CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md` — legacy historical marker.
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md` — superseded sequencing.
+- `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` — historical handoff.
+- any stale plan/status/pointer whose task/branch/HEAD conflicts with root V3 or fresh GitHub truth.
+- older `MAIN_CODEX only` wording where it conflicts with current execution routing.
 
 ## Conflict resolution
 
-When documents conflict:
+1. Jim's latest explicit instruction wins product direction.
+2. Fresh GitHub refs/commits/diffs/exact code/evidence establish repo truth.
+3. Root `AGENTS.md` + root V3 North Star/Master Plan govern current product boundaries and sequence.
+4. Current execution policy governs engineering routing only.
+5. Current lane pointer governs lane-specific sequencing where compatible.
+6. Older V1/V2 detail is reusable only where compatible.
+7. Historical plans/status/handoffs provide context, not routing.
 
-1. Jim's latest explicit instruction wins.
-2. Fresh GitHub refs/commits/diffs/exact code/evidence establish repository truth.
-3. Root V3 authority governs product boundaries and sequence.
-4. The current execution policy governs engineering execution routing only.
-5. Current lane authority governs lane-specific product/implementation detail where compatible.
-6. Historical plans/status/handoffs provide context, not routing.
-
-No builder or Web lane should resurrect a superseded task or authority merely because its older plan is more detailed.
+No builder or Web lane should resurrect a superseded task merely because an older plan is more detailed.

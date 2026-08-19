@@ -17,51 +17,80 @@ This file is a compact bootstrap only. It does not override root authority.
 8. nearest scoped `AGENTS.md`
 9. exact code/tests/evidence
 
-Always fetch remote `master` and the relevant accepted/task branch before relying on a recorded SHA.
+Always fetch remote `master` and the relevant branch before relying on a recorded SHA.
 
 ## Current product state
 
-Capital Chronicle/Core Analyzer remains the intelligence, decision, and proprietary numeric-authority engine. ContentOps remains its evidence-governed public publishing, media-growth, observation, and bounded content-learning engine.
+Capital Chronicle/Core Analyzer remains the intelligence, decision, and proprietary numeric-authority engine. ContentOps remains its evidence-governed newsroom, media-growth, organic audience-acquisition, distribution, observation, and bounded-learning engine.
 
-The accepted P0 implementation lineage now distinguishes and enforces:
+P0-1 publication-authority classification/use-binding, bounded CC context activation, compatibility-state preservation, and the accepted latest-web source-reachability corrections are complete on current lineage. Do not reopen P0-1 merely to increase publication yield.
 
-- context/discovery-only Capital Chronicle material with zero public factual/numeric authority;
-- governed internal Analyzer handoffs that remain non-public without an explicit publication contract;
-- exact story-scoped publication-authorized CC packets whose consumer/use, story binding, permissions, lineage, freshness/source health, blockers, and `llm_numeric_authority=false` permit the intended ContentOps use.
+P0-2 final V1 acceptance is still unproven. Historical authorized canaries truthfully returned `NO_PUBLICATION`; that evidence remains valid history but no longer means the product should passively wait for a perfect story before completing current editorial behavior.
 
-P0-1/P0-1B publication-authority utilization, semantic context activation, exact use-binding, compatibility-state preservation, and latest-web source reachability corrections are accepted on the current integration lineage.
+Latest operator/Codex runtime evidence reports:
 
-P0-2 final V1 acceptance is still not proven. Two explicitly authorized real opportunities truthfully produced `NO_PUBLICATION`. P0-2A then proved and corrected one real public-secondary source-resolution defect, validated exact publisher-byte recovery, and retried exactly one fresh manual opportunity. That retry again found no source-qualified article and correctly abstained with zero XHIGH workers, zero public writes, `UNKNOWN_WRITE=0`, and no pending reconciliation.
+`P0_1_ACCEPTED / P0_2_ACCEPTANCE_UNPROVEN / FDA_G_SOAK_ACTIVE`
 
-The four existing V1 native tasks remain `PAUSED`. V2 remains isolated and has zero video public-write authority.
+with the canonical current-master supervisor healthy, ingestion running, `UNKNOWN_WRITE=0`, and all four existing V1 newsroom tasks still `PAUSED`. Runtime state is runtime evidence, not GitHub-static proof.
 
 ## Immediate product priority
 
-Do **not** reopen P0-1 or add another source-reachability correction merely to increase publication yield. The accepted resolver must continue to fail closed when trustworthy current evidence is unavailable.
+Do **not** reopen P0-1 or add another source-reachability correction merely to increase publication yield.
 
-The remaining V1 P0 acceptance requirement is one genuine future qualifying opportunity that reaches:
+The next product capability is **not** another P0-1/source-yield repair and **not** an immediate live publication canary under the stale editorial policy.
 
-`real candidate -> accepted evidence -> warranted article -> current nine-destination readiness -> canonical Substack -> eight derivatives -> exact readback/reconciliation -> UNKNOWN_WRITE=0 -> owner artifact audit`.
+Current priority:
 
-A `NO_PUBLICATION` result remains valid but does not prove this acceptance gate.
+`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM, BOUNDED MATERIAL-EVENT WAKE, AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
 
-Do not repeatedly fire manual `GO` merely to force a canary. When a genuinely qualified opportunity exists, the canary is `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` because correctness requires the production runtime, exact account/destination identity, public write, readback, and reconciliation.
+The required product behavior is:
 
-Only after the real nine-surface canary is owner-accepted should the existing four V1 tasks be enabled under their current scheduler authority, followed by unattended/cold-start proof. P1 observation/control-room and V2 final production work remain downstream of that acceptance sequence.
+- evidence burden proportional to the public claim and editorial mode;
+- official-primary breaking fast lane for narrow attributed facts when one exact authentic official source directly proves the event;
+- issuer/party-authored primary sources prove their own statement/filing contents, not automatically disputed third-party allegations, misconduct, causality, or future outcomes;
+- quiet-day ladder that can choose useful follow-up, house-view/critical, contrarian, explainer, document/data, or watch/week-ahead content instead of defaulting to silence;
+- explicit `CAPITAL_CHRONICLE_VIEW` and `WHAT_THE_MARKET_IS_MISSING` modes with strong but defensible criticism/opinion;
+- clearly labeled qualitative editorial inference is allowed from accepted public evidence, but remains distinct from Core Analyzer proprietary analytical/numeric authority;
+- growth-aware ranking and platform-native hooks/packages;
+- one bounded material-event wake path through the existing Daily App supervisor, proven under `NO_PUBLIC_WRITE` before canary; after accepted canary, live automatic wake activation remains a separate public-write trigger-scope expansion and requires an explicit owner grant covering that wake scope, otherwise the path stays shadow-only; this is not a fifth scheduled task;
+- canonical Substack may remain publishable under a future owner-authorized action when a derivative destination is temporarily unavailable; derivative-local failure becomes durable hold/recovery rather than a blanket canonical veto;
+- hard truth/numeric/permission/rights/identity/readback boundaries remain unchanged.
+
+No-publication remains valid. Quiet-day behavior may lower materiality or change content mode; it may never lower factual truth or create unsupported claims.
+
+## Validation sequence before live canary
+
+1. implement the growth-first mode/evidence/ranking/material-event-wake/distribution behavior through the existing canonical V1 supervisor/newsroom path;
+2. run bounded `NO_PUBLIC_WRITE` replay for at least breaking + wake/no-wake, normal-analysis, quiet-day, and critical/opinion cases;
+3. Jim/ChatGPT inspect actual article/package outputs;
+4. only then use `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` for one genuine current live canary;
+5. after accepted canary, enable only the four existing scheduled V1 tasks; separately require an explicit owner grant before activating automatic material-event public-write wakeups, otherwise keep that path shadow-only; then prove unattended/cold-start operation at the highest scope currently authorized.
+
+Do not create a fifth scheduled task or a second scheduler. Do not repeatedly fire manual opportunities to manufacture canary evidence.
+
+## Current runtime caveat
+
+The latest FDA-G restoration reported optional `UI_BUILD_EXIT_1`. It did not block supervisor health or ingestion, but V1 final acceptance still requires a working truthful canonical V5 Daily App UI and fresh visual review. Treat this as an acceptance caveat to reproduce/close before final V1 acceptance, not as a reason to stop current growth-editorial work.
 
 ## Execution framework
 
-Engineering execution uses `CAPABILITY_ROUTED_HYBRID` under the current execution policy:
+Engineering execution uses `CAPABILITY_ROUTED_HYBRID` under the current execution policy.
 
 - `WEB_STATIC` for repository-static work provable from fresh GitHub bytes;
-- `WEB_CI` for bounded deterministic implementation provable by safe GitHub Actions;
+- `WEB_CI` for bounded deterministic implementation provable by safe Actions;
 - `CODEX_EXECUTION` when interactive runtime/environment/browser/debug feedback is required;
-- `OWNER_GATED_EXTERNAL` for secrets, live/public writes, destructive canonical changes, provider/browser publication expansion, rights/legal release boundaries, material Core Analyzer numeric-authority changes, or equivalent irreversible actions.
+- `OWNER_GATED_EXTERNAL` for secrets, live/public writes, destructive canonical changes, provider/browser publication expansion, rights/legal release, material Core Analyzer numeric-authority changes, or equivalent irreversible actions.
 
 Execution routing never widens factual, numeric, permission, rights, credential, destination-identity, or public-write authority.
 
-## CodeGraph status
+## V2
 
-CodeGraph is discovery tooling, not product authority. Its recorded `Source HEAD` is a source epoch: the newest commit that changed an indexed source, not necessarily the current branch/master tip after generated-only or tree-identical merge commits. Use the deterministic generator/check or exact source digest to establish freshness. A raw SHA mismatch alone does not make CodeGraph stale; indexed-source drift detected by the check/digest does. Exact GitHub bytes and current authority remain stronger.
+V2 remains isolated and currently has zero public-write authority. It may continue only under current root sequencing and must never mutate V1 runtime/store/browser/scheduler/publication authority.
 
-Protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`. `UNKNOWN_WRITE` remains `STOP RETRY -> READ BACK -> RECONCILE`.
+## Immutable safety anchors
+
+- protected `v1.0`: `6983bfb3ef300414b744f3f8f97ca81ff699348b`;
+- `UNKNOWN_WRITE`: `STOP RETRY -> READ BACK -> RECONCILE`;
+- Chrome `CapitalChronicleBot` 9222: ingestion only;
+- Edge `contentops-social-main` 9223: publication/media/readback and explicitly authorized observation only;
+- internal/context Analyzer material never becomes public authority without an exact publication-safe contract.
