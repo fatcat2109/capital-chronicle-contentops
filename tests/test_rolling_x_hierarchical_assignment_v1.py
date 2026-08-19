@@ -878,7 +878,7 @@ def _build_checkpoint_bundle(rolling_input, provider, *, global_prompt_version=N
 
 
 def test_new_global_calls_use_bumped_prompt_version_lineage():
-    assert ROLLING_X_GLOBAL_PROMPT_VERSION == "v4"
+    assert ROLLING_X_GLOBAL_PROMPT_VERSION == "v5"
     first, _, _ = _build_checkpoint_bundle(_small_input(), HierarchicalProvider())
 
     accepted_attempt = [

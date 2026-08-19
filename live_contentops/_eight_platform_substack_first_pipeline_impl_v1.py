@@ -3252,8 +3252,6 @@ def _build_rolling_x_publication_plan(
         )
         if destination != "substack" and not derivative_payload_ready:
             pre_substack_blockers.append(f"mandatory_derivative_package_unavailable:{destination}")
-        if media_required_and_unavailable:
-            pre_substack_blockers.append(f"mandatory_delivery_media_unavailable:{destination}")
         payload_hash = (
             str(lock.get("article_body_sha256") or "")
             if destination == "substack"
@@ -3279,6 +3277,11 @@ def _build_rolling_x_publication_plan(
             "delivery_media_required": registration.delivery_media_required,
             "article_media_available": article_media_available,
             "delivery_media_available": delivery_media_available,
+            "destination_local_hold_reason": (
+                "MANDATORY_DELIVERY_MEDIA_UNAVAILABLE"
+                if destination != "substack" and media_required_and_unavailable
+                else None
+            ),
             "canonical_url_dependency": registration.canonical_url_dependency,
             "expected_destination_identity": registration.expected_identity,
             "readiness_state": state,
@@ -3321,7 +3324,9 @@ def _build_rolling_x_publication_plan(
         "skipped_derivative_destinations": skipped_derivatives,
         "pre_substack_blockers": list(dict.fromkeys(pre_substack_blockers)),
         "transaction_readiness": (
-            "READY" if not pre_substack_blockers else "HOLD_PRE_SUBSTACK"
+            "CANONICAL_READY_DERIVATIVES_INDEPENDENT"
+            if not pre_substack_blockers
+            else "HOLD_PRE_SUBSTACK_STRUCTURAL"
         ),
         "transport_registry_version": REGISTRY_VERSION,
         "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
@@ -3338,10 +3343,10 @@ def _prepare_cloudinary_delivery_media_for_plan(
     plan: Mapping[str, Any],
     preconditions: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Prepare derivative-only media after all-nine gates and before Substack."""
+    """Prepare derivative-only media after canonical confirmation and before fanout."""
     if (
-        str(preconditions.get("full_v1_distribution_status") or "")
-        != "FULL_V1_DISTRIBUTION_READY"
+        str(preconditions.get("canonical_publication_status") or "")
+        != "RECONCILED_CONFIRMED"
         or int(preconditions.get("unknown_write_count") or 0) != 0
     ):
         return {
@@ -4983,15 +4988,35 @@ def _run_rolling_x_newsroom_cycle(
             )
         evidence["destination_readiness"] = readiness
         readiness_rows = dict(readiness.get("destinations") or {})
-        all_ready = bool(readiness.get("all_required_destinations_ready"))
-        if not all_ready:
-            evidence["classification"] = "NO_PUBLICATION"
-            evidence["exact_next_blocker"] = "FULL_DISTRIBUTION_READINESS_BLOCKED"
-            evidence["editorial_worker_count_requested"] = 0
-            evidence["public_write_performed"] = False
-            _persist_candidate_walk(terminal_reason="FULL_DISTRIBUTION_READINESS_BLOCKED")
-            _persist_cycle_evidence()
-            return evidence
+        substack_row = dict(readiness_rows.get("substack") or {})
+        substack_state = str(
+            substack_row.get("status") or substack_row.get("readiness_state") or ""
+        )
+        from live_contentops.destination_transport_registry_v1 import READY_STATES
+
+        substack_ready = bool(
+            substack_row.get("write_eligible") is True
+            or substack_state in READY_STATES
+        )
+        evidence["derivative_readiness_holds"] = sorted(
+            destination
+            for destination, row in readiness_rows.items()
+            if destination != "substack"
+            and not (
+                row.get("write_eligible") is True
+                or str(row.get("status") or row.get("readiness_state") or "")
+                in READY_STATES
+            )
+        )
+        # This is a passive newsroom snapshot, not the exact publication JIT decision.  Article
+        # qualification remains first; the DurablePublicationCoordinator refreshes exact
+        # Substack readiness immediately before the canonical attempt and blocks there if needed.
+        # Keeping a known hold visible here avoids concealing operator state without spending a
+        # qualified candidate merely because a cached readiness row is temporarily stale.
+        evidence["canonical_readiness_known_hold"] = not substack_ready
+        evidence["canonical_readiness_jit_owner"] = (
+            "DurablePublicationCoordinator._full_v1_distribution_preflight"
+        )
     else:
         readiness = (
             dict(destination_readiness_override)

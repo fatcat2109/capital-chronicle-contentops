@@ -207,7 +207,7 @@ def test_discovered_write_identity_can_clear_unknown_when_original_id_was_missin
     assert result["verified"] is False
 
 
-def test_quality_probation_preflight_holds_all_writes_when_one_surface_not_ready(
+def test_quality_probation_derivative_readiness_hold_does_not_veto_canonical(
     tmp_path,
 ):
     store, transport, coordinator = _coordinator(
@@ -216,17 +216,27 @@ def test_quality_probation_preflight_holds_all_writes_when_one_surface_not_ready
 
     result = coordinator.execute_plan("work-1", _quality_plan())
 
-    assert result["distribution_status"] == HOLD_FULL_V1_DISTRIBUTION_NOT_READY
-    assert result["transaction_classification"] == HOLD_FULL_V1_DISTRIBUTION_NOT_READY
-    assert result["quality_preflight"]["readiness_blockers"] == ["threads"]
-    assert result["registered"] == []
-    assert result["outbox_count"] == 0
-    assert result["public_write_performed"] is False
-    assert transport.publish_calls == []
-    assert store.list_outbox_messages() == []
+    assert result["canonical_article_real_published"] is True
+    assert result["distribution_status"] == PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+    assert result["transaction_classification"] == (
+        PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+    )
+    assert result["quality_preflight"]["readiness_blockers"] == []
+    assert result["quality_preflight"]["derivative_readiness_deferred"] == list(
+        V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    )
+    assert result["recovery_required_destinations"] == ["threads"]
+    assert result["per_destination"]["threads"]["status"] == "AUTH_INVALID"
+    assert result["per_destination"]["threads"]["publish_called"] is False
+    assert result["registered"]
+    assert result["outbox_count"] == 9
+    assert transport.publish_calls[0] == "substack"
+    assert "threads" not in transport.publish_calls
+    assert len(transport.publish_calls) == 8
+    assert len(store.list_outbox_messages()) == 9
 
 
-def test_delivery_media_preparation_is_after_full_nine_preflight_and_before_substack(
+def test_delivery_media_preparation_is_after_canonical_readback_and_before_derivatives(
     tmp_path,
 ):
     class PreparingTransport(FixtureTransport):
@@ -235,7 +245,8 @@ def test_delivery_media_preparation_is_after_full_nine_preflight_and_before_subs
             self.prepare_calls = []
 
         def prepare_delivery_media(self, **kwargs):
-            assert self.publish_calls == []
+            assert self.publish_calls == ["substack"]
+            assert self.readback_calls == ["substack"]
             self.prepare_calls.append(kwargs)
             return {
                 "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
@@ -254,15 +265,26 @@ def test_delivery_media_preparation_is_after_full_nine_preflight_and_before_subs
     assert len(transport.prepare_calls) == 1
     preconditions = transport.prepare_calls[0]["preconditions"]
     assert preconditions == {
-        "full_v1_distribution_status": "FULL_V1_DISTRIBUTION_READY",
+        "canonical_publication_status": RECONCILED_CONFIRMED,
         "unknown_write_count": 0,
     }
     assert transport.publish_calls[0] == "substack"
 
 
-def test_delivery_media_preparation_failure_blocks_before_outbox_or_substack(tmp_path):
+def test_delivery_media_preparation_failure_is_destination_local_after_canonical(tmp_path):
     class FailingPreparationTransport(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.prepare_calls = 0
+
         def prepare_delivery_media(self, **_kwargs):
+            self.prepare_calls += 1
+            if self.prepare_calls > 1:
+                return {
+                    "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+                    "provider_calls": 1,
+                    "public_write_performed": False,
+                }
             return {
                 "status": "BLOCKED_CLOUDINARY_HOSTED_MEDIA_MISMATCH",
                 "provider_calls": 1,
@@ -273,16 +295,32 @@ def test_delivery_media_preparation_failure_blocks_before_outbox_or_substack(tmp
         tmp_path, runtime=FailingPreparationTransport()
     )
 
-    result = coordinator.execute_plan("work-1", _quality_plan())
+    plan = _quality_plan()
+    for row in plan["destinations"]:
+        if row["destination"] == "instagram_business":
+            row["delivery_media_required"] = True
+    result = coordinator.execute_plan("work-1", plan)
 
-    assert result["distribution_status"] == "BLOCKED_DELIVERY_MEDIA_PREPARATION"
-    assert result["canonical_article_status"] == "NOT_STARTED"
-    assert result["registered"] == []
-    assert result["outbox_count"] == 0
-    assert result["public_write_performed"] is False
-    assert transport.publish_calls == []
-    assert store.list_outbox_messages() == []
-    assert store.list_platform_dispatches() == []
+    assert result["distribution_status"] == PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+    assert result["canonical_article_status"] == "REAL_PUBLISHED"
+    assert result["canonical_article_real_published"] is True
+    assert result["registered"]
+    assert result["outbox_count"] == 9
+    assert result["recovery_required_destinations"] == ["instagram_business"]
+    assert result["per_destination"]["instagram_business"][
+        "destination_local_hold"
+    ] is True
+    assert result["per_destination"]["instagram_business"]["publish_called"] is False
+    assert transport.publish_calls[0] == "substack"
+    assert "instagram_business" not in transport.publish_calls
+    assert len(store.list_outbox_messages()) == 9
+
+    recovery = coordinator.recover_pending()
+    assert recovery["backlog_remaining"] == 0
+    assert recovery["per_destination"]["instagram_business"]["status"] == (
+        DISPATCH_CONFIRMED
+    )
+    assert transport.publish_calls.count("instagram_business") == 1
 
 
 def test_quality_probation_full_nine_surface_confirmation(tmp_path):

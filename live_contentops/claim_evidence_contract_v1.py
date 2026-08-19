@@ -39,6 +39,25 @@ _SENSITIVE_CLAIM_RE = re.compile(
     r"lawsuit|sanction(?:ed|s)?|breach(?:ed)?|secretly|conceal(?:ed|s)?)\b",
     re.IGNORECASE,
 )
+_CAUSAL_MARKET_FUTURE_RE = re.compile(
+    r"\b(?:caus(?:e|ed|es|al)|led\s+to|driv(?:e|en|es|ing)|because\s+of|"
+    r"market\s+reaction|shares?\s+(?:rose|fell|jumped|slid)|price\s+(?:rose|fell)|"
+    r"will\s+(?:cause|drive|lead|raise|lower)|future\s+outcome)\b",
+    re.IGNORECASE,
+)
+_RESERVED_PROPRIETARY_RE = re.compile(
+    r"\b(?:probabilit(?:y|ies)|forecast|scenario|regime|valuation|price\s+target|"
+    r"expected\s+return|base\s+case|bull\s+case|bear\s+case|decision\s+signal)\b",
+    re.IGNORECASE,
+)
+_ATTRIBUTED_SELF_STATEMENT_RE = re.compile(
+    r"\b(?:said|says|stated|announced|published|filed|denied|claims?|according\s+to|"
+    r"in\s+(?:its|the)\s+(?:statement|filing|release|notice))\b",
+    re.IGNORECASE,
+)
+_INTERESTED_PARTY_ROLES = frozenset(
+    {"INTERESTED_PARTY", "ISSUER", "SUBJECT", "ADVOCATE", "MANAGEMENT", "PARTY_TO_DISPUTE"}
+)
 _EXPLICIT_SENSITIVITY_KEYS = (
     "sensitive_claim",
     "claim_sensitive",
@@ -203,7 +222,49 @@ def _claim_requires_corroboration(request: Mapping[str, Any], claim: str) -> boo
         )
         if _SENSITIVE_CLAIM_RE.search(risk):
             return True
-    return bool(_SENSITIVE_CLAIM_RE.search(str(claim or "")))
+    return bool(
+        _SENSITIVE_CLAIM_RE.search(str(claim or ""))
+        or _CAUSAL_MARKET_FUTURE_RE.search(str(claim or ""))
+        or _RESERVED_PROPRIETARY_RE.search(str(claim or ""))
+    )
+
+
+def _document_is_interested_party(document: Mapping[str, Any]) -> bool:
+    authority = str(document.get("source_authority_class") or "")
+    role = str(
+        document.get("source_interest_role")
+        or document.get("source_relationship_to_claim")
+        or ""
+    ).upper()
+    return authority == "first_party_public_source" or role in _INTERESTED_PARTY_ROLES
+
+
+def _primary_support_kind(
+    request: Mapping[str, Any], claim: str, document: Mapping[str, Any]
+) -> str | None:
+    """Classify how one primary may support this exact claim.
+
+    Interested parties prove their own public act/statement and inspectable contents, not the
+    independent truth of disputed third-party allegations, misconduct, causality, or future
+    outcomes.  Reserved Core Analyzer-style conclusions require governed CC authority.
+    """
+    authority = str(document.get("source_authority_class") or "")
+    if authority not in PRIMARY_AUTHORITY_CLASSES:
+        return None
+    if _RESERVED_PROPRIETARY_RE.search(claim):
+        return "INDEPENDENT" if authority == "governed_capital_chronicle" else None
+    interested = _document_is_interested_party(document)
+    sensitive = bool(_SENSITIVE_CLAIM_RE.search(claim))
+    causal = bool(_CAUSAL_MARKET_FUTURE_RE.search(claim))
+    if interested and (sensitive or causal):
+        return "ATTRIBUTED_INTERESTED_PARTY" if _ATTRIBUTED_SELF_STATEMENT_RE.search(claim) else None
+    if causal and authority != "governed_capital_chronicle":
+        capabilities = {
+            str(value) for value in (document.get("claim_capabilities") or [])
+        }
+        if not ({"observed_market_reaction", "independent_causality_evidence"} & capabilities):
+            return None
+    return "ATTRIBUTED_INTERESTED_PARTY" if interested else "INDEPENDENT"
 
 
 def requires_enhanced_evidence_review(request: Mapping[str, Any]) -> bool:
@@ -359,6 +420,7 @@ def build_minimum_trustworthy_evidence_packet(
         return result
     document_id = str(selected.get("document_id") or selected.get("evidence_id") or "")
     authority = str(selected.get("source_authority_class") or "")
+    interested_party = _document_is_interested_party(selected)
     result = {
         "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
         "status": "PASS",
@@ -378,7 +440,13 @@ def build_minimum_trustworthy_evidence_packet(
         ),
         "evidence_document_id": document_id,
         "source_authority_class": authority,
-        "attribution_required": authority in SECONDARY_AUTHORITY_CLASSES,
+        "attribution_required": authority in SECONDARY_AUTHORITY_CLASSES or interested_party,
+        "source_interest_role": (
+            str(selected.get("source_interest_role") or "INTERESTED_PARTY")
+            if interested_party else "INDEPENDENT_OR_OFFICIAL_RECORD"
+        ),
+        "independent_authority_for_disputed_third_party_allegations": False
+        if interested_party else None,
         "directly_attributed_numbers_permitted": True,
         "unsupported_optional_claims_must_be_omitted": True,
         "x_content_grants_factual_authority": False,
@@ -412,9 +480,18 @@ def build_claim_evidence_contract(
             for document, score in plausible
             if _numbers_supported(claim, document) and _quotes_supported(claim, document)
         ]
-        primary = [
-            document for document, _score in eligible
+        primary_support = [
+            (document, _primary_support_kind(request, claim, document))
+            for document, _score in eligible
             if str(document.get("source_authority_class") or "") in PRIMARY_AUTHORITY_CLASSES
+        ]
+        independent_primary = [
+            document for document, kind in primary_support if kind == "INDEPENDENT"
+        ]
+        attributed_interested = [
+            document
+            for document, kind in primary_support
+            if kind == "ATTRIBUTED_INTERESTED_PARTY"
         ]
         secondary = [
             document for document, _score in eligible
@@ -426,26 +503,35 @@ def build_claim_evidence_contract(
             if str(row.get("publisher") or row.get("source_identity") or "").strip()
         }
         cautious_single_secondary = bool(secondary) and len(secondary_publishers) == 1
-        accepted = bool(primary) or (
+        accepted = bool(independent_primary or attributed_interested) or (
             len(secondary_publishers) >= 2
             or (cautious_single_secondary and not sensitive_secondary and not quoted)
         )
         if accepted:
-            bound = primary or secondary
+            bound = independent_primary or attributed_interested or secondary
             supported.append(
                 {
                     "claim_id": claim_id,
                     "claim_text": claim,
                     "support_status": (
                         "SUPPORTED_PRIMARY"
-                        if primary
+                        if independent_primary
+                        else "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY"
+                        if attributed_interested
                         else "SUPPORTED_CORROBORATED_SECONDARY"
                         if len(secondary_publishers) >= 2
                         else "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
                     ),
                     "numeric_claim": numeric,
                     "quoted_claim": quoted,
-                    "attribution_required": not bool(primary),
+                    "attribution_required": not bool(independent_primary),
+                    **(
+                        {
+                            "interested_party_source": True,
+                            "independent_authority_for_disputed_third_party_allegations": False,
+                        }
+                        if attributed_interested else {}
+                    ),
                     "evidence_document_ids": sorted(
                         {
                             str(row.get("document_id") or row.get("evidence_id") or "")
@@ -470,9 +556,13 @@ def build_claim_evidence_contract(
                     and _quotes_supported(narrowed, document)
                 ]
                 narrowed_primary = [
-                    row
-                    for row in narrowed_eligible
-                    if str(row.get("source_authority_class") or "") in PRIMARY_AUTHORITY_CLASSES
+                    row for row in narrowed_eligible
+                    if _primary_support_kind(request, narrowed, row) == "INDEPENDENT"
+                ]
+                narrowed_attributed_interested = [
+                    row for row in narrowed_eligible
+                    if _primary_support_kind(request, narrowed, row)
+                    == "ATTRIBUTED_INTERESTED_PARTY"
                 ]
                 narrowed_secondary = [
                     row
@@ -484,8 +574,12 @@ def build_claim_evidence_contract(
                     for row in narrowed_secondary
                     if str(row.get("publisher") or row.get("source_identity") or "").strip()
                 }
-                narrowed_bound = narrowed_primary or narrowed_secondary
-                narrowed_supported = bool(narrowed_primary) or (
+                narrowed_bound = (
+                    narrowed_primary or narrowed_attributed_interested or narrowed_secondary
+                )
+                narrowed_supported = bool(
+                    narrowed_primary or narrowed_attributed_interested
+                ) or (
                     len(narrowed_publishers) >= 2
                     or (bool(narrowed_secondary) and not sensitive_secondary)
                 )
@@ -498,6 +592,13 @@ def build_claim_evidence_contract(
                             "numeric_claim": False,
                             "quoted_claim": False,
                             "attribution_required": not bool(narrowed_primary),
+                            **(
+                                {
+                                    "interested_party_source": True,
+                                    "independent_authority_for_disputed_third_party_allegations": False,
+                                }
+                                if narrowed_attributed_interested else {}
+                            ),
                             "evidence_document_ids": sorted(
                                 {
                                     str(row.get("document_id") or row.get("evidence_id") or "")
@@ -561,6 +662,7 @@ def build_claim_evidence_contract(
             # discovery/X text itself never supplies the number.
             numeric_scope_omitted = False
             title = raw_title
+            primary_kind = _primary_support_kind(request, title, document)
             title_sensitive = _claim_requires_corroboration(request, title)
             if (
                 len(title) < 8
@@ -568,6 +670,8 @@ def build_claim_evidence_contract(
             ):
                 continue
             if authority not in PRIMARY_AUTHORITY_CLASSES | SECONDARY_AUTHORITY_CLASSES:
+                continue
+            if authority in PRIMARY_AUTHORITY_CLASSES and primary_kind is None:
                 continue
             if candidates:
                 document_tokens = _tokens(_document_text(document))
@@ -595,10 +699,17 @@ def build_claim_evidence_contract(
                 {
                     "claim_id": "claim-" + sha256(title.encode("utf-8")).hexdigest()[:16],
                     "claim_text": title,
-                    "support_status": "SUPPORTED_SOURCE_TITLE",
+                    "support_status": (
+                        "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY_SOURCE_TITLE"
+                        if primary_kind == "ATTRIBUTED_INTERESTED_PARTY"
+                        else "SUPPORTED_SOURCE_TITLE"
+                    ),
                     "numeric_claim": bool(_NUMBER_RE.search(title)),
                     "quoted_claim": False,
-                    "attribution_required": authority in SECONDARY_AUTHORITY_CLASSES,
+                    "attribution_required": (
+                        authority in SECONDARY_AUTHORITY_CLASSES
+                        or primary_kind == "ATTRIBUTED_INTERESTED_PARTY"
+                    ),
                     "evidence_document_ids": sorted(
                         {
                             str(row.get("document_id") or row.get("evidence_id") or "")

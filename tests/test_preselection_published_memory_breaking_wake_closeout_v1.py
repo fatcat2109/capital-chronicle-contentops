@@ -338,7 +338,7 @@ def test_four_candidate_preselection_classifies_filters_and_changes_order(monkey
     modes = {row["cluster_id"]: row["resolved_article_mode"] for row in result["ranked_clusters"]}
     assert modes["breaking"] == "BREAKING_BRIEF"
     assert modes["follow"] == "FOLLOW_UP_UPDATE"
-    assert modes["deepen"] == "CAPITAL_CHRONICLE_DEEP_DIVE"
+    assert modes["deepen"] == "STANDARD_NEWS_ANALYSIS"
     follow = next(row for row in result["ranked_clusters"] if row["cluster_id"] == "follow")
     delta = follow["material_follow_up_context"]
     assert delta["previous_story_identity"] == "cpi-follow"

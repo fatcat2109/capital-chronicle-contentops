@@ -21,6 +21,7 @@ from typing import Any, Iterable, Mapping, Optional, Sequence
 DECISION_BREAKING_NEW_STORY = "BREAKING_NEW_STORY"
 DECISION_MATERIAL_FOLLOW_UP = "MATERIAL_FOLLOW_UP"
 DECISION_DEEPEN_EXISTING_STORY = "DEEPEN_EXISTING_STORY"
+DECISION_QUIET_DAY_USEFUL = "QUIET_DAY_USEFUL"
 DECISION_LOW_DELTA_REPEAT = "LOW_DELTA_REPEAT"
 DECISION_HOLD = "HOLD"
 DECISION_NO_PUBLICATION = "NO_PUBLICATION"
@@ -32,8 +33,49 @@ CORE_DECISION_OPPORTUNITIES_PER_DAY = 4
 ARTICLE_MODE_BREAKING_BRIEF = "BREAKING_BRIEF"
 ARTICLE_MODE_FOLLOW_UP_UPDATE = "FOLLOW_UP_UPDATE"
 ARTICLE_MODE_STANDARD_NEWS_ANALYSIS = "STANDARD_NEWS_ANALYSIS"
+# Canonical growth-first product modes.  The legacy deep-dive/context names remain accepted
+# below only for backward-compatible historical artifacts; new selection resolves to this
+# owner-authorized eight-mode set.
+ARTICLE_MODE_CAPITAL_CHRONICLE_VIEW = "CAPITAL_CHRONICLE_VIEW"
+ARTICLE_MODE_WHAT_THE_MARKET_IS_MISSING = "WHAT_THE_MARKET_IS_MISSING"
+ARTICLE_MODE_EVERGREEN_EXPLAINER = "EVERGREEN_EXPLAINER"
+ARTICLE_MODE_DATA_OR_DOCUMENT_LENS = "DATA_OR_DOCUMENT_LENS"
+ARTICLE_MODE_WEEK_AHEAD_OR_WATCH = "WEEK_AHEAD_OR_WATCH"
 ARTICLE_MODE_CAPITAL_CHRONICLE_DEEP_DIVE = "CAPITAL_CHRONICLE_DEEP_DIVE"
 ARTICLE_MODE_EVERGREEN_CONTEXT = "EVERGREEN_CONTEXT"
+
+CANONICAL_EDITORIAL_MODE_LADDER = (
+    ARTICLE_MODE_BREAKING_BRIEF,
+    ARTICLE_MODE_FOLLOW_UP_UPDATE,
+    ARTICLE_MODE_STANDARD_NEWS_ANALYSIS,
+    ARTICLE_MODE_CAPITAL_CHRONICLE_VIEW,
+    ARTICLE_MODE_WHAT_THE_MARKET_IS_MISSING,
+    ARTICLE_MODE_EVERGREEN_EXPLAINER,
+    ARTICLE_MODE_DATA_OR_DOCUMENT_LENS,
+    ARTICLE_MODE_WEEK_AHEAD_OR_WATCH,
+)
+
+_ROUTED_MODE_TO_PRODUCT_MODE = {
+    "breaking": ARTICLE_MODE_BREAKING_BRIEF,
+    "news_analysis": ARTICLE_MODE_STANDARD_NEWS_ANALYSIS,
+    "explainer": ARTICLE_MODE_EVERGREEN_EXPLAINER,
+    "deep_dive": ARTICLE_MODE_CAPITAL_CHRONICLE_VIEW,
+    "research_note": ARTICLE_MODE_WHAT_THE_MARKET_IS_MISSING,
+    "scenario_outlook": ARTICLE_MODE_WEEK_AHEAD_OR_WATCH,
+}
+
+_DOCUMENT_LENS_RE = re.compile(
+    r"\b(?:data(?:set)?|document|filing|release|table|chart|minutes|transcript|order|notice)\b",
+    re.IGNORECASE,
+)
+_HOUSE_VIEW_RE = re.compile(
+    r"\b(?:capital chronicle view|house view|critique|criticism|flawed|misguided|incentive)\b",
+    re.IGNORECASE,
+)
+_MARKET_MISSING_RE = re.compile(
+    r"\b(?:market is missing|consensus misses|overlooked|underappreciated|mispriced narrative)\b",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -135,6 +177,86 @@ def material_delta_evaluation(
 def material_delta_signals(cluster: Mapping[str, Any], article: PublishedArticleRef) -> int:
     """Backward-compatible integer projection of the auditable delta evaluation."""
     return int(material_delta_evaluation(cluster, article)["signal_count"])
+
+
+def select_growth_editorial_mode(
+    cluster: Mapping[str, Any], novelty: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Resolve one canonical product mode without changing factual eligibility.
+
+    The global assignment editor may emit an exact product mode or a legacy routed mode.  This
+    deterministic normalization is the single preselection bridge into the canonical evidence
+    registry.  Lower-rung quiet-day modes are eligible only when the assignment explicitly asks
+    for useful analysis/explanation/document/watch work; an ordinary low-delta repeat remains
+    held rather than being relabeled as filler.
+    """
+    explicit = str(
+        cluster.get("product_article_mode")
+        or cluster.get("editorial_mode_hint")
+        or cluster.get("article_mode")
+        or ""
+    )
+    decision = str(novelty.get("decision") or "")
+    text = " ".join(
+        str(value or "")
+        for value in (
+            cluster.get("why_now"),
+            cluster.get("selection_case"),
+            cluster.get("seo_intent"),
+            *(cluster.get("needed_evidence") or []),
+            *(cluster.get("leaf_summaries") or []),
+        )
+    )
+
+    if decision == DECISION_MATERIAL_FOLLOW_UP:
+        mode = ARTICLE_MODE_FOLLOW_UP_UPDATE
+        reason = "MATERIAL_UPDATE_CHAIN"
+    elif explicit in CANONICAL_EDITORIAL_MODE_LADDER:
+        mode = explicit
+        reason = "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+    elif _MARKET_MISSING_RE.search(text):
+        mode = ARTICLE_MODE_WHAT_THE_MARKET_IS_MISSING
+        reason = "EXPLICIT_CONSENSUS_CHALLENGE"
+    elif _HOUSE_VIEW_RE.search(text):
+        mode = ARTICLE_MODE_CAPITAL_CHRONICLE_VIEW
+        reason = "EXPLICIT_HOUSE_VIEW"
+    elif (
+        str(cluster.get("story_type") or "") == "data_release"
+        and explicit not in {"breaking", ARTICLE_MODE_BREAKING_BRIEF}
+    ) or (explicit in {"research_note", "explainer"} and _DOCUMENT_LENS_RE.search(text)):
+        mode = ARTICLE_MODE_DATA_OR_DOCUMENT_LENS
+        reason = "EXPLICIT_DATA_OR_DOCUMENT_UTILITY"
+    else:
+        mode = _ROUTED_MODE_TO_PRODUCT_MODE.get(
+            explicit,
+            str(novelty.get("recommended_article_mode") or ARTICLE_MODE_BREAKING_BRIEF),
+        )
+        if mode == ARTICLE_MODE_CAPITAL_CHRONICLE_DEEP_DIVE:
+            mode = ARTICLE_MODE_STANDARD_NEWS_ANALYSIS
+        elif mode == ARTICLE_MODE_EVERGREEN_CONTEXT:
+            mode = ARTICLE_MODE_EVERGREEN_EXPLAINER
+        reason = "ROUTED_MODE_NORMALIZED"
+
+    quiet_day_utility = bool(
+        decision in {DECISION_LOW_DELTA_REPEAT, DECISION_HOLD}
+        and mode
+        in {
+            ARTICLE_MODE_CAPITAL_CHRONICLE_VIEW,
+            ARTICLE_MODE_WHAT_THE_MARKET_IS_MISSING,
+            ARTICLE_MODE_EVERGREEN_EXPLAINER,
+            ARTICLE_MODE_DATA_OR_DOCUMENT_LENS,
+            ARTICLE_MODE_WEEK_AHEAD_OR_WATCH,
+        }
+        and explicit not in {"", "breaking", ARTICLE_MODE_BREAKING_BRIEF}
+    )
+    return {
+        "mode": mode if mode in CANONICAL_EDITORIAL_MODE_LADDER else ARTICLE_MODE_BREAKING_BRIEF,
+        "reason_code": reason,
+        "quiet_day_utility_candidate": quiet_day_utility,
+        "canonical_mode_ladder": list(CANONICAL_EDITORIAL_MODE_LADDER),
+        "changes_evidence_or_permission_standards": False,
+        "grants_factual_or_numeric_authority": False,
+    }
 
 
 def classify_story_novelty(
@@ -346,6 +468,8 @@ def bootstrap_portfolio_policy() -> dict[str, Any]:
         ),
         "core_decision_opportunities_per_day": CORE_DECISION_OPPORTUNITIES_PER_DAY,
         "material_event_wakeups_enabled": False,
+        "material_event_shadow_wake_enabled": True,
+        "material_event_public_write_enabled": False,
         "material_event_priority_next_scheduled_opportunity": True,
         "manual_go_exception_enabled": True,
         "automatic_schedule_scaling_enabled": False,

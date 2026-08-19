@@ -26,11 +26,13 @@ from live_contentops.editorial_portfolio_v1 import (
     DECISION_HOLD,
     DECISION_LOW_DELTA_REPEAT,
     DECISION_MATERIAL_FOLLOW_UP,
+    DECISION_QUIET_DAY_USEFUL,
     PublishedArticleRef,
     build_material_follow_up_context,
     classify_story_novelty,
     concentration_penalty,
     portfolio_state_today,
+    select_growth_editorial_mode,
 )
 
 SCHEMA_VERSION = "contentops.preselection_intelligence.v1"
@@ -44,6 +46,7 @@ _DECISION_BONUS = {
     DECISION_BREAKING_NEW_STORY: 12.0,
     DECISION_MATERIAL_FOLLOW_UP: 11.0,
     DECISION_DEEPEN_EXISTING_STORY: 7.0,
+    DECISION_QUIET_DAY_USEFUL: 4.0,
     DECISION_LOW_DELTA_REPEAT: -1000.0,
     DECISION_HOLD: -1000.0,
 }
@@ -53,7 +56,11 @@ _CAPABILITY_MODE = {
     "FOLLOW_UP_UPDATE": "straight_news",
     "CAPITAL_CHRONICLE_DEEP_DIVE": "deep_analysis",
     "STANDARD_NEWS_ANALYSIS": "analysis",
+    "CAPITAL_CHRONICLE_VIEW": "analysis",
+    "WHAT_THE_MARKET_IS_MISSING": "analysis",
     "EVERGREEN_EXPLAINER": "explainer",
+    "DATA_OR_DOCUMENT_LENS": "analysis",
+    "WEEK_AHEAD_OR_WATCH": "analysis",
 }
 
 _KNOWN_OFFICIAL_SUFFIXES = (
@@ -303,6 +310,9 @@ def apply_preselection_intelligence(
             now=moment,
         )
         decision = str(novelty["decision"])
+        mode_resolution = select_growth_editorial_mode(cluster, novelty)
+        if mode_resolution["quiet_day_utility_candidate"]:
+            decision = DECISION_QUIET_DAY_USEFUL
         concentration = concentration_penalty(
             [str(value) for value in (cluster.get("entities_topics") or [])], portfolio
         )
@@ -321,7 +331,7 @@ def apply_preselection_intelligence(
             - 24.0 * effective_concentration
             + 28.0 * float(reachability["score"])
         )
-        resolved_mode = str(novelty.get("recommended_article_mode") or "HOLD")
+        resolved_mode = str(mode_resolution["mode"])
         learning_bonus = 0.0
         learning_matches: list[dict[str, Any]] = []
         feature_values = {
@@ -365,6 +375,7 @@ def apply_preselection_intelligence(
             "preselection_original_rank": original_rank,
             "editorial_classification": decision,
             "resolved_article_mode": resolved_mode,
+            "growth_editorial_mode_resolution": mode_resolution,
             "capability_article_mode": _CAPABILITY_MODE.get(resolved_mode),
             "capital_chronicle_context": cc_context,
             "capital_chronicle_semantic_activation": semantic_activation,

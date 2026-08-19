@@ -402,6 +402,72 @@ def test_valid_official_primary_packet_can_satisfy_nonnumeric_capability():
     assert receipt["capital_chronicle_authority_verified"] is False
 
 
+def test_breaking_brief_official_primary_fast_lane_skips_secondary_and_cc():
+    registry = deepcopy(load_source_capability_registry())
+    registry["story_types"]["regulatory_fiscal_event"] = {
+        "required_evidence_capabilities": [
+            "credible_event_confirmation",
+            "basic_attributed_facts",
+        ],
+        "market_context_required": False,
+        "article_mode": "straight_news",
+        "freshness_policy": "event_24h",
+        "freshness_requirements": {"max_age_hours": 36},
+        "source_adapter_families": [
+            "official_regulatory_fiscal",
+            "public_secondary",
+        ],
+    }
+    request = _request(
+        story_type="regulatory_fiscal_event",
+        required=["credible_event_confirmation", "basic_attributed_facts"],
+        families=["official_regulatory_fiscal", "public_secondary"],
+    )
+    request["effective_article_mode"] = "BREAKING_BRIEF"
+    request["resolved_article_mode"] = "BREAKING_BRIEF"
+    request["request_logical_hash"] = _logical_hash(
+        {key: value for key, value in request.items() if key != "request_logical_hash"}
+    )
+    packet = _packet(request)
+    packet["status"] = "PASS"
+    packet["provided_evidence_capabilities"] = list(
+        request["required_evidence_capabilities"]
+    )
+    packet["official_source_documents"][0]["canonical_content_text"] = " ".join(
+        [
+            "The agency's final rule takes effect today and the official release "
+            "sets out the affected entities, implementation date, transition terms, "
+            "and public compliance process."
+        ]
+        * 8
+    )
+    adapter = RollingXTargetedEvidenceAdapter(
+        packet_loader=lambda _request: (_ for _ in ()).throw(
+            AssertionError("breaking fast lane must not load Capital Chronicle")
+        ),
+        official_evidence_loader=lambda _request: packet,
+        public_secondary_loader=lambda _request: (_ for _ in ()).throw(
+            AssertionError("sufficient official primary must not trigger secondary")
+        ),
+        evaluation_as_of_utc=AS_OF,
+        capability_registry=registry,
+    )
+
+    receipt = adapter(request)
+
+    assert receipt["status"] == "PASS"
+    assert receipt["capital_chronicle_authority_verified"] is False
+    assert receipt["editorial_mode_contract"]["product_article_mode"] == (
+        "BREAKING_BRIEF"
+    )
+    assert receipt["editorial_mode_contract"][
+        "narrow_official_primary_fast_lane"
+    ] is True
+    assert receipt["evidence_acquisition_provenance"]["public_secondary"][
+        "status"
+    ] == "NOT_NEEDED_EVIDENCE_DEPTH_SUFFICIENT"
+
+
 def test_supply_chain_request_routes_exact_eia_url_to_official_macro_loader():
     request = _request(story_type="supply_chain_event", article_mode="straight_news")
     request["story_context"] = {
