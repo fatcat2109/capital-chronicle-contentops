@@ -1,11 +1,11 @@
 # Capital Chronicle ContentOps — Capability-Routed Hybrid Execution Policy V1
 
 Authority date: 2026-08-19
-Status: `OWNER_AUTHORIZED_EXECUTION_POLICY_CANDIDATE`
+Status: `CURRENT_EXECUTION_POLICY`
 
 This policy changes only **how engineering work is executed**. It does not change the ContentOps product sequence, Capital Chronicle/Core Analyzer authority, V1/V2 boundaries, public-write authority, numeric authority, rights rules, KILL_SWITCH behavior, destination identity, readback/reconciliation, or protected release history.
 
-Jim explicitly authorized proceeding with this method on 2026-08-19. On this pilot branch, this document is the execution-routing candidate. Remote `master` remains repository authority until an explicit owner-approved merge.
+Jim explicitly authorized this method on 2026-08-19. It is now current execution-routing authority under root `AGENTS.md` and the current authority/supersession map. Older `MAIN_CODEX only` execution statements remain superseded for execution routing only where the current authority map says so.
 
 ## 1. Execution model
 
