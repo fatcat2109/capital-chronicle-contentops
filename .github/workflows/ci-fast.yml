@@ -1,0 +1,43 @@
+name: ci-fast
+
+on:
+  push:
+    branches:
+      - 'agent/web-**'
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-fast-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deterministic-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile canonical Python sources
+        run: python -m compileall -q live_contentops scripts
+
+      - name: Install focused test runner
+        run: python -m pip install --disable-pip-version-check pytest
+
+      - name: Run deterministic CodeGraph generator tests
+        run: python -m pytest -q tests/test_codex_context_index.py
+
+      - name: Check committed diff hygiene
+        run: git diff --check HEAD^ HEAD
