@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Current Execution Pointer V2
 
-Authority date: 2026-08-18
+Authority date: 2026-08-19
 Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
 Product direction: `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY / TRANSCRIPT_FIRST_V2_PRODUCTION`
 Reasoning topology: `HIGH_PARENT_SESSION -> BOUNDED_XHIGH_VIDEO_CREATIVE_WORK`
@@ -118,26 +118,44 @@ Audio technical integrity passes. Subjective voice/music listening quality is no
 
 ## Current exact task and gate
 
-`TASK_CONTENTOPS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_BOUNDED_CORRECTION_V1`
+`TASK_CONTENTOPS_V2_NATIVE_STAGGERED_AUTOMATION_RELAY_SHADOW_CORRECTION_V1`
 
 Builder result:
 
-`PASS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_CORRECTION_READY_FOR_OWNER_REVIEW`
+`PASS_V2_V1_READONLY_TRIGGER_AND_NATIVE_CODEX_AUTOMATION_RELAY_SHADOW`
 
-The Task-2 Vietnamese package was corrected after owner audit found 15.38 seconds of unexplained
-final silence. Its exact existing synthesized phrases are now placed in their corresponding
-accepted picture/narrative windows; captions derive from those actual placements. Meaningful
-Vietnamese speech now ends at 57.68 seconds with 0.72 seconds of final headroom. The 58.4-second /
-1,752-frame accepted picture stream is unchanged, with no Remotion rerender, transcode, TTS call,
-or `-shortest` truncation. `zh-Hans`, `hi`, and `ko` pass the new deterministic tail/placement audit
-without regeneration. Evidence is under
-`docs/automation/CONTENTOPS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_BOUNDED_CORRECTION_V1/`.
+The bounded Task-3 correction now proves the native staggered relay with three standalone Codex
+Desktop automation runs: HIGH Daily Operator, fresh XHIGH Creative Worker, and HIGH Finalizer. The
+current V1 truth produced no genuine qualified candidate, so the proof used exactly one governed
+non-public `SHADOW_ISOLATION_PROBE`. Its durable state advanced exactly once through
+`READY_FOR_CREATIVE -> CREATIVE_CLAIMED -> CREATIVE_READY -> HIGH_FINALIZATION ->
+LOCAL_TERMINAL_RESULT`; replay at each write boundary was idempotent. The final durable result is
+`READY_FOR_OWNER_APP_UI_AUDIT`, not owner acceptance.
+
+The successful native task identities are:
+
+- HIGH Daily Operator: `01a0192b-e286-7823-8b80-9a6c865b4b2f`;
+- XHIGH Creative Worker: `01a01935-f48a-7ec3-8a99-7617cf2f4d76`;
+- HIGH Finalizer: `01a0193f-1cdc-7232-93c3-968dee57ddca`.
+
+The creative result SHA-256 is
+`a666debba437d94683029a9c7fbd21f0ae49ce353dfb855153022b193cbd38d7`; the finalizer receipt
+SHA-256 is `6f45fc5a3563c974619d473ea85eaade1cf554b251787423534619fc5db6a84e`.
+V1 writes, V1 scheduler mutations, platform/public writes, Codex CLI/SDK/API creative calls, and
+9Router creative calls are all zero. All three V2 proof automations are paused. The actual-App
+screenshots and final evidence are under
+`docs/automation/TASK_CONTENTOPS_V2_NATIVE_STAGGERED_AUTOMATION_RELAY_SHADOW_CORRECTION_V1/`.
+
+The proof used fresh task/conversation isolation and an exact governed request/result boundary. It
+does not claim that the App created a unique Git worktree per automation run; the native tasks used
+the dedicated correction worktree through the non-Git Capital Chronicle project root so the shared
+external V2 runtime remained accessible. XHIGH made no repository changes.
 
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling. Builder validation does not claim Jim's
-subjective language/voice/listening acceptance.
+App UI acceptance.
 
-Only after independent owner audit accepts the corrected Vietnamese package is the next gate:
+Only after independent owner audit accepts this correction is the next gate:
 
-`TASK_CONTENTOPS_V2_V1_READONLY_TRIGGER_AND_CODEX_DAILY_OPERATOR_AUTOMATION_SHADOW_V1`
+`TASK_CONTENTOPS_V2_CONTROLLED_PUBLICATION_AND_READBACK_ACTIVATION_V1`
 
 Do not start it automatically.

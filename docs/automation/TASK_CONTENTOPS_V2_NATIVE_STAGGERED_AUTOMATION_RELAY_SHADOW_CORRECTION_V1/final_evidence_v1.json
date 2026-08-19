@@ -1,0 +1,177 @@
+{
+  "schema": "contentops.v2.native_staggered_automation_relay_shadow_correction_final_evidence.v1",
+  "classification": "PASS_V2_V1_READONLY_TRIGGER_AND_NATIVE_CODEX_AUTOMATION_RELAY_SHADOW",
+  "pass_claimed": true,
+  "owner_app_ui_acceptance_claimed": false,
+  "git": {
+    "repository": "fatcat2109/capital-chronicle-contentops",
+    "branch": "task/v2-native-staggered-automation-relay-shadow-correction-v1",
+    "origin_master_at_start": "95e8373efd000085df22ed7e7f3623e9444e8aee",
+    "task3_branch_start": "96defff29e127505f468cffb94a04e008e24a650",
+    "task3_frozen_implementation": "1d9bfa80e17a39e41aadac173587a000911e9308",
+    "correction_implementation_head": "8c8adf49fc49fb4c82a326c7361756490bb649ce",
+    "correction_implementation_remote_parity": true,
+    "final_evidence_head_reported_after_commit": true
+  },
+  "actual_app_probe": {
+    "xhigh_model_selection_available": true,
+    "configured_model": "gpt-5.6-sol",
+    "configured_reasoning_effort": "xhigh",
+    "runs_in_new_chat": true,
+    "fresh_creative_task_created": true,
+    "fresh_creative_task_id": "01a01935-f48a-7ec3-8a99-7617cf2f4d76",
+    "prior_interrupted_creative_task_id": "01a0158c-197d-7231-a985-6280ab47de76",
+    "prior_creative_history_inherited": false,
+    "app_owned_per_run_git_worktree_claimed": false,
+    "actual_bounded_worktree_identity": "A:\\Capital Chronicle\\ContentOps-task-v2-native-staggered-automation-relay-shadow-correction",
+    "worktree_note": "The successful proof ran from the non-Git Capital Chronicle project root so the native tasks could access both the dedicated correction worktree and external V2 runtime. No claim is made that the App created a unique Git worktree per automation run; creative isolation is the fresh task plus exact governed request/result scope, and the XHIGH worker made no repository changes."
+  },
+  "quota_recovery": {
+    "interrupted_task_ids": [
+      "01a01584-c60b-7b70-8016-950a01cb884f",
+      "01a0158c-197d-7231-a985-6280ab47de76",
+      "01a01591-22c4-7463-b71c-08906ebdb2ad"
+    ],
+    "interrupted_runs_mutated_durable_relay": false,
+    "same_automation_count_after_recovery": 3,
+    "replacement_automation_created": false,
+    "recovery_note": "The same three automation definitions were retargeted to the Capital Chronicle project root after a follow-up to the old task proved its immutable ContentOps sandbox could not write the sibling runtime. The next scheduled executions created fresh native tasks."
+  },
+  "automations": [
+    {
+      "id": "v2-daily-operator-shadow",
+      "name": "V2 Daily Operator — Shadow",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "successful_task_id": "01a0192b-e286-7823-8b80-9a6c865b4b2f",
+      "proof_schedule": "22:36 Asia/Bangkok",
+      "quota_recovery_schedule": "15:38 Asia/Bangkok on 2026-08-19",
+      "final_status": "PAUSED"
+    },
+    {
+      "id": "v2-creative-worker-xhigh-shadow",
+      "name": "V2 Creative Worker — XHIGH Shadow",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "xhigh",
+      "successful_task_id": "01a01935-f48a-7ec3-8a99-7617cf2f4d76",
+      "proof_schedule": "22:43 Asia/Bangkok",
+      "quota_recovery_schedule": "15:48 Asia/Bangkok on 2026-08-19",
+      "final_status": "PAUSED"
+    },
+    {
+      "id": "v2-high-finalizer-shadow",
+      "name": "V2 HIGH Finalizer — Shadow",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "successful_task_id": "01a0193f-1cdc-7232-93c3-968dee57ddca",
+      "proof_schedule": "22:50 Asia/Bangkok",
+      "quota_recovery_schedule": "15:58 Asia/Bangkok on 2026-08-19",
+      "final_status": "PAUSED"
+    }
+  ],
+  "v1_read": {
+    "surface": "published_corpus_read_model_v1.load_published_corpus + performance_observations(query_only)",
+    "snapshot_hash": "80f5d0403558cf7e538318d3dd5a2de6122e535c31de34e02603571086f2fbb2",
+    "database_sha256_before": "aadf204d473b3a769d7f471043f99f8aa9498a5553782b30d2710d5dbba1bb45",
+    "database_sha256_after": "aadf204d473b3a769d7f471043f99f8aa9498a5553782b30d2710d5dbba1bb45",
+    "sqlite_uri_mode": "ro",
+    "pragma_query_only": 1,
+    "connection_total_changes": 0,
+    "v1_write_count": 0,
+    "v1_scheduler_mutation_count": 0
+  },
+  "daily_operator": {
+    "operator_runs": [
+      "relaycorr_20260818T153600Z_a",
+      "relaycorr_20260818T153600Z_b"
+    ],
+    "qualified_candidate_count": 0,
+    "created_video_job_count": 0,
+    "durable_candidate_decision_count": 2,
+    "repeat_decisions_idempotent": 2,
+    "shadow_probe_used": true
+  },
+  "relay": {
+    "request_id": "creative_req_task3_relay_shadow_v1",
+    "idempotence_key": "task3_native_relay_shadow_v1",
+    "purpose": "SHADOW_ISOLATION_PROBE",
+    "governed_input_hash": "78d20d15daae43c3ed2d4a8e94a1a7014dc7d7a3b18d288529aeeb364f9755bd",
+    "creative_result_sha256": "a666debba437d94683029a9c7fbd21f0ae49ce353dfb855153022b193cbd38d7",
+    "finalizer_receipt_sha256": "6f45fc5a3563c974619d473ea85eaade1cf554b251787423534619fc5db6a84e",
+    "states": [
+      "READY_FOR_CREATIVE",
+      "CREATIVE_CLAIMED",
+      "CREATIVE_READY",
+      "HIGH_FINALIZATION",
+      "LOCAL_TERMINAL_RESULT"
+    ],
+    "event_count": 5,
+    "duplicate_event_count": 0,
+    "request_create_replay_idempotent": true,
+    "creative_result_replay_idempotent": true,
+    "finalizer_replay_idempotent": true,
+    "terminal_result": "SHADOW_ISOLATION_PROBE_RELAY_COMPLETE_NO_CONTENT_OUTCOME",
+    "compatibility_handoff_id": "handoff_task3_native_relay_shadow_v1"
+  },
+  "review": {
+    "result": "READY_FOR_OWNER_APP_UI_AUDIT",
+    "owner_app_ui_acceptance_claimed": false,
+    "review_queue_item_count": 0,
+    "local_terminal_result_count": 1,
+    "public_write_authority": false
+  },
+  "prohibited_routes": {
+    "codex_cli_invocation_count": 0,
+    "codex_sdk_api_invocation_count": 0,
+    "nine_router_creative_invocation_count": 0,
+    "nested_codex_spawn_retry_count": 0
+  },
+  "write_counts": {
+    "v1": 0,
+    "v1_scheduler": 0,
+    "platform_public": 0,
+    "publication_adapter": 0,
+    "browser_cdp": 0,
+    "upload": 0,
+    "draft": 0,
+    "publication": 0
+  },
+  "screenshots": [
+    {
+      "path": "screenshots/scheduled_three_runs_actual_app.png",
+      "sha256": "10a62b230fd9e1ecb006f5c24c23b8717f24ddbcfc0679e04ab2e90493ec5399"
+    },
+    {
+      "path": "screenshots/scheduled_xhigh_configuration_actual_app.png",
+      "sha256": "9c9d4cb5ee964a2564ae49f095a9e9403370dc38403a9a12a6f5bffb2e669456"
+    },
+    {
+      "path": "screenshots/high_daily_operator_run_actual_app.png",
+      "sha256": "c64e83d7a808a03fef31f34d4813f56d118a0cd84c57df9cb17dc3bca71ff894"
+    },
+    {
+      "path": "screenshots/xhigh_creative_worker_run_actual_app.png",
+      "sha256": "341a92f4fc5851bc5894db18ff56ef64a7a00916a5e64a44aa74a27e37c87773"
+    },
+    {
+      "path": "screenshots/high_finalizer_receipt_actual_app.png",
+      "sha256": "a05916e0c445e863c90270c78e8ce4de1eeb7103ae876641a739d406b7f59f51"
+    }
+  ],
+  "validation": {
+    "focused_pytest": "84 passed, 1 skipped in 19.93s",
+    "ruff": "PASS",
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "codegraph_after": {
+      "nodes": 7249,
+      "edges": 13637,
+      "source_head": "8c8adf49fc49fb4c82a326c7361756490bb649ce",
+      "codegraph_current": true
+    }
+  },
+  "v1_automation_mutations": 0,
+  "all_v2_proof_automations_paused": true,
+  "task4_started": false,
+  "v2_current_execution_pointer_updated": true
+}
