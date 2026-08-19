@@ -80578,7 +80578,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-19T13:25:02Z",
+  "generation_timestamp_utc": "2026-08-19T16:26:55Z",
   "generator_version": "2.4.0",
   "included_roots": [
     "live_contentops/",
@@ -80811,7 +80811,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 9310
+      "size_bytes": 9362
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
@@ -126734,6 +126734,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "5cd26f33592a93e53e2973877857194c36b7515a",
-  "source_tree_digest": "c65162142426c0aad11a339a8e35ca8126bb850b3dfbcffe8302e9c85b4b40b2"
+  "source_head": "b2fe5b7a1cad12aa7748d74ff34114c7f8ff08a2",
+  "source_tree_digest": "d9e646aaa61bca677b80edd1c73ec53ecb40f076ca2ffd96c5932f9b2b21b9b3"
 }
