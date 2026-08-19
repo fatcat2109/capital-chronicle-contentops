@@ -1,8 +1,8 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `407233d0aad603ecfa53a248b8c3ebdff580d13a`
-Source tree digest: `ddbf8f65ca2353ce843a116c2c53c0d078f18f383f5579f663cf153f7d0ce78a`
-Graph schema: `contentops.codex_context_graph.v2`; generator: `2.2.1`
+Source HEAD: `16cb39db7987126c0cab272c41016f5adae0906e`
+Source tree digest: `a8c5fb3d55fc21d47edbf1b80a8715497e812290a3fd5770ebdb950579b330f1`
+Graph schema: `contentops.codex_context_graph.v2`; generator: `2.3.0`
 
 This generated map is descriptive, not product authority.
 
@@ -12,11 +12,15 @@ Read only these before the exact task files:
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md` (this page)
-3. nearest scoped `AGENTS.md`
-4. `docs/codegraph/V1_CONTEXT.md` when V1 product/state context matters
-5. exact implementation and focused tests
+3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+6. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+7. the appropriate current V1/V2 lane pointer
+8. nearest scoped `AGENTS.md`
+9. exact implementation, focused tests, and task evidence
 
-Open current direction/next-task authority only when product direction matters: `docs/CURRENT_CONTEXT.md`, `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`, and `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`.
+This generated router is subordinate to root `AGENTS.md`. Never use it to bypass the current V3 authority spine or a newer owner decision.
 
 ## Entrypoints
 
@@ -120,15 +124,19 @@ Open current direction/next-task authority only when product direction matters: 
 
 Use the focused test beside each hot-path section. Backend tests are under `tests/`; V5 tests are under `ui/contentops_v5/src/test/`. Generator coverage is `tests/test_codex_context_index.py`.
 
-## Current V1 closeout
+## Current authority routing
 
-Accepted implementation: four-window / full-nine-surface / closed-loop branch `codex/v1-four-window-closed-loop-current-master-integration-v1`. Exactly four native Desktop `gpt-5.6-sol / HIGH` coordinator tasks already exist and are all `PAUSED`; do not create, recreate, enable, or add a fifth task.
+Root authority and supersession: `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`.
 
-Current task: `TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1`. First fast-forward the accepted branch, synchronize the canonical checkout, and verify all nine readiness/identity states plus `UNKNOWN_WRITE=0`. Jim then runs exactly one fresh Desktop HIGH coordinator manual `GO` canary; it creates one fresh isolated XHIGH editorial worker only if an article is warranted. Only a Jim/ChatGPT audit PASS of the actual article and all nine public surfaces enables the existing four tasks. `V1_FINAL_PRODUCT_ACCEPTED` is forbidden before real evidence.
+Product direction: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` and `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`.
+
+V1 lane: `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
+V2 lane: `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`.
+Read the current pointer bytes; generated context does not declare a current task.
 
 ## Tier2 separation
 
-Tier2/video is isolated from the V1 runtime and has no public-write authority. Read `docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. The retention-native authority set and accepted direct-image boundary are routed there; rejected Tier2-B, `8b043a5`, and creative branch `d231b54e` remain reference only.
+Tier2/video is isolated from the V1 runtime and has no public-write authority. Read `docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. Current V2 direction must come from the V3 authority spine and current V2 lane pointer, not historical task summaries embedded in generated context.
 
 ## Generated graph files
 
@@ -146,4 +154,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7121` nodes and `13401` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7110` nodes and `13402` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
