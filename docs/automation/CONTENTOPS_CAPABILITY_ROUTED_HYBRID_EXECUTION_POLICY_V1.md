@@ -1,15 +1,15 @@
 # Capital Chronicle ContentOps — Capability-Routed Hybrid Execution Policy V1
 
 Authority date: 2026-08-19
-Status: `OWNER_PILOT_EXECUTION_POLICY`
+Status: `OWNER_AUTHORIZED_EXECUTION_POLICY_CANDIDATE`
 
 This policy changes only **how engineering work is executed**. It does not change the ContentOps product sequence, Capital Chronicle/Core Analyzer authority, V1/V2 boundaries, public-write authority, numeric authority, rights rules, KILL_SWITCH behavior, destination identity, readback/reconciliation, or protected release history.
 
-Jim's latest explicit owner direction authorizes a prospective pilot of this execution model. Until this branch is owner-accepted and merged under the normal authority process, remote `master` remains the repository authority.
+Jim explicitly authorized proceeding with this method on 2026-08-19. On this pilot branch, this document is the execution-routing candidate. Remote `master` remains repository authority until an explicit owner-approved merge.
 
 ## 1. Execution model
 
-The execution model is `CAPABILITY_ROUTED_HYBRID` with four classes:
+The execution model is `CAPABILITY_ROUTED_HYBRID` with four classes.
 
 ### `WEB_STATIC`
 
@@ -40,11 +40,9 @@ Eligible deterministic work may include:
 - deterministic code generation and smoke tests;
 - machine-readable validation artifacts.
 
-A GitHub commit is not execution evidence. `WEB_CI` may claim CI PASS only from the exact run bound to the exact commit.
+A GitHub commit is not execution evidence. `WEB_CI` may claim CI PASS only from the exact workflow run bound to the exact commit or PR merge ref under review.
 
 Normal Web/CI validation must remain `NO_SECRET / NO_PUBLIC_WRITE / NO_PRODUCTION_MUTATION` unless a separate exact owner-gated workflow explicitly grants otherwise. Agent-modified code must not automatically receive powerful production credentials.
-
-If no suitable Actions workflow exists on the target repository, classify the task as `WEB_STATIC` or `CODEX_EXECUTION`; do not pretend `WEB_CI` has been proven.
 
 ### `CODEX_EXECUTION`
 
@@ -88,9 +86,7 @@ Before implementation, classify the task by the strongest evidence needed for it
 3. Does correctness require an interactive runtime/environment/browser/debug loop? -> `CODEX_EXECUTION`.
 4. Does the work cross secrets/live/public/destructive/numeric-authority/rights boundaries? -> `OWNER_GATED_EXTERNAL` for that boundary.
 
-Use the cheapest lane that can produce evidence strong enough for the actual claim.
-
-Do not route by quota pressure. The same capability router applies when Codex quota is healthy.
+Use the cheapest lane that can produce evidence strong enough for the actual claim. Route by information deficit, not quota pressure or habit.
 
 ## 3. No automatic capability downgrade
 
@@ -120,15 +116,13 @@ Rules:
 - no silent unrelated changes;
 - no merge without explicit owner authorization;
 - exact base SHA, changed paths, commit SHA, CI/runtime scope and caveats must remain observable;
-- broad changes that require working-tree atomicity or runtime iteration should move to Codex rather than abusing low-level Git primitives merely because they exist.
+- broad changes requiring working-tree atomicity or runtime iteration move to Codex rather than abusing low-level Git primitives merely because they exist.
 
 ## 5. Repair and escalation
 
-The default Web/CI repair budget is bounded. Two Web repair rounds are a heuristic, not a hard product invariant.
+The default Web/CI repair budget is bounded. Two Web repair rounds are a heuristic, not a hard invariant.
 
-Escalate earlier when the first failure shows an execution/environment information deficit. Continue a second bounded Web repair when the failure is mechanically clear from deterministic evidence.
-
-Never create an unbounded speculative commit loop.
+Escalate earlier when the first failure shows an execution/environment information deficit. Continue a bounded Web repair when the failure is mechanically clear from deterministic evidence. Never create an unbounded speculative commit loop.
 
 ## 6. GitHub Actions boundary
 
@@ -140,7 +134,7 @@ Preferred safe workflow classes:
 - `CI_FULL`: broader deterministic tests/build when justified;
 - `CI_ARTIFACT`: compact machine-readable summaries/logs/artifacts.
 
-Workflows should prefer ordinary push/PR/label events already controllable through GitHub. Do not insert a paid model/API loop into every CI run merely to recreate Codex elsewhere.
+Workflows should prefer ordinary push/PR events already controllable through GitHub. Do not insert a paid model/API loop into every CI run merely to recreate Codex elsewhere.
 
 Actions that use secrets or can mutate external systems require a separate owner-gated trust boundary and must not be triggered by arbitrary agent-authored code by default.
 
@@ -163,7 +157,7 @@ Execution efficiency must never redefine evidence.
 
 ## 8. Pilot and measurement
 
-Run this architecture prospectively on approximately 10 eligible engineering tasks before treating efficiency claims as proven.
+Run this architecture prospectively on real eligible engineering tasks before treating efficiency claims as proven. Approximately 10 representative tasks is a useful target, not a quota that justifies invented work.
 
 Track at minimum:
 
@@ -172,15 +166,13 @@ Track at minimum:
 - Web repair rounds;
 - CI result/runtime where available;
 - Web -> Codex escalation and reason;
-- time to accepted change;
+- time to accepted change where observable;
 - revert/escaped-defect signal;
 - unsupported-PASS incidents;
 - operator burden;
 - Codex usage/credits where observable.
 
 The pilot succeeds only if it reduces scarce Codex execution meaningfully without lowering evidence quality, safety, product correctness, or owner confidence.
-
-If the pilot fails, revert the execution-policy change without changing product architecture.
 
 ## 9. Evidence contract
 
