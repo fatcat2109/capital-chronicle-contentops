@@ -47,9 +47,9 @@ Do not reduce this to passive `WAITING_FOR_GENUINE_QUALIFYING_OPPORTUNITY`. A ge
 
 The next implementation capability is:
 
-`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
+`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM, BOUNDED MATERIAL-EVENT WAKE, AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
 
-It must reuse the existing canonical V1 selection/evidence/article/package/publication path. Do not create a second newsroom, evidence engine, publisher, durable store, scheduler, or control plane.
+It must reuse the existing canonical V1 supervisor/selection/evidence/article/package/publication path. Do not create a second newsroom, evidence engine, publisher, durable store, scheduler, or control plane.
 
 ### Required editorial modes
 
@@ -72,6 +72,8 @@ Evidence burden follows the public claim and mode.
 
 One exact, authentic, current official primary source may be sufficient for a narrow attributed breaking fact when it directly proves the event. That does not authorize invented market reaction, causality, proprietary analysis, or unsupported numbers.
 
+An issuer-authored or interested-party official source establishes that the issuer/party made, filed, ordered, or published the exact statement/record and its directly inspectable contents. It does not automatically independently prove disputed third-party allegations, misconduct, causality, or future outcomes; keep such assertions attributed unless separate accepted evidence establishes them.
+
 Broader analytical/numeric claims require the stronger public evidence and/or exact publication-authorized CC authority appropriate to the claim.
 
 Quiet-day behavior may lower materiality or choose another mode; it may never lower factual truth, attribution, permission, rights, or Core Analyzer numeric authority.
@@ -80,13 +82,25 @@ Quiet-day behavior may lower materiality or choose another mode; it may never lo
 
 `CAPITAL_CHRONICLE_VIEW` and `WHAT_THE_MARKET_IS_MISSING` should permit strong, memorable, evidence-backed criticism and contrarian analysis.
 
-Factual premises remain source-bound. Opinion/inference must be distinguishable from verified fact. No fabricated allegations, deceptive attribution, personal abuse, or unsupported certainty.
+Factual premises remain source-bound. Opinion/inference must be distinguishable from verified fact. Material allegations of fraud, crime, deception, corruption, or comparable misconduct require evidence proportional to the allegation.
+
+ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence. That is ContentOps editorial judgment, not Core Analyzer authority; it must not be represented as a Core Analyzer conclusion or used to invent proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
+
+No fabricated allegations, deceptive attribution, personal abuse, or unsupported certainty.
 
 ### Growth objective
 
 Ranking/package policy may optimize supported organic growth signals as priority/packaging inputs: timeliness, novelty, useful controversy, share/discussion potential, search/evergreen value, subscriber/product relevance, evidence readiness, portfolio diversity, and bounded cost.
 
 Engagement never creates factual/numeric/permission authority.
+
+### Bounded material-event wake
+
+The current implementation must prove under `NO_PUBLIC_WRITE`/shadow validation that a genuinely material fresh event can create one idempotent editorial opportunity through the existing Daily App supervisor outside the routine windows, without duplicate wakeups or a second scheduler.
+
+Before the owner-accepted real canary, this adds no live/public-write opportunity. After the accepted canary, the bounded supervisor-owned material-event wake is part of the final V1 operating direction and may run only under the accepted autonomy/public-write scope, stable trigger identity, duplicate/update-chain checks, minimum spacing/saturation controls, the same evidence/article/publication/readback gates, and current KILL_SWITCH state.
+
+This material-event wake is not a fifth scheduled task.
 
 ### Canonical-first distribution
 
@@ -106,12 +120,14 @@ This pointer grants zero live/public-write authority by itself.
 
 Run one bounded `NO_PUBLIC_WRITE` replay covering at least:
 
-- one official-primary breaking case;
+- one official-primary breaking case, including material-event trigger identity and wake/no-wake behavior;
 - one normal-analysis case;
 - one quiet-day case;
 - one critical/opinion case.
 
 For each case prove mode selection, claim/evidence profile, accepted sources, CC authority/use or truthful zero-use, final article/headline, native package intents, cost/model path, and zero fabricated facts/numbers/permissions.
+
+For the breaking case also prove no duplicate material-event editorial opportunity, spacing/dedupe handling, and zero public writes.
 
 Jim/ChatGPT must inspect the actual article/package outputs before the live canary.
 
@@ -136,7 +152,9 @@ A valid `NO_PUBLICATION` still does not prove final publication-canary acceptanc
 
 ## After accepted canary
 
-Enable only the four already-existing V1 native tasks under current schedule ownership, then prove unattended/cold-start operation. Do not create a fifth task.
+Enable only the four already-existing V1 scheduled tasks under current schedule ownership and activate the bounded supervisor-owned material-event wake path under the accepted autonomy/public-write scope. Do not create a fifth scheduled task or a second scheduler.
+
+Then prove unattended/cold-start operation across routine windows plus at least one material-event trigger/no-op or trigger/execution path with stable identity and zero duplicate public objects.
 
 ## Current runtime/acceptance caveat
 
@@ -149,9 +167,10 @@ The latest restoration reported optional `V5 UI BUILD_EXIT_1`. It did not block 
 - Internal Analyzer governance is not public permission.
 - Models have zero factual/numeric/permission/public-write authority.
 - Substack remains canonical truth.
-- Exactly eight V1 derivative destinations remain the required distribution set.
+- Exactly eight V1 derivative destinations remain the required P0 distribution set.
+- Any future growth-surface expansion beyond the current nine-surface contract requires a new exact owner-approved identity/permission/write/readback scope.
 - Chrome `CapitalChronicleBot` 9222 remains ingestion only.
 - Edge `contentops-social-main` 9223 remains publication/media/readback and explicitly authorized observation only.
 - `UNKNOWN_WRITE`: `STOP RETRY -> READ BACK -> RECONCILE`.
 - Public comment/reply automation remains separately owner-gated.
-- All four existing V1 tasks remain paused until the real canary is owner-accepted.
+- All four existing scheduled V1 tasks remain paused until the real canary is owner-accepted.

@@ -19,7 +19,7 @@ Jim should be able to launch one ContentOps Daily App, leave it running, and rel
 The final product must:
 
 1. stay alive continuously with low-cost supervision;
-2. ingest current headline/event evidence;
+2. ingest current headline/event evidence and maintain bounded material-event wake eligibility;
 3. maintain durable state, recovery, and public-object certainty;
 4. select the best useful editorial mode or abstain;
 5. obtain exact claim-appropriate evidence;
@@ -29,7 +29,7 @@ The final product must:
 9. read back/reconcile every attempted public object;
 10. observe supported audience/search/subscriber/product outcomes;
 11. learn bounded story mix, timing, framing, SEO, and packaging policy;
-12. survive restart/cold-start without duplicate cycles or public objects;
+12. survive restart/cold-start without duplicate cycles, duplicate material-event wakes, or duplicate public objects;
 13. expose truthful current state in canonical V5.
 
 No publication minimum exists.
@@ -55,9 +55,9 @@ No new parallel newsroom, evidence authority, scheduler, state store, publisher,
 
 ## 2. Current implementation task — growth-first vertical slice
 
-Implement through the canonical newsroom path:
+Implement through the canonical supervisor/newsroom path:
 
-`P0-G1 + P0-G2 — GROWTH-FIRST EDITORIAL SPECTRUM + CANONICAL-FIRST DISTRIBUTION`
+`P0-G1 + P0-G2 — GROWTH-FIRST EDITORIAL SPECTRUM + BOUNDED MATERIAL-EVENT WAKE + CANONICAL-FIRST DISTRIBUTION`
 
 ### 2.1 Extend/reconcile article modes
 
@@ -83,6 +83,7 @@ One deterministic mapping should resolve:
 Required behavior:
 
 - exact official-primary source can satisfy narrow attributed breaking facts when directly authoritative;
+- issuer/party-authored official source establishes the existence and exact contents of its own announcement/filing/order/statement but does not automatically independently prove disputed third-party allegations, misconduct, causality, or future outcomes;
 - broader factual updates require exact current source-backed delta;
 - analytical/causal/market-impact claims require stronger public evidence;
 - proprietary scenarios/probabilities/forecasts/regimes/numeric conclusions require exact publication-authorized CC material;
@@ -111,6 +112,10 @@ Desired output:
 - memorable headline/lede;
 - no weak neutralizing prose when a clear supported view exists.
 
+ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence. That is ContentOps editorial judgment, not Core Analyzer authority. It must not be represented as Core Analyzer output or used to invent proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
+
+Material allegations of fraud, crime, deception, corruption, or comparable misconduct require evidence proportional to the allegation and are not authorized merely because the piece is opinion/house view.
+
 The model receives zero factual/numeric/permission/public-write authority.
 
 ### 2.5 Growth-aware priority and package intent
@@ -131,6 +136,21 @@ Use supported growth signals only as priority/packaging inputs, not truth:
 Generate destination-native package intents rather than blind truncation.
 
 Public reply/comment automation remains out of scope.
+
+### 2.6 Bounded material-event wake mechanics
+
+Reuse the existing Daily App supervisor and existing material-event/update-chain state. Do not create a fifth scheduled task or a second scheduler.
+
+Implement/prove under `NO_PUBLIC_WRITE`/shadow validation:
+
+- one genuinely material fresh event may create one editorial opportunity outside routine windows;
+- stable trigger identity/idempotency prevents duplicate wakes;
+- duplicate/update-chain state and minimum spacing/saturation are honored;
+- the wake enters the same canonical selection/evidence/article/package path as a scheduled opportunity;
+- if the story/gates do not clear, the wake may safely abstain;
+- no live/public-write wake is authorized before the accepted real canary.
+
+After the owner-accepted canary, this bounded supervisor-owned wake becomes part of final V1 operating behavior under the accepted autonomy/public-write scope.
 
 ## 3. Canonical-first derivative lifecycle
 
@@ -159,14 +179,17 @@ Implementation and replay remain `NO_PUBLIC_WRITE` until a separate explicit own
 
 After implementation, run one real or controlled current-state `NO_PUBLIC_WRITE` replay covering at least four cases.
 
-### Case A — official-primary breaking
+### Case A — official-primary breaking + material-event wake
 
 Prove:
 
 - one exact official primary source directly establishes the event;
 - narrow attributed facts pass;
 - absent market data/secondary article does not block the narrow brief;
-- no unsupported market-reaction/causal/numeric claims appear.
+- issuer/party-authored assertions stay correctly attributed where independent proof is absent;
+- no unsupported market-reaction/causal/numeric claims appear;
+- one bounded material-event trigger can create the editorial opportunity with stable identity, spacing/dedupe checks, and zero duplicate wake;
+- public write count remains zero.
 
 ### Case B — normal analysis
 
@@ -178,7 +201,7 @@ Prove the selector tries a useful lower-rung mode and either produces real reade
 
 ### Case D — critical/opinion
 
-Prove strong house view, source-bound factual premises, clear fact/opinion separation, and no fabricated allegation.
+Prove strong house view, source-bound factual premises, clear fact/opinion separation, qualitative editorial inference stays distinct from Core Analyzer authority, and no fabricated allegation.
 
 For every case record:
 
@@ -214,13 +237,15 @@ Only after owner acceptance of zero-write editorial outputs:
 
 A valid `NO_PUBLICATION` remains safe but is not canary acceptance.
 
-## 6. Four-task unattended/cold-start proof
+## 6. Four-task + material-event unattended/cold-start proof
 
 After accepted canary:
 
-- enable only the four existing V1 quality-probation tasks;
-- no fifth task;
-- prove calendar-time execution, legitimate abstentions, varied useful modes, restart/cold-start behavior, recovery, no duplicate public objects, bounded cost, and stable FDA-G supervision.
+- enable only the four existing V1 quality-probation scheduled tasks;
+- activate the bounded material-event wake through the existing Daily App supervisor under accepted autonomy/public-write scope;
+- no fifth scheduled task and no second scheduler;
+- prove calendar-time execution, legitimate abstentions, varied useful modes, restart/cold-start behavior, recovery, no duplicate editorial opportunities or public objects, bounded cost, and stable FDA-G supervision;
+- prove at least one material-event trigger/no-op or trigger/execution path with stable identity and no duplicate wake.
 
 ## 7. Performance and bounded growth learning
 
@@ -229,6 +254,8 @@ Observe only supported metrics and exact public-object identities.
 Useful signals include platform-native reach, meaningful reads/completion, shares, saves, qualified discussion, profile visits/follows, canonical clicks, newsletter subscriptions/referrals, search, repeat readership, and Capital Chronicle signup/product/paid/retained linkage where supported.
 
 Learning may alter story-mode mix, priority, timing recommendations, framing, SEO, assets, packages, and portfolio diversity. It may never alter facts, source/evidence authority, Core Analyzer output, numeric truth, permissions, rights, destination identity, KILL_SWITCH, or public-write authority.
+
+The current nine-surface set is the P0 baseline. After stable public samples exist, additional legitimate low-cost discovery/growth surfaces may be evaluated only under exact owner-approved identity, permission, write/readback, anti-spam/rate, and measurement scope and only when measured audience/business utility justifies them.
 
 ## 8. V5 acceptance
 
@@ -262,6 +289,6 @@ Protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`
 
 ## 11. Current exact next task
 
-`TASK_V1_GROWTH_FIRST_EDITORIAL_SPECTRUM_AND_CANONICAL_FIRST_DISTRIBUTION_VERTICAL_SLICE_V1`
+`TASK_V1_GROWTH_FIRST_EDITORIAL_SPECTRUM_BOUNDED_MATERIAL_EVENT_WAKE_AND_CANONICAL_FIRST_DISTRIBUTION_VERTICAL_SLICE_V1`
 
-It should be one heavy bounded implementation through the existing canonical V1 path with focused tests plus a zero-public-write end-to-end replay. If implementation requires Windows/runtime truth, route those mechanics to `CODEX_EXECUTION`; deterministic source/contract work may remain `WEB_CI` where CI can prove it.
+It should be one heavy bounded implementation through the existing canonical V1 supervisor/selection/evidence/article/package/publication path with focused tests plus a zero-public-write end-to-end replay. If implementation requires Windows/runtime truth, route those mechanics to `CODEX_EXECUTION`; deterministic source/contract work may remain `WEB_CI` where CI can prove it.

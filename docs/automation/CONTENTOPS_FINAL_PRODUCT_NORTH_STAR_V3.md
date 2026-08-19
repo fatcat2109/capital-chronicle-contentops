@@ -98,6 +98,8 @@ One exact, current, authentic official primary source may be sufficient for a na
 
 Examples include an official central-bank statement, regulator notice, government release, court filing/order, exchange notice, company IR release, or other directly authoritative public record.
 
+An issuer-authored or interested-party source is authoritative for the fact that the issuer/party made, filed, ordered, or published the exact statement/record and for directly inspectable contents of that record. It is not automatically independent proof of disputed allegations about third parties, misconduct, causality, or future outcomes. Keep those assertions attributed unless additional accepted evidence establishes them.
+
 Do not delay a valuable narrow breaking brief merely because a secondary article, chart, CC packet, or observed market response is not yet available.
 
 ### Expanded analytical claims
@@ -120,7 +122,10 @@ Requirements:
 - opinion/inference is distinguishable from fact;
 - criticism is grounded in evidence and reasoning;
 - strong/provocative framing is allowed when the proposition is defensible;
+- material allegations of fraud, crime, deception, corruption, or comparable misconduct require evidence proportional to the allegation and are not authorized merely because the piece is opinion/house view;
 - no fabricated allegations, deceptive attribution, personal abuse, or unsupported certainty.
+
+ContentOps may make clearly labeled **qualitative editorial inference** from accepted public evidence. That is ContentOps editorial judgment, not Core Analyzer authority. It must not be represented as a Capital Chronicle/Core Analyzer model conclusion and must not manufacture reserved proprietary probabilities, forecasts, scenarios, regimes, valuations, decision outputs, or other analytical/numeric truth without exact publication-authorized upstream material.
 
 The target is institutional evidence discipline with creator-level clarity, personality, and edge.
 
@@ -152,7 +157,19 @@ Where supportable, optimize for:
 
 Platform-native derivatives should be self-contained, interesting posts rather than generic link announcements. A strong LinkedIn/X/Threads/Facebook package may express the core argument natively and use the canonical article as deeper reading.
 
+The current nine-surface V1 distribution set is the baseline acceptance contract, not a permanent ceiling on legitimate low-cost audience acquisition. Future newsletter-native discovery/referral features, search/discovery surfaces, collaborations/cross-promotion, and authorized public conversation participation may be added only under exact owner-approved identity, permission, write/readback, rate/anti-spam, and measurement scope. Such future expansion must prove audience/business utility and may not widen authority by implication.
+
 Do not use fake engagement, purchased followers, deceptive astroturfing, mass unsolicited DMs, spam, or fabricated outrage. Public reply/comment automation remains separately owner-gated until exact destination/write/readback authority exists.
+
+## Breaking material-event wakeups
+
+Fast breaking coverage requires both a claim-proportional evidence fast lane and a timely execution path.
+
+During the current pre-canary quality-probation state, do not add an unapproved live/public-write opportunity. The growth-first implementation should prove the material-event trigger/wake mechanics in `NO_PUBLIC_WRITE` or shadow mode.
+
+After an owner-accepted real canary, final V1 must support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events under current trigger policy. This is not a fifth scheduled task and must not create a second scheduler.
+
+Each wake must preserve deterministic trigger identity/idempotency, duplicate/update-chain checks, minimum spacing/saturation controls, the same claim/evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority. A material event may still produce `NO_PUBLICATION` when those gates do not clear.
 
 ## Canonical publication and derivative resilience
 
@@ -217,14 +234,14 @@ V2 currently has zero public-write authority.
 
 `P0-1` authority/context/source work is accepted on current product lineage.
 
-The canonical FDA-G runtime is the intended always-on V1 soak/runtime. The remaining product work before real canary is to implement and zero-write prove the growth-first editorial spectrum in this North Star.
+The canonical FDA-G runtime is the intended always-on V1 soak/runtime. The remaining product work before real canary is to implement and zero-write prove the growth-first editorial spectrum, canonical-first derivative resilience, and bounded material-event wake mechanics in this North Star.
 
 Then V1 final acceptance requires:
 
-1. growth-first multi-mode zero-write replay and owner editorial acceptance;
+1. growth-first multi-mode zero-write replay and owner editorial acceptance, including a material-event wake/no-wake proof with zero public writes;
 2. one real current owner-authorized canonical publication plus exactly eight derivatives, strict readback/reconciliation, `UNKNOWN_WRITE=0`, and actual-artifact review;
-3. enable only the already-existing four quality-probation editorial tasks;
-4. unattended/cold-start proof;
+3. enable only the already-existing four quality-probation editorial tasks and activate the bounded supervisor-owned material-event wake path under the accepted autonomy/public-write scope; this is not a fifth scheduled task;
+4. unattended/cold-start proof covering scheduled windows plus at least one material-event trigger/no-op path;
 5. working truthful V5 Daily App UI, including correction of any current build/runtime defect before final acceptance.
 
 A legitimate `NO_PUBLICATION` remains valid editorial behavior but does not by itself prove the real publication canary.
@@ -256,9 +273,9 @@ Protected `v1.0` remains `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 The final ContentOps product is accepted when:
 
 1. V1 runs as one reliable autonomous Daily App with low-cost supervision and minimal operator burden;
-2. editorial selection uses claim/mode-proportional evidence, fast official-primary breaking behavior, quiet-day value modes, and defensible house-view/critical content without weakening truth;
+2. editorial selection uses claim/mode-proportional evidence, fast official-primary breaking behavior, bounded material-event wakes, quiet-day value modes, and defensible house-view/critical content without weakening truth;
 3. publication-authorized Core Analyzer intelligence is consumed when exact and useful, while internal/context material stays non-public;
-4. V1 proves a real canonical Substack article, exactly eight derivative destinations, strict readback/reconciliation, and unattended/cold-start operation;
+4. V1 proves a real canonical Substack article, exactly eight derivative destinations, strict readback/reconciliation, scheduled plus material-event unattended operation, and cold-start recovery;
 5. the canonical UI truthfully exposes runtime, evidence, editorial mode, authority class, publication/recovery, performance, and learning;
 6. V2 repeatedly produces owner-accepted media from qualified stories with rights, audio, transcript/package truth, recovery, and bounded TCO;
 7. supported audience/business observations feed bounded ContentOps learning and improve organic acquisition without changing analytical truth;

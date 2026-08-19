@@ -41,15 +41,18 @@ The next product capability is **not** another P0-1/source-yield repair and **no
 
 Current priority:
 
-`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
+`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM, BOUNDED MATERIAL-EVENT WAKE, AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
 
 The required product behavior is:
 
 - evidence burden proportional to the public claim and editorial mode;
 - official-primary breaking fast lane for narrow attributed facts when one exact authentic official source directly proves the event;
+- issuer/party-authored primary sources prove their own statement/filing contents, not automatically disputed third-party allegations, misconduct, causality, or future outcomes;
 - quiet-day ladder that can choose useful follow-up, house-view/critical, contrarian, explainer, document/data, or watch/week-ahead content instead of defaulting to silence;
 - explicit `CAPITAL_CHRONICLE_VIEW` and `WHAT_THE_MARKET_IS_MISSING` modes with strong but defensible criticism/opinion;
+- clearly labeled qualitative editorial inference is allowed from accepted public evidence, but remains distinct from Core Analyzer proprietary analytical/numeric authority;
 - growth-aware ranking and platform-native hooks/packages;
+- one bounded material-event wake path through the existing Daily App supervisor, proven under `NO_PUBLIC_WRITE` before canary and activated only after accepted canary under the accepted autonomy/public-write scope; this is not a fifth scheduled task;
 - canonical Substack may remain publishable under a future owner-authorized action when a derivative destination is temporarily unavailable; derivative-local failure becomes durable hold/recovery rather than a blanket canonical veto;
 - hard truth/numeric/permission/rights/identity/readback boundaries remain unchanged.
 
@@ -57,13 +60,13 @@ No-publication remains valid. Quiet-day behavior may lower materiality or change
 
 ## Validation sequence before live canary
 
-1. implement the growth-first mode/evidence/ranking/distribution behavior through the existing canonical V1 path;
-2. run bounded `NO_PUBLIC_WRITE` replay for at least breaking, normal-analysis, quiet-day, and critical/opinion cases;
+1. implement the growth-first mode/evidence/ranking/material-event-wake/distribution behavior through the existing canonical V1 supervisor/newsroom path;
+2. run bounded `NO_PUBLIC_WRITE` replay for at least breaking + wake/no-wake, normal-analysis, quiet-day, and critical/opinion cases;
 3. Jim/ChatGPT inspect actual article/package outputs;
 4. only then use `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` for one genuine current live canary;
-5. after accepted canary, enable only the four existing V1 tasks and prove unattended/cold-start operation.
+5. after accepted canary, enable only the four existing scheduled V1 tasks, activate the bounded supervisor-owned material-event wake under accepted scope, and prove unattended/cold-start operation.
 
-Do not create a fifth scheduler task. Do not repeatedly fire manual opportunities to manufacture canary evidence.
+Do not create a fifth scheduled task or a second scheduler. Do not repeatedly fire manual opportunities to manufacture canary evidence.
 
 ## Current runtime caveat
 

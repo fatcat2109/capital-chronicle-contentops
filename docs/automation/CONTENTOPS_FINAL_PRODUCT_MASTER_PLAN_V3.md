@@ -68,6 +68,7 @@ The principal V1 gap is no longer “find one perfect headline and wait.”
 The current gap is that the implemented newsroom/policy stack still overweights blanket abstention and an older all-nine-ready preflight model relative to Jim's current product intent:
 
 - breaking news can be important before rich secondary/data support exists;
+- a breaking fast lane is incomplete if a genuinely material event cannot wake the existing supervisor path in time;
 - quiet days still need useful, non-filler editorial output when possible;
 - strong criticism, house view, and contrarian analysis are necessary for differentiation and organic growth;
 - evidence burden should follow the public claim and content mode;
@@ -108,6 +109,7 @@ Do not introduce a second evidence engine.
 Minimum contract behavior:
 
 - narrow official-primary breaking fact: one exact authentic current official source can satisfy event confirmation/basic attributed facts;
+- issuer/party-authored primary source: sufficient to establish that the issuer/party made, filed, ordered, or published the exact statement/record and its directly inspectable contents, but not independent proof of disputed third-party allegations, misconduct, causality, or future outcomes without additional accepted evidence;
 - ordinary factual update: exact source-backed delta and current context;
 - analytical/causal/market-impact claims: stronger public evidence and/or publication-authorized CC authority as required;
 - proprietary probabilities/scenarios/forecasts/regimes/numeric conclusions: exact publication-authorized CC packet only;
@@ -153,7 +155,11 @@ Desired behavior:
 - evidence-backed mechanism;
 - counter-case or uncertainty when material;
 - memorable but defensible headline/lede;
-- no vague neutralizing prose when the evidence supports a clear view.
+- no vague neutralizing prose when a clear supported view exists.
+
+ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence. That is ContentOps editorial judgment, not Core Analyzer authority. It must not be represented as a Core Analyzer conclusion and must not invent proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
+
+Material allegations of fraud, crime, deception, corruption, or comparable misconduct require evidence proportional to the allegation and are not authorized merely because the piece is opinion/house view.
 
 The model may express editorial judgment but receives zero factual/numeric/permission/public-write authority.
 
@@ -190,6 +196,14 @@ Examples of allowed transformation dimensions:
 
 Public comment/reply automation remains out of scope until separately owner-authorized.
 
+### 3.7 Bounded material-event wake path
+
+Reuse the existing Daily App supervisor and material-event/update-chain machinery. Do not create a fifth scheduled task or a second scheduler.
+
+The implementation must prove under `NO_PUBLIC_WRITE`/shadow validation that a genuinely material fresh event can create one idempotent editorial opportunity outside the routine windows without duplicate wakeups. The wake must carry stable trigger identity, duplicate/update-chain state, spacing/saturation controls, and the same evidence/article/publication gates as a scheduled opportunity.
+
+No new live/public-write wake authority is granted before the owner-accepted real canary. After that canary, the final V1 operating path should be able to activate the bounded supervisor-owned material-event wake under the accepted autonomy/public-write scope.
+
 ## 4. P0-G2 — Canonical-first resilient distribution semantics
 
 ### Product problem
@@ -221,7 +235,7 @@ No live/public-write authority is granted by this plan itself.
 
 Before a live canary, run one bounded zero-public-write replay that covers at least:
 
-1. **breaking official-source case** — narrow event facts from one exact official primary source; no invented market response;
+1. **breaking official-source case** — narrow event facts from one exact official primary source; no invented market response; prove the bounded material-event trigger/wake path can create the opportunity in zero-write/shadow mode without duplicate wakeups;
 2. **normal analysis case** — broader claim requiring stronger evidence and any exact publication-authorized CC material available;
 3. **quiet-day case** — no major breaking story; system selects a useful lower-rung mode or truthfully abstains after the ladder;
 4. **critical/opinion case** — explicit house view/contrarian thesis with source-bound factual premises and clear opinion/inference separation.
@@ -237,6 +251,8 @@ For each case prove:
 - no public write;
 - bounded model/cost path;
 - no fabricated facts/numbers/permissions.
+
+For the breaking case also prove the material-event trigger identity, wake/no-wake decision, spacing/dedupe behavior, and zero duplicate editorial opportunity.
 
 Jim/ChatGPT must review the actual article/package outputs. Tests alone cannot prove editorial quality.
 
@@ -262,14 +278,16 @@ Required sequence:
 
 A legitimate `NO_PUBLICATION` remains valid behavior but is not final canary proof.
 
-## 7. P0-G5 — Four-window unattended/cold-start proof
+## 7. P0-G5 — Four-window + material-event unattended/cold-start proof
 
 After an owner-accepted real canary:
 
 - enable only the four already-existing V1 quality-probation tasks;
-- do not create a fifth task;
-- prove unattended calendar-time execution, abstention/output diversity, restart/cold-start behavior, recovery/readback, bounded cost, and zero duplicate public objects;
-- keep FDA-G low-cost supervision alive between editorial windows.
+- activate the bounded material-event wake path through the existing Daily App supervisor under the accepted autonomy/public-write scope; this is not a fifth scheduled task;
+- do not create a fifth task or parallel scheduler;
+- prove unattended calendar-time execution, legitimate abstentions, output diversity, restart/cold-start behavior, recovery/readback, bounded cost, and zero duplicate public objects;
+- prove at least one material-event trigger/no-op or trigger/execution path with stable identity and no duplicate wake;
+- keep FDA-G low-cost supervision alive between editorial opportunities.
 
 Only after this proof may V1 be classified `V1_FINAL_PRODUCT_ACCEPTED`.
 
@@ -316,6 +334,8 @@ Missing metrics remain unavailable, never zero.
 
 Learning may adjust story-mode mix, priority, timing recommendations, headline/framing, SEO, assets, package form, and portfolio diversity. It may never alter facts, permissions, Core Analyzer output, numeric authority, rights, destination identity, or public-write authority.
 
+The current nine-surface set is the P0 acceptance baseline. After stable public samples exist, evaluate additional legitimate low-cost discovery/growth surfaces—newsletter-native discovery/referrals, search/discovery, collaborations/cross-promotion, or authorized public conversation participation—only when exact owner-approved identity, permission, write/readback, anti-spam/rate, and measurement scope exists. Expand only where measured utility/CAC benefit justifies the added operational surface.
+
 ## 10. V2 continuation
 
 V2 work can continue only under current root sequencing and exact zero-public-write authority.
@@ -343,8 +363,8 @@ Prefer one implementation, one independent audit, and at most one bounded correc
 
 ## 12. Current ordered capability plan
 
-### P0-G1 — Growth-first editorial spectrum
-Implement mode-specific claim/evidence contracts, official-primary breaking fast lane, quiet-day ladder, explicit Capital Chronicle house-view/critical modes, and growth-aware ranking/package intents.
+### P0-G1 — Growth-first editorial spectrum + bounded material-event wake mechanics
+Implement mode-specific claim/evidence contracts, official-primary breaking fast lane, quiet-day ladder, explicit Capital Chronicle house-view/critical modes, growth-aware ranking/package intents, and the bounded supervisor-owned material-event wake path under zero-write validation.
 
 ### P0-G2 — Canonical-first resilient derivative lifecycle
 Remove derivative-unavailability as a blanket canonical veto while preserving exact identity, durable recovery, and strict readback/reconciliation.
@@ -352,16 +372,16 @@ Remove derivative-unavailability as a blanket canonical veto while preserving ex
 P0-G1 and P0-G2 should be one heavy bounded implementation slice if CodeGraph confirms the same canonical qualification/publication path can absorb both without widening risk.
 
 ### P0-G3 — Zero-write multi-mode replay
-Prove breaking, normal analysis, quiet-day, and critical/opinion behavior; Jim/ChatGPT audit actual outputs.
+Prove breaking + material-event wake, normal analysis, quiet day, and critical/opinion behavior; Jim/ChatGPT audit actual outputs.
 
 ### P0-G4 — Real live canary
 One owner-authorized current article -> canonical Substack -> exactly eight derivatives -> readback/reconcile -> `UNKNOWN_WRITE=0` -> owner artifact audit.
 
-### P0-G5 — Four-window unattended/cold-start proof
-Enable only the existing four tasks after accepted canary and prove sustained operation.
+### P0-G5 — Four-window + material-event unattended/cold-start proof
+Enable only the existing four scheduled tasks plus the bounded supervisor-owned material-event wake after accepted canary and prove sustained operation. The wake path is not a fifth scheduled task.
 
-### P1 — Canonical observation/growth control-room closure + V2 repeated creative soak
-Use real supported samples; do not build a second authority engine.
+### P1 — Canonical observation/growth control-room closure + organic network growth optimization + V2 repeated creative soak
+Use real supported samples; evaluate additional legitimate low-cost discovery/growth surfaces only under exact owner-approved scope; do not build a second authority engine.
 
 ### P2 — V2 public distribution/retention + commercial funnel attribution
 Only after exact future owner grants and supported identity/observation.
@@ -370,6 +390,6 @@ Only after exact future owner grants and supported identity/observation.
 
 The next implementation capability after this authority reconciliation is:
 
-`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
+`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM, BOUNDED MATERIAL-EVENT WAKE, AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
 
-It should be implemented through the existing canonical V1 selection/evidence/article/package/publication path, with `NO_PUBLIC_WRITE` validation first. Do not reopen P0-1, do not stop merely because no live story is presently qualified, and do not create a parallel newsroom or evidence engine.
+It should be implemented through the existing canonical V1 supervisor/selection/evidence/article/package/publication path, with `NO_PUBLIC_WRITE` validation first. Do not reopen P0-1, do not stop merely because no live story is presently qualified, and do not create a parallel newsroom, scheduler, or evidence engine.

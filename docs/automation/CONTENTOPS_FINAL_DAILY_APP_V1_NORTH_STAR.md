@@ -21,6 +21,7 @@ North-star experience:
 start ContentOps Daily App
 -> low-cost always-on supervision and intake
 -> when work is due, build current story universe
+-> routine scheduled window OR genuinely material event wake
 -> choose the best useful editorial mode or abstain
 -> acquire claim-appropriate evidence
 -> write/review/optimize/visualize
@@ -44,6 +45,8 @@ Core Analyzer owns proprietary calculations, scenarios, probabilities, forecasts
 
 ContentOps owns current discovery, evidence, story selection, article mode, factual reporting from authorized evidence, faithful transformation of publication-authorized CC material, writing, SEO, media, platform-native packaging, publication/readback/reconciliation, performance observation, and bounded growth/editorial learning.
 
+ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence as a house/editorial view. That is not Core Analyzer authority and must not be represented as a Core Analyzer model conclusion or used to invent proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
+
 Engagement may change priority and packaging. It may never change factual truth, permissions, Core Analyzer output, or numeric truth.
 
 ## 3. Always-on means low-cost supervision
@@ -56,7 +59,7 @@ Idle responsibilities should be deterministic or cheap where possible:
 - durable-state reconciliation;
 - current headline/sidecar intake and freshness;
 - scheduled-window state;
-- material-event priority metadata;
+- material-event trigger evaluation and priority metadata;
 - safe destination/readback housekeeping where authorized;
 - due performance observations;
 - learning-policy evaluation;
@@ -64,13 +67,17 @@ Idle responsibilities should be deterministic or cheap where possible:
 
 Do not call LLMs continuously merely because the process is alive.
 
-## 4. Current quality-probation scheduling
+## 4. Current quality-probation scheduling and final breaking wake
 
-Exactly four existing native V1 newsroom tasks remain `PAUSED` until the owner-accepted real canary. Do not create/recreate/enable/add a fifth task before that gate.
+Exactly four existing native V1 newsroom tasks remain `PAUSED` until the owner-accepted real canary. Do not create/recreate/enable/add a fifth scheduled task before that gate.
 
 FDA-G may continue calendar-time low-cost soak while those editorial tasks remain paused.
 
-A material event may influence priority. Do not create an extra automatic expensive coordinator run during current probation unless a future explicit owner decision changes schedule authority.
+Before the live canary, a material event may influence priority and the new wake path may be implemented/tested only under `NO_PUBLIC_WRITE`/shadow validation. Do not create an unapproved live/public-write opportunity during pre-canary probation.
+
+After the owner-accepted real canary, the final V1 product must support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events. This is not a fifth scheduled task and must not create a second scheduler. The wake path must preserve stable trigger identity/idempotency, duplicate/update-chain checks, minimum spacing/saturation controls, the same evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority.
+
+The four scheduled tasks remain the routine baseline; the material-event wake exists so genuinely important breaking news does not have to wait for a routine window merely because richer secondary/data support is not yet available.
 
 ## 5. Editorial spectrum
 
@@ -99,7 +106,9 @@ One exact authentic current official primary source may be sufficient for a narr
 
 Do not require secondary confirmation, a chart, a CC packet, or observed market reaction merely to state what an authoritative official source has just announced.
 
-Do not use that fast lane to infer unsupported causality, market reaction, valuation, forecast, scenario, probability, regime, or proprietary numeric conclusion.
+An issuer-authored or interested-party official source establishes that the issuer/party made, filed, ordered, or published the exact statement/record and its directly inspectable contents. It does not automatically independently prove disputed third-party allegations, misconduct, causality, or future outcomes; keep those assertions attributed unless additional accepted evidence establishes them.
+
+Do not use the breaking fast lane to infer unsupported causality, market reaction, valuation, forecast, scenario, probability, regime, or proprietary numeric conclusion.
 
 As claim ambition grows, evidence burden grows.
 
@@ -117,7 +126,10 @@ Requirements:
 - opinion/inference is distinguishable from verified fact;
 - criticism is reasoned and defensible;
 - provocative framing is allowed when the proposition survives evidence review;
+- material allegations of fraud, crime, deception, corruption, or comparable misconduct require evidence proportional to the allegation and are not authorized merely because the piece is an opinion/house view;
 - no fabricated allegations, deceptive attribution, harassment, or personal abuse.
+
+ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence. It must not represent that judgment as Core Analyzer output or invent proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
 
 The target is institutional factual discipline with a creator-level point of view.
 
@@ -139,6 +151,8 @@ Where supportable, optimize for:
 - Capital Chronicle signup/product use/paid/retained conversion.
 
 Platform packages must be native and self-contained. Do not blindly truncate the canonical article and do not reduce every derivative to a generic link announcement.
+
+The current nine-surface set is the V1 P0 acceptance baseline, not a permanent ceiling on low-cost growth. Future newsletter-native discovery/referral features, search/discovery surfaces, collaborations/cross-promotion, or authorized public conversation participation may be added only under exact owner-approved identity, permission, write/readback, anti-spam/rate, and measurement scope.
 
 No fake engagement, purchased followers, deceptive astroturfing, mass unsolicited DMs, spam, or fabricated outrage.
 
@@ -265,17 +279,17 @@ KILL_SWITCH must be observed before every new public write.
 ## 16. Current V1 acceptance route
 
 1. keep FDA-G calendar-time soak healthy;
-2. implement growth-first editorial spectrum and canonical-first derivative resilience in the existing canonical path;
-3. run zero-public-write replay for breaking, normal analysis, quiet-day, and critical/opinion cases;
+2. implement growth-first editorial spectrum, bounded material-event wake mechanics, and canonical-first derivative resilience in the existing canonical path;
+3. run zero-public-write replay for breaking + wake/no-wake, normal analysis, quiet-day, and critical/opinion cases;
 4. Jim/ChatGPT inspect actual article/package outputs;
 5. obtain a fresh explicit owner grant for one real current live canary;
 6. canonical Substack + exactly eight derivatives + strict readback/reconciliation + `UNKNOWN_WRITE=0` + owner artifact review;
-7. enable only the four existing tasks;
-8. prove unattended/cold-start operation;
+7. enable only the four existing scheduled tasks and activate the bounded supervisor-owned material-event wake under accepted autonomy/public-write scope;
+8. prove unattended/cold-start operation across scheduled windows plus at least one material-event trigger/no-op or trigger/execution path;
 9. close any real V5 build/runtime caveat and perform visual acceptance;
 10. accept/freeze V1 only after these proofs.
 
-The earlier branch-specific fast-forward/manual-GO instructions and blanket “all nine readiness before any canonical write” rule are superseded by root V3/current pointer.
+The earlier branch-specific fast-forward/manual-GO instructions, blanket “all nine readiness before any canonical write” rule, and any wording that material events can only ever wait for the next routine window are superseded by root V3/current pointer. Pre-canary public-write restrictions remain unchanged.
 
 ## 17. Release identity
 

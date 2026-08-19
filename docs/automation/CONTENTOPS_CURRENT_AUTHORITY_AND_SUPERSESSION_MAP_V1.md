@@ -47,12 +47,14 @@ Jim's latest owner direction and the rewritten root V3 North Star/Master Plan su
 
 1. V1 is an autonomous **growth newsroom**, not a pipeline whose primary success is safe abstention.
 2. Evidence burden is **claim- and editorial-mode-specific**, not one blanket article threshold.
-3. An exact authentic official primary source can be sufficient for a narrow attributed `BREAKING_BRIEF`; broader causal/numeric/analytical claims still require broader authority/evidence.
+3. An exact authentic official primary source can be sufficient for a narrow attributed `BREAKING_BRIEF`; broader causal/numeric/analytical claims still require broader authority/evidence. An issuer/party-authored source proves the existence and contents of its own announcement/filing, not automatically disputed third-party or misconduct assertions.
 4. Quiet days should evaluate useful follow-up, house-view/critical, contrarian, explainer, document/data, and watch/week-ahead modes before `NO_PUBLICATION`; quiet-day behavior may lower materiality or change mode, never factual truth.
-5. Strong evidence-backed opinion and criticism are first-class editorial modes.
+5. Strong evidence-backed opinion and criticism are first-class editorial modes. ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence, but that must not be represented as Core Analyzer output or used to invent reserved proprietary numeric/forecast/probability/scenario/regime/decision truth.
 6. Organic audience acquisition, shares/discussion/subscriptions/product conversion, and native platform packaging are first-class V1 product objectives.
 7. For a future owner-authorized publication, derivative-specific temporary unavailability is a destination-local hold/recovery condition, not an automatic veto of an otherwise qualified and Substack-ready canonical article. Final nine-surface canary acceptance still requires exact proof across the canonical article plus eight required derivatives with strict readback/reconciliation and `UNKNOWN_WRITE=0`.
 8. Public reply/comment automation remains separately owner-gated; this growth-first change does not grant reply/DM authority.
+9. Fast breaking coverage requires a bounded material-event wake path as well as a lighter evidence path. Before the live canary this path may be implemented/proved only under `NO_PUBLIC_WRITE`. After the owner-accepted canary, final V1 should support idempotent material-event wakes through the existing Daily App supervisor under the same spacing, evidence, publication, KILL_SWITCH, destination, readback, and recovery gates. This is not a fifth scheduled task and does not authorize a second scheduler.
+10. The current nine-surface distribution set is the baseline acceptance contract, not permanent permission for extra public surfaces. Any future newsletter-native discovery/referral, search/discovery, collaboration/cross-promotion, or public conversation surface expansion requires exact owner-approved identity/permission/write/readback/measurement scope.
 
 These changes preserve the hard truth/numeric/permission/rights/destination/recovery boundaries.
 
@@ -73,6 +75,7 @@ The following older V1 details are explicitly superseded where present:
 - stale manual-GO sequencing as the next product task;
 - “all nine destinations must be ready before canonical Substack can ever publish” as a blanket product rule;
 - “no more yield-oriented work” when used to block the current growth-first editorial-spectrum implementation;
+- any wording that treats “material events only prioritize the next scheduled window” as the final V1 breaking-news architecture after the owner-accepted canary; current pre-canary public-write restrictions remain, but the final product direction is one bounded supervisor-owned material-event wake path rather than a fifth scheduled task;
 - V2 must remain deferred until an older full-V1 freeze sequence, where root V3 says otherwise;
 - exact old task labels/pointers that conflict with the current root plan.
 

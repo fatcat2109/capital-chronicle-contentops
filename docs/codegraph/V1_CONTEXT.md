@@ -8,11 +8,11 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 `P0_1_ACCEPTED / P0_2_ACCEPTANCE_UNPROVEN`
 
-Latest runtime evidence reports `FDA_G_SOAK_ACTIVE` on current master with healthy heartbeat/ingestion, one logical supervisor root from the Windows wrapper/child topology, `UNKNOWN_WRITE=0`, and all four existing V1 newsroom tasks still `PAUSED`. Re-observe runtime truth for any task that depends on current production state.
+Latest runtime evidence reports `FDA_G_SOAK_ACTIVE` on current master with healthy heartbeat/ingestion, one logical supervisor root from the Windows wrapper/child topology, `UNKNOWN_WRITE=0`, and all four existing V1 scheduled newsroom tasks still `PAUSED`. Re-observe runtime truth for any task that depends on current production state.
 
 The next product implementation is not passive waiting for a perfect story. It is:
 
-`P0-G1 + P0-G2 — GROWTH-FIRST EDITORIAL SPECTRUM + CANONICAL-FIRST DISTRIBUTION`
+`P0-G1 + P0-G2 — GROWTH-FIRST EDITORIAL SPECTRUM + BOUNDED MATERIAL-EVENT WAKE + CANONICAL-FIRST DISTRIBUTION`
 
 ## Canonical product flow
 
@@ -21,6 +21,7 @@ one-click launcher
 -> durable Daily App supervisor
 -> continuous low-cost headline intake / housekeeping
 -> rolling current candidate universe + published memory
+-> routine window OR bounded material-event wake eligibility
 -> story type + editorial mode selection
 -> claim/mode-specific evidence and CC authority resolution
 -> choose useful story or abstain
@@ -52,9 +53,13 @@ Current root authority requires the canonical path to support:
 
 Evidence burden follows claim scope and mode.
 
-One exact authentic official primary source may be sufficient for a narrow attributed breaking fact when it directly proves the event. Broader analytical/causal/numeric claims require the stronger public evidence and/or publication-authorized CC authority appropriate to the claim.
+One exact authentic official primary source may be sufficient for a narrow attributed breaking fact when it directly proves the event. An issuer/party-authored official source establishes the existence and directly inspectable contents of its own announcement/filing/order/statement, not automatically disputed third-party allegations, misconduct, causality, or future outcomes.
+
+Broader analytical/causal/numeric claims require the stronger public evidence and/or publication-authorized CC authority appropriate to the claim.
 
 Quiet days may lower materiality or choose another mode; they may never lower factual truth, attribution, permission, rights, or numeric authority.
+
+ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence; that is ContentOps editorial judgment, not Core Analyzer authority, and may not be represented as a Core Analyzer conclusion or used to invent reserved proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
 
 ## Canonical implementation path
 
@@ -66,7 +71,8 @@ Start_ContentOps_Daily_App.cmd
   -> ContentOpsDailyAppSupervisor
       -> continuous_headline_ingest_v1.run_ingestion_housekeeping_iteration
       -> recovery/readback/performance housekeeping
-      -> due editorial opportunity
+      -> routine due-window OR material-event trigger evaluation
+          -> stable/idempotent editorial opportunity
           -> eight_platform_substack_first_pipeline_v1.run_rolling_x_newsroom_cycle
           -> ContentOpsProductionOrchestrator.execute
           -> _eight_platform_substack_first_pipeline_impl_v1._run_rolling_x_newsroom_cycle
@@ -89,9 +95,17 @@ Start_ContentOps_Daily_App.cmd
           -> V5 DailyAppConsole
 ```
 
-Use CodeGraph callers/callees around these seams before editing. Do not create parallel selection/evidence/publication/state paths.
+Use CodeGraph callers/callees around these seams before editing. Do not create parallel selection/evidence/publication/state/scheduler paths.
 
 ## Hot implementation areas for current task
+
+### Supervisor / material-event wake
+
+- `live_contentops/daily_app_supervisor_v1.py`
+- existing material-event trigger/update-chain and operator-trigger state discovered by CodeGraph
+- durable window/trigger/lease/idempotency tables and focused supervisor tests
+
+Current task must prove the wake path under `NO_PUBLIC_WRITE`/shadow validation before any live activation. After owner-accepted canary, final product direction is bounded supervisor-owned material-event wake under accepted autonomy/public-write scope, not a fifth scheduled task.
 
 ### Newsroom / selection
 
@@ -120,7 +134,7 @@ Context/discovery remains non-public authority. Publication-authorized CC materi
 - `live_contentops/rolling_x_grounded_article_media_builder_v1.py`
 - current bounded editorial worker/revision seam discovered by CodeGraph
 
-House-view/critical modes may express strong judgment; models still receive zero factual/numeric/permission/public-write authority.
+House-view/critical modes may express strong qualitative editorial judgment from accepted public evidence; models still receive zero factual/numeric/permission/public-write authority and may not present house inference as Core Analyzer output.
 
 ### Publication / recovery
 
@@ -137,24 +151,26 @@ No live/public write is authorized merely by this context map.
 
 Use the smallest exact tests discovered by CodeGraph around changed seams, including as applicable:
 
+- `tests/test_daily_app_supervisor_v1.py`
+- `tests/test_daily_app_operator_trigger_v1.py`
+- `tests/test_preselection_published_memory_breaking_wake_closeout_v1.py`
 - `tests/test_rolling_x_newsroom_cycle_v1.py`
 - `tests/test_rolling_x_targeted_evidence_adapter_v1.py`
 - `tests/test_official_primary_evidence_loader_v1.py`
 - `tests/test_rolling_x_evidence_viability_v1.py`
-- `tests/test_preselection_published_memory_breaking_wake_closeout_v1.py`
 - `tests/test_rolling_x_grounded_article_media_builder_v1.py`
 - `tests/test_rolling_x_v1_publishability_closure_v1.py`
 - `tests/test_publication_coordinator_v1.py`
 - `tests/test_daily_app_publication_lifecycle_v1.py`
 - `tests/test_destination_identity_pinning_v1.py`
 
-Current growth implementation must add focused coverage for official-primary narrow breaking, quiet-day mode fallback, house-view fact/opinion separation, and derivative-local readiness not vetoing canonical eligibility.
+Current growth implementation must add focused coverage for official-primary narrow breaking, issuer-attribution boundaries, quiet-day mode fallback, house-view fact/opinion/Core-Analyzer separation, bounded material-event wake idempotency/spacing, and derivative-local readiness not vetoing canonical eligibility.
 
 ## Durable state authority
 
 `live_contentops.durable_operational_store_v1.ContentOpsDurableStore` remains the single V1 state authority.
 
-Important durable concerns include operating controls, work items, windows/scheduler ticks, leases/heartbeats, operator triggers, outbox messages, platform dispatches, readbacks, reconciliations, incidents, destination readiness, performance observations, and learning-policy versions.
+Important durable concerns include operating controls, work items, windows/scheduler ticks, leases/heartbeats, operator/material-event triggers, outbox messages, platform dispatches, readbacks, reconciliations, incidents, destination readiness, performance observations, and learning-policy versions.
 
 Do not add a second store.
 
@@ -170,13 +186,13 @@ These are identities, not permission to inspect credentials/session material.
 
 ## Current validation sequence
 
-1. implement growth-first editorial modes/evidence/canonical-first lifecycle with no public writes;
-2. zero-write replay official breaking, normal analysis, quiet day, and critical/opinion cases;
+1. implement growth-first editorial modes/evidence, bounded material-event wake mechanics, and canonical-first lifecycle with no public writes;
+2. zero-write replay official breaking + wake/no-wake, normal analysis, quiet day, and critical/opinion cases;
 3. Jim/ChatGPT review actual article/package outputs;
 4. fresh explicit owner grant for one real canary;
 5. canonical Substack + exactly eight derivatives + strict readback/reconciliation + `UNKNOWN_WRITE=0`;
-6. enable only the four existing tasks after accepted canary;
-7. unattended/cold-start proof;
+6. enable only the four existing scheduled tasks and activate the bounded supervisor-owned material-event wake after accepted canary;
+7. unattended/cold-start proof across scheduled and material-event trigger/no-op or trigger/execution paths;
 8. reproduce/close any real V5 build/runtime defect and complete screenshot-based visual acceptance.
 
 ## Stale traps
@@ -188,6 +204,7 @@ Do not route from:
 - old manual-GO canary text as the immediate next implementation;
 - blanket all-nine-ready-before-any-canonical-write semantics;
 - “no yield work” language when used to block the current owner-directed growth-first behavior implementation;
+- “material events can only ever wait for the next routine window” as final V1 behavior after the accepted canary;
 - historical V6 launch paths or parallel schedulers;
 - archived task handoffs/status snapshots.
 

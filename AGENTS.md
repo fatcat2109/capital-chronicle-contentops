@@ -101,6 +101,8 @@ Do not impose one blanket evidence burden on every article.
 
 A narrow breaking claim such as “Agency/Company X officially announced Y” may be publishable from one exact, current, authentic official primary source when the article clearly attributes the claim and stays within what that source proves. It does not require a chart, secondary confirmation, CC packet, or observed market reaction merely to report the event.
 
+An issuer-authored or interested-party official source is authoritative for the existence and exact contents of its own announcement, filing, order, or statement. It does not automatically independently prove disputed assertions about third parties, misconduct, causality, or future outcomes; keep those assertions attributed unless separate accepted evidence establishes them.
+
 Broader claims require broader evidence. Causal, quantitative, market-reaction, valuation, forecast, scenario, probability, or proprietary analytical claims require the evidence/authority appropriate to those claims. An official announcement is not evidence for an invented market impact.
 
 If uncertainty remains, say what is known, what is not yet known, and what to watch next.
@@ -134,7 +136,10 @@ Requirements:
 - opinion/inference is distinguishable from verified fact;
 - criticism targets decisions, policies, claims, incentives, narratives, products, institutions, companies, public actors, or market consensus with a defensible factual basis;
 - provocative framing is allowed when the underlying proposition is supportable;
+- material allegations of fraud, crime, deception, corruption, or similar misconduct require evidence proportional to that allegation and are not authorized merely because the article is an opinion/house-view mode;
 - no fabricated allegations, deceptive editing, harassment, personal abuse, or unsupported certainty.
+
+ContentOps may make clearly labeled **qualitative editorial inference** from accepted public evidence. That is ContentOps editorial judgment, not Core Analyzer authority. It must not be represented as a Capital Chronicle/Core Analyzer model conclusion and must not manufacture proprietary probabilities, forecasts, scenarios, regimes, valuations, decision outputs, or other reserved analytical/numeric truth without exact publication-authorized upstream material.
 
 The target is **evidence-backed confrontation**, not rage bait.
 
@@ -144,7 +149,19 @@ V1 should optimize, where supportable, for organic reach, meaningful reads, shar
 
 Platform packages must be native, self-contained, and strong enough to earn attention without relying on a generic “new article” announcement. Engagement may change story priority, framing, timing, packaging, SEO, and creative policy; it may never rewrite facts or Core Analyzer truth.
 
+The current nine-surface V1 distribution set is the baseline acceptance contract, not a permanent ceiling on legitimate organic acquisition. Future low-cost discovery or community surfaces—such as newsletter-native discovery/referral features, search/discovery surfaces, collaborations/cross-promotion, or authorized public conversation participation—may be added only under exact owner-approved identity, permission, write/readback, and measurement scope. Do not widen public-write authority by implication.
+
 No fake followers, engagement farms, deceptive astroturfing, mass unsolicited DMs, spam, or unsupported outrage. Public comment/reply automation remains separately owner-gated until exact write/readback scope exists.
+
+### 7.5 Breaking material-event wakeups
+
+Fast breaking coverage requires both a lighter claim-appropriate evidence path and a timely wake path.
+
+During the current pre-canary quality-probation state, do not add an unapproved live/public-write opportunity. The growth-first implementation may and should prove the material-event wake path in `NO_PUBLIC_WRITE`/shadow mode.
+
+After the owner-accepted live canary, final V1 must support a bounded automatic **material-event wake** through the existing Daily App supervisor when a genuinely material fresh event satisfies the current trigger policy. This is not a fifth scheduled task and must not create a second scheduler.
+
+Every material-event wake must preserve deterministic trigger identity/idempotency, duplicate/update-chain checks, minimum spacing/saturation controls, the same claim/evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority. A trigger that does not clear those gates may abstain without publication.
 
 ## 8. V1 canonical runtime and publication semantics
 
