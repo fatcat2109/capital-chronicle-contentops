@@ -1,8 +1,8 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `e99856581475b7772e18e68ee54b0862b6c30680`
-Source tree digest: `f7a381360d63b73192130f425f3f4d154bf4997b15f2c912cc536624bcccac4f`
-Graph schema: `contentops.codex_context_graph.v2`; generator: `2.3.0`
+Source HEAD: `0d6b4cb88d0b0fc7edc51a7d9361d60b8aa4ae57`
+Source tree digest: `6f2ec3208530e4fbab455666fa1ab949ef488f8ac1685c45f6dec68f13abefbe`
+Graph schema: `contentops.codex_context_graph.v2`; generator: `2.4.0`
 
 This generated map is descriptive, not product authority.
 
@@ -13,12 +13,13 @@ Read only these before the exact task files:
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md` (this page)
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-6. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-7. the appropriate current V1/V2 lane pointer
-8. nearest scoped `AGENTS.md`
-9. exact implementation, focused tests, and task evidence
+4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+7. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+8. the appropriate current V1/V2 lane pointer
+9. nearest scoped `AGENTS.md`
+10. exact implementation, focused tests, and task evidence
 
 This generated router is subordinate to root `AGENTS.md`. Never use it to bypass the current V3 authority spine or a newer owner decision.
 
@@ -154,4 +155,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7111` nodes and `13404` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7114` nodes and `13405` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

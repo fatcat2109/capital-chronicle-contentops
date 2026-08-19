@@ -2,6 +2,7 @@
   "authority_anchor_paths": [
     "AGENTS.md",
     "docs/AGENTS.md",
+    "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
     "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
     "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
     "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -11,11 +12,11 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13404,
+    "edges": 13405,
     "entrypoints": 16,
-    "nodes": 7111,
+    "nodes": 7114,
     "nodes_by_kind": {
-      "authority_doc": 6,
+      "authority_doc": 7,
       "cli_command": 27,
       "directory_scope": 8,
       "durable_table": 37,
@@ -23,9 +24,9 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 590,
-      "python_function": 3878,
+      "python_function": 3879,
       "python_method": 274,
-      "python_module": 740,
+      "python_module": 741,
       "schema": 183,
       "test": 722,
       "typescript_export": 506,
@@ -33,6 +34,12 @@
     }
   },
   "edges": [
+    {
+      "from": ".github/hybrid_policy_anchor_patch.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/hybrid_policy_anchor_patch.py::replace_once"
+    },
     {
       "from": "AGENTS.md",
       "inference": "agents_directory_scope",
@@ -80577,8 +80584,8 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-19T12:12:43Z",
-  "generator_version": "2.3.0",
+  "generation_timestamp_utc": "2026-08-19T12:34:45Z",
+  "generator_version": "2.4.0",
   "included_roots": [
     "live_contentops/",
     "headline_ingestion/",
@@ -80607,6 +80614,11 @@
     "typescript_relative_import_regex"
   ],
   "nodes": [
+    {
+      "id": ".github/hybrid_policy_anchor_patch.py",
+      "kind": "python_module",
+      "size_bytes": 5225
+    },
     {
       "id": "AGENTS.md",
       "kind": "instructions",
@@ -80806,6 +80818,11 @@
       "id": "docs/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 1513
+    },
+    {
+      "id": "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
+      "kind": "authority_doc",
+      "size_bytes": 9310
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
@@ -84462,6 +84479,13 @@
       "id": "pyproject.toml",
       "kind": "manifest",
       "size_bytes": 547
+    },
+    {
+      "id": "python_symbol:.github/hybrid_policy_anchor_patch.py::replace_once",
+      "kind": "python_function",
+      "line": 8,
+      "path": ".github/hybrid_policy_anchor_patch.py",
+      "symbol": "replace_once"
     },
     {
       "id": "python_symbol:headline_ingestion/Data_Ingestion.py::append_headline_sidecars",
@@ -116463,217 +116487,217 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_graph",
       "kind": "python_function",
-      "line": 806,
+      "line": 807,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_outputs",
       "kind": "python_function",
-      "line": 1167,
+      "line": 1170,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::check_outputs",
       "kind": "python_function",
-      "line": 1183,
+      "line": 1186,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "check_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::context_markdown",
       "kind": "python_function",
-      "line": 1013,
+      "line": 1014,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "context_markdown"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::entrypoint_rows",
       "kind": "python_function",
-      "line": 711,
+      "line": 712,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "entrypoint_rows"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::git_commit_timestamp",
       "kind": "python_function",
-      "line": 231,
+      "line": 232,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "git_commit_timestamp"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::git_head",
       "kind": "python_function",
-      "line": 243,
+      "line": 244,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "git_head"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::http_endpoint_nodes",
       "kind": "python_function",
-      "line": 524,
+      "line": 525,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "http_endpoint_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::included",
       "kind": "python_function",
-      "line": 193,
+      "line": 194,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "included"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::index_markdown",
       "kind": "python_function",
-      "line": 1072,
+      "line": 1074,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "index_markdown"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::is_test_path",
       "kind": "python_function",
-      "line": 664,
+      "line": 665,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "is_test_path"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::main",
       "kind": "python_function",
-      "line": 1289,
+      "line": 1293,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::nearest_agents_file",
       "kind": "python_function",
-      "line": 278,
+      "line": 279,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "nearest_agents_file"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::node_kind",
       "kind": "python_function",
-      "line": 762,
+      "line": 763,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "node_kind"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::normalized_for_check",
       "kind": "python_function",
-      "line": 1177,
+      "line": 1180,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "normalized_for_check"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_call_edges",
       "kind": "python_function",
-      "line": 629,
+      "line": 630,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_call_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_definitions",
       "kind": "python_function",
-      "line": 425,
+      "line": 426,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_definitions"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_import_edges",
       "kind": "python_function",
-      "line": 307,
+      "line": 308,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_import_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_metadata_nodes",
       "kind": "python_function",
-      "line": 474,
+      "line": 475,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_metadata_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_module_name",
       "kind": "python_function",
-      "line": 298,
+      "line": 299,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_module_name"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_tree",
       "kind": "python_function",
-      "line": 418,
+      "line": 419,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_tree"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::read_text",
       "kind": "python_function",
-      "line": 291,
+      "line": 292,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "read_text"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::rel",
       "kind": "python_function",
-      "line": 189,
+      "line": 190,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "rel"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::source_digest",
       "kind": "python_function",
-      "line": 268,
+      "line": 269,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "source_digest"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::source_files",
       "kind": "python_function",
-      "line": 215,
+      "line": 216,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "source_files"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::test_relationships",
       "kind": "python_function",
-      "line": 673,
+      "line": 674,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "test_relationships"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::ts_import_edges",
       "kind": "python_function",
-      "line": 352,
+      "line": 353,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "ts_import_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::typescript_export_nodes",
       "kind": "python_function",
-      "line": 452,
+      "line": 453,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "typescript_export_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_context_contract",
       "kind": "python_function",
-      "line": 1233,
+      "line": 1236,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_context_contract"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_graph",
       "kind": "python_function",
-      "line": 1211,
+      "line": 1214,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::write_outputs",
       "kind": "python_function",
-      "line": 1266,
+      "line": 1270,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "write_outputs"
     },
@@ -118690,7 +118714,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 53468
+      "size_bytes": 53809
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -119315,7 +119339,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 8745
+      "size_bytes": 9039
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
@@ -126728,6 +126752,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "e99856581475b7772e18e68ee54b0862b6c30680",
-  "source_tree_digest": "f7a381360d63b73192130f425f3f4d154bf4997b15f2c912cc536624bcccac4f"
+  "source_head": "0d6b4cb88d0b0fc7edc51a7d9361d60b8aa4ae57",
+  "source_tree_digest": "6f2ec3208530e4fbab455666fa1ab949ef488f8ac1685c45f6dec68f13abefbe"
 }

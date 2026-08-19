@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `e99856581475b7772e18e68ee54b0862b6c30680`. Source tree digest: `f7a381360d63b73192130f425f3f4d154bf4997b15f2c912cc536624bcccac4f`.
+Generated from source HEAD `0d6b4cb88d0b0fc7edc51a7d9361d60b8aa4ae57`. Source tree digest: `6f2ec3208530e4fbab455666fa1ab949ef488f8ac1685c45f6dec68f13abefbe`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This generated map is descriptive repository state and is subordinate to root `AGENTS.md`.
@@ -12,12 +12,13 @@ task summaries.
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-6. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
-7. the appropriate current lane pointer
-8. the nearest scoped `AGENTS.md`
-9. exact implementation, tests, and evidence
+4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+7. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
+8. the appropriate current lane pointer
+9. the nearest scoped `AGENTS.md`
+10. exact implementation, tests, and evidence
 
 ## Current product boundary
 
@@ -46,8 +47,8 @@ task summaries.
 
 ## Graph inventory
 
-- Nodes: `7111`
-- Edges: `13404`
+- Nodes: `7114`
+- Edges: `13405`
 - Entrypoints: `16`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-
   implementation edges are included.
