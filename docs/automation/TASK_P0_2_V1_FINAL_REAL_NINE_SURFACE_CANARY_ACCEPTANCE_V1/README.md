@@ -82,4 +82,3 @@ this evidence commit so `--check` is current on the committed evidence epoch.
 P0-2 publication acceptance remains unproven. A later owner-authorized fresh opportunity with at
 least one genuinely source-qualified current story is required before the nine-surface live canary
 can be attempted again. The existing four scheduled tasks remain paused.
-
