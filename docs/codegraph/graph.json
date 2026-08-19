@@ -11,9 +11,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13402,
+    "edges": 13404,
     "entrypoints": 16,
-    "nodes": 7110,
+    "nodes": 7111,
     "nodes_by_kind": {
       "authority_doc": 6,
       "cli_command": 27,
@@ -27,7 +27,7 @@
       "python_method": 274,
       "python_module": 740,
       "schema": 183,
-      "test": 721,
+      "test": 722,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -30944,6 +30944,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/public_secondary_evidence_loader_v1.py::BoundedPublicSecondaryEvidenceLoader"
+    },
+    {
+      "from": "live_contentops/public_secondary_evidence_loader_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_public_secondary_evidence_loader_v1.py"
     },
     {
       "from": "live_contentops/publication_audit_record_contract_v6.py",
@@ -72370,6 +72376,12 @@
       "to": "live_contentops/public_permissive_supervised_mode_v0.py"
     },
     {
+      "from": "tests/test_public_secondary_evidence_loader_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/public_secondary_evidence_loader_v1.py"
+    },
+    {
       "from": "tests/test_publication_audit_record_contract_v6.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -80565,7 +80577,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-19T09:47:50Z",
+  "generation_timestamp_utc": "2026-08-19T11:12:17Z",
   "generator_version": "2.3.0",
   "included_roots": [
     "live_contentops/",
@@ -82944,7 +82956,7 @@
     {
       "id": "live_contentops/official_primary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 26971
+      "size_bytes": 28065
     },
     {
       "id": "live_contentops/official_primary_source_locator_v1.py",
@@ -83584,7 +83596,7 @@
     {
       "id": "live_contentops/public_secondary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 25253
+      "size_bytes": 34786
     },
     {
       "id": "live_contentops/publication_audit_record_contract_v6.py",
@@ -103032,21 +103044,21 @@
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::BoundedOfficialPrimaryEvidenceLoader",
       "kind": "python_class",
-      "line": 352,
+      "line": 383,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "BoundedOfficialPrimaryEvidenceLoader"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::BoundedOfficialPrimaryEvidenceLoader.__call__",
       "kind": "python_method",
-      "line": 391,
+      "line": 422,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "BoundedOfficialPrimaryEvidenceLoader.__call__"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::BoundedOfficialPrimaryEvidenceLoader.__init__",
       "kind": "python_method",
-      "line": 355,
+      "line": 386,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "BoundedOfficialPrimaryEvidenceLoader.__init__"
     },
@@ -103060,14 +103072,14 @@
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_default_http_get",
       "kind": "python_function",
-      "line": 224,
+      "line": 255,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_default_http_get"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_default_http_get._SameAuthorityRedirects",
       "kind": "python_class",
-      "line": 227,
+      "line": 258,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_default_http_get._SameAuthorityRedirects"
     },
@@ -103081,7 +103093,7 @@
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_html_document_title",
       "kind": "python_function",
-      "line": 197,
+      "line": 228,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_html_document_title"
     },
@@ -103123,14 +103135,14 @@
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_safe_url",
       "kind": "python_function",
-      "line": 209,
+      "line": 240,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_safe_url"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_verified_capabilities",
       "kind": "python_function",
-      "line": 261,
+      "line": 292,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_verified_capabilities"
     },
@@ -109122,7 +109134,7 @@
     {
       "id": "python_symbol:live_contentops/public_secondary_evidence_loader_v1.py::BoundedPublicSecondaryEvidenceLoader",
       "kind": "python_class",
-      "line": 183,
+      "line": 209,
       "path": "live_contentops/public_secondary_evidence_loader_v1.py",
       "symbol": "BoundedPublicSecondaryEvidenceLoader"
     },
@@ -121321,6 +121333,11 @@
       "size_bytes": 7349
     },
     {
+      "id": "tests/test_public_secondary_evidence_loader_v1.py",
+      "kind": "test",
+      "size_bytes": 8451
+    },
+    {
       "id": "tests/test_publication_audit_record_contract_v6.py",
       "kind": "test",
       "size_bytes": 1233
@@ -126711,6 +126728,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "16cb39db7987126c0cab272c41016f5adae0906e",
-  "source_tree_digest": "ee20c893e82e4177771c733fd35cdae678add01f217683da8b05079e42303d59"
+  "source_head": "8c08455fe094bdd74a92ccbc1a6ecc5955196803",
+  "source_tree_digest": "cf883e19b49251d1023931d7ee0794a52b08fd69ae8b82dc832b15687c1b2d14"
 }
