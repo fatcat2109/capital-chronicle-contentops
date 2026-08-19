@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Video Scope Instructions
 
-Authority date: 2026-08-19
+Authority date: 2026-08-20
 Status: `CURRENT_SCOPED_AUTHORITY`
 
 Read root authority before editing V2:
@@ -8,14 +8,15 @@ Read root authority before editing V2:
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-6. `docs/codegraph/V2_CONTEXT.md`
-7. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-8. `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
-9. exact V2 code/tests/evidence
+4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+7. `docs/codegraph/V2_CONTEXT.md`
+8. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+9. `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
+10. exact V2 code/tests/evidence
 
-If CodeGraph is stale relative to freshly fetched `master`, regenerate/check it before implementation and use current code/evidence as authority in the interim.
+CodeGraph is discovery tooling. Its recorded source epoch can legitimately differ from the branch tip after generated-only or tree-identical merge commits; use the deterministic CodeGraph check/source digest to establish freshness. If that check reports indexed-source drift, treat generated context as stale until regenerated and use exact current code/evidence as authority in the interim.
 
 ## Product boundary
 
@@ -25,7 +26,7 @@ Current V2 video public-write authority is zero.
 
 ## Execution
 
-`MAIN_CODEX` owns repo/task orchestration, mechanics, deterministic validation, provenance, rights/permission checks, sandboxing, caching/recovery, tests, evidence, commit, and push.
+Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`: use `WEB_STATIC` for repository-static work, `WEB_CI` when safe deterministic GitHub Actions can prove the required mechanics, `CODEX_EXECUTION` when correctness materially requires a real runtime/render/browser/environment/debug loop, and `OWNER_GATED_EXTERNAL` for secrets, live/public writes, destructive canonical changes, rights/legal release boundaries, or equivalent irreversible external actions.
 
 Fresh owner-authorized `GPT-5.6 Sol / XHIGH` workers may own bounded consequential viewer-facing creative/editorial/review judgment. Approved 9Router models may perform only already-authorized low-cost non-authority roles.
 

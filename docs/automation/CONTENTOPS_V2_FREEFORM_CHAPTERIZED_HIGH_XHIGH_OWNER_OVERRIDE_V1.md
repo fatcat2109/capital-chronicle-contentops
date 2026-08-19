@@ -1,19 +1,20 @@
 # Capital Chronicle ContentOps — V2 Creative Authority Override
 
-Authority date: 2026-08-19
+Authority date: 2026-08-20
 Status: `CURRENT_V2_CREATIVE_POLICY`
 
 This file governs viewer-facing creative judgment only. Root product/task authority remains:
 
 - `AGENTS.md`
 - `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+- `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 - `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
 
 ## Current creative model authority
 
-`MAIN_CODEX` owns repo coordination, mechanics, deterministic validation, rights/permission checks, provenance, caching/recovery, and evidence packaging.
+Engineering/repository execution follows the root `CAPABILITY_ROUTED_HYBRID` policy. Use `WEB_STATIC` or `WEB_CI` where repository/static or deterministic CI evidence is sufficient, and use `CODEX_EXECUTION` when the V2 work materially requires an interactive runtime, render/debug loop, browser/environment truth, or equivalent execution feedback.
 
 For consequential viewer-facing V2 editorial/visual/review work, a fresh owner-authorized `GPT-5.6 Sol / XHIGH` session/worker may be invoked with bounded governed inputs. It may own creative judgment but receives zero factual, numeric, Capital Chronicle, rights, permission, destination-identity, credential, or public-write authority.
 

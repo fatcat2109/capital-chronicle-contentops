@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Context
 
-Authority date: 2026-08-19
+Authority date: 2026-08-20
 Status: `CURRENT_BOOTSTRAP_POINTER`
 
 This file is a compact bootstrap only. It does not override root authority.
@@ -51,7 +51,7 @@ Only after the real nine-surface canary is owner-accepted should the existing fo
 
 ## Execution framework
 
-Engineering execution uses `CAPABILITY_ROUTED_HYBRID` under the owner-authorized policy candidate:
+Engineering execution uses `CAPABILITY_ROUTED_HYBRID` under the current execution policy:
 
 - `WEB_STATIC` for repository-static work provable from fresh GitHub bytes;
 - `WEB_CI` for bounded deterministic implementation provable by safe GitHub Actions;
@@ -62,6 +62,6 @@ Execution routing never widens factual, numeric, permission, rights, credential,
 
 ## CodeGraph status
 
-CodeGraph is discovery tooling, not product authority. The accepted P0 lineage includes a generated checkpoint for its indexed source epoch. Any later authority/source edits on the integration branch must regenerate/check CodeGraph before claiming it current. A recorded source epoch mismatch makes generated context stale discovery-only; exact GitHub bytes and current authority remain stronger.
+CodeGraph is discovery tooling, not product authority. Its recorded `Source HEAD` is a source epoch: the newest commit that changed an indexed source, not necessarily the current branch/master tip after generated-only or tree-identical merge commits. Use the deterministic generator/check or exact source digest to establish freshness. A raw SHA mismatch alone does not make CodeGraph stale; indexed-source drift detected by the check/digest does. Exact GitHub bytes and current authority remain stronger.
 
 Protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`. `UNKNOWN_WRITE` remains `STOP RETRY -> READ BACK -> RECONCILE`.

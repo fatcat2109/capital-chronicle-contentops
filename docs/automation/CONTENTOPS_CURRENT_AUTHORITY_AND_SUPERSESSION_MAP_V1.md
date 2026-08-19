@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Authority and Supersession Map V1
 
-Authority date: 2026-08-19
+Authority date: 2026-08-20
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This file prevents fresh sessions from treating historical plans, task handoffs, machine status, or unmerged branches as current routing.
@@ -18,13 +18,13 @@ This file prevents fresh sessions from treating historical plans, task handoffs,
 9. nearest scoped `AGENTS.md`
 10. exact code/tests/evidence
 
-If CodeGraph's recorded source HEAD differs from freshly fetched `master`, use it only for discovery until regenerated.
+CodeGraph's recorded `Source HEAD` is the newest commit that changed an indexed source, so it may legitimately differ from the current branch/master tip after generated-only or tree-identical merge commits. Do not infer staleness from that SHA mismatch alone. Use the deterministic generator/check or exact indexed-source digest on the ref being operated on; if it detects indexed-source drift, use CodeGraph only for discovery until regenerated.
 
 ## CURRENT_ROOT_AUTHORITY
 
 - `AGENTS.md` — repository operating contract and authority hierarchy.
 - `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` — this classification/routing map.
-- `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md` — current execution-routing policy candidate on its owner-authorized pilot branch; it changes execution mechanics only and cannot widen product/truth/public-write authority.
+- `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md` — current execution-routing policy; it changes execution mechanics only and cannot widen product/truth/public-write authority.
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` — durable final-product objective and boundaries.
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md` — ordered root capability plan and final acceptance criteria.
 - `docs/CURRENT_CONTEXT.md` — compact bootstrap/current-status pointer; never stronger than the root files above.
@@ -32,7 +32,7 @@ If CodeGraph's recorded source HEAD differs from freshly fetched `master`, use i
 
 ## EXECUTION ROUTING SUPERSESSION
 
-On the owner-authorized hybrid pilot branch, `CAPABILITY_ROUTED_HYBRID` supersedes older `MAIN_CODEX only` wording **for execution routing only**.
+`CAPABILITY_ROUTED_HYBRID` is current execution routing on `master` and supersedes older `MAIN_CODEX only` wording **for execution routing only**.
 
 The capability router is:
 
@@ -44,8 +44,6 @@ The capability router is:
 Older `MAIN_CODEX only` execution statements in `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`, `docs/CURRENT_CONTEXT.md`, `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`, current lane pointers, `video/AGENTS.md`, or V2 creative-policy documents are superseded only to the extent they conflict with this execution router. Their product, truth, numeric, rights, V1/V2 isolation, public-write, recovery, and actual-artifact acceptance rules remain in force.
 
 No execution lane receives factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, rights, or public-write authority by implication.
-
-Remote `master` remains repository authority until the pilot branch is explicitly owner-approved for merge.
 
 ## CURRENT_LANE_AUTHORITY
 
@@ -77,7 +75,7 @@ No V2 document, adapter, credential, or branch grants video public-write authori
 - nearest scoped `AGENTS.md`
 - exact implementation modules, tests, current evidence packets, and real rendered/public artifacts.
 
-Generated CodeGraph is discovery tooling, not product authority. If its recorded source epoch differs from the fetched ref/task branch being operated on, treat it as stale until regenerated/checkpointed by an execution lane that can prove the result.
+Generated CodeGraph is discovery tooling, not product authority. A recorded `Source HEAD` may legitimately lag the operated ref tip after generated-only or tree-identical merge commits. Treat CodeGraph as stale only when the deterministic check/source digest shows indexed-source drift; until regeneration, exact current code/tests/evidence outrank it.
 
 ## HISTORICAL_EVIDENCE_ONLY
 
