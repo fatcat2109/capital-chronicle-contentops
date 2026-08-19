@@ -41,7 +41,9 @@ Fast breaking coverage needs both a narrow official-primary evidence path and a 
 
 Before the owner-accepted live canary, implement and prove material-event wake mechanics only under `NO_PUBLIC_WRITE`/shadow validation. Do not add an unapproved public-write opportunity.
 
-After the accepted canary, final V1 should support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events. This is not a fifth scheduled task and must not create a second scheduler. Preserve stable trigger identity/idempotency, duplicate/update-chain checks, spacing/saturation controls, the same evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority.
+After the accepted canary, final V1 should support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events. **Live automatic wake activation is a separate public-write trigger-scope expansion and requires an explicit owner grant covering material-event wakeups; the canary authorization alone does not imply it. Without that grant, keep the wake path `NO_PUBLIC_WRITE`/shadow-only.** This is not a fifth scheduled task and must not create a second scheduler.
+
+Preserve stable trigger identity/idempotency, duplicate/update-chain checks, spacing/saturation controls, the same evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority.
 
 ### Current distribution doctrine
 
@@ -67,8 +69,8 @@ Current build sequence:
 2. `NO_PUBLIC_WRITE` replay covering breaking + wake/no-wake, normal analysis, quiet-day, and critical/opinion cases;
 3. Jim/ChatGPT review actual article/package outputs;
 4. one real `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` canary;
-5. enable only the existing four scheduled tasks and activate the bounded supervisor-owned material-event wake under accepted autonomy/public-write scope;
-6. unattended/cold-start proof across scheduled windows plus at least one material-event trigger/no-op or trigger/execution path;
+5. enable only the existing four scheduled tasks after accepted canary; separately obtain an explicit owner trigger-scope grant before activating automatic material-event public-write wakeups, otherwise keep the wake path shadow-only;
+6. unattended/cold-start proof across scheduled operation plus at least one material-event trigger/no-op or trigger/execution path at the highest scope currently authorized;
 7. close the V5 UI acceptance caveat and observation/growth control-room evidence;
 8. continue V2 repeated creative soak and real V1->V2 qualification under zero V2 public-write authority.
 

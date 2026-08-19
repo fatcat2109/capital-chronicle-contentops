@@ -21,7 +21,7 @@ North-star experience:
 start ContentOps Daily App
 -> low-cost always-on supervision and intake
 -> when work is due, build current story universe
--> routine scheduled window OR genuinely material event wake
+-> routine scheduled window OR bounded material-event wake eligibility
 -> choose the best useful editorial mode or abstain
 -> acquire claim-appropriate evidence
 -> write/review/optimize/visualize
@@ -75,9 +75,11 @@ FDA-G may continue calendar-time low-cost soak while those editorial tasks remai
 
 Before the live canary, a material event may influence priority and the new wake path may be implemented/tested only under `NO_PUBLIC_WRITE`/shadow validation. Do not create an unapproved live/public-write opportunity during pre-canary probation.
 
-After the owner-accepted real canary, the final V1 product must support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events. This is not a fifth scheduled task and must not create a second scheduler. The wake path must preserve stable trigger identity/idempotency, duplicate/update-chain checks, minimum spacing/saturation controls, the same evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority.
+After the owner-accepted real canary, the final V1 product must support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events. **Live activation of those automatic public-write wake opportunities is a separate trigger-scope expansion and requires an explicit owner grant covering material-event wakeups; the one-canary authorization alone does not grant it. Without that grant, the wake path remains `NO_PUBLIC_WRITE`/shadow-only.** This is not a fifth scheduled task and must not create a second scheduler.
 
-The four scheduled tasks remain the routine baseline; the material-event wake exists so genuinely important breaking news does not have to wait for a routine window merely because richer secondary/data support is not yet available.
+The wake path must preserve stable trigger identity/idempotency, duplicate/update-chain checks, minimum spacing/saturation controls, the same evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority.
+
+The four scheduled tasks remain the routine baseline; the material-event wake exists so genuinely important breaking news does not have to wait for a routine window once that live trigger scope is explicitly authorized.
 
 ## 5. Editorial spectrum
 
@@ -284,12 +286,12 @@ KILL_SWITCH must be observed before every new public write.
 4. Jim/ChatGPT inspect actual article/package outputs;
 5. obtain a fresh explicit owner grant for one real current live canary;
 6. canonical Substack + exactly eight derivatives + strict readback/reconciliation + `UNKNOWN_WRITE=0` + owner artifact review;
-7. enable only the four existing scheduled tasks and activate the bounded supervisor-owned material-event wake under accepted autonomy/public-write scope;
-8. prove unattended/cold-start operation across scheduled windows plus at least one material-event trigger/no-op or trigger/execution path;
+7. enable only the four existing scheduled tasks; separately obtain an explicit owner trigger-scope grant before activating automatic material-event public-write wakeups, otherwise keep that path shadow-only;
+8. prove unattended/cold-start operation across scheduled windows plus at least one material-event trigger/no-op or trigger/execution path at the highest scope currently authorized;
 9. close any real V5 build/runtime caveat and perform visual acceptance;
 10. accept/freeze V1 only after these proofs.
 
-The earlier branch-specific fast-forward/manual-GO instructions, blanket “all nine readiness before any canonical write” rule, and any wording that material events can only ever wait for the next routine window are superseded by root V3/current pointer. Pre-canary public-write restrictions remain unchanged.
+The earlier branch-specific fast-forward/manual-GO instructions, blanket “all nine readiness before any canonical write” rule, and any wording that material events can only ever wait for the next routine window are superseded by root V3/current pointer. Pre-canary public-write restrictions remain unchanged, and canary authorization alone does not widen later automatic-trigger scope.
 
 ## 17. Release identity
 

@@ -159,7 +159,7 @@ Fast breaking coverage requires both a lighter claim-appropriate evidence path a
 
 During the current pre-canary quality-probation state, do not add an unapproved live/public-write opportunity. The growth-first implementation may and should prove the material-event wake path in `NO_PUBLIC_WRITE`/shadow mode.
 
-After the owner-accepted live canary, final V1 must support a bounded automatic **material-event wake** through the existing Daily App supervisor when a genuinely material fresh event satisfies the current trigger policy. This is not a fifth scheduled task and must not create a second scheduler.
+After the owner-accepted live canary, final V1 must support a bounded automatic **material-event wake** through the existing Daily App supervisor when a genuinely material fresh event satisfies the current trigger policy. **Live activation of automatic material-event public-write opportunities is a separate trigger-scope expansion and requires an explicit owner grant covering that wake scope; the canary authorization alone does not imply it. Until that grant exists, keep the wake path `NO_PUBLIC_WRITE`/shadow-only.** This is not a fifth scheduled task and must not create a second scheduler.
 
 Every material-event wake must preserve deterministic trigger identity/idempotency, duplicate/update-chain checks, minimum spacing/saturation controls, the same claim/evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority. A trigger that does not clear those gates may abstain without publication.
 

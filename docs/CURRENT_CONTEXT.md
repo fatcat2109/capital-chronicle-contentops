@@ -52,7 +52,7 @@ The required product behavior is:
 - explicit `CAPITAL_CHRONICLE_VIEW` and `WHAT_THE_MARKET_IS_MISSING` modes with strong but defensible criticism/opinion;
 - clearly labeled qualitative editorial inference is allowed from accepted public evidence, but remains distinct from Core Analyzer proprietary analytical/numeric authority;
 - growth-aware ranking and platform-native hooks/packages;
-- one bounded material-event wake path through the existing Daily App supervisor, proven under `NO_PUBLIC_WRITE` before canary and activated only after accepted canary under the accepted autonomy/public-write scope; this is not a fifth scheduled task;
+- one bounded material-event wake path through the existing Daily App supervisor, proven under `NO_PUBLIC_WRITE` before canary; after accepted canary, live automatic wake activation remains a separate public-write trigger-scope expansion and requires an explicit owner grant covering that wake scope, otherwise the path stays shadow-only; this is not a fifth scheduled task;
 - canonical Substack may remain publishable under a future owner-authorized action when a derivative destination is temporarily unavailable; derivative-local failure becomes durable hold/recovery rather than a blanket canonical veto;
 - hard truth/numeric/permission/rights/identity/readback boundaries remain unchanged.
 
@@ -64,7 +64,7 @@ No-publication remains valid. Quiet-day behavior may lower materiality or change
 2. run bounded `NO_PUBLIC_WRITE` replay for at least breaking + wake/no-wake, normal-analysis, quiet-day, and critical/opinion cases;
 3. Jim/ChatGPT inspect actual article/package outputs;
 4. only then use `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` for one genuine current live canary;
-5. after accepted canary, enable only the four existing scheduled V1 tasks, activate the bounded supervisor-owned material-event wake under accepted scope, and prove unattended/cold-start operation.
+5. after accepted canary, enable only the four existing scheduled V1 tasks; separately require an explicit owner grant before activating automatic material-event public-write wakeups, otherwise keep that path shadow-only; then prove unattended/cold-start operation at the highest scope currently authorized.
 
 Do not create a fifth scheduled task or a second scheduler. Do not repeatedly fire manual opportunities to manufacture canary evidence.
 

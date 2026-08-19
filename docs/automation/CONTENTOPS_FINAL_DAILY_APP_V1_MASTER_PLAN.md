@@ -150,7 +150,7 @@ Implement/prove under `NO_PUBLIC_WRITE`/shadow validation:
 - if the story/gates do not clear, the wake may safely abstain;
 - no live/public-write wake is authorized before the accepted real canary.
 
-After the owner-accepted canary, this bounded supervisor-owned wake becomes part of final V1 operating behavior under the accepted autonomy/public-write scope.
+After the owner-accepted canary, this bounded supervisor-owned wake remains required final-product capability. **Live automatic wake activation is a separate public-write trigger-scope expansion and requires a fresh explicit owner grant covering material-event wakeups; the canary grant alone does not imply it. Without that grant, keep the wake path `NO_PUBLIC_WRITE`/shadow-only.**
 
 ## 3. Canonical-first derivative lifecycle
 
@@ -235,17 +235,19 @@ Only after owner acceptance of zero-write editorial outputs:
 13. strict readback/reconciliation and `UNKNOWN_WRITE=0`;
 14. Jim/ChatGPT inspect actual public artifacts.
 
+That canary authorization is one-canary scope unless Jim explicitly widens it. It does not authorize later automatic material-event public-write triggers or additional public surfaces by implication.
+
 A valid `NO_PUBLICATION` remains safe but is not canary acceptance.
 
 ## 6. Four-task + material-event unattended/cold-start proof
 
 After accepted canary:
 
-- enable only the four existing V1 quality-probation scheduled tasks;
-- activate the bounded material-event wake through the existing Daily App supervisor under accepted autonomy/public-write scope;
-- no fifth scheduled task and no second scheduler;
+- enable only the four existing V1 quality-probation scheduled tasks under their existing accepted scheduler authority;
+- separately obtain an explicit owner trigger-scope grant before activating automatic material-event public-write wakeups; without that grant, keep the material-event path `NO_PUBLIC_WRITE`/shadow-only;
+- when explicitly granted, activate only the bounded material-event wake through the existing Daily App supervisor; no fifth scheduled task and no second scheduler;
 - prove calendar-time execution, legitimate abstentions, varied useful modes, restart/cold-start behavior, recovery, no duplicate editorial opportunities or public objects, bounded cost, and stable FDA-G supervision;
-- prove at least one material-event trigger/no-op or trigger/execution path with stable identity and no duplicate wake.
+- prove at least one material-event trigger/no-op or trigger/execution path at the highest scope currently authorized, with stable identity and no duplicate wake.
 
 ## 7. Performance and bounded growth learning
 

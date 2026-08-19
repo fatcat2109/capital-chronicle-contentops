@@ -105,7 +105,7 @@ Use CodeGraph callers/callees around these seams before editing. Do not create p
 - existing material-event trigger/update-chain and operator-trigger state discovered by CodeGraph
 - durable window/trigger/lease/idempotency tables and focused supervisor tests
 
-Current task must prove the wake path under `NO_PUBLIC_WRITE`/shadow validation before any live activation. After owner-accepted canary, final product direction is bounded supervisor-owned material-event wake under accepted autonomy/public-write scope, not a fifth scheduled task.
+Current task must prove the wake path under `NO_PUBLIC_WRITE`/shadow validation before any live activation. After owner-accepted canary, final product direction requires the bounded supervisor-owned material-event wake capability, but **live automatic public-write activation remains separately owner-gated; canary authority alone does not grant that trigger scope. Without the explicit wake grant, keep the path shadow-only.** This remains distinct from the four scheduled tasks and does not authorize a fifth task.
 
 ### Newsroom / selection
 
@@ -191,8 +191,8 @@ These are identities, not permission to inspect credentials/session material.
 3. Jim/ChatGPT review actual article/package outputs;
 4. fresh explicit owner grant for one real canary;
 5. canonical Substack + exactly eight derivatives + strict readback/reconciliation + `UNKNOWN_WRITE=0`;
-6. enable only the four existing scheduled tasks and activate the bounded supervisor-owned material-event wake after accepted canary;
-7. unattended/cold-start proof across scheduled and material-event trigger/no-op or trigger/execution paths;
+6. enable only the four existing scheduled tasks after accepted canary; separately obtain an explicit owner trigger-scope grant before activating automatic material-event public-write wakeups, otherwise keep that path shadow-only;
+7. unattended/cold-start proof across scheduled operation plus the material-event trigger path at the highest scope currently authorized;
 8. reproduce/close any real V5 build/runtime defect and complete screenshot-based visual acceptance.
 
 ## Stale traps
@@ -205,6 +205,7 @@ Do not route from:
 - blanket all-nine-ready-before-any-canonical-write semantics;
 - “no yield work” language when used to block the current owner-directed growth-first behavior implementation;
 - “material events can only ever wait for the next routine window” as final V1 behavior after the accepted canary;
+- any wording that treats one-canary authorization as an implicit grant for future automatic material-event public writes;
 - historical V6 launch paths or parallel schedulers;
 - archived task handoffs/status snapshots.
 

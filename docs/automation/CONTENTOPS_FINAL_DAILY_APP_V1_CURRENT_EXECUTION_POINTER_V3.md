@@ -98,7 +98,9 @@ Engagement never creates factual/numeric/permission authority.
 
 The current implementation must prove under `NO_PUBLIC_WRITE`/shadow validation that a genuinely material fresh event can create one idempotent editorial opportunity through the existing Daily App supervisor outside the routine windows, without duplicate wakeups or a second scheduler.
 
-Before the owner-accepted real canary, this adds no live/public-write opportunity. After the accepted canary, the bounded supervisor-owned material-event wake is part of the final V1 operating direction and may run only under the accepted autonomy/public-write scope, stable trigger identity, duplicate/update-chain checks, minimum spacing/saturation controls, the same evidence/article/publication/readback gates, and current KILL_SWITCH state.
+Before the owner-accepted real canary, this adds no live/public-write opportunity. After the accepted canary, the bounded supervisor-owned material-event wake remains required final-product capability, but **live automatic wake activation is a separate public-write trigger-scope expansion and requires an explicit owner grant covering that wake scope; the one-canary authorization alone does not imply it. Until granted, keep the wake path `NO_PUBLIC_WRITE`/shadow-only.**
+
+Every material-event wake must preserve stable trigger identity, duplicate/update-chain checks, minimum spacing/saturation controls, the same evidence/article/publication/readback gates, current KILL_SWITCH state, and exact destination/public-write authority.
 
 This material-event wake is not a fifth scheduled task.
 
@@ -148,13 +150,17 @@ Only after the zero-write replay is owner-accepted:
 11. read back/reconcile every attempted public object and require `UNKNOWN_WRITE=0`;
 12. Jim/ChatGPT inspect the actual public article and derivative artifacts.
 
+That canary grant is scoped to the canary unless Jim explicitly widens it. It does not silently authorize later automatic material-event public-write triggers or new public surfaces.
+
 A valid `NO_PUBLICATION` still does not prove final publication-canary acceptance.
 
 ## After accepted canary
 
-Enable only the four already-existing V1 scheduled tasks under current schedule ownership and activate the bounded supervisor-owned material-event wake path under the accepted autonomy/public-write scope. Do not create a fifth scheduled task or a second scheduler.
+Enable only the four already-existing V1 scheduled tasks under their current schedule ownership. Do not create a fifth scheduled task or a second scheduler.
 
-Then prove unattended/cold-start operation across routine windows plus at least one material-event trigger/no-op or trigger/execution path with stable identity and zero duplicate public objects.
+Separately require an explicit owner grant before activating automatic material-event public-write wakeups. Without that grant, keep the material-event path `NO_PUBLIC_WRITE`/shadow-only. With that grant, activate only the bounded supervisor-owned wake path under the exact approved scope.
+
+Then prove unattended/cold-start operation across routine windows plus at least one material-event trigger/no-op or trigger/execution path at the highest scope currently authorized, with stable identity and zero duplicate public objects.
 
 ## Current runtime/acceptance caveat
 
