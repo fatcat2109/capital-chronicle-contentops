@@ -167,7 +167,7 @@ Fast breaking coverage requires both a claim-proportional evidence fast lane and
 
 During the current pre-canary quality-probation state, do not add an unapproved live/public-write opportunity. The growth-first implementation should prove the material-event trigger/wake mechanics in `NO_PUBLIC_WRITE` or shadow mode.
 
-After an owner-accepted real canary, final V1 must support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events under current trigger policy. This is not a fifth scheduled task and must not create a second scheduler.
+After an owner-accepted real canary, final V1 must support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events under current trigger policy. **Live activation of automatic material-event public-write opportunities remains a separate trigger-scope expansion and requires an explicit owner grant covering that wake scope; the one-canary authorization alone does not grant it.** This is not a fifth scheduled task and must not create a second scheduler.
 
 Each wake must preserve deterministic trigger identity/idempotency, duplicate/update-chain checks, minimum spacing/saturation controls, the same claim/evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority. A material event may still produce `NO_PUBLICATION` when those gates do not clear.
 
@@ -240,8 +240,8 @@ Then V1 final acceptance requires:
 
 1. growth-first multi-mode zero-write replay and owner editorial acceptance, including a material-event wake/no-wake proof with zero public writes;
 2. one real current owner-authorized canonical publication plus exactly eight derivatives, strict readback/reconciliation, `UNKNOWN_WRITE=0`, and actual-artifact review;
-3. enable only the already-existing four quality-probation editorial tasks and activate the bounded supervisor-owned material-event wake path under the accepted autonomy/public-write scope; this is not a fifth scheduled task;
-4. unattended/cold-start proof covering scheduled windows plus at least one material-event trigger/no-op path;
+3. enable only the already-existing four quality-probation editorial tasks; if Jim explicitly grants post-canary automatic material-event public-write scope, activate the bounded supervisor-owned wake path under that grant; otherwise keep it shadow-only until granted. This is not a fifth scheduled task;
+4. unattended/cold-start proof covering scheduled windows plus the material-event trigger path at the highest scope currently authorized (shadow-only or live); any claim of live material-event automation requires the explicit grant above;
 5. working truthful V5 Daily App UI, including correction of any current build/runtime defect before final acceptance.
 
 A legitimate `NO_PUBLICATION` remains valid editorial behavior but does not by itself prove the real publication canary.
@@ -273,9 +273,9 @@ Protected `v1.0` remains `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 The final ContentOps product is accepted when:
 
 1. V1 runs as one reliable autonomous Daily App with low-cost supervision and minimal operator burden;
-2. editorial selection uses claim/mode-proportional evidence, fast official-primary breaking behavior, bounded material-event wakes, quiet-day value modes, and defensible house-view/critical content without weakening truth;
+2. editorial selection uses claim/mode-proportional evidence, fast official-primary breaking behavior, bounded material-event wake capability, quiet-day value modes, and defensible house-view/critical content without weakening truth;
 3. publication-authorized Core Analyzer intelligence is consumed when exact and useful, while internal/context material stays non-public;
-4. V1 proves a real canonical Substack article, exactly eight derivative destinations, strict readback/reconciliation, scheduled plus material-event unattended operation, and cold-start recovery;
+4. V1 proves a real canonical Substack article, exactly eight derivative destinations, strict readback/reconciliation, scheduled unattended operation, material-event trigger behavior at the currently authorized scope, and cold-start recovery;
 5. the canonical UI truthfully exposes runtime, evidence, editorial mode, authority class, publication/recovery, performance, and learning;
 6. V2 repeatedly produces owner-accepted media from qualified stories with rights, audio, transcript/package truth, recovery, and bounded TCO;
 7. supported audience/business observations feed bounded ContentOps learning and improve organic acquisition without changing analytical truth;

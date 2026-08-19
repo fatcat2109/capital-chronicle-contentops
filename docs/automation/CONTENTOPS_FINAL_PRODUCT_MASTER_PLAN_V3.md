@@ -202,7 +202,7 @@ Reuse the existing Daily App supervisor and material-event/update-chain machiner
 
 The implementation must prove under `NO_PUBLIC_WRITE`/shadow validation that a genuinely material fresh event can create one idempotent editorial opportunity outside the routine windows without duplicate wakeups. The wake must carry stable trigger identity, duplicate/update-chain state, spacing/saturation controls, and the same evidence/article/publication gates as a scheduled opportunity.
 
-No new live/public-write wake authority is granted before the owner-accepted real canary. After that canary, the final V1 operating path should be able to activate the bounded supervisor-owned material-event wake under the accepted autonomy/public-write scope.
+No new live/public-write wake authority is granted before the owner-accepted real canary. After that canary, the final V1 operating path must support the bounded supervisor-owned material-event wake, but **live activation is a separate public-write trigger-scope expansion and requires an explicit owner grant covering automatic material-event wakeups; the canary grant alone does not imply it.**
 
 ## 4. P0-G2 — Canonical-first resilient distribution semantics
 
@@ -276,20 +276,23 @@ Required sequence:
 12. require `UNKNOWN_WRITE=0`;
 13. Jim/ChatGPT inspect actual article and all derivative artifacts.
 
+The canary authorization is scoped to that canary unless Jim explicitly says otherwise; it does not silently authorize future automatic material-event public-write triggers or new public surfaces.
+
 A legitimate `NO_PUBLICATION` remains valid behavior but is not final canary proof.
 
 ## 7. P0-G5 — Four-window + material-event unattended/cold-start proof
 
 After an owner-accepted real canary:
 
-- enable only the four already-existing V1 quality-probation tasks;
-- activate the bounded material-event wake path through the existing Daily App supervisor under the accepted autonomy/public-write scope; this is not a fifth scheduled task;
+- enable only the four already-existing V1 quality-probation scheduled tasks under their accepted schedule ownership;
+- separately obtain/confirm an explicit owner grant before activating automatic material-event public-write wakeups; if that grant is absent, keep material-event wake behavior `NO_PUBLIC_WRITE`/shadow-only;
+- when granted, activate the bounded material-event wake through the existing Daily App supervisor; this is not a fifth scheduled task;
 - do not create a fifth task or parallel scheduler;
 - prove unattended calendar-time execution, legitimate abstentions, output diversity, restart/cold-start behavior, recovery/readback, bounded cost, and zero duplicate public objects;
-- prove at least one material-event trigger/no-op or trigger/execution path with stable identity and no duplicate wake;
+- prove at least one material-event trigger/no-op or trigger/execution path at the highest scope currently authorized, with stable identity and no duplicate wake;
 - keep FDA-G low-cost supervision alive between editorial opportunities.
 
-Only after this proof may V1 be classified `V1_FINAL_PRODUCT_ACCEPTED`.
+Only after this proof may V1 be classified `V1_FINAL_PRODUCT_ACCEPTED`; any claim of live automatic material-event publication requires the explicit grant above.
 
 ## 8. Canonical V5 UI closure
 
@@ -375,10 +378,10 @@ P0-G1 and P0-G2 should be one heavy bounded implementation slice if CodeGraph co
 Prove breaking + material-event wake, normal analysis, quiet day, and critical/opinion behavior; Jim/ChatGPT audit actual outputs.
 
 ### P0-G4 — Real live canary
-One owner-authorized current article -> canonical Substack -> exactly eight derivatives -> readback/reconcile -> `UNKNOWN_WRITE=0` -> owner artifact audit.
+One owner-authorized current article -> canonical Substack -> exactly eight derivatives -> readback/reconcile -> `UNKNOWN_WRITE=0` -> owner artifact audit. Canary authority is one-canary scope unless explicitly widened.
 
 ### P0-G5 — Four-window + material-event unattended/cold-start proof
-Enable only the existing four scheduled tasks plus the bounded supervisor-owned material-event wake after accepted canary and prove sustained operation. The wake path is not a fifth scheduled task.
+Enable only the existing four scheduled tasks after accepted canary. Material-event live activation additionally requires explicit owner trigger-scope authorization; otherwise prove that path shadow-only. Never create a fifth scheduled task.
 
 ### P1 — Canonical observation/growth control-room closure + organic network growth optimization + V2 repeated creative soak
 Use real supported samples; evaluate additional legitimate low-cost discovery/growth surfaces only under exact owner-approved scope; do not build a second authority engine.
