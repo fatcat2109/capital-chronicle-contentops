@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
-Authority date: 2026-08-19
+Authority date: 2026-08-20
 Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR`
 
 ## Product role
@@ -130,12 +130,16 @@ Engagement and conversion are product-learning inputs, not factual or analytical
 
 ## Main execution framework
 
-Canonical execution framework is `MAIN_CODEX` only.
+Canonical engineering execution is `CAPABILITY_ROUTED_HYBRID`, governed by `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`.
 
-- Primary Codex session owns repo/task/orchestration and deterministic engineering work.
+- `WEB_STATIC` handles repository-static reasoning, review, bounded edits, and GitHub operations when fresh repository bytes are sufficient evidence.
+- `WEB_CI` adds safe deterministic GitHub Actions when machine validation can prove the required mechanics without secrets, public writes, or production mutation.
+- `CODEX_EXECUTION` is used when correctness materially requires a real execution environment, interactive runtime/debug feedback, browser/runtime inspection, current network behavior not reproducible in CI, performance work, or rendered mechanics.
+- `OWNER_GATED_EXTERNAL` remains mandatory for secrets/session boundaries, live/public writes, destructive canonical changes, provider/browser publication expansion, rights/legal release boundaries, material Core Analyzer numeric-authority changes, or equivalent irreversible external actions.
 - Fresh owner-authorized `GPT-5.6 Sol / XHIGH` workers may own consequential editorial/creative judgment where current lane authority requires it.
-- Approved 9Router models may perform bounded low-cost filtering/research/classification roles.
-- No alternate IDE/framework routing or fallback framework is current authority.
+- Approved 9Router models may perform bounded low-cost filtering/research/classification roles only where already authorized.
+
+Use the cheapest execution lane that can produce evidence strong enough for the actual correctness claim. Execution routing never grants factual, numeric, permission, rights, credential, destination-identity, or public-write authority, and no alternate execution framework may bypass those boundaries.
 
 ## Hard safety rules
 

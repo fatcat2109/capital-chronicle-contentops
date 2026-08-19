@@ -1,12 +1,13 @@
 # Capital Chronicle ContentOps — V2 Current Execution Pointer
 
-Authority date: 2026-08-19
+Authority date: 2026-08-20
 Status: `CURRENT_V2_LANE_POINTER`
 
 Root authority:
 
 - `AGENTS.md`
 - `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+- `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 
@@ -30,7 +31,10 @@ These foundations do not equal final V2 acceptance.
 
 ## Current authority
 
-- `MAIN_CODEX` owns repo/task/orchestration.
+- Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.
+- Use `WEB_STATIC` for repository-static work and `WEB_CI` when safe deterministic GitHub Actions can prove the required mechanics.
+- Use `CODEX_EXECUTION` when V2 correctness materially requires a real execution environment, render/browser/runtime inspection, or iterative debug feedback.
+- `OWNER_GATED_EXTERNAL` remains required for secrets/session boundaries, live/public writes, provider publication expansion, rights/legal release boundaries, destructive canonical changes, or equivalent irreversible external actions.
 - Fresh owner-authorized `GPT-5.6 Sol / XHIGH` sessions/workers may own consequential viewer-facing creative/editorial judgment at the bounded seams described by current V2 authority.
 - Approved 9Router models may perform already-authorized bounded low-cost filtering/research/classification roles.
 - Models receive zero factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, or public-write authority.
