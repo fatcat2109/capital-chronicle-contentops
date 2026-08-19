@@ -9,9 +9,21 @@
     "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED",
     "PUBLICATION_PACKET_STALE_OR_BLOCKED"
   ],
+  "real_read_only_latest_web_source_smoke": {
+    "accepted_document_count": 1,
+    "attempted": true,
+    "blockers": [],
+    "content_sha256": "cf0807e7f38442039eb48777cfd8a9e78a0dd3a18daefa94aa443b8373ffc447",
+    "public_claim_authority_weakened": false,
+    "published_at_source": "OFFICIAL_BYTES_HEADERS_OR_LOCATOR",
+    "published_at_utc": "2026-06-23T14:30:00Z",
+    "request_count": 1,
+    "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+    "status": "PASS"
+  },
   "safety": {
     "browser_or_cdp_used": false,
-    "external_network_call_made": false,
+    "external_network_call_made": true,
     "llm_numeric_authority": false,
     "model_created_numeric_substitution": false,
     "provider_call_made": false,
@@ -21,6 +33,200 @@
   },
   "schema_version": "contentops.p0_1_zero_write_demo.v1",
   "story_cases": {
+    "accepted_historical_treasury_contract": {
+      "artifact_relative_path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1/contentops_full_automation_live_20260807_1/grounded_support_v1.json",
+      "media_display_resolution": {
+        "authority_class": "CONTEXT_DISCOVERY_ONLY",
+        "authorized": false,
+        "intended_consumer": "contentops_publication",
+        "intended_use": "public_media_display",
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": "cc-evidence-bde0048ee1ebe31f",
+        "packet_sha256": "b70f8006736fd7ac646769040d57a1589753d3c98f26c3b99f814a6861498021",
+        "reason_codes": [
+          "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:intended_use:public_media_display"
+        ],
+        "resolved_upstream_grant": {
+          "consumer_granted": true,
+          "granted": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_media_display",
+          "upstream_permission_evidence": {
+            "allowed_uses": [],
+            "consumer_class": [
+              "contentops_publication",
+              "contentops_publication_candidate"
+            ],
+            "permission_field": "public_display_allowed",
+            "permission_value": null,
+            "public_display_allowed": null,
+            "reporting_allowed": true,
+            "reuse_allowed": null
+          },
+          "use_granted": false
+        },
+        "schema_version": "contentops.cc_publication_authority_resolution.v1",
+        "state": "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED",
+        "story_binding": {
+          "article_mode": "analysis",
+          "duplicate_key": "us-treasury-curve-2026-07-13",
+          "fresh_material_delta": true,
+          "market_sensitive": true,
+          "selection_rationale": "Latest official Treasury curve record contains a fresh, measurable slope and long-end update.",
+          "story_type": "market_move",
+          "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        },
+        "upstream_packet_id": "cc-publication-73ff151c3d3094741b6c"
+      },
+      "reporting_resolution": {
+        "authority_class": "CONTENTOPS_PUBLICATION_AUTHORIZED_CC",
+        "authorized": true,
+        "intended_consumer": "contentops_publication",
+        "intended_use": "public_reporting",
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": false,
+        "packet_id": "cc-evidence-bde0048ee1ebe31f",
+        "packet_sha256": "b70f8006736fd7ac646769040d57a1589753d3c98f26c3b99f814a6861498021",
+        "reason_codes": [],
+        "resolved_upstream_grant": {
+          "consumer_granted": true,
+          "granted": true,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "upstream_permission_evidence": {
+            "allowed_uses": [],
+            "consumer_class": [
+              "contentops_publication",
+              "contentops_publication_candidate"
+            ],
+            "permission_field": "reporting_allowed",
+            "permission_value": true,
+            "public_display_allowed": null,
+            "reporting_allowed": true,
+            "reuse_allowed": null
+          },
+          "use_granted": true
+        },
+        "schema_version": "contentops.cc_publication_authority_resolution.v1",
+        "state": "PUBLICATION_PACKET_AVAILABLE",
+        "story_binding": {
+          "article_mode": "analysis",
+          "duplicate_key": "us-treasury-curve-2026-07-13",
+          "fresh_material_delta": true,
+          "market_sensitive": true,
+          "selection_rationale": "Latest official Treasury curve record contains a fresh, measurable slope and long-end update.",
+          "story_type": "market_move",
+          "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        },
+        "upstream_packet_id": "cc-publication-73ff151c3d3094741b6c"
+      }
+    },
+    "explicit_media_display_authorized": {
+      "exact_values_preserved": true,
+      "projection_fingerprint": "30cf1111f65a72cd01eb8db559562532e4aaf3a4ee933ede1426422f3180835a",
+      "resolution": {
+        "authority_class": "CONTENTOPS_PUBLICATION_AUTHORIZED_CC",
+        "authorized": true,
+        "intended_consumer": "contentops_publication",
+        "intended_use": "public_media_display",
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": false,
+        "packet_id": "demo-cc-packet-1",
+        "packet_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "reason_codes": [],
+        "resolved_upstream_grant": {
+          "consumer_granted": true,
+          "granted": true,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_media_display",
+          "upstream_permission_evidence": {
+            "allowed_uses": [
+              "public_media_display",
+              "public_reporting"
+            ],
+            "consumer_class": [
+              "contentops_publication"
+            ],
+            "permission_field": "public_display_allowed",
+            "permission_value": true,
+            "public_display_allowed": true,
+            "reporting_allowed": true,
+            "reuse_allowed": null
+          },
+          "use_granted": true
+        },
+        "schema_version": "contentops.cc_publication_authority_resolution.v1",
+        "state": "PUBLICATION_PACKET_AVAILABLE",
+        "story_binding": {
+          "cluster_id": "authorized-policy-story",
+          "headline_ids": [
+            "policy-headline"
+          ],
+          "request_logical_hash": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+        },
+        "upstream_packet_id": "upstream-demo-1"
+      },
+      "v2_projection_blockers": []
+    },
+    "incompatible_packet_present": {
+      "resolution": {
+        "authority_class": "CONTEXT_DISCOVERY_ONLY",
+        "authorized": false,
+        "intended_consumer": "contentops_publication",
+        "intended_use": "public_reporting",
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": "cc-evidence-rejected-a02c2d1e3c8c8532",
+        "packet_sha256": "1c75514585ec2e2f4b96f0b172e3515672893f9c5814d82be00a49c6f1e1020f",
+        "reason_codes": [
+          "CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH:cluster_id",
+          "CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH:headline_ids",
+          "CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH:request_logical_hash",
+          "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:consumer",
+          "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:decision",
+          "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:intended_use:public_reporting",
+          "CC_PUBLICATION_PACKET_PRESENT_NOT_AUTHORIZED",
+          "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED"
+        ],
+        "resolved_upstream_grant": {
+          "consumer_granted": false,
+          "granted": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "upstream_permission_evidence": {
+            "allowed_uses": [],
+            "consumer_class": [],
+            "permission_field": "reporting_allowed",
+            "permission_value": false,
+            "public_display_allowed": null,
+            "reporting_allowed": false,
+            "reuse_allowed": null
+          },
+          "use_granted": false
+        },
+        "schema_version": "contentops.cc_publication_authority_resolution.v1",
+        "state": "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED",
+        "story_binding": {},
+        "upstream_packet_id": "incompatible-demo-9"
+      },
+      "selection": {
+        "considered": [
+          {
+            "binding_matches": false,
+            "compatibility_mode": "COMPATIBILITY_REQUIRED",
+            "relative_path": "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV9.json",
+            "schema_version": "capital_chronicle.publication_evidence_packet.v9"
+          }
+        ],
+        "reason_codes": [
+          "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED"
+        ],
+        "state": "PRESENT_INCOMPATIBLE"
+      }
+    },
     "internal_analyzer_non_public": {
       "resolution": {
         "authority_class": "CORE_ANALYZER_GOVERNED_INTERNAL",
@@ -33,9 +239,28 @@
         "packet_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
         "reason_codes": [
           "CC_INTERNAL_ANALYZER_HANDOFF_NOT_PUBLICATION_AUTHORITY",
-          "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:reporting",
+          "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:decision",
+          "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:intended_use:public_reporting",
           "CC_PUBLICATION_PACKET_PRESENT_NOT_AUTHORIZED"
         ],
+        "resolved_upstream_grant": {
+          "consumer_granted": true,
+          "granted": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "upstream_permission_evidence": {
+            "allowed_uses": [],
+            "consumer_class": [
+              "contentops_publication"
+            ],
+            "permission_field": "reporting_allowed",
+            "permission_value": false,
+            "public_display_allowed": null,
+            "reporting_allowed": false,
+            "reuse_allowed": null
+          },
+          "use_granted": false
+        },
         "schema_version": "contentops.cc_publication_authority_resolution.v1",
         "state": "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED",
         "story_binding": {
@@ -88,7 +313,7 @@
     },
     "publication_authorized_consumed": {
       "exact_values_preserved": true,
-      "projection_fingerprint": "b1809b9756b0d30b8610e83ae8f40a6cac7516dc924739a45c055fffe013390f",
+      "projection_fingerprint": "1555b7f63e9c891a002e918d9c34d297a36955ea98a4740f5d35dfec023f24a0",
       "resolution": {
         "authority_class": "CONTENTOPS_PUBLICATION_AUTHORIZED_CC",
         "authorized": true,
@@ -99,6 +324,24 @@
         "packet_id": "demo-cc-packet-1",
         "packet_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
         "reason_codes": [],
+        "resolved_upstream_grant": {
+          "consumer_granted": true,
+          "granted": true,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "upstream_permission_evidence": {
+            "allowed_uses": [],
+            "consumer_class": [
+              "contentops_publication"
+            ],
+            "permission_field": "reporting_allowed",
+            "permission_value": true,
+            "public_display_allowed": null,
+            "reporting_allowed": true,
+            "reuse_allowed": null
+          },
+          "use_granted": true
+        },
         "schema_version": "contentops.cc_publication_authority_resolution.v1",
         "state": "PUBLICATION_PACKET_AVAILABLE",
         "story_binding": {
@@ -111,10 +354,12 @@
         "upstream_packet_id": "upstream-demo-1"
       },
       "v1_projection_blockers": [],
-      "v2_projection_blockers": []
+      "v2_projection_blockers": [
+        "cc_projection_use_grant_mismatch"
+      ]
     },
     "relevant_context": {
-      "catalog_fingerprint": "6115a7190c52664e219efd380b99dd92e28a719dac16faf4e63bbcf4f860406c",
+      "catalog_fingerprint": "c64d5b8b83694033de47be585a4fba3595230176fc0e43819e1e1b04df51e1f9",
       "database_sha256_unchanged": true,
       "matched_table_count": 1,
       "queried_table_count": 1,
@@ -123,7 +368,7 @@
         "entity_limit": 6,
         "rows_per_entity": 5
       },
-      "query_elapsed_ms": 563.92,
+      "query_elapsed_ms": 469.429,
       "semantic_activation": {
         "derivation_provenance": [
           {

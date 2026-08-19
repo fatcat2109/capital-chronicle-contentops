@@ -1,5 +1,7 @@
 from copy import deepcopy
+import json
 from pathlib import Path
+import shutil
 
 import pytest
 
@@ -16,14 +18,32 @@ from live_contentops.tier2_video_factory_v1 import (
 INPUT = Path("docs/automation/CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1/contentops_full_automation_live_20260807_1")
 
 
-def _program():
-    story = load_governed_input(INPUT)
+@pytest.fixture(scope="module")
+def media_authorized_input(tmp_path_factory):
+    target = tmp_path_factory.mktemp("explicit-media-display") / "input"
+    shutil.copytree(INPUT, target)
+    support_path = target / "grounded_support_v1.json"
+    support = json.loads(support_path.read_text(encoding="utf-8"))
+    permissions = support["official_source_packet"]["public_claim_permissions"]
+    permissions["public_display_allowed"] = True
+    permissions["allowed_uses"] = ["public_reporting", "public_media_display"]
+    support_path.write_text(json.dumps(support), encoding="utf-8")
+    return target
+
+
+def _program(input_dir):
+    story = load_governed_input(input_dir)
     eligibility = decide_video_eligibility(story)
     return story, eligibility, build_video_program(story, eligibility)
 
 
-def test_real_governed_treasury_input_is_video_selected():
-    story, eligibility, program = _program()
+def test_historical_treasury_reporting_packet_is_not_media_display_authority():
+    with pytest.raises(RuntimeError, match="public_media_display"):
+        load_governed_input(INPUT)
+
+
+def test_explicit_media_display_grant_is_video_selected(media_authorized_input):
+    story, eligibility, program = _program(media_authorized_input)
     assert story["packet_id"] == "cc-evidence-bde0048ee1ebe31f"
     assert eligibility["result"] == "VIDEO_SELECTED"
     assert eligibility["rights_ready"] is True
@@ -39,8 +59,8 @@ def test_real_governed_treasury_input_is_video_selected():
     assert story["publication_authorized_cc_projection"]["values_regenerated_or_repaired"] is False
 
 
-def test_every_factual_scene_has_exact_claim_and_source_bindings():
-    _story, _eligibility, program = _program()
+def test_every_factual_scene_has_exact_claim_and_source_bindings(media_authorized_input):
+    _story, _eligibility, program = _program(media_authorized_input)
     expected = {
         "UST:2Y:2026-07-13",
         "UST:10Y:2026-07-13",
@@ -56,8 +76,8 @@ def test_every_factual_scene_has_exact_claim_and_source_bindings():
     assert coverage == expected
 
 
-def test_short_is_independently_directed_native_layout():
-    _story, _eligibility, program = _program()
+def test_short_is_independently_directed_native_layout(media_authorized_input):
+    _story, _eligibility, program = _program(media_authorized_input)
     long_ids = {row["scene_id"] for row in program["scenes"]}
     short_ids = {row["scene_id"] for row in program["short_variant"]["scenes"]}
     assert long_ids.isdisjoint(short_ids)
@@ -65,8 +85,8 @@ def test_short_is_independently_directed_native_layout():
     assert program["short_variant"]["scenes"][0]["display_title"] == "THE 30-YEAR AT 5.10%"
 
 
-def test_one_scene_field_only_invalidates_that_scene_and_chapter_input():
-    _story, _eligibility, program = _program()
+def test_one_scene_field_only_invalidates_that_scene_and_chapter_input(media_authorized_input):
+    _story, _eligibility, program = _program(media_authorized_input)
     before = {row["scene_id"]: logical_hash(row) for row in program["scenes"]}
     patched = deepcopy(program)
     patched["scenes"][4]["semantic_purpose"] += " corrected"
@@ -79,8 +99,8 @@ def test_one_scene_field_only_invalidates_that_scene_and_chapter_input():
     assert [item for item in before_chapters if before_chapters[item] != after_chapters[item]] == [target_chapter]
 
 
-def test_missing_rights_blocks_video_selection():
-    story = load_governed_input(INPUT)
+def test_missing_rights_blocks_video_selection(media_authorized_input):
+    story = load_governed_input(media_authorized_input)
     story["media_assets"][0]["rights_status"] = "unknown"
     assert decide_video_eligibility(story)["result"] == "VIDEO_BLOCKED"
 

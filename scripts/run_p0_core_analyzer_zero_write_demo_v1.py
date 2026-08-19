@@ -21,6 +21,7 @@ from live_contentops.capital_chronicle_data_catalog_v1 import (
     discover_cc_data_estate,
     query_story_scoped_cc_context,
 )
+from live_contentops.cc_evidence_bridge_v2 import build_evidence_packet_from_cc_root
 from live_contentops.cc_publication_authority_v1 import (
     build_publication_authorized_projection,
     resolve_publication_authority,
@@ -28,6 +29,9 @@ from live_contentops.cc_publication_authority_v1 import (
 )
 from live_contentops.public_secondary_evidence_loader_v1 import (
     BoundedPublicSecondaryEvidenceLoader,
+)
+from live_contentops.official_primary_evidence_loader_v1 import (
+    BoundedOfficialPrimaryEvidenceLoader,
 )
 
 
@@ -100,7 +104,55 @@ def _packet() -> dict[str, Any]:
     }
 
 
-def run_demo() -> dict[str, Any]:
+def _real_read_only_source_smoke() -> dict[str, Any]:
+    url = (
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/"
+        "TextView?type=daily_treasury_yield_curve"
+    )
+    loader = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-19T23:59:00Z",
+        max_requests=1,
+        timeout_seconds=12.0,
+        max_response_bytes=2_000_000,
+    )
+    try:
+        receipt = loader({
+            "cluster_id": "real-read-only-treasury-source-smoke",
+            "headline_ids": ["treasury-source-smoke"],
+            "source_adapter_families": ["official_macro"],
+            "story_context": {
+                "official_source_url_bindings": [{
+                    "headline_id": "treasury-source-smoke",
+                    "url": url,
+                    "feed_published_at_utc": "2026-08-19T00:00:00Z",
+                }]
+            },
+        })
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        return {
+            "attempted": True,
+            "status": "UNAVAILABLE",
+            "outcome": "safe_loader_exception:" + type(exc).__name__,
+            "source_url": url,
+            "public_claim_authority_weakened": False,
+        }
+    documents = receipt.get("official_source_documents") or []
+    document = (documents or [{}])[0]
+    return {
+        "attempted": True,
+        "status": receipt.get("status"),
+        "blockers": list(receipt.get("blockers") or []),
+        "source_url": document.get("source_url") or url,
+        "published_at_utc": document.get("published_at_utc"),
+        "published_at_source": document.get("published_at_source"),
+        "content_sha256": document.get("canonical_content_sha256") or document.get("raw_sha256"),
+        "accepted_document_count": len(documents),
+        "request_count": (receipt.get("provenance") or {}).get("request_count"),
+        "public_claim_authority_weakened": False,
+    }
+
+
+def run_demo(*, real_source_smoke: bool = False) -> dict[str, Any]:
     packet = _packet()
     authorized = resolve_publication_authority(packet, story_binding=BINDING)
     projection = build_publication_authorized_projection(packet, authorized)
@@ -109,6 +161,22 @@ def run_demo() -> dict[str, Any]:
     )
     v2_projection_blockers = validate_projection_for_consumer(
         projection, consumer="v2_media"
+    )
+    media_packet = json.loads(json.dumps(packet))
+    media_packet["public_claim_permissions"].update({
+        "public_display_allowed": True,
+        "allowed_uses": ["public_reporting", "public_media_display"],
+    })
+    media_resolution = resolve_publication_authority(
+        media_packet,
+        story_binding=BINDING,
+        intended_use="public_media_display",
+    )
+    media_projection = build_publication_authorized_projection(
+        media_packet, media_resolution
+    )
+    explicit_media_projection_blockers = validate_projection_for_consumer(
+        media_projection, consumer="v2_media"
     )
 
     internal_packet = json.loads(json.dumps(packet))
@@ -180,6 +248,50 @@ def run_demo() -> dict[str, Any]:
         no_context = query_story_scoped_cc_context(
             catalog, [], semantic_activation=empty_semantic
         )
+        incompatible_root = root / "incompatible"
+        publication_dir = (
+            incompatible_root / "docs/research/publication_evidence/current"
+        )
+        publication_dir.mkdir(parents=True)
+        (publication_dir / "CapitalChroniclePublicationEvidencePacketV9.json").write_text(
+            json.dumps({
+                "schema_version": "capital_chronicle.publication_evidence_packet.v9",
+                "packet_id": "incompatible-demo-9",
+                "as_of_utc": AS_OF,
+                "status": "PASS_PUBLICATION_AUTHORIZED",
+            }),
+            encoding="utf-8",
+        )
+        incompatible_packet = build_evidence_packet_from_cc_root(
+            incompatible_root, story_binding=BINDING
+        )
+        incompatible = resolve_publication_authority(
+            incompatible_packet, story_binding=BINDING
+        )
+
+    historical_path = (
+        REPO_ROOT
+        / "docs/automation/CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1"
+        / "contentops_full_automation_live_20260807_1/grounded_support_v1.json"
+    )
+    historical_packet = json.loads(historical_path.read_text(encoding="utf-8"))[
+        "official_source_packet"
+    ]
+    historical_story_id = historical_packet["publication_assignment"]["duplicate_key"]
+    historical_reporting = resolve_publication_authority(
+        historical_packet,
+        story_binding={"story_id": historical_story_id},
+        intended_use="public_reporting",
+    )
+    historical_media = resolve_publication_authority(
+        historical_packet,
+        story_binding={"story_id": historical_story_id},
+        intended_use="public_media_display",
+    )
+    live_source = _real_read_only_source_smoke() if real_source_smoke else {
+        "attempted": False,
+        "status": "NOT_REQUESTED",
+    }
 
     stale = resolve_publication_authority(
         packet,
@@ -201,10 +313,15 @@ def run_demo() -> dict[str, Any]:
     passed = bool(
         states == expected_states
         and not v1_projection_blockers
-        and not v2_projection_blockers
+        and "cc_projection_use_grant_mismatch" in v2_projection_blockers
+        and not explicit_media_projection_blockers
+        and historical_reporting["state"] == "PUBLICATION_PACKET_AVAILABLE"
+        and historical_media["state"] == "PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED"
+        and "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED" in incompatible["reason_codes"]
         and projection["exact_numeric_claims"] == packet["numeric_claims"]
         and projection["exact_time_series"] == packet["time_series"]
-        and projection["exact_chart_inputs"] == packet["candidate_visual_inputs"]
+        and projection["exact_chart_inputs"] == []
+        and media_projection["exact_chart_inputs"] == packet["candidate_visual_inputs"]
         and web["status"] == "PASS"
         and missing["ordinary_latest_web_article_may_continue"] is True
         and context["queried_table_count"] > 0
@@ -223,7 +340,24 @@ def run_demo() -> dict[str, Any]:
                 "v1_projection_blockers": v1_projection_blockers,
                 "v2_projection_blockers": v2_projection_blockers,
             },
+            "explicit_media_display_authorized": {
+                "resolution": media_resolution,
+                "projection_fingerprint": media_projection["projection_fingerprint"],
+                "v2_projection_blockers": explicit_media_projection_blockers,
+                "exact_values_preserved": (
+                    media_projection["exact_numeric_claims"] == packet["numeric_claims"]
+                ),
+            },
+            "accepted_historical_treasury_contract": {
+                "reporting_resolution": historical_reporting,
+                "media_display_resolution": historical_media,
+                "artifact_relative_path": str(historical_path.relative_to(REPO_ROOT)).replace("\\", "/"),
+            },
             "internal_analyzer_non_public": {"resolution": internal},
+            "incompatible_packet_present": {
+                "resolution": incompatible,
+                "selection": incompatible_packet["governed_contract"]["publication_selection"],
+            },
             "missing_cc_ordinary_latest_web": {
                 "resolution": missing,
                 "web_status": web["status"],
@@ -248,11 +382,12 @@ def run_demo() -> dict[str, Any]:
             },
         },
         "reachable_high_level_states": states,
+        "real_read_only_latest_web_source_smoke": live_source,
         "safety": {
             "public_write_performed": False,
             "provider_call_made": False,
             "browser_or_cdp_used": False,
-            "external_network_call_made": False,
+            "external_network_call_made": bool(real_source_smoke),
             "secret_or_session_material_read": False,
             "upstream_mutated": before != after,
             "model_created_numeric_substitution": False,
@@ -264,8 +399,9 @@ def run_demo() -> dict[str, Any]:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--real-source-smoke", action="store_true")
     args = parser.parse_args(argv)
-    result = run_demo()
+    result = run_demo(real_source_smoke=args.real_source_smoke)
     payload = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

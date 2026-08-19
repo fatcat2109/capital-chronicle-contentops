@@ -162,24 +162,101 @@ def test_all_publication_and_context_high_level_states_are_reachable():
     assert none["zero_context_reason"] == "MEANINGFUL_STORY_SEMANTICS_ABSENT"
 
 
-def test_shared_projection_is_lossless_and_accepted_by_v1_and_v2():
+def test_shared_projection_schema_is_lossless_and_exact_use_bound_for_v1_and_v2():
     packet = _bridge_packet()
     resolution = resolve_publication_authority(packet, story_binding=_binding())
     projection = build_publication_authorized_projection(packet, resolution)
 
     assert projection["exact_numeric_claims"] == packet["numeric_claims"]
     assert projection["exact_time_series"] == packet["time_series"]
-    assert projection["exact_chart_inputs"] == packet["candidate_visual_inputs"]
+    assert projection["exact_chart_inputs"] == []
     assert projection["values_regenerated_or_repaired"] is False
     assert projection["llm_numeric_authority"] is False
     assert validate_projection_for_consumer(projection, consumer="v1_article") == []
-    assert validate_projection_for_consumer(projection, consumer="v2_media") == []
+    assert "cc_projection_use_grant_mismatch" in validate_projection_for_consumer(
+        projection, consumer="v2_media"
+    )
+
+    media_resolution = resolve_publication_authority(
+        packet,
+        story_binding=_binding(),
+        intended_use="public_media_display",
+    )
+    assert media_resolution["state"] == PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED
+    assert (
+        "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:intended_use:public_media_display"
+        in media_resolution["reason_codes"]
+    )
+
+    explicitly_display_authorized = deepcopy(packet)
+    explicitly_display_authorized["public_claim_permissions"].update({
+        "public_display_allowed": True,
+        "allowed_uses": ["public_reporting", "public_media_display"],
+    })
+    media_resolution = resolve_publication_authority(
+        explicitly_display_authorized,
+        story_binding=_binding(),
+        intended_use="public_media_display",
+    )
+    assert media_resolution["state"] == PUBLICATION_PACKET_AVAILABLE
+    media_projection = build_publication_authorized_projection(
+        explicitly_display_authorized, media_resolution
+    )
+    assert media_projection["exact_numeric_claims"] == packet["numeric_claims"]
+    assert media_projection["exact_time_series"] == packet["time_series"]
+    assert media_projection["exact_chart_inputs"] == packet["candidate_visual_inputs"]
+    assert validate_projection_for_consumer(media_projection, consumer="v2_media") == []
 
     tampered = deepcopy(projection)
     tampered["exact_numeric_claims"][0]["value"] = "9.99"
     assert "cc_projection_fingerprint_mismatch" in validate_projection_for_consumer(
         tampered, consumer="v1_article"
     )
+
+
+def test_exact_consumer_and_use_must_be_proven_from_upstream_permissions():
+    packet = _bridge_packet()
+    mismatch = resolve_publication_authority(
+        packet,
+        story_binding=_binding(),
+        intended_consumer="contentops_video_publication",
+    )
+    assert mismatch["state"] == PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED
+    assert "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:consumer" in mismatch["reason_codes"]
+
+    absent_use = resolve_publication_authority(
+        packet,
+        story_binding=_binding(),
+        intended_use="public_media_display",
+    )
+    assert absent_use["resolved_upstream_grant"]["use_granted"] is False
+    packet["public_claim_permissions"]["reporting_allowed"] = False
+    reporting = resolve_publication_authority(packet, story_binding=_binding())
+    assert reporting["state"] == PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED
+    assert "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:intended_use:public_reporting" in reporting["reason_codes"]
+
+
+def test_accepted_historical_treasury_packet_grants_reporting_not_media_display():
+    evidence = Path(
+        "docs/automation/CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1/"
+        "contentops_full_automation_live_20260807_1/grounded_support_v1.json"
+    )
+    packet = json.loads(evidence.read_text(encoding="utf-8"))["official_source_packet"]
+    story_id = packet["publication_assignment"]["duplicate_key"]
+    reporting = resolve_publication_authority(
+        packet, story_binding={"story_id": story_id}, intended_use="public_reporting"
+    )
+    media = resolve_publication_authority(
+        packet, story_binding={"story_id": story_id}, intended_use="public_media_display"
+    )
+    assert reporting["state"] == PUBLICATION_PACKET_AVAILABLE
+    assert reporting["resolved_upstream_grant"]["upstream_permission_evidence"][
+        "permission_field"
+    ] == "reporting_allowed"
+    assert media["state"] == PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED
+    assert media["resolved_upstream_grant"]["upstream_permission_evidence"][
+        "public_display_allowed"
+    ] is None
 
 
 def test_explicit_compatible_successor_filename_is_discovered_and_bound(tmp_path: Path):
@@ -201,7 +278,15 @@ def test_explicit_compatible_successor_filename_is_discovered_and_bound(tmp_path
             "scope": "story-fed",
             "global_dqr_override": False,
         },
-        "public_claim_permissions": {"decision": "ALLOW", "reporting_allowed": True},
+        "public_claim_permissions": {
+            "decision": "ALLOW",
+            "reporting_allowed": True,
+            "numeric_claims_allowed": True,
+            "narrative_synthesis_allowed": True,
+            "public_display_allowed": True,
+            "allowed_uses": ["public_reporting", "public_media_display"],
+            "llm_numeric_authority": False,
+        },
         "source_health": {"status": "HEALTHY"},
         "global_authority": {"dqr": "BLOCKED", "global_state_unchanged": True},
         "rolling_x_story_binding": _binding(),
@@ -223,6 +308,32 @@ def test_explicit_compatible_successor_filename_is_discovered_and_bound(tmp_path
     assert packet["provenance"]["publication_packet"]["relative_path"].endswith(
         "CapitalChroniclePublicationEvidencePacketV2.json"
     )
+    assert packet["public_claim_permissions"]["public_display_allowed"] is True
+
+
+def test_incompatible_successor_remains_present_and_compatibility_required(tmp_path: Path):
+    current = tmp_path / "docs/research/publication_evidence/current"
+    current.mkdir(parents=True)
+    path = current / "CapitalChroniclePublicationEvidencePacketV9.json"
+    path.write_text(json.dumps({
+        "schema_version": "capital_chronicle.publication_evidence_packet.v9",
+        "packet_id": "incompatible-9",
+        "as_of_utc": AS_OF,
+        "status": "PASS_PUBLICATION_AUTHORIZED",
+        "public_claim_permissions": {
+            "decision": "ALLOW", "reporting_allowed": True
+        },
+    }), encoding="utf-8")
+
+    packet = build_evidence_packet_from_cc_root(tmp_path, story_binding=_binding())
+    resolution = resolve_publication_authority(packet, story_binding=_binding())
+    assert packet["governed_contract"]["publication_selection"]["state"] == (
+        "PRESENT_INCOMPATIBLE"
+    )
+    assert "CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED" in packet["blockers"]
+    assert resolution["state"] == PUBLICATION_PACKET_PRESENT_BUT_NOT_AUTHORIZED
+    assert resolution["state"] != PUBLICATION_PACKET_NOT_AVAILABLE
+    assert resolution["ordinary_latest_web_article_may_continue"] is True
 
 
 def test_semantic_activation_executes_only_bounded_read_only_queries(tmp_path: Path):

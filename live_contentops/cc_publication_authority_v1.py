@@ -36,6 +36,11 @@ _STALE_OR_HEALTH_MARKERS = (
     "future",
 )
 
+_CONSUMER_USE_BY_LOCAL_CONSUMER = {
+    "v1_article": ("contentops_publication", "public_reporting"),
+    "v2_media": ("contentops_publication", "public_media_display"),
+}
+
 
 def _hash(value: Any) -> str:
     return hashlib.sha256(
@@ -75,6 +80,48 @@ def _binding_blockers(
     if expected_hash and str(binding.get("request_logical_hash") or "") != expected_hash:
         blockers.append("CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH:request_logical_hash")
     return blockers
+
+
+def _resolve_upstream_grant(
+    permissions: Mapping[str, Any],
+    *,
+    intended_consumer: str,
+    intended_use: str,
+) -> dict[str, Any]:
+    """Map only explicit upstream permission semantics to an exact consumer/use grant."""
+    consumers = {str(value) for value in (permissions.get("consumer_class") or [])}
+    allowed_uses = {str(value) for value in (permissions.get("allowed_uses") or [])}
+    consumer_granted = intended_consumer in consumers
+    permission_field: str | None = None
+    permission_value: Any = None
+    if intended_use == "public_reporting":
+        permission_field = "reporting_allowed"
+        permission_value = permissions.get(permission_field)
+        use_granted = permission_value is True
+    elif intended_use == "public_media_display":
+        permission_field = "public_display_allowed"
+        permission_value = permissions.get(permission_field)
+        use_granted = permission_value is True
+    else:
+        use_granted = intended_use in allowed_uses
+        permission_field = "allowed_uses"
+        permission_value = sorted(allowed_uses)
+    return {
+        "intended_consumer": intended_consumer,
+        "intended_use": intended_use,
+        "consumer_granted": consumer_granted,
+        "use_granted": use_granted,
+        "granted": bool(consumer_granted and use_granted),
+        "upstream_permission_evidence": {
+            "consumer_class": sorted(consumers),
+            "permission_field": permission_field,
+            "permission_value": permission_value,
+            "allowed_uses": sorted(allowed_uses),
+            "reporting_allowed": permissions.get("reporting_allowed"),
+            "public_display_allowed": permissions.get("public_display_allowed"),
+            "reuse_allowed": permissions.get("reuse_allowed"),
+        },
+    }
 
 
 def resolve_publication_authority(
@@ -127,14 +174,19 @@ def resolve_publication_authority(
 
     permissions = packet.get("public_claim_permissions")
     permissions = permissions if isinstance(permissions, Mapping) else {}
-    consumers = {str(value) for value in (permissions.get("consumer_class") or [])}
-    if intended_consumer not in consumers:
+    upstream_grant = _resolve_upstream_grant(
+        permissions,
+        intended_consumer=intended_consumer,
+        intended_use=intended_use,
+    )
+    if not upstream_grant["consumer_granted"]:
         reason_codes.append("CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:consumer")
-    if (
-        permissions.get("decision") != "ALLOW"
-        or permissions.get("reporting_allowed") is not True
-    ):
-        reason_codes.append("CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:reporting")
+    if permissions.get("decision") != "ALLOW":
+        reason_codes.append("CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:decision")
+    if not upstream_grant["use_granted"]:
+        reason_codes.append(
+            "CC_PUBLICATION_PACKET_PERMISSION_BLOCKED:intended_use:" + intended_use
+        )
     if permissions.get("llm_numeric_authority") is not False:
         reason_codes.append("CC_PUBLICATION_PACKET_LLM_NUMERIC_AUTHORITY_INVALID")
     if packet.get("status") != "PASS_PUBLICATION_AUTHORIZED":
@@ -201,6 +253,7 @@ def resolve_publication_authority(
             or packet.get("publication_assignment")
             or {}
         ),
+        "resolved_upstream_grant": upstream_grant,
         "reason_codes": reason_codes,
         "ordinary_latest_web_article_may_continue": not authorized,
         "llm_numeric_authority": False,
@@ -214,6 +267,10 @@ def build_publication_authorized_projection(
     if resolution.get("state") != PUBLICATION_PACKET_AVAILABLE:
         raise ValueError("publication_authorized_cc_projection_requires_authority")
     permissions = dict(packet.get("public_claim_permissions") or {})
+    grant = resolution.get("resolved_upstream_grant")
+    grant = grant if isinstance(grant, Mapping) else {}
+    if grant.get("granted") is not True:
+        raise ValueError("publication_authorized_cc_projection_exact_use_grant_missing")
     if permissions.get("llm_numeric_authority") is not False:
         raise ValueError("publication_authorized_cc_projection_llm_authority_invalid")
     has_numeric_material = bool(
@@ -233,9 +290,10 @@ def build_publication_authorized_projection(
     chart_inputs = [
         dict(row)
         for row in (packet.get("candidate_visual_inputs") or [])
-        if isinstance(row, Mapping)
+        if permissions.get("public_display_allowed") is True
+        and isinstance(row, Mapping)
         and row.get("public_claim_allowed") is True
-        and row.get("public_display_allowed") is not False
+        and row.get("public_display_allowed") is True
     ]
     core = {
         "schema_version": PROJECTION_SCHEMA_VERSION,
@@ -250,6 +308,7 @@ def build_publication_authorized_projection(
         ),
         "consumer_binding": list(permissions.get("consumer_class") or []),
         "permitted_use": resolution.get("intended_use"),
+        "resolved_upstream_grant": dict(grant),
         "packet_schema_version": packet.get("schema_version"),
         "packet_fingerprint": resolution.get("packet_sha256"),
         "known_at_utc": packet.get("generated_at_utc"),
@@ -292,6 +351,9 @@ def build_publication_authorized_projection(
             "decision": permissions.get("decision"),
             "reporting_allowed": permissions.get("reporting_allowed"),
             "numeric_claims_allowed": permissions.get("numeric_claims_allowed"),
+            "public_display_allowed": permissions.get("public_display_allowed"),
+            "reuse_allowed": permissions.get("reuse_allowed"),
+            "allowed_uses": list(permissions.get("allowed_uses") or []),
         },
         "limitations": list(packet.get("limitations") or []),
         "blockers": [],
@@ -312,8 +374,19 @@ def validate_projection_for_consumer(
     )
     if projection.get("projection_fingerprint") != expected:
         blockers.append("cc_projection_fingerprint_mismatch")
-    if consumer not in {"v1_article", "v2_media"}:
+    expected_binding = _CONSUMER_USE_BY_LOCAL_CONSUMER.get(consumer)
+    if expected_binding is None:
         blockers.append("cc_projection_consumer_unsupported")
+    grant = projection.get("resolved_upstream_grant")
+    grant = grant if isinstance(grant, Mapping) else {}
+    if expected_binding is not None:
+        expected_consumer, expected_use = expected_binding
+        if grant.get("intended_consumer") != expected_consumer:
+            blockers.append("cc_projection_consumer_grant_mismatch")
+        if grant.get("intended_use") != expected_use:
+            blockers.append("cc_projection_use_grant_mismatch")
+        if grant.get("consumer_granted") is not True or grant.get("use_granted") is not True:
+            blockers.append("cc_projection_exact_upstream_grant_missing")
     if projection.get("authority_class") != PUBLICATION_AUTHORITY_CLASS:
         blockers.append("cc_projection_authority_class_invalid")
     if projection.get("llm_numeric_authority") is not False:
