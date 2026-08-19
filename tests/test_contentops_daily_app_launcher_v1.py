@@ -18,6 +18,7 @@ from live_contentops.daily_app_launcher_v1 import (
     build_credential_inventory,
     decide_action,
     is_canonical_daily_app_command_line,
+    logical_canonical_supervisor_count,
     preflight_store_safety,
     render_credential_inventory,
     render_summary,
@@ -289,6 +290,68 @@ def test_repeated_invocation_is_idempotent():
     assert all(decision.canonical_supervisor_count == 1 for decision in decisions)
 
 
+def test_logical_supervisor_count_collapses_only_proven_canonical_ancestry():
+    standalone = [{"pid": 100, "parent_pid": 9, "cmd": CANONICAL_CMDLINE}]
+    wrapper_child = [
+        {"pid": 100, "parent_pid": 9, "cmd": CANONICAL_CMDLINE},
+        {"pid": 101, "parent_pid": 100, "cmd": CANONICAL_CMDLINE},
+    ]
+    nested = wrapper_child + [
+        {"pid": 102, "parent_pid": 101, "cmd": CANONICAL_CMDLINE},
+    ]
+    independent = [
+        {"pid": 100, "parent_pid": 9, "cmd": CANONICAL_CMDLINE},
+        {"pid": 200, "parent_pid": 19, "cmd": CANONICAL_CMDLINE},
+    ]
+    two_trees = wrapper_child + [
+        {"pid": 200, "parent_pid": 19, "cmd": CANONICAL_CMDLINE},
+        {"pid": 201, "parent_pid": 200, "cmd": CANONICAL_CMDLINE},
+    ]
+    assert logical_canonical_supervisor_count(standalone, PRODUCTION_STORE) == 1
+    assert logical_canonical_supervisor_count(wrapper_child, PRODUCTION_STORE) == 1
+    assert logical_canonical_supervisor_count(nested, PRODUCTION_STORE) == 1
+    assert logical_canonical_supervisor_count(independent, PRODUCTION_STORE) == 2
+    assert logical_canonical_supervisor_count(two_trees, PRODUCTION_STORE) == 2
+
+
+def test_logical_supervisor_count_is_conservative_for_unknown_or_malformed_ancestry():
+    missing_parent = [
+        {"pid": 100, "cmd": CANONICAL_CMDLINE},
+        {"pid": 101, "cmd": CANONICAL_CMDLINE},
+    ]
+    duplicate_pid = [
+        {"pid": 100, "parent_pid": 9, "cmd": CANONICAL_CMDLINE},
+        {"pid": 100, "parent_pid": 9, "cmd": CANONICAL_CMDLINE},
+    ]
+    cyclic = [
+        {"pid": 100, "parent_pid": 101, "cmd": CANONICAL_CMDLINE},
+        {"pid": 101, "parent_pid": 100, "cmd": CANONICAL_CMDLINE},
+    ]
+    assert logical_canonical_supervisor_count(missing_parent, PRODUCTION_STORE) == 2
+    assert logical_canonical_supervisor_count(duplicate_pid, PRODUCTION_STORE) == 2
+    assert logical_canonical_supervisor_count(cyclic, PRODUCTION_STORE) == 2
+
+
+def test_healthy_listener_child_of_canonical_wrapper_is_one_running_supervisor():
+    inventory = _inventory(
+        listeners=[101],
+        listener_cmds={101: CANONICAL_CMDLINE},
+        supervisors=[
+            {"pid": 100, "parent_pid": 9, "cmd": CANONICAL_CMDLINE},
+            {"pid": 101, "parent_pid": 100, "cmd": CANONICAL_CMDLINE},
+        ],
+    )
+    decision = decide_action(
+        api_base="http://127.0.0.1:5174",
+        store_path=Path(PRODUCTION_STORE),
+        inventory=inventory,
+        health={"status": "LOOPBACK_API_HEALTHY", "schema_version": launcher.LOOPBACK_API_SCHEMA},
+        snapshot=_healthy_snapshot(),
+    )
+    assert decision.outcome == "ALREADY_RUNNING"
+    assert decision.canonical_supervisor_count == 1
+
+
 def test_multiple_supervisors_fails_closed():
     inventory = _inventory(
         listeners=[51892],
@@ -307,6 +370,66 @@ def test_multiple_supervisors_fails_closed():
     )
     assert decision.outcome == "BLOCKED_MULTIPLE_SUPERVISORS"
     assert decision.may_spawn is False
+
+
+def test_two_independent_wrapper_child_trees_fail_closed():
+    inventory = _inventory(supervisors=[
+        {"pid": 100, "parent_pid": 9, "cmd": CANONICAL_CMDLINE},
+        {"pid": 101, "parent_pid": 100, "cmd": CANONICAL_CMDLINE},
+        {"pid": 200, "parent_pid": 19, "cmd": CANONICAL_CMDLINE},
+        {"pid": 201, "parent_pid": 200, "cmd": CANONICAL_CMDLINE},
+    ])
+    decision = decide_action(
+        api_base="http://127.0.0.1:5174",
+        store_path=Path(PRODUCTION_STORE),
+        inventory=inventory,
+        health=None,
+        snapshot=None,
+    )
+    assert decision.outcome == "BLOCKED_MULTIPLE_SUPERVISORS"
+    assert decision.canonical_supervisor_count == 2
+
+
+def test_post_start_wrapper_child_topology_does_not_trigger_duplicate_race(
+    tmp_path, monkeypatch, capsys,
+):
+    store = tmp_path / "shadow.sqlite3"
+    output = tmp_path / "outputs"
+    logs = tmp_path / "logs"
+    inventories = iter([
+        _inventory(),
+        _inventory(supervisors=[
+            {"pid": 100, "parent_pid": 9, "cmd": (
+                '"python.exe" -m live_contentops.cli daily-app start '
+                f'--store-path "{store}" --output-root "{output}"'
+            )},
+            {"pid": 101, "parent_pid": 100, "cmd": (
+                '"python.exe" -m live_contentops.cli daily-app start '
+                f'--store-path "{store}" --output-root "{output}"'
+            )},
+        ]),
+    ])
+    stopped: list[int] = []
+    monkeypatch.setattr(launcher, "collect_port_inventory", lambda _port: next(inventories))
+    monkeypatch.setattr(launcher, "spawn_detached_daily_app", lambda *_, **__: 100)
+    monkeypatch.setattr(launcher, "wait_for_health", lambda *_, **__: True)
+    monkeypatch.setattr(launcher, "probe_snapshot", lambda *_: _healthy_snapshot())
+    monkeypatch.setattr(launcher, "probe_cdp", lambda _port: {"cdp_alive": False})
+    monkeypatch.setattr(launcher, "_stop_pid", stopped.append)
+    result = launcher.run_launcher([
+        "--store-path", str(store),
+        "--output-root", str(output),
+        "--log-root", str(logs),
+        "--allow-new-store",
+        "--no-ui",
+        "--no-open-browser",
+        "--no-ingestion-bootstrap",
+    ])
+    assert result == 0
+    assert stopped == []
+    assert "Decision: STARTED" in capsys.readouterr().out
+    identity = json.loads((logs / "runtime_identity_v1.json").read_text(encoding="utf-8"))
+    assert identity["supervisor_pid"] == 100
 
 
 @pytest.mark.skipif(sys.platform != "win32", reason="Windows-native detached spawn")

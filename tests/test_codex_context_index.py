@@ -287,6 +287,43 @@ def test_relevant_file_and_scoped_agents_changes_change_digest(monkeypatch, tmp_
     assert before != after_code != after_agents
 
 
+def test_indexed_text_digest_and_size_are_line_ending_independent(monkeypatch, tmp_path):
+    root = tmp_path / "repo"
+    source = root / "live_contentops" / "relevant.py"
+    source.parent.mkdir(parents=True)
+    monkeypatch.setattr(index, "ROOT", root)
+
+    source.write_bytes(b"VALUE = 1\nNEXT = 2\n")
+    lf_digest = index.source_digest([source])
+    lf_size = index.canonical_source_size(source)
+
+    source.write_bytes(b"VALUE = 1\r\nNEXT = 2\r\n")
+    assert index.source_digest([source]) == lf_digest
+    assert index.canonical_source_size(source) == lf_size
+
+    source.write_bytes(b"VALUE = 1\r\nNEXT = 3\r\n")
+    assert index.source_digest([source]) != lf_digest
+    assert index.canonical_source_size(source) == lf_size
+
+
+def test_non_text_source_bytes_remain_unnormalized(monkeypatch, tmp_path):
+    root = tmp_path / "repo"
+    source = root / "fixtures" / "payload.bin"
+    source.parent.mkdir(parents=True)
+    monkeypatch.setattr(index, "ROOT", root)
+
+    crlf_payload = b"\x00binary\r\npayload\xff"
+    source.write_bytes(crlf_payload)
+    crlf_digest = index.source_digest([source])
+    assert index.canonical_source_bytes(source) == crlf_payload
+    assert index.canonical_source_size(source) == len(crlf_payload)
+
+    lf_payload = b"\x00binary\npayload\xff"
+    source.write_bytes(lf_payload)
+    assert index.canonical_source_bytes(source) == lf_payload
+    assert index.source_digest([source]) != crlf_digest
+
+
 def test_runtime_raw_data_and_cache_changes_do_not_change_digest(monkeypatch, tmp_path):
     root = tmp_path / "repo"
     code = root / "live_contentops" / "relevant.py"

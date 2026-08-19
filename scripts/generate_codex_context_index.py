@@ -27,7 +27,7 @@ INDEX_PATH = OUTPUT_DIR / "INDEX.md"
 V2_CONTEXT_PATH = OUTPUT_DIR / "V2_CONTEXT.md"
 V1_CONTEXT_PATH = OUTPUT_DIR / "V1_CONTEXT.md"
 SCHEMA_VERSION = "contentops.codex_context_graph.v2"
-GENERATOR_VERSION = "2.4.0"
+GENERATOR_VERSION = "2.5.0"
 
 CODE_SUFFIXES = {
     ".py",
@@ -41,6 +41,7 @@ CODE_SUFFIXES = {
     ".cmd",
     ".bat",
 }
+TEXT_SOURCE_SUFFIXES = CODE_SUFFIXES | {".json", ".md", ".toml"}
 MANIFEST_NAMES = {"pyproject.toml", "package.json", "tsconfig.json", "vite.config.ts"}
 AUTHORITY_DOCS = {
     "AGENTS.md",
@@ -290,12 +291,24 @@ def git_head() -> str:
         return "UNKNOWN"
 
 
+def canonical_source_bytes(path: Path) -> bytes:
+    """Return checkout-independent bytes for indexed text and raw bytes otherwise."""
+    payload = path.read_bytes()
+    if path.suffix.lower() not in TEXT_SOURCE_SUFFIXES:
+        return payload
+    return payload.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+
+
+def canonical_source_size(path: Path) -> int:
+    return len(canonical_source_bytes(path))
+
+
 def source_digest(paths: Iterable[Path]) -> str:
     digest = hashlib.sha256()
     for path in paths:
         digest.update(rel(path).encode("utf-8"))
         digest.update(b"\0")
-        digest.update(hashlib.sha256(path.read_bytes()).digest())
+        digest.update(hashlib.sha256(canonical_source_bytes(path)).digest())
         digest.update(b"\n")
     return digest.hexdigest()
 
@@ -840,7 +853,7 @@ def build_graph() -> dict[str, Any]:
     for path in paths:
         source = rel(path)
         nodes.append(
-            {"id": source, "kind": node_kind(source), "size_bytes": path.stat().st_size}
+            {"id": source, "kind": node_kind(source), "size_bytes": canonical_source_size(path)}
         )
     symbol_nodes: list[dict[str, Any]] = []
     metadata_edges: list[dict[str, str]] = []

@@ -12,9 +12,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13404,
+    "edges": 13414,
     "entrypoints": 16,
-    "nodes": 7112,
+    "nodes": 7116,
     "nodes_by_kind": {
       "authority_doc": 7,
       "cli_command": 27,
@@ -24,7 +24,7 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 590,
-      "python_function": 3878,
+      "python_function": 3882,
       "python_method": 274,
       "python_module": 740,
       "schema": 183,
@@ -9248,6 +9248,12 @@
       "from": "live_contentops/daily_app_launcher_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::_process_pid"
+    },
+    {
+      "from": "live_contentops/daily_app_launcher_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::_read_ui_epoch"
     },
     {
@@ -9351,6 +9357,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::is_canonical_daily_app_command_line"
+    },
+    {
+      "from": "live_contentops/daily_app_launcher_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count"
     },
     {
       "from": "live_contentops/daily_app_launcher_v1.py",
@@ -46448,6 +46460,12 @@
       "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::decide_action",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::decide_action",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::preflight_store_safety"
     },
     {
@@ -46503,6 +46521,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::ensure_current_ui_build"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::_process_pid"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::is_canonical_daily_app_command_line"
     },
     {
       "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::preflight_store_safety",
@@ -46592,7 +46622,7 @@
       "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_launcher",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::is_canonical_daily_app_command_line"
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count"
     },
     {
       "from": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_launcher",
@@ -52148,7 +52178,7 @@
       "from": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::build_hourly_audit",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::is_canonical_daily_app_command_line"
+      "to": "python_symbol:live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count"
     },
     {
       "from": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::build_hourly_audit",
@@ -67208,6 +67238,12 @@
       "from": "python_symbol:scripts/generate_codex_context_index.py::build_graph",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_size"
+    },
+    {
+      "from": "python_symbol:scripts/generate_codex_context_index.py::build_graph",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:scripts/generate_codex_context_index.py::entrypoint_rows"
     },
     {
@@ -67329,6 +67365,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:scripts/generate_codex_context_index.py::rel"
+    },
+    {
+      "from": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_size",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_bytes"
     },
     {
       "from": "python_symbol:scripts/generate_codex_context_index.py::check_outputs",
@@ -67497,6 +67539,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:scripts/generate_codex_context_index.py::read_text"
+    },
+    {
+      "from": "python_symbol:scripts/generate_codex_context_index.py::source_digest",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_bytes"
     },
     {
       "from": "python_symbol:scripts/generate_codex_context_index.py::source_digest",
@@ -68829,6 +68877,18 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/generate_codex_context_index.py::build_outputs"
+    },
+    {
+      "from": "scripts/generate_codex_context_index.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_bytes"
+    },
+    {
+      "from": "scripts/generate_codex_context_index.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_size"
     },
     {
       "from": "scripts/generate_codex_context_index.py",
@@ -80578,8 +80638,8 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-19T18:08:11Z",
-  "generator_version": "2.4.0",
+  "generation_timestamp_utc": "2026-08-19T19:46:04Z",
+  "generator_version": "2.5.0",
   "included_roots": [
     "live_contentops/",
     "headline_ingestion/",
@@ -81867,7 +81927,7 @@
     {
       "id": "live_contentops/daily_app_launcher_v1.py",
       "kind": "python_module",
-      "size_bytes": 45439
+      "size_bytes": 48430
     },
     {
       "id": "live_contentops/daily_app_performance_v1.py",
@@ -82427,7 +82487,7 @@
     {
       "id": "live_contentops/hourly_runtime_audit_v1.py",
       "kind": "python_module",
-      "size_bytes": 20352
+      "size_bytes": 20318
     },
     {
       "id": "live_contentops/ide_cli_document_bundle.py",
@@ -91731,84 +91791,91 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_append_launcher_log",
       "kind": "python_function",
-      "line": 895,
+      "line": 981,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_append_launcher_log"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_current_source_sha",
       "kind": "python_function",
-      "line": 883,
+      "line": 969,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_current_source_sha"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_http_get_json",
       "kind": "python_function",
-      "line": 145,
+      "line": 232,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_http_get_json"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_powershell_json",
       "kind": "python_function",
-      "line": 330,
+      "line": 417,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_powershell_json"
     },
     {
+      "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_process_pid",
+      "kind": "python_function",
+      "line": 145,
+      "path": "live_contentops/daily_app_launcher_v1.py",
+      "symbol": "_process_pid"
+    },
+    {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_read_ui_epoch",
       "kind": "python_function",
-      "line": 216,
+      "line": 303,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_read_ui_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_redaction_guard",
       "kind": "python_function",
-      "line": 873,
+      "line": 959,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_redaction_guard"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_stop_pid",
       "kind": "python_function",
-      "line": 1050,
+      "line": 1138,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_stop_pid"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_ui_epoch_payload",
       "kind": "python_function",
-      "line": 197,
+      "line": 284,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_ui_epoch_payload"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_ui_source_files",
       "kind": "python_function",
-      "line": 155,
+      "line": 242,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_ui_source_files"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_url_ok",
       "kind": "python_function",
-      "line": 788,
+      "line": 874,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_url_ok"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_write_json_atomic",
       "kind": "python_function",
-      "line": 206,
+      "line": 293,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_write_json_atomic"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::_write_runtime_identity",
       "kind": "python_function",
-      "line": 902,
+      "line": 988,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "_write_runtime_identity"
     },
@@ -91822,14 +91889,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::build_credential_inventory",
       "kind": "python_function",
-      "line": 506,
+      "line": 592,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "build_credential_inventory"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::build_credential_inventory.presence",
       "kind": "python_method",
-      "line": 509,
+      "line": 595,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "build_credential_inventory.presence"
     },
@@ -91843,35 +91910,35 @@
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::collect_port_inventory",
       "kind": "python_function",
-      "line": 348,
+      "line": 435,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "collect_port_inventory"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::compute_ui_source_epoch",
       "kind": "python_function",
-      "line": 180,
+      "line": 267,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "compute_ui_source_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::decide_action",
       "kind": "python_function",
-      "line": 397,
+      "line": 484,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "decide_action"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::ensure_current_ui_build",
       "kind": "python_function",
-      "line": 224,
+      "line": 311,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "ensure_current_ui_build"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::ensure_ui",
       "kind": "python_function",
-      "line": 623,
+      "line": 709,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "ensure_ui"
     },
@@ -91883,79 +91950,86 @@
       "symbol": "is_canonical_daily_app_command_line"
     },
     {
+      "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count",
+      "kind": "python_function",
+      "line": 153,
+      "path": "live_contentops/daily_app_launcher_v1.py",
+      "symbol": "logical_canonical_supervisor_count"
+    },
+    {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::open_operator_dashboard",
       "kind": "python_function",
-      "line": 721,
+      "line": 807,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "open_operator_dashboard"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::preflight_store_safety",
       "kind": "python_function",
-      "line": 384,
+      "line": 471,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "preflight_store_safety"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::probe_health",
       "kind": "python_function",
-      "line": 312,
+      "line": 399,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "probe_health"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::probe_snapshot",
       "kind": "python_function",
-      "line": 323,
+      "line": 410,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "probe_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::render_credential_inventory",
       "kind": "python_function",
-      "line": 541,
+      "line": 627,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "render_credential_inventory"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::render_summary",
       "kind": "python_function",
-      "line": 796,
+      "line": 882,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "render_summary"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::run_launcher",
       "kind": "python_function",
-      "line": 923,
+      "line": 1009,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "run_launcher"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::spawn_detached_daily_app",
       "kind": "python_function",
-      "line": 474,
+      "line": 560,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "spawn_detached_daily_app"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::store_path_is_protected_backup",
       "kind": "python_function",
-      "line": 379,
+      "line": 466,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "store_path_is_protected_backup"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::summarize_browser_state",
       "kind": "python_function",
-      "line": 548,
+      "line": 634,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "summarize_browser_state"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_launcher_v1.py::wait_for_health",
       "kind": "python_function",
-      "line": 497,
+      "line": 583,
       "path": "live_contentops/daily_app_launcher_v1.py",
       "symbol": "wait_for_health"
     },
@@ -97709,21 +97783,21 @@
     {
       "id": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::build_hourly_audit",
       "kind": "python_function",
-      "line": 306,
+      "line": 309,
       "path": "live_contentops/hourly_runtime_audit_v1.py",
       "symbol": "build_hourly_audit"
     },
     {
       "id": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::main",
       "kind": "python_function",
-      "line": 435,
+      "line": 437,
       "path": "live_contentops/hourly_runtime_audit_v1.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::write_audit_artifacts",
       "kind": "python_function",
-      "line": 394,
+      "line": 396,
       "path": "live_contentops/hourly_runtime_audit_v1.py",
       "symbol": "write_audit_artifacts"
     },
@@ -116469,217 +116543,231 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_graph",
       "kind": "python_function",
-      "line": 831,
+      "line": 844,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_outputs",
       "kind": "python_function",
-      "line": 1194,
+      "line": 1207,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_outputs"
     },
     {
+      "id": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_bytes",
+      "kind": "python_function",
+      "line": 294,
+      "path": "scripts/generate_codex_context_index.py",
+      "symbol": "canonical_source_bytes"
+    },
+    {
+      "id": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_size",
+      "kind": "python_function",
+      "line": 302,
+      "path": "scripts/generate_codex_context_index.py",
+      "symbol": "canonical_source_size"
+    },
+    {
       "id": "python_symbol:scripts/generate_codex_context_index.py::check_outputs",
       "kind": "python_function",
-      "line": 1210,
+      "line": 1223,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "check_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::context_markdown",
       "kind": "python_function",
-      "line": 1038,
+      "line": 1051,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "context_markdown"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::entrypoint_rows",
       "kind": "python_function",
-      "line": 736,
+      "line": 749,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "entrypoint_rows"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::git_commit_timestamp",
       "kind": "python_function",
-      "line": 232,
+      "line": 233,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "git_commit_timestamp"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::git_head",
       "kind": "python_function",
-      "line": 244,
+      "line": 245,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "git_head"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::http_endpoint_nodes",
       "kind": "python_function",
-      "line": 549,
+      "line": 562,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "http_endpoint_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::included",
       "kind": "python_function",
-      "line": 194,
+      "line": 195,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "included"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::index_markdown",
       "kind": "python_function",
-      "line": 1098,
+      "line": 1111,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "index_markdown"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::is_test_path",
       "kind": "python_function",
-      "line": 689,
+      "line": 702,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "is_test_path"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::main",
       "kind": "python_function",
-      "line": 1317,
+      "line": 1330,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::nearest_agents_file",
       "kind": "python_function",
-      "line": 303,
+      "line": 316,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "nearest_agents_file"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::node_kind",
       "kind": "python_function",
-      "line": 787,
+      "line": 800,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "node_kind"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::normalized_for_check",
       "kind": "python_function",
-      "line": 1204,
+      "line": 1217,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "normalized_for_check"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_call_edges",
       "kind": "python_function",
-      "line": 654,
+      "line": 667,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_call_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_definitions",
       "kind": "python_function",
-      "line": 450,
+      "line": 463,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_definitions"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_import_edges",
       "kind": "python_function",
-      "line": 332,
+      "line": 345,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_import_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_metadata_nodes",
       "kind": "python_function",
-      "line": 499,
+      "line": 512,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_metadata_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_module_name",
       "kind": "python_function",
-      "line": 323,
+      "line": 336,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_module_name"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_tree",
       "kind": "python_function",
-      "line": 443,
+      "line": 456,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_tree"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::read_text",
       "kind": "python_function",
-      "line": 316,
+      "line": 329,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "read_text"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::rel",
       "kind": "python_function",
-      "line": 190,
+      "line": 191,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "rel"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::source_digest",
       "kind": "python_function",
-      "line": 293,
+      "line": 306,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "source_digest"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::source_files",
       "kind": "python_function",
-      "line": 216,
+      "line": 217,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "source_files"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::test_relationships",
       "kind": "python_function",
-      "line": 698,
+      "line": 711,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "test_relationships"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::ts_import_edges",
       "kind": "python_function",
-      "line": 377,
+      "line": 390,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "ts_import_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::typescript_export_nodes",
       "kind": "python_function",
-      "line": 477,
+      "line": 490,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "typescript_export_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_context_contract",
       "kind": "python_function",
-      "line": 1260,
+      "line": 1273,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_context_contract"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_graph",
       "kind": "python_function",
-      "line": 1238,
+      "line": 1251,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::write_outputs",
       "kind": "python_function",
-      "line": 1294,
+      "line": 1307,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "write_outputs"
     },
@@ -118696,7 +118784,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 54638
+      "size_bytes": 55128
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -119321,7 +119409,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 13787
+      "size_bytes": 15223
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
@@ -119426,7 +119514,7 @@
     {
       "id": "tests/test_contentops_daily_app_launcher_v1.py",
       "kind": "test",
-      "size_bytes": 19326
+      "size_bytes": 24474
     },
     {
       "id": "tests/test_contentops_emergency_stop_v1.py",
@@ -120756,7 +120844,7 @@
     {
       "id": "tests/test_operator_control_plane_hourly_audit_v1.py",
       "kind": "test",
-      "size_bytes": 10866
+      "size_bytes": 13976
     },
     {
       "id": "tests/test_operator_dashboard.py",
@@ -126734,6 +126822,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "549f6f19df05dd08de7b3cd857d1f57029bd5063",
-  "source_tree_digest": "9f3a228de39a7601d0e3bfef4a6719b247a5957fdb17a38f03d052f835f0d6f4"
+  "source_head": "fc6bf77f10322cc666ad694ac1de6c5096aa3926",
+  "source_tree_digest": "34d53617e276ddf9b9120b6cdff3548d9b6966e38d31d3974f97c1f83f36bae2"
 }

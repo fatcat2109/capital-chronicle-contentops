@@ -142,6 +142,93 @@ def is_canonical_daily_app_command_line(command_line: str, expected_store_path: 
     return store in normalized.replace('"', "")
 
 
+def _process_pid(row: Mapping[str, Any], key: str) -> int | None:
+    try:
+        value = int(row.get(key))
+    except (TypeError, ValueError):
+        return None
+    return value if value > 0 else None
+
+
+def logical_canonical_supervisor_count(
+    supervisor_processes: list[dict[str, Any]],
+    expected_store_path: str,
+) -> int:
+    """Count canonical Daily App process trees, not raw Windows process rows.
+
+    The canonical Windows venv can expose a wrapper ``python.exe`` and its child
+    interpreter with the same command line.  A process is collapsed only when its
+    positive, well-formed parent PID identifies another unique canonical process in
+    this exact inventory.  Missing/malformed ancestry, duplicate PIDs, and cycles are
+    counted conservatively as independent roots.
+    """
+    canonical = [
+        row for row in supervisor_processes
+        if is_canonical_daily_app_command_line(
+            str(row.get("cmd") or ""), expected_store_path
+        )
+    ]
+    if not canonical:
+        return 0
+
+    pid_counts: dict[int, int] = {}
+    for row in canonical:
+        pid = _process_pid(row, "pid")
+        if pid is not None:
+            pid_counts[pid] = pid_counts.get(pid, 0) + 1
+
+    unique_rows = {
+        pid: row
+        for row in canonical
+        if (pid := _process_pid(row, "pid")) is not None
+        and pid_counts.get(pid) == 1
+    }
+    conservative_roots = sum(
+        1
+        for row in canonical
+        if (pid := _process_pid(row, "pid")) is None
+        or pid_counts.get(pid) != 1
+    )
+    parent_by_pid = {
+        pid: _process_pid(row, "parent_pid")
+        for pid, row in unique_rows.items()
+    }
+    resolved_roots: dict[int, int] = {}
+    anomalous_pids: set[int] = set()
+
+    for starting_pid in unique_rows:
+        if starting_pid in resolved_roots or starting_pid in anomalous_pids:
+            continue
+        path: list[int] = []
+        positions: dict[int, int] = {}
+        current_pid = starting_pid
+        root_pid: int | None = None
+        while True:
+            if current_pid in resolved_roots:
+                root_pid = resolved_roots[current_pid]
+                break
+            if current_pid in anomalous_pids:
+                anomalous_pids.update(path)
+                break
+            if current_pid in positions:
+                # A real Windows process tree cannot cycle.  Do not collapse any
+                # process whose ancestry is therefore malformed/unprovable.
+                anomalous_pids.update(path)
+                break
+            positions[current_pid] = len(path)
+            path.append(current_pid)
+            parent_pid = parent_by_pid[current_pid]
+            if parent_pid is None or parent_pid not in unique_rows:
+                root_pid = current_pid
+                break
+            current_pid = parent_pid
+        if root_pid is not None:
+            for pid in path:
+                resolved_roots[pid] = root_pid
+
+    return conservative_roots + len(set(resolved_roots.values())) + len(anomalous_pids)
+
+
 def _http_get_json(url: str, *, timeout: float) -> Optional[dict[str, Any]]:
     try:
         with urllib.request.urlopen(url, timeout=timeout) as response:
@@ -355,7 +442,7 @@ def collect_port_inventory(api_port: int) -> PortInventory:
         "$details[[string]$p]=$c};"
         "$supervisors=@(Get-CimInstance Win32_Process -Filter \"Name='python.exe' OR Name='pythonw.exe'\""
         " | Where-Object { $_.CommandLine -like '*daily-app*' }"
-        " | ForEach-Object { @{ pid = $_.ProcessId; cmd = $_.CommandLine } });"
+        " | ForEach-Object { @{ pid = $_.ProcessId; parent_pid = $_.ParentProcessId; cmd = $_.CommandLine } });"
         "@{ listeners = $listeners; listener_command_lines = $details; supervisors = $supervisors }"
         " | ConvertTo-Json -Compress -Depth 4"
     )
@@ -409,15 +496,14 @@ def decide_action(
             reason="The launcher cannot prove who owns the Daily App port; failing closed instead of spawning.",
         )
     store_ok, store_reason = preflight_store_safety(store_path, allow_new_store=allow_new_store)
-    canonical_supervisors = [
-        row for row in inventory.supervisor_processes
-        if is_canonical_daily_app_command_line(str(row.get("cmd") or ""), str(store_path))
-    ]
-    if len(canonical_supervisors) > 1:
+    logical_supervisor_count = logical_canonical_supervisor_count(
+        inventory.supervisor_processes, str(store_path)
+    )
+    if logical_supervisor_count > 1:
         return LaunchDecision(
             outcome="BLOCKED_MULTIPLE_SUPERVISORS",
             reason="More than one canonical Daily App supervisor process is present; resolve manually, never spawn a third.",
-            canonical_supervisor_count=len(canonical_supervisors),
+            canonical_supervisor_count=logical_supervisor_count,
         )
     if inventory.listener_pids:
         port_pid = int(inventory.listener_pids[0])
@@ -427,14 +513,14 @@ def decide_action(
                 outcome="BLOCKED_PORT_OWNER_UNPROVEN",
                 reason=f"Port is occupied but the owning process identity (PID {port_pid}) cannot be proven; failing closed.",
                 port_pid=port_pid,
-                canonical_supervisor_count=len(canonical_supervisors),
+                canonical_supervisor_count=logical_supervisor_count,
             )
         if not is_canonical_daily_app_command_line(command_line, str(store_path)):
             return LaunchDecision(
                 outcome="BLOCKED_PORT_OWNER_UNPROVEN",
                 reason=f"Port is owned by a process that is not the canonical Daily App for the expected store (PID {port_pid}); failing closed.",
                 port_pid=port_pid,
-                canonical_supervisor_count=len(canonical_supervisors),
+                canonical_supervisor_count=logical_supervisor_count,
             )
         health = health if health is not None else probe_health(api_base)
         snapshot = snapshot if snapshot is not None else probe_snapshot(api_base)
@@ -445,7 +531,7 @@ def decide_action(
                 outcome=outcome,
                 reason="Canonical Daily App is already healthy for the expected production store; no duplicate start.",
                 port_pid=port_pid,
-                canonical_supervisor_count=max(len(canonical_supervisors), 1),
+                canonical_supervisor_count=max(logical_supervisor_count, 1),
                 kill_switch_active=kill_switch,
                 store_identity_canonical=True,
             )
@@ -453,13 +539,13 @@ def decide_action(
             outcome="BLOCKED_SUPERVISOR_PRESENT_API_NOT_HEALTHY",
             reason="A canonical supervisor process owns the port but the loopback API/snapshot is not healthy; not spawning a duplicate. Re-run in a moment or inspect logs.",
             port_pid=port_pid,
-            canonical_supervisor_count=max(len(canonical_supervisors), 1),
+            canonical_supervisor_count=max(logical_supervisor_count, 1),
         )
-    if canonical_supervisors:
+    if logical_supervisor_count:
         return LaunchDecision(
             outcome="BLOCKED_SUPERVISOR_PRESENT_API_NOT_HEALTHY",
             reason="A canonical supervisor process exists but is not listening on the expected port; not spawning a duplicate.",
-            canonical_supervisor_count=len(canonical_supervisors),
+            canonical_supervisor_count=logical_supervisor_count,
         )
     if not store_ok:
         return LaunchDecision(outcome=store_reason, reason=f"Start blocked: {store_reason}.")
@@ -972,8 +1058,10 @@ def run_launcher(argv: list[str] | None = None) -> int:
         if wait_for_health(api_base, timeout_seconds=args.start_timeout_seconds):
             snapshot = probe_snapshot(api_base)
             post = collect_port_inventory(args.api_port)
-            post_canonical = [row for row in post.supervisor_processes if is_canonical_daily_app_command_line(str(row.get("cmd") or ""), str(store_path))]
-            if len(post_canonical) > 1:
+            post_logical_count = logical_canonical_supervisor_count(
+                post.supervisor_processes, str(store_path)
+            )
+            if post_logical_count > 1:
                 _stop_pid(spawned_pid)
                 print(_redaction_guard(
                     "BLOCKED_DUPLICATE_SUPERVISOR_RACE: the launcher-spawned process was stopped; "
@@ -984,7 +1072,7 @@ def run_launcher(argv: list[str] | None = None) -> int:
                 outcome="STARTED_KILL_SWITCH_ACTIVE" if bool((snapshot or {}).get("runtime", {}).get("kill_switch_active")) else "STARTED",
                 reason="Canonical Daily App was started detached by this launcher and is healthy.",
                 port_pid=spawned_pid,
-                canonical_supervisor_count=max(len(post_canonical), 1),
+                canonical_supervisor_count=max(post_logical_count, 1),
                 kill_switch_active=bool((snapshot or {}).get("runtime", {}).get("kill_switch_active")),
                 store_identity_canonical=True,
             )
