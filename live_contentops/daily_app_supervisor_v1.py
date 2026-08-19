@@ -2161,7 +2161,7 @@ class ContentOpsDailyAppSupervisor:
     def _material_event_wake_eligibility(
         self, window: Mapping[str, Any], now: datetime
     ) -> dict[str, Any]:
-        """Apply shadow scope, active-cycle, spacing, and daily saturation controls."""
+        """Apply shadow, competing-cycle, routine-absorption, spacing, and saturation controls."""
         if self._operating_mode != "SHADOW_ONLY":
             return {"eligible": False, "reason": "SHADOW_NO_PUBLIC_WRITE_SCOPE_REQUIRED"}
         active = [
@@ -2171,6 +2171,21 @@ class ContentOpsDailyAppSupervisor:
         ]
         if active:
             return {"eligible": False, "reason": "ACTIVE_EDITORIAL_CYCLE_PRESENT"}
+        due_unexecuted_scheduled = [
+            scheduled
+            for scheduled in self._currently_due_scheduled_windows(now)
+            if self._window_state(str(scheduled["window_id"]))
+            not in WINDOW_EXECUTED_STATES
+        ]
+        if due_unexecuted_scheduled:
+            return {
+                "eligible": False,
+                "reason": "CURRENTLY_DUE_SCHEDULED_OPPORTUNITY_AVAILABLE",
+                "absorbing_scheduled_window_ids": [
+                    str(value["window_id"])
+                    for value in due_unexecuted_scheduled
+                ],
+            }
         completed = self._completed_editorial_opportunity_times(now)
         completed_material_events = self._completed_editorial_opportunity_times(
             now,
@@ -2316,17 +2331,16 @@ class ContentOpsDailyAppSupervisor:
             })
         return windows
 
-    def _due_windows(
-        self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
+    def _currently_due_scheduled_windows(
+        self, now: datetime
     ) -> list[dict[str, Any]]:
+        """Return canonical routine opportunities inside their due/grace interval.
+
+        Terminal state is deliberately not filtered here: callers decide whether they need the
+        historical due row or only an actually available, unexecuted routine opportunity.
+        """
         windows: list[dict[str, Any]] = []
-        # Scheduled core windows for the current day (and previous day for late ticks). A
-        # scheduled window is due only while we are inside [start, end + small grace]; it does
-        # not stay due long after it ends. minimum_cycle_spacing_hours remains an anti-spam
-        # control between cycles, not the due-window horizon.
         grace = timedelta(hours=1.0)
-        # Bounded learned timing offset consumed from the latest ACTIVE learning policy. A value
-        # of 0 (bootstrap / no valid policy) leaves configured windows unchanged.
         timing_offset = timedelta(minutes=self._timing_policy_offset_minutes())
         for day_offset in (0, -1):
             day = now + timedelta(days=day_offset)
@@ -2340,22 +2354,31 @@ class ContentOpsDailyAppSupervisor:
                     continue
                 if not self._within_production_epoch(start):
                     continue
-                window_id = editorial_window_id(
-                    policy_version=self._policy.policy_version,
-                    window_start_utc=start,
-                    window_end_utc=end,
-                    session=core.session,
-                    trigger_kind=TRIGGER_SCHEDULED,
-                )
                 windows.append(
                     {
-                        "window_id": window_id,
+                        "window_id": editorial_window_id(
+                            policy_version=self._policy.policy_version,
+                            window_start_utc=start,
+                            window_end_utc=end,
+                            session=core.session,
+                            trigger_kind=TRIGGER_SCHEDULED,
+                        ),
                         "trigger": TRIGGER_SCHEDULED,
                         "start": start,
                         "end": end,
                         "session": core.session,
                     }
                 )
+        return windows
+
+    def _due_windows(
+        self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
+    ) -> list[dict[str, Any]]:
+        windows = self._currently_due_scheduled_windows(now)
+        # Scheduled core windows for the current day (and previous day for late ticks). A
+        # scheduled window is due only while we are inside [start, end + small grace]; it does
+        # not stay due long after it ends. minimum_cycle_spacing_hours remains an anti-spam
+        # control between cycles, not the due-window horizon.
         # The same supervisor may execute one bounded material opportunity outside routine
         # windows only in SHADOW/NO_PUBLIC_WRITE scope. Autonomous/public scope remains queued
         # for the next scheduled opportunity until a separate exact owner grant exists.
