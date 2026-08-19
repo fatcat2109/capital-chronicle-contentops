@@ -49,6 +49,11 @@ jobs:
           agents = Path('AGENTS.md').read_text(encoding='utf-8')
           authority_map = Path('docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md').read_text(encoding='utf-8')
           policy = Path('docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md').read_text(encoding='utf-8')
+          current_context = Path('docs/CURRENT_CONTEXT.md').read_text(encoding='utf-8')
+          north_star = Path('docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md').read_text(encoding='utf-8')
+          v2_pointer = Path('docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md').read_text(encoding='utf-8')
+          video_agents = Path('video/AGENTS.md').read_text(encoding='utf-8')
+          v2_creative = Path('docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md').read_text(encoding='utf-8')
 
           assert 'Current repository execution framework is `CAPABILITY_ROUTED_HYBRID`.' in agents
           assert 'CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md' in agents
@@ -57,6 +62,18 @@ jobs:
           assert '`CODEX_EXECUTION`' in authority_map and '`OWNER_GATED_EXTERNAL`' in authority_map
           assert 'Status: `CURRENT_EXECUTION_POLICY`' in policy
           assert 'no merge without explicit owner authorization' in policy
+          assert 'under the current execution policy' in current_context
+          assert 'Canonical engineering execution is `CAPABILITY_ROUTED_HYBRID`' in north_star
+          assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.' in v2_pointer
+          assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`' in video_agents
+          assert 'Engineering/repository execution follows the root `CAPABILITY_ROUTED_HYBRID` policy.' in v2_creative
+          assert 'current execution-routing policy candidate' not in authority_map
+          assert 'On the owner-authorized hybrid pilot branch' not in authority_map
+          assert 'under the owner-authorized policy candidate' not in current_context
+          assert 'Canonical execution framework is `MAIN_CODEX` only.' not in north_star
+          assert '`MAIN_CODEX` owns repo/task/orchestration.' not in v2_pointer
+          assert '`MAIN_CODEX` owns repo/task orchestration' not in video_agents
+          assert '`MAIN_CODEX` owns repo coordination' not in v2_creative
           PY
 
       - name: Check CodeGraph freshness and prepare repair artifact

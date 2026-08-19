@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-08-19
+Authority date: 2026-08-20
 
 Status: `CURRENT_ROOT_AUTHORITY`
 
@@ -23,7 +23,7 @@ For any current ContentOps implementation, audit, task framing, or owner decisio
 
 Do not start from an old plan, handoff, task evidence folder, generated status file, sidecar/lab repository, or chat SHA.
 
-`docs/codegraph/INDEX.md` is a discovery router, not an override. Compare its recorded source HEAD with freshly fetched remote `master`. If they differ, treat generated CodeGraph bytes as stale discovery aids only. Exact GitHub refs, commits, diffs, source, tests, and evidence outrank stale generated context.
+`docs/codegraph/INDEX.md` is a discovery router, not an override. Its recorded `Source HEAD` is the newest commit that changed an indexed source, not necessarily the current branch/master tip after generated-only or tree-identical merge commits. Use the deterministic generator/check (`python scripts/generate_codex_context_index.py --check`) or exact indexed-source digest/bytes to establish freshness. A raw commit-SHA mismatch by itself does not make CodeGraph stale. If the check/digest shows indexed-source drift, treat generated CodeGraph bytes as stale discovery aids only until regenerated. Exact GitHub refs, commits, diffs, source, tests, and evidence outrank stale generated context.
 
 ## 2. GitHub and evidence authority
 
