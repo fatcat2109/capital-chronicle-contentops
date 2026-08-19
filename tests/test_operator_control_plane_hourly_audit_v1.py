@@ -17,6 +17,7 @@ from live_contentops.hourly_runtime_audit_v1 import (
     write_audit_artifacts,
 )
 from live_contentops import hourly_runtime_audit_v1 as hourly_audit
+from live_contentops.daily_app_launcher_v1 import PortInventory
 from live_contentops import server as loopback_server
 from live_contentops.operator_control_plane_v1 import (
     MAX_LOG_LINES,
@@ -111,6 +112,67 @@ def test_hourly_classification_is_deterministic_and_fail_visible():
     assert _classify(_audit_report(reauth=True, reauth_platform="substack"))[0] == "ACTION_REQUIRED"
     assert _classify(_audit_report(duplicate=True)) == ("ACTION_REQUIRED", ["DUPLICATE_CANONICAL_SUPERVISOR"])
     assert _classify(_audit_report(ambiguity=True)) == ("ACTION_REQUIRED", ["WRITE_OR_READBACK_AMBIGUITY_PRESENT"])
+
+
+def test_hourly_audit_reports_logical_supervisor_trees(tmp_path, monkeypatch):
+    store = tmp_path / "shadow.sqlite3"
+    store.write_bytes(b"isolated-audit-fixture")
+    now = datetime(2026, 8, 20, 0, 0, tzinfo=timezone.utc)
+    sha = "a" * 40
+    canonical_cmd = (
+        '"python.exe" -m live_contentops.cli daily-app start '
+        f'--store-path "{store}" --output-root "{tmp_path / "outputs"}"'
+    )
+    snapshot = {
+        "runtime": {
+            "controller_health": "HEALTHY",
+            "latest_heartbeat_at_utc": now.isoformat(),
+            "operating_mode": "AUTONOMOUS_DEFAULT",
+            "kill_switch_active": False,
+            "active_editorial_cycle_window_id": None,
+            "headline_ingestion": {
+                "lane_state": "RUNNING", "last_ingest_utc": now.isoformat(),
+            },
+        },
+        "published": {"unknown_write_count": 0, "pending_readback_count": 0},
+        "today": {"pending_lifecycle_recovery_count": 0},
+        "platforms": {"destinations": []},
+    }
+
+    def get_json(url, **_kwargs):
+        return {"status": "LOOPBACK_API_HEALTHY"} if url.endswith("/api/health") else snapshot
+
+    monkeypatch.setattr(hourly_audit, "_get_json", get_json)
+    monkeypatch.setattr(hourly_audit, "_git_sha", lambda _root: sha)
+    monkeypatch.setattr(hourly_audit, "_runtime_source_sha", lambda _root: (sha, "FIXTURE"))
+    monkeypatch.setattr(hourly_audit, "_headline_runtime_signal", lambda _now: {"status": "READY"})
+    monkeypatch.setattr(hourly_audit, "_cdp_status", lambda port: {"port": port, "state": "READY"})
+    monkeypatch.setattr(hourly_audit, "_cdp_target_status", lambda _port: {"targets": []})
+    monkeypatch.setattr(hourly_audit, "browser_interaction_summary", lambda *_args, **_kwargs: {})
+    monkeypatch.setattr(hourly_audit, "_recent_stderr_signal", lambda _store: {"error_lines": 0, "warning_lines": 0})
+    monkeypatch.setattr(hourly_audit, "_scheduled_task_state", lambda: {"installed": False})
+
+    one_tree = PortInventory(supervisor_processes=[
+        {"pid": 100, "parent_pid": 9, "cmd": canonical_cmd},
+        {"pid": 101, "parent_pid": 100, "cmd": canonical_cmd},
+    ])
+    monkeypatch.setattr(hourly_audit, "collect_port_inventory", lambda _port: one_tree)
+    report = hourly_audit.build_hourly_audit(
+        store_path=store, repo_root=tmp_path, api_port=15174, now=now,
+    )
+    assert report["runtime"]["supervisor_count"] == 1
+    assert report["classification"] == "PASS"
+
+    two_trees = PortInventory(supervisor_processes=one_tree.supervisor_processes + [
+        {"pid": 200, "parent_pid": 19, "cmd": canonical_cmd},
+        {"pid": 201, "parent_pid": 200, "cmd": canonical_cmd},
+    ])
+    monkeypatch.setattr(hourly_audit, "collect_port_inventory", lambda _port: two_trees)
+    duplicate = hourly_audit.build_hourly_audit(
+        store_path=store, repo_root=tmp_path, api_port=15174, now=now,
+    )
+    assert duplicate["runtime"]["supervisor_count"] == 2
+    assert duplicate["classification_reasons"] == ["DUPLICATE_CANONICAL_SUPERVISOR"]
 
 
 def test_kill_switch_paused_ingestion_and_linkedin_exclusion_are_degraded_not_blocked():

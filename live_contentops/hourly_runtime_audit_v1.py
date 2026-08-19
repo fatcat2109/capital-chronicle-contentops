@@ -19,7 +19,10 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
-from live_contentops.daily_app_launcher_v1 import collect_port_inventory, is_canonical_daily_app_command_line
+from live_contentops.daily_app_launcher_v1 import (
+    collect_port_inventory,
+    logical_canonical_supervisor_count,
+)
 from live_contentops.daily_app_ui_read_model_v1 import DailyAppReadModelError, build_daily_app_snapshot
 from live_contentops.operator_control_plane_v1 import OperatorControlError, read_allowlisted_log
 from live_contentops.browser_interaction_budget_v1 import (
@@ -320,10 +323,9 @@ def build_hourly_audit(
         snapshot = {}
         snapshot_source = "UNAVAILABLE:" + str(exc)
     inventory = collect_port_inventory(api_port)
-    canonical = [
-        row for row in inventory.supervisor_processes
-        if is_canonical_daily_app_command_line(str(row.get("cmd") or ""), str(store))
-    ]
+    supervisor_count = logical_canonical_supervisor_count(
+        inventory.supervisor_processes, str(store)
+    )
     expected_sha = _git_sha(root)
     current_sha, sha_source = _runtime_source_sha(runtime_root)
     runtime = snapshot.get("runtime") if isinstance(snapshot.get("runtime"), Mapping) else {}
@@ -342,7 +344,7 @@ def build_hourly_audit(
         "runtime": {
             "api_health": health.get("status", "UNAVAILABLE"),
             "snapshot_source": snapshot_source,
-            "supervisor_count": len(canonical),
+            "supervisor_count": supervisor_count,
             "store_identity": store.name,
             "expected_source_sha": expected_sha,
             "current_runtime_source_sha": current_sha,
