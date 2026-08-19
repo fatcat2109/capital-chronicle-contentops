@@ -1,10 +1,37 @@
 """Focused validation for the deterministic Codex context generator."""
 
 import json
+import subprocess
+from pathlib import Path
 
 import pytest
 
 from scripts import generate_codex_context_index as index
+
+
+def _git(repo: Path, *args: str, input_text: str | None = None, check: bool = True) -> str:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=repo,
+        input=input_text,
+        text=True,
+        capture_output=True,
+        check=check,
+    )
+    return result.stdout.strip()
+
+
+def _init_git_repo(repo: Path) -> None:
+    repo.mkdir()
+    _git(repo, "init")
+    _git(repo, "config", "user.name", "CodeGraph Test")
+    _git(repo, "config", "user.email", "codegraph-test@example.invalid")
+
+
+def _commit_all(repo: Path, message: str) -> str:
+    _git(repo, "add", "--all")
+    _git(repo, "commit", "-m", message)
+    return _git(repo, "rev-parse", "HEAD")
 
 
 @pytest.fixture(scope="module")
@@ -27,6 +54,112 @@ def test_check_normalization_preserves_source_epoch_truth():
     assert index.normalized_for_check("docs/codegraph/V2_CONTEXT.md", first) != index.normalized_for_check(
         "docs/codegraph/V2_CONTEXT.md", second
     )
+
+
+def test_git_head_resolves_tree_identical_merge_through_matching_parent(monkeypatch, tmp_path):
+    repo = tmp_path / "tree-identical-merge"
+    _init_git_repo(repo)
+    source = repo / "live_contentops" / "example.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("VALUE = 1\n", encoding="utf-8")
+    base = _commit_all(repo, "base source")
+
+    _git(repo, "checkout", "-b", "left")
+    (repo / "README.md").write_text("left-only history\n", encoding="utf-8")
+    left = _commit_all(repo, "left non-indexed change")
+
+    _git(repo, "checkout", "-b", "right", base)
+    source.write_text("VALUE = 2\n", encoding="utf-8")
+    right = _commit_all(repo, "right source change")
+    right_tree = _git(repo, "rev-parse", f"{right}^{{tree}}")
+    merge = _git(
+        repo,
+        "commit-tree",
+        right_tree,
+        "-p",
+        left,
+        "-p",
+        right,
+        input_text="tree-identical merge\n",
+    )
+    _git(repo, "checkout", "--detach", merge)
+
+    monkeypatch.setattr(index, "ROOT", repo)
+    assert _git(repo, "rev-parse", f"{merge}^{{tree}}") == _git(
+        repo, "rev-parse", f"{right}^{{tree}}"
+    )
+    assert index.git_head() == right
+
+
+def test_git_head_keeps_merge_with_real_source_resolution(monkeypatch, tmp_path):
+    repo = tmp_path / "source-resolution-merge"
+    _init_git_repo(repo)
+    source = repo / "live_contentops" / "example.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("VALUE = 'base'\n", encoding="utf-8")
+    base = _commit_all(repo, "base source")
+
+    _git(repo, "checkout", "-b", "left")
+    source.write_text("VALUE = 'left'\n", encoding="utf-8")
+    left = _commit_all(repo, "left source change")
+
+    _git(repo, "checkout", "-b", "right", base)
+    source.write_text("VALUE = 'right'\n", encoding="utf-8")
+    right = _commit_all(repo, "right source change")
+
+    _git(repo, "checkout", "left")
+    merge_result = subprocess.run(
+        ["git", "merge", "--no-ff", "right", "-m", "source resolution merge"],
+        cwd=repo,
+        text=True,
+        capture_output=True,
+    )
+    assert merge_result.returncode != 0
+    source.write_text("VALUE = 'resolved'\n", encoding="utf-8")
+    merge = _commit_all(repo, "resolve source conflict")
+
+    monkeypatch.setattr(index, "ROOT", repo)
+    merge_tree = _git(repo, "rev-parse", f"{merge}^{{tree}}")
+    assert merge_tree != _git(repo, "rev-parse", f"{left}^{{tree}}")
+    assert merge_tree != _git(repo, "rev-parse", f"{right}^{{tree}}")
+    assert index.git_head() == merge
+
+
+def test_git_head_skips_generated_only_commit_to_source_epoch(monkeypatch, tmp_path):
+    repo = tmp_path / "generated-only"
+    _init_git_repo(repo)
+    source = repo / "live_contentops" / "example.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("VALUE = 1\n", encoding="utf-8")
+    source_epoch = _commit_all(repo, "source epoch")
+
+    generated = repo / "docs" / "codegraph" / "INDEX.md"
+    generated.parent.mkdir(parents=True)
+    generated.write_text("generated\n", encoding="utf-8")
+    _commit_all(repo, "generated only")
+
+    monkeypatch.setattr(index, "ROOT", repo)
+    assert index.git_head() == source_epoch
+
+
+def test_git_head_handles_root_commits_without_manufacturing_an_epoch(monkeypatch, tmp_path):
+    source_repo = tmp_path / "source-root"
+    _init_git_repo(source_repo)
+    source = source_repo / "live_contentops" / "example.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("VALUE = 1\n", encoding="utf-8")
+    source_root = _commit_all(source_repo, "source root")
+    monkeypatch.setattr(index, "ROOT", source_repo)
+    assert index.git_head() == source_root
+
+    generated_repo = tmp_path / "generated-root"
+    _init_git_repo(generated_repo)
+    generated = generated_repo / "docs" / "codegraph" / "INDEX.md"
+    generated.parent.mkdir(parents=True)
+    generated.write_text("generated\n", encoding="utf-8")
+    _commit_all(generated_repo, "generated root")
+    monkeypatch.setattr(index, "ROOT", generated_repo)
+    assert index.git_head() == "UNKNOWN"
 
 
 def test_graph_edges_entrypoints_and_inference_resolve_to_nodes(graph):

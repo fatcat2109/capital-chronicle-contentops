@@ -248,6 +248,30 @@ def git_head() -> str:
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
         ).strip()
         for _ in range(100):
+            metadata = subprocess.check_output(
+                ["git", "show", "-s", "--format=%T %P", current],
+                cwd=ROOT,
+                text=True,
+            ).split()
+            if not metadata:
+                raise ValueError(f"missing tree metadata for {current}")
+            tree, *parents = metadata
+            matching_parent = next(
+                (
+                    parent
+                    for parent in parents
+                    if subprocess.check_output(
+                        ["git", "show", "-s", "--format=%T", parent],
+                        cwd=ROOT,
+                        text=True,
+                    ).strip()
+                    == tree
+                ),
+                None,
+            )
+            if matching_parent is not None:
+                current = matching_parent
+                continue
             changed = subprocess.check_output(
                 [
                     "git", "diff-tree", "--root", "-m", "--no-commit-id", "--name-only",
@@ -258,11 +282,11 @@ def git_head() -> str:
             ).splitlines()
             if any(name not in GENERATED_PATHS and included(ROOT / name) for name in changed):
                 return current
-            current = subprocess.check_output(
-                ["git", "rev-parse", f"{current}^"], cwd=ROOT, text=True
-            ).strip()
-        return current
-    except (OSError, subprocess.CalledProcessError):
+            if not parents:
+                return "UNKNOWN"
+            current = parents[0]
+        return "UNKNOWN"
+    except (OSError, subprocess.CalledProcessError, ValueError):
         return "UNKNOWN"
 
 
