@@ -30,7 +30,7 @@ CodeGraph's recorded `Source HEAD` is the newest commit that changed indexed sou
 - `docs/CURRENT_CONTEXT.md` — compact bootstrap/current-status pointer, subordinate to root.
 - `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md` — concise latest owner-direction pointer, subordinate to root but newer owner direction still wins over older detail.
 
-## Execution routing supersession
+## EXECUTION ROUTING SUPERSESSION
 
 `CAPABILITY_ROUTED_HYBRID` is current execution routing on `master` and supersedes older `MAIN_CODEX only` wording for engineering routing only.
 

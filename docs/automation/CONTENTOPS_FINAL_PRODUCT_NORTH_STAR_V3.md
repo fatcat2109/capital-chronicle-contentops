@@ -231,7 +231,7 @@ A legitimate `NO_PUBLICATION` remains valid editorial behavior but does not by i
 
 ## Main execution framework
 
-Engineering execution is `CAPABILITY_ROUTED_HYBRID` under `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`.
+Canonical engineering execution is `CAPABILITY_ROUTED_HYBRID`, governed by `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`.
 
 Use `WEB_STATIC`, `WEB_CI`, `CODEX_EXECUTION`, or `OWNER_GATED_EXTERNAL` according to the strongest evidence required. Execution routing never grants factual, numeric, permission, rights, credential, destination-identity, or public-write authority.
 

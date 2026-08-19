@@ -44,7 +44,7 @@ Newer owner direction wins.
 
 ## 3. Execution framework
 
-Current engineering execution is `CAPABILITY_ROUTED_HYBRID`:
+Current repository execution framework is `CAPABILITY_ROUTED_HYBRID`.
 
 - `WEB_STATIC` — ChatGPT Web + GitHub for repository-static reasoning, review, bounded edits, authority maintenance, and GitHub operations whose correctness is provable from fresh bytes.
 - `WEB_CI` — Web + GitHub + deterministic Actions for bounded implementation safely provable by CI. Normal scope is `NO_SECRET / NO_PUBLIC_WRITE / NO_PRODUCTION_MUTATION`.

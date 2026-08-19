@@ -35,6 +35,8 @@ with the canonical current-master supervisor healthy, ingestion running, `UNKNOW
 
 ## Immediate product priority
 
+Do **not** reopen P0-1 or add another source-reachability correction merely to increase publication yield.
+
 The next product capability is **not** another P0-1/source-yield repair and **not** an immediate live publication canary under the stale editorial policy.
 
 Current priority:
@@ -69,7 +71,7 @@ The latest FDA-G restoration reported optional `UI_BUILD_EXIT_1`. It did not blo
 
 ## Execution framework
 
-Engineering execution uses `CAPABILITY_ROUTED_HYBRID`:
+Engineering execution uses `CAPABILITY_ROUTED_HYBRID` under the current execution policy.
 
 - `WEB_STATIC` for repository-static work provable from fresh GitHub bytes;
 - `WEB_CI` for bounded deterministic implementation provable by safe Actions;
