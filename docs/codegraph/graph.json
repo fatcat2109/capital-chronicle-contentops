@@ -80638,7 +80638,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-19T20:59:18Z",
+  "generation_timestamp_utc": "2026-08-19T21:05:11Z",
   "generator_version": "2.5.0",
   "included_roots": [
     "live_contentops/",
@@ -80876,7 +80876,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 10253
+      "size_bytes": 10477
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
@@ -80886,12 +80886,12 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 20870
+      "size_bytes": 21664
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 18232
+      "size_bytes": 18731
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -126822,6 +126822,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "6fac7d2627df0ce1c202fa31a3fadeaaa4049280",
-  "source_tree_digest": "2db826d7bbafbee8eca8f22616a903a091d37041c86f3a7a70ad28d9f19a50df"
+  "source_head": "8ba45b52a11325e39d5194915203b175e16d11c5",
+  "source_tree_digest": "021e7ee6d7945bb420ba4498b3b07e4d325b53a7bb8badbabe492dfdfd72eac1"
 }
