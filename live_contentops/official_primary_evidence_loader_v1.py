@@ -180,8 +180,39 @@ def _first_json_timestamp(value: Any) -> str | None:
 
 
 def _html_timestamp(text: str) -> str | None:
+    # Publisher pages use several equivalent metadata spellings and do not preserve a
+    # consistent attribute order. Parse each meta element as attributes so an exact
+    # publisher timestamp is not lost merely because ``content`` precedes ``name`` or
+    # the page uses schema.org/React-style ``publishedDate`` naming.
+    preferred_meta_names = {
+        "article:published_time",
+        "date",
+        "dc.date",
+        "datepublished",
+        "publisheddate",
+        "publication_date",
+        "published_at",
+    }
+    for tag in re.findall(r"<meta\b[^>]*>", text, re.IGNORECASE):
+        attributes = {
+            name.casefold(): html.unescape(value)
+            for name, _quote, value in re.findall(
+                r"([A-Za-z_:][A-Za-z0-9_.:-]*)\s*=\s*([\"'])(.*?)\2",
+                tag,
+                re.DOTALL,
+            )
+        }
+        metadata_name = str(
+            attributes.get("property")
+            or attributes.get("name")
+            or attributes.get("itemprop")
+            or ""
+        ).casefold()
+        if metadata_name in preferred_meta_names:
+            parsed = _parse_timestamp(attributes.get("content"))
+            if parsed:
+                return parsed
     patterns = (
-        r'<meta[^>]+(?:property|name)=["\'](?:article:published_time|date|dc\.date)["\'][^>]+content=["\']([^"\']+)',
         r'<time[^>]+datetime=["\']([^"\']+)',
         r'(?:release date|last modified date)\s*:?</[^>]+>\s*([A-Z][a-z]+\s+\d{1,2},\s+\d{4})',
     )
