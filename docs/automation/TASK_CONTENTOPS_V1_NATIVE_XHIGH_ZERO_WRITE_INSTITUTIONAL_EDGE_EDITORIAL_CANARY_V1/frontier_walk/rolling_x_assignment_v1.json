@@ -1,0 +1,662 @@
+{
+  "assignment_logical_hash": "294993e790a74223ad3aaac414cb060dfe056c44230e0aaf22569a81aee36669",
+  "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
+  "decision": "SELECT_STORY",
+  "factual_or_numeric_authority_granted": false,
+  "input_binding": {
+    "canonical_input_hash": "56f93453522b57c5372b64655c62c4e18c9c8df5ff8b4c3453de81b82223ab30",
+    "held_count": 0,
+    "input_count": 12,
+    "selected_count": 12
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-79584fc5329f4f40de4f11c9",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-79584fc5329f4f40de4f11c9"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "RT @ChinaBeigeBook: \"Chinese autonomous driving firm \u200bannounced on Friday \u200cplans to deploy &gt;2,000 robotaxis in \u200b#Eu...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-04bd44b955e70e75505b",
+      "member_headline_ids": [
+        "cc-x-headline-79584fc5329f4f40de4f11c9"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e74b85a41ff59e7ecb4daaf9",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e74b85a41ff59e7ecb4daaf9"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "'Delusional': Iran Fires Back At Trump's Make 'Hormuz Strait A Territory Of The US' Ambitions",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-646ceb07b170bf38fef1",
+      "member_headline_ids": [
+        "cc-x-headline-e74b85a41ff59e7ecb4daaf9"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-80bcb98741d68e59525ebef4",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-80bcb98741d68e59525ebef4"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "RT @Newsquawk: Your daily trading strategy just got an upgrade. Access Premarket Movers and News at \ud83e\udde2 Don't mi...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-8461e5e24888f656ca09",
+      "member_headline_ids": [
+        "cc-x-headline-80bcb98741d68e59525ebef4"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b069e4eab152b739bb289ccb",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b069e4eab152b739bb289ccb"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "RT @charliebilello: \u201cI\u2019m not going to start a war. I\u2019m going to stop wars.\u201d - President Trump, November 2024 \"During every single day of t...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-880b46ee7c3ea1bfbff7",
+      "member_headline_ids": [
+        "cc-x-headline-b069e4eab152b739bb289ccb"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-57725a6d41dcdfc114ffc5ad",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-57725a6d41dcdfc114ffc5ad"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "NVIDIA $NVDA AND OPENAI ARE REWORKING THE OHIO DATA CENTER DEAL SO NVIDIA GUARANTEES HALF, NOT ALL, OF THE BUILDOUT The financial guarantee would drop from $250 billion to less than $120 billion, per people familiar with the deal. A...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-63b36728e5bfef35684c",
+      "member_headline_ids": [
+        "cc-x-headline-57725a6d41dcdfc114ffc5ad"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-56df0e833c73c065d41a9606",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-56df0e833c73c065d41a9606"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Houthi militias target remote villages of Al-Ushmah with artillery west of Taiz",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-d429270e430192d7b80c",
+      "member_headline_ids": [
+        "cc-x-headline-56df0e833c73c065d41a9606"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a7f0c857ea790af7e97b96cb",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a7f0c857ea790af7e97b96cb"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Policy implications under different government configurations JPMAM $SPY $TLT $DXY",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-16cd9378c15beb269df2",
+      "member_headline_ids": [
+        "cc-x-headline-a7f0c857ea790af7e97b96cb"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b80ad3d43ba4e170b7897fc8",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b80ad3d43ba4e170b7897fc8"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Russian Defense: We targeted a Ukrainian facility for manufacturing unmanned boats west of Odesa",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-477ce2d0e4faa046554f",
+      "member_headline_ids": [
+        "cc-x-headline-b80ad3d43ba4e170b7897fc8"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e012db62d11dccb9731da731",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e012db62d11dccb9731da731"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Here is the earnings calendar for this upcoming week \ud83d\udc40",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-821018676076929ddb86",
+      "member_headline_ids": [
+        "cc-x-headline-e012db62d11dccb9731da731"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5db169c073ebd30f9f736e15",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5db169c073ebd30f9f736e15"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "*IRAN ARMY CHIEF SETS $30,000 BOUNTY ON US FORCES: FARS",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-eb1828afbd0b1d6b8392",
+      "member_headline_ids": [
+        "cc-x-headline-5db169c073ebd30f9f736e15"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-19cb7b7ffea742051c07b546",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-19cb7b7ffea742051c07b546"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "RT @ChinaBeigeBook: \"The White House said it would levy 100% tariffs on drones that were \u201cparticularly sensitive\u201d for natl security, incl s...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-b05b93ce9968e9018e57",
+      "member_headline_ids": [
+        "cc-x-headline-19cb7b7ffea742051c07b546"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-64c0ba42c23c7dd3229b8d0b",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-64c0ba42c23c7dd3229b8d0b"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "$SMH +9% this month... best August in a while... but actually the 2nd-weakest up-month of the year @barchart ... Sept has been chips' worst month +63% YTD",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-96a70f4438464d8a8175",
+      "member_headline_ids": [
+        "cc-x-headline-64c0ba42c23c7dd3229b8d0b"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 349,
+    "held_before_semantic_assignment_count": 337,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "dc90f6c8fdbdb1593e336e3bb7044d63ea779c99aa080e039be7c996c8a219df",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-04bd44b955e70e75505b",
+      "headline_ids": [
+        "cc-x-headline-79584fc5329f4f40de4f11c9"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-04bd44b955e70e75505b"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 1,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-79584fc5329f4f40de4f11c9",
+        "ordered_headline_ids": [
+          "cc-x-headline-79584fc5329f4f40de4f11c9"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RT @ChinaBeigeBook: \"Chinese autonomous driving firm \u200bannounced on Friday \u200cplans to deploy &gt;2,000 robotaxis in \u200b#Eu..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-646ceb07b170bf38fef1",
+      "headline_ids": [
+        "cc-x-headline-e74b85a41ff59e7ecb4daaf9"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-646ceb07b170bf38fef1"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 2,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e74b85a41ff59e7ecb4daaf9",
+        "ordered_headline_ids": [
+          "cc-x-headline-e74b85a41ff59e7ecb4daaf9"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "'Delusional': Iran Fires Back At Trump's Make 'Hormuz Strait A Territory Of The US' Ambitions"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-8461e5e24888f656ca09",
+      "headline_ids": [
+        "cc-x-headline-80bcb98741d68e59525ebef4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-8461e5e24888f656ca09"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 3,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-80bcb98741d68e59525ebef4",
+        "ordered_headline_ids": [
+          "cc-x-headline-80bcb98741d68e59525ebef4"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RT @Newsquawk: Your daily trading strategy just got an upgrade. Access Premarket Movers and News at \ud83e\udde2 Don't mi..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-880b46ee7c3ea1bfbff7",
+      "headline_ids": [
+        "cc-x-headline-b069e4eab152b739bb289ccb"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-880b46ee7c3ea1bfbff7"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 4,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b069e4eab152b739bb289ccb",
+        "ordered_headline_ids": [
+          "cc-x-headline-b069e4eab152b739bb289ccb"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RT @charliebilello: \u201cI\u2019m not going to start a war. I\u2019m going to stop wars.\u201d - President Trump, November 2024 \"During every single day of t..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-63b36728e5bfef35684c",
+      "headline_ids": [
+        "cc-x-headline-57725a6d41dcdfc114ffc5ad"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-63b36728e5bfef35684c"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 5,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-57725a6d41dcdfc114ffc5ad",
+        "ordered_headline_ids": [
+          "cc-x-headline-57725a6d41dcdfc114ffc5ad"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "NVIDIA $NVDA AND OPENAI ARE REWORKING THE OHIO DATA CENTER DEAL SO NVIDIA GUARANTEES HALF, NOT ALL, OF THE BUILDOUT The financial guarantee would drop from $250 billion to less than $120 billion, per people familiar with the deal. A..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-d429270e430192d7b80c",
+      "headline_ids": [
+        "cc-x-headline-56df0e833c73c065d41a9606"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-d429270e430192d7b80c"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 6,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-56df0e833c73c065d41a9606",
+        "ordered_headline_ids": [
+          "cc-x-headline-56df0e833c73c065d41a9606"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Houthi militias target remote villages of Al-Ushmah with artillery west of Taiz"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-16cd9378c15beb269df2",
+      "headline_ids": [
+        "cc-x-headline-a7f0c857ea790af7e97b96cb"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-16cd9378c15beb269df2"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 7,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a7f0c857ea790af7e97b96cb",
+        "ordered_headline_ids": [
+          "cc-x-headline-a7f0c857ea790af7e97b96cb"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Policy implications under different government configurations JPMAM $SPY $TLT $DXY"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-477ce2d0e4faa046554f",
+      "headline_ids": [
+        "cc-x-headline-b80ad3d43ba4e170b7897fc8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-477ce2d0e4faa046554f"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 8,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b80ad3d43ba4e170b7897fc8",
+        "ordered_headline_ids": [
+          "cc-x-headline-b80ad3d43ba4e170b7897fc8"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Russian Defense: We targeted a Ukrainian facility for manufacturing unmanned boats west of Odesa"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-821018676076929ddb86",
+      "headline_ids": [
+        "cc-x-headline-e012db62d11dccb9731da731"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-821018676076929ddb86"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 9,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e012db62d11dccb9731da731",
+        "ordered_headline_ids": [
+          "cc-x-headline-e012db62d11dccb9731da731"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Here is the earnings calendar for this upcoming week \ud83d\udc40"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-eb1828afbd0b1d6b8392",
+      "headline_ids": [
+        "cc-x-headline-5db169c073ebd30f9f736e15"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-eb1828afbd0b1d6b8392"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 10,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5db169c073ebd30f9f736e15",
+        "ordered_headline_ids": [
+          "cc-x-headline-5db169c073ebd30f9f736e15"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "*IRAN ARMY CHIEF SETS $30,000 BOUNTY ON US FORCES: FARS"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-b05b93ce9968e9018e57",
+      "headline_ids": [
+        "cc-x-headline-19cb7b7ffea742051c07b546"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-b05b93ce9968e9018e57"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 11,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-19cb7b7ffea742051c07b546",
+        "ordered_headline_ids": [
+          "cc-x-headline-19cb7b7ffea742051c07b546"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RT @ChinaBeigeBook: \"The White House said it would levy 100% tariffs on drones that were \u201cparticularly sensitive\u201d for natl security, incl s..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-96a70f4438464d8a8175",
+      "headline_ids": [
+        "cc-x-headline-64c0ba42c23c7dd3229b8d0b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-96a70f4438464d8a8175"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 12,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-64c0ba42c23c7dd3229b8d0b",
+        "ordered_headline_ids": [
+          "cc-x-headline-64c0ba42c23c7dd3229b8d0b"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "$SMH +9% this month... best August in a while... but actually the 2nd-weakest up-month of the year @barchart ... Sept has been chips' worst month +63% YTD"
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [],
+  "router_output_grants_publication_authority": false,
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-04bd44b955e70e75505b",
+  "selected_headline_ids": [
+    "cc-x-headline-79584fc5329f4f40de4f11c9"
+  ],
+  "semantic_assignment_failure_recovered": true,
+  "status": "SUCCESS",
+  "telemetry": {
+    "fallback_transitions": 0,
+    "logical_router_calls": 0,
+    "provider_attempts": 0,
+    "token_usage": {
+      "completion_tokens": 0,
+      "prompt_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "x_content_grants_evidence_authority": false
+}

@@ -537,6 +537,75 @@ def test_decision5_rss_accepts_recognized_jerusalem_post_corroboration():
     assert contract["status"] == "PASS"
 
 
+def test_inaccessible_bound_and_first_listing_recover_to_accessible_reputable_source_within_budget():
+    direct_url = "https://reuters.com/inaccessible-first-path"
+    inaccessible_listing = "https://news.google.com/reuters-inaccessible"
+    accessible_listing = "https://news.google.com/ap-accessible"
+    publisher_url = "https://apnews.com/article/accessible-policy-report"
+    rss = f"""<?xml version='1.0'?><rss><channel>
+    <item><title>Federal Reserve holds policy rate after meeting - Reuters</title><link>{inaccessible_listing}</link><pubDate>Tue, 11 Aug 2026 10:00:00 GMT</pubDate><source url='https://reuters.com'>Reuters</source></item>
+    <item><title>Federal Reserve keeps policy rate unchanged after meeting - Associated Press</title><link>{accessible_listing}</link><pubDate>Tue, 11 Aug 2026 10:05:00 GMT</pubDate><source url='https://apnews.com'>Associated Press</source></item>
+    </channel></rss>""".encode("utf-8")
+    article = (
+        "<html><head><meta property='article:published_time' content='2026-08-11T10:05:00Z'>"
+        "<title>Federal Reserve keeps policy rate unchanged</title></head><body><article>"
+        + "The Federal Reserve kept its policy rate unchanged after its meeting. " * 30
+        + "</article></body></html>"
+    ).encode("utf-8")
+    calls = []
+
+    def http_get(url, *_args):
+        calls.append(url)
+        if url in {direct_url, inaccessible_listing}:
+            return {"status": 403, "final_url": url, "headers": {}, "body": b""}
+        if url == accessible_listing:
+            return {
+                "status": 200,
+                "final_url": publisher_url,
+                "headers": {"content-type": "text/html"},
+                "body": article,
+            }
+        return {
+            "status": 200,
+            "final_url": url,
+            "headers": {"content-type": "application/rss+xml"},
+            "body": rss,
+        }
+
+    request = _request(
+        story_type="policy_decision",
+        summaries=["Federal Reserve holds policy rate after meeting"],
+    )
+    request["story_context"]["public_source_url_bindings"] = [
+        {"headline_id": request["headline_ids"][0], "url": direct_url}
+    ]
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=24,
+        clock=lambda: datetime(2026, 8, 11, 12, 0, tzinfo=timezone.utc),
+        http_get=http_get,
+    )
+
+    packet = loader(request)
+
+    assert packet["status"] == "PASS"
+    assert any(
+        row.get("reader_source_url") == publisher_url
+        for row in packet["evidence_documents"]
+    )
+    assert packet["provenance"]["request_limit"] == 24
+    assert packet["provenance"]["request_count_for_candidate"] == len(calls) == 4
+    assert packet["provenance"]["paywall_or_access_control_bypass"] is False
+    assert "public_source_http_status_not_200" in packet["provenance"]["diagnostics"]
+
+    second_packet = loader(request)
+
+    assert second_packet["status"] == "PASS"
+    assert second_packet["provenance"]["request_count_total"] == len(calls) == 8
+    assert second_packet["provenance"]["request_count_for_candidate"] == 4
+    assert second_packet["provenance"]["request_limit"] == 24
+
+
 def test_only_x_discovery_with_no_corroborating_document_fails_closed():
     request = _request(
         story_type="geopolitical_event",
@@ -662,12 +731,39 @@ def test_semantic_story_type_failure_has_conservative_zero_authority_fallback():
 
     assert result["story_type_by_cluster"] == {
         "company": "company_sector_event",
-        "ambiguous": "regulatory_fiscal_event",
+        "ambiguous": "general_public_event",
     }
     assert result["routing_method"] == "DETERMINISTIC_CONSERVATIVE_FALLBACK"
     assert result["llm_or_provider_calls"] == 0
     assert result["factual_or_numeric_authority_granted"] is False
     assert result["publication_authority_granted"] is False
+
+
+def test_deterministic_story_routing_is_domain_accurate_and_token_bounded():
+    clusters = [
+        {"cluster_id": "company", "leaf_summaries": ["Stripe agrees to acquire OpenRouter for its AI platform."]},
+        {"cluster_id": "geopolitical", "leaf_summaries": ["New sanctions follow a military blockade and ceasefire talks."]},
+        {"cluster_id": "policy", "leaf_summaries": ["The Federal Reserve holds its policy rate after the FOMC meeting."]},
+        {"cluster_id": "physical", "leaf_summaries": ["A major earthquake triggers coastal flood warnings."]},
+        {"cluster_id": "market", "leaf_summaries": ["Treasury yields fell as bonds rallied in intraday trading."]},
+        {"cluster_id": "airport", "leaf_summaries": ["Dallas Airport funding is reviewed by the state government."]},
+    ]
+
+    result = classify_rolling_x_story_types_deterministically(clusters=clusters)
+
+    assert result["story_type_by_cluster"] == {
+        "company": "company_sector_event",
+        "geopolitical": "geopolitical_event",
+        "policy": "policy_decision",
+        "physical": "physical_event",
+        "market": "market_move",
+        "airport": "regulatory_fiscal_event",
+    }
+    assert all(
+        row["evidence_profile_authoritative_for_exact_story_type"] is True
+        for row in result["stories"]
+    )
+    assert result["story_type_by_cluster"]["airport"] != "supply_chain_event"
 
 
 def test_semantic_assignment_failure_has_evidence_reachable_zero_authority_fallback():

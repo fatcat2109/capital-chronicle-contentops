@@ -11,7 +11,7 @@ import hashlib
 import json
 import sqlite3
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterator, Mapping, Sequence
 from urllib.parse import urlsplit
@@ -31,7 +31,10 @@ from live_contentops.destination_transport_registry_v1 import (
 )
 from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 from live_contentops.newsroom_assignment_scheduler_v1 import (
+    PREPARED_CANDIDATE_LIMIT,
+    build_prepared_rolling_x_candidate_state,
     load_rolling_x_headline_sidecars,
+    validate_prepared_rolling_x_candidate_state,
 )
 
 SCHEMA_VERSION = "contentops.codex_desktop_newsroom_operator_continuity.v1"
@@ -81,6 +84,7 @@ BOUNDED_EDITORIAL_CONTEXT_KEYS = frozenset(
         "rights_cleared_media_candidates",
         "governed_chart_inputs",
         "destination_package_constraints",
+        "institutional_edge_editorial_packet",
     }
 )
 DESKTOP_TASK_PROMPT = (
@@ -152,12 +156,33 @@ def _logical_hash(value: Any) -> str:
     ).hexdigest()
 
 
+def prepared_candidate_continuity_binding(
+    *,
+    continuity: Mapping[str, Any],
+    evaluated_headline_ids: Sequence[str],
+    reentry_headline_ids: Sequence[str],
+) -> dict[str, Any]:
+    """Build the shared durable-continuity binding for canonical frontier preparation."""
+    evaluated = sorted(str(value) for value in evaluated_headline_ids if str(value))
+    reentry = sorted(str(value) for value in reentry_headline_ids if str(value))
+    return {
+        "terminal_window_id": continuity.get("terminal_window_id"),
+        "last_terminal_cutoff_utc": continuity.get("last_terminal_cutoff_utc"),
+        "evaluated_headline_count": len(evaluated),
+        "evaluated_headline_ids_hash": _logical_hash(evaluated),
+        "material_reentry_headline_count": len(reentry),
+        "material_reentry_headline_ids_hash": _logical_hash(reentry),
+        "continuity_logical_hash": continuity.get("continuity_logical_hash"),
+    }
+
+
 def build_editorial_worker_routing_packet(
     *,
     opportunity_state: str,
     governed_context: Mapping[str, Any] | None = None,
     readiness_checked_before_editorial: bool = False,
     readiness_state: str = "UNKNOWN",
+    article_mode: str = "STANDARD_ANALYSIS",
 ) -> dict[str, Any]:
     """Return a deterministic Desktop routing decision without spawning or calling a model.
 
@@ -211,6 +236,23 @@ def build_editorial_worker_routing_packet(
         raise ValueError("desktop_editorial_accepted_evidence_packet_required")
     if not bounded_context.get("exact_source_handles"):
         raise ValueError("desktop_editorial_exact_source_handles_required")
+    from live_contentops.capital_chronicle_institutional_edge_v1 import (
+        build_institutional_edge_editorial_packet,
+        validate_institutional_edge_packet,
+    )
+
+    supplied_editorial_packet = bounded_context.get("institutional_edge_editorial_packet")
+    editorial_packet = build_institutional_edge_editorial_packet(
+        article_mode=article_mode,
+        accepted_evidence_packet=bounded_context.get("accepted_evidence_packet"),
+        structured_data_supported=True,
+    )
+    if supplied_editorial_packet is not None and supplied_editorial_packet != editorial_packet:
+        raise ValueError("desktop_editorial_authority_packet_override_forbidden")
+    packet_blockers = validate_institutional_edge_packet(editorial_packet)
+    if packet_blockers:
+        raise ValueError("desktop_editorial_authority_packet_invalid:" + ",".join(packet_blockers))
+    bounded_context["institutional_edge_editorial_packet"] = editorial_packet
     governed_input_hash = _logical_hash(bounded_context)
     result = {
         **base,
@@ -241,6 +283,8 @@ def validate_editorial_worker_return(
     *,
     worker_return: Mapping[str, Any],
     expected_governed_input_hash: str,
+    expected_editorial_packet: Mapping[str, Any] | None = None,
+    accepted_evidence_packet: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Bind one XHIGH result to its exact input and return control to the HIGH coordinator."""
     if str(worker_return.get("governed_input_hash") or "") != expected_governed_input_hash:
@@ -259,6 +303,22 @@ def validate_editorial_worker_return(
     article = worker_return.get("article")
     if not isinstance(article, Mapping) or not str(article.get("title") or "").strip():
         raise ValueError("desktop_editorial_worker_article_invalid")
+    editorial_validation: dict[str, Any] | None = None
+    if expected_editorial_packet is not None:
+        from live_contentops.capital_chronicle_institutional_edge_v1 import (
+            validate_institutional_edge_article,
+        )
+
+        editorial_validation = validate_institutional_edge_article(
+            article,
+            editorial_packet=expected_editorial_packet,
+            accepted_evidence_packet=accepted_evidence_packet,
+        )
+        if editorial_validation.get("classification") != "PASS":
+            raise ValueError(
+                "desktop_editorial_worker_institutional_edge_invalid:"
+                + ",".join(editorial_validation.get("blockers") or [])
+            )
     return_hash = _logical_hash(worker_return)
     return {
         "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
@@ -274,6 +334,7 @@ def validate_editorial_worker_return(
         "coordinator_model": COORDINATOR_MODEL,
         "coordinator_reasoning_effort": COORDINATOR_REASONING_EFFORT,
         "deterministic_validation_required": True,
+        "institutional_edge_editorial_validation": editorial_validation,
         "publication_coordinator_remains_sole_public_writer": True,
         "public_write_performed": False,
     }
@@ -485,6 +546,7 @@ def load_terminal_editorial_continuity(
             "state": "CANONICAL_STORE_MISSING",
             "last_terminal_cutoff_utc": None,
             "terminal_window_id": None,
+            "terminal_records": [],
             "evaluated_headline_ids": [],
             "evaluated_update_chain_identities": [],
             "published_memory": {
@@ -565,14 +627,72 @@ def load_terminal_editorial_continuity(
         if not intake or not evidence:
             continue
         cutoff = _parse_utc(intake.get("cutoff_time_utc"))
-        headline_ids = {
-            str(value) for value in (intake.get("unique_headline_ids") or []) if str(value)
-        }
-        if cutoff is None or not headline_ids:
+        if cutoff is None:
             continue
-        evaluated_ids.update(headline_ids)
         assignment = _read_json_object(output_dir / "rolling_x_assignment_v1.json") or {}
-        for cluster in assignment.get("ranked_clusters") or []:
+        prepared = _read_json_object(
+            output_dir / "rolling_x_prepared_candidate_state_v1.json"
+        ) or {}
+        clusters_by_id = {
+            str(cluster.get("cluster_id") or ""): dict(cluster)
+            for cluster in assignment.get("ranked_clusters") or []
+            if isinstance(cluster, Mapping) and str(cluster.get("cluster_id") or "")
+        }
+        attempted_cluster_ids = {
+            str(attempt.get("cluster_id") or "")
+            for attempt in (
+                *((evidence.get("candidate_walk") or {}).get("candidate_attempts") or []),
+                *((evidence.get("ranked_viability") or {}).get("rank_attempts") or []),
+            )
+            if isinstance(attempt, Mapping) and str(attempt.get("cluster_id") or "")
+        }
+        if attempted_cluster_ids:
+            evaluated_clusters = [
+                clusters_by_id[cluster_id]
+                for cluster_id in sorted(attempted_cluster_ids)
+                if cluster_id in clusters_by_id
+            ]
+            headline_ids = {
+                str(value)
+                for cluster in evaluated_clusters
+                for value in cluster.get("headline_ids") or []
+                if str(value)
+            }
+            evaluated_identity_source = "CANDIDATE_WALK_ATTEMPTS"
+        elif prepared:
+            headline_ids = {
+                str(value)
+                for value in (
+                    (prepared.get("prepared_frontier") or {}).get(
+                        "selected_headline_ids"
+                    )
+                    or (prepared.get("prepared_input") or {}).get(
+                        "unique_headline_ids"
+                    )
+                    or []
+                )
+                if str(value)
+            }
+            evaluated_clusters = [
+                cluster for cluster in clusters_by_id.values()
+                if set(str(value) for value in cluster.get("headline_ids") or []).intersection(
+                    headline_ids
+                )
+            ]
+            evaluated_identity_source = "PREPARED_FRONTIER"
+        else:
+            # Legacy cycles may lack candidate-walk telemetry. The ranked assignment is the
+            # narrowest durable proof of consideration; the full intake universe is not.
+            evaluated_clusters = list(clusters_by_id.values())
+            headline_ids = {
+                str(value)
+                for cluster in evaluated_clusters
+                for value in cluster.get("headline_ids") or []
+                if str(value)
+            }
+            evaluated_identity_source = "LEGACY_RANKED_ASSIGNMENT"
+        evaluated_ids.update(headline_ids)
+        for cluster in evaluated_clusters:
             if not isinstance(cluster, Mapping):
                 continue
             chain = str(
@@ -602,6 +722,7 @@ def load_terminal_editorial_continuity(
             "cutoff_utc": _iso_utc(cutoff),
             "classification": evidence.get("classification"),
             "evaluated_headline_count": len(headline_ids),
+            "evaluated_identity_source": evaluated_identity_source,
             "cc_catalog_fingerprint": cc_model.get("catalog_fingerprint")
             if isinstance(cc_model, Mapping) else None,
         })
@@ -626,6 +747,7 @@ def load_terminal_editorial_continuity(
         "terminal_state": latest.get("terminal_state") if latest else None,
         "terminal_classification": latest.get("classification") if latest else None,
         "terminal_record_count": len(terminal_records),
+        "terminal_records": terminal_records,
         "evaluated_headline_ids": sorted(evaluated_ids),
         "evaluated_headline_count": len(evaluated_ids),
         "evaluated_update_chain_identities": sorted(evaluated_chains),
@@ -782,6 +904,87 @@ def classify_desktop_candidate_universe(
     return result
 
 
+def _executed_editorial_window_ids(
+    store_path: Path,
+    opportunity_ids: Sequence[str],
+    *,
+    executed_states: frozenset[str],
+) -> set[str]:
+    identifiers = sorted({str(value) for value in opportunity_ids if str(value)})
+    if not identifiers or not store_path.exists():
+        return set()
+    try:
+        with _read_only_store(store_path) as connection:
+            if "work_items" not in _table_names(connection):
+                return set()
+            placeholders = ",".join("?" for _value in identifiers)
+            rows = connection.execute(
+                f"SELECT work_item_id, current_state FROM work_items "
+                f"WHERE work_item_id IN ({placeholders})",
+                identifiers,
+            ).fetchall()
+    except (OSError, sqlite3.Error):
+        return set()
+    return {
+        str(row["work_item_id"])
+        for row in rows
+        if str(row["current_state"] or "") in executed_states
+    }
+
+
+def _continuous_prepared_checkpoint(
+    *,
+    output_root: Path,
+    checkpoint_name: str,
+) -> tuple[Path, dict[str, Any] | None]:
+    path = output_root / "_continuous_newsroom" / checkpoint_name
+    return path, _read_json_object(path)
+
+
+def _checkpoint_matches_live_authority(
+    state: Mapping[str, Any],
+    *,
+    current_input: Mapping[str, Any],
+    continuity: Mapping[str, Any],
+    opportunities: Sequence[Mapping[str, Any]],
+) -> bool:
+    frontier = state.get("prepared_frontier") or {}
+    binding = state.get("continuity_binding") or {}
+    selected_ids = {
+        str(value) for value in frontier.get("selected_headline_ids") or [] if str(value)
+    }
+    current_rows = {
+        str(row.get("headline_id") or ""): {
+            key: value for key, value in row.items() if key != "source_locator"
+        }
+        for row in current_input.get("headlines") or []
+        if isinstance(row, Mapping) and str(row.get("headline_id") or "")
+    }
+    prepared_rows = {
+        str(row.get("headline_id") or ""): {
+            key: value for key, value in row.items() if key != "source_locator"
+        }
+        for row in (state.get("prepared_input") or {}).get("headlines") or []
+        if isinstance(row, Mapping) and str(row.get("headline_id") or "")
+    }
+    expected_binding = prepared_candidate_continuity_binding(
+        continuity=continuity,
+        evaluated_headline_ids=continuity.get("evaluated_headline_ids") or [],
+        reentry_headline_ids=(
+            continuity.get("material_event_priority") or {}
+        ).get("headline_ids") or [],
+    )
+    expected_target = dict(opportunities[0]) if opportunities else None
+    target = frontier.get("target_editorial_opportunity")
+    return bool(
+        frontier.get("opportunity_schedule_derived_from_policy") is True
+        and target == expected_target
+        and set(prepared_rows) == selected_ids
+        and all(current_rows.get(headline_id) == prepared_rows[headline_id] for headline_id in selected_ids)
+        and binding == expected_binding
+    )
+
+
 def build_live_zero_write_rehearsal(
     *,
     cutoff_utc: datetime | str | None = None,
@@ -838,12 +1041,132 @@ def build_live_zero_write_rehearsal(
         current_clusters=clusters,
         continuity=continuity,
     )
+    material_reentry_ids = sorted({
+        str(headline_id)
+        for row in universe.get("included_clusters") or []
+        if str(row.get("relationship") or "").casefold() in MATERIAL_RELATIONSHIPS
+        for headline_id in row.get("headline_ids") or []
+        if str(headline_id)
+    })
+    excluded_ids = {
+        str(headline_id)
+        for row in universe.get("excluded_clusters") or []
+        for headline_id in row.get("headline_ids") or []
+        if str(headline_id)
+    }
+    continuity_evaluated_ids = {
+        str(value) for value in continuity.get("evaluated_headline_ids") or [] if str(value)
+    }
+    from live_contentops.daily_app_supervisor_v1 import (
+        PREPARED_CANDIDATE_CHECKPOINT_NAME,
+        WINDOW_EXECUTED_STATES,
+        build_bootstrap_editorial_window_policy,
+        owner_locked_editorial_opportunities,
+    )
+
+    evaluated_ids = sorted(continuity_evaluated_ids.union(excluded_ids))
+    priority_reentry_ids = {
+        str(value)
+        for value in (continuity.get("material_event_priority") or {}).get("headline_ids") or []
+        if str(value)
+    }
+    reentry_ids = sorted(set(material_reentry_ids).union(priority_reentry_ids))
+    policy = build_bootstrap_editorial_window_policy(
+        effective_at_utc=_iso_utc(cutoff)
+    )
+    opportunities = owner_locked_editorial_opportunities(
+        policy,
+        reference_utc=cutoff,
+        through_utc=cutoff + timedelta(
+            hours=float(current_input.get("window_hours") or 24.0)
+        ),
+        capacity=PREPARED_CANDIDATE_LIMIT,
+    )
+    executed_ids = _executed_editorial_window_ids(
+        Path(store_path),
+        [str(row.get("opportunity_id") or "") for row in opportunities],
+        executed_states=WINDOW_EXECUTED_STATES,
+    )
+    opportunities = [
+        row for row in opportunities
+        if str(row.get("opportunity_id") or "") not in executed_ids
+    ]
+    checkpoint_path, prior_prepared_state = _continuous_prepared_checkpoint(
+        output_root=Path(output_root),
+        checkpoint_name=PREPARED_CANDIDATE_CHECKPOINT_NAME,
+    )
+    prepared_preview: dict[str, Any] | None = None
+    prepared_state_source = "REBUILT_FROM_CANONICAL_FRONTIER_INPUTS"
+    if prior_prepared_state is not None:
+        try:
+            validated = validate_prepared_rolling_x_candidate_state(
+                prior_prepared_state,
+                publication_cutoff_utc=cutoff,
+            )
+            if _checkpoint_matches_live_authority(
+                validated,
+                current_input=current_input,
+                continuity=continuity,
+                opportunities=opportunities,
+            ):
+                prepared_preview = validated
+                prepared_state_source = "REUSED_VALID_CONTINUOUS_CHECKPOINT"
+        except (TypeError, ValueError):
+            prepared_preview = None
+    if prepared_preview is None:
+        prepared_preview = build_prepared_rolling_x_candidate_state(
+            rolling_input=current_input,
+            prepared_at_utc=cutoff,
+            evaluated_headline_ids=evaluated_ids,
+            reentry_headline_ids=reentry_ids,
+            editorial_opportunities=opportunities,
+            prior_prepared_state=prior_prepared_state,
+            continuity_binding=prepared_candidate_continuity_binding(
+                continuity=continuity,
+                evaluated_headline_ids=evaluated_ids,
+                reentry_headline_ids=reentry_ids,
+            ),
+        )
     catalog = discover_cc_data_estate(cc_root=cc_root, use_cache=False)
     governed = inspect_governed_cc_surfaces(catalog)
-    selected = next(iter(universe.get("included_clusters") or []), None)
+    selected_frontier_ids = {
+        str(value)
+        for value in (prepared_preview.get("prepared_frontier") or {}).get(
+            "selected_headline_ids"
+        ) or []
+        if str(value)
+    }
+    selected_assignment = next(
+        iter((prepared_preview.get("assignment") or {}).get("ranked_clusters") or []),
+        None,
+    )
+    selected_headline_ids = [
+        str(value)
+        for value in (selected_assignment or {}).get("headline_ids") or []
+        if str(value) in selected_frontier_ids
+    ]
+    selected = (
+        {
+            "cluster_id": (selected_assignment or {}).get("cluster_id"),
+            "headline_ids": selected_headline_ids,
+            "relationship": "prepared_frontier",
+        }
+        if selected_assignment and selected_headline_ids
+        else None
+    )
+    raw_selected = next(
+        (
+            row for row in universe.get("included_clusters") or []
+            if selected_headline_ids
+            and selected_headline_ids[0] in {
+                str(value) for value in row.get("headline_ids") or []
+            }
+        ),
+        None,
+    )
     entities: list[str] = []
     if selected:
-        entities = [str(value) for value in (selected.get("entities_topics") or [])]
+        entities = [str(value) for value in (raw_selected or {}).get("entities_topics") or []]
         if not entities:
             selected_id = next(iter(selected.get("headline_ids") or []), None)
             selected_row = next(
@@ -876,6 +1199,20 @@ def build_live_zero_write_rehearsal(
             ),
         },
         "candidate_universe": universe,
+        "prepared_candidate_state_preview": prepared_preview,
+        "prepared_candidate_state_source": prepared_state_source,
+        "prepared_candidate_checkpoint_path": str(checkpoint_path.resolve()),
+        "prepared_checkpoint_written_by_rehearsal": False,
+        "prepared_candidate_count": int(
+            prepared_preview.get("prepared_candidate_count") or 0
+        ),
+        "deferred_candidate_count": int(
+            (prepared_preview.get("prepared_frontier") or {}).get(
+                "deferred_identity_count"
+            )
+            or 0
+        ),
+        "prepared_frontier_is_continuity_bound": True,
         "active_learning_policy": continuity.get("active_learning_policy"),
         "material_event_priority": continuity.get("material_event_priority"),
         "material_event_priority_consumed_by_briefing": bool(
@@ -889,6 +1226,7 @@ def build_live_zero_write_rehearsal(
                 "cluster_id": selected.get("cluster_id"),
                 "headline_ids": selected.get("headline_ids"),
                 "relationship": selected.get("relationship"),
+                "prepared_frontier_bound": True,
             }
             if selected else {"decision": "ABSTAIN_NO_CURRENT_UNSEEN_OR_MATERIAL_UPDATE"}
         ),
@@ -913,7 +1251,11 @@ def build_live_zero_write_rehearsal(
         "database_writes_performed": False,
         "filesystem_writes_performed": False,
         "provider_or_model_calls": 0,
+        "model_calls": 0,
+        "provider_calls": 0,
+        "public_requests": 0,
         "public_writes": 0,
+        "unknown_write_detected": False,
         "publication_coordinator_sole_public_writer_unchanged": True,
         "v2_mutations": 0,
     }

@@ -1,0 +1,51 @@
+{
+  "schema_version": "contentops.v1_provider_authorization_zero_write_canary_summary.v1",
+  "classification": "BLOCKED_GROUNDED_RESEARCH_PROVIDER_AUTHORIZATION",
+  "exact_next_blocker": "TERRA_ROUTE_AUTHORIZATION_OR_OWNER_POLICY_DECISION_REQUIRED",
+  "canary_authorized_after_preflight": true,
+  "canary_attempt_count": 1,
+  "run_id": "v1-provider-preflight-zero-write-canary-closure",
+  "fresh_cutoff_utc": "2026-08-17T16:22:17.402782Z",
+  "current_headline_count": 310,
+  "prepared_frontier_count": 12,
+  "deferred_candidate_count": 12,
+  "prepared_candidate_state_source": "REBUILT_FROM_CANONICAL_FRONTIER_INPUTS",
+  "attempted_candidate_count": 1,
+  "unattempted_candidate_count": 11,
+  "cycle_status": "BLOCKED",
+  "cycle_reason_code": "INFRASTRUCTURE_BUDGET_OR_PROVIDER_EXHAUSTED",
+  "terminal_provider_failure": {
+    "requested_model": "cx/gpt-5.6-terra(high)",
+    "failure_class": "http_401_unauthorized",
+    "provider_status_class": "4xx_client_401",
+    "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+    "fallback_attempted": false,
+    "models_attempted_in_order": [
+      "cx/gpt-5.6-terra(high)"
+    ]
+  },
+  "research": {
+    "logical_invocations": 1,
+    "provider_attempts": 1,
+    "public_retrieval_requests": 3,
+    "retrieval_candidate_documents_accepted_before_synthesis": 1,
+    "source_synthesis_completed": false
+  },
+  "fixed_defect_occurrences": {
+    "evidence_request_capability_registry_mismatch": 0,
+    "evidence_request_source_adapter_registry_mismatch": 0,
+    "unsupported_canonical_story_type": 0
+  },
+  "editorial": {
+    "qualified_candidate_count": 0,
+    "native_xhigh_worker_count": 0,
+    "legacy_article_writer_count": 0,
+    "mandatory_semantic_review_count": 0,
+    "article_artifacts": null,
+    "seo_or_nine_surface_packages": null
+  },
+  "public_write_authority": false,
+  "public_write_performed": false,
+  "publishing_adapter_called": false,
+  "unknown_write_detected": false
+}

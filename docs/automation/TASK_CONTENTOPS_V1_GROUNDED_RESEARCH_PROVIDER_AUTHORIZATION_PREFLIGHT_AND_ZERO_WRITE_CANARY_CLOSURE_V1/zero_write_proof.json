@@ -1,0 +1,32 @@
+{
+  "schema_version": "contentops.v1_provider_authorization_zero_write_proof.v1",
+  "status": "PASS_ZERO_WRITE",
+  "production_store": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "before_sha256": "91DB00518B174CB80E298F7063C08AD1734537FEBCBC52FECC79216263F10909",
+    "after_sha256": "91DB00518B174CB80E298F7063C08AD1734537FEBCBC52FECC79216263F10909",
+    "mutated": false
+  },
+  "durable_editorial_continuity": {
+    "before_cutoff_utc": "2026-08-17T08:50:15.794759Z",
+    "after_cutoff_utc": "2026-08-17T08:50:15.794759Z",
+    "before_logical_hash": "ed1005c4de83e4490aeb69e719dcdd9f6ad61e29287089aa4230cb2d915175a4",
+    "after_logical_hash": "ed1005c4de83e4490aeb69e719dcdd9f6ad61e29287089aa4230cb2d915175a4",
+    "evaluated_headline_count_before": 401,
+    "evaluated_headline_count_after": 401,
+    "mutated": false
+  },
+  "capital_chronicle": {
+    "access_mode": "READ_ONLY",
+    "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+    "mutated": false
+  },
+  "public_writes": 0,
+  "unknown_write": false,
+  "publication_coordinator_calls": 0,
+  "outbox_or_publication_intents": 0,
+  "publication_browser_navigation": 0,
+  "v2_mutations": 0,
+  "scheduled_task_mutations": 0,
+  "secret_or_session_material_read_or_persisted": false
+}

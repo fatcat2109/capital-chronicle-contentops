@@ -1,0 +1,23 @@
+{
+  "schema_version": "contentops.v1_native_xhigh_canary_candidate_source_summary.v1",
+  "classification": "ALL_PREPARED_CANDIDATES_EVIDENCE_BLOCKED",
+  "prepared_candidates_walked": 12,
+  "selected_candidate": null,
+  "accepted_evidence_packet": null,
+  "attempts": [
+    {"rank": 1, "cluster_id": "rolling-x-deterministic-cluster-04bd44b955e70e75505b", "headline_id": "cc-x-headline-79584fc5329f4f40de4f11c9", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"},
+    {"rank": 2, "cluster_id": "rolling-x-deterministic-cluster-646ceb07b170bf38fef1", "headline_id": "cc-x-headline-e74b85a41ff59e7ecb4daaf9", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"},
+    {"rank": 3, "cluster_id": "rolling-x-deterministic-cluster-8461e5e24888f656ca09", "headline_id": "cc-x-headline-80bcb98741d68e59525ebef4", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"},
+    {"rank": 4, "cluster_id": "rolling-x-deterministic-cluster-880b46ee7c3ea1bfbff7", "headline_id": "cc-x-headline-b069e4eab152b739bb289ccb", "evidence_documents": 0, "research_calls": 2, "provider_attempts": 2, "public_retrieval_requests": 6, "status": "BLOCKED", "primary_blocker": "public_source_unavailable"},
+    {"rank": 5, "cluster_id": "rolling-x-deterministic-cluster-63b36728e5bfef35684c", "headline_id": "cc-x-headline-57725a6d41dcdfc114ffc5ad", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"},
+    {"rank": 6, "cluster_id": "rolling-x-deterministic-cluster-d429270e430192d7b80c", "headline_id": "cc-x-headline-56df0e833c73c065d41a9606", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"},
+    {"rank": 7, "cluster_id": "rolling-x-deterministic-cluster-16cd9378c15beb269df2", "headline_id": "cc-x-headline-a7f0c857ea790af7e97b96cb", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "public_retrieval_requests": 1, "status": "BLOCKED", "primary_blocker": "public_source_unavailable"},
+    {"rank": 8, "cluster_id": "rolling-x-deterministic-cluster-477ce2d0e4faa046554f", "headline_id": "cc-x-headline-b80ad3d43ba4e170b7897fc8", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"},
+    {"rank": 9, "cluster_id": "rolling-x-deterministic-cluster-821018676076929ddb86", "headline_id": "cc-x-headline-e012db62d11dccb9731da731", "evidence_documents": 0, "retrieved_documents_before_synthesis_validation": 2, "research_calls": 1, "provider_attempts": 4, "public_retrieval_requests": 3, "status": "BLOCKED", "primary_blocker": "grounded_research_source_synthesis_research_fact_not_supported_by_bound_source"},
+    {"rank": 10, "cluster_id": "rolling-x-deterministic-cluster-eb1828afbd0b1d6b8392", "headline_id": "cc-x-headline-5db169c073ebd30f9f736e15", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"},
+    {"rank": 11, "cluster_id": "rolling-x-deterministic-cluster-b05b93ce9968e9018e57", "headline_id": "cc-x-headline-19cb7b7ffea742051c07b546", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"},
+    {"rank": 12, "cluster_id": "rolling-x-deterministic-cluster-96a70f4438464d8a8175", "headline_id": "cc-x-headline-64c0ba42c23c7dd3229b8d0b", "evidence_documents": 0, "research_calls": 0, "provider_attempts": 0, "status": "BLOCKED", "primary_blocker": "evidence_request_capability_registry_mismatch"}
+  ],
+  "source_authority_decision": "No attempt produced an accepted governed evidence packet. Untrusted intake remained discovery/ranking input only.",
+  "xhigh_spawn_authorized": false
+}

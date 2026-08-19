@@ -24,6 +24,8 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV,
     GATEWAY,
     GEMINI_PRO_MODEL,
+    GROUNDED_RESEARCH_MAX_FALLBACK_TRANSITIONS,
+    GROUNDED_RESEARCH_MAX_TOTAL_PROVIDER_ATTEMPTS,
     GROUNDED_RESEARCH_MODEL_POOL,
     GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS,
     GROUNDED_RESEARCH_ROLE,
@@ -185,7 +187,7 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
     )
     assert PRIMARY_MODEL == "new/claude-fable-5"
     assert len(ORDERED_MODEL_POOL) == 4
-    assert len(AUTHORIZED_MODELS) == 7
+    assert len(AUTHORIZED_MODELS) == 6
     assert "vx/gemini-3.5-flash(high)" in AUTHORIZED_MODELS
     assert ARTICLE_WRITING_MODEL_POOL is V1_HIGH_QUALITY_MODEL_POOL
     assert model_pool_for_role(ARTICLE_WRITING_ROLE) is V1_HIGH_QUALITY_MODEL_POOL
@@ -324,10 +326,10 @@ def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_b
     assert generic.max_same_model_retries == 0
     assert generic.max_fallback_transitions == V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS == 4
     assert generic.per_model_max_attempts == V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS == (2, 2, 2, 2, 2)
-    assert grounded.max_total_provider_attempts == 6
-    assert grounded.max_fallback_transitions == 4
+    assert grounded.max_total_provider_attempts == GROUNDED_RESEARCH_MAX_TOTAL_PROVIDER_ATTEMPTS == 3
+    assert grounded.max_fallback_transitions == GROUNDED_RESEARCH_MAX_FALLBACK_TRANSITIONS == 1
     assert grounded.max_structured_output_repair_attempts == 1
-    assert grounded.per_model_max_attempts == GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS == (2, 2, 2)
+    assert grounded.per_model_max_attempts == GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS == (2, 2)
     rescue = retry_budget_for_role(
         role_task_id=ARTICLE_WRITING_CX_RESCUE_ROLE,
         logical_invocation_id="cx-rescue-budget-test",

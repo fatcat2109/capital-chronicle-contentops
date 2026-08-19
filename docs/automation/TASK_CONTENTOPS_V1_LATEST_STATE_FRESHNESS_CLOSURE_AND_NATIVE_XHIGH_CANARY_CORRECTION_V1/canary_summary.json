@@ -1,0 +1,61 @@
+{
+  "schema_version": "contentops.v1_latest_state_fresh_zero_write_canary_summary.v1",
+  "classification": "NO_PUBLICATION",
+  "task_classification": "PASS_LATEST_STATE_FRESHNESS_CLOSURE_WITH_FRESH_ZERO_WRITE_NO_PUBLICATION",
+  "evaluation_as_of_utc": "2026-08-17T19:20:04.825477Z",
+  "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+  "frontier": {
+    "full_rolling_headline_count": 245,
+    "prepared_candidate_count": 12,
+    "deferred_candidate_count": 0,
+    "attempted_candidate_count": 12,
+    "selected_rank": null
+  },
+  "research": {
+    "logical_calls": 12,
+    "public_retrieval_requests": 24,
+    "provider_attempts": {
+      "vx/gemini-3.1-pro-preview(high)": 15,
+      "vx/gemini-3.5-flash(high)": 3,
+      "cx/gpt-5.6-terra(high)": 0
+    },
+    "accepted_evidence_document_count": 0,
+    "latest_state_receipt_count": 12,
+    "latest_state_evaluation_as_of_utc": "2026-08-17T19:20:04.825477Z",
+    "forward_state_detected_count": 0,
+    "closure_queries_used": 0,
+    "post_cutoff_document_ids_rejected": 0,
+    "pre_closure_title_only_document_counts_by_rank": {
+      "1": 3,
+      "2": 2,
+      "7": 3
+    },
+    "note": "No current candidate contained an accepted detected forward state; latest-state closure was therefore NOT_REQUIRED for each attempt. Evidence/source-contract failures and the global public retrieval budget prevented qualification."
+  },
+  "editorial": {
+    "native_xhigh_worker_count": 0,
+    "legacy_article_writer_count": 0,
+    "mandatory_ordinary_semantic_review_count": 0,
+    "editorial_worker_routing": null,
+    "article_path": null,
+    "html_path": null,
+    "seo_package_path": null,
+    "nine_package_paths": [],
+    "editorial_seo_package_sha256": null
+  },
+  "safety": {
+    "public_write_performed": false,
+    "unknown_write_count": 0,
+    "publishing_adapter_called": false,
+    "strict_readback_performed": false,
+    "capital_chronicle_authority_mutated": false,
+    "v2_mutations": 0,
+    "scheduled_task_mutations": 0
+  },
+  "raw_evidence": {
+    "live_zero_write_rehearsal_v1.json_sha256": "5C04D79B60F9FBC95FEAFB02D40190382A19DA79B18921141580E77A715C89DE",
+    "qualification_summary_v1.json_sha256": "6E01C372D89F9FD772967A0DC0373DC223E6F6A86598DA246F885A1E271558DE",
+    "rolling_x_newsroom_cycle_evidence_v1.json_sha256": "5757F484BD3EF6EEF15EF29351448687050523CDC06CCAB60A206CC96B76B797"
+  },
+  "owner_audit_state": "NO_ARTICLE_AVAILABLE_FOR_JIM_CHATGPT_AUDIT"
+}

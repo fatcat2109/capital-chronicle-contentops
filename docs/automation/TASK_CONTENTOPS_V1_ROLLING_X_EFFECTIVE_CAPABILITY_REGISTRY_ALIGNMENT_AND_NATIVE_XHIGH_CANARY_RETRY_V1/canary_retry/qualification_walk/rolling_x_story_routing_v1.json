@@ -1,0 +1,81 @@
+{
+  "compatibility_injection_used": true,
+  "router_summary": null,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-43df2d4fcdfdf20ae03f",
+      "reason": "Focused compatibility injection.",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-04904c60c680929d0ccb",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-2b59169d1cf281965e30",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-5358ea97e40a5fd0d6ac",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-8cec3f66413596b638e9",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-cbb2f1babee5acb075a9",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-a7d43efa82d36dc7f854",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-5bd72e29fce9944dc62a",
+      "reason": "Focused compatibility injection.",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-381f9ece58691bfe682f",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-644bc70116c389393555",
+      "reason": "Focused compatibility injection.",
+      "story_type": "geopolitical_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-aeed6e5ccbc3be2c15db",
+      "reason": "Focused compatibility injection.",
+      "story_type": "supply_chain_event"
+    },
+    {
+      "cluster_id": "rolling-x-deterministic-cluster-5e453d5684310507114b",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-deterministic-cluster-04904c60c680929d0ccb": "general_public_event",
+    "rolling-x-deterministic-cluster-2b59169d1cf281965e30": "general_public_event",
+    "rolling-x-deterministic-cluster-381f9ece58691bfe682f": "general_public_event",
+    "rolling-x-deterministic-cluster-43df2d4fcdfdf20ae03f": "market_move",
+    "rolling-x-deterministic-cluster-5358ea97e40a5fd0d6ac": "general_public_event",
+    "rolling-x-deterministic-cluster-5bd72e29fce9944dc62a": "regulatory_fiscal_event",
+    "rolling-x-deterministic-cluster-5e453d5684310507114b": "general_public_event",
+    "rolling-x-deterministic-cluster-644bc70116c389393555": "geopolitical_event",
+    "rolling-x-deterministic-cluster-8cec3f66413596b638e9": "general_public_event",
+    "rolling-x-deterministic-cluster-a7d43efa82d36dc7f854": "general_public_event",
+    "rolling-x-deterministic-cluster-aeed6e5ccbc3be2c15db": "supply_chain_event",
+    "rolling-x-deterministic-cluster-cbb2f1babee5acb075a9": "general_public_event"
+  }
+}

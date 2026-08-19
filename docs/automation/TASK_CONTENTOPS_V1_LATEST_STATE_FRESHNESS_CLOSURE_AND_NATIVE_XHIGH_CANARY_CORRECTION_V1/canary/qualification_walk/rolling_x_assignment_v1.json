@@ -1,0 +1,662 @@
+{
+  "assignment_logical_hash": "7a4a6953e8a2287c175251103cf6542431d3863659553ebe4e4b2b0d4048bdbe",
+  "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
+  "decision": "SELECT_STORY",
+  "factual_or_numeric_authority_granted": false,
+  "input_binding": {
+    "canonical_input_hash": "1b7da5c50c9cc77229eeda0dd4417851a041ee2697070ad7c8a6bceb595e2a02",
+    "held_count": 0,
+    "input_count": 12,
+    "selected_count": 12
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e186288bc7758e405bde9bd3",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e186288bc7758e405bde9bd3"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "QATAR'S FOREIGN MINISTRY DENIES DETAINING IRANIAN PILOTS, SAYING THE PILOTS VIOLATED QATARI AIRSPACE AND DID NOT RESPOND TO CONTACT ATTEMPTS, PROMPTING IT TO TAKE NECESSARY MEASURES TO DEFEND ITS TERRITORY.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-997537506695c666b046",
+      "member_headline_ids": [
+        "cc-x-headline-e186288bc7758e405bde9bd3"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f8efc6717bf45021b18444d2",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f8efc6717bf45021b18444d2"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "YEMEN'S PORT DIRECTOR SAYS MOCHA PORT HAS HALTED OPERATIONS FOLLOWING HOUTHI ATTACKS",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-5da161c8801536296ea6",
+      "member_headline_ids": [
+        "cc-x-headline-f8efc6717bf45021b18444d2"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-68c2b904a6ba4e2b698f5c23",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-68c2b904a6ba4e2b698f5c23"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "RUSSIA SAYS IT SEEKS U.S. AND TURKISH EXPLANATIONS OVER ALLEGED PLANS TO SUPPLY ARMS TO KYIV, ADDING THAT POTENTIAL ARMS SUPPLIES WOULD UNDERMINE MOSCOW'S RELATIONS WITH WASHINGTON AND ANKARA",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-fa5aeada39dd95f685ef",
+      "member_headline_ids": [
+        "cc-x-headline-68c2b904a6ba4e2b698f5c23"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-95c238002d8ef6c56ae2c2fd",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-95c238002d8ef6c56ae2c2fd"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "UKRAINE'S ZELENSKIY SAYS ITS MILITARY HIT A RUSSIAN OIL FACILITY IN UST-LUGA",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-a658b3f36703cb4f708b",
+      "member_headline_ids": [
+        "cc-x-headline-95c238002d8ef6c56ae2c2fd"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f4454d7bfa896dcb249fbbc1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f4454d7bfa896dcb249fbbc1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "OMAN SAYS AROUND 12 KM OF COASTLINE HAS BEEN AFFECTED BY OIL POLLUTION IN RAS MADRAKAH - STATE NEWS AGENCY",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-119ebde1d50d62d70501",
+      "member_headline_ids": [
+        "cc-x-headline-f4454d7bfa896dcb249fbbc1"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-3d81b2f89709aac09b833a94",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-3d81b2f89709aac09b833a94"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "President Trump is doing his best to give this country back to the people and half of the country is too ignorant to notice",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-cd4213610bd02d5ba02a",
+      "member_headline_ids": [
+        "cc-x-headline-3d81b2f89709aac09b833a94"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-33fdc705955e1c18a08afe31",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-33fdc705955e1c18a08afe31"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "ISRAEL'S MILITARY SAYS IT STRUCK HEZBOLLAH INFRASTRUCTURE IN SOUTHERN LEBANON IN RESPONSE TO ACTION AGAINST SOLDIERS IN THE SECURITY ZONE",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-b79ba501c048f8dc2e53",
+      "member_headline_ids": [
+        "cc-x-headline-33fdc705955e1c18a08afe31"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-29dd851fe2fa8c4ccb355776",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-29dd851fe2fa8c4ccb355776"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "UKMTO SAYS A BULK CARRIER WAS STRUCK BY AN UNKNOWN PROJECTILE IN THE STRAIT OF HORMUZ ON FRIDAY, WITH THE PROJECTILE HITTING THE VESSEL'S HULL AND THE CREW REPORTED SAFE, THOUGH NO DAMAGE ASSESSMENT WAS REPORTED AND THE ENVIRONMENTAL...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-eabefac911698e0ccc41",
+      "member_headline_ids": [
+        "cc-x-headline-29dd851fe2fa8c4ccb355776"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e47e81a003856c62297cf03f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e47e81a003856c62297cf03f"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "THE U.S. HAS URGED APPLE NOT TO BUY CHINESE MEMORY CHIPS - WSJ",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-b196c5f78a369539c290",
+      "member_headline_ids": [
+        "cc-x-headline-e47e81a003856c62297cf03f"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b9d7207bb12c5e02f37ac8d7",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b9d7207bb12c5e02f37ac8d7"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "ANTHROPIC PROJECTS $190 BLN-$200 BLN IN REVENUE FOR 2028, ACCORDING TO SOURCES, WITH WALL STREET USING 2028 REVENUE AND AN EV-TO-REVENUE MULTIPLE TO VALUE THE IPO",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-6d08ca877e2e34e14bdb",
+      "member_headline_ids": [
+        "cc-x-headline-b9d7207bb12c5e02f37ac8d7"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-4d43589b1cda80bc9ae9d1ce",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-4d43589b1cda80bc9ae9d1ce"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "\ud83c\udfaf When the PEOPLE no longer contribute ANY VALUE, they no longer have ANY POWER... Humans are on our way to becoming an annoying distraction to an economy that no longer needs us. The system in its current form de facto leads to... 0...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-a1fd62ebd41d38529912",
+      "member_headline_ids": [
+        "cc-x-headline-4d43589b1cda80bc9ae9d1ce"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-ce5347802be6ce0d21d4a54d",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-ce5347802be6ce0d21d4a54d"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "JPMORGAN CEO JAMIE DIMON HAS WARNED THE UK CHANCELLOR AGAINST HIGHER BANK TAXES, HAVING SPOKEN WITH CHANCELLOR HEALEY ON A CALL THURSDAY - FT",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-f8c1daf72709625087a1",
+      "member_headline_ids": [
+        "cc-x-headline-ce5347802be6ce0d21d4a54d"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 245,
+    "held_before_semantic_assignment_count": 233,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "2a0cc49dbc9a64fd22b6e2c0aa2ba0b8c09541b4d22086dd07f81a8393bd2870",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-997537506695c666b046",
+      "headline_ids": [
+        "cc-x-headline-e186288bc7758e405bde9bd3"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-997537506695c666b046"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 1,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e186288bc7758e405bde9bd3",
+        "ordered_headline_ids": [
+          "cc-x-headline-e186288bc7758e405bde9bd3"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "QATAR'S FOREIGN MINISTRY DENIES DETAINING IRANIAN PILOTS, SAYING THE PILOTS VIOLATED QATARI AIRSPACE AND DID NOT RESPOND TO CONTACT ATTEMPTS, PROMPTING IT TO TAKE NECESSARY MEASURES TO DEFEND ITS TERRITORY."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-5da161c8801536296ea6",
+      "headline_ids": [
+        "cc-x-headline-f8efc6717bf45021b18444d2"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-5da161c8801536296ea6"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 2,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f8efc6717bf45021b18444d2",
+        "ordered_headline_ids": [
+          "cc-x-headline-f8efc6717bf45021b18444d2"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "YEMEN'S PORT DIRECTOR SAYS MOCHA PORT HAS HALTED OPERATIONS FOLLOWING HOUTHI ATTACKS"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-fa5aeada39dd95f685ef",
+      "headline_ids": [
+        "cc-x-headline-68c2b904a6ba4e2b698f5c23"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-fa5aeada39dd95f685ef"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 3,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-68c2b904a6ba4e2b698f5c23",
+        "ordered_headline_ids": [
+          "cc-x-headline-68c2b904a6ba4e2b698f5c23"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RUSSIA SAYS IT SEEKS U.S. AND TURKISH EXPLANATIONS OVER ALLEGED PLANS TO SUPPLY ARMS TO KYIV, ADDING THAT POTENTIAL ARMS SUPPLIES WOULD UNDERMINE MOSCOW'S RELATIONS WITH WASHINGTON AND ANKARA"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-a658b3f36703cb4f708b",
+      "headline_ids": [
+        "cc-x-headline-95c238002d8ef6c56ae2c2fd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a658b3f36703cb4f708b"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 4,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-95c238002d8ef6c56ae2c2fd",
+        "ordered_headline_ids": [
+          "cc-x-headline-95c238002d8ef6c56ae2c2fd"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "UKRAINE'S ZELENSKIY SAYS ITS MILITARY HIT A RUSSIAN OIL FACILITY IN UST-LUGA"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-119ebde1d50d62d70501",
+      "headline_ids": [
+        "cc-x-headline-f4454d7bfa896dcb249fbbc1"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-119ebde1d50d62d70501"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 5,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f4454d7bfa896dcb249fbbc1",
+        "ordered_headline_ids": [
+          "cc-x-headline-f4454d7bfa896dcb249fbbc1"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "OMAN SAYS AROUND 12 KM OF COASTLINE HAS BEEN AFFECTED BY OIL POLLUTION IN RAS MADRAKAH - STATE NEWS AGENCY"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-cd4213610bd02d5ba02a",
+      "headline_ids": [
+        "cc-x-headline-3d81b2f89709aac09b833a94"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-cd4213610bd02d5ba02a"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 6,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-3d81b2f89709aac09b833a94",
+        "ordered_headline_ids": [
+          "cc-x-headline-3d81b2f89709aac09b833a94"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "President Trump is doing his best to give this country back to the people and half of the country is too ignorant to notice"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-b79ba501c048f8dc2e53",
+      "headline_ids": [
+        "cc-x-headline-33fdc705955e1c18a08afe31"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-b79ba501c048f8dc2e53"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 7,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-33fdc705955e1c18a08afe31",
+        "ordered_headline_ids": [
+          "cc-x-headline-33fdc705955e1c18a08afe31"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "ISRAEL'S MILITARY SAYS IT STRUCK HEZBOLLAH INFRASTRUCTURE IN SOUTHERN LEBANON IN RESPONSE TO ACTION AGAINST SOLDIERS IN THE SECURITY ZONE"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-eabefac911698e0ccc41",
+      "headline_ids": [
+        "cc-x-headline-29dd851fe2fa8c4ccb355776"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-eabefac911698e0ccc41"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 8,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-29dd851fe2fa8c4ccb355776",
+        "ordered_headline_ids": [
+          "cc-x-headline-29dd851fe2fa8c4ccb355776"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "UKMTO SAYS A BULK CARRIER WAS STRUCK BY AN UNKNOWN PROJECTILE IN THE STRAIT OF HORMUZ ON FRIDAY, WITH THE PROJECTILE HITTING THE VESSEL'S HULL AND THE CREW REPORTED SAFE, THOUGH NO DAMAGE ASSESSMENT WAS REPORTED AND THE ENVIRONMENTAL..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-b196c5f78a369539c290",
+      "headline_ids": [
+        "cc-x-headline-e47e81a003856c62297cf03f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-b196c5f78a369539c290"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 9,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e47e81a003856c62297cf03f",
+        "ordered_headline_ids": [
+          "cc-x-headline-e47e81a003856c62297cf03f"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "THE U.S. HAS URGED APPLE NOT TO BUY CHINESE MEMORY CHIPS - WSJ"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-6d08ca877e2e34e14bdb",
+      "headline_ids": [
+        "cc-x-headline-b9d7207bb12c5e02f37ac8d7"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-6d08ca877e2e34e14bdb"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 10,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b9d7207bb12c5e02f37ac8d7",
+        "ordered_headline_ids": [
+          "cc-x-headline-b9d7207bb12c5e02f37ac8d7"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "ANTHROPIC PROJECTS $190 BLN-$200 BLN IN REVENUE FOR 2028, ACCORDING TO SOURCES, WITH WALL STREET USING 2028 REVENUE AND AN EV-TO-REVENUE MULTIPLE TO VALUE THE IPO"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-a1fd62ebd41d38529912",
+      "headline_ids": [
+        "cc-x-headline-4d43589b1cda80bc9ae9d1ce"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a1fd62ebd41d38529912"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 11,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-4d43589b1cda80bc9ae9d1ce",
+        "ordered_headline_ids": [
+          "cc-x-headline-4d43589b1cda80bc9ae9d1ce"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "\ud83c\udfaf When the PEOPLE no longer contribute ANY VALUE, they no longer have ANY POWER... Humans are on our way to becoming an annoying distraction to an economy that no longer needs us. The system in its current form de facto leads to... 0..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-f8c1daf72709625087a1",
+      "headline_ids": [
+        "cc-x-headline-ce5347802be6ce0d21d4a54d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-f8c1daf72709625087a1"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 12,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-ce5347802be6ce0d21d4a54d",
+        "ordered_headline_ids": [
+          "cc-x-headline-ce5347802be6ce0d21d4a54d"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "JPMORGAN CEO JAMIE DIMON HAS WARNED THE UK CHANCELLOR AGAINST HIGHER BANK TAXES, HAVING SPOKEN WITH CHANCELLOR HEALEY ON A CALL THURSDAY - FT"
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [],
+  "router_output_grants_publication_authority": false,
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-997537506695c666b046",
+  "selected_headline_ids": [
+    "cc-x-headline-e186288bc7758e405bde9bd3"
+  ],
+  "semantic_assignment_failure_recovered": true,
+  "status": "SUCCESS",
+  "telemetry": {
+    "fallback_transitions": 0,
+    "logical_router_calls": 0,
+    "provider_attempts": 0,
+    "token_usage": {
+      "completion_tokens": 0,
+      "prompt_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "x_content_grants_evidence_authority": false
+}

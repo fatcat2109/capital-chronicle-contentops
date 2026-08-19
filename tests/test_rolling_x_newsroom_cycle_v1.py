@@ -21,7 +21,61 @@ def _all_ready():
     }
 
 
-def _xhigh_receipt(article, governed_input_hash="a" * 64):
+def _xhigh_receipt(article, governed_input="a" * 64):
+    if isinstance(governed_input, dict):
+        worker_request = governed_input
+        governed_input_hash = worker_request["governed_input_hash"]
+        packet = worker_request["bounded_governed_context"][
+            "institutional_edge_editorial_packet"
+        ]
+        title = str(article.get("title") or "Official Event Update")
+        dek = str(article.get("dek") or article.get("subtitle") or title)
+        body = str(
+            article.get("substack_body_markdown")
+            or f"{title}. The official record establishes the current position.\n\n"
+            "The next official update remains the relevant checkpoint for readers."
+        )
+        meta = str(article.get("meta_description") or dek)
+        slug = str(article.get("slug") or "official-event-update")
+        article.update({
+            "title": title,
+            "canonical_editorial_headline": title,
+            "subtitle": dek,
+            "dek": dek,
+            "seo_title": str(article.get("seo_title") or title),
+            "search_title": str(article.get("seo_title") or title),
+            "social_lede": str(article.get("social_lede") or title),
+            "social_hook": str(article.get("social_lede") or title),
+            "meta_description": meta,
+            "author_identity": "Capital Chronicle",
+            "publisher_identity": "Capital Chronicle",
+            "slug": slug,
+            "canonical_slug_candidate": slug,
+            "substack_body_markdown": body,
+            "primary_reader_question": "What does the official record establish?",
+            "secondary_reader_questions": [],
+            "entities": ["Official Agency"],
+            "topics": ["official event"],
+            "search_freshness_class": "CURRENT",
+            "internal_link_candidates": [],
+            "structured_data_packet": {
+                "@type": "NewsArticle",
+                "headline": title,
+                "description": meta,
+                "datePublished": "2026-08-17T09:00:00Z",
+                "dateModified": "2026-08-17T09:00:00Z",
+                "author": "Capital Chronicle",
+                "publisher": "Capital Chronicle",
+            },
+            "epistemic_claims": [],
+            "quote_source_records": [],
+            "humor_lines": [],
+            "institutional_edge_editorial_packet_sha256": packet[
+                "editorial_packet_sha256"
+            ],
+        })
+    else:
+        governed_input_hash = governed_input
     return {
         "model": "gpt-5.6-sol", "reasoning_effort": "XHIGH",
         "fresh": True, "isolated": True,
@@ -196,7 +250,7 @@ def test_same_opportunity_reader_value_failure_advances_and_first_publishable_st
             "media": {"assets": []},
             "critical_path_telemetry": {"article_writer_semantic_calls": 1},
             "editorial_worker_receipt": _xhigh_receipt(
-                article, value["editorial_worker_request"]["governed_input_hash"]
+                article, value["editorial_worker_request"]
             ),
         }
 
@@ -254,7 +308,7 @@ def test_same_opportunity_evidence_failure_advances_before_writer(monkeypatch, t
             "media": {"assets": []},
             "critical_path_telemetry": {"article_writer_semantic_calls": 1},
             "editorial_worker_receipt": _xhigh_receipt(
-                article, value["editorial_worker_request"]["governed_input_hash"]
+                article, value["editorial_worker_request"]
             ),
         })({
                 "title": "Candidate 2",
@@ -339,7 +393,7 @@ def test_all_candidate_exhaustion_returns_truthful_no_publication(monkeypatch, t
             "media": {"assets": []},
             "critical_path_telemetry": {"article_writer_semantic_calls": 1},
             "editorial_worker_receipt": _xhigh_receipt(
-                article, value["editorial_worker_request"]["governed_input_hash"]
+                article, value["editorial_worker_request"]
             ),
         }
 
@@ -849,6 +903,45 @@ def test_rolling_x_release_candidate_builds_and_verifies_canonical_lock(tmp_path
     assert payloads["threads"]["quality_metrics"]["reply_count"] == 2
 
 
+def test_enhanced_breaking_brief_uses_text_only_native_packages_without_article_media():
+    article = {
+        "title": "Kushner's Gaza Talks With Netanyahu End Without a Breakthrough",
+        "subtitle": (
+            "Newer pre-cutoff reporting closes the earlier scheduled-meeting state and "
+            "reports that the Netanyahu talks produced no breakthrough."
+        ),
+        "social_hook": (
+            "Jared Kushner's Gaza talks with Benjamin Netanyahu have occurred, with "
+            "newer reporting describing no breakthrough."
+        ),
+        "effective_article_mode": "BREAKING_BRIEF",
+        "minimum_trustworthy_evidence_packet": {
+            "status": "PASS",
+            "risk_tier": "ENHANCED",
+        },
+    }
+    payloads = implementation.build_native_derivative_payloads(
+        article=article,
+        selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/pending-publication",
+        media_asset_ids=(),
+    )
+
+    assert set(payloads) == {
+        "telegram", "x", "linkedin", "discord", "facebook_page",
+        "instagram_business", "threads", "youtube",
+    }
+    for platform in ("x", "threads"):
+        package = payloads[platform]
+        assert package["hard_truncation_used"] is False
+        assert all(not row["media_asset_ids"] for row in package["posts"])
+        assert max(package["quality_metrics"]["post_character_counts"]) <= package["platform_limit"]
+    all_payload_text = str(payloads).casefold()
+    assert "ahead of netanyahu talks" not in all_payload_text
+    assert "scheduled to meet netanyahu" not in all_payload_text
+    assert "planned netanyahu talks" not in all_payload_text
+
+
 def test_release_candidate_defers_unready_derivative_to_exact_jit_verification(tmp_path: Path):
     assignment, viability, article, media, editorial, readiness = _release_inputs(tmp_path)
     readiness["all_required_destinations_ready"] = False
@@ -994,7 +1087,7 @@ def test_passed_cycle_returns_plan_without_direct_backend_write(monkeypatch, tmp
         article_builder=lambda value: {
             "article": article, "media": media,
             "editorial_worker_receipt": _xhigh_receipt(
-                article, value["editorial_worker_request"]["governed_input_hash"]
+                article, value["editorial_worker_request"]
             ),
         },
         editorial_reviewer=lambda value: _semantic("PASS"),
@@ -1006,7 +1099,38 @@ def test_passed_cycle_returns_plan_without_direct_backend_write(monkeypatch, tmp
     assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
     assert result["public_write_performed"] is False
     assert result["daily_app_newsroom_direct_write"] is False
-    assert result["publication_lifecycle_plan"]["destinations"]
+    route = result["editorial_worker_routing"]
+    worker_request = route["worker_request"]
+    editorial_packet = worker_request["bounded_governed_context"][
+        "institutional_edge_editorial_packet"
+    ]
+    assert route["xhigh_worker_count_requested"] == 1
+    assert worker_request["model"] == "gpt-5.6-sol"
+    assert worker_request["reasoning_effort"] == "XHIGH"
+    assert worker_request["governed_input_hash"] == route["governed_input_hash"]
+    assert editorial_packet["editorial_packet_sha256"] == article[
+        "institutional_edge_editorial_packet_sha256"
+    ]
+    assert result["article"]["institutional_edge_editorial_validation"][
+        "classification"
+    ] == "PASS"
+    from live_contentops.tier1_editorial_quality_v1 import evaluate_reader_value
+
+    assert evaluate_reader_value(
+        result["article"], media_assets=media["assets"]
+    )["classification"] == "PASS"
+    assert result["critical_path_telemetry"]["mandatory_semantic_review_calls"] == 0
+    plan = result["publication_lifecycle_plan"]
+    assert len(plan["destinations"]) == 9
+    seo_package_hash = plan["editorial_seo_package"][
+        "editorial_seo_package_sha256"
+    ]
+    assert seo_package_hash
+    assert all(
+        row["editorial_seo_package_sha256"] == seo_package_hash
+        for row in plan["destinations"]
+    )
+    assert (tmp_path / "editorial_seo_package_v1.json").is_file()
     assert result["unknown_write_detected"] is False
 
 
@@ -1048,7 +1172,7 @@ def test_router_outage_fallback_has_no_live_publication_authority(monkeypatch, t
         article_builder=lambda value: {
             "article": article, "media": media,
             "editorial_worker_receipt": _xhigh_receipt(
-                article, value["editorial_worker_request"]["governed_input_hash"]
+                article, value["editorial_worker_request"]
             ),
         },
         destination_readiness_override=_all_ready(),
@@ -1148,7 +1272,7 @@ def test_revision_router_failure_writes_no_publication_evidence(monkeypatch, tmp
         article_builder=lambda value: {
             "article": article, "media": media,
             "editorial_worker_receipt": _xhigh_receipt(
-                article, value["editorial_worker_request"]["governed_input_hash"]
+                article, value["editorial_worker_request"]
             ),
         },
         editorial_reviewer=lambda value: _semantic("NEEDS_REVISION"),
@@ -1214,7 +1338,7 @@ def test_old_backend_unknown_write_fixture_cannot_bypass_plan_coordinator(
         article_builder=lambda value: {
             "article": article, "media": media,
             "editorial_worker_receipt": _xhigh_receipt(
-                article, value["editorial_worker_request"]["governed_input_hash"]
+                article, value["editorial_worker_request"]
             ),
         },
         editorial_reviewer=lambda value: _semantic("PASS"),

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -26,6 +27,7 @@ from live_contentops.publication_coordinator_v1 import (
     RECONCILED_ABSENT_SAFE_TO_RETRY,
     RECONCILED_CONFIRMED,
     RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
+    DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
     DERIVATIVE_EXPIRED_STALE_NO_WRITE,
     FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED,
     HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
@@ -33,6 +35,7 @@ from live_contentops.publication_coordinator_v1 import (
     UNKNOWN_WRITE,
     DurablePublicationCoordinator,
     normalize_dispatch_result,
+    normalize_readback_result,
 )
 
 
@@ -188,6 +191,22 @@ def test_registry_locks_surface_transport_and_browser_roles():
     )
 
 
+def test_discovered_write_identity_can_clear_unknown_when_original_id_was_missing():
+    result = normalize_readback_result(
+        {
+            "status": "X_ROOT_RECONCILED_REPLY_CHAIN_INCOMPLETE",
+            "write_exists": True,
+            "post_id": "2089681225246233006",
+            "public_url": "https://x.com/Capitalnicle/status/2089681225246233006",
+        },
+        public_object_id=None,
+    )
+
+    assert result["identity_match"] is True
+    assert result["write_exists"] is True
+    assert result["verified"] is False
+
+
 def test_quality_probation_preflight_holds_all_writes_when_one_surface_not_ready(
     tmp_path,
 ):
@@ -205,6 +224,65 @@ def test_quality_probation_preflight_holds_all_writes_when_one_surface_not_ready
     assert result["public_write_performed"] is False
     assert transport.publish_calls == []
     assert store.list_outbox_messages() == []
+
+
+def test_delivery_media_preparation_is_after_full_nine_preflight_and_before_substack(
+    tmp_path,
+):
+    class PreparingTransport(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.prepare_calls = []
+
+        def prepare_delivery_media(self, **kwargs):
+            assert self.publish_calls == []
+            self.prepare_calls.append(kwargs)
+            return {
+                "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+                "provider_calls": 1,
+                "public_write_performed": False,
+            }
+
+    transport = PreparingTransport()
+    _store_value, _transport, coordinator = _coordinator(
+        tmp_path, runtime=transport
+    )
+
+    result = coordinator.execute_plan("work-1", _quality_plan())
+
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+    assert len(transport.prepare_calls) == 1
+    preconditions = transport.prepare_calls[0]["preconditions"]
+    assert preconditions == {
+        "full_v1_distribution_status": "FULL_V1_DISTRIBUTION_READY",
+        "unknown_write_count": 0,
+    }
+    assert transport.publish_calls[0] == "substack"
+
+
+def test_delivery_media_preparation_failure_blocks_before_outbox_or_substack(tmp_path):
+    class FailingPreparationTransport(FixtureTransport):
+        def prepare_delivery_media(self, **_kwargs):
+            return {
+                "status": "BLOCKED_CLOUDINARY_HOSTED_MEDIA_MISMATCH",
+                "provider_calls": 1,
+                "public_write_performed": False,
+            }
+
+    store, transport, coordinator = _coordinator(
+        tmp_path, runtime=FailingPreparationTransport()
+    )
+
+    result = coordinator.execute_plan("work-1", _quality_plan())
+
+    assert result["distribution_status"] == "BLOCKED_DELIVERY_MEDIA_PREPARATION"
+    assert result["canonical_article_status"] == "NOT_STARTED"
+    assert result["registered"] == []
+    assert result["outbox_count"] == 0
+    assert result["public_write_performed"] is False
+    assert transport.publish_calls == []
+    assert store.list_outbox_messages() == []
+    assert store.list_platform_dispatches() == []
 
 
 def test_quality_probation_full_nine_surface_confirmation(tmp_path):
@@ -1130,3 +1208,69 @@ def test_pending_unknown_write_uses_exact_destination_readback_only(tmp_path):
     assert readiness.jit_destinations == []
     assert readiness.probe_all_calls == 0
     assert transport.readback_calls == ["x"]
+
+
+@pytest.mark.parametrize(
+    ("destination", "durable_status", "reconciliation_status"),
+    (
+        ("x", DISPATCH_CONFIRMED, RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE),
+        (
+            "instagram_business",
+            DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
+            RECONCILED_ABSENT_SAFE_TO_RETRY,
+        ),
+    ),
+)
+def test_explicit_transport_correction_is_exact_and_one_shot(
+    tmp_path, destination, durable_status, reconciliation_status
+):
+    class ExactXUrlTransport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            result = super().publish(
+                destination=destination,
+                intent=intent,
+                authorization_context=authorization_context,
+            )
+            if destination == "x":
+                result["public_url"] = (
+                    "https://x.com/Capitalnicle/status/2089681225246233006"
+                )
+            return result
+
+    store, transport, coordinator = _coordinator(
+        tmp_path, runtime=ExactXUrlTransport()
+    )
+    coordinator.execute_plan("work-1", _quality_plan())
+    dispatch = next(
+        row
+        for row in store.list_platform_dispatches()
+        if row["platform"] == destination
+    )
+    message = store.get_outbox_message(dispatch["message_id"])
+    intent = json.loads(message["payload"])
+    ids = coordinator._ids("work-1", intent["plan_hash"], destination)
+    store.register_platform_dispatch(
+        dispatch_id=dispatch["dispatch_id"],
+        message_id=dispatch["message_id"],
+        platform=destination,
+        status=durable_status,
+        public_object_id=dispatch["public_object_id"],
+        public_object_url=dispatch["public_object_url"],
+    )
+    store.set_dispatch_status(dispatch["dispatch_id"], durable_status)
+    store.set_outbox_status(dispatch["message_id"], durable_status)
+    store.set_reconciliation_status(ids["reconciliation_id"], reconciliation_status)
+    before = transport.publish_calls.count(destination)
+
+    first = coordinator.complete_derivative_after_transport_correction(
+        dispatch["dispatch_id"], correction_id="owner-frozen-canary-platform-fix-v1"
+    )
+    second = coordinator.complete_derivative_after_transport_correction(
+        dispatch["dispatch_id"], correction_id="owner-frozen-canary-platform-fix-v1"
+    )
+
+    assert first["status"] == DISPATCH_CONFIRMED
+    assert first["publish_called"] is True
+    assert second["status"] == "CORRECTION_ALREADY_ATTEMPTED_NO_WRITE"
+    assert second["publish_called"] is False
+    assert transport.publish_calls.count(destination) == before + 1

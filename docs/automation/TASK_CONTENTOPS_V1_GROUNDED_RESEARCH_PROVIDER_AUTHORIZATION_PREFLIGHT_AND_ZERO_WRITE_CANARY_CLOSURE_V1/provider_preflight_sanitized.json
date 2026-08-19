@@ -1,0 +1,76 @@
+{
+  "schema_version": "contentops.v1_grounded_research_provider_authorization_preflight.v1",
+  "classification": "PREFLIGHT_POLICY_EXECUTABLE_WITH_TERRA_TEMPORARILY_RATE_LIMITED",
+  "exact_ladder": [
+    "cx/gpt-5.6-terra(high)",
+    "vx/gemini-3.1-pro-preview(high)",
+    "vx/gemini-3.5-flash(high)"
+  ],
+  "credential_presence": {
+    "NINE_ROUTER_API_KEY": "present_redacted",
+    "NINE_ROUTER_BASE_URL": "present_redacted"
+  },
+  "provider_call_count": 3,
+  "public_research_retrieval_requests": 0,
+  "article_writer_calls": 0,
+  "publication_or_platform_actions": 0,
+  "scheduler_mutations": 0,
+  "per_model": [
+    {
+      "requested_model": "cx/gpt-5.6-terra(high)",
+      "health": "TEMPORARILY_UNAVAILABLE",
+      "failure_class": "http_429_rate_limited",
+      "provider_status_class": "4xx",
+      "provider_observed_model_identity": null,
+      "identity_verifiable": false,
+      "identity_verified": false,
+      "latency_seconds": 7.2902,
+      "usage": null,
+      "cost": null,
+      "response_matched_READY": false
+    },
+    {
+      "requested_model": "vx/gemini-3.1-pro-preview(high)",
+      "health": "HEALTHY",
+      "failure_class": null,
+      "provider_status_class": "2xx",
+      "provider_observed_model_identity": "gemini-3.1-pro-preview",
+      "identity_verifiable": true,
+      "identity_verified": true,
+      "latency_seconds": 5.3352,
+      "usage": {
+        "prompt_tokens": 2015,
+        "completion_tokens": 156,
+        "reasoning_tokens": 155,
+        "total_tokens": 2171
+      },
+      "cost": null,
+      "response_matched_READY": true
+    },
+    {
+      "requested_model": "vx/gemini-3.5-flash(high)",
+      "health": "HEALTHY",
+      "failure_class": null,
+      "provider_status_class": "2xx",
+      "provider_observed_model_identity": "gemini-3.5-flash",
+      "identity_verifiable": true,
+      "identity_verified": true,
+      "latency_seconds": 3.8139,
+      "usage": {
+        "prompt_tokens": 2015,
+        "completion_tokens": 81,
+        "reasoning_tokens": 80,
+        "total_tokens": 2096
+      },
+      "cost": null,
+      "response_matched_READY": true
+    }
+  ],
+  "total_probe_latency_seconds": 16.4393,
+  "terra_authorization_failure_observed_in_preflight": false,
+  "terra_failure_fallback_eligible_under_current_policy": true,
+  "gemini_pro_independently_healthy": true,
+  "gemini_flash_independently_healthy": true,
+  "canary_authorized_under_current_policy": true,
+  "secret_or_session_material_persisted": false
+}

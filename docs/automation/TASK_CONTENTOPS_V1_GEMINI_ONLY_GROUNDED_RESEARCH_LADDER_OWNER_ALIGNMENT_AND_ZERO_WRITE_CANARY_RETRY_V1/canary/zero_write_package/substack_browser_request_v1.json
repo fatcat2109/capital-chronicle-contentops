@@ -1,0 +1,29 @@
+{
+  "article_markdown_path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\canonical_article.md",
+  "article_markdown_sha256": "7a809131c92351f6ebb8812e9e025ed26c70a6cbae89111e40716ca915cad8dc",
+  "body_markdown": "Jared Kushner met with Hamas in Cairo in talks focused on Gaza, according to secondary-source listings from Al Jazeera, The Guardian and The Jerusalem Post. The listings also indicated that he was scheduled to meet Benjamin Netanyahu afterward regarding Gaza.\n\n## What the reporting establishes\n\nThe reporting supports a precise sequence. The Jerusalem Post and Al Jazeera listings placed the Hamas meeting in Cairo. Al Jazeera described Kushner as pushing Trump's Gaza plan, while The Guardian placed the meeting before the planned Netanyahu talks.\n\nThe narrow takeaway is the sequence, not a reported agreement. The event establishes direct contact around Gaza and a scheduled next conversation; it does not establish a change in negotiating positions.\n\n## What remains unresolved\n\nThe listings do not identify the Hamas participants, spell out the plan's terms, or report an agreed outcome. They also do not provide enough detail to characterize the substance of the exchange beyond its Gaza focus.\n\n## What to watch\n\nWatch for attributed statements after the planned Netanyahu talks that identify participants, substantive terms or an announced outcome. Until then, the defensible reading is a confirmed meeting with a clear subject and limited public detail.",
+  "body_markdown_sha256": "2debcc04f628a2afbdc9f0ca1b013be93266eecec8b668b27c60230158007047",
+  "image_assets": [],
+  "publication_mode": "publish",
+  "publication_url": "https://capitalchronicle.substack.com/publish/post",
+  "required_readback": {
+    "in_body_visual_asset_ids": [],
+    "matching_body_markdown_sha256": "2debcc04f628a2afbdc9f0ca1b013be93266eecec8b668b27c60230158007047",
+    "matching_title": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+    "minimum_editor_body_image_count": 0,
+    "publication_state": "publish",
+    "url_kind": "public_url"
+  },
+  "run_id": "v1-gemini-only-grounded-research-zero-write-canary",
+  "safety": {
+    "browser_profile_values_recorded": false,
+    "cookies_recorded": false,
+    "raw_credentials_recorded": false,
+    "session_storage_recorded": false
+  },
+  "schema_version": "contentops.substack_supervised_browser_request.v1",
+  "status": "READY_FOR_SUPERVISED_BROWSER_ASSIST",
+  "subtitle": "Secondary-source listings corroborate the Cairo meeting and its Gaza focus, but they do not establish who represented Hamas, what terms were discussed, or whether any agreement emerged.",
+  "title": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+  "visual_marker_order": []
+}

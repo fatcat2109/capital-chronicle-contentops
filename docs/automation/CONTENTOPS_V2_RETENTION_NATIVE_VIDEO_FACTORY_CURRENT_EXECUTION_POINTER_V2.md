@@ -1,161 +1,94 @@
-# Capital Chronicle ContentOps V2 — Current Execution Pointer V2
+# Capital Chronicle ContentOps — V2 Current Execution Pointer
 
 Authority date: 2026-08-19
-Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
-Product direction: `FREEFORM_CHAPTERIZED_CREATIVE_AUTHORITY / TRANSCRIPT_FIRST_V2_PRODUCTION`
-Reasoning topology: `HIGH_PARENT_SESSION -> BOUNDED_XHIGH_VIDEO_CREATIVE_WORK`
-Workflow topology: `GITHUB_AUTHORITY -> CODEGRAPH -> EXACT_SOURCE_TESTS -> IMPLEMENTATION -> CODEGRAPH_VERIFY -> FOCUSED_TESTS_REAL_E2E -> GITHUB_AUDIT -> ACTUAL_MEDIA_OWNER_GATE`
+Status: `CURRENT_V2_LANE_POINTER`
 
-## Current authority chain
+Root authority:
 
-Read in this order:
+- `AGENTS.md`
+- `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+- `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+- `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 
-1. `AGENTS.md`
-2. `docs/codegraph/INDEX.md`
-3. `docs/codegraph/V2_CONTEXT.md`
-4. `docs/automation/CONTENTOPS_CODEGRAPH_MANDATORY_AND_ORCHESTRATION_TOOL_DECISION_V1.md`
-5. `docs/automation/CONTENTOPS_V2_HIGH_PARENT_XHIGH_VIDEO_CREATIVE_REASONING_OWNER_CORRECTION_V1.md`
-6. `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
-7. `docs/automation/CONTENTOPS_V2_NORTH_STAR_MASTER_PLAN_TRANSCRIPT_SEO_MULTILINGUAL_AMENDMENT_V1.md`
-8. `docs/automation/CONTENTOPS_V2_ACTUAL_MEDIA_OWNER_AUDIT_AFTER_HIGH_PARENT_SHORT_PATH_PROOF_V1.md`
-9. `docs/automation/CONTENTOPS_V2_DEPENDENCY_ROOT_PREFLIGHT_OWNER_AUDIT_V1.md`
-10. `docs/automation/CONTENTOPS_V2_OWNED_SURFACE_SECRET_SCAN_OWNER_AUDIT_V1.md`
-11. `docs/automation/CONTENTOPS_V2_CORE_PROOF_ACTUAL_MEDIA_OWNER_ACCEPTANCE_AND_SOAK_GATE_V1.md`
-12. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
-13. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
-14. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
-15. this file
-16. nearest scoped `AGENTS.md`
-17. exact current task code/tests/evidence.
+V2 lane detail:
 
-Repository refs/commits/exact bytes remain repo-state authority. Jim's latest explicit direction remains product authority.
+- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md`
+- `docs/automation/CONTENTOPS_V2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md`
+- `docs/automation/CONTENTOPS_V2_FINAL_PRODUCT_TASK_GRAPH_V1.md`
+- `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
+- `video/AGENTS.md`
 
-## Tool / reasoning doctrine
+## Current lane state
 
-CodeGraph is mandatory as a real discovery/impact gate before meaningful implementation or audit and as affected-flow/orphan/duplicate verification after edits. `CODEGRAPH_CURRENT` alone is insufficient. Use `rg` only when graph lookup cannot answer the question or for exact literal confirmation.
+V2 is the isolated retention-native video/media factory within the unified Capital Chronicle/Core Analyzer -> ContentOps product architecture.
 
-Superpowers remains inactive. Three-Level Delivery remains inactive.
+Accepted foundation includes governed story/evidence intake, rights/provenance controls, concrete-first asset discovery, native charts/maps/documents, short/longform Remotion production, audio/package foundations, actual-media QA patterns, recovery/caching, and publication-adapter engineering history.
 
-Codex Desktop parent/session runs `GPT-5.6 Sol / HIGH`. Bounded consequential video editorial/visual/review work may use `GPT-5.6 Sol / XHIGH`. Do not spend XHIGH on Git, CodeGraph, rendering, FFmpeg, tests, diagnostics, waits, evidence, commit or push. No Codex CLI/`codex exec`, SDK/API/headless, 9Router/provider creative substitution.
+The current local V2 factory evidence also demonstrates the correct proprietary-data boundary: it requires a `PASS_PUBLICATION_AUTHORIZED` source packet plus explicit numeric permission before consuming CC numeric claims/time series. Preserve that pattern as the lane-wide rule.
 
-## Accepted core proof
+These foundations do not equal final V2 acceptance.
 
-Product branch:
+## Accepted Task-3 native relay correction evidence
 
-`task/v2-owned-surface-secret-scan-fresh-owner-ready-proof-v1`
+`TASK_CONTENTOPS_V2_NATIVE_STAGGERED_AUTOMATION_RELAY_SHADOW_CORRECTION_V1` has the builder
+classification
+`PASS_V2_V1_READONLY_TRIGGER_AND_NATIVE_CODEX_AUTOMATION_RELAY_SHADOW`.
 
-Implementation HEAD:
+Three standalone native Codex Desktop runs proved the bounded HIGH Daily Operator -> fresh XHIGH
+Creative Worker -> HIGH Finalizer relay. Current V1 truth produced no qualified video candidate, so
+the proof used exactly one governed non-public `SHADOW_ISOLATION_PROBE`. The durable request advanced
+exactly once through `READY_FOR_CREATIVE -> CREATIVE_CLAIMED -> CREATIVE_READY ->
+HIGH_FINALIZATION -> LOCAL_TERMINAL_RESULT`; exact write-boundary replays did not create duplicate
+requests, events, jobs, or packages.
 
-`52c92ec1e097ef2441a2cb916132576c241b5def`
-
-Frozen pre-proof/CodeGraph HEAD:
-
-`c34782e6297e7e8efeefe529ce20d641cd61d4e5`
-
-Evidence HEAD:
-
-`001ca4e7c2a06224d1d3e7c0d098b3d965376fc3`
-
-Builder terminal classification:
-
-`PASS_IMPLEMENTATION_OWNED_SURFACE_SECRET_SCAN_V2_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
-
-Independent owner gate:
-
-`PASS_WITH_CAVEAT / CORE_PROOF_ACCEPTED_FOR_PRODUCTION_SOAK`
-
-Production soak:
-
-`AUTHORIZED_NOT_STARTED`
-
-Jim personal acceptance is not claimed by this pointer. ChatGPT independently accepted the actual media/package with non-blocking visual/listening caveats documented in the owner-acceptance file.
-
-## Accepted product capabilities
-
-The core proof has now demonstrated one fresh governed V2 Short through all thirteen durable stages:
-
-`CLAIMED -> GOVERNED_INPUT_LOCKED -> CREATIVE_EDITOR_LOCKED -> ACTUAL_NARRATION_TIMING_LOCKED -> MOTION_SOURCE_LOCKED -> HARD_SOURCE_VALIDATED -> PROXY_RENDERED -> ACTUAL_MEDIA_REVIEWED -> PICTURE_LOCKED -> AUDIO_BUILT -> FINAL_MEDIA_BUILT -> PACKAGE_QA_PASSED -> OWNER_REVIEW_READY`
-
-Accepted substrate includes:
-
-- HIGH parent / bounded-XHIGH creative provenance with zero XHIGH mechanical work;
-- actual Kokoro waveform timing before motion authorship;
-- bounded narration timing revision before motion when needed;
-- Windows-safe Remotion browser/public-root handling;
-- fail-fast semantic `node_modules` dependency-root preflight;
-- immutable timing/source/checkpoint identities;
-- owned-surface secret scanning that excludes vendor/dependency projections but remains fail-closed on owned text;
-- locked narration reuse for audio mix;
-- locked-placement captions;
-- technical/factual/rights/package QA;
-- zero public-write authority and zero V1/platform/scheduler mutation.
-
-Actual accepted proof identities:
-
-- job: `v2_fwb_owned_scan_c34782e6`;
-- run: `run_b8682fdad0934ba39475f442a6e8c34b`;
-- timing lock: `a64576ae729bf499914e4f3b61fc573285a076933d9058277f049532d9fbb805`;
-- narration: `57.852667s / Kokoro af_heart / 1.06 / en-us`;
-- final MP4 SHA-256: `7f58e126840c8399fc0c79177faa1838f8708055d41a03a36fa1dda16b08ccfb`;
-- final media: `1080x1920 / 30fps / H.264 High + AAC LC / 59.185s`;
-- final level: approximately `-16.0 LUFS / -1.5 dBFS true peak`;
-- package ID: `pkg_adb597c307e1216b94e802329fecaa99cf0d4dd9cc39ce4411f0c7a416d1ec5b`;
-- owner-review bundle SHA-256: `fb44dbd761fc9422772260c52eaa00554ba0b15c551bc7043581584710295aff`;
-- publication state: `AUDIO_SIDECAR_FIRST_PACKAGE_ONLY_ZERO_PUBLIC_WRITE`;
-- transport: `null`.
-
-## Owner media caveats carried into soak
-
-Visual owner acceptance is `PASS_WITH_CAVEATS`, not a blocker:
-
-- some movement/data passages hold one visual family longer than ideal;
-- `INITIAL CLAIMS` remains somewhat data-card/deck-like;
-- the final low-motion/absorption-capacity abstract treatment is weaker than the best concrete/documentary/data scenes.
-
-Use these as soak-learning signals. Do not turn them into deterministic aesthetic quotas and do not reopen the accepted core proof merely to polish them.
-
-Audio technical integrity passes. Subjective voice/music listening quality is not independently claimed by ChatGPT. Kokoro `af_heart / 1.06 / en-us` remains the current build baseline until real listening/retention evidence justifies change.
-
-## Current exact task and gate
-
-`TASK_CONTENTOPS_V2_NATIVE_STAGGERED_AUTOMATION_RELAY_SHADOW_CORRECTION_V1`
-
-Builder result:
-
-`PASS_V2_V1_READONLY_TRIGGER_AND_NATIVE_CODEX_AUTOMATION_RELAY_SHADOW`
-
-The bounded Task-3 correction now proves the native staggered relay with three standalone Codex
-Desktop automation runs: HIGH Daily Operator, fresh XHIGH Creative Worker, and HIGH Finalizer. The
-current V1 truth produced no genuine qualified candidate, so the proof used exactly one governed
-non-public `SHADOW_ISOLATION_PROBE`. Its durable state advanced exactly once through
-`READY_FOR_CREATIVE -> CREATIVE_CLAIMED -> CREATIVE_READY -> HIGH_FINALIZATION ->
-LOCAL_TERMINAL_RESULT`; replay at each write boundary was idempotent. The final durable result is
-`READY_FOR_OWNER_APP_UI_AUDIT`, not owner acceptance.
-
-The successful native task identities are:
-
-- HIGH Daily Operator: `01a0192b-e286-7823-8b80-9a6c865b4b2f`;
-- XHIGH Creative Worker: `01a01935-f48a-7ec3-8a99-7617cf2f4d76`;
-- HIGH Finalizer: `01a0193f-1cdc-7232-93c3-968dee57ddca`.
-
-The creative result SHA-256 is
+The creative artifact SHA-256 is
 `a666debba437d94683029a9c7fbd21f0ae49ce353dfb855153022b193cbd38d7`; the finalizer receipt
 SHA-256 is `6f45fc5a3563c974619d473ea85eaade1cf554b251787423534619fc5db6a84e`.
 V1 writes, V1 scheduler mutations, platform/public writes, Codex CLI/SDK/API creative calls, and
-9Router creative calls are all zero. All three V2 proof automations are paused. The actual-App
-screenshots and final evidence are under
+9Router creative calls were zero. All three V2 proof automations are paused. The App review result
+is `READY_FOR_OWNER_APP_UI_AUDIT`; Jim's owner acceptance is not claimed. Evidence is under
 `docs/automation/TASK_CONTENTOPS_V2_NATIVE_STAGGERED_AUTOMATION_RELAY_SHADOW_CORRECTION_V1/`.
 
-The proof used fresh task/conversation isolation and an exact governed request/result boundary. It
-does not claim that the App created a unique Git worktree per automation run; the native tasks used
-the dedicated correction worktree through the non-Git Capital Chronicle project root so the shared
-external V2 runtime remained accessible. XHIGH made no repository changes.
+The App proved fresh task/conversation isolation and exact governed request/result boundaries. It
+did not expose a unique Git worktree per automation run; the tasks used the dedicated correction
+worktree through the non-Git Capital Chronicle project root, and XHIGH made no repository changes.
 
-`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains controlling. Builder validation does not claim Jim's
-App UI acceptance.
+This accepted historical correction does not authorize a new V2 implementation task, change the
+current root P0 sequence below, or grant video public-write authority.
 
-Only after independent owner audit accepts this correction is the next gate:
+## Current authority
 
-`TASK_CONTENTOPS_V2_CONTROLLED_PUBLICATION_AND_READBACK_ACTIVATION_V1`
+- `MAIN_CODEX` owns repo/task/orchestration.
+- Fresh owner-authorized `GPT-5.6 Sol / XHIGH` sessions/workers may own consequential viewer-facing creative/editorial judgment at the bounded seams described by current V2 authority.
+- Approved 9Router models may perform already-authorized bounded low-cost filtering/research/classification roles.
+- Models receive zero factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, or public-write authority.
 
-Do not start it automatically.
+## Capital Chronicle/Core Analyzer media boundary
+
+V2 may consume a qualified V1/story package and public evidence. Proprietary CC/Core Analyzer numeric, analytical, forecast/scenario, or chart material may enter viewer-facing media only through an exact upstream publication-safe artifact whose consumer/story/use and permissions allow that display.
+
+A validated internal Analyzer handoff, private decision/forecast/scenario/paper record, arbitrary database match, candidate snapshot, or degraded/proxy packet is not viewer-facing numeric authority.
+
+V2 may losslessly project publication-authorized values into charts/maps/timelines. It may not infer missing values, repair upstream numeric truth, widen permission, or create a second analytical authority layer.
+
+## Isolation and publication boundary
+
+V2 may read qualified V1/CC story authority but may not mutate/reset V1 runtime, durable store, browser, scheduler, or publication authority.
+
+Current V2 video public-write authority is exactly zero. Existing provider adapters, credentials, drafts, rehearsals, or branch work do not grant publication authority. Future platform publication requires a new exact owner grant plus destination/account identity, public-object readback, reconciliation, and recovery evidence.
+
+## Current execution sequence
+
+There is no independently authorized V2 implementation task while root P0 work is active.
+
+After root P0-1 and V1 final acceptance unblock the next product stage, V2 priority is:
+
+1. repeated qualified fresh-story creative production;
+2. actual short and justified longform owner acceptance;
+3. concrete/rights-safe asset diversity and publication-authorized chart legibility;
+4. professional audio and final-audio-bound transcript/package truth;
+5. localized repair, cache/recovery, and unattended soak;
+6. bounded TCO/runtime proof;
+7. real V1->V2 qualification shadow loop.
+
+Do not force video production when no qualified story exists. Zero proprietary CC/Core Analyzer media use is valid when no exact publication-safe upstream material exists for the story.

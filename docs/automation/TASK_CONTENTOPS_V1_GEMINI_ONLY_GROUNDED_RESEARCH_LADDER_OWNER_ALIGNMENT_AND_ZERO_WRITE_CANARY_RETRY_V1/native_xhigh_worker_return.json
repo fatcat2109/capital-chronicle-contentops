@@ -1,0 +1,194 @@
+{
+  "article": {
+    "title": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+    "canonical_editorial_headline": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+    "subtitle": "Secondary-source listings corroborate the Cairo meeting and its Gaza focus, but they do not establish who represented Hamas, what terms were discussed, or whether any agreement emerged.",
+    "dek": "Secondary-source listings corroborate the Cairo meeting and its Gaza focus, but they do not establish who represented Hamas, what terms were discussed, or whether any agreement emerged.",
+    "seo_title": "Jared Kushner Meets Hamas in Cairo for Gaza Talks",
+    "search_title": "Jared Kushner Meets Hamas in Cairo for Gaza Talks",
+    "social_lede": "Jared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.",
+    "social_hook": "Jared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.",
+    "meta_description": "Jared Kushner met Hamas in Cairo for Gaza-focused talks before a scheduled Netanyahu meeting, while participants, terms and any outcome remain unclear.",
+    "author_identity": "Capital Chronicle",
+    "publisher_identity": "Capital Chronicle",
+    "slug": "kushner-meets-hamas-cairo-netanyahu-gaza-talks",
+    "canonical_slug_candidate": "kushner-meets-hamas-cairo-netanyahu-gaza-talks",
+    "editorial_mode": "BREAKING_BRIEF",
+    "article_mode": "BREAKING_BRIEF",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "substack_body_markdown": "Jared Kushner met with Hamas in Cairo in talks focused on Gaza, according to secondary-source listings from Al Jazeera, The Guardian and The Jerusalem Post. The listings also indicated that he was scheduled to meet Benjamin Netanyahu afterward regarding Gaza.\n\n## What the reporting establishes\n\nThe reporting supports a precise sequence. The Jerusalem Post and Al Jazeera listings placed the Hamas meeting in Cairo. Al Jazeera described Kushner as pushing Trump's Gaza plan, while The Guardian placed the meeting before the planned Netanyahu talks.\n\nThe narrow takeaway is the sequence, not a reported agreement. The event establishes direct contact around Gaza and a scheduled next conversation; it does not establish a change in negotiating positions.\n\n## What remains unresolved\n\nThe listings do not identify the Hamas participants, spell out the plan's terms, or report an agreed outcome. They also do not provide enough detail to characterize the substance of the exchange beyond its Gaza focus.\n\n## What to watch\n\nWatch for attributed statements after the planned Netanyahu talks that identify participants, substantive terms or an announced outcome. Until then, the defensible reading is a confirmed meeting with a clear subject and limited public detail.",
+    "substack_body_html": "<p>Jared Kushner met with Hamas in Cairo in talks focused on Gaza, according to secondary-source listings from Al Jazeera, The Guardian and The Jerusalem Post. The listings also indicated that he was scheduled to meet Benjamin Netanyahu afterward regarding Gaza.</p><h2>What the reporting establishes</h2><p>The reporting supports a precise sequence. The Jerusalem Post and Al Jazeera listings placed the Hamas meeting in Cairo. Al Jazeera described Kushner as pushing Trump's Gaza plan, while The Guardian placed the meeting before the planned Netanyahu talks.</p><p>The narrow takeaway is the sequence, not a reported agreement. The event establishes direct contact around Gaza and a scheduled next conversation; it does not establish a change in negotiating positions.</p><h2>What remains unresolved</h2><p>The listings do not identify the Hamas participants, spell out the plan's terms, or report an agreed outcome. They also do not provide enough detail to characterize the substance of the exchange beyond its Gaza focus.</p><h2>What to watch</h2><p>Watch for attributed statements after the planned Netanyahu talks that identify participants, substantive terms or an announced outcome. Until then, the defensible reading is a confirmed meeting with a clear subject and limited public detail.</p>",
+    "primary_reader_question": "What does the Kushner-Hamas meeting establish, and what remains unknown?",
+    "secondary_reader_questions": [
+      "What should readers watch after the planned Netanyahu talks?"
+    ],
+    "entities": [
+      "Jared Kushner",
+      "Hamas",
+      "Benjamin Netanyahu",
+      "Cairo",
+      "Gaza"
+    ],
+    "topics": [
+      "Gaza talks"
+    ],
+    "search_freshness_class": "BREAKING",
+    "internal_link_candidates": [],
+    "structured_data_packet": {
+      "@type": "NewsArticle",
+      "headline": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+      "description": "Jared Kushner met Hamas in Cairo for Gaza-focused talks before a scheduled Netanyahu meeting, while participants, terms and any outcome remain unclear.",
+      "datePublished": "",
+      "dateModified": "",
+      "publication_time_binding": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+      "eligible_for_emission": false,
+      "author": "Capital Chronicle",
+      "publisher": "Capital Chronicle"
+    },
+    "epistemic_claims": [
+      {
+        "text": "Jared Kushner met with Hamas in Cairo in talks focused on Gaza, according to secondary-source listings from Al Jazeera, The Guardian and The Jerusalem Post.",
+        "layer": "OBSERVED_FACT",
+        "public_treatment": "DIRECT_SOURCE_FACT",
+        "source_ids": [
+          "public-news-listing-db4d95a1341d227d0bc3",
+          "public-news-listing-137034dd29c93b9bde37"
+        ]
+      },
+      {
+        "text": "The listings also indicated that he was scheduled to meet Benjamin Netanyahu afterward regarding Gaza.",
+        "layer": "OBSERVED_FACT",
+        "public_treatment": "DIRECT_SOURCE_FACT",
+        "source_ids": [
+          "public-news-listing-db4d95a1341d227d0bc3",
+          "public-news-listing-61afbc9afc4368ac52fe"
+        ]
+      },
+      {
+        "text": "Al Jazeera described Kushner as pushing Trump's Gaza plan, while The Guardian placed the meeting before the planned Netanyahu talks.",
+        "layer": "ATTRIBUTED_INTERPRETATION",
+        "public_treatment": "ADJACENT_ATTRIBUTION",
+        "source_ids": [
+          "public-news-listing-137034dd29c93b9bde37",
+          "public-news-listing-61afbc9afc4368ac52fe"
+        ]
+      },
+      {
+        "text": "The narrow takeaway is the sequence, not a reported agreement.",
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "public_treatment": "EXPLICIT_ANALYSIS",
+        "source_ids": []
+      },
+      {
+        "text": "The listings do not identify the Hamas participants, spell out the plan's terms, or report an agreed outcome.",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "public_treatment": "CONDITIONAL",
+        "source_ids": []
+      },
+      {
+        "text": "Until then, the defensible reading is a confirmed meeting with a clear subject and limited public detail.",
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "public_treatment": "SUPPORTED_SYNTHESIS",
+        "source_ids": []
+      }
+    ],
+    "quote_source_records": [],
+    "humor_lines": [],
+    "seo_primary_keyword": "Kushner Hamas meeting",
+    "institutional_edge_editorial_packet_sha256": "ad7493bb68b824101b4792618fa9a114cdd8e436cc00aa3ad3657fd12af98c7f",
+    "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+    "headline_ids": [
+      "cc-x-headline-a4465030a6b8f1cd272a47de"
+    ],
+    "evidence_document_ids": [
+      "public-news-listing-db4d95a1341d227d0bc3",
+      "public-news-listing-137034dd29c93b9bde37",
+      "public-news-listing-61afbc9afc4368ac52fe"
+    ],
+    "source_bindings": [
+      {
+        "source_handle": "SOURCE_1",
+        "source_id": "source-454b4bfe48af2f69",
+        "evidence_document_id": "public-news-listing-db4d95a1341d227d0bc3",
+        "publisher": "The Jerusalem Post",
+        "title": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo",
+        "reader_source_url": null,
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "discovery_path_is_reader_authority": false
+      },
+      {
+        "source_handle": "SOURCE_2",
+        "source_id": "source-55803c277bc8f671",
+        "evidence_document_id": "public-news-listing-137034dd29c93b9bde37",
+        "publisher": "Al Jazeera",
+        "title": "Kushner meets Hamas leaders in Egypt to push Trump’s Gaza plan",
+        "reader_source_url": null,
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "discovery_path_is_reader_authority": false
+      },
+      {
+        "source_handle": "SOURCE_3",
+        "source_id": "source-e4f1e950e89dc35b",
+        "evidence_document_id": "public-news-listing-61afbc9afc4368ac52fe",
+        "publisher": "The Guardian",
+        "title": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza",
+        "reader_source_url": null,
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "discovery_path_is_reader_authority": false
+      }
+    ],
+    "source_binding_ids_referenced": [
+      "source-454b4bfe48af2f69",
+      "source-55803c277bc8f671",
+      "source-e4f1e950e89dc35b"
+    ],
+    "source_attributions": [
+      {
+        "source_id": "source-454b4bfe48af2f69",
+        "publisher": "The Jerusalem Post",
+        "title": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo",
+        "reader_source_url": null,
+        "reader_attribution_mode": "ATTRIBUTION_ONLY"
+      },
+      {
+        "source_id": "source-55803c277bc8f671",
+        "publisher": "Al Jazeera",
+        "title": "Kushner meets Hamas leaders in Egypt to push Trump’s Gaza plan",
+        "reader_source_url": null,
+        "reader_attribution_mode": "ATTRIBUTION_ONLY"
+      },
+      {
+        "source_id": "source-e4f1e950e89dc35b",
+        "publisher": "The Guardian",
+        "title": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza",
+        "reader_source_url": null,
+        "reader_attribution_mode": "ATTRIBUTION_ONLY"
+      }
+    ],
+    "claim_evidence_contract_sha256": "301f006594daac2ef4c2732b5f232206d74a4136ad7e144968bf3f94f6e47473",
+    "supported_claim_ids_used": [
+      "claim-2f8793367bbfd74a",
+      "claim-67371e9a2334a2d6",
+      "claim-9d6c55c231cc02f8",
+      "claim-c662bee27748196d"
+    ],
+    "omitted_unsupported_claim_ids": [
+      "claim-d078749d00fcfde2"
+    ],
+    "x_content_grants_factual_authority": false,
+    "factual_authority": false,
+    "numeric_authority": false,
+    "capital_chronicle_authority": false,
+    "publication_authority": false,
+    "public_write_authority": false,
+    "numeric_claims_from_llm": false,
+    "article_generation_method": "NATIVE_CODEX_DESKTOP_XHIGH_EDITORIAL_WORKER"
+  },
+  "bounded_revision_count": 0,
+  "fresh": true,
+  "governed_input_hash": "701ec6023642c19f27c354afe49272ba6365c0f01ba23d29005434d3308c7a19",
+  "isolated": true,
+  "model": "gpt-5.6-sol",
+  "public_write_attempted": false,
+  "reasoning_effort": "XHIGH"
+}

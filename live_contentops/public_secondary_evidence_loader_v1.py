@@ -309,7 +309,9 @@ class BoundedPublicSecondaryEvidenceLoader:
         cutoff = datetime.fromisoformat(
             self._evaluation_as_of_utc.replace("Z", "+00:00")
         )
-        candidates: dict[str, tuple[float, datetime, dict[str, Any]]] = {}
+        resolved: list[dict[str, Any]] = []
+        seen_publishers: set[str] = set()
+        source_resolution_attempts = 0
         for terms in query_terms:
             url = NEWS_RSS_ENDPOINT + "?" + urlencode(
                 {"q": " ".join(terms), "hl": "en-US", "gl": "US", "ceid": "US:en"}
@@ -322,6 +324,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                 root = ET.fromstring(body)
             except ET.ParseError:
                 continue
+            candidates: dict[str, tuple[float, datetime, dict[str, Any]]] = {}
             for item in root.findall(".//item"):
                 source = item.find("source")
                 publisher = " ".join(str(source.text or "").split()) if source is not None else ""
@@ -367,38 +370,47 @@ class BoundedPublicSecondaryEvidenceLoader:
                 }
                 existing = candidates.get(identity)
                 candidate = (relevance, observed, document)
-                if existing is None or (observed, relevance) > (existing[1], existing[0]):
+                if existing is None or (relevance, observed) > (existing[0], existing[1]):
                     candidates[identity] = candidate
-        ranked = sorted(
-            candidates.values(),
-            key=lambda row: (
-                -row[1].timestamp(),
-                -row[0],
-                str(row[2].get("publisher") or "").casefold(),
-                str(row[2].get("title") or "").casefold(),
-            ),
-        )
-        resolved: list[dict[str, Any]] = []
-        for _relevance, _observed, listing in ranked[:3]:
-            try:
-                document = self._direct_document(
-                    str(listing.get("source_url") or ""),
-                    str(listing.get("source_headline_id") or ""),
-                )
-            except (OSError, RuntimeError, TypeError, ValueError):
-                document = None
-            if document is None:
-                listing["reader_source_url"] = None
-                listing["reader_attribution_mode"] = "ATTRIBUTION_ONLY"
-                listing["discovery_path_is_reader_authority"] = False
-                listing["canonical_resolution_status"] = "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY"
-                document = listing
-            resolved.append(document)
-            if self._enough_with_existing(request, existing_documents + resolved):
+            ranked = sorted(
+                candidates.values(),
+                key=lambda row: (
+                    -row[0],
+                    -row[1].timestamp(),
+                    str(row[2].get("publisher") or "").casefold(),
+                    str(row[2].get("title") or "").casefold(),
+                ),
+            )
+            for _relevance, _observed, listing in ranked:
+                identity = str(listing.get("source_identity") or "").casefold()
+                if identity in seen_publishers or source_resolution_attempts >= 3:
+                    continue
+                seen_publishers.add(identity)
+                source_resolution_attempts += 1
+                try:
+                    document = self._direct_document(
+                        str(listing.get("source_url") or ""),
+                        str(listing.get("source_headline_id") or ""),
+                    )
+                except (OSError, RuntimeError, TypeError, ValueError):
+                    document = None
+                if document is None:
+                    listing["reader_source_url"] = None
+                    listing["reader_attribution_mode"] = "ATTRIBUTION_ONLY"
+                    listing["discovery_path_is_reader_authority"] = False
+                    listing["canonical_resolution_status"] = (
+                        "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY"
+                    )
+                    document = listing
+                resolved.append(document)
+                if self._enough_with_existing(request, existing_documents + resolved):
+                    return resolved
+            if source_resolution_attempts >= 3:
                 break
         return resolved
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
+        request_count_at_start = self._request_count
         context = request.get("story_context") or {}
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
         rows = [
@@ -413,7 +425,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         ]
         documents: list[dict[str, Any]] = []
         diagnostics: list[str] = []
-        for row in rows[:3]:
+        for row in rows[:2]:
             try:
                 document = self._direct_document(
                     str(row.get("url") or ""), str(row.get("headline_id") or "")
@@ -424,6 +436,10 @@ class BoundedPublicSecondaryEvidenceLoader:
                         break
             except (OSError, RuntimeError, TypeError, ValueError) as exc:
                 diagnostics.append(str(exc) or type(exc).__name__)
+                # A bound inaccessible path is candidate-local evidence friction. Reserve the
+                # unchanged ledger for a reputable discovery path instead of burning the next
+                # two bound URLs before trying accessible reporting.
+                break
         if not self._enough_with_existing(request, documents):
             try:
                 documents.extend(
@@ -453,6 +469,10 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "retrieved_at_utc": _iso_utc(retrieved),
                 "evaluation_as_of_utc": self._evaluation_as_of_utc,
                 "request_count": self._request_count,
+                "request_count_total": self._request_count,
+                "request_count_for_candidate": (
+                    self._request_count - request_count_at_start
+                ),
                 "request_limit": self._max_requests,
                 "read_only_public_gets": True,
                 "paywall_or_access_control_bypass": False,
@@ -466,8 +486,9 @@ class BoundedPublicSecondaryEvidenceLoader:
                     or []
                 ),
                 "acquisition_sequence": [
-                    "EXACT_BOUND_PUBLIC_SOURCE",
+                    "EXACT_BOUND_PUBLIC_SOURCE_MAX_TWO_STOP_ON_INACCESSIBLE",
                     "RELEVANT_REPUTABLE_NEWS_LOCATOR",
+                    "RELEVANCE_FIRST_ACCESSIBLE_SOURCE_NARROWING",
                     "RESOLVE_PUBLISHER_ARTICLE_OR_ATTRIBUTE_WITHOUT_LINK",
                 ],
                 "stopped_when_useful_depth_reached": self._enough_with_existing(

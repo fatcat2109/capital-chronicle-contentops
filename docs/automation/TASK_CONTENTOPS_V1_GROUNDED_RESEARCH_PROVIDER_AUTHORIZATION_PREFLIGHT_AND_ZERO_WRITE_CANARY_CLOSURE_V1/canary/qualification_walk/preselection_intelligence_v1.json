@@ -1,0 +1,1979 @@
+{
+  "cc_catalog_complete": true,
+  "cc_catalog_store_count": 14,
+  "eligible_shortlist_count": 12,
+  "evaluated_at_utc": "2026-08-17T16:22:17.402782Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 12,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-deterministic-cluster-ec1a71792dbd1ece53ce",
+    "rolling-x-deterministic-cluster-d7a940523f07567a0792",
+    "rolling-x-deterministic-cluster-18233a82ab429135127a",
+    "rolling-x-deterministic-cluster-dc190bdd148decac47a9",
+    "rolling-x-deterministic-cluster-07e86313e5b4771ef547",
+    "rolling-x-deterministic-cluster-20b707fc76e20d766163",
+    "rolling-x-deterministic-cluster-c3d3717048ac499eebf2",
+    "rolling-x-deterministic-cluster-ebf32fa3fc876a2667f6",
+    "rolling-x-deterministic-cluster-6c914e577594ba87d1a4",
+    "rolling-x-deterministic-cluster-6256128a1ccdf572be7d",
+    "rolling-x-deterministic-cluster-fc543514fd1902f76a43",
+    "rolling-x-deterministic-cluster-63778c56ef8a3887daa2"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-17T16:22:17.402782Z",
+    "daily_target_band": [
+      0,
+      4
+    ],
+    "entity_concentration_top": [],
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "publication_minimum": 0,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 0,
+    "routine_publication_ceiling": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "0344f143278f8c2a8766b3809b7ea2409605ad3691b07283b5069d02bbc49781",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-ec1a71792dbd1ece53ce",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-3e844df3b09338f9ac3aa909"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-ec1a71792dbd1ece53ce"
+      ],
+      "leaf_summaries": [
+        "JD Vance called stablecoins a force multiplier for U.S. dollar in 2025."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-16T16:28:58Z",
+          "feed_publisher_handle": "dlacalle_IA",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-3e844df3b09338f9ac3aa909",
+          "url": "https://tradersunion.com/news/market-voices/show/3004458-vance-stablecoins-dollar-2025/"
+        }
+      ],
+      "official_source_urls": [
+        "https://tradersunion.com/news/market-voices/show/3004458-vance-stablecoins-dollar-2025/"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 114.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-16T16:28:58Z",
+          "feed_publisher_handle": "dlacalle_IA",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-3e844df3b09338f9ac3aa909",
+          "url": "https://tradersunion.com/news/market-voices/show/3004458-vance-stablecoins-dollar-2025/"
+        }
+      ],
+      "public_source_urls": [
+        "https://tradersunion.com/news/market-voices/show/3004458-vance-stablecoins-dollar-2025/"
+      ],
+      "rank": 1,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-3e844df3b09338f9ac3aa909",
+        "ordered_headline_ids": [
+          "cc-x-headline-3e844df3b09338f9ac3aa909"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-ec1a71792dbd1ece53ce",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "JD Vance called stablecoins a force multiplier for U.S. dollar in 2025.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-d7a940523f07567a0792",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-19de5c2a97e3f2012ae0ceb1"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-d7a940523f07567a0792"
+      ],
+      "leaf_summaries": [
+        "Lebanese media: Israeli artillery shelling between the towns of Beit Yahoun and Braashit in southern Lebanon"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 2,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-19de5c2a97e3f2012ae0ceb1",
+        "ordered_headline_ids": [
+          "cc-x-headline-19de5c2a97e3f2012ae0ceb1"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-d7a940523f07567a0792",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Lebanese media: Israeli artillery shelling between the towns of Beit Yahoun and Braashit in southern Lebanon",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-18233a82ab429135127a",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-c4c193b0f7a2f6e755820daf"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-18233a82ab429135127a"
+      ],
+      "leaf_summaries": [
+        "Joint Arab and Islamic Statement: The Israeli Refusal Threatens the Intensive Efforts Being Made by Trump to End the War in Gaza"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c4c193b0f7a2f6e755820daf",
+        "ordered_headline_ids": [
+          "cc-x-headline-c4c193b0f7a2f6e755820daf"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-18233a82ab429135127a",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Joint Arab and Islamic Statement: The Israeli Refusal Threatens the Intensive Efforts Being Made by Trump to End the War in Gaza",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-dc190bdd148decac47a9",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-c1ae4d589a4d999a6f754589"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-dc190bdd148decac47a9"
+      ],
+      "leaf_summaries": [
+        "Joint Arab and Islamic Statement: Israel Bears Responsibility for Obstructing Peace Efforts in Gaza and the Palestinian Territories"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 4,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c1ae4d589a4d999a6f754589",
+        "ordered_headline_ids": [
+          "cc-x-headline-c1ae4d589a4d999a6f754589"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-dc190bdd148decac47a9",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Joint Arab and Islamic Statement: Israel Bears Responsibility for Obstructing Peace Efforts in Gaza and the Palestinian Territories",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-07e86313e5b4771ef547",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-d20ca6e119bc9f4e572ff83f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-07e86313e5b4771ef547"
+      ],
+      "leaf_summaries": [
+        "Joint Emirati-Qatari-Jordanian-Indonesian-Pakistani-Turkish-Saudi-Egyptian Statement Condemns Israel's Rejection of Trump's Gaza Plan"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 104.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 5,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-d20ca6e119bc9f4e572ff83f",
+        "ordered_headline_ids": [
+          "cc-x-headline-d20ca6e119bc9f4e572ff83f"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-07e86313e5b4771ef547",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Joint Emirati-Qatari-Jordanian-Indonesian-Pakistani-Turkish-Saudi-Egyptian Statement Condemns Israel's Rejection of Trump's Gaza Plan",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-20b707fc76e20d766163",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-61c47f0d9a642c65f112923d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-20b707fc76e20d766163"
+      ],
+      "leaf_summaries": [
+        "Axios: The Peace Council demanded that Israel conduct \"reciprocal withdrawal operations\" in Gaza if Hamas begins to relinquish its weapons."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 6,
+      "preselection_score": 102.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 6,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-61c47f0d9a642c65f112923d",
+        "ordered_headline_ids": [
+          "cc-x-headline-61c47f0d9a642c65f112923d"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-20b707fc76e20d766163",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: The Peace Council demanded that Israel conduct \"reciprocal withdrawal operations\" in Gaza if Hamas begins to relinquish its weapons.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-c3d3717048ac499eebf2",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-91a1ae15e777183a5c5ec909"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-c3d3717048ac499eebf2"
+      ],
+      "leaf_summaries": [
+        "Axios on the Peace Council: Gaza cannot be allowed to become again a source of terrorism against Israel"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 7,
+      "preselection_score": 100.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 7,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-91a1ae15e777183a5c5ec909",
+        "ordered_headline_ids": [
+          "cc-x-headline-91a1ae15e777183a5c5ec909"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-c3d3717048ac499eebf2",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios on the Peace Council: Gaza cannot be allowed to become again a source of terrorism against Israel",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-ebf32fa3fc876a2667f6",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-dfd9efad70ddd44fc1ce4857"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-ebf32fa3fc876a2667f6"
+      ],
+      "leaf_summaries": [
+        "Axios: The Peace Council wants a plan that includes allowing the deployment of an international force to achieve stability and facilitate reconstruction in Gaza."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 8,
+      "preselection_score": 98.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 8,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-dfd9efad70ddd44fc1ce4857",
+        "ordered_headline_ids": [
+          "cc-x-headline-dfd9efad70ddd44fc1ce4857"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-ebf32fa3fc876a2667f6",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: The Peace Council wants a plan that includes allowing the deployment of an international force to achieve stability and facilitate reconstruction in Gaza.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-6c914e577594ba87d1a4",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-25b139901a1034430fff9069"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-6c914e577594ba87d1a4"
+      ],
+      "leaf_summaries": [
+        "Axios: Kushner's meeting with a Hamas delegation aimed to translate Hamas's commitments to disarm the Gaza Strip into concrete and verifiable steps."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 9,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 9,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-25b139901a1034430fff9069",
+        "ordered_headline_ids": [
+          "cc-x-headline-25b139901a1034430fff9069"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-6c914e577594ba87d1a4",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: Kushner's meeting with a Hamas delegation aimed to translate Hamas's commitments to disarm the Gaza Strip into concrete and verifiable steps.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-6256128a1ccdf572be7d",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-e238961d147187182079e09b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-6256128a1ccdf572be7d"
+      ],
+      "leaf_summaries": [
+        "Axios: The Peace Council wants Hamas to begin dismantling weapons and military infrastructure"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 10,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 10,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e238961d147187182079e09b",
+        "ordered_headline_ids": [
+          "cc-x-headline-e238961d147187182079e09b"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-6256128a1ccdf572be7d",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: The Peace Council wants Hamas to begin dismantling weapons and military infrastructure",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-fc543514fd1902f76a43",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-21a659b569572b5deb7a9553"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-fc543514fd1902f76a43"
+      ],
+      "leaf_summaries": [
+        "Axios: The next steps include transferring power in Gaza to a Palestinian technocratic government and not granting Hamas any role in governing the sector in the future"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 11,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 11,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-21a659b569572b5deb7a9553",
+        "ordered_headline_ids": [
+          "cc-x-headline-21a659b569572b5deb7a9553"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-fc543514fd1902f76a43",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios: The next steps include transferring power in Gaza to a Palestinian technocratic government and not granting Hamas any role in governing the sector in the future",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-63778c56ef8a3887daa2",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-6eece7654fbc750481319d85"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-63778c56ef8a3887daa2"
+      ],
+      "leaf_summaries": [
+        "Axios citing a source: Kushner's meeting with Hamas leaders in Egypt aims to translate the movement's commitments to disarmament into concrete steps"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 12,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 12,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-6eece7654fbc750481319d85",
+        "ordered_headline_ids": [
+          "cc-x-headline-6eece7654fbc750481319d85"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-63778c56ef8a3887daa2",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Axios citing a source: Kushner's meeting with Hamas leaders in Egypt aims to translate the movement's commitments to disarmament into concrete steps",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": false,
+  "reranked_order": [
+    "rolling-x-deterministic-cluster-ec1a71792dbd1ece53ce",
+    "rolling-x-deterministic-cluster-d7a940523f07567a0792",
+    "rolling-x-deterministic-cluster-18233a82ab429135127a",
+    "rolling-x-deterministic-cluster-dc190bdd148decac47a9",
+    "rolling-x-deterministic-cluster-07e86313e5b4771ef547",
+    "rolling-x-deterministic-cluster-20b707fc76e20d766163",
+    "rolling-x-deterministic-cluster-c3d3717048ac499eebf2",
+    "rolling-x-deterministic-cluster-ebf32fa3fc876a2667f6",
+    "rolling-x-deterministic-cluster-6c914e577594ba87d1a4",
+    "rolling-x-deterministic-cluster-6256128a1ccdf572be7d",
+    "rolling-x-deterministic-cluster-fc543514fd1902f76a43",
+    "rolling-x-deterministic-cluster-63778c56ef8a3887daa2"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": "contentops.v1_scheduled_task_readback.v1",
+  "task_count": 4,
+  "all_exactly_present": true,
+  "all_paused": true,
+  "mutated": false,
+  "tasks": [
+    {
+      "id": "v1-newsroom-london-1700",
+      "status": "PAUSED",
+      "before_sha256": "D1BBDA33290A007EB6E58B4AF7B1953266DC16DE9DDE6E1191DB14D7D8A9AF66",
+      "after_sha256": "D1BBDA33290A007EB6E58B4AF7B1953266DC16DE9DDE6E1191DB14D7D8A9AF66"
+    },
+    {
+      "id": "v1-newsroom-new-york-2100",
+      "status": "PAUSED",
+      "before_sha256": "C2274A05D03C6B8F175A2F651AB2740DC1818A332C16AB0AE2069F5AFE63E940",
+      "after_sha256": "C2274A05D03C6B8F175A2F651AB2740DC1818A332C16AB0AE2069F5AFE63E940"
+    },
+    {
+      "id": "v1-newsroom-new-york-2300",
+      "status": "PAUSED",
+      "before_sha256": "056D4577BDF4E0FD513E459D5D19AC0A211F0DD633FC68E1AE2C97B26BED4CD2",
+      "after_sha256": "056D4577BDF4E0FD513E459D5D19AC0A211F0DD633FC68E1AE2C97B26BED4CD2"
+    },
+    {
+      "id": "v1-newsroom-new-york-0100",
+      "status": "PAUSED",
+      "before_sha256": "C884DE2EBCC05A75E9A703417E06C23E3C5DAAE27A5B5DBDBDEE04479DAD5D5A",
+      "after_sha256": "C884DE2EBCC05A75E9A703417E06C23E3C5DAAE27A5B5DBDBDEE04479DAD5D5A"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "contentops.v1_latest_state_correction_zero_write_proof.v1",
+  "status": "PASS_ZERO_WRITE",
+  "production_store": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "before_sha256": "91DB00518B174CB80E298F7063C08AD1734537FEBCBC52FECC79216263F10909",
+    "after_sha256": "91DB00518B174CB80E298F7063C08AD1734537FEBCBC52FECC79216263F10909",
+    "mutated": false
+  },
+  "durable_editorial_continuity": {
+    "state_before": "READY",
+    "state_after": "READY",
+    "last_terminal_cutoff_utc_before": "2026-08-17T08:50:15.794759Z",
+    "last_terminal_cutoff_utc_after": "2026-08-17T08:50:15.794759Z",
+    "terminal_window_id_before": "operator-requested-operator-trigger-aab3143b39b64dd299bb5517",
+    "terminal_window_id_after": "operator-requested-operator-trigger-aab3143b39b64dd299bb5517",
+    "logical_hash_before": "ed1005c4de83e4490aeb69e719dcdd9f6ad61e29287089aa4230cb2d915175a4",
+    "logical_hash_after": "ed1005c4de83e4490aeb69e719dcdd9f6ad61e29287089aa4230cb2d915175a4",
+    "evaluated_headline_count_before": 401,
+    "evaluated_headline_count_after": 401,
+    "confirmed_canonical_count_before": 1,
+    "confirmed_canonical_count_after": 1,
+    "mutated": false
+  },
+  "capital_chronicle": {
+    "access_mode": "duckdb_read_only",
+    "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+    "mutated": false
+  },
+  "public_writes": 0,
+  "unknown_write_count": 0,
+  "publication_coordinator_calls": 0,
+  "outbox_or_publication_intents": 0,
+  "publication_browser_navigation": 0,
+  "v2_mutations": 0,
+  "scheduled_task_mutations": 0,
+  "go_invocations": 0,
+  "secret_or_session_material_read_or_persisted": false
+}

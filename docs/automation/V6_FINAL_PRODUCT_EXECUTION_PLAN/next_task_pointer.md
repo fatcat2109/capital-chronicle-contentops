@@ -7,11 +7,11 @@ This file is a compact routing pointer. Detailed V1 history remains in task evid
 
 ## V1 current research-routing correction
 
-`TASK_CONTENTOPS_V1_9ROUTER_RESEARCH_MODEL_LADDER_OWNER_ALIGNMENT_V1`
+`TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1`
 
 All future V1 grounded-research/evidence calls use exactly
-`cx/gpt-5.6-terra(high)` → `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)` through 9Router with the existing bounded retry policy. No route has
+`vx/gemini-3.1-pro-preview(high)` → `vx/gemini-3.5-flash(high)` through 9Router with the bounded
+retry policy. `cx/gpt-5.6-terra(high)` is excluded from this role. No route has
 factual, numeric, Capital Chronicle, permission, publication, or public-write authority. This does
 not authorize a live `GO`; after branch audit/integration, a new live opportunity requires separate
 exact authorization.

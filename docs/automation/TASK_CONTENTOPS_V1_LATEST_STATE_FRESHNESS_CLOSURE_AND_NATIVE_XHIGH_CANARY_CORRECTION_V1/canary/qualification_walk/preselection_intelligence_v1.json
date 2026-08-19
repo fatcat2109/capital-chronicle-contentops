@@ -1,0 +1,1959 @@
+{
+  "cc_catalog_complete": true,
+  "cc_catalog_store_count": 14,
+  "eligible_shortlist_count": 12,
+  "evaluated_at_utc": "2026-08-17T19:20:04.825477Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 12,
+  "learning_policy_consumed": true,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": true,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-deterministic-cluster-997537506695c666b046",
+    "rolling-x-deterministic-cluster-5da161c8801536296ea6",
+    "rolling-x-deterministic-cluster-fa5aeada39dd95f685ef",
+    "rolling-x-deterministic-cluster-a658b3f36703cb4f708b",
+    "rolling-x-deterministic-cluster-119ebde1d50d62d70501",
+    "rolling-x-deterministic-cluster-cd4213610bd02d5ba02a",
+    "rolling-x-deterministic-cluster-b79ba501c048f8dc2e53",
+    "rolling-x-deterministic-cluster-eabefac911698e0ccc41",
+    "rolling-x-deterministic-cluster-b196c5f78a369539c290",
+    "rolling-x-deterministic-cluster-6d08ca877e2e34e14bdb",
+    "rolling-x-deterministic-cluster-a1fd62ebd41d38529912",
+    "rolling-x-deterministic-cluster-f8c1daf72709625087a1"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-17T19:20:04.825477Z",
+    "daily_target_band": [
+      0,
+      4
+    ],
+    "entity_concentration_top": [],
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "publication_minimum": 0,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 0,
+    "routine_publication_ceiling": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "23b0689508ba84570d7def2822aaa3a5fe4b9844362c1ca73efaeaf2d482511c",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-997537506695c666b046",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-e186288bc7758e405bde9bd3"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-997537506695c666b046"
+      ],
+      "leaf_summaries": [
+        "QATAR'S FOREIGN MINISTRY DENIES DETAINING IRANIAN PILOTS, SAYING THE PILOTS VIOLATED QATARI AIRSPACE AND DID NOT RESPOND TO CONTACT ATTEMPTS, PROMPTING IT TO TAKE NECESSARY MEASURES TO DEFEND ITS TERRITORY."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e186288bc7758e405bde9bd3",
+        "ordered_headline_ids": [
+          "cc-x-headline-e186288bc7758e405bde9bd3"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-997537506695c666b046",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "QATAR'S FOREIGN MINISTRY DENIES DETAINING IRANIAN PILOTS, SAYING THE PILOTS VIOLATED QATARI AIRSPACE AND DID NOT RESPOND TO CONTACT ATTEMPTS, PROMPTING IT TO TAKE NECESSARY MEASURES TO DEFEND ITS TERRITORY.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-5da161c8801536296ea6",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-f8efc6717bf45021b18444d2"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-5da161c8801536296ea6"
+      ],
+      "leaf_summaries": [
+        "YEMEN'S PORT DIRECTOR SAYS MOCHA PORT HAS HALTED OPERATIONS FOLLOWING HOUTHI ATTACKS"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 2,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f8efc6717bf45021b18444d2",
+        "ordered_headline_ids": [
+          "cc-x-headline-f8efc6717bf45021b18444d2"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-5da161c8801536296ea6",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "YEMEN'S PORT DIRECTOR SAYS MOCHA PORT HAS HALTED OPERATIONS FOLLOWING HOUTHI ATTACKS",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-fa5aeada39dd95f685ef",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-68c2b904a6ba4e2b698f5c23"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-fa5aeada39dd95f685ef"
+      ],
+      "leaf_summaries": [
+        "RUSSIA SAYS IT SEEKS U.S. AND TURKISH EXPLANATIONS OVER ALLEGED PLANS TO SUPPLY ARMS TO KYIV, ADDING THAT POTENTIAL ARMS SUPPLIES WOULD UNDERMINE MOSCOW'S RELATIONS WITH WASHINGTON AND ANKARA"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-68c2b904a6ba4e2b698f5c23",
+        "ordered_headline_ids": [
+          "cc-x-headline-68c2b904a6ba4e2b698f5c23"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-fa5aeada39dd95f685ef",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RUSSIA SAYS IT SEEKS U.S. AND TURKISH EXPLANATIONS OVER ALLEGED PLANS TO SUPPLY ARMS TO KYIV, ADDING THAT POTENTIAL ARMS SUPPLIES WOULD UNDERMINE MOSCOW'S RELATIONS WITH WASHINGTON AND ANKARA",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-a658b3f36703cb4f708b",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-95c238002d8ef6c56ae2c2fd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a658b3f36703cb4f708b"
+      ],
+      "leaf_summaries": [
+        "UKRAINE'S ZELENSKIY SAYS ITS MILITARY HIT A RUSSIAN OIL FACILITY IN UST-LUGA"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 4,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-95c238002d8ef6c56ae2c2fd",
+        "ordered_headline_ids": [
+          "cc-x-headline-95c238002d8ef6c56ae2c2fd"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-a658b3f36703cb4f708b",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "UKRAINE'S ZELENSKIY SAYS ITS MILITARY HIT A RUSSIAN OIL FACILITY IN UST-LUGA",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-119ebde1d50d62d70501",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-f4454d7bfa896dcb249fbbc1"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-119ebde1d50d62d70501"
+      ],
+      "leaf_summaries": [
+        "OMAN SAYS AROUND 12 KM OF COASTLINE HAS BEEN AFFECTED BY OIL POLLUTION IN RAS MADRAKAH - STATE NEWS AGENCY"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 104.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 5,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f4454d7bfa896dcb249fbbc1",
+        "ordered_headline_ids": [
+          "cc-x-headline-f4454d7bfa896dcb249fbbc1"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-119ebde1d50d62d70501",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "OMAN SAYS AROUND 12 KM OF COASTLINE HAS BEEN AFFECTED BY OIL POLLUTION IN RAS MADRAKAH - STATE NEWS AGENCY",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-cd4213610bd02d5ba02a",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-3d81b2f89709aac09b833a94"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-cd4213610bd02d5ba02a"
+      ],
+      "leaf_summaries": [
+        "President Trump is doing his best to give this country back to the people and half of the country is too ignorant to notice"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 6,
+      "preselection_score": 102.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 6,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-3d81b2f89709aac09b833a94",
+        "ordered_headline_ids": [
+          "cc-x-headline-3d81b2f89709aac09b833a94"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-cd4213610bd02d5ba02a",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "President Trump is doing his best to give this country back to the people and half of the country is too ignorant to notice",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-b79ba501c048f8dc2e53",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-33fdc705955e1c18a08afe31"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-b79ba501c048f8dc2e53"
+      ],
+      "leaf_summaries": [
+        "ISRAEL'S MILITARY SAYS IT STRUCK HEZBOLLAH INFRASTRUCTURE IN SOUTHERN LEBANON IN RESPONSE TO ACTION AGAINST SOLDIERS IN THE SECURITY ZONE"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 7,
+      "preselection_score": 100.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 7,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-33fdc705955e1c18a08afe31",
+        "ordered_headline_ids": [
+          "cc-x-headline-33fdc705955e1c18a08afe31"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-b79ba501c048f8dc2e53",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "ISRAEL'S MILITARY SAYS IT STRUCK HEZBOLLAH INFRASTRUCTURE IN SOUTHERN LEBANON IN RESPONSE TO ACTION AGAINST SOLDIERS IN THE SECURITY ZONE",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-eabefac911698e0ccc41",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-29dd851fe2fa8c4ccb355776"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-eabefac911698e0ccc41"
+      ],
+      "leaf_summaries": [
+        "UKMTO SAYS A BULK CARRIER WAS STRUCK BY AN UNKNOWN PROJECTILE IN THE STRAIT OF HORMUZ ON FRIDAY, WITH THE PROJECTILE HITTING THE VESSEL'S HULL AND THE CREW REPORTED SAFE, THOUGH NO DAMAGE ASSESSMENT WAS REPORTED AND THE ENVIRONMENTAL..."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 8,
+      "preselection_score": 98.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 8,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-29dd851fe2fa8c4ccb355776",
+        "ordered_headline_ids": [
+          "cc-x-headline-29dd851fe2fa8c4ccb355776"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-eabefac911698e0ccc41",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "UKMTO SAYS A BULK CARRIER WAS STRUCK BY AN UNKNOWN PROJECTILE IN THE STRAIT OF HORMUZ ON FRIDAY, WITH THE PROJECTILE HITTING THE VESSEL'S HULL AND THE CREW REPORTED SAFE, THOUGH NO DAMAGE ASSESSMENT WAS REPORTED AND THE ENVIRONMENTAL...",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-b196c5f78a369539c290",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-e47e81a003856c62297cf03f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-b196c5f78a369539c290"
+      ],
+      "leaf_summaries": [
+        "THE U.S. HAS URGED APPLE NOT TO BUY CHINESE MEMORY CHIPS - WSJ"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 9,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 9,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e47e81a003856c62297cf03f",
+        "ordered_headline_ids": [
+          "cc-x-headline-e47e81a003856c62297cf03f"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-b196c5f78a369539c290",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "THE U.S. HAS URGED APPLE NOT TO BUY CHINESE MEMORY CHIPS - WSJ",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-6d08ca877e2e34e14bdb",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-b9d7207bb12c5e02f37ac8d7"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-6d08ca877e2e34e14bdb"
+      ],
+      "leaf_summaries": [
+        "ANTHROPIC PROJECTS $190 BLN-$200 BLN IN REVENUE FOR 2028, ACCORDING TO SOURCES, WITH WALL STREET USING 2028 REVENUE AND AN EV-TO-REVENUE MULTIPLE TO VALUE THE IPO"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 10,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 10,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b9d7207bb12c5e02f37ac8d7",
+        "ordered_headline_ids": [
+          "cc-x-headline-b9d7207bb12c5e02f37ac8d7"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-6d08ca877e2e34e14bdb",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "ANTHROPIC PROJECTS $190 BLN-$200 BLN IN REVENUE FOR 2028, ACCORDING TO SOURCES, WITH WALL STREET USING 2028 REVENUE AND AN EV-TO-REVENUE MULTIPLE TO VALUE THE IPO",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-a1fd62ebd41d38529912",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-4d43589b1cda80bc9ae9d1ce"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a1fd62ebd41d38529912"
+      ],
+      "leaf_summaries": [
+        "\ud83c\udfaf When the PEOPLE no longer contribute ANY VALUE, they no longer have ANY POWER... Humans are on our way to becoming an annoying distraction to an economy that no longer needs us. The system in its current form de facto leads to... 0..."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 11,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 11,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-4d43589b1cda80bc9ae9d1ce",
+        "ordered_headline_ids": [
+          "cc-x-headline-4d43589b1cda80bc9ae9d1ce"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-a1fd62ebd41d38529912",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "\ud83c\udfaf When the PEOPLE no longer contribute ANY VALUE, they no longer have ANY POWER... Humans are on our way to becoming an annoying distraction to an economy that no longer needs us. The system in its current form de facto leads to... 0...",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 176,
+        "catalog_fingerprint": "518068b0f3781ec33b20b98cd98786045f888ddac1f3b2510d46708ba7b4d483",
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.85,
+            "store_id": "public_free_event_text_entity_history_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_documents"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_events"
+          },
+          {
+            "score": 9.5,
+            "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+            "table": "dbh2_records"
+          },
+          {
+            "score": 9.1,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_event"
+          },
+          {
+            "score": 8.7,
+            "store_id": "unified_historical_lakehouse_hb10_v1",
+            "table": "unified_document"
+          }
+        ],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-f8c1daf72709625087a1",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "headline_ids": [
+        "cc-x-headline-ce5347802be6ce0d21d4a54d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-f8c1daf72709625087a1"
+      ],
+      "leaf_summaries": [
+        "JPMORGAN CEO JAMIE DIMON HAS WARNED THE UK CHANCELLOR AGAINST HIGHER BANK TAXES, HAVING SPOKEN WITH CHANCELLOR HEALEY ON A CALL THURSDAY - FT"
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 12,
+      "preselection_score": 96.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 12,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-ce5347802be6ce0d21d4a54d",
+        "ordered_headline_ids": [
+          "cc-x-headline-ce5347802be6ce0d21d4a54d"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-deterministic-cluster-f8c1daf72709625087a1",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "JPMORGAN CEO JAMIE DIMON HAS WARNED THE UK CHANCELLOR AGAINST HIGHER BANK TAXES, HAVING SPOKEN WITH CHANCELLOR HEALEY ON A CALL THURSDAY - FT",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": false,
+  "reranked_order": [
+    "rolling-x-deterministic-cluster-997537506695c666b046",
+    "rolling-x-deterministic-cluster-5da161c8801536296ea6",
+    "rolling-x-deterministic-cluster-fa5aeada39dd95f685ef",
+    "rolling-x-deterministic-cluster-a658b3f36703cb4f708b",
+    "rolling-x-deterministic-cluster-119ebde1d50d62d70501",
+    "rolling-x-deterministic-cluster-cd4213610bd02d5ba02a",
+    "rolling-x-deterministic-cluster-b79ba501c048f8dc2e53",
+    "rolling-x-deterministic-cluster-eabefac911698e0ccc41",
+    "rolling-x-deterministic-cluster-b196c5f78a369539c290",
+    "rolling-x-deterministic-cluster-6d08ca877e2e34e14bdb",
+    "rolling-x-deterministic-cluster-a1fd62ebd41d38529912",
+    "rolling-x-deterministic-cluster-f8c1daf72709625087a1"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

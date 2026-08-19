@@ -1,0 +1,471 @@
+{
+  "adapter_callables_persisted": false,
+  "article_identity": "2debcc04f628a2afbdc9f0ca1b013be93266eecec8b668b27c60230158007047",
+  "artifact_refs": {
+    "article_manifest_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\article_manifest_v1.json",
+      "sha256": "de40f208528737530f5085bc8f75439b451dfa1e937bf273ab90fa2bbc8390c8"
+    },
+    "delivery_only_media_delivery_only_editorial_card": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-gemini-only-grounded-research-ladder-canary-retry-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\delivery_only_editorial_card.png",
+      "sha256": "b2cb798b31b6876e713b0ea825c5128521ff8fc49937d68aea69355681061768"
+    },
+    "editorial_quality_gate_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\editorial_quality_gate_v1.json",
+      "sha256": "364744ef87b1625ea8dd6da2dd132189e7d0c10cd23bc0e9a9aaba686195f46c"
+    },
+    "editorial_seo_package_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\editorial_seo_package_v1.json",
+      "sha256": "c9b64b7237605d7ce20080d469dcadb4aaa4292b5077a1066ee7d6946fe830a8"
+    },
+    "grounded_support_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\grounded_support_v1.json",
+      "sha256": "6b893131149b7e9b5468812710dc1c6192a213ca0ad7408e67d435db26f165d3"
+    },
+    "headline_intake_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\headline_intake_v1.json",
+      "sha256": "bdb028f000b528d1f0cfd64c6812ae8e725274d1d1ab46ae0f5be457960e34ae"
+    },
+    "idea_selection_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\idea_selection_v1.json",
+      "sha256": "702947bc57a8afd73ee325dd7e18ac7bfc3c2d6e207e475c2240886488fe48a4"
+    },
+    "llm_idea_ranking_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\llm_idea_ranking_v1.json",
+      "sha256": "7e10952dc53659786febf4a1622576a14dcfa2026b16d73d7beae010c1a61cf4"
+    },
+    "media_manifest_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\media_manifest_v1.json",
+      "sha256": "8f9b714536ed32af60ea01ee3edc5bb9d2bf380b298adbf65dd2117073bcf1a9"
+    },
+    "native_payloads_rehearsal_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\native_payloads_rehearsal_v1.json",
+      "sha256": "0cc137fb68de0957b889c18fcdbefeaedc553e1f327cef26071bd60787608e71"
+    },
+    "run_context_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\run_context_v1.json",
+      "sha256": "0d6c5b3a90eca9ed458978ce8095790098b1289b0833ad2e33cf509e6b8cca7e"
+    },
+    "substack_browser_request_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\substack_browser_request_v1.json",
+      "sha256": "a79715d81805a9664636a850a29d5e42bdf01a990121771c250b8c4eb5ca5e32"
+    }
+  },
+  "destinations": [
+    {
+      "adapter": "discord_live_adapter_v6.execute_discord_post",
+      "article_media_available": false,
+      "canonical_url_dependency": "SUBSTACK_ARTICLE",
+      "delivery_media_available": true,
+      "delivery_media_required": false,
+      "destination": "discord",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "discord_channel:1519311669216673802",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "SHORT",
+        "link_treatment": "CANONICAL_LINK",
+        "package_form": "SINGLE_POST",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "TEXT_ONLY"
+      },
+      "payload_hash": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+      "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+      "platform": "discord",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "DISCORD_ANNOUNCEMENT",
+      "text_only_supported": true,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "WEBHOOK_API"
+    },
+    {
+      "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+      "article_media_available": false,
+      "canonical_url_dependency": "SUBSTACK_ARTICLE",
+      "delivery_media_available": true,
+      "delivery_media_required": false,
+      "destination": "facebook_page",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "Capital Chronicle",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "SHORT",
+        "link_treatment": "CANONICAL_LINK",
+        "package_form": "SINGLE_POST",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "TEXT_ONLY"
+      },
+      "payload_hash": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+      "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+      "platform": "facebook_page",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "FACEBOOK_PAGE_POST",
+      "text_only_supported": true,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "META_GRAPH_API"
+    },
+    {
+      "adapter": "instagram_adapter_v6.execute_instagram_post",
+      "article_media_available": false,
+      "canonical_url_dependency": "SUBSTACK_ARTICLE",
+      "delivery_media_available": true,
+      "delivery_media_required": true,
+      "destination": "instagram_business",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "official.capitalchronicle",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "SHORT",
+        "link_treatment": "CANONICAL_LINK",
+        "package_form": "SINGLE_POST",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "TEXT_ONLY"
+      },
+      "payload_hash": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+      "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+      "platform": "instagram_business",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "INSTAGRAM_BUSINESS_POST",
+      "text_only_supported": false,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "META_GRAPH_API"
+    },
+    {
+      "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+      "article_media_available": false,
+      "canonical_url_dependency": "SUBSTACK_ARTICLE",
+      "delivery_media_available": true,
+      "delivery_media_required": false,
+      "destination": "linkedin",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "linkedin:jimcc",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "SHORT",
+        "link_treatment": "CANONICAL_LINK",
+        "package_form": "SINGLE_POST",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "TEXT_ONLY"
+      },
+      "payload_hash": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+      "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+      "platform": "linkedin",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "LINKEDIN_POST",
+      "text_only_supported": true,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "OFFICIAL_MEMBER_API"
+    },
+    {
+      "adapter": "edge_cdp_publishing_adapter_v1.publish_substack_article_via_edge",
+      "article_media_available": false,
+      "canonical_url_dependency": null,
+      "delivery_media_available": true,
+      "delivery_media_required": false,
+      "destination": "substack",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "capitalchronicle.substack.com",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "BRIEF",
+        "link_treatment": "CANONICAL_OBJECT",
+        "package_form": "CANONICAL_LONGFORM",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "ARTICLE_MEDIA_OPTIONAL"
+      },
+      "payload_hash": "2debcc04f628a2afbdc9f0ca1b013be93266eecec8b668b27c60230158007047",
+      "payload_hash_kind": "FINAL_ARTICLE_BYTES",
+      "platform": "substack",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "SUBSTACK_ARTICLE",
+      "text_only_supported": true,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "EDGE_CDP"
+    },
+    {
+      "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+      "article_media_available": false,
+      "canonical_url_dependency": "SUBSTACK_ARTICLE",
+      "delivery_media_available": true,
+      "delivery_media_required": false,
+      "destination": "telegram",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "@CapitalChronicle",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "SHORT",
+        "link_treatment": "CANONICAL_LINK",
+        "package_form": "SINGLE_POST",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "TEXT_ONLY"
+      },
+      "payload_hash": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+      "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+      "platform": "telegram",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "TELEGRAM_CHANNEL_POST",
+      "text_only_supported": true,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "BOT_API"
+    },
+    {
+      "adapter": "threads_adapter_v6.execute_threads_post",
+      "article_media_available": false,
+      "canonical_url_dependency": "SUBSTACK_ARTICLE",
+      "delivery_media_available": true,
+      "delivery_media_required": false,
+      "destination": "threads",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "official.capitalchronicle",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "SHORT",
+        "link_treatment": "CANONICAL_LINK",
+        "package_form": "SINGLE_POST",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "TEXT_ONLY"
+      },
+      "payload_hash": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+      "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+      "platform": "threads",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "THREADS_POST",
+      "text_only_supported": true,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "THREADS_API"
+    },
+    {
+      "adapter": "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge+publish_x_reply_via_edge",
+      "article_media_available": false,
+      "canonical_url_dependency": "SUBSTACK_ARTICLE",
+      "delivery_media_available": true,
+      "delivery_media_required": false,
+      "destination": "x",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "@Capitalnicle",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "SHORT",
+        "link_treatment": "CANONICAL_LINK",
+        "package_form": "SINGLE_POST",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "TEXT_ONLY"
+      },
+      "payload_hash": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+      "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+      "platform": "x",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "X_THREAD",
+      "text_only_supported": true,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "EDGE_CDP"
+    },
+    {
+      "adapter": "edge_cdp_publishing_adapter_v1.publish_youtube_community_post_via_edge",
+      "article_media_available": false,
+      "canonical_url_dependency": "SUBSTACK_ARTICLE",
+      "delivery_media_available": true,
+      "delivery_media_required": false,
+      "destination": "youtube",
+      "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+      "expected_destination_identity": "@CapitalChronicleYouTube",
+      "jit_verification_required": true,
+      "media_artifact_refs": [
+        "media_manifest_v1.json"
+      ],
+      "package_features": {
+        "copy_length_band": "SHORT",
+        "link_treatment": "CANONICAL_LINK",
+        "package_form": "SINGLE_POST",
+        "thread_structure": "NOT_THREADED",
+        "visual_package": "TEXT_ONLY"
+      },
+      "payload_hash": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+      "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+      "platform": "youtube",
+      "readiness_state": "NOT_PROBED_ZERO_WRITE_CANARY",
+      "surface": "YOUTUBE_COMMUNITY_POST",
+      "text_only_supported": true,
+      "transport_registry_version": "contentops.destination_transport_registry.v2",
+      "transport_type": "EDGE_CDP"
+    }
+  ],
+  "editorial_classification": "",
+  "editorial_features": {
+    "article_mode": "BREAKING_BRIEF",
+    "canonical_editorial_headline": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+    "canonical_slug_candidate": "kushner-meets-hamas-cairo-netanyahu-gaza-talks",
+    "depth_band": "BRIEF",
+    "entities": [
+      "Jared Kushner",
+      "Hamas",
+      "Benjamin Netanyahu",
+      "Cairo",
+      "Gaza"
+    ],
+    "evergreen_balance": "NEWS_CURRENT",
+    "grants_factual_or_numeric_authority": false,
+    "headline_frame": "DIRECT_NEWS_OR_ANALYSIS",
+    "institutional_edge_editorial_packet_sha256": "ad7493bb68b824101b4792618fa9a114cdd8e436cc00aa3ad3657fd12af98c7f",
+    "internal_link_candidates": [],
+    "keyword_cluster": [],
+    "meta_description": "Jared Kushner met Hamas in Cairo for Gaza-focused talks before a scheduled Netanyahu meeting, while participants, terms and any outcome remain unclear.",
+    "primary_reader_question": "What does the Kushner-Hamas meeting establish, and what remains unknown?",
+    "primary_search_intent": "UNAVAILABLE",
+    "reader_headline": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+    "refresh_intent": "NO_EXPLICIT_REFRESH",
+    "search_freshness_class": "BREAKING",
+    "search_title": "Jared Kushner Meets Hamas in Cairo for Gaza Talks",
+    "secondary_reader_questions": [
+      "What should readers watch after the planned Netanyahu talks?"
+    ],
+    "secondary_search_intents": [],
+    "section_structure": [
+      "What the reporting establishes",
+      "What remains unresolved",
+      "What to watch"
+    ],
+    "seo_title": "Jared Kushner Meets Hamas in Cairo for Gaza Talks",
+    "slug": "kushner-meets-hamas-cairo-netanyahu-gaza-talks",
+    "social_hook": "Jared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.",
+    "source_learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+    "story_type": "UNKNOWN",
+    "structured_data_packet": {
+      "@type": "NewsArticle",
+      "author": "Capital Chronicle",
+      "dateModified": "",
+      "datePublished": "",
+      "description": "Jared Kushner met Hamas in Cairo for Gaza-focused talks before a scheduled Netanyahu meeting, while participants, terms and any outcome remain unclear.",
+      "eligible_for_emission": false,
+      "headline": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+      "publication_time_binding": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+      "publisher": "Capital Chronicle"
+    },
+    "topic_family": [],
+    "topics": [
+      "Gaza talks"
+    ],
+    "update_mode": "BREAKING_NEW_STORY"
+  },
+  "editorial_seo_package": {
+    "author_identity": "Capital Chronicle",
+    "canonical_editorial_headline": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+    "canonical_slug_candidate": "kushner-meets-hamas-cairo-netanyahu-gaza-talks",
+    "dek": "Secondary-source listings corroborate the Cairo meeting and its Gaza focus, but they do not establish who represented Hamas, what terms were discussed, or whether any agreement emerged.",
+    "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+    "entities": [
+      "Jared Kushner",
+      "Hamas",
+      "Benjamin Netanyahu",
+      "Cairo",
+      "Gaza"
+    ],
+    "institutional_edge_editorial_packet_sha256": "ad7493bb68b824101b4792618fa9a114cdd8e436cc00aa3ad3657fd12af98c7f",
+    "internal_link_candidates": [],
+    "meta_description": "Jared Kushner met Hamas in Cairo for Gaza-focused talks before a scheduled Netanyahu meeting, while participants, terms and any outcome remain unclear.",
+    "primary_reader_question": "What does the Kushner-Hamas meeting establish, and what remains unknown?",
+    "public_write_authority": false,
+    "publication_authority": false,
+    "publisher_identity": "Capital Chronicle",
+    "schema_version": "contentops.institutional_edge_seo_package.v1",
+    "search_freshness_class": "BREAKING",
+    "search_learning_status": "HOLD_WITHOUT_SEARCH_SPECIFIC_EVIDENCE",
+    "search_title": "Jared Kushner Meets Hamas in Cairo for Gaza Talks",
+    "secondary_reader_questions": [
+      "What should readers watch after the planned Netanyahu talks?"
+    ],
+    "social_hook": "Jared Kushner met with Hamas in Cairo over Gaza, with further Gaza talks with Benjamin Netanyahu scheduled to follow.",
+    "structured_data_packet": {
+      "@type": "NewsArticle",
+      "author": "Capital Chronicle",
+      "dateModified": "",
+      "datePublished": "",
+      "description": "Jared Kushner met Hamas in Cairo for Gaza-focused talks before a scheduled Netanyahu meeting, while participants, terms and any outcome remain unclear.",
+      "eligible_for_emission": false,
+      "headline": "Kushner Meets Hamas in Cairo Ahead of Netanyahu Talks on Gaza",
+      "publication_time_binding": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+      "publisher": "Capital Chronicle"
+    },
+    "topics": [
+      "Gaza talks"
+    ]
+  },
+  "full_v1_distribution_required": true,
+  "learning_policy_version": "policy_4b93c126dfbed317f58f9b0b",
+  "output_dir": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-gemini-only-grounded-research-ladder-canary-retry-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package",
+  "package_identity": "2cdfa5ac97f07116c552fe2f08bfd08e8696d7240be4121ade45280ee048fbf1",
+  "plan_hash": "024a9b6877bf01cc67f8f54b116f3fe43881a5d1ff6b554f20e98250b8a27123",
+  "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+  "pre_substack_blockers": [],
+  "publication_window": {
+    "window_identity": "v1-gemini-only-grounded-research-zero-write-canary"
+  },
+  "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+  "required_derivative_destinations": [
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube"
+  ],
+  "required_publication_destinations": [
+    "substack",
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube"
+  ],
+  "resolved_article_mode": "",
+  "run_id": "v1-gemini-only-grounded-research-zero-write-canary",
+  "schema_version": "contentops.publication_plan.v1",
+  "secrets_persisted": false,
+  "skipped_derivative_destinations": [],
+  "story_identity": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+  "substack_first_dependency": true,
+  "transaction_readiness": "READY",
+  "transport_registry_version": "contentops.destination_transport_registry.v2",
+  "update_chain_identity": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b"
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "contentops.rolling_x_effective_registry_correction_proof.v1",
+  "status": "PASS",
+  "root_cause": "The scheduler constructed requests from a private augmented registry while the targeted evidence adapter revalidated them against the raw base registry.",
+  "old_producer_registry": {
+    "definition": "live_contentops.newsroom_assignment_scheduler_v1._ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE",
+    "augmentation": "live_contentops.newsroom_assignment_scheduler_v1._with_rolling_x_story_type_profiles",
+    "identity": "raw base registry plus scheduler-private general_public_event profile"
+  },
+  "old_consumer_registry": {
+    "loader": "live_contentops.source_capability_registry_v2.load_source_capability_registry",
+    "consumer": "live_contentops.rolling_x_targeted_evidence_adapter_v1.RollingXTargetedEvidenceAdapter.__init__",
+    "identity": "raw hash-bound base registry without general_public_event"
+  },
+  "new_single_seam": "live_contentops.source_capability_registry_v2.effective_rolling_x_capability_registry",
+  "consumers": [
+    "resolve_rolling_x_story_type",
+    "classify_rolling_x_story_types_with_nine_router",
+    "classify_rolling_x_story_types_deterministically",
+    "select_first_viable_rolling_x_cluster",
+    "RollingXTargetedEvidenceAdapter.__init__",
+    "_validate_injected_rolling_x_story_types",
+    "_validated_rolling_x_story_routing"
+  ],
+  "base_registry_bytes_or_hash_changed": false,
+  "general_public_event": {
+    "required_evidence_capabilities": [
+      "credible_event_confirmation",
+      "basic_attributed_facts"
+    ],
+    "source_adapter_families": [
+      "public_secondary"
+    ],
+    "factual_authority": false,
+    "numeric_authority": false,
+    "capital_chronicle_authority": false,
+    "permission_authority": false,
+    "publication_authority": false
+  },
+  "regression_results": {
+    "neutral_request_reached_injected_public_secondary_loader": true,
+    "neutral_unsupported_story_type_blocker": false,
+    "neutral_capability_registry_mismatch_blocker": false,
+    "neutral_source_adapter_registry_mismatch_blocker": false,
+    "specialized_profiles_preserved_exactly": [
+      "company_sector_event",
+      "geopolitical_event",
+      "data_release",
+      "policy_decision",
+      "market_move"
+    ],
+    "arbitrary_unregistered_story_type_rejected_before_acquisition": true,
+    "required_capability_tamper_rejected_before_acquisition": true,
+    "source_family_tamper_rejected_before_acquisition": true,
+    "article_mode_downgrade_semantics_preserved": true
+  }
+}

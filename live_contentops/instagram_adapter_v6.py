@@ -133,6 +133,56 @@ def validate_instagram_image_url(image_url: str, timeout_seconds: int = 10) -> l
     return []
 
 
+def _wait_for_instagram_container(
+    *, container_id: str, access_token: str, attempts: int = 12, interval_seconds: float = 2.0
+) -> dict[str, Any]:
+    """Wait for Graph media processing before crossing the public publish boundary."""
+    for attempt in range(1, attempts + 1):
+        try:
+            value = _get_json(
+                f"https://graph.facebook.com/{GRAPH_VERSION}/{container_id}",
+                {"fields": "status_code,status", "access_token": access_token},
+            )
+        except urllib.error.HTTPError as error:
+            return {
+                **_parse_http_error(error, "FAILED_CONTAINER_STATUS_READBACK"),
+                "ready": False,
+                "definite_no_write": True,
+                "attempts": attempt,
+            }
+        except Exception as error:
+            return {
+                "status": "FAILED_CONTAINER_STATUS_READBACK",
+                "error_class": type(error).__name__,
+                "ready": False,
+                "definite_no_write": True,
+                "attempts": attempt,
+            }
+        status_code = str(value.get("status_code") or value.get("status") or "").upper()
+        if status_code in {"FINISHED", "PUBLISHED"}:
+            return {
+                "status": "CONTAINER_READY",
+                "ready": True,
+                "definite_no_write": True,
+                "attempts": attempt,
+            }
+        if status_code in {"ERROR", "EXPIRED"}:
+            return {
+                "status": "FAILED_CONTAINER_PROCESSING",
+                "ready": False,
+                "definite_no_write": True,
+                "attempts": attempt,
+            }
+        if attempt < attempts:
+            time.sleep(interval_seconds)
+    return {
+        "status": "FAILED_CONTAINER_PROCESSING_TIMEOUT",
+        "ready": False,
+        "definite_no_write": True,
+        "attempts": attempts,
+    }
+
+
 def execute_instagram_post(
     ig_id: str | None = None,
     access_token: str | None = None,
@@ -180,11 +230,20 @@ def execute_instagram_post(
         if not container_id:
             result = {"status": "FAILED", "error": "No container ID returned in Step 1", "response": response}
         else:
-            publish_url = f"https://graph.facebook.com/{GRAPH_VERSION}/{ig_id}/media_publish"
-            publish_payload = {"creation_id": container_id, "access_token": access_token}
-            publish_response, publish_size = _post_form(publish_url, publish_payload)
-            payload_size += publish_size
-            result = {"status": "SUCCESS", "id": publish_response.get("id"), "container_id": container_id, "response": publish_response}
+            processing = _wait_for_instagram_container(
+                container_id=str(container_id), access_token=access_token
+            )
+            if processing.get("ready") is not True:
+                result = {
+                    **processing,
+                    "container_id": container_id,
+                }
+            else:
+                publish_url = f"https://graph.facebook.com/{GRAPH_VERSION}/{ig_id}/media_publish"
+                publish_payload = {"creation_id": container_id, "access_token": access_token}
+                publish_response, publish_size = _post_form(publish_url, publish_payload)
+                payload_size += publish_size
+                result = {"status": "SUCCESS", "id": publish_response.get("id"), "container_id": container_id, "response": publish_response}
     except urllib.error.HTTPError as error:
         status = "FAILED_STEP_1" if "container_id" not in locals() else "FAILED_STEP_2"
         result = _parse_http_error(error, status)
@@ -262,6 +321,71 @@ def readback_instagram_media(
         "meaningful_media_visible": bool(similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM),
         "expected_chart_visual_similarity": similarity,
         "media_type": value.get("media_type"),
+    }
+
+
+def find_recent_instagram_media(
+    *,
+    expected_caption: str,
+    canonical_url: str,
+    expected_media_local_path: str,
+    ig_id: str | None = None,
+    access_token: str | None = None,
+    attempts: int = 2,
+    interval_seconds: float = 2.0,
+) -> dict[str, Any]:
+    """Resolve an uncertain publish by exact recent caption before any retry."""
+    ig_id = _instagram_id(ig_id)
+    access_token = _instagram_token(access_token)
+    if not ig_id or not access_token:
+        return _validation_failed(["instagram_reconciliation_credentials"])
+    title_line = next(
+        (line.strip() for line in expected_caption.splitlines() if line.strip()),
+        expected_caption,
+    )
+    for attempt in range(1, max(1, attempts) + 1):
+        try:
+            feed = _get_json(
+                f"https://graph.facebook.com/{GRAPH_VERSION}/{ig_id}/media",
+                {
+                    "fields": "id,caption,media_type,media_url,permalink,username,timestamp",
+                    "limit": "50",
+                    "access_token": access_token,
+                },
+            )
+        except urllib.error.HTTPError as error:
+            return _parse_http_error(error, "FAILED_RECONCILIATION")
+        except Exception as error:
+            return {
+                "status": "FAILED_RECONCILIATION",
+                "error_class": type(error).__name__,
+            }
+        matches = []
+        for row in feed.get("data") or []:
+            caption = " ".join(str(row.get("caption") or "").split())
+            if title_line.casefold() in caption.casefold() and canonical_url in caption:
+                matches.append(dict(row))
+        if len(matches) > 1:
+            return {
+                "status": "AMBIGUOUS_INSTAGRAM_RECENT_MEDIA_MATCH",
+                "match_count": len(matches),
+            }
+        if len(matches) == 1:
+            return readback_instagram_media(
+                media_id=str(matches[0].get("id") or ""),
+                expected_caption=expected_caption,
+                canonical_url=canonical_url,
+                expected_media_local_path=expected_media_local_path,
+                access_token=access_token,
+            )
+        if attempt < max(1, attempts):
+            time.sleep(interval_seconds)
+    return {
+        "status": "ABSENT_SAFE_TO_RETRY",
+        "platform": "instagram_business",
+        "write_absent": True,
+        "match_count": 0,
+        "readback_attempts": max(1, attempts),
     }
 
 

@@ -1,0 +1,662 @@
+{
+  "assignment_logical_hash": "8f1543171ecac4a9b04161b9dfb966fa5bf739c2d3299859b7c7207e916d2920",
+  "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
+  "decision": "SELECT_STORY",
+  "factual_or_numeric_authority_granted": false,
+  "input_binding": {
+    "canonical_input_hash": "e031912ed7d0ede009c7d5351b7ef39b2d20444e446c419d0be1a005c8e0781c",
+    "held_count": 0,
+    "input_count": 12,
+    "selected_count": 12
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-bb2b745a7c08802af301f63b",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-bb2b745a7c08802af301f63b"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "On this morning's live stream, which you can watch on the link below, I talked about the rise in long-term gov't bond yields that's playing out globally and where this is most alarming. Japan is in a de facto debt crisis, but lots of...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-43df2d4fcdfdf20ae03f",
+      "member_headline_ids": [
+        "cc-x-headline-bb2b745a7c08802af301f63b"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 100,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c895a831169b3115434fbb6e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-c895a831169b3115434fbb6e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "The Decline Of Higher Education Continues",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-04904c60c680929d0ccb",
+      "member_headline_ids": [
+        "cc-x-headline-c895a831169b3115434fbb6e"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-93b6402b4e8be57a65d69ee3",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-93b6402b4e8be57a65d69ee3"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "The stock market loves Year 3 of the Election Cycle JPMAM",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-2b59169d1cf281965e30",
+      "member_headline_ids": [
+        "cc-x-headline-93b6402b4e8be57a65d69ee3"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-6941ad6d616b323b78951a6b",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-6941ad6d616b323b78951a6b"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Lake Powell, the second-largest reservoir in the United States, provides water and electricity to millions in the West. It has now shrunk to its lowest level on record, in the latest sign of the alarming crisis unfolding on the...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-5358ea97e40a5fd0d6ac",
+      "member_headline_ids": [
+        "cc-x-headline-6941ad6d616b323b78951a6b"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-0effafd8f8e8858cd0b930d0",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-0effafd8f8e8858cd0b930d0"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Aluminum inventories at the London Metal Exchange have reached their lowest level since 1990. MORE EVIDENCE THAT A COMMODITY SUPERCYCLE IS UNDERWAY. STAY LONG ALUMINUM.",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-8cec3f66413596b638e9",
+      "member_headline_ids": [
+        "cc-x-headline-0effafd8f8e8858cd0b930d0"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-551da06c8d70b21af5a49726",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-551da06c8d70b21af5a49726"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "If you are concerned about MAGA taking away the rights of women and LGBTQ, it's time for you to learn about Sharia",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-cbb2f1babee5acb075a9",
+      "member_headline_ids": [
+        "cc-x-headline-551da06c8d70b21af5a49726"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-81d8672ae1a5814448f9a02a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-81d8672ae1a5814448f9a02a"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "RT @ManuelSamuel: The Yen\u2019s Real Anchor: Monetary Regime, Not FX Intervention @robin_j_brooks chart illustrates something Richard Werner h...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-a7d43efa82d36dc7f854",
+      "member_headline_ids": [
+        "cc-x-headline-81d8672ae1a5814448f9a02a"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7675aa7ed3222501b3dece21",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7675aa7ed3222501b3dece21"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "The stock market loves a Democrat divided government JPMAM $SPY",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-5bd72e29fce9944dc62a",
+      "member_headline_ids": [
+        "cc-x-headline-7675aa7ed3222501b3dece21"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5e30545b21b791edf6169988",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5e30545b21b791edf6169988"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Settlers establish a new settlement outpost in the village of Burqa in the Ramallah Governorate",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-381f9ece58691bfe682f",
+      "member_headline_ids": [
+        "cc-x-headline-5e30545b21b791edf6169988"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a2af2969ba2d890acb0ff849",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a2af2969ba2d890acb0ff849"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Russian Defense: We targeted 3 ships and 2 tankers used to deliver military supplies and fuel to Ukrainian forces in the port of Odesa",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-644bc70116c389393555",
+      "member_headline_ids": [
+        "cc-x-headline-a2af2969ba2d890acb0ff849"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-8ac429a59bc4901661c19a4d",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-8ac429a59bc4901661c19a4d"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Russian Ministry of Defense: We targeted a cargo ship in the Black Sea east of Odesa that was transporting Western weapons to Ukraine",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-aeed6e5ccbc3be2c15db",
+      "member_headline_ids": [
+        "cc-x-headline-8ac429a59bc4901661c19a4d"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-35f343b7d2581bc4bd23ea4f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-35f343b7d2581bc4bd23ea4f"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "The Yen\u2019s Real Anchor: Monetary Regime, Not FX Intervention @robin_j_brooks chart illustrates something Richard Werner has argued for decades: FX intervention attacks the symptom, not the monetary architecture. Kuroda changed that...",
+      "leaf_cluster_id": "rolling-x-deterministic-leaf-5e453d5684310507114b",
+      "member_headline_ids": [
+        "cc-x-headline-35f343b7d2581bc4bd23ea4f"
+      ],
+      "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+      "topics": []
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 330,
+    "held_before_semantic_assignment_count": 318,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "10d181dcd9364f8f3f4a72cce58f32ef92c6bb51469a1873ddab2e2495f941fe",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-43df2d4fcdfdf20ae03f",
+      "headline_ids": [
+        "cc-x-headline-bb2b745a7c08802af301f63b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-43df2d4fcdfdf20ae03f"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 1,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-bb2b745a7c08802af301f63b",
+        "ordered_headline_ids": [
+          "cc-x-headline-bb2b745a7c08802af301f63b"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "On this morning's live stream, which you can watch on the link below, I talked about the rise in long-term gov't bond yields that's playing out globally and where this is most alarming. Japan is in a de facto debt crisis, but lots of..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-04904c60c680929d0ccb",
+      "headline_ids": [
+        "cc-x-headline-c895a831169b3115434fbb6e"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-04904c60c680929d0ccb"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 2,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c895a831169b3115434fbb6e",
+        "ordered_headline_ids": [
+          "cc-x-headline-c895a831169b3115434fbb6e"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "The Decline Of Higher Education Continues"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-2b59169d1cf281965e30",
+      "headline_ids": [
+        "cc-x-headline-93b6402b4e8be57a65d69ee3"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-2b59169d1cf281965e30"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 3,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-93b6402b4e8be57a65d69ee3",
+        "ordered_headline_ids": [
+          "cc-x-headline-93b6402b4e8be57a65d69ee3"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "The stock market loves Year 3 of the Election Cycle JPMAM"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-5358ea97e40a5fd0d6ac",
+      "headline_ids": [
+        "cc-x-headline-6941ad6d616b323b78951a6b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-5358ea97e40a5fd0d6ac"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 4,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-6941ad6d616b323b78951a6b",
+        "ordered_headline_ids": [
+          "cc-x-headline-6941ad6d616b323b78951a6b"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Lake Powell, the second-largest reservoir in the United States, provides water and electricity to millions in the West. It has now shrunk to its lowest level on record, in the latest sign of the alarming crisis unfolding on the..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-8cec3f66413596b638e9",
+      "headline_ids": [
+        "cc-x-headline-0effafd8f8e8858cd0b930d0"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-8cec3f66413596b638e9"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 5,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0effafd8f8e8858cd0b930d0",
+        "ordered_headline_ids": [
+          "cc-x-headline-0effafd8f8e8858cd0b930d0"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Aluminum inventories at the London Metal Exchange have reached their lowest level since 1990. MORE EVIDENCE THAT A COMMODITY SUPERCYCLE IS UNDERWAY. STAY LONG ALUMINUM."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-cbb2f1babee5acb075a9",
+      "headline_ids": [
+        "cc-x-headline-551da06c8d70b21af5a49726"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-cbb2f1babee5acb075a9"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 6,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-551da06c8d70b21af5a49726",
+        "ordered_headline_ids": [
+          "cc-x-headline-551da06c8d70b21af5a49726"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "If you are concerned about MAGA taking away the rights of women and LGBTQ, it's time for you to learn about Sharia"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-a7d43efa82d36dc7f854",
+      "headline_ids": [
+        "cc-x-headline-81d8672ae1a5814448f9a02a"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-a7d43efa82d36dc7f854"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 7,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-81d8672ae1a5814448f9a02a",
+        "ordered_headline_ids": [
+          "cc-x-headline-81d8672ae1a5814448f9a02a"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "RT @ManuelSamuel: The Yen\u2019s Real Anchor: Monetary Regime, Not FX Intervention @robin_j_brooks chart illustrates something Richard Werner h..."
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-5bd72e29fce9944dc62a",
+      "headline_ids": [
+        "cc-x-headline-7675aa7ed3222501b3dece21"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-5bd72e29fce9944dc62a"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 8,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-7675aa7ed3222501b3dece21",
+        "ordered_headline_ids": [
+          "cc-x-headline-7675aa7ed3222501b3dece21"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "The stock market loves a Democrat divided government JPMAM $SPY"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-381f9ece58691bfe682f",
+      "headline_ids": [
+        "cc-x-headline-5e30545b21b791edf6169988"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-381f9ece58691bfe682f"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 9,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5e30545b21b791edf6169988",
+        "ordered_headline_ids": [
+          "cc-x-headline-5e30545b21b791edf6169988"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Settlers establish a new settlement outpost in the village of Burqa in the Ramallah Governorate"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-644bc70116c389393555",
+      "headline_ids": [
+        "cc-x-headline-a2af2969ba2d890acb0ff849"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-644bc70116c389393555"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 10,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a2af2969ba2d890acb0ff849",
+        "ordered_headline_ids": [
+          "cc-x-headline-a2af2969ba2d890acb0ff849"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Russian Defense: We targeted 3 ships and 2 tankers used to deliver military supplies and fuel to Ukrainian forces in the port of Odesa"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-aeed6e5ccbc3be2c15db",
+      "headline_ids": [
+        "cc-x-headline-8ac429a59bc4901661c19a4d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-aeed6e5ccbc3be2c15db"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 11,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-8ac429a59bc4901661c19a4d",
+        "ordered_headline_ids": [
+          "cc-x-headline-8ac429a59bc4901661c19a4d"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Russian Ministry of Defense: We targeted a cargo ship in the Black Sea east of Odesa that was transporting Western weapons to Ukraine"
+    },
+    {
+      "article_mode": "breaking",
+      "cluster_id": "rolling-x-deterministic-cluster-5e453d5684310507114b",
+      "headline_ids": [
+        "cc-x-headline-35f343b7d2581bc4bd23ea4f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-deterministic-leaf-5e453d5684310507114b"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "rank": 12,
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-35f343b7d2581bc4bd23ea4f",
+        "ordered_headline_ids": [
+          "cc-x-headline-35f343b7d2581bc4bd23ea4f"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "The Yen\u2019s Real Anchor: Monetary Regime, Not FX Intervention @robin_j_brooks chart illustrates something Richard Werner has argued for decades: FX intervention attacks the symptom, not the monetary architecture. Kuroda changed that..."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [],
+  "router_output_grants_publication_authority": false,
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-43df2d4fcdfdf20ae03f",
+  "selected_headline_ids": [
+    "cc-x-headline-bb2b745a7c08802af301f63b"
+  ],
+  "semantic_assignment_failure_recovered": true,
+  "status": "SUCCESS",
+  "telemetry": {
+    "fallback_transitions": 0,
+    "logical_router_calls": 0,
+    "provider_attempts": 0,
+    "token_usage": {
+      "completion_tokens": 0,
+      "prompt_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "x_content_grants_evidence_authority": false
+}

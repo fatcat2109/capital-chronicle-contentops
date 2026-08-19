@@ -1,0 +1,36 @@
+{
+  "schema_version": "contentops.v1_native_xhigh_canary_validation_results.v1",
+  "codegraph_check": "CODEGRAPH_CURRENT",
+  "runtime_preflight": "PASS",
+  "pytest": {
+    "runner": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "production_runtime_pytest_available": false,
+    "passed": 54,
+    "failed": 1,
+    "duration_seconds": 4.82,
+    "passing_scope": [
+      "tests/test_capital_chronicle_institutional_edge_v1.py",
+      "tests/test_codex_desktop_newsroom_operator_v1.py",
+      "tests/test_rolling_x_newsroom_cycle_v1.py::test_same_opportunity_evidence_failure_advances_before_writer",
+      "tests/test_rolling_x_newsroom_cycle_v1.py::test_publication_article_without_valid_native_xhigh_receipt_fails_closed",
+      "tests/test_rolling_x_newsroom_cycle_v1.py::test_all_candidate_exhaustion_returns_truthful_no_publication",
+      "tests/test_rolling_x_newsroom_cycle_v1.py::test_rolling_x_release_candidate_builds_and_verifies_canonical_lock",
+      "tests/test_rolling_x_newsroom_cycle_v1.py::test_passed_cycle_returns_plan_without_direct_backend_write"
+    ],
+    "known_fixture_mismatch": {
+      "test": "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py::test_full_canonical_shadow_reaches_article_review_and_platform_package",
+      "actual_reason_code": "INSTITUTIONAL_EDGE_EDITORIAL_VALIDATION_BLOCKED",
+      "source_change_made": false,
+      "explanation": "The older shadow article fixture lacks the current Institutional Edge packet binding and required SEO/structured-data surfaces. The accepted hardened source fails it closed."
+    }
+  },
+  "live_canary_run": {
+    "classification": "NO_PUBLICATION",
+    "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+    "prepared_candidates_walked": 12,
+    "native_xhigh_worker_count": 0,
+    "legacy_article_writer_calls": 0,
+    "public_writes": 0,
+    "unknown_write": 0
+  }
+}

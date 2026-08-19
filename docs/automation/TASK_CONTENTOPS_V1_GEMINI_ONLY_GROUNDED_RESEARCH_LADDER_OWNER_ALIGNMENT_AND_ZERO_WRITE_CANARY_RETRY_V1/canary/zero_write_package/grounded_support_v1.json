@@ -1,0 +1,564 @@
+{
+  "evidence_acquired_after_ranking": true,
+  "publication_authority": false,
+  "schema_version": "contentops.rolling_x_grounded_support.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+  "selected_headline_ids": [
+    "cc-x-headline-a4465030a6b8f1cd272a47de"
+  ],
+  "status": "PASS",
+  "targeted_evidence": {
+    "blockers": [],
+    "capital_chronicle_authority_verified": false,
+    "cc_context_bundle": {
+      "cc_context_refs": [],
+      "cc_context_richness": 0.0,
+      "factual_or_numeric_authority_granted": false,
+      "mutated_upstream": false,
+      "ordinary_reporting_blocked_when_unavailable": false,
+      "proprietary_claim_authority_granted": false,
+      "queried_entities": [],
+      "schema_version": "contentops.additive_cc_story_context.v1",
+      "state": "CC_CONTEXT_NOT_RELEVANT"
+    },
+    "claim_evidence_contract": {
+      "blocked_claims": [],
+      "claim_contract_sha256": "301f006594daac2ef4c2732b5f232206d74a4136ad7e144968bf3f94f6e47473",
+      "fabricated_claim_count": 0,
+      "omitted_claim_count": 1,
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-d078749d00fcfde2",
+          "claim_text": "Kushner was part of a 'Board of Peace delegation' for the talks.",
+          "reason": "secondary_corroboration_insufficient",
+          "support_status": "OMITTED"
+        }
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.claim_evidence_contract.v1",
+      "status": "PASS",
+      "supported_claim_count": 5,
+      "supported_claims": [
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-2f8793367bbfd74a",
+          "claim_text": "Jared Kushner met with Hamas.",
+          "evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-67371e9a2334a2d6",
+          "claim_text": "The meeting between Kushner and Hamas took place in Cairo, Egypt.",
+          "evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-9d6c55c231cc02f8",
+          "claim_text": "The talks were focused on Gaza, with Kushner pushing 'Trump\u2019s Gaza plan.'",
+          "evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-c662bee27748196d",
+          "claim_text": "Kushner is scheduled to hold talks with Netanyahu regarding Gaza following his meeting with Hamas.",
+          "evidence_document_ids": [
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-6db67911ea393a90",
+          "claim_text": "U.S. ENVOY KUSHNER MET A HAMAS LEADER OVER THE GAZA CEASEFIRE - AP",
+          "evidence_document_ids": [
+            "public-news-listing-137034dd29c93b9bde37",
+            "public-news-listing-61afbc9afc4368ac52fe",
+            "public-news-listing-db4d95a1341d227d0bc3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_CORROBORATED_SECONDARY"
+        }
+      ],
+      "x_content_grants_factual_authority": false
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [
+          {
+            "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          },
+          {
+            "document_id": "public-news-listing-137034dd29c93b9bde37",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          },
+          {
+            "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          }
+        ],
+        "enough_for_useful_article": false,
+        "enrichment_recommended": true,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 0,
+        "target_usable_content_words": 90,
+        "usable_content_words": 0,
+        "usable_document_count": 3
+      },
+      "grounded_research": {
+        "blockers": [],
+        "elapsed_seconds": 52.854,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+        "infrastructure_failure_class": null,
+        "public_retrieval_requests": 5,
+        "research_calls": 2,
+        "retrieval_result": {
+          "accepted_document_count": 3,
+          "blockers": [],
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_plan_b70cf5b7876bc0c4c81c",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_plan",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1057.0,
+              "prompt_tokens": 2576.0,
+              "total_tokens": 3633.0
+            },
+            "wall_clock_elapsed_seconds": 12.4318
+          },
+          {
+            "attempts": [
+              {
+                "failure_class": "structured_output_schema_invalid",
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_fact_not_supported_by_bound_source",
+                "structured_validation_result": "FAIL"
+              },
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_synthesis_b70cf5b7876bc0c4c81c",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "source_synthesis",
+            "provider_attempt_count": 2,
+            "recoverable_failure_classes": [
+              "structured_output_schema_invalid"
+            ],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 4726.0,
+              "prompt_tokens": 6599.0,
+              "total_tokens": 11325.0
+            },
+            "wall_clock_elapsed_seconds": 37.5122
+          }
+        ]
+      }
+    },
+    "evidence_documents": [
+      {
+        "byte_length": 975,
+        "canonical_content_sha256": "a1f9d46c11b76f77284cd3d6d9e1903e5cd7d40d08a5f0d6e44d21adf400dc5b",
+        "canonical_content_text": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+        "event_time_utc": "2026-08-17T10:24:51Z",
+        "grounded_source_ref": "SRC_454B4BFE48AF2F69",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-17T10:24:51Z",
+        "publisher": "The Jerusalem Post",
+        "raw_sha256": "db4d95a1341d227d0bc35b36a474bddad556fce44c459cd51d9531c428805bb5",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "envoy",
+          "Kushner",
+          "meets",
+          "Hamas",
+          "leader",
+          "Gaza",
+          "ceasefire"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "jpost.com",
+        "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBkWU5rY1VELUEzQmotaUhNa2lKN05GUWM5WkVvX2dXeld1RWdXMGthNmN2TUFkQ3RWcDRQbW0tY2N1Q19TUDRXXzJLeUdqNENaT2YtelZmY0NVX0RZ?oc=5",
+        "title": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo"
+      },
+      {
+        "byte_length": 1837,
+        "canonical_content_sha256": "afebe6c2544f439717cc5c410d3ff03aee873aaf8dae2a4cc4b27e942ed91493",
+        "canonical_content_text": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-137034dd29c93b9bde37",
+        "event_time_utc": "2026-08-17T01:30:01Z",
+        "grounded_source_ref": "SRC_55803C277BC8F671",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-17T01:30:01Z",
+        "publisher": "Al Jazeera",
+        "raw_sha256": "137034dd29c93b9bde373dfddc81499d585986aab293bdaac5710e35081e231a",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "envoy",
+          "Kushner",
+          "meets",
+          "Hamas",
+          "leader",
+          "Gaza",
+          "ceasefire"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "aljazeera.com",
+        "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPNmpRRVBLRXhGNDJhZkRHSlhWbWcyemJTNXp4akxyVUpSV0xwTEx5UG9ZdUY3V3U5TkdHd3VuSXhHd0NZVzV2eVM3d3g0ajNZR0tyZzRoZ1cwVjlrTVFVZGNJM2JuWjdOYlBLbVBLWnQwV0dpRFZaT2VNVjFTR3NrTE96M3V4ZGlfbEJtcHZabjlpMHY0TnJFNGVn0gGfAUFVX3lxTE9Cek5VQUEwRmxxbGdtX1RLYlNiZUZqRFlqbkdSQ2RSelVoTi1kdDdwYXV5bl9tTEY5MWdnT2tLMXlHWXJXNTF0SFZRUnVUZEFVMm9wYVEwT3UteWUtdUp6SkVVa1hraXJpVXVmdXVDWlp5SXdrTXg2OTU3bnZ2emhxYUIzcHEwQmh3OWdybFZ5ZUhiNnVlVDY4bGxmV2VxQQ?oc=5",
+        "title": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan"
+      },
+      {
+        "byte_length": 1124,
+        "canonical_content_sha256": "0ff1806facfc9bb737e1f9d6dd929623b3bd803a6885c0dfec7644ee2e91a77e",
+        "canonical_content_text": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+        "event_time_utc": "2026-08-16T22:07:00Z",
+        "grounded_source_ref": "SRC_E4F1E950E89DC35B",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-16T22:07:00Z",
+        "publisher": "The Guardian",
+        "raw_sha256": "61afbc9afc4368ac52fe99efe29c0aa121a9e939c82e04f5f6e2beb7d7aec320",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "envoy",
+          "Kushner",
+          "meets",
+          "Hamas",
+          "leader",
+          "Gaza",
+          "ceasefire"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "theguardian.com",
+        "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbXZ6YVFkbzNpWlNFc1NvNHVMY2xjdGNTdTQ1cFU1cVJUZnk4Njdrb3d5WGNGWE5NUDhaeEFRbXk4WF84VXFKelA3ZkpFcnlZRlluZjZ5a2szQmJ2aUlMcm1jQTltakZtMkNrWWNHWVVfdEJaVHdWM1M1YU00WHU0eWoxa0tXZFk?oc=5",
+        "title": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza"
+      }
+    ],
+    "evidence_review_tier": "ENHANCED",
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [
+        {
+          "document_id": "public-news-listing-db4d95a1341d227d0bc3",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        },
+        {
+          "document_id": "public-news-listing-137034dd29c93b9bde37",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        },
+        {
+          "document_id": "public-news-listing-61afbc9afc4368ac52fe",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        }
+      ],
+      "enough_for_useful_article": false,
+      "enrichment_recommended": true,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 0,
+      "target_usable_content_words": 90,
+      "usable_content_words": 0,
+      "usable_document_count": 3
+    },
+    "grounded_research_packet": {
+      "attributed_numeric_facts": [],
+      "cc_context": {
+        "cc_context_refs": [],
+        "cc_context_richness": 0.0,
+        "factual_or_numeric_authority_granted": false,
+        "mutated_upstream": false,
+        "ordinary_reporting_blocked_when_unavailable": false,
+        "proprietary_claim_authority_granted": false,
+        "queried_entities": [],
+        "schema_version": "contentops.additive_cc_story_context.v1",
+        "state": "CC_CONTEXT_NOT_RELEVANT"
+      },
+      "cc_context_refs": [],
+      "confirmed_facts": [
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f1",
+          "factual_statement": "Jared Kushner met with Hamas.",
+          "source_refs": [
+            "SRC_454B4BFE48AF2F69",
+            "SRC_55803C277BC8F671",
+            "SRC_E4F1E950E89DC35B"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f2",
+          "factual_statement": "The meeting between Kushner and Hamas took place in Cairo, Egypt.",
+          "source_refs": [
+            "SRC_454B4BFE48AF2F69",
+            "SRC_55803C277BC8F671"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f3",
+          "factual_statement": "The talks were focused on Gaza, with Kushner pushing 'Trump\u2019s Gaza plan.'",
+          "source_refs": [
+            "SRC_454B4BFE48AF2F69",
+            "SRC_55803C277BC8F671",
+            "SRC_E4F1E950E89DC35B"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f4",
+          "factual_statement": "Kushner was part of a 'Board of Peace delegation' for the talks.",
+          "source_refs": [
+            "SRC_454B4BFE48AF2F69"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f5",
+          "factual_statement": "Kushner is scheduled to hold talks with Netanyahu regarding Gaza following his meeting with Hamas.",
+          "source_refs": [
+            "SRC_E4F1E950E89DC35B"
+          ]
+        }
+      ],
+      "context": [
+        "T",
+        "h",
+        "e",
+        "",
+        "m",
+        "e",
+        "e",
+        "t",
+        "i",
+        "n"
+      ],
+      "contradictions": [],
+      "core_factual_proposition": "Jared Kushner met with Hamas.",
+      "enhanced_review_required": true,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "model_assertion_grants_factual_authority": false,
+      "model_suggested_article_mode": "BREAKING_BRIEF",
+      "post_filter_accepted_evidence_document_ids": [
+        "public-news-listing-137034dd29c93b9bde37",
+        "public-news-listing-61afbc9afc4368ac52fe",
+        "public-news-listing-db4d95a1341d227d0bc3"
+      ],
+      "post_filter_removed_fact_count": 0,
+      "publication_authority": false,
+      "research_as_of_utc": "2026-08-17T17:03:28.055185Z",
+      "research_logical_hash": "9c4ad91584e4f41de14053ced58ffadf79b91350b372f82d9994d8f9c41bd53f",
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "risk_classification": "ENHANCED",
+      "schema_version": "contentops.grounded_news_research.v1",
+      "sources": [
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "a1f9d46c11b76f77284cd3d6d9e1903e5cd7d40d08a5f0d6e44d21adf400dc5b",
+          "evidence_document_id": "public-news-listing-db4d95a1341d227d0bc3",
+          "published_at": "2026-08-17T10:24:51Z",
+          "publisher": "The Jerusalem Post",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-17T17:05:38.604616Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_454B4BFE48AF2F69",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBkWU5rY1VELUEzQmotaUhNa2lKN05GUWM5WkVvX2dXeld1RWdXMGthNmN2TUFkQ3RWcDRQbW0tY2N1Q19TUDRXXzJLeUdqNENaT2YtelZmY0NVX0RZ?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Hamas meets Jared Kushner, Board of Peace delegation for Gaza talks in Cairo"
+        },
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "afebe6c2544f439717cc5c410d3ff03aee873aaf8dae2a4cc4b27e942ed91493",
+          "evidence_document_id": "public-news-listing-137034dd29c93b9bde37",
+          "published_at": "2026-08-17T01:30:01Z",
+          "publisher": "Al Jazeera",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-17T17:05:38.604616Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_55803C277BC8F671",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPNmpRRVBLRXhGNDJhZkRHSlhWbWcyemJTNXp4akxyVUpSV0xwTEx5UG9ZdUY3V3U5TkdHd3VuSXhHd0NZVzV2eVM3d3g0ajNZR0tyZzRoZ1cwVjlrTVFVZGNJM2JuWjdOYlBLbVBLWnQwV0dpRFZaT2VNVjFTR3NrTE96M3V4ZGlfbEJtcHZabjlpMHY0TnJFNGVn0gGfAUFVX3lxTE9Cek5VQUEwRmxxbGdtX1RLYlNiZUZqRFlqbkdSQ2RSelVoTi1kdDdwYXV5bl9tTEY5MWdnT2tLMXlHWXJXNTF0SFZRUnVUZEFVMm9wYVEwT3UteWUtdUp6SkVVa1hraXJpVXVmdXVDWlp5SXdrTXg2OTU3bnZ2emhxYUIzcHEwQmh3OWdybFZ5ZUhiNnVlVDY4bGxmV2VxQQ?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Kushner meets Hamas leaders in Egypt to push Trump\u2019s Gaza plan"
+        },
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "0ff1806facfc9bb737e1f9d6dd929623b3bd803a6885c0dfec7644ee2e91a77e",
+          "evidence_document_id": "public-news-listing-61afbc9afc4368ac52fe",
+          "published_at": "2026-08-16T22:07:00Z",
+          "publisher": "The Guardian",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-17T17:05:38.604616Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_E4F1E950E89DC35B",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbXZ6YVFkbzNpWlNFc1NvNHVMY2xjdGNTdTQ1cFU1cVJUZnk4Njdrb3d5WGNGWE5NUDhaeEFRbXk4WF84VXFKelA3ZkpFcnlZRlluZjZ5a2szQmJ2aUlMcm1jQTltakZtMkNrWWNHWVVfdEJaVHdWM1M1YU00WHU0eWoxa0tXZFk?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Jared Kushner meets with Hamas ahead of talks with Netanyahu on Gaza"
+        }
+      ],
+      "story_identity": "rolling-x-deterministic-cluster-2d6882f3b72e9b3fb13b",
+      "suggested_article_mode": "BREAKING_BRIEF",
+      "uncertainties": [
+        "The specific Hamas leaders Kushner met with are not named in the provided sources.",
+        "The exact details and terms of 'Trump's Gaza plan' are not specified in the provided text."
+      ],
+      "unsupported_or_unverified": [
+        "The headline's claim that Kushner is currently acting as a 'U.S. ENVOY' is not supported by the provided sources.",
+        "The headline's claim that the meeting was specifically over a 'CEASEFIRE' is not explicitly stated in the sources, which only mention 'Gaza talks' and 'Trump's Gaza plan.'",
+        "The attribution of the report to the Associated Press ('AP') is unsupported, as the provided sources are The Jerusalem Post, Al Jazeera, and The Guardian."
+      ]
+    },
+    "headline_ids": [
+      "cc-x-headline-a4465030a6b8f1cd272a47de"
+    ],
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [
+      "basic_attributed_facts",
+      "credible_event_confirmation"
+    ],
+    "publication_authority": false,
+    "status": "PASS",
+    "unsupported_claims_removed": 1
+  },
+  "targeted_evidence_sha256": "368c5bda644d936485f64bc635fe4277b7d6abd1d5baf62ac7e1a04907091fec",
+  "x_content_grants_factual_or_numeric_authority": false
+}

@@ -8,10 +8,12 @@ from __future__ import annotations
 
 import hashlib
 import io
+import json
 import re
 import time
 import urllib.parse
 import urllib.request
+from collections import Counter
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Sequence
@@ -28,6 +30,12 @@ from live_contentops.publishing_profile_registry_v1 import (
     assert_canonical_edge_cdp,
 )
 from live_contentops.browser_interaction_budget_v1 import record_browser_interaction_event
+from live_contentops.media_manifest_authority_v1 import (
+    original_substack_media_url,
+    read_public_image_bytes,
+    sha256_bytes,
+    sha256_file,
+)
 
 
 _VISUAL_MARKER_RE = re.compile(r"\[\[VISUAL:([A-Za-z0-9_-]+)\]\]")
@@ -36,6 +44,7 @@ _MEANINGFUL_IMAGE_MIN_WIDTH = 200
 _MEANINGFUL_IMAGE_MIN_HEIGHT = 100
 _LINKEDIN_CHART_SIMILARITY_MINIMUM = 0.78
 _YOUTUBE_COMMUNITY_HANDLE = "@CapitalChronicleYouTube"
+_X_PUBLIC_HANDLE = "@Capitalnicle"
 _TECHNICAL_PUBLIC_TEXT_RE = re.compile(
     r"(?:eight[_ -]?platform[_ -]?live|run[_ -]?id|recovery\d+|docs[\\/]automation|[A-Za-z]:\\)",
     re.IGNORECASE,
@@ -80,13 +89,198 @@ def _public_x_url(value: str | None) -> str | None:
     if not value:
         return None
     parsed = urllib.parse.urlparse(value)
-    if parsed.scheme == "https" and parsed.netloc in {"x.com", "www.x.com"} and "/status/" in parsed.path:
-        return value.split("?", 1)[0]
+    match = re.fullmatch(r"/([^/]+)/status/(\d+)(?:/.*)?", parsed.path)
+    if parsed.scheme == "https" and parsed.netloc in {"x.com", "www.x.com"} and match:
+        return f"https://x.com/{match.group(1)}/status/{match.group(2)}"
     return None
 
 
 def _sha256(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _canonical_json_sha256(value: Any) -> str:
+    return _sha256(
+        json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    )
+
+
+def _expected_article_media_identity_rows(
+    expected_image_assets: Sequence[Mapping[str, Any]] | None,
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Return exact canonical article-media identities; delivery media is invalid here."""
+    rows: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    for index, raw in enumerate(expected_image_assets or []):
+        asset = dict(raw)
+        asset_id = str(asset.get("asset_id") or f"article_media_{index}")
+        media_role = str(asset.get("media_role") or "")
+        if (
+            media_role == "delivery_only"
+            or asset.get("delivery_only") is True
+            or asset.get("article_inclusion") is False
+            or asset.get("canonical_article_media") is False
+        ):
+            blockers.append(f"delivery_only_media_forbidden_in_article_manifest:{asset_id}")
+        declared_sha = str(asset.get("sha256") or "").casefold()
+        local_path = Path(
+            str(
+                asset.get("absolute_local_source_path")
+                or asset.get("local_path")
+                or asset.get("path")
+                or ""
+            )
+        )
+        local_sha = sha256_file(local_path) if local_path.is_file() else ""
+        if declared_sha and local_sha and declared_sha != local_sha:
+            blockers.append(f"canonical_article_media_local_hash_mismatch:{asset_id}")
+        identity_sha = declared_sha or local_sha
+        if not re.fullmatch(r"[0-9a-f]{64}", identity_sha):
+            blockers.append(f"canonical_article_media_sha256_unavailable:{asset_id}")
+        rows.append(
+            {
+                "asset_id": asset_id,
+                "sha256": identity_sha or None,
+                "media_role": media_role or None,
+            }
+        )
+    return rows, list(dict.fromkeys(blockers))
+
+
+def _remote_substack_image_identity(src: str | None) -> dict[str, Any]:
+    supplied_url = str(src or "")
+    original_url = original_substack_media_url(supplied_url)
+    identity: dict[str, Any] = {
+        "src": supplied_url or None,
+        "original_url": original_url or None,
+        "sha256": None,
+        "identity_read_error_class": None,
+    }
+    if not original_url.startswith("https://"):
+        identity["identity_read_error_class"] = "public_media_url_unavailable"
+        return identity
+    try:
+        identity["sha256"] = sha256_bytes(read_public_image_bytes(original_url))
+    except Exception as exc:
+        identity["identity_read_error_class"] = type(exc).__name__
+    return identity
+
+
+def _exact_substack_article_media_contract(
+    *,
+    expected_image_assets: Sequence[Mapping[str, Any]] | None,
+    observed_image_rows: Sequence[Mapping[str, Any]],
+    expected_manifest_supplied: bool = True,
+) -> dict[str, Any]:
+    """Compare exact canonical article-media multisets and counts, failing on ambiguity."""
+    expected_rows, expected_blockers = _expected_article_media_identity_rows(
+        expected_image_assets
+    )
+    observed_rows = [
+        {
+            "src": str(row.get("src") or "") or None,
+            "original_url": str(row.get("original_url") or "") or None,
+            "sha256": str(row.get("sha256") or "").casefold() or None,
+            "identity_read_error_class": row.get("identity_read_error_class"),
+        }
+        for row in observed_image_rows
+    ]
+    expected_hashes = [str(row.get("sha256") or "") for row in expected_rows]
+    observed_hashes = [str(row.get("sha256") or "") for row in observed_rows]
+    expected_counter = Counter(value for value in expected_hashes if value)
+    observed_counter = Counter(value for value in observed_hashes if value)
+    missing_hashes = list((expected_counter - observed_counter).elements())
+    unexpected_hashes = list((observed_counter - expected_counter).elements())
+    unresolved_rows = [row for row in observed_rows if not row.get("sha256")]
+    count_exact = len(expected_rows) == len(observed_rows)
+    blockers = list(expected_blockers)
+    if not expected_manifest_supplied:
+        blockers.append("canonical_article_media_manifest_not_supplied")
+    if not count_exact:
+        blockers.append("canonical_article_media_count_mismatch")
+    if missing_hashes:
+        blockers.append("canonical_article_media_missing")
+    if unexpected_hashes:
+        blockers.append("unexpected_public_body_media")
+    if unresolved_rows:
+        blockers.append("public_body_media_identity_unresolved")
+    exact = bool(
+        expected_manifest_supplied
+        and not blockers
+        and expected_counter == observed_counter
+    )
+    unexpected_rows: list[dict[str, Any]] = []
+    remaining = Counter(expected_counter)
+    for row in observed_rows:
+        digest = str(row.get("sha256") or "")
+        if digest and remaining[digest] > 0:
+            remaining[digest] -= 1
+            continue
+        unexpected_rows.append(dict(row))
+    expected_manifest = [
+        {"asset_id": row["asset_id"], "sha256": row["sha256"]}
+        for row in expected_rows
+    ]
+    unexpected_manifest = [
+        {
+            "src": row.get("src"),
+            "original_url": row.get("original_url"),
+            "sha256": row.get("sha256"),
+        }
+        for row in unexpected_rows
+    ]
+    return {
+        "expected_article_media_count": len(expected_rows),
+        "actual_article_media_count": len(observed_rows),
+        "article_media_count_exact": count_exact,
+        "expected_article_media_sha256": expected_hashes,
+        "actual_article_media_sha256": [value or None for value in observed_hashes],
+        "missing_article_media_sha256": missing_hashes,
+        "unexpected_article_media_sha256": unexpected_hashes,
+        "unexpected_article_media_identities": unexpected_manifest,
+        "unresolved_article_media_identity_count": len(unresolved_rows),
+        "expected_article_media_manifest_sha256": _canonical_json_sha256(
+            expected_manifest
+        ),
+        "unexpected_article_media_manifest_sha256": _canonical_json_sha256(
+            unexpected_manifest
+        ),
+        "article_media_manifest_exact_match": exact,
+        "article_media_contract_blockers": list(dict.fromkeys(blockers)),
+    }
+
+
+def _substack_resume_media_contract(
+    *,
+    expected_image_assets: Sequence[Mapping[str, Any]],
+    observed_image_rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Accept only an exact sequential canonical prefix for an existing draft."""
+    expected_rows, expected_blockers = _expected_article_media_identity_rows(
+        expected_image_assets
+    )
+    observed_rows = [dict(row) for row in observed_image_rows]
+    observed_hashes = [str(row.get("sha256") or "").casefold() for row in observed_rows]
+    expected_hashes = [str(row.get("sha256") or "").casefold() for row in expected_rows]
+    blockers = list(expected_blockers)
+    if len(observed_rows) > len(expected_rows):
+        blockers.append("existing_draft_contains_unexpected_extra_media")
+    if any(not value for value in observed_hashes):
+        blockers.append("existing_draft_media_identity_unresolved")
+    prefix_expected = expected_hashes[: len(observed_hashes)]
+    if observed_hashes != prefix_expected:
+        blockers.append("existing_draft_media_not_exact_canonical_prefix")
+    return {
+        "resume_media_safe": not blockers,
+        "resume_media_exact": bool(
+            not blockers and len(observed_hashes) == len(expected_hashes)
+        ),
+        "observed_editor_image_count": len(observed_rows),
+        "expected_image_count": len(expected_rows),
+        "observed_editor_media_sha256": [value or None for value in observed_hashes],
+        "expected_editor_media_sha256": expected_hashes,
+        "resume_media_blockers": list(dict.fromkeys(blockers)),
+    }
 
 
 def _first_visible(page: Any, selectors: Sequence[str]) -> tuple[Any | None, str | None]:
@@ -520,6 +714,17 @@ def _meaningful_editor_image_rows(page: Any) -> list[tuple[int, dict[str, Any]]]
     return rows
 
 
+def _editor_image_identity_rows(page: Any) -> list[dict[str, Any]]:
+    """Read every editor-body image, including unexpected or undersized objects."""
+    rows: list[dict[str, Any]] = []
+    images = page.locator(".ProseMirror img")
+    for index in range(images.count()):
+        state = _editor_image_readback(images.nth(index))
+        identity = _remote_substack_image_identity(str(state.get("src") or ""))
+        rows.append({"editor_image_index": index, **state, **identity})
+    return rows
+
+
 def _upload_substack_image(
     page: Any,
     editor: Any,
@@ -662,68 +867,6 @@ def _upload_substack_image(
         "upload_spinner_or_placeholder_cleared": spinner_cleared,
         "draft_saved_after_upload": draft_saved,
         "alt_text_status": alt_status,
-    }
-
-
-def _stage_and_remove_delivery_only_image(
-    page: Any,
-    editor: Any,
-    asset: Mapping[str, Any],
-    *,
-    expected_article_image_count: int,
-) -> dict[str, Any]:
-    """Obtain a Substack-hosted delivery URL, then prove it is absent from the article."""
-    asset_id = str(asset.get("asset_id") or "delivery_only")
-    upload = _upload_substack_image(
-        page,
-        editor,
-        str(asset.get("local_path") or asset.get("path") or ""),
-        str(asset.get("alt_text") or ""),
-        asset_id=asset_id,
-        expected_image_index=expected_article_image_count,
-    )
-    public_url = str((upload.get("image_readback") or {}).get("src") or "")
-    if upload.get("status") != "uploaded" or not public_url.startswith("http"):
-        return {
-            "status": "FAILED_DELIVERY_ONLY_UPLOAD",
-            "asset_id": asset_id,
-            "upload": upload,
-            "public_url": None,
-            "article_inclusion": False,
-        }
-    images = page.locator(".ProseMirror img")
-    if images.count() <= expected_article_image_count:
-        return {
-            "status": "FAILED_DELIVERY_ONLY_IMAGE_NOT_LOCATED",
-            "asset_id": asset_id,
-            "upload": upload,
-            "public_url": public_url,
-            "article_inclusion": False,
-        }
-    staged = images.nth(images.count() - 1)
-    staged.click(timeout=3000)
-    page.keyboard.press("Delete")
-    deadline = time.monotonic() + 12
-    while time.monotonic() < deadline and _editor_image_count(page) > expected_article_image_count:
-        time.sleep(0.4)
-    if _editor_image_count(page) > expected_article_image_count:
-        staged.click(timeout=3000)
-        page.keyboard.press("Backspace")
-        time.sleep(1)
-    removed = _editor_image_count(page) == expected_article_image_count
-    saved_deadline = time.monotonic() + 20
-    saved = _substack_saved(page)
-    while removed and not saved and time.monotonic() < saved_deadline:
-        time.sleep(0.4)
-        saved = _substack_saved(page)
-    return {
-        "status": "STAGED_AND_REMOVED" if removed and saved else "FAILED_DELIVERY_ONLY_REMOVAL_READBACK",
-        "asset_id": asset_id,
-        "public_url": public_url,
-        "article_inclusion": False,
-        "editor_image_count_after_removal": _editor_image_count(page),
-        "draft_saved_after_removal": saved,
-        "upload": upload,
     }
 
 
@@ -1044,7 +1187,10 @@ def _audit_public_substack_article(
                     break
         except Exception:
             continue
-    image_rows = list({row["src"]: row for row in image_rows}.values())
+    image_rows = [
+        {**row, **_remote_substack_image_identity(str(row.get("src") or ""))}
+        for row in image_rows
+    ]
     tops = sorted(row["top"] for row in image_rows)
     expected_image_count = len(expected_image_assets or [])
     visual_spread = bool(
@@ -1087,6 +1233,16 @@ def _audit_public_substack_article(
         expected_body_markdown=expected_body_markdown,
         expected_image_assets=expected_image_assets,
     )
+    media_contract = _exact_substack_article_media_contract(
+        expected_image_assets=expected_image_assets,
+        observed_image_rows=image_rows,
+        expected_manifest_supplied=expected_image_assets is not None,
+    )
+    text_content_verified = bool(content_checks.get("content_readback_verified"))
+    strict_content_visual_verified = bool(
+        text_content_verified
+        and media_contract["article_media_manifest_exact_match"]
+    )
     saved_screenshot = None
     if screenshot_path:
         path = Path(screenshot_path)
@@ -1112,6 +1268,10 @@ def _audit_public_substack_article(
         "public_screenshot_path": saved_screenshot,
         "visible_body_text": visible_text,
         **content_checks,
+        **media_contract,
+        "text_content_readback_verified": text_content_verified,
+        "strict_content_visual_readback_verified": strict_content_visual_verified,
+        "content_readback_verified": strict_content_visual_verified,
     }
 
 
@@ -1127,6 +1287,17 @@ def readback_public_substack_article_via_edge(
     with canonical_edge_page(cdp_port) as page:
         readback = _audit_public_substack_article(page, public_url, public_screenshot_path)
     return {"status": "SUCCESS", "platform": "substack", "public_url": public_url, "readback": readback}
+
+
+def _strict_substack_readback_status(readback: Mapping[str, Any]) -> str:
+    if readback.get("strict_content_visual_readback_verified") is True:
+        return "SUCCESS"
+    if (
+        readback.get("text_content_readback_verified") is True
+        and readback.get("article_media_manifest_exact_match") is not True
+    ):
+        return "FAILED_SUBSTACK_PUBLIC_VISUAL_READBACK"
+    return "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK"
 
 
 def delete_threads_post_via_edge_exact(
@@ -1253,9 +1424,9 @@ def audit_public_substack_article_via_edge(
             expected_body_markdown=expected_body_markdown,
             expected_image_assets=expected_image_assets,
         )
-    verified = bool(readback.get("content_readback_verified"))
+    verified = bool(readback.get("strict_content_visual_readback_verified"))
     return {
-        "status": "SUCCESS" if verified else "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK",
+        "status": _strict_substack_readback_status(readback),
         "platform": "substack",
         "public_url": public_url,
         "readback": readback,
@@ -1892,6 +2063,7 @@ def reconcile_substack_publication_by_draft_id_via_edge(
         actual_subtitle = ""
         editor_text = ""
         editor_image_count = 0
+        editor_media_rows: list[dict[str, Any]] = []
         exact_editor_state = ""
         exact_editor_route_verified = False
         deadline = time.monotonic() + 15.0
@@ -1967,11 +2139,24 @@ def reconcile_substack_publication_by_draft_id_via_edge(
         body_anchor_verified = bool(
             expected_body_anchor and expected_body_anchor in editor_text
         )
-        media_count_verified = editor_image_count >= len(expected_image_assets)
+        editor_media_rows = _editor_image_identity_rows(page)
+        editor_image_count = len(editor_media_rows)
+        resume_media_contract = _substack_resume_media_contract(
+            expected_image_assets=expected_image_assets,
+            observed_image_rows=editor_media_rows,
+        )
+        editor_media_contract = _exact_substack_article_media_contract(
+            expected_image_assets=expected_image_assets,
+            observed_image_rows=editor_media_rows,
+        )
+        media_count_verified = bool(
+            editor_media_contract["article_media_manifest_exact_match"]
+        )
         exact_draft_bound = bool(
             exact_editor_route_verified
             and actual_title == expected_title
             and body_anchor_verified
+            and resume_media_contract["resume_media_safe"]
         )
         partial_draft_bound = bool(
             exact_editor_route_verified
@@ -1987,7 +2172,23 @@ def reconcile_substack_publication_by_draft_id_via_edge(
             "observed_editor_image_count": editor_image_count,
             "expected_image_count": len(expected_image_assets),
             "exact_editor_state": exact_editor_state or None,
+            "resume_media_contract": resume_media_contract,
+            "editor_media_contract": editor_media_contract,
         }
+        if partial_draft_bound and not resume_media_contract["resume_media_safe"]:
+            return {
+                "status": "SUBSTACK_DRAFT_UNEXPECTED_MEDIA_BLOCKED",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": True,
+                "retry_safe": False,
+                "public_object_id": draft_id,
+                "publication_state": "draft",
+                "draft_binding_verified": False,
+                **binding_detail,
+                "browser_write_performed": False,
+                "automatic_media_cleanup_performed": False,
+            }
         if partial_draft_bound and not exact_draft_bound:
             return {
                 "status": "SUBSTACK_PARTIAL_DRAFT_CONFIRMED_NOT_PUBLIC",
@@ -2044,13 +2245,11 @@ def reconcile_substack_publication_by_draft_id_via_edge(
                         expected_body_markdown=expected_body_markdown,
                         expected_image_assets=expected_image_assets,
                     )
-                    verified = bool(readback.get("content_readback_verified"))
+                    verified = bool(
+                        readback.get("strict_content_visual_readback_verified")
+                    )
                     return {
-                        "status": (
-                            "SUCCESS"
-                            if verified
-                            else "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK"
-                        ),
+                        "status": _strict_substack_readback_status(readback),
                         "platform": "substack",
                         "verified": verified,
                         "write_absent": False,
@@ -2146,9 +2345,9 @@ def reconcile_substack_publication_by_draft_id_via_edge(
             expected_body_markdown=expected_body_markdown,
             expected_image_assets=expected_image_assets,
         )
-        verified = bool(readback.get("content_readback_verified"))
+        verified = bool(readback.get("strict_content_visual_readback_verified"))
         return {
-            "status": "SUCCESS" if verified else "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK",
+            "status": _strict_substack_readback_status(readback),
             "platform": "substack",
             "verified": verified,
             "write_absent": False,
@@ -2207,7 +2406,6 @@ def publish_substack_article_via_edge(
     subtitle: str,
     body_markdown: str,
     image_assets: Sequence[Mapping[str, Any]],
-    delivery_only_assets: Sequence[Mapping[str, Any]] = (),
     public_screenshot_path: str | Path | None = None,
     existing_draft_id: str | None = None,
     existing_public_url: str | None = None,
@@ -2223,14 +2421,6 @@ def publish_substack_article_via_edge(
     for asset_id in expected_ids:
         if not Path(str(assets[asset_id].get("local_path") or assets[asset_id].get("path") or "")).exists():
             return {"status": "BLOCKED_SUBSTACK_LOCAL_MEDIA_MISSING", "platform": "substack", "asset_id": asset_id}
-    for asset in delivery_only_assets:
-        if not Path(str(asset.get("local_path") or asset.get("path") or "")).is_file():
-            return {
-                "status": "BLOCKED_SUBSTACK_DELIVERY_ONLY_MEDIA_MISSING",
-                "platform": "substack",
-                "asset_id": str(asset.get("asset_id") or "delivery_only"),
-            }
-
     with canonical_edge_page(cdp_port) as page:
         editor_url = "https://capitalchronicle.substack.com/publish/post"
         if existing_draft_id:
@@ -2241,10 +2431,28 @@ def publish_substack_article_via_edge(
         editor, editor_selector = _first_visible(page, ("div.ProseMirror", ".ProseMirror", "div[contenteditable='true']"))
         if not title_input or not editor:
             return {"status": "BLOCKED_SUBSTACK_EDITOR_NOT_READY", "platform": "substack", "title_selector": title_selector, "editor_selector": editor_selector}
+        existing_media_rows: list[dict[str, Any]] = []
         if existing_draft_id:
             existing_title = title_input.input_value(timeout=3000).strip()
             if existing_title and existing_title != title:
                 return {"status": "BLOCKED_SUBSTACK_RESUME_DRAFT_TITLE_MISMATCH", "platform": "substack", "draft_id": existing_draft_id}
+            existing_media_rows = _editor_image_identity_rows(page)
+            resume_media_contract = _substack_resume_media_contract(
+                expected_image_assets=image_assets,
+                observed_image_rows=existing_media_rows,
+            )
+            if not resume_media_contract["resume_media_safe"]:
+                return {
+                    "status": "BLOCKED_SUBSTACK_RESUME_UNEXPECTED_MEDIA",
+                    "platform": "substack",
+                    "draft_id": existing_draft_id,
+                    "editor_body_image_count": len(existing_media_rows),
+                    "resume_media_contract": resume_media_contract,
+                    "public_write_attempted": False,
+                    "public_transition_performed": False,
+                    "browser_write_performed": False,
+                    "automatic_media_cleanup_performed": False,
+                }
             if not existing_title:
                 title_input.fill(title)
         else:
@@ -2261,13 +2469,13 @@ def publish_substack_article_via_edge(
         if existing_draft_id:
             existing_text = _normalise_editor_text(editor.inner_text(timeout=3000) or "")
             expected_intro = _normalise_editor_text(segments[0][1] if segments and segments[0][0] == "text" else "")
-            existing_image_count = _editor_image_count(page)
+            existing_image_count = len(existing_media_rows)
             expected_captions = [
                 _normalise_editor_text(str(assets[asset_id].get("caption") or ""))
                 for asset_id in expected_ids
             ]
             if (
-                existing_image_count >= len(expected_ids)
+                existing_image_count == len(expected_ids)
                 and expected_intro
                 and expected_intro[:500] in existing_text
                 and all(caption and caption in existing_text for caption in expected_captions)
@@ -2276,7 +2484,7 @@ def publish_substack_article_via_edge(
                 # readback gate. Never retype the body or reupload its media.
                 resume_segment_index = len(segments)
                 first_text = False
-            elif existing_image_count >= len(expected_ids):
+            elif existing_image_count == len(expected_ids):
                 text_segment_indexes = [index for index, row in enumerate(segments) if row[0] == "text"]
                 trailing_index = text_segment_indexes[-1] if text_segment_indexes else -1
                 preceding_text_matches = all(
@@ -2365,8 +2573,25 @@ def publish_substack_article_via_edge(
                 _append_editor_tail_after_media(page, editor, caption)
             _append_editor_text(page, editor, "\n\n")
 
-        editor_image_count = _editor_image_count(page)
-        if editor_image_count < len(expected_ids):
+        editor_media_rows = _editor_image_identity_rows(page)
+        editor_image_count = len(editor_media_rows)
+        editor_media_contract = _exact_substack_article_media_contract(
+            expected_image_assets=image_assets,
+            observed_image_rows=editor_media_rows,
+        )
+        if not editor_media_contract["article_media_manifest_exact_match"]:
+            return {
+                "status": "BLOCKED_SUBSTACK_PREPUBLICATION_MEDIA_MISMATCH",
+                "platform": "substack",
+                "draft_id": _substack_draft_id(page.url),
+                "editor_body_image_count": editor_image_count,
+                "editor_media_contract": editor_media_contract,
+                "public_write_attempted": False,
+                "public_transition_performed": False,
+                "automatic_media_cleanup_performed": False,
+                "upload_rows": upload_rows,
+            }
+        if editor_image_count != len(expected_ids):
             return {"status": "FAILED_SUBSTACK_EDITOR_IMAGE_COUNT", "platform": "substack", "draft_id": _substack_draft_id(page.url), "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
         editor_text = _normalise_editor_text(editor.inner_text(timeout=5000) or "")
         missing_captions = [
@@ -2383,25 +2608,6 @@ def publish_substack_article_via_edge(
                 "missing_caption_asset_ids": missing_captions,
                 "upload_rows": upload_rows,
             }
-        delivery_stage_rows: list[dict[str, Any]] = []
-        for delivery_asset in delivery_only_assets:
-            stage = _stage_and_remove_delivery_only_image(
-                page,
-                editor,
-                delivery_asset,
-                expected_article_image_count=len(expected_ids),
-            )
-            delivery_stage_rows.append(stage)
-            if stage.get("status") != "STAGED_AND_REMOVED":
-                return {
-                    "status": "FAILED_SUBSTACK_DELIVERY_MEDIA_STAGING",
-                    "platform": "substack",
-                    "draft_id": _substack_draft_id(page.url),
-                    "editor_body_image_count": _editor_image_count(page),
-                    "delivery_only_stage_rows": delivery_stage_rows,
-                    "public_write_attempted": False,
-                    "public_transition_performed": False,
-                }
         native_readback = _editor_native_semantics_readback(editor, body_markdown)
         if not native_readback["native_semantics_verified"]:
             return {
@@ -2424,7 +2630,6 @@ def publish_substack_article_via_edge(
                     "public_write_attempted": False,
                     "public_transition_performed": False,
                     "upload_rows": upload_rows,
-                    "delivery_only_stage_rows": delivery_stage_rows,
                 }
             return {
                 "status": "SUCCESS_DRAFT_QA",
@@ -2433,16 +2638,12 @@ def publish_substack_article_via_edge(
                 "draft_id": draft_id,
                 "editor_body_image_count": editor_image_count,
                 "in_body_visual_asset_ids": expected_ids,
+                "editor_media_contract": editor_media_contract,
                 "native_rich_text_readback": native_readback,
                 "public_write_attempted": False,
                 "public_transition_performed": False,
                 "publication_state": "draft_nonpublic",
                 "upload_rows": upload_rows,
-                "delivery_only_stage_rows": delivery_stage_rows,
-                "delivery_only_public_image_urls": [
-                    str(row.get("public_url")) for row in delivery_stage_rows
-                    if row.get("public_url")
-                ],
             }
         time.sleep(3)
         draft_id = _substack_draft_id(page.url)
@@ -2462,7 +2663,6 @@ def publish_substack_article_via_edge(
                 "draft_id": draft_id,
                 "editor_body_image_count": editor_image_count,
                 "upload_rows": upload_rows,
-                "delivery_only_stage_rows": delivery_stage_rows,
             }
         time.sleep(7)
         public_url = (
@@ -2504,7 +2704,8 @@ def publish_substack_article_via_edge(
         )
         expected_image_count = len(expected_ids)
         if (
-            readback["public_image_count"] < expected_image_count
+            readback["public_image_count"] != expected_image_count
+            or not readback["article_media_manifest_exact_match"]
             or not readback["visual_spread_through_public_body"]
         ):
             return {"status": "FAILED_SUBSTACK_PUBLIC_VISUAL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback, "publish_transition": publish_transition}
@@ -2522,15 +2723,332 @@ def publish_substack_article_via_edge(
             "public_url": public_url,
             "editor_body_image_count": editor_image_count,
             "in_body_visual_asset_ids": expected_ids,
+            "editor_media_contract": editor_media_contract,
             "upload_rows": upload_rows,
-            "delivery_only_stage_rows": delivery_stage_rows,
-            "delivery_only_public_image_urls": [
-                str(row.get("public_url")) for row in delivery_stage_rows
-                if row.get("public_url")
-            ],
             "native_rich_text_readback": native_readback,
             "readback": readback,
             "publish_transition": publish_transition,
+        }
+
+
+_EXACT_SUBSTACK_MEDIA_REPAIR_SCOPE = (
+    "EXACT_EXISTING_SUBSTACK_UNEXPECTED_MEDIA_REMOVAL_V1"
+)
+
+
+def _expected_substack_editor_prose(
+    body_markdown: str, expected_image_assets: Sequence[Mapping[str, Any]]
+) -> str:
+    assets = {
+        str(row.get("asset_id") or ""): dict(row) for row in expected_image_assets
+    }
+    parts: list[str] = []
+    for kind, value in _split_substack_body(body_markdown):
+        if kind == "text":
+            parts.append(rich_text_to_plain_text(markdown_to_rich_text(value)))
+        else:
+            caption = str((assets.get(value) or {}).get("caption") or "")
+            if caption:
+                parts.append(caption)
+    return _normalise_editor_text("\n\n".join(parts))
+
+
+def _remove_exact_substack_editor_image_node(page: Any, image: Any) -> None:
+    image.evaluate(
+        """element => {
+            const target = element.closest('figure') ||
+                element.closest('[data-node-type="image"]') || element;
+            target.scrollIntoView({block: 'center'});
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNode(target);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }"""
+    )
+    page.keyboard.press("Backspace")
+
+
+def _repair_exact_unexpected_substack_media_via_edge(
+    *,
+    cdp_port: int,
+    draft_id: str,
+    public_url: str,
+    expected_title: str,
+    expected_subtitle: str,
+    expected_body_markdown: str,
+    expected_body_sha256: str,
+    expected_image_assets: Sequence[Mapping[str, Any]],
+    unexpected_media_identities: Sequence[Mapping[str, Any]],
+    repair_authorization: Mapping[str, Any],
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Repair only exact unexpected media on one explicitly authorized public object.
+
+    This private helper has no newsroom, scheduler, coordinator, facade, or CLI caller.  It
+    cannot alter title, subtitle, or prose and never infers cleanup authority from publication
+    mode.  A later exact owner task must construct every non-secret authorization binding.
+    """
+    draft_id = str(draft_id or "").strip()
+    public_url = str(public_url or "").split("?", 1)[0].split("#", 1)[0]
+    expected_title = str(expected_title or "")
+    expected_subtitle = str(expected_subtitle or "")
+    expected_body_sha256 = str(expected_body_sha256 or "").casefold()
+    expected_rows, expected_blockers = _expected_article_media_identity_rows(
+        expected_image_assets
+    )
+    expected_manifest = [
+        {"asset_id": row["asset_id"], "sha256": row["sha256"]}
+        for row in expected_rows
+    ]
+    expected_manifest_sha256 = _canonical_json_sha256(expected_manifest)
+    unexpected_manifest = [
+        {
+            "src": str(row.get("src") or "") or None,
+            "original_url": str(row.get("original_url") or "") or None,
+            "sha256": str(row.get("sha256") or "").casefold() or None,
+        }
+        for row in unexpected_media_identities
+    ]
+    unexpected_manifest_sha256 = _canonical_json_sha256(unexpected_manifest)
+    authorization = dict(repair_authorization or {})
+    offline_blockers = list(expected_blockers)
+    if not draft_id.isdigit() or not _is_public_substack_url(public_url):
+        offline_blockers.append("exact_substack_object_identity_invalid")
+    if expected_body_sha256 != _sha256(expected_body_markdown):
+        offline_blockers.append("expected_body_sha256_mismatch")
+    if not unexpected_manifest or any(
+        not re.fullmatch(r"[0-9a-f]{64}", str(row.get("sha256") or ""))
+        or not str(row.get("original_url") or "").startswith("https://")
+        for row in unexpected_manifest
+    ):
+        offline_blockers.append("unexpected_media_identity_incomplete")
+    required_authorization = {
+        "scope": _EXACT_SUBSTACK_MEDIA_REPAIR_SCOPE,
+        "destination": "substack",
+        "draft_id": draft_id,
+        "public_url": public_url,
+        "expected_title_sha256": _sha256(expected_title),
+        "expected_subtitle_sha256": _sha256(expected_subtitle),
+        "expected_body_sha256": expected_body_sha256,
+        "expected_article_media_manifest_sha256": expected_manifest_sha256,
+        "unexpected_media_manifest_sha256": unexpected_manifest_sha256,
+    }
+    if any(
+        str(authorization.get(key) or "") != str(value)
+        for key, value in required_authorization.items()
+    ):
+        offline_blockers.append("exact_repair_authorization_binding_mismatch")
+    if offline_blockers:
+        return {
+            "status": "BLOCKED_SUBSTACK_EXACT_MEDIA_REPAIR_AUTHORIZATION",
+            "platform": "substack",
+            "draft_id": draft_id or None,
+            "public_url": public_url or None,
+            "blockers": list(dict.fromkeys(offline_blockers)),
+            "browser_write_performed": False,
+            "public_write_attempted": False,
+        }
+
+    with canonical_edge_page(cdp_port) as page:
+        before_public = _audit_public_substack_article(
+            page,
+            public_url,
+            None,
+            expected_title=expected_title,
+            expected_subtitle=expected_subtitle,
+            expected_body_markdown=expected_body_markdown,
+            expected_image_assets=expected_image_assets,
+        )
+        if (
+            not before_public.get("text_content_readback_verified")
+            or before_public.get("article_media_manifest_exact_match")
+            or before_public.get("missing_article_media_sha256")
+            or before_public.get("unresolved_article_media_identity_count")
+            or before_public.get("unexpected_article_media_identities")
+            != unexpected_manifest
+        ):
+            return {
+                "status": "BLOCKED_SUBSTACK_EXACT_MEDIA_REPAIR_PUBLIC_BINDING",
+                "platform": "substack",
+                "draft_id": draft_id,
+                "public_url": public_url,
+                "browser_write_performed": False,
+                "public_write_attempted": False,
+            }
+
+        page.goto(
+            f"https://capitalchronicle.substack.com/publish/post/{draft_id}",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+        time.sleep(3)
+        title_input, _ = _first_visible(
+            page, ("#post-title", "input[name='title']", "input[placeholder*='Title']")
+        )
+        subtitle_input, _ = _first_visible(
+            page,
+            (
+                "textarea[placeholder*='subtitle']",
+                "textarea[placeholder*='Subtitle']",
+                "#post-subtitle",
+            ),
+        )
+        editor, _ = _first_visible(
+            page, ("div.ProseMirror", ".ProseMirror", "div[contenteditable='true']")
+        )
+        actual_title = (
+            str(title_input.input_value(timeout=3000) or "") if title_input else ""
+        )
+        actual_subtitle = (
+            str(subtitle_input.input_value(timeout=3000) or "")
+            if subtitle_input
+            else ""
+        )
+        expected_prose = _expected_substack_editor_prose(
+            expected_body_markdown, expected_image_assets
+        )
+        prose_before = (
+            _normalise_editor_text(editor.inner_text(timeout=5000) or "")
+            if editor
+            else ""
+        )
+        editor_path = urllib.parse.urlsplit(str(page.url or "")).path.rstrip("/")
+        update_button, _ = _substack_exact_enabled_button(page, labels=("Update",))
+        continue_button, _ = _substack_exact_enabled_button(
+            page, labels=("Continue",), preferred_test_id="publish-button"
+        )
+        if (
+            not title_input
+            or not editor
+            or editor_path != f"/publish/post/{draft_id}"
+            or actual_title != expected_title
+            or actual_subtitle != expected_subtitle
+            or prose_before != expected_prose
+            or update_button is None
+            or continue_button is not None
+        ):
+            return {
+                "status": "BLOCKED_SUBSTACK_EXACT_MEDIA_REPAIR_EDITOR_BINDING",
+                "platform": "substack",
+                "draft_id": draft_id,
+                "public_url": public_url,
+                "browser_write_performed": False,
+                "public_write_attempted": False,
+            }
+
+        editor_rows_before = _editor_image_identity_rows(page)
+        editor_contract_before = _exact_substack_article_media_contract(
+            expected_image_assets=expected_image_assets,
+            observed_image_rows=editor_rows_before,
+        )
+        if (
+            editor_contract_before.get("missing_article_media_sha256")
+            or editor_contract_before.get("unresolved_article_media_identity_count")
+            or editor_contract_before.get("unexpected_article_media_identities")
+            != unexpected_manifest
+        ):
+            return {
+                "status": "BLOCKED_SUBSTACK_EXACT_MEDIA_REPAIR_EDITOR_MEDIA_BINDING",
+                "platform": "substack",
+                "draft_id": draft_id,
+                "public_url": public_url,
+                "browser_write_performed": False,
+                "public_write_attempted": False,
+            }
+
+        expected_counter = Counter(
+            str(row.get("sha256") or "") for row in expected_rows
+        )
+        removal_indexes: list[int] = []
+        for index, row in enumerate(editor_rows_before):
+            digest = str(row.get("sha256") or "")
+            if digest and expected_counter[digest] > 0:
+                expected_counter[digest] -= 1
+            else:
+                removal_indexes.append(index)
+        editor_images = editor.locator("img")
+        for index in reversed(removal_indexes):
+            _remove_exact_substack_editor_image_node(page, editor_images.nth(index))
+            time.sleep(0.8)
+
+        deadline = time.monotonic() + 18
+        while time.monotonic() < deadline and not _substack_saved(page):
+            time.sleep(0.5)
+        editor_rows_after = _editor_image_identity_rows(page)
+        editor_contract_after = _exact_substack_article_media_contract(
+            expected_image_assets=expected_image_assets,
+            observed_image_rows=editor_rows_after,
+        )
+        title_after = str(title_input.input_value(timeout=3000) or "")
+        subtitle_after = (
+            str(subtitle_input.input_value(timeout=3000) or "")
+            if subtitle_input
+            else ""
+        )
+        prose_after = _normalise_editor_text(editor.inner_text(timeout=5000) or "")
+        content_preserved = bool(
+            title_after == actual_title == expected_title
+            and subtitle_after == actual_subtitle == expected_subtitle
+            and prose_after == prose_before == expected_prose
+        )
+        if (
+            not content_preserved
+            or not editor_contract_after["article_media_manifest_exact_match"]
+            or not _substack_saved(page)
+        ):
+            return {
+                "status": "FAILED_SUBSTACK_EXACT_MEDIA_REPAIR_DRAFT_READBACK",
+                "platform": "substack",
+                "draft_id": draft_id,
+                "public_url": public_url,
+                "title_subtitle_prose_preserved": content_preserved,
+                "editor_media_contract": editor_contract_after,
+                "browser_write_performed": True,
+                "public_write_attempted": False,
+            }
+
+        transition = _complete_substack_editor_publication_transition(
+            page, draft_id=draft_id, expected_title=expected_title
+        )
+        if (
+            transition.get("status") != "SUCCESS"
+            or transition.get("publication_write_mode")
+            != "update_existing_public_article"
+        ):
+            return {
+                **dict(transition),
+                "status": "FAILED_SUBSTACK_EXACT_MEDIA_REPAIR_PUBLIC_TRANSITION",
+                "platform": "substack",
+                "draft_id": draft_id,
+                "public_url": public_url,
+                "title_subtitle_prose_preserved": content_preserved,
+                "browser_write_performed": True,
+            }
+        time.sleep(7)
+        after_public = _audit_public_substack_article(
+            page,
+            public_url,
+            public_screenshot_path,
+            expected_title=expected_title,
+            expected_subtitle=expected_subtitle,
+            expected_body_markdown=expected_body_markdown,
+            expected_image_assets=expected_image_assets,
+        )
+        success = bool(after_public.get("strict_content_visual_readback_verified"))
+        return {
+            "status": "SUCCESS" if success else "FAILED_SUBSTACK_EXACT_MEDIA_REPAIR_PUBLIC_READBACK",
+            "platform": "substack",
+            "draft_id": draft_id,
+            "public_url": public_url,
+            "removed_unexpected_media_identities": unexpected_manifest,
+            "removed_unexpected_media_count": len(removal_indexes),
+            "title_subtitle_prose_preserved": content_preserved,
+            "editor_media_contract": editor_contract_after,
+            "readback": after_public,
+            "publish_transition": transition,
+            "browser_write_performed": True,
+            "public_write_attempted": True,
         }
 
 
@@ -2718,25 +3236,176 @@ def repair_substack_editorial_paragraphs_via_edge(
         }
 
 
+def _x_text_signature(value: str, *, limit: int = 6) -> tuple[str, ...]:
+    first_line = next((line for line in str(value or "").splitlines() if line.strip()), value)
+    return tuple(re.findall(r"[a-z0-9]+", str(first_line).casefold())[:limit])
+
+
+def _x_visible_text_matches(expected_text: str, visible_text: str) -> bool:
+    signature = _x_text_signature(expected_text)
+    visible_tokens = tuple(re.findall(r"[a-z0-9]+", str(visible_text or "").casefold()))
+    if len(signature) < 4 or sum(map(len, signature)) < 20:
+        return False
+    cursor = 0
+    for token in visible_tokens:
+        if cursor < len(signature) and token == signature[cursor]:
+            cursor += 1
+    return cursor == len(signature)
+
+
+def _x_status_url_from_article(article: Any, handle: str) -> str | None:
+    expected_handle = str(handle or "").lstrip("@").casefold()
+    candidates: list[str] = []
+    for link in article.locator("a[href*='/status/']").all():
+        href = str(link.get_attribute("href") or "")
+        candidate = _public_x_url(f"https://x.com{href}" if href.startswith("/") else href)
+        if not candidate:
+            continue
+        parsed = urllib.parse.urlparse(candidate)
+        observed_handle = parsed.path.strip("/").split("/", 1)[0].casefold()
+        if observed_handle == expected_handle:
+            candidates.append(candidate)
+    unique = list(dict.fromkeys(candidates))
+    return unique[0] if len(unique) == 1 else None
+
+
 def _x_permalink_from_profile(page: Any, handle: str | None, expected_text: str) -> str | None:
     if not handle:
         return None
     page.goto(f"https://x.com/{handle.lstrip('@')}", wait_until="domcontentloaded", timeout=45000)
     time.sleep(5)
-    needle = expected_text[:80].lower()
+    matches: list[str] = []
     for article in page.locator("article").all():
         try:
-            if needle not in (article.inner_text(timeout=1200) or "").lower():
+            if not _x_visible_text_matches(expected_text, article.inner_text(timeout=1200) or ""):
                 continue
-            for link in article.locator("a[href*='/status/']").all():
-                href = link.get_attribute("href")
-                candidate = f"https://x.com{href}" if href and href.startswith("/") else href
-                public_url = _public_x_url(candidate)
-                if public_url:
-                    return public_url
+            public_url = _x_status_url_from_article(article, handle)
+            if public_url:
+                matches.append(public_url)
         except Exception:
             continue
-    return None
+    unique = list(dict.fromkeys(matches))
+    return unique[0] if len(unique) == 1 else None
+
+
+def reconcile_x_thread_by_text_via_edge(
+    *,
+    cdp_port: int,
+    expected_text: str,
+    canonical_url: str,
+    expected_reply_texts: Sequence[str],
+    root_url: str | None = None,
+    expected_handle: str = _X_PUBLIC_HANDLE,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Find one exact X root and its replies without crossing a write boundary."""
+    handle = str(expected_handle or _X_PUBLIC_HANDLE).lstrip("@")
+    canonical_root = _public_x_url(root_url)
+    if canonical_root:
+        observed_handle = urllib.parse.urlparse(canonical_root).path.strip("/").split("/", 1)[0]
+        if observed_handle.casefold() != handle.casefold():
+            return {"status": "X_ROOT_IDENTITY_MISMATCH", "platform": "x"}
+    with canonical_edge_page(cdp_port) as page:
+        root_article = None
+        if canonical_root:
+            page.goto(canonical_root, wait_until="domcontentloaded", timeout=45000)
+            time.sleep(5)
+            root_id = canonical_root.rstrip("/").rsplit("/", 1)[-1]
+            candidate = _x_article_for_status(page, root_id)
+            visible = _normalised_visible_text(candidate.inner_text(timeout=2500)) if candidate else ""
+            if (
+                candidate
+                and _x_visible_text_matches(expected_text, visible)
+                and _canonical_reference_visible(visible, canonical_url)
+            ):
+                root_article = candidate
+        else:
+            page.goto(f"https://x.com/{handle}", wait_until="domcontentloaded", timeout=45000)
+            time.sleep(5)
+            matches: list[tuple[str, Any]] = []
+            for article in page.locator("article").all():
+                try:
+                    visible = _normalised_visible_text(article.inner_text(timeout=1800))
+                    if not (
+                        _x_visible_text_matches(expected_text, visible)
+                        and _canonical_reference_visible(visible, canonical_url)
+                    ):
+                        continue
+                    candidate_url = _x_status_url_from_article(article, handle)
+                    if candidate_url:
+                        matches.append((candidate_url, article))
+                except Exception:
+                    continue
+            unique_urls = list(dict.fromkeys(url for url, _article in matches))
+            if len(unique_urls) != 1:
+                return {
+                    "status": (
+                        "X_ROOT_NOT_FOUND_READBACK_INCONCLUSIVE"
+                        if not unique_urls
+                        else "AMBIGUOUS_X_ROOT_MATCH"
+                    ),
+                    "platform": "x",
+                    "match_count": len(unique_urls),
+                }
+            canonical_root = unique_urls[0]
+            root_article = next(article for url, article in matches if url == canonical_root)
+            page.goto(canonical_root, wait_until="domcontentloaded", timeout=45000)
+            time.sleep(5)
+        root_id = str(canonical_root).rstrip("/").rsplit("/", 1)[-1]
+        root_article = _x_article_for_status(page, root_id) or root_article
+        root_text = _normalised_visible_text(root_article.inner_text(timeout=2500)) if root_article else ""
+        replies: list[dict[str, Any]] = []
+        missing_indexes: list[int] = []
+        articles = page.locator("article").all()
+        for index, expected_reply in enumerate(expected_reply_texts, start=1):
+            reply_matches: list[tuple[str, str]] = []
+            for article in articles:
+                try:
+                    visible = _normalised_visible_text(article.inner_text(timeout=1600))
+                    if not _x_visible_text_matches(str(expected_reply), visible):
+                        continue
+                    candidate_url = _x_status_url_from_article(article, handle)
+                    if candidate_url and candidate_url != canonical_root:
+                        reply_matches.append((candidate_url, visible))
+                except Exception:
+                    continue
+            unique_reply_urls = list(dict.fromkeys(url for url, _visible in reply_matches))
+            if len(unique_reply_urls) != 1:
+                missing_indexes.append(index)
+                continue
+            reply_url = unique_reply_urls[0]
+            replies.append(
+                {
+                    "order": index,
+                    "text": str(expected_reply),
+                    "post_id": reply_url.rstrip("/").rsplit("/", 1)[-1],
+                    "public_url": reply_url,
+                    "parent_id": root_id if index == 1 else replies[-1]["post_id"],
+                }
+            )
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+        complete = bool(
+            root_article
+            and _x_visible_text_matches(expected_text, root_text)
+            and _canonical_reference_visible(root_text, canonical_url)
+            and not missing_indexes
+            and len(replies) == len(expected_reply_texts)
+        )
+        return {
+            "status": "SUCCESS" if complete else "X_ROOT_RECONCILED_REPLY_CHAIN_INCOMPLETE",
+            "platform": "x",
+            "post_id": root_id,
+            "public_url": canonical_root,
+            "destination_identity": "@" + handle,
+            "write_exists": bool(root_article),
+            "root_visible_text": root_text,
+            "substack_url_visible": _canonical_reference_visible(root_text, canonical_url),
+            "reply_chain": replies,
+            "missing_reply_indexes": missing_indexes,
+        }
 
 
 def publish_x_post_via_edge(*, cdp_port: int, text: str, image_path: str | Path | None = None) -> dict[str, Any]:
@@ -2912,11 +3581,18 @@ def readback_x_thread_via_edge(
             page.screenshot(path=str(target), full_page=False)
             screenshot = str(target)
         canonical_visible = _canonical_reference_visible(root_text, canonical_url)
+        media_expected = bool(str(expected_chart_path or ""))
+        media_verified = bool(
+            not media_expected
+            or (
+                chart_similarity is not None
+                and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM
+            )
+        )
         verified = bool(
             root
             and canonical_visible
-            and chart_similarity is not None
-            and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM
+            and media_verified
             and ordered
             and all(row["text_verified"] and row["parent_child_verified"] and row["media_verified"] for row in ordered)
         )
@@ -2927,11 +3603,12 @@ def readback_x_thread_via_edge(
             "root_public_url": root_url,
             "root_visible_text": root_text,
             "substack_url_visible": canonical_visible,
-            "meaningful_media_visible": bool(chart_similarity is not None and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM),
+            "meaningful_media_visible": bool(media_expected and media_verified),
+            "media_expected": media_expected,
             "expected_chart_visual_similarity": chart_similarity,
             "ordered_replies": ordered,
             "reply_chain_complete": bool(ordered and all(row["text_verified"] and row["parent_child_verified"] and row["media_verified"] for row in ordered)),
-            "complete_article_visual_count": 1 + sum(1 for row in ordered if row["media_required"] and row["media_verified"]),
+            "complete_article_visual_count": int(media_expected and media_verified) + sum(1 for row in ordered if row["media_required"] and row["media_verified"]),
             "public_screenshot_path": screenshot,
         }
 

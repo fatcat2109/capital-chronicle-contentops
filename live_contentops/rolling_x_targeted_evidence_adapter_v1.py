@@ -20,7 +20,7 @@ from live_contentops.claim_evidence_contract_v1 import (
     summarize_evidence_substance,
 )
 from live_contentops.source_capability_registry_v2 import (
-    load_source_capability_registry,
+    effective_rolling_x_capability_registry,
     resolve_story_capabilities,
 )
 
@@ -432,8 +432,8 @@ class RollingXTargetedEvidenceAdapter:
                 public_retriever=self._public_secondary_loader,
             )
         self._grounded_researcher = grounded_researcher
-        self._registry = dict(
-            capability_registry or load_source_capability_registry()
+        self._registry = effective_rolling_x_capability_registry(
+            capability_registry
         )
         self._packet: dict[str, Any] | None = None
         self._load_error: str | None = None
@@ -630,6 +630,7 @@ class RollingXTargetedEvidenceAdapter:
             grounded_minimum_packet: dict[str, Any] = {}
             grounded_claim_contract: dict[str, Any] = {}
             grounded_evidence_substance: dict[str, Any] = {}
+            grounded_latest_state_closure: dict[str, Any] = {}
             if grounded is not None:
                 diagnostics["grounded_research"] = {
                     "status": grounded.get("status"),
@@ -652,6 +653,9 @@ class RollingXTargetedEvidenceAdapter:
                     "global_infrastructure_exhausted": bool(
                         grounded.get("global_infrastructure_exhausted")
                     ),
+                    "latest_event_state_closure": dict(
+                        grounded.get("latest_event_state_closure") or {}
+                    ),
                 }
                 grounded_packet = dict(grounded.get("research_packet") or {})
                 grounded_minimum_packet = dict(
@@ -662,6 +666,9 @@ class RollingXTargetedEvidenceAdapter:
                 )
                 grounded_evidence_substance = dict(
                     grounded.get("evidence_substance") or {}
+                )
+                grounded_latest_state_closure = dict(
+                    grounded.get("latest_event_state_closure") or {}
                 )
                 if grounded.get("status") == "PASS":
                     documents = [
@@ -873,6 +880,9 @@ class RollingXTargetedEvidenceAdapter:
                         grounded_packet.get("cc_context") or {}
                     )
                 receipt["evidence_substance"] = evidence_substance
+                receipt["latest_event_state_closure"] = (
+                    grounded_latest_state_closure
+                )
                 return receipt
             return {
                 "status": "PASS",
@@ -887,6 +897,7 @@ class RollingXTargetedEvidenceAdapter:
                 ),
                 "evidence_review_tier": "ORDINARY_MINIMUM" if ordinary_packet else "ENHANCED",
                 "evidence_substance": evidence_substance,
+                "latest_event_state_closure": grounded_latest_state_closure,
                 "grounded_research_packet": grounded_packet,
                 "cc_context_bundle": dict(
                     grounded_packet.get("cc_context") or {}
@@ -959,6 +970,7 @@ class RollingXTargetedEvidenceAdapter:
         grounded_minimum_packet: dict[str, Any] = {}
         grounded_claim_contract: dict[str, Any] = {}
         grounded_evidence_substance: dict[str, Any] = {}
+        grounded_latest_state_closure: dict[str, Any] = {}
         grounded_diagnostics: dict[str, Any] = {}
         if grounded is not None:
             grounded_diagnostics = {
@@ -970,6 +982,9 @@ class RollingXTargetedEvidenceAdapter:
                 ),
                 "elapsed_seconds": grounded.get("elapsed_seconds"),
                 "telemetry": list(grounded.get("telemetry") or []),
+                "latest_event_state_closure": dict(
+                    grounded.get("latest_event_state_closure") or {}
+                ),
             }
             grounded_packet = dict(grounded.get("research_packet") or {})
             grounded_minimum_packet = dict(
@@ -980,6 +995,9 @@ class RollingXTargetedEvidenceAdapter:
             )
             grounded_evidence_substance = dict(
                 grounded.get("evidence_substance") or {}
+            )
+            grounded_latest_state_closure = dict(
+                grounded.get("latest_event_state_closure") or {}
             )
             if grounded.get("status") == "PASS":
                 documents = [
@@ -1093,6 +1111,7 @@ class RollingXTargetedEvidenceAdapter:
                 receipt["evidence_acquisition_provenance"] = {
                     "grounded_research": grounded_diagnostics
                 }
+            receipt["latest_event_state_closure"] = grounded_latest_state_closure
             return receipt
         return {
             "status": "PASS",
@@ -1112,6 +1131,7 @@ class RollingXTargetedEvidenceAdapter:
                 grounded_evidence_substance
                 or summarize_evidence_substance(request, documents)
             ),
+            "latest_event_state_closure": grounded_latest_state_closure,
             "grounded_research_packet": grounded_packet,
             "cc_context_bundle": dict(
                 grounded_packet.get("cc_context") or {}

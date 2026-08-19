@@ -7,6 +7,8 @@
     "repository": "fatcat2109/capital-chronicle-contentops",
     "branch": "task/v2-native-staggered-automation-relay-shadow-correction-v1",
     "origin_master_at_start": "95e8373efd000085df22ed7e7f3623e9444e8aee",
+    "origin_master_after_reconciliation": "407233d0aad603ecfa53a248b8c3ebdff580d13a",
+    "current_master_authority_merged_into_task_branch": true,
     "task3_branch_start": "96defff29e127505f468cffb94a04e008e24a650",
     "task3_frozen_implementation": "1d9bfa80e17a39e41aadac173587a000911e9308",
     "correction_implementation_head": "8c8adf49fc49fb4c82a326c7361756490bb649ce",
@@ -159,14 +161,15 @@
     }
   ],
   "validation": {
-    "focused_pytest": "84 passed, 1 skipped in 19.93s",
+    "focused_pytest": "84 passed, 1 skipped in 18.54s after current-master reconciliation",
+    "stale_terra_assertion_reconciled_to_current_gemini_only_authority": true,
     "ruff": "PASS",
     "compileall": "PASS",
     "git_diff_check": "PASS",
     "codegraph_after": {
-      "nodes": 7249,
-      "edges": 13637,
-      "source_head": "8c8adf49fc49fb4c82a326c7361756490bb649ce",
+      "nodes": 7280,
+      "edges": 13716,
+      "source_head": "84d302eadba7ae7bfbd2aee607a72d107508ea0f",
       "codegraph_current": true
     }
   },

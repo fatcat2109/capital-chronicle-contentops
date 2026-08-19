@@ -635,9 +635,8 @@ def test_historical_cli_creative_seam_fails_closed_before_runner_use() -> None:
         CodexCliExecutor()
 
 
-def test_v1_research_ladder_is_unchanged_and_v2_9router_creative_fails_closed() -> None:
+def test_v1_research_ladder_matches_current_authority_and_v2_9router_creative_fails_closed() -> None:
     assert V1_GROUNDED_RESEARCH_MODEL_LADDER == (
-        "cx/gpt-5.6-terra(high)",
         "vx/gemini-3.1-pro-preview(high)",
         "vx/gemini-3.5-flash(high)",
     )

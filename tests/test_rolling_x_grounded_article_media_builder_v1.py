@@ -305,7 +305,9 @@ def test_generation_prompt_matches_reader_facing_semantic_gate():
     assert "state the core news once" in prompt
     assert "Do not add a generic financial-advice" in prompt
     assert "End the body with the exact line" not in prompt
-    assert "A concise breaking brief may use no section headings" in prompt
+    assert "there is no heading quota" in prompt
+    assert "institutional_edge_editorial_packet" in prompt
+    assert "SEO may narrow or clarify a claim but may never strengthen it" in prompt
 
 
 # --- media primitives -------------------------------------------------------------

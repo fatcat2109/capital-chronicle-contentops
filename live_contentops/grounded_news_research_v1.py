@@ -61,6 +61,29 @@ _STOPWORDS = frozenset(
         "will", "with", "would", "for", "its", "was", "were", "has", "had",
     }
 )
+_FORWARD_EVENT_STATE_RE = re.compile(
+    r"\b(?:scheduled(?:\s+to)?|planned|expected(?:\s+to)?|ahead\s+of|set\s+to|"
+    r"talks?\s+to\s+follow|awaiting\s+(?:an?\s+)?outcome|what\s+to\s+watch\s+after)\b",
+    re.IGNORECASE,
+)
+_EVENT_STATE_CHANGE_RE = re.compile(
+    r"\b(?:cancelled|canceled|postponed|rescheduled|called\s+off|delayed)\b",
+    re.IGNORECASE,
+)
+_EVENT_STATE_OUTCOME_RE = re.compile(
+    r"\b(?:no\s+breakthrough|reached\s+(?:an?\s+)?agreement|failed\s+to\s+agree|"
+    r"produced\s+(?:an?\s+)?outcome|yielded\s+(?:an?\s+)?outcome)\b|"
+    r"\b(?:meeting|talks|summit|hearing|vote|decision)\b.{0,72}"
+    r"\b(?:occurred|took\s+place|was\s+held|concluded|ended|finished|produced|yielded|resulted)\b",
+    re.IGNORECASE,
+)
+_EVENT_STATE_TARGET_NOISE = frozenset(
+    {
+        "scheduled", "schedule", "planned", "plan", "expected", "ahead", "set",
+        "meet", "meeting", "talk", "talks", "follow", "following", "awaiting",
+        "outcome", "watch", "afterward", "regarding", "latest", "update", "event",
+    }
+)
 
 
 class GroundedNewsResearchError(RuntimeError):
@@ -343,6 +366,139 @@ def _normalize_documents(documents: Sequence[Mapping[str, Any]]) -> list[dict[st
         row["grounded_source_ref"] = _source_ref(row)
         accepted.append(row)
     return accepted[:8]
+
+
+def _document_id(document: Mapping[str, Any]) -> str:
+    return str(document.get("document_id") or document.get("evidence_id") or "")
+
+
+def _document_published_at(document: Mapping[str, Any]) -> datetime | None:
+    value = document.get("published_at_utc") or document.get("event_time_utc")
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return parsed if parsed.utcoffset() is not None else None
+
+
+def _filter_documents_at_cutoff(
+    documents: Sequence[Mapping[str, Any]], *, evaluation_as_of_utc: str
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Reject explicit post-cutoff source timestamps before any model can see them."""
+    cutoff = datetime.fromisoformat(str(evaluation_as_of_utc).replace("Z", "+00:00"))
+    accepted: list[dict[str, Any]] = []
+    rejected: list[str] = []
+    for document in documents:
+        published = _document_published_at(document)
+        if published is not None and published > cutoff:
+            rejected.append(_document_id(document))
+            continue
+        accepted.append(dict(document))
+    return accepted, sorted(value for value in rejected if value)
+
+
+def _forward_state_records(
+    documents: Sequence[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for document in documents:
+        text = _document_text(document)
+        for match in _FORWARD_EVENT_STATE_RE.finditer(text):
+            tail = re.split(
+                r"[.!?;\n]", text[match.end() : match.end() + 180], maxsplit=1
+            )[0]
+            target_terms = sorted(
+                token
+                for token in _tokens(tail)
+                if token not in _EVENT_STATE_TARGET_NOISE
+            )[:8]
+            if not target_terms:
+                target_terms = sorted(
+                    token
+                    for token in _tokens(text)
+                    if token not in _EVENT_STATE_TARGET_NOISE
+                )[:8]
+            records.append(
+                {
+                    "document_id": _document_id(document),
+                    "published_at_utc": str(
+                        document.get("published_at_utc")
+                        or document.get("event_time_utc")
+                        or ""
+                    ),
+                    "forward_marker": _clean_text(match.group(0), 80),
+                    "target_terms": target_terms,
+                }
+            )
+            break
+    return records
+
+
+def _target_terms(records: Sequence[Mapping[str, Any]]) -> list[str]:
+    return list(
+        dict.fromkeys(
+            str(term).casefold()
+            for record in records
+            for term in record.get("target_terms") or []
+            if str(term)
+        )
+    )[:10]
+
+
+def _document_matches_event_target(
+    document: Mapping[str, Any], target_terms: Sequence[str]
+) -> bool:
+    if not target_terms:
+        return False
+    present = _tokens(_document_text(document))
+    required = 1 if len(target_terms) == 1 else 2
+    return len(present.intersection(set(target_terms))) >= required
+
+
+def _source_bound_event_state(
+    document: Mapping[str, Any], target_terms: Sequence[str]
+) -> str | None:
+    """Classify only explicit source text; a model assertion is never consulted."""
+    text = _document_text(document)
+    if not _document_matches_event_target(document, target_terms):
+        return None
+    if _EVENT_STATE_CHANGE_RE.search(text):
+        return "CHANGED_OR_CANCELLED"
+    if _EVENT_STATE_OUTCOME_RE.search(text):
+        return "OCCURRED_OR_OUTCOME_REPORTED"
+    target_pattern = "|".join(re.escape(value) for value in target_terms[:8])
+    if target_pattern and (
+        re.search(
+            rf"\b(?:met|meets|held\s+talks|spoke)\b.{{0,28}}\b(?:{target_pattern})\b",
+            text,
+            re.IGNORECASE,
+        )
+        or re.search(
+            rf"\b(?:{target_pattern})\b.{{0,28}}\b(?:met|meets|held\s+talks|spoke)\b",
+            text,
+            re.IGNORECASE,
+        )
+    ):
+        return "OCCURRED_OR_OUTCOME_REPORTED"
+    if _FORWARD_EVENT_STATE_RE.search(text):
+        return "FUTURE_STATE_SUPPORTED"
+    return None
+
+
+def _latest_state_query(
+    compact_request: Mapping[str, Any], records: Sequence[Mapping[str, Any]]
+) -> str:
+    parts: list[str] = []
+    for value in compact_request.get("important_entities") or []:
+        for token in _tokens(value):
+            if token not in parts:
+                parts.append(token)
+    for token in _target_terms(records):
+        if token not in parts:
+            parts.append(token)
+    return _clean_text(" ".join([*parts[:8], "latest outcome update"]), 220)
 
 
 def _numbers_supported(statement: str, documents: Sequence[Mapping[str, Any]]) -> bool:
@@ -651,9 +807,20 @@ class GroundedNewsResearchV1:
         }
 
     def _validate_synthesis(
-        self, value: Mapping[str, Any], documents: Sequence[Mapping[str, Any]]
+        self,
+        value: Mapping[str, Any],
+        documents: Sequence[Mapping[str, Any]],
+        latest_state_closure: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         by_ref = {str(row["grounded_source_ref"]): row for row in documents}
+        closure = dict(latest_state_closure or {})
+        superseded_forward_state = str(closure.get("latest_supported_state") or "") in {
+            "OCCURRED_OR_OUTCOME_REPORTED",
+            "CHANGED_OR_CANCELLED",
+        }
+        closure_target_terms = [
+            str(value) for value in closure.get("target_terms") or [] if str(value)
+        ]
         confirmed: list[dict[str, Any]] = []
         seen_ids: set[str] = set()
         for raw in value.get("confirmed_facts") or []:
@@ -673,6 +840,13 @@ class GroundedNewsResearchV1:
             ):
                 raise ValueError("research_fact_binding_invalid")
             bound = [by_ref[ref] for ref in refs]
+            if (
+                superseded_forward_state
+                and _FORWARD_EVENT_STATE_RE.search(statement)
+                and len(_tokens(statement).intersection(set(closure_target_terms)))
+                >= (1 if len(closure_target_terms) == 1 else 2)
+            ):
+                raise ValueError("research_fact_superseded_event_state")
             if not _statement_supported(statement, bound):
                 raise ValueError("research_fact_not_supported_by_bound_source")
             if directness == "INFERRED" and _NUMBER_RE.search(statement):
@@ -927,22 +1101,23 @@ class GroundedNewsResearchV1:
         else:
             plan = build_deterministic_locator_plan(compact, max_queries=self._max_queries)
 
+        initial_query_limit = self._max_queries - 1 if self._max_queries > 1 else 1
         retrieval_queries = list(plan["queries"])
         proposition_seed = _locator_query_seed(
             compact.get("normalized_headline_proposition")
         )
-        if self._max_queries >= 2 and proposition_seed and proposition_seed.casefold() not in {
+        if initial_query_limit >= 2 and proposition_seed and proposition_seed.casefold() not in {
             value.casefold() for value in retrieval_queries
         }:
             # Preserve LLM-directed investigation while reserving one bounded locator query
             # for the exact ranked proposition. This makes compatibility search resilient to
             # model query drift without granting the proposition any factual authority.
             retrieval_queries = [
-                *retrieval_queries[: self._max_queries - 1],
+                *retrieval_queries[: initial_query_limit - 1],
                 proposition_seed,
             ]
         else:
-            retrieval_queries = retrieval_queries[: self._max_queries]
+            retrieval_queries = retrieval_queries[:initial_query_limit]
         retrieval_request = {
             **bound_request,
             "story_context": {
@@ -974,7 +1149,16 @@ class GroundedNewsResearchV1:
         documents = _normalize_documents(
             [*initial_documents, *(retrieved.get("evidence_documents") or [])]
         )
-        public_requests = int((retrieved.get("provenance") or {}).get("request_count") or 0)
+        documents, post_cutoff_document_ids = _filter_documents_at_cutoff(
+            documents, evaluation_as_of_utc=self._evaluation_as_of_utc
+        )
+        retrieved_provenance = retrieved.get("provenance") or {}
+        first_request_delta = retrieved_provenance.get("request_count_for_candidate")
+        public_requests = int(
+            first_request_delta
+            if first_request_delta is not None
+            else retrieved_provenance.get("request_count") or 0
+        )
         if enhanced and not documents:
             replan_prompt = "\n".join(
                 [
@@ -1063,14 +1247,240 @@ class GroundedNewsResearchV1:
                         *(recovered.get("evidence_documents") or []),
                     ]
                 )
-                public_requests = max(
-                    public_requests,
-                    int(
-                        (recovered.get("provenance") or {}).get("request_count")
-                        or 0
-                    ),
+                documents, recovered_post_cutoff_ids = _filter_documents_at_cutoff(
+                    documents, evaluation_as_of_utc=self._evaluation_as_of_utc
                 )
+                post_cutoff_document_ids = sorted(
+                    set(post_cutoff_document_ids).union(recovered_post_cutoff_ids)
+                )
+                recovered_provenance = recovered.get("provenance") or {}
+                recovery_request_delta = recovered_provenance.get(
+                    "request_count_for_candidate"
+                )
+                if recovery_request_delta is not None:
+                    public_requests += int(recovery_request_delta)
+                else:
+                    public_requests = max(
+                        public_requests,
+                        int(recovered_provenance.get("request_count") or 0),
+                    )
                 plan = {**plan, "recovery_queries": recovery_queries}
+        pre_closure_substance = summarize_evidence_substance(
+            bound_request, documents
+        )
+        latest_state_closure: dict[str, Any] = {
+            "schema_version": "contentops.latest_event_state_closure.v1",
+            "status": "NOT_REQUIRED",
+            "forward_state_detected": False,
+            "evaluation_as_of_utc": self._evaluation_as_of_utc,
+            "query_budget": {
+                "maximum_queries": self._max_queries,
+                "initial_queries_used": len(retrieval_queries),
+                "closure_queries_used": 0,
+            },
+            "post_cutoff_document_ids_rejected": post_cutoff_document_ids,
+            "pre_closure_evidence_substance": pre_closure_substance,
+            "enhanced_breaking_zero_substantive_body": bool(
+                compact.get("risk_classification") == "ENHANCED"
+                and str(compact.get("effective_article_mode") or "")
+                == "BREAKING_BRIEF"
+                and int(pre_closure_substance.get("substantive_document_count") or 0)
+                == 0
+                and int(pre_closure_substance.get("usable_content_words") or 0) == 0
+            ),
+            "model_assertion_grants_event_state_authority": False,
+            "publication_authority": False,
+        }
+        forward_records = _forward_state_records(documents)
+        if forward_records:
+            target_terms = _target_terms(forward_records)
+            closure_query = _latest_state_query(compact, forward_records)
+            latest_state_closure.update(
+                {
+                    "status": "BLOCKED",
+                    "forward_state_detected": True,
+                    "forward_state_records": forward_records,
+                    "target_terms": target_terms,
+                    "closure_query": closure_query,
+                    "latest_supported_state": None,
+                    "supporting_document_ids": [],
+                    "superseded_document_ids": [],
+                }
+            )
+            if self._max_queries <= len(retrieval_queries) or len(closure_query) < 8:
+                latest_state_closure["blocker"] = "latest_event_state_query_budget_unavailable"
+            else:
+                closure_request = {
+                    **bound_request,
+                    "story_context": {
+                        **dict(bound_request.get("story_context") or {}),
+                        "public_source_url_bindings": [],
+                        "official_source_url_bindings": [],
+                        "grounded_research_queries": [closure_query],
+                    },
+                    "evidence_enrichment_context": {
+                        "requested": True,
+                        "reason": "LATEST_EVENT_STATE_CLOSURE",
+                        "existing_evidence_substance": {},
+                        "additional_source_is_eligibility_requirement": True,
+                        "latest_state_closure_required": True,
+                    },
+                }
+                try:
+                    closure_raw = self._public_retriever(closure_request)
+                    closure_retrieval = (
+                        dict(closure_raw) if isinstance(closure_raw, Mapping) else {}
+                    )
+                except (OSError, RuntimeError, TypeError, ValueError) as exc:
+                    closure_retrieval = {
+                        "status": BLOCKED,
+                        "blockers": [
+                            _sanitized_failure_code(
+                                str(exc), "latest_event_state_public_retrieval_failure"
+                            )
+                        ],
+                        "evidence_documents": [],
+                        "provenance": {},
+                    }
+                closure_provenance = closure_retrieval.get("provenance") or {}
+                closure_delta = closure_provenance.get("request_count_for_candidate")
+                public_requests += int(
+                    closure_delta
+                    if closure_delta is not None
+                    else closure_provenance.get("request_count") or 0
+                )
+                closure_documents = _normalize_documents(
+                    closure_retrieval.get("evidence_documents") or []
+                )
+                closure_documents, closure_post_cutoff_ids = _filter_documents_at_cutoff(
+                    closure_documents,
+                    evaluation_as_of_utc=self._evaluation_as_of_utc,
+                )
+                post_cutoff_document_ids = sorted(
+                    set(post_cutoff_document_ids).union(closure_post_cutoff_ids)
+                )
+                latest_state_closure["post_cutoff_document_ids_rejected"] = (
+                    post_cutoff_document_ids
+                )
+                latest_state_closure["query_budget"] = {
+                    "maximum_queries": self._max_queries,
+                    "initial_queries_used": len(retrieval_queries),
+                    "closure_queries_used": 1,
+                }
+                latest_state_closure["retrieval_status"] = closure_retrieval.get("status")
+                latest_state_closure["retrieval_blockers"] = sorted(
+                    set(str(value) for value in closure_retrieval.get("blockers") or [])
+                )
+                initial_ids = {_document_id(document) for document in documents}
+                forward_times = [
+                    parsed
+                    for parsed in (
+                        _document_published_at(document)
+                        for document in documents
+                        if _document_id(document)
+                        in {str(row.get("document_id") or "") for row in forward_records}
+                    )
+                    if parsed is not None
+                ]
+                oldest = datetime.min.replace(tzinfo=timezone.utc)
+                newest_forward_time = max(forward_times, default=oldest)
+                state_candidates: list[tuple[datetime, dict[str, Any], str]] = []
+                for document in closure_documents:
+                    published = _document_published_at(document)
+                    if (
+                        not published
+                        or published <= newest_forward_time
+                        or _document_id(document) in initial_ids
+                    ):
+                        continue
+                    state = _source_bound_event_state(document, target_terms)
+                    if state:
+                        state_candidates.append((published, document, state))
+                state_priority = {
+                    "FUTURE_STATE_SUPPORTED": 0,
+                    "OCCURRED_OR_OUTCOME_REPORTED": 1,
+                    "CHANGED_OR_CANCELLED": 2,
+                }
+                state_candidates.sort(
+                    key=lambda row: (row[0], state_priority.get(row[2], -1)),
+                    reverse=True,
+                )
+                if state_candidates:
+                    _published, supporting_document, supported_state = state_candidates[0]
+                    superseded_ids = (
+                        sorted(
+                            {
+                                str(row.get("document_id") or "")
+                                for row in forward_records
+                                if str(row.get("document_id") or "")
+                            }.union(
+                                _document_id(document)
+                                for published, document, state in state_candidates
+                                if state == "FUTURE_STATE_SUPPORTED"
+                                and published <= _published
+                                and _document_id(document)
+                            )
+                        )
+                        if supported_state
+                        in {"OCCURRED_OR_OUTCOME_REPORTED", "CHANGED_OR_CANCELLED"}
+                        else []
+                    )
+                    documents = _normalize_documents(
+                        [
+                            *(
+                                document
+                                for document in documents
+                                if _document_id(document) not in set(superseded_ids)
+                            ),
+                            *(
+                                document
+                                for document in closure_documents
+                                if _document_id(document) not in set(superseded_ids)
+                            ),
+                        ]
+                    )
+                    latest_state_closure.update(
+                        {
+                            "status": "PASS",
+                            "latest_supported_state": supported_state,
+                            "supporting_document_ids": [
+                                _document_id(supporting_document)
+                            ],
+                            "supporting_published_at_utc": str(
+                                supporting_document.get("published_at_utc")
+                                or supporting_document.get("event_time_utc")
+                                or ""
+                            ),
+                            "superseded_document_ids": superseded_ids,
+                            "blocker": None,
+                        }
+                    )
+                else:
+                    latest_state_closure["blocker"] = "latest_event_state_unresolved"
+            plan = {
+                **plan,
+                "latest_state_closure_query": closure_query,
+                "query_budget": dict(latest_state_closure["query_budget"]),
+            }
+            if latest_state_closure.get("status") != "PASS":
+                return {
+                    "status": BLOCKED,
+                    "blockers": [str(latest_state_closure.get("blocker"))],
+                    "research_request": compact,
+                    "query_plan": plan,
+                    "latest_event_state_closure": latest_state_closure,
+                    "evidence_documents": documents,
+                    "research_calls": len(telemetry),
+                    "public_retrieval_requests": public_requests,
+                    "telemetry": telemetry,
+                    "retrieval_result": {
+                        "status": retrieved.get("status"),
+                        "accepted_document_count": len(documents),
+                        "blockers": sorted(set(retrieval_blockers)),
+                    },
+                    "global_infrastructure_exhausted": False,
+                    "publication_authority": False,
+                }
         if not documents:
             return {
                 "status": BLOCKED,
@@ -1079,6 +1489,7 @@ class GroundedNewsResearchV1:
                 ),
                 "research_request": compact,
                 "query_plan": plan,
+                "latest_event_state_closure": latest_state_closure,
                 "evidence_documents": [],
                 "research_calls": len(telemetry),
                 "public_retrieval_requests": public_requests,
@@ -1114,6 +1525,8 @@ class GroundedNewsResearchV1:
                 json.dumps(compact, sort_keys=True, ensure_ascii=True),
                 "QUERY_PLAN:",
                 json.dumps(plan, sort_keys=True, ensure_ascii=True),
+                "LATEST_EVENT_STATE_CLOSURE:",
+                json.dumps(latest_state_closure, sort_keys=True, ensure_ascii=True),
                 "SOURCE_RECORDS:",
                 json.dumps(source_input, sort_keys=True, ensure_ascii=True),
             ]
@@ -1126,7 +1539,9 @@ class GroundedNewsResearchV1:
                 prompt=synthesis_prompt,
                 logical_invocation_id=synthesis_invocation_id,
                 work_item_id=compact["story_identity"],
-                validator=lambda value: self._validate_synthesis(value, documents),
+                validator=lambda value: self._validate_synthesis(
+                    value, documents, latest_state_closure
+                ),
             )
             telemetry.append(synthesis_summary)
         except (GroundedNewsResearchError, RuntimeError, TypeError, ValueError) as exc:
@@ -1141,6 +1556,7 @@ class GroundedNewsResearchV1:
                 "blockers": [blocker],
                 "research_request": compact,
                 "query_plan": plan,
+                "latest_event_state_closure": latest_state_closure,
                 "evidence_documents": documents,
                 "research_calls": synthesis_call_count,
                 "public_retrieval_requests": public_requests,
@@ -1206,6 +1622,7 @@ class GroundedNewsResearchV1:
             "cc_context": cc_bundle,
             "risk_classification": compact["risk_classification"],
             "enhanced_review_required": enhanced,
+            "latest_event_state_closure": latest_state_closure,
             "research_status": PASS if sufficient else BLOCKED,
             "model_assertion_grants_factual_authority": False,
             "publication_authority": False,
@@ -1217,6 +1634,7 @@ class GroundedNewsResearchV1:
             "research_request": compact,
             "query_plan": plan,
             "research_packet": packet,
+            "latest_event_state_closure": latest_state_closure,
             "evidence_documents": documents,
             "minimum_trustworthy_evidence_packet": ordinary_packet,
             "claim_evidence_contract": claim_contract,

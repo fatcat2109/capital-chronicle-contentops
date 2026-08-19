@@ -1,0 +1,93 @@
+{
+  "article_body_sha256": "2debcc04f628a2afbdc9f0ca1b013be93266eecec8b668b27c60230158007047",
+  "artifacts": {
+    "article_manifest_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\article_manifest_v1.json",
+      "sha256": "de40f208528737530f5085bc8f75439b451dfa1e937bf273ab90fa2bbc8390c8"
+    },
+    "delivery_only_media_delivery_only_editorial_card": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-gemini-only-grounded-research-ladder-canary-retry-v1\\docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\delivery_only_editorial_card.png",
+      "sha256": "b2cb798b31b6876e713b0ea825c5128521ff8fc49937d68aea69355681061768"
+    },
+    "editorial_quality_gate_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\editorial_quality_gate_v1.json",
+      "sha256": "364744ef87b1625ea8dd6da2dd132189e7d0c10cd23bc0e9a9aaba686195f46c"
+    },
+    "editorial_seo_package_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\editorial_seo_package_v1.json",
+      "sha256": "c9b64b7237605d7ce20080d469dcadb4aaa4292b5077a1066ee7d6946fe830a8"
+    },
+    "grounded_support_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\grounded_support_v1.json",
+      "sha256": "6b893131149b7e9b5468812710dc1c6192a213ca0ad7408e67d435db26f165d3"
+    },
+    "headline_intake_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\headline_intake_v1.json",
+      "sha256": "bdb028f000b528d1f0cfd64c6812ae8e725274d1d1ab46ae0f5be457960e34ae"
+    },
+    "idea_selection_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\idea_selection_v1.json",
+      "sha256": "702947bc57a8afd73ee325dd7e18ac7bfc3c2d6e207e475c2240886488fe48a4"
+    },
+    "llm_idea_ranking_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\llm_idea_ranking_v1.json",
+      "sha256": "7e10952dc53659786febf4a1622576a14dcfa2026b16d73d7beae010c1a61cf4"
+    },
+    "media_manifest_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\media_manifest_v1.json",
+      "sha256": "8f9b714536ed32af60ea01ee3edc5bb9d2bf380b298adbf65dd2117073bcf1a9"
+    },
+    "native_payloads_rehearsal_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\native_payloads_rehearsal_v1.json",
+      "sha256": "0cc137fb68de0957b889c18fcdbefeaedc553e1f327cef26071bd60787608e71"
+    },
+    "run_context_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\run_context_v1.json",
+      "sha256": "0d6c5b3a90eca9ed458978ce8095790098b1289b0833ad2e33cf509e6b8cca7e"
+    },
+    "substack_browser_request_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\TASK_CONTENTOPS_V1_GEMINI_ONLY_GROUNDED_RESEARCH_LADDER_OWNER_ALIGNMENT_AND_ZERO_WRITE_CANARY_RETRY_V1\\canary\\zero_write_package\\substack_browser_request_v1.json",
+      "sha256": "a79715d81805a9664636a850a29d5e42bdf01a990121771c250b8c4eb5ca5e32"
+    }
+  },
+  "delivery_only_media_sha256": {
+    "delivery_only_editorial_card": "b2cb798b31b6876e713b0ea825c5128521ff8fc49937d68aea69355681061768"
+  },
+  "duplicate_hotspot_decision": {
+    "decision": "PASS_FIRST_VIABLE_RANKED_CLUSTER",
+    "publish_allowed": true
+  },
+  "editorial_seo_package_sha256": "58b7b442c532b3311397bcad1a3a1978b3d824a9822931e9ac7a5eef248bff52",
+  "lock_sha256": "2cdfa5ac97f07116c552fe2f08bfd08e8696d7240be4121ade45280ee048fbf1",
+  "media_sha256": {},
+  "payload_sha256": {
+    "discord": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+    "facebook_page": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+    "instagram_business": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+    "linkedin": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+    "telegram": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+    "threads": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+    "x": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032",
+    "youtube": "74d830c2a3e12e55cbc5619b3b426c6c4511034259ad0ebd36a2c317aa4ab032"
+  },
+  "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
+  "public_write_performed": false,
+  "rolling_x_live_path_used": true,
+  "run_id": "v1-gemini-only-grounded-research-zero-write-canary",
+  "schema_version": "contentops.text_image_release_candidate_lock.v1",
+  "source_packet_sha256": "368c5bda644d936485f64bc635fe4277b7d6abd1d5baf62ac7e1a04907091fec",
+  "task_label": "TASK_CONTENTOPS_ROLLING_24H_X_HEADLINES_TO_AUTONOMOUS_NEWSROOM_LIVE_V1",
+  "x_content_is_discovery_and_ranking_only": true
+}

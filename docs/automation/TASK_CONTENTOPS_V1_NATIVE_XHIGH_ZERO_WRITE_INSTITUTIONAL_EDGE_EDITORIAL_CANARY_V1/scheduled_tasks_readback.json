@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.v1_native_task_readback.v1",
+  "inventory_count": 4,
+  "codex_automation_cards_viewed": true,
+  "task_records_read_directly": true,
+  "mutations_performed": 0,
+  "tasks": [
+    {"id": "v1-newsroom-london-1700", "name": "V1 Newsroom — London 1700", "status": "PAUSED", "toml_sha256": "d1bbda33290a007eb6e58b4af7b1953266dc16de9dde6e1191db14d7d8a9af66"},
+    {"id": "v1-newsroom-new-york-2100", "name": "V1 Newsroom — New York 2100", "status": "PAUSED", "toml_sha256": "c2274a05d03c6b8f175a2f651ab2740dc1818a332c16ab0ae2069f5afe63e940"},
+    {"id": "v1-newsroom-new-york-2300", "name": "V1 Newsroom — New York 2300", "status": "PAUSED", "toml_sha256": "056d4577bdf4e0fd513e459d5d19ac0a211f0dd633fc68e1ae2c97b26bed4cd2"},
+    {"id": "v1-newsroom-new-york-0100", "name": "V1 Newsroom — New York 0100", "status": "PAUSED", "toml_sha256": "c884de2ebcc05a75e9a703417e06c23e3c5daae27a5b5dbdbdee04479dad5d5a"}
+  ]
+}

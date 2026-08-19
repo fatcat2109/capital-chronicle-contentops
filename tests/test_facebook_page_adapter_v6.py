@@ -3,9 +3,20 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock
 import urllib.error
+import urllib.parse
 import urllib.request
 
+import pytest
+
 from live_contentops import facebook_page_adapter_v6 as adapter
+from live_contentops import live_telemetry_v6
+
+
+@pytest.fixture(autouse=True)
+def _disable_persistent_live_telemetry(monkeypatch):
+    monkeypatch.setattr(
+        live_telemetry_v6, "classify_and_record_dispatch", lambda *_args, **_kwargs: None
+    )
 
 
 def test_compile_payload():
@@ -109,3 +120,45 @@ def test_execute_edit_dry_run_and_validation():
     missing = adapter.execute_facebook_edit("12345_67890", "fake_token")
     assert missing["status"] == "VALIDATION_FAILED"
     assert "message_or_link" in missing["missing"]
+
+
+def test_readback_accepts_canonical_link_from_facebook_attachment_redirect(monkeypatch):
+    canonical = "https://capitalchronicle.substack.com/p/exact-story"
+    wrapped = (
+        "https://l.facebook.com/l.php?u="
+        + urllib.parse.quote(canonical + "?utm_source=facebook", safe="")
+        + "&h=opaque"
+    )
+    monkeypatch.setattr(
+        adapter,
+        "_get_json",
+        lambda *_args, **_kwargs: {
+            "id": "page_123",
+            "message": "Exact story title\nBody without a raw URL",
+            "permalink_url": "https://www.facebook.com/page/posts/123",
+            "from": {"id": "page", "name": "Capital Chronicle"},
+            "attachments": {"data": [{"target": {"url": wrapped}}]},
+        },
+    )
+
+    result = adapter.readback_facebook_post(
+        post_id="page_123",
+        expected_text="Exact story title\nBody without a raw URL",
+        canonical_url=canonical,
+        page_id="page",
+        access_token="token",
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert result["substack_url_visible"] is True
+
+
+def test_attachment_link_must_match_exact_canonical_host_and_path():
+    expected = "https://capitalchronicle.substack.com/p/exact-story"
+
+    assert adapter._canonical_link_matches(
+        expected, expected + "?utm_source=facebook"
+    )
+    assert not adapter._canonical_link_matches(
+        expected, "https://capitalchronicle.substack.com.evil.example/p/exact-story"
+    )

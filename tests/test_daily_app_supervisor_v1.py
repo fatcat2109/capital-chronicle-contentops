@@ -194,6 +194,60 @@ def test_next_wake_is_deterministic_for_fixed_clock_and_policy():
     assert wake1 == wake2 == datetime(2026, 8, 10, 10, tzinfo=timezone.utc)
 
 
+def test_continuous_checkpoint_carries_unresolved_identity_when_current_input_is_empty(
+    tmp_path, monkeypatch,
+):
+    from live_contentops import newsroom_assignment_scheduler_v1 as scheduler
+
+    prepared_at = datetime(2026, 8, 17, 14, tzinfo=timezone.utc)
+    supervisor, _ = _supervisor(tmp_path, clock=_fixed_clock(prepared_at))
+    row = {
+        "headline_id": "continuity-carry",
+        "source_timestamp_utc": "2026-08-17T12:00:00Z",
+    }
+    rolling_input = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "cutoff_time_utc": "2026-08-17T14:00:00Z",
+        "window_start_utc": "2026-08-16T14:00:00Z",
+        "window_hours": 24.0,
+        "unique_headline_ids": ["continuity-carry"],
+        "headlines": [row],
+        "counts": {"accepted": 1, "duplicates": 0},
+        "canonical_input_hash": "controlled",
+        "complete_input_coverage": True,
+    }
+    prior = scheduler.build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc=prepared_at,
+    )
+    checkpoint = supervisor._prepared_candidate_checkpoint_path
+    checkpoint.parent.mkdir(parents=True, exist_ok=True)
+    checkpoint.write_text(json.dumps(prior), encoding="utf-8")
+    empty_input = {
+        **rolling_input,
+        "cutoff_time_utc": "2026-08-18T13:00:00Z",
+        "unique_headline_ids": [],
+        "headlines": [],
+        "counts": {"accepted": 0, "duplicates": 0},
+    }
+    monkeypatch.setattr(
+        scheduler, "load_rolling_x_headline_sidecars", lambda **_kwargs: empty_input
+    )
+
+    result = supervisor._refresh_prepared_candidate_checkpoint(
+        datetime(2026, 8, 18, 13, tzinfo=timezone.utc)
+    )
+    carried = json.loads(checkpoint.read_text(encoding="utf-8"))
+
+    assert result["status"] == "READY"
+    assert result["checkpoint_updated"] is True
+    assert carried["prepared_candidate_count"] == 0
+    retained = carried["prepared_frontier"]["retained_audit_dispositions"]
+    assert retained[0]["headline_id"] == "continuity-carry"
+    assert retained[0]["disposition"] == "NOT_PROMOTED_BEFORE_EXPIRY"
+    assert retained[0]["evidence_walk_evaluated"] is False
+
+
 def _tempdir():
     import tempfile
     return tempfile.mkdtemp(prefix="cc_daily_app_test_")

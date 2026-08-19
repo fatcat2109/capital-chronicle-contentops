@@ -33,11 +33,17 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     reconcile_substack_publication_by_draft_id_via_edge,
     readback_linkedin_activity_via_edge,
     readback_youtube_community_post_via_edge,
+    reconcile_x_thread_by_text_via_edge,
     reconcile_youtube_community_post_by_text_via_edge,
     readback_x_thread_via_edge,
     reconcile_existing_linkedin_post_via_edge,
     repair_substack_duplicate_caption_fragment_via_edge,
     repair_substack_editorial_paragraphs_via_edge,
+)
+from live_contentops.cloudinary_delivery_media_v1 import (
+    NOT_REQUIRED as CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED,
+    READY as CLOUDINARY_DELIVERY_MEDIA_READY,
+    prepare_cloudinary_delivery_media,
 )
 from live_contentops.publishing_profile_registry_v1 import browser_doctor
 from live_contentops.media_manifest_authority_v1 import (
@@ -416,41 +422,62 @@ def build_native_derivative_payloads(
     title = str(article["title"])
     dek = str(article.get("subtitle") or selection.get("dek") or "")
     minimum_packet = article.get("minimum_trustworthy_evidence_packet") or {}
-    if (
+    ordinary_brief = (
         isinstance(minimum_packet, Mapping)
         and minimum_packet.get("status") == "PASS"
         and minimum_packet.get("risk_tier") == "ORDINARY"
-    ):
-        text = "\n\n".join(value for value in (title, dek, canonical_url) if value)
+    )
+    article_mode = str(
+        article.get("effective_article_mode")
+        or article.get("article_mode")
+        or article.get("editorial_mode")
+        or ""
+    ).upper()
+    if ordinary_brief or article_mode == "BREAKING_BRIEF":
+        brief_dek = str(article.get("social_hook") or article.get("social_lede") or dek)
+        text = "\n\n".join(value for value in (title, brief_dek, canonical_url) if value)
         media_ids = [str(value) for value in media_asset_ids if str(value)]
-        thread_payload = {
-            "text": text,
-            "root_text": text,
-            "reply_texts": [],
-            "full_text": text,
-            "platform_limit": 280,
-            "overflow_strategy": "single_root",
-            "hard_truncation_used": False,
-            "posts": [{"text": text, "media_asset_ids": media_ids[:1]}],
-            "quality_metrics": {
-                "reply_count": 0,
-                "sentence_boundary_pass": True,
-                "orphan_fragment_count": 0,
-                "visual_distribution_pass": bool(media_ids),
-                "complete_article_visual_count": len(media_ids),
-            },
-        }
+
+        def brief_layout(limit: int) -> dict[str, Any]:
+            layout = _root_and_replies(
+                title=title,
+                dek=brief_dek,
+                canonical_url=canonical_url,
+                continuation_parts=(),
+                limit=limit,
+            )
+            posts = [
+                {
+                    "order": index,
+                    "role": "root" if index == 0 else "reply",
+                    "text": value,
+                    "media_asset_ids": media_ids[:1] if index == 0 else [],
+                }
+                for index, value in enumerate(
+                    [layout["root_text"], *layout["reply_texts"]]
+                )
+            ]
+            return {
+                **layout,
+                "text": layout["root_text"],
+                "posts": posts,
+                "quality_metrics": _thread_quality(
+                    posts,
+                    limit=limit,
+                    expected_media_ids=media_ids[:1],
+                ),
+            }
+
+        x_brief = brief_layout(280)
+        threads_brief = brief_layout(500)
         return {
             "telegram": {"format": "channel_brief", "text": text, "media_asset_ids": media_ids[:1]},
-            "x": {"format": "single_root_brief", **thread_payload},
+            "x": {"format": "text_brief", **x_brief},
             "linkedin": {"format": "professional_brief", "text": text},
             "discord": {"format": "newsroom_brief", "text": text},
             "facebook_page": {"format": "page_brief", "text": text},
             "instagram_business": {"format": "brief_caption", "text": text},
-            "threads": {
-                "format": "single_root_brief",
-                **{**thread_payload, "platform_limit": 500},
-            },
+            "threads": {"format": "text_brief", **threads_brief},
             "youtube": {
                 "format": "community_brief",
                 "text": text,
@@ -1193,6 +1220,7 @@ _RELEASE_PREPARATION_ARTIFACTS = (
     "idea_selection_v1.json",
     "media_manifest_v1.json",
     "article_manifest_v1.json",
+    "editorial_seo_package_v1.json",
     "editorial_quality_gate_v1.json",
     "run_context_v1.json",
     "substack_browser_request_v1.json",
@@ -2767,6 +2795,10 @@ def _validate_rolling_x_release_inputs(
     reader_value = evaluate_reader_value(article, media_assets=media_assets)
     if reader_value.get("classification") != "PASS":
         blockers.append("INSUFFICIENT_READER_VALUE")
+    if str(article.get("institutional_edge_editorial_packet_sha256") or ""):
+        validation = article.get("institutional_edge_editorial_validation")
+        if not isinstance(validation, Mapping) or validation.get("classification") != "PASS":
+            blockers.append("institutional_edge_editorial_validation_missing_or_blocked")
     evidence_ids = {
         str(row.get("evidence_id") or row.get("document_id") or row.get("source_id") or "")
         for row in ((viability.get("selected_evidence") or {}).get("evidence_documents") or [])
@@ -2813,6 +2845,11 @@ def _prepare_rolling_x_release_candidate(
     from live_contentops.article_rich_text_v1 import markdown_to_rich_text
 
     final_article = dict(article)
+    from live_contentops.capital_chronicle_institutional_edge_v1 import (
+        build_editorial_seo_package,
+    )
+
+    editorial_seo_package = build_editorial_seo_package(final_article)
     media_packet = dict(media)
     media_assets = [dict(row) for row in media_packet.get("assets") or [] if isinstance(row, Mapping)]
     blockers = _validate_rolling_x_release_inputs(
@@ -2916,6 +2953,7 @@ def _prepare_rolling_x_release_candidate(
         ("idea_selection_v1.json", selection),
         ("media_manifest_v1.json", media_packet),
         ("article_manifest_v1.json", final_article),
+        ("editorial_seo_package_v1.json", editorial_seo_package),
         ("editorial_quality_gate_v1.json", editorial_gate),
     ):
         _write_json(output_dir / name, value)
@@ -2951,6 +2989,7 @@ def _prepare_rolling_x_release_candidate(
         "support": support,
         "media": media_packet,
         "article": final_article,
+        "editorial_seo_package": editorial_seo_package,
         "editorial_gate": editorial_gate,
         "substack_browser_request_path": str(output_dir / "substack_browser_request_v1.json"),
         "substack_browser_request_sha256": _json_sha256(browser_request),
@@ -3026,6 +3065,9 @@ def _prepare_rolling_x_release_candidate(
         "run_id": run_id,
         "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
         "article_body_sha256": final_article.get("substack_body_markdown_sha256"),
+        "editorial_seo_package_sha256": editorial_seo_package.get(
+            "editorial_seo_package_sha256"
+        ),
         "source_packet_sha256": support.get("targeted_evidence_sha256"),
         "media_sha256": {
             str(row.get("asset_id")): row.get("sha256") or (_sha256_file(row.get("path")) if Path(str(row.get("path") or "")).is_file() else None)
@@ -3111,9 +3153,27 @@ def _publication_learning_features(
         "secondary_search_intents": [str(value) for value in (article.get("secondary_search_intents") or [])][:5],
         "keyword_cluster": keyword_values[:8],
         "reader_headline": title,
+        "canonical_editorial_headline": str(
+            article.get("canonical_editorial_headline") or title
+        ),
         "seo_title": str(article.get("seo_title") or ""),
+        "search_title": str(article.get("search_title") or article.get("seo_title") or ""),
+        "social_hook": str(article.get("social_hook") or article.get("social_lede") or ""),
         "slug": str(article.get("slug") or ""),
+        "canonical_slug_candidate": str(
+            article.get("canonical_slug_candidate") or article.get("slug") or ""
+        ),
         "meta_description": str(article.get("meta_description") or ""),
+        "primary_reader_question": str(article.get("primary_reader_question") or ""),
+        "secondary_reader_questions": list(article.get("secondary_reader_questions") or []),
+        "entities": list(article.get("entities") or []),
+        "topics": list(article.get("topics") or []),
+        "search_freshness_class": str(article.get("search_freshness_class") or ""),
+        "internal_link_candidates": list(article.get("internal_link_candidates") or []),
+        "structured_data_packet": dict(article.get("structured_data_packet") or {}),
+        "institutional_edge_editorial_packet_sha256": str(
+            article.get("institutional_edge_editorial_packet_sha256") or ""
+        ),
         "section_structure": headings[:12],
         "headline_frame": "QUESTION" if title.endswith("?") else "DIRECT_NEWS_OR_ANALYSIS",
         "evergreen_balance": str(article.get("evergreen_balance") or "NEWS_CURRENT"),
@@ -3162,6 +3222,7 @@ def _build_rolling_x_publication_plan(
     lock = dict(preparation.get("release_candidate_lock") or {})
     context = dict(preparation.get("context") or {})
     article = dict(context.get("article") or {})
+    editorial_seo_package = dict(context.get("editorial_seo_package") or {})
     article_media_available = bool((context.get("media") or {}).get("assets"))
     delivery_only_media_available = bool(
         (context.get("media") or {}).get("delivery_only_assets")
@@ -3225,6 +3286,9 @@ def _build_rolling_x_publication_plan(
             "package_features": dict(
                 learning_features["packages"].get(destination) or {}
             ),
+            "editorial_seo_package_sha256": editorial_seo_package.get(
+                "editorial_seo_package_sha256"
+            ),
         })
     plan_core = {
         "schema_version": "contentops.publication_plan.v1",
@@ -3243,6 +3307,7 @@ def _build_rolling_x_publication_plan(
         "output_dir": str(output_dir.resolve()),
         "artifact_refs": dict(lock.get("artifacts") or {}),
         "editorial_features": learning_features["editorial"],
+        "editorial_seo_package": editorial_seo_package,
         "learning_policy_version": learning_policy_version,
         "quality_probation_policy_id": V1_QUALITY_PROBATION_POLICY_ID,
         "full_v1_distribution_required": True,
@@ -3265,6 +3330,59 @@ def _build_rolling_x_publication_plan(
         "secrets_persisted": False,
     }
     return {**plan_core, "plan_hash": _json_sha256(plan_core)}
+
+
+def _prepare_cloudinary_delivery_media_for_plan(
+    *,
+    work_item_id: str,
+    plan: Mapping[str, Any],
+    preconditions: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Prepare derivative-only media after all-nine gates and before Substack."""
+    if (
+        str(preconditions.get("full_v1_distribution_status") or "")
+        != "FULL_V1_DISTRIBUTION_READY"
+        or int(preconditions.get("unknown_write_count") or 0) != 0
+    ):
+        return {
+            "status": "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_PRECONDITIONS",
+            "provider_calls": 0,
+            "public_write_performed": False,
+        }
+    output_dir = Path(str(plan.get("output_dir") or ""))
+    if not output_dir.is_dir():
+        return {
+            "status": "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_OUTPUT_DIR_UNAVAILABLE",
+            "provider_calls": 0,
+            "public_write_performed": False,
+        }
+    context = _read_json(output_dir / "run_context_v1.json")
+    media = dict(context.get("media") or {})
+    delivery_only_assets = [
+        dict(row)
+        for row in (media.get("delivery_only_assets") or [])
+        if isinstance(row, Mapping)
+    ]
+    manifest_path = output_dir / "delivery_media_manifest_v1.json"
+    existing_manifest = _read_json(manifest_path) if manifest_path.is_file() else {}
+    prepared = prepare_cloudinary_delivery_media(
+        work_item_id=work_item_id,
+        delivery_only_assets=delivery_only_assets,
+        existing_manifest=existing_manifest,
+    )
+    if str(prepared.get("status") or "") == CLOUDINARY_DELIVERY_MEDIA_READY:
+        _write_json(manifest_path, dict(prepared["manifest"]))
+    return {
+        key: value
+        for key, value in prepared.items()
+        if key != "manifest"
+    } | {
+        "public_write_performed": False,
+        "canonical_publication_attempted": False,
+        "delivery_manifest_path": str(manifest_path)
+        if str(prepared.get("status") or "") == CLOUDINARY_DELIVERY_MEDIA_READY
+        else None,
+    }
 
 
 def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
@@ -3296,7 +3414,17 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     delivery_path = output_dir / "delivery_media_manifest_v1.json"
     delivery = _read_json(delivery_path) if delivery_path.is_file() else {}
     delivery_assets = [dict(row) for row in (delivery.get("assets") or []) if isinstance(row, Mapping)]
-    primary = next((row for row in delivery_assets if row.get("verified_public_delivery_url")), {})
+    primary = next(
+        (
+            row
+            for row in delivery_assets
+            if str(row.get("verified_public_delivery_url") or "").startswith("https://")
+            and row.get("local_public_hash_continuity") is True
+            and str(row.get("sha256") or "")
+            == str(row.get("public_delivery_sha256") or "")
+        ),
+        {},
+    )
     return {
         "output_dir": output_dir,
         "article": article,
@@ -3397,7 +3525,6 @@ def _publish_one_destination_from_durable_intent(
             subtitle=str(article.get("subtitle") or ""),
             body_markdown=str(article.get("substack_body_markdown") or ""),
             image_assets=data["media_assets"],
-            delivery_only_assets=data.get("delivery_only_assets") or [],
             public_screenshot_path=output_dir / "public_substack_readback.png",
             existing_draft_id=(
                 str(intent.get("recovery_public_object_id") or "") or None
@@ -3406,14 +3533,47 @@ def _publish_one_destination_from_durable_intent(
         _persist_sanitized_substack_transport_attempt(output_dir=output_dir, result=result)
         readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}
         public_images = list(readback.get("public_image_urls") or result.get("public_image_urls") or [])
-        delivery_only_public_images = list(result.get("delivery_only_public_image_urls") or [])
-        delivery_sources = [*data["media_assets"], *(data.get("delivery_only_assets") or [])]
-        if str(result.get("status") or "") in SUCCESS_STATUSES and (public_images or delivery_only_public_images):
-            delivery = build_delivery_media_manifest(
-                media_packet={"assets": delivery_sources},
-                public_image_urls=[*public_images, *delivery_only_public_images],
+        if (
+            str(result.get("status") or "") in SUCCESS_STATUSES
+            and data["media_assets"]
+            and public_images
+        ):
+            article_delivery = build_delivery_media_manifest(
+                media_packet={"assets": data["media_assets"]},
+                public_image_urls=public_images,
                 run_id=str(intent.get("work_item_id") or ""),
             )
+            existing_delivery_path = output_dir / "delivery_media_manifest_v1.json"
+            existing_delivery = (
+                _read_json(existing_delivery_path)
+                if existing_delivery_path.is_file()
+                else {}
+            )
+            delivery_only_rows = [
+                dict(row)
+                for row in (existing_delivery.get("assets") or [])
+                if isinstance(row, Mapping)
+                and str(row.get("media_role") or "") == "delivery_only"
+            ]
+            combined_assets = [
+                *[dict(row) for row in (article_delivery.get("assets") or [])],
+                *delivery_only_rows,
+            ]
+            delivery = {
+                **dict(article_delivery),
+                "assets": combined_assets,
+                "provider_contract_version": existing_delivery.get(
+                    "provider_contract_version"
+                ),
+                "delivery_only_asset_count": len(delivery_only_rows),
+                "article_media_asset_count": len(article_delivery.get("assets") or []),
+                "status": (
+                    "PASS"
+                    if article_delivery.get("status") == "PASS"
+                    and all(row.get("local_public_hash_continuity") is True for row in delivery_only_rows)
+                    else "BLOCKED"
+                ),
+            }
             _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
         return result
     if not canonical_url:
@@ -3421,6 +3581,82 @@ def _publish_one_destination_from_durable_intent(
                 "reason_code": "CANONICAL_SUBSTACK_URL_UNAVAILABLE"}
     text = str((payloads.get(destination) or {}).get("text") or "")
     if destination == "x":
+        recovery_root_url = str(intent.get("recovery_public_object_url") or "")
+        expected_reply_texts = [
+            str(value) for value in ((payloads.get("x") or {}).get("reply_texts") or [])
+        ]
+        if recovery_root_url:
+            observed = reconcile_x_thread_by_text_via_edge(
+                cdp_port=cdp_port,
+                expected_text=text,
+                canonical_url=canonical_url,
+                expected_reply_texts=expected_reply_texts,
+                root_url=recovery_root_url,
+                public_screenshot_path=output_dir / "public_x_thread_readback.png",
+            )
+            if str(observed.get("status") or "") == "SUCCESS":
+                return {
+                    **observed,
+                    "provider_readback_verified": True,
+                    "reply_chain": list(observed.get("reply_chain") or []),
+                }
+            if observed.get("write_exists") is not True:
+                return {
+                    **observed,
+                    "status": "FAILED_X_ROOT_RECOVERY_READBACK",
+                }
+            existing_replies = list(observed.get("reply_chain") or [])
+            missing_indexes = list(observed.get("missing_reply_indexes") or [])
+            expected_missing = list(range(len(existing_replies) + 1, len(expected_reply_texts) + 1))
+            if missing_indexes != expected_missing:
+                return {
+                    **observed,
+                    "status": "FAILED_X_REPLY_RECOVERY_AMBIGUOUS_GAP",
+                }
+            replies = list(existing_replies)
+            parent_url = str(replies[-1].get("public_url") or recovery_root_url) if replies else recovery_root_url
+            for index in missing_indexes:
+                reply_text = expected_reply_texts[index - 1]
+                reply = publish_x_reply_via_edge(
+                    cdp_port=cdp_port,
+                    parent_url=parent_url,
+                    text=reply_text,
+                    image_path=None,
+                )
+                replies.append(
+                    {
+                        **reply,
+                        "order": index,
+                        "text": reply_text,
+                        "expected_media_local_path": None,
+                    }
+                )
+                if str(reply.get("status") or "") not in SUCCESS_STATUSES:
+                    return {
+                        **observed,
+                        "status": str(reply.get("status") or "FAILED_X_REPLY_RECOVERY"),
+                        "reply_chain": replies,
+                    }
+                parent_url = str(reply.get("public_url") or "")
+            strict = readback_x_thread_via_edge(
+                cdp_port=cdp_port,
+                root_url=recovery_root_url,
+                canonical_url=canonical_url,
+                expected_chart_path=image_path,
+                replies=replies,
+                public_screenshot_path=output_dir / "public_x_thread_readback.png",
+            )
+            verified = str(strict.get("status") or "") == "SUCCESS"
+            return {
+                "status": "SUCCESS" if verified else "FAILED_X_STRICT_READBACK",
+                "platform": "x",
+                "post_id": str(observed.get("post_id") or ""),
+                "public_url": recovery_root_url,
+                "destination_identity": observed.get("destination_identity"),
+                "reply_chain": replies,
+                "readback": strict,
+                "provider_readback_verified": verified,
+            }
         root = publish_x_post_via_edge(cdp_port=cdp_port, text=text, image_path=image_path or None)
         root_url = str(root.get("public_url") or root.get("url") or "")
         replies = []
@@ -3480,6 +3716,12 @@ def _publish_one_destination_from_durable_intent(
             text=text, canonical_url=canonical_url, media=data["primary_media"],
         )
     if destination == "instagram_business":
+        if not data["primary_media"] or not public_image_url:
+            return {
+                "status": "DEFINITE_NO_WRITE",
+                "definite_no_write": True,
+                "reason_code": "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE",
+            }
         return _publish_instagram_media_verified(
             caption=text, canonical_url=canonical_url, media=data["primary_media"],
         )
@@ -3550,10 +3792,15 @@ def _readback_one_destination_from_durable_intent(
             expected_image_assets=data["media_assets"],
             public_screenshot_path=output_dir / "public_substack_readback.png",
         )
-    elif destination == "x" and public_object_url:
-        result = readback_x_thread_via_edge(
-            cdp_port=cdp_port, root_url=public_object_url, canonical_url=canonical_url,
-            expected_chart_path=image_path, replies=[],
+    elif destination == "x":
+        result = reconcile_x_thread_by_text_via_edge(
+            cdp_port=cdp_port,
+            expected_text=text,
+            canonical_url=canonical_url,
+            expected_reply_texts=[
+                str(value) for value in ((payloads.get("x") or {}).get("reply_texts") or [])
+            ],
+            root_url=public_object_url,
             public_screenshot_path=output_dir / "public_x_thread_readback.png",
         )
     elif destination == "linkedin":
@@ -3585,7 +3832,14 @@ def _readback_one_destination_from_durable_intent(
         from live_contentops.instagram_adapter_v6 import readback_instagram_media
         result = readback_instagram_media(
             media_id=public_object_id, expected_caption=text, canonical_url=canonical_url,
-            expected_media_local_path=image_path,
+            expected_media_local_path=data["delivery_local_media"],
+        )
+    elif destination == "instagram_business" and data["primary_media"]:
+        from live_contentops.instagram_adapter_v6 import find_recent_instagram_media
+        result = find_recent_instagram_media(
+            expected_caption=text,
+            canonical_url=canonical_url,
+            expected_media_local_path=data["delivery_local_media"],
         )
     elif destination == "discord" and public_object_id:
         from live_contentops.discord_live_adapter_v6 import readback_discord_post
@@ -3622,13 +3876,42 @@ def _readback_one_destination_from_durable_intent(
     )}
     if destination == "substack" and success:
         public_images = list((result.get("readback") or {}).get("public_image_urls") or [])
-        if public_images:
-            delivery = build_delivery_media_manifest(
+        if public_images and data["media_assets"]:
+            article_delivery = build_delivery_media_manifest(
                 media_packet={"assets": data["media_assets"]},
                 public_image_urls=public_images,
                 run_id=str(intent.get("work_item_id") or ""),
             )
-            _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
+            delivery_path = output_dir / "delivery_media_manifest_v1.json"
+            existing_delivery = _read_json(delivery_path) if delivery_path.is_file() else {}
+            delivery_only_rows = [
+                dict(row)
+                for row in (existing_delivery.get("assets") or [])
+                if isinstance(row, Mapping)
+                and str(row.get("media_role") or "") == "delivery_only"
+            ]
+            delivery = {
+                **dict(article_delivery),
+                "assets": [
+                    *[dict(row) for row in (article_delivery.get("assets") or [])],
+                    *delivery_only_rows,
+                ],
+                "provider_contract_version": existing_delivery.get(
+                    "provider_contract_version"
+                ),
+                "delivery_only_asset_count": len(delivery_only_rows),
+                "article_media_asset_count": len(article_delivery.get("assets") or []),
+                "status": (
+                    "PASS"
+                    if article_delivery.get("status") == "PASS"
+                    and all(
+                        row.get("local_public_hash_continuity") is True
+                        for row in delivery_only_rows
+                    )
+                    else "BLOCKED"
+                ),
+            }
+            _write_json(delivery_path, delivery)
     return normalized
 
 
@@ -3850,13 +4133,16 @@ def _rolling_x_ranked_clusters_with_context(
 def _validate_injected_rolling_x_story_types(
     mapping: Mapping[str, str], *, clusters: Sequence[Mapping[str, Any]]
 ) -> dict[str, Any]:
-    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
+    )
 
     cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
     configured = {str(key): str(value) for key, value in mapping.items()}
     if set(configured) != set(cluster_ids) or len(cluster_ids) != len(set(cluster_ids)):
         raise ValueError("rolling_x_story_type_mapping_coverage_invalid")
-    allowed = set((load_source_capability_registry().get("story_types") or {}))
+    registry = effective_rolling_x_capability_registry()
+    allowed = set(registry.get("story_types") or {})
     if any(value not in allowed for value in configured.values()):
         raise ValueError("rolling_x_story_type_unknown")
     return {
@@ -3878,10 +4164,13 @@ def _validate_injected_rolling_x_story_types(
 def _validated_rolling_x_story_routing(
     result: Mapping[str, Any], *, clusters: Sequence[Mapping[str, Any]]
 ) -> dict[str, Any]:
-    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
+    )
 
     cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
-    allowed = set((load_source_capability_registry().get("story_types") or {}))
+    registry = effective_rolling_x_capability_registry()
+    allowed = set(registry.get("story_types") or {})
     rows = result.get("stories")
     mapping = result.get("story_type_by_cluster")
     if (
@@ -4739,6 +5028,29 @@ def _run_rolling_x_newsroom_cycle(
             str(value) for value in viability.get("selected_headline_ids") or []
             if str(value)
         ]
+    selected_attempt = next(
+        (
+            row for row in viability.get("rank_attempts") or []
+            if isinstance(row, Mapping) and row.get("rank") == viability.get("selected_rank")
+        ),
+        {},
+    )
+    selected_request = (
+        dict(selected_attempt.get("request") or {})
+        if isinstance(selected_attempt, Mapping)
+        else {}
+    )
+    editorial_article_mode = str(
+        selected_request.get("effective_article_mode")
+        or selected_request.get("resolved_article_mode")
+        or selected_request.get("article_mode")
+        or selected_attempt.get("effective_article_mode")
+        or selected_attempt.get("resolved_article_mode")
+        or (viability.get("selected_cluster") or {}).get("resolved_article_mode")
+        or (viability.get("selected_cluster") or {}).get("article_mode")
+        or (viability.get("selected_cluster") or {}).get("story_mode")
+        or "STANDARD_ANALYSIS"
+    )
     editorial_route = build_editorial_worker_routing_packet(
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
@@ -4751,6 +5063,7 @@ def _run_rolling_x_newsroom_cycle(
         },
         readiness_checked_before_editorial=publication_enabled,
         readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
+        article_mode=editorial_article_mode,
     )
     evidence["editorial_worker_routing"] = editorial_route
 
@@ -4871,6 +5184,15 @@ def _run_rolling_x_newsroom_cycle(
                     worker_validation = validate_editorial_worker_return(
                         worker_return=receipt,
                         expected_governed_input_hash=expected_hash,
+                        expected_editorial_packet=dict(
+                            (
+                                editorial_route.get("worker_request") or {}
+                            ).get("bounded_governed_context", {}).get(
+                                "institutional_edge_editorial_packet"
+                            )
+                            or {}
+                        ),
+                        accepted_evidence_packet=selected_evidence,
                     )
                 except (TypeError, ValueError):
                     raise GroundedArticleBuilderError(
@@ -4882,7 +5204,15 @@ def _run_rolling_x_newsroom_cycle(
                     raise GroundedArticleBuilderError(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
                     )
-                built = {**dict(built), "editorial_worker_validation": worker_validation}
+                built_article = dict((built or {}).get("article") or {})
+                built_article["institutional_edge_editorial_validation"] = dict(
+                    worker_validation.get("institutional_edge_editorial_validation") or {}
+                )
+                built = {
+                    **dict(built),
+                    "article": built_article,
+                    "editorial_worker_validation": worker_validation,
+                }
             if isinstance(built, Mapping):
                 _write_json(candidate_checkpoint_path, built)
                 _write_json(built_checkpoint_path, built)
@@ -4980,6 +5310,34 @@ def _run_rolling_x_newsroom_cycle(
             editorial_reviewer=reviewer,
             article_reviser=reviser,
         )
+        if editorial.get("status") == "PASS":
+            from live_contentops.capital_chronicle_institutional_edge_v1 import (
+                validate_institutional_edge_article,
+            )
+
+            final_editorial_article = dict(editorial.get("article") or {})
+            final_institutional_validation = validate_institutional_edge_article(
+                final_editorial_article,
+                editorial_packet=dict(
+                    (
+                        editorial_route.get("worker_request") or {}
+                    ).get("bounded_governed_context", {}).get(
+                        "institutional_edge_editorial_packet"
+                    )
+                    or {}
+                ),
+                accepted_evidence_packet=selected_evidence,
+            )
+            final_editorial_article["institutional_edge_editorial_validation"] = (
+                final_institutional_validation
+            )
+            editorial = {**dict(editorial), "article": final_editorial_article}
+            if final_institutional_validation.get("classification") != "PASS":
+                editorial = {
+                    **editorial,
+                    "status": "NO_PUBLICATION",
+                    "reason_code": "INSTITUTIONAL_EDGE_EDITORIAL_VALIDATION_BLOCKED",
+                }
         evidence["article"] = editorial.get("article")
         evidence["media"] = media
         evidence["editorial_cycle"] = editorial
