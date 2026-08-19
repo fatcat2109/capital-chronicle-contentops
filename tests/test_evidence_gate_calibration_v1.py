@@ -222,8 +222,27 @@ def test_sensitive_company_allegation_requires_primary_or_two_independent_second
     assert two_secondaries["supported_claims"][0]["support_status"] == (
         "SUPPORTED_CORROBORATED_SECONDARY"
     )
-    assert primary["status"] == "PASS"
-    assert primary["supported_claims"][0]["support_status"] == "SUPPORTED_PRIMARY"
+    assert primary["status"] == "BLOCKED"
+    assert primary["supported_claims"] == []
+
+    attributed_statement = build_claim_evidence_contract(
+        _request(
+            story_type="company_sector_event",
+            summaries=["Example Company said it denied the fraud allegation."],
+        ),
+        [
+            _document(
+                authority="first_party_public_source",
+                text="Example Company said it denied the fraud allegation.",
+                publisher="Example Company",
+            )
+        ],
+    )
+    assert attributed_statement["status"] == "PASS"
+    assert attributed_statement["supported_claims"][0]["support_status"] == (
+        "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY"
+    )
+    assert attributed_statement["supported_claims"][0]["attribution_required"] is True
 
 
 def test_b_precise_company_number_is_omitted_without_primary_numeric_authority():

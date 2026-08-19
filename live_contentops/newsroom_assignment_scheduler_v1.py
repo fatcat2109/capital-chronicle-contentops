@@ -430,6 +430,15 @@ ROLLING_X_STORY_MODES = frozenset({
     "scenario_outlook",
 })
 ROLLING_X_ARTICLE_MODES = frozenset({
+    "BREAKING_BRIEF",
+    "FOLLOW_UP_UPDATE",
+    "STANDARD_NEWS_ANALYSIS",
+    "CAPITAL_CHRONICLE_VIEW",
+    "WHAT_THE_MARKET_IS_MISSING",
+    "EVERGREEN_EXPLAINER",
+    "DATA_OR_DOCUMENT_LENS",
+    "WEEK_AHEAD_OR_WATCH",
+    # Backward-compatible accepted inputs from v3/v4 assignment checkpoints.
     "breaking",
     "news_analysis",
     "explainer",
@@ -449,8 +458,8 @@ PREPARED_CANDIDATE_LIMIT = 12
 PREPARED_CANDIDATE_MAX_AGE_SECONDS = 2 * 60 * 60
 PREPARED_FRONTIER_AUDIT_RETENTION_HOURS = 72.0
 ROLLING_X_LEAF_PROMPT_VERSION = "v2"
-ROLLING_X_GLOBAL_PROMPT_VERSION = "v4"
-ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4"})
+ROLLING_X_GLOBAL_PROMPT_VERSION = "v5"
+ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4", "v5"})
 ROLLING_X_GLOBAL_VALIDATION_DIAGNOSTIC_CODES = frozenset({
     "global_article_mode_invalid",
     "global_canonical_leaf_not_in_cluster",
@@ -956,13 +965,14 @@ def _build_rolling_x_global_prompt(global_input: Mapping[str, Any]) -> str:
         "You have no tool, credential, publication, numeric truth, analysis, forecast, or model authority. X decides what to investigate; X never proves the story.",
         "Return a small ranked viable shortlist, optionally merging duplicate or update-chain leaf clusters across partitions by listing multiple exact leaf_cluster_ids.",
         "Optimize for meaningful reads, shares, saves, replies, canonical-article clicks, subscriber conversion, audience relevance, search demand/longevity, and repeat readership. Penalize duplication, weak information density, saturation, weak evidence prospects, overclaim, repetitive entities/domains, clickbait, and outrage.",
-        "Attention affects priority only and never factual truth. needed_evidence is a downstream request, not evidence already obtained. A genuine NO_PUBLICATION is valid only after evaluating every supplied leaf summary.",
+        "Attention affects priority only and never factual truth. needed_evidence is a downstream request, not evidence already obtained. A genuine NO_PUBLICATION is valid only after evaluating every supplied leaf summary and the useful editorial ladder: BREAKING_BRIEF, FOLLOW_UP_UPDATE, STANDARD_NEWS_ANALYSIS, CAPITAL_CHRONICLE_VIEW, WHAT_THE_MARKET_IS_MISSING, EVERGREEN_EXPLAINER, DATA_OR_DOCUMENT_LENS, WEEK_AHEAD_OR_WATCH. Quiet-day modes may lower materiality or change time horizon, never evidence, attribution, permission, or numeric-authority standards.",
+        "CAPITAL_CHRONICLE_VIEW and WHAT_THE_MARKET_IS_MISSING may propose a strong qualitative house inference only when factual premises can be source-bound. The inference must be identified as ContentOps editorial judgment, never Core Analyzer output, and may not invent probabilities, forecasts, scenarios, regimes, valuations, decisions, market reactions, misconduct, or other unsupported claims.",
         f"SELECT_STORY contract: selected_shortlist_rank MUST be integer 1; ranked_shortlist MUST contain 1..{ROLLING_X_GLOBAL_SHORTLIST_LIMIT} rows; ranks MUST be contiguous integers 1..N; every leaf_cluster_id MUST be copied byte-for-byte from allowed_leaf_cluster_ids below and may appear only once across the entire shortlist; canonical_leaf_cluster_id MUST also be an exact member of allowed_leaf_cluster_ids AND of its row's leaf_cluster_ids; no other ID-like string is legal; selection_rationale, why_now, selection_case, seo_intent, and visual_strategy MUST be non-empty strings; needed_evidence MUST be a non-empty list of non-empty strings; use only the exact enum values shown below.",
         "allowed_leaf_cluster_ids: "
         + json.dumps(allowed_leaf_cluster_ids),
         "allowed_leaf_cluster_ids contains every and only the current exact leaf_cluster_id values, once each. Every value in any leaf_cluster_ids list MUST be copied byte-for-byte from that list. canonical_leaf_cluster_id MUST be copied byte-for-byte from that list AND repeated in the same row's leaf_cluster_ids. Placeholder text in this prompt is never a legal ID. Do not invent, approximate, shorten, or rehash an ID.",
         "SELECT_STORY JSON contract:",
-        '{"decision":"SELECT_STORY","selection_rationale":"non-empty","selected_shortlist_rank":1,"ranked_shortlist":[{"rank":1,"leaf_cluster_ids":["<COPY_EXACT_VALUE_FROM_allowed_leaf_cluster_ids>"],"cross_partition_relationship":"distinct|duplicate|incremental_update|material_update|correction|contradiction|new_phase","canonical_leaf_cluster_id":"<COPY_EXACT_VALUE_FROM_allowed_leaf_cluster_ids>","story_mode":"reporting|rapid_analysis|deep_analysis|research_note|scenario_outlook","article_mode":"breaking|news_analysis|explainer|deep_dive|research_note|scenario_outlook","market_sensitive":false,"why_now":"non-empty","selection_case":"non-empty","seo_intent":"non-empty","visual_strategy":"non-empty","needed_evidence":["non-empty"]}]}',
+        '{"decision":"SELECT_STORY","selection_rationale":"non-empty","selected_shortlist_rank":1,"ranked_shortlist":[{"rank":1,"leaf_cluster_ids":["<COPY_EXACT_VALUE_FROM_allowed_leaf_cluster_ids>"],"cross_partition_relationship":"distinct|duplicate|incremental_update|material_update|correction|contradiction|new_phase","canonical_leaf_cluster_id":"<COPY_EXACT_VALUE_FROM_allowed_leaf_cluster_ids>","story_mode":"reporting|rapid_analysis|deep_analysis|research_note|scenario_outlook","article_mode":"BREAKING_BRIEF|FOLLOW_UP_UPDATE|STANDARD_NEWS_ANALYSIS|CAPITAL_CHRONICLE_VIEW|WHAT_THE_MARKET_IS_MISSING|EVERGREEN_EXPLAINER|DATA_OR_DOCUMENT_LENS|WEEK_AHEAD_OR_WATCH","market_sensitive":false,"why_now":"non-empty","selection_case":"non-empty","seo_intent":"non-empty","visual_strategy":"non-empty","needed_evidence":["non-empty"]}]}',
         "NO_PUBLICATION contract: selection_rationale MUST be non-empty; selected_shortlist_rank MUST be null; ranked_shortlist MUST be [].",
         'NO_PUBLICATION JSON contract: {"decision":"NO_PUBLICATION","selection_rationale":"non-empty","selected_shortlist_rank":null,"ranked_shortlist":[]}',
         "Return one JSON object only. Do not invent, repeat, strip, or coerce an ID.",
@@ -3392,6 +3402,7 @@ def select_first_viable_rolling_x_cluster(
 
     from live_contentops.source_capability_registry_v2 import (
         capability_mode_for_product_mode,
+        editorial_mode_contract,
         effective_rolling_x_capability_registry,
         product_mode_downgrade_path,
         resolve_story_capabilities,
@@ -3433,6 +3444,14 @@ def select_first_viable_rolling_x_cluster(
         )
         story_capability_row = (registry.get("story_types") or {}).get(story_type) or {}
         routed_mode = {
+            "BREAKING_BRIEF": "straight_news",
+            "FOLLOW_UP_UPDATE": "straight_news",
+            "STANDARD_NEWS_ANALYSIS": "analysis",
+            "CAPITAL_CHRONICLE_VIEW": "analysis",
+            "WHAT_THE_MARKET_IS_MISSING": "analysis",
+            "EVERGREEN_EXPLAINER": "explainer",
+            "DATA_OR_DOCUMENT_LENS": "analysis",
+            "WEEK_AHEAD_OR_WATCH": "analysis",
             "breaking": "straight_news",
             "news_analysis": "analysis",
             "explainer": "explainer",
@@ -3448,6 +3467,7 @@ def select_first_viable_rolling_x_cluster(
                 "analysis": "STANDARD_NEWS_ANALYSIS",
                 "deep_analysis": "CAPITAL_CHRONICLE_DEEP_DIVE",
                 "explainer": "EVERGREEN_EXPLAINER",
+                "data_release": "DATA_OR_DOCUMENT_LENS",
             }.get(preselection_mode or routed_mode, "BREAKING_BRIEF")
         )
         mode_attempts: list[dict[str, Any]] = []
@@ -3508,6 +3528,9 @@ def select_first_viable_rolling_x_cluster(
             "market_snapshot_required": bool(capability.get("market_snapshot_required")),
             "capital_chronicle_numeric_or_analytical_authority_required": bool(
                 capability.get("capital_chronicle_authority_required")
+            ),
+            "editorial_mode_contract": editorial_mode_contract(
+                effective_product_mode
             ),
             "story_context": {
                 "why_now": cluster.get("why_now"),

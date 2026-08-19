@@ -192,6 +192,7 @@ class EditorialWindowPolicy:
     publication_minimum: int = 0
     schedule_owner_locked: bool = True
     automatic_schedule_scaling_enabled: bool = False
+    material_event_daily_saturation_limit: int = 4
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -213,6 +214,7 @@ class EditorialWindowPolicy:
             "publication_minimum": self.publication_minimum,
             "schedule_owner_locked": self.schedule_owner_locked,
             "automatic_schedule_scaling_enabled": self.automatic_schedule_scaling_enabled,
+            "material_event_daily_saturation_limit": self.material_event_daily_saturation_limit,
         }
 
 
@@ -224,8 +226,9 @@ def build_bootstrap_editorial_window_policy(
     The UTC hours map to 17:00, 21:00, 23:00, and 01:00 Asia/Bangkok.  Because the 01:00
     Bangkok opportunity is 18:00 UTC on the prior day, all four rows are Monday-Friday in UTC.
     Learning may record timing recommendations but cannot mutate this schedule or add a fifth
-    automatic expensive run. Material events remain durable priority metadata for the next
-    opportunity. Manual GO is the only explicit exceptional extra opportunity.
+    scheduled task. Material events may wake this same supervisor only in SHADOW/NO_PUBLIC_WRITE
+    scope until a separate owner grant exists; autonomous mode retains them as durable priority
+    metadata for the next routine opportunity.
     """
     return EditorialWindowPolicy(
         policy_id=WINDOW_POLICY_ID,
@@ -247,13 +250,14 @@ def build_bootstrap_editorial_window_policy(
         sample_state="insufficient_samples_no_learning_applied",
         provenance=(
             "owner_locked_quality_probation_four_routine_opportunities_no_publication_minimum_"
-            "material_events_priority_next_scheduled_opportunity_not_learned"
+            "material_event_shadow_wake_no_public_write_else_priority_next_scheduled_not_learned"
         ),
         daily_publication_target_band=(0, 4),
         routine_opportunity_limit=4,
         publication_minimum=0,
         schedule_owner_locked=True,
         automatic_schedule_scaling_enabled=False,
+        material_event_daily_saturation_limit=4,
     )
 
 
@@ -1755,6 +1759,23 @@ class ContentOpsDailyAppSupervisor:
         signal = material_event_due(effective_materiality, self._policy, now)
         if signal is not None:
             report["material_event_wake"] = self._stage_material_event(signal, now)
+            staged_window_id = str(
+                (report.get("material_event_wake") or {}).get("window_id") or ""
+            )
+            if (
+                staged_window_id
+                and (report.get("material_event_wake") or {}).get("state")
+                == "DISCOVERED"
+            ):
+                report["material_event_wake"]["wake_eligibility"] = (
+                    self._material_event_wake_eligibility(
+                        {
+                            "window_id": staged_window_id,
+                            "trigger": TRIGGER_MATERIAL_EVENT,
+                        },
+                        now,
+                    )
+                )
 
         # Cheap durable-state housekeeping (no provider calls).
         try:
@@ -1979,6 +2000,19 @@ class ContentOpsDailyAppSupervisor:
             policy_version=self._policy.policy_version,
             trigger_identity=str(signal["trigger_identity"]),
         )
+        existing = self._matching_material_event_opportunity(signal, now)
+        if existing is not None:
+            return {
+                "state": str(existing.get("state") or "DISCOVERED"),
+                "window_id": str(existing["window_id"]),
+                "trigger_identity": signal.get("trigger_identity"),
+                "new_material_event_count": signal.get("new_material_event_count"),
+                "staged_at_utc": _iso_utc(now),
+                "durable_idempotency": True,
+                "duplicate_update_chain_suppressed": True,
+                "grants_evidence_or_publication_authority": False,
+                "public_write_scope_granted": False,
+            }
         item = self._store.create_work_item(
             story_id=window_id,
             title=f"Daily App material event {window_id}",
@@ -2011,7 +2045,12 @@ class ContentOpsDailyAppSupervisor:
                 "expires_at_utc": _iso_utc(
                     now + timedelta(hours=self._policy.freshness_max_age_hours)
                 ),
-                "consumption_state": "PENDING_NEXT_SCHEDULED_OPPORTUNITY",
+                "consumption_state": (
+                    "PENDING_SHADOW_WAKE"
+                    if self._operating_mode == "SHADOW_ONLY"
+                    else "PENDING_NEXT_SCHEDULED_OPPORTUNITY"
+                ),
+                "wake_execution_scope": "SHADOW_NO_PUBLIC_WRITE",
                 "grants_evidence_or_publication_authority": False,
                 "changes_candidate_eligibility_gates": False,
             }
@@ -2031,6 +2070,144 @@ class ContentOpsDailyAppSupervisor:
             "priority_artifact": str(priority_path),
             "headline_ids": list(priority.get("headline_ids") or []),
             "grants_evidence_or_publication_authority": False,
+            "public_write_scope_granted": False,
+            "wake_execution_scope": "SHADOW_NO_PUBLIC_WRITE",
+        }
+
+    def _matching_material_event_opportunity(
+        self, signal: Mapping[str, Any], now: datetime
+    ) -> Optional[dict[str, Any]]:
+        """Return a freshness-safe matching durable material opportunity, if any."""
+        try:
+            with self._store.get_read_only_connection() as conn:
+                rows = conn.execute(
+                    "SELECT work_item_id,current_state FROM work_items"
+                    " WHERE target_surface='daily_app_material_event_window'"
+                    " ORDER BY created_at,work_item_id"
+                ).fetchall()
+        except Exception:  # noqa: BLE001 - failure simply falls back to stable ID idempotency
+            return None
+        incoming_headlines = {
+            str(value) for value in (signal.get("headline_ids") or []) if str(value)
+        }
+        incoming_chains = {
+            str(value)
+            for value in (signal.get("update_chain_identities") or [])
+            if str(value)
+        }
+        for row in rows:
+            opportunity_id = str(row["work_item_id"])
+            path = self._output_root / opportunity_id / "material_event_priority_v1.json"
+            try:
+                priority = json.loads(path.read_text(encoding="utf-8"))
+                expires = _parse_utc(str(priority.get("expires_at_utc") or ""))
+            except (OSError, TypeError, ValueError):
+                continue
+            if expires <= now:
+                continue
+            exact_trigger = str(priority.get("trigger_identity") or "") == str(
+                signal.get("trigger_identity") or ""
+            )
+            headline_overlap = bool(
+                incoming_headlines.intersection(
+                    str(value) for value in (priority.get("headline_ids") or [])
+                )
+            )
+            chain_overlap = bool(
+                incoming_chains.intersection(
+                    str(value)
+                    for value in (priority.get("update_chain_identities") or [])
+                )
+            )
+            if exact_trigger or headline_overlap or chain_overlap:
+                return {
+                    "window_id": opportunity_id,
+                    "state": str(row["current_state"]),
+                }
+        return None
+
+    def _completed_editorial_opportunity_times(
+        self,
+        now: datetime,
+        *,
+        target_surface: Optional[str] = None,
+    ) -> list[datetime]:
+        """Load terminal canonical opportunity times from hash-bound checkpoints."""
+        try:
+            with self._store.get_read_only_connection() as conn:
+                rows = conn.execute(
+                    "SELECT work_item_id,current_state,target_surface FROM work_items"
+                    " WHERE target_surface IN"
+                    " ('daily_app_editorial_window','daily_app_material_event_window')"
+                ).fetchall()
+        except Exception:  # noqa: BLE001
+            return []
+        completed: list[datetime] = []
+        for row in rows:
+            if target_surface and str(row["target_surface"]) != target_surface:
+                continue
+            if str(row["current_state"]) not in WINDOW_EXECUTED_STATES:
+                continue
+            checkpoint = self._load_editorial_opportunity_checkpoint(
+                str(row["work_item_id"])
+            )
+            if checkpoint is None:
+                continue
+            ended = checkpoint["end"].astimezone(timezone.utc)
+            if ended <= now:
+                completed.append(ended)
+        return sorted(completed)
+
+    def _material_event_wake_eligibility(
+        self, window: Mapping[str, Any], now: datetime
+    ) -> dict[str, Any]:
+        """Apply shadow, competing-cycle, routine-absorption, spacing, and saturation controls."""
+        if self._operating_mode != "SHADOW_ONLY":
+            return {"eligible": False, "reason": "SHADOW_NO_PUBLIC_WRITE_SCOPE_REQUIRED"}
+        active = [
+            value
+            for value in self._store.active_editorial_cycle_window_ids()
+            if str(value) != str(window.get("window_id") or "")
+        ]
+        if active:
+            return {"eligible": False, "reason": "ACTIVE_EDITORIAL_CYCLE_PRESENT"}
+        due_unexecuted_scheduled = [
+            scheduled
+            for scheduled in self._currently_due_scheduled_windows(now)
+            if self._window_state(str(scheduled["window_id"]))
+            not in WINDOW_EXECUTED_STATES
+        ]
+        if due_unexecuted_scheduled:
+            return {
+                "eligible": False,
+                "reason": "CURRENTLY_DUE_SCHEDULED_OPPORTUNITY_AVAILABLE",
+                "absorbing_scheduled_window_ids": [
+                    str(value["window_id"])
+                    for value in due_unexecuted_scheduled
+                ],
+            }
+        completed = self._completed_editorial_opportunity_times(now)
+        completed_material_events = self._completed_editorial_opportunity_times(
+            now,
+            target_surface="daily_app_material_event_window",
+        )
+        day_start = datetime(now.year, now.month, now.day, tzinfo=timezone.utc)
+        completed_material_events_today = [
+            value for value in completed_material_events if value >= day_start
+        ]
+        if len(completed_material_events_today) >= int(
+            self._policy.material_event_daily_saturation_limit
+        ):
+            return {"eligible": False, "reason": "MATERIAL_EVENT_DAILY_SATURATION_LIMIT"}
+        if completed and now - completed[-1] < timedelta(
+            hours=float(self._policy.minimum_cycle_spacing_hours)
+        ):
+            return {"eligible": False, "reason": "MINIMUM_CYCLE_SPACING_ACTIVE"}
+        return {
+            "eligible": True,
+            "reason": "SHADOW_MATERIAL_EVENT_WAKE_ELIGIBLE",
+            "publication_enabled": False,
+            "public_write_scope_granted": False,
         }
 
     def _finalize_material_event_priority(
@@ -2154,17 +2331,16 @@ class ContentOpsDailyAppSupervisor:
             })
         return windows
 
-    def _due_windows(
-        self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
+    def _currently_due_scheduled_windows(
+        self, now: datetime
     ) -> list[dict[str, Any]]:
+        """Return canonical routine opportunities inside their due/grace interval.
+
+        Terminal state is deliberately not filtered here: callers decide whether they need the
+        historical due row or only an actually available, unexecuted routine opportunity.
+        """
         windows: list[dict[str, Any]] = []
-        # Scheduled core windows for the current day (and previous day for late ticks). A
-        # scheduled window is due only while we are inside [start, end + small grace]; it does
-        # not stay due long after it ends. minimum_cycle_spacing_hours remains an anti-spam
-        # control between cycles, not the due-window horizon.
         grace = timedelta(hours=1.0)
-        # Bounded learned timing offset consumed from the latest ACTIVE learning policy. A value
-        # of 0 (bootstrap / no valid policy) leaves configured windows unchanged.
         timing_offset = timedelta(minutes=self._timing_policy_offset_minutes())
         for day_offset in (0, -1):
             day = now + timedelta(days=day_offset)
@@ -2178,25 +2354,42 @@ class ContentOpsDailyAppSupervisor:
                     continue
                 if not self._within_production_epoch(start):
                     continue
-                window_id = editorial_window_id(
-                    policy_version=self._policy.policy_version,
-                    window_start_utc=start,
-                    window_end_utc=end,
-                    session=core.session,
-                    trigger_kind=TRIGGER_SCHEDULED,
-                )
                 windows.append(
                     {
-                        "window_id": window_id,
+                        "window_id": editorial_window_id(
+                            policy_version=self._policy.policy_version,
+                            window_start_utc=start,
+                            window_end_utc=end,
+                            session=core.session,
+                            trigger_kind=TRIGGER_SCHEDULED,
+                        ),
                         "trigger": TRIGGER_SCHEDULED,
                         "start": start,
                         "end": end,
                         "session": core.session,
                     }
                 )
-        # Material events are durable zero-LLM priority metadata only. They are intentionally
-        # not due windows: the next scheduled editorial window inspects rolling intake, while an
-        # explicit operator Run Now remains the only immediate exception.
+        return windows
+
+    def _due_windows(
+        self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
+    ) -> list[dict[str, Any]]:
+        windows = self._currently_due_scheduled_windows(now)
+        # Scheduled core windows for the current day (and previous day for late ticks). A
+        # scheduled window is due only while we are inside [start, end + small grace]; it does
+        # not stay due long after it ends. minimum_cycle_spacing_hours remains an anti-spam
+        # control between cycles, not the due-window horizon.
+        # The same supervisor may execute one bounded material opportunity outside routine
+        # windows only in SHADOW/NO_PUBLIC_WRITE scope. Autonomous/public scope remains queued
+        # for the next scheduled opportunity until a separate exact owner grant exists.
+        material_windows = []
+        for material_window in self._pending_material_event_windows(now):
+            eligibility = self._material_event_wake_eligibility(material_window, now)
+            if eligibility.get("eligible"):
+                material_window["wake_eligibility"] = eligibility
+                material_windows.append(material_window)
+        if material_windows:
+            windows = material_windows + windows
         # De-duplicate and drop windows already executed.
         unique: list[dict[str, Any]] = []
         seen: set[str] = set()
@@ -2710,6 +2903,9 @@ class ContentOpsDailyAppSupervisor:
                     explanation=f"Executing editorial window {window_id}",
                 )
             publication_enabled = self._refresh_operating_mode() == "AUTONOMOUS_DEFAULT"
+            material_event_shadow = str(window.get("trigger") or "") == TRIGGER_MATERIAL_EVENT
+            if material_event_shadow:
+                publication_enabled = False
             cutoff = window["end"]
             output_dir = self._output_root / window_id
             cycle_kwargs: dict[str, Any] = {
@@ -2741,6 +2937,18 @@ class ContentOpsDailyAppSupervisor:
                     material_priorities
                 )
                 if material_priorities:
+                    cycle_kwargs["material_event_priority"] = material_priority
+                    portfolio_context["material_event_priority"] = material_priority
+            elif material_event_shadow:
+                priority_path = output_dir / "material_event_priority_v1.json"
+                try:
+                    own_priority = json.loads(priority_path.read_text(encoding="utf-8"))
+                except (OSError, TypeError, ValueError):
+                    own_priority = {}
+                if own_priority:
+                    material_priority = self._merge_material_event_priorities(
+                        [own_priority]
+                    )
                     cycle_kwargs["material_event_priority"] = material_priority
                     portfolio_context["material_event_priority"] = material_priority
             try:

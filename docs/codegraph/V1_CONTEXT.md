@@ -10,9 +10,9 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 Latest runtime evidence reports `FDA_G_SOAK_ACTIVE` on current master with healthy heartbeat/ingestion, one logical supervisor root from the Windows wrapper/child topology, `UNKNOWN_WRITE=0`, and all four existing V1 scheduled newsroom tasks still `PAUSED`. Re-observe runtime truth for any task that depends on current production state.
 
-The next product implementation is not passive waiting for a perfect story. It is:
+The P0-G1/G2 implementation slice is zero-write validated on its dedicated task branch. The next capability is:
 
-`P0-G1 + P0-G2 — GROWTH-FIRST EDITORIAL SPECTRUM + BOUNDED MATERIAL-EVENT WAKE + CANONICAL-FIRST DISTRIBUTION`
+`P0-G3 — ZERO-WRITE MULTI-MODE REPLAY + JIM/CHATGPT ACTUAL EDITORIAL ARTIFACT AUDIT`
 
 ## Canonical product flow
 
@@ -186,8 +186,8 @@ These are identities, not permission to inspect credentials/session material.
 
 ## Current validation sequence
 
-1. implement growth-first editorial modes/evidence, bounded material-event wake mechanics, and canonical-first lifecycle with no public writes;
-2. zero-write replay official breaking + wake/no-wake, normal analysis, quiet day, and critical/opinion cases;
+1. preserve the zero-write-validated P0-G1/G2 growth-first editorial, bounded wake, and canonical-first implementation;
+2. run P0-G3 zero-write replay for official breaking + wake/no-wake, normal analysis, quiet day, and critical/opinion cases;
 3. Jim/ChatGPT review actual article/package outputs;
 4. fresh explicit owner grant for one real canary;
 5. canonical Substack + exactly eight derivatives + strict readback/reconciliation + `UNKNOWN_WRITE=0`;

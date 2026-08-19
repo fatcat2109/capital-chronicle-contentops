@@ -42,6 +42,9 @@ DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE = (
 )
 RECOVERY_ATTEMPT_BUDGET = 9
 HOLD_FULL_V1_DISTRIBUTION_NOT_READY = "HOLD_FULL_V1_DISTRIBUTION_NOT_READY"
+CANONICAL_SUBSTACK_READY_DERIVATIVES_DEFERRED = (
+    "CANONICAL_SUBSTACK_READY_DERIVATIVES_DEFERRED"
+)
 PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED = "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED"
 FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED = (
     "FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED"
@@ -361,7 +364,12 @@ class DurablePublicationCoordinator:
     def _full_v1_distribution_preflight(
         self, work_item_id: str, plan: Mapping[str, Any]
     ) -> dict[str, Any]:
-        """Refresh all nine exact destinations before any durable/public write boundary."""
+        """Validate nine-surface structure and JIT only canonical Substack before its write.
+
+        Derivative readiness is intentionally deferred until after canonical confirmation.  The
+        exact eight destination identities/packages remain structural requirements, but a local
+        derivative outage is a hold/recovery obligation rather than a canonical veto.
+        """
 
         destinations = [
             str(row.get("destination") or "")
@@ -400,6 +408,17 @@ class DurablePublicationCoordinator:
         readiness_blockers: list[str] = []
         for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
             item = item_by_destination.get(destination, {})
+            if destination != "substack":
+                readiness_rows[destination] = {
+                    "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
+                    "identity_match": None,
+                    "write_eligible": False,
+                    "jit_deferred_until_after_canonical": True,
+                    "planned_readiness_state": str(item.get("readiness_state") or ""),
+                    "safe_error_classification": None,
+                    "sanitized_detail": {},
+                }
+                continue
             try:
                 if self.readiness_manager is not None:
                     row = dict(
@@ -445,7 +464,7 @@ class DurablePublicationCoordinator:
         structural_ready = not any(structural_blockers.values())
         return {
             "status": (
-                "FULL_V1_DISTRIBUTION_READY"
+                CANONICAL_SUBSTACK_READY_DERIVATIVES_DEFERRED
                 if structural_ready and not readiness_blockers
                 else HOLD_FULL_V1_DISTRIBUTION_NOT_READY
             ),
@@ -455,6 +474,9 @@ class DurablePublicationCoordinator:
             ),
             "structural_blockers": structural_blockers,
             "readiness_blockers": readiness_blockers,
+            "derivative_readiness_deferred": list(
+                V1_REQUIRED_DERIVATIVE_DESTINATIONS
+            ),
             "per_destination": readiness_rows,
             "public_write_performed": False,
         }
@@ -934,7 +956,7 @@ class DurablePublicationCoordinator:
         quality_preflight = self._full_v1_distribution_preflight(
             work_item_id, retry_plan
         )
-        if quality_preflight["status"] != "FULL_V1_DISTRIBUTION_READY":
+        if quality_preflight["status"] != CANONICAL_SUBSTACK_READY_DERIVATIVES_DEFERRED:
             return {
                 "status": HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
                 "publish_called": False,
@@ -950,31 +972,6 @@ class DurablePublicationCoordinator:
                 "publish_called": False,
                 "unknown_write_count": unknown_write_count,
             }
-        delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
-        if callable(delivery_preparer):
-            delivery_media_preparation = dict(
-                delivery_preparer(
-                    work_item_id=work_item_id,
-                    plan=retry_plan,
-                    preconditions={
-                        "full_v1_distribution_status": quality_preflight["status"],
-                        "unknown_write_count": 0,
-                    },
-                )
-                or {}
-            )
-            if str(delivery_media_preparation.get("status") or "") not in {
-                "CLOUDINARY_DELIVERY_MEDIA_READY",
-                "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED",
-            }:
-                return {
-                    "status": str(
-                        delivery_media_preparation.get("status")
-                        or "RETRY_BLOCKED_DELIVERY_MEDIA_PREPARATION"
-                    ),
-                    "publish_called": False,
-                    "delivery_media_preparation": delivery_media_preparation,
-                }
         return self._dispatch_message(
             message,
             canonical_url=None,
@@ -1060,7 +1057,7 @@ class DurablePublicationCoordinator:
         quality_preflight = self._full_v1_distribution_preflight(
             work_item_id, correction_plan
         )
-        if quality_preflight["status"] != "FULL_V1_DISTRIBUTION_READY":
+        if quality_preflight["status"] != CANONICAL_SUBSTACK_READY_DERIVATIVES_DEFERRED:
             return {
                 "status": HOLD_FULL_V1_DISTRIBUTION_NOT_READY,
                 "publish_called": False,
@@ -1073,7 +1070,7 @@ class DurablePublicationCoordinator:
                     work_item_id=work_item_id,
                     plan=correction_plan,
                     preconditions={
-                        "full_v1_distribution_status": quality_preflight["status"],
+                        "canonical_publication_status": RECONCILED_CONFIRMED,
                         "unknown_write_count": 0,
                     },
                 )
@@ -1179,7 +1176,7 @@ class DurablePublicationCoordinator:
         quality_preflight = None
         if self._full_v1_distribution_required(plan):
             quality_preflight = self._full_v1_distribution_preflight(work_item_id, plan)
-            if quality_preflight["status"] != "FULL_V1_DISTRIBUTION_READY":
+            if quality_preflight["status"] != CANONICAL_SUBSTACK_READY_DERIVATIVES_DEFERRED:
                 return {
                     "plan_hash": str(
                         plan.get("plan_hash") or _hash(_canonical_json(plan))
@@ -1206,52 +1203,6 @@ class DurablePublicationCoordinator:
             "provider_calls": 0,
             "public_write_performed": False,
         }
-        delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
-        if callable(delivery_preparer) and quality_preflight is not None:
-            unknown_write_count = sum(
-                str(row.get("status") or "") == UNKNOWN_WRITE
-                for row in self.store.list_platform_dispatches()
-            )
-            delivery_media_preparation = dict(
-                delivery_preparer(
-                    work_item_id=work_item_id,
-                    plan=plan,
-                    preconditions={
-                        "full_v1_distribution_status": quality_preflight["status"],
-                        "unknown_write_count": unknown_write_count,
-                    },
-                )
-                or {}
-            )
-            if str(delivery_media_preparation.get("status") or "") not in {
-                "CLOUDINARY_DELIVERY_MEDIA_READY",
-                "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED",
-            }:
-                return {
-                    "plan_hash": str(
-                        plan.get("plan_hash") or _hash(_canonical_json(plan))
-                    ),
-                    "registered": [],
-                    "outbox_count": 0,
-                    "per_destination": quality_preflight["per_destination"],
-                    "canonical_article_status": "NOT_STARTED",
-                    "canonical_article_real_published": False,
-                    "canonical_url": None,
-                    "canonical_publication_status": str(
-                        delivery_media_preparation.get("status")
-                        or "BLOCKED_DELIVERY_MEDIA_PREPARATION"
-                    ),
-                    "distribution_status": "BLOCKED_DELIVERY_MEDIA_PREPARATION",
-                    "transaction_classification": "BLOCKED_DELIVERY_MEDIA_PREPARATION",
-                    "quality_preflight": quality_preflight,
-                    "recovery_preflight": recovery_preflight,
-                    "delivery_media_preparation": delivery_media_preparation,
-                    "current_transaction_public_write_performed": False,
-                    "public_write_performed": bool(
-                        recovery_preflight.get("publish_calls")
-                    ),
-                    "unknown_write_detected": unknown_write_count > 0,
-                }
         registration = self.register_plan(work_item_id, plan)
         outcomes: dict[str, Any] = {
             str(row.get("destination") or ""): {
@@ -1279,11 +1230,50 @@ class DurablePublicationCoordinator:
                 and _valid_substack_canonical_url(outcome.get("public_object_url"))
             ):
                 canonical_url = str(outcome["public_object_url"])
+        delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
+        if canonical_url and callable(delivery_preparer) and quality_preflight is not None:
+            unknown_write_count = sum(
+                str(row.get("status") or "") == UNKNOWN_WRITE
+                for row in self.store.list_platform_dispatches()
+            )
+            delivery_media_preparation = dict(
+                delivery_preparer(
+                    work_item_id=work_item_id,
+                    plan=plan,
+                    preconditions={
+                        "canonical_publication_status": RECONCILED_CONFIRMED,
+                        "unknown_write_count": unknown_write_count,
+                    },
+                )
+                or {}
+            )
+        delivery_media_blocked = str(
+            delivery_media_preparation.get("status") or ""
+        ) not in {
+            "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+            "CLOUDINARY_DELIVERY_MEDIA_READY",
+            "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED",
+        }
         for message in messages:
             if message["destination"] == "substack":
                 continue
+            intent = json.loads(str(message["payload"]))
+            destination_plan = dict(intent.get("destination_plan") or {})
+            if delivery_media_blocked and destination_plan.get(
+                "delivery_media_required"
+            ) is True:
+                outcomes[str(message["destination"])] = {
+                    "destination": str(message["destination"]),
+                    "status": str(
+                        delivery_media_preparation.get("status")
+                        or "DESTINATION_LOCAL_DELIVERY_MEDIA_HOLD"
+                    ),
+                    "publish_called": False,
+                    "reconciliation_status": None,
+                    "destination_local_hold": True,
+                }
+                continue
             if canonical_message is None:
-                intent = json.loads(str(message["payload"]))
                 outcomes[str(message["destination"])] = self._dispatch_message(
                     message, canonical_url=intent.get("canonical_url")
                 )
@@ -1541,6 +1531,7 @@ class DurablePublicationCoordinator:
                 )
             )
             canonical_urls: dict[str, str] = {}
+            delivery_media_by_work_item: dict[str, dict[str, Any]] = {}
             for message, explicit_retry in ready_messages[:RECOVERY_ATTEMPT_BUDGET]:
                 work_item_id = str(message.get("work_item_id") or "")
                 intent = json.loads(str(message["payload"]))
@@ -1567,6 +1558,84 @@ class DurablePublicationCoordinator:
                         }
                         continue
                     message = self.store.get_outbox_message(str(message["message_id"])) or message
+                    intent = json.loads(str(message["payload"]))
+                    destination_plan = dict(intent.get("destination_plan") or {})
+                    if destination_plan.get("delivery_media_required") is True:
+                        delivery = delivery_media_by_work_item.get(work_item_id)
+                        if delivery is None:
+                            preparer = getattr(
+                                self.transport_runtime, "prepare_delivery_media", None
+                            )
+                            if callable(preparer):
+                                work_item_intents = [
+                                    json.loads(str(row["payload"]))
+                                    for row in self.store.list_outbox_messages()
+                                    if str(row.get("work_item_id") or "") == work_item_id
+                                ]
+                                recovery_plan = {
+                                    "plan_hash": intent.get("plan_hash"),
+                                    "output_dir": intent.get("output_dir"),
+                                    "quality_probation_policy_id": intent.get(
+                                        "quality_probation_policy_id"
+                                    ),
+                                    "full_v1_distribution_required": (
+                                        intent.get("full_v1_distribution_required") is True
+                                    ),
+                                    "destinations": [
+                                        dict(row.get("destination_plan") or {})
+                                        for row in work_item_intents
+                                    ],
+                                    "skipped_derivative_destinations": [],
+                                    "pre_substack_blockers": [],
+                                }
+                                unknown_count = sum(
+                                    str(row.get("status") or "") == UNKNOWN_WRITE
+                                    for row in self.store.list_platform_dispatches()
+                                )
+                                if unknown_count:
+                                    delivery = {
+                                        "status": "DELIVERY_MEDIA_RECOVERY_BLOCKED_UNKNOWN_WRITE",
+                                        "unknown_write_count": unknown_count,
+                                        "public_write_performed": False,
+                                    }
+                                else:
+                                    delivery = dict(
+                                        preparer(
+                                            work_item_id=work_item_id,
+                                            plan=recovery_plan,
+                                            preconditions={
+                                                "canonical_publication_status": (
+                                                    RECONCILED_CONFIRMED
+                                                ),
+                                                "unknown_write_count": 0,
+                                            },
+                                        )
+                                        or {}
+                                    )
+                            else:
+                                delivery = {
+                                    "status": (
+                                        "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT"
+                                    ),
+                                    "public_write_performed": False,
+                                }
+                            delivery_media_by_work_item[work_item_id] = delivery
+                        if str(delivery.get("status") or "") not in {
+                            "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+                            "CLOUDINARY_DELIVERY_MEDIA_READY",
+                            "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED",
+                        }:
+                            summary["per_destination"][destination] = {
+                                "destination": destination,
+                                "status": str(
+                                    delivery.get("status")
+                                    or "DESTINATION_LOCAL_DELIVERY_MEDIA_HOLD"
+                                ),
+                                "publish_called": False,
+                                "destination_local_hold": True,
+                                "delivery_media_preparation": delivery,
+                            }
+                            continue
                 outcome = self._dispatch_message(
                     message,
                     canonical_url=canonical_url or None,

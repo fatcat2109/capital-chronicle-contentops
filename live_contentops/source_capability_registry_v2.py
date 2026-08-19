@@ -26,8 +26,12 @@ PRODUCT_MODE_TO_CAPABILITY_MODE = {
     "BREAKING_BRIEF": "straight_news",
     "FOLLOW_UP_UPDATE": "straight_news",
     "STANDARD_NEWS_ANALYSIS": "analysis",
+    "CAPITAL_CHRONICLE_VIEW": "analysis",
+    "WHAT_THE_MARKET_IS_MISSING": "analysis",
     "CAPITAL_CHRONICLE_DEEP_DIVE": "deep_analysis",
     "EVERGREEN_EXPLAINER": "explainer",
+    "DATA_OR_DOCUMENT_LENS": "analysis",
+    "WEEK_AHEAD_OR_WATCH": "analysis",
 }
 PRODUCT_MODE_DOWNGRADE_PATHS = {
     "CAPITAL_CHRONICLE_DEEP_DIVE": (
@@ -36,10 +40,80 @@ PRODUCT_MODE_DOWNGRADE_PATHS = {
         "BREAKING_BRIEF",
     ),
     "STANDARD_NEWS_ANALYSIS": ("STANDARD_NEWS_ANALYSIS", "BREAKING_BRIEF"),
+    "CAPITAL_CHRONICLE_VIEW": (
+        "CAPITAL_CHRONICLE_VIEW", "STANDARD_NEWS_ANALYSIS", "BREAKING_BRIEF",
+    ),
+    "WHAT_THE_MARKET_IS_MISSING": (
+        "WHAT_THE_MARKET_IS_MISSING", "STANDARD_NEWS_ANALYSIS", "BREAKING_BRIEF",
+    ),
     "FOLLOW_UP_UPDATE": ("FOLLOW_UP_UPDATE",),
     "BREAKING_BRIEF": ("BREAKING_BRIEF",),
     "EVERGREEN_EXPLAINER": ("EVERGREEN_EXPLAINER", "BREAKING_BRIEF"),
+    "DATA_OR_DOCUMENT_LENS": (
+        "DATA_OR_DOCUMENT_LENS", "STANDARD_NEWS_ANALYSIS", "BREAKING_BRIEF",
+    ),
+    "WEEK_AHEAD_OR_WATCH": (
+        "WEEK_AHEAD_OR_WATCH", "STANDARD_NEWS_ANALYSIS", "BREAKING_BRIEF",
+    ),
 }
+
+CANONICAL_PRODUCT_MODES = (
+    "BREAKING_BRIEF",
+    "FOLLOW_UP_UPDATE",
+    "STANDARD_NEWS_ANALYSIS",
+    "CAPITAL_CHRONICLE_VIEW",
+    "WHAT_THE_MARKET_IS_MISSING",
+    "EVERGREEN_EXPLAINER",
+    "DATA_OR_DOCUMENT_LENS",
+    "WEEK_AHEAD_OR_WATCH",
+)
+
+PRODUCT_MODE_EVIDENCE_DEPTH = {
+    "BREAKING_BRIEF": 1,
+    "FOLLOW_UP_UPDATE": 1,
+    "STANDARD_NEWS_ANALYSIS": 2,
+    "CAPITAL_CHRONICLE_VIEW": 2,
+    "WHAT_THE_MARKET_IS_MISSING": 2,
+    "EVERGREEN_EXPLAINER": 2,
+    "DATA_OR_DOCUMENT_LENS": 2,
+    "WEEK_AHEAD_OR_WATCH": 2,
+    # Backward-compatible historical artifact only.
+    "CAPITAL_CHRONICLE_DEEP_DIVE": 3,
+}
+
+_HOUSE_VIEW_MODES = frozenset(
+    {"CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"}
+)
+
+
+def product_mode_evidence_depth(product_mode: str) -> int:
+    return int(PRODUCT_MODE_EVIDENCE_DEPTH.get(str(product_mode or ""), 1))
+
+
+def editorial_mode_contract(product_mode: str) -> dict[str, Any]:
+    """Return the product-mode policy carried through evidence and writing.
+
+    This record grants no authority.  It makes the fact/editorial-inference/Core-Analyzer
+    boundary explicit without introducing a second evidence engine.
+    """
+    mode = str(product_mode or "BREAKING_BRIEF")
+    house_view = mode in _HOUSE_VIEW_MODES
+    return {
+        "product_article_mode": mode,
+        "canonical_product_mode": mode in CANONICAL_PRODUCT_MODES,
+        "evidence_depth": product_mode_evidence_depth(mode),
+        "narrow_official_primary_fast_lane": mode == "BREAKING_BRIEF",
+        "factual_premises_must_be_source_bound": True,
+        "qualitative_editorial_inference_permitted": house_view,
+        "editorial_inference_must_be_explicit": house_view,
+        "editorial_inference_authority_class": (
+            "CONTENTOPS_QUALITATIVE_EDITORIAL_JUDGMENT" if house_view else None
+        ),
+        "editorial_inference_is_core_analyzer_authority": False,
+        "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": True,
+        "quiet_day_may_lower_truth_or_permission_standards": False,
+        "grants_factual_numeric_permission_or_publication_authority": False,
+    }
 
 ROLLING_X_GENERAL_PUBLIC_EVENT_PROFILE: dict[str, Any] = {
     "required_evidence_capabilities": [
@@ -219,6 +293,9 @@ def resolve_story_capabilities(request: Mapping[str, Any], registry: Mapping[str
         ),
         "article_mode": effective_mode,
         "product_article_mode": requested_product_mode or None,
+        "editorial_mode_contract": editorial_mode_contract(
+            requested_product_mode or "BREAKING_BRIEF"
+        ),
         "article_mode_source": (
             "story_type_article_mode_profile"
             if mode_profile_used

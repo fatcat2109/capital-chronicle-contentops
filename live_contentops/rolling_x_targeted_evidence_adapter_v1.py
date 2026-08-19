@@ -27,6 +27,7 @@ from live_contentops.claim_evidence_contract_v1 import (
 )
 from live_contentops.source_capability_registry_v2 import (
     effective_rolling_x_capability_registry,
+    product_mode_evidence_depth,
     resolve_story_capabilities,
 )
 
@@ -241,6 +242,9 @@ def _blocked_receipt(
         ),
         "blockers": sorted(set(blockers)),
         "publication_authority": False,
+        "editorial_mode_contract": dict(
+            request.get("editorial_mode_contract") or {}
+        ),
         "evidence_acquisition_provenance": dict(evidence_acquisition_provenance or {}),
     }
 
@@ -579,9 +583,20 @@ class RollingXTargetedEvidenceAdapter:
             {
                 "story_type": story_type,
                 "article_mode": str(request.get("article_mode") or ""),
+                "product_article_mode": str(
+                    request.get("effective_article_mode")
+                    or request.get("resolved_article_mode")
+                    or ""
+                ),
             },
             self._registry,
         )
+        request = {
+            **dict(request),
+            "editorial_mode_contract": dict(
+                capability.get("editorial_mode_contract") or {}
+            ),
+        }
         blockers = list(capability.get("blockers") or [])
         required = [
             str(value)
@@ -768,14 +783,9 @@ class RollingXTargetedEvidenceAdapter:
                         or request.get("resolved_article_mode")
                         or ""
                     )
-                    depth = {
-                        "BREAKING_BRIEF": 1,
-                        "FOLLOW_UP_UPDATE": 1,
-                        "STANDARD_NEWS_ANALYSIS": 2,
-                        "EVERGREEN_EXPLAINER": 2,
-                        "CAPITAL_CHRONICLE_DEEP_DIVE": 3,
-                    }
-                    if depth.get(requested_mode, 1) > depth.get(suggested_mode, 1):
+                    if product_mode_evidence_depth(
+                        requested_mode
+                    ) > product_mode_evidence_depth(suggested_mode):
                         blockers.append(
                             "grounded_research_recommends_article_mode_downgrade:"
                             + suggested_mode
@@ -993,6 +1003,9 @@ class RollingXTargetedEvidenceAdapter:
                 "numeric_evidence_required": False,
                 "blockers": [],
                 "publication_authority": False,
+                "editorial_mode_contract": dict(
+                    request.get("editorial_mode_contract") or {}
+                ),
                 "evidence_acquisition_provenance": diagnostics,
             }, packet=packet, resolution=authority_resolution, consume_projection=False)
 
@@ -1123,14 +1136,9 @@ class RollingXTargetedEvidenceAdapter:
                     or request.get("resolved_article_mode")
                     or ""
                 )
-                depth = {
-                    "BREAKING_BRIEF": 1,
-                    "FOLLOW_UP_UPDATE": 1,
-                    "STANDARD_NEWS_ANALYSIS": 2,
-                    "EVERGREEN_EXPLAINER": 2,
-                    "CAPITAL_CHRONICLE_DEEP_DIVE": 3,
-                }
-                if depth.get(requested_mode, 1) > depth.get(suggested_mode, 1):
+                if product_mode_evidence_depth(
+                    requested_mode
+                ) > product_mode_evidence_depth(suggested_mode):
                     blockers.append(
                         "grounded_research_recommends_article_mode_downgrade:"
                         + suggested_mode
@@ -1259,6 +1267,9 @@ class RollingXTargetedEvidenceAdapter:
             "numeric_evidence_required": market_required,
             "blockers": [],
             "publication_authority": False,
+            "editorial_mode_contract": dict(
+                request.get("editorial_mode_contract") or {}
+            ),
             "governed_packet_id": packet.get("packet_id"),
             "freshness_decision": freshness,
         }, packet=packet, resolution=authority_resolution, consume_projection=True)

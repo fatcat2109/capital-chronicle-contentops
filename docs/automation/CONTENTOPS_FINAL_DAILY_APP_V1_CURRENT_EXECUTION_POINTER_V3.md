@@ -37,19 +37,19 @@ The logical-supervisor launcher defect has been corrected and merged. Latest run
 
 Runtime evidence is not GitHub-static proof; re-observe when a task depends on current runtime truth.
 
-The correct product state is:
+The correct implementation state on the P0-G1/G2 task branch is:
 
-`P0_1_ACCEPTED / P0_2_ACCEPTANCE_UNPROVEN / FDA_G_SOAK_ACTIVE`
+`P0_1_ACCEPTED / P0_G1_G2_IMPLEMENTED_ZERO_WRITE_VALIDATED / P0_G3_OWNER_ARTIFACT_AUDIT_PENDING / P0_2_ACCEPTANCE_UNPROVEN`
 
 Do not reduce this to passive `WAITING_FOR_GENUINE_QUALIFYING_OPPORTUNITY`. A genuine current opportunity is still necessary for the later live canary, but current product work continues before that canary.
 
 ## Current V1 product task
 
-The next implementation capability is:
+The next capability is:
 
-`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM, BOUNDED MATERIAL-EVENT WAKE, AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
+`P0-G3 — ZERO-WRITE MULTI-MODE REPLAY + JIM/CHATGPT ACTUAL EDITORIAL ARTIFACT AUDIT`
 
-It must reuse the existing canonical V1 supervisor/selection/evidence/article/package/publication path. Do not create a second newsroom, evidence engine, publisher, durable store, scheduler, or control plane.
+P0-G1/G2 now has deterministic implementation and regression evidence on its dedicated task branch. P0-G3 must replay the implemented modes through the same canonical V1 supervisor/selection/evidence/article/package path and produce actual article/package artifacts for Jim/ChatGPT review. It grants no public-write authority and must not create a second newsroom, evidence engine, publisher, durable store, scheduler, or control plane.
 
 ### Required editorial modes
 
@@ -118,7 +118,7 @@ Final P0-2 canary acceptance still requires exact nine-surface proof and `UNKNOW
 
 This pointer grants zero live/public-write authority by itself.
 
-## Required validation before live canary
+## P0-G3 required validation before live canary
 
 Run one bounded `NO_PUBLIC_WRITE` replay covering at least:
 

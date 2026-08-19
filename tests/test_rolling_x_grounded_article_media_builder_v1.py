@@ -195,23 +195,53 @@ def _passing_body(source_url, asset_ids):
 
 def _make_generator(source_url, asset_ids):
     body = _passing_body(source_url, asset_ids)
+    title = "Treasury Publishes Final Stress Testing Rule With Compliance Timeline"
+    meta = (
+        "The Treasury published a final stress testing rule with an official compliance "
+        "timeline and affected entities, as recorded by the Federal Register."
+    )
 
     def generator(prompt):
         return {
-            "title": "Treasury Publishes Final Stress Testing Rule With Compliance Timeline",
+            "title": title,
+            "canonical_editorial_headline": title,
             "subtitle": "The official rule sets an explicit effective date and names affected entities.",
+            "dek": "The official rule sets an explicit effective date and names affected entities.",
             "seo_title": "Treasury Stress Testing Rule Compliance Timeline Explained",
-            "meta_description": (
-                "The Treasury published a final stress testing rule with an official compliance "
-                "timeline and affected entities, as recorded by the Federal Register."
-            ),
+            "search_title": "Treasury Stress Testing Rule Compliance Timeline Explained",
+            "meta_description": meta,
             "market_mechanism": "The rule sets an administrative compliance sequence recorded in the register.",
             "policy_context": "The governing document defines scope and the effective date.",
             "cross_asset_implications": "No market reaction is asserted without separate evidence.",
             "social_lede": "Treasury published a final stress testing rule.",
+            "social_hook": "Treasury published a final stress testing rule.",
             "social_mechanism_summary": "The rule sets an administrative compliance sequence.",
             "social_policy_summary": "The document defines scope and the effective date.",
             "social_cross_asset_summary": "No market reaction is asserted here.",
+            "primary_reader_question": "What does the final Treasury rule require?",
+            "secondary_reader_questions": [
+                "Which entities are affected by the compliance timeline?"
+            ],
+            "entities": ["Treasury", "Federal Register"],
+            "topics": ["stress testing", "financial regulation"],
+            "search_freshness_class": "CURRENT",
+            "internal_link_candidates": [],
+            "structured_data_packet": {
+                "@type": "NewsArticle",
+                "headline": title,
+                "description": meta,
+                "datePublished": "",
+                "dateModified": "",
+                "publication_time_binding": (
+                    "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION"
+                ),
+                "eligible_for_emission": False,
+                "author": "Capital Chronicle",
+                "publisher": "Capital Chronicle",
+            },
+            "epistemic_claims": [],
+            "quote_source_records": [],
+            "humor_lines": [],
             "substack_body_markdown": body,
         }
 
@@ -759,6 +789,13 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
     monkeypatch, tmp_path
 ):
     viability = _viability(story_type="regulatory_fiscal_event", article_mode="straight_news")
+    viability["rank_attempts"][0]["request"].update(
+        {
+            "requested_article_mode": "BREAKING_BRIEF",
+            "resolved_article_mode": "BREAKING_BRIEF",
+            "effective_article_mode": "BREAKING_BRIEF",
+        }
+    )
     intake = {
         "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
         "counts": {"accepted": 1},
@@ -794,6 +831,10 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
         lambda article, media_assets=(): {"classification": "PASS"},
     )
     monkeypatch.setattr(
+        "live_contentops.capital_chronicle_institutional_edge_v1.validate_institutional_edge_article",
+        lambda article, **_kwargs: {"classification": "PASS", "blockers": []},
+    )
+    monkeypatch.setattr(
         implementation,
         "_rolling_x_destination_readiness",
         lambda **kwargs: {
@@ -801,12 +842,12 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
             "destinations": {"substack": {"write_eligible": False, "status": "BLOCKED"}},
         },
     )
-    # Publisher must NOT be reached because readiness blocks the release candidate.
+    # The deterministic shadow smoke never hands the plan to a publisher.
     monkeypatch.setattr(
         implementation,
         "_run_eight_platform_substack_first_pipeline",
         lambda **kwargs: (_ for _ in ()).throw(
-            AssertionError("publisher must not be invoked when no destination is ready")
+            AssertionError("publisher must not be invoked by the zero-write newsroom smoke")
         ),
     )
 
@@ -817,7 +858,7 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
         article_builder=None,  # default canonical builder
         editorial_reviewer=lambda value: _semantic("PASS"),
         article_reviser=lambda value, review, round_number: value,
-        publication_enabled=True,
+        publication_enabled=False,
     )
 
     # Default builder produced a grounded article without forcing generic source cards.
@@ -829,7 +870,10 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
     # Cached readiness is passive; the coordinator owns exact JIT verification at publication.
     # The newsroom therefore returns a plan while still performing no public write here.
     assert "release_candidate_preparation" in result
-    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert result["classification"] == "NO_PUBLICATION"
+    assert result["exact_next_blocker"] == "PUBLICATION_DISABLED_FOR_GOVERNED_CYCLE"
+    assert result["shadow_package_ready"] is True
+    assert result["shadow_publication_plan_ready"] is True
     assert result["publication_lifecycle_plan"]["destinations"][0][
         "jit_verification_required"
     ] is True
@@ -1030,7 +1074,7 @@ def test_builder_fail_closed_surfaces_as_no_publication_not_crash(monkeypatch, t
         publication_enabled=True,
     )
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    assert result["exact_next_blocker"] == "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
     assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
         "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
     )
