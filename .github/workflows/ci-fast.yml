@@ -58,9 +58,41 @@ jobs:
           assert 'no merge without explicit owner authorization' in policy
           PY
 
+      - name: Check CodeGraph freshness and prepare repair artifact
+        id: codegraph
+        shell: bash
+        run: |
+          set +e
+          python scripts/generate_codex_context_index.py --check 2>&1 | tee codegraph-check.txt
+          rc=${PIPESTATUS[0]}
+          set -e
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          if [ "$rc" -ne 0 ]; then
+            python scripts/generate_codex_context_index.py
+          fi
+
+      - name: Upload CodeGraph evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: codegraph-evidence-${{ github.sha }}
+          path: |
+            codegraph-check.txt
+            docs/codegraph/INDEX.md
+            docs/codegraph/V2_CONTEXT.md
+            docs/codegraph/graph.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Check branch diff hygiene
         shell: bash
         run: |
           git fetch --no-tags origin master
           base="$(git merge-base HEAD origin/master)"
           git diff --check "$base" HEAD
+
+      - name: Enforce committed CodeGraph freshness
+        if: steps.codegraph.outputs.rc != '0'
+        shell: bash
+        run: |
+          echo 'Committed CodeGraph is stale; commit the generated artifact bytes and rerun.'
+          exit 1
