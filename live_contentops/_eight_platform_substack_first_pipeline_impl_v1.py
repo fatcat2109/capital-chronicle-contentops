@@ -5185,10 +5185,14 @@ def _run_rolling_x_newsroom_cycle(
     editorial_article_mode = str(
         selected_request.get("effective_article_mode")
         or selected_request.get("resolved_article_mode")
-        or selected_request.get("article_mode")
         or selected_attempt.get("effective_article_mode")
         or selected_attempt.get("resolved_article_mode")
+        or (viability.get("selected_cluster") or {}).get("effective_article_mode")
         or (viability.get("selected_cluster") or {}).get("resolved_article_mode")
+        or selected_request.get("article_mode")
+        or selected_request.get("story_mode")
+        or selected_attempt.get("article_mode")
+        or selected_attempt.get("story_mode")
         or (viability.get("selected_cluster") or {}).get("article_mode")
         or (viability.get("selected_cluster") or {}).get("story_mode")
         or "STANDARD_ANALYSIS"
