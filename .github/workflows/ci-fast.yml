@@ -84,8 +84,6 @@ jobs:
           assert 'does **not** prove that Codex Automations currently exist on the host' in codex_operator
           assert 'MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN' in north_star
 
-          # Both anti-drift documents must explicitly quarantine the old zero-floor semantics,
-          # even if they use slightly different historical wording (count vs quota, = 0 vs is zero).
           for text in (stale_manifest, authority_map):
               lower = text.lower()
               assert 'no mandatory post' in lower
@@ -140,6 +138,38 @@ jobs:
         run: |
           echo 'Committed CodeGraph is stale; commit the generated artifact bytes and rerun.'
           exit 1
+
+  authority-reset-codegraph-refresh:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'task/v1-daily-output-authority-reset-v1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout exact authority-reset head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Generate and commit exact CodeGraph repair when stale
+        shell: bash
+        run: |
+          set +e
+          python scripts/generate_codex_context_index.py --check
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then
+            echo 'CodeGraph already current.'
+            exit 0
+          fi
+          python scripts/generate_codex_context_index.py
+          git config user.name 'contentops-ci'
+          git config user.email 'contentops-ci@users.noreply.github.com'
+          git add docs/codegraph/INDEX.md docs/codegraph/V2_CONTEXT.md docs/codegraph/graph.json
+          git diff --cached --check
+          git commit -m 'chore: refresh CodeGraph for V1 authority reset'
+          git push origin HEAD:${{ github.head_ref }}
 
   branch-codegraph-refresh:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/agent/web-')
