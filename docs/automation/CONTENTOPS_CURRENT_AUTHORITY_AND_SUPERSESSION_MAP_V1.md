@@ -10,18 +10,20 @@ This map prevents fresh sessions from reviving stale quota, scheduler, canary, o
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. this map
-4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-7. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-8. current lane pointer
-9. nearest scoped `AGENTS.md`
-10. exact current code/tests/evidence/host truth.
+4. `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`
+5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+9. current lane pointer
+10. nearest scoped `AGENTS.md`
+11. exact current code/tests/evidence/host truth.
 
 ## Current root authority
 
 - `AGENTS.md`
 - this map
+- `CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md` — explicit stale/non-routing current-looking docs and semantics.
 - `CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 - `CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 - `CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
@@ -124,7 +126,7 @@ Do not delete historical evidence merely because its old conclusion is supersede
 When a document contains both useful historical evidence and stale current-routing language:
 
 1. do not rewrite immutable historical evidence to pretend the old run said something else;
-2. mark the document/family non-routing in this map;
+2. mark the document/family non-routing in this map and stale manifest;
 3. update the current root/pointer documents so fresh sessions cannot inherit the old rule;
 4. when the stale file is an actively read operator/plan file, rewrite it directly to current semantics.
 
@@ -133,7 +135,7 @@ When a document contains both useful historical evidence and stale current-routi
 1. Jim's latest explicit instruction.
 2. Fresh GitHub refs/commits/diffs/exact code and actual host/runtime evidence.
 3. Root `AGENTS.md` + current root North Star/Master Plan.
-4. This supersession map.
+4. This supersession map + current stale-doc manifest.
 5. Current lane pointer.
 6. Compatible older detail.
 7. Historical evidence only.
