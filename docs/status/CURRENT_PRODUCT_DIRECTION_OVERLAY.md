@@ -1,85 +1,97 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-20
+Authority date: 2026-08-21
 Status: `CURRENT_OWNER_DIRECTION_POINTER`
 
-This is a concise owner-direction pointer. Root `AGENTS.md`, the current authority map, root North Star V3, and root Master Plan V3 remain the durable product spine.
+This is a concise owner-direction pointer. Root `AGENTS.md`, the current authority map, root North Star V3, root Master Plan V3, and the current V1 pointer are stronger.
 
 ## Owner direction
 
-ContentOps is not merely a safe publisher. It is Capital Chronicle's autonomous newsroom, distribution, media-growth, and low-cost organic audience-acquisition engine.
+ContentOps V1 is an autonomous growth newsroom with a hard truth floor. It must produce reliable daily output rather than treating governed abstention as the default product success state.
 
-The product must compete for attention while preserving a hard truth floor.
+### Daily output contract
 
-### Current editorial doctrine
+During BUILD/PROOF:
 
-- Evidence burden follows **claim scope + editorial mode**.
-- One exact authentic official primary source may be sufficient for a narrow clearly attributed breaking fact when that source directly proves the event.
-- An issuer/party-authored source proves the existence and exact contents of its own announcement/filing/order/statement, not automatically disputed third-party allegations, misconduct, causality, or future outcomes.
-- Do not require a chart, secondary confirmation, CC packet, or observed market reaction merely to report a narrow official event.
-- Broader causal, quantitative, market-impact, forecast, scenario, probability, regime, valuation, or proprietary analytical claims require the stronger evidence/authority appropriate to those claims.
-- Quiet day does not automatically mean silent day. Evaluate useful follow-up, house-view/critical, contrarian, explainer, document/data, and watch/week-ahead modes before `NO_PUBLICATION`.
-- Quiet-day behavior may lower materiality or change mode; it may never lower factual truth, attribution, rights, permission, or numeric authority.
-- `CAPITAL_CHRONICLE_VIEW` and `WHAT_THE_MARKET_IS_MISSING` are first-class modes. Strong criticism and opinion are desirable when factual premises are source-bound and opinion/inference is distinguishable from fact.
-- ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence, but that is ContentOps editorial judgment, not Core Analyzer authority and may not manufacture reserved proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
-- Material allegations of fraud, crime, deception, corruption, or comparable misconduct require evidence proportional to the allegation.
-- The target is evidence-backed confrontation and memorable clarity, not fabricated outrage or personal abuse.
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES minimum per newsroom production day`
 
-### Current growth doctrine
+Final V1:
 
-ContentOps should optimize legitimate organic growth, including qualified reach, meaningful reads, shares/restacks/reposts, saves, discussion, profile visits/follows, canonical clicks, newsletter subscriptions/referrals, repeat readership, and Capital Chronicle product conversion where measurable.
+`5–8 PUBLISHED ARTICLES per newsroom production day`
 
-Platform packages should be native, self-contained, and interesting. Do not reduce every derivative to “new article, click here.”
+Candidate-level abstention remains valid. A whole production day below the active floor is degraded unless an exact hard external blocker is proven.
 
-The current nine-surface V1 set is the P0 acceptance baseline, not a permanent ceiling. Future newsletter-native discovery/referral features, search/discovery surfaces, collaborations/cross-promotion, or authorized public conversation participation require exact owner-approved identity, permission, write/readback, anti-spam/rate, and measurement scope.
+No filler. Never lower factual truth, source attribution, rights, permissions, identity, or Core Analyzer numeric authority to meet volume.
 
-No fake engagement, purchased followers, deceptive astroturfing, mass unsolicited DMs, spam, or unsupported sensational claims. Public reply/comment automation remains separately owner-gated until exact destination/write/readback scope exists.
+### Production-day contract
 
-### Current breaking-wake doctrine
+The intended routine windows are 17:00, 21:00, 23:00, and following 01:00 Bangkok time. These belong to one deterministic newsroom production day. Later windows must be able to recover earlier deficit through bounded additional candidate/article work.
 
-Fast breaking coverage needs both a narrow official-primary evidence path and a timely execution path.
+No fifth routine task merely to satisfy the floor.
 
-Before the owner-accepted live canary, implement and prove material-event wake mechanics only under `NO_PUBLIC_WRITE`/shadow validation. Do not add an unapproved public-write opportunity.
+### Codex execution truth
 
-After the accepted canary, final V1 should support bounded automatic material-event wakes through the existing Daily App supervisor for genuinely material fresh events. **Live automatic wake activation is a separate public-write trigger-scope expansion and requires an explicit owner grant covering material-event wakeups; the canary authorization alone does not imply it. Without that grant, keep the wake path `NO_PUBLIC_WRITE`/shadow-only.** This is not a fifth scheduled task and must not create a second scheduler.
+FDA-G remains the continuous low-cost intake/state/runtime authority.
 
-Preserve stable trigger identity/idempotency, duplicate/update-chain checks, spacing/saturation controls, the same evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority.
+Current repository code does not prove that FDA-G directly launches Codex Desktop. `live_contentops/codex_desktop_newsroom_operator_v1.py` is not a scheduler or Desktop/model bridge.
 
-### Current distribution doctrine
+The repository lists four intended Codex Automation configurations, but actual host task existence/state is unproven until supported Codex host/product evidence confirms it.
 
-Substack remains canonical truth.
+Configured intent must never be reported as observed `READY`, `PAUSED`, `ENABLED`, or unattended execution state.
 
-For future owner-authorized publication, a derivative destination that is temporarily unavailable is a destination-local hold/recovery condition, not an automatic veto of an otherwise qualified and Substack-ready canonical article.
+Current intended routine config:
 
-Target lifecycle:
+- London 17:00 Mon–Fri;
+- New York 21:00 Mon–Fri;
+- New York 23:00 Mon–Fri;
+- New York 01:00 Tue–Sat;
+- Asia/Bangkok;
+- `gpt-5.6-sol / HIGH` coordinator;
+- one fresh isolated `gpt-5.6-sol / XHIGH` worker for each warranted final article.
 
-`qualified article -> canonical Substack publish/readback -> exactly eight derivative packages -> destination-local attempt/hold/recovery -> strict reconciliation`
+### Editorial doctrine
 
-Final nine-surface canary acceptance still requires exact proof of the canonical article plus all eight required derivatives and `UNKNOWN_WRITE=0`.
+- Evidence burden follows claim scope + editorial mode.
+- One exact authentic official primary source may support a narrow clearly attributed breaking fact when it directly proves the event.
+- Broader causal/quantitative/market-impact/forecast/scenario/probability/regime/valuation/proprietary claims require stronger authority/evidence.
+- Quiet day is not a silent-day exception. Evaluate follow-up, house view, what-market-misses, explainer, document/data, and week-ahead/watch modes before candidate abstention.
+- Strong evidence-backed criticism/contrarian work is first class.
+- Qualitative ContentOps inference is allowed when clearly identified and source-grounded; it is not Core Analyzer authority.
 
-This overlay grants no live/public write by itself.
+### Growth doctrine
+
+Optimize legitimate organic reach, meaningful reads, shares, follows, subscriptions/referrals, canonical clicks, repeat readership, and Capital Chronicle product conversion where measurable.
+
+No fake engagement, spam, mass unsolicited DMs, fabricated outrage, or unsupported allegations.
+
+### Distribution doctrine
+
+Substack remains canonical. Exactly eight current V1 derivative destinations remain required for the P0 canary contract.
+
+A derivative-local temporary outage is a destination-local recovery condition, not automatic erasure of canonical truth.
+
+`UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`
+
+### Material-event execution
+
+FDA-G may detect/prioritize material events. Immediate material-event-to-Codex execution is not proven merely by runtime trigger metadata.
+
+Until a supported execution bridge is demonstrated, treat this as `MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN`.
+
+Any credential/access-token/API Codex bridge is a separate owner-gated execution/security boundary.
 
 ## Current V1 sequence
 
-P0-1 authority/context/source work is accepted. FDA-G should remain on genuine calendar-time soak when healthy. All four existing V1 scheduled editorial tasks remain `PAUSED` until owner-accepted canary.
+P0-G3 is accepted/merged.
 
-Current build sequence:
+Current next step is not passive waiting and not immediate canary publication. First:
 
-1. implement `P0-G1 + P0-G2` growth-first editorial spectrum + bounded material-event wake mechanics + canonical-first resilient distribution through the existing canonical V1 supervisor/newsroom path;
-2. `NO_PUBLIC_WRITE` replay covering breaking + wake/no-wake, normal analysis, quiet-day, and critical/opinion cases;
-3. Jim/ChatGPT review actual article/package outputs;
-4. one real `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` canary;
-5. enable only the existing four scheduled tasks after accepted canary; separately obtain an explicit owner trigger-scope grant before activating automatic material-event public-write wakeups, otherwise keep the wake path shadow-only;
-6. unattended/cold-start proof across scheduled operation plus at least one material-event trigger/no-op or trigger/execution path at the highest scope currently authorized;
-7. close the V5 UI acceptance caveat and observation/growth control-room evidence;
-8. continue V2 repeated creative soak and real V1->V2 qualification under zero V2 public-write authority.
+1. prove/fix daily-output floor and production-day accounting;
+2. prove actual Codex Automation host inventory/execution capability;
+3. implement bounded deficit catch-up without a fifth routine task;
+4. expose truthful daily-output/automation state in V5;
+5. prove one zero-public-write Automation invocation path where supported.
 
-Do not route the project back to passive “wait for a perfect qualifying opportunity” as the only next action. A real qualifying opportunity is still required for live-canary proof, but it does not block current product-behavior implementation.
+Then resume P0-G4 canary -> owner one-canary grant -> real nine-surface publication/readback -> unattended/cold-start proof -> V5 final screenshot QA.
 
-## Boundaries that do not change
-
-Capital Chronicle/Core Analyzer owns proprietary analytical/numeric/decision truth. ContentOps may not invent or alter missing CC numbers, calculations, forecasts, probabilities, scenarios, regimes, decisions, paper records, or analytical error attribution.
-
-Internal governance is not public permission. Public use of proprietary CC/Core Analyzer material requires an exact story-scoped publication-safe upstream contract.
-
-`UNKNOWN_WRITE` remains `STOP RETRY -> READ BACK -> RECONCILE`.
+This overlay grants zero live/public-write authority by itself.

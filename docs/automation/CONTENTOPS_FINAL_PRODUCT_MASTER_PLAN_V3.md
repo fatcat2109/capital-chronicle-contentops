@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-Authority date: 2026-08-20
+Authority date: 2026-08-21
 Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN`
 
 North Star: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
@@ -8,391 +8,204 @@ Authority map: `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MA
 
 ## 0. Objective
 
-Finish one coherent Capital Chronicle distribution-and-learning product that behaves like an autonomous growth newsroom, not a compliance pipeline that waits indefinitely for perfect conditions.
+Finish one coherent autonomous growth newsroom that reliably produces useful publication-quality work every newsroom production day, while preserving hard truth, evidence, rights, identity, numeric-authority, recovery, and public-write boundaries.
 
-The product architecture remains:
+Current highest-priority owner contract:
 
-`Capital Chronicle/Core Analyzer intelligence -> explicit publication-safe handoff + contextual discovery -> ContentOps evidence/intelligence fusion -> V1 publishing + V2 media -> observation -> bounded ContentOps learning -> audience/business utility`
+- BUILD/PROOF: at least `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES` per newsroom production day;
+- FINAL V1: `5–8 PUBLISHED ARTICLES` per newsroom production day;
+- candidate abstention remains allowed;
+- a whole-day deficit below the active floor is degraded unless an exact hard external blocker is proven;
+- filler and unsupported claims remain forbidden.
 
-Truth, permissions, rights, exact identity, and recovery remain hard boundaries. Editorial materiality, content mode, and growth strategy are product variables.
+## 1. Accepted foundation
 
-## 1. Current accepted foundation
+Accepted and do not reopen without a demonstrated defect:
 
-### 1.1 P0-1 is accepted
+- P0-1 publication-authority/context separation;
+- canonical V1 durable store/runtime/publication coordinator;
+- growth-first eight-mode editorial spectrum;
+- claim/mode-proportional evidence;
+- official-primary breaking fast lane;
+- quiet-day week-ahead/document/explainer/house-view behavior;
+- canonical-first derivative resilience;
+- P0-G3 multi-mode zero-write owner audit and merge at master lineage `369c0cc289e790b8218ba30b2696a926db04356a`.
 
-Do not route new work as if P0-1 were still the next implementation capability.
+Current P0-G4 draft PR #12 is not final authority for new daily-output semantics and remains frozen until this plan's execution-bridge correction is merged/reconciled.
 
-Accepted current lineage already provides:
+## 2. Current demonstrated gap
 
-- explicit separation of context/discovery, governed internal Analyzer material, and publication-authorized CC authority;
-- story-scoped publication-authority use binding;
-- bounded semantic CC context activation;
-- compatibility/degraded-state preservation;
-- accepted source-reachability corrections without promoting discovery/internal material;
-- telemetry for upstream/context use and zero-use reasons.
+Two product gaps must be closed before resuming the real publication canary.
 
-Do not reopen those areas merely to increase publication yield unless a new demonstrated mechanical defect exists.
+### 2.1 Daily-output contract gap
 
-### 1.2 V1 runtime foundation is active
+Current code/docs were built around publication-minimum-zero and one-opportunity semantics. That is stale under the current owner contract.
 
-The canonical Final Daily App/runtime/store/orchestrator remain the production authority.
+The system needs one deterministic newsroom production-day accounting layer that:
 
-The accepted logical-supervisor correction now treats a proven Windows wrapper/child canonical process tree as one logical supervisor while still blocking genuinely independent roots. Current operator/runtime evidence reports the FDA-G calendar-time soak active on current master with healthy heartbeat and ingestion. That runtime state is runtime evidence, not GitHub-static truth.
+- groups the 17:00, 21:00, 23:00, and following 01:00 Bangkok windows into one production day;
+- counts only qualified build articles and actual final published articles;
+- exposes build floor `4`, final target `5–8`, current count, deficit, and state;
+- allows later windows to recover an earlier deficit through bounded additional candidate/article work;
+- does not loop forever, repeat terminal unchanged candidates, or manufacture filler.
 
-Exactly four existing V1 newsroom tasks remain `PAUSED` until the owner-accepted canary. Do not create a fifth task.
+### 2.2 Codex execution-bridge truth gap
 
-### 1.3 Publication safety foundation
+FDA-G continuously ingests and maintains state, but current repository code does not prove a direct FDA-G-to-Codex Desktop invocation path.
 
-Preserve:
+`live_contentops/codex_desktop_newsroom_operator_v1.py` is not a scheduler or Desktop/model bridge. Repository setup packets describing four native Codex tasks are configuration intent only.
 
-- one durable operational store;
-- exact public-write intent before external write;
-- canonical Substack identity;
-- exactly eight derivative destination identities/packages;
-- strict readback/reconciliation;
-- `UNKNOWN_WRITE: STOP RETRY -> READ BACK -> RECONCILE`;
-- exact browser/profile roles;
-- KILL_SWITCH/autonomy controls;
-- no fabricated CC/Core Analyzer analytical/numeric truth.
+Before unattended/editorial automation claims, actual host truth must prove:
 
-### 1.4 V2 foundation
+- whether current Codex supports native Automations;
+- whether the four intended ContentOps Automations actually exist;
+- their exact state, project, schedule, model, reasoning effort, and prompt;
+- whether they can run unattended on this host;
+- whether their HIGH coordinator can create the required fresh isolated XHIGH worker;
+- whether any supported immediate material-event-to-Codex wake exists.
 
-V2 already has a governed intake path, rights/provenance substrate, concrete-first asset doctrine, Remotion rendering, short/longform paths, audio/package foundations, actual-media QA, recovery/caching, and publication-adapter history.
+Configured intent must never be promoted to observed host state.
 
-The remaining V2 gap is repeated owner-accepted production and later exact publication authority, not a new renderer architecture. V2 currently has zero public-write authority.
+## 3. Immediate P0 task — authority reset + daily output + Codex automation bridge
 
-## 2. Current product gap
+Before P0-G4 continues, execute one bounded heavy vertical slice:
 
-The principal V1 gap is no longer “find one perfect headline and wait.”
+`TASK_V1_DAILY_OUTPUT_FLOOR_AND_CODEX_AUTOMATION_EXECUTION_BRIDGE_V1`
 
-The current gap is that the implemented newsroom/policy stack still overweights blanket abstention and an older all-nine-ready preflight model relative to Jim's current product intent:
+Required deliverables:
 
-- breaking news can be important before rich secondary/data support exists;
-- a breaking fast lane is incomplete if a genuinely material event cannot wake the existing supervisor path in time;
-- quiet days still need useful, non-filler editorial output when possible;
-- strong criticism, house view, and contrarian analysis are necessary for differentiation and organic growth;
-- evidence burden should follow the public claim and content mode;
-- derivative outages should not automatically destroy the freshness/value of an otherwise qualified canonical article;
-- growth/organic acquisition must be first-class product utility, not a downstream side effect.
+1. actual Codex host automation inventory;
+2. current authority/docs reconciled to owner floor/target;
+3. deterministic `newsroom_production_day_id`;
+4. build/final counters and deficit states;
+5. bounded deficit recovery inside the intended four routine opportunities;
+6. exact native Codex Automation setup/repair if supported by the installed product, otherwise exact owner UI setup gate;
+7. V5 daily-output/automation-state truth fields;
+8. one zero-public-write automation invocation proof when supported;
+9. no source/evidence/numeric/permission weakening;
+10. no fifth routine task and no second scheduler.
 
-Therefore the next implementation is a **growth-first editorial-spectrum vertical slice**, not another P0-1/source-yield patch and not an immediate live canary under the stale policy.
+## 4. Production-day accounting contract
 
-## 3. P0-G1 — Growth-first editorial spectrum vertical slice
+The routine intended opportunities are:
 
-### User problem
+- 17:00 Bangkok, Monday–Friday;
+- 21:00 Bangkok, Monday–Friday;
+- 23:00 Bangkok, Monday–Friday;
+- 01:00 Bangkok, Tuesday–Saturday, belonging to the prior newsroom production day.
 
-The current system can truthfully abstain, but it can also remain silent too long because it applies evidence/materiality assumptions designed for deeper analytical articles to narrower breaking or lower-news-day opportunities. Its editorial voice is also too restrained to compete for attention at launch.
+Required states:
 
-### Capability
+- `ON_TRACK`
+- `DEFICIT_RECOVERABLE`
+- `FLOOR_MET`
+- `DEGRADED_DAILY_OUTPUT_DEFICIT`
+- `HARD_EXTERNAL_BLOCK`
 
-One canonical selection/evidence/editorial path should choose among these modes:
+Candidate-level `NO_PUBLICATION` does not set production-day success while the floor remains unmet.
 
-1. `BREAKING_BRIEF`
-2. `FOLLOW_UP_UPDATE`
-3. `STANDARD_NEWS_ANALYSIS`
-4. `CAPITAL_CHRONICLE_VIEW`
-5. `WHAT_THE_MARKET_IS_MISSING`
-6. `EVERGREEN_EXPLAINER`
-7. `DATA_OR_DOCUMENT_LENS`
-8. `WEEK_AHEAD_OR_WATCH`
+Hard external blockers must be exact and auditable; they must not be fabricated to excuse low yield.
 
-The system may still return `NO_PUBLICATION`, but only after the applicable useful modes have been considered without fabricating a story.
+## 5. Deficit recovery without a fifth task
 
-### 3.1 Mode-specific evidence contracts
+Do not create additional routine schedule objects to chase the floor.
 
-Build/reuse one deterministic capability registry that maps:
+At each actual routine Codex wake:
 
-`story type + editorial mode + claim class -> required evidence/authority`
+1. load current production-day count/deficit;
+2. recover/read back any outstanding state;
+3. load fresh/current candidate universe and durable evaluated memory;
+4. walk strong candidates and applicable editorial modes;
+5. create qualified build article(s) until the current cumulative expected progress is restored, candidate/evidence universe is genuinely exhausted, bounded cost is reached, or a hard external blocker occurs;
+6. persist deficit before/after and terminal reasons.
 
-Do not introduce a second evidence engine.
+Later windows may catch up earlier misses. Bounded cost, durable cutoff, update-chain semantics, and duplicate prevention remain mandatory.
 
-Minimum contract behavior:
+## 6. Codex execution architecture
 
-- narrow official-primary breaking fact: one exact authentic current official source can satisfy event confirmation/basic attributed facts;
-- issuer/party-authored primary source: sufficient to establish that the issuer/party made, filed, ordered, or published the exact statement/record and its directly inspectable contents, but not independent proof of disputed third-party allegations, misconduct, causality, or future outcomes without additional accepted evidence;
-- ordinary factual update: exact source-backed delta and current context;
-- analytical/causal/market-impact claims: stronger public evidence and/or publication-authorized CC authority as required;
-- proprietary probabilities/scenarios/forecasts/regimes/numeric conclusions: exact publication-authorized CC packet only;
-- opinion/criticism: every factual premise source-bound; opinion/inference explicitly distinguishable; no unsupported allegation.
+Preferred routine architecture:
 
-Evidence can become stricter as claims grow. It must not become stricter merely because the article is being published by an automated system.
+`FDA-G background intake/state -> native Codex Automation -> gpt-5.6-sol/HIGH coordinator -> one fresh isolated gpt-5.6-sol/XHIGH worker per warranted final article -> deterministic validation -> zero-write build output or authorized publication`
 
-### 3.2 Official-primary breaking fast lane
+FDA-G remains the always-on cheap runtime authority. Codex is the heavy editorial execution layer.
 
-Use existing official-primary source locator/loader infrastructure.
+Do not create a Python/Desktop bridge merely because the host tasks are missing. First use supported native Codex Automation capabilities. If owner UI configuration is required, stop and request that exact action rather than inventing task state.
 
-A breaking brief may proceed when an official source directly proves the narrow event even if:
+Immediate material-event-to-Codex execution is `NOT_PROVEN` until a supported bridge is demonstrated. Any credential/access-token/API bridge is a separate owner-gated execution/security change.
 
-- no professional secondary article is available yet;
-- no chart exists;
-- no publication-authorized CC packet exists;
-- no market reaction has yet been observed.
+## 7. V5 operator contract
 
-The article must not convert missing downstream information into invented causality or market impact.
+V5 must show:
 
-Preferred breaking structure:
+- newsroom production-day ID;
+- qualified build articles `X / 4`;
+- remaining build deficit;
+- final target `5–8/day` with build/public-write state distinction;
+- production-day state;
+- actual observed Codex Automation state where safely observable, otherwise `AUTOMATION_STATE_UNAVAILABLE`;
+- next intended/observed Codex opportunity without conflating configured intent and host truth;
+- normal runtime/evidence/authority/publication/recovery/cost state.
 
-`WHAT HAPPENED -> WHAT THE OFFICIAL SOURCE SAYS -> WHY IT MATTERS -> WHAT IS NOT KNOWN YET -> WHAT TO WATCH`
+If the build floor is unmet, generic `Running Idle — healthy waiting` must not hide the production deficit.
 
-### 3.3 Quiet-day ladder
+## 8. Resume P0-G4 only after the bridge/floor task passes
 
-If no high-materiality breaking/analysis article qualifies, evaluate lower-cost useful modes from the canonical current universe and published memory:
+Then resume one real canary path:
 
-`follow-up -> house view/criticism -> what-market-misses -> explainer -> data/document lens -> week-ahead/watch`
+### P0-G4A
 
-Quiet-day mode may lower story materiality or change time horizon. It may not lower factual accuracy, source attribution, rights, permissions, or numeric authority.
+- zero-write genuine current candidate;
+- article + eight packages locked;
+- exact JIT destination identities/readiness;
+- explicit owner public-write gate.
 
-Avoid generic evergreen content unrelated to current audience interest. Relevance to current macro/market/policy/company discourse remains required.
+### P0-G4B
 
-### 3.4 House view and criticism
+After exact owner grant:
 
-Add an explicit editorial mode/voice contract for `CAPITAL_CHRONICLE_VIEW` and `WHAT_THE_MARKET_IS_MISSING`.
+- canonical Substack publish/readback;
+- exactly eight derivative attempts;
+- destination-local recovery;
+- strict reconciliation;
+- `UNKNOWN_WRITE=0`;
+- actual public-object owner audit.
 
-Desired behavior:
+A canary grant authorizes only that canary unless explicitly widened.
 
-- strong thesis early;
-- clear statement of what consensus/management/policy framing is being challenged;
-- evidence-backed mechanism;
-- counter-case or uncertainty when material;
-- memorable but defensible headline/lede;
-- no vague neutralizing prose when a clear supported view exists.
+## 9. P0-G5 unattended/cold-start proof
 
-ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence. That is ContentOps editorial judgment, not Core Analyzer authority. It must not be represented as a Core Analyzer conclusion and must not invent proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
+After owner-accepted canary:
 
-Material allegations of fraud, crime, deception, corruption, or comparable misconduct require evidence proportional to the allegation and are not authorized merely because the piece is opinion/house view.
+- use only actual proven native routine Automations;
+- no fifth routine task;
+- prove production-day floor/target accounting under calendar-time unattended execution;
+- prove restart/cold-start, cutoff/recovery, no duplicate articles/public objects, bounded cost, and truthful deficit/hard-block states;
+- separately owner-gate any live automatic material-event Codex/public-write wake capability.
 
-The model may express editorial judgment but receives zero factual/numeric/permission/public-write authority.
+## 10. V5 final closure
 
-### 3.5 Growth-aware ranking
+Before final V1 acceptance:
 
-Ranking may use supported audience/product signals as **priority/packaging inputs**, including:
+- current source epoch/build must be healthy;
+- daily-output/automation truth must be visible;
+- runtime/evidence/authority/publication/recovery/cost state must be truthful;
+- fresh browser screenshots must be independently reviewed against current design authority;
+- visual PASS cannot be inferred from tests.
 
-- novelty/material delta;
-- timeliness;
-- reader relevance;
-- potential to explain a confusing mechanism;
-- defensible controversy/contrarian value;
-- share/discussion potential;
-- search/evergreen utility;
-- portfolio diversity;
-- evidence readiness;
-- bounded production cost.
+## 11. Final V1 definition of done
 
-Do not optimize raw outrage or clickbait. Engagement can influence priority, never truth.
+V1 is final only when:
 
-### 3.6 Native derivative hooks
+1. one reliable Daily App remains continuously healthy;
+2. build proof demonstrates the 4-qualified-article floor without filler or weakened truth;
+3. final operating behavior targets 5–8 published articles per newsroom production day;
+4. actual Codex execution/Automation bridge is proven, not merely configured in docs;
+5. real canonical Substack + eight derivatives canary is accepted with `UNKNOWN_WRITE=0`;
+6. unattended/cold-start execution is proven;
+7. UI truth and visual acceptance are complete.
 
-Prepare platform-native package intents that are self-contained and interesting rather than generic link announcements.
+## 12. Hard stops
 
-Examples of allowed transformation dimensions:
+Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-account or unauthorized public write, destructive production-state mutation, unresolved `UNKNOWN_WRITE`, unsupported automation mutation, or inability to distinguish configured task intent from actual host automation state.
 
-- concise breaking alert;
-- sharp thesis/take;
-- question-led conversation starter;
-- chart/document-focused framing;
-- professional LinkedIn argument;
-- compact Telegram/Discord briefing;
-- canonical article CTA as secondary, not the only value.
-
-Public comment/reply automation remains out of scope until separately owner-authorized.
-
-### 3.7 Bounded material-event wake path
-
-Reuse the existing Daily App supervisor and material-event/update-chain machinery. Do not create a fifth scheduled task or a second scheduler.
-
-The implementation must prove under `NO_PUBLIC_WRITE`/shadow validation that a genuinely material fresh event can create one idempotent editorial opportunity outside the routine windows without duplicate wakeups. The wake must carry stable trigger identity, duplicate/update-chain state, spacing/saturation controls, and the same evidence/article/publication gates as a scheduled opportunity.
-
-No new live/public-write wake authority is granted before the owner-accepted real canary. After that canary, the final V1 operating path must support the bounded supervisor-owned material-event wake, but **live activation is a separate public-write trigger-scope expansion and requires an explicit owner grant covering automatic material-event wakeups; the canary grant alone does not imply it.**
-
-## 4. P0-G2 — Canonical-first resilient distribution semantics
-
-### Product problem
-
-The old “all nine destinations ready or zero canonical write” interpretation can cause an Instagram/Threads/etc. outage to destroy the freshness of a valid breaking article.
-
-### Target semantics
-
-For future owner-authorized publication:
-
-1. recover/reconcile prior obligations; require `UNKNOWN_WRITE=0`;
-2. qualify article truth/rights/reader value;
-3. verify exact canonical Substack identity/readiness;
-4. publish/read back canonical Substack;
-5. build/attempt exactly eight derivative packages independently under exact destination readiness;
-6. destination-local unavailability becomes durable hold/recovery;
-7. continue other ready derivatives;
-8. reconcile every attempted object; never blind retry.
-
-A derivative failure cannot erase canonical truth or justify duplicate canonical publication.
-
-### Acceptance distinction
-
-Canonical publication may be valid despite a destination-local temporary outage. However **final P0-2 nine-surface canary acceptance** still requires one accepted real canary in which all required nine surfaces are eventually proven under exact identity/readback/reconciliation with `UNKNOWN_WRITE=0`.
-
-No live/public-write authority is granted by this plan itself.
-
-## 5. P0-G3 — Zero-write multi-mode replay and editorial audit
-
-Before a live canary, run one bounded zero-public-write replay that covers at least:
-
-1. **breaking official-source case** — narrow event facts from one exact official primary source; no invented market response; prove the bounded material-event trigger/wake path can create the opportunity in zero-write/shadow mode without duplicate wakeups;
-2. **normal analysis case** — broader claim requiring stronger evidence and any exact publication-authorized CC material available;
-3. **quiet-day case** — no major breaking story; system selects a useful lower-rung mode or truthfully abstains after the ladder;
-4. **critical/opinion case** — explicit house view/contrarian thesis with source-bound factual premises and clear opinion/inference separation.
-
-For each case prove:
-
-- selected mode and why;
-- exact claim/evidence contract;
-- accepted source records;
-- CC authority class/use or truthful zero-use;
-- final article and headline;
-- native package intents for all V1 destinations;
-- no public write;
-- bounded model/cost path;
-- no fabricated facts/numbers/permissions.
-
-For the breaking case also prove the material-event trigger identity, wake/no-wake decision, spacing/dedupe behavior, and zero duplicate editorial opportunity.
-
-Jim/ChatGPT must review the actual article/package outputs. Tests alone cannot prove editorial quality.
-
-## 6. P0-G4 — Real V1 publication canary
-
-Only after P0-G1/G2/G3 are accepted, use `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` for one genuine current opportunity.
-
-Required sequence:
-
-1. recover/reconcile and require `UNKNOWN_WRITE=0`;
-2. ingest current universe;
-3. select a qualified mode/story under the new policy;
-4. resolve exact public evidence and any publication-authorized CC material;
-5. create one strong editorial output when warranted;
-6. validate factual/numeric/rights/reader value;
-7. verify canonical Substack readiness/identity;
-8. publish/read back canonical Substack;
-9. attempt exactly eight derivatives under exact destination identity/readiness;
-10. recover destination-local failures without blind retry;
-11. read back/reconcile every attempted object;
-12. require `UNKNOWN_WRITE=0`;
-13. Jim/ChatGPT inspect actual article and all derivative artifacts.
-
-The canary authorization is scoped to that canary unless Jim explicitly says otherwise; it does not silently authorize future automatic material-event public-write triggers or new public surfaces.
-
-A legitimate `NO_PUBLICATION` remains valid behavior but is not final canary proof.
-
-## 7. P0-G5 — Four-window + material-event unattended/cold-start proof
-
-After an owner-accepted real canary:
-
-- enable only the four already-existing V1 quality-probation scheduled tasks under their accepted schedule ownership;
-- separately obtain/confirm an explicit owner grant before activating automatic material-event public-write wakeups; if that grant is absent, keep material-event wake behavior `NO_PUBLIC_WRITE`/shadow-only;
-- when granted, activate the bounded material-event wake through the existing Daily App supervisor; this is not a fifth scheduled task;
-- do not create a fifth task or parallel scheduler;
-- prove unattended calendar-time execution, legitimate abstentions, output diversity, restart/cold-start behavior, recovery/readback, bounded cost, and zero duplicate public objects;
-- prove at least one material-event trigger/no-op or trigger/execution path at the highest scope currently authorized, with stable identity and no duplicate wake;
-- keep FDA-G low-cost supervision alive between editorial opportunities.
-
-Only after this proof may V1 be classified `V1_FINAL_PRODUCT_ACCEPTED`; any claim of live automatic material-event publication requires the explicit grant above.
-
-## 8. Canonical V5 UI closure
-
-The canonical V5 UI must truthfully show:
-
-- runtime/source epoch/heartbeat;
-- intake/currentness;
-- editorial mode and current candidate state;
-- evidence/source health;
-- CC authority class and use/zero-use;
-- article/media/package state;
-- canonical and derivative lifecycle;
-- destination-local hold/recovery;
-- `UNKNOWN_WRITE`/incident state;
-- supported performance/growth observations;
-- current bounded learning policy;
-- cost/runtime.
-
-The currently reported optional `UI_BUILD_EXIT_1` during launcher startup is not a soak blocker but remains an acceptance caveat. Before final V1 acceptance, reproduce and correct any actual current V5 build/runtime defect and perform fresh screenshot-based owner review.
-
-Do not build a second dashboard/control plane.
-
-## 9. Observation and organic growth loop
-
-After real public samples exist, measure what platforms actually expose and bind observations to exact content/public-object identity.
-
-Prioritize, where supportable:
-
-- reach/impressions;
-- meaningful reads/completion;
-- shares/reposts/restacks;
-- saves;
-- qualified replies/comments;
-- profile visits/follows;
-- canonical clicks;
-- subscriber conversion/referrals;
-- search impressions/clicks/queries;
-- repeat readership;
-- Capital Chronicle signup/product use/paid/retained linkage when available.
-
-Missing metrics remain unavailable, never zero.
-
-Learning may adjust story-mode mix, priority, timing recommendations, headline/framing, SEO, assets, package form, and portfolio diversity. It may never alter facts, permissions, Core Analyzer output, numeric authority, rights, destination identity, or public-write authority.
-
-The current nine-surface set is the P0 acceptance baseline. After stable public samples exist, evaluate additional legitimate low-cost discovery/growth surfaces—newsletter-native discovery/referrals, search/discovery, collaborations/cross-promotion, or authorized public conversation participation—only when exact owner-approved identity, permission, write/readback, anti-spam/rate, and measurement scope exists. Expand only where measured utility/CAC benefit justifies the added operational surface.
-
-## 10. V2 continuation
-
-V2 work can continue only under current root sequencing and exact zero-public-write authority.
-
-Near-term V2 product work after V1 growth-policy acceptance should focus on repeated fresh-story creative production, asset diversity, chart legibility/full-chart holds, professional audio, cache/recovery, unattended soak, bounded TCO, and real V1->V2 qualification.
-
-No V2 public write until a future exact owner grant.
-
-## 11. Anti-overengineering / deferrals
-
-Do not build before direct product need:
-
-- a second CC database/mirror;
-- query-all behavior;
-- a ContentOps clone of Core Analyzer;
-- a second newsroom/store/publisher/scheduler/control plane;
-- arbitrary model bakeoffs;
-- broad historical backfills unrelated to current utility;
-- broker/live execution;
-- fake engagement infrastructure;
-- autonomous public replies/DMs before exact owner write/readback scope;
-- broad compliance/security ceremony unrelated to a real blocker.
-
-Prefer one implementation, one independent audit, and at most one bounded correction.
-
-## 12. Current ordered capability plan
-
-### P0-G1 — Growth-first editorial spectrum + bounded material-event wake mechanics
-Implement mode-specific claim/evidence contracts, official-primary breaking fast lane, quiet-day ladder, explicit Capital Chronicle house-view/critical modes, growth-aware ranking/package intents, and the bounded supervisor-owned material-event wake path under zero-write validation.
-
-### P0-G2 — Canonical-first resilient derivative lifecycle
-Remove derivative-unavailability as a blanket canonical veto while preserving exact identity, durable recovery, and strict readback/reconciliation.
-
-P0-G1 and P0-G2 should be one heavy bounded implementation slice if CodeGraph confirms the same canonical qualification/publication path can absorb both without widening risk.
-
-### P0-G3 — Zero-write multi-mode replay
-Prove breaking + material-event wake, normal analysis, quiet day, and critical/opinion behavior; Jim/ChatGPT audit actual outputs.
-
-### P0-G4 — Real live canary
-One owner-authorized current article -> canonical Substack -> exactly eight derivatives -> readback/reconcile -> `UNKNOWN_WRITE=0` -> owner artifact audit. Canary authority is one-canary scope unless explicitly widened.
-
-### P0-G5 — Four-window + material-event unattended/cold-start proof
-Enable only the existing four scheduled tasks after accepted canary. Material-event live activation additionally requires explicit owner trigger-scope authorization; otherwise prove that path shadow-only. Never create a fifth scheduled task.
-
-### P1 — Canonical observation/growth control-room closure + organic network growth optimization + V2 repeated creative soak
-Use real supported samples; evaluate additional legitimate low-cost discovery/growth surfaces only under exact owner-approved scope; do not build a second authority engine.
-
-### P2 — V2 public distribution/retention + commercial funnel attribution
-Only after exact future owner grants and supported identity/observation.
-
-## 13. Exact next capability
-
-The next implementation capability after this authority reconciliation is:
-
-`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM, BOUNDED MATERIAL-EVENT WAKE, AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
-
-It should be implemented through the existing canonical V1 supervisor/selection/evidence/article/package/publication path, with `NO_PUBLIC_WRITE` validation first. Do not reopen P0-1, do not stop merely because no live story is presently qualified, and do not create a parallel newsroom, scheduler, or evidence engine.
+Protected historical `v1.0` remains immutable.

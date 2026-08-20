@@ -1,198 +1,158 @@
 # Codex Desktop V1 Newsroom Operator
 
-Authority date: 2026-08-17
+Authority date: 2026-08-21
+Status: `CURRENT_V1_CODEX_EXECUTION_CONTRACT`
 
-Operating mode: `OPERATOR_LIGHT_CODEX_DESKTOP_SCHEDULED_MODE`.
+## 1. Critical truth boundary
 
-Routine coordinator: native Codex Desktop `gpt-5.6-sol`, reasoning effort `HIGH`.
+This document defines the intended native Codex execution contract. It does **not** prove that Codex Automations currently exist on the host.
 
-Final editorial worker: exactly one fresh isolated native Codex Desktop `gpt-5.6-sol`, reasoning
-effort `XHIGH`, created for every final canonical article after a real candidate has enough
-governed evidence to warrant article production, including `BREAKING_BRIEF`. The scheduled task itself does not run at
-`XHIGH`.
+Repository configuration != host Automation truth.
 
-Grounded-research/evidence model ladder: exactly `vx/gemini-3.1-pro-preview(high)` →
-`vx/gemini-3.5-flash(high)`, both through 9Router. `cx/gpt-5.6-terra(high)` is excluded from this role. The runtime
-loads this policy automatically; operators do not restate it in each `GO`. Preserve the existing
-bounded retry budget and fall back only on eligible provider-layer failure. Model assertions have
-zero factual, numeric, Capital Chronicle, permission, publication, or public-write authority.
+Until actual supported Codex inventory proves otherwise, use:
 
-This is the reusable instruction for one fresh native Desktop task. It is not a Codex CLI job,
-Desktop bridge, UI-automation lane, second scheduler, second newsroom, or persistent chat-memory
-system. `QUALITY_PROBATION_FOUR_WINDOW_V1` is the current owner-authorized operating policy.
+`UNPROVEN_HOST_AUTOMATION_STATE`
 
-## Pre-live single-canary gate
+Do not claim `READY`, `PAUSED`, `ENABLED`, or unattended execution merely because this file lists intended tasks.
 
-Exactly four named native V1 tasks already exist and are all `PAUSED`. Do not create, recreate,
-enable, or add a fifth task. Before routine operation: fast-forward the accepted implementation
-branch to `master`; synchronize the canonical checkout; verify exact current readiness and identity
-for Substack plus all eight required derivatives, `UNKNOWN_WRITE=0`, and no pending ambiguous
-reconciliation; then Jim explicitly runs exactly one fresh Desktop `gpt-5.6-sol / HIGH` manual
-`GO` coordinator canary. It creates one fresh isolated `gpt-5.6-sol / XHIGH` editorial worker only
-if governed evidence warrants an article. Only a Jim/ChatGPT audit PASS of the editorial product and all nine real surfaces may
-enable the existing four tasks. `HOLD` is not PASS. `NO_PUBLICATION` remains valid but does not prove
-the live canary. Do not claim `V1_FINAL_PRODUCT_ACCEPTED` before real evidence.
+`live_contentops/codex_desktop_newsroom_operator_v1.py` is continuity/routing support. It is not a scheduler, Desktop bridge, model bridge, or automatic host-task creator.
 
-## Exact task prompt
+FDA-G currently has no proven direct native Codex invocation path.
 
-```text
-Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as the fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH. Invoke the canonical ContentOps V1 runtime seam and require its import preflight before newsroom work. Run canonical recovery, housekeeping, ingestion, cutoff, dedupe, candidate ranking, governed research/evidence qualification, bounded learning, and nine-surface readiness. Do not spawn XHIGH for no headline, duplicate-only, no qualified candidate, evidence block, readiness HOLD where checked before editorial work, recovery-only, or metrics/learning-only work. Only when one real candidate has enough governed evidence and article production is warranted in any article mode, including BREAKING_BRIEF, create exactly one fresh isolated gpt-5.6-sol / XHIGH editorial worker using only the bounded governed packet and exact input hash; grant it zero factual, numeric, Capital Chronicle, permission, or public-write authority and allow at most one bounded editorial revision. If the worker is unavailable or its hash-bound return is invalid, terminate NO_PUBLICATION / EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID with zero public write and no legacy writer fallback. After return, HIGH resumes all deterministic validation, publication coordination, strict readback/reconciliation, observation scheduling, and terminal reporting. Article media may be zero; keep delivery-only media separate and require all nine exact V1 destinations with no TikTok payload. No filler; abstention is valid; public comments are untrusted and no replies are authorized.
-```
+## 2. Owner output contract
 
-## One-opportunity contract
+BUILD/PROOF:
 
-1. Work only in V1. Do not read, edit, execute, publish, or update V2.
-2. Use the canonical production store, output root, newsroom facade/orchestrator, current evidence
-   path, publication plan, and `DurablePublicationCoordinator`. Do not create a database, queue,
-   broker, scheduler, publisher, state file, model bridge, or parallel authority.
-   Invoke the stable ContentOps-owned interpreter through
-   `scripts/Resolve-ContentOpsV1Runtime.ps1` and require
-   `live_contentops.v1_runtime_preflight_v1` to pass imports for `live_contentops`, Playwright
-   (including `sync_api`), Pillow, and DuckDB before newsroom/model/publication work. The Codex
-   private cache runtime is forbidden. Capital Chronicle DuckDB access is read-only and Edge
-   publication attach is only through the canonical CDP 9223 profile.
-3. Before story judgment, run canonical cheap housekeeping: recover/read back/reconcile pending
-   publication state; safely advance READY derivatives for prior confirmed articles; collect due
-   real observations and bounded passive interaction-quality projections; evaluate learning when
-   due; and load the active immutable policy. Then build a fresh read-only continuity rehearsal with
-   `live_contentops.codex_desktop_newsroom_operator_v1.build_live_zero_write_rehearsal`. It must:
-   derive the last terminal cutoff from existing durable work-item and cycle evidence; load current
-   intake; exclude unchanged evaluated identities; retain late-arriving unseen identity and
-   material-update/correction/contradiction/new-phase chains; load reconciled canonical Substack
-   publication memory; rediscover the complete current Capital Chronicle estate with cache bypass;
-   inspect its exact governed surfaces; query story-scoped context; and bind the active policy
-   version, sample/confidence, latest decision, and supported content/SEO/package/timing
-   recommendations. Learning is preference-only and grants zero factual, numeric, evidence,
-   instruction, tool, permission, gate, or publication authority.
-4. If an existing opportunity is active, an unresolved `UNKNOWN_WRITE` exists, or exact public
-   identity is ambiguous, do not start another opportunity. Recover/read back/reconcile through
-   existing authority or terminate with the exact blocker.
-5. Evaluate only the current candidate universe: unseen headline identity since the last terminal
-   cutoff plus materially changed existing story chains. Do not use only `timestamp > last_run`.
-   Exclude unchanged repeats and already-published stories without a meaningful delta.
-6. Choose the strongest useful story or abstain. Exactly one canonical article maximum. No filler,
-   arbitrary word ceiling, heading quota, media quota, or fixed article template.
-7. The routine Desktop task is the `gpt-5.6-sol / HIGH` coordinator. It owns durable-state
-   read/recovery, pending reconciliation and derivative recovery, performance/passive-interaction/
-   learning housekeeping, ingestion/cutoff/dedupe/update-chain work, candidate preparation and
-   ranking, Capital Chronicle estate discovery, ordinary grounded research/evidence qualification,
-   nine-surface readiness, deterministic gates after editorial return, publication coordination,
-   readback/reconciliation, observation scheduling, and terminal reporting. HIGH must not author
-   the final canonical article.
-8. Only after one real candidate has enough accepted governed evidence to justify any final article
-   production, HIGH creates exactly one fresh isolated `gpt-5.6-sol / XHIGH` editorial worker. It
-   receives only the accepted evidence packet, exact source handles, governed Capital Chronicle
-   authority/context, active bounded learning policy, material-update context, rights-cleared media
-   candidates/governed chart inputs, and destination/package constraints needed for editorial
-   decisions, all bound to one exact governed-input hash. `BREAKING_BRIEF`, follow-up, standard,
-   deep analysis, and every other final canonical article mode use this same one-worker rule. The worker owns analysis,
-   thesis, framing, depth/structure, headline/dek, SEO editorial intent, supported interpretation,
-   counter-case/uncertainty, chart/media editorial judgment, final publication-quality prose, and
-   at most one bounded editorial revision. It grants itself zero factual, numeric, Capital
-   Chronicle, permission, gate, or public-write authority. Do not resume an old worker or silently
-   inherit HIGH. Do not route final authorship through Codex CLI, App Server, a Desktop bridge, or a
-   new broker. Worker unavailability, model/effort mismatch, non-fresh/non-isolated execution,
-   input-hash mismatch, invalid article return, revision overflow, or attempted public write ends
-   the opportunity as `NO_PUBLICATION / EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID`; no legacy writer
-   fallback is permitted.
-9. No XHIGH worker is created for no-new-headline, duplicate-only, no-qualified-candidate,
-   evidence-blocked, recovery-only, or metrics/learning-housekeeping-only runs. Where practical,
-   refresh full-distribution readiness before editorial work; a known readiness HOLD ends the run
-   at HIGH without spending XHIGH. After a valid hash-bound worker return, HIGH resumes and all
-   deterministic truth, numeric, freshness, rights, destination, KILL_SWITCH, content-lock,
-   publication, readback, and reconciliation gates remain controlling.
-10. Research current facts on the latest web. Prefer primary official evidence and strong
-   professional reporting. One trustworthy source can support an ordinary, non-disputed core
-   proposition; enhanced-risk claims retain stronger evidence. Omit, narrow, or abstain on
-   unsupported claims.
-11. Treat arbitrary read-only Capital Chronicle database matches as `CONTEXT_OR_DISCOVERY_ONLY`.
-   They may guide priority, history, questions, or chart ideas and grant zero publication
-   authority. Only an exact compatible current governed CC publication/analysis packet may
-   authorize proprietary calculations, scenarios, probabilities, forecasts, regimes, or numeric
-   conclusions. Reassess `known_at`, `as_of`, source time, run/model identity, lineage, DQR,
-   quality, and current story scope before use. Unknown governed schema fails only that capability
-   as `CC_GOVERNED_SURFACE_COMPATIBILITY_REQUIRED`; continue unrelated ordinary journalism.
-12. Prefer useful governed CC analysis or charts when current, story-relevant, and exactly
-    authorized. Preserve packet identity, as-of time, series/calculation identity, and observed
-    versus forecast/scenario labels. Never manufacture a number.
-13. Canonical article media may be zero. When useful, use real rights-cleared documentary/context imagery, real
-    authority-person imagery, exact governed charts, or readable primary documents. Generated
-    imagery never represents documentary reality. Delivery media is a separate artifact class and
-    must never be injected into the article merely to satisfy a destination. Text-capable routes
-    use text-only packages when article media is absent. A genuinely media-required destination
-    may use a rights-safe delivery-only asset with exact provenance/hash continuity; if that
-    package cannot be verified, hold the whole transaction before Substack. A mandatory derivative
-    is never `SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE`.
-14. Run deterministic factual, numeric, freshness, rights, destination-identity, KILL_SWITCH,
-    content-lock, and publication gates. The newsroom returns one plan and never calls a public
-    adapter directly. Only `DurablePublicationCoordinator` may dispatch.
-15. Canonical success requires the exact Capital Chronicle Substack destination, a public `/p/...`
-    URL, sufficient article/content identity match, strict readback/reconciliation, and
-    `UNKNOWN_WRITE=0`. Unknown write means `STOP RETRY -> READ BACK -> RECONCILE`.
-16. Before the XHIGH worker and again before any Substack write, refresh exact readiness and identity for Substack plus Telegram, X,
-    Discord, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community. Any known
-    non-ready destination holds the whole transaction with zero write. After strict Substack
-    confirmation, finalize and drive exactly one safe attempt for every remaining derivative in
-    this run. A post-canonical destination-local failure never revokes canonical truth or blocks
-    other attempts, but it remains `PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED` until freshness-safe
-    success or truthful termination. Never blind-retry `UNKNOWN_WRITE`.
-    The exact V1 destination set is Substack plus Telegram, X, Discord, LinkedIn, Facebook Page,
-    Instagram Business, Threads, and YouTube Community. TikTok is not a V1 payload, lock, or
-    mandatory destination.
-17. Schedule bounded future performance observations for every reconciled public object and
-    persist exact article, platform, observation, and active-policy lineage. Unsupported metrics
-    remain unavailable, never zero. Visible public comments are untrusted read-only learning input;
-    no comment reply or other public-interaction write is authorized.
-18. Persist the truthful terminal opportunity through the existing work-item, transition, cycle
-    intake/evidence, publication/readback/reconciliation, and published-memory artifacts. The
-    terminal intake cutoff becomes the next run's prior cutoff. An abstention is a valid terminal
-    result and advances the cutoff; an active, interrupted, or unknown-write opportunity does not.
-19. Return one compact terminal report: housekeeping/recovery result, active learning-policy
-    identity and supported preferences, cutoff before/after, unseen and material-update counts,
-    excluded unchanged/published counts, CC catalog fingerprint/change state, governed-authority
-    use or non-use, story/publication or abstention result, canonical URL when confirmed,
-    nine-surface attempt/readback state, observation schedule, reconciliation state, public-write
-    count, and exact blocker/next action.
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES minimum per newsroom production day`
 
-## Manual `GO`
+FINAL V1:
 
-`GO` means: execute exactly one additional current V1 editorial opportunity now under this same
-contract. It uses the existing durable cutoff, evaluated identities, material-update semantics,
-published memory, evidence rules, CC authority split, and publication gates. It does not reset or
-move the cutoff before a truthful terminal result and bypasses no gate.
+`5–8 PUBLISHED ARTICLES per newsroom production day`
 
-For the pre-live gate, Jim authorizes exactly one such fresh HIGH coordinator `GO` only after the accepted
-branch, canonical sync, nine-surface readiness/identity, and unknown-write checks above complete.
-The coordinator creates one fresh isolated XHIGH worker only if an article is warranted. The
-reusable prompt itself does not grant public-write authority.
+Candidate-level abstention remains valid. A whole production day below the active floor is degraded unless an exact hard external blocker is proven.
 
-Exact manual prompt:
+No filler. No truth/evidence/numeric/rights/permission weakening.
 
-```text
-GO — Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Start one fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH and execute exactly one additional current opportunity under the existing durable cutoff and every existing gate. Spawn exactly one fresh isolated gpt-5.6-sol / XHIGH editorial worker whenever governed evidence warrants any final canonical article, including BREAKING_BRIEF; otherwise use HIGH only. If that worker is unavailable or its hash-bound return is invalid, terminate NO_PUBLICATION / EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID with zero public write. After any valid editorial return, HIGH resumes deterministic validation, publication coordination, readback, reconciliation, observation scheduling, and terminal reporting.
-```
+## 3. Production-day windows
 
-## Native Desktop scheduled-task configuration
+Intended routine schedule:
 
-The existing standalone fresh scheduled tasks target project
-`A:\Capital Chronicle\ContentOps`, timezone `Asia/Bangkok`, model `gpt-5.6-sol`, reasoning effort
-`HIGH`, and the exact task prompt above. All four are currently `PAUSED`. The HIGH coordinator may
-create exactly one fresh isolated `gpt-5.6-sol / XHIGH` worker only at the qualified-article
-boundary. Enable the tasks only after the
-single live canary receives Jim/ChatGPT audit PASS and while Jim has opened Codex Desktop for the
-active newsroom day. Do not use a persistent heartbeat conversation.
-
-The existing inventory is exactly these quality-probation opportunities; do not recreate them:
-
-| Group | Task name | Bangkok local recurrence |
+| Group | Intended Automation | Bangkok recurrence |
 |---|---|---|
-| London | `V1 Newsroom — London 1700` | Monday–Friday at 17:00 |
-| New York | `V1 Newsroom — New York 2100` | Monday–Friday at 21:00 |
-| New York | `V1 Newsroom — New York 2300` | Monday–Friday at 23:00 |
-| New York | `V1 Newsroom — New York 0100` | Tuesday–Saturday at 01:00 |
+| London | `V1 Newsroom — London 1700` | Monday–Friday 17:00 |
+| New York | `V1 Newsroom — New York 2100` | Monday–Friday 21:00 |
+| New York | `V1 Newsroom — New York 2300` | Monday–Friday 23:00 |
+| New York | `V1 Newsroom — New York 0100` | Tuesday–Saturday 01:00 |
 
-The midnight split preserves the prior New York business day in Bangkok local time. Publication
-minimum is zero and routine opportunity ceiling is four. No code or learned policy may mutate these
-native tasks or add another automatic run. Material-event metadata prioritizes the next
-scheduled opportunity. Only Jim may later change cadence after real quality/reliability evidence;
-manual `GO` remains the explicit exceptional extra opportunity and bypasses no gate.
+Timezone: `Asia/Bangkok`.
+
+The 01:00 opportunity belongs to the prior newsroom production day. Production accounting must use deterministic `newsroom_production_day_id` semantics, not a naive local calendar date.
+
+Do not create a fifth routine task merely to satisfy the floor.
+
+## 4. Model roles
+
+Routine coordinator:
+
+`gpt-5.6-sol / HIGH`
+
+Final editorial worker:
+
+one fresh isolated `gpt-5.6-sol / XHIGH` worker for each warranted final canonical article.
+
+Grounded research/evidence model policy remains current repo authority and grants zero factual/numeric/permission/public-write authority to model output.
+
+HIGH owns runtime/state recovery, candidate preparation/ranking, evidence/research, readiness, deterministic validation, publication coordination, readback/reconciliation, observation scheduling, and terminal reporting.
+
+HIGH must not silently author the final canonical article.
+
+## 5. Daily deficit recovery contract
+
+Old `one opportunity = at most one article` behavior is superseded where it prevents the active daily floor.
+
+At each actual Codex Automation wake:
+
+1. resolve current newsroom production day;
+2. read qualified/published counts and remaining deficit;
+3. recover/reconcile existing state and require `UNKNOWN_WRITE=0`;
+4. load current candidate universe using durable cutoff/evaluated/update-chain memory;
+5. walk strong candidates and applicable editorial modes;
+6. for each candidate that reaches the article boundary, create one fresh isolated XHIGH worker;
+7. persist each qualified article/package result;
+8. continue only until current cumulative expected progress is restored, bounded candidate/evidence universe is exhausted, bounded cost/retry limits are reached, or a hard external blocker occurs;
+9. persist deficit before/after and terminal reasons.
+
+Do not loop forever or repeatedly research unchanged terminal candidates.
+
+## 6. Editorial spectrum
+
+Canonical modes:
+
+- `BREAKING_BRIEF`
+- `FOLLOW_UP_UPDATE`
+- `STANDARD_NEWS_ANALYSIS`
+- `CAPITAL_CHRONICLE_VIEW`
+- `WHAT_THE_MARKET_IS_MISSING`
+- `EVERGREEN_EXPLAINER`
+- `DATA_OR_DOCUMENT_LENS`
+- `WEEK_AHEAD_OR_WATCH`
+
+Quiet-day lower-rung modes are required before treating the usable universe as exhausted.
+
+## 7. Evidence/authority rules
+
+Evidence burden follows claim ambition.
+
+One exact current authentic official primary source may support a narrow attributed breaking fact. Broader causal, market, valuation, forecast, scenario, probability, regime, or proprietary numeric claims require stronger authority/evidence.
+
+Context/discovery and governed internal Core Analyzer material are not publication permission.
+
+Each XHIGH worker receives only bounded accepted evidence/authority/context and an exact governed-input hash. It receives zero factual, numeric, CC, permission, gate, or public-write authority.
+
+No legacy final-writer fallback.
+
+## 8. Intended reusable Automation prompt
+
+Use current repository authority; do not embed stale branch SHAs.
+
+```text
+Read AGENTS.md, the current authority/supersession map, root V3 North Star/Master Plan, the current V1 pointer, and docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as the native V1 coordinator on gpt-5.6-sol / HIGH. Resolve the current newsroom production day and active build/final output contract. Recover/reconcile current state, require UNKNOWN_WRITE=0, load fresh current intake/cutoff/update-chain memory, evaluate the candidate universe and full useful editorial spectrum, acquire claim-appropriate evidence, and pursue bounded deficit recovery rather than treating one candidate abstention as whole-day success. For every candidate that genuinely reaches the final-article boundary, create exactly one fresh isolated gpt-5.6-sol / XHIGH editorial worker with only the bounded governed packet and exact input hash; grant it zero factual/numeric/CC/permission/public-write authority. HIGH resumes deterministic validation and zero-write or authorized publication lifecycle after each return. Do not manufacture filler, weaken evidence, create a fifth routine task, invent host Automation state, or perform public writes without exact owner authority.
+```
+
+## 9. Actual Automation setup/inventory rule
+
+Before claiming routine execution is available, prove on the installed Codex product/host:
+
+- Automations supported yes/no;
+- exact ContentOps Automations found;
+- names/schedules/timezone;
+- project/repo/worktree target;
+- model/reasoning effort;
+- prompt/thread identity;
+- active/paused/absent state;
+- unattended behavior where supported;
+- ability of HIGH coordinator to create fresh isolated XHIGH workers.
+
+If supported programmatic Automation management is unavailable, stop with exact owner UI setup instructions. Do not fake success in repo docs.
+
+## 10. Material-event wake
+
+FDA-G material-event detection/priority does not prove immediate Codex wake.
+
+Until actual supported execution is demonstrated, classify:
+
+`MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN`
+
+Do not add a credential/access-token/API Codex bridge without a separate explicit owner grant.
+
+## 11. Build/publication safety
+
+Current build bridge proof remains `SHADOW_ONLY / ZERO PUBLIC WRITE` unless a separate exact canary grant is active.
+
+Do not publish, create externally visible drafts, dispatch derivatives, inspect raw secrets/session data, mutate public account identity, reset production store, or blind-retry ambiguous writes.
+
+## 12. Final acceptance of routine Codex execution
+
+Routine Codex execution is accepted only when actual host evidence proves the Automation objects and at least one real zero-write Automation invocation reaches current FDA-G state and returns a truthful terminal result.
+
+Automation invocation PASS and article qualification PASS are separate claims.

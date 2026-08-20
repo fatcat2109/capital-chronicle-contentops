@@ -1,12 +1,12 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-08-20
+Authority date: 2026-08-21
 Status: `CURRENT_ROOT_AUTHORITY`
 Repository: `fatcat2109/capital-chronicle-contentops`
 
 ## 1. Mandatory current read path
 
-For any current ContentOps implementation, audit, task framing, or owner decision, read in this order:
+For every current implementation, audit, task framing, or owner decision, read in this order:
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
@@ -15,240 +15,175 @@ For any current ContentOps implementation, audit, task framing, or owner decisio
 5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 7. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-8. the current lane pointer
-9. the nearest scoped `AGENTS.md`
-10. exact implementation, focused tests, and current evidence
+8. current lane pointer
+9. nearest scoped `AGENTS.md`
+10. exact current implementation/tests/evidence.
 
-Do not route from an old plan, handoff, generated status snapshot, task branch, or chat SHA. CodeGraph is discovery tooling, not product authority. Its recorded `Source HEAD` is the newest commit that changed an indexed source, not necessarily the current branch tip. Use the deterministic generator/check or exact indexed-source bytes/digest to establish freshness.
+Do not route from historical task evidence, stale handoffs, generated status snapshots, task branches, or chat SHAs.
 
-## 2. Authority and evidence order
-
-Before repo-state claims or task execution, fetch current remote `master` and relevant branch HEADs and inspect current bytes.
-
-Repository/evidence authority:
-
-1. fetched refs, commits, diffs, and exact bytes;
-2. committed code, focused tests, accepted evidence, and exact-head CI where applicable;
-3. this current authority spine and current lane pointers;
-4. runtime/worker evidence for facts that only the runtime can prove;
-5. historical docs, project sources, and chat.
+## 2. Authority order
 
 Product authority:
 
 1. Jim's latest explicit instruction;
-2. this root contract and current root North Star/Master Plan;
-3. current owner overlays and lane pointers;
-4. older plans/history.
+2. this root contract plus current root North Star/Master Plan;
+3. current authority map and lane pointer;
+4. older detailed plans/history.
+
+Repository/evidence authority:
+
+1. fresh remote refs/commits/diffs/exact bytes;
+2. exact implementation, focused tests, accepted evidence, exact-head CI where applicable;
+3. runtime/host/browser evidence for facts that only execution can prove;
+4. historical docs/project sources/chat.
 
 Newer owner direction wins.
 
-## 3. Execution framework
+## 3. Anti-drift fail-closed rule
 
-Current repository execution framework is `CAPABILITY_ROUTED_HYBRID`.
+The following claims are INVALID for current V1 unless they are supported by the current root North Star/Master Plan and exact runtime/host evidence where applicable:
 
-- `WEB_STATIC` — ChatGPT Web + GitHub for repository-static reasoning, review, bounded edits, authority maintenance, and GitHub operations whose correctness is provable from fresh bytes.
-- `WEB_CI` — Web + GitHub + deterministic Actions for bounded implementation safely provable by CI. Normal scope is `NO_SECRET / NO_PUBLIC_WRITE / NO_PRODUCTION_MUTATION`.
-- `CODEX_EXECUTION` — use Codex when correctness materially needs a real execution environment, stateful services/database, current network behavior, Windows/browser/runtime inspection, rendered mechanics, or iterative debug feedback.
-- `OWNER_GATED_EXTERNAL` — explicit owner scope for secrets/session boundaries, live/public writes, destructive canonical changes, provider/browser publication expansion, rights/legal release, material Core Analyzer numeric-authority change, or equivalent irreversible external action.
+- `no mandatory post count`;
+- `publication minimum = 0` as successful whole-day behavior;
+- `NO_PUBLICATION` means a whole production day may end healthy below the active output floor;
+- `exactly four Codex tasks already exist` without actual Codex host inventory evidence;
+- `the four Codex tasks are PAUSED/READY/ENABLED` when that state comes only from repo configuration;
+- `FDA-G directly launches Codex` unless an actual supported execution bridge is proven;
+- `material-event wake immediately invokes Codex` unless a supported bridge is proven.
 
-Use the cheapest lane that can produce evidence strong enough for the claim. CI PASS never substitutes for production/public/browser/visual/audio truth. Execution routing never grants factual, numeric, permission, credential, destination, rights, or public-write authority.
+If any current-looking subordinate document says one of the above, treat that wording as superseded and do not route from it.
 
-## 4. One product architecture
+Configured intent is not observed runtime/host truth.
 
-Capital Chronicle/Core Analyzer is the intelligence and decision authority. ContentOps is the evidence-governed newsroom, media-production, organic audience-acquisition, distribution, observation, and bounded-learning engine.
+## 4. Current V1 owner output contract
 
-Canonical system:
+During BUILD/PROOF:
 
-`Capital Chronicle/Core Analyzer intelligence -> explicit publication-safe handoff + contextual discovery -> ContentOps evidence/intelligence fusion -> V1 publishing + V2 media -> observation -> bounded ContentOps learning -> audience/business utility`
+`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES per newsroom production day`
 
-Capital Chronicle/Core Analyzer owns proprietary analytical and numeric truth: calculations, scenarios, probabilities, forecasts, regimes, decision briefs, private decision/watch/abstain outputs, paper expressions, realized outcomes, and analytical error attribution.
+Final V1 operating target:
 
-ContentOps owns discovery, grounded public research, evidence/freshness/permission gates, faithful transformation of explicitly publication-authorized upstream material, writing, SEO, media, distribution, readback/reconciliation, observation, organic growth, and bounded content learning.
+`5–8 PUBLISHED ARTICLES per newsroom production day`
 
-ContentOps must never manufacture missing Core Analyzer numbers, calculations, forecasts, probabilities, scenarios, regimes, decisions, positions, or proprietary conclusions.
+These are not filler quotas.
 
-## 5. Capital Chronicle/Core Analyzer authority classes
+Candidate-level abstention is allowed. Whole-day deficit is not healthy success.
 
-Maintain three distinct classes:
+If the active production day ends below the build floor without an exact hard external blocker, classify:
 
-1. **Context/discovery only** — arbitrary database rows, historical/entity/event/document matches, candidate snapshots, sidecar/lab outputs, and other read-only discovery material. Useful for investigation; zero public factual/numeric authority by themselves.
-2. **Core Analyzer governed internal authority** — validated internal handoffs, decision/forecast/scenario/paper records, point-in-time internal outputs, and governed candidate snapshots. Internal governance is not public permission.
-3. **ContentOps publication-authorized CC authority** — exact story-scoped upstream publication material whose contract grants the intended ContentOps consumer/use and preserves binding, permissions, lineage, time semantics, source health/freshness, blockers, and `llm_numeric_authority=false`.
+`DEGRADED_DAILY_OUTPUT_DEFICIT`
 
-Never upgrade internal/candidate/context material into public authority by model judgment, chart rendering, or adapter logic.
+Never weaken factual, evidence, numeric, permission, rights, or identity gates to satisfy the floor.
 
-## 6. Current product state
+## 5. Production-day semantics
 
-`P0-1` publication-authority classification/use binding, bounded CC context activation, compatibility-state preservation, and the accepted source-reachability corrections are complete on current product lineage. Do not reopen P0-1 merely to increase publication yield.
+The intended routine windows are 17:00, 21:00, 23:00, and the following 01:00 Bangkok time. They belong to one deterministic newsroom production day; do not count by naive Bangkok calendar date.
 
-The V1 canonical Daily App runtime and durable store remain the production authority. The accepted logical-supervisor fix allows the real Windows wrapper/child process tree to count as one logical supervisor while still blocking independent roots.
+Later routine opportunities must be able to recover earlier deficit through bounded additional candidate/article work. Do not create a fifth routine task merely to chase the floor.
 
-P0-2 final product acceptance is not yet proven. A real nine-surface publication/readback canary and subsequent unattended/cold-start proof remain required. However the product is **not** globally in a passive “wait and do nothing” state: before the next live canary, V1 must implement and prove the owner-directed growth-first editorial spectrum below.
+## 6. Current V1 execution architecture
 
-## 7. V1 North Star — growth-first autonomous newsroom with a hard truth floor
+FDA-G is the continuous low-cost intake/state/runtime authority.
 
-V1 is not a compliance engine that optimizes for abstention. It is Capital Chronicle's autonomous newsroom and low-cost organic growth engine.
+Native Codex execution is a separate heavy-editorial layer. Current repo code does not prove that FDA-G directly launches Codex Desktop.
 
-The objective is:
+`live_contentops/codex_desktop_newsroom_operator_v1.py` is continuity/routing support, not a scheduler or Desktop/model bridge.
 
-`useful truth -> timely/distinctive editorial product -> platform-native distribution -> organic attention -> subscriber/user acquisition -> measured learning`
+Preferred routine architecture:
 
-Truth remains the hard floor. Growth never authorizes fabricated facts, invented Core Analyzer numbers, unsupported allegations, wrong-account writes, blind retries, or permission widening.
+`FDA-G -> actual native Codex Automation -> HIGH coordinator -> fresh isolated XHIGH worker at qualified article boundary -> deterministic validation -> zero-write build output or authorized publication`
 
-### 7.1 Evidence burden follows the claim and editorial mode
+Do not claim native Codex Automations exist until host evidence proves them.
 
-Do not impose one blanket evidence burden on every article.
+Do not add an API/access-token Codex bridge without explicit owner authorization.
 
-A narrow breaking claim such as “Agency/Company X officially announced Y” may be publishable from one exact, current, authentic official primary source when the article clearly attributes the claim and stays within what that source proves. It does not require a chart, secondary confirmation, CC packet, or observed market reaction merely to report the event.
+## 7. ContentOps/Core Analyzer boundary
 
-An issuer-authored or interested-party official source is authoritative for the existence and exact contents of its own announcement, filing, order, or statement. It does not automatically independently prove disputed assertions about third parties, misconduct, causality, or future outcomes; keep those assertions attributed unless separate accepted evidence establishes them.
+Capital Chronicle/Core Analyzer owns proprietary calculations, probabilities, scenarios, forecasts, regimes, decisions, paper records, realized-outcome attribution, and other analytical/numeric truth.
 
-Broader claims require broader evidence. Causal, quantitative, market-reaction, valuation, forecast, scenario, probability, or proprietary analytical claims require the evidence/authority appropriate to those claims. An official announcement is not evidence for an invented market impact.
+ContentOps owns discovery, grounded research, story selection, writing, SEO, media, distribution, readback/reconciliation, observation, growth, and bounded learning.
 
-If uncertainty remains, say what is known, what is not yet known, and what to watch next.
+Three authority classes remain distinct:
 
-### 7.2 Quiet day is not automatically a silent day
+1. context/discovery only;
+2. governed internal Core Analyzer authority;
+3. exact story-scoped publication-authorized CC authority.
 
-No-publication remains valid and there is no mandatory post quota. But `NO_PUBLICATION` should be the result of a useful editorial search, not the default response to the absence of a major headline.
+Never promote class 1 or 2 into public authority by model judgment or adapter logic.
 
-Use this editorial ladder when appropriate:
+## 8. Editorial rules
 
-1. `BREAKING_BRIEF`
-2. `FOLLOW_UP_UPDATE`
-3. `STANDARD_NEWS_ANALYSIS`
-4. `CAPITAL_CHRONICLE_VIEW` — explicit house opinion/criticism/contrarian thesis
-5. `WHAT_THE_MARKET_IS_MISSING`
-6. `EVERGREEN_EXPLAINER`
-7. `DATA_OR_DOCUMENT_LENS`
-8. `WEEK_AHEAD_OR_WATCH`
+V1 supports the current eight-mode spectrum:
 
-On quiet days, lower story materiality or switch content mode; do **not** lower factual truth, attribution, permission, or numeric-authority standards.
+- `BREAKING_BRIEF`
+- `FOLLOW_UP_UPDATE`
+- `STANDARD_NEWS_ANALYSIS`
+- `CAPITAL_CHRONICLE_VIEW`
+- `WHAT_THE_MARKET_IS_MISSING`
+- `EVERGREEN_EXPLAINER`
+- `DATA_OR_DOCUMENT_LENS`
+- `WEEK_AHEAD_OR_WATCH`
 
-Filler means content with no meaningful new information, useful explanation, original perspective, defensible criticism, document/data insight, or reader utility. A strong evergreen explainer or house view is not filler.
+Quiet day is not silent-day permission. Lower materiality/change mode before giving up. Filler remains forbidden.
 
-### 7.3 Opinion, criticism, and editorial edge are first-class
+One exact current official primary source may support a narrow attributed breaking fact when it directly proves that fact. Broader causal/numeric/market-impact/proprietary claims require stronger evidence/authority.
 
-Capital Chronicle may publish strong, critical, contrarian, and opinionated work to differentiate the brand and drive qualified engagement.
+Strong evidence-backed house view and criticism are allowed. Qualitative ContentOps inference must remain distinguishable from fact and must not be presented as Core Analyzer output.
 
-Requirements:
+## 9. Publication/recovery boundaries
 
-- facts and quoted/attributed claims remain source-bound;
-- opinion/inference is distinguishable from verified fact;
-- criticism targets decisions, policies, claims, incentives, narratives, products, institutions, companies, public actors, or market consensus with a defensible factual basis;
-- provocative framing is allowed when the underlying proposition is supportable;
-- material allegations of fraud, crime, deception, corruption, or similar misconduct require evidence proportional to that allegation and are not authorized merely because the article is an opinion/house-view mode;
-- no fabricated allegations, deceptive editing, harassment, personal abuse, or unsupported certainty.
+Substack is canonical. The eight V1 derivative destinations are Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community.
 
-ContentOps may make clearly labeled **qualitative editorial inference** from accepted public evidence. That is ContentOps editorial judgment, not Core Analyzer authority. It must not be represented as a Capital Chronicle/Core Analyzer model conclusion and must not manufacture proprietary probabilities, forecasts, scenarios, regimes, valuations, decision outputs, or other reserved analytical/numeric truth without exact publication-authorized upstream material.
+`UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`
 
-The target is **evidence-backed confrontation**, not rage bait.
+No execution lane, model, config file, or automation grants public-write authority by implication.
 
-### 7.4 Growth is a first-class product objective
+## 10. Execution framework
 
-V1 should optimize, where supportable, for organic reach, meaningful reads, shares/restacks/reposts, saves, qualified discussion, profile visits, follows, free/paid newsletter conversion, canonical clicks, repeat readership, and Capital Chronicle product acquisition/retention.
+Use `CAPABILITY_ROUTED_HYBRID`:
 
-Platform packages must be native, self-contained, and strong enough to earn attention without relying on a generic “new article” announcement. Engagement may change story priority, framing, timing, packaging, SEO, and creative policy; it may never rewrite facts or Core Analyzer truth.
+- `WEB_STATIC`: repo-static reasoning/authority/docs/GitHub operations;
+- `WEB_CI`: bounded deterministic implementation provable by CI;
+- `CODEX_EXECUTION`: real runtime/Windows/browser/stateful/debug evidence;
+- `OWNER_GATED_EXTERNAL`: secrets/session, live/public writes, destructive canonical mutation, credential/security expansion, material numeric-authority change, or equivalent irreversible action.
 
-The current nine-surface V1 distribution set is the baseline acceptance contract, not a permanent ceiling on legitimate organic acquisition. Future low-cost discovery or community surfaces—such as newsletter-native discovery/referral features, search/discovery surfaces, collaborations/cross-promotion, or authorized public conversation participation—may be added only under exact owner-approved identity, permission, write/readback, and measurement scope. Do not widen public-write authority by implication.
+Use the cheapest lane that can produce evidence strong enough for the claim.
 
-No fake followers, engagement farms, deceptive astroturfing, mass unsolicited DMs, spam, or unsupported outrage. Public comment/reply automation remains separately owner-gated until exact write/readback scope exists.
+## 11. Current sequence
 
-### 7.5 Breaking material-event wakeups
+P0-G3 is accepted/merged.
 
-Fast breaking coverage requires both a lighter claim-appropriate evidence path and a timely wake path.
+Before P0-G4 canary continues, current work must:
 
-During the current pre-canary quality-probation state, do not add an unapproved live/public-write opportunity. The growth-first implementation may and should prove the material-event wake path in `NO_PUBLIC_WRITE`/shadow mode.
+1. reconcile authority to the daily-output owner contract;
+2. prove actual Codex host Automation inventory/execution capability;
+3. implement production-day floor/deficit accounting and bounded catch-up;
+4. expose truthful daily-output/automation state in V5;
+5. prove one zero-public-write Automation-to-editorial path where supported.
 
-After the owner-accepted live canary, final V1 must support a bounded automatic **material-event wake** through the existing Daily App supervisor when a genuinely material fresh event satisfies the current trigger policy. **Live activation of automatic material-event public-write opportunities is a separate trigger-scope expansion and requires an explicit owner grant covering that wake scope; the canary authorization alone does not imply it. Until that grant exists, keep the wake path `NO_PUBLIC_WRITE`/shadow-only.** This is not a fifth scheduled task and must not create a second scheduler.
-
-Every material-event wake must preserve deterministic trigger identity/idempotency, duplicate/update-chain checks, minimum spacing/saturation controls, the same claim/evidence/article/publication/readback gates, current KILL_SWITCH/autonomy mode, and exact destination/public-write authority. A trigger that does not clear those gates may abstain without publication.
-
-## 8. V1 canonical runtime and publication semantics
-
-Preserve one canonical V1 runtime/store/orchestrator/publication coordinator.
-
-Preserve:
-
-- continuous intake, clustering/update chains, selection and abstention;
-- latest-web grounded evidence plus bounded CC context;
-- one strong editorial worker when warranted;
-- deterministic factual/numeric/rights/reader-value gates;
-- purposeful media, including zero images when preferable;
-- canonical Substack publication;
-- exactly eight V1 derivative destinations;
-- exact destination/account/object identity;
-- strict readback/reconciliation/recovery;
-- `UNKNOWN_WRITE`: `STOP RETRY -> READ BACK -> RECONCILE`;
-- current kill-switch/autonomy controls;
-- Chrome `CapitalChronicleBot` CDP 9222 for ingestion only;
-- Edge `contentops-social-main` CDP 9223 for publication/media/readback and explicitly authorized observation only;
-- LinkedIn official member API where current authority/code uses it;
-- canonical V5 UI under `ui/contentops_v5/`.
-
-### 8.1 Canonical-first distribution rule
-
-For a future owner-authorized V1 publication, a derivative destination that is temporarily unavailable must not automatically destroy the freshness/value of an otherwise qualified canonical article.
-
-Target semantics:
-
-`article truth/readiness gate -> canonical Substack readiness -> canonical publish/readback -> exactly eight derivative packages attempted independently under exact destination readiness -> destination-local hold/recovery -> full reconciliation`
-
-A destination-local failure cannot authorize blind retry and cannot erase canonical truth. Final nine-surface canary acceptance still requires exact evidence that the canonical article and all required derivatives were eventually attempted/read back/reconciled with `UNKNOWN_WRITE=0` under the accepted canary contract.
-
-This is product direction only; it grants no live/public-write authority by itself.
-
-## 9. Current quality-probation state
-
-Exactly four existing native V1 newsroom tasks remain `PAUSED` until:
-
-1. growth-first editorial behavior is implemented and zero-write replayed;
-2. Jim/ChatGPT accepts the editorial outputs;
-3. one real owner-authorized V1 canary completes canonical publication, eight derivatives, readback/reconciliation, and actual-artifact review.
-
-Do not create a fifth scheduler task. Do not repeatedly fire manual opportunities merely to manufacture a canary.
-
-The always-on FDA-G runtime may continue low-cost calendar-time soak, ingestion, recovery/readback housekeeping, supported observation, and state maintenance while the four editorial tasks remain paused.
-
-## 10. V2
-
-V2 remains an isolated retention-native media factory. It may consume qualified story/evidence authority and publication-authorized chart/data inputs, but it must never mutate/reset V1 runtime, store, scheduler, browser, or publication authority.
-
-Preserve `CONCRETE_FIRST_ABSTRACT_SECOND`, rights-safe real/contextual media and primary documents, source-backed charts/maps/data, professional audio, deterministic QA, actual-media review, and bounded repair/recovery.
-
-V2 currently has zero public-write authority.
-
-## 11. Observation and learning
-
-Observation records supported reality. Missing metrics are `UNAVAILABLE`/`UNKNOWN`, never fabricated zeroes.
-
-Learning may change ContentOps priority, timing recommendations, story-mode mix, headline/framing style, SEO, hooks, asset selection, package form, and bounded creative policy. It may never change facts, evidence permissions, Core Analyzer output, probabilities, scenarios, forecasts, regimes, decisions, paper records, realized outcomes, destination identity, rights, safety gates, or public-write authority.
+Then resume real canary -> unattended/cold-start proof -> V5 final screenshot QA.
 
 ## 12. Change discipline
 
-Prefer one heavy bounded end-to-end capability slice over ceremony or horizontal infrastructure.
+Prefer one heavy bounded product slice over ceremony.
 
-Every implementation task must state the user problem, capability/demo, measurable utility delta, simplest viable approach, exact write/network/browser/publication scope, focused tests plus one end-to-end smoke/demo, cost/runtime evidence where material, hard stops, and exact next blocker.
-
-Stage explicit paths only. Never `git add .` or `git add -A`. Never force-push. Never push/merge `master` without explicit owner authorization. Preserve unrelated work.
+Stage explicit paths only. Never `git add .` or `git add -A`. Never force-push. Never merge/push master without explicit owner authorization. Preserve unrelated work and protected history.
 
 ## 13. Hard stops
 
 Stop on:
 
 - secret/session/token/cookie/private-key exposure;
-- fabricated core facts or Core Analyzer numeric/analytical truth;
-- promotion of internal/candidate Analyzer material into public authority without explicit publication-safe permission;
-- unauthorized or wrong-account public write;
-- destructive production-store or upstream Capital Chronicle mutation;
-- protected release/tag mutation;
-- unresolved `UNKNOWN_WRITE` or public-object ambiguity;
+- fabricated facts or Core Analyzer truth;
+- unauthorized/wrong-account public write;
+- destructive production-store/upstream mutation;
+- unresolved `UNKNOWN_WRITE`;
 - irreconcilable ref conflict;
-- required credential/reauth/operator input unavailable for an explicitly authorized action.
+- unsupported automation mutation mechanism;
+- inability to distinguish configured schedule intent from actual host automation state.
 
-Do not stop merely for historical noise, stale docs, unrelated dirty files, absent CI, pre-existing failures, or reversible mechanics.
-
-Protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+Do not stop for historical noise, stale docs, unrelated dirty files, absent CI, pre-existing failures, or reversible mechanics.
 
 ## 14. Visual/media acceptance
 
-For UI, video, or audio acceptance, inspect the real rendered artifact. Tests and builder judgment prove mechanics, not viewer-facing quality.
+UI/video/audio PASS requires actual rendered artifact inspection. Tests and worker judgment prove mechanics, not final viewer-facing quality.
