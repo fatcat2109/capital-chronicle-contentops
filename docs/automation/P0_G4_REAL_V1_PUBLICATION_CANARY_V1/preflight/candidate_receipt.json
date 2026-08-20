@@ -1,0 +1,80 @@
+{
+  "schema_version": "contentops.p0_g4.candidate_receipt.v1",
+  "classification": "NO_PUBLICATION_WAIT_FOR_GENUINE_CURRENT_CANARY_OPPORTUNITY",
+  "current_master_source_epoch": "369c0cc289e790b8218ba30b2696a926db04356a",
+  "opportunity_id": "editorial-window-3056d965649b4caa91230e764019da6d",
+  "story_id": null,
+  "candidate_id": null,
+  "canonical_editorial_mode": null,
+  "why_selected": null,
+  "terminal_reason": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+  "source_evidence_contract": {
+    "current_universe": true,
+    "synthetic_fixture": false,
+    "forced_editorial_mode": false,
+    "prepared_candidate_count": 12,
+    "attempted_candidate_count": 12,
+    "unattempted_candidate_count": 0,
+    "accepted_source_records": [],
+    "accepted_source_hashes": [],
+    "all_candidates_evidence_blocked": true,
+    "common_required_capabilities_missing": [
+      "basic_attributed_facts",
+      "credible_event_confirmation"
+    ],
+    "request_budget_exhausted": true
+  },
+  "capital_chronicle_authority": {
+    "publication_authorized_material_used": false,
+    "context_or_discovery_promoted_to_authority": false,
+    "numeric_or_forecast_authority_used": false,
+    "zero_use_reason": "NO_CANDIDATE_REACHED_PUBLICATION_QUALIFICATION"
+  },
+  "article": {
+    "headline": null,
+    "sha256": null,
+    "locked": false,
+    "media_decision": "NOT_REACHED_NO_QUALIFIED_CANDIDATE"
+  },
+  "packages": {
+    "count": 0,
+    "required_count_if_qualified": 8,
+    "sha256_identities": [],
+    "tiktok_included": false
+  },
+  "editorial_worker": {
+    "model": "gpt-5.6-sol",
+    "required_reasoning_effort_if_qualified": "XHIGH",
+    "created": false,
+    "count": 0,
+    "revision_count": 0,
+    "reason_not_created": "NO_CANDIDATE_REACHED_EDITORIAL_BOUNDARY"
+  },
+  "model_provider_telemetry": {
+    "research_ladder_models_observed": ["vx/gemini-3.1-pro-preview(high)"],
+    "logical_invocations": 6,
+    "provider_attempts": 6,
+    "prompt_tokens": 20989,
+    "completion_tokens": 5685,
+    "total_tokens": 26674,
+    "cost": "UNAVAILABLE_NOT_ZERO",
+    "article_writer_semantic_calls": 0,
+    "mandatory_semantic_review_calls": 0,
+    "elapsed_seconds": 90.094
+  },
+  "deterministic_validation": {
+    "evidence_qualification": "NO_PUBLICATION",
+    "article_gates": "NOT_RUN_NO_ARTICLE",
+    "package_gates": "NOT_RUN_NO_PACKAGES",
+    "unknown_write": 0
+  },
+  "source_runtime_evidence": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\editorial-window-3056d965649b4caa91230e764019da6d\\rolling_x_newsroom_cycle_evidence_v1.json",
+    "sha256": "96b0f80cc2e8929f22dc2b744e66345af21a20f786e91dcd09814edf321d6f87"
+  },
+  "publication_enabled": false,
+  "publishing_adapter_called": false,
+  "public_writes": 0,
+  "publication_provider_writes": 0,
+  "unknown_write": 0
+}

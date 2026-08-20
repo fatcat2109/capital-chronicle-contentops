@@ -37,19 +37,28 @@ The logical-supervisor launcher defect has been corrected and merged. Latest run
 
 Runtime evidence is not GitHub-static proof; re-observe when a task depends on current runtime truth.
 
-The correct implementation state on the P0-G1/G2 task branch is:
+Jim's latest instruction plus verified `origin/master` at
+`369c0cc289e790b8218ba30b2696a926db04356a` supersede the older pre-merge routing below. The
+current implementation state is:
 
-`P0_1_ACCEPTED / P0_G1_G2_IMPLEMENTED_ZERO_WRITE_VALIDATED / P0_G3_OWNER_ARTIFACT_AUDIT_PENDING / P0_2_ACCEPTANCE_UNPROVEN`
+`P0_1_ACCEPTED / P0_G3_ACCEPTED_MERGED / P0_G4_OWNER_PUBLIC_WRITE_GATE_PENDING / P0_2_ACCEPTANCE_UNPROVEN`
+
+The remaining P0-G3 prose in this pointer is retained as historical acceptance context and must
+not route a fresh task backward.
 
 Do not reduce this to passive `WAITING_FOR_GENUINE_QUALIFYING_OPPORTUNITY`. A genuine current opportunity is still necessary for the later live canary, but current product work continues before that canary.
 
 ## Current V1 product task
 
-The next capability is:
+The current capability is:
 
-`P0-G3 — ZERO-WRITE MULTI-MODE REPLAY + JIM/CHATGPT ACTUAL EDITORIAL ARTIFACT AUDIT`
+`P0-G4 — REAL CANARY PREFLIGHT + OWNER PUBLIC-WRITE GATE`
 
-P0-G1/G2 now has deterministic implementation and regression evidence on its dedicated task branch. P0-G3 must replay the implemented modes through the same canonical V1 supervisor/selection/evidence/article/package path and produce actual article/package artifacts for Jim/ChatGPT review. It grants no public-write authority and must not create a second newsroom, evidence engine, publisher, durable store, scheduler, or control plane.
+P0-G3 is accepted and merged. P0-G4 must preflight one genuine current candidate and stop at the
+exact owner public-write gate. It grants no public-write authority and must not create a second
+newsroom, evidence engine, publisher, durable store, scheduler, or control plane.
+
+The P0-G3 requirements below are historical acceptance context.
 
 ### Required editorial modes
 

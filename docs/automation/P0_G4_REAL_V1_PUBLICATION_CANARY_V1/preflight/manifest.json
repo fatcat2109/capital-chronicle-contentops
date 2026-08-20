@@ -1,0 +1,22 @@
+{
+  "schema_version": "contentops.p0_g4.preflight_manifest.v1",
+  "classification": "NO_PUBLICATION_WAIT_FOR_GENUINE_CURRENT_CANARY_OPPORTUNITY",
+  "generated_at_utc": "2026-08-20T18:33:55.8193307Z",
+  "hash_algorithm": "sha256",
+  "manifest_self_hash_excluded": true,
+  "artifacts": [
+    {"path": "article.md", "bytes": 315, "sha256": "ad90471fafe9d31d3c94a83fdb45b0b005215dd78b06b09892f1bd96d974a0b9"},
+    {"path": "candidate_receipt.json", "bytes": 2836, "sha256": "ee21ec072e6e0d805352c5e9109078d81ee0b2cf0af19babd6ba9a358dca64a7"},
+    {"path": "derivative_packages.json", "bytes": 480, "sha256": "8a7045c8343abe5005c0238c17a0bd6c6e7ca737e024aea5bd45afa47afb60d6"},
+    {"path": "destination_readiness.json", "bytes": 3363, "sha256": "9de54ce10ec21956c816d5cbd641607a302fc1ec9ff70edb81fd020920ae9362"},
+    {"path": "README.md", "bytes": 1416, "sha256": "bab5bd053b74007f537f9cecd6e9a4c5b415267faedaec4c77f6ec3fd78c0e49"},
+    {"path": "runtime_preflight.json", "bytes": 2529, "sha256": "01e620215840498c46e7fcf2801acb87f134d6931adf152fd8cc2e3ffaf2cee6"}
+  ],
+  "artifact_count": 6,
+  "verification_status": "PASS",
+  "validation": {
+    "artifact_sha256_verification": "PASS",
+    "codegraph_check": "CODEGRAPH_CURRENT",
+    "git_diff_check": "PASS"
+  }
+}

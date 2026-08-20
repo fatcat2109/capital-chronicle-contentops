@@ -1,0 +1,20 @@
+{
+  "schema_version": "contentops.p0_g4.derivative_packages.v1",
+  "classification": "NOT_CREATED_NO_QUALIFIED_CANDIDATE",
+  "required_destinations_if_qualified": [
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube"
+  ],
+  "package_count": 0,
+  "packages": [],
+  "package_sha256_identities": [],
+  "substack_counted_as_derivative": false,
+  "tiktok_included": false,
+  "dispatch_performed": false
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "contentops.p0_g4.destination_readiness.v1",
+  "classification": "DURABLE_OBSERVATION_ONLY_NOT_JIT_CANARY_READINESS",
+  "reason_current_jit_checks_not_run": "STOPPED_AFTER_NO_PUBLICATION_PER_PHASE_C_HARD_STOP",
+  "canary_realistically_completable": "NOT_EVALUATED_NO_QUALIFIED_CANDIDATE",
+  "public_write_authority": false,
+  "browser_or_provider_probe_performed_for_this_packet": false,
+  "recovery_semantics": "STOP RETRY -> READ BACK -> RECONCILE",
+  "destinations": [
+    {"platform": "substack", "role": "canonical", "safe_identity": "capitalchronicle.substack.com", "transport": "EDGE_CDP", "last_durable_readiness": "READY_AUTHENTICATED", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:18.772050Z", "expected_canonical_semantics": "/p/...", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"},
+    {"platform": "telegram", "role": "derivative", "safe_identity": "@CapitalChronicle", "transport": "BOT_API", "last_durable_readiness": "READY_NON_BROWSER_BINDING", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:20.275527Z", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"},
+    {"platform": "x", "role": "derivative", "safe_identity": "@Capitalnicle", "transport": "EDGE_CDP", "last_durable_readiness": "READY_AUTHENTICATED", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:26.450500Z", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"},
+    {"platform": "discord", "role": "derivative", "safe_identity": "discord_channel:1519311669216673802", "transport": "WEBHOOK_API", "last_durable_readiness": "READY_NON_BROWSER_BINDING", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:26.806065Z", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"},
+    {"platform": "linkedin", "role": "derivative", "safe_identity": "Jim Pham", "transport": "OFFICIAL_MEMBER_API", "last_durable_readiness": "READY_OFFICIAL_MEMBER_API", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:26.825924Z", "readback_capability": "READBACK_CAPABILITY_LIMITED", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"},
+    {"platform": "facebook_page", "role": "derivative", "safe_identity": "Capital Chronicle", "transport": "META_GRAPH_API", "last_durable_readiness": "READY_NON_BROWSER_BINDING", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:27.134171Z", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"},
+    {"platform": "instagram_business", "role": "derivative", "safe_identity": "official.capitalchronicle", "transport": "META_GRAPH_API", "last_durable_readiness": "READY_NON_BROWSER_BINDING", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:50.094782Z", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"},
+    {"platform": "threads", "role": "derivative", "safe_identity": "official.capitalchronicle", "transport": "THREADS_API", "last_durable_readiness": "READY_NON_BROWSER_BINDING", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:27.831937Z", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"},
+    {"platform": "youtube", "role": "derivative", "safe_identity": "@CapitalChronicleYouTube", "transport": "EDGE_CDP", "last_durable_readiness": "READY_AUTHENTICATED", "identity_match": true, "last_probe_utc": "2026-08-18T12:23:49.510252Z", "jit_status": "NOT_REFRESHED_NO_CANDIDATE"}
+  ],
+  "destination_count": 9,
+  "derivative_count": 8,
+  "transient_holds": [],
+  "hard_blockers": ["NO_QUALIFIED_CURRENT_CANDIDATE"]
+}
