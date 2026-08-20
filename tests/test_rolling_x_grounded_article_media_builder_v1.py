@@ -344,6 +344,70 @@ def test_source_attributed_reserved_terms_do_not_trigger_house_proprietary_block
     )
 
 
+def test_exact_replay_forecast_comparison_is_not_owned_proprietary_analysis():
+    context = _house_validation_context()
+    article = _house_article(
+        "Capital Chronicle’s interpretation is that the threshold for another increase may "
+        "be lower than a simple forecast comparison suggests."
+    )
+
+    blockers = validate_generated_article(article, context=context, visual_asset_ids=[])
+
+    assert (
+        "house_view_proprietary_analysis_requires_exact_publication_authorized_cc"
+        not in blockers
+    )
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        (
+            "Capital Chronicle’s view is that the source forecast remains a comparison with "
+            "the agency's base case, not an independent house projection."
+        ),
+        (
+            "Capital Chronicle’s interpretation is that the agency's forecast, described by "
+            "the agency as its base case, is the relevant comparison."
+        ),
+    ],
+)
+def test_branded_inference_can_discuss_source_reserved_terms_without_owning_them(body):
+    context = _house_validation_context()
+    article = _house_article(body)
+
+    blockers = validate_generated_article(article, context=context, visual_asset_ids=[])
+
+    assert (
+        "house_view_proprietary_analysis_requires_exact_publication_authorized_cc"
+        not in blockers
+    )
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        "Capital Chronicle’s forecast is for slower growth.",
+        "Capital Chronicle’s view is that our base case is slower growth.",
+        "Capital Chronicle’s interpretation is that we assign a probability to renewed inflation.",
+        "Capital Chronicle’s view is that this regime is now the base case.",
+        "Capital Chronicle’s valuation is above the source estimate.",
+        "Capital Chronicle’s scenario assumes tighter policy.",
+        "Capital Chronicle’s decision signal is active.",
+    ],
+)
+def test_genuine_owned_reserved_house_analysis_remains_blocked(body):
+    context = _house_validation_context()
+    article = _house_article(body)
+
+    blockers = validate_generated_article(article, context=context, visual_asset_ids=[])
+
+    assert (
+        "house_view_proprietary_analysis_requires_exact_publication_authorized_cc"
+        in blockers
+    )
+
+
 def test_explicit_house_reserved_claim_remains_blocked_without_exact_cc_authority():
     context = _house_validation_context()
     article = _house_article(

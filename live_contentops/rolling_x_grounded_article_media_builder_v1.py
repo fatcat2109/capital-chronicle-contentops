@@ -106,6 +106,25 @@ _PROPRIETARY_ANALYTICAL_LANGUAGE_RE = re.compile(
     re.IGNORECASE,
 )
 
+_OWNED_PROPRIETARY_ANALYSIS_RE = re.compile(
+    r"\bCapital Chronicle(?:['’]s)?\s+(?:forecast|probabilit(?:y|ies)|scenario|regime|"
+    r"valuation|price\s+target|base\s+case|bull\s+case|bear\s+case|decision\s+signal)\b|"
+    r"\b(?:our|the)\s+(?:base\s+case|bull\s+case|bear\s+case)\s+is\b|"
+    r"\bour\s+(?:forecast|probabilit(?:y|ies)|scenario|regime|valuation|price\s+target|"
+    r"decision\s+signal)\b|"
+    r"\bwe\s+(?:assign|estimate|set|publish|forecast|project)\s+(?:an?\s+)?"
+    r"(?:probabilit(?:y|ies)|forecast|scenario|valuation|price\s+target)\b|"
+    r"\bthis\s+regime\s+is\s+(?:now\s+)?(?:the|our)\s+base\s+case\b",
+    re.IGNORECASE,
+)
+
+_ANNOTATED_PROPRIETARY_ASSERTION_RE = re.compile(
+    r"\b(?:forecast|probabilit(?:y|ies)|scenario|regime|valuation|price\s+target)\s+"
+    r"(?:is|are|equals?|implies?|projects?|assigns?|sets?)\b|"
+    r"\b(?:base\s+case|bull\s+case|bear\s+case|decision\s+signal)\b",
+    re.IGNORECASE,
+)
+
 _BRANDED_HOUSE_INFERENCE_RE = re.compile(
     r"\bCapital Chronicle(?:['’]s)?\s+(?:inference|view|interpretation)\b",
     re.IGNORECASE,
@@ -119,11 +138,16 @@ def _has_explicit_branded_house_inference(value: Any) -> bool:
 
 def _reserved_house_inference_texts(article: Mapping[str, Any], body: str) -> list[str]:
     """Return only copy explicitly presented as Capital Chronicle house analysis."""
-    texts = [
+    return list(dict.fromkeys(
         sentence
         for sentence in re.split(r"(?<=[.!?])\s+|\n+", str(body or ""))
         if _has_explicit_branded_house_inference(sentence)
-    ]
+        or _OWNED_PROPRIETARY_ANALYSIS_RE.search(sentence)
+    ))
+
+
+def _capital_chronicle_analysis_claim_texts(article: Mapping[str, Any]) -> list[str]:
+    texts: list[str] = []
     for row in article.get("epistemic_claims") or []:
         if not isinstance(row, Mapping):
             continue
@@ -132,6 +156,23 @@ def _reserved_house_inference_texts(article: Mapping[str, Any], body: str) -> li
             if claim:
                 texts.append(claim)
     return list(dict.fromkeys(texts))
+
+
+def _asserts_owned_proprietary_house_analysis(
+    value: Any, *, explicit_analysis_annotation: bool = False
+) -> bool:
+    """Separate owned reserved analysis from mentions, comparisons, and attribution."""
+    text = str(value or "")
+    return bool(
+        _PROPRIETARY_ANALYTICAL_LANGUAGE_RE.search(text)
+        and (
+            _OWNED_PROPRIETARY_ANALYSIS_RE.search(text)
+            or (
+                explicit_analysis_annotation
+                and _ANNOTATED_PROPRIETARY_ASSERTION_RE.search(text)
+            )
+        )
+    )
 
 
 class GroundedArticleBuilderError(ValueError):
@@ -1441,10 +1482,17 @@ def validate_generated_article(
     if house_view_mode and not _has_explicit_branded_house_inference(body):
         blockers.append("house_view_editorial_inference_label_missing")
     reserved_house_texts = _reserved_house_inference_texts(article, body)
-    if house_view_mode and any(
-        _PROPRIETARY_ANALYTICAL_LANGUAGE_RE.search(value)
+    owned_proprietary_analysis = any(
+        _asserts_owned_proprietary_house_analysis(value)
         for value in reserved_house_texts
-    ):
+    ) or any(
+        _asserts_owned_proprietary_house_analysis(
+            value,
+            explicit_analysis_annotation=True,
+        )
+        for value in _capital_chronicle_analysis_claim_texts(article)
+    )
+    if house_view_mode and owned_proprietary_analysis:
         publication_authority = context.get("capital_chronicle_publication_authority")
         publication_authority = (
             publication_authority
