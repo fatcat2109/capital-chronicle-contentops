@@ -1,0 +1,209 @@
+{
+  "accepted_source_records": [
+    {
+      "authority_class": "official_public_primary_source",
+      "content_evidence_sha256": "6eb7692a40b7a3deadb52a7c005d530ad100b3902e0ab34bac21b7a9957a62a2",
+      "evidence_document_id": "official-primary-6eb7692a40b7a3deadb5",
+      "exact_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260819a.htm",
+      "grounded_source_ref": "SRC_8BE7CF89B4A078EB",
+      "publication_event_timestamp_utc": "2026-08-19T18:00:20Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_known_at_utc": "2026-08-20T10:05:13.578629Z",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_interest_role": "OFFICIAL_AUTHORITY_FOR_OWN_RELEASE",
+      "title": "Federal Reserve Board - Minutes of the Federal Open Market Committee, July 28–29, 2026"
+    }
+  ],
+  "article_artifact": "article.md",
+  "candidate": "Federal Reserve July 28-29 FOMC minutes release",
+  "candidate_attempts": [
+    {
+      "actual_selected_mode": "DATA_OR_DOCUMENT_LENS",
+      "candidate": "minutes content page",
+      "outcome": "MODE_MISMATCH_BEFORE_EDITORIAL_WORKER",
+      "writer_calls": 0
+    },
+    {
+      "actual_selected_mode": "BREAKING_BRIEF",
+      "candidate": "official minutes press-release page",
+      "outcome": "QUALIFIED_ZERO_WRITE_PLAN_READY",
+      "writer_calls": 1
+    }
+  ],
+  "canonical_router_telemetry": {
+    "initial_mode_mismatch_candidate": {
+      "completion_tokens": 6272,
+      "logical_calls": 4,
+      "models": [
+        "vx/gemini-3.5-flash(high)",
+        "new/claude-fable-5",
+        "new/gpt-5.6-sol-xhigh",
+        "new/claude-opus-5",
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "prompt_tokens": 16240,
+      "provider_attempts": 9,
+      "reported_cost_usd": 0.0,
+      "total_tokens": 22512
+    },
+    "post_worker_continuation_model_calls": 0,
+    "post_worker_continuation_provider_attempts": 0,
+    "qualified_alternate_candidate": {
+      "completion_tokens": 3216,
+      "logical_calls": 4,
+      "models": [
+        "vx/gemini-3.5-flash(high)",
+        "new/claude-fable-5",
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "prompt_tokens": 8903,
+      "provider_attempts": 4,
+      "reported_cost_usd": 0.0,
+      "total_tokens": 12119
+    }
+  },
+  "capital_chronicle_authority": {
+    "authority_class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false,
+    "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+  },
+  "case": "breaking",
+  "claim_evidence_contract": {
+    "epistemic_claims": [
+      {
+        "claim_text": "The Federal Reserve released the minutes of the Federal Open Market Committee meeting.",
+        "epistemic_layer": "OBSERVED_FACT",
+        "evidence_document_ids": [
+          "official-primary-6eb7692a40b7a3deadb5"
+        ]
+      },
+      {
+        "claim_text": "The meeting covered by the minutes took place on July 28–29, 2026.",
+        "epistemic_layer": "OBSERVED_FACT",
+        "evidence_document_ids": [
+          "official-primary-6eb7692a40b7a3deadb5"
+        ]
+      },
+      {
+        "claim_text": "The minutes were released on Wednesday.",
+        "epistemic_layer": "OBSERVED_FACT",
+        "evidence_document_ids": [
+          "official-primary-6eb7692a40b7a3deadb5"
+        ]
+      }
+    ],
+    "grounded_source_coverage": {
+      "blockers": [],
+      "fact_rows": [
+        {
+          "body_token_overlap": 1.0,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f_001",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.5,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f_002",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.75,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f_003",
+          "recognizably_used": true
+        }
+      ],
+      "grounded_research_packet_present": true,
+      "paragraph_rows": [
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 0,
+          "source_token_overlap": 0.9
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 1,
+          "source_token_overlap": 0.4194
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 2,
+          "source_token_overlap": 0.2759
+        }
+      ],
+      "publication_authority": false,
+      "status": "PASS"
+    },
+    "source_bindings": [
+      {
+        "discovery_path_is_reader_authority": false,
+        "evidence_document_id": "official-primary-6eb7692a40b7a3deadb5",
+        "publisher": "www.federalreserve.gov",
+        "reader_attribution_mode": "BOUND_LINK",
+        "reader_source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260819a.htm",
+        "source_handle": "SOURCE_1",
+        "source_id": "source-8be7cf89b4a078eb",
+        "title": "Federal Reserve Board - Minutes of the Federal Open Market Committee, July 28–29, 2026"
+      }
+    ]
+  },
+  "classification": "QUALIFIED_ZERO_WRITE_ARTIFACT",
+  "derivative_package_artifact": "derivative_packages.json",
+  "derivative_package_count": 8,
+  "editorial_worker": {
+    "article_json_sha256": "11218723f7dc6e82d3c5de1643da9a486ed1b04ab45c7b1928d7fdde04880057",
+    "fresh": true,
+    "invocations": 1,
+    "isolated": true,
+    "model": "gpt-5.6-sol",
+    "native_token_or_cost_receipt_exposed": false,
+    "reasoning_effort": "XHIGH",
+    "repairs": 0
+  },
+  "exact_headline": "Federal Reserve releases minutes from July FOMC meeting",
+  "factual_numeric_rights_reader_value_result": {
+    "factual_source_coverage": "PASS",
+    "numeric_traceability": "PASS_NO_UNTRACEABLE_NUMERIC_CLAIM",
+    "reader_value": "PASS",
+    "release_candidate": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+    "rights": "PASS_TEXT_ONLY_NO_THIRD_PARTY_MEDIA"
+  },
+  "final_validation_blockers": [],
+  "material_event_wake": {
+    "exact_duplicate_update_chain_suppressed": true,
+    "exact_duplicate_windows_dispatched": 0,
+    "first_newsroom_cycle_invocations": 1,
+    "first_windows_dispatched": 1,
+    "minimum_spacing_and_saturation_policy_mutated": false,
+    "note": "No extra probe ran after the normal-analysis product-defect stop condition.",
+    "rewrite_same_update_chain_suppressed": true,
+    "rewrite_windows_dispatched": 0,
+    "spacing_or_saturation_extra_probe_run": false,
+    "stable_trigger_identity": "material-event-0f72c033b58fb3650be80e3917b6201c",
+    "stable_window_id": "editorial-window-5a1bd8d84ffa803f2978f77806511c93",
+    "wake_eligible": {
+      "eligible": true,
+      "public_write_scope_granted": false,
+      "publication_enabled": false,
+      "reason": "SHADOW_MATERIAL_EVENT_WAKE_ELIGIBLE"
+    },
+    "wake_execution_scope": "SHADOW_NO_PUBLIC_WRITE"
+  },
+  "publication_lifecycle_plan_hash": "fe94bce3c9951e2156d3ea19b4154a04177755aaa8cd19f76716e04dc8ae0ab5",
+  "safety": {
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_enabled": false,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.p0_g3.final_case_receipt.v1"
+}
