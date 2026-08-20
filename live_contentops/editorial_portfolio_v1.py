@@ -73,9 +73,30 @@ _HOUSE_VIEW_RE = re.compile(
     re.IGNORECASE,
 )
 _MARKET_MISSING_RE = re.compile(
-    r"\b(?:market is missing|consensus misses|overlooked|underappreciated|mispriced narrative)\b",
+    r"\b(?:what\s+the\s+market\s+(?:may\s+be\s+)?missing|market\s+(?:may\s+be\s+)?missing|"
+    r"consensus misses|overlooked|underappreciated|mispriced narrative)\b",
     re.IGNORECASE,
 )
+_UPCOMING_WATCH_RE = re.compile(
+    r"\b(?:week\s+ahead|what\s+to\s+watch|upcoming|scheduled|release\s+schedule|"
+    r"calendar\s+events?|before\s+the\s+releases?|next\s+[a-z0-9&/ -]{0,48}\s+releases?)\b",
+    re.IGNORECASE,
+)
+_ANALYTICAL_VALUE_PATTERNS = (
+    re.compile(r"\bmechanism\b", re.IGNORECASE),
+    re.compile(r"\bcontext\b", re.IGNORECASE),
+    re.compile(r"\btrade[- ]?off\b", re.IGNORECASE),
+    re.compile(r"\bconsequences?\b", re.IGNORECASE),
+    re.compile(r"\bcounter[- ]?case\b", re.IGNORECASE),
+    re.compile(r"\bimplications?\b", re.IGNORECASE),
+    re.compile(r"\bsynthesis\b", re.IGNORECASE),
+    re.compile(r"\bwhat\b.{0,80}\breveal(?:s|ed)?\b", re.IGNORECASE),
+)
+
+
+def _has_analytical_main_reader_value(value: str) -> bool:
+    """Recognize explicit analytical value without turning freshness into analysis by itself."""
+    return sum(bool(pattern.search(value)) for pattern in _ANALYTICAL_VALUE_PATTERNS) >= 2
 
 
 @dataclass(frozen=True)
@@ -186,9 +207,9 @@ def select_growth_editorial_mode(
 
     The global assignment editor may emit an exact product mode or a legacy routed mode.  This
     deterministic normalization is the single preselection bridge into the canonical evidence
-    registry.  Lower-rung quiet-day modes are eligible only when the assignment explicitly asks
-    for useful analysis/explanation/document/watch work; an ordinary low-delta repeat remains
-    held rather than being relabeled as filler.
+    registry.  Novelty classification does not by itself make the reader product a breaking brief:
+    an ambiguous legacy ``breaking`` hint may be narrowed to analysis, house view, or watch mode
+    when the already-governed assignment text states that main reader value explicitly.
     """
     explicit = str(
         cluster.get("product_article_mode")
@@ -220,12 +241,18 @@ def select_growth_editorial_mode(
     elif _HOUSE_VIEW_RE.search(text):
         mode = ARTICLE_MODE_CAPITAL_CHRONICLE_VIEW
         reason = "EXPLICIT_HOUSE_VIEW"
+    elif _UPCOMING_WATCH_RE.search(text):
+        mode = ARTICLE_MODE_WEEK_AHEAD_OR_WATCH
+        reason = "UPCOMING_SCHEDULED_EVENT_WATCH"
     elif (
         str(cluster.get("story_type") or "") == "data_release"
         and explicit not in {"breaking", ARTICLE_MODE_BREAKING_BRIEF}
     ) or (explicit in {"research_note", "explainer"} and _DOCUMENT_LENS_RE.search(text)):
         mode = ARTICLE_MODE_DATA_OR_DOCUMENT_LENS
         reason = "EXPLICIT_DATA_OR_DOCUMENT_UTILITY"
+    elif explicit in {"", "breaking"} and _has_analytical_main_reader_value(text):
+        mode = ARTICLE_MODE_STANDARD_NEWS_ANALYSIS
+        reason = "EXPLICIT_ANALYTICAL_MAIN_READER_VALUE"
     else:
         mode = _ROUTED_MODE_TO_PRODUCT_MODE.get(
             explicit,
