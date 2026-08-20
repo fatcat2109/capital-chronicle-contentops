@@ -1,0 +1,83 @@
+{
+  "accepted_source_records": [
+    {
+      "content_sha256": "78b617bed68674f864467bed9aaab32a82a2510597bb0333fa8d88165cb9c386",
+      "document_id": "official-primary-78b617bed68674f86446",
+      "grounded_source_ref": "SRC_87021217D3FFEEB9",
+      "published_at_utc": "2026-08-19T18:01:21Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_authority_class": "official_public_primary_source",
+      "source_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm",
+      "title": "The Fed - Monetary Policy:"
+    }
+  ],
+  "actual_selected_mode": "WHAT_THE_MARKET_IS_MISSING",
+  "candidate": "Fresh discovery item with a bounded public evidence path.",
+  "capital_chronicle_authority": {
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false,
+    "qualitative_inference_only": true
+  },
+  "case": "house_view",
+  "claim_evidence_contract": {
+    "minimum_evidence_status": null,
+    "publication_authority": false
+  },
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "EDITORIAL_WORKER_RETURN_VALIDATION_BLOCKED",
+  "expected_mode": "WHAT_THE_MARKET_IS_MISSING or CAPITAL_CHRONICLE_VIEW",
+  "native_xhigh_routing": {
+    "bounded_revision_count": 1,
+    "decision": "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER",
+    "fresh": true,
+    "governed_input_hash": "cdd9c571009e3bf9788e752bca19596efaa903253d576c9364b44b95b09e01ee",
+    "isolated": true,
+    "return_validation": "BLOCKED",
+    "return_validation_error": "desktop_editorial_worker_institutional_edge_invalid:unsupported_causality,fake_or_unbound_quote_presentation",
+    "worker_model": "gpt-5.6-sol",
+    "worker_reasoning_effort": "XHIGH",
+    "worker_return_sha256": "f1b723fe01250f0ff0546fe8122e696cd94e7532d349525b71d18c29380c6cff"
+  },
+  "package_count": 0,
+  "qualified": false,
+  "safety": {
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_mutations": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.p0_g3.native_xhigh_case_receipt.v1",
+  "selection": {
+    "mode_resolution": {
+      "canonical_mode_ladder": [
+        "BREAKING_BRIEF",
+        "FOLLOW_UP_UPDATE",
+        "STANDARD_NEWS_ANALYSIS",
+        "CAPITAL_CHRONICLE_VIEW",
+        "WHAT_THE_MARKET_IS_MISSING",
+        "EVERGREEN_EXPLAINER",
+        "DATA_OR_DOCUMENT_LENS",
+        "WEEK_AHEAD_OR_WATCH"
+      ],
+      "changes_evidence_or_permission_standards": false,
+      "grants_factual_or_numeric_authority": false,
+      "mode": "WHAT_THE_MARKET_IS_MISSING",
+      "quiet_day_utility_candidate": false,
+      "reason_code": "EXPLICIT_CONSENSUS_CHALLENGE"
+    },
+    "raw_assignment_mode": "breaking",
+    "selection_rationale": "Fresh discovery item with a bounded public evidence path.",
+    "story_mode": "reporting"
+  },
+  "validation_blockers": [
+    "unsupported_causality",
+    "fake_or_unbound_quote_presentation",
+    "house_view_editorial_inference_label_missing",
+    "grounded_fact_used_without_bound_source_reference:f1"
+  ],
+  "xhigh_worker_count": 1
+}
