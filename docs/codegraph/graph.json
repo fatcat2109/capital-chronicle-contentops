@@ -12,9 +12,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13453,
+    "edges": 13455,
     "entrypoints": 16,
-    "nodes": 7131,
+    "nodes": 7133,
     "nodes_by_kind": {
       "authority_doc": 7,
       "cli_command": 27,
@@ -24,11 +24,11 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 590,
-      "python_function": 3890,
+      "python_function": 3891,
       "python_method": 280,
       "python_module": 740,
       "schema": 183,
-      "test": 723,
+      "test": 724,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -14139,6 +14139,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/editorial_portfolio_v1.py::_entity_tokens"
+    },
+    {
+      "from": "live_contentops/editorial_portfolio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_portfolio_v1.py::_has_analytical_main_reader_value"
     },
     {
       "from": "live_contentops/editorial_portfolio_v1.py",
@@ -50903,6 +50909,12 @@
       "to": "python_symbol:live_contentops/editorial_portfolio_v1.py::_normalize_entity"
     },
     {
+      "from": "python_symbol:live_contentops/editorial_portfolio_v1.py::select_growth_editorial_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_portfolio_v1.py::_has_analytical_main_reader_value"
+    },
+    {
       "from": "python_symbol:live_contentops/editorial_preview_supervised_dry_run_contract.py::build_doc",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -80872,7 +80884,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-20T11:01:02Z",
+  "generation_timestamp_utc": "2026-08-20T12:00:22Z",
   "generator_version": "2.5.0",
   "included_roots": [
     "live_contentops/",
@@ -82446,7 +82458,7 @@
     {
       "id": "live_contentops/editorial_portfolio_v1.py",
       "kind": "python_module",
-      "size_bytes": 21115
+      "size_bytes": 22502
     },
     {
       "id": "live_contentops/editorial_preview.py",
@@ -96099,91 +96111,98 @@
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::PublishedArticleRef",
       "kind": "python_class",
-      "line": 82,
+      "line": 103,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "PublishedArticleRef"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::PublishedArticleRef.to_dict",
       "kind": "python_method",
-      "line": 100,
+      "line": 121,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "PublishedArticleRef.to_dict"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::_entity_tokens",
       "kind": "python_function",
-      "line": 125,
+      "line": 146,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "_entity_tokens"
     },
     {
+      "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::_has_analytical_main_reader_value",
+      "kind": "python_function",
+      "line": 97,
+      "path": "live_contentops/editorial_portfolio_v1.py",
+      "symbol": "_has_analytical_main_reader_value"
+    },
+    {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::_normalize_entity",
       "kind": "python_function",
-      "line": 121,
+      "line": 142,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "_normalize_entity"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::bootstrap_portfolio_policy",
       "kind": "python_function",
-      "line": 458,
+      "line": 485,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "bootstrap_portfolio_policy"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::build_material_follow_up_context",
       "kind": "python_function",
-      "line": 348,
+      "line": 375,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "build_material_follow_up_context"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::classify_story_novelty",
       "kind": "python_function",
-      "line": 262,
+      "line": 289,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "classify_story_novelty"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::concentration_penalty",
       "kind": "python_function",
-      "line": 440,
+      "line": 467,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "concentration_penalty"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::entity_overlap_score",
       "kind": "python_function",
-      "line": 129,
+      "line": 150,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "entity_overlap_score"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::material_delta_evaluation",
       "kind": "python_function",
-      "line": 142,
+      "line": 163,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "material_delta_evaluation"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::material_delta_signals",
       "kind": "python_function",
-      "line": 177,
+      "line": 198,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "material_delta_signals"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::portfolio_state_today",
       "kind": "python_function",
-      "line": 388,
+      "line": 415,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "portfolio_state_today"
     },
     {
       "id": "python_symbol:live_contentops/editorial_portfolio_v1.py::select_growth_editorial_mode",
       "kind": "python_function",
-      "line": 182,
+      "line": 203,
       "path": "live_contentops/editorial_portfolio_v1.py",
       "symbol": "select_growth_editorial_mode"
     },
@@ -121369,6 +121388,11 @@
       "size_bytes": 19315
     },
     {
+      "id": "tests/test_p0_g3_mode_semantics_v1.py",
+      "kind": "test",
+      "size_bytes": 4460
+    },
+    {
       "id": "tests/test_packet_audit.py",
       "kind": "test",
       "size_bytes": 4044
@@ -127159,6 +127183,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "a6bd3a418d459b38d9612708484b8241dd1b2221",
-  "source_tree_digest": "ef3a9e1149f6a665d215f3adeec97075a9ba154b7b1f773949b605960c0634d9"
+  "source_head": "9e81657a87ff1e82e3f258b619b0132103869c95",
+  "source_tree_digest": "837be9902c30107cebd37bb5071721e045689b8b13a5d8641ec82c2f41e84a5b"
 }
