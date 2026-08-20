@@ -80764,7 +80764,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-19T22:54:33Z",
+  "generation_timestamp_utc": "2026-08-20T00:52:19Z",
   "generator_version": "2.5.0",
   "included_roots": [
     "live_contentops/",
@@ -82578,7 +82578,7 @@
     {
       "id": "live_contentops/grounded_news_research_v1.py",
       "kind": "python_module",
-      "size_bytes": 73842
+      "size_bytes": 74013
     },
     {
       "id": "live_contentops/grounded_research.py",
@@ -97769,42 +97769,42 @@
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchError",
       "kind": "python_class",
-      "line": 87,
+      "line": 90,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "GroundedNewsResearchError"
     },
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchInvocationError",
       "kind": "python_class",
-      "line": 91,
+      "line": 94,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "GroundedNewsResearchInvocationError"
     },
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchV1",
       "kind": "python_class",
-      "line": 700,
+      "line": 703,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "GroundedNewsResearchV1"
     },
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::build_additive_cc_context_bundle",
       "kind": "python_function",
-      "line": 213,
+      "line": 216,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "build_additive_cc_context_bundle"
     },
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::build_deterministic_locator_plan",
       "kind": "python_function",
-      "line": 130,
+      "line": 133,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "build_deterministic_locator_plan"
     },
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::build_grounded_research_request",
       "kind": "python_function",
-      "line": 269,
+      "line": 272,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "build_grounded_research_request"
     },
@@ -120474,7 +120474,7 @@
     {
       "id": "tests/test_latest_event_state_closure_v1.py",
       "kind": "test",
-      "size_bytes": 10830
+      "size_bytes": 11702
     },
     {
       "id": "tests/test_lifecycle_intake_bridge_to_editorial_brief_review_packet.py",
@@ -127002,6 +127002,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "3c18cfdd00efdd5d227d57509856fd522abe8429",
-  "source_tree_digest": "771c045e7189ae453c0dad6634bdc59537fa3cd9fe41c74c4855c67bc8ad3ab4"
+  "source_head": "13b0bbca5344cb79520587091acd64e3706ca84c",
+  "source_tree_digest": "2fe884690409892ea6b5270aa6e09d2f51b6c699f59b43d6fdfa2c95d16850d5"
 }
