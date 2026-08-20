@@ -1,0 +1,605 @@
+{
+  "branch": "task/v1-p0-g3-zero-write-multimode-replay-v1",
+  "candidate": {
+    "cluster_id": "rolling-x-deterministic-cluster-c87e17b7a01e69a7f47d",
+    "headline": "BEA release schedule: the August 26 GDP second estimate and corporate profits release and the July personal income and outlays release are upcoming calendar events at 8:30 AM; what the data calendar can and cannot establish before the...",
+    "headline_ids": [
+      "cc-x-headline-1c3474bcd1b44fd726f25db7"
+    ],
+    "mode_was_forced": false,
+    "raw_legacy_capability_mode": "analysis",
+    "raw_legacy_mode": "breaking",
+    "selected_rank": 1,
+    "selector_reason_code": "UPCOMING_SCHEDULED_EVENT_WATCH",
+    "selector_resolved_canonical_mode": "WEEK_AHEAD_OR_WATCH"
+  },
+  "capital_chronicle_authority_and_use": {
+    "authority_required": false,
+    "authority_verified": false,
+    "authorized_charts_consumed": 0,
+    "authorized_claims_consumed": 0,
+    "authorized_series_consumed": 0,
+    "capital_chronicle_authority_granted": false,
+    "context_state": "CC_CONTEXT_UNAVAILABLE",
+    "publication_authority_state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+  },
+  "claim_evidence_contract": {
+    "grounded_source_coverage": {
+      "blockers": [],
+      "fact_rows": [
+        {
+          "body_token_overlap": 1.0,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-5f6b41f9ff55f96fb689",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 1.0,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-57c513466ea5aa664606",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.1667,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-4265b6021a08b40782a1",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.1667,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-9c735c5a05f240279f29",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.5833,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-097dec850b67a017ad7e",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.8,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-d3dbb27d8e9d0b1ee1e9",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.1667,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-2e0ad6248d2a6fb38b6f",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.0,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-8c70258dd5a1b5202fac",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.8,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-468ee2a9c12902cf0083",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.6,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-583fd0f543bfbf19ba85",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.0,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-7c29c413d5e81a4927ae",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.0,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-585a9d467997890f8a02",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.8571,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-e8de178a3263c91c4d39",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.6,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-dc8b1e7c38d12e404fe8",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.6,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-d81145ea35eec1f1c362",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.0,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-37fd5f2143c8e7f0493c",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.2857,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-ba84c04f905e517138e8",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.1667,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-007d2997fb14598d0ae1",
+          "recognizably_used": false
+        },
+        {
+          "body_token_overlap": 0.6364,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-2c9862b3064a29bc8514",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.6,
+          "bound_source_identity_referenced": true,
+          "fact_id": "schedule-dc3deab5e7c0e3f9d57f",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.9,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f1",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.7778,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f2",
+          "recognizably_used": true
+        }
+      ],
+      "grounded_research_packet_present": true,
+      "paragraph_rows": [
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 0,
+          "source_token_overlap": 0.9412
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 1,
+          "source_token_overlap": 0.4062
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 3,
+          "source_token_overlap": 0.4483
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 5,
+          "source_token_overlap": 0.3542
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 7,
+          "source_token_overlap": 0.4048
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 8,
+          "source_token_overlap": 0.3478
+        }
+      ],
+      "publication_authority": false,
+      "status": "PASS"
+    },
+    "minimum_trustworthy_evidence_packet": {
+      "attribution_required": false,
+      "core_factual_proposition": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)",
+      "directly_attributed_numbers_permitted": true,
+      "evidence_document_id": "official-primary-12f81fbcfa6aeb013aac",
+      "evidence_packet_sha256": "2c3df464ecec18a0be5c8fd04032d3023baee56bf288d465e756bf0855aee3c9",
+      "independent_authority_for_disputed_third_party_allegations": null,
+      "publication_authority": false,
+      "published_at_utc": "2026-08-20T12:00:13Z",
+      "publisher": "www.bea.gov",
+      "reader_attribution_mode": "BOUND_SOURCE_URL",
+      "reader_source_url": null,
+      "risk_tier": "ORDINARY",
+      "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+      "source_authority_class": "official_public_primary_source",
+      "source_interest_role": "INDEPENDENT_OR_OFFICIAL_RECORD",
+      "source_title": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)",
+      "source_url": "https://www.bea.gov/news/schedule",
+      "status": "PASS",
+      "unsupported_optional_claims_must_be_omitted": true,
+      "x_content_grants_factual_authority": false
+    },
+    "publication_authority": false,
+    "source_binding_ids_referenced": [
+      "source-878f9baee8b3cbb8"
+    ],
+    "source_bindings": [
+      {
+        "discovery_path_is_reader_authority": false,
+        "evidence_document_id": "official-primary-12f81fbcfa6aeb013aac",
+        "publisher": "www.bea.gov",
+        "reader_attribution_mode": "BOUND_LINK",
+        "reader_source_url": "https://www.bea.gov/news/schedule",
+        "source_handle": "SOURCE_1",
+        "source_id": "source-878f9baee8b3cbb8",
+        "title": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)"
+      }
+    ],
+    "supported_schedule_claims": [
+      {
+        "attribution_required": false,
+        "claim_id": "schedule-5f6b41f9ff55f96fb689",
+        "claim_text": "August 26 8:30 AM \u2014 GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026",
+        "direct_or_inferred": "DIRECT",
+        "evidence_document_ids": [
+          "official-primary-12f81fbcfa6aeb013aac"
+        ],
+        "source_refs": [
+          "SRC_878F9BAEE8B3CBB8"
+        ],
+        "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+      },
+      {
+        "attribution_required": false,
+        "claim_id": "schedule-57c513466ea5aa664606",
+        "claim_text": "August 26 8:30 AM \u2014 Personal Income and Outlays, July 2026",
+        "direct_or_inferred": "DIRECT",
+        "evidence_document_ids": [
+          "official-primary-12f81fbcfa6aeb013aac"
+        ],
+        "source_refs": [
+          "SRC_878F9BAEE8B3CBB8"
+        ],
+        "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+      }
+    ],
+    "unsupported_claims_removed": 0
+  },
+  "classification": "NO_PUBLICATION_INDEPENDENT_PRODUCT_DEFECT",
+  "deterministic_validation": {
+    "grounded_article_generation": "PASS",
+    "grounded_source_coverage": "PASS",
+    "hard_factual_safety_review": "PASS",
+    "revision_not_requested_reason": "The blocker is canonical metadata: the builder emits internal article mode week_ahead, but Tier-1 SUPPORTED_ARTICLE_MODES omits week_ahead. The XHIGH worker cannot alter the builder-owned metadata, so a prose revision would be invalid.",
+    "revision_requested_from_worker": false,
+    "tier1_editorial_audit": "NEEDS_REVISION",
+    "tier1_hard_blockers": [
+      "mode_declared"
+    ],
+    "worker_hash_and_institutional_edge_binding": "PASS_BOUND_XHIGH_EDITORIAL_RETURN"
+  },
+  "evidence_capability_profile": {
+    "capability_mode": "week_ahead",
+    "capital_chronicle_authority_required": false,
+    "internal_article_mode": "week_ahead",
+    "market_context_required": false,
+    "optional_capabilities": [
+      "scheduled_period_or_edition_label"
+    ],
+    "provided_capabilities": [
+      "authorized_release_values",
+      "basic_attributed_facts",
+      "credible_event_confirmation",
+      "official_release",
+      "official_schedule",
+      "scheduled_event_date_time",
+      "scheduled_event_identity",
+      "scheduled_period_or_edition_label"
+    ],
+    "required_capabilities": [
+      "official_schedule",
+      "scheduled_event_identity",
+      "scheduled_event_date_time"
+    ],
+    "source_adapter_families": [
+      "official_macro"
+    ],
+    "status": "PASS",
+    "story_type": "data_release"
+  },
+  "evidence_mode_attempts": [
+    {
+      "blockers": [],
+      "capability_mode": "week_ahead",
+      "downgrade_reason": null,
+      "effective_mode": "WEEK_AHEAD_OR_WATCH",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 0,
+          "FACTUAL_OR_RISK_BLOCK": 0,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 0
+        },
+        "ordinary_minimum_packet_directly_bound": true,
+        "publication_authority": false,
+        "rows": [],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "ordinary_policy_ceremony_reductions": [
+        "supported_claims_missing"
+      ],
+      "request_logical_hash": "08abb431736ccb8e6ea21799b917bb51f5bed64b73840bef0415966ab86aea58",
+      "requested_mode": "WEEK_AHEAD_OR_WATCH",
+      "status": "VIABLE"
+    }
+  ],
+  "exact_outcome": {
+    "candidate_terminal_reason": "ORDINARY_HARD_FACTUAL_SAFETY_GATE_FAILED",
+    "defect_evidence": {
+      "canonical_builder_article_mode": "week_ahead",
+      "canonical_builder_editorial_mode": "week_ahead",
+      "failed_check": "mode_declared",
+      "tier1_supported_modes": [
+        "analysis",
+        "data_release",
+        "deep_analysis",
+        "explainer",
+        "market_move",
+        "policy_decision",
+        "scenario_outlook",
+        "straight_news"
+      ]
+    },
+    "facade_classification": "NO_PUBLICATION",
+    "facade_exact_next_blocker": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+    "independent_product_defect": "TIER1_WEEK_AHEAD_MODE_NOT_SUPPORTED",
+    "owner_audit_ready": false,
+    "public_write_performed": false,
+    "publishing_adapter_called": false,
+    "remaining_gate": "BLOCKED_BEFORE_P0_G3_OWNER_AUDIT_READY"
+  },
+  "model_provider_token_cost_telemetry": {
+    "assignment": {
+      "fallback_transitions": 0,
+      "logical_router_calls": 0,
+      "provider_attempts": 0,
+      "token_usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 0,
+        "total_tokens": 0
+      }
+    },
+    "grounded_research": {
+      "cost": {},
+      "cost_status": "NOT_REPORTED_BY_PROVIDER_TELEMETRY",
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider_attempt_count": 1,
+      "provider_route": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "token_usage": {
+        "completion_tokens": 2126.0,
+        "prompt_tokens": 6227.0,
+        "total_tokens": 8353.0
+      }
+    },
+    "native_high_coordinator": {
+      "cost": null,
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "HIGH",
+      "telemetry_status": "NOT_EXPOSED_TO_TASK_SESSION",
+      "token_usage": null
+    },
+    "native_xhigh_editorial_worker": {
+      "cost": null,
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "XHIGH",
+      "telemetry_status": "NOT_EXPOSED_TO_SUBAGENT_SESSION",
+      "token_usage": null
+    }
+  },
+  "official_source": {
+    "content_sha256": "12f81fbcfa6aeb013aacb58f81d9c9ff08cc88c0ce7762c8af6f9cf7fb1eb726",
+    "deterministic_facts_preserved_despite_model_omission": true,
+    "evidence_document_id": "official-primary-12f81fbcfa6aeb013aac",
+    "exact_extracted_bound_scheduled_rows": [
+      {
+        "attribution_required": false,
+        "binding_method": "DETERMINISTIC_EXACT_OFFICIAL_SCHEDULE_ROW",
+        "confidence_class": "HIGH",
+        "date_text": "August 26",
+        "direct_or_inferred": "DIRECT",
+        "event_name": "GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026",
+        "evidence_document_id": "official-primary-12f81fbcfa6aeb013aac",
+        "fact_id": "schedule-5f6b41f9ff55f96fb689",
+        "factual_statement": "August 26 8:30 AM \u2014 GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026",
+        "llm_factual_or_numeric_authority": false,
+        "period_or_edition_label": "2nd Quarter 2026",
+        "publication_authority": false,
+        "schedule_row_id": "official-schedule-row-5f6b41f9ff55f96fb689",
+        "source_content_sha256": "12f81fbcfa6aeb013aacb58f81d9c9ff08cc88c0ce7762c8af6f9cf7fb1eb726",
+        "source_refs": [
+          "SRC_878F9BAEE8B3CBB8"
+        ],
+        "source_text_sha256": "5f6b41f9ff55f96fb689e0e00ff6dea5c8cc95e22179cf73ba85a10aa1ca687a",
+        "time_text": "8:30 AM"
+      },
+      {
+        "attribution_required": false,
+        "binding_method": "DETERMINISTIC_EXACT_OFFICIAL_SCHEDULE_ROW",
+        "confidence_class": "HIGH",
+        "date_text": "August 26",
+        "direct_or_inferred": "DIRECT",
+        "event_name": "Personal Income and Outlays, July 2026",
+        "evidence_document_id": "official-primary-12f81fbcfa6aeb013aac",
+        "fact_id": "schedule-57c513466ea5aa664606",
+        "factual_statement": "August 26 8:30 AM \u2014 Personal Income and Outlays, July 2026",
+        "llm_factual_or_numeric_authority": false,
+        "period_or_edition_label": "July 2026",
+        "publication_authority": false,
+        "schedule_row_id": "official-schedule-row-57c513466ea5aa664606",
+        "source_content_sha256": "12f81fbcfa6aeb013aacb58f81d9c9ff08cc88c0ce7762c8af6f9cf7fb1eb726",
+        "source_refs": [
+          "SRC_878F9BAEE8B3CBB8"
+        ],
+        "source_text_sha256": "57c513466ea5aa6646061a55a8f038d19ef4237daa47f4fca968abb21209a10d",
+        "time_text": "8:30 AM"
+      }
+    ],
+    "grounded_model_omitted_deterministic_schedule_fact_count": 20,
+    "published_at_utc": "2026-08-20T12:00:13Z",
+    "read_only": true,
+    "retrieval_method": "READ_ONLY_HTTP_GET",
+    "url": "https://www.bea.gov/news/schedule"
+  },
+  "qualification": {
+    "article_artifact_preserved": false,
+    "article_candidate_title": "Two BEA Releases Share the August 26 Calendar",
+    "derivative_artifact_preserved": false,
+    "derivative_destinations": [],
+    "package_count": 0,
+    "qualified": false
+  },
+  "refs": {
+    "actual_starting_head": "c8459ca2bc59dcbe6aba2009c30801f3d6375107",
+    "codegraph_commit_head": "e53a25549cc9f6d004ed6a8628693720339b737b",
+    "fetched_master": "8864cf9322ec2ecbf1660ff45e77397166cd31b7",
+    "required_starting_head": "c8459ca2bc59dcbe6aba2009c30801f3d6375107",
+    "source_test_correction_head": "b6e0cf1de619491f33dde39064e33de997dac73f"
+  },
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "safety_totals": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3_quiet_week_ahead_final_case_receipt.v1",
+  "selected_viable_evidence_mode": "WEEK_AHEAD_OR_WATCH",
+  "worker_routing": {
+    "coordinator": {
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "HIGH"
+    },
+    "decision": "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER",
+    "exact_mode": "WEEK_AHEAD_OR_WATCH",
+    "exact_source_marker_contract": {
+      "copy_exact_supplied_markers_only": true,
+      "deterministic_marker_injection_after_authorship": false,
+      "exact_supplied_markers": [
+        "[[SOURCE:SOURCE_1]]"
+      ],
+      "invent_urls_handles_source_ids_evidence_ids_or_facts": false,
+      "marker_format": "[[SOURCE:SOURCE_N]]",
+      "required_for_source_bound_factual_copy": true,
+      "source_identity_order": [
+        "https://www.bea.gov/news/schedule"
+      ]
+    },
+    "governed_input_hash": "12c2a95d08319538126bdcdad908b13dc3da6bd81e77f949837cd8733e221770",
+    "institutional_edge_mode": "WEEK_AHEAD_WATCH",
+    "legacy_9router_final_article_writer_calls": 0,
+    "worker": {
+      "count": 1,
+      "fresh": true,
+      "isolated": true,
+      "model": "gpt-5.6-sol",
+      "public_write_attempted": false,
+      "reasoning_effort": "XHIGH",
+      "revision_count": 0,
+      "worker_return_validation": {
+        "bounded_revision_count": 0,
+        "classification": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+        "coordinator_model": "gpt-5.6-sol",
+        "coordinator_reasoning_effort": "HIGH",
+        "coordinator_resumes": true,
+        "deterministic_validation_required": true,
+        "governed_input_hash": "12c2a95d08319538126bdcdad908b13dc3da6bd81e77f949837cd8733e221770",
+        "institutional_edge_editorial_validation": {
+          "blockers": [],
+          "checks": {
+            "epistemic_and_source_binding": true,
+            "packet_hash_bound": true,
+            "proposition_bound": true,
+            "required_surfaces_present": true,
+            "seo_truth_preserved": true,
+            "structured_data_matches_visible_copy": true,
+            "tone_policy_preserved": true
+          },
+          "classification": "PASS",
+          "editorial_packet_sha256": "1da210c895e0ef0f931eab1ff0815aa2fef9328a77628565e5623887ecda1e4d",
+          "editorial_seo_package": {
+            "author_identity": "Capital Chronicle",
+            "canonical_editorial_headline": "Two BEA Releases Share the August 26 Calendar",
+            "canonical_slug_candidate": "august-26-bea-gdp-profits-income-outlays-watch",
+            "dek": "The official calendar places second-quarter GDP and corporate profits beside July personal income and outlays at 8:30 AM, while every release result remains unknown.",
+            "editorial_seo_package_sha256": "ee161fd82bc1b0e13da84b3d44a9f3a3efee92d77021a8fadfcdbff435b745af",
+            "entities": [
+              "U.S. Bureau of Economic Analysis",
+              "GDP",
+              "Corporate Profits",
+              "Personal Income and Outlays"
+            ],
+            "institutional_edge_editorial_packet_sha256": "1da210c895e0ef0f931eab1ff0815aa2fef9328a77628565e5623887ecda1e4d",
+            "internal_link_candidates": [],
+            "meta_description": "BEA schedules second-quarter GDP and corporate profits plus July personal income and outlays for August 26 at 8:30 AM. Here is what to watch.",
+            "primary_reader_question": "What should readers watch when the two August 26 BEA releases arrive?",
+            "public_write_authority": false,
+            "publication_authority": false,
+            "publisher_identity": "Capital Chronicle",
+            "schema_version": "contentops.institutional_edge_seo_package.v1",
+            "search_freshness_class": "CURRENT",
+            "search_learning_status": "HOLD_WITHOUT_SEARCH_SPECIFIC_EVIDENCE",
+            "search_title": "August 26 BEA Releases: GDP, Corporate Profits, Income and Outlays",
+            "secondary_reader_questions": [
+              "How should readers keep the reporting periods separate?",
+              "What can the official schedule establish before publication?"
+            ],
+            "social_hook": "Two BEA releases share the August 26 calendar; every result remains unknown before publication.",
+            "structured_data_packet": {
+              "@type": "NewsArticle",
+              "author": "Capital Chronicle",
+              "description": "BEA schedules second-quarter GDP and corporate profits plus July personal income and outlays for August 26 at 8:30 AM. Here is what to watch.",
+              "eligible_for_emission": false,
+              "headline": "Two BEA Releases Share the August 26 Calendar",
+              "publication_time_binding": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+              "publisher": "Capital Chronicle"
+            },
+            "topics": [
+              "BEA release schedule",
+              "GDP second estimate",
+              "corporate profits",
+              "personal income and outlays",
+              "week-ahead watch"
+            ]
+          },
+          "factual_authority": false,
+          "numeric_authority": false,
+          "ordinary_semantic_review_calls": 0,
+          "public_write_authority": false,
+          "publication_authority": false,
+          "schema_version": "contentops.institutional_edge_editorial_validation.v1"
+        },
+        "public_write_performed": false,
+        "publication_coordinator_remains_sole_public_writer": true,
+        "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
+        "worker_fresh_and_isolated": true,
+        "worker_model": "gpt-5.6-sol",
+        "worker_reasoning_effort": "XHIGH",
+        "worker_return_hash": "52f7b22f2c17df57765eccc227585d7f9adab5b677d12ef39df124bd1f926067",
+        "xhigh_publication_authority": false
+      }
+    }
+  }
+}
