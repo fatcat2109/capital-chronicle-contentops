@@ -447,34 +447,33 @@ def build_native_derivative_payloads(
                 raise ValueError(f"{platform}_native_brief_exceeds_platform_limit")
             return text
 
+        article_body_sentences = tuple(
+            _punctuate(sentence)
+            for sentence in _sentence_units(str(article.get("substack_body_markdown") or ""))
+        )
         brief_dek = accepted_brief_sentence(
             article.get("social_hook"),
             article.get("social_lede"),
-            dek,
-            article.get("substack_body_markdown"),
+            article.get("subtitle"),
+            article_body_sentences[0] if article_body_sentences else "",
         )
         if not brief_dek:
             raise ValueError("native_brief_requires_accepted_reader_detail")
         mechanism = accepted_brief_sentence(
             article.get("social_mechanism_summary"),
             article.get("market_mechanism"),
-            selection.get("market_mechanism"),
-            selection.get("selection_case"),
+            article_body_sentences[1] if len(article_body_sentences) > 1 else "",
             brief_dek,
         )
         context = accepted_brief_sentence(
             article.get("social_policy_summary"),
             article.get("policy_context"),
-            selection.get("policy_context"),
-            selection.get("why_now"),
-            brief_dek,
+            article_body_sentences[2] if len(article_body_sentences) > 2 else "",
+            mechanism,
         )
         watch_point = accepted_brief_sentence(
             article.get("social_cross_asset_summary"),
             article.get("cross_asset_implications"),
-            selection.get("cross_asset_implications"),
-            selection.get("seo_intent"),
-            mechanism,
         )
         media_ids = [str(value) for value in media_asset_ids if str(value)]
 
@@ -483,7 +482,7 @@ def build_native_derivative_payloads(
                 title=title,
                 dek=detail,
                 canonical_url=canonical_url,
-                continuation_parts=(continuation,),
+                continuation_parts=(continuation,) if continuation else (),
                 limit=limit,
             )
             posts = [
@@ -510,12 +509,12 @@ def build_native_derivative_payloads(
 
         x_brief = brief_layout(
             detail=brief_dek,
-            continuation=f"Watch: {watch_point}",
+            continuation=f"Watch: {watch_point}" if watch_point else "",
             limit=280,
         )
         threads_brief = brief_layout(
             detail=context,
-            continuation=f"What to watch: {watch_point}",
+            continuation=f"What to watch: {watch_point}" if watch_point else "",
             limit=500,
         )
         return {
@@ -525,7 +524,7 @@ def build_native_derivative_payloads(
                     "NEWSROOM BRIEF",
                     title,
                     brief_dek,
-                    f"What to watch: {watch_point}",
+                    f"What to watch: {watch_point}" if watch_point else "",
                     f"Full brief: {canonical_url}",
                     limit=1024,
                     platform="telegram",
@@ -594,7 +593,7 @@ def build_native_derivative_payloads(
                 "text": native_brief_text(
                     f"Update: {title}",
                     brief_dek,
-                    f"What to watch: {watch_point}",
+                    f"What to watch: {watch_point}" if watch_point else "",
                     f"Read the full brief: {canonical_url}",
                     limit=1_000,
                     platform="youtube",
