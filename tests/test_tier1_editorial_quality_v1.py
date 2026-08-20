@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from live_contentops.tier1_editorial_quality_v1 import (
+    ANALYSIS_MODES,
+    SUPPORTED_ARTICLE_MODES,
     audit_tier1_article,
     build_comparison_packet,
     build_grounded_oil_release_candidate,
@@ -10,6 +12,10 @@ from live_contentops.tier1_editorial_quality_v1 import (
     validate_llm_editorial_review,
     evaluate_headline_desk,
     LLM_REVIEW_CHECKS,
+)
+from live_contentops.source_capability_registry_v2 import (
+    CANONICAL_PRODUCT_MODES,
+    capability_mode_for_product_mode,
 )
 
 
@@ -83,6 +89,73 @@ def test_optional_seo_remains_advisory_but_reader_value_is_hard() -> None:
     assert audit["seo_findings_are_advisory"] is True
     assert audit["hard_editorial_blockers"] == ["reader_value_floor"]
     assert audit["reader_value_gate"]["classification"] == "INSUFFICIENT_READER_VALUE"
+
+
+def test_current_product_modes_map_to_tier1_declared_internal_modes() -> None:
+    mapped = {
+        mode: capability_mode_for_product_mode(mode)
+        for mode in CANONICAL_PRODUCT_MODES
+    }
+
+    assert set(mapped.values()) <= SUPPORTED_ARTICLE_MODES
+    assert mapped["WEEK_AHEAD_OR_WATCH"] == "week_ahead"
+
+
+def test_week_ahead_is_declared_normal_reporting_without_original_value_requirements() -> None:
+    article = {
+        "title": "Two Official Releases Share the August 26 Calendar",
+        "editorial_mode": "week_ahead",
+        "article_mode": "week_ahead",
+        "effective_article_mode": "WEEK_AHEAD_OR_WATCH",
+        "substack_body_markdown": (
+            "The official schedule lists two releases for August 26 at 8:30 AM. The first "
+            "covers a GDP second estimate and corporate profits for the second quarter, while "
+            "the second covers personal income and outlays for July.\n\n"
+            "## What the calendar establishes\n\n"
+            "The schedule establishes timing and release identity, not the values that will be "
+            "published. It does not establish whether growth, profits, income, spending, or "
+            "prices strengthened or weakened during the covered periods.\n\n"
+            "Readers can use the shared release time to separate the two evidence sets when they "
+            "arrive. The GDP and corporate-profits release describes quarterly activity, while "
+            "the income-and-outlays release describes a monthly period.\n\n"
+            "The useful watch point is therefore documentary rather than predictive. Once the "
+            "releases are available, their tables and accompanying text can confirm what changed; "
+            "until then, future values and interpretations remain unknown."
+        ),
+    }
+
+    audit = audit_tier1_article(article, media_assets=[])
+
+    assert "week_ahead" in SUPPORTED_ARTICLE_MODES
+    assert "week_ahead" not in ANALYSIS_MODES
+    assert audit["editorial_checks"]["mode_declared"] is True
+    assert audit["editorial_checks"]["mode_rubric"] is True
+    assert audit["editorial_checks"]["original_value_claim_support"] is True
+    assert audit["reader_value_gate"]["floor_class"] == "NORMAL_REPORTING"
+    assert "mode_declared" not in audit["hard_editorial_blockers"]
+
+
+def test_unknown_article_mode_still_fails_mode_declared() -> None:
+    audit = audit_tier1_article(
+        {
+            "title": "Unknown mode remains blocked",
+            "editorial_mode": "arbitrary_unknown_mode",
+            "substack_body_markdown": (
+                "The agency published a current notice today. The notice identifies the exact "
+                "record and explains why readers should consult it.\n\n"
+                "## Public record\n\n"
+                "The document supplies a bounded factual baseline without granting analytical "
+                "authority or predicting an outcome.\n\n"
+                "Readers can compare later official documents against this record when new "
+                "information becomes available.\n\n"
+                "No unsupported value, market reaction, or future result is asserted here."
+            ),
+        },
+        media_assets=[],
+    )
+
+    assert audit["editorial_checks"]["mode_declared"] is False
+    assert "mode_declared" in audit["hard_editorial_blockers"]
 
 
 def test_semantic_review_advisory_only_revision_is_normalized_to_pass() -> None:

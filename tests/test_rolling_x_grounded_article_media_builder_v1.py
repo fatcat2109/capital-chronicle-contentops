@@ -7,6 +7,7 @@ import pytest
 
 from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as implementation
 from live_contentops import rolling_x_grounded_article_media_builder_v1 as builder
+from live_contentops.tier1_editorial_quality_v1 import audit_tier1_article
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     GroundedArticleBuilderError,
     build_rolling_x_grounded_article_and_media,
@@ -622,6 +623,39 @@ def test_controlled_build_produces_grounded_article_and_media(tmp_path, story_ty
     assert len(assets) == 3
     for asset in assets:
         assert Path(asset["path"]).is_file()
+
+
+def test_week_ahead_builder_handoff_preserves_mode_for_tier1(tmp_path):
+    viability = _viability(story_type="data_release", article_mode="week_ahead")
+    viability["selected_cluster"].update(
+        {
+            "requested_article_mode": "WEEK_AHEAD_OR_WATCH",
+            "resolved_article_mode": "WEEK_AHEAD_OR_WATCH",
+            "effective_article_mode": "WEEK_AHEAD_OR_WATCH",
+        }
+    )
+    viability["rank_attempts"][0]["request"].update(
+        {
+            "requested_article_mode": "WEEK_AHEAD_OR_WATCH",
+            "resolved_article_mode": "WEEK_AHEAD_OR_WATCH",
+            "effective_article_mode": "WEEK_AHEAD_OR_WATCH",
+        }
+    )
+
+    result = build_rolling_x_grounded_article_and_media(
+        viability,
+        output_dir=tmp_path,
+        article_generator=_make_generator(FR_URL, []),
+        required_asset_count=0,
+    )
+    article = result["article"]
+    audit = audit_tier1_article(article, media_assets=[])
+
+    assert article["article_mode"] == "week_ahead"
+    assert article["editorial_mode"] == "week_ahead"
+    assert article["effective_article_mode"] == "WEEK_AHEAD_OR_WATCH"
+    assert audit["editorial_checks"]["mode_declared"] is True
+    assert "mode_declared" not in audit["hard_editorial_blockers"]
 
 
 def test_writer_receives_stable_source_handle_and_serialization_resolves_bound_url(tmp_path):
