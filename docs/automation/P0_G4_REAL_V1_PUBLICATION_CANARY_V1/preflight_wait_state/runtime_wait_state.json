@@ -1,0 +1,108 @@
+{
+  "schema_version": "contentops.p0_g4a.runtime_wait_state.v1",
+  "classification": "WAIT_FOR_GENUINE_CURRENT_CANARY_OPPORTUNITY",
+  "generated_at_utc": "2026-08-20T19:03:00.575Z",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/v1-p0-g4-real-publication-canary-v1",
+  "fetched_master_sha": "369c0cc289e790b8218ba30b2696a926db04356a",
+  "starting_branch_sha": "19a0bb5c7b68362c7836b2ea8c5db63f62fc9243",
+  "source_epoch": "369c0cc289e790b8218ba30b2696a926db04356a",
+  "mode_transition": {
+    "before": {
+      "operating_mode": "KILL_SWITCH",
+      "state_version": 23,
+      "kill_switch_active": true,
+      "observed_at_utc": "2026-08-20T18:54:51.711Z"
+    },
+    "after": {
+      "operating_mode": "SHADOW_ONLY",
+      "state_version": 24,
+      "kill_switch_active": false,
+      "updated_at_utc": "2026-08-20T18:54:59.126294Z",
+      "control_source": "LOCAL_DAILY_APP_UI",
+      "public_write_authority": false,
+      "material_event_scope": "SHADOW_NO_PUBLIC_WRITE"
+    }
+  },
+  "supervisor": {
+    "logical_identity": "contentops-daily-app-supervisor-57a44c4b6bf9827a",
+    "logical_count": 1,
+    "wrapper_pid": 32292,
+    "child_pid": 28568,
+    "duplicate_independent_root": false,
+    "controller_health": "HEALTHY",
+    "heartbeat_at_utc": "2026-08-20T19:02:41.208844Z"
+  },
+  "post_transition_intake_checkpoint": {
+    "lane_state": "RUNNING",
+    "kill_switch_paused": false,
+    "checkpoint_at_utc": "2026-08-20T19:00:26.018554Z",
+    "capture_result": "CAPTURED_NEW",
+    "capture_phase": "COMPLETE",
+    "auth_classification": "READY",
+    "rows_last_iteration": 25,
+    "timeline_responses_observed": 1,
+    "newest_source_event_at_utc": "2026-08-20T19:00:07Z",
+    "browser_role": "CHROME_CDP_9222_INGESTION_ONLY"
+  },
+  "safety": {
+    "unknown_write_count": 0,
+    "pending_readback_recovery_count": 0,
+    "pending_reconciliation_count": 0,
+    "pending_material_event_count": 0,
+    "active_public_write": false,
+    "new_public_writes_blocked": true,
+    "newsroom_cycle_invocations_caused_by_task": 0,
+    "manual_canary_cycle_invocations_caused_by_task": 0,
+    "model_calls_caused_by_task": 0,
+    "provider_calls_caused_by_task": 0,
+    "research_calls_caused_by_task": 0,
+    "public_writes_caused_by_task": 0,
+    "publication_provider_writes_caused_by_task": 0,
+    "destination_readiness_probes_caused_by_task": 0,
+    "browser_cdp_publication_actions_caused_by_task": 0
+  },
+  "durable_counter_continuity": {
+    "before": {
+      "work_items": 78,
+      "model_invocations": 0,
+      "outbox_messages": 38,
+      "platform_dispatches": 22,
+      "readbacks": 40,
+      "reconciliations": 22
+    },
+    "after": {
+      "work_items": 78,
+      "model_invocations": 0,
+      "outbox_messages": 38,
+      "platform_dispatches": 22,
+      "readbacks": 40,
+      "reconciliations": 22
+    },
+    "latest_editorial_work_item_id": "editorial-window-3056d965649b4caa91230e764019da6d",
+    "latest_editorial_state": "REJECTED",
+    "latest_editorial_outcome": "NO_PUBLICATION",
+    "latest_editorial_updated_at_utc": "2026-08-20T18:32:09.480271Z",
+    "editorial_work_item_unchanged": true
+  },
+  "scheduled_newsroom_tasks": [
+    {"id": "v1-newsroom-london-1700", "status": "PAUSED"},
+    {"id": "v1-newsroom-new-york-2100", "status": "PAUSED"},
+    {"id": "v1-newsroom-new-york-2300", "status": "PAUSED"},
+    {"id": "v1-newsroom-new-york-0100", "status": "PAUSED"}
+  ],
+  "scheduled_newsroom_task_count": 4,
+  "fifth_task_count": 0,
+  "production_store": {
+    "identity": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "preserved": true,
+    "reset_recreated_or_deleted": false,
+    "windows_file_identity_before": 562949953924953,
+    "windows_file_identity_after": 562949953924953,
+    "creation_time_identity_before_ns": 1786282020501907800,
+    "creation_time_identity_after_ns": 1786282020501907800,
+    "path_and_file_identity_preserved": true
+  },
+  "remaining_gate": "WAIT_FOR_GENUINE_CURRENT_CANARY_OPPORTUNITY",
+  "p0_g4_pass_claimed": false
+}
