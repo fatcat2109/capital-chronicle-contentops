@@ -1,0 +1,3 @@
+# Final P0-G3 owner candidate
+
+Breaking is referenced by exact accepted hashes and was not rerun. The normal DATA_OR_DOCUMENT_LENS and house WHAT_THE_MARKET_IS_MISSING cases each used one fresh isolated native gpt-5.6-sol / XHIGH worker, one bounded same-worker revision, passed deterministic validation, and produced exactly eight undispatched non-TikTok V1 packages. The genuine quiet-day BEA schedule case resolved to WEEK_AHEAD_OR_WATCH but propagated to a BREAKING_BRIEF Institutional Edge packet. Source was already locked, so the case failed closed without a worker or packages. This packet requires Jim/ChatGPT review and does not claim P0-G3 PASS.

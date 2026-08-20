@@ -1,0 +1,9 @@
+{
+  "accepted_article_path": "docs/automation/P0_G3_ZERO_WRITE_MULTIMODE_REPLAY_V1/final_completion/breaking/article.md",
+  "accepted_article_sha256": "cbded58bfa316b0a1f4f0cee8c5f672b66015f907a9bf67a4de2aaac72664473",
+  "accepted_derivative_packages_path": "docs/automation/P0_G3_ZERO_WRITE_MULTIMODE_REPLAY_V1/final_completion/breaking/derivative_packages.json",
+  "accepted_derivative_packages_sha256": "e5480c2b3abb5cf02cb365a6e1681cf3b5499caafc6cc27f04a9a7e35e573389",
+  "breaking_replayed": false,
+  "reason": "The accepted breaking specimen is referenced by exact bytes only; no breaking research, worker, article, package, or publication action occurred.",
+  "schema_version": "contentops.p0_g3.final_owner_breaking_reference.v1"
+}

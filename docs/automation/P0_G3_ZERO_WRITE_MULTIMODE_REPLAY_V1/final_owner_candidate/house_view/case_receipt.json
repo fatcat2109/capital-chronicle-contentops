@@ -1,0 +1,158 @@
+{
+  "accepted_source_records": [
+    {
+      "content_sha256": "db7b08ee18e28b7d9e0f78498d9d407919db8eb77c85c01319c69b9affdce1a1",
+      "document_id": "official-primary-db7b08ee18e28b7d9e0f",
+      "grounded_source_ref": "SRC_81D1019AE03E0DF8",
+      "published_at_utc": "2026-08-19T18:01:21Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_authority_class": "official_public_primary_source",
+      "source_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm",
+      "title": "The Fed - Monetary Policy:"
+    }
+  ],
+  "actual_canonical_mode": "WHAT_THE_MARKET_IS_MISSING",
+  "candidate": "Fresh discovery item with a bounded public evidence path.",
+  "capital_chronicle_authority": {
+    "authority_class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false,
+    "qualitative_contentops_inference_only": true,
+    "values_regenerated_or_repaired": false
+  },
+  "case": "house_view",
+  "claim_evidence_contract": {
+    "blocked_claims": [],
+    "claim_contract_sha256": "e5ef2c50f2ee99bf1c000a143e33166b089eae0b205026c058b69e1289adc0fc",
+    "fabricated_claim_count": 0,
+    "omitted_claim_count": 2,
+    "omitted_unsupported_claims": [
+      {
+        "claim_id": "claim-7f01cc31b867ea90",
+        "claim_text": "A webpage titled 'FOMC Minutes, July 28\u201329, 2026' exists on the Federal Reserve website.",
+        "reason": "candidate_claim_not_found_in_evidence",
+        "support_status": "OMITTED"
+      },
+      {
+        "claim_id": "claim-0327fc522791bb6c",
+        "claim_text": "What the market may be missing in the July 28-29 FOMC minutes: the policy tradeoff is not a one-directional signal; Capital Chronicle's view is that mechanism, uncertainty and the counter-case matter more than a release headline.",
+        "reason": "candidate_claim_not_found_in_evidence",
+        "support_status": "OMITTED"
+      }
+    ],
+    "publication_authority": false,
+    "schema_version": "contentops.claim_evidence_contract.v1",
+    "status": "PASS",
+    "supported_claim_count": 1,
+    "supported_claims": [
+      {
+        "attribution_required": false,
+        "authority_classes": [
+          "official_public_primary_source"
+        ],
+        "claim_id": "claim-e2423fc5c852484e",
+        "claim_text": "The Federal Reserve Board of Governors is located in Washington DC.",
+        "evidence_document_ids": [
+          "official-primary-db7b08ee18e28b7d9e0f"
+        ],
+        "numeric_claim": false,
+        "quoted_claim": false,
+        "support_status": "SUPPORTED_PRIMARY"
+      }
+    ],
+    "x_content_grants_factual_authority": false
+  },
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "QUALIFIED_ZERO_WRITE_OWNER_ARTIFACT_READY",
+  "final_deterministic_blockers": [],
+  "governed_input_hash": "3f095b6ed0036f808477084a1270d05aa49c7f018d2cd1b57ef2e7e417a9415d",
+  "institutional_edge_mode_expectations": [
+    "strong_thesis_early",
+    "factual_premises_source_bound",
+    "exact_supplied_source_markers_for_factual_copy",
+    "explicit_branded_qualitative_inference_using_capital_chronicle_view_interpretation_or_inference",
+    "no_unbound_or_fabricated_quotes",
+    "no_unsupported_causal_claim",
+    "material_counter_case_or_uncertainty_when_appropriate",
+    "no_proprietary_probability_forecast_scenario_regime_valuation_base_case_or_decision_truth_without_exact_publication_authorized_cc_authority"
+  ],
+  "institutional_edge_projected_mode": "HOUSE_VIEW",
+  "mode_resolution_reason": "EXPLICIT_CONSENSUS_CHALLENGE",
+  "model_provider_token_cost_telemetry": {
+    "assignment_router": [],
+    "grounded_research_router": [
+      {
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "query_plan",
+        "provider_attempt_count": 1,
+        "reported_cost": {},
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "token_usage": {
+          "completion_tokens": 1297.0,
+          "prompt_tokens": 2816.0,
+          "total_tokens": 4113.0
+        }
+      },
+      {
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "source_synthesis",
+        "provider_attempt_count": 1,
+        "reported_cost": {},
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "token_usage": {
+          "completion_tokens": 2160.0,
+          "prompt_tokens": 6247.0,
+          "total_tokens": 8407.0
+        }
+      }
+    ],
+    "native_worker_token_cost": "UNAVAILABLE_NOT_EXPOSED"
+  },
+  "native_xhigh_receipt": {
+    "bounded_revision_count": 1,
+    "fresh": true,
+    "isolated": true,
+    "native_token_cost_receipt_exposed": false,
+    "public_write_attempted": false,
+    "worker_model": "gpt-5.6-sol",
+    "worker_reasoning_effort": "XHIGH",
+    "worker_return_sha256": "aaf1090e57e38240db082b08aa6db9af71111f71f6f3d518bac30eee37f0c9cb"
+  },
+  "package_count": 8,
+  "package_destinations": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "telegram",
+    "threads",
+    "x",
+    "youtube"
+  ],
+  "qualified": true,
+  "safety": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3.final_owner_case_receipt.v1",
+  "tiktok_package_present": false,
+  "worker_return_validation": {
+    "classification": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+    "generated_article_blockers": [],
+    "institutional_edge_blockers": [],
+    "institutional_edge_classification": "PASS",
+    "source_marker_blockers": []
+  }
+}
