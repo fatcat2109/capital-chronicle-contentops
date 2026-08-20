@@ -1,9 +1,9 @@
 # Capital Chronicle ContentOps — Current Context
 
-Authority date: 2026-08-20
+Authority date: 2026-08-21
 Status: `CURRENT_BOOTSTRAP_POINTER`
 
-This file is a compact bootstrap only. It does not override root authority.
+This file is a compact bootstrap only. Root `AGENTS.md`, current authority map, root North Star V3, root Master Plan V3, and the current lane pointer are stronger.
 
 ## Read first
 
@@ -13,84 +13,85 @@ This file is a compact bootstrap only. It does not override root authority.
 4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-7. lane CodeGraph context and current lane pointer
+7. lane CodeGraph context + current lane pointer
 8. nearest scoped `AGENTS.md`
-9. exact code/tests/evidence
+9. exact current code/tests/evidence/host truth.
 
-Always fetch remote `master` and the relevant branch before relying on a recorded SHA.
+Always fetch remote master and relevant branches before trusting recorded SHAs.
 
-## Current product state
+## Current V1 state
 
-Capital Chronicle/Core Analyzer remains the intelligence, decision, and proprietary numeric-authority engine. ContentOps remains its evidence-governed newsroom, media-growth, organic audience-acquisition, distribution, observation, and bounded-learning engine.
+P0-1 is accepted.
 
-P0-1 publication-authority classification/use-binding, bounded CC context activation, compatibility-state preservation, and the accepted latest-web source-reachability corrections are complete on current lineage. Do not reopen P0-1 merely to increase publication yield.
+P0-G1/G2 growth-first editorial/evidence/distribution behavior is accepted on current lineage.
 
-P0-2 final V1 acceptance is still unproven. Historical authorized canaries truthfully returned `NO_PUBLICATION`; that evidence remains valid history but no longer means the product should passively wait for a perfect story before completing current editorial behavior.
+P0-G3 breaking/normal/quiet/house-view zero-write artifacts were owner-audited and merged into master at `369c0cc289e790b8218ba30b2696a926db04356a`.
 
-Latest operator/Codex runtime evidence reports:
+P0-G4 draft PR #12 remains frozen while a higher-priority owner contract correction is implemented.
 
-`P0_1_ACCEPTED / P0_2_ACCEPTANCE_UNPROVEN / FDA_G_SOAK_ACTIVE`
+## Current owner output contract
 
-with the canonical current-master supervisor healthy, ingestion running, `UNKNOWN_WRITE=0`, and all four existing V1 newsroom tasks still `PAUSED`. Runtime state is runtime evidence, not GitHub-static proof.
+BUILD/PROOF:
+
+`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES per newsroom production day`
+
+FINAL V1:
+
+`5–8 PUBLISHED ARTICLES per newsroom production day`
+
+Candidate abstention is valid. Whole-day deficit is not healthy success unless an exact hard external blocker is proven. Filler remains forbidden and truth/evidence/rights/permission/numeric-authority gates remain unchanged.
+
+## Current execution gap
+
+FDA-G can continuously ingest and maintain durable state, but current repository code does not prove a direct FDA-G-to-Codex Desktop execution bridge.
+
+Repo configuration that lists four intended native Codex tasks is not host proof. Actual Codex Automation inventory/state is currently `UNPROVEN` until supported host/product evidence confirms it.
+
+Do not claim the four tasks exist, are paused, are enabled, or can run unattended based only on docs/config.
+
+Immediate material-event-to-Codex wake is also not proven.
 
 ## Immediate product priority
 
-Do **not** reopen P0-1 or add another source-reachability correction merely to increase publication yield.
+Current next capability:
 
-The next product capability is **not** another P0-1/source-yield repair and **not** an immediate live publication canary under the stale editorial policy.
+`V1 DAILY OUTPUT FLOOR + CODEX AUTOMATION EXECUTION BRIDGE`
 
-Current priority:
+Required before resuming canary:
 
-`P0-G1 + P0-G2 — V1 GROWTH-FIRST EDITORIAL SPECTRUM, BOUNDED MATERIAL-EVENT WAKE, AND CANONICAL-FIRST DISTRIBUTION VERTICAL SLICE`
+- deterministic newsroom production-day ID across 17:00/21:00/23:00/following-01:00 Bangkok windows;
+- build floor 4 and final target 5–8 counters/states;
+- bounded later-window deficit catch-up without a fifth routine task;
+- actual Codex host Automation inventory/setup truth;
+- one zero-public-write native Automation execution proof where supported;
+- truthful V5 daily-output/automation-state visibility;
+- no invented scheduler/model bridge.
 
-The required product behavior is:
+## Current intended routine schedule
 
-- evidence burden proportional to the public claim and editorial mode;
-- official-primary breaking fast lane for narrow attributed facts when one exact authentic official source directly proves the event;
-- issuer/party-authored primary sources prove their own statement/filing contents, not automatically disputed third-party allegations, misconduct, causality, or future outcomes;
-- quiet-day ladder that can choose useful follow-up, house-view/critical, contrarian, explainer, document/data, or watch/week-ahead content instead of defaulting to silence;
-- explicit `CAPITAL_CHRONICLE_VIEW` and `WHAT_THE_MARKET_IS_MISSING` modes with strong but defensible criticism/opinion;
-- clearly labeled qualitative editorial inference is allowed from accepted public evidence, but remains distinct from Core Analyzer proprietary analytical/numeric authority;
-- growth-aware ranking and platform-native hooks/packages;
-- one bounded material-event wake path through the existing Daily App supervisor, proven under `NO_PUBLIC_WRITE` before canary; after accepted canary, live automatic wake activation remains a separate public-write trigger-scope expansion and requires an explicit owner grant covering that wake scope, otherwise the path stays shadow-only; this is not a fifth scheduled task;
-- canonical Substack may remain publishable under a future owner-authorized action when a derivative destination is temporarily unavailable; derivative-local failure becomes durable hold/recovery rather than a blanket canonical veto;
-- hard truth/numeric/permission/rights/identity/readback boundaries remain unchanged.
+Configuration intent only:
 
-No-publication remains valid. Quiet-day behavior may lower materiality or change content mode; it may never lower factual truth or create unsupported claims.
+- London 17:00 Mon–Fri;
+- New York 21:00 Mon–Fri;
+- New York 23:00 Mon–Fri;
+- New York 01:00 Tue–Sat;
+- Asia/Bangkok;
+- coordinator `gpt-5.6-sol / HIGH`;
+- fresh isolated `gpt-5.6-sol / XHIGH` per warranted final article.
 
-## Validation sequence before live canary
+No fifth routine task.
 
-1. implement the growth-first mode/evidence/ranking/material-event-wake/distribution behavior through the existing canonical V1 supervisor/newsroom path;
-2. run bounded `NO_PUBLIC_WRITE` replay for at least breaking + wake/no-wake, normal-analysis, quiet-day, and critical/opinion cases;
-3. Jim/ChatGPT inspect actual article/package outputs;
-4. only then use `CODEX_EXECUTION + OWNER_GATED_EXTERNAL` for one genuine current live canary;
-5. after accepted canary, enable only the four existing scheduled V1 tasks; separately require an explicit owner grant before activating automatic material-event public-write wakeups, otherwise keep that path shadow-only; then prove unattended/cold-start operation at the highest scope currently authorized.
+## After this correction
 
-Do not create a fifth scheduled task or a second scheduler. Do not repeatedly fire manual opportunities to manufacture canary evidence.
-
-## Current runtime caveat
-
-The latest FDA-G restoration reported optional `UI_BUILD_EXIT_1`. It did not block supervisor health or ingestion, but V1 final acceptance still requires a working truthful canonical V5 Daily App UI and fresh visual review. Treat this as an acceptance caveat to reproduce/close before final V1 acceptance, not as a reason to stop current growth-editorial work.
-
-## Execution framework
-
-Engineering execution uses `CAPABILITY_ROUTED_HYBRID` under the current execution policy.
-
-- `WEB_STATIC` for repository-static work provable from fresh GitHub bytes;
-- `WEB_CI` for bounded deterministic implementation provable by safe Actions;
-- `CODEX_EXECUTION` when interactive runtime/environment/browser/debug feedback is required;
-- `OWNER_GATED_EXTERNAL` for secrets, live/public writes, destructive canonical changes, provider/browser publication expansion, rights/legal release, material Core Analyzer numeric-authority changes, or equivalent irreversible actions.
-
-Execution routing never widens factual, numeric, permission, rights, credential, destination-identity, or public-write authority.
-
-## V2
-
-V2 remains isolated and currently has zero public-write authority. It may continue only under current root sequencing and must never mutate V1 runtime/store/browser/scheduler/publication authority.
+Resume P0-G4 zero-write candidate/JIT readiness -> owner one-canary grant -> real Substack + eight derivatives -> readback/reconcile `UNKNOWN_WRITE=0` -> unattended/cold-start proof -> V5 final screenshot QA.
 
 ## Immutable safety anchors
 
-- protected `v1.0`: `6983bfb3ef300414b744f3f8f97ca81ff699348b`;
-- `UNKNOWN_WRITE`: `STOP RETRY -> READ BACK -> RECONCILE`;
-- Chrome `CapitalChronicleBot` 9222: ingestion only;
-- Edge `contentops-social-main` 9223: publication/media/readback and explicitly authorized observation only;
-- internal/context Analyzer material never becomes public authority without an exact publication-safe contract.
+- Core Analyzer owns proprietary analytical/numeric truth;
+- internal/context Analyzer material is not public permission;
+- `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`;
+- Chrome `CapitalChronicleBot` 9222 is ingestion only;
+- Edge `contentops-social-main` 9223 is publication/media/readback and explicitly authorized observation only;
+- protected `v1.0` remains immutable;
+- no public write without exact owner authority;
+- no invented host Automation state.
