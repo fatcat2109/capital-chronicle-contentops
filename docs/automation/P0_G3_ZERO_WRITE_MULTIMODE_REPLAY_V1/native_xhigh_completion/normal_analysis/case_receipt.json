@@ -1,0 +1,103 @@
+{
+  "accepted_source_records": [
+    {
+      "content_sha256": "f5fef6eb3d793280e2022b7bfd51a659a8182711e627f3f2b9f9d96fb2201577",
+      "document_id": "official-primary-f5fef6eb3d793280e202",
+      "grounded_source_ref": "SRC_8AC2FEECB6E1ED36",
+      "published_at_utc": "2026-08-19T18:01:21Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_authority_class": "official_public_primary_source",
+      "source_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm",
+      "title": "The Fed - Monetary Policy:"
+    }
+  ],
+  "actual_selected_mode": "DATA_OR_DOCUMENT_LENS",
+  "assignment_router": [
+    {
+      "fallback_transitions": 0,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "reported_cost_usd": null,
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "structured_repair_attempts": 0,
+      "terminal_disposition": "ACCEPTED",
+      "token_usage": {
+        "completion_tokens": 1976.0,
+        "prompt_tokens": 2850.0,
+        "total_tokens": 4826.0
+      },
+      "total_attempts": 1
+    },
+    {
+      "fallback_transitions": 1,
+      "models_attempted_in_order": [
+        "new/claude-fable-5",
+        "new/gpt-5.6-sol-xhigh"
+      ],
+      "reported_cost_usd": null,
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "structured_repair_attempts": 0,
+      "terminal_disposition": "ACCEPTED",
+      "token_usage": {
+        "completion_tokens": 776.0,
+        "prompt_tokens": 3992.0,
+        "total_tokens": 4768.0
+      },
+      "total_attempts": 2
+    }
+  ],
+  "candidate": "Prioritize a source-bound examination of what the minutes reveal about the competing policy considerations, the mechanisms connecting inflation and employment, and the implications for how readers interpret the Fed's current stance. Avoid presenting any forecast, probability, market reaction, or unsupported conclusion as fact.",
+  "capital_chronicle_authority": {
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false
+  },
+  "case": "normal_analysis",
+  "claim_evidence_contract": {
+    "minimum_evidence_status": "PASS",
+    "publication_authority": false
+  },
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "NO_PUBLICATION_MODE_SELECTION_MISMATCH",
+  "expected_mode": "STANDARD_NEWS_ANALYSIS",
+  "package_count": 0,
+  "qualified": false,
+  "safety": {
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_mutations": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.p0_g3.native_xhigh_case_receipt.v1",
+  "selection": {
+    "mode_resolution": {
+      "canonical_mode_ladder": [
+        "BREAKING_BRIEF",
+        "FOLLOW_UP_UPDATE",
+        "STANDARD_NEWS_ANALYSIS",
+        "CAPITAL_CHRONICLE_VIEW",
+        "WHAT_THE_MARKET_IS_MISSING",
+        "EVERGREEN_EXPLAINER",
+        "DATA_OR_DOCUMENT_LENS",
+        "WEEK_AHEAD_OR_WATCH"
+      ],
+      "changes_evidence_or_permission_standards": false,
+      "grants_factual_or_numeric_authority": false,
+      "mode": "DATA_OR_DOCUMENT_LENS",
+      "quiet_day_utility_candidate": false,
+      "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+    },
+    "raw_assignment_mode": "DATA_OR_DOCUMENT_LENS",
+    "selection_rationale": "Prioritize a source-bound examination of what the minutes reveal about the competing policy considerations, the mechanisms connecting inflation and employment, and the implications for how readers interpret the Fed's current stance. Avoid presenting any forecast, probability, market reaction, or unsupported conclusion as fact.",
+    "story_mode": "deep_analysis"
+  },
+  "validation_blockers": [
+    "EXPECTED_STANDARD_NEWS_ANALYSIS_NOT_EARNED",
+    "ACTUAL_DATA_OR_DOCUMENT_LENS"
+  ],
+  "xhigh_worker_count": 0
+}

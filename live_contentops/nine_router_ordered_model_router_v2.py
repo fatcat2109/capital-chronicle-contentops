@@ -172,7 +172,10 @@ def _incident_model_pool_for_role(role_task_id: str, mode: str) -> tuple[str, ..
 #: spent most of its global budget and a further same-model retry buys little.
 PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
 NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1, 1)
-NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 2)
+# The first quality model retains one bounded same-model structured repair.  This keeps the
+# declared global-editor repair path reachable for a deterministic validation failure while
+# preserving the existing five-attempt total and three fallback transitions.
+NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1)
 V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 2, 2, 2)
 # The two-route grounded-research pool permits one attempt per provider plus at most one
 # bounded same-model structured-output repair. Infrastructure failures never retry the same

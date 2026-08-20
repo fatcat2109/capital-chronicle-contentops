@@ -1,0 +1,21 @@
+{
+  "artifact_count": 2,
+  "artifacts": [
+    {
+      "path": "README.md",
+      "sha256": "a060eaf5c489b9e3110f66332eef38c002e9379d9373ef62539cf82c066cea9f",
+      "size_bytes": 1322
+    },
+    {
+      "path": "case_receipt.json",
+      "sha256": "99bd9e04564ca82bc80f507804ad1d43957aaab6ef63332b1b4fbf2cd8571417",
+      "size_bytes": 23710
+    }
+  ],
+  "classification": "VERIFIED_ZERO_MISMATCHES",
+  "hash_algorithm": "SHA256",
+  "qualified_article_present": false,
+  "qualified_derivative_packages_present": false,
+  "schema_version": "contentops.p0_g3_quiet_week_ahead_final_manifest.v1",
+  "verification_mismatch_count": 0
+}

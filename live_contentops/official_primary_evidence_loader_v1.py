@@ -237,6 +237,80 @@ def _html_document_title(text: str) -> str | None:
     return None
 
 
+def _html_fragment_text(value: str) -> str:
+    return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", value)).split())
+
+
+def _scheduled_period_or_edition_label(title: str) -> str | None:
+    """Return only an exact date/period suffix already present in a schedule-row title."""
+    match = re.search(
+        r",\s*((?:(?:[1-4](?:st|nd|rd|th)\s+Quarter)|Q[1-4]|"
+        r"January|February|March|April|May|June|July|August|September|October|"
+        r"November|December|FY)\b[^,]{0,80})$",
+        title,
+        re.IGNORECASE,
+    )
+    return match.group(1).strip() if match else None
+
+
+def _exact_official_schedule_rows(text: str) -> list[dict[str, Any]]:
+    """Extract only complete rows from an official release-schedule table.
+
+    The structural class names, date, time, and release-title cells must all be present in the
+    accepted bytes. No calendar year, outcome, value, or market implication is inferred.
+    """
+    rows: list[dict[str, Any]] = []
+    for match in re.finditer(
+        r'<tr\b[^>]*class=["\'][^"\']*scheduled-releases-type-[^"\']*["\'][^>]*>'
+        r"(.*?)</tr>",
+        text,
+        re.IGNORECASE | re.DOTALL,
+    ):
+        row_html = match.group(1)
+        date_match = re.search(
+            r'<div\b[^>]*class=["\'][^"\']*\brelease-date\b[^"\']*["\'][^>]*>'
+            r"(.*?)</div>",
+            row_html,
+            re.IGNORECASE | re.DOTALL,
+        )
+        time_match = re.search(
+            r'<small\b[^>]*class=["\'][^"\']*\btext-muted\b[^"\']*["\'][^>]*>'
+            r"(.*?)</small>",
+            row_html,
+            re.IGNORECASE | re.DOTALL,
+        )
+        title_match = re.search(
+            r'<td\b[^>]*class=["\'][^"\']*\brelease-title\b[^"\']*["\'][^>]*>'
+            r"(.*?)</td>",
+            row_html,
+            re.IGNORECASE | re.DOTALL,
+        )
+        if not (date_match and time_match and title_match):
+            continue
+        date_text = _html_fragment_text(date_match.group(1))
+        time_text = _html_fragment_text(time_match.group(1))
+        event_name = _html_fragment_text(title_match.group(1))
+        if not date_text or not time_text or not event_name:
+            continue
+        source_text = f"{date_text} {time_text} — {event_name}"
+        row = {
+            "schedule_row_id": "official-schedule-row-"
+            + sha256(source_text.encode("utf-8")).hexdigest()[:20],
+            "source_text": source_text,
+            "source_text_sha256": sha256(source_text.encode("utf-8")).hexdigest(),
+            "event_name": event_name,
+            "date_text": date_text,
+            "time_text": time_text,
+            "period_or_edition_label": _scheduled_period_or_edition_label(event_name),
+            "extraction_method": "EXACT_OFFICIAL_SCHEDULE_TABLE_ROW",
+            "inferred_fields": [],
+            "llm_factual_or_numeric_authority": False,
+            "publication_authority": False,
+        }
+        rows.append(row)
+    return rows
+
+
 def _safe_url(url: str, allowed_hosts: set[str]) -> tuple[str, str]:
     parsed = urlsplit(url)
     host = str(parsed.hostname or "").casefold()
@@ -575,9 +649,29 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     self._evaluation_as_of_utc.replace("Z", "+00:00")
                 ):
                     raise ValueError("official_source_published_after_evaluation_cutoff")
+                schedule_rows = (
+                    _exact_official_schedule_rows(text)
+                    if family == "official_macro" and content_type in {
+                        "application/xhtml+xml", "text/html"
+                    }
+                    else []
+                )
+                if schedule_rows:
+                    verified.update({
+                        "official_schedule",
+                        "scheduled_event_identity",
+                        "scheduled_event_date_time",
+                    })
+                    if any(row.get("period_or_edition_label") for row in schedule_rows):
+                        verified.add("scheduled_period_or_edition_label")
                 supplied.update(verified)
+                content_sha256 = sha256(body).hexdigest()
+                document_id = "official-primary-" + content_sha256[:20]
+                for row in schedule_rows:
+                    row["evidence_document_id"] = document_id
+                    row["source_content_sha256"] = content_sha256
                 document = {
-                    "document_id": "official-primary-" + sha256(body).hexdigest()[:20],
+                    "document_id": document_id,
                     "title": (
                         headers.get("x-document-title")
                         or _html_document_title(text)
@@ -603,11 +697,16 @@ class BoundedOfficialPrimaryEvidenceLoader:
                         else "OFFICIAL_BYTES_HEADERS_OR_LOCATOR"
                     ),
                     "event_time_utc": published_at,
-                    "raw_sha256": sha256(body).hexdigest(),
-                    "canonical_content_sha256": sha256(body).hexdigest(),
+                    "raw_sha256": content_sha256,
+                    "canonical_content_sha256": content_sha256,
                     "content_type": content_type,
                     "byte_length": len(body),
                     "canonical_content_text": text[:100_000] if text else None,
+                    "source_excerpt": "\n".join(
+                        str(row["source_text"]) for row in schedule_rows
+                    ) or None,
+                    "scheduled_event_rows": schedule_rows,
+                    "schedule_extraction_grants_factual_numeric_permission_or_publication_authority": False,
                     "public_claim_allowed": True,
                     "retrieval_method": (
                         "READ_ONLY_HTTP_GET_BOUNDED_PREFIX"

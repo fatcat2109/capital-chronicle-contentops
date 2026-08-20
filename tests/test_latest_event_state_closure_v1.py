@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 
 from live_contentops.grounded_news_research_v1 import (
     GroundedNewsResearchV1,
+    _forward_state_records,
     _source_ref,
 )
 
@@ -322,3 +323,30 @@ def test_older_completed_document_cannot_override_a_newer_forward_state():
     assert result["status"] == "BLOCKED"
     assert result["blockers"] == ["latest_event_state_unresolved"]
     assert phases == []
+
+
+def test_recurring_schedule_and_economic_expectations_are_not_event_state_markers():
+    recurring = _document(
+        "recurring-calendar",
+        (
+            "The committee holds eight regularly scheduled meetings during the year. "
+            "Participants expected inflation to remain elevated."
+        ),
+        "2026-08-19T18:00:00Z",
+        "Federal Reserve",
+    )
+
+    assert _forward_state_records([recurring]) == []
+
+
+def test_explicit_future_event_schedule_remains_an_event_state_marker():
+    future = _document(
+        "future-release",
+        "The committee meeting is scheduled for September 15, 2026.",
+        "2026-08-19T18:00:00Z",
+        "Federal Reserve",
+    )
+
+    records = _forward_state_records([future])
+    assert len(records) == 1
+    assert records[0]["forward_marker"].casefold() == "scheduled for"

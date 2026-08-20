@@ -1,0 +1,140 @@
+{
+  "accepted_source_records": [
+    {
+      "authority_class": "official_public_primary_source",
+      "content_evidence_sha256": "6eb7692a40b7a3deadb52a7c005d530ad100b3902e0ab34bac21b7a9957a62a2",
+      "evidence_document_id": "official-primary-6eb7692a40b7a3deadb5",
+      "exact_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260819a.htm",
+      "grounded_source_ref": "SRC_8BE7CF89B4A078EB",
+      "publication_event_timestamp_utc": "2026-08-19T18:00:20Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_known_at_utc": "2026-08-20T10:05:13.578629Z",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_interest_role": "OFFICIAL_AUTHORITY_FOR_OWN_RELEASE",
+      "title": "Federal Reserve Board - Minutes of the Federal Open Market Committee, July 28\u201329, 2026"
+    }
+  ],
+  "actual_editorial_mode": "BREAKING_BRIEF",
+  "article_identity": {
+    "byte_identical": true,
+    "original_article_sha256": "cbded58bfa316b0a1f4f0cee8c5f672b66015f907a9bf67a4de2aaac72664473",
+    "submitted_article_sha256": "cbded58bfa316b0a1f4f0cee8c5f672b66015f907a9bf67a4de2aaac72664473"
+  },
+  "assignment_diagnostics": {
+    "reason": "already_qualified_breaking_article_reused",
+    "repair_count": 0,
+    "replayed": false
+  },
+  "candidate": "Federal Reserve July 28-29 FOMC minutes release",
+  "capital_chronicle_authority": {
+    "authority_class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false,
+    "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+  },
+  "case": "breaking",
+  "claim_evidence_contract": {
+    "epistemic_claims": [
+      {
+        "claim_text": "The Federal Reserve released the minutes of the Federal Open Market Committee meeting.",
+        "epistemic_layer": "OBSERVED_FACT",
+        "evidence_document_ids": [
+          "official-primary-6eb7692a40b7a3deadb5"
+        ]
+      },
+      {
+        "claim_text": "The meeting covered by the minutes took place on July 28\u201329, 2026.",
+        "epistemic_layer": "OBSERVED_FACT",
+        "evidence_document_ids": [
+          "official-primary-6eb7692a40b7a3deadb5"
+        ]
+      },
+      {
+        "claim_text": "The minutes were released on Wednesday.",
+        "epistemic_layer": "OBSERVED_FACT",
+        "evidence_document_ids": [
+          "official-primary-6eb7692a40b7a3deadb5"
+        ]
+      }
+    ],
+    "grounded_source_coverage": {
+      "blockers": [],
+      "fact_rows": [
+        {
+          "body_token_overlap": 1.0,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f_001",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.5,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f_002",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.75,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f_003",
+          "recognizably_used": true
+        }
+      ],
+      "grounded_research_packet_present": true,
+      "paragraph_rows": [
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 0,
+          "source_token_overlap": 0.9
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 1,
+          "source_token_overlap": 0.4194
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 2,
+          "source_token_overlap": 0.2759
+        }
+      ],
+      "publication_authority": false,
+      "status": "PASS"
+    },
+    "source_bindings": [
+      {
+        "discovery_path_is_reader_authority": false,
+        "evidence_document_id": "official-primary-6eb7692a40b7a3deadb5",
+        "publisher": "www.federalreserve.gov",
+        "reader_attribution_mode": "BOUND_LINK",
+        "reader_source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260819a.htm",
+        "source_handle": "SOURCE_1",
+        "source_id": "source-8be7cf89b4a078eb",
+        "title": "Federal Reserve Board - Minutes of the Federal Open Market Committee, July 28\u201329, 2026"
+      }
+    ]
+  },
+  "derivative_builder": "current_canonical_build_native_derivative_payloads",
+  "derivative_count": 8,
+  "derivative_distinct_normalized_text_count": 8,
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "QUALIFIED_BREAKING_ARTICLE_REUSED_WITH_CURRENT_CORRECTED_DERIVATIVES",
+  "router_provider_token_cost_telemetry": {
+    "editorial_worker_calls": 0,
+    "reported_cost_usd": 0.0,
+    "research_provider_calls": 0,
+    "token_total": 0
+  },
+  "safety": {
+    "browser_cdp_publication_actions": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.p0_g3.final_case_receipt.v1",
+  "selection_rationale": "Reused the committed qualified breaking article only; editorial generation was intentionally not repeated.",
+  "validation_blockers": [],
+  "writer_invocations": 0
+}

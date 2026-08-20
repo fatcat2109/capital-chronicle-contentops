@@ -899,6 +899,19 @@ def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_
     assert worker["grants_capital_chronicle_authority"] is False
     assert worker["grants_permission_authority"] is False
     assert worker["grants_public_write_authority"] is False
+    source_contract = worker["exact_source_marker_contract"]
+    assert source_contract["required_for_source_bound_factual_copy"] is True
+    assert source_contract["copy_exact_supplied_markers_only"] is True
+    assert source_contract["exact_supplied_markers"] == [
+        "[[SOURCE:SOURCE_1]]",
+        "[[SOURCE:SOURCE_2]]",
+    ]
+    assert source_contract["source_identity_order"] == ["source-1", "source-2"]
+    assert source_contract["marker_format"] == "[[SOURCE:SOURCE_N]]"
+    assert source_contract["deterministic_marker_injection_after_authorship"] is False
+    assert source_contract["invent_urls_handles_source_ids_evidence_ids_or_facts"] is False
+    assert "exact supplied [[SOURCE:SOURCE_N]] markers" in DESKTOP_TASK_PROMPT
+    assert "exact supplied [[SOURCE:SOURCE_N]]" in MANUAL_GO_PROMPT
 
     validated = validate_editorial_worker_return(
         worker_return={
@@ -965,6 +978,46 @@ def test_breaking_brief_is_article_qualified_and_requests_exactly_one_xhigh_work
     )
     assert route["xhigh_worker_count_requested"] == 1
     assert route["worker_request"]["reasoning_effort"] == "XHIGH"
+
+
+@pytest.mark.parametrize(
+    ("product_mode", "projected_mode"),
+    [
+        ("BREAKING_BRIEF", "BREAKING_BRIEF"),
+        ("FOLLOW_UP_UPDATE", "FOLLOW_UP_UPDATE"),
+        ("STANDARD_NEWS_ANALYSIS", "STANDARD_ANALYSIS"),
+        ("CAPITAL_CHRONICLE_VIEW", "HOUSE_VIEW"),
+        ("WHAT_THE_MARKET_IS_MISSING", "HOUSE_VIEW"),
+        ("EVERGREEN_EXPLAINER", "EXPLAINER"),
+        ("DATA_OR_DOCUMENT_LENS", "DOCUMENT_LENS"),
+        ("WEEK_AHEAD_OR_WATCH", "WEEK_AHEAD_WATCH"),
+    ],
+)
+def test_routing_packet_preserves_canonical_product_mode_semantics(
+    product_mode, projected_mode
+):
+    route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context={
+            "accepted_evidence_packet": {"packet_id": "mode-contract-evidence"},
+            "exact_source_handles": ["source-mode-1"],
+        },
+        readiness_checked_before_editorial=True,
+        readiness_state="READY",
+        article_mode=product_mode,
+    )
+
+    worker = route["worker_request"]
+    editorial_packet = worker["bounded_governed_context"][
+        "institutional_edge_editorial_packet"
+    ]
+    assert editorial_packet["article_mode"] == projected_mode
+    assert editorial_packet["mode_expectations"]
+    assert worker["grants_factual_authority"] is False
+    assert worker["grants_numeric_authority"] is False
+    assert worker["grants_capital_chronicle_authority"] is False
+    assert worker["grants_permission_authority"] is False
+    assert worker["grants_public_write_authority"] is False
 
 
 def test_active_policy_sections_reach_next_desktop_briefing(tmp_path):

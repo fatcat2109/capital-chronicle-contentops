@@ -17,7 +17,7 @@ from live_contentops.article_rich_text_v1 import (
 
 
 SCHEMA_VERSION = "contentops.tier1_editorial_quality.v2"
-SUPPORTED_ARTICLE_MODES = {"straight_news", "data_release", "policy_decision", "market_move", "explainer", "deep_analysis", "scenario_outlook", "analysis"}
+SUPPORTED_ARTICLE_MODES = {"straight_news", "data_release", "policy_decision", "market_move", "explainer", "deep_analysis", "scenario_outlook", "analysis", "week_ahead"}
 ANALYSIS_MODES = {"deep_analysis", "scenario_outlook"}
 READER_ANALYSIS_MODES = {"analysis", "deep_analysis", "scenario_outlook"}
 HEADLINE_MAX_LENGTHS = {"reader": 95, "seo": 70, "social": 120, "push": 70, "youtube_community": 100}

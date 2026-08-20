@@ -1,0 +1,178 @@
+{
+  "discord": {
+    "format": "newsroom_embed_with_chart",
+    "text": "**The Fed\u2019s Pause Bought Time, Not Comfort**\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\n**Why it matters:** Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nFull analysis: https://capitalchronicle.substack.com/p/pending-publication\n\nFor informational purposes only; not financial advice."
+  },
+  "facebook_page": {
+    "format": "page_photo_post",
+    "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\nHow it transmits: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nRead the full article: https://capitalchronicle.substack.com/p/pending-publication\n\nFor informational purposes only; not financial advice."
+  },
+  "instagram_business": {
+    "format": "chart_caption",
+    "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nThe chart is a checkpoint, not a verdict: Why did the Fed\u2019s July pause still carry a tightening signal?\n\nFull analysis: https://capitalchronicle.substack.com/p/pending-publication\n\nFor informational purposes only; not financial advice.\n\n#CapitalChronicle #Macro #Markets"
+  },
+  "linkedin": {
+    "format": "professional_analytical_note_with_chart",
+    "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\nThe mechanism: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nThe policy context: The Fed\u2019s Pause Bought Time, Not Comfort\n\nRead the full Capital Chronicle analysis: https://capitalchronicle.substack.com/p/pending-publication\n\nFor informational purposes only; not financial advice."
+  },
+  "telegram": {
+    "format": "channel_photo_with_caption",
+    "media_asset_ids": [
+      "primary"
+    ],
+    "platform_limit": 1024,
+    "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/pending-publication\n\nFor informational purposes only; not financial advice."
+  },
+  "threads": {
+    "format": "root_chart_post_with_ordered_media_replies",
+    "full_text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\nhttps://capitalchronicle.substack.com/p/pending-publication\n\nWhy it matters: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nPolicy context: The Fed\u2019s Pause Bought Time, Not Comfort Cross-asset context: Why did the Fed\u2019s July pause still carry a tightening signal?\n\nFor informational purposes only; not financial advice.",
+    "hard_truncation_used": false,
+    "overflow_strategy": "semantic_three_post_thread",
+    "platform_limit": 500,
+    "posts": [
+      {
+        "article_sections": [
+          "lede_and_current_market_signal"
+        ],
+        "media_asset_ids": [
+          "primary"
+        ],
+        "order": 0,
+        "role": "root",
+        "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+      },
+      {
+        "article_sections": [
+          "market_mechanism"
+        ],
+        "media_asset_ids": [
+          "policy_corridor"
+        ],
+        "order": 1,
+        "role": "reply",
+        "text": "Why it matters: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier."
+      },
+      {
+        "article_sections": [
+          "policy_and_cross_asset_context",
+          "confirmation_and_limits"
+        ],
+        "media_asset_ids": [
+          "sofr_context"
+        ],
+        "order": 2,
+        "role": "reply",
+        "text": "Policy context: The Fed\u2019s Pause Bought Time, Not Comfort Cross-asset context: Why did the Fed\u2019s July pause still carry a tightening signal?\n\nFor informational purposes only; not financial advice."
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 3,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.496,
+        0.29,
+        0.39
+      ],
+      "post_character_counts": [
+        248,
+        145,
+        195
+      ],
+      "reply_count": 2,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.585,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [
+      "Why it matters: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.",
+      "Policy context: The Fed\u2019s Pause Bought Time, Not Comfort Cross-asset context: Why did the Fed\u2019s July pause still carry a tightening signal?\n\nFor informational purposes only; not financial advice."
+    ],
+    "reserved_costs": {
+      "canonical_url_characters": 59,
+      "media_characters": 0
+    },
+    "root_text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "x": {
+    "format": "root_chart_post_with_ordered_replies",
+    "full_text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nhttps://capitalchronicle.substack.com/p/pending-publication\n\nWhy it matters: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nPolicy context: The Fed\u2019s Pause Bought Time, Not Comfort Cross-asset context: Why did the Fed\u2019s July pause still carry a tightening signal?\n\nFor informational purposes only; not financial advice.",
+    "hard_truncation_used": false,
+    "overflow_strategy": "semantic_three_post_thread",
+    "platform_limit": 280,
+    "posts": [
+      {
+        "article_sections": [
+          "lede_and_current_market_signal"
+        ],
+        "media_asset_ids": [
+          "primary"
+        ],
+        "order": 0,
+        "role": "root",
+        "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+      },
+      {
+        "article_sections": [
+          "market_mechanism"
+        ],
+        "media_asset_ids": [
+          "policy_corridor"
+        ],
+        "order": 1,
+        "role": "reply",
+        "text": "Why it matters: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier."
+      },
+      {
+        "article_sections": [
+          "policy_and_cross_asset_context",
+          "confirmation_and_limits"
+        ],
+        "media_asset_ids": [
+          "sofr_context"
+        ],
+        "order": 2,
+        "role": "reply",
+        "text": "Policy context: The Fed\u2019s Pause Bought Time, Not Comfort Cross-asset context: Why did the Fed\u2019s July pause still carry a tightening signal?\n\nFor informational purposes only; not financial advice."
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 3,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.829,
+        0.518,
+        0.696
+      ],
+      "post_character_counts": [
+        232,
+        145,
+        195
+      ],
+      "reply_count": 2,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.625,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [
+      "Why it matters: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.",
+      "Policy context: The Fed\u2019s Pause Bought Time, Not Comfort Cross-asset context: Why did the Fed\u2019s July pause still carry a tightening signal?\n\nFor informational purposes only; not financial advice."
+    ],
+    "reserved_costs": {
+      "canonical_url_characters": 59,
+      "media_characters": 0
+    },
+    "root_text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "youtube": {
+    "format": "community_text_image_post",
+    "hard_truncation_used": false,
+    "platform_limit": 1000,
+    "text": "The Fed\u2019s Pause Bought Time, Not Comfort\n\nCapital Chronicle\u2019s interpretation of a policy hold shaped by persistent inflation pressure, resilient demand, and a narrowing case for patience.\n\nWhy it matters: Capital Chronicle\u2019s view: the Fed bought information in July, but the burden of proof for continued patience was getting heavier.\n\nPolicy and curve context: The Fed\u2019s Pause Bought Time, Not Comfort Why did the Fed\u2019s July pause still carry a tightening signal?\n\nRead the full analysis: https://capitalchronicle.substack.com/p/pending-publication\n\nFor informational purposes only; not financial advice."
+  }
+}

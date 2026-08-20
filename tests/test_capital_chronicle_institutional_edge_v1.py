@@ -138,6 +138,59 @@ def test_six_story_classes_and_deep_mode_pass_the_same_hash_bound_contract(mode,
 
 
 @pytest.mark.parametrize(
+    ("product_mode", "projected_mode"),
+    [
+        ("BREAKING_BRIEF", "BREAKING_BRIEF"),
+        ("FOLLOW_UP_UPDATE", "FOLLOW_UP_UPDATE"),
+        ("STANDARD_NEWS_ANALYSIS", "STANDARD_ANALYSIS"),
+        ("CAPITAL_CHRONICLE_VIEW", "HOUSE_VIEW"),
+        ("WHAT_THE_MARKET_IS_MISSING", "HOUSE_VIEW"),
+        ("EVERGREEN_EXPLAINER", "EXPLAINER"),
+        ("DATA_OR_DOCUMENT_LENS", "DOCUMENT_LENS"),
+        ("WEEK_AHEAD_OR_WATCH", "WEEK_AHEAD_WATCH"),
+    ],
+)
+def test_all_canonical_product_modes_project_to_explicit_internal_contracts(
+    product_mode, projected_mode
+):
+    packet = build_institutional_edge_editorial_packet(
+        article_mode=product_mode,
+        accepted_evidence_packet=_evidence(),
+    )
+
+    assert packet["article_mode"] == projected_mode
+    assert packet["mode_expectations"]
+    assert validate_institutional_edge_packet(packet) == []
+    assert packet["grants_factual_authority"] is False
+    assert packet["grants_numeric_authority"] is False
+    assert packet["grants_capital_chronicle_authority"] is False
+    assert packet["grants_permission_authority"] is False
+    assert packet["grants_public_write_authority"] is False
+
+
+@pytest.mark.parametrize(
+    "product_mode", ["CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"]
+)
+def test_house_product_modes_carry_specific_house_view_expectations(product_mode):
+    packet = build_institutional_edge_editorial_packet(
+        article_mode=product_mode,
+        accepted_evidence_packet=_evidence(),
+    )
+
+    assert packet["article_mode"] == "HOUSE_VIEW"
+    assert packet["mode_expectations"] == [
+        "strong_thesis_early",
+        "factual_premises_source_bound",
+        "exact_supplied_source_markers_for_factual_copy",
+        "explicit_branded_qualitative_inference_using_capital_chronicle_view_interpretation_or_inference",
+        "no_unbound_or_fabricated_quotes",
+        "no_unsupported_causal_claim",
+        "material_counter_case_or_uncertainty_when_appropriate",
+        "no_proprietary_probability_forecast_scenario_regime_valuation_base_case_or_decision_truth_without_exact_publication_authorized_cc_authority",
+    ]
+
+
+@pytest.mark.parametrize(
     ("mutation", "expected"),
     [
         (lambda row: row.update(substack_body_markdown=row["substack_body_markdown"] + "\n\nThe evidence packet passed semantic review."), "internal_system_language_leakage"),

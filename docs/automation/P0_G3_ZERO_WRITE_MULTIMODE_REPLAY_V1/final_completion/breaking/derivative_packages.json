@@ -1,0 +1,113 @@
+{
+  "discord": {
+    "format": "newsroom_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 2000,
+    "text": "**Newsroom brief: Federal Reserve releases minutes from July FOMC meeting**\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\n**Context:** It does not, within the accepted evidence for this brief, support claims about the minutes\u2019 economic assessments, policy discussions, or any later policy decision.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "facebook_page": {
+    "format": "page_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 63206,
+    "text": "Federal Reserve releases minutes from July FOMC meeting\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\nWhy it matters: The official release was published Wednesday and identifies the record as the minutes for that meeting.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "instagram_business": {
+    "format": "brief_caption",
+    "hard_truncation_used": false,
+    "platform_limit": 2200,
+    "text": "Federal Reserve releases minutes from July FOMC meeting\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\nIn focus: It does not, within the accepted evidence for this brief, support claims about the minutes\u2019 economic assessments, policy discussions, or any later policy decision.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication\n\n#CapitalChronicle"
+  },
+  "linkedin": {
+    "format": "professional_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 3000,
+    "text": "Federal Reserve releases minutes from July FOMC meeting\n\nWhy it matters: The official release was published Wednesday and identifies the record as the minutes for that meeting.\n\nContext: It does not, within the accepted evidence for this brief, support claims about the minutes\u2019 economic assessments, policy discussions, or any later policy decision.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "telegram": {
+    "format": "channel_brief",
+    "hard_truncation_used": false,
+    "media_asset_ids": [
+      "primary"
+    ],
+    "platform_limit": 1024,
+    "text": "NEWSROOM BRIEF\n\nFederal Reserve releases minutes from July FOMC meeting\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "threads": {
+    "format": "text_brief",
+    "full_text": "Federal Reserve releases minutes from July FOMC meeting\n\nIt does not, within the accepted evidence for this brief, support claims about the minutes\u2019 economic assessments, policy discussions, or any later policy decision.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "hard_truncation_used": false,
+    "overflow_strategy": "single_root",
+    "platform_limit": 500,
+    "posts": [
+      {
+        "media_asset_ids": [
+          "primary"
+        ],
+        "order": 0,
+        "role": "root",
+        "text": "Federal Reserve releases minutes from July FOMC meeting\n\nIt does not, within the accepted evidence for this brief, support claims about the minutes\u2019 economic assessments, policy discussions, or any later policy decision.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 1,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.562
+      ],
+      "post_character_counts": [
+        281
+      ],
+      "reply_count": 0,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 1.0,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [],
+    "root_text": "Federal Reserve releases minutes from July FOMC meeting\n\nIt does not, within the accepted evidence for this brief, support claims about the minutes\u2019 economic assessments, policy discussions, or any later policy decision.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "text": "Federal Reserve releases minutes from July FOMC meeting\n\nIt does not, within the accepted evidence for this brief, support claims about the minutes\u2019 economic assessments, policy discussions, or any later policy decision.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "x": {
+    "format": "text_brief",
+    "full_text": "Federal Reserve releases minutes from July FOMC meeting\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "hard_truncation_used": false,
+    "overflow_strategy": "single_root",
+    "platform_limit": 280,
+    "posts": [
+      {
+        "media_asset_ids": [
+          "primary"
+        ],
+        "order": 0,
+        "role": "root",
+        "text": "Federal Reserve releases minutes from July FOMC meeting\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 1,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.757
+      ],
+      "post_character_counts": [
+        212
+      ],
+      "reply_count": 0,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 1.0,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [],
+    "root_text": "Federal Reserve releases minutes from July FOMC meeting\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\nhttps://capitalchronicle.substack.com/p/pending-publication",
+    "text": "Federal Reserve releases minutes from July FOMC meeting\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\nhttps://capitalchronicle.substack.com/p/pending-publication"
+  },
+  "youtube": {
+    "format": "community_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 1000,
+    "text": "Update: Federal Reserve releases minutes from July FOMC meeting\n\nThe official record covers the Federal Open Market Committee meeting held on July 28\u201329, 2026.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication"
+  }
+}

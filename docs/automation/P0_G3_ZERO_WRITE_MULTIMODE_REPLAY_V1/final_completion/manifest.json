@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": {
+    "README.md": "94faf44ef314c180da10d86f0b15a3923ebc03358e62abc4f581eb3fe5fea5f3",
+    "breaking/article.md": "cbded58bfa316b0a1f4f0cee8c5f672b66015f907a9bf67a4de2aaac72664473",
+    "breaking/case_receipt.json": "521398ac307b05960ec82c5ea1d3ff45f5064f60cf6bfeb3408617f5a91f9811",
+    "breaking/derivative_packages.json": "e5480c2b3abb5cf02cb365a6e1681cf3b5499caafc6cc27f04a9a7e35e573389",
+    "house_view/case_receipt.json": "e4e516b59a6d21af3552ca6eefd0c0b0eaffaf78a2dde0a3a16ca36e2e4d10eb",
+    "house_view/no_publication.md": "a8683cf63434e353ec91b80e1026a571d35aefc5f64b9cfb2b90fa91fe68d017",
+    "normal_analysis/case_receipt.json": "40915c10082d002877573ed8b73fdd9e197c2035f68cf51c625cf83fb513449e",
+    "normal_analysis/no_publication.md": "801c5eee01a64af16b7eaee97b61258a175155f47e944e7e6ca3f10f3e6b73f9",
+    "quiet_day/case_receipt.json": "288efa28200a989e8db4addcbcc5aca951db84f6d959d3dd9e6157af84a6cf73",
+    "quiet_day/no_publication.md": "a8683cf63434e353ec91b80e1026a571d35aefc5f64b9cfb2b90fa91fe68d017"
+  },
+  "classification": "OWNER_REVIEW_REQUIRED_P0_G3_ACCEPTANCE_CANDIDATE_INCOMPLETE_FRESH_CASES",
+  "four_case_matrix": {
+    "breaking": {
+      "actual_editorial_mode": "BREAKING_BRIEF",
+      "article_qualified": true,
+      "derivative_count": 8,
+      "outcome": "QUALIFIED_BREAKING_ARTICLE_REUSED_WITH_CURRENT_CORRECTED_DERIVATIVES",
+      "writer_completed": false,
+      "writer_invocations": 0
+    },
+    "house_view": {
+      "actual_editorial_mode": "BREAKING_BRIEF",
+      "article_qualified": false,
+      "derivative_count": 0,
+      "outcome": "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
+      "writer_completed": false,
+      "writer_invocations": 1
+    },
+    "normal_analysis": {
+      "actual_editorial_mode": null,
+      "article_qualified": false,
+      "derivative_count": 0,
+      "outcome": "CASE_LOCAL_ROUTER_AVAILABILITY_TIMEOUT",
+      "writer_completed": false,
+      "writer_invocations": 0
+    },
+    "quiet_day": {
+      "actual_editorial_mode": "BREAKING_BRIEF",
+      "article_qualified": false,
+      "derivative_count": 0,
+      "outcome": "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
+      "writer_completed": false,
+      "writer_invocations": 1
+    }
+  },
+  "manifest_self_hash": "excluded_from_self-referential_artifact_hash_map",
+  "safety_totals": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3.final_completion_manifest.v1",
+  "total_model_provider_token_cost_telemetry": {
+    "article_router_logical_invocations": 2,
+    "completed_writer_outputs": 0,
+    "fresh_xhigh_editorial_worker_completions": 0,
+    "observed_router_tokens": 7043,
+    "reported_cost_usd": 0.0
+  }
+}

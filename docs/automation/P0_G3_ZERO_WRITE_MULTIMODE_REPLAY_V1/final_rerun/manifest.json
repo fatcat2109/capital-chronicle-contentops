@@ -1,0 +1,145 @@
+{
+  "accepted_source_records": [
+    {
+      "authority_class": "official_public_primary_source",
+      "content_evidence_sha256": "6eb7692a40b7a3deadb52a7c005d530ad100b3902e0ab34bac21b7a9957a62a2",
+      "evidence_document_id": "official-primary-6eb7692a40b7a3deadb5",
+      "exact_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260819a.htm",
+      "grounded_source_ref": "SRC_8BE7CF89B4A078EB",
+      "publication_event_timestamp_utc": "2026-08-19T18:00:20Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_known_at_utc": "2026-08-20T10:05:13.578629Z",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_interest_role": "OFFICIAL_AUTHORITY_FOR_OWN_RELEASE",
+      "title": "Federal Reserve Board - Minutes of the Federal Open Market Committee, July 28–29, 2026"
+    },
+    {
+      "authority_class": "official_public_primary_source",
+      "content_evidence_sha256": "487c82b52a2d85e28123f9c55fa5803ba2c8ff1a368c4471278cc527c994ac81",
+      "evidence_document_id": "official-primary-487c82b52a2d85e28123",
+      "exact_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm",
+      "grounded_source_ref": "SRC_2D51E421B0588638",
+      "publication_event_timestamp_utc": "2026-08-19T18:01:21Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_known_at_utc": "2026-08-20T10:09:10.179697Z",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_interest_role": "OFFICIAL_AUTHORITY_FOR_OWN_RELEASE",
+      "title": "The Fed - Monetary Policy:"
+    }
+  ],
+  "aggregate_safety": {
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_enabled": false,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0,
+    "unknown_write": 0
+  },
+  "artifacts": [
+    {
+      "bytes": 1142,
+      "path": "breaking/article.md",
+      "sha256": "cbded58bfa316b0a1f4f0cee8c5f672b66015f907a9bf67a4de2aaac72664473"
+    },
+    {
+      "bytes": 7427,
+      "path": "breaking/case_receipt.json",
+      "sha256": "4663fae8808141830852d8fac0732dde8124ba6d1a5f0520936eaae0507698b0"
+    },
+    {
+      "bytes": 5295,
+      "path": "breaking/derivative_packages.json",
+      "sha256": "562284506bb019267a52db53b69eb9997058d3f943271d17716cba74c39c2148"
+    },
+    {
+      "bytes": 495,
+      "path": "house_view/case_receipt.json",
+      "sha256": "5ae12ea98e2cd9e753392f6c745c5fee14394bb6d0b223eb48de0244da3c8415"
+    },
+    {
+      "bytes": 2200,
+      "path": "normal_analysis/case_receipt.json",
+      "sha256": "53ff890de9c5a3d9a4fc7d02d3d1d18037ca1c15ce1439ec20cdc84d9049492a"
+    },
+    {
+      "bytes": 506,
+      "path": "normal_analysis/no_publication.md",
+      "sha256": "640be09de8e5bcf39d6ed76a9e13f6c9b6deb275b8bd26be0a29b7e0f96f53c1"
+    },
+    {
+      "bytes": 414,
+      "path": "quiet_day/case_receipt.json",
+      "sha256": "17ed366f7ad3088d75adc584fb2e5b0a3f93000cf2eded55a60f3760bddd9bb0"
+    },
+    {
+      "bytes": 339,
+      "path": "quiet_day/no_publication.md",
+      "sha256": "f2de564d4001c250d12e531164f9b8ea7a5fa27cb578c357beaf2a5ea86d9c24"
+    },
+    {
+      "bytes": 1136,
+      "path": "README.md",
+      "sha256": "d6607799877ebd56a8ffbf1041e25f5b25fbc34eefa4045a2aaf8098fb267f4a"
+    }
+  ],
+  "capital_chronicle_authority": {
+    "authorized_claims_consumed": 0,
+    "authorized_series_consumed": 0,
+    "publication_authorized_cc_used": false
+  },
+  "classification": "BLOCKED_PRODUCT_DEFECT",
+  "fetched_master": "8864cf9322ec2ecbf1660ff45e77397166cd31b7",
+  "manifest_self_hash_excluded": true,
+  "matrix": [
+    {
+      "actual_selected_mode": "BREAKING_BRIEF",
+      "article_qualified": true,
+      "candidate": "FOMC minutes official press release",
+      "case": "breaking",
+      "exact_final_outcome_blocker": null,
+      "package_count": 8
+    },
+    {
+      "actual_selected_mode": "BREAKING_BRIEF",
+      "article_qualified": false,
+      "candidate": "FOMC minutes policy-tradeoff analysis",
+      "case": "normal_analysis",
+      "exact_final_outcome_blocker": "NORMAL_ANALYSIS_MODE_MISCLASSIFIED_AS_BREAKING_BRIEF",
+      "package_count": 0
+    },
+    {
+      "actual_selected_mode": null,
+      "article_qualified": false,
+      "candidate": "BEA release-schedule opportunity",
+      "case": "quiet_day",
+      "exact_final_outcome_blocker": "NOT_RUN_AFTER_STOP_CONDITION",
+      "package_count": 0
+    },
+    {
+      "actual_selected_mode": null,
+      "article_qualified": false,
+      "candidate": "FOMC minutes qualitative timing thesis",
+      "case": "house_view",
+      "exact_final_outcome_blocker": "NOT_RUN_AFTER_STOP_CONDITION",
+      "package_count": 0
+    }
+  ],
+  "model_and_provider_telemetry": {
+    "canonical_router_completion_tokens": 13123,
+    "canonical_router_logical_calls": 12,
+    "canonical_router_prompt_tokens": 34022,
+    "canonical_router_provider_attempts": 17,
+    "canonical_router_total_tokens": 47145,
+    "editorial_worker_model": "gpt-5.6-sol",
+    "editorial_worker_native_token_or_cost_receipt_exposed": false,
+    "editorial_worker_reasoning_effort": "XHIGH",
+    "fresh_isolated_editorial_worker_calls": 1,
+    "reported_cost_usd": 0.0
+  },
+  "not_a_p0_g3_pass": true,
+  "schema_version": "contentops.p0_g3.final_review_bundle_manifest.v1",
+  "starting_branch_head": "27026931892f4f6df205bdf0eb49a8a76b914a5d",
+  "task": "TASK_P0_G3_V1_FINAL_ZERO_WRITE_MULTIMODE_REPLAY_OWNER_ARTIFACTS_V1"
+}

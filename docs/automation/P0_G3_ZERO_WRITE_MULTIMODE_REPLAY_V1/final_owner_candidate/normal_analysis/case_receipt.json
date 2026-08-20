@@ -1,0 +1,165 @@
+{
+  "accepted_source_records": [
+    {
+      "content_sha256": "0b289bb883734c65f0c5b27409b6c600469c91c7426da9abe5d426e7683aba72",
+      "document_id": "official-primary-0b289bb883734c65f0c5",
+      "grounded_source_ref": "SRC_8A0719AB515A8823",
+      "published_at_utc": "2026-08-19T18:01:21Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_authority_class": "official_public_primary_source",
+      "source_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm",
+      "title": "The Fed - Monetary Policy:"
+    }
+  ],
+  "actual_canonical_mode": "DATA_OR_DOCUMENT_LENS",
+  "candidate": "Build the article around what the minutes explicitly reveal about the policy tradeoff, the mechanisms discussed, areas of agreement or disagreement, and the implications that can be responsibly drawn from the document. Avoid presenting editorial interpretation as Federal Reserve guidance or as a forecast.",
+  "capital_chronicle_authority": {
+    "authority_class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false,
+    "qualitative_contentops_inference_only": false,
+    "values_regenerated_or_repaired": false
+  },
+  "case": "normal_analysis",
+  "claim_evidence_contract": {
+    "confirmed_facts": [
+      {
+        "attribution_required": false,
+        "confidence_class": "HIGH",
+        "direct_or_inferred": "DIRECT",
+        "fact_id": "fomc_minutes_metadata",
+        "factual_statement": "The Federal Reserve Board of Governors published a document titled 'FOMC Minutes, July 28\u201329, 2026'.",
+        "source_refs": [
+          "SRC_8A0719AB515A8823"
+        ]
+      },
+      {
+        "attribution_required": false,
+        "confidence_class": "HIGH",
+        "direct_or_inferred": "DIRECT",
+        "fact_id": "fomc_minutes_url",
+        "factual_statement": "The official URL for the July 28-29, 2026 FOMC minutes is https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm.",
+        "source_refs": [
+          "SRC_8A0719AB515A8823"
+        ]
+      }
+    ],
+    "minimum_trustworthy_evidence_status": "PASS",
+    "publication_authority": false,
+    "status": "PASS",
+    "uncertainties": [
+      "The specific mechanisms, context, and implications of the policy tradeoff between inflation and the labor market discussed at the meeting are unknown based on the provided text, as the body of the minutes is omitted."
+    ],
+    "unsupported_or_unverified": [
+      "Direct quotations or precise attributed passages supporting the inflation, labor-market, and policy-tradeoff themes.",
+      "Official Federal Reserve materials defining relevant policy terminology and meeting context beyond the document title."
+    ]
+  },
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "QUALIFIED_ZERO_WRITE_OWNER_ARTIFACT_READY",
+  "final_deterministic_blockers": [],
+  "governed_input_hash": "1637576aa9fa377b87e9623ed5d9d319e96450e24a1b7c93978e9b59ebde2ab3",
+  "institutional_edge_mode_expectations": [
+    "preserve_source_and_document_distinction",
+    "separate_document_fact_from_supported_implication",
+    "no_unsupported_implication"
+  ],
+  "institutional_edge_projected_mode": "DOCUMENT_LENS",
+  "mode_resolution_reason": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT",
+  "model_provider_token_cost_telemetry": {
+    "assignment_router": [
+      {
+        "fallback_transitions": 0,
+        "models_attempted_in_order": [
+          "vx/gemini-3.5-flash(high)"
+        ],
+        "reported_cost_usd": null,
+        "role_task_id": "rolling_x_newsroom_leaf_scan",
+        "structured_repair_attempts": 0,
+        "terminal_disposition": "ACCEPTED",
+        "token_usage": {
+          "completion_tokens": 1906.0,
+          "prompt_tokens": 2849.0,
+          "total_tokens": 4755.0
+        },
+        "total_attempts": 1
+      },
+      {
+        "fallback_transitions": 1,
+        "models_attempted_in_order": [
+          "new/claude-fable-5",
+          "new/gpt-5.6-sol-xhigh"
+        ],
+        "reported_cost_usd": null,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_repair_attempts": 0,
+        "terminal_disposition": "ACCEPTED",
+        "token_usage": {
+          "completion_tokens": 835.0,
+          "prompt_tokens": 3986.0,
+          "total_tokens": 4821.0
+        },
+        "total_attempts": 2
+      }
+    ],
+    "grounded_research_router": [
+      {
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "source_synthesis",
+        "provider_attempt_count": 1,
+        "reported_cost": {},
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "token_usage": {
+          "completion_tokens": 2050.0,
+          "prompt_tokens": 6384.0,
+          "total_tokens": 8434.0
+        }
+      }
+    ],
+    "native_worker_token_cost": "UNAVAILABLE_NOT_EXPOSED"
+  },
+  "native_xhigh_receipt": {
+    "bounded_revision_count": 1,
+    "fresh": true,
+    "isolated": true,
+    "native_token_cost_receipt_exposed": false,
+    "public_write_attempted": false,
+    "worker_model": "gpt-5.6-sol",
+    "worker_reasoning_effort": "XHIGH",
+    "worker_return_sha256": "e0b9834d7083a6a6545b1418377dd4c66de1b898bd18dcaeea5789a7f65cc3d2"
+  },
+  "package_count": 8,
+  "package_destinations": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "telegram",
+    "threads",
+    "x",
+    "youtube"
+  ],
+  "qualified": true,
+  "safety": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3.final_owner_case_receipt.v1",
+  "tiktok_package_present": false,
+  "worker_return_validation": {
+    "classification": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+    "generated_article_blockers": [],
+    "institutional_edge_blockers": [],
+    "institutional_edge_classification": "PASS",
+    "source_marker_blockers": []
+  }
+}

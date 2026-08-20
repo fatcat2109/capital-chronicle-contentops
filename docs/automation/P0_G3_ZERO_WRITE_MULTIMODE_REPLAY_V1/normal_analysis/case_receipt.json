@@ -1,0 +1,52 @@
+{
+  "schema_version": "contentops.p0_g3.case_receipt.v1",
+  "case": "normal_analysis",
+  "classification": "NO_PUBLICATION",
+  "requested_mode": "STANDARD_NEWS_ANALYSIS",
+  "actual_selected_modes": ["BREAKING_BRIEF", null],
+  "selection_rationale_first_candidate": "Fresh discovery item with a bounded public evidence path.",
+  "first_candidate": {
+    "story_identity": "rolling-x-deterministic-cluster-aa869f637a3328fd3793",
+    "update_chain_identity": "rolling-x-deterministic-cluster-aa869f637a3328fd3793",
+    "decision": "MODE_MISMATCH_NO_WRITER",
+    "source": {
+      "title": "The Fed - Monetary Policy:",
+      "publisher": "www.federalreserve.gov",
+      "exact_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm",
+      "published_at_utc": "2026-08-19T18:01:21Z",
+      "known_at_utc": "2026-08-20T00:42:58.352376Z",
+      "authority_class": "official_public_primary_source",
+      "evidence_id": "official-primary-2a06559c23f5010f6286",
+      "content_sha256": "2a06559c23f5010f6286077e3a0f49e9c12831e49eae752ba1696e42d25aa235"
+    }
+  },
+  "second_candidate": {
+    "source_title": "Daily Treasury Par Yield Curve Rates",
+    "publisher": "U.S. Department of the Treasury",
+    "exact_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+    "network_verification": "HTTP_200_AND_08_19_2026_PRESENT",
+    "decision": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+    "blockers": ["evidence_documents_missing", "minimum_trustworthy_evidence_missing", "official_evidence_document_0_stale_or_future", "public_source_unavailable", "required_evidence_capability_missing:basic_attributed_facts", "required_evidence_capability_missing:credible_event_confirmation", "supported_claims_missing"]
+  },
+  "exact_final_headline": null,
+  "article_artifact": null,
+  "derivative_intent_count": 0,
+  "cc_authority": {
+    "class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "authorized_series_consumed": 0,
+    "zero_use_reason": "CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH:cluster_id"
+  },
+  "router_usage": {
+    "first_candidate": {"logical_calls": 3, "provider_attempts": 3, "accounted_tokens": 33762},
+    "second_candidate": {"logical_calls": 2, "provider_attempts": 5, "accounted_tokens": 63106},
+    "reported_dollar_cost_exposed": false,
+    "writer_calls": 0
+  },
+  "publication_enabled": false,
+  "provider_publication_calls": 0,
+  "public_writes": 0,
+  "unknown_write": 0,
+  "production_mutation": 0,
+  "browser_or_cdp_calls": 0
+}

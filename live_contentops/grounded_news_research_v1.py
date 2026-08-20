@@ -60,7 +60,10 @@ _STOPWORDS = frozenset(
     }
 )
 _FORWARD_EVENT_STATE_RE = re.compile(
-    r"\b(?:scheduled(?:\s+to)?|planned|expected(?:\s+to)?|ahead\s+of|set\s+to|"
+    r"\b(?:remains?\s+scheduled|scheduled\s+(?:to|for|on|at|by)|"
+    r"planned\s+(?:meeting|talks?|summit|hearing|vote|decision|release)|"
+    r"expected\s+to\s+(?:meet|hold|convene|release|publish|announce|decide|vote)|"
+    r"ahead\s+of|set\s+to|"
     r"talks?\s+to\s+follow|awaiting\s+(?:an?\s+)?outcome|what\s+to\s+watch\s+after)\b",
     re.IGNORECASE,
 )

@@ -226,15 +226,26 @@ def test_recorded_1024_headline_replay_has_exact_multi_partition_coverage_and_co
     assert result["telemetry"]["token_usage"]["total_tokens"] > 0
 
 
-def _global_leaf_clusters() -> dict:
+def _global_leaf_clusters(*, analysis_context: bool = False) -> dict:
+    summary = (
+        "The July FOMC minutes set out the inflation and labor-market policy tradeoff."
+        if analysis_context
+        else "An official agency released one newly occurred policy update."
+    )
     return {
         "leaf-1": {
             "member_headline_ids": ["h1"],
             "canonical_representative_headline_id": "h1",
+            "event_topic_summary": summary,
+            "entities": ["Federal Reserve"],
+            "topics": ["policy"],
         },
         "leaf-2": {
             "member_headline_ids": ["h2"],
             "canonical_representative_headline_id": "h2",
+            "event_topic_summary": summary,
+            "entities": ["Federal Reserve"],
+            "topics": ["policy"],
         },
     }
 
@@ -262,10 +273,10 @@ def _global_output(*, leaf_ids=None) -> str:
     })
 
 
-def _validate_global(payload: str):
+def _validate_global(payload: str, *, analysis_context: bool = False):
     return _validate_rolling_x_global_output(
         payload,
-        leaf_clusters_by_id=_global_leaf_clusters(),
+        leaf_clusters_by_id=_global_leaf_clusters(analysis_context=analysis_context),
     )
 
 
@@ -358,6 +369,127 @@ def test_global_repair_prompt_names_only_safe_exact_diagnostic() -> None:
     assert "Replace only the invalid leaf_cluster_id values" in repair
     assert '{"unsafe":"raw body"}' not in repair
     assert "invalid_response_sha256=" in repair
+
+
+def test_narrow_new_official_fact_remains_a_valid_breaking_brief() -> None:
+    payload = json.loads(_global_output())
+    row = payload["ranked_shortlist"][0]
+    row.update({
+        "story_mode": "reporting",
+        "article_mode": "BREAKING_BRIEF",
+        "why_now": "The official agency has just released the update.",
+        "selection_case": "One narrow official fact merits immediate concise reporting.",
+        "seo_intent": "Official policy release update.",
+    })
+
+    valid, failure, output, diagnostic = _validate_global(json.dumps(payload))
+
+    assert valid is True
+    assert failure is None
+    assert diagnostic is None
+    assert output["ranked_clusters"][0]["article_mode"] == "BREAKING_BRIEF"
+
+
+def test_explicit_analysis_value_cannot_silently_pass_as_breaking_brief() -> None:
+    payload = json.loads(_global_output())
+    row = payload["ranked_shortlist"][0]
+    row.update({
+        "story_mode": "reporting",
+        "article_mode": "BREAKING_BRIEF",
+        "why_now": "The main reader value is the FOMC policy tradeoff.",
+        "selection_case": "Readers need the mechanism and context from the established minutes.",
+        "seo_intent": "Explain policy tradeoff implications and synthesis.",
+    })
+
+    valid, failure, output, diagnostic = _validate_global(
+        json.dumps(payload), analysis_context=True
+    )
+
+    assert valid is False
+    assert failure == "structured_output_schema_invalid"
+    assert output is None
+    assert diagnostic == "global_article_mode_semantic_mismatch"
+
+
+def test_semantic_mode_mismatch_uses_bounded_global_repair_without_identity_rewrite() -> None:
+    base_provider = HierarchicalProvider()
+    global_prompts = []
+    initial_row = {}
+    global_payload = {}
+
+    def repaired_provider(prompt, model, timeout):
+        nonlocal global_payload, initial_row
+        if "leaf_input:\n" in prompt:
+            return base_provider(prompt, model, timeout)
+        global_prompts.append(prompt)
+        if len(global_prompts) == 1:
+            response = base_provider(prompt, model, timeout)
+            global_payload = json.loads(response.text)
+            row = global_payload["ranked_shortlist"][0]
+            row.update({
+                "story_mode": "rapid_analysis",
+                "article_mode": "BREAKING_BRIEF",
+                "why_now": "The minutes make the policy tradeoff timely.",
+                "selection_case": "The main reader value is mechanism and context.",
+                "seo_intent": "Explain the policy tradeoff and implications.",
+            })
+            initial_row = json.loads(json.dumps(row))
+        else:
+            global_payload["ranked_shortlist"][0].update({
+                "story_mode": "rapid_analysis",
+                "article_mode": "STANDARD_NEWS_ANALYSIS",
+            })
+        return ProviderResult(
+            text=json.dumps(global_payload),
+            resolved_model=model.split("/", 1)[-1].split("(", 1)[0],
+            provider_invocation_id=f"semantic-repair-{len(global_prompts)}",
+            status_code=200,
+        )
+
+    result = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=_small_input(),
+        provider_call=repaired_provider,
+    )
+
+    global_summary = result["router_calls"][-1]
+    repaired = result["ranked_clusters"][0]
+    assert result["status"] == "SUCCESS"
+    assert repaired["article_mode"] == "STANDARD_NEWS_ANALYSIS"
+    assert global_summary["total_structured_repair_attempts"] == 1
+    assert len(global_prompts) == 2
+    assert "previous_validation_failure_code=global_article_mode_semantic_mismatch" in global_prompts[1]
+    assert "Reconsider only story_mode and article_mode" in global_prompts[1]
+    assert repaired["leaf_cluster_ids"] == initial_row["leaf_cluster_ids"]
+    assert repaired["rank"] == initial_row["rank"]
+    assert initial_row["canonical_leaf_cluster_id"] == initial_row["leaf_cluster_ids"][-1]
+
+
+@pytest.mark.parametrize(
+    ("story_mode", "article_mode"),
+    (
+        ("research_note", "DATA_OR_DOCUMENT_LENS"),
+        ("reporting", "WEEK_AHEAD_OR_WATCH"),
+        ("deep_analysis", "CAPITAL_CHRONICLE_VIEW"),
+        ("rapid_analysis", "WHAT_THE_MARKET_IS_MISSING"),
+    ),
+)
+def test_nonbreaking_modes_are_not_collapsed_to_breaking_brief(
+    story_mode: str, article_mode: str
+) -> None:
+    payload = json.loads(_global_output())
+    payload["ranked_shortlist"][0].update({
+        "story_mode": story_mode,
+        "article_mode": article_mode,
+    })
+
+    valid, failure, output, diagnostic = _validate_global(
+        json.dumps(payload), analysis_context=True
+    )
+
+    assert valid is True
+    assert failure is None
+    assert diagnostic is None
+    assert output["ranked_clusters"][0]["article_mode"] == article_mode
 
 
 def test_global_prompt_contract_matches_select_and_no_publication_validator_rules() -> None:
@@ -878,7 +1010,7 @@ def _build_checkpoint_bundle(rolling_input, provider, *, global_prompt_version=N
 
 
 def test_new_global_calls_use_bumped_prompt_version_lineage():
-    assert ROLLING_X_GLOBAL_PROMPT_VERSION == "v5"
+    assert ROLLING_X_GLOBAL_PROMPT_VERSION == "v7"
     first, _, _ = _build_checkpoint_bundle(_small_input(), HierarchicalProvider())
 
     accepted_attempt = [
@@ -887,6 +1019,32 @@ def test_new_global_calls_use_bumped_prompt_version_lineage():
         if row["disposition"] == "accepted"
     ][0]
     assert accepted_attempt["prompt_version"] == ROLLING_X_GLOBAL_PROMPT_VERSION
+
+
+def test_global_prompt_v7_distinguishes_all_canonical_editorial_modes():
+    prompt = _build_rolling_x_global_prompt(
+        {"leaf_cluster_summaries": [{"id": "leaf-1"}]}
+    )
+
+    assert "Fresh or newly published does not automatically mean BREAKING_BRIEF" in prompt
+    assert "one narrow newly occurred fact requiring immediate concise reporting" in prompt
+    assert "mechanism, context, consequences, counter-case, or synthesis" in prompt
+    assert "upcoming scheduled release, meeting, or event" in prompt
+    assert "current primary document or data release" in prompt
+    assert "without requiring a new breaking delta" in prompt
+    assert "evidence-backed qualitative house thesis" in prompt
+    assert "NO_PUBLICATION remains valid" in prompt
+    for mode in (
+        "BREAKING_BRIEF",
+        "FOLLOW_UP_UPDATE",
+        "STANDARD_NEWS_ANALYSIS",
+        "CAPITAL_CHRONICLE_VIEW",
+        "WHAT_THE_MARKET_IS_MISSING",
+        "EVERGREEN_EXPLAINER",
+        "DATA_OR_DOCUMENT_LENS",
+        "WEEK_AHEAD_OR_WATCH",
+    ):
+        assert mode in prompt
 
 
 def test_checkpoint_binding_fails_closed_on_tampered_leaf_order():

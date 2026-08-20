@@ -1,0 +1,12 @@
+{
+  "actual_selected_mode": null,
+  "article_qualified": false,
+  "candidate": "BEA upcoming official macro release schedule",
+  "case": "quiet_day",
+  "classification": "NOT_RUN_AFTER_STOP_CONDITION",
+  "derivative_package_count": 0,
+  "exact_final_outcome_blocker": "PRIOR_CASE_BLOCKED_PRODUCT_DEFECT",
+  "model_calls": 0,
+  "provider_attempts": 0,
+  "schema_version": "contentops.p0_g3.final_case_receipt.v1"
+}

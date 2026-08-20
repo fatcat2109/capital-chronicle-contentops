@@ -1,0 +1,57 @@
+{
+  "schema_version": "contentops.p0_g3.case_receipt.v1",
+  "case": "quiet_day",
+  "classification": "NO_PUBLICATION",
+  "allowed_requested_modes": ["WEEK_AHEAD_OR_WATCH", "DATA_OR_DOCUMENT_LENS", "EVERGREEN_EXPLAINER"],
+  "actual_selected_modes": ["BREAKING_BRIEF", "BREAKING_BRIEF"],
+  "selection_rationale": "Fresh discovery item with a bounded public evidence path.",
+  "candidates": [
+    {
+      "story_identity": "rolling-x-deterministic-cluster-c13952eb9a1523a738a0",
+      "update_chain_identity": "rolling-x-deterministic-cluster-c13952eb9a1523a738a0",
+      "source_title": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)",
+      "publisher": "www.bea.gov",
+      "exact_url": "https://www.bea.gov/news/schedule/full",
+      "published_at_utc": "2026-08-20T00:00:03Z",
+      "known_at_utc": "2026-08-20T00:42:56.770634Z",
+      "authority_class": "official_public_primary_source",
+      "evidence_id": "official-primary-ff648433937acb00d80f",
+      "content_sha256": "ff648433937acb00d80fb90046d509f0c9fe1721c135c7f87f6d4768f15bf866",
+      "decision": "MODE_MISMATCH_NO_WRITER"
+    },
+    {
+      "story_identity": "rolling-x-deterministic-cluster-8b75ed571e6c92a5ecf3",
+      "update_chain_identity": "rolling-x-deterministic-cluster-8b75ed571e6c92a5ecf3",
+      "source_title": "The Fed - Meeting calendars and information",
+      "publisher": "www.federalreserve.gov",
+      "exact_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "published_at_utc": "2026-08-19T18:00:38Z",
+      "known_at_utc": "2026-08-20T00:44:47.375985Z",
+      "authority_class": "official_public_primary_source",
+      "evidence_id": "official-primary-e2b8aa472618f45d313d",
+      "content_sha256": "e2b8aa472618f45d313d0cbdab49f4539dec1df88a961b121411fd7a79e6279e",
+      "decision": "MODE_MISMATCH_NO_WRITER"
+    }
+  ],
+  "exact_final_headline": null,
+  "article_artifact": null,
+  "derivative_intent_count": 0,
+  "cc_authority": {
+    "class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "authorized_series_consumed": 0,
+    "zero_use_reason": "CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH:cluster_id"
+  },
+  "router_usage": {
+    "first_candidate": {"logical_calls": 3, "provider_attempts": 3, "accounted_tokens": 32188},
+    "second_candidate": {"logical_calls": 3, "provider_attempts": 3, "accounted_tokens": 33163},
+    "reported_dollar_cost_exposed": false,
+    "writer_calls": 0
+  },
+  "publication_enabled": false,
+  "provider_publication_calls": 0,
+  "public_writes": 0,
+  "unknown_write": 0,
+  "production_mutation": 0,
+  "browser_or_cdp_calls": 0
+}

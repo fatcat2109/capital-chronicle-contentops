@@ -1,0 +1,80 @@
+{
+  "artifact_sha256": {
+    "README.md": "a914733c98ec9ae8d3e4467fc462b87102654f763dffcd13e3c2bd955ff37e84",
+    "breaking_reference.json": "79402c20cba7d7e90aad0c688849294953761eb3a70e6b25807d4d9350122673",
+    "house_view/article.md": "ecabd743c7a42ae55fa92b76e9095acc6c7790daa249001d34fabc61bdf247cb",
+    "house_view/case_receipt.json": "7101374a1a4717d09322de96abebff1c007341b726a1fdb8f741035b92cd3a63",
+    "house_view/derivative_packages.json": "2fc0852cd467c92422cbf1d8bc01aae2e20aeec269c8d8d3ee8f6b69d1749ca1",
+    "normal_analysis/article.md": "47b44d2c8c84760452216ddb37ac710c51d8059201e434c96b59f840012379f6",
+    "normal_analysis/case_receipt.json": "6004928fa6c63eb7a1d89b48b8613de00b1708c4d6cc3484836fb88902287d7b",
+    "normal_analysis/derivative_packages.json": "9a02ec8bb854716bc4dee0957616072527bf2dc28d6de504c97ca244d497ed98",
+    "quiet_day/case_receipt.json": "0bce70a970508eddfe25f1ecbde29f4a6412d57dabbe4d0ddac08d6a8d386690",
+    "quiet_day/no_publication.md": "c255eebf298ebe9bab7bf9bd3b2027b5b6e6ac7642d2dba3fb6e71bca11ccee9"
+  },
+  "classification": "OWNER_REVIEW_REQUIRED_FINAL_P0_G3_CANDIDATE_WITH_QUIET_MODE_PROPAGATION_BLOCKER",
+  "codegraph_commit": "cd68745fb89d0c6d64aac718398f5d3edf16b85d",
+  "codegraph_source_head": "ff4ec99d835222f71a5fa8729862d33f401744d3",
+  "codegraph_source_tree_digest": "8c5b32ba01cbfaae63705a957ac6b4d0edfc2020e1e16b68de7349a57ab02fc7",
+  "fetched_master": "8864cf9322ec2ecbf1660ff45e77397166cd31b7",
+  "manifest_self_hash": "excluded_from_self-referential_artifact_hash_map",
+  "model_provider_token_cost_telemetry": {
+    "known_9router_reported_cost_usd": "UNAVAILABLE",
+    "known_9router_total_tokens": 38452.0,
+    "legacy_article_writer_calls": 0,
+    "native_worker_token_cost_receipt_exposed": false,
+    "native_xhigh_bounded_revisions": 2,
+    "native_xhigh_completed_returns": 2,
+    "native_xhigh_validated_returns": 2,
+    "native_xhigh_workers": 2
+  },
+  "remaining_gate": "Correct the post-selection quiet-day canonical-mode propagation defect in a new exact task, rerun only quiet-day, then Jim/ChatGPT must inspect all actual articles and packages before any P0-G3 acceptance.",
+  "safety_totals": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3.final_owner_candidate_manifest.v1",
+  "source_commit": "ff4ec99d835222f71a5fa8729862d33f401744d3",
+  "starting_branch_head": "bb598fdf519b8aaa301570d0ea4b03b5db4b0eef",
+  "three_case_matrix": {
+    "house_view": {
+      "actual_canonical_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "bounded_revision_count": 1,
+      "candidate": "Fresh discovery item with a bounded public evidence path.",
+      "exact_outcome": "QUALIFIED_ZERO_WRITE_OWNER_ARTIFACT_READY",
+      "final_deterministic_blockers": [],
+      "institutional_edge_projected_mode": "HOUSE_VIEW",
+      "package_count": 8,
+      "qualified": true,
+      "xhigh_worker_count": 1
+    },
+    "normal_analysis": {
+      "actual_canonical_mode": "DATA_OR_DOCUMENT_LENS",
+      "bounded_revision_count": 1,
+      "candidate": "Build the article around what the minutes explicitly reveal about the policy tradeoff, the mechanisms discussed, areas of agreement or disagreement, and the implications that can be responsibly drawn from the document. Avoid presenting editorial interpretation as Federal Reserve guidance or as a forecast.",
+      "exact_outcome": "QUALIFIED_ZERO_WRITE_OWNER_ARTIFACT_READY",
+      "final_deterministic_blockers": [],
+      "institutional_edge_projected_mode": "DOCUMENT_LENS",
+      "package_count": 8,
+      "qualified": true,
+      "xhigh_worker_count": 1
+    },
+    "quiet_day": {
+      "actual_canonical_mode": "WEEK_AHEAD_OR_WATCH",
+      "bounded_revision_count": 0,
+      "candidate": "BEA official release schedule lower-materiality week-ahead opportunity",
+      "exact_outcome": "QUIET_DAY_CANONICAL_MODE_PROPAGATION_MISMATCH",
+      "final_deterministic_blockers": [
+        "QUIET_DAY_CANONICAL_MODE_PROPAGATION_MISMATCH:WEEK_AHEAD_OR_WATCH->BREAKING_BRIEF"
+      ],
+      "institutional_edge_projected_mode": "BREAKING_BRIEF",
+      "package_count": 0,
+      "qualified": false,
+      "xhigh_worker_count": 0
+    }
+  }
+}

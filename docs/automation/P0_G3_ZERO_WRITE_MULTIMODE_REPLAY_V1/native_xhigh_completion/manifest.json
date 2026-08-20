@@ -1,0 +1,59 @@
+{
+  "artifact_sha256": {
+    "README.md": "7f0405602f15098fc029b0d3d5abe74072b6f0eace18a555df00c4f33514d599",
+    "breaking_reference.json": "3685942d0e02b10a983974f1ea751e7b14a0ac8e5f8f5f77cb54dba6dfdf4c05",
+    "house_view/case_receipt.json": "7c0c120808f016fa33765bbae1311d3aa448df5e78be2527a8c04e5496445efb",
+    "house_view/no_publication.md": "1017a0a06b7332d4b71c5da250f18cb97e17fa6ad0f8a6a07692f51a68d9693a",
+    "normal_analysis/case_receipt.json": "4477ee9d866a90c172ad4003e6e1da0069daea9bbd79ec05ffc67df014be8ef0",
+    "normal_analysis/no_publication.md": "067d6650b8028133ee1b20ea68f08a7f6062439708c5385f39f9599830ffa731",
+    "quiet_day/case_receipt.json": "5379a480921e9418884549d5e811297ea6cbb9479aa1c7302af1cd1089845243",
+    "quiet_day/no_publication.md": "a1ed271a3e70b1b69070639a1f6e364e2a43bbc69b35c9da961cc4415892a188"
+  },
+  "classification": "OWNER_REVIEW_REQUIRED_NATIVE_XHIGH_P0_G3_PACKET_WITH_FAIL_CLOSED_CASES",
+  "manifest_self_hash": "excluded_from_self-referential_artifact_hash_map",
+  "model_provider_token_cost_telemetry": {
+    "assignment_research_9router_telemetry": "per-case sanitized router telemetry retained in receipts",
+    "legacy_article_writer_calls": 0,
+    "native_worker_token_cost_receipt_exposed": false,
+    "native_xhigh_bounded_revisions": 1,
+    "native_xhigh_completed_returns": 1,
+    "native_xhigh_validated_returns": 0,
+    "native_xhigh_workers": 1
+  },
+  "safety_totals": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3.native_xhigh_completion_manifest.v1",
+  "three_case_matrix": {
+    "house_view": {
+      "actual_selected_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "candidate": "Fresh discovery item with a bounded public evidence path.",
+      "exact_outcome": "EDITORIAL_WORKER_RETURN_VALIDATION_BLOCKED",
+      "package_count": 0,
+      "qualified": false,
+      "xhigh_worker_count": 1
+    },
+    "normal_analysis": {
+      "actual_selected_mode": "DATA_OR_DOCUMENT_LENS",
+      "candidate": "Prioritize a source-bound examination of what the minutes reveal about the competing policy considerations, the mechanisms connecting inflation and employment, and the implications for how readers interpret the Fed's current stance. Avoid presenting any forecast, probability, market reaction, or unsupported conclusion as fact.",
+      "exact_outcome": "NO_PUBLICATION_MODE_SELECTION_MISMATCH",
+      "package_count": 0,
+      "qualified": false,
+      "xhigh_worker_count": 0
+    },
+    "quiet_day": {
+      "actual_selected_mode": null,
+      "candidate": "BEA release schedule current lower-materiality calendar opportunity",
+      "exact_outcome": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "package_count": 0,
+      "qualified": false,
+      "xhigh_worker_count": 0
+    }
+  }
+}

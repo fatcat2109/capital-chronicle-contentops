@@ -434,16 +434,55 @@ def build_native_derivative_payloads(
         or ""
     ).upper()
     if ordinary_brief or article_mode == "BREAKING_BRIEF":
-        brief_dek = str(article.get("social_hook") or article.get("social_lede") or dek)
-        text = "\n\n".join(value for value in (title, brief_dek, canonical_url) if value)
+        def accepted_brief_sentence(*values: Any) -> str:
+            for value in values:
+                normalized = " ".join(str(value or "").split())
+                if normalized:
+                    return _punctuate(_first_complete_sentence(normalized))
+            return ""
+
+        def native_brief_text(*parts: str, limit: int, platform: str) -> str:
+            text = "\n\n".join(part for part in parts if part)
+            if len(text) > limit:
+                raise ValueError(f"{platform}_native_brief_exceeds_platform_limit")
+            return text
+
+        article_body_sentences = tuple(
+            _punctuate(sentence)
+            for sentence in _sentence_units(str(article.get("substack_body_markdown") or ""))
+        )
+        brief_dek = accepted_brief_sentence(
+            article.get("social_hook"),
+            article.get("social_lede"),
+            article.get("subtitle"),
+            article_body_sentences[0] if article_body_sentences else "",
+        )
+        if not brief_dek:
+            raise ValueError("native_brief_requires_accepted_reader_detail")
+        mechanism = accepted_brief_sentence(
+            article.get("social_mechanism_summary"),
+            article.get("market_mechanism"),
+            article_body_sentences[1] if len(article_body_sentences) > 1 else "",
+            brief_dek,
+        )
+        context = accepted_brief_sentence(
+            article.get("social_policy_summary"),
+            article.get("policy_context"),
+            article_body_sentences[2] if len(article_body_sentences) > 2 else "",
+            mechanism,
+        )
+        watch_point = accepted_brief_sentence(
+            article.get("social_cross_asset_summary"),
+            article.get("cross_asset_implications"),
+        )
         media_ids = [str(value) for value in media_asset_ids if str(value)]
 
-        def brief_layout(limit: int) -> dict[str, Any]:
+        def brief_layout(*, detail: str, continuation: str, limit: int) -> dict[str, Any]:
             layout = _root_and_replies(
                 title=title,
-                dek=brief_dek,
+                dek=detail,
                 canonical_url=canonical_url,
-                continuation_parts=(),
+                continuation_parts=(continuation,) if continuation else (),
                 limit=limit,
             )
             posts = [
@@ -468,19 +507,97 @@ def build_native_derivative_payloads(
                 ),
             }
 
-        x_brief = brief_layout(280)
-        threads_brief = brief_layout(500)
+        x_brief = brief_layout(
+            detail=brief_dek,
+            continuation=f"Watch: {watch_point}" if watch_point else "",
+            limit=280,
+        )
+        threads_brief = brief_layout(
+            detail=context,
+            continuation=f"What to watch: {watch_point}" if watch_point else "",
+            limit=500,
+        )
         return {
-            "telegram": {"format": "channel_brief", "text": text, "media_asset_ids": media_ids[:1]},
+            "telegram": {
+                "format": "channel_brief",
+                "text": native_brief_text(
+                    "NEWSROOM BRIEF",
+                    title,
+                    brief_dek,
+                    f"What to watch: {watch_point}" if watch_point else "",
+                    f"Full brief: {canonical_url}",
+                    limit=1024,
+                    platform="telegram",
+                ),
+                "platform_limit": 1024,
+                "hard_truncation_used": False,
+                "media_asset_ids": media_ids[:1],
+            },
             "x": {"format": "text_brief", **x_brief},
-            "linkedin": {"format": "professional_brief", "text": text},
-            "discord": {"format": "newsroom_brief", "text": text},
-            "facebook_page": {"format": "page_brief", "text": text},
-            "instagram_business": {"format": "brief_caption", "text": text},
+            "linkedin": {
+                "format": "professional_brief",
+                "text": native_brief_text(
+                    title,
+                    f"Why it matters: {mechanism}",
+                    f"Context: {context}",
+                    f"Read the full brief: {canonical_url}",
+                    limit=3_000,
+                    platform="linkedin",
+                ),
+                "platform_limit": 3_000,
+                "hard_truncation_used": False,
+            },
+            "discord": {
+                "format": "newsroom_brief",
+                "text": native_brief_text(
+                    f"**Newsroom brief: {title}**",
+                    brief_dek,
+                    f"**Context:** {context}",
+                    f"Source-bound brief: {canonical_url}",
+                    limit=2_000,
+                    platform="discord",
+                ),
+                "platform_limit": 2_000,
+                "hard_truncation_used": False,
+            },
+            "facebook_page": {
+                "format": "page_brief",
+                "text": native_brief_text(
+                    title,
+                    brief_dek,
+                    f"Why it matters: {mechanism}",
+                    f"Read the full brief: {canonical_url}",
+                    limit=63_206,
+                    platform="facebook_page",
+                ),
+                "platform_limit": 63_206,
+                "hard_truncation_used": False,
+            },
+            "instagram_business": {
+                "format": "brief_caption",
+                "text": native_brief_text(
+                    title,
+                    brief_dek,
+                    f"In focus: {context}",
+                    f"Full brief: {canonical_url}",
+                    "#CapitalChronicle",
+                    limit=2_200,
+                    platform="instagram_business",
+                ),
+                "platform_limit": 2_200,
+                "hard_truncation_used": False,
+            },
             "threads": {"format": "text_brief", **threads_brief},
             "youtube": {
                 "format": "community_brief",
-                "text": text,
+                "text": native_brief_text(
+                    f"Update: {title}",
+                    brief_dek,
+                    f"What to watch: {watch_point}" if watch_point else "",
+                    f"Read the full brief: {canonical_url}",
+                    limit=1_000,
+                    platform="youtube",
+                ),
                 "platform_limit": 1000,
                 "hard_truncation_used": False,
             },
@@ -5068,10 +5185,14 @@ def _run_rolling_x_newsroom_cycle(
     editorial_article_mode = str(
         selected_request.get("effective_article_mode")
         or selected_request.get("resolved_article_mode")
-        or selected_request.get("article_mode")
         or selected_attempt.get("effective_article_mode")
         or selected_attempt.get("resolved_article_mode")
+        or (viability.get("selected_cluster") or {}).get("effective_article_mode")
         or (viability.get("selected_cluster") or {}).get("resolved_article_mode")
+        or selected_request.get("article_mode")
+        or selected_request.get("story_mode")
+        or selected_attempt.get("article_mode")
+        or selected_attempt.get("story_mode")
         or (viability.get("selected_cluster") or {}).get("article_mode")
         or (viability.get("selected_cluster") or {}).get("story_mode")
         or "STANDARD_ANALYSIS"

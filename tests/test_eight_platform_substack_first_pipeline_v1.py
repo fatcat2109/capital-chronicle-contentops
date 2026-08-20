@@ -47,6 +47,159 @@ def test_exact_v1_ordinary_payloads_are_eight_derivatives_without_tiktok():
     assert payloads["threads"]["hard_truncation_used"] is False
 
 
+def _normalized_reader_text(payload: dict) -> str:
+    return " ".join(str(payload.get("full_text") or payload["text"]).casefold().split())
+
+
+def test_breaking_and_ordinary_briefs_are_native_self_contained_and_undispatched():
+    canonical_url = "https://capitalchronicle.substack.com/p/governed-brief"
+    accepted_article = {
+        **_article(),
+        "social_lede": "The latest official policy reading keeps the transmission question in focus.",
+        "social_mechanism_summary": "The final article explains how the policy reading reaches funding conditions.",
+        "social_policy_summary": "The final article places the reading in its stated policy context.",
+        "social_cross_asset_summary": "The final article identifies the supported cross-asset detail to watch.",
+        "unaccepted_raw_draft": "UNSUPPORTED FACT THAT MUST NEVER BE PACKAGED.",
+    }
+    accepted_selection = {
+        **_selection(),
+        "unaccepted_note": "UNSUPPORTED FACT THAT MUST NEVER BE PACKAGED.",
+    }
+
+    for mode_article in (
+        {
+            **accepted_article,
+            "minimum_trustworthy_evidence_packet": {
+                "status": "PASS", "risk_tier": "ORDINARY"
+            },
+        },
+        {**accepted_article, "effective_article_mode": "BREAKING_BRIEF"},
+    ):
+        payloads = build_native_derivative_payloads(
+            article=mode_article,
+            selection=accepted_selection,
+            canonical_url=canonical_url,
+            media_asset_ids=(),
+        )
+        reader_texts = {
+            destination: _normalized_reader_text(payload)
+            for destination, payload in payloads.items()
+        }
+
+        assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
+        assert "tiktok" not in payloads
+        assert len(set(reader_texts.values())) >= 4
+        assert len({reader_texts[name] for name in ("x", "threads", "linkedin", "telegram", "discord", "instagram_business")}) >= 4
+        for destination, payload in payloads.items():
+            text = str(payload.get("full_text") or payload["text"])
+            assert canonical_url in text
+            assert text.index(canonical_url) > 0
+            assert "UNSUPPORTED FACT" not in text
+            assert any(
+                accepted in text
+                for accepted in (
+                accepted_article["social_lede"],
+                    accepted_article["social_mechanism_summary"],
+                    accepted_article["social_policy_summary"],
+                    accepted_article["social_cross_asset_summary"],
+                )
+            ), destination
+            assert "dispatch" not in payload
+            assert payload["hard_truncation_used"] is False
+
+        for destination, limit in (("x", 280), ("threads", 500)):
+            payload = payloads[destination]
+            assert payload["reply_texts"]
+            assert all(
+                len(item) <= limit
+                for item in [payload["root_text"], *payload["reply_texts"]]
+            )
+            assert all(
+                "..." not in item
+                for item in [payload["root_text"], *payload["reply_texts"]]
+            )
+
+
+def test_native_briefs_never_promote_pre_evidence_selection_hypotheses() -> None:
+    canonical_url = "https://capitalchronicle.substack.com/p/final-article-only"
+    article = {
+        "title": "Final Article Confirms Supported Fact A",
+        "subtitle": "Supported fact A is the final article's narrow reader-facing update.",
+        "substack_body_markdown": " ".join((
+            "Supported fact A is confirmed by the final article.",
+            "Supported fact B supplies the article's second source-bound detail.",
+            "Supported fact C explains the article's third source-bound detail.",
+            "Supported fact D sets the article's final supported detail.",
+        )),
+        "minimum_trustworthy_evidence_packet": {"status": "PASS", "risk_tier": "ORDINARY"},
+    }
+    selection = {
+        "dek": "UNSUPPORTED_PRE_EVIDENCE_HYPOTHESIS",
+        "market_mechanism": "UNSUPPORTED_PRE_EVIDENCE_HYPOTHESIS",
+        "policy_context": "UNSUPPORTED_PRE_EVIDENCE_HYPOTHESIS",
+        "cross_asset_implications": "UNSUPPORTED_PRE_EVIDENCE_HYPOTHESIS",
+        "selection_case": "UNSUPPORTED_PRE_EVIDENCE_HYPOTHESIS",
+        "why_now": "UNSUPPORTED_PRE_EVIDENCE_HYPOTHESIS",
+        "seo_intent": "UNSUPPORTED_PRE_EVIDENCE_HYPOTHESIS",
+    }
+
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection=selection,
+        canonical_url=canonical_url,
+        media_asset_ids=(),
+    )
+    reader_texts = {
+        destination: _normalized_reader_text(payload)
+        for destination, payload in payloads.items()
+    }
+
+    assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
+    assert "tiktok" not in payloads
+    assert len(set(reader_texts.values())) >= 4
+    for payload in payloads.values():
+        text = str(payload.get("full_text") or payload["text"])
+        assert "UNSUPPORTED_PRE_EVIDENCE_HYPOTHESIS" not in text
+        assert any(
+            supported in text
+            for supported in (
+                article["subtitle"],
+                "Supported fact B supplies the article's second source-bound detail.",
+                "Supported fact C explains the article's third source-bound detail.",
+            )
+        )
+        assert "dispatch" not in payload
+        assert payload["hard_truncation_used"] is False
+    for destination, limit in (("x", 280), ("threads", 500)):
+        payload = payloads[destination]
+        assert all(
+            len(item) <= limit
+            for item in [payload["root_text"], *payload["reply_texts"]]
+        )
+        assert all(
+            "..." not in item
+            for item in [payload["root_text"], *payload["reply_texts"]]
+        )
+
+    narrow_payloads = build_native_derivative_payloads(
+        article={
+            "title": "Agency Issues One Supported Update",
+            "subtitle": "The final article reports one supported official fact.",
+            "minimum_trustworthy_evidence_packet": {"status": "PASS", "risk_tier": "ORDINARY"},
+        },
+        selection=selection,
+        canonical_url=canonical_url,
+        media_asset_ids=(),
+    )
+    assert all(
+        "Watch:" not in str(payload.get("full_text") or payload["text"])
+        and "What to watch:" not in str(payload.get("full_text") or payload["text"])
+        for payload in narrow_payloads.values()
+    )
+    assert narrow_payloads["x"]["reply_texts"] == []
+    assert narrow_payloads["threads"]["reply_texts"] == []
+
+
 def test_delivery_only_card_is_rights_safe_and_never_article_media(tmp_path):
     asset = build_delivery_only_editorial_card(
         output_path=tmp_path / "delivery.png",

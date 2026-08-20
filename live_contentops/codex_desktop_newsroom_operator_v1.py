@@ -97,7 +97,9 @@ DESKTOP_TASK_PROMPT = (
     "or metrics/learning-only work. Only when one real candidate has enough governed evidence and "
     "article production is warranted in any article mode, including BREAKING_BRIEF, create exactly "
     "one fresh isolated gpt-5.6-sol / XHIGH "
-    "editorial worker using only the bounded governed packet and exact input hash; grant it zero "
+    "editorial worker using only the bounded governed packet and exact input hash. Its source-bound "
+    "factual copy must use only the exact supplied [[SOURCE:SOURCE_N]] markers and must never "
+    "invent or alter URLs, handles, source IDs, evidence IDs, or facts. Grant it zero "
     "factual, numeric, Capital Chronicle, permission, or public-write authority and allow at most "
     "one bounded editorial revision. If the worker is unavailable or its hash-bound return is invalid, "
     "terminate NO_PUBLICATION / EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID with zero public write and no "
@@ -112,7 +114,10 @@ MANUAL_GO_PROMPT = (
     "coordinator on exact gpt-5.6-sol / HIGH and execute exactly one additional current opportunity "
     "under the existing durable cutoff and every existing gate. Spawn exactly one fresh isolated "
     "gpt-5.6-sol / XHIGH editorial worker whenever governed evidence warrants any final canonical "
-    "article, including BREAKING_BRIEF; otherwise use HIGH only. If that worker is unavailable or "
+    "article, including BREAKING_BRIEF; otherwise use HIGH only. Require its source-bound factual "
+    "copy to use only the exact supplied [[SOURCE:SOURCE_N]] "
+    "markers and never invent or alter URLs, handles, source IDs, evidence IDs, or facts. If that "
+    "worker is unavailable or "
     "its hash-bound return is invalid, terminate NO_PUBLICATION / "
     "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID with zero public write. After any valid editorial "
     "return, HIGH resumes "
@@ -254,6 +259,14 @@ def build_editorial_worker_routing_packet(
         raise ValueError("desktop_editorial_authority_packet_invalid:" + ",".join(packet_blockers))
     bounded_context["institutional_edge_editorial_packet"] = editorial_packet
     governed_input_hash = _logical_hash(bounded_context)
+    exact_source_identities = [
+        str(value) for value in bounded_context.get("exact_source_handles") or []
+        if str(value)
+    ]
+    exact_source_markers = [
+        f"[[SOURCE:SOURCE_{index}]]"
+        for index in range(1, len(exact_source_identities) + 1)
+    ]
     result = {
         **base,
         "decision": "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER",
@@ -267,6 +280,15 @@ def build_editorial_worker_routing_packet(
             "resume_existing": False,
             "governed_input_hash": governed_input_hash,
             "bounded_governed_context": bounded_context,
+            "exact_source_marker_contract": {
+                "required_for_source_bound_factual_copy": True,
+                "copy_exact_supplied_markers_only": True,
+                "exact_supplied_markers": exact_source_markers,
+                "source_identity_order": exact_source_identities,
+                "marker_format": "[[SOURCE:SOURCE_N]]",
+                "deterministic_marker_injection_after_authorship": False,
+                "invent_urls_handles_source_ids_evidence_ids_or_facts": False,
+            },
             "max_bounded_editorial_revisions": MAX_EDITORIAL_REVISIONS,
             "grants_factual_authority": False,
             "grants_numeric_authority": False,

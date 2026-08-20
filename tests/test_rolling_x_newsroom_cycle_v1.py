@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as implementation
 from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_PUBLICATION_DESTINATIONS
 
@@ -200,6 +202,107 @@ def _configure_candidate_walk_cycle(monkeypatch, selector, editorial):
         "_build_rolling_x_publication_plan",
         lambda **kwargs: {"schema_version": "test.plan.v1", "destinations": ["substack"]},
     )
+
+
+@pytest.mark.parametrize(
+    (
+        "resolved_owner",
+        "resolved_mode",
+        "expected_routing_mode",
+        "expected_institutional_mode",
+    ),
+    [
+        ("attempt_effective", "WEEK_AHEAD_OR_WATCH", "WEEK_AHEAD_OR_WATCH", "WEEK_AHEAD_WATCH"),
+        ("cluster_resolved", "DATA_OR_DOCUMENT_LENS", "DATA_OR_DOCUMENT_LENS", "DOCUMENT_LENS"),
+        ("attempt_resolved", "WHAT_THE_MARKET_IS_MISSING", "WHAT_THE_MARKET_IS_MISSING", "HOUSE_VIEW"),
+        ("cluster_resolved", "BREAKING_BRIEF", "BREAKING_BRIEF", "BREAKING_BRIEF"),
+        (None, None, "breaking", "BREAKING_BRIEF"),
+    ],
+)
+def test_canonical_cycle_routes_resolved_product_mode_before_legacy_fallback(
+    monkeypatch,
+    tmp_path: Path,
+    resolved_owner,
+    resolved_mode,
+    expected_routing_mode,
+    expected_institutional_mode,
+):
+    viability = _walk_viability(1)
+    selected_attempt = viability["rank_attempts"][0]
+    selected_attempt.pop("effective_article_mode")
+    selected_attempt["request"] = {"article_mode": "breaking"}
+    viability["selected_cluster"].pop("resolved_article_mode")
+    if resolved_owner == "attempt_effective":
+        selected_attempt["effective_article_mode"] = resolved_mode
+    elif resolved_owner == "attempt_resolved":
+        selected_attempt["resolved_article_mode"] = resolved_mode
+    elif resolved_owner == "cluster_resolved":
+        viability["selected_cluster"]["resolved_article_mode"] = resolved_mode
+
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        lambda **kwargs: viability,
+        lambda **kwargs: {
+            "status": "PASS",
+            "article": kwargs["article"],
+            "mandatory_semantic_review_calls": 0,
+            "review_history": [],
+        },
+    )
+
+    from live_contentops import codex_desktop_newsroom_operator_v1 as desktop_operator
+
+    real_build_route = desktop_operator.build_editorial_worker_routing_packet
+    routed_modes = []
+
+    def capture_route(**kwargs):
+        routed_modes.append(kwargs["article_mode"])
+        return real_build_route(**kwargs)
+
+    monkeypatch.setattr(
+        desktop_operator,
+        "build_editorial_worker_routing_packet",
+        capture_route,
+    )
+    worker_requests = []
+
+    def build_article(value):
+        worker_request = value["editorial_worker_request"]
+        worker_requests.append(worker_request)
+        article = {
+            "title": "Canonical mode propagation",
+            "cluster_id": value["selected_cluster_id"],
+            "headline_ids": value["selected_headline_ids"],
+            "effective_article_mode": resolved_mode or "BREAKING_BRIEF",
+        }
+        return {
+            "article": article,
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+            "editorial_worker_receipt": _xhigh_receipt(article, worker_request),
+        }
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id=f"mode-propagation-{expected_institutional_mode.lower()}",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-20T12:00:13Z",
+        article_builder=build_article,
+        destination_readiness_override=_all_ready(),
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert routed_modes == [expected_routing_mode]
+    assert len(worker_requests) == 1
+    institutional_packet = worker_requests[0]["bounded_governed_context"][
+        "institutional_edge_editorial_packet"
+    ]
+    assert institutional_packet["article_mode"] == expected_institutional_mode
+    assert institutional_packet["grants_factual_authority"] is False
+    assert institutional_packet["grants_numeric_authority"] is False
+    assert institutional_packet["grants_permission_authority"] is False
+    assert institutional_packet["grants_public_write_authority"] is False
+    assert result["public_write_performed"] is False
 
 
 def test_same_opportunity_reader_value_failure_advances_and_first_publishable_stops(

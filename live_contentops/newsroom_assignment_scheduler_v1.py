@@ -458,9 +458,10 @@ PREPARED_CANDIDATE_LIMIT = 12
 PREPARED_CANDIDATE_MAX_AGE_SECONDS = 2 * 60 * 60
 PREPARED_FRONTIER_AUDIT_RETENTION_HOURS = 72.0
 ROLLING_X_LEAF_PROMPT_VERSION = "v2"
-ROLLING_X_GLOBAL_PROMPT_VERSION = "v5"
-ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4", "v5"})
+ROLLING_X_GLOBAL_PROMPT_VERSION = "v7"
+ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4", "v5", "v6", "v7"})
 ROLLING_X_GLOBAL_VALIDATION_DIAGNOSTIC_CODES = frozenset({
+    "global_article_mode_semantic_mismatch",
     "global_article_mode_invalid",
     "global_canonical_leaf_not_in_cluster",
     "global_decision_invalid",
@@ -966,6 +967,7 @@ def _build_rolling_x_global_prompt(global_input: Mapping[str, Any]) -> str:
         "Return a small ranked viable shortlist, optionally merging duplicate or update-chain leaf clusters across partitions by listing multiple exact leaf_cluster_ids.",
         "Optimize for meaningful reads, shares, saves, replies, canonical-article clicks, subscriber conversion, audience relevance, search demand/longevity, and repeat readership. Penalize duplication, weak information density, saturation, weak evidence prospects, overclaim, repetitive entities/domains, clickbait, and outrage.",
         "Attention affects priority only and never factual truth. needed_evidence is a downstream request, not evidence already obtained. A genuine NO_PUBLICATION is valid only after evaluating every supplied leaf summary and the useful editorial ladder: BREAKING_BRIEF, FOLLOW_UP_UPDATE, STANDARD_NEWS_ANALYSIS, CAPITAL_CHRONICLE_VIEW, WHAT_THE_MARKET_IS_MISSING, EVERGREEN_EXPLAINER, DATA_OR_DOCUMENT_LENS, WEEK_AHEAD_OR_WATCH. Quiet-day modes may lower materiality or change time horizon, never evidence, attribution, permission, or numeric-authority standards.",
+        "Fresh or newly published does not automatically mean BREAKING_BRIEF. Choose the mode by the main reader value: BREAKING_BRIEF is one narrow newly occurred fact requiring immediate concise reporting; STANDARD_NEWS_ANALYSIS starts from an established current event or document and earns its value through mechanism, context, consequences, counter-case, or synthesis; WEEK_AHEAD_OR_WATCH earns current value from an upcoming scheduled release, meeting, or event and the specific observable points that matter next; DATA_OR_DOCUMENT_LENS extracts useful implications or details from a current primary document or data release; EVERGREEN_EXPLAINER supplies timely mechanism or context without requiring a new breaking delta; CAPITAL_CHRONICLE_VIEW and WHAT_THE_MARKET_IS_MISSING require an evidence-backed qualitative house thesis. NO_PUBLICATION remains valid when no mode is supportable.",
         "CAPITAL_CHRONICLE_VIEW and WHAT_THE_MARKET_IS_MISSING may propose a strong qualitative house inference only when factual premises can be source-bound. The inference must be identified as ContentOps editorial judgment, never Core Analyzer output, and may not invent probabilities, forecasts, scenarios, regimes, valuations, decisions, market reactions, misconduct, or other unsupported claims.",
         f"SELECT_STORY contract: selected_shortlist_rank MUST be integer 1; ranked_shortlist MUST contain 1..{ROLLING_X_GLOBAL_SHORTLIST_LIMIT} rows; ranks MUST be contiguous integers 1..N; every leaf_cluster_id MUST be copied byte-for-byte from allowed_leaf_cluster_ids below and may appear only once across the entire shortlist; canonical_leaf_cluster_id MUST also be an exact member of allowed_leaf_cluster_ids AND of its row's leaf_cluster_ids; no other ID-like string is legal; selection_rationale, why_now, selection_case, seo_intent, and visual_strategy MUST be non-empty strings; needed_evidence MUST be a non-empty list of non-empty strings; use only the exact enum values shown below.",
         "allowed_leaf_cluster_ids: "
@@ -982,6 +984,8 @@ def _build_rolling_x_global_prompt(global_input: Mapping[str, Any]) -> str:
 
 
 def _global_repair_rule(diagnostic_code: str) -> str:
+    if diagnostic_code == "global_article_mode_semantic_mismatch":
+        return "Reconsider only story_mode and article_mode by the main reader value: use BREAKING_BRIEF only for one narrow newly occurred fact requiring immediate concise reporting; use STANDARD_NEWS_ANALYSIS when mechanism, context, tradeoff, consequences, counter-case, implications, or synthesis are the value. Preserve every exact leaf_cluster_id, canonical_leaf_cluster_id, rank, ordering, and candidate identity."
     if diagnostic_code == "global_unknown_leaf_cluster_id":
         return "Replace only the invalid leaf_cluster_id values; use only the exact byte-for-byte values listed in allowed_leaf_cluster_ids; preserve every valid ranking and editorial field; do not invent or approximate an ID; do not otherwise change the ranking."
     if diagnostic_code in {
@@ -1011,6 +1015,62 @@ def _global_repair_rule(diagnostic_code: str) -> str:
     if diagnostic_code == "global_required_text_invalid":
         return "Fill every required text field with a non-empty string without changing valid IDs or ranks."
     return "Correct only the named contract failure while preserving valid IDs, ranks, and editorial ordering."
+
+
+_BREAKING_BRIEF_ANALYTICAL_STORY_MODES = frozenset({
+    "rapid_analysis",
+    "deep_analysis",
+    "research_note",
+    "scenario_outlook",
+})
+_BREAKING_BRIEF_ANALYTICAL_VALUE_MARKERS = (
+    "mechanism",
+    "context",
+    "tradeoff",
+    "consequence",
+    "counter-case",
+    "implication",
+    "synthesis",
+)
+
+
+def _breaking_brief_matches_main_reader_value(
+    *,
+    story_mode: str,
+    why_now: str,
+    selection_case: str,
+    seo_intent: str,
+    leaf_clusters: Sequence[Mapping[str, Any]],
+) -> bool:
+    """Reject only explicit analysis semantics mislabeled as a breaking brief.
+
+    The global editor's compact fields and already-validated immutable leaf summaries are
+    editorial hypotheses, not factual authority.  This deliberately small check does not
+    infer a required mode or rewrite an assignment: it only keeps an analytical main-reader
+    value from silently passing through the BREAKING_BRIEF enum.
+    """
+    if story_mode in _BREAKING_BRIEF_ANALYTICAL_STORY_MODES:
+        return False
+    if story_mode != "reporting":
+        return True
+    reader_value = " ".join((why_now, selection_case, seo_intent)).casefold()
+    marker_count = sum(
+        marker in reader_value
+        for marker in _BREAKING_BRIEF_ANALYTICAL_VALUE_MARKERS
+    )
+    if marker_count < 2:
+        return True
+    leaf_context = " ".join(
+        " ".join(
+            str(cluster.get(key) or "")
+            for key in ("event_topic_summary", "entities", "topics")
+        )
+        for cluster in leaf_clusters
+    ).casefold()
+    return not any(
+        marker in leaf_context
+        for marker in _BREAKING_BRIEF_ANALYTICAL_VALUE_MARKERS
+    )
 
 
 def _rolling_x_global_repair_prompt(
@@ -1137,6 +1197,17 @@ def _validate_rolling_x_global_output(
                 )
             except (TypeError, ValueError):
                 raise ValueError("global_needed_evidence_invalid") from None
+            if (
+                article_mode == "BREAKING_BRIEF"
+                and not _breaking_brief_matches_main_reader_value(
+                    story_mode=story_mode,
+                    why_now=why_now,
+                    selection_case=selection_case,
+                    seo_intent=seo_intent,
+                    leaf_clusters=[leaf_clusters_by_id[leaf_id] for leaf_id in leaf_ids],
+                )
+            ):
+                raise ValueError("global_article_mode_semantic_mismatch")
             normalized.append({
                 "cluster_id": cluster_id,
                 "rank": rank,
@@ -3451,7 +3522,7 @@ def select_first_viable_rolling_x_cluster(
             "WHAT_THE_MARKET_IS_MISSING": "analysis",
             "EVERGREEN_EXPLAINER": "explainer",
             "DATA_OR_DOCUMENT_LENS": "analysis",
-            "WEEK_AHEAD_OR_WATCH": "analysis",
+            "WEEK_AHEAD_OR_WATCH": "week_ahead",
             "breaking": "straight_news",
             "news_analysis": "analysis",
             "explainer": "explainer",

@@ -106,6 +106,105 @@ _PROPRIETARY_ANALYTICAL_LANGUAGE_RE = re.compile(
     re.IGNORECASE,
 )
 
+_OWNED_PROPRIETARY_ANALYSIS_RE = re.compile(
+    r"\bCapital Chronicle(?:['’]s)?\s+(?:forecast|probabilit(?:y|ies)|scenario|regime|"
+    r"valuation|price\s+target|base\s+case|bull\s+case|bear\s+case|decision\s+signal)\b|"
+    r"\bour\s+(?:base\s+case|bull\s+case|bear\s+case)\s+is\b|"
+    r"\bour\s+(?:forecast|probabilit(?:y|ies)|scenario|regime|valuation|price\s+target|"
+    r"decision\s+signal)\b|"
+    r"\bwe\s+(?:assign|estimate|set|publish|forecast|project)\s+(?:an?\s+)?"
+    r"(?:probabilit(?:y|ies)|forecast|scenario|valuation|price\s+target)\b|"
+    r"\bthis\s+regime\s+is\s+(?:now\s+)?(?:the|our)\s+base\s+case\b",
+    re.IGNORECASE,
+)
+
+_ANNOTATED_PROPRIETARY_ASSERTION_RE = re.compile(
+    r"\b(?:forecast|probabilit(?:y|ies)|scenario|regime|valuation|price\s+target)\s+"
+    r"(?:is|are|equals?|implies?|projects?|assigns?|sets?)\b|"
+    r"\b(?:base\s+case|bull\s+case|bear\s+case|decision\s+signal)\b",
+    re.IGNORECASE,
+)
+
+_BRANDED_HOUSE_INFERENCE_RE = re.compile(
+    r"\bCapital Chronicle(?:['’]s)?\s+(?:inference|view|interpretation)\b",
+    re.IGNORECASE,
+)
+
+_BRANDED_HOUSE_INFERENCE_CLAUSE_RE = re.compile(
+    r"\bCapital Chronicle(?:['’]s)?\s+(?:inference|view|interpretation)\s+"
+    r"is\s+that\s+(?P<clause>.+)",
+    re.IGNORECASE,
+)
+
+_BRANDED_PROPRIETARY_ASSERTION_RE = re.compile(
+    r"\bprobabilit(?:y|ies)\b.{0,80}\b(?:is|are|equals?|implies?|exceeds?)\b|"
+    r"\b(?:forecast|scenario|regime|valuation|price\s+target)\s+"
+    r"(?:is|are|assumes?|implies?|projects?|sets?|exceeds?)\b|"
+    r"\b(?:base\s+case|bull\s+case|bear\s+case|decision\s+signal)\s+"
+    r"(?:is|are|assumes?|implies?|projects?|sets?)\b",
+    re.IGNORECASE,
+)
+
+_SOURCE_ATTRIBUTED_PROPRIETARY_RE = re.compile(
+    r"\baccording\s+to\s+(?:the\s+)?(?:agency|source|official|document)\b|"
+    r"\b(?:the\s+)?(?:agency|source|official|document)(?:['’]s|\s+)\s*"
+    r"(?:forecast|probabilit(?:y|ies)|scenario|regime|valuation|price\s+target|"
+    r"base\s+case|bull\s+case|bear\s+case|decision\s+signal)\b",
+    re.IGNORECASE,
+)
+
+
+def _has_explicit_branded_house_inference(value: Any) -> bool:
+    """Recognize explicit Capital Chronicle inference labels, never generic opinion."""
+    return bool(_BRANDED_HOUSE_INFERENCE_RE.search(str(value or "")))
+
+
+def _reserved_house_inference_texts(article: Mapping[str, Any], body: str) -> list[str]:
+    """Return only copy explicitly presented as Capital Chronicle house analysis."""
+    return list(dict.fromkeys(
+        sentence
+        for sentence in re.split(r"(?<=[.!?])\s+|\n+", str(body or ""))
+        if _has_explicit_branded_house_inference(sentence)
+        or _OWNED_PROPRIETARY_ANALYSIS_RE.search(sentence)
+    ))
+
+
+def _capital_chronicle_analysis_claim_texts(article: Mapping[str, Any]) -> list[str]:
+    texts: list[str] = []
+    for row in article.get("epistemic_claims") or []:
+        if not isinstance(row, Mapping):
+            continue
+        if str(row.get("layer") or "").upper() == "CAPITAL_CHRONICLE_ANALYSIS":
+            claim = str(row.get("text") or "").strip()
+            if claim:
+                texts.append(claim)
+    return list(dict.fromkeys(texts))
+
+
+def _asserts_owned_proprietary_house_analysis(
+    value: Any, *, explicit_analysis_annotation: bool = False
+) -> bool:
+    """Separate owned reserved analysis from mentions, comparisons, and attribution."""
+    text = str(value or "")
+    branded_clause_match = _BRANDED_HOUSE_INFERENCE_CLAUSE_RE.search(text)
+    branded_clause = branded_clause_match.group("clause") if branded_clause_match else ""
+    branded_reserved_assertion = bool(
+        branded_clause
+        and _BRANDED_PROPRIETARY_ASSERTION_RE.search(branded_clause)
+        and not _SOURCE_ATTRIBUTED_PROPRIETARY_RE.search(branded_clause)
+    )
+    return bool(
+        _PROPRIETARY_ANALYTICAL_LANGUAGE_RE.search(text)
+        and (
+            _OWNED_PROPRIETARY_ANALYSIS_RE.search(text)
+            or branded_reserved_assertion
+            or (
+                explicit_analysis_annotation
+                and _ANNOTATED_PROPRIETARY_ASSERTION_RE.search(text)
+            )
+        )
+    )
+
 
 class GroundedArticleBuilderError(ValueError):
     """Deterministic fail-closed builder violation (binding, authority, numeric traceability)."""
@@ -1361,8 +1460,8 @@ def grounded_article_source_coverage(
         if len(tokens) < 5:
             continue
         overlap = len(tokens.intersection(evidence_tokens)) / len(tokens)
-        labeled_inference = bool(
-            re.search(r"\b(?:capital chronicle inference|may|could|suggests?)\b", paragraph, re.I)
+        labeled_inference = _has_explicit_branded_house_inference(
+            paragraph
         ) and not _quantitative_numeric_claims(paragraph)
         covered = overlap >= 0.18 or labeled_inference
         if not covered:
@@ -1411,11 +1510,20 @@ def validate_generated_article(
         "CAPITAL_CHRONICLE_VIEW",
         "WHAT_THE_MARKET_IS_MISSING",
     }
-    if house_view_mode and not re.search(
-        r"\bCapital Chronicle inference\b", body, re.IGNORECASE
-    ):
+    if house_view_mode and not _has_explicit_branded_house_inference(body):
         blockers.append("house_view_editorial_inference_label_missing")
-    if house_view_mode and _PROPRIETARY_ANALYTICAL_LANGUAGE_RE.search(body):
+    reserved_house_texts = _reserved_house_inference_texts(article, body)
+    owned_proprietary_analysis = any(
+        _asserts_owned_proprietary_house_analysis(value)
+        for value in reserved_house_texts
+    ) or any(
+        _asserts_owned_proprietary_house_analysis(
+            value,
+            explicit_analysis_annotation=True,
+        )
+        for value in _capital_chronicle_analysis_claim_texts(article)
+    )
+    if house_view_mode and owned_proprietary_analysis:
         publication_authority = context.get("capital_chronicle_publication_authority")
         publication_authority = (
             publication_authority
@@ -1889,11 +1997,20 @@ def _default_article_generator(prompt: str) -> dict[str, Any]:
         nonlocal repair_was_requested
         repair_was_requested = True
         sanitized = re.sub(r"[^A-Z0-9_,:-]", "", str(diagnostic_code or ""))[:500]
+        source_coverage_repair = (
+            "SOURCE_COVERAGE_REPAIR: Copy the exact supplied [[SOURCE:SOURCE_N]] marker or "
+            "markers from GOVERNED_INPUT evidence_documents into the factual copy they bind. "
+            "Do not invent, alter, renumber, wrap, or replace a marker; do not add a URL, "
+            "source ID, evidence ID, or fact."
+            if sanitized == "SOURCE_COVERAGE_INVALID"
+            else ""
+        )
         return "\n".join(
             [
                 prompt,
                 "WRITER_REPAIR_REQUIRED:",
                 sanitized or "WRITER_OUTPUT_CONTRACT_INVALID",
+                source_coverage_repair,
                 "Return a fresh JSON object from the same governed evidence. State what changed, "
                 "the strongest directly supported detail, and why it matters or what remains "
                 "unresolved. Use natural clean attribution; do not chain source titles or pad. "

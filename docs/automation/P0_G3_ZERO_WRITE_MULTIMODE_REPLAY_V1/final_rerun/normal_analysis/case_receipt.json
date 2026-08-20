@@ -1,0 +1,59 @@
+{
+  "accepted_source_records": [
+    {
+      "authority_class": "official_public_primary_source",
+      "content_evidence_sha256": "487c82b52a2d85e28123f9c55fa5803ba2c8ff1a368c4471278cc527c994ac81",
+      "evidence_document_id": "official-primary-487c82b52a2d85e28123",
+      "exact_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm",
+      "grounded_source_ref": "SRC_2D51E421B0588638",
+      "publication_event_timestamp_utc": "2026-08-19T18:01:21Z",
+      "publisher": "www.federalreserve.gov",
+      "retrieval_known_at_utc": "2026-08-20T10:09:10.179697Z",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_interest_role": "OFFICIAL_AUTHORITY_FOR_OWN_RELEASE",
+      "title": "The Fed - Monetary Policy:"
+    }
+  ],
+  "actual_selected_mode": "BREAKING_BRIEF",
+  "article_qualified": false,
+  "candidate": "What the July FOMC minutes reveal about the inflation/labor-market policy tradeoff",
+  "capital_chronicle_authority": {
+    "authority_class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false,
+    "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+  },
+  "case": "normal_analysis",
+  "classification": "BLOCKED_PRODUCT_DEFECT",
+  "derivative_package_count": 0,
+  "evidence_blockers": [],
+  "evidence_viability_status": "SUCCESS",
+  "exact_final_outcome_blocker": "NORMAL_ANALYSIS_MODE_MISCLASSIFIED_AS_BREAKING_BRIEF",
+  "repairs": 0,
+  "requested_mode": "STANDARD_NEWS_ANALYSIS",
+  "router_telemetry": {
+    "completion_tokens": 3635,
+    "logical_calls": 4,
+    "models": [
+      "vx/gemini-3.5-flash(high)",
+      "new/claude-fable-5",
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "prompt_tokens": 8879,
+    "provider_attempts": 4,
+    "reported_cost_usd": 0.0,
+    "total_tokens": 12514
+  },
+  "safety": {
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_enabled": false,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.p0_g3.final_case_receipt.v1",
+  "writer_calls": 0
+}

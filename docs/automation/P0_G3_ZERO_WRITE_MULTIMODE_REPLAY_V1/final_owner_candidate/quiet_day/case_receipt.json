@@ -1,0 +1,114 @@
+{
+  "accepted_source_records": [
+    {
+      "content_sha256": "12f81fbcfa6aeb013aacb58f81d9c9ff08cc88c0ce7762c8af6f9cf7fb1eb726",
+      "document_id": "official-primary-12f81fbcfa6aeb013aac",
+      "grounded_source_ref": "SRC_878F9BAEE8B3CBB8",
+      "published_at_utc": "2026-08-20T12:00:13Z",
+      "publisher": "www.bea.gov",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_authority_class": "official_public_primary_source",
+      "source_url": "https://www.bea.gov/news/schedule",
+      "title": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)"
+    }
+  ],
+  "actual_canonical_mode": "WEEK_AHEAD_OR_WATCH",
+  "candidate": "BEA official release schedule lower-materiality week-ahead opportunity",
+  "capital_chronicle_authority": {
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false
+  },
+  "case": "quiet_day",
+  "claim_evidence_contract": {
+    "confirmed_facts": [
+      {
+        "attribution_required": false,
+        "confidence_class": "HIGH",
+        "direct_or_inferred": "DIRECT",
+        "fact_id": "f1",
+        "factual_statement": "The U.S. Bureau of Economic Analysis (BEA) website features a 'Release Schedule' accessible under its 'News' navigation menu.",
+        "source_refs": [
+          "SRC_878F9BAEE8B3CBB8"
+        ]
+      },
+      {
+        "attribution_required": false,
+        "confidence_class": "HIGH",
+        "direct_or_inferred": "DIRECT",
+        "fact_id": "f2",
+        "factual_statement": "The BEA website provides data and interactive tools related to GDP and Personal Income.",
+        "source_refs": [
+          "SRC_878F9BAEE8B3CBB8"
+        ]
+      }
+    ],
+    "minimum_trustworthy_evidence_status": "PASS",
+    "publication_authority": false,
+    "status": "PASS",
+    "uncertainties": [
+      "The actual dates and times of upcoming economic releases are unknown based on the provided text."
+    ],
+    "unsupported_or_unverified": [
+      "Specific upcoming GDP and personal income-and-outlays release dates.",
+      "What the calendar establishes or cannot establish before publication.",
+      "What readers should watch regarding the upcoming releases."
+    ]
+  },
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "QUIET_DAY_CANONICAL_MODE_PROPAGATION_MISMATCH",
+  "final_deterministic_blockers": [
+    "QUIET_DAY_CANONICAL_MODE_PROPAGATION_MISMATCH:WEEK_AHEAD_OR_WATCH->BREAKING_BRIEF"
+  ],
+  "governed_input_hash": "35ce53ec6f0ad03c3f45eb9386549a8b4af106520c9947c3e540125711997fb8",
+  "institutional_edge_mode_expectations": [
+    "fact_first",
+    "narrow_interpretation",
+    "explicit_uncertainty"
+  ],
+  "institutional_edge_projected_mode": "BREAKING_BRIEF",
+  "mode_propagation_mismatch": {
+    "evidence_effective_article_mode": null,
+    "evidence_substance_article_mode": "BREAKING_BRIEF",
+    "selected_raw_assignment_mode": "breaking",
+    "selected_resolved_canonical_mode": "WEEK_AHEAD_OR_WATCH",
+    "source_locked_before_replay": true,
+    "worker_route_projected_mode": "BREAKING_BRIEF"
+  },
+  "mode_resolution_reason": "UPCOMING_SCHEDULED_EVENT_WATCH",
+  "model_provider_token_cost_telemetry": {
+    "assignment_router": [],
+    "grounded_research_router": [
+      {
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "source_synthesis",
+        "provider_attempt_count": 1,
+        "reported_cost": {},
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "token_usage": {
+          "completion_tokens": 1915.0,
+          "prompt_tokens": 6007.0,
+          "total_tokens": 7922.0
+        }
+      }
+    ],
+    "native_worker_token_cost": "NOT_APPLICABLE_NO_WORKER"
+  },
+  "native_xhigh_receipt": null,
+  "package_count": 0,
+  "package_destinations": [],
+  "qualified": false,
+  "safety": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3.final_owner_case_receipt.v1",
+  "worker_return_validation": "NOT_INVOKED_INVALID_QUIET_ROUTE"
+}

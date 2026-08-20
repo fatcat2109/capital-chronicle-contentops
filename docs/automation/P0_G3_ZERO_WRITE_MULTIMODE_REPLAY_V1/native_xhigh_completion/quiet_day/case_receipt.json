@@ -1,0 +1,54 @@
+{
+  "accepted_source_records": [],
+  "actual_selected_mode": null,
+  "assignment_router": [],
+  "candidate": "BEA release schedule current lower-materiality calendar opportunity",
+  "capital_chronicle_authority": {
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false
+  },
+  "case": "quiet_day",
+  "claim_evidence_contract": {
+    "evidence_qualified": false,
+    "publication_authority": false
+  },
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+  "expected_mode": "unforced useful lower-rung mode or truthful ladder exhaustion",
+  "package_count": 0,
+  "qualified": false,
+  "safety": {
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_mutations": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.p0_g3.native_xhigh_case_receipt.v1",
+  "useful_editorial_ladder": {
+    "caller_forced_mode": false,
+    "evaluated": true,
+    "rank_attempts": [
+      {
+        "blockers": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation",
+          "supported_claims_missing"
+        ],
+        "effective_article_mode": "BREAKING_BRIEF",
+        "rank": 1,
+        "status": "BLOCKED"
+      }
+    ],
+    "raw_assignment_mode": "breaking"
+  },
+  "validation_blockers": [
+    "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+  ],
+  "xhigh_worker_count": 0
+}

@@ -1,0 +1,193 @@
+{
+  "accepted_source_records": [
+    {
+      "content_sha256": "12f81fbcfa6aeb013aacb58f81d9c9ff08cc88c0ce7762c8af6f9cf7fb1eb726",
+      "document_id": "official-primary-12f81fbcfa6aeb013aac",
+      "grounded_source_ref": "SRC_878F9BAEE8B3CBB8",
+      "published_at_utc": "2026-08-20T12:00:13Z",
+      "publisher": "www.bea.gov",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "retrieved_at_utc": "2026-08-20T14:39:43.080782Z",
+      "source_authority_class": "official_public_primary_source",
+      "source_url": "https://www.bea.gov/news/schedule",
+      "title": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)"
+    }
+  ],
+  "article_count": 0,
+  "candidate": {
+    "cluster_id": "rolling-x-deterministic-cluster-c87e17b7a01e69a7f47d",
+    "cutoff_utc": "2026-08-20T14:38:32Z",
+    "description": "BEA official release schedule lower-materiality week-ahead opportunity",
+    "headline_ids": [
+      "cc-x-headline-1c3474bcd1b44fd726f25db7"
+    ],
+    "source_timestamp_utc": "2026-08-20T12:00:13Z"
+  },
+  "capital_chronicle_authority": {
+    "authority_verified": false,
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false,
+    "use": "ZERO_USE"
+  },
+  "case": "quiet_day_only_final_replay",
+  "claim_evidence_contract": {
+    "confirmed_facts": [
+      {
+        "attribution_required": false,
+        "confidence_class": "HIGH",
+        "direct_or_inferred": "DIRECT",
+        "fact_id": "f1",
+        "factual_statement": "The U.S. Bureau of Economic Analysis (BEA) maintains a 'Release Schedule' section on its official website.",
+        "source_refs": [
+          "SRC_878F9BAEE8B3CBB8"
+        ]
+      },
+      {
+        "attribution_required": false,
+        "confidence_class": "HIGH",
+        "direct_or_inferred": "DIRECT",
+        "fact_id": "f2",
+        "factual_statement": "The BEA website includes navigation links to data and tools concerning GDP and Personal Income.",
+        "source_refs": [
+          "SRC_878F9BAEE8B3CBB8"
+        ]
+      }
+    ],
+    "llm_factual_or_numeric_authority": false,
+    "minimum_trustworthy_evidence_packet": {
+      "attribution_required": false,
+      "core_factual_proposition": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)",
+      "directly_attributed_numbers_permitted": true,
+      "evidence_document_id": "official-primary-12f81fbcfa6aeb013aac",
+      "evidence_packet_sha256": "2c3df464ecec18a0be5c8fd04032d3023baee56bf288d465e756bf0855aee3c9",
+      "independent_authority_for_disputed_third_party_allegations": null,
+      "publication_authority": false,
+      "published_at_utc": "2026-08-20T12:00:13Z",
+      "publisher": "www.bea.gov",
+      "reader_attribution_mode": "BOUND_SOURCE_URL",
+      "reader_source_url": null,
+      "risk_tier": "ORDINARY",
+      "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+      "source_authority_class": "official_public_primary_source",
+      "source_interest_role": "INDEPENDENT_OR_OFFICIAL_RECORD",
+      "source_title": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)",
+      "source_url": "https://www.bea.gov/news/schedule",
+      "status": "PASS",
+      "unsupported_optional_claims_must_be_omitted": true,
+      "x_content_grants_factual_authority": false
+    },
+    "publication_authority": false,
+    "uncertainties": [
+      "The exact dates, times, and contents of upcoming BEA data releases cannot be determined from the provided text."
+    ],
+    "unsupported_or_unverified": [
+      "The claim that the GDP second estimate and corporate profits release are scheduled for August 26.",
+      "The claim that the July personal income and outlays release is an upcoming calendar event.",
+      "The claim that these specific data releases are scheduled to occur at 8:30 AM."
+    ]
+  },
+  "deterministic_validation_blockers": [
+    "INDEPENDENT_EVIDENCE_MODE_DOWNGRADE:WEEK_AHEAD_OR_WATCH->BREAKING_BRIEF",
+    "CANONICAL_RESEARCH_DID_NOT_BIND_OFFICIAL_SCHEDULE_DATES_PRESENT_IN_SOURCE_BYTES"
+  ],
+  "deterministic_validation_result": "NOT_INVOKED_FAIL_CLOSED_BEFORE_WORKER",
+  "evidence_result": {
+    "canonical_week_ahead_attempt_blockers": [
+      "capital_chronicle_authority_required",
+      "capital_chronicle_evidence_packet_unavailable:FileNotFoundError",
+      "evidence_documents_missing",
+      "required_evidence_capability_missing:governed_analytical_context",
+      "required_evidence_capability_missing:official_release",
+      "supported_claims_missing"
+    ],
+    "canonical_week_ahead_attempt_status": "BLOCKED",
+    "selected_evidence_status": "PASS",
+    "selected_evidence_substance_mode": "BREAKING_BRIEF",
+    "selected_viable_attempt_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+    "selected_viable_attempt_mode": "BREAKING_BRIEF",
+    "systemic_disposition": "FAIL_CLOSED_BEFORE_EDITORIAL_WORKER"
+  },
+  "exact_mode_passed_into_worker_routing": "BREAKING_BRIEF",
+  "exact_outcome": "QUIET_REPLAY_BLOCKED_BY_INDEPENDENT_EVIDENCE_MODE_DOWNGRADE_AFTER_SOURCE_LOCK",
+  "governed_input_hash": "b52324baf8c02fc72ef6dc4123fff83f7fcd9b55cd5e1639f531c6955d9ed1df",
+  "institutional_edge_projected_mode": "BREAKING_BRIEF",
+  "model_provider_token_cost_telemetry": {
+    "assignment": {
+      "fallback_transitions": 0,
+      "logical_router_calls": 0,
+      "provider_attempts": 0,
+      "token_usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 0,
+        "total_tokens": 0
+      }
+    },
+    "grounded_research": [
+      {
+        "attempts": [
+          {
+            "provider_status_class": "2xx_success",
+            "requested_model": "vx/gemini-3.1-pro-preview(high)",
+            "resolved_model": "gemini-3.1-pro-preview",
+            "structured_validation_result": "PASS"
+          }
+        ],
+        "budget_exhausted_reason": null,
+        "cost": {},
+        "logical_invocation_id": "v1_research_synthesis_8f260539ab1bcdcc39fb",
+        "logical_invocation_reserved": true,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "phase": "source_synthesis",
+        "provider_attempt_count": 1,
+        "recoverable_failure_classes": [],
+        "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+        "terminal_disposition": "ACCEPTED",
+        "terminal_failure_class": null,
+        "token_usage": {
+          "completion_tokens": 1946.0,
+          "prompt_tokens": 6068.0,
+          "total_tokens": 8014.0
+        },
+        "wall_clock_elapsed_seconds": 17.9342
+      }
+    ],
+    "native_worker": "NOT_APPLICABLE_NO_WORKER",
+    "reported_cost_usd": "UNAVAILABLE",
+    "story_type": {
+      "compatibility_injection_used": true,
+      "resolved_story_type": "data_release",
+      "semantic_calls": 0
+    }
+  },
+  "official_page_direct_observation": {
+    "canonical_research_binding_result": "DATES_PRESENT_IN_OFFICIAL_BYTES_BUT_RETURNED_AS_UNSUPPORTED_OR_UNVERIFIED",
+    "content_sha256": "12f81fbcfa6aeb013aacb58f81d9c9ff08cc88c0ce7762c8af6f9cf7fb1eb726",
+    "http_status": 200,
+    "last_modified_http": "Thu, 20 Aug 2026 12:00:13 GMT",
+    "source_bound_upcoming_rows": [
+      "August 26 8:30 AM \u2014 GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026",
+      "August 26 8:30 AM \u2014 Personal Income and Outlays, July 2026"
+    ],
+    "source_url": "https://www.bea.gov/news/schedule"
+  },
+  "package_count": 0,
+  "raw_legacy_assignment_mode": "breaking",
+  "remaining_gate": "P0-G3_OWNER_AUDIT_NOT_READY_NEW_QUIET_EVIDENCE_BLOCKER",
+  "resolved_effective_canonical_mode": "WEEK_AHEAD_OR_WATCH",
+  "revision_count": 0,
+  "safety": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3.quiet_final_completion_case_receipt.v1",
+  "selection_reason": "UPCOMING_SCHEDULED_EVENT_WATCH",
+  "xhigh_worker_count_actual": 0,
+  "xhigh_worker_count_requested_by_route": 1
+}
