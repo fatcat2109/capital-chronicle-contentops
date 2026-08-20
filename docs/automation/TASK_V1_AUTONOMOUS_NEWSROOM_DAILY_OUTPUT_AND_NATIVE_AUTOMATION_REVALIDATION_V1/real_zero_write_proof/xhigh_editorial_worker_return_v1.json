@@ -1,0 +1,53 @@
+{
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "XHIGH",
+  "fresh": true,
+  "isolated": true,
+  "governed_input_hash": "18662767aa72937741e8345b876caf91ea56d277107d84d6fb74e4c41ea84ba0",
+  "bounded_revision_count": 1,
+  "public_write_attempted": false,
+  "article": {
+    "title": "Federal Reserve Publishes August 20 H.4.1 Balance-Sheet Release",
+    "canonical_editorial_headline": "Federal Reserve Publishes August 20 H.4.1 Balance-Sheet Release",
+    "subtitle": "The Board of Governors has issued its August 20, 2026 update on factors affecting reserve balances.",
+    "dek": "The Board of Governors has issued its August 20, 2026 update on factors affecting reserve balances.",
+    "seo_title": "Federal Reserve H.4.1 Release — August 20, 2026",
+    "search_title": "Federal Reserve H.4.1 Release — August 20, 2026",
+    "social_lede": "The Federal Reserve has published its August 20 H.4.1 balance-sheet release.",
+    "social_hook": "The Federal Reserve has published its August 20 H.4.1 balance-sheet release.",
+    "slug": "federal-reserve-h41-balance-sheet-release-august-20-2026",
+    "canonical_slug_candidate": "federal-reserve-h41-balance-sheet-release-august-20-2026",
+    "substack_body_markdown": "The Board of Governors of the Federal Reserve System released “Federal Reserve Balance Sheet: Factors Affecting Reserve Balances — H.4.1” on August 20, 2026. [[SOURCE:SOURCE_1]]\n\nThis breaking brief is limited to what the supplied evidence confirms: the release, its title, date, and publisher. It does not report specific balance-sheet figures or offer a market interpretation because the bounded evidence does not support either.\n\nReaders seeking the underlying release should consult the Federal Reserve’s official source.",
+    "meta_description": "The Federal Reserve released its August 20, 2026 H.4.1 balance-sheet publication through the Board of Governors.",
+    "author_identity": "Capital Chronicle",
+    "publisher_identity": "Capital Chronicle",
+    "primary_reader_question": "What did the Federal Reserve release on August 20, 2026?",
+    "secondary_reader_questions": [
+      "Who published the H.4.1 release?",
+      "Where can readers consult the official release?"
+    ],
+    "entities": [
+      "Board of Governors of the Federal Reserve System",
+      "Federal Reserve"
+    ],
+    "topics": [
+      "Federal Reserve balance sheet",
+      "H.4.1"
+    ],
+    "internal_link_candidates": [],
+    "search_freshness_class": "BREAKING",
+    "structured_data_packet": {
+      "@type": "NewsArticle",
+      "headline": "Federal Reserve Publishes August 20 H.4.1 Balance-Sheet Release",
+      "description": "The Federal Reserve released its August 20, 2026 H.4.1 balance-sheet publication through the Board of Governors.",
+      "datePublished": "2026-08-20T20:30:14Z",
+      "dateModified": "2026-08-20T20:30:14Z",
+      "author": "Capital Chronicle",
+      "publisher": "Capital Chronicle"
+    },
+    "epistemic_claims": [],
+    "quote_source_records": [],
+    "humor_lines": [],
+    "institutional_edge_editorial_packet_sha256": "ad7493bb68b824101b4792618fa9a114cdd8e436cc00aa3ad3657fd12af98c7f"
+  }
+}

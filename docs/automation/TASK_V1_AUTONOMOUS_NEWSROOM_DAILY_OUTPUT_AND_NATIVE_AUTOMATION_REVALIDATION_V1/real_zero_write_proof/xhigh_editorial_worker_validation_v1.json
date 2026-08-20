@@ -1,0 +1,16 @@
+{
+  "schema_version": "contentops.desktop_editorial_worker_validation_evidence.v1",
+  "classification": "FAIL_BOUND_XHIGH_EDITORIAL_RETURN",
+  "governed_input_hash": "18662767aa72937741e8345b876caf91ea56d277107d84d6fb74e4c41ea84ba0",
+  "worker_model": "gpt-5.6-sol",
+  "worker_reasoning_effort": "XHIGH",
+  "worker_fresh_and_isolated": true,
+  "bounded_revision_count": 1,
+  "blockers": [
+    "fake_or_unbound_quote_presentation"
+  ],
+  "terminal_reason": "EDITORIAL_WORKER_VALIDATION_FAILED_AFTER_ONE_BOUNDED_REVISION",
+  "legacy_writer_fallback_used": false,
+  "public_write_performed": false,
+  "unknown_write_count": 0
+}
