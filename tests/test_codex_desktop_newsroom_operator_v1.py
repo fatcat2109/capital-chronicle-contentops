@@ -980,6 +980,46 @@ def test_breaking_brief_is_article_qualified_and_requests_exactly_one_xhigh_work
     assert route["worker_request"]["reasoning_effort"] == "XHIGH"
 
 
+@pytest.mark.parametrize(
+    ("product_mode", "projected_mode"),
+    [
+        ("BREAKING_BRIEF", "BREAKING_BRIEF"),
+        ("FOLLOW_UP_UPDATE", "FOLLOW_UP_UPDATE"),
+        ("STANDARD_NEWS_ANALYSIS", "STANDARD_ANALYSIS"),
+        ("CAPITAL_CHRONICLE_VIEW", "HOUSE_VIEW"),
+        ("WHAT_THE_MARKET_IS_MISSING", "HOUSE_VIEW"),
+        ("EVERGREEN_EXPLAINER", "EXPLAINER"),
+        ("DATA_OR_DOCUMENT_LENS", "DOCUMENT_LENS"),
+        ("WEEK_AHEAD_OR_WATCH", "WEEK_AHEAD_WATCH"),
+    ],
+)
+def test_routing_packet_preserves_canonical_product_mode_semantics(
+    product_mode, projected_mode
+):
+    route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context={
+            "accepted_evidence_packet": {"packet_id": "mode-contract-evidence"},
+            "exact_source_handles": ["source-mode-1"],
+        },
+        readiness_checked_before_editorial=True,
+        readiness_state="READY",
+        article_mode=product_mode,
+    )
+
+    worker = route["worker_request"]
+    editorial_packet = worker["bounded_governed_context"][
+        "institutional_edge_editorial_packet"
+    ]
+    assert editorial_packet["article_mode"] == projected_mode
+    assert editorial_packet["mode_expectations"]
+    assert worker["grants_factual_authority"] is False
+    assert worker["grants_numeric_authority"] is False
+    assert worker["grants_capital_chronicle_authority"] is False
+    assert worker["grants_permission_authority"] is False
+    assert worker["grants_public_write_authority"] is False
+
+
 def test_active_policy_sections_reach_next_desktop_briefing(tmp_path):
     store = tmp_path / "store.sqlite3"
     _create_store(store)

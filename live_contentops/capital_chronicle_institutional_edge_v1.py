@@ -33,7 +33,13 @@ _LAYERS = (
 _MODE_ALIASES = {
     "BREAKING": "BREAKING_BRIEF",
     "BREAKING_BRIEF": "BREAKING_BRIEF",
-    "FOLLOW_UP_UPDATE": "BREAKING_BRIEF",
+    "FOLLOW_UP_UPDATE": "FOLLOW_UP_UPDATE",
+    "STANDARD_NEWS_ANALYSIS": "STANDARD_ANALYSIS",
+    "CAPITAL_CHRONICLE_VIEW": "HOUSE_VIEW",
+    "WHAT_THE_MARKET_IS_MISSING": "HOUSE_VIEW",
+    "EVERGREEN_EXPLAINER": "EXPLAINER",
+    "DATA_OR_DOCUMENT_LENS": "DOCUMENT_LENS",
+    "WEEK_AHEAD_OR_WATCH": "WEEK_AHEAD_WATCH",
     "DATA": "DATA_RELEASE",
     "DATA_RELEASE": "DATA_RELEASE",
     "POLICY": "POLICY_DECISION",
@@ -51,20 +57,50 @@ _MODE_ALIASES = {
 }
 _MODE_EXPECTATIONS = {
     "BREAKING_BRIEF": ("fact_first", "narrow_interpretation", "explicit_uncertainty"),
+    "FOLLOW_UP_UPDATE": (
+        "material_delta_first",
+        "prior_and_current_state_source_bound",
+        "bounded_breaking_update_scope",
+        "no_recycled_or_invented_update",
+    ),
     "DATA_RELEASE": ("result_and_supported_comparison", "preserve_measurement_distinctions", "no_one_print_regime_claim"),
     "POLICY_DECISION": ("decision_first", "official_language_or_vote", "transmission_and_uncertainty"),
     "STANDARD_ANALYSIS": ("early_thesis", "mechanism", "counter_case_and_watch_condition"),
+    "HOUSE_VIEW": (
+        "strong_thesis_early",
+        "factual_premises_source_bound",
+        "exact_supplied_source_markers_for_factual_copy",
+        "explicit_branded_qualitative_inference_using_capital_chronicle_view_interpretation_or_inference",
+        "no_unbound_or_fabricated_quotes",
+        "no_unsupported_causal_claim",
+        "material_counter_case_or_uncertainty_when_appropriate",
+        "no_proprietary_probability_forecast_scenario_regime_valuation_base_case_or_decision_truth_without_exact_publication_authorized_cc_authority",
+    ),
     "MARKET_MOVE": ("move_is_observation", "causality_requires_support", "separate_flow_from_fundamentals"),
     "EXPLAINER": ("plain_english_first", "institutional_depth_second", "define_specialist_terms_once"),
+    "DOCUMENT_LENS": (
+        "preserve_source_and_document_distinction",
+        "separate_document_fact_from_supported_implication",
+        "no_unsupported_implication",
+    ),
+    "WEEK_AHEAD_WATCH": (
+        "distinguish_scheduled_facts_from_future_outcomes",
+        "no_invented_pre_release_conclusions",
+        "explicit_uncertainty_and_watch_conditions",
+    ),
     "DEEP_ANALYSIS": ("institutional_mechanics", "countervailing_forces", "scenario_boundaries_and_exact_cc_authority"),
 }
 _HUMOR_CEILING = {
     "BREAKING_BRIEF": 0,
+    "FOLLOW_UP_UPDATE": 0,
     "DATA_RELEASE": 1,
     "POLICY_DECISION": 0,
     "STANDARD_ANALYSIS": 1,
+    "HOUSE_VIEW": 2,
     "MARKET_MOVE": 2,
     "EXPLAINER": 1,
+    "DOCUMENT_LENS": 1,
+    "WEEK_AHEAD_WATCH": 1,
     "DEEP_ANALYSIS": 2,
 }
 _INTERNAL_LANGUAGE = re.compile(
