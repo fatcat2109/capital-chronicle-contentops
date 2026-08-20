@@ -84,13 +84,14 @@ jobs:
           assert 'does **not** prove that Codex Automations currently exist on the host' in codex_operator
           assert 'MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN' in north_star
 
-          for stale in (
-              'no mandatory post quota',
-              'no publication minimum exists',
-              'publication minimum = 0',
-          ):
-              assert stale in stale_manifest
-              assert stale in authority_map
+          # Both anti-drift documents must explicitly quarantine the old zero-floor semantics,
+          # even if they use slightly different historical wording (count vs quota, = 0 vs is zero).
+          for text in (stale_manifest, authority_map):
+              lower = text.lower()
+              assert 'no mandatory post' in lower
+              assert 'no publication minimum' in lower
+              assert 'publication minimum' in lower and ('zero' in lower or '= 0' in lower)
+              assert 'whole-day' in lower or 'whole production day' in lower
 
           assert 'current execution-routing policy candidate' not in authority_map
           assert 'On the owner-authorized hybrid pilot branch' not in authority_map
