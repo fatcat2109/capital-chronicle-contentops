@@ -1,0 +1,71 @@
+{
+  "schema_version": "contentops.p0_g3.case_receipt.v1",
+  "case": "house_view",
+  "classification": "NO_PUBLICATION",
+  "requested_mode": "CAPITAL_CHRONICLE_VIEW_OR_WHAT_THE_MARKET_IS_MISSING",
+  "selected_mode": "CAPITAL_CHRONICLE_VIEW",
+  "selection_rationale": "Fresh discovery item with a bounded public evidence path; explicit house-view mode resolution.",
+  "mode_resolution_reason": "EXPLICIT_HOUSE_VIEW",
+  "story_identity": "rolling-x-deterministic-cluster-c6d4295a0590476e352f",
+  "update_chain_identity": "rolling-x-deterministic-cluster-c6d4295a0590476e352f",
+  "exact_final_headline": "The FOMC’s Real Divide Is Over Whether AI Demand Has Changed the Inflation Regime",
+  "article_artifact": "article.md",
+  "article_status": "REJECTED_AFTER_ONE_BOUNDED_MECHANICAL_REVISION",
+  "exact_blockers": [
+    "house_view_editorial_inference_label_missing",
+    "house_view_proprietary_analysis_requires_exact_publication_authorized_cc",
+    "article_untraceable_numeric_claim"
+  ],
+  "validation": {
+    "source_token_resolution": "PASS",
+    "house_view_inference_boundary": "BLOCKED",
+    "factual_numeric_traceability": "BLOCKED",
+    "reader_value": "NOT_REACHED",
+    "publication_authority": false
+  },
+  "accepted_sources": [
+    {
+      "title": "The Fed - Monetary Policy:",
+      "publisher": "www.federalreserve.gov",
+      "exact_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm",
+      "published_at_utc": "2026-08-19T18:01:21Z",
+      "known_at_utc": "2026-08-20T00:43:00.035662Z",
+      "authority_class": "official_public_primary_source",
+      "evidence_id": "official-primary-0abc77c528e7c296cb3a",
+      "content_sha256": "0abc77c528e7c296cb3aa978474df8c102bc6f87423f9c4d7f54a83fe5703bc6"
+    }
+  ],
+  "minimum_evidence_packet_sha256": "7cb9e02add5f303fa9dcf67c085a55ca09bbdba708e09fa934106842c6d81b61",
+  "institutional_edge_packet_sha256": "b6de2fa29c5eaa50f39d35d205306cf3a88ad22432c280c4b17fac9f06228c8e",
+  "cc_authority": {
+    "class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "authorized_series_consumed": 0,
+    "zero_use_reason": "CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH:cluster_id",
+    "writer_granted_core_analyzer_authority": false
+  },
+  "editorial_worker": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "XHIGH",
+    "fresh": true,
+    "isolated": true,
+    "governed_input_hash": "2aa700ac63f1c67a3782789c0215ea474908860c939db9c89e0f4826db40220c",
+    "bounded_revision_count": 1,
+    "revision_scope": "structured_data_packet_key_rename_only",
+    "public_write_attempted": false
+  },
+  "router_usage": {
+    "selection_research_logical_calls": 3,
+    "selection_research_provider_attempts": 3,
+    "selection_research_accounted_tokens": 32544,
+    "native_worker_token_or_cost_receipt_exposed": false,
+    "reported_dollar_cost_exposed": false
+  },
+  "derivative_intent_count": 0,
+  "publication_enabled": false,
+  "provider_publication_calls": 0,
+  "public_writes": 0,
+  "unknown_write": 0,
+  "production_mutation": 0,
+  "browser_or_cdp_calls": 0
+}

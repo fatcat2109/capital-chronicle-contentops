@@ -1,0 +1,80 @@
+{
+  "schema_version": "contentops.p0_g3.review_bundle_manifest.v1",
+  "task": "TASK_P0_G3_V1_ZERO_WRITE_MULTIMODE_ACTUAL_EDITORIAL_REPLAY_V1",
+  "classification": "BLOCKED_OWNER_REVIEW_ARTIFACTS_CAPTURED_NO_PUBLICATION",
+  "not_a_p0_g3_pass": true,
+  "fetched_master": "8864cf9322ec2ecbf1660ff45e77397166cd31b7",
+  "branch": "task/v1-p0-g3-zero-write-multimode-replay-v1",
+  "execution_date_utc": "2026-08-20",
+  "matrix": [
+    {
+      "case": "breaking",
+      "requested_mode": "BREAKING_BRIEF",
+      "actual_selected_mode": "BREAKING_BRIEF",
+      "article_body_available": true,
+      "article_qualified": false,
+      "derivative_intent_count": 0,
+      "exact_blocker": "article_source_identity_reference_missing",
+      "writer_calls": 1,
+      "bounded_revision_count": 1
+    },
+    {
+      "case": "normal_analysis",
+      "requested_mode": "STANDARD_NEWS_ANALYSIS",
+      "actual_selected_mode": "BREAKING_BRIEF_THEN_NO_VIABLE_SELECTION",
+      "article_body_available": false,
+      "article_qualified": false,
+      "derivative_intent_count": 0,
+      "exact_blocker": "NO_STANDARD_NEWS_ANALYSIS_SELECTED;ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "writer_calls": 0,
+      "bounded_revision_count": 0
+    },
+    {
+      "case": "quiet_day",
+      "requested_mode": "LOWER_RUNG_CANONICAL_LADDER",
+      "actual_selected_mode": "BREAKING_BRIEF_FOR_BOTH_CANDIDATES",
+      "article_body_available": false,
+      "article_qualified": false,
+      "derivative_intent_count": 0,
+      "exact_blocker": "NO_QUIET_DAY_LOWER_RUNG_SELECTED_AFTER_TWO_GENUINE_CANDIDATES",
+      "writer_calls": 0,
+      "bounded_revision_count": 0
+    },
+    {
+      "case": "house_view",
+      "requested_mode": "CAPITAL_CHRONICLE_VIEW_OR_WHAT_THE_MARKET_IS_MISSING",
+      "actual_selected_mode": "CAPITAL_CHRONICLE_VIEW",
+      "article_body_available": true,
+      "article_qualified": false,
+      "derivative_intent_count": 0,
+      "exact_blocker": "house_view_editorial_inference_label_missing;house_view_proprietary_analysis_requires_exact_publication_authorized_cc;article_untraceable_numeric_claim",
+      "writer_calls": 1,
+      "bounded_revision_count": 1
+    }
+  ],
+  "aggregate_safety": {
+    "publication_enabled": false,
+    "provider_publication_calls": 0,
+    "public_writes": 0,
+    "unknown_write": 0,
+    "production_mutation": 0,
+    "browser_or_cdp_calls": 0,
+    "derivative_intents": 0
+  },
+  "artifacts": [
+    {"path": "README.md", "sha256": "11f46f8a41ae483e4fb2562db52295dabeb8161f051b1202b70fe3926c68c215", "bytes": 1443},
+    {"path": "breaking/article.md", "sha256": "25575662abd06f0dfcb5016fb75358a9002cfe6308581affaee0c4987c1f0ab2", "bytes": 706},
+    {"path": "breaking/case_receipt.json", "sha256": "2316336376e4d227b7029812d38b0d74c32bfae3d29d0d0d42bf058fb7f1879e", "bytes": 3161},
+    {"path": "breaking/derivative_packages.json", "sha256": "eff7454ca738dbf308c2ecc190657dbb0e42fae63481e5852b683081ff55d84c", "bytes": 227},
+    {"path": "normal_analysis/no_publication.md", "sha256": "dd2a15c2f1b0f7b9dda0018c54b64bd15e32f6b2087e0d97390287434bddf98d", "bytes": 403},
+    {"path": "normal_analysis/case_receipt.json", "sha256": "04b9dcdc4a3737d0ac77029394b6bfcab031074bd849327d21e22482347be1d2", "bytes": 2587},
+    {"path": "normal_analysis/derivative_packages.json", "sha256": "f36cde25eff813bf777e62eb2ab3889d3ad0212fdb79cf709368193ab941a693", "bytes": 220},
+    {"path": "quiet_day/no_publication.md", "sha256": "26a4c039d6c5d1781b2abce989c4681cf742d14300eb8e4569e982d77ab43c76", "bytes": 441},
+    {"path": "quiet_day/case_receipt.json", "sha256": "c09328785afd2fd943dd748d292626f1abf8e30ace7ad1d68ba26616f55c928b", "bytes": 2615},
+    {"path": "quiet_day/derivative_packages.json", "sha256": "825533f86ec7387725164cf489c57c74868516a5b4dd97f546c16f1d1e57da9b", "bytes": 247},
+    {"path": "house_view/article.md", "sha256": "25d492c31601542f1e007d37ef1626aa055763bc105b4ae3a52d38873de1890f", "bytes": 7889},
+    {"path": "house_view/case_receipt.json", "sha256": "4424c942b5ecee645e17e36d71e1a44cf17cc66e7f45c82e25d11080d4671e64", "bytes": 3064},
+    {"path": "house_view/derivative_packages.json", "sha256": "a7078db79944475fd3a8ca1bb62fdcca07780fec01816e3e189b60624fc2fe8f", "bytes": 337}
+  ],
+  "manifest_self_hash_excluded": true
+}

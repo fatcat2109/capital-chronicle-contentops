@@ -1,0 +1,8 @@
+{
+  "schema_version": "contentops.p0_g3.derivative_intents.v1",
+  "article_qualified": false,
+  "required_if_qualified": 8,
+  "actual_intent_count": 0,
+  "intents": {},
+  "reason": "house_view_editorial_inference_label_missing;house_view_proprietary_analysis_requires_exact_publication_authorized_cc;article_untraceable_numeric_claim"
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": "contentops.p0_g3.case_receipt.v1",
+  "case": "breaking",
+  "classification": "NO_PUBLICATION",
+  "requested_mode": "BREAKING_BRIEF",
+  "selected_mode": "BREAKING_BRIEF",
+  "selection_rationale": "Fresh discovery item with a bounded public evidence path.",
+  "story_identity": "rolling-x-deterministic-cluster-7182c1c2992a776b1491",
+  "update_chain_identity": "rolling-x-deterministic-cluster-7182c1c2992a776b1491",
+  "exact_final_headline": "Federal Reserve Maintains Official Meeting Calendars and Information Page",
+  "article_artifact": "article.md",
+  "article_status": "REJECTED_AFTER_ONE_BOUNDED_MECHANICAL_REVISION",
+  "exact_blocker": "article_source_identity_reference_missing",
+  "validation": {
+    "latest_event_state_closure": "PASS_AFTER_BOUNDED_MECHANICAL_SOURCE_FIX",
+    "source_binding": "BLOCKED",
+    "reader_value": "NOT_REACHED",
+    "factual_numeric_rights": "NOT_GRANTED_BY_WRITER",
+    "publication_authority": false
+  },
+  "accepted_sources": [
+    {
+      "title": "The Fed - Meeting calendars and information",
+      "publisher": "www.federalreserve.gov",
+      "exact_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "published_at_utc": "2026-08-19T18:00:38Z",
+      "known_at_utc": "2026-08-20T00:34:53.123642Z",
+      "authority_class": "official_public_primary_source",
+      "evidence_id": "official-primary-944a3e7ba7ebe00b378e",
+      "content_sha256": "944a3e7ba7ebe00b378eda302136e084684b93168858f1dce58f7c06934d3cfe"
+    }
+  ],
+  "minimum_evidence_packet_sha256": "b11483405728a70c76c27d65ebf8c858b183734dc0ecbf687d97f62a92f2a2c1",
+  "cc_authority": {
+    "class": "CONTEXT_DISCOVERY_ONLY",
+    "authorized_claims_consumed": 0,
+    "authorized_series_consumed": 0,
+    "zero_use_reason": "CC_PUBLICATION_PACKET_STORY_BINDING_MISMATCH:cluster_id"
+  },
+  "editorial_worker": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "XHIGH",
+    "fresh": true,
+    "isolated": true,
+    "governed_input_hash": "0db43fd4d30922d642f90c72dbebc8161fc7c8aa5380950d9df62caf632d5a58",
+    "bounded_revision_count": 1,
+    "public_write_attempted": false
+  },
+  "router_telemetry": {
+    "logical_calls": 4,
+    "provider_attempts": 4,
+    "models": ["vx/gemini-3.5-flash(high)", "new/claude-fable-5", "vx/gemini-3.1-pro-preview(high)"],
+    "prompt_tokens": 12499,
+    "completion_tokens": 3678,
+    "total_tokens": 16177,
+    "reported_cost_usd": 0.0,
+    "native_worker_token_or_cost_receipt_exposed": false
+  },
+  "material_event_wake": {
+    "stable_trigger_identity": "material-event-c11c3d147e62fd6d23036e94f217b61d",
+    "wake_eligible": true,
+    "wake_reason": "SHADOW_MATERIAL_EVENT_WAKE_ELIGIBLE",
+    "first_windows_due": 1,
+    "first_windows_dispatched": 1,
+    "duplicate_windows_dispatched": 0,
+    "rewritten_identity_same_update_chain_windows_dispatched": 0,
+    "duplicate_update_chain_suppressed": true,
+    "wake_execution_scope": "SHADOW_NO_PUBLIC_WRITE"
+  },
+  "derivative_intent_count": 0,
+  "publication_enabled": false,
+  "provider_publication_calls": 0,
+  "public_writes": 0,
+  "unknown_write": 0,
+  "production_mutation": 0,
+  "browser_or_cdp_calls": 0
+}
