@@ -59,7 +59,6 @@ jobs:
           video_agents = Path('video/AGENTS.md').read_text(encoding='utf-8')
           v2_creative = Path('docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md').read_text(encoding='utf-8')
 
-          # Engineering routing remains hybrid; owner product changes do not regress execution routing.
           assert 'CAPABILITY_ROUTED_HYBRID' in agents
           assert 'CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md' in agents
           assert '`WEB_STATIC`' in agents and '`WEB_CI`' in agents
@@ -70,10 +69,10 @@ jobs:
           assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`' in video_agents
           assert 'Engineering/repository execution follows the root `CAPABILITY_ROUTED_HYBRID` policy.' in v2_creative
 
-          # Current owner daily-output contract must be present across the live authority spine.
           for text in (agents, authority_map, north_star, master_plan, v1_pointer, current_context, codex_operator):
-              assert '4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES' in text.upper() or '4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES' in text
-              assert '5–8 PUBLISHED ARTICLES' in text.upper() or '5–8 PUBLISHED ARTICLES' in text
+              upper = text.upper()
+              assert '4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES' in upper
+              assert '5–8 PUBLISHED ARTICLES' in upper
 
           assert 'DEGRADED_DAILY_OUTPUT_DEFICIT' in agents
           assert 'DEGRADED_DAILY_OUTPUT_DEFICIT' in north_star
@@ -81,12 +80,10 @@ jobs:
           assert 'UNPROVEN_HOST_AUTOMATION_STATE' in codex_operator
           assert 'CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md' in authority_map
 
-          # Host/task truth must remain fail-closed: configuration is not evidence that Automations exist.
           assert 'Repository configuration is not host proof' in authority_map
-          assert 'does not prove that Codex Automations currently exist on the host' in codex_operator
+          assert 'does **not** prove that Codex Automations currently exist on the host' in codex_operator
           assert 'MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN' in north_star
 
-          # Explicit stale semantics are recorded as forbidden in the manifest/authority map, not resurrected as current claims.
           for stale in (
               'no mandatory post quota',
               'no publication minimum exists',
@@ -95,7 +92,6 @@ jobs:
               assert stale in stale_manifest
               assert stale in authority_map
 
-          # Old execution-routing pilot language remains gone.
           assert 'current execution-routing policy candidate' not in authority_map
           assert 'On the owner-authorized hybrid pilot branch' not in authority_map
           assert 'under the owner-authorized policy candidate' not in current_context
