@@ -62,6 +62,15 @@ COORDINATOR_REASONING_EFFORT = "HIGH"
 EDITORIAL_WORKER_MODEL = "gpt-5.6-sol"
 EDITORIAL_WORKER_REASONING_EFFORT = "XHIGH"
 MAX_EDITORIAL_REVISIONS = 1
+FAKE_OR_UNBOUND_QUOTE_REPAIR_INSTRUCTION = (
+    "The SAME fresh isolated editorial worker must make the single bounded revision and choose "
+    "exactly one safe outcome for each fake_or_unbound_quote_presentation blocker: (A) remove "
+    "quotation-mark presentation when the phrase is merely a publication or document title; or "
+    "(B) when it is genuinely quoted source text, return an exact quote_source_record whose "
+    "quote_text matches the presented quotation and whose source_ids bind only to accepted "
+    "evidence source IDs. Do not fabricate a quote record, invent a source binding, or alter the "
+    "governed input hash."
+)
 AUTOMATION_HOST_OBSERVATION_SCHEMA_VERSION = (
     "contentops.codex_automation_host_observation.v1"
 )
@@ -235,7 +244,16 @@ def persist_supported_automation_host_observation(
                 "prompt_sha256",
             )
         }
-        safe["config_sha256"] = _logical_hash(safe)
+        host_config_sha256 = str(
+            task.get("host_config_sha256") or task.get("config_sha256") or ""
+        ).strip()
+        if len(host_config_sha256) != 64 or any(
+            character not in "0123456789abcdefABCDEF"
+            for character in host_config_sha256
+        ):
+            raise ValueError(f"host_config_sha256_invalid:{task_id}")
+        safe["host_config_sha256"] = host_config_sha256.lower()
+        safe["observation_projection_sha256"] = _logical_hash(safe)
         safe_tasks.append(safe)
     if tuple(sorted(str(row["id"]) for row in safe_tasks)) != tuple(
         sorted(EXACT_V1_AUTOMATION_IDS)
@@ -404,6 +422,17 @@ def build_editorial_worker_routing_packet(
                 "invent_urls_handles_source_ids_evidence_ids_or_facts": False,
             },
             "max_bounded_editorial_revisions": MAX_EDITORIAL_REVISIONS,
+            "deterministic_validator_revision_contract": {
+                "same_worker_required": True,
+                "fresh_replacement_worker_forbidden": True,
+                "maximum_revision_count": MAX_EDITORIAL_REVISIONS,
+                "validator_bypass_forbidden": True,
+                "blocker_instructions": {
+                    "fake_or_unbound_quote_presentation": (
+                        FAKE_OR_UNBOUND_QUOTE_REPAIR_INSTRUCTION
+                    ),
+                },
+            },
             "grants_factual_authority": False,
             "grants_numeric_authority": False,
             "grants_capital_chronicle_authority": False,

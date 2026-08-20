@@ -245,6 +245,53 @@ def test_editorial_seo_package_is_deterministic_and_zero_authority():
     assert first["search_learning_status"] == "HOLD_WITHOUT_SEARCH_SPECIFIC_EVIDENCE"
 
 
+def test_quoted_fed_h41_title_requires_removal_or_exact_evidence_binding():
+    evidence = _evidence()
+    evidence["evidence_documents"][0]["canonical_content_text"] += (
+        " The publication title is Federal Reserve H.4.1."
+    )
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="DATA_OR_DOCUMENT_LENS",
+        accepted_evidence_packet=evidence,
+    )
+    quoted = deepcopy(_article(packet))
+    quoted["substack_body_markdown"] += (
+        "\n\nThe publication title is “Federal Reserve H.4.1.”"
+    )
+
+    failed = validate_institutional_edge_article(
+        quoted,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+    assert failed["classification"] == "BLOCKED"
+    assert "fake_or_unbound_quote_presentation" in failed["blockers"]
+
+    unquoted = deepcopy(quoted)
+    unquoted["substack_body_markdown"] = unquoted["substack_body_markdown"].replace(
+        "“Federal Reserve H.4.1.”", "Federal Reserve H.4.1"
+    )
+    removed_presentation = validate_institutional_edge_article(
+        unquoted,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+    assert removed_presentation["classification"] == "PASS", removed_presentation[
+        "blockers"
+    ]
+
+    bound = deepcopy(quoted)
+    bound["quote_source_records"] = [
+        {"quote_text": "Federal Reserve H.4.1.", "source_ids": ["ev-1"]}
+    ]
+    exact_binding = validate_institutional_edge_article(
+        bound,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+    assert exact_binding["classification"] == "PASS", exact_binding["blockers"]
+
+
 def test_superseded_kushner_future_state_cannot_pass_any_reader_facing_surface():
     evidence = _evidence()
     evidence["latest_event_state_closure"] = {

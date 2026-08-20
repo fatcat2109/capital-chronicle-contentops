@@ -377,6 +377,76 @@ def test_same_opportunity_reader_value_failure_advances_and_first_publishable_st
     assert result["critical_path_telemetry"]["mandatory_semantic_review_calls"] == 0
 
 
+def test_post_xhigh_validation_failure_terminalizes_candidate_and_advances_distinct_rank(
+    monkeypatch, tmp_path: Path
+):
+    selector_calls = []
+    builder_calls = []
+
+    def selector(**kwargs):
+        start = int(kwargs.get("start_after_rank") or 0)
+        selector_calls.append(start)
+        return _walk_viability(1 if start == 0 else 2)
+
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        selector,
+        lambda **kwargs: {
+            "status": "PASS",
+            "article": kwargs["article"],
+            "mandatory_semantic_review_calls": 0,
+            "review_history": [],
+        },
+    )
+
+    def builder(value):
+        rank = int(value["selected_rank"])
+        builder_calls.append(rank)
+        article = {
+            "title": f"Candidate {rank}",
+            "cluster_id": value["selected_cluster_id"],
+            "headline_ids": value["selected_headline_ids"],
+            "effective_article_mode": "BREAKING_BRIEF",
+        }
+        receipt = _xhigh_receipt(article, value["editorial_worker_request"])
+        if rank == 1:
+            receipt["bounded_revision_count"] = 1
+            receipt["article"]["substack_body_markdown"] += (
+                "\n\nThe publication title is “Federal Reserve H.4.1.”"
+            )
+            receipt["article"]["quote_source_records"] = []
+        return {
+            "article": receipt["article"],
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+            "editorial_worker_receipt": receipt,
+        }
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="candidate-walk-post-xhigh-validation",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-20T12:00:13Z",
+        article_builder=builder,
+        destination_readiness_override=_all_ready(),
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert builder_calls == [1, 2]
+    assert selector_calls == [0, 1]
+    attempts = result["candidate_walk"]["candidate_attempts"]
+    assert [row["rank"] for row in attempts] == [1, 2]
+    assert attempts[0]["terminal_reason"].startswith(
+        "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
+    )
+    assert attempts[0]["deterministic_validation_blockers"] == [
+        "fake_or_unbound_quote_presentation"
+    ]
+    assert attempts[1]["terminal_reason"] == "PUBLICATION_QUALIFIED"
+    assert len({row["cluster_id"] for row in attempts}) == 2
+    assert result["candidate_walk"]["selected_publication_candidate_rank"] == 2
+
+
 def test_same_opportunity_evidence_failure_advances_before_writer(monkeypatch, tmp_path: Path):
     builder_calls = []
     viability = _walk_viability(2)
@@ -457,7 +527,10 @@ def test_publication_article_without_valid_native_xhigh_receipt_fails_closed(
         publication_enabled=True,
     )
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
+        "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+    )
     assert result["legacy_writer_fallback_used"] is False
     assert result["public_write_performed"] is False
 

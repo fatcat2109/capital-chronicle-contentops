@@ -825,8 +825,9 @@ def test_supported_host_observation_persists_only_exact_safe_four_task_readback(
             "model": packet["model"],
             "reasoning_effort": packet["reasoning_effort"].lower(),
             "prompt_sha256": prompt_sha,
+            "config_sha256": f"{index + 1:064x}",
         }
-        for task in packet["tasks"]
+        for index, task in enumerate(packet["tasks"])
     ]
     persisted = persist_supported_automation_host_observation(
         tasks=tasks,
@@ -840,7 +841,10 @@ def test_supported_host_observation_persists_only_exact_safe_four_task_readback(
     assert all(row["status"] == "PAUSED" for row in persisted["tasks"])
     assert all("prompt" not in row for row in persisted["tasks"])
     assert all("prompt_sha256" in row for row in persisted["tasks"])
-    assert len({row["config_sha256"] for row in persisted["tasks"]}) == 4
+    assert len({row["host_config_sha256"] for row in persisted["tasks"]}) == 4
+    assert len({row["observation_projection_sha256"] for row in persisted["tasks"]}) == 4
+    assert persisted["tasks"][0]["host_config_sha256"] == f"{1:064x}"
+    assert persisted["tasks"][0]["observation_projection_sha256"] != f"{1:064x}"
 
 
 @pytest.mark.parametrize(
@@ -930,6 +934,18 @@ def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_
     assert editorial_packet["editorial_packet_sha256"]
     assert editorial_packet["grants_public_write_authority"] is False
     assert worker["max_bounded_editorial_revisions"] == 1
+    revision_contract = worker["deterministic_validator_revision_contract"]
+    assert revision_contract["same_worker_required"] is True
+    assert revision_contract["fresh_replacement_worker_forbidden"] is True
+    assert revision_contract["maximum_revision_count"] == 1
+    assert revision_contract["validator_bypass_forbidden"] is True
+    quote_instruction = revision_contract["blocker_instructions"][
+        "fake_or_unbound_quote_presentation"
+    ]
+    assert "SAME fresh isolated editorial worker" in quote_instruction
+    assert "remove quotation-mark presentation" in quote_instruction
+    assert "exact quote_source_record" in quote_instruction
+    assert "Do not fabricate a quote record" in quote_instruction
     assert worker["grants_factual_authority"] is False
     assert worker["grants_numeric_authority"] is False
     assert worker["grants_capital_chronicle_authority"] is False

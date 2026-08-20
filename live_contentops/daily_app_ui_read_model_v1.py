@@ -459,17 +459,25 @@ def _automation_state_projection(store_path: Path, generated: datetime) -> dict[
             "freshness": "UNAVAILABLE",
         }
     age_seconds = max(0, int((generated - observed_at).total_seconds()))
-    safe_tasks = [
-        {
-            key: row.get(key)
-            for key in (
-                "id", "name", "status", "rrule", "timezone", "project", "model",
-                "reasoning_effort", "prompt_sha256", "config_sha256",
-            )
-        }
-        for row in observation.get("tasks") or []
-        if isinstance(row, Mapping)
-    ]
+    safe_tasks = []
+    for row in observation.get("tasks") or []:
+        if not isinstance(row, Mapping):
+            continue
+        safe_tasks.append(
+            {
+                key: row.get(key)
+                for key in (
+                    "id", "name", "status", "rrule", "timezone", "project", "model",
+                    "reasoning_effort", "prompt_sha256", "host_config_sha256",
+                    "observation_projection_sha256",
+                )
+            }
+        )
+        # Historical v1 observations used config_sha256 for the exact supported host
+        # value. Preserve that host provenance without presenting it as a computed
+        # observation-projection identity.
+        if not safe_tasks[-1]["host_config_sha256"]:
+            safe_tasks[-1]["host_config_sha256"] = row.get("config_sha256")
     return {
         "configured_intent": configured,
         "observed_host_state": {

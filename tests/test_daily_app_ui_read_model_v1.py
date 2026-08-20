@@ -171,8 +171,13 @@ def test_snapshot_keeps_supported_automation_observation_distinct_from_intent(tm
                 "model": packet["model"],
                 "reasoning_effort": packet["reasoning_effort"].lower(),
                 "prompt_sha256": "current-prompt-hash",
+                "config_sha256": (
+                    "ea8e1e11a82b6b600fffd791cf9e8560d0d5198905fd5da15170d50ec1f43b65"
+                    if index == 0
+                    else f"{index + 1:064x}"
+                ),
             }
-            for task in packet["tasks"]
+            for index, task in enumerate(packet["tasks"])
         ],
         output_path=tmp_path / "automation_observation" / "latest.json",
         observed_at_utc="2026-08-10T11:59:00Z",
@@ -183,6 +188,13 @@ def test_snapshot_keeps_supported_automation_observation_distinct_from_intent(tm
     assert automation["configured_intent"]["state"] == "CONFIGURED_INTENT"
     assert automation["observed_host_state"]["state"] == "OBSERVED_HOST_STATE"
     assert automation["observed_host_state"]["task_count"] == 4
+    first_task = automation["observed_host_state"]["tasks"][0]
+    assert first_task["host_config_sha256"] == (
+        "ea8e1e11a82b6b600fffd791cf9e8560d0d5198905fd5da15170d50ec1f43b65"
+    )
+    assert first_task["observation_projection_sha256"] != first_task[
+        "host_config_sha256"
+    ]
     assert automation["freshness"] == "FRESH"
     assert automation["age_seconds"] == 60
 

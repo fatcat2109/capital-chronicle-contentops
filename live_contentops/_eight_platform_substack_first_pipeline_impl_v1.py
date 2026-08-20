@@ -5371,7 +5371,19 @@ def _run_rolling_x_newsroom_cycle(
                         ),
                         accepted_evidence_packet=selected_evidence,
                     )
-                except (TypeError, ValueError):
+                except TypeError:
+                    raise GroundedArticleBuilderError(
+                        "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+                    ) from None
+                except ValueError as exc:
+                    validation_reason = str(exc)
+                    if validation_reason.startswith(
+                        "desktop_editorial_worker_institutional_edge_invalid:"
+                    ):
+                        raise GroundedArticleBuilderError(
+                            "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
+                            + validation_reason.split(":", 1)[1]
+                        ) from None
                     raise GroundedArticleBuilderError(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
                     ) from None
@@ -5395,14 +5407,36 @@ def _run_rolling_x_newsroom_cycle(
                 _write_json(built_checkpoint_path, built)
         except GroundedArticleBuilderError as exc:
             blocker_text = str(exc)
-            if blocker_text == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID":
-                evidence["classification"] = "NO_PUBLICATION"
-                evidence["exact_next_blocker"] = blocker_text
+            if blocker_text == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID" or blocker_text.startswith(
+                "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
+            ):
                 evidence["editorial_worker_count_requested"] = 1
                 evidence["legacy_writer_fallback_used"] = False
                 evidence["public_write_performed"] = False
                 walk_row["terminal_reason"] = blocker_text
-                _persist_candidate_walk(terminal_reason=blocker_text)
+                if blocker_text.startswith(
+                    "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
+                ):
+                    walk_row["deterministic_validation_blockers"] = sorted(
+                        {
+                            value
+                            for value in blocker_text.split(":", 1)[1].split(",")
+                            if value
+                        }
+                    )
+                next_viability = _next_viable_after(selected_rank)
+                if next_viability.get("status") == "SUCCESS":
+                    viability = next_viability
+                    continue
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = (
+                    next_viability.get("reason_code")
+                    if next_viability.get("evidence_request_budget_exhausted")
+                    else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+                )
+                _persist_candidate_walk(
+                    terminal_reason=str(evidence["exact_next_blocker"])
+                )
                 _persist_cycle_evidence()
                 return evidence
             if blocker_text == "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE":
@@ -5437,6 +5471,21 @@ def _run_rolling_x_newsroom_cycle(
             evidence["grounded_article_builder_blockers"] = walk_row["writer_blockers"]
             evidence["article"] = None
             evidence["media"] = None
+            if not publication_enabled:
+                _persist_candidate_walk(
+                    terminal_reason=str(evidence["exact_next_blocker"])
+                )
+                _persist_cycle_evidence()
+                return evidence
+            next_viability = _next_viable_after(selected_rank)
+            if next_viability.get("status") == "SUCCESS":
+                viability = next_viability
+                continue
+            evidence["exact_next_blocker"] = (
+                next_viability.get("reason_code")
+                if next_viability.get("evidence_request_budget_exhausted")
+                else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+            )
             _persist_candidate_walk(terminal_reason=str(evidence["exact_next_blocker"]))
             _persist_cycle_evidence()
             return evidence
@@ -5588,13 +5637,16 @@ def _run_rolling_x_newsroom_cycle(
                 ])[0]
             )
             walk_row["terminal_reason"] = reason
-            if reason == "INSUFFICIENT_READER_VALUE":
-                next_viability = _next_viable_after(selected_rank)
-                if next_viability.get("status") == "SUCCESS":
-                    viability = next_viability
-                    continue
+            next_viability = _next_viable_after(selected_rank)
+            if next_viability.get("status") == "SUCCESS":
+                viability = next_viability
+                continue
             evidence["classification"] = "NO_PUBLICATION"
-            evidence["exact_next_blocker"] = reason
+            evidence["exact_next_blocker"] = (
+                next_viability.get("reason_code")
+                if next_viability.get("evidence_request_budget_exhausted")
+                else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+            )
             if not publication_enabled:
                 evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
                 evidence["shadow_publication_plan_ready"] = False

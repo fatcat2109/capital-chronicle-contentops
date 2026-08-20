@@ -195,7 +195,11 @@ function displayValue(key: string, value: unknown): string {
 }
 
 function DefinitionRows({ object }: { object: Record<string, unknown> }) {
-  return <dl className="daily-definitions">{Object.entries(object).map(([key, value]) => <div key={key}><dt>{words(key)}</dt><dd>{displayValue(key, value)}</dd></div>)}</dl>;
+  const labels: Record<string, string> = {
+    host_config_sha256: 'Host config SHA256',
+    observation_projection_sha256: 'Observation projection SHA256',
+  };
+  return <dl className="daily-definitions">{Object.entries(object).map(([key, value]) => <div key={key}><dt>{labels[key] ?? words(key)}</dt><dd>{displayValue(key, value)}</dd></div>)}</dl>;
 }
 
 function automationSchedule(value: unknown, timezone: unknown): string {
@@ -454,7 +458,7 @@ function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh
         </div>
         {observedTasks.length ? <div className="daily-card-list daily-automation-list">{observedTasks.map((task, index) => <article key={String(task.id ?? index)}>
           <header><strong>{String(task.name ?? task.id ?? 'Observed Automation')}</strong><Status value={task.status ?? 'UNAVAILABLE'} /></header>
-          <DefinitionRows object={{ id: task.id, schedule: automationSchedule(task.rrule, task.timezone), model_reasoning: `${String(task.model ?? 'Unavailable')} / ${String(task.reasoning_effort ?? 'Unavailable').toUpperCase()}`, config_sha256_short: task.config_sha256 ? String(task.config_sha256).slice(0, 12) : null }} />
+          <DefinitionRows object={{ id: task.id, schedule: automationSchedule(task.rrule, task.timezone), model_reasoning: `${String(task.model ?? 'Unavailable')} / ${String(task.reasoning_effort ?? 'Unavailable').toUpperCase()}`, host_config_sha256: task.host_config_sha256 ?? null, observation_projection_sha256: task.observation_projection_sha256 ?? null }} />
         </article>)}</div> : <Empty title="Automation host state unavailable" detail="Configured intent is shown separately; the console will not infer observed task state from repository configuration." />}
       </Panel>
       <div className="daily-grid-4">
