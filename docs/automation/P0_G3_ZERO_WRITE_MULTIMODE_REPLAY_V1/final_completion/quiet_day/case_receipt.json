@@ -1,0 +1,342 @@
+{
+  "accepted_source_records": [
+    {
+      "document_id": "official-primary-eced593fe5a63b76acac",
+      "grounded_source_ref": "SRC_884E794CADDD5D69",
+      "publisher": "www.bea.gov",
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "source_url": "https://www.bea.gov/news/schedule",
+      "title": "Release Schedule | U.S. Bureau of Economic Analysis (BEA)"
+    }
+  ],
+  "actual_editorial_mode": "BREAKING_BRIEF",
+  "article_identity": null,
+  "assignment_diagnostics": {
+    "decision": "SELECT_STORY",
+    "global_prompt_version": "v7",
+    "global_router": {
+      "models_attempted_in_order": [],
+      "reported_cost_usd": null,
+      "role_task_id": null,
+      "terminal_disposition": null,
+      "total_attempts": 0,
+      "total_fallback_transitions": 0,
+      "total_structured_repair_attempts": 0,
+      "usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 0,
+        "total_tokens": 0
+      }
+    },
+    "selected_article_mode_raw": "breaking",
+    "selected_story_mode": "reporting",
+    "status": "SUCCESS",
+    "structured_repair_count": 0
+  },
+  "candidate": {
+    "article_mode": "breaking",
+    "capability_article_mode": "straight_news",
+    "capital_chronicle_context": {
+      "all_discovered_stores_considered": true,
+      "candidate_table_count": 0,
+      "catalog_fingerprint": null,
+      "cc_context_richness": 0.0,
+      "connection_mode": "duckdb_read_only",
+      "deep_query_selected_tables": [],
+      "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+      "deep_query_table_limit": 8,
+      "grants_factual_or_numeric_authority": false,
+      "matched_store_count": 0,
+      "matched_store_ids": [],
+      "matched_table_count": 0,
+      "matches": [],
+      "mutated_upstream": false,
+      "queried_entities": [
+        "GDP",
+        "BEA"
+      ],
+      "queried_table_count": 0,
+      "query_budget": {
+        "deep_query_table_limit": 8,
+        "entity_limit": 6,
+        "rows_per_entity": 5
+      },
+      "query_elapsed_ms": 0.019,
+      "richness_components": {
+        "bounded_row_density": 0.0,
+        "entity_coverage": 0.0,
+        "matched_freshness_metadata_coverage": 0.0,
+        "matched_store_diversity": 0.0,
+        "quality_lineage_surface_coverage": 0.0
+      },
+      "schema_version": "contentops.story_scoped_cc_context.v2",
+      "semantic_activation": {},
+      "state": "NO_RELEVANT_CC_CONTEXT",
+      "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+    },
+    "capital_chronicle_publication_authority_discovery": {
+      "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+      "catalog_fingerprint": null,
+      "llm_numeric_authority": false,
+      "ordinary_latest_web_article_may_continue": true,
+      "packet_id": null,
+      "packet_sha256": null,
+      "publication_authority_granted_at_preselection": false,
+      "reason_codes": [
+        "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+      ],
+      "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+    },
+    "capital_chronicle_semantic_activation": {
+      "derivation_provenance": [
+        {
+          "query_term": "GDP",
+          "source_field": "leaf_summaries",
+          "source_value_sha256": "14d59d34f852ad492b70c79bdcc4d59fca9f029ce48bca03c61e4e6a7367f311"
+        },
+        {
+          "query_term": "BEA",
+          "source_field": "leaf_summaries",
+          "source_value_sha256": "8018792988d0e5ed38b1c4278a019dae69a2fdcad3545555b97bf672ac4c2432"
+        }
+      ],
+      "grants_factual_or_numeric_authority": false,
+      "narrative_fields_considered": [
+        "leaf_summaries",
+        "why_now",
+        "selection_case",
+        "needed_evidence"
+      ],
+      "query_terms": [
+        "GDP",
+        "BEA"
+      ],
+      "schema_version": "contentops.cc_story_semantic_activation.v1",
+      "semantic_dimensions": [
+        "leaf_summaries"
+      ],
+      "state": "CONTEXT_ONLY_AVAILABLE",
+      "zero_context_reason": null
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-095ce39cd4f6abef560c",
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "entities_topics": [],
+    "evidence_reachability": {
+      "capital_chronicle_relevant_context": false,
+      "factual_authority_granted": false,
+      "known_official_path": true,
+      "mode_downgrade_viable": true,
+      "public_source_candidate_count": 1,
+      "reputable_public_secondary_path": false,
+      "score": 0.65,
+      "unregistered_official_suffix_candidate": false
+    },
+    "growth_editorial_mode_resolution": {
+      "canonical_mode_ladder": [
+        "BREAKING_BRIEF",
+        "FOLLOW_UP_UPDATE",
+        "STANDARD_NEWS_ANALYSIS",
+        "CAPITAL_CHRONICLE_VIEW",
+        "WHAT_THE_MARKET_IS_MISSING",
+        "EVERGREEN_EXPLAINER",
+        "DATA_OR_DOCUMENT_LENS",
+        "WEEK_AHEAD_OR_WATCH"
+      ],
+      "changes_evidence_or_permission_standards": false,
+      "grants_factual_or_numeric_authority": false,
+      "mode": "BREAKING_BRIEF",
+      "quiet_day_utility_candidate": false,
+      "reason_code": "ROUTED_MODE_NORMALIZED"
+    },
+    "headline_ids": [
+      "cc-x-headline-80a6968d843565660d6d7b37"
+    ],
+    "leaf_cluster_ids": [
+      "rolling-x-deterministic-leaf-095ce39cd4f6abef560c"
+    ],
+    "leaf_summaries": [
+      "BEA release schedule: the next GDP and personal income-and-outlays releases are upcoming calendar events; what the data calendar can and cannot establish before the releases arrive."
+    ],
+    "learning_policy_confidence": 0.0,
+    "learning_policy_sample_count": 0,
+    "learning_policy_version": null,
+    "learning_preference_matches": [],
+    "learning_preferences_change_evidence_or_publication_gates": false,
+    "learning_preferences_grant_factual_or_numeric_authority": false,
+    "learning_priority_bonus": 0.0,
+    "market_sensitive": false,
+    "material_event_priority_bonus": 0.0,
+    "material_event_priority_changes_eligibility_gates": false,
+    "material_event_priority_grants_factual_or_numeric_authority": false,
+    "material_event_priority_ids": [],
+    "material_event_priority_match": false,
+    "material_follow_up_context": null,
+    "needed_evidence": [
+      "Corroborate the limited factual claim from public evidence."
+    ],
+    "official_source_url_bindings": [
+      {
+        "feed_published_at_utc": "2026-08-20T10:00:00Z",
+        "feed_publisher_handle": "capital-chronicle-research",
+        "feed_source_platform": "x",
+        "headline_id": "cc-x-headline-80a6968d843565660d6d7b37",
+        "url": "https://www.bea.gov/news/schedule"
+      }
+    ],
+    "official_source_urls": [
+      "https://www.bea.gov/news/schedule"
+    ],
+    "portfolio_concentration_penalty": 0.0,
+    "portfolio_concentration_penalty_effective": 0.0,
+    "preselection_novelty": {
+      "best_prior_article": null,
+      "best_prior_title": null,
+      "cc_context_richness": 0.0,
+      "decision": "BREAKING_NEW_STORY",
+      "entity_overlap": 0.0,
+      "grants_factual_or_numeric_authority": false,
+      "matched_article_age_hours": null,
+      "material_delta_evaluation": {
+        "delta_summary": "No prior article matched.",
+        "marker_hits": [],
+        "new_official_source_candidate_count": 0,
+        "reason_codes": [],
+        "signal_count": 0,
+        "x_content_grants_factual_authority": false
+      },
+      "material_delta_signals": 0,
+      "recommended_article_mode": "BREAKING_BRIEF",
+      "schema_version": "contentops.editorial_story_novelty.v1",
+      "update_chain_match": false
+    },
+    "preselection_occurs_before_article_generation": true,
+    "preselection_occurs_before_targeted_evidence": true,
+    "preselection_original_rank": 1,
+    "preselection_score": 130.2,
+    "public_source_url_bindings": [
+      {
+        "feed_published_at_utc": "2026-08-20T10:00:00Z",
+        "feed_publisher_handle": "capital-chronicle-research",
+        "feed_source_platform": "x",
+        "headline_id": "cc-x-headline-80a6968d843565660d6d7b37",
+        "url": "https://www.bea.gov/news/schedule"
+      }
+    ],
+    "public_source_urls": [
+      "https://www.bea.gov/news/schedule"
+    ],
+    "publishability_original_order": 1,
+    "publishability_path_profile": {
+      "bound_public_url_count": 1,
+      "bounded_request_upper_bound_per_candidate": 1,
+      "grants_factual_or_evidence_or_publication_authority": false,
+      "priority": 3,
+      "tier": "EXACT_OFFICIAL_DIRECT"
+    },
+    "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+    "rank": 1,
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "selection_case": "Fresh discovery item with a bounded public evidence path.",
+    "seo_intent": "",
+    "seo_learning_preferences": [],
+    "story_mode": "reporting",
+    "update_chain": {
+      "canonical_headline_id": "cc-x-headline-80a6968d843565660d6d7b37",
+      "ordered_headline_ids": [
+        "cc-x-headline-80a6968d843565660d6d7b37"
+      ],
+      "relationship": "distinct"
+    },
+    "update_chain_identity": "rolling-x-deterministic-cluster-095ce39cd4f6abef560c",
+    "visual_strategy": "Deterministic source-backed title card.",
+    "why_now": "BEA release schedule: the next GDP and personal income-and-outlays releases are upcoming calendar events; what the data calendar can and cannot establish before the releases arrive.",
+    "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+  },
+  "capital_chronicle_authority": {
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false,
+    "use": "context_discovery_only_or_none"
+  },
+  "case": "quiet_day",
+  "claim_evidence_contract": {
+    "evidence_document_count": 1,
+    "factual_numeric_authority_granted": false,
+    "minimum_trustworthy_evidence_status": "PASS",
+    "publication_authority_granted": false
+  },
+  "classification": "NO_PUBLICATION",
+  "derivative_count": 0,
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
+  "router_provider_token_cost_telemetry": {
+    "article_writer": {
+      "logical_invocations": 1,
+      "models_attempted_in_order": [
+        "new/claude-fable-5"
+      ],
+      "requested_effective_models": [
+        {
+          "failure_class": "http_403_forbidden",
+          "requested_model": "new/claude-fable-5",
+          "resolved_model": null,
+          "usage": null
+        }
+      ],
+      "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+      "total_structured_repair_attempts": 0
+    },
+    "assignment": {
+      "models_attempted_in_order": [],
+      "reported_cost_usd": null,
+      "role_task_id": null,
+      "terminal_disposition": null,
+      "total_attempts": 0,
+      "total_fallback_transitions": 0,
+      "total_structured_repair_attempts": 0,
+      "usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 0,
+        "total_tokens": 0
+      }
+    },
+    "story_type": {
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "reported_cost_usd": null,
+      "role_task_id": "rolling_x_story_type_classifier",
+      "terminal_disposition": "ACCEPTED",
+      "total_attempts": 1,
+      "total_fallback_transitions": 0,
+      "total_structured_repair_attempts": 0,
+      "usage": {
+        "completion_tokens": 761.0,
+        "prompt_tokens": 2715.0,
+        "total_tokens": 3476.0
+      }
+    }
+  },
+  "safety": {
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_enabled": false,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.p0_g3.final_case_receipt.v1",
+  "selection_rationale": "Fresh discovery item with a bounded public evidence path.",
+  "useful_editorial_ladder": {
+    "caller_forced_mode": false,
+    "evaluated": true,
+    "quiet_day_truth_permission_lowering": false,
+    "resolved_mode": "BREAKING_BRIEF"
+  },
+  "validation_blockers": [
+    "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE"
+  ],
+  "writer_completed": false,
+  "writer_invocations": 1
+}

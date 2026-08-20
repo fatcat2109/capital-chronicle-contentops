@@ -1,0 +1,53 @@
+{
+  "accepted_source_records": [],
+  "actual_editorial_mode": null,
+  "article_identity": null,
+  "assignment_diagnostics": {
+    "detail": "No assignment checkpoint within explicit 45-second isolated timeout; no alternative was run.",
+    "global_prompt_version": "v7",
+    "status": "CASE_LOCAL_ROUTER_AVAILABILITY_TIMEOUT",
+    "structured_repair_count": 0
+  },
+  "candidate": "July 28-29 FOMC minutes analytical starting candidate",
+  "capital_chronicle_authority": {
+    "authorized_claims_consumed": 0,
+    "publication_authorized_cc_used": false
+  },
+  "case": "normal_analysis",
+  "claim_evidence_contract": {
+    "factual_numeric_authority_granted": false,
+    "publication_authority_granted": false
+  },
+  "classification": "NO_PUBLICATION",
+  "derivative_count": 0,
+  "effective_write_scope": "NO_PUBLIC_WRITE",
+  "exact_outcome": "CASE_LOCAL_ROUTER_AVAILABILITY_TIMEOUT",
+  "router_provider_token_cost_telemetry": {
+    "assignment": {
+      "models_attempted_in_order": [],
+      "terminal_disposition": "NO_CHECKPOINT_BEFORE_TIMEOUT",
+      "usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 0,
+        "total_tokens": 0
+      }
+    }
+  },
+  "safety": {
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_enabled": false,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.p0_g3.final_case_receipt.v1",
+  "selection_rationale": null,
+  "validation_blockers": [
+    "CASE_LOCAL_ROUTER_AVAILABILITY_TIMEOUT"
+  ],
+  "writer_completed": false,
+  "writer_invocations": 0
+}
