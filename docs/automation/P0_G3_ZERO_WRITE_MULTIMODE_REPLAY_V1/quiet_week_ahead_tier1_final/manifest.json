@@ -1,0 +1,32 @@
+{
+  "artifact_count": 4,
+  "artifacts": [
+    {
+      "path": "README.md",
+      "sha256": "1f0dec766e5fec56472ed736b675da72566691ad1f76c2db8e329cd5f94ee674",
+      "size_bytes": 1288
+    },
+    {
+      "path": "case_receipt.json",
+      "sha256": "4c131da4a149757d0bfaa9947efe3e0c4b980929a48e154f24c8fd13493d5441",
+      "size_bytes": 38572
+    },
+    {
+      "path": "article.md",
+      "sha256": "1574c9eef1f235d506a1226bc5ffb23ec4d09c37b4101edac0b95c4b6088b01b",
+      "size_bytes": 1478
+    },
+    {
+      "path": "derivative_packages.json",
+      "sha256": "11ac5d0472b85bddcdd81979495a18d0c8624f6ef9efdc2271f7ade0d4124c33",
+      "size_bytes": 6578
+    }
+  ],
+  "classification": "VERIFIED_ZERO_MISMATCHES",
+  "derivative_package_count": 8,
+  "hash_algorithm": "SHA256",
+  "qualified_article_present": true,
+  "qualified_derivative_packages_present": true,
+  "schema_version": "contentops.p0_g3_quiet_week_ahead_tier1_final_manifest.v1",
+  "verification_mismatch_count": 0
+}
