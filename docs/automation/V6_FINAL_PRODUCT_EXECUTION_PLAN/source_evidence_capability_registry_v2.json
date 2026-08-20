@@ -20,6 +20,15 @@
           "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
           "source_adapter_families": ["official_macro", "public_secondary"]
         },
+        "week_ahead": {
+          "required_evidence_capabilities": ["official_schedule", "scheduled_event_identity", "scheduled_event_date_time"],
+          "optional_evidence_capabilities": ["scheduled_period_or_edition_label"],
+          "market_context_required": false,
+          "capital_chronicle_authority_required": false,
+          "market_snapshot_required": false,
+          "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
+          "source_adapter_families": ["official_macro"]
+        },
         "analysis": {
           "required_evidence_capabilities": ["official_release", "governed_analytical_context"],
           "optional_evidence_capabilities": ["authorized_release_values", "release_timestamps", "release_definitions", "market_snapshot"],

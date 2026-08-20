@@ -20,6 +20,18 @@ from live_contentops.source_capability_registry_v2 import (
 )
 
 AS_OF = "2026-08-08T12:00:00Z"
+BEA_SCHEDULE_URL = "https://www.bea.gov/news/schedule"
+BEA_SCHEDULE_HTML = b"""
+<html><head><title>Release Schedule | U.S. Bureau of Economic Analysis (BEA)</title>
+<meta name="date" content="2026-08-08T10:00:00Z"></head><body><table><tbody>
+<tr class="scheduled-releases-type-press"><td><div class="release-date">August 26</div>
+<small class="text-muted">8:30 AM</small></td><td class="release-title views-field">
+GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026</td></tr>
+<tr class="scheduled-releases-type-press"><td><div class="release-date">August 26</div>
+<small class="text-muted">8:30 AM</small></td><td class="release-title views-field">
+Personal Income and Outlays, July 2026</td></tr>
+</tbody></table></body></html>
+"""
 
 
 def _request(
@@ -230,6 +242,155 @@ def test_effective_registry_preserves_specialized_story_profiles_exactly():
     assert neutral["source_adapter_families"] == ["public_secondary"]
     assert neutral["market_context_required"] is False
     assert neutral["capital_chronicle_authority_required"] is False
+
+
+def test_week_ahead_profile_is_distinct_without_weakening_data_release_analysis():
+    registry = effective_rolling_x_capability_registry()
+    week_ahead = resolve_story_capabilities(
+        {
+            "story_type": "data_release",
+            "product_article_mode": "WEEK_AHEAD_OR_WATCH",
+        },
+        registry,
+    )
+    analysis = resolve_story_capabilities(
+        {
+            "story_type": "data_release",
+            "product_article_mode": "DATA_OR_DOCUMENT_LENS",
+        },
+        registry,
+    )
+    breaking = resolve_story_capabilities(
+        {
+            "story_type": "data_release",
+            "product_article_mode": "BREAKING_BRIEF",
+        },
+        registry,
+    )
+
+    assert week_ahead["status"] == "PASS"
+    assert week_ahead["article_mode"] == "week_ahead"
+    assert week_ahead["required_evidence_capabilities"] == [
+        "official_schedule",
+        "scheduled_event_identity",
+        "scheduled_event_date_time",
+    ]
+    assert week_ahead["capital_chronicle_authority_required"] is False
+    assert week_ahead["source_adapter_families"] == ["official_macro"]
+    assert analysis["required_evidence_capabilities"] == [
+        "official_release",
+        "governed_analytical_context",
+    ]
+    assert analysis["capital_chronicle_authority_required"] is True
+    assert breaking["required_evidence_capabilities"] == [
+        "credible_event_confirmation",
+        "basic_attributed_facts",
+    ]
+    assert breaking["capital_chronicle_authority_required"] is False
+
+
+def test_week_ahead_adapter_preserves_exact_schedule_facts_model_omits():
+    request = _request(story_type="data_release", article_mode="week_ahead")
+    request.update({
+        "requested_article_mode": "WEEK_AHEAD_OR_WATCH",
+        "effective_article_mode": "WEEK_AHEAD_OR_WATCH",
+        "resolved_article_mode": "WEEK_AHEAD_OR_WATCH",
+        "story_context": {
+            "leaf_summaries": ["BEA release schedule for the week ahead."],
+            "official_source_urls": [BEA_SCHEDULE_URL],
+            "official_source_url_bindings": [{
+                "headline_id": "headline-1",
+                "url": BEA_SCHEDULE_URL,
+            }],
+        },
+    })
+    request["request_logical_hash"] = _logical_hash(
+        {key: value for key, value in request.items() if key != "request_logical_hash"}
+    )
+
+    def response(url, body):
+        return {
+            "status": 200,
+            "final_url": url,
+            "headers": {"content-type": "text/html"},
+            "body": body,
+        }
+
+    official = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        http_get=lambda *_args: response(BEA_SCHEDULE_URL, BEA_SCHEDULE_HTML),
+    )
+
+    def grounded_research(_request, *, initial_documents):
+        documents = []
+        sources = []
+        for raw in initial_documents:
+            row = {**dict(raw), "grounded_source_ref": "SRC_BEA_SCHEDULE"}
+            documents.append(row)
+            sources.append({
+                "source_ref": "SRC_BEA_SCHEDULE",
+                "evidence_document_id": row["document_id"],
+            })
+        return {
+            "status": "PASS",
+            "blockers": [],
+            "evidence_documents": documents,
+            "research_packet": {
+                "research_status": "PASS",
+                "core_factual_proposition": "BEA maintains an official Release Schedule.",
+                "confirmed_facts": [{
+                    "fact_id": "model-generic",
+                    "factual_statement": "BEA maintains an official Release Schedule.",
+                    "source_refs": ["SRC_BEA_SCHEDULE"],
+                    "confidence_class": "HIGH",
+                    "direct_or_inferred": "DIRECT",
+                }],
+                "attributed_numeric_facts": [],
+                "sources": sources,
+                "suggested_article_mode": "BREAKING_BRIEF",
+                "cc_context": {},
+            },
+            "evidence_substance": {},
+            "latest_event_state_closure": {"status": "NOT_REQUIRED"},
+        }
+
+    receipt = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=official,
+        grounded_researcher=grounded_research,
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    assert receipt["status"] == "PASS"
+    assert receipt["capital_chronicle_authority_verified"] is False
+    assert receipt["numeric_evidence_required"] is False
+    assert receipt["publication_authority"] is False
+    assert set(receipt["provided_evidence_capabilities"]) >= {
+        "official_schedule",
+        "scheduled_event_identity",
+        "scheduled_event_date_time",
+    }
+    facts = receipt["deterministic_official_schedule_facts"]
+    assert [row["factual_statement"] for row in facts] == [
+        "August 26 8:30 AM — GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026",
+        "August 26 8:30 AM — Personal Income and Outlays, July 2026",
+    ]
+    assert all(
+        row["source_content_sha256"]
+        == receipt["evidence_documents"][0]["canonical_content_sha256"]
+        and row["evidence_document_id"] == receipt["evidence_documents"][0]["document_id"]
+        and row["llm_factual_or_numeric_authority"] is False
+        and row["publication_authority"] is False
+        for row in facts
+    )
+    grounded = receipt["grounded_research_packet"]
+    assert grounded["model_omitted_deterministic_schedule_fact_count"] == 2
+    assert grounded["suggested_article_mode"] == "WEEK_AHEAD_OR_WATCH"
+    assert [row["factual_statement"] for row in grounded["confirmed_facts"][:2]] == [
+        row["factual_statement"] for row in facts
+    ]
+    assert receipt["editorial_mode_contract"][
+        "narrow_official_schedule_fact_lane"
+    ] is True
 
 
 def test_effective_registry_keeps_unknown_and_tampered_requests_fail_closed():

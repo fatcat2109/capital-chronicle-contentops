@@ -404,3 +404,64 @@ def test_budget_blocked_deep_mode_can_downgrade_same_cluster_to_viable_brief():
         == ["public_source_request_budget_exhausted"]
         for row in result["rank_attempts"][0]["mode_attempts"]
     )
+
+
+def test_week_ahead_viability_never_reinterprets_missing_schedule_as_breaking():
+    cluster = _cluster("week-ahead", 1, article_mode="breaking")
+    cluster.update({
+        "resolved_article_mode": "WEEK_AHEAD_OR_WATCH",
+        "leaf_summaries": ["BEA official release schedule for the week ahead."],
+        "official_source_urls": ["https://www.bea.gov/news/schedule"],
+        "official_source_url_bindings": [{
+            "headline_id": "headline-1",
+            "url": "https://www.bea.gov/news/schedule",
+        }],
+    })
+    valid_calls = []
+
+    def valid_acquire(request):
+        valid_calls.append(dict(request))
+        return _receipt(request)
+
+    valid = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(cluster),
+        acquire_evidence=valid_acquire,
+        story_type_by_cluster={"week-ahead": "data_release"},
+    )
+
+    assert valid["status"] == "SUCCESS"
+    assert len(valid_calls) == 1
+    assert valid_calls[0]["article_mode"] == "week_ahead"
+    assert valid_calls[0]["effective_article_mode"] == "WEEK_AHEAD_OR_WATCH"
+    assert valid_calls[0]["capital_chronicle_numeric_or_analytical_authority_required"] is False
+    assert valid_calls[0]["required_evidence_capabilities"] == [
+        "official_schedule",
+        "scheduled_event_identity",
+        "scheduled_event_date_time",
+    ]
+    attempts = valid["rank_attempts"][0]["mode_attempts"]
+    assert [(row["effective_mode"], row["capability_mode"]) for row in attempts] == [
+        ("WEEK_AHEAD_OR_WATCH", "week_ahead")
+    ]
+
+    blocked_calls = []
+
+    def blocked_acquire(request):
+        blocked_calls.append(dict(request))
+        return _receipt(request, status="BLOCKED", capabilities=[])
+
+    blocked = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(cluster),
+        acquire_evidence=blocked_acquire,
+        story_type_by_cluster={"week-ahead": "data_release"},
+    )
+
+    assert blocked["status"] == "NO_PUBLICATION"
+    assert len(blocked_calls) == 1
+    assert blocked["rank_attempts"][0]["effective_article_mode"] == (
+        "WEEK_AHEAD_OR_WATCH"
+    )
+    assert [
+        row["effective_mode"]
+        for row in blocked["rank_attempts"][0]["mode_attempts"]
+    ] == ["WEEK_AHEAD_OR_WATCH"]

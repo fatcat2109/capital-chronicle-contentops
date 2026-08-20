@@ -20,6 +20,7 @@ VALID_ARTICLE_MODES = frozenset(
         "retrospective",
         "scenario_outlook",
         "straight_news",
+        "week_ahead",
     }
 )
 PRODUCT_MODE_TO_CAPABILITY_MODE = {
@@ -31,7 +32,7 @@ PRODUCT_MODE_TO_CAPABILITY_MODE = {
     "CAPITAL_CHRONICLE_DEEP_DIVE": "deep_analysis",
     "EVERGREEN_EXPLAINER": "explainer",
     "DATA_OR_DOCUMENT_LENS": "analysis",
-    "WEEK_AHEAD_OR_WATCH": "analysis",
+    "WEEK_AHEAD_OR_WATCH": "week_ahead",
 }
 PRODUCT_MODE_DOWNGRADE_PATHS = {
     "CAPITAL_CHRONICLE_DEEP_DIVE": (
@@ -52,9 +53,9 @@ PRODUCT_MODE_DOWNGRADE_PATHS = {
     "DATA_OR_DOCUMENT_LENS": (
         "DATA_OR_DOCUMENT_LENS", "STANDARD_NEWS_ANALYSIS", "BREAKING_BRIEF",
     ),
-    "WEEK_AHEAD_OR_WATCH": (
-        "WEEK_AHEAD_OR_WATCH", "STANDARD_NEWS_ANALYSIS", "BREAKING_BRIEF",
-    ),
+    # Upcoming schedule facts are not a lower-depth breaking event. If exact schedule
+    # evidence is unavailable, fail this semantic mode and continue the ranked story walk.
+    "WEEK_AHEAD_OR_WATCH": ("WEEK_AHEAD_OR_WATCH",),
 }
 
 CANONICAL_PRODUCT_MODES = (
@@ -103,6 +104,7 @@ def editorial_mode_contract(product_mode: str) -> dict[str, Any]:
         "canonical_product_mode": mode in CANONICAL_PRODUCT_MODES,
         "evidence_depth": product_mode_evidence_depth(mode),
         "narrow_official_primary_fast_lane": mode == "BREAKING_BRIEF",
+        "narrow_official_schedule_fact_lane": mode == "WEEK_AHEAD_OR_WATCH",
         "factual_premises_must_be_source_bound": True,
         "qualitative_editorial_inference_permitted": house_view,
         "editorial_inference_must_be_explicit": house_view,

@@ -3522,7 +3522,7 @@ def select_first_viable_rolling_x_cluster(
             "WHAT_THE_MARKET_IS_MISSING": "analysis",
             "EVERGREEN_EXPLAINER": "explainer",
             "DATA_OR_DOCUMENT_LENS": "analysis",
-            "WEEK_AHEAD_OR_WATCH": "analysis",
+            "WEEK_AHEAD_OR_WATCH": "week_ahead",
             "breaking": "straight_news",
             "news_analysis": "analysis",
             "explainer": "explainer",

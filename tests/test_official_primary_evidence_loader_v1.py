@@ -9,6 +9,21 @@ from live_contentops.official_primary_evidence_loader_v1 import (
 
 
 AS_OF = "2026-08-08T12:00:00Z"
+BEA_SCHEDULE_URL = "https://www.bea.gov/news/schedule"
+BEA_SCHEDULE_HTML = b"""
+<html><head><title>Release Schedule | U.S. Bureau of Economic Analysis (BEA)</title>
+<meta name="date" content="2026-08-08T10:00:00Z"></head><body><table><tbody>
+<tr class="scheduled-releases-type-press">
+  <td class="scheduled-date no-wrap"><div class="release-date">August 26</div>
+  <small class="text-muted">8:30 AM</small></td>
+  <td class="release-title views-field">GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026</td>
+</tr>
+<tr class="scheduled-releases-type-press">
+  <td class="scheduled-date no-wrap"><div class="release-date">August 26</div>
+  <small class="text-muted">8:30 AM</small></td>
+  <td class="release-title views-field">Personal Income and Outlays, July 2026</td>
+</tr></tbody></table></body></html>
+"""
 
 
 def _request(*, family, required, url):
@@ -156,6 +171,78 @@ def test_generic_dated_official_page_does_not_gain_release_capability():
 
     assert packet["status"] == "BLOCKED"
     assert "official_release" not in packet["provided_evidence_capabilities"]
+
+
+def test_bea_schedule_rows_are_exactly_bound_to_official_bytes_and_document_hash():
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-08T12:00:00Z",
+        http_get=lambda *_args: _response(
+            BEA_SCHEDULE_URL, BEA_SCHEDULE_HTML, "text/html"
+        ),
+    )(_request(
+        family="official_macro",
+        required=[
+            "official_schedule",
+            "scheduled_event_identity",
+            "scheduled_event_date_time",
+        ],
+        url=BEA_SCHEDULE_URL,
+    ))
+
+    assert packet["status"] == "PASS"
+    assert set(packet["provided_evidence_capabilities"]) >= {
+        "official_schedule",
+        "scheduled_event_identity",
+        "scheduled_event_date_time",
+        "scheduled_period_or_edition_label",
+    }
+    document = packet["official_source_documents"][0]
+    rows = document["scheduled_event_rows"]
+    assert [row["source_text"] for row in rows] == [
+        "August 26 8:30 AM — GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026",
+        "August 26 8:30 AM — Personal Income and Outlays, July 2026",
+    ]
+    assert [row["period_or_edition_label"] for row in rows] == [
+        "2nd Quarter 2026",
+        "July 2026",
+    ]
+    assert all(
+        row["evidence_document_id"] == document["document_id"]
+        and row["source_content_sha256"] == document["canonical_content_sha256"]
+        and row["inferred_fields"] == []
+        and row["llm_factual_or_numeric_authority"] is False
+        and row["publication_authority"] is False
+        for row in rows
+    )
+    assert document[
+        "schedule_extraction_grants_factual_numeric_permission_or_publication_authority"
+    ] is False
+
+
+def test_official_schedule_without_complete_date_time_title_row_fails_closed():
+    incomplete = BEA_SCHEDULE_HTML.replace(
+        b'<small class="text-muted">8:30 AM</small>', b"", 2
+    )
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-08T12:00:00Z",
+        http_get=lambda *_args: _response(BEA_SCHEDULE_URL, incomplete, "text/html"),
+    )(_request(
+        family="official_macro",
+        required=[
+            "official_schedule",
+            "scheduled_event_identity",
+            "scheduled_event_date_time",
+        ],
+        url=BEA_SCHEDULE_URL,
+    ))
+
+    assert packet["status"] == "BLOCKED"
+    assert packet["official_source_documents"][0]["scheduled_event_rows"] == []
+    assert set(packet["provided_evidence_capabilities"]).isdisjoint({
+        "official_schedule",
+        "scheduled_event_identity",
+        "scheduled_event_date_time",
+    })
 
 
 def test_retrieval_provenance_uses_actual_clock_not_evaluation_cutoff_or_request_payload():

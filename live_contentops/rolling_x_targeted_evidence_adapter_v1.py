@@ -1,7 +1,9 @@
 """Targeted governed evidence receipts for ranked rolling-X stories."""
 from __future__ import annotations
 
+import html
 import json
+import re
 from datetime import datetime, timezone
 from hashlib import sha256
 from pathlib import Path
@@ -39,6 +41,12 @@ EVIDENCE_LOADER_BUDGET_BLOCKERS = frozenset({
     "public_source_candidate_request_budget_exhausted",
 })
 TRUSTED_PROFESSIONAL_FEED_HANDLES = frozenset({"financialjuice"})
+WEEK_AHEAD_PRODUCT_MODE = "WEEK_AHEAD_OR_WATCH"
+WEEK_AHEAD_REQUIRED_CAPABILITIES = frozenset({
+    "official_schedule",
+    "scheduled_event_identity",
+    "scheduled_event_date_time",
+})
 
 
 def _with_cc_authority_evidence(
@@ -164,6 +172,125 @@ def _restrict_grounded_packet_to_documents(
     result["research_logical_hash"] = sha256(
         json.dumps(unhashed, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
+    return result
+
+
+def _deterministic_official_schedule_facts(
+    documents: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Revalidate exact extracted schedule rows against their accepted official bytes."""
+    facts: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    for document in documents:
+        rows = document.get("scheduled_event_rows")
+        if not isinstance(rows, list) or not rows:
+            continue
+        document_id = str(document.get("document_id") or document.get("evidence_id") or "")
+        content_hash = str(
+            document.get("canonical_content_sha256")
+            or document.get("content_sha256")
+            or document.get("raw_sha256")
+            or ""
+        )
+        authority = str(document.get("source_authority_class") or "")
+        source_text = " ".join(
+            re.sub(
+                r"<[^>]+>",
+                " ",
+                html.unescape(str(document.get("canonical_content_text") or "")),
+            ).split()
+        )
+        for index, raw in enumerate(rows):
+            if not isinstance(raw, Mapping):
+                blockers.append(f"official_schedule_row_{index}_not_object")
+                continue
+            row = dict(raw)
+            date_text = " ".join(str(row.get("date_text") or "").split())
+            time_text = " ".join(str(row.get("time_text") or "").split())
+            event_name = " ".join(str(row.get("event_name") or "").split())
+            exact_text = f"{date_text} {time_text} — {event_name}"
+            exact_hash = sha256(exact_text.encode("utf-8")).hexdigest()
+            valid = bool(
+                authority == "official_public_primary_source"
+                and document.get("public_claim_allowed") is True
+                and document_id
+                and content_hash
+                and date_text
+                and time_text
+                and event_name
+                and str(row.get("source_text") or "") == exact_text
+                and str(row.get("source_text_sha256") or "") == exact_hash
+                and str(row.get("evidence_document_id") or "") == document_id
+                and str(row.get("source_content_sha256") or "") == content_hash
+                and all(value in source_text for value in (date_text, time_text, event_name))
+                and list(row.get("inferred_fields") or []) == []
+                and row.get("llm_factual_or_numeric_authority") is False
+                and row.get("publication_authority") is False
+            )
+            if not valid:
+                blockers.append(f"official_schedule_row_{index}_binding_invalid")
+                continue
+            grounded_ref = str(document.get("grounded_source_ref") or "")
+            facts.append({
+                "fact_id": "schedule-" + exact_hash[:20],
+                "factual_statement": exact_text,
+                "source_refs": [grounded_ref] if grounded_ref else [],
+                "evidence_document_id": document_id,
+                "source_content_sha256": content_hash,
+                "schedule_row_id": row.get("schedule_row_id"),
+                "source_text_sha256": exact_hash,
+                "event_name": event_name,
+                "date_text": date_text,
+                "time_text": time_text,
+                "period_or_edition_label": row.get("period_or_edition_label"),
+                "confidence_class": "HIGH",
+                "direct_or_inferred": "DIRECT",
+                "attribution_required": False,
+                "binding_method": "DETERMINISTIC_EXACT_OFFICIAL_SCHEDULE_ROW",
+                "llm_factual_or_numeric_authority": False,
+                "publication_authority": False,
+            })
+    return facts, blockers
+
+
+def _merge_deterministic_schedule_facts(
+    packet: Mapping[str, Any], facts: list[dict[str, Any]]
+) -> dict[str, Any]:
+    """Keep exact official schedule facts even when model synthesis omitted them."""
+    result = dict(packet)
+    bound_facts = [dict(row) for row in facts if row.get("source_refs")]
+    existing = [
+        dict(row) for row in result.get("confirmed_facts") or [] if isinstance(row, Mapping)
+    ]
+    existing_statements = {
+        str(row.get("factual_statement") or "").casefold() for row in existing
+    }
+    deterministic_missing_from_model = [
+        row
+        for row in bound_facts
+        if str(row.get("factual_statement") or "").casefold() not in existing_statements
+    ]
+    result["confirmed_facts"] = [*bound_facts, *[
+        row
+        for row in existing
+        if str(row.get("factual_statement") or "").casefold()
+        not in {
+            str(fact.get("factual_statement") or "").casefold()
+            for fact in bound_facts
+        }
+    ]]
+    result["deterministic_official_schedule_facts"] = bound_facts
+    result["model_omitted_deterministic_schedule_fact_count"] = max(
+        int(result.get("model_omitted_deterministic_schedule_fact_count") or 0),
+        len(deterministic_missing_from_model),
+    )
+    if bound_facts:
+        result["core_factual_proposition"] = bound_facts[0]["factual_statement"]
+        result["core_proposition_source_refs"] = list(bound_facts[0]["source_refs"])
+        result["suggested_article_mode"] = WEEK_AHEAD_PRODUCT_MODE
+        result["week_ahead_mode_preservation_basis"] = (
+            "EXACT_DETERMINISTIC_OFFICIAL_SCHEDULE_FACTS"
+        )
     return result
 
 
@@ -772,16 +899,24 @@ class RollingXTargetedEvidenceAdapter:
                         for row in grounded.get("evidence_documents") or []
                         if isinstance(row, Mapping)
                     ]
+                    requested_mode = str(
+                        request.get("effective_article_mode")
+                        or request.get("resolved_article_mode")
+                        or ""
+                    )
+                    if requested_mode == WEEK_AHEAD_PRODUCT_MODE:
+                        schedule_facts, _schedule_fact_blockers = (
+                            _deterministic_official_schedule_facts(documents)
+                        )
+                        if schedule_facts:
+                            grounded_packet = _merge_deterministic_schedule_facts(
+                                grounded_packet, schedule_facts
+                            )
                     supplied.update(
                         {"credible_event_confirmation", "basic_attributed_facts"}
                     )
                     suggested_mode = str(
                         grounded_packet.get("suggested_article_mode") or ""
-                    )
-                    requested_mode = str(
-                        request.get("effective_article_mode")
-                        or request.get("resolved_article_mode")
-                        or ""
                     )
                     if product_mode_evidence_depth(
                         requested_mode
@@ -907,6 +1042,32 @@ class RollingXTargetedEvidenceAdapter:
                         for row in all_freshness_exclusions
                         for finding in row["findings"]
                     )
+            requested_mode = str(
+                request.get("effective_article_mode")
+                or request.get("resolved_article_mode")
+                or ""
+            )
+            deterministic_schedule_facts: list[dict[str, Any]] = []
+            if requested_mode == WEEK_AHEAD_PRODUCT_MODE:
+                deterministic_schedule_facts, schedule_fact_blockers = (
+                    _deterministic_official_schedule_facts(documents)
+                )
+                blockers.extend(schedule_fact_blockers)
+                if deterministic_schedule_facts:
+                    supplied.update(WEEK_AHEAD_REQUIRED_CAPABILITIES)
+                    if any(
+                        row.get("period_or_edition_label")
+                        for row in deterministic_schedule_facts
+                    ):
+                        supplied.add("scheduled_period_or_edition_label")
+                    if grounded_packet:
+                        grounded_packet = _merge_deterministic_schedule_facts(
+                            grounded_packet, deterministic_schedule_facts
+                        )
+                else:
+                    supplied.difference_update(WEEK_AHEAD_REQUIRED_CAPABILITIES)
+                    supplied.discard("scheduled_period_or_edition_label")
+                    blockers.append("deterministic_official_schedule_fact_binding_missing")
             evidence_sufficient, ordinary_packet, claim_contract = (
                 _minimum_or_enhanced_evidence(request, documents)
             )
@@ -971,6 +1132,9 @@ class RollingXTargetedEvidenceAdapter:
                         grounded_packet.get("cc_context") or {}
                     )
                 receipt["evidence_substance"] = evidence_substance
+                receipt["deterministic_official_schedule_facts"] = (
+                    deterministic_schedule_facts
+                )
                 receipt["latest_event_state_closure"] = (
                     grounded_latest_state_closure
                 )
@@ -995,6 +1159,9 @@ class RollingXTargetedEvidenceAdapter:
                 "evidence_substance": evidence_substance,
                 "latest_event_state_closure": grounded_latest_state_closure,
                 "grounded_research_packet": grounded_packet,
+                "deterministic_official_schedule_facts": (
+                    deterministic_schedule_facts
+                ),
                 "cc_context_bundle": dict(
                     grounded_packet.get("cc_context") or {}
                 ),
