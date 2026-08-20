@@ -1,0 +1,24 @@
+{
+  "artifact_hash_mismatches": 0,
+  "artifact_sha256": {
+    "README.md": "f60300bc562566032000c96e345b13ea6a8acf08078c70aea095c9d93f58ce09",
+    "case_receipt.json": "cf1864ccd7e4f3683cf5849b7091981ea15ee7a8d52d82a0eec4c5ddd86e30d1"
+  },
+  "classification": "BLOCKED_NEW_INDEPENDENT_QUIET_EVIDENCE_MODE_DOWNGRADE_AFTER_SOURCE_LOCK",
+  "codegraph_commit": "9116ee22",
+  "codegraph_source_head": "b7f2ed7e96b5f22603e985acdd0380f7299b75e8",
+  "codegraph_source_tree_digest": "529d246163eae818f2cd46341697a4671ba6199d6a0b2d2cc084e7c2b7731129",
+  "manifest_self_hash": "excluded_from_self-referential_artifact_hash_map",
+  "remaining_gate": "P0-G3_OWNER_AUDIT_NOT_READY_NEW_QUIET_EVIDENCE_BLOCKER",
+  "safety_totals": {
+    "UNKNOWN_WRITE": 0,
+    "browser_cdp_publication_actions": 0,
+    "production_runtime_operations": 0,
+    "production_store_mutations": 0,
+    "public_writes": 0,
+    "publication_provider_calls": 0,
+    "scheduler_task_mutations": 0
+  },
+  "schema_version": "contentops.p0_g3.quiet_final_completion_manifest.v1",
+  "source_commit": "b7f2ed7e96b5f22603e985acdd0380f7299b75e8"
+}
