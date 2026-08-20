@@ -271,6 +271,127 @@ def _regulatory_asset_ids():
     ]
 
 
+def _house_validation_context():
+    context = extract_governed_story_context(
+        _viability(article_mode="analysis")
+    )
+    context["effective_article_mode"] = "CAPITAL_CHRONICLE_VIEW"
+    context["capital_chronicle_authority_verified"] = False
+    context["capital_chronicle_publication_authority"] = {
+        "state": "CONTEXT_DISCOVERY_ONLY"
+    }
+    context["publication_authorized_cc_projection"] = None
+    return context
+
+
+def _house_article(body, *, epistemic_claims=None):
+    return {
+        "title": "A source-bound house view",
+        "substack_body_markdown": body,
+        "cluster_id": "c1",
+        "headline_ids": ["h1"],
+        "evidence_document_ids": ["official-primary-abc123"],
+        "x_content_grants_factual_authority": False,
+        "source_bindings": [],
+        "source_binding_ids_referenced": [],
+        "epistemic_claims": list(epistemic_claims or []),
+    }
+
+
+@pytest.mark.parametrize(
+    "label",
+    [
+        "Capital Chronicle inference",
+        "Capital Chronicle's view",
+        "Capital Chronicle’s view",
+        "Capital Chronicle view",
+        "Capital Chronicle's interpretation",
+        "Capital Chronicle’s interpretation",
+        "Capital Chronicle interpretation",
+    ],
+)
+def test_explicit_branded_house_inference_helper_accepts_governed_labels(label):
+    assert builder._has_explicit_branded_house_inference(f"{label}: the rule merits attention.")
+
+
+def test_explicit_branded_house_inference_helper_rejects_generic_opinion():
+    assert not builder._has_explicit_branded_house_inference(
+        "Our view is that the rule merits attention."
+    )
+
+
+def test_source_attributed_reserved_terms_do_not_trigger_house_proprietary_blocker():
+    context = _house_validation_context()
+    article = _house_article(
+        "The source describes a probability forecast as its base case. "
+        "Capital Chronicle’s view is that the documented disagreement merits attention.",
+        epistemic_claims=[
+            {
+                "text": "The source describes a probability forecast as its base case.",
+                "layer": "ATTRIBUTED_INTERPRETATION",
+                "public_treatment": "ADJACENT_ATTRIBUTION",
+                "source_ids": ["official-primary-abc123"],
+            }
+        ],
+    )
+
+    blockers = validate_generated_article(article, context=context, visual_asset_ids=[])
+
+    assert "house_view_editorial_inference_label_missing" not in blockers
+    assert (
+        "house_view_proprietary_analysis_requires_exact_publication_authorized_cc"
+        not in blockers
+    )
+
+
+def test_explicit_house_reserved_claim_remains_blocked_without_exact_cc_authority():
+    context = _house_validation_context()
+    article = _house_article(
+        "Capital Chronicle’s interpretation is that this regime is now the base case."
+    )
+
+    blockers = validate_generated_article(article, context=context, visual_asset_ids=[])
+
+    assert (
+        "house_view_proprietary_analysis_requires_exact_publication_authorized_cc"
+        in blockers
+    )
+
+
+def test_capital_chronicle_analysis_annotation_scopes_reserved_claim_gate():
+    context = _house_validation_context()
+    claim = "The higher valuation is now the base case."
+    article = _house_article(
+        "Capital Chronicle’s view is explicit. " + claim,
+        epistemic_claims=[
+            {
+                "text": claim,
+                "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+                "public_treatment": "EXPLICIT_ANALYSIS",
+                "source_ids": [],
+            }
+        ],
+    )
+
+    blockers = validate_generated_article(article, context=context, visual_asset_ids=[])
+
+    assert (
+        "house_view_proprietary_analysis_requires_exact_publication_authorized_cc"
+        in blockers
+    )
+
+
+def test_house_label_change_does_not_weaken_numeric_traceability():
+    context = _house_validation_context()
+    article = _house_article(
+        "Capital Chronicle’s view is that the rule will add 25 basis points."
+    )
+
+    blockers = validate_generated_article(article, context=context, visual_asset_ids=[])
+
+    assert "article_untraceable_numeric_claim" in blockers
+
+
 # --- extraction & authority -------------------------------------------------------
 
 
@@ -1283,6 +1404,42 @@ def test_default_writer_uses_one_repair_then_one_separate_cx_utility_rescue(
     assert telemetry["cx_utility_rescue_attempted"] is True
     assert telemetry["logical_invocations"] == 2
     assert generated["_writer_utility_preflight"]["classification"] == "PASS"
+
+
+def test_source_coverage_repair_requires_exact_supplied_source_markers(monkeypatch):
+    from live_contentops import nine_router_llm_seam_v2 as seam
+    from live_contentops.nine_router_ordered_model_router_v2 import (
+        ACCEPTED,
+        ORDERED_MODEL_POOL,
+    )
+
+    context = extract_governed_story_context(_viability())
+    prompt = builder.build_article_generation_prompt(context, [])
+    def fake_routed(**kwargs):
+        repaired_prompt = kwargs["repair_prompt_builder"](
+            kwargs["prompt"], "<rejected-output-redacted>", "SOURCE_COVERAGE_INVALID"
+        )
+        assert "Copy the exact supplied [[SOURCE:SOURCE_N]] marker" in repaired_prompt
+        assert "Do not invent, alter, renumber, wrap, or replace a marker" in repaired_prompt
+        accepted = kwargs["validator"](json.dumps(_useful_writer_output()))
+        assert accepted[0] is True
+        return {
+            "terminal_disposition": ACCEPTED,
+            "logical_invocation_id": kwargs["logical_invocation_id"],
+            "selected_model": ORDERED_MODEL_POOL[0],
+            "models_attempted_in_order": [ORDERED_MODEL_POOL[0]],
+            "total_attempts": 2,
+            "total_fallback_transitions": 0,
+            "total_structured_repair_attempts": 1,
+            "attempts": [],
+            "output": accepted[2],
+        }
+
+    monkeypatch.setattr(seam, "routed_llm_invocation", fake_routed)
+
+    generated = builder._default_article_generator(prompt)
+
+    assert generated["title"] == _useful_writer_output()["title"]
 
 
 def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):

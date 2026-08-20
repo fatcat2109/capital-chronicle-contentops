@@ -878,7 +878,7 @@ def _build_checkpoint_bundle(rolling_input, provider, *, global_prompt_version=N
 
 
 def test_new_global_calls_use_bumped_prompt_version_lineage():
-    assert ROLLING_X_GLOBAL_PROMPT_VERSION == "v5"
+    assert ROLLING_X_GLOBAL_PROMPT_VERSION == "v6"
     first, _, _ = _build_checkpoint_bundle(_small_input(), HierarchicalProvider())
 
     accepted_attempt = [
@@ -887,6 +887,32 @@ def test_new_global_calls_use_bumped_prompt_version_lineage():
         if row["disposition"] == "accepted"
     ][0]
     assert accepted_attempt["prompt_version"] == ROLLING_X_GLOBAL_PROMPT_VERSION
+
+
+def test_global_prompt_v6_distinguishes_all_canonical_editorial_modes():
+    prompt = _build_rolling_x_global_prompt(
+        {"leaf_cluster_summaries": [{"id": "leaf-1"}]}
+    )
+
+    assert "Fresh or newly published does not automatically mean BREAKING_BRIEF" in prompt
+    assert "one narrow newly occurred fact requiring immediate concise reporting" in prompt
+    assert "mechanism, context, consequences, counter-case, or synthesis" in prompt
+    assert "upcoming scheduled release, meeting, or event" in prompt
+    assert "current primary document or data release" in prompt
+    assert "without requiring a new breaking delta" in prompt
+    assert "evidence-backed qualitative house thesis" in prompt
+    assert "NO_PUBLICATION remains valid" in prompt
+    for mode in (
+        "BREAKING_BRIEF",
+        "FOLLOW_UP_UPDATE",
+        "STANDARD_NEWS_ANALYSIS",
+        "CAPITAL_CHRONICLE_VIEW",
+        "WHAT_THE_MARKET_IS_MISSING",
+        "EVERGREEN_EXPLAINER",
+        "DATA_OR_DOCUMENT_LENS",
+        "WEEK_AHEAD_OR_WATCH",
+    ):
+        assert mode in prompt
 
 
 def test_checkpoint_binding_fails_closed_on_tampered_leaf_order():

@@ -899,6 +899,19 @@ def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_
     assert worker["grants_capital_chronicle_authority"] is False
     assert worker["grants_permission_authority"] is False
     assert worker["grants_public_write_authority"] is False
+    source_contract = worker["exact_source_marker_contract"]
+    assert source_contract["required_for_source_bound_factual_copy"] is True
+    assert source_contract["copy_exact_supplied_markers_only"] is True
+    assert source_contract["exact_supplied_markers"] == [
+        "[[SOURCE:SOURCE_1]]",
+        "[[SOURCE:SOURCE_2]]",
+    ]
+    assert source_contract["source_identity_order"] == ["source-1", "source-2"]
+    assert source_contract["marker_format"] == "[[SOURCE:SOURCE_N]]"
+    assert source_contract["deterministic_marker_injection_after_authorship"] is False
+    assert source_contract["invent_urls_handles_source_ids_evidence_ids_or_facts"] is False
+    assert "exact supplied [[SOURCE:SOURCE_N]] markers" in DESKTOP_TASK_PROMPT
+    assert "exact supplied [[SOURCE:SOURCE_N]]" in MANUAL_GO_PROMPT
 
     validated = validate_editorial_worker_return(
         worker_return={

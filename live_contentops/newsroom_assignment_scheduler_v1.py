@@ -458,8 +458,8 @@ PREPARED_CANDIDATE_LIMIT = 12
 PREPARED_CANDIDATE_MAX_AGE_SECONDS = 2 * 60 * 60
 PREPARED_FRONTIER_AUDIT_RETENTION_HOURS = 72.0
 ROLLING_X_LEAF_PROMPT_VERSION = "v2"
-ROLLING_X_GLOBAL_PROMPT_VERSION = "v5"
-ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4", "v5"})
+ROLLING_X_GLOBAL_PROMPT_VERSION = "v6"
+ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4", "v5", "v6"})
 ROLLING_X_GLOBAL_VALIDATION_DIAGNOSTIC_CODES = frozenset({
     "global_article_mode_invalid",
     "global_canonical_leaf_not_in_cluster",
@@ -966,6 +966,7 @@ def _build_rolling_x_global_prompt(global_input: Mapping[str, Any]) -> str:
         "Return a small ranked viable shortlist, optionally merging duplicate or update-chain leaf clusters across partitions by listing multiple exact leaf_cluster_ids.",
         "Optimize for meaningful reads, shares, saves, replies, canonical-article clicks, subscriber conversion, audience relevance, search demand/longevity, and repeat readership. Penalize duplication, weak information density, saturation, weak evidence prospects, overclaim, repetitive entities/domains, clickbait, and outrage.",
         "Attention affects priority only and never factual truth. needed_evidence is a downstream request, not evidence already obtained. A genuine NO_PUBLICATION is valid only after evaluating every supplied leaf summary and the useful editorial ladder: BREAKING_BRIEF, FOLLOW_UP_UPDATE, STANDARD_NEWS_ANALYSIS, CAPITAL_CHRONICLE_VIEW, WHAT_THE_MARKET_IS_MISSING, EVERGREEN_EXPLAINER, DATA_OR_DOCUMENT_LENS, WEEK_AHEAD_OR_WATCH. Quiet-day modes may lower materiality or change time horizon, never evidence, attribution, permission, or numeric-authority standards.",
+        "Fresh or newly published does not automatically mean BREAKING_BRIEF. Choose the mode by the main reader value: BREAKING_BRIEF is one narrow newly occurred fact requiring immediate concise reporting; STANDARD_NEWS_ANALYSIS starts from an established current event or document and earns its value through mechanism, context, consequences, counter-case, or synthesis; WEEK_AHEAD_OR_WATCH earns current value from an upcoming scheduled release, meeting, or event and the specific observable points that matter next; DATA_OR_DOCUMENT_LENS extracts useful implications or details from a current primary document or data release; EVERGREEN_EXPLAINER supplies timely mechanism or context without requiring a new breaking delta; CAPITAL_CHRONICLE_VIEW and WHAT_THE_MARKET_IS_MISSING require an evidence-backed qualitative house thesis. NO_PUBLICATION remains valid when no mode is supportable.",
         "CAPITAL_CHRONICLE_VIEW and WHAT_THE_MARKET_IS_MISSING may propose a strong qualitative house inference only when factual premises can be source-bound. The inference must be identified as ContentOps editorial judgment, never Core Analyzer output, and may not invent probabilities, forecasts, scenarios, regimes, valuations, decisions, market reactions, misconduct, or other unsupported claims.",
         f"SELECT_STORY contract: selected_shortlist_rank MUST be integer 1; ranked_shortlist MUST contain 1..{ROLLING_X_GLOBAL_SHORTLIST_LIMIT} rows; ranks MUST be contiguous integers 1..N; every leaf_cluster_id MUST be copied byte-for-byte from allowed_leaf_cluster_ids below and may appear only once across the entire shortlist; canonical_leaf_cluster_id MUST also be an exact member of allowed_leaf_cluster_ids AND of its row's leaf_cluster_ids; no other ID-like string is legal; selection_rationale, why_now, selection_case, seo_intent, and visual_strategy MUST be non-empty strings; needed_evidence MUST be a non-empty list of non-empty strings; use only the exact enum values shown below.",
         "allowed_leaf_cluster_ids: "

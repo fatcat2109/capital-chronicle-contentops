@@ -176,7 +176,8 @@ def test_house_view_contract_and_validator_keep_core_analyzer_boundary():
         article = {
             "title": "The incentive design deserves scrutiny",
             "substack_body_markdown": (
-                "The agency changed the incentive design. The bull case is too generous."
+                "The agency changed the incentive design. Capital Chronicle’s view is that "
+                "the bull case is too generous."
             ),
             "cluster_id": "house-cluster",
             "headline_ids": ["house-headline"],
@@ -186,7 +187,7 @@ def test_house_view_contract_and_validator_keep_core_analyzer_boundary():
         blockers = validate_generated_article(
             article, context=context, visual_asset_ids=[]
         )
-        assert "house_view_editorial_inference_label_missing" in blockers
+        assert "house_view_editorial_inference_label_missing" not in blockers
         assert (
             "house_view_proprietary_analysis_requires_exact_publication_authorized_cc"
             in blockers
