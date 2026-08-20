@@ -1,0 +1,58 @@
+{
+  "schema_version": "contentops.p0_g4.runtime_preflight.v1",
+  "generated_at_utc": "2026-08-20T18:33:55.8193307Z",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/v1-p0-g4-real-publication-canary-v1",
+  "fetched_master_sha": "369c0cc289e790b8218ba30b2696a926db04356a",
+  "runtime_store": {
+    "identity": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "preserved": true,
+    "reset_recreated_or_deleted": false
+  },
+  "before": {
+    "runtime_source_sha": "f634c32bf3636815f48dc11deb0db780df697fca",
+    "supervisor_count": 0,
+    "controller_health": "OFFLINE",
+    "operating_mode": "AUTONOMOUS_DEFAULT",
+    "kill_switch_active": false,
+    "unknown_write_count": 0,
+    "pending_readback_count": 0,
+    "pending_lifecycle_recovery_count": 0,
+    "pending_operator_trigger": false
+  },
+  "synchronization": {
+    "stable_runtime_interpreter": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v1-runtime\\venv\\Scripts\\python.exe",
+    "runtime_import_preflight": "PASS",
+    "codex_private_cache_runtime_used": false,
+    "source_epoch_before": "f634c32bf3636815f48dc11deb0db780df697fca",
+    "source_epoch_after": "369c0cc289e790b8218ba30b2696a926db04356a",
+    "launcher": "scripts/Start-ContentOpsDailyApp.ps1",
+    "production_store_preserved": true,
+    "public_writes": 0,
+    "publication_provider_writes": 0
+  },
+  "after": {
+    "runtime_source_sha": "369c0cc289e790b8218ba30b2696a926db04356a",
+    "source_sha_match": true,
+    "supervisor_count": 1,
+    "controller_health": "HEALTHY",
+    "heartbeat_at_utc": "2026-08-20T18:33:09.547869+00:00",
+    "operating_mode": "KILL_SWITCH",
+    "kill_switch_active": true,
+    "unknown_write_count": 0,
+    "pending_readback_count": 0,
+    "pending_lifecycle_recovery_count": 0,
+    "active_editorial_cycle": null,
+    "headline_last_ingest_utc": "2026-08-20T18:29:36.779133Z",
+    "headline_newest_source_event_utc": "2026-08-20T18:28:00Z",
+    "duplicate_independent_supervisor_root": false
+  },
+  "scheduled_newsroom_tasks": [
+    {"id": "v1-newsroom-london-1700", "name": "V1 Newsroom — London 1700", "status": "PAUSED"},
+    {"id": "v1-newsroom-new-york-2100", "name": "V1 Newsroom — New York 2100", "status": "PAUSED"},
+    {"id": "v1-newsroom-new-york-2300", "name": "V1 Newsroom — New York 2300", "status": "PAUSED"},
+    {"id": "v1-newsroom-new-york-0100", "name": "V1 Newsroom — New York 0100", "status": "PAUSED"}
+  ],
+  "scheduled_newsroom_task_count": 4,
+  "fifth_task_created": false
+}

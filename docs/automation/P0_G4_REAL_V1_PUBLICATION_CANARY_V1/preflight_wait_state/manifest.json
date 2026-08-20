@@ -1,0 +1,28 @@
+{
+  "schema_version": "contentops.p0_g4a.wait_state_manifest.v1",
+  "classification": "WAIT_FOR_GENUINE_CURRENT_CANARY_OPPORTUNITY",
+  "generated_at_utc": "2026-08-20T19:03:00.575Z",
+  "hash_algorithm": "sha256",
+  "manifest_self_hash_excluded": true,
+  "artifacts": [
+    {
+      "path": "README.md",
+      "bytes": 988,
+      "sha256": "a8ea56972dfe5734833ffa1bf98f245642be93d19d29d7fdce67b1f1880a7207"
+    },
+    {
+      "path": "runtime_wait_state.json",
+      "bytes": 4052,
+      "sha256": "2fdcf9c1b1ce1e4c3cccd97fb8e25b3d4bb9188aeefea1957ed01d8f4629a6d1"
+    }
+  ],
+  "artifact_count": 2,
+  "verification_status": "PASS",
+  "validation": {
+    "artifact_sha256_verification": "PASS",
+    "codegraph_check": "CODEGRAPH_CURRENT",
+    "git_diff_check": "PASS"
+  },
+  "remaining_gate": "WAIT_FOR_GENUINE_CURRENT_CANARY_OPPORTUNITY",
+  "p0_g4_pass_claimed": false
+}
