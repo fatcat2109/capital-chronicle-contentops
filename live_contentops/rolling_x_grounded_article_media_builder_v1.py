@@ -109,7 +109,7 @@ _PROPRIETARY_ANALYTICAL_LANGUAGE_RE = re.compile(
 _OWNED_PROPRIETARY_ANALYSIS_RE = re.compile(
     r"\bCapital Chronicle(?:['’]s)?\s+(?:forecast|probabilit(?:y|ies)|scenario|regime|"
     r"valuation|price\s+target|base\s+case|bull\s+case|bear\s+case|decision\s+signal)\b|"
-    r"\b(?:our|the)\s+(?:base\s+case|bull\s+case|bear\s+case)\s+is\b|"
+    r"\bour\s+(?:base\s+case|bull\s+case|bear\s+case)\s+is\b|"
     r"\bour\s+(?:forecast|probabilit(?:y|ies)|scenario|regime|valuation|price\s+target|"
     r"decision\s+signal)\b|"
     r"\bwe\s+(?:assign|estimate|set|publish|forecast|project)\s+(?:an?\s+)?"
@@ -127,6 +127,29 @@ _ANNOTATED_PROPRIETARY_ASSERTION_RE = re.compile(
 
 _BRANDED_HOUSE_INFERENCE_RE = re.compile(
     r"\bCapital Chronicle(?:['’]s)?\s+(?:inference|view|interpretation)\b",
+    re.IGNORECASE,
+)
+
+_BRANDED_HOUSE_INFERENCE_CLAUSE_RE = re.compile(
+    r"\bCapital Chronicle(?:['’]s)?\s+(?:inference|view|interpretation)\s+"
+    r"is\s+that\s+(?P<clause>.+)",
+    re.IGNORECASE,
+)
+
+_BRANDED_PROPRIETARY_ASSERTION_RE = re.compile(
+    r"\bprobabilit(?:y|ies)\b.{0,80}\b(?:is|are|equals?|implies?|exceeds?)\b|"
+    r"\b(?:forecast|scenario|regime|valuation|price\s+target)\s+"
+    r"(?:is|are|assumes?|implies?|projects?|sets?|exceeds?)\b|"
+    r"\b(?:base\s+case|bull\s+case|bear\s+case|decision\s+signal)\s+"
+    r"(?:is|are|assumes?|implies?|projects?|sets?)\b",
+    re.IGNORECASE,
+)
+
+_SOURCE_ATTRIBUTED_PROPRIETARY_RE = re.compile(
+    r"\baccording\s+to\s+(?:the\s+)?(?:agency|source|official|document)\b|"
+    r"\b(?:the\s+)?(?:agency|source|official|document)(?:['’]s|\s+)\s*"
+    r"(?:forecast|probabilit(?:y|ies)|scenario|regime|valuation|price\s+target|"
+    r"base\s+case|bull\s+case|bear\s+case|decision\s+signal)\b",
     re.IGNORECASE,
 )
 
@@ -163,10 +186,18 @@ def _asserts_owned_proprietary_house_analysis(
 ) -> bool:
     """Separate owned reserved analysis from mentions, comparisons, and attribution."""
     text = str(value or "")
+    branded_clause_match = _BRANDED_HOUSE_INFERENCE_CLAUSE_RE.search(text)
+    branded_clause = branded_clause_match.group("clause") if branded_clause_match else ""
+    branded_reserved_assertion = bool(
+        branded_clause
+        and _BRANDED_PROPRIETARY_ASSERTION_RE.search(branded_clause)
+        and not _SOURCE_ATTRIBUTED_PROPRIETARY_RE.search(branded_clause)
+    )
     return bool(
         _PROPRIETARY_ANALYTICAL_LANGUAGE_RE.search(text)
         and (
             _OWNED_PROPRIETARY_ANALYSIS_RE.search(text)
+            or branded_reserved_assertion
             or (
                 explicit_analysis_annotation
                 and _ANNOTATED_PROPRIETARY_ASSERTION_RE.search(text)

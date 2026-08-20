@@ -359,6 +359,21 @@ def test_exact_replay_forecast_comparison_is_not_owned_proprietary_analysis():
     )
 
 
+def test_source_base_case_then_non_reserved_house_view_is_not_owned_analysis():
+    context = _house_validation_context()
+    article = _house_article(
+        "According to the agency, the base case is no change. "
+        "Capital Chronicle’s view is that this divergence matters for timing."
+    )
+
+    blockers = validate_generated_article(article, context=context, visual_asset_ids=[])
+
+    assert (
+        "house_view_proprietary_analysis_requires_exact_publication_authorized_cc"
+        not in blockers
+    )
+
+
 @pytest.mark.parametrize(
     "body",
     [
@@ -388,6 +403,12 @@ def test_branded_inference_can_discuss_source_reserved_terms_without_owning_them
     "body",
     [
         "Capital Chronicle’s forecast is for slower growth.",
+        (
+            "Capital Chronicle’s view is that the probability of another hike is higher "
+            "than markets imply."
+        ),
+        "Capital Chronicle’s interpretation is that the forecast is for slower growth.",
+        "Capital Chronicle’s view is that the base case is renewed tightening.",
         "Capital Chronicle’s view is that our base case is slower growth.",
         "Capital Chronicle’s interpretation is that we assign a probability to renewed inflation.",
         "Capital Chronicle’s view is that this regime is now the base case.",
