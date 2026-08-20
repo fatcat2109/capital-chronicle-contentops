@@ -570,7 +570,9 @@ def test_accepted_update_creates_immutable_child_policy_and_bounded_delta(tmp_pa
     assert payload["timing"]["owner_locked"] is True
     assert payload["timing"]["automatic_schedule_mutation"] is False
     assert payload["timing"]["routine_opportunity_count"] == 4
-    assert payload["timing"]["publication_minimum"] == 0
+    assert payload["timing"]["publication_minimum"] == 5
+    assert payload["timing"]["build_qualified_floor"] == 4
+    assert payload["timing"]["owner_output_contract_mutable"] is False
     assert payload["truth_evidence_numeric_permissions_mutable"] is False
     delta = decision["bounded_delta"]
     assert abs(delta["timing_offset_minutes_after"] - delta["timing_offset_minutes_before"]) <= perf.MAX_DELTA_PER_UPDATE_MINUTES

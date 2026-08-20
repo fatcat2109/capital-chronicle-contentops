@@ -24,6 +24,7 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     classify_desktop_candidate_universe,
     four_task_setup_packet,
     load_terminal_editorial_continuity,
+    persist_supported_automation_host_observation,
     validate_editorial_worker_return,
 )
 from live_contentops.newsroom_assignment_scheduler_v1 import (
@@ -791,7 +792,10 @@ def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
     assert packet["editorial_worker_is_fresh_and_isolated"] is True
     assert packet["editorial_worker_only_when_article_warranted"] is True
     assert packet["routine_task_count"] == 4
-    assert packet["publication_minimum"] == 0
+    assert packet["publication_minimum"] == 5
+    assert packet["build_qualified_floor"] == 4
+    assert packet["final_published_target_min"] == 5
+    assert packet["final_published_target_max"] == 8
     assert packet["automatic_scale_up"] is False
     assert packet["material_event_creates_extra_task"] is False
     assert packet["manual_go_is_explicit_exception"] is True
@@ -802,9 +806,41 @@ def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
         ("V1 Newsroom — New York 2300", "Monday-Friday", "23:00"),
         ("V1 Newsroom — New York 0100", "Tuesday-Saturday", "01:00"),
     ]
-    assert "fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in DESKTOP_TASK_PROMPT
+    assert "native V1 coordinator on exact gpt-5.6-sol / HIGH" in DESKTOP_TASK_PROMPT
+    assert "four qualified zero-public-write articles" in DESKTOP_TASK_PROMPT
+    assert "five to eight published articles" in DESKTOP_TASK_PROMPT
     assert "Only when one real candidate has enough governed evidence" in DESKTOP_TASK_PROMPT
     assert "Start one fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in MANUAL_GO_PROMPT
+
+
+def test_supported_host_observation_persists_only_exact_safe_four_task_readback(tmp_path):
+    packet = four_task_setup_packet()
+    prompt_sha = hashlib.sha256(packet["prompt"].encode("utf-8")).hexdigest()
+    tasks = [
+        {
+            **task,
+            "status": "PAUSED",
+            "timezone": packet["timezone"],
+            "project": packet["project"],
+            "model": packet["model"],
+            "reasoning_effort": packet["reasoning_effort"].lower(),
+            "prompt_sha256": prompt_sha,
+        }
+        for task in packet["tasks"]
+    ]
+    persisted = persist_supported_automation_host_observation(
+        tasks=tasks,
+        output_path=tmp_path / "latest.json",
+        observed_at_utc="2026-08-21T12:00:00Z",
+    )
+
+    assert persisted["task_count"] == 4
+    assert persisted["all_exact_ids_present"] is True
+    assert persisted["no_fifth_task_created"] is True
+    assert all(row["status"] == "PAUSED" for row in persisted["tasks"])
+    assert all("prompt" not in row for row in persisted["tasks"])
+    assert all("prompt_sha256" in row for row in persisted["tasks"])
+    assert len({row["config_sha256"] for row in persisted["tasks"]}) == 4
 
 
 @pytest.mark.parametrize(

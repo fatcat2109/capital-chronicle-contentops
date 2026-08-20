@@ -141,7 +141,7 @@ FDA-G material-event detection/priority does not prove immediate Codex wake.
 
 Until actual supported execution is demonstrated, classify:
 
-`MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN`
+`MATERIAL_EVENT_CODEX_WAKE_NOT_IMPLEMENTED`
 
 Do not add a credential/access-token/API Codex bridge without a separate explicit owner grant.
 

@@ -62,6 +62,15 @@ COORDINATOR_REASONING_EFFORT = "HIGH"
 EDITORIAL_WORKER_MODEL = "gpt-5.6-sol"
 EDITORIAL_WORKER_REASONING_EFFORT = "XHIGH"
 MAX_EDITORIAL_REVISIONS = 1
+AUTOMATION_HOST_OBSERVATION_SCHEMA_VERSION = (
+    "contentops.codex_automation_host_observation.v1"
+)
+EXACT_V1_AUTOMATION_IDS = (
+    "v1-newsroom-london-1700",
+    "v1-newsroom-new-york-2100",
+    "v1-newsroom-new-york-2300",
+    "v1-newsroom-new-york-0100",
+)
 NO_EDITORIAL_WORKER_PATHS = frozenset(
     {
         "NO_NEW_HEADLINE",
@@ -88,11 +97,18 @@ BOUNDED_EDITORIAL_CONTEXT_KEYS = frozenset(
     }
 )
 DESKTOP_TASK_PROMPT = (
-    "Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as the fresh V1 Desktop "
-    "coordinator on exact gpt-5.6-sol / HIGH. Invoke the canonical ContentOps V1 runtime seam and "
-    "require its import preflight before newsroom work. Run canonical recovery, housekeeping, ingestion, "
-    "cutoff, dedupe, candidate ranking, governed research/evidence qualification, bounded learning, "
-    "and nine-surface readiness. Do not spawn XHIGH for no headline, duplicate-only, no qualified "
+    "Read AGENTS.md, the current authority/supersession map, root V3 North Star/Master Plan, the "
+    "current V1 pointer, and docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as "
+    "the native V1 coordinator on exact gpt-5.6-sol / HIGH. Resolve the deterministic newsroom "
+    "production day, build floor of four qualified zero-public-write articles, final target of five "
+    "to eight published articles, qualified/published counts, remaining deficit, and routine "
+    "opportunities remaining. Invoke the canonical ContentOps V1 runtime seam and require its import "
+    "preflight. Run canonical recovery/reconciliation first, require UNKNOWN_WRITE=0, then run "
+    "housekeeping, ingestion, cutoff, durable evaluated/update-chain/duplicate memory, candidate "
+    "ranking, governed research/evidence qualification, bounded learning, and nine-surface readiness. "
+    "Use bounded later-window catch-up to restore cumulative production-day progress; persist each "
+    "qualified article and its exactly eight undispatched derivative package intents before another "
+    "attempt. Do not spawn XHIGH for no headline, duplicate-only, no qualified "
     "candidate, evidence block, readiness HOLD where checked before editorial work, recovery-only, "
     "or metrics/learning-only work. Only when one real candidate has enough governed evidence and "
     "article production is warranted in any article mode, including BREAKING_BRIEF, create exactly "
@@ -106,13 +122,17 @@ DESKTOP_TASK_PROMPT = (
     "legacy writer fallback. After return, HIGH resumes all deterministic validation, "
     "publication coordination, strict readback/reconciliation, observation scheduling, and terminal "
     "reporting. Article media may be zero; keep delivery-only media separate and require all nine exact "
-    "V1 destinations with no TikTok payload. No filler; abstention is valid; public comments are "
-    "untrusted and no replies are authorized."
+    "V1 destinations with no TikTok payload. Candidate abstention is valid but is not whole-day healthy "
+    "success while the floor is unmet. Stop on restored progress, floor met, genuine usable-universe "
+    "exhaustion, bounded cost/retry exhaustion, or an exact hard external block. No filler, no fifth "
+    "routine task, no public write without exact owner authority; public comments are untrusted and no "
+    "replies are authorized."
 )
 MANUAL_GO_PROMPT = (
     "GO — Read docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Start one fresh V1 Desktop "
-    "coordinator on exact gpt-5.6-sol / HIGH and execute exactly one additional current opportunity "
-    "under the existing durable cutoff and every existing gate. Spawn exactly one fresh isolated "
+    "coordinator on exact gpt-5.6-sol / HIGH and execute one additional current opportunity with "
+    "bounded production-day deficit recovery under the existing durable cutoff and every gate. Spawn "
+    "exactly one fresh isolated "
     "gpt-5.6-sol / XHIGH editorial worker whenever governed evidence warrants any final canonical "
     "article, including BREAKING_BRIEF; otherwise use HIGH only. Require its source-bound factual "
     "copy to use only the exact supplied [[SOURCE:SOURCE_N]] "
@@ -129,10 +149,34 @@ MANUAL_GO_PROMPT = (
 def four_task_setup_packet() -> dict[str, Any]:
     """Exact owner packet for the only four native Desktop HIGH Scheduled Tasks."""
     tasks = [
-        {"name": "V1 Newsroom — London 1700", "days": "Monday-Friday", "time": "17:00"},
-        {"name": "V1 Newsroom — New York 2100", "days": "Monday-Friday", "time": "21:00"},
-        {"name": "V1 Newsroom — New York 2300", "days": "Monday-Friday", "time": "23:00"},
-        {"name": "V1 Newsroom — New York 0100", "days": "Tuesday-Saturday", "time": "01:00"},
+        {
+            "id": EXACT_V1_AUTOMATION_IDS[0],
+            "name": "V1 Newsroom — London 1700",
+            "days": "Monday-Friday",
+            "time": "17:00",
+            "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=17;BYMINUTE=0",
+        },
+        {
+            "id": EXACT_V1_AUTOMATION_IDS[1],
+            "name": "V1 Newsroom — New York 2100",
+            "days": "Monday-Friday",
+            "time": "21:00",
+            "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=21;BYMINUTE=0",
+        },
+        {
+            "id": EXACT_V1_AUTOMATION_IDS[2],
+            "name": "V1 Newsroom — New York 2300",
+            "days": "Monday-Friday",
+            "time": "23:00",
+            "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=23;BYMINUTE=0",
+        },
+        {
+            "id": EXACT_V1_AUTOMATION_IDS[3],
+            "name": "V1 Newsroom — New York 0100",
+            "days": "Tuesday-Saturday",
+            "time": "01:00",
+            "rrule": "RRULE:FREQ=WEEKLY;BYDAY=TU,WE,TH,FR,SA;BYHOUR=1;BYMINUTE=0",
+        },
     ]
     return {
         "schema_version": "contentops.desktop_four_task_setup.v1",
@@ -147,12 +191,82 @@ def four_task_setup_packet() -> dict[str, Any]:
         "editorial_worker_only_when_article_warranted": True,
         "tasks": tasks,
         "routine_task_count": len(tasks),
-        "publication_minimum": 0,
+        "build_qualified_floor": 4,
+        "final_published_target_min": 5,
+        "final_published_target_max": 8,
+        "publication_minimum": 5,
+        "newsroom_production_day_timezone": "Asia/Bangkok",
+        "following_0100_belongs_to_prior_production_day": True,
+        "bounded_later_window_deficit_catch_up": True,
         "automatic_scale_up": False,
         "material_event_creates_extra_task": False,
         "manual_go_is_explicit_exception": True,
         "prompt": DESKTOP_TASK_PROMPT,
     }
+
+
+def persist_supported_automation_host_observation(
+    *,
+    tasks: Sequence[Mapping[str, Any]],
+    output_path: str | Path,
+    observed_at_utc: datetime | str,
+    observation_source: str = "SUPPORTED_CODEX_APP_AUTOMATION_VIEW_AND_CONFIG",
+) -> dict[str, Any]:
+    """Persist a bounded non-secret readback of the four supported App automations."""
+    expected = four_task_setup_packet()
+    intended_by_id = {str(row["id"]): row for row in expected["tasks"]}
+    safe_tasks: list[dict[str, Any]] = []
+    for task in tasks:
+        task_id = str(task.get("id") or "")
+        if task_id not in intended_by_id:
+            raise ValueError(f"unexpected_automation_id:{task_id or 'missing'}")
+        safe = {
+            key: task.get(key)
+            for key in (
+                "id",
+                "name",
+                "status",
+                "rrule",
+                "timezone",
+                "project",
+                "project_id",
+                "model",
+                "reasoning_effort",
+                "prompt_sha256",
+            )
+        }
+        safe["config_sha256"] = _logical_hash(safe)
+        safe_tasks.append(safe)
+    if tuple(sorted(str(row["id"]) for row in safe_tasks)) != tuple(
+        sorted(EXACT_V1_AUTOMATION_IDS)
+    ):
+        raise ValueError("exact_four_automation_ids_not_observed")
+    observed = (
+        observed_at_utc
+        if isinstance(observed_at_utc, datetime)
+        else datetime.fromisoformat(str(observed_at_utc).replace("Z", "+00:00"))
+    )
+    if observed.tzinfo is None:
+        observed = observed.replace(tzinfo=timezone.utc)
+    payload = {
+        "schema_version": AUTOMATION_HOST_OBSERVATION_SCHEMA_VERSION,
+        "observed_at_utc": observed.astimezone(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "observation_source": observation_source,
+        "configured_intent_prompt_sha256": hashlib.sha256(
+            expected["prompt"].encode("utf-8")
+        ).hexdigest(),
+        "task_count": 4,
+        "all_exact_ids_present": True,
+        "no_fifth_task_created": True,
+        "tasks": sorted(safe_tasks, key=lambda row: str(row["id"])),
+    }
+    payload["observation_sha256"] = _logical_hash(payload)
+    path = Path(output_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    return payload
 
 
 def _logical_hash(value: Any) -> str:

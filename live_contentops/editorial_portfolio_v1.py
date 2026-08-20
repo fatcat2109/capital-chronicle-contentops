@@ -3,9 +3,9 @@
 Owner decision 2026-08-10 (V1 realignment): every editorial decision must know what ContentOps
 already published, classify each viable cluster explicitly as
 BREAKING_NEW_STORY / MATERIAL_FOLLOW_UP / DEEPEN_EXISTING_STORY / LOW_DELTA_REPEAT / HOLD, and
-operate under the owner-locked four-opportunity quality probation with no publication minimum.
-The broader 5-8 useful-article band remains long-term portfolio context only and creates no
-filler pressure, automatic wakeup, or schedule-scaling authority.
+operate under the owner-locked four-opportunity daily-output contract.  The build floor is four
+qualified zero-write articles and the final published target is 5-8; neither permits filler,
+automatic schedule scaling, or weaker evidence.
 
 This module is deterministic editorial intelligence feeding the existing canonical newsroom
 boundary. It is not a second newsroom, not a second scheduler, and not a second store.
@@ -26,7 +26,8 @@ DECISION_LOW_DELTA_REPEAT = "LOW_DELTA_REPEAT"
 DECISION_HOLD = "HOLD"
 DECISION_NO_PUBLICATION = "NO_PUBLICATION"
 
-DAILY_TARGET_BAND = (0, 4)
+DAILY_TARGET_BAND = (5, 8)
+BUILD_QUALIFIED_FLOOR = 4
 LONG_TERM_USEFUL_ARTICLE_PORTFOLIO_GOAL = (5, 8)
 CORE_DECISION_OPPORTUNITIES_PER_DAY = 4
 
@@ -419,7 +420,9 @@ def portfolio_state_today(
 ) -> dict[str, Any]:
     """Current-day portfolio awareness: counts, modes, entity concentration, recency."""
     moment = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
-    day_start = datetime(moment.year, moment.month, moment.day, tzinfo=timezone.utc)
+    from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
+
+    current_production_day_id = newsroom_production_day_id(moment)
     todays: list[PublishedArticleRef] = []
     for article in published_corpus:
         try:
@@ -429,7 +432,7 @@ def portfolio_state_today(
         except ValueError:
             continue
         published_utc = published_dt.astimezone(timezone.utc)
-        if day_start <= published_utc < day_start + timedelta(days=1):
+        if newsroom_production_day_id(published_utc) == current_production_day_id:
             todays.append(article)
     entity_counts: dict[str, int] = {}
     for article in todays:
@@ -444,11 +447,15 @@ def portfolio_state_today(
     return {
         "schema_version": "contentops.editorial_portfolio_state.v1",
         "as_of_utc": moment.isoformat().replace("+00:00", "Z"),
+        "newsroom_production_day_id": current_production_day_id,
         "published_today_count": len(todays),
         "daily_target_band": list(DAILY_TARGET_BAND),
-        "publication_minimum": 0,
-        "routine_publication_ceiling": 4,
-        "remaining_target_min": 0,
+        "publication_minimum": 5,
+        "build_qualified_floor": BUILD_QUALIFIED_FLOOR,
+        "final_published_target_min": DAILY_TARGET_BAND[0],
+        "final_published_target_max": DAILY_TARGET_BAND[1],
+        "routine_opportunity_count": 4,
+        "remaining_target_min": max(0, DAILY_TARGET_BAND[0] - len(todays)),
         "long_term_useful_article_portfolio_goal": list(
             LONG_TERM_USEFUL_ARTICLE_PORTFOLIO_GOAL
         ),
@@ -483,13 +490,16 @@ def concentration_penalty(cluster_entities: Sequence[str], portfolio: Mapping[st
 
 
 def bootstrap_portfolio_policy() -> dict[str, Any]:
-    """Owner-locked four-window quality-probation portfolio configuration."""
+    """Owner-locked four-window autonomous daily-output portfolio configuration."""
     return {
         "schema_version": "contentops.editorial_portfolio_policy.v1",
-        "policy_version": "portfolio.quality_probation_four_window.v1",
+        "policy_version": "portfolio.autonomous_daily_output_four_window.v1",
         "daily_target_band": list(DAILY_TARGET_BAND),
-        "publication_minimum": 0,
-        "routine_publication_ceiling": 4,
+        "publication_minimum": 5,
+        "build_qualified_floor": BUILD_QUALIFIED_FLOOR,
+        "final_published_target_min": DAILY_TARGET_BAND[0],
+        "final_published_target_max": DAILY_TARGET_BAND[1],
+        "routine_opportunity_count": 4,
         "long_term_useful_article_portfolio_goal": list(
             LONG_TERM_USEFUL_ARTICLE_PORTFOLIO_GOAL
         ),

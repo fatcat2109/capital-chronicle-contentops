@@ -85,7 +85,7 @@ WINDOW_EXECUTED_STATES = frozenset(
 )
 
 WINDOW_POLICY_ID = "contentops.editorial_window_policy.v1"
-WINDOW_POLICY_VERSION = "quality_probation_four_window.v1"
+WINDOW_POLICY_VERSION = "autonomous_daily_output_four_window.v1"
 
 NOT_IMPLEMENTED_NOT_DUE = "NOT_IMPLEMENTED_NOT_DUE"
 
@@ -187,9 +187,12 @@ class EditorialWindowPolicy:
     confidence_state: str
     sample_state: str
     provenance: str
-    daily_publication_target_band: tuple = (0, 4)
+    daily_publication_target_band: tuple = (5, 8)
     routine_opportunity_limit: int = 4
-    publication_minimum: int = 0
+    publication_minimum: int = 5
+    build_qualified_floor: int = 4
+    final_published_target_min: int = 5
+    final_published_target_max: int = 8
     schedule_owner_locked: bool = True
     automatic_schedule_scaling_enabled: bool = False
     material_event_daily_saturation_limit: int = 4
@@ -212,6 +215,9 @@ class EditorialWindowPolicy:
             "daily_publication_target_band": list(self.daily_publication_target_band),
             "routine_opportunity_limit": self.routine_opportunity_limit,
             "publication_minimum": self.publication_minimum,
+            "build_qualified_floor": self.build_qualified_floor,
+            "final_published_target_min": self.final_published_target_min,
+            "final_published_target_max": self.final_published_target_max,
             "schedule_owner_locked": self.schedule_owner_locked,
             "automatic_schedule_scaling_enabled": self.automatic_schedule_scaling_enabled,
             "material_event_daily_saturation_limit": self.material_event_daily_saturation_limit,
@@ -221,7 +227,7 @@ class EditorialWindowPolicy:
 def build_bootstrap_editorial_window_policy(
     *, effective_at_utc: Optional[str] = None
 ) -> EditorialWindowPolicy:
-    """Owner-locked quality-probation policy: exactly four routine weekday opportunities.
+    """Owner-locked daily-output policy: exactly four routine weekday opportunities.
 
     The UTC hours map to 17:00, 21:00, 23:00, and 01:00 Asia/Bangkok.  Because the 01:00
     Bangkok opportunity is 18:00 UTC on the prior day, all four rows are Monday-Friday in UTC.
@@ -249,12 +255,15 @@ def build_bootstrap_editorial_window_policy(
         confidence_state="bootstrap_configured_defaults_not_learned",
         sample_state="insufficient_samples_no_learning_applied",
         provenance=(
-            "owner_locked_quality_probation_four_routine_opportunities_no_publication_minimum_"
-            "material_event_shadow_wake_no_public_write_else_priority_next_scheduled_not_learned"
+            "owner_locked_autonomous_daily_output_four_routine_opportunities_build_floor_four_"
+            "final_published_target_five_to_eight_no_filler_not_learned"
         ),
-        daily_publication_target_band=(0, 4),
+        daily_publication_target_band=(5, 8),
         routine_opportunity_limit=4,
-        publication_minimum=0,
+        publication_minimum=5,
+        build_qualified_floor=4,
+        final_published_target_min=5,
+        final_published_target_max=8,
         schedule_owner_locked=True,
         automatic_schedule_scaling_enabled=False,
         material_event_daily_saturation_limit=4,
@@ -2908,11 +2917,24 @@ class ContentOpsDailyAppSupervisor:
                 publication_enabled = False
             cutoff = window["end"]
             output_dir = self._output_root / window_id
+            from live_contentops.newsroom_production_day_v1 import (
+                ROUTINE_SESSION_ORDINAL,
+            )
+
+            managed_daily_output = bool(
+                str(window.get("trigger") or "") == TRIGGER_SCHEDULED
+                and str(window.get("session") or "") in ROUTINE_SESSION_ORDINAL
+            )
+            # The newsroom cycle never performs a public write.  In SHADOW_ONLY, every warranted
+            # final article still uses the real XHIGH worker contract and returns a plan; this
+            # supervisor simply does not hand that plan to the publication lifecycle.
+            cycle_article_worker_required = bool(
+                publication_enabled
+                or self._operating_mode == "SHADOW_ONLY"
+            )
             cycle_kwargs: dict[str, Any] = {
-                "run_id": window_id,
-                "output_dir": output_dir,
                 "cutoff_utc": _iso_utc(cutoff),
-                "publication_enabled": publication_enabled,
+                "publication_enabled": cycle_article_worker_required,
             }
             prepared_candidate_state = self._load_prepared_candidate_checkpoint(cutoff)
             if prepared_candidate_state is not None:
@@ -2960,16 +2982,95 @@ class ContentOpsDailyAppSupervisor:
                 pass
             cycle_kwargs.update({
                 "operating_mode": self._operating_mode,
-                "published_corpus": list(
-                    (intelligence.get("published_corpus") or {}).get("articles") or []
-                ),
                 "cc_catalog": dict(intelligence.get("cc_catalog") or {}),
                 "learning_policy": learning_policy,
             })
+            from live_contentops.newsroom_production_day_v1 import (
+                bounded_deficit_work_needed,
+                build_production_day_snapshot,
+                persist_production_day_snapshot,
+                persist_qualified_article_record,
+                qualify_zero_write_article,
+                qualified_records_as_published_memory,
+                routine_progress_target,
+            )
+
+            canonical_published_memory = list(
+                (intelligence.get("published_corpus") or {}).get("articles") or []
+            )
+            published_memory = list(canonical_published_memory)
+            production_before = build_production_day_snapshot(
+                reference=now,
+                output_root=self._output_root,
+                published_corpus=canonical_published_memory,
+            )
+            work_budget = (
+                bounded_deficit_work_needed(
+                    session=str(window.get("session") or ""),
+                    qualified_articles_today=production_before.qualified_articles_today,
+                )
+                if managed_daily_output
+                else 1
+            )
+            attempt_results: list[dict[str, Any]] = []
+            qualified_records: list[dict[str, Any]] = []
+            result: dict[str, Any] = {
+                "schema_version": "contentops.daily_output_noop.v1",
+                "run_id": window_id,
+                "classification": "NO_PUBLICATION",
+                "exact_next_blocker": "PRODUCTION_DAY_PROGRESS_ALREADY_RESTORED",
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+            }
             from live_contentops.llm_cost_governor_v1 import llm_cycle_budget_scope
 
             with llm_cycle_budget_scope(window_id, now=now):
-                result = dict(self._newsroom_cycle(**cycle_kwargs))
+                for attempt_number in range(1, work_budget + 1):
+                    attempt_run_id = (
+                        window_id
+                        if attempt_number == 1
+                        else f"{window_id}-catchup-{attempt_number:02d}"
+                    )
+                    attempt_output_dir = (
+                        output_dir
+                        if attempt_number == 1
+                        else output_dir / f"catchup-{attempt_number:02d}"
+                    )
+                    attempt_kwargs = {
+                        **cycle_kwargs,
+                        "run_id": attempt_run_id,
+                        "output_dir": attempt_output_dir,
+                        "published_corpus": published_memory,
+                    }
+                    attempt_result = dict(self._newsroom_cycle(**attempt_kwargs))
+                    result = attempt_result
+                    qualification: dict[str, Any] | None = None
+                    if managed_daily_output and (
+                        attempt_result.get("classification") == "PASS_PUBLICATION_PLAN_READY"
+                        or attempt_result.get("shadow_publication_plan_ready") is True
+                    ):
+                        qualification = qualify_zero_write_article(
+                            result=attempt_result,
+                            output_dir=attempt_output_dir,
+                            production_day_id=production_before.newsroom_production_day_id,
+                            parent_window_id=window_id,
+                        )
+                        attempt_result["daily_output_qualification"] = qualification
+                        if qualification.get("qualified") is True:
+                            persist_qualified_article_record(
+                                attempt_output_dir, qualification
+                            )
+                            qualified_records.append(qualification)
+                            published_memory.extend(
+                                qualified_records_as_published_memory(
+                                    [qualification], reference=now
+                                )
+                            )
+                    attempt_results.append(attempt_result)
+                    # One cycle already walks the bounded usable candidate universe.  Only a
+                    # newly persisted qualified article justifies another distinct attempt.
+                    if qualification is None or qualification.get("qualified") is not True:
+                        break
             material_priority_finalization = {
                 str(row.get("priority_id") or ""): self._finalize_material_event_priority(
                     str(row.get("priority_id") or ""),
@@ -2978,8 +3079,47 @@ class ContentOpsDailyAppSupervisor:
                 for row in material_priorities
                 if str(row.get("priority_id") or "")
             }
+            current_progress = routine_progress_target(
+                str(window.get("session") or "")
+            )
+            used_after = max(
+                production_before.routine_opportunities_used,
+                current_progress if managed_daily_output else production_before.routine_opportunities_used,
+            )
+            hard_external_reason = None
+            exact_reason = str(result.get("exact_next_blocker") or "")
+            if exact_reason in {
+                "V1_RUNTIME_PREFLIGHT_BLOCKED",
+                "PROVIDER_WIDE_FAILURE_AFTER_BOUNDED_FALLBACK",
+                "SOURCE_UNIVERSE_UNAVAILABLE",
+                "REQUIRED_CREDENTIAL_OR_REAUTH_UNAVAILABLE",
+                "RUNTIME_UNAVAILABLE",
+            }:
+                hard_external_reason = exact_reason
+            production_after = build_production_day_snapshot(
+                reference=now,
+                output_root=self._output_root,
+                published_corpus=canonical_published_memory,
+                routine_opportunities_used_override=used_after,
+                hard_external_block_reason=hard_external_reason,
+            )
+            persist_production_day_snapshot(output_dir, production_after)
+            result = dict(result)
+            result["production_day"] = production_after.to_dict()
+            result["production_day_attempts"] = attempt_results
+            result["production_day_work_budget"] = work_budget
+            result["production_day_deficit_before"] = (
+                production_before.remaining_build_deficit
+            )
+            result["production_day_deficit_after"] = (
+                production_after.remaining_build_deficit
+            )
             classification = str(result.get("classification") or "")
-            viable = classification not in {"NO_PUBLICATION", "BLOCKED", ""}
+            viable = (
+                bool(qualified_records)
+                if managed_daily_output
+                else classification not in {"NO_PUBLICATION", "BLOCKED", ""}
+            )
             novelty_decision = self._record_editorial_novelty_decision(
                 output_dir=output_dir,
                 cycle_evidence=result,
@@ -3019,7 +3159,8 @@ class ContentOpsDailyAppSupervisor:
                     reason_code="EDITORIAL_WINDOW_VIABLE",
                     explanation=f"Window {window_id} produced a viable story",
                 )
-                lifecycle = self._maybe_drive_publication_lifecycle(window_id, result)
+                if publication_enabled:
+                    lifecycle = self._maybe_drive_publication_lifecycle(window_id, result)
             else:
                 self._transition(
                     window_id=window_id,

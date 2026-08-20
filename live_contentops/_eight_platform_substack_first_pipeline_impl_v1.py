@@ -4581,10 +4581,41 @@ def _run_rolling_x_newsroom_cycle(
                 "publication_authority_granted": False,
             }
         else:
-            ranked_assignment = build_bounded_rolling_x_publishability_pool(
-                assignment=assignment,
-                rolling_input=assignment_input,
-            )
+            try:
+                ranked_assignment = build_bounded_rolling_x_publishability_pool(
+                    assignment=assignment,
+                    rolling_input=assignment_input,
+                )
+            except ValueError as exc:
+                # A provider can return a superficially successful assignment whose leaf
+                # bindings do not cover the compact governed input.  Treat that as the same
+                # provider/schema failure class as a blocked semantic assignment: fail over
+                # once to the existing deterministic assignment, retain the failure receipt,
+                # and never crash an unattended Automation before terminal evidence exists.
+                if (
+                    assignment_provider_call is not None
+                    or not str(exc).startswith("rolling_x_publishability_pool_")
+                ):
+                    raise
+                semantic_failure = {
+                    "reason_code": "ROLLING_X_SEMANTIC_ASSIGNMENT_BINDING_INVALID",
+                    "validation_error": str(exc),
+                    "assignment_logical_hash": assignment.get(
+                        "assignment_logical_hash"
+                    ),
+                    "raw_provider_output_persisted": False,
+                    "publication_authority_granted": False,
+                }
+                assignment = build_deterministic_rolling_x_assignment_fallback(
+                    rolling_input=assignment_input
+                )
+                assignment["semantic_assignment_failure"] = semantic_failure
+                assignment["pre_assignment_compaction"] = assignment_compaction
+                _write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
+                ranked_assignment = build_bounded_rolling_x_publishability_pool(
+                    assignment=assignment,
+                    rolling_input=assignment_input,
+                )
             publishability_candidate_pool = dict(
                 ranked_assignment.get("publishability_candidate_pool") or {}
             )

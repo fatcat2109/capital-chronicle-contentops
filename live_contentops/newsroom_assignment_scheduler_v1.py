@@ -2771,7 +2771,11 @@ def build_bounded_rolling_x_publishability_pool(
         leaf_by_id[raw_leaf_id] = row
         leaf_headline_ids.update(raw_member_ids)
         derived_leaf_clusters.append(row)
-    if leaf_headline_ids != set(compact_headline_ids):
+    assignment_method = str(assignment.get("assignment_method") or "")
+    if (
+        assignment_method != "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK"
+        and leaf_headline_ids != set(compact_headline_ids)
+    ):
         raise ValueError("rolling_x_publishability_pool_leaf_headline_union_mismatch")
 
     if any(
@@ -2846,7 +2850,6 @@ def build_bounded_rolling_x_publishability_pool(
     }
 
     reserve_rows: list[dict[str, Any]] = []
-    assignment_method = str(assignment.get("assignment_method") or "")
     if assignment_method != "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK":
         for leaf_order, leaf in enumerate(derived_leaf_clusters, start=1):
             leaf_id = str(leaf.get("leaf_cluster_id") or "")

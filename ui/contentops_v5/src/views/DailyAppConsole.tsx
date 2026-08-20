@@ -6,7 +6,10 @@ import {
 } from 'lucide-react';
 import type { BackgroundLogTail, DailyAppSnapshot, DailyView, HourlyAudit, LoadState, OperatingMode, RuntimeCockpit, RuntimePrimaryState } from '../dailyAppTypes';
 
-const API_ROOT = 'http://127.0.0.1:5174';
+const API_ROOT = (
+  (import.meta as unknown as { env: Record<string, string | undefined> }).env
+    .VITE_DAILY_APP_API_ROOT || 'http://127.0.0.1:5174'
+);
 const POLL_MS = 3_000;
 
 const NAV: Array<{ group: string; items: Array<{ id: DailyView; label: string; icon: typeof Activity }> }> = [
@@ -195,6 +198,16 @@ function DefinitionRows({ object }: { object: Record<string, unknown> }) {
   return <dl className="daily-definitions">{Object.entries(object).map(([key, value]) => <div key={key}><dt>{words(key)}</dt><dd>{displayValue(key, value)}</dd></div>)}</dl>;
 }
 
+function automationSchedule(value: unknown, timezone: unknown): string {
+  const rrule = String(value ?? '');
+  const days = /BYDAY=([^;]+)/.exec(rrule)?.[1] ?? '';
+  const hour = /BYHOUR=(\d+)/.exec(rrule)?.[1];
+  const minute = /BYMINUTE=(\d+)/.exec(rrule)?.[1] ?? '0';
+  const dayLabel = days === 'MO,TU,WE,TH,FR' ? 'Mon–Fri'
+    : days === 'TU,WE,TH,FR,SA' ? 'Tue–Sat' : days || 'Schedule unavailable';
+  return hour ? `${dayLabel} · ${hour.padStart(2, '0')}:${minute.padStart(2, '0')} · ${String(timezone ?? 'Asia/Bangkok')}` : dayLabel;
+}
+
 function RunEditorialNow({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promise<void> }) {
   const [phase, setPhase] = useState<'idle' | 'submitting'>('idle');
   const [message, setMessage] = useState<string | null>(null);
@@ -356,7 +369,7 @@ function RuntimeCockpitView({ data }: { data: DailyAppSnapshot }) {
   return <>
     <section className={`daily-cockpit daily-cockpit--${statusTone(cockpit.primary_state)}`} data-primary-state={cockpit.primary_state}>
       <header className="daily-cockpit-rail">
-        <div><span className="daily-live-mark"><i />V1 LIVE</span><Status value={cockpit.supervisor_state} label={`Supervisor ${words(cockpit.supervisor_state)}`} /><Status value={cockpit.controller_health} label={`Controller ${words(cockpit.controller_health)}`} /><Status value={cockpit.operating_mode} /></div>
+        <div><span className="daily-live-mark"><i />V1 LIVE</span><Status value={cockpit.supervisor_state} label={`Supervisor ${words(cockpit.supervisor_state)}`} /><Status value={cockpit.controller_health} label={`Controller ${words(cockpit.controller_health)}`} /><Status value={cockpit.output_health ?? 'OUTPUT_STATE_UNAVAILABLE'} label={`Output ${words(cockpit.output_health ?? 'OUTPUT_STATE_UNAVAILABLE')}`} /><Status value={cockpit.operating_mode} /></div>
         <div><span>SHA {cockpit.runtime_sha_short}</span><strong>{formatLocalClock(new Date(nowMs).toISOString(), cockpit.local_timezone)}</strong><small>Jim local</small></div>
       </header>
       <div className="daily-cockpit-core">
@@ -394,6 +407,9 @@ function RuntimeCockpitView({ data }: { data: DailyAppSnapshot }) {
 
 function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh: () => Promise<void>; hourlyAudit: HourlyAudit | null }) {
   const cycle = data.today.current_cycle;
+  const automation = data.automation ?? { configured_intent: { state: 'CONFIGURED_INTENT_UNAVAILABLE' }, observed_host_state: { state: 'AUTOMATION_STATE_UNAVAILABLE' }, observation_timestamp_utc: null, freshness: 'UNAVAILABLE' };
+  const configuredTasks = Array.isArray(automation.configured_intent.tasks) ? automation.configured_intent.tasks.filter((row): row is Record<string, unknown> => Boolean(row) && typeof row === 'object') : [];
+  const observedTasks = Array.isArray(automation.observed_host_state.tasks) ? automation.observed_host_state.tasks.filter((row): row is Record<string, unknown> => Boolean(row) && typeof row === 'object') : [];
   const nextAction = data.incidents.active_count > 0
     ? 'Review the active incident lifecycle before any intervention.'
     : data.queue.items.length > 0 ? 'The next governed queue item is scheduled.' : 'No operator action is currently recorded.';
@@ -417,11 +433,30 @@ function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh
         <Metric label="Last browser interaction" value={formatUtcDateTime(data.runtime.browser_automation?.last_active_browser_interaction_at_utc)} />
         <Metric label="Browser reason" value={words(data.runtime.browser_automation?.last_reason ?? 'NONE')} />
       </div>
-      <div className="daily-grid-3">
-        <Metric label="Published today" value={data.today.published_today_count} status={data.today.published_today_count ? 'PUBLISHED' : 'NONE_TODAY'} />
-        <Metric label="Probation publish range" value={`${(data.today.daily_target_band ?? [0, 4])[0]}–${(data.today.daily_target_band ?? [0, 4])[1]}`} />
-        <Metric label="Published corpus" value={data.today.published_corpus_count} />
+      <div className="daily-grid-4">
+        <Metric label="Qualified build articles" value={`${data.today.qualified_articles_today ?? 0} / ${data.today.build_qualified_floor ?? 4}`} status={data.today.production_day_state ?? 'PRODUCTION_DAY_STATE_UNAVAILABLE'} />
+        <Metric label="Remaining build deficit" value={data.today.remaining_build_deficit ?? 4} status={(data.today.remaining_build_deficit ?? 4) ? 'DEFICIT' : 'FLOOR_MET'} />
+        <Metric label="Published articles" value={data.today.published_articles_today ?? data.today.published_today_count} status={(data.today.published_articles_today ?? data.today.published_today_count) ? 'PUBLISHED' : 'NONE_TODAY'} />
+        <Metric label="Final published target" value={`${data.today.final_published_target_min ?? 5}–${data.today.final_published_target_max ?? 8} / day`} />
       </div>
+      <div className="daily-grid-4">
+        <Metric label="Production day" value={data.today.newsroom_production_day_id ?? 'Unavailable'} />
+        <Metric label="Output state" value={words(data.today.production_day_state ?? 'UNAVAILABLE')} status={data.today.production_day_state} />
+        <Metric label="Routine opportunities" value={`${data.today.routine_opportunities_used ?? 0} used · ${data.today.routine_opportunities_remaining ?? 4} remaining`} />
+        <Metric label="Hard external block" value={words(data.today.hard_external_block_reason ?? 'NONE')} status={data.today.hard_external_block_reason ? 'HARD_EXTERNAL_BLOCK' : 'CLEAR'} />
+      </div>
+      <Panel title="Codex Automations" eyebrow={`${words(automation.freshness)} · ${formatUtcDateTime(automation.observation_timestamp_utc)}`}>
+        <div className="daily-grid-4">
+          <Metric label="Configured intent" value={words(automation.configured_intent.state)} status={automation.configured_intent.state} />
+          <Metric label="Observed host state" value={words(automation.observed_host_state.state)} status={automation.observed_host_state.state} />
+          <Metric label="Intended tasks" value={(automation.configured_intent.task_count ?? configuredTasks.length) || 'Unavailable'} />
+          <Metric label="Observed tasks" value={(automation.observed_host_state.task_count ?? observedTasks.length) || 'Unavailable'} />
+        </div>
+        {observedTasks.length ? <div className="daily-card-list daily-automation-list">{observedTasks.map((task, index) => <article key={String(task.id ?? index)}>
+          <header><strong>{String(task.name ?? task.id ?? 'Observed Automation')}</strong><Status value={task.status ?? 'UNAVAILABLE'} /></header>
+          <DefinitionRows object={{ id: task.id, schedule: automationSchedule(task.rrule, task.timezone), model_reasoning: `${String(task.model ?? 'Unavailable')} / ${String(task.reasoning_effort ?? 'Unavailable').toUpperCase()}`, config_sha256_short: task.config_sha256 ? String(task.config_sha256).slice(0, 12) : null }} />
+        </article>)}</div> : <Empty title="Automation host state unavailable" detail="Configured intent is shown separately; the console will not infer observed task state from repository configuration." />}
+      </Panel>
       <div className="daily-grid-4">
         <Metric label="Latest classification" value={words(data.today.latest_editorial_classification ?? 'UNAVAILABLE')} status={data.today.latest_editorial_classification} />
         <Metric label="Article / update mode" value={words(data.today.latest_article_update_mode ?? 'UNAVAILABLE')} />

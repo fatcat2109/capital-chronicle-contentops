@@ -309,6 +309,7 @@ body {
 .daily-card-list > article { padding: 15px; border: 1px solid var(--daily-line); border-radius: 7px; background: #0f1216; }
 .daily-card-list > article > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .daily-card-list > article > header strong { font-size: 13px; }
+.daily-automation-list { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
 .daily-platform-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .daily-platform { display: grid; align-content: start; gap: 13px; padding: 17px; border-radius: 8px; }
 .daily-platform > div:first-child { display: grid; gap: 4px; }

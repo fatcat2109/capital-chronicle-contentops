@@ -135,12 +135,56 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     assert cockpit["safety"]["active_public_write"] is False
     assert cockpit["projection_authority"]["stage_file_presentation_only"] is True
     assert cockpit["projection_authority"]["grants_publication_authority"] is False
+    assert cockpit["output_health"] == "ON_TRACK"
+    assert snapshot["today"]["build_qualified_floor"] == 4
+    assert snapshot["today"]["final_published_target_min"] == 5
+    assert snapshot["today"]["final_published_target_max"] == 8
+    assert snapshot["today"]["qualified_articles_today"] == 0
+    assert snapshot["today"]["remaining_build_deficit"] == 4
+    assert snapshot["automation"]["configured_intent"]["task_count"] == 4
+    assert snapshot["automation"]["observed_host_state"]["state"] == (
+        "AUTOMATION_STATE_UNAVAILABLE"
+    )
     assert snapshot["authority"]["fixture_fallback"] is False
     assert snapshot["authority"]["snapshot_mutates_lifecycle"] is False
     # SQLite may materialize its own WAL companions while another collected test keeps a
     # connection alive; those files are part of daily.sqlite3, not a second authority store.
     assert after - before <= {"daily.sqlite3-wal", "daily.sqlite3-shm"}
     assert {name for name in after if name.endswith(".sqlite3")} == {"daily.sqlite3"}
+
+
+def test_snapshot_keeps_supported_automation_observation_distinct_from_intent(tmp_path):
+    from live_contentops.codex_desktop_newsroom_operator_v1 import (
+        four_task_setup_packet,
+        persist_supported_automation_host_observation,
+    )
+
+    store = _store(tmp_path)
+    packet = four_task_setup_packet()
+    persist_supported_automation_host_observation(
+        tasks=[
+            {
+                **task,
+                "status": "PAUSED",
+                "timezone": packet["timezone"],
+                "project": packet["project"],
+                "model": packet["model"],
+                "reasoning_effort": packet["reasoning_effort"].lower(),
+                "prompt_sha256": "current-prompt-hash",
+            }
+            for task in packet["tasks"]
+        ],
+        output_path=tmp_path / "automation_observation" / "latest.json",
+        observed_at_utc="2026-08-10T11:59:00Z",
+    )
+
+    automation = build_daily_app_snapshot(store.db_path, now=NOW)["automation"]
+
+    assert automation["configured_intent"]["state"] == "CONFIGURED_INTENT"
+    assert automation["observed_host_state"]["state"] == "OBSERVED_HOST_STATE"
+    assert automation["observed_host_state"]["task_count"] == 4
+    assert automation["freshness"] == "FRESH"
+    assert automation["age_seconds"] == 60
 
 
 def test_next_wake_skips_a_current_window_already_claimed_by_the_scheduler(tmp_path):

@@ -680,8 +680,8 @@ def test_published_corpus_with_confirmed_publication(tmp_path):
             " VALUES ('msg1','wi-article','substack','{}','READY','2026-08-10T09:00:00Z')"
         )
         conn.execute(
-            "INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at,public_object_id)"
-            " VALUES ('disp1','msg1','substack','DISPATCH_CONFIRMED','2026-08-10T09:05:00Z','object-123')"
+            "INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at,public_object_id,public_object_url)"
+            " VALUES ('disp1','msg1','substack','DISPATCH_CONFIRMED','2026-08-10T09:05:00Z','object-123','https://capitalchronicle.substack.com/p/fed-decision-day-recap')"
         )
         conn.execute(
             "INSERT INTO reconciliations (reconciliation_id,work_item_id,status,reconciled_at)"
@@ -697,9 +697,11 @@ def test_published_corpus_with_confirmed_publication(tmp_path):
     assert article.content_hash is None
     state = portfolio_state_today(corpus["articles"], now=datetime(2026, 8, 10, 12, 0, tzinfo=timezone.utc))
     assert state["published_today_count"] == 1
-    assert state["daily_target_band"] == [0, 4]
-    assert state["publication_minimum"] == 0
-    assert state["routine_publication_ceiling"] == 4
+    assert state["daily_target_band"] == [5, 8]
+    assert state["publication_minimum"] == 5
+    assert state["build_qualified_floor"] == 4
+    assert state["final_published_target_min"] == 5
+    assert state["final_published_target_max"] == 8
 
 
 # --- F. Breaking vs follow-up classification ---------------------------------------------------
@@ -778,11 +780,13 @@ def test_deepen_existing_story_with_cc_context():
 # --- G. Portfolio policy and concentration ---------------------------------------------------
 
 
-def test_bootstrap_policy_locks_four_window_quality_probation():
+def test_bootstrap_policy_locks_four_window_daily_output_contract():
     policy = bootstrap_portfolio_policy()
-    assert policy["daily_target_band"] == [0, 4]
-    assert policy["publication_minimum"] == 0
-    assert policy["routine_publication_ceiling"] == 4
+    assert policy["daily_target_band"] == [5, 8]
+    assert policy["publication_minimum"] == 5
+    assert policy["build_qualified_floor"] == 4
+    assert policy["final_published_target_min"] == 5
+    assert policy["final_published_target_max"] == 8
     assert policy["core_decision_opportunities_per_day"] == 4
     assert policy["material_event_wakeups_enabled"] is False
     assert policy["material_event_priority_next_scheduled_opportunity"] is True
@@ -795,8 +799,10 @@ def test_bootstrap_policy_locks_four_window_quality_probation():
 
     window_policy = build_bootstrap_editorial_window_policy()
     assert len(window_policy.core_windows) == 4
-    assert window_policy.policy_version == "quality_probation_four_window.v1"
-    assert window_policy.daily_publication_target_band == (0, 4)
+    assert window_policy.policy_version == "autonomous_daily_output_four_window.v1"
+    assert window_policy.daily_publication_target_band == (5, 8)
+    assert window_policy.publication_minimum == 5
+    assert window_policy.build_qualified_floor == 4
     assert window_policy.material_event_override_enabled is True
     assert window_policy.automatic_schedule_scaling_enabled is False
     assert window_policy.schedule_owner_locked is True

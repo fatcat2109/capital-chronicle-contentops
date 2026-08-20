@@ -49,6 +49,12 @@ The following rules are current and supersede all conflicting earlier wording:
 
 Repository configuration is not host proof.
 
+Historical evidence proves the exact four native Codex Automations existed on this host/profile
+and were repeatedly read back. Their current existence, configuration, and state require fresh
+host revalidation. The historical native HIGH -> fresh isolated XHIGH exercise and accepted
+nine-surface transport/readback exercise remain reusable capability evidence; neither supplies
+current Automation-state truth or restores publication-minimum-zero routing.
+
 Current subordinate statements such as:
 
 - `exactly four native Codex tasks already exist`;
