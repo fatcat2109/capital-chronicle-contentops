@@ -41,10 +41,80 @@ def test_exact_v1_ordinary_payloads_are_eight_derivatives_without_tiktok():
     )
     assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
     assert "tiktok" not in payloads
-    assert payloads["x"]["overflow_strategy"] == "single_root"
-    assert payloads["threads"]["overflow_strategy"] == "single_root"
+    assert payloads["x"]["overflow_strategy"] == "ordered_reply_chain"
+    assert payloads["threads"]["overflow_strategy"] == "ordered_reply_chain"
     assert payloads["x"]["hard_truncation_used"] is False
     assert payloads["threads"]["hard_truncation_used"] is False
+
+
+def _normalized_reader_text(payload: dict) -> str:
+    return " ".join(str(payload.get("full_text") or payload["text"]).casefold().split())
+
+
+def test_breaking_and_ordinary_briefs_are_native_self_contained_and_undispatched():
+    canonical_url = "https://capitalchronicle.substack.com/p/governed-brief"
+    accepted_article = {
+        **_article(),
+        "social_lede": "The latest official policy reading keeps the transmission question in focus.",
+        "unaccepted_raw_draft": "UNSUPPORTED FACT THAT MUST NEVER BE PACKAGED.",
+    }
+    accepted_selection = {
+        **_selection(),
+        "unaccepted_note": "UNSUPPORTED FACT THAT MUST NEVER BE PACKAGED.",
+    }
+
+    for mode_article in (
+        {
+            **accepted_article,
+            "minimum_trustworthy_evidence_packet": {
+                "status": "PASS", "risk_tier": "ORDINARY"
+            },
+        },
+        {**accepted_article, "effective_article_mode": "BREAKING_BRIEF"},
+    ):
+        payloads = build_native_derivative_payloads(
+            article=mode_article,
+            selection=accepted_selection,
+            canonical_url=canonical_url,
+            media_asset_ids=(),
+        )
+        reader_texts = {
+            destination: _normalized_reader_text(payload)
+            for destination, payload in payloads.items()
+        }
+
+        assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
+        assert "tiktok" not in payloads
+        assert len(set(reader_texts.values())) >= 4
+        assert len({reader_texts[name] for name in ("x", "threads", "linkedin", "telegram", "discord", "instagram_business")}) >= 4
+        for destination, payload in payloads.items():
+            text = str(payload.get("full_text") or payload["text"])
+            assert canonical_url in text
+            assert text.index(canonical_url) > 0
+            assert "UNSUPPORTED FACT" not in text
+            assert any(
+                accepted in text
+                for accepted in (
+                    accepted_article["social_lede"],
+                    accepted_selection["market_mechanism"],
+                    accepted_selection["policy_context"],
+                    accepted_selection["cross_asset_implications"],
+                )
+            ), destination
+            assert "dispatch" not in payload
+            assert payload["hard_truncation_used"] is False
+
+        for destination, limit in (("x", 280), ("threads", 500)):
+            payload = payloads[destination]
+            assert payload["reply_texts"]
+            assert all(
+                len(item) <= limit
+                for item in [payload["root_text"], *payload["reply_texts"]]
+            )
+            assert all(
+                "..." not in item
+                for item in [payload["root_text"], *payload["reply_texts"]]
+            )
 
 
 def test_delivery_only_card_is_rights_safe_and_never_article_media(tmp_path):

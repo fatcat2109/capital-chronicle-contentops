@@ -312,7 +312,7 @@ def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_b
     assert editor.max_fallback_transitions == 3
     assert editor.max_same_model_retries == 0
     assert editor.max_structured_output_repair_attempts == 1
-    assert editor.per_model_max_attempts == NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS == (1, 1, 1, 2)
+    assert editor.per_model_max_attempts == NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS == (2, 1, 1, 1)
     assert generic.max_total_provider_attempts == MAX_TOTAL_PROVIDER_ATTEMPTS
     assert generic.max_same_model_retries == 0
     assert generic.max_fallback_transitions == V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS == 4
@@ -342,7 +342,7 @@ def test_global_editor_authority_packet_declares_exact_bounded_repair_policy() -
         "max_fallback_transitions": 3,
         "max_same_model_retries": 0,
         "max_structured_output_repair_attempts": 1,
-        "per_model_max_attempts": [1, 1, 1, 2],
+        "per_model_max_attempts": [2, 1, 1, 1],
         "wall_clock_budget_seconds": 1200.0,
         "bounded": True,
     }
