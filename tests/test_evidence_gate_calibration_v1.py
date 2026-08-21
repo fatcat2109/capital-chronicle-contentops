@@ -608,15 +608,19 @@ def test_inaccessible_bound_and_first_listing_recover_to_accessible_reputable_so
         for row in packet["evidence_documents"]
     )
     assert packet["provenance"]["request_limit"] == 24
-    assert packet["provenance"]["request_count_for_candidate"] == len(calls) == 4
+    # Each of the two discovery listings may use one same-host sitemap lookup before
+    # the legacy redirect fallback. The complete recovery remains inside the unchanged
+    # six-request candidate ceiling.
+    assert packet["provenance"]["request_count_for_candidate"] == len(calls) == 6
+    assert packet["provenance"]["request_limit_per_candidate"] == 6
     assert packet["provenance"]["paywall_or_access_control_bypass"] is False
     assert "public_source_http_status_not_200" in packet["provenance"]["diagnostics"]
 
     second_packet = loader(request)
 
     assert second_packet["status"] == "PASS"
-    assert second_packet["provenance"]["request_count_total"] == len(calls) == 8
-    assert second_packet["provenance"]["request_count_for_candidate"] == 4
+    assert second_packet["provenance"]["request_count_total"] == len(calls) == 12
+    assert second_packet["provenance"]["request_count_for_candidate"] == 6
     assert second_packet["provenance"]["request_limit"] == 24
 
 

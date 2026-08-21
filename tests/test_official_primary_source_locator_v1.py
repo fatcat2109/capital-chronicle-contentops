@@ -68,6 +68,82 @@ def test_sec_locator_uses_first_party_ticker_index_and_returns_sec_candidate():
     assert result["candidate_official_url"] == "https://data.sec.gov/submissions/CIK0000320193.json"
 
 
+def test_sec_locator_reads_current_bounded_index_shape_beyond_old_500kb_ceiling():
+    body = json.dumps(
+        {
+            "0": {"title": "X" * 600_000},
+            "1": {
+                "cik_str": 315189,
+                "ticker": "DE",
+                "title": "Deere & Company",
+            },
+        }
+    ).encode()
+    assert 500_000 < len(body) < 1_000_000
+    request = _request("company_primary")
+    request["story_context"]["entities_topics"] = ["Deere"]
+
+    def http_get(url, _timeout, maximum):
+        assert maximum == 1_000_000
+        return {**_response(url, body), "content_truncated": False}
+
+    result = BoundedOfficialPrimarySourceLocator(http_get=http_get)(request)
+
+    assert result["status"] == "PASS"
+    assert result["candidate_official_url"] == (
+        "https://data.sec.gov/submissions/CIK0000315189.json"
+    )
+
+
+def test_sec_locator_prefers_named_entity_over_later_generic_term_tie():
+    body = json.dumps(
+        {
+            "0": {
+                "cik_str": 75398,
+                "ticker": "PAI",
+                "title": "Western Asset Investment Grade Income Fund Inc.",
+            },
+            "1": {
+                "cik_str": 315189,
+                "ticker": "DE",
+                "title": "Deere & Company",
+            },
+        }
+    ).encode()
+    request = _request("company_primary")
+    request["story_context"] = {
+        "entities_topics": [],
+        "leaf_summaries": [
+            "DEERE Q3 EARNINGS HIGHLIGHTS Revenue EPS Net Income"
+        ],
+    }
+
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, body)
+    )(request)
+
+    assert result["status"] == "PASS"
+    assert result["candidate_official_url"] == (
+        "https://data.sec.gov/submissions/CIK0000315189.json"
+    )
+
+
+def test_official_locator_reports_truncation_instead_of_candidate_miss():
+    request = _request("company_primary")
+    request["story_context"]["entities_topics"] = ["Deere"]
+    locator = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: {
+            **_response(url, b'{"0":'),
+            "content_truncated": True,
+        }
+    )
+
+    result = locator(request)
+
+    assert result["status"] == "BLOCKED"
+    assert result["blockers"] == ["official_source_locator_response_truncated"]
+
+
 def test_unsupported_family_never_calls_network():
     calls = []
     result = BoundedOfficialPrimarySourceLocator(

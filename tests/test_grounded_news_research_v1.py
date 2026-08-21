@@ -9,6 +9,7 @@ from live_contentops.grounded_news_research_v1 import (
     GROUNDING_MODE,
     GroundedNewsResearchInvocationError,
     GroundedNewsResearchV1,
+    _locator_event_core_query,
     _locator_query_seed,
     _model_failure,
     build_additive_cc_context_bundle,
@@ -40,6 +41,30 @@ def test_locator_seed_neutralizes_headline_hype_without_adding_facts():
         _locator_query_seed("Danube Water Levels Sink To Historic Lows")
         == "Danube Water Levels To low"
     )
+
+
+def test_frozen_social_headline_gets_bounded_event_core_locator_variant():
+    headline = (
+        "RT @tongbingxue: Xu Jiayin, founder of China Evergrande Group and former "
+        "China's richest man, was sentenced to life in prison by a Sh..."
+    )
+
+    assert _locator_event_core_query(headline) == (
+        "Xu Jiayin founder China Evergrande sentenced life prison"
+    )
+    plan = build_deterministic_locator_plan(
+        {
+            "normalized_headline_proposition": headline,
+            "important_entities": [],
+            "already_bound_source_urls": [],
+            "claims_or_questions_needing_verification": [],
+        },
+        max_queries=3,
+    )
+    assert plan["queries"][1] == (
+        "Xu Jiayin founder China Evergrande sentenced life prison"
+    )
+    assert plan["query_text_grants_factual_authority"] is False
 
 
 def test_post_filter_packet_drops_facts_bound_to_removed_documents():

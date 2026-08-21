@@ -47,6 +47,14 @@ _ARTICLE_MODES = (
 _LOCATOR_HEADLINE_NOISE = frozenset(
     {"breaking", "exclusive", "historic", "watch", "sink", "sinks", "surge", "surges"}
 )
+_LOCATOR_EVENT_CORE_NOISE = frozenset(
+    {
+        "a", "actual", "amp", "an", "beating", "by", "expectations",
+        "forecast", "former", "group", "highlights", "in", "is", "just",
+        "macro", "man", "of", "prev", "previous", "reported", "richest",
+        "rt", "says", "source", "to", "via", "was",
+    }
+)
 _NUMBER_RE = re.compile(
     r"(?<![A-Za-z])[-+]?(?:\$|€|£)?\d[\d,]*(?:\.\d+)?(?:%|bn|mn|[kmbt])?",
     re.IGNORECASE,
@@ -130,6 +138,46 @@ def _locator_query_seed(value: Any) -> str:
     return " ".join(tokens)[:220]
 
 
+def _locator_event_core_query(value: Any) -> str:
+    """Build one compact locator variant from the same untrusted headline bytes.
+
+    Social repost metadata, truncated tail fragments, market-feed ceremony, and repeated
+    filler can make an otherwise exact current-news query too brittle.  This transformation
+    adds no alias, URL, publisher, or fact; it only retains a bounded ordered event core from
+    the already-governed proposition.  The original neutralized proposition remains the first
+    query and therefore stays observable for before/after diagnostics.
+    """
+    text = _clean_text(value, 500)
+    text = re.sub(r"^\s*RT\s+@[^\s:]+\s*:\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"^\s*@[^\s:]+\s*:\s*", "", text)
+    text = re.sub(r"\s+[A-Za-z0-9]{1,3}\.{3}\s*$", "", text)
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for token in re.findall(r"[A-Za-z0-9][A-Za-z0-9'’-]*", text):
+        normalized = token.casefold().strip("'’-")
+        if normalized.endswith(("'s", "’s")):
+            token = token[:-2]
+            normalized = normalized[:-2]
+        if (
+            not normalized
+            or normalized in _LOCATOR_HEADLINE_NOISE
+            or normalized in _LOCATOR_EVENT_CORE_NOISE
+            or normalized in _STOPWORDS
+            or normalized.isdigit()
+            or normalized in seen
+        ):
+            continue
+        if normalized == "lows":
+            token = "low"
+        elif normalized == "highs":
+            token = "high"
+        ordered.append(token)
+        seen.add(normalized)
+        if len(ordered) >= 8:
+            break
+    return " ".join(ordered)[:220]
+
+
 def build_deterministic_locator_plan(
     request: Mapping[str, Any], *, max_queries: int = 3
 ) -> dict[str, Any]:
@@ -154,6 +202,16 @@ def build_deterministic_locator_plan(
     candidates: list[str] = []
     if proposition:
         candidates.append(proposition)
+    event_core = _locator_event_core_query(
+        request.get("normalized_headline_proposition")
+    )
+    if (
+        event_core
+        and proposition
+        and event_core.casefold() != proposition.casefold()
+        and len(event_core) >= 8
+    ):
+        candidates.append(event_core)
     if proposition and entities:
         missing = [value for value in entities if value.casefold() not in proposition.casefold()]
         if missing:
