@@ -14,7 +14,7 @@
   "counts": {
     "edges": 13529,
     "entrypoints": 16,
-    "nodes": 7173,
+    "nodes": 7169,
     "nodes_by_kind": {
       "authority_doc": 7,
       "cli_command": 27,
@@ -30,7 +30,7 @@
       "schema": 186,
       "test": 725,
       "typescript_export": 506,
-      "typescript_or_javascript_module": 113
+      "typescript_or_javascript_module": 109
     }
   },
   "edges": [
@@ -127540,16 +127540,6 @@
       "size_bytes": 66360
     },
     {
-      "id": "ui/contentops_v5/tailwind.config.d.ts",
-      "kind": "typescript_or_javascript_module",
-      "size_bytes": 1233
-    },
-    {
-      "id": "ui/contentops_v5/tailwind.config.js",
-      "kind": "typescript_or_javascript_module",
-      "size_bytes": 1884
-    },
-    {
       "id": "ui/contentops_v5/tailwind.config.ts",
       "kind": "typescript_or_javascript_module",
       "size_bytes": 1616
@@ -127558,16 +127548,6 @@
       "id": "ui/contentops_v5/tsconfig.json",
       "kind": "manifest",
       "size_bytes": 651
-    },
-    {
-      "id": "ui/contentops_v5/vite.config.d.ts",
-      "kind": "typescript_or_javascript_module",
-      "size_bytes": 76
-    },
-    {
-      "id": "ui/contentops_v5/vite.config.js",
-      "kind": "typescript_or_javascript_module",
-      "size_bytes": 491
     },
     {
       "id": "ui/contentops_v5/vite.config.ts",
@@ -127884,5 +127864,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "4788b57bde3a210fb2653268ce93e4a8346921e2",
-  "source_tree_digest": "55ec907fb7c042b8b292e38a6db365c8017b0e618b0935955ebc8ac02ad96cb1"
+  "source_tree_digest": "f7416f95f50104693342cf74b6075cb5b4191485da935f6796ca23f25d1e1b48"
 }
