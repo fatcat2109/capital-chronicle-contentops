@@ -20,6 +20,12 @@ PUBLISHER_URL = (
     "https://www.aljazeera.com/news/2026/8/18/"
     "qatar-rejects-irans-false-claims-about-missing-pilots"
 )
+AP_SITEMAP_INDEX_URL = "https://apnews.com/news-sitemap.xml"
+AP_SITEMAP_CHILD_URL = "https://apnews.com/news-sitemap-content.xml"
+AP_PUBLISHER_URL = (
+    "https://apnews.com/article/"
+    "china-evergrande-founder-real-estate-fraud-5573868904b3ced0c5c9b0314c56ae5a"
+)
 
 
 def _request():
@@ -210,3 +216,169 @@ def test_publisher_sitemap_cannot_retarget_listing_to_another_host():
     assert result["status"] == "BLOCKED"
     assert result["evidence_documents"] == []
     assert not any("example.com" in value for value in calls)
+
+
+def test_authorized_ap_news_listing_resolves_through_one_same_host_sitemap_index_child():
+    rss = f"""<rss><channel><item>
+      <title>Chinese court sentences founder of troubled property developer Evergrande to life in prison - AP News</title>
+      <link>{GOOGLE_ARTICLE_URL}</link>
+      <pubDate>Thu, 20 Aug 2026 11:31:00 GMT</pubDate>
+      <source url="https://apnews.com">AP News</source>
+    </item></channel></rss>""".encode()
+    sitemap_index = f"""<sitemapindex>
+      <sitemap><loc>{AP_SITEMAP_CHILD_URL}</loc></sitemap>
+      <sitemap><loc>https://example.com/forbidden-cross-host.xml</loc></sitemap>
+    </sitemapindex>""".encode()
+    sitemap_child = f"""<urlset><url>
+      <loc>{AP_PUBLISHER_URL}</loc>
+      <publication_date>2026-08-20T00:21:25-04:00</publication_date>
+      <title>Founder of embattled Chinese real estate company Evergrande gets life in prison</title>
+    </url></urlset>""".encode()
+    article = b"""<html><head>
+      <meta property="article:published_time" content="2026-08-20T00:21:25-04:00"/>
+      <meta property="og:title" content="Chinese court sentences founder of troubled property developer Evergrande to life in prison"/>
+      </head><body><main>
+      A Chinese court sentenced the founder of troubled property developer Evergrande
+      to life in prison. This exact publisher article contains sufficient directly
+      retrieved factual text and remains bound to the publisher URL and source bytes.
+      </main></body></html>"""
+    calls: list[str] = []
+
+    def http_get(url: str, _timeout: float, _maximum: int):
+        calls.append(url)
+        if url.startswith("https://news.google.com/rss/search?"):
+            return _response(url, rss, "application/xml")
+        if url == AP_SITEMAP_INDEX_URL:
+            return _response(url, sitemap_index, "application/xml")
+        if url == AP_SITEMAP_CHILD_URL:
+            return _response(url, sitemap_child, "application/xml")
+        if url == AP_PUBLISHER_URL:
+            return _response(url, article, "text/html")
+        raise AssertionError(f"unexpected URL: {url}")
+
+    request = _request()
+    request["story_context"]["grounded_research_queries"] = [
+        "Xu Jiayin founder China Evergrande sentenced life prison"
+    ]
+    result = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-20T23:37:06.897041Z",
+        http_get=http_get,
+    )(request)
+
+    assert result["status"] == "PASS"
+    document = result["evidence_documents"][0]
+    assert document["source_url"] == AP_PUBLISHER_URL
+    assert document["published_at_utc"] == "2026-08-20T04:21:25Z"
+    assert document["canonical_resolution_status"] == (
+        "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP"
+    )
+    assert [row["url"] for row in document["publisher_locator_chain"]] == [
+        AP_SITEMAP_INDEX_URL,
+        AP_SITEMAP_CHILD_URL,
+    ]
+    assert calls == [
+        RSS_URL.replace(
+            "QATAR+FOREIGN+MINISTRY+SPOKESPERSON+SAYS+IRANIAN+REQUEST+ICRC+INVOLVEMENT+IRANIAN+PILOTS+ISSUE",
+            "Xu+Jiayin+founder+China+Evergrande+sentenced+life+prison",
+        ),
+        AP_SITEMAP_INDEX_URL,
+        AP_SITEMAP_CHILD_URL,
+        AP_PUBLISHER_URL,
+    ]
+
+
+def test_story_scope_cannot_reset_per_candidate_allowance_and_other_story_is_isolated():
+    calls: list[str] = []
+
+    def http_get(url: str, _timeout: float, _maximum: int):
+        calls.append(url)
+        body = (
+            b"<html><head><meta property='article:published_time' "
+            b"content='2026-08-18T12:39:43Z'/></head><body>"
+            + b"Bound public evidence text. " * 20
+            + b"</body></html>"
+        )
+        return _response(url, body, "text/html")
+
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=4,
+        max_requests_per_candidate=1,
+        http_get=http_get,
+    )
+    first = _request()
+    first["story_evidence_scope_id"] = "story-scope-one"
+    first["story_context"]["public_source_url_bindings"] = [{
+        "headline_id": "headline-qatar-pilots",
+        "url": "https://www.reuters.com/world/first-story",
+    }]
+    first_result = loader(first)
+    assert first_result["status"] == "PASS"
+
+    same_story = _request()
+    same_story["story_evidence_scope_id"] = "story-scope-one"
+    same_story["story_context"]["public_source_url_bindings"] = [{
+        "headline_id": "headline-qatar-pilots",
+        "url": "https://apnews.com/article/delta-source",
+    }]
+    same_result = loader(same_story)
+    assert same_result["status"] == "BLOCKED"
+    assert same_result["provenance"]["request_count_for_candidate"] == 1
+    assert same_result["provenance"]["request_count_for_call"] == 0
+    assert same_result["provenance"]["candidate_request_boundary_reused"] is True
+    assert "public_source_candidate_request_budget_exhausted" in same_result["blockers"]
+
+    different_story = _request()
+    different_story["story_evidence_scope_id"] = "story-scope-two"
+    different_story["story_context"]["public_source_url_bindings"] = [{
+        "headline_id": "headline-qatar-pilots",
+        "url": "https://apnews.com/article/other-story",
+    }]
+    other_result = loader(different_story)
+    assert other_result["status"] == "PASS"
+    assert other_result["provenance"]["request_count_for_candidate"] == 1
+    assert other_result["provenance"]["request_count_for_call"] == 1
+    assert calls == [
+        "https://www.reuters.com/world/first-story",
+        "https://apnews.com/article/other-story",
+    ]
+
+
+def test_same_story_delta_reuses_identical_request_signature_without_network_read():
+    calls: list[str] = []
+
+    def http_get(url: str, _timeout: float, _maximum: int):
+        calls.append(url)
+        body = (
+            b"<html><head><meta property='article:published_time' "
+            b"content='2026-08-18T12:39:43Z'/></head><body>"
+            + b"Bound public evidence text. " * 20
+            + b"</body></html>"
+        )
+        return _response(url, body, "text/html")
+
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=4,
+        max_requests_per_candidate=2,
+        http_get=http_get,
+    )
+    request = _request()
+    request["story_evidence_scope_id"] = "same-story-scope"
+    request["story_context"]["public_source_url_bindings"] = [{
+        "headline_id": "headline-qatar-pilots",
+        "url": "https://www.reuters.com/world/same-story",
+    }]
+
+    first = loader(request)
+    second = loader({**request, "request_logical_hash": "b" * 64})
+
+    assert first["status"] == second["status"] == "PASS"
+    assert calls == [
+        "https://www.reuters.com/world/same-story",
+        RSS_URL,
+    ]
+    assert second["provenance"]["request_count_for_call"] == 0
+    assert second["provenance"]["request_count_for_candidate"] == 2
+    assert second["provenance"]["network_reads_avoided_for_call"] == 2
+    assert len(second["provenance"]["reused_request_signatures"]) == 2

@@ -1,0 +1,895 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 5,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "12b178f393272de26ad6616e2291366ab8249088813d9f3910ef0b78ac871698",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-e466539cd0279e40099c"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "57eb43bd755b22d0c8df2e8aa03b91fb2d75826e32cc880c2928e9ac3ed8aaef",
+    "cutoff_time_utc": "2026-08-21T12:31:11.126806Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 5,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 4,
+          "concentration": [
+            "labor",
+            "economic indicators",
+            "jobless claims"
+          ],
+          "first_utc": "2026-08-20T12:31:38Z",
+          "latest_utc": "2026-08-20T12:33:21Z",
+          "material_update": false,
+          "members": 4,
+          "recency_hours": 23.9639,
+          "update_velocity": 104.8544
+        },
+        "entities_topics": [
+          "United States",
+          "Labor Market",
+          "Jobless Claims",
+          "Unemployment"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-76bd703d8445821c45c8",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 85,
+          "engagement": 75,
+          "evidence": 90,
+          "saturation_risk": 60,
+          "seo": 80
+        },
+        "summary": "US initial jobless claims fell to 206K for the week ending August 15, coming in below the estimated 210K, indicating continued resilience in the labor market."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "corporate investment",
+            "micron technology",
+            "research and development"
+          ],
+          "first_utc": "2026-08-20T12:31:38Z",
+          "latest_utc": "2026-08-20T12:31:38Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9925,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Micron Technology",
+          "United States",
+          "Semiconductors",
+          "Corporate Investment"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-90c5a00a1da6026b4179",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 70,
+          "evidence": 85,
+          "saturation_risk": 20,
+          "seo": 75
+        },
+        "summary": "Micron announces plans to invest $10 billion over the next 10 years to build a memory research laboratory in the United States."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "central_bank",
+            "inflation",
+            "economic indicators"
+          ],
+          "first_utc": "2026-08-20T12:32:01Z",
+          "latest_utc": "2026-08-20T12:33:45Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.9573,
+          "update_velocity": 34.6154
+        },
+        "entities_topics": [
+          "Federal Reserve Bank of Philadelphia",
+          "Manufacturing",
+          "Economic Indicators",
+          "Inflation"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-e3477632ea06b7d71d64",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 70,
+          "engagement": 60,
+          "evidence": 85,
+          "saturation_risk": 30,
+          "seo": 65
+        },
+        "summary": "The Philly Fed Manufacturing index reached 47.4, its best level since April 2021, while the prices paid sub-index fell to 40.9, marking its lowest range since early 2025."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "consumer spending",
+            "corporate earnings"
+          ],
+          "first_utc": "2026-08-20T12:32:29Z",
+          "latest_utc": "2026-08-20T12:33:33Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.9606,
+          "update_velocity": 56.25
+        },
+        "entities_topics": [
+          "Walmart",
+          "Retail",
+          "Corporate Earnings",
+          "Artificial Intelligence"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-eb120f35cd8fafb7379d",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 80,
+          "engagement": 80,
+          "evidence": 85,
+          "saturation_risk": 40,
+          "seo": 85
+        },
+        "summary": "Walmart's CEO highlights continued growth from higher-income households and a 70% increase in customers using its AI tool Sparky, who spend 40% more per order."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "central_bank",
+            "bond yields",
+            "central banking"
+          ],
+          "first_utc": "2026-08-20T12:33:43Z",
+          "latest_utc": "2026-08-20T12:34:09Z",
+          "material_update": false,
+          "members": 3,
+          "recency_hours": 23.9506,
+          "update_velocity": 276.9231
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Bond Yields"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-eb4f78a78f863aa9312f",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 75,
+          "engagement": 65,
+          "evidence": 80,
+          "saturation_risk": 50,
+          "seo": 70
+        },
+        "summary": "Federal Reserve's Mary Daly states that rising long-term bond yields are a global issue that blunts policy signals, while asserting that Fed credibility is not at risk."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": null,
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "57eb43bd755b22d0c8df2e8aa03b91fb2d75826e32cc880c2928e9ac3ed8aaef",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-2c7cc43b9cf6804bcb30df16",
+      "cc-x-headline-3b3985432675561712d7839c",
+      "cc-x-headline-402b6e35b897ebe21a5e30c8",
+      "cc-x-headline-5785b9dc13d379056dc55c30",
+      "cc-x-headline-5940b992bf4f560c2f78eae1",
+      "cc-x-headline-5e0778b6937bccf4a878a839",
+      "cc-x-headline-7d4860da701df7f401a0c69f",
+      "cc-x-headline-8dfc3780324a50304571eb6c",
+      "cc-x-headline-a530786f75a1e64daf0eea97",
+      "cc-x-headline-edad5280888abfafe73b29d5",
+      "cc-x-headline-ee5580e94c9aa98fce1cb079",
+      "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 90,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 60,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7d4860da701df7f401a0c69f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7d4860da701df7f401a0c69f",
+          "cc-x-headline-402b6e35b897ebe21a5e30c8",
+          "cc-x-headline-edad5280888abfafe73b29d5",
+          "cc-x-headline-a530786f75a1e64daf0eea97"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "United States"
+      ],
+      "event_topic_summary": "US initial jobless claims fell to 206K for the week ending August 15, coming in below the estimated 210K, indicating continued resilience in the labor market.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-76bd703d8445821c45c8",
+      "member_headline_ids": [
+        "cc-x-headline-7d4860da701df7f401a0c69f",
+        "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "cc-x-headline-edad5280888abfafe73b29d5",
+        "cc-x-headline-a530786f75a1e64daf0eea97"
+      ],
+      "partition_id": "rolling-x-leaf-e466539cd0279e40099c",
+      "topics": [
+        "Labor Market",
+        "Jobless Claims",
+        "Unemployment",
+        "Economic Indicators"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 20,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-ee5580e94c9aa98fce1cb079",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-ee5580e94c9aa98fce1cb079"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Micron Technology",
+        "United States"
+      ],
+      "event_topic_summary": "Micron announces plans to invest $10 billion over the next 10 years to build a memory research laboratory in the United States.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-90c5a00a1da6026b4179",
+      "member_headline_ids": [
+        "cc-x-headline-ee5580e94c9aa98fce1cb079"
+      ],
+      "partition_id": "rolling-x-leaf-e466539cd0279e40099c",
+      "topics": [
+        "Semiconductors",
+        "Corporate Investment",
+        "Technology",
+        "Research and Development"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 30,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5e0778b6937bccf4a878a839",
+          "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Federal Reserve Bank of Philadelphia"
+      ],
+      "event_topic_summary": "The Philly Fed Manufacturing index reached 47.4, its best level since April 2021, while the prices paid sub-index fell to 40.9, marking its lowest range since early 2025.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-e3477632ea06b7d71d64",
+      "member_headline_ids": [
+        "cc-x-headline-5e0778b6937bccf4a878a839",
+        "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+      ],
+      "partition_id": "rolling-x-leaf-e466539cd0279e40099c",
+      "topics": [
+        "Manufacturing",
+        "Economic Indicators",
+        "Inflation",
+        "Regional Economy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 40,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-2c7cc43b9cf6804bcb30df16",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-2c7cc43b9cf6804bcb30df16",
+          "cc-x-headline-3b3985432675561712d7839c"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Walmart"
+      ],
+      "event_topic_summary": "Walmart's CEO highlights continued growth from higher-income households and a 70% increase in customers using its AI tool Sparky, who spend 40% more per order.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-eb120f35cd8fafb7379d",
+      "member_headline_ids": [
+        "cc-x-headline-2c7cc43b9cf6804bcb30df16",
+        "cc-x-headline-3b3985432675561712d7839c"
+      ],
+      "partition_id": "rolling-x-leaf-e466539cd0279e40099c",
+      "topics": [
+        "Retail",
+        "Corporate Earnings",
+        "Artificial Intelligence",
+        "Consumer Spending"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 50,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5940b992bf4f560c2f78eae1",
+          "cc-x-headline-8dfc3780324a50304571eb6c",
+          "cc-x-headline-5785b9dc13d379056dc55c30"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Federal Reserve",
+        "Mary Daly"
+      ],
+      "event_topic_summary": "Federal Reserve's Mary Daly states that rising long-term bond yields are a global issue that blunts policy signals, while asserting that Fed credibility is not at risk.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-eb4f78a78f863aa9312f",
+      "member_headline_ids": [
+        "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "cc-x-headline-8dfc3780324a50304571eb6c",
+        "cc-x-headline-5785b9dc13d379056dc55c30"
+      ],
+      "partition_id": "rolling-x-leaf-e466539cd0279e40099c",
+      "topics": [
+        "Monetary Policy",
+        "Bond Yields",
+        "Central Banking",
+        "Interest Rates"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-2c7cc43b9cf6804bcb30df16",
+        "cc-x-headline-3b3985432675561712d7839c",
+        "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "cc-x-headline-5785b9dc13d379056dc55c30",
+        "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "cc-x-headline-5e0778b6937bccf4a878a839",
+        "cc-x-headline-7d4860da701df7f401a0c69f",
+        "cc-x-headline-8dfc3780324a50304571eb6c",
+        "cc-x-headline-a530786f75a1e64daf0eea97",
+        "cc-x-headline-edad5280888abfafe73b29d5",
+        "cc-x-headline-ee5580e94c9aa98fce1cb079",
+        "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+      ],
+      "partition_id": "rolling-x-leaf-e466539cd0279e40099c",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 8685,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 12,
+    "held_before_semantic_assignment_count": 0,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "2798ec554203f84451e51ce43fc32f56aa0ad8d7b30b939a0b598e97176c8ed6",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [],
+  "reason_code": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "7bff92b93e3032b6e507f26e9bfb18431e076d3e9d2505b0916eeb1be00430b5",
+          "latency_seconds": 45.842,
+          "logical_invocation_id": "inv_rolling_x_leaf_4f868781842c683314c8",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "5e30824d0b682ec78abd2a5b7c2ccb4f1d9078fac751ddc11a186d8c0a60d069",
+          "prompt_logical_hash": "593fdd4e21ffb9dfdba00c0b1a6ebb800d0b5688c1614bf803a57b2dd856af75",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-Y1uIatyyGZL32roP0vLIoAg",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_4f868781842c683314c8",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 4,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 9180,
+            "completion_tokens_details": {
+              "reasoning_tokens": 7181
+            },
+            "prompt_tokens": 5840,
+            "total_tokens": 15020
+          },
+          "work_item_id": "rolling-x-leaf-e466539cd0279e40099c"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_4f868781842c683314c8",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 4,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_4f868781842c683314c8",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 4,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "new/claude-fable-5": 1,
+          "new/claude-opus-5": 1,
+          "new/gpt-5.6-sol-xhigh": 1,
+          "vx/gemini-3.1-pro-preview(high)": 1,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 45.8426,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 9180.0,
+        "prompt_tokens": 5840.0,
+        "total_tokens": 15020.0
+      },
+      "work_item_id": "rolling-x-leaf-e466539cd0279e40099c"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "rejected",
+          "failure_class": "http_403_forbidden",
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "bf1715f19b2f67bb849a80fc3815e7c2465ebc0fcdd08630c9cbc15a9ac78584",
+          "latency_seconds": 5.2832,
+          "logical_invocation_id": "inv_rolling_x_global_81aa54e6d1cac576379c",
+          "model_identity_provider_verified": false,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "prompt_logical_hash": "b302a1c6655a1e0c4dd9557bb8c0dea8b514ebb509680ce9b880311809d17eec",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": null,
+          "provider_status_class": "4xx_client_403",
+          "remaining_attempt_budget": 4,
+          "requested_model": "new/claude-fable-5",
+          "resolved_model": null,
+          "retry_after_seconds": 120.0,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "new/claude-fable-5": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_81aa54e6d1cac576379c",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 3,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 5,
+            "per_model_max_attempts": [
+              2,
+              1,
+              1,
+              1
+            ],
+            "remaining_attempt_budget": 4,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "NOT_EVALUATED",
+          "usage": null,
+          "work_item_id": "rolling-x-global-57eb43bd755b22d0c8df"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "new/claude-fable-5": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_81aa54e6d1cac576379c",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 5,
+        "per_model_max_attempts": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "remaining_attempt_budget": 4,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_81aa54e6d1cac576379c",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": false,
+      "models_attempted_in_order": [
+        "new/claude-fable-5"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 5,
+        "per_model_max_attempts": {
+          "new/claude-fable-5": 2,
+          "new/claude-opus-5": 1,
+          "new/gpt-5.6-sol-xhigh": 1,
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": null,
+      "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+      "terminal_selected_route": null,
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 5.2834,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": null,
+      "work_item_id": "rolling-x-global-57eb43bd755b22d0c8df"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "rejected",
+        "failure_class": "http_403_forbidden",
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "bf1715f19b2f67bb849a80fc3815e7c2465ebc0fcdd08630c9cbc15a9ac78584",
+        "latency_seconds": 5.2832,
+        "logical_invocation_id": "inv_rolling_x_global_81aa54e6d1cac576379c",
+        "model_identity_provider_verified": false,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "prompt_logical_hash": "b302a1c6655a1e0c4dd9557bb8c0dea8b514ebb509680ce9b880311809d17eec",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": null,
+        "provider_status_class": "4xx_client_403",
+        "remaining_attempt_budget": 4,
+        "requested_model": "new/claude-fable-5",
+        "resolved_model": null,
+        "retry_after_seconds": 120.0,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "new/claude-fable-5": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_81aa54e6d1cac576379c",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 3,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 5,
+          "per_model_max_attempts": [
+            2,
+            1,
+            1,
+            1
+          ],
+          "remaining_attempt_budget": 4,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "NOT_EVALUATED",
+        "usage": null,
+        "work_item_id": "rolling-x-global-57eb43bd755b22d0c8df"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "new/claude-fable-5": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_81aa54e6d1cac576379c",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 3,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 5,
+      "per_model_max_attempts": [
+        2,
+        1,
+        1,
+        1
+      ],
+      "remaining_attempt_budget": 4,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_81aa54e6d1cac576379c",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": false,
+    "models_attempted_in_order": [
+      "new/claude-fable-5"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 3,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 5,
+      "per_model_max_attempts": {
+        "new/claude-fable-5": 2,
+        "new/claude-opus-5": 1,
+        "new/gpt-5.6-sol-xhigh": 1,
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": null,
+    "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+    "terminal_selected_route": null,
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 5.2834,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": null,
+    "work_item_id": "rolling-x-global-57eb43bd755b22d0c8df"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": null,
+  "selected_headline_ids": [],
+  "selection_rationale": "",
+  "status": "BLOCKED",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 51.126,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 9180.0,
+      "prompt_tokens": 5840.0,
+      "total_tokens": 15020.0
+    }
+  }
+}

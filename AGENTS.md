@@ -151,17 +151,19 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 ## 11. Current sequence
 
-P0-G3 is accepted/merged.
+P0-G3 and the following V1 daily-yield lineage are accepted on the current task lineage:
 
-Before P0-G4 canary continues, current work must:
+1. autonomous newsroom daily-output/native Automation revalidation;
+2. candidate continuation and quote repair;
+3. current evidence-yield/reachability correction;
+4. distinct-story frontier correction;
+5. story/update-chain-scoped evidence reuse across mode downgrade.
 
-1. reconcile authority to the daily-output owner contract;
-2. prove actual Codex host Automation inventory/execution capability;
-3. implement production-day floor/deficit accounting and bounded catch-up;
-4. expose truthful daily-output/automation state in V5;
-5. prove one zero-public-write Automation-to-editorial path where supported.
-
-Then resume real canary -> unattended/cold-start proof -> V5 final screenshot QA.
+The four-frontier proof still ends `DEGRADED_DAILY_OUTPUT_DEFICIT` at 0/4 articles and 0/32
+derivative intents. The next exact product gate is bounded first-party locator/source-family and
+query/publisher-resolution closure for the demonstrated residual story matrix, followed by the same
+four-frontier zero-public-write proof. Do not resume P0-G4 canary, enable the four paused Automations,
+or create a fifth Automation while the build floor remains unproven.
 
 ## 12. Change discipline
 

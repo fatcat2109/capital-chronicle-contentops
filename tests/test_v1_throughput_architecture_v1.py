@@ -309,9 +309,14 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
     )
     monkeypatch.setattr(
         "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
-        lambda **_kwargs: (_ for _ in ()).throw(
-            AssertionError("full-universe assignment is outside the publication path")
-        ),
+        lambda **_kwargs: {
+            **prepared["assignment"],
+            "telemetry": {
+                **prepared["assignment"]["telemetry"],
+                "logical_router_calls": 2,
+            },
+            "assignment_method": "CONTROLLED_BOUNDED_PREPARED_SEMANTIC_ASSIGNMENT",
+        },
     )
 
     writer_calls: list[str] = []
@@ -513,7 +518,9 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
         for row in result["publication_lifecycle_plan"]["destinations"]
     )
     assert telemetry["full_universe_semantic_assignment_on_critical_path"] is False
-    assert telemetry["routine_semantic_calls"] == 1
+    assert telemetry["bounded_prepared_frontier_semantic_assignment"] is True
+    assert telemetry["assignment_semantic_calls"] == 2
+    assert telemetry["routine_semantic_calls"] == 3
     assert telemetry["article_writer_semantic_calls"] == 1
     assert telemetry["mandatory_semantic_review_calls"] == 0
     assert telemetry["public_write_performed"] is False

@@ -47,6 +47,14 @@ _ARTICLE_MODES = (
 _LOCATOR_HEADLINE_NOISE = frozenset(
     {"breaking", "exclusive", "historic", "watch", "sink", "sinks", "surge", "surges"}
 )
+_LOCATOR_EVENT_CORE_NOISE = frozenset(
+    {
+        "a", "actual", "amp", "an", "beating", "by", "expectations",
+        "forecast", "former", "group", "highlights", "in", "is", "just",
+        "macro", "man", "of", "prev", "previous", "reported", "richest",
+        "rt", "says", "source", "to", "via", "was",
+    }
+)
 _NUMBER_RE = re.compile(
     r"(?<![A-Za-z])[-+]?(?:\$|€|£)?\d[\d,]*(?:\.\d+)?(?:%|bn|mn|[kmbt])?",
     re.IGNORECASE,
@@ -130,6 +138,46 @@ def _locator_query_seed(value: Any) -> str:
     return " ".join(tokens)[:220]
 
 
+def _locator_event_core_query(value: Any) -> str:
+    """Build one compact locator variant from the same untrusted headline bytes.
+
+    Social repost metadata, truncated tail fragments, market-feed ceremony, and repeated
+    filler can make an otherwise exact current-news query too brittle.  This transformation
+    adds no alias, URL, publisher, or fact; it only retains a bounded ordered event core from
+    the already-governed proposition.  The original neutralized proposition remains the first
+    query and therefore stays observable for before/after diagnostics.
+    """
+    text = _clean_text(value, 500)
+    text = re.sub(r"^\s*RT\s+@[^\s:]+\s*:\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"^\s*@[^\s:]+\s*:\s*", "", text)
+    text = re.sub(r"\s+[A-Za-z0-9]{1,3}\.{3}\s*$", "", text)
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for token in re.findall(r"[A-Za-z0-9][A-Za-z0-9'’-]*", text):
+        normalized = token.casefold().strip("'’-")
+        if normalized.endswith(("'s", "’s")):
+            token = token[:-2]
+            normalized = normalized[:-2]
+        if (
+            not normalized
+            or normalized in _LOCATOR_HEADLINE_NOISE
+            or normalized in _LOCATOR_EVENT_CORE_NOISE
+            or normalized in _STOPWORDS
+            or normalized.isdigit()
+            or normalized in seen
+        ):
+            continue
+        if normalized == "lows":
+            token = "low"
+        elif normalized == "highs":
+            token = "high"
+        ordered.append(token)
+        seen.add(normalized)
+        if len(ordered) >= 8:
+            break
+    return " ".join(ordered)[:220]
+
+
 def build_deterministic_locator_plan(
     request: Mapping[str, Any], *, max_queries: int = 3
 ) -> dict[str, Any]:
@@ -154,6 +202,16 @@ def build_deterministic_locator_plan(
     candidates: list[str] = []
     if proposition:
         candidates.append(proposition)
+    event_core = _locator_event_core_query(
+        request.get("normalized_headline_proposition")
+    )
+    if (
+        event_core
+        and proposition
+        and event_core.casefold() != proposition.casefold()
+        and len(event_core) >= 8
+    ):
+        candidates.append(event_core)
     if proposition and entities:
         missing = [value for value in entities if value.casefold() not in proposition.casefold()]
         if missing:
@@ -1055,7 +1113,28 @@ class GroundedNewsResearchV1:
                 "headline_ids": compact["headline_ids"],
                 "proposition": compact["normalized_headline_proposition"],
                 "cutoff": self._evaluation_as_of_utc,
-                "risk": compact["risk_classification"],
+                "story_type": compact["story_type"],
+                "story_evidence_scope_id": request.get("story_evidence_scope_id"),
+                "needed_evidence": compact["claims_or_questions_needing_verification"],
+                "bound_source_urls": compact["already_bound_source_urls"],
+                "required_evidence_capabilities": sorted(
+                    str(value)
+                    for value in request.get("required_evidence_capabilities") or []
+                ),
+                "source_adapter_families": sorted(
+                    str(value) for value in request.get("source_adapter_families") or []
+                ),
+                "initial_document_bindings": sorted(
+                    str(
+                        row.get("document_id")
+                        or row.get("evidence_id")
+                        or row.get("canonical_content_sha256")
+                        or row.get("raw_sha256")
+                        or ""
+                    )
+                    for row in initial_documents
+                    if isinstance(row, Mapping)
+                ),
             }
         )
         if cache_key in self._cache:
@@ -1069,6 +1148,18 @@ class GroundedNewsResearchV1:
             )
             cached["research_packet"] = packet
             cached["cache_reused"] = True
+            cached["cache_reuse_provenance"] = {
+                "story_evidence_scope_id": request.get("story_evidence_scope_id"),
+                "cached_research_calls": int(cached.get("research_calls") or 0),
+                "cached_public_retrieval_requests": int(
+                    cached.get("public_retrieval_requests") or 0
+                ),
+                "research_calls_for_current_evaluation": 0,
+                "public_retrieval_requests_for_current_evaluation": 0,
+                "factual_numeric_or_publication_authority_granted": False,
+            }
+            cached["research_calls"] = 0
+            cached["public_retrieval_requests"] = 0
             return cached
 
         telemetry: list[dict[str, Any]] = []
@@ -1167,7 +1258,9 @@ class GroundedNewsResearchV1:
             documents, evaluation_as_of_utc=self._evaluation_as_of_utc
         )
         retrieved_provenance = retrieved.get("provenance") or {}
-        first_request_delta = retrieved_provenance.get("request_count_for_candidate")
+        first_request_delta = retrieved_provenance.get("request_count_for_call")
+        if first_request_delta is None:
+            first_request_delta = retrieved_provenance.get("request_count_for_candidate")
         public_requests = int(
             first_request_delta
             if first_request_delta is not None
@@ -1268,9 +1361,11 @@ class GroundedNewsResearchV1:
                     set(post_cutoff_document_ids).union(recovered_post_cutoff_ids)
                 )
                 recovered_provenance = recovered.get("provenance") or {}
-                recovery_request_delta = recovered_provenance.get(
-                    "request_count_for_candidate"
-                )
+                recovery_request_delta = recovered_provenance.get("request_count_for_call")
+                if recovery_request_delta is None:
+                    recovery_request_delta = recovered_provenance.get(
+                        "request_count_for_candidate"
+                    )
                 if recovery_request_delta is not None:
                     public_requests += int(recovery_request_delta)
                 else:
@@ -1357,7 +1452,11 @@ class GroundedNewsResearchV1:
                         "provenance": {},
                     }
                 closure_provenance = closure_retrieval.get("provenance") or {}
-                closure_delta = closure_provenance.get("request_count_for_candidate")
+                closure_delta = closure_provenance.get("request_count_for_call")
+                if closure_delta is None:
+                    closure_delta = closure_provenance.get(
+                        "request_count_for_candidate"
+                    )
                 public_requests += int(
                     closure_delta
                     if closure_delta is not None

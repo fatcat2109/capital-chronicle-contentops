@@ -1,0 +1,559 @@
+{
+  "automations": {
+    "all_expected_present": true,
+    "all_paused": true,
+    "expected_count": 4,
+    "fifth_task_present": false,
+    "matching_host_config_count": 4,
+    "matching_host_config_ids": [
+      "v1-newsroom-london-1700",
+      "v1-newsroom-new-york-0100",
+      "v1-newsroom-new-york-2100",
+      "v1-newsroom-new-york-2300"
+    ],
+    "rows": [
+      {
+        "execution_environment": "local",
+        "host_config_sha256": "ea8e1e11a82b6b600fffd791cf9e8560d0d5198905fd5da15170d50ec1f43b65",
+        "id": "v1-newsroom-london-1700",
+        "model": "gpt-5.6-sol",
+        "name": "V1 Newsroom \u2014 London 1700",
+        "reasoning_effort": "high",
+        "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=17;BYMINUTE=0",
+        "status": "PAUSED",
+        "supported_app_view_readback_invoked": true
+      },
+      {
+        "execution_environment": "local",
+        "host_config_sha256": "02403d7c03c9fc3b8a262e10e8ad76bfd9dc7ffe3c80fab60c811397d06d17ed",
+        "id": "v1-newsroom-new-york-2100",
+        "model": "gpt-5.6-sol",
+        "name": "V1 Newsroom \u2014 New York 2100",
+        "reasoning_effort": "high",
+        "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=21;BYMINUTE=0",
+        "status": "PAUSED",
+        "supported_app_view_readback_invoked": true
+      },
+      {
+        "execution_environment": "local",
+        "host_config_sha256": "303fe4651091871e67c93d1335540be991995d442c5da9fcff9dbf100b74ca21",
+        "id": "v1-newsroom-new-york-2300",
+        "model": "gpt-5.6-sol",
+        "name": "V1 Newsroom \u2014 New York 2300",
+        "reasoning_effort": "high",
+        "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=23;BYMINUTE=0",
+        "status": "PAUSED",
+        "supported_app_view_readback_invoked": true
+      },
+      {
+        "execution_environment": "local",
+        "host_config_sha256": "65e87f0e8e255ab7a334484d982b6d017b96d6af4b26ebe6a75760b10d464a19",
+        "id": "v1-newsroom-new-york-0100",
+        "model": "gpt-5.6-sol",
+        "name": "V1 Newsroom \u2014 New York 0100",
+        "reasoning_effort": "high",
+        "rrule": "RRULE:FREQ=WEEKLY;BYDAY=TU,WE,TH,FR,SA;BYHOUR=1;BYMINUTE=0",
+        "status": "PAUSED",
+        "supported_app_view_readback_invoked": true
+      }
+    ]
+  },
+  "classification": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+  "created_at_utc": "2026-08-21T11:06:25.021626Z",
+  "frozen_12_forensic": {
+    "artifact": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1\\docs\\automation\\TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1\\phase_a_frozen_12_current_evidence_replay_v1.json",
+      "sha256": "70e9ceeeb7f5cf49e46d723f0c969aa6960a455bbc81e7ee01bdaba8752cc847"
+    },
+    "before_after": {
+      "accepted_evidence_document_count": {
+        "after": 1,
+        "before": 0
+      },
+      "accepted_post_cutoff_document_count": 0,
+      "evidence_qualified_candidate_count": {
+        "after": 1,
+        "before": 0
+      },
+      "false_positive_evidence_qualified_count": 0,
+      "public_and_official_requests_by_candidate": [
+        {
+          "official_requests": 0,
+          "public_requests": 1,
+          "rank": 1
+        },
+        {
+          "official_requests": 2,
+          "public_requests": 2,
+          "rank": 2
+        },
+        {
+          "official_requests": 0,
+          "public_requests": 2,
+          "rank": 3
+        },
+        {
+          "official_requests": 0,
+          "public_requests": 5,
+          "rank": 4
+        },
+        {
+          "official_requests": 0,
+          "public_requests": 4,
+          "rank": 5
+        },
+        {
+          "official_requests": 0,
+          "public_requests": 2,
+          "rank": 6
+        },
+        {
+          "official_requests": 0,
+          "public_requests": 2,
+          "rank": 7
+        },
+        {
+          "official_requests": 2,
+          "public_requests": 2,
+          "rank": 8
+        },
+        {
+          "official_requests": 0,
+          "public_requests": 2,
+          "rank": 9
+        },
+        {
+          "official_requests": 1,
+          "public_requests": 6,
+          "rank": 10
+        },
+        {
+          "official_requests": 0,
+          "public_requests": 2,
+          "rank": 11
+        },
+        {
+          "official_requests": 0,
+          "public_requests": 6,
+          "rank": 12
+        }
+      ],
+      "public_secondary_query_count": 25,
+      "publisher_resolution_attempt_count": 7,
+      "publisher_resolution_success_count": 1
+    },
+    "candidate_count": 12,
+    "cost_reporting_status": "UNAVAILABLE_FROM_PROVIDER_RECEIPTS",
+    "historical_cutoff_utc": "2026-08-20T23:37:06.897041Z",
+    "per_candidate": [
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "Oman Air appoints Nasser Al Sharji as CEO",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 1,
+        "publisher_resolution_attempt_count": 0,
+        "rank": 1,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_CURRENT_SOURCE_FAMILY_UNSUPPORTED",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "DEERE $DE JUST REPORTED EARNINGS EPS of $5.10 beating expectations of $4.71\ud83d\udfe2 Revenue of $11B beating expectations of $10.7B\ud83d\udfe2",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 0,
+        "rank": 2,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "Ocado Group, Nemlig to construct CFC near Copenhagen",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 0,
+        "rank": 3,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 1,
+        "classification": "SOURCE_EXISTS_CURRENT_ADAPTER_SHOULD_HAVE_FOUND",
+        "exact_rejection_reasons": [],
+        "headline_proposition": "RT @tongbingxue: Xu Jiayin (\u8bb8\u5bb6\u5370), founder of China Evergrande Group and former China\u2019s richest man, was sentenced to life in prison by a Sh...",
+        "provider_attempts": 1,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 3,
+        "rank": 4,
+        "reported_cost_usd": null,
+        "status": "PASS",
+        "total_tokens": 6849
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_PUBLISHER_RESOLUTION_FAILED",
+        "exact_rejection_reasons": [
+          "HTTP Error 401: HTTP Forbidden",
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_redirect_authority_invalid",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "Ocado Group confirms Nemlig as European partner",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 1,
+        "rank": 5,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "5.2 magnitude earthquake 270 km south-southeast of Dunhuang, China: USGS",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 0,
+        "rank": 6,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "OMAN: LASTING SECURITY IN STRAIT OF HORMUZ REQUIRES PERMANENT PEACE IN REGION",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 0,
+        "rank": 7,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_CURRENT_SOURCE_FAMILY_UNSUPPORTED",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "DEERE $DE Q3\u201926 EARNINGS HIGHLIGHTS \ud83d\udd39 Revenue: $11.0B (Est. $10.74B) \ud83d\udfe2; +6% YoY \ud83d\udd39 EPS: $5.10 (Est. $4.71) \ud83d\udfe2; +7% YoY \ud83d\udd39 Net Income: $1.4B (Est. $1.27B) \ud83d\udfe2; +7% YoY \ud83d\udd39 Construction &amp; Forestry Sales: $3.6B; +18% YoY Raises FY26 Guide: \ud83d\udd39...",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 0,
+        "rank": 8,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "UK CBI TRENDS TOTAL ORDERS AUG: -25 (EST -40; PREV -45)",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 0,
+        "rank": 9,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_PUBLISHER_RESOLUTION_FAILED",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_request_budget_exhausted",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "Oman: Remains committed to maritime security, international law, and rejects further escalation or conflict in the region",
+        "provider_attempts": 2,
+        "public_secondary_query_count": 4,
+        "publisher_resolution_attempt_count": 1,
+        "rank": 10,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 7448
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_TRULY_UNAVAILABLE_AT_CUTOFF",
+        "exact_rejection_reasons": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "European sovereign debt\u2014particularly long-dated bonds\u2014is a dreadful hedge against volatility and an atrocious real investment. It offers asymmetric risk: limited upside if yields fall but large mark-to-market losses when inflation and...",
+        "provider_attempts": 0,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 0,
+        "rank": 11,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 0
+      },
+      {
+        "accepted_evidence_document_count": 0,
+        "classification": "SOURCE_EXISTS_BUT_PUBLISHER_RESOLUTION_FAILED",
+        "exact_rejection_reasons": [
+          "HTTP Error 401: HTTP Forbidden",
+          "HTTP Error 404: Not Found",
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_redirect_authority_invalid",
+          "public_source_request_budget_exhausted",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "headline_proposition": "UK CBI ORDERS ACTUAL -25 (FORECAST -40, PREVIOUS -45) $MACRO",
+        "provider_attempts": 2,
+        "public_secondary_query_count": 2,
+        "publisher_resolution_attempt_count": 2,
+        "rank": 12,
+        "reported_cost_usd": null,
+        "status": "BLOCKED",
+        "total_tokens": 7782
+      }
+    ],
+    "reported_cost_usd": null,
+    "research_provider_attempts": 5,
+    "research_total_tokens": 22079,
+    "root_causes": [
+      "brittle_exact_social-headline query without a same-proposition event-core variant",
+      "AP publisher alias absent despite the already-authorized apnews.com host",
+      "same-host AP sitemap index child not followed",
+      "SEC company ticker locator response truncated below the current first-party payload size",
+      "SEC equal-score entity tie-break could select a later, unrelated issuer"
+    ],
+    "source_authority_invariants": {
+      "discovery_listing_grants_factual_authority": false,
+      "exact_publisher_or_official_bytes_required": true,
+      "model_output_grants_factual_authority": false,
+      "post_cutoff_documents_rejected": true,
+      "sitemap_metadata_grants_factual_authority": false,
+      "source_url_invention_permitted": false,
+      "unapproved_source_class_rejected": true
+    }
+  },
+  "multi_frontier_rehearsal": {
+    "article_boundary_count": 0,
+    "artifact": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1\\docs\\automation\\TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1\\phase_c_current_multi_frontier_rehearsal\\multi_frontier_floor_rehearsal_summary_v1.json",
+      "sha256": "49b3c18722575050757d81d81241911311c0a492f41f3924a6f1da731af9a12d"
+    },
+    "countable_articles": [],
+    "cutoff_utc": "2026-08-21T10:56:00.344407Z",
+    "cycle_artifacts": [
+      {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1\\docs\\automation\\TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1\\phase_c_current_multi_frontier_rehearsal\\frontier_1\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+        "sha256": "4a1bb0615d510590fd857cd3ec6838bb6a032273b8dd254479ca1ee311182f79"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1\\docs\\automation\\TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1\\phase_c_current_multi_frontier_rehearsal\\frontier_2\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+        "sha256": "4b46ca4ce6bea1ab3345868b1e80938f0f9cb743228dacdd04bd836d9c8cf69e"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1\\docs\\automation\\TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1\\phase_c_current_multi_frontier_rehearsal\\frontier_3\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+        "sha256": "39e753b6c1ef5d380ec14c910bbee4aede2e602ec9a21f03e4a6ab15646ffbc6"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1\\docs\\automation\\TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1\\phase_c_current_multi_frontier_rehearsal\\frontier_4\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+        "sha256": "f546f589086e1ad817554b84163eed9e1aa63d2d2b2617ee02f7c4da0efef382"
+      }
+    ],
+    "distinct_candidate_count": 48,
+    "evidence_qualified_count": 0,
+    "exact_stopping_budget": "FOUR_EXISTING_ROUTINE_OPPORTUNITY_EQUIVALENTS",
+    "exact_stopping_reason": "FOUR_FRONTIER_BUDGET_EXHAUSTED_BEFORE_BUILD_FLOOR",
+    "exactly_eight_derivative_package_proofs": [],
+    "frontier_count": 4,
+    "frontiers": [
+      {
+        "attempted_distinct_candidate_count": 12,
+        "attempted_headline_ids": [
+          "cc-x-headline-1be6f77b40f14ecd23709358",
+          "cc-x-headline-24c00aefd42f58a9b7171528",
+          "cc-x-headline-4102e8fccf51bbcd8d958e2f",
+          "cc-x-headline-41c24715c9e85378ac28925a",
+          "cc-x-headline-4842a9ece9e91cbbc2c7a804",
+          "cc-x-headline-53d3b30cb46d1eafe14318da",
+          "cc-x-headline-61eb3473cfaa0d28943fdd16",
+          "cc-x-headline-a4b1ca815ed8a24d719c59d1",
+          "cc-x-headline-ab588567b708ae8c35e26d74",
+          "cc-x-headline-c22fb8342ee6ed2388f195bf",
+          "cc-x-headline-c3e06aafea201a60fed795b7",
+          "cc-x-headline-ce7f274e9dc073754a0e3b74"
+        ],
+        "evidence_qualified_count": 0,
+        "exact_stopping_reason": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+        "frontier": 1,
+        "prepared_candidate_count": 12,
+        "prepared_candidate_logical_hash": "50f09196671e4ca39037daa8e02ee453f53e20bb21bfbe22dc42445023692162",
+        "public_write_performed": false,
+        "publishing_adapter_called": false,
+        "unknown_write_detected": false
+      },
+      {
+        "attempted_distinct_candidate_count": 12,
+        "attempted_headline_ids": [
+          "cc-x-headline-039999e06227685900aaf723",
+          "cc-x-headline-21b31930301916b4a8e8acc7",
+          "cc-x-headline-232ab125e2ef6e5fe587e026",
+          "cc-x-headline-3467802cc99a4f1422b23026",
+          "cc-x-headline-427d8ab957e1e54667bbbc3a",
+          "cc-x-headline-67b6633eff0374ae88662fc8",
+          "cc-x-headline-689e5d5d56ce79e69bc0fd31",
+          "cc-x-headline-90c41feeb51bd5f80da404d9",
+          "cc-x-headline-a043d71671cb6e65cc2b3123",
+          "cc-x-headline-af49ce10ade73da95869332f",
+          "cc-x-headline-b8fe1124f2e10ee265ba519c",
+          "cc-x-headline-cd0e3d800964734aa28ff659"
+        ],
+        "evidence_qualified_count": 0,
+        "exact_stopping_reason": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+        "frontier": 2,
+        "prepared_candidate_count": 12,
+        "prepared_candidate_logical_hash": "4504a33930f17ea61a6ae9a320b17c287b64d92596d819799f9f4ab768028498",
+        "public_write_performed": false,
+        "publishing_adapter_called": false,
+        "unknown_write_detected": false
+      },
+      {
+        "attempted_distinct_candidate_count": 12,
+        "attempted_headline_ids": [
+          "cc-x-headline-169c13f1d7c9d7ce738d4c76",
+          "cc-x-headline-2d0c36efdeace5429baf71b7",
+          "cc-x-headline-314681727280bf5d3157c04c",
+          "cc-x-headline-3949a5de12fd9a3b77dd5477",
+          "cc-x-headline-3db31aeeef6efc7857ab096f",
+          "cc-x-headline-4830174bb64fb46008ac3857",
+          "cc-x-headline-7c1694ce9a37c43dbf3f0f6a",
+          "cc-x-headline-9204ce2f5aae1296db39a62e",
+          "cc-x-headline-9ced5f2b54610c19a580ab8e",
+          "cc-x-headline-c1ee1a4e850960c5e9d1144b",
+          "cc-x-headline-cb63d3e28ecceb3ec51a5ab0",
+          "cc-x-headline-cc36245d2a922bf4a5f0945f"
+        ],
+        "evidence_qualified_count": 0,
+        "exact_stopping_reason": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+        "frontier": 3,
+        "prepared_candidate_count": 12,
+        "prepared_candidate_logical_hash": "dfdb796639534028df0141cc9d3dd416c2c700c3e91a04d7ba4818e9fc9508a8",
+        "public_write_performed": false,
+        "publishing_adapter_called": false,
+        "unknown_write_detected": false
+      },
+      {
+        "attempted_distinct_candidate_count": 12,
+        "attempted_headline_ids": [
+          "cc-x-headline-04182cd80db7bb88cac28c1c",
+          "cc-x-headline-08959cc0c1fbec773c2ee67e",
+          "cc-x-headline-2b226480203e3a5b8c2ee354",
+          "cc-x-headline-3279e5b2df29a52ce8903492",
+          "cc-x-headline-4248a27c8dd35d2938482ef2",
+          "cc-x-headline-77dcabc481cec623f7f99b66",
+          "cc-x-headline-7beb58e5b8d83968621b96eb",
+          "cc-x-headline-a525fc9435304157de94dc67",
+          "cc-x-headline-ace4a928bef539bc735c1efe",
+          "cc-x-headline-adcbe91c259d6aa4bf213485",
+          "cc-x-headline-b5059cedac8d5600482f8325",
+          "cc-x-headline-d91789016e491a6a0dd23105"
+        ],
+        "evidence_qualified_count": 0,
+        "exact_stopping_reason": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+        "frontier": 4,
+        "prepared_candidate_count": 12,
+        "prepared_candidate_logical_hash": "417d06cd36ea0a312c4c8a9c0055fef0b38f5b78d80ab39d10befdc8cc2b1746",
+        "public_write_performed": false,
+        "publishing_adapter_called": false,
+        "unknown_write_detected": false
+      }
+    ],
+    "full_current_headline_count": 955,
+    "no_repeat_proof": true,
+    "production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "qualified_count": 0,
+    "remaining_build_deficit": 4,
+    "remaining_held_identity_count": 907,
+    "source_reachability_taxonomy": {
+      "SOURCE_AFTER_CUTOFF_NOT_ELIGIBLE": 1,
+      "SOURCE_EXISTS_BUT_PUBLISHER_RESOLUTION_FAILED": 10,
+      "SOURCE_NOT_REACHED_WITHIN_BOUNDED_QUERY": 20,
+      "SOURCE_REACHABILITY_NOT_ESTABLISHED_BUDGET_EXHAUSTED": 17
+    },
+    "xhigh_attempt_count": 0,
+    "xhigh_revision_count": 0
+  },
+  "ready_for_owner_audit_autonomous_daily_output": false,
+  "safety_totals": {
+    "automation_enablement": 0,
+    "fifth_automation_created": 0,
+    "production_store_reset": 0,
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "secret_or_session_inspection": 0,
+    "unknown_write": 0,
+    "xhigh_calls": 0
+  },
+  "schema_version": "contentops.v1_current_evidence_yield_closure_summary.v1",
+  "task_label": "TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1"
+}

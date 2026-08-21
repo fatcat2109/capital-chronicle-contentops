@@ -7,6 +7,7 @@ fixture success.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from collections import Counter, defaultdict
@@ -420,6 +421,75 @@ def _duration_seconds(start: Any, end: Any) -> Optional[int]:
     if started is None or finished is None:
         return None
     return max(0, int((finished - started).total_seconds()))
+
+
+def _automation_state_projection(store_path: Path, generated: datetime) -> dict[str, Any]:
+    """Keep configured intent distinct from a persisted supported-host observation."""
+    from live_contentops.codex_desktop_newsroom_operator_v1 import four_task_setup_packet
+
+    packet = four_task_setup_packet()
+    configured = {
+        "state": "CONFIGURED_INTENT",
+        "task_count": packet["routine_task_count"],
+        "tasks": packet["tasks"],
+        "timezone": packet["timezone"],
+        "project": packet["project"],
+        "model": packet["model"],
+        "reasoning_effort": packet["reasoning_effort"],
+        "prompt_sha256": hashlib.sha256(packet["prompt"].encode("utf-8")).hexdigest(),
+    }
+    observation_path = store_path.parent / "automation_observation" / "latest.json"
+    observation = _read_json_file(observation_path)
+    observed_at = _parse_time(observation.get("observed_at_utc"))
+    if (
+        observation.get("schema_version")
+        != "contentops.codex_automation_host_observation.v1"
+        or not observed_at
+        or not isinstance(observation.get("tasks"), list)
+    ):
+        return {
+            "configured_intent": configured,
+            "observed_host_state": {
+                "state": "AUTOMATION_STATE_UNAVAILABLE",
+                "task_count": None,
+                "tasks": [],
+                "source": "SUPPORTED_PERSISTED_HOST_OBSERVATION_NOT_AVAILABLE",
+            },
+            "observation_timestamp_utc": None,
+            "freshness": "UNAVAILABLE",
+        }
+    age_seconds = max(0, int((generated - observed_at).total_seconds()))
+    safe_tasks = []
+    for row in observation.get("tasks") or []:
+        if not isinstance(row, Mapping):
+            continue
+        safe_tasks.append(
+            {
+                key: row.get(key)
+                for key in (
+                    "id", "name", "status", "rrule", "timezone", "project", "model",
+                    "reasoning_effort", "prompt_sha256", "host_config_sha256",
+                    "observation_projection_sha256",
+                )
+            }
+        )
+        # Historical v1 observations used config_sha256 for the exact supported host
+        # value. Preserve that host provenance without presenting it as a computed
+        # observation-projection identity.
+        if not safe_tasks[-1]["host_config_sha256"]:
+            safe_tasks[-1]["host_config_sha256"] = row.get("config_sha256")
+    return {
+        "configured_intent": configured,
+        "observed_host_state": {
+            "state": "OBSERVED_HOST_STATE",
+            "task_count": len(safe_tasks),
+            "tasks": safe_tasks,
+            "source": str(observation.get("observation_source") or "SUPPORTED_CODEX_APP_SURFACE"),
+        },
+        "observation_timestamp_utc": _iso(observed_at),
+        "freshness": "FRESH" if age_seconds <= 86400 else "STALE",
+        "age_seconds": age_seconds,
+    }
 
 
 def build_daily_app_snapshot(
@@ -1028,26 +1098,38 @@ def build_daily_app_snapshot(
 
     published_today_count = 0
     published_corpus_count = 0
-    daily_target_band = [0, 4]
+    daily_target_band = [5, 8]
+    corpus_articles: list[Any] = []
     try:
         from live_contentops.editorial_portfolio_v1 import DAILY_TARGET_BAND
         from live_contentops.published_corpus_read_model_v1 import load_published_corpus
 
         corpus = load_published_corpus(store)
         published_corpus_count = corpus["article_count"]
+        corpus_articles = list(corpus["articles"])
         daily_target_band = list(DAILY_TARGET_BAND)
-        for article in corpus["articles"]:
-            try:
-                published_dt = datetime.fromisoformat(str(article.published_at_utc).replace("Z", "+00:00"))
-                if published_dt.tzinfo is None:
-                    published_dt = published_dt.replace(tzinfo=timezone.utc)
-            except ValueError:
-                continue
-            published_utc = published_dt.astimezone(timezone.utc)
-            if generated.date() == published_utc.date():
-                published_today_count += 1
     except Exception:  # noqa: BLE001
         published_corpus_count = 0
+
+    from live_contentops.newsroom_production_day_v1 import build_production_day_snapshot
+
+    production_day = build_production_day_snapshot(
+        reference=generated,
+        output_root=path.parent / "daily_app_outputs",
+        published_corpus=corpus_articles,
+        terminal_work_item_ids={
+            str(row["work_item_id"])
+            for row in work_items
+            if str(row.get("current_state") or "")
+            in {
+                "EVIDENCE_READY", "EVIDENCE_BLOCKED", "REJECTED", "REVIEW_BLOCKED",
+                "DISPATCH_BLOCKED", "PARTIAL_SUCCESS", "DISPATCH_COMPLETE", "COMPLETE",
+                "DEAD_LETTER", "OPERATOR_RECOVERY_REQUIRED", "CLOSED",
+            }
+        },
+    )
+    published_today_count = production_day.published_articles_today
+    automation_state = _automation_state_projection(path, generated)
 
     latest_editorial_classification = "UNAVAILABLE"
     latest_article_update_mode = "UNAVAILABLE"
@@ -1353,6 +1435,7 @@ def build_daily_app_snapshot(
             else "ACTION_REQUIRED" if unknown
             else "HEALTHY"
         ),
+        "output_health": production_day.production_day_state,
         "operating_mode": controls["operating_mode"],
         "runtime_sha_short": _runtime_sha_short(path),
         "local_timezone": "Asia/Ho_Chi_Minh",
@@ -1363,7 +1446,10 @@ def build_daily_app_snapshot(
         "current_activity": cockpit_current_activity,
         "timeline": cockpit_timeline,
         "schedule": {
-            "idle_healthy": cockpit_primary_state == "RUNNING_IDLE",
+            "idle_healthy": bool(
+                cockpit_primary_state == "RUNNING_IDLE"
+                and production_day.production_day_state in {"ON_TRACK", "FLOOR_MET"}
+            ),
             "next_editorial_wake_utc": next_window.get("window_start_utc") if next_window else None,
             "next_editorial_wake_reason": (
                 str(next_window.get("editorial_session") or "SCHEDULED_EDITORIAL_WINDOW")
@@ -1442,6 +1528,7 @@ def build_daily_app_snapshot(
             "operator_cockpit": cockpit,
         },
         "today": {
+            **production_day.to_dict(),
             "published_today_count": published_today_count,
             "published_corpus_count": published_corpus_count,
             "daily_target_band": daily_target_band,
@@ -1523,6 +1610,7 @@ def build_daily_app_snapshot(
             "history_count": len(durable_incident_history),
         },
         "hourly_audit": hourly_audit,
+        "automation": automation_state,
         "controls": {
             "current_mode": controls["operating_mode"],
             "state_version": controls["state_version"],

@@ -1,0 +1,87 @@
+{
+  "schema_version": "contentops.v1_daily_output_candidate_continuation_final_floor_proof.v1",
+  "source_commit": "8c629bc3b9c4fd13ab4dc64c72b8d3a3e41d80a9",
+  "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+  "cutoff_utc": "2026-08-20T23:37:06.897041Z",
+  "operating_mode": "SHADOW_ONLY",
+  "target_qualified_article_count": 4,
+  "qualified_article_count": 0,
+  "remaining_build_deficit": 4,
+  "production_day_state": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+  "hard_external_block_reason": null,
+  "bounded_stopping_condition": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+  "candidate_pool": {
+    "full_current_headline_count": 1117,
+    "prepared_ranked_candidate_count": 12,
+    "attempted_candidate_count": 12,
+    "unattempted_candidate_count": 0,
+    "distinct_attempted_cluster_count": 12,
+    "repeated_cluster_count": 0,
+    "prepared_candidate_logical_hash": "8f16956a98cff6b4a6253ba82ce3fd72634fae37ee8ed9e32a2c7b4b90bfea19"
+  },
+  "candidate_attempts": [
+    {"rank": 1, "cluster_id": "rolling-x-deterministic-cluster-61c3ecd48ffd887475cf", "title": "Oman Air appoints Nasser Al Sharji as CEO", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 2, "cluster_id": "rolling-x-deterministic-cluster-57feb4e5d07ddad51350", "title": "Deere earnings claim", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 3, "cluster_id": "rolling-x-deterministic-cluster-a240778ab8517aa13476", "title": "Ocado Group and Nemlig CFC claim", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 4, "cluster_id": "rolling-x-deterministic-cluster-e5011b7ea5b592503218", "title": "Xu Jiayin sentencing claim", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 5, "cluster_id": "rolling-x-deterministic-cluster-df4fc62b4aceda810497", "title": "Ocado Group confirms Nemlig as European partner", "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 6, "cluster_id": "rolling-x-deterministic-cluster-d82565e96b5a28182be9", "title": "Dunhuang earthquake claim", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 7, "cluster_id": "rolling-x-deterministic-cluster-7c92ea074cb76d0d0c93", "title": "Oman Hormuz security statement claim", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 8, "cluster_id": "rolling-x-deterministic-cluster-c457b95970ed7f984dc7", "title": "Deere Q3 2026 earnings details claim", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 9, "cluster_id": "rolling-x-deterministic-cluster-e78adb560c1db08df4a1", "title": "UK CBI trends total orders claim", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 10, "cluster_id": "rolling-x-deterministic-cluster-458a44c06bc9d07b170b", "title": "Oman maritime security statement claim", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 11, "cluster_id": "rolling-x-deterministic-cluster-296596b9bc5812ef9c03", "title": "European sovereign debt opinion", "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"},
+    {"rank": 12, "cluster_id": "rolling-x-deterministic-cluster-e9ef928eebe2b33bd52e", "title": "UK CBI orders claim", "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing"}
+  ],
+  "article_boundary": {
+    "eligible_candidate_count": 0,
+    "xhigh_worker_count": 0,
+    "xhigh_worker_ceiling": 8,
+    "revision_count": 0,
+    "qualified_articles": [],
+    "exactly_eight_undispatched_package_results": []
+  },
+  "provider_telemetry": {
+    "assignment_semantic_calls": 0,
+    "story_type_semantic_calls": 0,
+    "article_writer_semantic_calls": 0,
+    "mandatory_semantic_review_calls": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "reported_cost": null,
+    "cost_note": "The fresh prepared candidate state used deterministic assignment; no article boundary was reached."
+  },
+  "automation": {
+    "task_count": 4,
+    "all_paused": true,
+    "no_fifth_task_created": true,
+    "host_hash_fixture_prefix": "ea8e1e11",
+    "host_config_sha256_preserved": true,
+    "observation_projection_sha256_distinct": true,
+    "automation_reimplementation_performed": false
+  },
+  "safety": {
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "unknown_write_count": 0,
+    "production_store_reset": 0,
+    "fifth_automation_created": 0,
+    "secret_or_session_inspection": 0,
+    "legacy_writer_fallback_used": false
+  },
+  "validation": {
+    "defect_focused_backend_tests": "5 passed",
+    "focused_backend_selection": "161 passed",
+    "expanded_backend_selection": "270 passed; one unrelated pre-existing ordinary-brief X reply assertion failed",
+    "v5_hash_provenance_tests": "3 passed",
+    "v5_production_build": "PASS",
+    "v5_broad_legacy_suite": "12 tests passed; 29 legacy suites failed during fixture module initialization on an existing capability article-mode mismatch"
+  },
+  "artifact_sha256": {
+    "rolling_x_newsroom_cycle_evidence_v1.json": "4243951e1aeada7b95857578bb629dabc919a290dee31f4bb107bfd1ea3fda95",
+    "rolling_x_ranked_viability_v1.json": "b1aac8a3357d0e7f06ccce27636805cf4dcb517a08306644269b5c9ed2850b08",
+    "automation_host_observation_hash_provenance_v1.json": "9501edc63b8d5bc923f277f3ffd54017c149f85c6f49ed06d8d8d3ee716d5cd5",
+    "v5_automation_host_and_projection_sha256.png": "914177305a996df9177f8a12d918a8de2918a0b5f68eaa1e4abaa65ba507491e",
+    "v5_daily_output_and_automation_hash_provenance_full.png": "f348aff2b91ff6acaf2ce12a11743e90544f5a6b71387bb3c9b4455ae709a37e"
+  }
+}

@@ -4480,23 +4480,23 @@ def _run_rolling_x_newsroom_cycle(
     )
     activity.record("CANDIDATE_SELECTION")
     try:
-        assignment = (
-            {
-                **dict(prepared_state["assignment"]),
+        assignment = assign_rolling_x_headlines_with_nine_router(
+            rolling_input=assignment_input,
+            timeout_seconds=assignment_timeout_seconds,
+            provider_call=assignment_provider_call,
+            leaf_checkpoints=leaf_checkpoints,
+            global_checkpoint=global_checkpoint,
+        )
+        if prepared_state is not None:
+            assignment = {
+                **assignment,
                 "prepared_candidate_state_reused": True,
                 "prepared_candidate_logical_hash": prepared_state.get(
                     "prepared_candidate_logical_hash"
                 ),
+                "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+                "full_universe_semantic_assignment_performed": False,
             }
-            if prepared_state is not None
-            else assign_rolling_x_headlines_with_nine_router(
-                rolling_input=assignment_input,
-                timeout_seconds=assignment_timeout_seconds,
-                provider_call=assignment_provider_call,
-                leaf_checkpoints=leaf_checkpoints,
-                global_checkpoint=global_checkpoint,
-            )
-        )
     except RoutedInvocationError as exc:
         summary = dict(getattr(exc, "summary", {}) or {})
         role = str(summary.get("role_task_id") or "")
@@ -4536,6 +4536,7 @@ def _run_rolling_x_newsroom_cycle(
             "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
         }
         and assignment_provider_call is None
+        and prepared_state is None
         and isinstance(assignment_input.get("headlines"), list)
         and bool(assignment_input.get("headlines"))
     ):
@@ -4571,20 +4572,53 @@ def _run_rolling_x_newsroom_cycle(
             ranked_assignment = assignment
             publishability_candidate_pool = {
                 "schema_version": "contentops.rolling_x_publishability_candidate_pool.v1",
-                "status": "PREPARED_CANDIDATE_SET_REUSED",
+                "status": "PREPARED_DISTINCT_STORY_SET_REUSED",
                 "bounded_pool_limit": len(assignment.get("ranked_clusters") or []),
                 "combined_candidate_count": len(assignment.get("ranked_clusters") or []),
                 "same_cycle_ranked_evidence_walk": True,
                 "full_universe_expansion_performed": False,
-                "llm_or_provider_calls": 0,
+                "llm_or_provider_calls": int(
+                    (assignment.get("telemetry") or {}).get("logical_router_calls") or 0
+                ),
                 "factual_or_numeric_authority_granted": False,
                 "publication_authority_granted": False,
             }
         else:
-            ranked_assignment = build_bounded_rolling_x_publishability_pool(
-                assignment=assignment,
-                rolling_input=assignment_input,
-            )
+            try:
+                ranked_assignment = build_bounded_rolling_x_publishability_pool(
+                    assignment=assignment,
+                    rolling_input=assignment_input,
+                )
+            except ValueError as exc:
+                # A provider can return a superficially successful assignment whose leaf
+                # bindings do not cover the compact governed input.  Treat that as the same
+                # provider/schema failure class as a blocked semantic assignment: fail over
+                # once to the existing deterministic assignment, retain the failure receipt,
+                # and never crash an unattended Automation before terminal evidence exists.
+                if (
+                    assignment_provider_call is not None
+                    or not str(exc).startswith("rolling_x_publishability_pool_")
+                ):
+                    raise
+                semantic_failure = {
+                    "reason_code": "ROLLING_X_SEMANTIC_ASSIGNMENT_BINDING_INVALID",
+                    "validation_error": str(exc),
+                    "assignment_logical_hash": assignment.get(
+                        "assignment_logical_hash"
+                    ),
+                    "raw_provider_output_persisted": False,
+                    "publication_authority_granted": False,
+                }
+                assignment = build_deterministic_rolling_x_assignment_fallback(
+                    rolling_input=assignment_input
+                )
+                assignment["semantic_assignment_failure"] = semantic_failure
+                assignment["pre_assignment_compaction"] = assignment_compaction
+                _write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
+                ranked_assignment = build_bounded_rolling_x_publishability_pool(
+                    assignment=assignment,
+                    rolling_input=assignment_input,
+                )
             publishability_candidate_pool = dict(
                 ranked_assignment.get("publishability_candidate_pool") or {}
             )
@@ -4835,6 +4869,7 @@ def _run_rolling_x_newsroom_cycle(
             if prepared_state is not None
             else None
         ),
+        "prepared_story_frontier": None,
         "publishability_candidate_pool": publishability_candidate_pool,
         "ranked_viability": viability,
         "runtime_preflight": runtime_preflight,
@@ -4852,13 +4887,79 @@ def _run_rolling_x_newsroom_cycle(
         },
     }
 
+    if prepared_state is not None:
+        prepared_ids = [
+            str(row.get("headline_id") or "")
+            for row in intake.get("headlines") or []
+            if isinstance(row, Mapping)
+        ]
+        leaf_clusters = [
+            dict(row)
+            for row in assignment.get("leaf_clusters") or []
+            if isinstance(row, Mapping)
+        ]
+        leaf_covered_ids = [
+            str(headline_id)
+            for cluster in leaf_clusters
+            for headline_id in cluster.get("member_headline_ids") or []
+        ]
+        exact_leaf_coverage = (
+            len(leaf_covered_ids) == len(set(leaf_covered_ids))
+            and set(leaf_covered_ids) == set(prepared_ids)
+        )
+        relationship_counts: dict[str, int] = {}
+        collapse_matrix: list[dict[str, Any]] = []
+        for cluster in leaf_clusters:
+            relationship = str(
+                (cluster.get("duplicate_update_chain") or {}).get("relationship")
+                or "unknown"
+            )
+            relationship_counts[relationship] = relationship_counts.get(relationship, 0) + 1
+            member_ids = [str(value) for value in cluster.get("member_headline_ids") or []]
+            collapse_matrix.append({
+                "leaf_cluster_id": str(cluster.get("leaf_cluster_id") or ""),
+                "relationship": relationship,
+                "canonical_headline_id": str(
+                    cluster.get("canonical_representative_headline_id") or ""
+                ),
+                "member_headline_ids": member_ids,
+                "headline_identity_count": len(member_ids),
+                "candidate_slots_saved": max(0, len(member_ids) - 1),
+            })
+        distinct_story_count = len(leaf_clusters)
+        evidence["prepared_story_frontier"] = {
+            "schema_version": "contentops.prepared_distinct_story_frontier.v1",
+            "status": (
+                "READY"
+                if assignment.get("status") == "SUCCESS" and exact_leaf_coverage
+                else "BLOCKED"
+            ),
+            "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+            "prepared_headline_identity_count": len(prepared_ids),
+            "distinct_story_opportunity_count": distinct_story_count,
+            "evidence_candidate_count": len(assignment.get("ranked_clusters") or []),
+            "candidate_slots_saved_by_semantic_clustering": max(
+                0, len(prepared_ids) - distinct_story_count
+            ),
+            "relationship_counts": relationship_counts,
+            "duplicate_update_chain_collapse_matrix": collapse_matrix,
+            "prepared_headline_ids": prepared_ids,
+            "leaf_covered_headline_ids": leaf_covered_ids,
+            "exact_headline_identity_coverage": exact_leaf_coverage,
+            "max_evidence_candidate_count": 12,
+            "bounded_semantic_assignment_calls": int(
+                (assignment.get("telemetry") or {}).get("logical_router_calls") or 0
+            ),
+            "semantic_assignment_failure": assignment.get("semantic_assignment_failure"),
+            "factual_or_numeric_authority_granted": False,
+            "publication_authority_granted": False,
+        }
+
     def _persist_cycle_evidence() -> None:
         article_telemetry = dict(evidence.get("article_build_telemetry") or {})
         editorial_telemetry = dict(evidence.get("editorial_cycle") or {})
-        assignment_calls = (
-            0
-            if prepared_state is not None
-            else int((assignment.get("telemetry") or {}).get("logical_router_calls") or 0)
+        assignment_calls = int(
+            (assignment.get("telemetry") or {}).get("logical_router_calls") or 0
         )
         story_calls = 0 if prepared_state is not None else int(
             bool(
@@ -4897,6 +4998,7 @@ def _run_rolling_x_newsroom_cycle(
                 or 0
             ),
             "full_universe_semantic_assignment_on_critical_path": prepared_state is None,
+            "bounded_prepared_frontier_semantic_assignment": prepared_state is not None,
             "assignment_semantic_calls": assignment_calls,
             "story_type_semantic_calls": story_calls,
             "article_writer_semantic_calls": writer_calls,
@@ -5340,7 +5442,19 @@ def _run_rolling_x_newsroom_cycle(
                         ),
                         accepted_evidence_packet=selected_evidence,
                     )
-                except (TypeError, ValueError):
+                except TypeError:
+                    raise GroundedArticleBuilderError(
+                        "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+                    ) from None
+                except ValueError as exc:
+                    validation_reason = str(exc)
+                    if validation_reason.startswith(
+                        "desktop_editorial_worker_institutional_edge_invalid:"
+                    ):
+                        raise GroundedArticleBuilderError(
+                            "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
+                            + validation_reason.split(":", 1)[1]
+                        ) from None
                     raise GroundedArticleBuilderError(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
                     ) from None
@@ -5364,14 +5478,36 @@ def _run_rolling_x_newsroom_cycle(
                 _write_json(built_checkpoint_path, built)
         except GroundedArticleBuilderError as exc:
             blocker_text = str(exc)
-            if blocker_text == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID":
-                evidence["classification"] = "NO_PUBLICATION"
-                evidence["exact_next_blocker"] = blocker_text
+            if blocker_text == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID" or blocker_text.startswith(
+                "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
+            ):
                 evidence["editorial_worker_count_requested"] = 1
                 evidence["legacy_writer_fallback_used"] = False
                 evidence["public_write_performed"] = False
                 walk_row["terminal_reason"] = blocker_text
-                _persist_candidate_walk(terminal_reason=blocker_text)
+                if blocker_text.startswith(
+                    "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
+                ):
+                    walk_row["deterministic_validation_blockers"] = sorted(
+                        {
+                            value
+                            for value in blocker_text.split(":", 1)[1].split(",")
+                            if value
+                        }
+                    )
+                next_viability = _next_viable_after(selected_rank)
+                if next_viability.get("status") == "SUCCESS":
+                    viability = next_viability
+                    continue
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = (
+                    next_viability.get("reason_code")
+                    if next_viability.get("evidence_request_budget_exhausted")
+                    else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+                )
+                _persist_candidate_walk(
+                    terminal_reason=str(evidence["exact_next_blocker"])
+                )
                 _persist_cycle_evidence()
                 return evidence
             if blocker_text == "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE":
@@ -5406,6 +5542,21 @@ def _run_rolling_x_newsroom_cycle(
             evidence["grounded_article_builder_blockers"] = walk_row["writer_blockers"]
             evidence["article"] = None
             evidence["media"] = None
+            if not publication_enabled:
+                _persist_candidate_walk(
+                    terminal_reason=str(evidence["exact_next_blocker"])
+                )
+                _persist_cycle_evidence()
+                return evidence
+            next_viability = _next_viable_after(selected_rank)
+            if next_viability.get("status") == "SUCCESS":
+                viability = next_viability
+                continue
+            evidence["exact_next_blocker"] = (
+                next_viability.get("reason_code")
+                if next_viability.get("evidence_request_budget_exhausted")
+                else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+            )
             _persist_candidate_walk(terminal_reason=str(evidence["exact_next_blocker"]))
             _persist_cycle_evidence()
             return evidence
@@ -5557,13 +5708,16 @@ def _run_rolling_x_newsroom_cycle(
                 ])[0]
             )
             walk_row["terminal_reason"] = reason
-            if reason == "INSUFFICIENT_READER_VALUE":
-                next_viability = _next_viable_after(selected_rank)
-                if next_viability.get("status") == "SUCCESS":
-                    viability = next_viability
-                    continue
+            next_viability = _next_viable_after(selected_rank)
+            if next_viability.get("status") == "SUCCESS":
+                viability = next_viability
+                continue
             evidence["classification"] = "NO_PUBLICATION"
-            evidence["exact_next_blocker"] = reason
+            evidence["exact_next_blocker"] = (
+                next_viability.get("reason_code")
+                if next_viability.get("evidence_request_budget_exhausted")
+                else "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+            )
             if not publication_enabled:
                 evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
                 evidence["shadow_publication_plan_ready"] = False

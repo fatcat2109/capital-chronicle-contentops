@@ -11,6 +11,7 @@ def _assignment(*clusters, decision="SELECT_STORY"):
     return {
         "schema_version": ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
         "decision": decision,
+        "input_binding": {"canonical_input_hash": "fixture-authority-binding"},
         "ranked_clusters": list(clusters),
     }
 
@@ -396,14 +397,147 @@ def test_budget_blocked_deep_mode_can_downgrade_same_cluster_to_viable_brief():
 
     assert result["status"] == "SUCCESS"
     assert result["selected_cluster_id"] == "downgrade"
-    assert len(calls) == 2
+    assert len(calls) == 1
     assert calls[0]["effective_article_mode"] == "STANDARD_NEWS_ANALYSIS"
-    assert calls[1]["effective_article_mode"] == "BREAKING_BRIEF"
+    attempts = result["rank_attempts"][0]["mode_attempts"]
+    assert [row["evidence_acquisition_action"] for row in attempts] == [
+        "NO_ACQUISITION_CAPABILITY_BLOCKED",
+        "INITIAL_ACQUISITION",
+        "REUSED_STORY_SCOPED_EVIDENCE",
+    ]
+    assert attempts[2]["effective_mode"] == "BREAKING_BRIEF"
+    assert attempts[2]["network_requests_performed"] == 0
     assert any(
         row["evidence_request_budget_blockers"]
         == ["public_source_request_budget_exhausted"]
-        for row in result["rank_attempts"][0]["mode_attempts"]
+        for row in attempts
     )
+
+
+def test_analysis_to_breaking_reuses_one_bound_receipt_and_recomputes_sufficiency():
+    calls = []
+
+    def acquire(request):
+        calls.append(dict(request))
+        receipt = _receipt(request, status="BLOCKED")
+        receipt["blockers"] = [
+            "grounded_research_recommends_article_mode_downgrade:BREAKING_BRIEF"
+        ]
+        receipt["evidence_acquisition_provenance"] = {
+            "official": {
+                "provenance": {
+                    "locator_request_count": 1,
+                    "official_evidence_get_count": 1,
+                }
+            },
+            "grounded_research": {"public_retrieval_requests": 3},
+        }
+        return receipt
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(_cluster("reuse", 1, article_mode="deep_dive")),
+        acquire_evidence=acquire,
+        story_type_by_cluster={"reuse": "physical_event"},
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert len(calls) == 1
+    attempts = result["rank_attempts"][0]["mode_attempts"]
+    assert [row["status"] for row in attempts] == ["BLOCKED", "BLOCKED", "VIABLE"]
+    assert attempts[2]["evidence_acquisition_action"] == (
+        "REUSED_STORY_SCOPED_EVIDENCE"
+    )
+    assert attempts[2]["network_requests_performed"] == 0
+    assert attempts[2]["network_reads_avoided"] == 5
+    assert result["story_scoped_evidence_telemetry"] == {
+        "network_requests_performed": 5,
+        "network_reads_avoided": 5,
+        "delta_acquisition_count": 0,
+        "distinct_story_scope_count": 1,
+        "mode_reuse_never_grants_authority": True,
+    }
+
+
+def test_new_lower_mode_capability_need_allows_only_bounded_delta_acquisition():
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
+    )
+
+    registry = effective_rolling_x_capability_registry()
+    profile = registry["story_types"]["general_public_event"]
+    profile["article_mode_profiles"]["analysis"][
+        "required_evidence_capabilities"
+    ] = ["credible_event_confirmation"]
+    profile["article_mode_profiles"]["straight_news"][
+        "required_evidence_capabilities"
+    ] = ["credible_event_confirmation", "basic_attributed_facts"]
+    calls = []
+
+    def acquire(request):
+        calls.append(dict(request))
+        receipt = _receipt(
+            request,
+            status="BLOCKED" if len(calls) == 1 else "PASS",
+            capabilities=(
+                ["credible_event_confirmation"]
+                if len(calls) == 1
+                else ["basic_attributed_facts"]
+            ),
+        )
+        if len(calls) == 1:
+            receipt["blockers"] = [
+                "grounded_research_recommends_article_mode_downgrade:BREAKING_BRIEF"
+            ]
+        return receipt
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(_cluster("delta", 1, article_mode="deep_dive")),
+        acquire_evidence=acquire,
+        story_type_by_cluster={"delta": "general_public_event"},
+        capability_registry=registry,
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert len(calls) == 2
+    assert calls[0]["evidence_acquisition_mode"] == "INITIAL_ACQUISITION"
+    assert calls[1]["evidence_acquisition_mode"] == "BOUNDED_DELTA_ACQUISITION"
+    assert calls[1]["delta_evidence_requirements"] == {
+        "required_capabilities": ["basic_attributed_facts"]
+    }
+    assert calls[0]["story_evidence_scope_id"] == calls[1]["story_evidence_scope_id"]
+    assert result["rank_attempts"][0]["story_evidence_delta_acquisition_count"] == 1
+
+
+def test_story_scope_changes_for_story_update_material_context_and_authority_binding():
+    observed = []
+
+    def acquire(request):
+        observed.append(dict(request))
+        return _receipt(request, status="BLOCKED", capabilities=[])
+
+    first = _cluster("story-one", 1)
+    first["update_chain_identity"] = "chain-one"
+    first["material_follow_up_context"] = {"material_delta_reason_codes": ["NEW_DATA"]}
+    second = _cluster("story-two", 2)
+    second["update_chain_identity"] = "chain-two"
+    assignment = _assignment(first, second)
+    select_first_viable_rolling_x_cluster(
+        assignment=assignment,
+        acquire_evidence=acquire,
+        story_type_by_cluster={"story-one": "physical_event", "story-two": "physical_event"},
+    )
+    first_scope, second_scope = [row["story_evidence_scope_id"] for row in observed]
+    assert first_scope != second_scope
+
+    observed.clear()
+    changed = _assignment(first)
+    changed["input_binding"]["canonical_input_hash"] = "changed-cutoff-authority-binding"
+    select_first_viable_rolling_x_cluster(
+        assignment=changed,
+        acquire_evidence=acquire,
+        story_type_by_cluster={"story-one": "physical_event"},
+    )
+    assert observed[0]["story_evidence_scope_id"] != first_scope
 
 
 def test_week_ahead_viability_never_reinterprets_missing_schedule_as_breaking():

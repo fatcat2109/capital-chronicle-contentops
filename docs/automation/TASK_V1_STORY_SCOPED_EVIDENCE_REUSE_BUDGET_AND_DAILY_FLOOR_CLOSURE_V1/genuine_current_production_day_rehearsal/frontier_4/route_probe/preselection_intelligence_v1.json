@@ -1,0 +1,979 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 4,
+  "evaluated_at_utc": "2026-08-21T14:19:24.393115Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 4,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-61875d4288d706829a13",
+    "rolling-x-global-cluster-2468bcf6f3306c620a71",
+    "rolling-x-global-cluster-dacd9528b9cf4c6f5fd3",
+    "rolling-x-global-cluster-3948e07daa4700fa38e3"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-21T14:19:24.393115Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 5,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "4ebb2f6e28bc5d0965f18b380510bf24ed368f42c72c8beb41cafb773f6ed5f6",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Google",
+          "Waymo",
+          "Technology",
+          "Semiconductors",
+          "Autonomous Vehicles",
+          "ASIC"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.024,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Google",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a4f2cf81a927c6eb9dd7d575978468433f12433f589181b445059b20205d4de1"
+          },
+          {
+            "query_term": "Waymo",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b19608ebdd76c857ea3aac866100ec8b5580c2e9bee5c90b70c8ebd07fa844ea"
+          },
+          {
+            "query_term": "Technology",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ca4c998c318731caa9ccee19c12c8bfc20c6c6605ecfff9551c11748cf464e87"
+          },
+          {
+            "query_term": "Semiconductors",
+            "source_field": "entities_topics",
+            "source_value_sha256": "65bb877811e2cfcfd2be7ce384228c82ab84346827d1f1be22422fb676b79a79"
+          },
+          {
+            "query_term": "Autonomous Vehicles",
+            "source_field": "entities_topics",
+            "source_value_sha256": "33c17516b5a0f495cdb35d937f7851ba1c2167f14b5acb5c8c10221af069c684"
+          },
+          {
+            "query_term": "ASIC",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "9445ecb4cbbefbad9dd76da21b5d29752add2e59f879f92e3a9cec5b2900bbd9"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Google",
+          "Waymo",
+          "Technology",
+          "Semiconductors",
+          "Autonomous Vehicles",
+          "ASIC"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-61875d4288d706829a13",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Google",
+        "Waymo",
+        "Technology",
+        "Semiconductors",
+        "Autonomous Vehicles"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-f216d5c705e29eea71452709"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-0a2dbe0fa650b8ebd6f8"
+      ],
+      "leaf_summaries": [
+        "Google-owned Waymo introduced a purpose-built 5nm ASIC chip designed as a machine learning powerhouse for its robotaxis."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official technical blog post or press release from Waymo detailing the chip's specifications",
+        "Confirmation of the semiconductor foundry partner (e.g., TSMC or Samsung) manufacturing the 5nm chip",
+        "Performance benchmarks comparing the new ASIC to previous generation hardware"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "This development signals a major shift from off-the-shelf GPUs to custom silicon in the AV sector. It appeals to tech, business, and investor audiences by highlighting Alphabet's vertical integration strategy and its downstream effects on the semiconductor supply chain.",
+      "seo_intent": "Waymo 5nm ASIC chip custom silicon autonomous vehicles Google robotaxi semiconductor",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f216d5c705e29eea71452709",
+        "ordered_headline_ids": [
+          "cc-x-headline-f216d5c705e29eea71452709"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-61875d4288d706829a13",
+      "visual_strategy": "An architectural diagram or infographic comparing the efficiency and machine learning capabilities of Waymo's custom ASIC against standard hardware used in autonomous driving.",
+      "why_now": "Waymo has introduced a purpose-built 5nm ASIC chip designed specifically for its robotaxis, marking a critical milestone in autonomous vehicle hardware.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "China",
+          "Russia",
+          "U.S",
+          "USCC",
+          "Geopolitics",
+          "National Security"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.013,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "China",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9c7f5d3858f8b5efbd6b354eac828c76aa36abb372c21c098596a69fdc8d260f"
+          },
+          {
+            "query_term": "Russia",
+            "source_field": "entities_topics",
+            "source_value_sha256": "afc94498da100d79da7d12bb999e06c52754b224dbf71989b89395e5bfd93647"
+          },
+          {
+            "query_term": "U.S",
+            "source_field": "entities_topics",
+            "source_value_sha256": "94673e770dd87c5b29611347a063d50683610158d2c854b2f04a27bdc1cb97b5"
+          },
+          {
+            "query_term": "USCC",
+            "source_field": "entities_topics",
+            "source_value_sha256": "89f99d1bce5c6ccfe05b7007386f921df59af4c8459c1db50615297dc28da6eb"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          },
+          {
+            "query_term": "National Security",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a3c251173918d37824eb3bf32cfb0f48bb6ae4e53cceda0dad7bc49e9bb27a1a"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "China",
+          "Russia",
+          "U.S",
+          "USCC",
+          "Geopolitics",
+          "National Security"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-2468bcf6f3306c620a71",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "China",
+        "Russia",
+        "U.S.",
+        "USCC",
+        "Geopolitics",
+        "National Security"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-4c85f66c6ce67800ac5bc171"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-495d92493abea8f52255"
+      ],
+      "leaf_summaries": [
+        "The USCC released a fact sheet examining the strategic partnership between China and Russia and its implications for U.S. national security."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Direct link to the published USCC fact sheet",
+        "Specific quotes, statistics, or policy recommendations extracted directly from the document",
+        "Contextual background on recent USCC mandates or related congressional actions"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 2,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Provides high-signal, evidence-backed geopolitical intelligence directly from a primary government document. This is ideal for policy and macro-focused readers looking for authoritative assessments of Sino-Russian alignment.",
+      "seo_intent": "USCC fact sheet China Russia strategic partnership US national security implications",
+      "seo_learning_preferences": [],
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-4c85f66c6ce67800ac5bc171",
+        "ordered_headline_ids": [
+          "cc-x-headline-4c85f66c6ce67800ac5bc171"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-2468bcf6f3306c620a71",
+      "visual_strategy": "Key excerpts and data points extracted from the USCC document, presented alongside a map highlighting areas of joint Sino-Russian military or economic cooperation.",
+      "why_now": "The U.S.-China Economic and Security Review Commission (USCC) has just released a formal fact sheet examining the strategic partnership between China and Russia.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Russia",
+          "Ukraine",
+          "Chornomorsk",
+          "Geopolitics",
+          "Military Conflict",
+          "Black Sea"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.01,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Russia",
+            "source_field": "entities_topics",
+            "source_value_sha256": "afc94498da100d79da7d12bb999e06c52754b224dbf71989b89395e5bfd93647"
+          },
+          {
+            "query_term": "Ukraine",
+            "source_field": "entities_topics",
+            "source_value_sha256": "abbb617b985f5b8d37988914dc05efd32d8ed8513ffe6e9a4977357497421a8e"
+          },
+          {
+            "query_term": "Chornomorsk",
+            "source_field": "entities_topics",
+            "source_value_sha256": "39787d16f6882de447803a9f9e7d306cedcc39f1cfb4413caad7a4e236a8bf99"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          },
+          {
+            "query_term": "Military Conflict",
+            "source_field": "entities_topics",
+            "source_value_sha256": "268a7913ec2ecf2744525d28871978e055cf9aa9984df8fa28f9df94d5b11403"
+          },
+          {
+            "query_term": "Black Sea",
+            "source_field": "why_now",
+            "source_value_sha256": "fe80cfecb6e4370c0a87dc80f7ecfb0d199137e8a38b12c9c19aa8975d40deec"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Russia",
+          "Ukraine",
+          "Chornomorsk",
+          "Geopolitics",
+          "Military Conflict",
+          "Black Sea"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "why_now"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-dacd9528b9cf4c6f5fd3",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Russia",
+        "Ukraine",
+        "Chornomorsk",
+        "Geopolitics",
+        "Military Conflict"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-5eae84c639b0011520645be2"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-23fac78b22e731c04444"
+      ],
+      "leaf_summaries": [
+        "Russia reportedly struck two cargo vessels in Ukraine's Chornomorsk port."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Confirmation of the strikes from Ukrainian port authorities or regional military commands",
+        "Identification of the struck vessels, their flags, and their cargo",
+        "Independent maritime tracking data (AIS) showing vessel status and surrounding port traffic"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "This is a critical update for global supply chain and agricultural commodities markets. It requires immediate, concise reporting on the extent of the damage, the origins of the vessels, and the immediate market reaction in wheat and shipping rates.",
+      "seo_intent": "Russia strike Chornomorsk port Ukraine cargo vessels Black Sea shipping disruption",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5eae84c639b0011520645be2",
+        "ordered_headline_ids": [
+          "cc-x-headline-5eae84c639b0011520645be2"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-dacd9528b9cf4c6f5fd3",
+      "visual_strategy": "Satellite imagery of the Chornomorsk port or a maritime tracking map showing the last known positions of the affected cargo vessels.",
+      "why_now": "Reports indicate a fresh Russian military strike on two civilian cargo vessels in Ukraine's Chornomorsk port, threatening Black Sea shipping lanes.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "U.S",
+          "Strait of Hormuz",
+          "Oman",
+          "Energy",
+          "Geopolitics",
+          "Oil"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.009,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "U.S",
+            "source_field": "entities_topics",
+            "source_value_sha256": "94673e770dd87c5b29611347a063d50683610158d2c854b2f04a27bdc1cb97b5"
+          },
+          {
+            "query_term": "Strait of Hormuz",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ffe2f21830aa3144ab24739bc5ef09d2d0ca5826d350ece77df90b4f21ee6bcf"
+          },
+          {
+            "query_term": "Oman",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a847ab9699a87112592ce34592b18e21b035017a4ade2334abcaf559e92a51b8"
+          },
+          {
+            "query_term": "Energy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "971c0299c4c921e032b6b853d88e7e29916657df0011485d7cd010991c99186b"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          },
+          {
+            "query_term": "Oil",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3dbbac4fbabc49fe7550eb7dcc8a16c18af90f91ef915cc0bfa995250e8a4035"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "U.S",
+          "Strait of Hormuz",
+          "Oman",
+          "Energy",
+          "Geopolitics",
+          "Oil"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-3948e07daa4700fa38e3",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "U.S.",
+        "Strait of Hormuz",
+        "Oman",
+        "Energy",
+        "Geopolitics",
+        "Oil"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "WHAT_THE_MARKET_IS_MISSING",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-9f9eb3288449e90af071559e"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-320c9e12bf451f4b7e74"
+      ],
+      "leaf_summaries": [
+        "The U.S. is reportedly operating a secret oil corridor through the Strait of Hormuz, moving 10 million barrels a day."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Maritime tracking data (AIS) corroborating unusual or 'dark' tanker movements in the region",
+        "Statements or off-record guidance from the DoD, DoE, or regional authorities (e.g., Oman, UAE)",
+        "Expert logistical analysis on the physical feasibility of moving 10 million barrels per day outside standard channels"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 4,
+      "resolved_article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "selection_case": "If true, this represents a massive geopolitical and energy market anomaly. The story requires rigorous investigation to either validate the logistical reality of moving 10m bpd covertly or to responsibly debunk a high-traction market rumor.",
+      "seo_intent": "US secret oil corridor Strait of Hormuz 10 million barrels energy markets Middle East",
+      "seo_learning_preferences": [],
+      "story_mode": "scenario_outlook",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-9f9eb3288449e90af071559e",
+        "ordered_headline_ids": [
+          "cc-x-headline-9f9eb3288449e90af071559e"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-3948e07daa4700fa38e3",
+      "visual_strategy": "A map of the Strait of Hormuz overlaying global oil chokepoints, regional pipelines, and standard maritime traffic density to illustrate the logistical constraints of the claim.",
+      "why_now": "Unverified reports are circulating that the U.S. is operating a secret oil corridor through the Strait of Hormuz, allegedly moving 10 million barrels a day.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": false,
+  "reranked_order": [
+    "rolling-x-global-cluster-61875d4288d706829a13",
+    "rolling-x-global-cluster-2468bcf6f3306c620a71",
+    "rolling-x-global-cluster-dacd9528b9cf4c6f5fd3",
+    "rolling-x-global-cluster-3948e07daa4700fa38e3"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

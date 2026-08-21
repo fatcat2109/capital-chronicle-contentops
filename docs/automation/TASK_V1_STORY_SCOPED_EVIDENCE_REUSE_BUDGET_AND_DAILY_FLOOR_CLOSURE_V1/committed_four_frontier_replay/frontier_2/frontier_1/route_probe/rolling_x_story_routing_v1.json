@@ -1,0 +1,38 @@
+{
+  "factual_or_numeric_authority_granted": false,
+  "llm_or_provider_calls": 0,
+  "publication_authority_granted": false,
+  "router_summary": null,
+  "routing_method": "DETERMINISTIC_CONSERVATIVE_FALLBACK",
+  "semantic_router_failure_class": "ValueError",
+  "semantic_router_failure_recovered": true,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-global-cluster-54e4ab3abe27f81d9de7",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "policy_decision"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-ae831501e76c5a7bc838",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "policy_decision"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-9d9e246b67f24344a203",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "policy_decision"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-global-cluster-54e4ab3abe27f81d9de7": "policy_decision",
+    "rolling-x-global-cluster-9d9e246b67f24344a203": "policy_decision",
+    "rolling-x-global-cluster-ae831501e76c5a7bc838": "policy_decision"
+  }
+}

@@ -69,6 +69,7 @@ export interface RuntimeCockpit {
   supervisor_state: string;
   controller_health: string;
   publication_runtime_health: string;
+  output_health?: string;
   operating_mode: OperatingMode;
   runtime_sha_short: string;
   local_timezone: string;
@@ -182,6 +183,17 @@ export interface DailyAppSnapshot {
     published_today_count: number;
     published_corpus_count: number;
     daily_target_band: number[];
+    newsroom_production_day_id?: string;
+    build_qualified_floor?: number;
+    final_published_target_min?: number;
+    final_published_target_max?: number;
+    qualified_articles_today?: number;
+    published_articles_today?: number;
+    remaining_build_deficit?: number;
+    production_day_state?: string;
+    hard_external_block_reason?: string | null;
+    routine_opportunities_used?: number;
+    routine_opportunities_remaining?: number;
     latest_editorial_classification?: string;
     latest_article_update_mode?: string;
     latest_cc_matched_store_count?: number | null;
@@ -230,6 +242,13 @@ export interface DailyAppSnapshot {
     empty_reason: string | null;
   };
   hourly_audit?: HourlyAudit;
+  automation?: {
+    configured_intent: Record<string, unknown>;
+    observed_host_state: Record<string, unknown>;
+    observation_timestamp_utc: string | null;
+    freshness: string;
+    age_seconds?: number;
+  };
   controls: {
     current_mode: OperatingMode;
     state_version: number;

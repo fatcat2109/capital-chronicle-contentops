@@ -1,0 +1,951 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 4,
+  "evaluated_at_utc": "2026-08-21T14:19:24.393115Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 4,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-c999e754cfd666b8d489",
+    "rolling-x-global-cluster-caad2375b61affa11889",
+    "rolling-x-global-cluster-e95d78fd158c2fcd6dc8",
+    "rolling-x-global-cluster-ffe53794651adc277fea"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-21T14:19:24.393115Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 5,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "a2d4d1aa9eca5619384648bab2c321f179a147228cd3a06cbc536071f130a626",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Artificial Intelligence",
+          "CAPEX",
+          "Data Centers",
+          "Technology Infrastructure",
+          "AI"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.03,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Artificial Intelligence",
+            "source_field": "entities_topics",
+            "source_value_sha256": "dfb50bcfcb2a88084a10faab8ffa50ae15776cf0b5481531134930f95797608e"
+          },
+          {
+            "query_term": "CAPEX",
+            "source_field": "entities_topics",
+            "source_value_sha256": "bf1d6e7ab4a07a359cd9047f42788ad0ebe477fcf63f96c57de433c131db5b02"
+          },
+          {
+            "query_term": "Data Centers",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5c1791f0f79aede4834afb8f7cab498215f26e37808376aa5bd54120257e4a09"
+          },
+          {
+            "query_term": "Technology Infrastructure",
+            "source_field": "entities_topics",
+            "source_value_sha256": "116e069cc1fb145f1e5255828dd20f06cd935d300079cc377e0160d573cce0c1"
+          },
+          {
+            "query_term": "AI",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "9ceb1c5eb8b8f85b2c1c58eae06f8e6e9b45cf8e2e48251de6778418d80e35ff"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Artificial Intelligence",
+          "CAPEX",
+          "Data Centers",
+          "Technology Infrastructure",
+          "AI"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-c999e754cfd666b8d489",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Artificial Intelligence",
+        "CAPEX",
+        "Data Centers",
+        "Technology Infrastructure"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+        "cc-x-headline-73f789b55823166fd8070359"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-c5ca7025e1d6fe4fdfc6"
+      ],
+      "leaf_summaries": [
+        "Projections for massive AI infrastructure spending, with estimates of $765 billion in 2026 and over $1 trillion in AI CAPEX by 2027."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Original source reports for the $765B and $1T projections",
+        "Breakdown of projected CAPEX by sector (semiconductors, cooling, power generation)",
+        "Historical comparison data to previous telecom and internet infrastructure build-outs"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "AI CAPEX is the defining secular growth theme of the decade. Breaking down these massive projections into actionable supply chain, energy grid, and margin implications provides high-value, forward-looking analysis.",
+      "seo_intent": "AI infrastructure spending projections 2027 data centers capex",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-73f789b55823166fd8070359",
+        "ordered_headline_ids": [
+          "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+          "cc-x-headline-73f789b55823166fd8070359"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-c999e754cfd666b8d489",
+      "visual_strategy": "Stacked bar chart showing projected AI CAPEX growth from 2024 through 2027, segmented by hardware, data center real estate, and power infrastructure.",
+      "why_now": "New projections indicating AI infrastructure spending could cross $1 trillion by 2027 require immediate contextualization for tech, energy, and infrastructure investors.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Goldman Sachs",
+          "Federal Reserve",
+          "Interest Rates",
+          "Market Volatility",
+          "Monetary Policy",
+          "US"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.017,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Goldman Sachs",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b41182b4675fdc180da88e54224bac9a2eb7ada51b9b89fb1b456976262157e7"
+          },
+          {
+            "query_term": "Federal Reserve",
+            "source_field": "entities_topics",
+            "source_value_sha256": "124a7daed73968c567e34c704dcd0aa22e42df0a5e21a3ed65381295806f4414"
+          },
+          {
+            "query_term": "Interest Rates",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1aa08293cc8ee05c7e74275be026ab64b426c1743fd27ff50a2d86ae851fc4ea"
+          },
+          {
+            "query_term": "Market Volatility",
+            "source_field": "entities_topics",
+            "source_value_sha256": "dbf14bf52dfdf3d45628971192f235786e4fa5440403b1a405c619d1633a9489"
+          },
+          {
+            "query_term": "Monetary Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "258ea27f23d798225cd496f5e078ad6ace0208e7a0590b9a904c94dcfd15f299"
+          },
+          {
+            "query_term": "US",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Goldman Sachs",
+          "Federal Reserve",
+          "Interest Rates",
+          "Market Volatility",
+          "Monetary Policy",
+          "US"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-caad2375b61affa11889",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Goldman Sachs",
+        "Federal Reserve",
+        "Interest Rates",
+        "Market Volatility",
+        "Monetary Policy"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-9ad07405e8f44a41c5802e76"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-10619006a5f1ccabc70b"
+      ],
+      "leaf_summaries": [
+        "Goldman Sachs notes that ambiguity surrounding the Federal Reserve's reaction function has caused an increase in US rate volatility."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Direct access to the Goldman Sachs research note",
+        "Recent time-series data on US Treasury yield volatility",
+        "Recent public statements from Fed officials that have contributed to market ambiguity"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 2,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Goldman Sachs' note provides a strong institutional hook to explore why the market is struggling to price the Fed's reaction function, a critical issue for portfolio positioning.",
+      "seo_intent": "Federal Reserve reaction function US rate volatility Goldman Sachs note",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-9ad07405e8f44a41c5802e76",
+        "ordered_headline_ids": [
+          "cc-x-headline-9ad07405e8f44a41c5802e76"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-caad2375b61affa11889",
+      "visual_strategy": "Line graph overlaying the MOVE index (bond market volatility) with recent shifts in Fed funds rate futures.",
+      "why_now": "Rising US rate volatility is actively impacting asset pricing across equities and fixed income, driven by immediate uncertainty over the Federal Reserve's next policy steps.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "U.S. Treasury",
+          "Treasury Yields",
+          "Bond Markets",
+          "Fiscal Policy",
+          "Treasury"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.026,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "U.S. Treasury",
+            "source_field": "entities_topics",
+            "source_value_sha256": "bb2e4ecdf2bc70ecdc20c6191703205bf089f9f381ed3f193b47933d02d4d54e"
+          },
+          {
+            "query_term": "Treasury Yields",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3d54ad992b73879bfcccff43c905ad0434c13067a057de52e97c9dc4a1022d7c"
+          },
+          {
+            "query_term": "Bond Markets",
+            "source_field": "entities_topics",
+            "source_value_sha256": "94c09b0501c67d84e3b9cda8ad56802aa38d3233cbd19b421ba5d451f15869b0"
+          },
+          {
+            "query_term": "Fiscal Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b63c423a4451562685798ecc9cb4b5ec3063f5a26129c87db6575f9e591d63cd"
+          },
+          {
+            "query_term": "Treasury",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "948dc5c63ab5b5e8a40526070bc905349aa1e3f8f2c93b1174a8672678b2e7de"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "U.S. Treasury",
+          "Treasury Yields",
+          "Bond Markets",
+          "Fiscal Policy",
+          "Treasury"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-e95d78fd158c2fcd6dc8",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "U.S. Treasury",
+        "Treasury Yields",
+        "Bond Markets",
+        "Fiscal Policy"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-1d55b8dc40da166f01dddd66"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-ac1e8dc1d2fb422182fd"
+      ],
+      "leaf_summaries": [
+        "Yields on longer-dated U.S. Treasurys have retraced declines that followed a rally fueled by changes to Treasury buyback policies."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Specific dates, volumes, and durations of recent Treasury buyback operations",
+        "Price action data for 10-year and 30-year Treasurys over the relevant trading window",
+        "Commentary from primary dealers regarding the actual liquidity impacts of the buybacks"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Treasury buyback operations are a relatively new and complex market mechanic. Explaining how they fueled a temporary rally and why it is now retracing serves our core mandate of deep market literacy.",
+      "seo_intent": "US Treasury yields buyback policy impact bond market liquidity",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-1d55b8dc40da166f01dddd66",
+        "ordered_headline_ids": [
+          "cc-x-headline-1d55b8dc40da166f01dddd66"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-e95d78fd158c2fcd6dc8",
+      "visual_strategy": "Annotated chart showing the yield curve movement before, during, and after the recent Treasury buyback announcements.",
+      "why_now": "Long-dated Treasury yields are actively retracing after a specific policy-driven rally, presenting a timely window to explain the mechanics and limits of Treasury buybacks.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "CAPITAL_CHRONICLE_VIEW",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Scott Irwin",
+          "Interest Rates",
+          "Government Finance",
+          "Macroeconomics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.016,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Scott Irwin",
+            "source_field": "entities_topics",
+            "source_value_sha256": "aae16d1768a4452e56567b0198ecb05bd1facd9c007b4c0a2a42cdc88c5593a2"
+          },
+          {
+            "query_term": "Interest Rates",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1aa08293cc8ee05c7e74275be026ab64b426c1743fd27ff50a2d86ae851fc4ea"
+          },
+          {
+            "query_term": "Government Finance",
+            "source_field": "entities_topics",
+            "source_value_sha256": "45698d42c1742a4952c51f0f9c82784aa06d6dae402952e72555fed23b3f710d"
+          },
+          {
+            "query_term": "Macroeconomics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "35055939c96c73de5f4231b7958df4f5d633d88befdf3e0ea5d9cb88a15e494b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Scott Irwin",
+          "Interest Rates",
+          "Government Finance",
+          "Macroeconomics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-ffe53794651adc277fea",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Scott Irwin",
+        "Interest Rates",
+        "Government Finance",
+        "Macroeconomics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "CAPITAL_CHRONICLE_VIEW",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-28ad77530f058e7d43b13054",
+        "cc-x-headline-397ceb8bb02b1d6fad0735e8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-5a4392102f2a6213de1d"
+      ],
+      "leaf_summaries": [
+        "Discussion on the long-term equilibrium for real interest rates returning to 2-4% and its profound implications for global government finance."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Academic or institutional research supporting the 2-4% real rate equilibrium thesis",
+        "Current data on global sovereign debt loads and projected interest expense burdens",
+        "Historical precedents for sovereign debt management in sustained high real-rate environments"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 4,
+      "resolved_article_mode": "CAPITAL_CHRONICLE_VIEW",
+      "selection_case": "A structural shift back to 2-4% real rates upends a decade of fiscal assumptions. This allows us to publish a strong, evidence-backed house view on the future of government finance and crowding-out risks.",
+      "seo_intent": "Real interest rates equilibrium global government finance debt sustainability",
+      "seo_learning_preferences": [],
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-28ad77530f058e7d43b13054",
+        "ordered_headline_ids": [
+          "cc-x-headline-28ad77530f058e7d43b13054",
+          "cc-x-headline-397ceb8bb02b1d6fad0735e8"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-ffe53794651adc277fea",
+      "visual_strategy": "Historical chart of real interest rates over the last 50 years, highlighting the zero-interest-rate policy (ZIRP) era versus historical norms.",
+      "why_now": "As central banks debate terminal rates, the long-term equilibrium of real interest rates has become the most consequential debate for sovereign debt sustainability.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": false,
+  "reranked_order": [
+    "rolling-x-global-cluster-c999e754cfd666b8d489",
+    "rolling-x-global-cluster-caad2375b61affa11889",
+    "rolling-x-global-cluster-e95d78fd158c2fcd6dc8",
+    "rolling-x-global-cluster-ffe53794651adc277fea"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

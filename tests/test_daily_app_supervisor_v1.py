@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import threading
+from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -68,14 +69,17 @@ def _supervisor(
 
 def test_bootstrap_policy_is_deterministic_configured_defaults_not_learned():
     policy = build_bootstrap_editorial_window_policy(effective_at_utc="2026-08-09T00:00:00Z")
-    assert policy.policy_version == "quality_probation_four_window.v1"
+    assert policy.policy_version == "autonomous_daily_output_four_window.v1"
     assert policy.confidence_state == "bootstrap_configured_defaults_not_learned"
     assert "learned" not in policy.confidence_state or "not_learned" in policy.confidence_state
-    assert policy.provenance.startswith("owner_locked_quality_probation")
+    assert policy.provenance.startswith("owner_locked_autonomous_daily_output")
     assert len(policy.core_windows) == 4
     assert policy.material_event_override_enabled is True
-    assert policy.daily_publication_target_band == (0, 4)
-    assert policy.publication_minimum == 0
+    assert policy.daily_publication_target_band == (5, 8)
+    assert policy.publication_minimum == 5
+    assert policy.build_qualified_floor == 4
+    assert policy.final_published_target_min == 5
+    assert policy.final_published_target_max == 8
     assert policy.schedule_owner_locked is True
     assert policy.automatic_schedule_scaling_enabled is False
 
@@ -271,6 +275,73 @@ def test_due_window_invokes_canonical_cycle_exactly_once_and_persists_terminal(t
         session="new_york_2100_bangkok", trigger_kind=TRIGGER_SCHEDULED,
     )
     assert supervisor._window_state(wid) in WINDOW_EXECUTED_STATES
+
+
+def test_later_window_runs_bounded_catchup_only_after_each_qualified_article(
+    tmp_path, monkeypatch
+):
+    from live_contentops import newsroom_production_day_v1 as production
+
+    # One minute past 23:00 Bangkok excludes the prior 21:00 window's grace boundary.
+    clock_dt = datetime(2026, 8, 10, 16, 1, tzinfo=timezone.utc)
+    calls = []
+
+    def controlled_cycle(**kwargs):
+        calls.append(kwargs["run_id"])
+        return {
+            "run_id": kwargs["run_id"],
+            "classification": "PASS_PUBLICATION_PLAN_READY",
+            "public_write_performed": False,
+            "unknown_write_detected": False,
+        }
+
+    supervisor, _ = _supervisor(
+        tmp_path,
+        mode="SHADOW_ONLY",
+        clock=_fixed_clock(clock_dt),
+        cycle=controlled_cycle,
+    )
+    before = production.NewsroomProductionDaySnapshot(
+        newsroom_production_day_id=production.newsroom_production_day_id(clock_dt),
+        build_qualified_floor=4,
+        final_published_target_min=5,
+        final_published_target_max=8,
+        qualified_articles_today=1,
+        published_articles_today=0,
+        remaining_build_deficit=3,
+        production_day_state=production.STATE_DEFICIT_RECOVERABLE,
+        hard_external_block_reason=None,
+        routine_opportunities_used=2,
+        routine_opportunities_remaining=2,
+    )
+    after = replace(
+        before,
+        qualified_articles_today=3,
+        remaining_build_deficit=1,
+        routine_opportunities_used=3,
+        routine_opportunities_remaining=1,
+        production_day_state=production.STATE_ON_TRACK,
+    )
+    snapshots = iter((before, after))
+    monkeypatch.setattr(production, "build_production_day_snapshot", lambda **_kwargs: next(snapshots))
+    monkeypatch.setattr(
+        production,
+        "qualify_zero_write_article",
+        lambda **kwargs: {
+            "qualified": True,
+            "article_identity": kwargs["result"]["run_id"],
+        },
+    )
+    monkeypatch.setattr(production, "persist_qualified_article_record", lambda *_args: None)
+    monkeypatch.setattr(production, "qualified_records_as_published_memory", lambda *_args, **_kwargs: [])
+    monkeypatch.setattr(production, "persist_production_day_snapshot", lambda *_args: None)
+
+    report = supervisor.tick(now=clock_dt)
+
+    assert report["windows_dispatched"] == 1
+    assert report["newsroom_cycle_invocations"] == 1
+    assert len(calls) == 2
+    assert calls[1].endswith("-catchup-02")
 
 
 def test_duplicate_tick_does_not_invoke_cycle_twice(tmp_path):

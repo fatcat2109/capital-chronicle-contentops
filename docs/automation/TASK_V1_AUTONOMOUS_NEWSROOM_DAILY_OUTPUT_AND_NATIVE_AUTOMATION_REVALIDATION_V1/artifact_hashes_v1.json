@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.task_artifact_hash_manifest.v1",
+  "algorithm": "sha256",
+  "artifacts": {
+    "automation_host_observation_v1.json": "7c373cbf367313ac1b616e7a3e6a2a98ba47ca0b13be6d2717475a0dbbdb7bdb",
+    "real_zero_write_proof/production_day_proof_summary_v1.json": "e2ff842f48cee1c8d2099a9f50138f702a2dac5e0bcac6c41db0fba8ab60cca2",
+    "real_zero_write_proof/xhigh_editorial_worker_return_v1.json": "96cf60af81b52157c70455f4843f88ed7f34df852c9c59847373c8ffed3f6567",
+    "real_zero_write_proof/xhigh_editorial_worker_validation_v1.json": "d0b184ef0d6b53a045a972900ca7d1ee2ce3c1eb5210133c0ed7b2f56def4a21",
+    "v5_automation_inventory_truth_viewport.png": "89e4829f1423ea01f45bc871b847d2b19357dbadc82a11047b88bc1e2e2f1411",
+    "v5_production_day_automation_truth.png": "461666a82936e91fdb6be89be054b2cfffead113b475f6bb7351750124b4dca1",
+    "v5_production_day_automation_truth_viewport.png": "73d58c5fc9ee54cc3f5bbdca547000d78592a94e756521376d5a9542d8474715"
+  }
+}

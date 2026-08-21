@@ -1,0 +1,496 @@
+{
+  "attempted_distinct_story_count": 4,
+  "attempted_headline_identity_count": 10,
+  "build_floor_satisfied": false,
+  "candidate_slots_saved_by_semantic_clustering": 9,
+  "classification": "IN_PROGRESS",
+  "created_at_utc": "2026-08-21T14:13:06.852406Z",
+  "cutoff_utc": "2026-08-21T12:31:11.126806Z",
+  "daily_derivative_intent_floor": 32,
+  "daily_qualified_article_floor": 4,
+  "distinct_candidate_count": 10,
+  "distinct_story_opportunity_count": 15,
+  "evaluated_headline_ids": [
+    "cc-x-headline-0e2aa97095b1f181b8c961d1",
+    "cc-x-headline-134362fe158081b970d9dba7",
+    "cc-x-headline-257bb49f7296135d6935fe56",
+    "cc-x-headline-27ac7dd66dfc199f637da432",
+    "cc-x-headline-4cacd0b7773f0180340c99e4",
+    "cc-x-headline-be8f874c937d2a32bf7a9f09",
+    "cc-x-headline-d3cdafb244b049a322718ff7",
+    "cc-x-headline-e261772e9e062cc4838682b3",
+    "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+    "cc-x-headline-f12a5b98b82a377b8c6779bc"
+  ],
+  "exact_headline_identity_coverage_all_frontiers": true,
+  "exact_next_blocker_taxonomy": [
+    "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+    "ROLLING_X_GLOBAL_EDITOR_BLOCKED"
+  ],
+  "fifth_automation_created_count": 0,
+  "frontier_count": 2,
+  "frontiers": [
+    {
+      "attempted_distinct_candidate_count": 0,
+      "attempted_headline_ids": [],
+      "candidate_slots_saved_by_semantic_clustering": 6,
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-story-scoped-evidence-reuse-budget-daily-floor-closure-v1\\docs\\automation\\TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1\\committed_four_frontier_replay\\frontier_3\\frontier_1\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "distinct_story_opportunity_count": 6,
+      "duplicate_update_chain_collapse_matrix": [
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-257bb49f7296135d6935fe56",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-2a51ca718d74eba25887",
+          "member_headline_ids": [
+            "cc-x-headline-257bb49f7296135d6935fe56"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-2bc61f330736ebdf005d",
+          "member_headline_ids": [
+            "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-5c89975438cfd6903ccbebef",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6ea4a90a6e45c47a9fcf",
+          "member_headline_ids": [
+            "cc-x-headline-5c89975438cfd6903ccbebef"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 6,
+          "canonical_headline_id": "cc-x-headline-134362fe158081b970d9dba7",
+          "headline_identity_count": 7,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-b29f791b4d13e2319284",
+          "member_headline_ids": [
+            "cc-x-headline-f12a5b98b82a377b8c6779bc",
+            "cc-x-headline-0e2aa97095b1f181b8c961d1",
+            "cc-x-headline-27ac7dd66dfc199f637da432",
+            "cc-x-headline-4cacd0b7773f0180340c99e4",
+            "cc-x-headline-be8f874c937d2a32bf7a9f09",
+            "cc-x-headline-e261772e9e062cc4838682b3",
+            "cc-x-headline-134362fe158081b970d9dba7"
+          ],
+          "relationship": "incremental_update"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-e636526c7dbdaba8f6ac",
+          "member_headline_ids": [
+            "cc-x-headline-d6283d9586b9dc206f8a9bd5"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-d3cdafb244b049a322718ff7",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-ff657d1fc5f27b99b85d",
+          "member_headline_ids": [
+            "cc-x-headline-d3cdafb244b049a322718ff7"
+          ],
+          "relationship": "distinct"
+        }
+      ],
+      "evidence_status": null,
+      "exact_headline_identity_coverage": true,
+      "exact_next_blocker": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+      "frontier": 1,
+      "official_request_total": 0,
+      "prepared_candidate_count": 12,
+      "prepared_candidate_logical_hash": "0d6d642f34a0293781dc134d60a1bba090d52fbaae337b9bff91f39816f397d6",
+      "prepared_headline_identity_count": 12,
+      "prepared_headline_ids": [
+        "cc-x-headline-d3cdafb244b049a322718ff7",
+        "cc-x-headline-f12a5b98b82a377b8c6779bc",
+        "cc-x-headline-0e2aa97095b1f181b8c961d1",
+        "cc-x-headline-257bb49f7296135d6935fe56",
+        "cc-x-headline-27ac7dd66dfc199f637da432",
+        "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+        "cc-x-headline-4cacd0b7773f0180340c99e4",
+        "cc-x-headline-be8f874c937d2a32bf7a9f09",
+        "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+        "cc-x-headline-e261772e9e062cc4838682b3",
+        "cc-x-headline-134362fe158081b970d9dba7",
+        "cc-x-headline-5c89975438cfd6903ccbebef"
+      ],
+      "prepared_state_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-story-scoped-evidence-reuse-budget-daily-floor-closure-v1\\docs\\automation\\TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1\\committed_four_frontier_replay\\frontier_3\\frontier_1\\prepared_candidate_state_v1.json",
+      "public_request_total": 0,
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "requests_by_distinct_story": [],
+      "result_classification": "BLOCKED",
+      "selected_cluster_id": null,
+      "selected_rank": null,
+      "story_scoped_delta_acquisition_count": 0,
+      "story_scoped_network_reads_avoided": 0,
+      "story_scoped_network_request_total": 0,
+      "unknown_write_detected": false
+    },
+    {
+      "attempted_distinct_candidate_count": 4,
+      "attempted_headline_ids": [
+        "cc-x-headline-0e2aa97095b1f181b8c961d1",
+        "cc-x-headline-134362fe158081b970d9dba7",
+        "cc-x-headline-257bb49f7296135d6935fe56",
+        "cc-x-headline-27ac7dd66dfc199f637da432",
+        "cc-x-headline-4cacd0b7773f0180340c99e4",
+        "cc-x-headline-be8f874c937d2a32bf7a9f09",
+        "cc-x-headline-d3cdafb244b049a322718ff7",
+        "cc-x-headline-e261772e9e062cc4838682b3",
+        "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+        "cc-x-headline-f12a5b98b82a377b8c6779bc"
+      ],
+      "candidate_slots_saved_by_semantic_clustering": 3,
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-story-scoped-evidence-reuse-budget-daily-floor-closure-v1\\docs\\automation\\TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1\\committed_four_frontier_replay\\frontier_3\\frontier_2\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "distinct_story_opportunity_count": 9,
+      "duplicate_update_chain_collapse_matrix": [
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-257bb49f7296135d6935fe56",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-2a51ca718d74eba25887",
+          "member_headline_ids": [
+            "cc-x-headline-257bb49f7296135d6935fe56"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-2bc61f330736ebdf005d",
+          "member_headline_ids": [
+            "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-5c89975438cfd6903ccbebef",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6ea4a90a6e45c47a9fcf",
+          "member_headline_ids": [
+            "cc-x-headline-5c89975438cfd6903ccbebef"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-e261772e9e062cc4838682b3",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-9f4e9dd931eab56bbaae",
+          "member_headline_ids": [
+            "cc-x-headline-e261772e9e062cc4838682b3"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-134362fe158081b970d9dba7",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-a8a31996963620b60755",
+          "member_headline_ids": [
+            "cc-x-headline-134362fe158081b970d9dba7"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 1,
+          "canonical_headline_id": "cc-x-headline-be8f874c937d2a32bf7a9f09",
+          "headline_identity_count": 2,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-d0f7aaccf02ae169c2e1",
+          "member_headline_ids": [
+            "cc-x-headline-27ac7dd66dfc199f637da432",
+            "cc-x-headline-be8f874c937d2a32bf7a9f09"
+          ],
+          "relationship": "duplicate"
+        },
+        {
+          "candidate_slots_saved": 2,
+          "canonical_headline_id": "cc-x-headline-f12a5b98b82a377b8c6779bc",
+          "headline_identity_count": 3,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-e58675a12ca4c3602d18",
+          "member_headline_ids": [
+            "cc-x-headline-f12a5b98b82a377b8c6779bc",
+            "cc-x-headline-0e2aa97095b1f181b8c961d1",
+            "cc-x-headline-4cacd0b7773f0180340c99e4"
+          ],
+          "relationship": "duplicate"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-e636526c7dbdaba8f6ac",
+          "member_headline_ids": [
+            "cc-x-headline-d6283d9586b9dc206f8a9bd5"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-d3cdafb244b049a322718ff7",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-ff657d1fc5f27b99b85d",
+          "member_headline_ids": [
+            "cc-x-headline-d3cdafb244b049a322718ff7"
+          ],
+          "relationship": "distinct"
+        }
+      ],
+      "evidence_status": null,
+      "exact_headline_identity_coverage": true,
+      "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "frontier": 2,
+      "official_request_total": 2,
+      "prepared_candidate_count": 12,
+      "prepared_candidate_logical_hash": "0d6d642f34a0293781dc134d60a1bba090d52fbaae337b9bff91f39816f397d6",
+      "prepared_headline_identity_count": 12,
+      "prepared_headline_ids": [
+        "cc-x-headline-d3cdafb244b049a322718ff7",
+        "cc-x-headline-f12a5b98b82a377b8c6779bc",
+        "cc-x-headline-0e2aa97095b1f181b8c961d1",
+        "cc-x-headline-257bb49f7296135d6935fe56",
+        "cc-x-headline-27ac7dd66dfc199f637da432",
+        "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+        "cc-x-headline-4cacd0b7773f0180340c99e4",
+        "cc-x-headline-be8f874c937d2a32bf7a9f09",
+        "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+        "cc-x-headline-e261772e9e062cc4838682b3",
+        "cc-x-headline-134362fe158081b970d9dba7",
+        "cc-x-headline-5c89975438cfd6903ccbebef"
+      ],
+      "prepared_state_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-story-scoped-evidence-reuse-budget-daily-floor-closure-v1\\docs\\automation\\TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1\\committed_four_frontier_replay\\frontier_3\\frontier_2\\prepared_candidate_state_v1.json",
+      "public_request_total": 13,
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "requests_by_distinct_story": [
+        {
+          "blockers": [
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+          "delta_acquisition_count": 0,
+          "headline_ids": [
+            "cc-x-headline-f12a5b98b82a377b8c6779bc",
+            "cc-x-headline-0e2aa97095b1f181b8c961d1",
+            "cc-x-headline-4cacd0b7773f0180340c99e4",
+            "cc-x-headline-27ac7dd66dfc199f637da432",
+            "cc-x-headline-be8f874c937d2a32bf7a9f09",
+            "cc-x-headline-134362fe158081b970d9dba7",
+            "cc-x-headline-e261772e9e062cc4838682b3"
+          ],
+          "mode_attempts": [
+            {
+              "delta_evidence_requirements": {},
+              "effective_mode": "STANDARD_NEWS_ANALYSIS",
+              "evidence_acquisition_action": "INITIAL_ACQUISITION",
+              "network_reads_avoided": 0,
+              "network_requests_performed": 5,
+              "status": "BLOCKED"
+            },
+            {
+              "delta_evidence_requirements": {},
+              "effective_mode": "BREAKING_BRIEF",
+              "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+              "network_reads_avoided": 5,
+              "network_requests_performed": 0,
+              "status": "BLOCKED"
+            }
+          ],
+          "network_reads_avoided": 5,
+          "network_requests_performed": 5,
+          "official_requests": 0,
+          "public_requests": 5,
+          "rank": 1,
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "b52807a474b3bd4d1cbfb8de9b7a7792ce0760586e70b7268316b4073e422860"
+        },
+        {
+          "blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "cluster_id": "rolling-x-global-cluster-9def919a63d51d885fd6",
+          "delta_acquisition_count": 0,
+          "headline_ids": [
+            "cc-x-headline-257bb49f7296135d6935fe56"
+          ],
+          "mode_attempts": [
+            {
+              "delta_evidence_requirements": {},
+              "effective_mode": "BREAKING_BRIEF",
+              "evidence_acquisition_action": "INITIAL_ACQUISITION",
+              "network_reads_avoided": 0,
+              "network_requests_performed": 4,
+              "status": "BLOCKED"
+            }
+          ],
+          "network_reads_avoided": 0,
+          "network_requests_performed": 4,
+          "official_requests": 0,
+          "public_requests": 4,
+          "rank": 2,
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "7565392e6b929793ae7a07c490623e1a32cde89b88782a56f7270502a0be0a2a"
+        },
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "cluster_id": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+          "delta_acquisition_count": 0,
+          "headline_ids": [
+            "cc-x-headline-d3cdafb244b049a322718ff7"
+          ],
+          "mode_attempts": [
+            {
+              "delta_evidence_requirements": {},
+              "effective_mode": "DATA_OR_DOCUMENT_LENS",
+              "evidence_acquisition_action": "INITIAL_ACQUISITION",
+              "network_reads_avoided": 0,
+              "network_requests_performed": 2,
+              "status": "BLOCKED"
+            },
+            {
+              "delta_evidence_requirements": {},
+              "effective_mode": "STANDARD_NEWS_ANALYSIS",
+              "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+              "network_reads_avoided": 2,
+              "network_requests_performed": 0,
+              "status": "BLOCKED"
+            },
+            {
+              "delta_evidence_requirements": {},
+              "effective_mode": "BREAKING_BRIEF",
+              "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+              "network_reads_avoided": 2,
+              "network_requests_performed": 0,
+              "status": "BLOCKED"
+            }
+          ],
+          "network_reads_avoided": 4,
+          "network_requests_performed": 2,
+          "official_requests": 0,
+          "public_requests": 2,
+          "rank": 3,
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "a238c2d32eaa4384f23bf5dcb986a5139ac83b2c56d3ce5296133c50d6200416"
+        },
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "cluster_id": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+          "delta_acquisition_count": 0,
+          "headline_ids": [
+            "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+          ],
+          "mode_attempts": [
+            {
+              "delta_evidence_requirements": {},
+              "effective_mode": "STANDARD_NEWS_ANALYSIS",
+              "evidence_acquisition_action": "INITIAL_ACQUISITION",
+              "network_reads_avoided": 0,
+              "network_requests_performed": 4,
+              "status": "BLOCKED"
+            },
+            {
+              "delta_evidence_requirements": {},
+              "effective_mode": "BREAKING_BRIEF",
+              "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+              "network_reads_avoided": 4,
+              "network_requests_performed": 0,
+              "status": "BLOCKED"
+            }
+          ],
+          "network_reads_avoided": 4,
+          "network_requests_performed": 4,
+          "official_requests": 2,
+          "public_requests": 2,
+          "rank": 4,
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "ec9c4951030eee886a779ad364e01e33de070378be176de83bf5c03df722888a"
+        }
+      ],
+      "result_classification": "NO_PUBLICATION",
+      "selected_cluster_id": null,
+      "selected_rank": null,
+      "story_scoped_delta_acquisition_count": 0,
+      "story_scoped_network_reads_avoided": 13,
+      "story_scoped_network_request_total": 15,
+      "unknown_write_detected": false
+    }
+  ],
+  "full_current_headline_count": 12,
+  "input_mode": "COMMITTED_FRONTIER_ARTIFACT_REPLAY",
+  "no_repeat_proof": true,
+  "official_request_total": 2,
+  "pending_frontier": null,
+  "prepared_headline_identity_slot_count": 24,
+  "production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+  "production_store_reset_count": 0,
+  "public_request_total": 13,
+  "public_write_count": 0,
+  "publication_provider_write_count": 0,
+  "qualified_article_records": [],
+  "qualified_count": 0,
+  "qualified_derivative_intent_count": 0,
+  "remaining_build_deficit": 4,
+  "remaining_held_identity_count": 2,
+  "rolling_input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-story-scoped-evidence-reuse-budget-daily-floor-closure-v1\\docs\\automation\\TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1\\committed_four_frontier_replay\\frontier_3\\frozen_current_rolling_input_v1.json",
+  "rolling_input_sha256": "f725eb28dbb000b3e0708687a39f6e65f5ef9294be181dc6308659cb032149d7",
+  "safety": {
+    "fifth_automation_created": 0,
+    "production_store_reset": 0,
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.v1_distinct_story_frontier_floor_rehearsal.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_cycle_artifact_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-story-scoped-evidence-reuse-budget-daily-floor-closure-v1\\docs\\automation\\TASK_V1_DISTINCT_STORY_FRONTIER_AND_EVIDENCE_YIELD_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_3\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+  "source_parent_cycle_root": null,
+  "source_rolling_input_path": null,
+  "story_scoped_delta_acquisition_count": 0,
+  "story_scoped_network_reads_avoided": 13,
+  "story_scoped_network_request_total": 15,
+  "task_label": "TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1",
+  "unknown_write_count": 0,
+  "xhigh_attempt_count": 0,
+  "xhigh_revision_count": 0
+}

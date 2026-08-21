@@ -1,0 +1,856 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 3,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "a94581ea896ebd0bddcba3ca93890b853787e1526e9f5cdbb3398d40f0f6f08c",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-1770e9ed523574ee1e95"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "f9b9e77b5c05e631be5193cecd27b8228bab9c40761df4ef9353d6bb011dc719",
+    "cutoff_time_utc": "2026-08-21T12:31:11.126806Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 3,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "central_bank",
+            "inflation",
+            "economic indicators"
+          ],
+          "first_utc": "2026-08-20T12:32:01Z",
+          "latest_utc": "2026-08-20T12:33:45Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.9573,
+          "update_velocity": 34.6154
+        },
+        "entities_topics": [
+          "Federal Reserve Bank of Philadelphia",
+          "Manufacturing Index",
+          "Economic Indicators",
+          "Inflation"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-54c40eaf0cdc60ac0ae6",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 75,
+          "engagement": 60,
+          "evidence": 85,
+          "saturation_risk": 40,
+          "seo": 65
+        },
+        "summary": "The Philadelphia Fed Manufacturing Index rose to 47.4, the highest since April 2021, while the prices paid index fell to 40.9."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "central_bank",
+            "bond yields",
+            "central banks"
+          ],
+          "first_utc": "2026-08-20T12:33:43Z",
+          "latest_utc": "2026-08-20T12:35:03Z",
+          "material_update": false,
+          "members": 6,
+          "recency_hours": 23.9356,
+          "update_velocity": 225.0
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Bond Yields"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-6d90b29b152ff220af38",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 80,
+          "engagement": 70,
+          "evidence": 85,
+          "saturation_risk": 50,
+          "seo": 70
+        },
+        "summary": "Fed's Mary Daly comments on monetary policy, stating that rising bond yields do not signal policy shifts and that the central bank's credibility is not at risk."
+      },
+      {
+        "attention": {
+          "authors": 4,
+          "concentration": [
+            "labor",
+            "economic indicators",
+            "jobless claims"
+          ],
+          "first_utc": "2026-08-20T12:31:38Z",
+          "latest_utc": "2026-08-20T12:33:21Z",
+          "material_update": false,
+          "members": 4,
+          "recency_hours": 23.9639,
+          "update_velocity": 104.8544
+        },
+        "entities_topics": [
+          "United States",
+          "Jobless Claims",
+          "Labor Market",
+          "Economic Indicators"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-77c4e4cba5f276c9749a",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 85,
+          "engagement": 75,
+          "evidence": 90,
+          "saturation_risk": 60,
+          "seo": 80
+        },
+        "summary": "US initial jobless claims came in at 206K for the week, slightly below the estimated 210K and down from the previous 212K."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "f9b9e77b5c05e631be5193cecd27b8228bab9c40761df4ef9353d6bb011dc719",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-402b6e35b897ebe21a5e30c8",
+      "cc-x-headline-53684174ab9389dbac3c0dc4",
+      "cc-x-headline-5785b9dc13d379056dc55c30",
+      "cc-x-headline-5940b992bf4f560c2f78eae1",
+      "cc-x-headline-5e0778b6937bccf4a878a839",
+      "cc-x-headline-7d4860da701df7f401a0c69f",
+      "cc-x-headline-8dfc3780324a50304571eb6c",
+      "cc-x-headline-98524bac9e9f2e6720b8f3c8",
+      "cc-x-headline-a530786f75a1e64daf0eea97",
+      "cc-x-headline-d0235b2bb7c33b1c861a363b",
+      "cc-x-headline-edad5280888abfafe73b29d5",
+      "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 40,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5e0778b6937bccf4a878a839",
+          "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Federal Reserve Bank of Philadelphia"
+      ],
+      "event_topic_summary": "The Philadelphia Fed Manufacturing Index rose to 47.4, the highest since April 2021, while the prices paid index fell to 40.9.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-54c40eaf0cdc60ac0ae6",
+      "member_headline_ids": [
+        "cc-x-headline-5e0778b6937bccf4a878a839",
+        "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+      ],
+      "partition_id": "rolling-x-leaf-1770e9ed523574ee1e95",
+      "topics": [
+        "Manufacturing Index",
+        "Economic Indicators",
+        "Inflation"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 50,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5940b992bf4f560c2f78eae1",
+          "cc-x-headline-8dfc3780324a50304571eb6c",
+          "cc-x-headline-5785b9dc13d379056dc55c30",
+          "cc-x-headline-53684174ab9389dbac3c0dc4",
+          "cc-x-headline-d0235b2bb7c33b1c861a363b",
+          "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Federal Reserve",
+        "Mary Daly"
+      ],
+      "event_topic_summary": "Fed's Mary Daly comments on monetary policy, stating that rising bond yields do not signal policy shifts and that the central bank's credibility is not at risk.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-6d90b29b152ff220af38",
+      "member_headline_ids": [
+        "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "cc-x-headline-8dfc3780324a50304571eb6c",
+        "cc-x-headline-5785b9dc13d379056dc55c30",
+        "cc-x-headline-53684174ab9389dbac3c0dc4",
+        "cc-x-headline-d0235b2bb7c33b1c861a363b",
+        "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+      ],
+      "partition_id": "rolling-x-leaf-1770e9ed523574ee1e95",
+      "topics": [
+        "Monetary Policy",
+        "Bond Yields",
+        "Central Banks"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 90,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 60,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-402b6e35b897ebe21a5e30c8",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7d4860da701df7f401a0c69f",
+          "cc-x-headline-402b6e35b897ebe21a5e30c8",
+          "cc-x-headline-edad5280888abfafe73b29d5",
+          "cc-x-headline-a530786f75a1e64daf0eea97"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "United States"
+      ],
+      "event_topic_summary": "US initial jobless claims came in at 206K for the week, slightly below the estimated 210K and down from the previous 212K.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-77c4e4cba5f276c9749a",
+      "member_headline_ids": [
+        "cc-x-headline-7d4860da701df7f401a0c69f",
+        "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "cc-x-headline-edad5280888abfafe73b29d5",
+        "cc-x-headline-a530786f75a1e64daf0eea97"
+      ],
+      "partition_id": "rolling-x-leaf-1770e9ed523574ee1e95",
+      "topics": [
+        "Jobless Claims",
+        "Labor Market",
+        "Economic Indicators"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "cc-x-headline-53684174ab9389dbac3c0dc4",
+        "cc-x-headline-5785b9dc13d379056dc55c30",
+        "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "cc-x-headline-5e0778b6937bccf4a878a839",
+        "cc-x-headline-7d4860da701df7f401a0c69f",
+        "cc-x-headline-8dfc3780324a50304571eb6c",
+        "cc-x-headline-98524bac9e9f2e6720b8f3c8",
+        "cc-x-headline-a530786f75a1e64daf0eea97",
+        "cc-x-headline-d0235b2bb7c33b1c861a363b",
+        "cc-x-headline-edad5280888abfafe73b29d5",
+        "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+      ],
+      "partition_id": "rolling-x-leaf-1770e9ed523574ee1e95",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "serialized_input_bytes": 8559,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 12,
+    "held_before_semantic_assignment_count": 0,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "7a759988980e38c1de2b41ace467868f3b2ec2d92bf7aaede8230dab77386298",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-54e4ab3abe27f81d9de7",
+      "headline_ids": [
+        "cc-x-headline-5e0778b6937bccf4a878a839",
+        "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-54c40eaf0cdc60ac0ae6"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Full Philadelphia Fed Manufacturing Business Outlook Survey report",
+        "Historical data for the prices paid and new orders components",
+        "Analyst commentary on the divergence between activity and inflation metrics"
+      ],
+      "rank": 1,
+      "selection_case": "A day after the release, the headline number is known, but the internal divergence between activity and pricing power offers a valuable lens into regional economic health and inflation pressures.",
+      "seo_intent": "Philadelphia Fed Manufacturing Index analysis, prices paid index, US regional manufacturing data, inflation indicators",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+        "ordered_headline_ids": [
+          "cc-x-headline-5e0778b6937bccf4a878a839",
+          "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A dual-axis line chart comparing the headline Philly Fed Manufacturing Index against the prices paid component over the last five years.",
+      "why_now": "The Philadelphia Fed Manufacturing Index hit its highest level since April 2021, but the prices paid component fell, creating a compelling 'growth without inflation' narrative that requires deeper component analysis."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-ae831501e76c5a7bc838",
+      "headline_ids": [
+        "cc-x-headline-7d4860da701df7f401a0c69f",
+        "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "cc-x-headline-edad5280888abfafe73b29d5",
+        "cc-x-headline-a530786f75a1e64daf0eea97"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-77c4e4cba5f276c9749a"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Department of Labor weekly claims report",
+        "Continuing claims data for broader context",
+        "Economist reactions to the sustained low level of claims"
+      ],
+      "rank": 2,
+      "selection_case": "Provides an opportunity to synthesize recent labor market data and assess the ongoing tightness in employment despite restrictive monetary policy.",
+      "seo_intent": "US initial jobless claims, labor market resilience, employment data analysis, US economy",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "ordered_headline_ids": [
+          "cc-x-headline-7d4860da701df7f401a0c69f",
+          "cc-x-headline-402b6e35b897ebe21a5e30c8",
+          "cc-x-headline-edad5280888abfafe73b29d5",
+          "cc-x-headline-a530786f75a1e64daf0eea97"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A bar chart showing the four-week moving average of initial jobless claims compared to consensus estimates over the past six months.",
+      "why_now": "Initial jobless claims continue to defy expectations of a labor market slowdown, coming in below estimates and reinforcing the higher-for-longer rate narrative."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-9d9e246b67f24344a203",
+      "headline_ids": [
+        "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "cc-x-headline-8dfc3780324a50304571eb6c",
+        "cc-x-headline-5785b9dc13d379056dc55c30",
+        "cc-x-headline-53684174ab9389dbac3c0dc4",
+        "cc-x-headline-d0235b2bb7c33b1c861a363b",
+        "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-6d90b29b152ff220af38"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Transcript or official recording of Mary Daly's remarks",
+        "Recent Treasury yield curve movements",
+        "Comparison with recent statements from other FOMC members"
+      ],
+      "rank": 3,
+      "selection_case": "Addresses market concerns about rising yields by contextualizing Daly's pushback against the idea that higher yields signal a shift in the Fed's fundamental policy stance.",
+      "seo_intent": "Mary Daly Fed comments, US bond yields monetary policy, Federal Reserve credibility, interest rate outlook",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "ordered_headline_ids": [
+          "cc-x-headline-5940b992bf4f560c2f78eae1",
+          "cc-x-headline-8dfc3780324a50304571eb6c",
+          "cc-x-headline-5785b9dc13d379056dc55c30",
+          "cc-x-headline-53684174ab9389dbac3c0dc4",
+          "cc-x-headline-d0235b2bb7c33b1c861a363b",
+          "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A line chart tracking the 10-year Treasury yield alongside key dates of recent Fed official speeches.",
+      "why_now": "San Francisco Fed President Mary Daly's remarks provide timely insight into how the central bank views the recent run-up in bond yields and its implications for policy."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "1f4468aaea459a3c65e6fa1683eca21817a37f3268502c612ddd20dca67101f5",
+          "latency_seconds": 41.4664,
+          "logical_invocation_id": "inv_rolling_x_leaf_4eb0ef45c892da556e66",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "c35bddd6aa8d8aa430e184f7dafd66db972b8c87a993d852b18759338a2bb516",
+          "prompt_logical_hash": "5e653054439048b8a6749ff6eff0e78da791ac402c5e1e57e8443cb73f08008f",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-KlyIarbsOtSIvr0PpLz72A8",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_4eb0ef45c892da556e66",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 6182,
+            "completion_tokens_details": {
+              "reasoning_tokens": 4639
+            },
+            "prompt_tokens": 5781,
+            "total_tokens": 11963
+          },
+          "work_item_id": "rolling-x-leaf-1770e9ed523574ee1e95"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_4eb0ef45c892da556e66",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_4eb0ef45c892da556e66",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 41.4673,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 6182.0,
+        "prompt_tokens": 5781.0,
+        "total_tokens": 11963.0
+      },
+      "work_item_id": "rolling-x-leaf-1770e9ed523574ee1e95"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "ec87866f2e0a69b4371f7d55f764e173ba49edc14ff55ef6e1fea31da0b090f0",
+          "latency_seconds": 32.3326,
+          "logical_invocation_id": "inv_rolling_x_global_d86dbe4160232ba69588",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "73ed77a79cad9c699c881b40d1defbfa29c04ec8575c2290aba96091f34b2c74",
+          "prompt_logical_hash": "325b3d907059087857a4bd9599912f52c397369d2adafae4265e359fc43c65af",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-VFyIat6pFOKo1e8Pk7q1uQI",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_d86dbe4160232ba69588",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4294,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3201
+            },
+            "prompt_tokens": 4401,
+            "total_tokens": 8695
+          },
+          "work_item_id": "rolling-x-global-f9b9e77b5c05e631be51"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_d86dbe4160232ba69588",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_d86dbe4160232ba69588",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 32.3334,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 4294.0,
+        "prompt_tokens": 4401.0,
+        "total_tokens": 8695.0
+      },
+      "work_item_id": "rolling-x-global-f9b9e77b5c05e631be51"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "ec87866f2e0a69b4371f7d55f764e173ba49edc14ff55ef6e1fea31da0b090f0",
+        "latency_seconds": 32.3326,
+        "logical_invocation_id": "inv_rolling_x_global_d86dbe4160232ba69588",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "73ed77a79cad9c699c881b40d1defbfa29c04ec8575c2290aba96091f34b2c74",
+        "prompt_logical_hash": "325b3d907059087857a4bd9599912f52c397369d2adafae4265e359fc43c65af",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-VFyIat6pFOKo1e8Pk7q1uQI",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 1,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_d86dbe4160232ba69588",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 0,
+          "max_same_model_retries": 1,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 2,
+          "per_model_max_attempts": [
+            2
+          ],
+          "remaining_attempt_budget": 1,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 4294,
+          "completion_tokens_details": {
+            "reasoning_tokens": 3201
+          },
+          "prompt_tokens": 4401,
+          "total_tokens": 8695
+        },
+        "work_item_id": "rolling-x-global-f9b9e77b5c05e631be51"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_d86dbe4160232ba69588",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": [
+        2
+      ],
+      "remaining_attempt_budget": 1,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_d86dbe4160232ba69588",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 32.3334,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 4294.0,
+      "prompt_tokens": 4401.0,
+      "total_tokens": 8695.0
+    },
+    "work_item_id": "rolling-x-global-f9b9e77b5c05e631be51"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-54e4ab3abe27f81d9de7",
+  "selected_headline_ids": [
+    "cc-x-headline-5e0778b6937bccf4a878a839",
+    "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+  ],
+  "selection_rationale": "While the primary economic data points are 24 hours old, the underlying details\u2014specifically the divergence between surging manufacturing activity and falling prices paid in the Philly Fed index\u2014provide strong material for analytical and document-lens pieces. The continued resilience in jobless claims and Fed commentary on bond yields offer solid secondary analysis opportunities.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 73.8007,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 10476.0,
+      "prompt_tokens": 10182.0,
+      "total_tokens": 20658.0
+    }
+  }
+}

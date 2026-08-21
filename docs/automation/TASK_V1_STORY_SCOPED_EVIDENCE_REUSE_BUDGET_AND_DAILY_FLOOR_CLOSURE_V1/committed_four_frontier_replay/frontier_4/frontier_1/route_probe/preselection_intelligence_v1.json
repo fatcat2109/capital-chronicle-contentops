@@ -1,0 +1,746 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 3,
+  "evaluated_at_utc": "2026-08-21T12:31:11.126806Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 3,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-24a2a692e9fbb8dccda2",
+    "rolling-x-global-cluster-291ad096e8f0e5e39851",
+    "rolling-x-global-cluster-383fed4b50c37dfb3fed"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-21T12:31:11.126806Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 5,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "e53d07153e341ab5fba41396eb5942ca74d1cc7d8c801c8719bcddfde01bf602",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Micron",
+          "Micron Research Labs",
+          "Corporate Investment",
+          "Semiconductors",
+          "Research and Development",
+          "AI"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.028,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Micron",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4863c4714e737cef4da4f0c5e4a99d6667a0941dce6e828bec8f4de209f18942"
+          },
+          {
+            "query_term": "Micron Research Labs",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f8061cf107175998b2d2d23ff71473647823ec7d5dfcf2a91904972cf835beb5"
+          },
+          {
+            "query_term": "Corporate Investment",
+            "source_field": "entities_topics",
+            "source_value_sha256": "395aea4e8ac54be957339cca880ecad83155365962de57b25668016bd2bf2890"
+          },
+          {
+            "query_term": "Semiconductors",
+            "source_field": "entities_topics",
+            "source_value_sha256": "65bb877811e2cfcfd2be7ce384228c82ab84346827d1f1be22422fb676b79a79"
+          },
+          {
+            "query_term": "Research and Development",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2bdaac7bc8bfdeb2454807520fcfe79bf1de4c44c2c4f3e0fe8b28d08906e060"
+          },
+          {
+            "query_term": "AI",
+            "source_field": "selection_case",
+            "source_value_sha256": "9ceb1c5eb8b8f85b2c1c58eae06f8e6e9b45cf8e2e48251de6778418d80e35ff"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Micron",
+          "Micron Research Labs",
+          "Corporate Investment",
+          "Semiconductors",
+          "Research and Development",
+          "AI"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "selection_case"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-24a2a692e9fbb8dccda2",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Micron",
+        "Micron Research Labs",
+        "Corporate Investment",
+        "Semiconductors",
+        "Research and Development"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-aa39225c53034b354854e50f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-87be125b74b4d63d1036"
+      ],
+      "leaf_summaries": [
+        "Micron announces a $10 billion investment over the next decade to establish Micron Research Labs for memory and compute breakthroughs."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official press release or regulatory filing from Micron detailing the $10B investment",
+        "Breakdown of the investment timeline and specific research areas",
+        "Analyst commentary on Micron's capital allocation strategy"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "This is a major corporate capital expenditure announcement in the highly scrutinized semiconductor sector. It warrants analysis on how this impacts Micron's competitive positioning and the broader AI and compute hardware supply chain.",
+      "seo_intent": "Micron $10 billion investment Research Labs semiconductor memory compute",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-aa39225c53034b354854e50f",
+        "ordered_headline_ids": [
+          "cc-x-headline-aa39225c53034b354854e50f"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-24a2a692e9fbb8dccda2",
+      "visual_strategy": "Infographic detailing Micron's historical R&D spend versus the projected $10 billion investment, alongside a timeline of expected technological milestones.",
+      "why_now": "Micron has just announced a massive $10 billion investment plan for R&D over the next decade, signaling long-term capital commitment to memory and compute advancements.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Labor Market",
+          "Jobless Claims",
+          "Economic Indicators"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.01,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Labor Market",
+            "source_field": "entities_topics",
+            "source_value_sha256": "112535214fca3dbb1789c6c353e2e7d44fe8d0c8d9ac9949a9f72a21f09e6ad2"
+          },
+          {
+            "query_term": "Jobless Claims",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2c36ddbd7fde44b8dc74dce0608cfd56f915e4468f6aa653bf1f4935840992c9"
+          },
+          {
+            "query_term": "Economic Indicators",
+            "source_field": "entities_topics",
+            "source_value_sha256": "608195ba0e1857f250aec2dcca8e54c492a5d96d8fb34b396f64da74eb4cbde6"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Labor Market",
+          "Jobless Claims",
+          "Economic Indicators"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-383fed4b50c37dfb3fed",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Labor Market",
+        "Jobless Claims",
+        "Economic Indicators"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-c0ec790889294e8b748b273a"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-d957c43f80e1927830cc"
+      ],
+      "leaf_summaries": [
+        "Initial jobless claims remain steady despite broader signals indicating an increasingly fragile labor market."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Department of Labor's official initial jobless claims report",
+        "Data on continuing claims and other secondary labor metrics",
+        "Historical context on claims behavior during economic transitions"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-20T12:38:06Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-c0ec790889294e8b748b273a",
+          "url": "https://www.zerohedge.com/markets/initial-jobless-claims-refuse-blink-amid-increasingly-fragile-labor-market-signals"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/markets/initial-jobless-claims-refuse-blink-amid-increasingly-fragile-labor-market-signals"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 110.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-20T12:38:06Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-c0ec790889294e8b748b273a",
+          "url": "https://www.zerohedge.com/markets/initial-jobless-claims-refuse-blink-amid-increasingly-fragile-labor-market-signals"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/markets/initial-jobless-claims-refuse-blink-amid-increasingly-fragile-labor-market-signals"
+      ],
+      "rank": 2,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Provides an opportunity to dissect the divergence between headline jobless claims and underlying labor market weakness, a critical theme for Fed policy expectations.",
+      "seo_intent": "US initial jobless claims labor market fragility economic indicators",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c0ec790889294e8b748b273a",
+        "ordered_headline_ids": [
+          "cc-x-headline-c0ec790889294e8b748b273a"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-383fed4b50c37dfb3fed",
+      "visual_strategy": "Dual-axis chart comparing initial jobless claims with a broader measure of labor market health, such as continuing claims or job openings.",
+      "why_now": "The latest initial jobless claims data has been released, showing steady numbers that contrast with other indicators suggesting labor market fragility.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "US Treasury",
+          "Bank of Japan",
+          "Bond Markets",
+          "Treasury Buybacks",
+          "Debt Management",
+          "Yield Curve"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.033,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "US Treasury",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d5ed7f14a68ebb368f9de73ecb16fc37561d7a6717a7e882df576b8e6cf1bc2c"
+          },
+          {
+            "query_term": "Bank of Japan",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9226716bc1043b3708c19da0a01c6ed124f031168e531228839810672b55629d"
+          },
+          {
+            "query_term": "Bond Markets",
+            "source_field": "entities_topics",
+            "source_value_sha256": "94c09b0501c67d84e3b9cda8ad56802aa38d3233cbd19b421ba5d451f15869b0"
+          },
+          {
+            "query_term": "Treasury Buybacks",
+            "source_field": "entities_topics",
+            "source_value_sha256": "47bcbdad8f6fc3f4f9ef4099e0c0e74f7ac42470567e61c675aaf7cc25b2d055"
+          },
+          {
+            "query_term": "Debt Management",
+            "source_field": "entities_topics",
+            "source_value_sha256": "267531b922d124f992176c74adacd5c8f45ae5a2cccafb5bb2aec8f1a7f44834"
+          },
+          {
+            "query_term": "Yield Curve",
+            "source_field": "entities_topics",
+            "source_value_sha256": "743a9b760a381ffe18853557d20d49eb4b4055d9d35d8f7efd4a75882da2d09f"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "US Treasury",
+          "Bank of Japan",
+          "Bond Markets",
+          "Treasury Buybacks",
+          "Debt Management",
+          "Yield Curve"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-291ad096e8f0e5e39851",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "US Treasury",
+        "Bank of Japan",
+        "Bond Markets",
+        "Treasury Buybacks",
+        "Debt Management",
+        "Yield Curve"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-7b1b5268a36b6d482429f1d5",
+        "cc-x-headline-72d5149216828e0328388c38"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-a713d0cdcf6e772e7029"
+      ],
+      "leaf_summaries": [
+        "US 30-year Treasuries erase gains following a buyback announcement, prompting market commentary on US Treasury debt management practices."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Exact timing and details of the Treasury buyback announcement",
+        "Intraday pricing data for the 30-year Treasury",
+        "Commentary from fixed-income desks on the liquidity impact"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "The market's immediate reaction to Treasury buybacks provides a window into underlying bond market mechanics and investor sentiment regarding US debt issuance.",
+      "seo_intent": "US 30-year Treasury yields buyback announcement debt management bond market",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-72d5149216828e0328388c38",
+        "ordered_headline_ids": [
+          "cc-x-headline-7b1b5268a36b6d482429f1d5",
+          "cc-x-headline-72d5149216828e0328388c38"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-291ad096e8f0e5e39851",
+      "visual_strategy": "Intraday chart showing the price action of 30-year Treasuries before and after the buyback announcement.",
+      "why_now": "US 30-year Treasuries experienced a sharp reversal following a buyback announcement, highlighting current sensitivities in debt management and bond market liquidity.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": true,
+  "reranked_order": [
+    "rolling-x-global-cluster-24a2a692e9fbb8dccda2",
+    "rolling-x-global-cluster-383fed4b50c37dfb3fed",
+    "rolling-x-global-cluster-291ad096e8f0e5e39851"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

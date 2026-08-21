@@ -159,14 +159,21 @@ def _candidate_for_sec(body: bytes, request: Mapping[str, Any]) -> tuple[str, st
         parsed = json.loads(body.decode("utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError):
         return None
-    terms = set(_terms(request))
+    ordered_terms = _terms(request)
+    terms = set(ordered_terms)
     rows = parsed.values() if isinstance(parsed, Mapping) else []
     matches: list[tuple[int, str]] = []
     for row in rows:
         if not isinstance(row, Mapping):
             continue
         name_terms = set(re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", str(row.get("title") or "").casefold()))
-        score = len(terms.intersection(name_terms))
+        matching_terms = terms.intersection(name_terms)
+        # Prefer the earliest governed request terms (normally the named entity) over
+        # later generic feed words such as ``income`` or ``results``.  The old count-only
+        # tie-break could select an unrelated lower-CIK company when both matched once.
+        score = sum(
+            max(1, 20 - ordered_terms.index(term)) for term in matching_terms
+        )
         cik = str(row.get("cik_str") or "")
         if cik and score:
             matches.append((score, f"https://data.sec.gov/submissions/CIK{int(cik):010d}.json"))
@@ -255,7 +262,7 @@ class BoundedOfficialPrimarySourceLocator:
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
         clock: Callable[[], datetime] | None = None,
         timeout_seconds: float = 12.0,
-        max_response_bytes: int = 500_000,
+        max_response_bytes: int = 1_000_000,
     ) -> None:
         self._http_get = http_get or _default_http_get
         self._clock = clock or (lambda: datetime.now(timezone.utc))
@@ -291,6 +298,8 @@ class BoundedOfficialPrimarySourceLocator:
             body = response.get("body")
             if int(response.get("status") or 0) != 200:
                 raise ValueError("official_source_locator_http_status_not_200")
+            if response.get("content_truncated") is True:
+                raise ValueError("official_source_locator_response_truncated")
             if not isinstance(body, bytes) or not body or len(body) > self._max_response_bytes:
                 raise ValueError("official_source_locator_response_invalid")
             retrieved_at = _retrieval_timestamp(self._clock)

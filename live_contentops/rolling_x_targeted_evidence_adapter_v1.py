@@ -816,7 +816,23 @@ class RollingXTargetedEvidenceAdapter:
                     documents.extend(official_documents)
                     if not official_documents:
                         diagnostics["official"]["document_blockers"] = official_document_blockers
-                        blockers.extend(official_document_blockers)
+                        # An optional official locator/index that cannot bind public claims is
+                        # excluded, not promoted and not allowed to poison a separately valid
+                        # grounded public packet. If no other source succeeds, the ordinary
+                        # required-capability/minimum-packet gates below still fail closed.
+                        discovery_index_only = all(
+                            bool(row.get("discovery_only_source_index"))
+                            for row in official.get("official_source_documents") or []
+                            if isinstance(row, Mapping)
+                        )
+                        blockers.extend(
+                            blocker
+                            for blocker in official_document_blockers
+                            if not (
+                                discovery_index_only
+                                and blocker.endswith("missing:public_claim_permission")
+                            )
+                        )
                     supplied.update(
                         str(value)
                         for value in (official.get("provided_evidence_capabilities") or [])

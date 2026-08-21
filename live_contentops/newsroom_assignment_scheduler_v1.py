@@ -2462,6 +2462,7 @@ def build_prepared_rolling_x_candidate_state(
         "prepared_frontier": frontier,
         "continuity_binding": dict(continuity_binding or {}),
         "preparation_method": "DETERMINISTIC_CONTINUITY_FRONTIER_EVIDENCE_REACHABLE",
+        "bounded_semantic_assignment_required_at_editorial_opportunity": bool(prepared_rows),
         "full_universe_semantic_assignment_calls": 0,
         "story_type_semantic_calls": 0,
         "llm_or_provider_calls": 0,
@@ -2771,7 +2772,11 @@ def build_bounded_rolling_x_publishability_pool(
         leaf_by_id[raw_leaf_id] = row
         leaf_headline_ids.update(raw_member_ids)
         derived_leaf_clusters.append(row)
-    if leaf_headline_ids != set(compact_headline_ids):
+    assignment_method = str(assignment.get("assignment_method") or "")
+    if (
+        assignment_method != "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK"
+        and leaf_headline_ids != set(compact_headline_ids)
+    ):
         raise ValueError("rolling_x_publishability_pool_leaf_headline_union_mismatch")
 
     if any(
@@ -2846,7 +2851,6 @@ def build_bounded_rolling_x_publishability_pool(
     }
 
     reserve_rows: list[dict[str, Any]] = []
-    assignment_method = str(assignment.get("assignment_method") or "")
     if assignment_method != "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK":
         for leaf_order, leaf in enumerate(derived_leaf_clusters, start=1):
             leaf_id = str(leaf.get("leaf_cluster_id") or "")
@@ -3122,6 +3126,215 @@ def _ordinary_minimum_packet_is_exactly_bound(
         and bool(document.get("public_claim_allowed"))
         for document in documents
     )
+
+
+def _story_evidence_scope_binding(
+    assignment: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Bind one mode-independent acquisition session to immutable story authority."""
+    input_binding = assignment.get("input_binding") or {}
+    authority_binding = str(
+        input_binding.get("canonical_input_hash")
+        or assignment.get("assignment_logical_hash")
+        or _logical_hash({
+            "ranked_cluster_ids": [
+                str(row.get("cluster_id") or "")
+                for row in assignment.get("ranked_clusters") or []
+                if isinstance(row, Mapping)
+            ]
+        })
+    )
+    material_context = dict(cluster.get("material_follow_up_context") or {})
+    update_chain = dict(cluster.get("update_chain") or {})
+    binding = {
+        "schema_version": "contentops.story_evidence_scope_binding.v1",
+        "assignment_authority_binding": authority_binding,
+        "cluster_id": str(cluster.get("cluster_id") or ""),
+        "headline_ids": [str(value) for value in cluster.get("headline_ids") or []],
+        "update_chain_identity": str(cluster.get("update_chain_identity") or ""),
+        "update_chain_logical_hash": _logical_hash(update_chain),
+        "material_follow_up_context_logical_hash": _logical_hash(material_context),
+    }
+    binding["story_evidence_scope_id"] = _logical_hash(binding)
+    return binding
+
+
+def _evidence_acquisition_profile(request: Mapping[str, Any]) -> dict[str, set[str]]:
+    context = request.get("story_context") or {}
+    source_urls = {
+        str(value)
+        for key in ("official_source_urls", "public_source_urls")
+        for value in context.get(key) or []
+        if str(value)
+    }
+    source_bindings = {
+        _logical_hash(dict(row))
+        for key in ("official_source_url_bindings", "public_source_url_bindings")
+        for row in context.get(key) or []
+        if isinstance(row, Mapping)
+    }
+    return {
+        "required_capabilities": {
+            str(value) for value in request.get("required_evidence_capabilities") or []
+        },
+        "source_families": {
+            str(value) for value in request.get("source_adapter_families") or []
+        },
+        "needed_evidence": {
+            " ".join(str(value).split()).casefold()
+            for value in request.get("needed_evidence") or []
+            if str(value).strip()
+        },
+        "source_urls": source_urls,
+        "source_bindings": source_bindings,
+    }
+
+
+def _evidence_acquisition_delta(
+    acquired: Mapping[str, set[str]], requested: Mapping[str, set[str]]
+) -> dict[str, list[str]]:
+    return {
+        key: sorted(set(values) - set(acquired.get(key) or set()))
+        for key, values in requested.items()
+        if set(values) - set(acquired.get(key) or set())
+    }
+
+
+def _network_request_count_for_receipt(receipt: Mapping[str, Any]) -> int:
+    provenance = receipt.get("evidence_acquisition_provenance") or {}
+    if not isinstance(provenance, Mapping):
+        return 0
+    official = provenance.get("official") or {}
+    official_provenance = (
+        official.get("provenance") or {} if isinstance(official, Mapping) else {}
+    )
+    official_requests = int(official_provenance.get("locator_request_count") or 0) + int(
+        official_provenance.get("official_evidence_get_count") or 0
+    )
+    grounded = provenance.get("grounded_research") or {}
+    public_requests = int(
+        grounded.get("public_retrieval_requests") or 0
+        if isinstance(grounded, Mapping)
+        else 0
+    )
+    secondary = provenance.get("public_secondary") or {}
+    secondary_provenance = (
+        secondary.get("provenance") or {} if isinstance(secondary, Mapping) else {}
+    )
+    public_requests = max(
+        public_requests,
+        int(
+            secondary_provenance.get("request_count_for_call")
+            or secondary_provenance.get("request_count_for_candidate")
+            or 0
+        ),
+    )
+    return official_requests + public_requests
+
+
+def _rebind_story_scoped_receipt(
+    receipt: Mapping[str, Any], request: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Re-evaluate acquired bytes for a lower mode without granting new authority."""
+    from live_contentops.source_capability_registry_v2 import product_mode_evidence_depth
+
+    rebound = json.loads(json.dumps(dict(receipt)))
+    rebound["cluster_id"] = request.get("cluster_id")
+    rebound["headline_ids"] = list(request.get("headline_ids") or [])
+    documents = [
+        dict(row) for row in rebound.get("evidence_documents") or []
+        if isinstance(row, Mapping)
+    ]
+    supplied = {
+        str(value) for value in rebound.get("provided_evidence_capabilities") or []
+    }
+    required = {
+        str(value) for value in request.get("required_evidence_capabilities") or []
+    }
+    ordinary_bound = _ordinary_minimum_packet_is_exactly_bound(request, rebound)
+    claim_contract = rebound.get("claim_evidence_contract") or {}
+    claim_bound = bool(
+        isinstance(claim_contract, Mapping)
+        and claim_contract.get("status") == "PASS"
+        and int(claim_contract.get("supported_claim_count") or 0) >= 1
+        and int(claim_contract.get("fabricated_claim_count") or 0) == 0
+    )
+    evidence_bound = bool(documents and (ordinary_bound or claim_bound))
+    retained: list[str] = []
+    for raw in rebound.get("blockers") or []:
+        code = str(raw)
+        if code.startswith("required_evidence_capability_missing:"):
+            continue
+        if code.startswith("grounded_research_recommends_article_mode_downgrade:"):
+            suggested = code.split(":", 1)[1]
+            effective = str(request.get("effective_article_mode") or "")
+            if product_mode_evidence_depth(effective) <= product_mode_evidence_depth(suggested):
+                continue
+        if evidence_bound and code in {
+            "minimum_trustworthy_evidence_missing",
+            "supported_claims_missing",
+            "evidence_receipt_not_pass",
+            "official_source_request_budget_exhausted",
+            "public_source_request_budget_exhausted",
+            "public_source_candidate_request_budget_exhausted",
+        }:
+            continue
+        if documents and code == "evidence_documents_missing":
+            continue
+        retained.append(code)
+    for missing in sorted(required - supplied):
+        retained.append(f"required_evidence_capability_missing:{missing}")
+    rebound["blockers"] = sorted(set(retained))
+    rebound["status"] = "PASS" if evidence_bound and not retained else "BLOCKED"
+    rebound["story_evidence_reuse"] = {
+        "schema_version": "contentops.story_evidence_reuse.v1",
+        "story_evidence_scope_id": request.get("story_evidence_scope_id"),
+        "acquisition_receipt_sha256": _logical_hash(receipt),
+        "rebound_request_logical_hash": request.get("request_logical_hash"),
+        "reused_document_ids": sorted(
+            str(row.get("document_id") or row.get("evidence_id") or "")
+            for row in documents
+            if str(row.get("document_id") or row.get("evidence_id") or "")
+        ),
+        "network_reads_performed": 0,
+        "network_reads_avoided": _network_request_count_for_receipt(receipt),
+        "factual_numeric_or_publication_authority_granted": False,
+    }
+    return rebound
+
+
+def _merge_story_scoped_delta_receipt(
+    acquired: Mapping[str, Any], delta: Mapping[str, Any]
+) -> dict[str, Any]:
+    merged = json.loads(json.dumps(dict(delta)))
+    documents: dict[str, dict[str, Any]] = {}
+    for raw in [
+        *(acquired.get("evidence_documents") or []),
+        *(delta.get("evidence_documents") or []),
+    ]:
+        if not isinstance(raw, Mapping):
+            continue
+        key = str(
+            raw.get("document_id")
+            or raw.get("evidence_id")
+            or raw.get("canonical_content_sha256")
+            or _logical_hash(raw)
+        )
+        documents[key] = dict(raw)
+    merged["evidence_documents"] = list(documents.values())
+    merged["provided_evidence_capabilities"] = sorted({
+        str(value)
+        for source in (acquired, delta)
+        for value in source.get("provided_evidence_capabilities") or []
+    })
+    merged["story_evidence_delta"] = {
+        "prior_acquisition_receipt_sha256": _logical_hash(acquired),
+        "delta_receipt_sha256": _logical_hash(delta),
+        "prior_document_count": len(acquired.get("evidence_documents") or []),
+        "delta_document_count": len(delta.get("evidence_documents") or []),
+        "merged_document_count": len(documents),
+    }
+    return merged
 
 
 def _default_rolling_x_story_type(cluster: Mapping[str, Any]) -> str:
@@ -3549,6 +3762,12 @@ def select_first_viable_rolling_x_cluster(
         cluster_budget_blockers: set[str] = set()
         cluster_global_infrastructure_blockers: set[str] = set()
         cluster_ceremony_reductions: set[str] = set()
+        story_scope = _story_evidence_scope_binding(assignment, cluster)
+        acquired_receipt: dict[str, Any] | None = None
+        acquired_profile: dict[str, set[str]] = {}
+        story_network_requests = 0
+        story_network_reads_avoided = 0
+        delta_acquisition_count = 0
         for effective_product_mode in product_mode_downgrade_path(requested_product_mode):
             requested_mode = (
                 capability_mode_for_product_mode(effective_product_mode)
@@ -3636,7 +3855,24 @@ def select_first_viable_rolling_x_cluster(
                 "preselection_score": cluster.get("preselection_score"),
             },
             "x_content_is_discovery_and_ranking_only": True,
+            "story_evidence_scope_binding": story_scope,
+            "story_evidence_scope_id": story_scope["story_evidence_scope_id"],
             }
+            requested_profile = _evidence_acquisition_profile(request)
+            delta_requirements = (
+                _evidence_acquisition_delta(acquired_profile, requested_profile)
+                if acquired_receipt is not None
+                else {}
+            )
+            acquisition_action = (
+                "INITIAL_ACQUISITION"
+                if acquired_receipt is None
+                else "BOUNDED_DELTA_ACQUISITION"
+                if delta_requirements
+                else "REUSED_STORY_SCOPED_EVIDENCE"
+            )
+            request["evidence_acquisition_mode"] = acquisition_action
+            request["delta_evidence_requirements"] = delta_requirements
             request["request_logical_hash"] = _logical_hash(request)
             blockers = list(capability.get("blockers") or [])
             if effective_product_mode == "FOLLOW_UP_UPDATE":
@@ -3645,9 +3881,43 @@ def select_first_viable_rolling_x_cluster(
                     blockers.append("follow_up_previous_article_identity_missing")
                 if not follow_up.get("material_delta_reason_codes"):
                     blockers.append("follow_up_material_delta_evidence_missing")
+            if capability.get("status") != "PASS" or blockers:
+                acquisition_action = "NO_ACQUISITION_CAPABILITY_BLOCKED"
+                request["evidence_acquisition_mode"] = acquisition_action
+                request["delta_evidence_requirements"] = {}
+                request["request_logical_hash"] = _logical_hash({
+                    key: value
+                    for key, value in request.items()
+                    if key != "request_logical_hash"
+                })
             raw_receipt: Any = None
             if capability.get("status") == "PASS" and not blockers:
-                raw_receipt = acquire_evidence(dict(request))
+                if acquired_receipt is None or delta_requirements:
+                    raw_receipt = acquire_evidence(dict(request))
+                    if isinstance(raw_receipt, Mapping):
+                        current_receipt = dict(raw_receipt)
+                        story_network_requests += _network_request_count_for_receipt(
+                            current_receipt
+                        )
+                        if acquired_receipt is not None:
+                            delta_acquisition_count += 1
+                            current_receipt = _merge_story_scoped_delta_receipt(
+                                acquired_receipt, current_receipt
+                            )
+                        acquired_receipt = current_receipt
+                        for key, values in requested_profile.items():
+                            acquired_profile.setdefault(key, set()).update(values)
+                        raw_receipt = current_receipt
+                else:
+                    raw_receipt = _rebind_story_scoped_receipt(
+                        acquired_receipt, request
+                    )
+                    story_network_reads_avoided += int(
+                        (raw_receipt.get("story_evidence_reuse") or {}).get(
+                            "network_reads_avoided"
+                        )
+                        or 0
+                    )
                 if not isinstance(raw_receipt, Mapping):
                     blockers.append("evidence_receipt_not_object")
                     receipt = {}
@@ -3748,6 +4018,20 @@ def select_first_viable_rolling_x_cluster(
                         cluster_ceremony_reductions
                     ),
                     "request_logical_hash": request.get("request_logical_hash"),
+                    "story_evidence_scope_id": story_scope["story_evidence_scope_id"],
+                    "evidence_acquisition_action": acquisition_action,
+                    "delta_evidence_requirements": delta_requirements,
+                    "network_requests_performed": (
+                        _network_request_count_for_receipt(receipt)
+                        if acquisition_action != "REUSED_STORY_SCOPED_EVIDENCE"
+                        else 0
+                    ),
+                    "network_reads_avoided": int(
+                        (receipt.get("story_evidence_reuse") or {}).get(
+                            "network_reads_avoided"
+                        )
+                        or 0
+                    ),
                 }
             )
             if not blockers or mode_global_blockers:
@@ -3777,6 +4061,10 @@ def select_first_viable_rolling_x_cluster(
             "ordinary_policy_ceremony_reductions": sorted(
                 cluster_ceremony_reductions
             ),
+            "story_evidence_scope_id": story_scope["story_evidence_scope_id"],
+            "story_evidence_network_requests": story_network_requests,
+            "story_evidence_network_reads_avoided": story_network_reads_avoided,
+            "story_evidence_delta_acquisition_count": delta_acquisition_count,
         }
         attempts.append(attempt)
         if not blockers:
@@ -3835,6 +4123,24 @@ def select_first_viable_rolling_x_cluster(
         "evidence_request_budget_blockers": sorted(acquisition_budget_blockers),
         "global_infrastructure_exhausted": bool(global_infrastructure_blockers),
         "global_infrastructure_blockers": sorted(global_infrastructure_blockers),
+        "story_scoped_evidence_telemetry": {
+            "network_requests_performed": sum(
+                int(row.get("story_evidence_network_requests") or 0) for row in attempts
+            ),
+            "network_reads_avoided": sum(
+                int(row.get("story_evidence_network_reads_avoided") or 0)
+                for row in attempts
+            ),
+            "delta_acquisition_count": sum(
+                int(row.get("story_evidence_delta_acquisition_count") or 0)
+                for row in attempts
+            ),
+            "distinct_story_scope_count": len({
+                str(row.get("story_evidence_scope_id") or "") for row in attempts
+                if row.get("story_evidence_scope_id")
+            }),
+            "mode_reuse_never_grants_authority": True,
+        },
         "evidence_friction_taxonomy": {
             "schema_version": "contentops.evidence_friction_taxonomy.v1",
             "attempts": [

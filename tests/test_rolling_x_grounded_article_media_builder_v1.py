@@ -1314,7 +1314,10 @@ def test_builder_fail_closed_surfaces_as_no_publication_not_crash(monkeypatch, t
         publication_enabled=True,
     )
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
+    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
+        "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
+    )
     assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
         "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
     )

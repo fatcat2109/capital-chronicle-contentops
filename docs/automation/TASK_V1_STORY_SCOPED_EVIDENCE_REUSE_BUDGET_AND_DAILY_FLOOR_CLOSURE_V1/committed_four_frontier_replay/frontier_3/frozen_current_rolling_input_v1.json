@@ -1,0 +1,447 @@
+{
+  "canonical_input_hash": "e42df2cfff06102a9434cd01e07ca964dec875d76a63c93af8183744026d39d9",
+  "complete_input_coverage": false,
+  "counts": {
+    "accepted": 12,
+    "accepted_in_full_rolling_intake": 925,
+    "duplicates": 0,
+    "eligible_after_continuity": 910,
+    "rejected": 12091,
+    "source_files": 63,
+    "source_rows": 13016
+  },
+  "cutoff_time_utc": "2026-08-21T12:31:11.126806Z",
+  "headlines": [
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417373522108655",
+      "external_content": {
+        "author_handle": "MikeZaccardi",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Philly Fed Business Conditions surges to a 10+year high. Explain that one to me... https://t.co/1GLE9rctxa",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/MikeZaccardi/status/2090417373522108655"
+      },
+      "headline_id": "cc-x-headline-d3cdafb244b049a322718ff7",
+      "source_locator": {
+        "line": 853,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:14Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417381382262877",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Fed's Daly: Fed policy is in a good place.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090417381382262877"
+      },
+      "headline_id": "cc-x-headline-f12a5b98b82a377b8c6779bc",
+      "source_locator": {
+        "line": 852,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:16Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417413850337556",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Fed's daily: Policy is in a good place, watching the markets",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090417413850337556"
+      },
+      "headline_id": "cc-x-headline-0e2aa97095b1f181b8c961d1",
+      "source_locator": {
+        "line": 851,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:24Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417430447427820",
+      "external_content": {
+        "author_handle": "wallstengine",
+        "follow_up_data_need_candidates": [
+          "official_numeric_source_required_before_truth_use"
+        ],
+        "headline_text": "Micron is investing $10B over the next decade to build Micron Research Labs, its new U.S.-based long-horizon research hub headquartered in Boise. The lab will focus on advanced memory, compute architectures, chip packaging and future semiconductor manufacturing. $MU expects to https://t.co/bjgR2lWjfo",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/wallstengine/status/2090417430447427820"
+      },
+      "headline_id": "cc-x-headline-257bb49f7296135d6935fe56",
+      "source_locator": {
+        "line": 850,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:28Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417436432769534",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "DALY: DON'T SEE EVIDENCE CALLING FOR PREEMTIVE RATE HIKES",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2090417436432769534"
+      },
+      "headline_id": "cc-x-headline-27ac7dd66dfc199f637da432",
+      "source_locator": {
+        "line": 849,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:29Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417449325793531",
+      "external_content": {
+        "author_handle": "nathancofnas",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "@galtontheroller She used ChatGPT to write her inaugural speech. It was full of fabricated quotes.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/nathancofnas/status/2090417449325793531"
+      },
+      "headline_id": "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+      "source_locator": {
+        "line": 1170,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:32Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417457760772460",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "DALY: FED POLICY IS IN A GOOD PLACE",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2090417457760772460"
+      },
+      "headline_id": "cc-x-headline-4cacd0b7773f0180340c99e4",
+      "source_locator": {
+        "line": 848,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:34Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417467784826960",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Fed's Daly: I don't see evidence calling for pre-emptive rate hikes.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090417467784826960"
+      },
+      "headline_id": "cc-x-headline-be8f874c937d2a32bf7a9f09",
+      "source_locator": {
+        "line": 847,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:37Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417566762041536",
+      "external_content": {
+        "author_handle": "MikeZaccardi",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "SK Hynix plans to pay 60% of employee bonuses in stock $SKHY @seekingalpha Frothy? https://t.co/2BTs6c3oqJ",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/MikeZaccardi/status/2090417566762041536"
+      },
+      "headline_id": "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+      "source_locator": {
+        "line": 846,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:36:00Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417585888125127",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar",
+          "official_inflation_release"
+        ],
+        "headline_text": "Fed's Daly: Modal outlook expects inflation shocks will dissipate",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank",
+          "inflation"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090417585888125127"
+      },
+      "headline_id": "cc-x-headline-e261772e9e062cc4838682b3",
+      "source_locator": {
+        "line": 845,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:36:05Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417769397313884",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Fed's Daly: I was very supportive of Fed's July interest rate hold.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090417769397313884"
+      },
+      "headline_id": "cc-x-headline-134362fe158081b970d9dba7",
+      "source_locator": {
+        "line": 844,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:36:48Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417787579863083",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "US 30-YEAR TREASURIES ERASE GAINS FROM BUYBACK ANNOUNCEMENT",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2090417787579863083"
+      },
+      "headline_id": "cc-x-headline-5c89975438cfd6903ccbebef",
+      "source_locator": {
+        "line": 843,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:36:53Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    }
+  ],
+  "prepared_candidate_subset": true,
+  "rejection_counts": {
+    "source_timestamp_before_window": 12091
+  },
+  "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_files": [
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2020_02_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_21.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_10_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2024_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_01_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_02_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_04_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_03_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_01.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_03.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_21.jsonl"
+  ],
+  "unique_headline_ids": [
+    "cc-x-headline-d3cdafb244b049a322718ff7",
+    "cc-x-headline-f12a5b98b82a377b8c6779bc",
+    "cc-x-headline-0e2aa97095b1f181b8c961d1",
+    "cc-x-headline-257bb49f7296135d6935fe56",
+    "cc-x-headline-27ac7dd66dfc199f637da432",
+    "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+    "cc-x-headline-4cacd0b7773f0180340c99e4",
+    "cc-x-headline-be8f874c937d2a32bf7a9f09",
+    "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+    "cc-x-headline-e261772e9e062cc4838682b3",
+    "cc-x-headline-134362fe158081b970d9dba7",
+    "cc-x-headline-5c89975438cfd6903ccbebef"
+  ],
+  "window_hours": 24.0,
+  "window_start_utc": "2026-08-20T12:31:11.126806Z"
+}

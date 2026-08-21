@@ -40,7 +40,7 @@ REPUTABLE_SECONDARY_HOSTS = frozenset(
 )
 REPUTABLE_SECONDARY_NAMES = frozenset(
     {
-        "abc news", "al jazeera", "associated press", "the associated press", "ap", "axios", "bbc", "bloomberg",
+        "abc news", "al jazeera", "associated press", "the associated press", "ap", "ap news", "axios", "bbc", "bloomberg",
         "cbs news", "cnbc", "cnn", "financial times", "financialjuice", "marketwatch", "nbc news", "npr",
         "politico", "reuters", "the guardian", "the hill", "the jerusalem post",
         "jerusalem post", "the wall street journal", "wsj",
@@ -49,6 +49,9 @@ REPUTABLE_SECONDARY_NAMES = frozenset(
 NEWS_RSS_ENDPOINT = "https://news.google.com/rss/search"
 PUBLISHER_NEWS_SITEMAP_PATH = "/news-sitemap.xml"
 MAX_PUBLISHER_RESOLUTION_ATTEMPTS = 2
+MAX_PUBLISHER_SITEMAP_INDEX_CHILDREN = 1
+MIN_PUBLISHER_SITEMAP_CANDIDATE_RELEVANCE = 0.5
+MIN_RESOLVED_PUBLISHER_TITLE_RELEVANCE = 0.72
 _TAG_RE = re.compile(r"<[^>]+>")
 _SCRIPT_RE = re.compile(r"<(?:script|style|noscript)[^>]*>.*?</(?:script|style|noscript)>", re.I | re.S)
 _RSS_QUERY_STOPWORDS = frozenset(
@@ -233,18 +236,46 @@ class BoundedPublicSecondaryEvidenceLoader:
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._request_count = 0
         self._candidate_request_start = 0
+        self._request_count_by_story_scope: dict[str, int] = {}
+        self._active_story_scope_id: str | None = None
+        self._response_cache_by_story_scope: dict[
+            str, dict[str, dict[str, Any]]
+        ] = {}
+        self._reused_request_signatures_by_story_scope: dict[str, list[str]] = {}
 
     def _get(self, url: str) -> dict[str, Any]:
+        if self._active_story_scope_id:
+            cached = self._response_cache_by_story_scope.get(
+                self._active_story_scope_id, {}
+            ).get(url)
+            if cached is not None:
+                self._reused_request_signatures_by_story_scope.setdefault(
+                    self._active_story_scope_id, []
+                ).append(sha256(url.encode("utf-8")).hexdigest())
+                return dict(cached)
         if self._request_count >= self._max_requests:
             raise RuntimeError("public_source_request_budget_exhausted")
-        if (
-            self._request_count - self._candidate_request_start
-            >= self._max_requests_per_candidate
-        ):
+        candidate_request_count = (
+            self._request_count_by_story_scope.get(self._active_story_scope_id, 0)
+            if self._active_story_scope_id
+            else self._request_count - self._candidate_request_start
+        )
+        if candidate_request_count >= self._max_requests_per_candidate:
             raise RuntimeError("public_source_candidate_request_budget_exhausted")
         _public_host(url, resolve_dns=self._validate_dns)
         self._request_count += 1
-        return dict(self._http_get(url, self._timeout_seconds, self._max_response_bytes))
+        if self._active_story_scope_id:
+            self._request_count_by_story_scope[self._active_story_scope_id] = (
+                candidate_request_count + 1
+            )
+        response = dict(
+            self._http_get(url, self._timeout_seconds, self._max_response_bytes)
+        )
+        if self._active_story_scope_id:
+            self._response_cache_by_story_scope.setdefault(
+                self._active_story_scope_id, {}
+            )[url] = dict(response)
+        return response
 
     def _direct_document(
         self,
@@ -352,6 +383,50 @@ class BoundedPublicSecondaryEvidenceLoader:
         except ET.ParseError as exc:
             raise ValueError("publisher_news_sitemap_xml_invalid") from exc
 
+        locator_chain = [
+            {"url": locator_url, "sha256": sha256(body).hexdigest()}
+        ]
+        if str(root.tag).rsplit("}", 1)[-1].casefold() == "sitemapindex":
+            child_urls: list[str] = []
+            for sitemap_row in root:
+                if str(sitemap_row.tag).rsplit("}", 1)[-1].casefold() != "sitemap":
+                    continue
+                child_url = next(
+                    (
+                        " ".join(str(child.text or "").split())
+                        for child in sitemap_row
+                        if str(child.tag).rsplit("}", 1)[-1].casefold() == "loc"
+                        and str(child.text or "").strip()
+                    ),
+                    "",
+                )
+                if not child_url:
+                    continue
+                try:
+                    child_host = _public_host(child_url, resolve_dns=False)
+                except ValueError:
+                    continue
+                if child_host.removeprefix("www.") != source_host.removeprefix("www."):
+                    continue
+                child_urls.append(child_url)
+            for child_url in child_urls[:MAX_PUBLISHER_SITEMAP_INDEX_CHILDREN]:
+                child_response = self._get(child_url)
+                if int(child_response.get("status") or 0) != 200:
+                    raise ValueError("publisher_news_sitemap_child_http_status_not_200")
+                child_body = child_response.get("body")
+                if not isinstance(child_body, bytes) or not child_body:
+                    raise ValueError("publisher_news_sitemap_child_body_invalid")
+                try:
+                    root = ET.fromstring(child_body)
+                except ET.ParseError as exc:
+                    raise ValueError("publisher_news_sitemap_child_xml_invalid") from exc
+                body = child_body
+                locator_url = child_url
+                locator_chain.append(
+                    {"url": child_url, "sha256": sha256(child_body).hexdigest()}
+                )
+                break
+
         listing_title = str(listing.get("title") or "")
         listing_terms = _rss_query_terms(listing_title)
         cutoff = datetime.fromisoformat(
@@ -378,7 +453,7 @@ class BoundedPublicSecondaryEvidenceLoader:
             if candidate_host.removeprefix("www.") != source_host.removeprefix("www."):
                 continue
             relevance = _rss_relevance_score(listing_terms, candidate_title)
-            if relevance < 0.72:
+            if relevance < MIN_PUBLISHER_SITEMAP_CANDIDATE_RELEVANCE:
                 continue
             published = _parse_timestamp(fields.get("publication_date"))
             if published:
@@ -411,6 +486,7 @@ class BoundedPublicSecondaryEvidenceLoader:
             "title_relevance": round(relevance, 4),
             "locator_url": locator_url,
             "locator_sha256": sha256(body).hexdigest(),
+            "locator_chain": locator_chain,
         }
 
     def _resolve_listing_to_publisher_document(
@@ -432,15 +508,31 @@ class BoundedPublicSecondaryEvidenceLoader:
                     or None,
                 )
                 if document is not None:
+                    resolved_title_relevance = _rss_relevance_score(
+                        _rss_query_terms(str(listing.get("title") or "")),
+                        str(document.get("title") or ""),
+                    )
+                    if resolved_title_relevance < MIN_RESOLVED_PUBLISHER_TITLE_RELEVANCE:
+                        diagnostics.append(
+                            "publisher_document_title_relevance_insufficient"
+                        )
+                        document = None
+                if document is not None:
                     document.update(
                         {
                             "discovery_path_url": listing.get("source_url"),
                             "discovery_path_is_reader_authority": False,
                             "publisher_locator_url": candidate["locator_url"],
                             "publisher_locator_sha256": candidate["locator_sha256"],
+                            "publisher_locator_chain": list(
+                                candidate.get("locator_chain") or []
+                            ),
                             "publisher_locator_title_relevance": candidate[
                                 "title_relevance"
                             ],
+                            "publisher_document_title_relevance": round(
+                                resolved_title_relevance, 4
+                            ),
                             "canonical_resolution_status": (
                                 "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP"
                             ),
@@ -633,7 +725,19 @@ class BoundedPublicSecondaryEvidenceLoader:
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         request_count_at_start = self._request_count
-        self._candidate_request_start = request_count_at_start
+        story_scope_id = str(request.get("story_evidence_scope_id") or "")
+        story_request_count_at_start = self._request_count_by_story_scope.get(
+            story_scope_id, 0
+        )
+        reused_signature_count_at_start = len(
+            self._reused_request_signatures_by_story_scope.get(story_scope_id, [])
+        )
+        if story_scope_id:
+            self._candidate_request_start = request_count_at_start
+            self._active_story_scope_id = story_scope_id
+        else:
+            self._candidate_request_start = request_count_at_start
+            self._active_story_scope_id = None
         context = request.get("story_context") or {}
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
         rows = [
@@ -717,7 +821,28 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "request_count": self._request_count,
                 "request_count_total": self._request_count,
                 "request_count_for_candidate": (
-                    self._request_count - request_count_at_start
+                    self._request_count_by_story_scope.get(story_scope_id, 0)
+                    if story_scope_id
+                    else self._request_count - self._candidate_request_start
+                ),
+                "request_count_for_call": self._request_count - request_count_at_start,
+                "story_evidence_scope_id": story_scope_id or None,
+                "candidate_request_boundary_reused": bool(
+                    story_scope_id and story_request_count_at_start > 0
+                ),
+                "network_reads_avoided_for_call": max(
+                    0,
+                    len(
+                        self._reused_request_signatures_by_story_scope.get(
+                            story_scope_id, []
+                        )
+                    )
+                    - reused_signature_count_at_start,
+                ),
+                "reused_request_signatures": list(
+                    self._reused_request_signatures_by_story_scope.get(
+                        story_scope_id, []
+                    )[reused_signature_count_at_start:]
                 ),
                 "request_limit": self._max_requests,
                 "request_limit_per_candidate": self._max_requests_per_candidate,

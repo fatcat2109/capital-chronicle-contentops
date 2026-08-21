@@ -1,0 +1,1035 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 6,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "62e0cf068b7a1240e060a9db65aa83bc2a4f1d281a427d99f134cfba1b3c2e54",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-5023da12c5e3701e16a5"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "58ef977757c9d317e809e936b1108110b675882f2f6304c70bb621748de8d848",
+    "cutoff_time_utc": "2026-08-21T12:31:11.126806Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 6,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "central_bank",
+            "inflation",
+            "federal reserve"
+          ],
+          "first_utc": "2026-08-20T12:36:56Z",
+          "latest_utc": "2026-08-20T12:40:19Z",
+          "material_update": false,
+          "members": 6,
+          "recency_hours": 23.8478,
+          "update_velocity": 88.67
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Inflation"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-3d947e9cc0f41fd49006",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 85,
+          "engagement": 65,
+          "evidence": 70,
+          "saturation_risk": 40,
+          "seo": 75
+        },
+        "summary": "Federal Reserve's Mary Daly discusses the labor market, inflation outlook, treasury issuance patterns, and the central bank's commitment to achieving its policy goals."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "corporate investment",
+            "micron",
+            "micron research labs"
+          ],
+          "first_utc": "2026-08-20T12:37:41Z",
+          "latest_utc": "2026-08-20T12:37:41Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8917,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Micron",
+          "Micron Research Labs",
+          "Corporate Investment",
+          "Semiconductors"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-87be125b74b4d63d1036",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 85,
+          "engagement": 70,
+          "evidence": 80,
+          "saturation_risk": 15,
+          "seo": 85
+        },
+        "summary": "Micron announces a $10 billion investment over the next decade to establish Micron Research Labs for memory and compute breakthroughs."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "bank of japan",
+            "bond markets",
+            "debt management"
+          ],
+          "first_utc": "2026-08-20T12:39:10Z",
+          "latest_utc": "2026-08-20T12:39:14Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.8659,
+          "update_velocity": 900.0
+        },
+        "entities_topics": [
+          "US Treasury",
+          "Bank of Japan",
+          "Bond Markets",
+          "Treasury Buybacks"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-a713d0cdcf6e772e7029",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 65,
+          "evidence": 60,
+          "saturation_risk": 25,
+          "seo": 70
+        },
+        "summary": "US 30-year Treasuries erase gains following a buyback announcement, prompting market commentary on US Treasury debt management practices."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "unknown"
+          ],
+          "first_utc": "2026-08-20T12:40:42Z",
+          "latest_utc": "2026-08-20T12:40:42Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8414,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Unknown"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-a9548897fe9559e2cebc",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 0,
+          "engagement": 0,
+          "evidence": 0,
+          "saturation_risk": 0,
+          "seo": 0
+        },
+        "summary": "Unspecified content containing only a URL."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "chatgpt",
+            "plagiarism"
+          ],
+          "first_utc": "2026-08-20T12:35:32Z",
+          "latest_utc": "2026-08-20T12:35:32Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9275,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "ChatGPT",
+          "Artificial Intelligence",
+          "Plagiarism",
+          "Public Speaking"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-b9d59be3204cca03f233",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 40,
+          "engagement": 50,
+          "evidence": 20,
+          "saturation_risk": 10,
+          "seo": 35
+        },
+        "summary": "Allegations surface that an inaugural speech was written using ChatGPT and contained fabricated quotes."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "economic indicators",
+            "jobless claims",
+            "labor"
+          ],
+          "first_utc": "2026-08-20T12:38:06Z",
+          "latest_utc": "2026-08-20T12:38:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8848,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Labor Market",
+          "Jobless Claims",
+          "Economic Indicators"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-d957c43f80e1927830cc",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 60,
+          "evidence": 65,
+          "saturation_risk": 30,
+          "seo": 75
+        },
+        "summary": "Initial jobless claims remain steady despite broader signals indicating an increasingly fragile labor market."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "58ef977757c9d317e809e936b1108110b675882f2f6304c70bb621748de8d848",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-1e26cb7cbad1d3e390f09540",
+      "cc-x-headline-5ccc09764a2c502df851553e",
+      "cc-x-headline-64ad562ebc5dd398755b6477",
+      "cc-x-headline-72d5149216828e0328388c38",
+      "cc-x-headline-7b1b5268a36b6d482429f1d5",
+      "cc-x-headline-848c29e814b8c4260f1dc376",
+      "cc-x-headline-aa39225c53034b354854e50f",
+      "cc-x-headline-c0ec790889294e8b748b273a",
+      "cc-x-headline-c2bb195241628e7e85818fe1",
+      "cc-x-headline-cd2bcbedac015b06674b1005",
+      "cc-x-headline-d1b846f7c989d8fd8699c9f8",
+      "cc-x-headline-d6283d9586b9dc206f8a9bd5"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 40,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c2bb195241628e7e85818fe1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d1b846f7c989d8fd8699c9f8",
+          "cc-x-headline-c2bb195241628e7e85818fe1",
+          "cc-x-headline-848c29e814b8c4260f1dc376",
+          "cc-x-headline-cd2bcbedac015b06674b1005",
+          "cc-x-headline-64ad562ebc5dd398755b6477",
+          "cc-x-headline-1e26cb7cbad1d3e390f09540"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Federal Reserve",
+        "Mary Daly"
+      ],
+      "event_topic_summary": "Federal Reserve's Mary Daly discusses the labor market, inflation outlook, treasury issuance patterns, and the central bank's commitment to achieving its policy goals.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-3d947e9cc0f41fd49006",
+      "member_headline_ids": [
+        "cc-x-headline-d1b846f7c989d8fd8699c9f8",
+        "cc-x-headline-c2bb195241628e7e85818fe1",
+        "cc-x-headline-848c29e814b8c4260f1dc376",
+        "cc-x-headline-cd2bcbedac015b06674b1005",
+        "cc-x-headline-64ad562ebc5dd398755b6477",
+        "cc-x-headline-1e26cb7cbad1d3e390f09540"
+      ],
+      "partition_id": "rolling-x-leaf-5023da12c5e3701e16a5",
+      "topics": [
+        "Monetary Policy",
+        "Inflation",
+        "Labor Market",
+        "Treasury Issuance"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 15,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-aa39225c53034b354854e50f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-aa39225c53034b354854e50f"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Micron",
+        "Micron Research Labs"
+      ],
+      "event_topic_summary": "Micron announces a $10 billion investment over the next decade to establish Micron Research Labs for memory and compute breakthroughs.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-87be125b74b4d63d1036",
+      "member_headline_ids": [
+        "cc-x-headline-aa39225c53034b354854e50f"
+      ],
+      "partition_id": "rolling-x-leaf-5023da12c5e3701e16a5",
+      "topics": [
+        "Corporate Investment",
+        "Semiconductors",
+        "Research and Development"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 25,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-72d5149216828e0328388c38",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7b1b5268a36b6d482429f1d5",
+          "cc-x-headline-72d5149216828e0328388c38"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "US Treasury",
+        "Bank of Japan"
+      ],
+      "event_topic_summary": "US 30-year Treasuries erase gains following a buyback announcement, prompting market commentary on US Treasury debt management practices.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-a713d0cdcf6e772e7029",
+      "member_headline_ids": [
+        "cc-x-headline-7b1b5268a36b6d482429f1d5",
+        "cc-x-headline-72d5149216828e0328388c38"
+      ],
+      "partition_id": "rolling-x-leaf-5023da12c5e3701e16a5",
+      "topics": [
+        "Bond Markets",
+        "Treasury Buybacks",
+        "Debt Management",
+        "Yield Curve"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 0,
+        "evidence_prospects": 0,
+        "qualified_engagement_potential": 0,
+        "saturation_risk": 0,
+        "seo_potential": 0
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5ccc09764a2c502df851553e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5ccc09764a2c502df851553e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Unspecified content containing only a URL.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-a9548897fe9559e2cebc",
+      "member_headline_ids": [
+        "cc-x-headline-5ccc09764a2c502df851553e"
+      ],
+      "partition_id": "rolling-x-leaf-5023da12c5e3701e16a5",
+      "topics": [
+        "Unknown"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 40,
+        "evidence_prospects": 20,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 10,
+        "seo_potential": 35
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d6283d9586b9dc206f8a9bd5"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "ChatGPT"
+      ],
+      "event_topic_summary": "Allegations surface that an inaugural speech was written using ChatGPT and contained fabricated quotes.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-b9d59be3204cca03f233",
+      "member_headline_ids": [
+        "cc-x-headline-d6283d9586b9dc206f8a9bd5"
+      ],
+      "partition_id": "rolling-x-leaf-5023da12c5e3701e16a5",
+      "topics": [
+        "Artificial Intelligence",
+        "Plagiarism",
+        "Public Speaking"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 65,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 30,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c0ec790889294e8b748b273a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-c0ec790889294e8b748b273a"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Initial jobless claims remain steady despite broader signals indicating an increasingly fragile labor market.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-d957c43f80e1927830cc",
+      "member_headline_ids": [
+        "cc-x-headline-c0ec790889294e8b748b273a"
+      ],
+      "partition_id": "rolling-x-leaf-5023da12c5e3701e16a5",
+      "topics": [
+        "Labor Market",
+        "Jobless Claims",
+        "Economic Indicators"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-1e26cb7cbad1d3e390f09540",
+        "cc-x-headline-5ccc09764a2c502df851553e",
+        "cc-x-headline-64ad562ebc5dd398755b6477",
+        "cc-x-headline-72d5149216828e0328388c38",
+        "cc-x-headline-7b1b5268a36b6d482429f1d5",
+        "cc-x-headline-848c29e814b8c4260f1dc376",
+        "cc-x-headline-aa39225c53034b354854e50f",
+        "cc-x-headline-c0ec790889294e8b748b273a",
+        "cc-x-headline-c2bb195241628e7e85818fe1",
+        "cc-x-headline-cd2bcbedac015b06674b1005",
+        "cc-x-headline-d1b846f7c989d8fd8699c9f8",
+        "cc-x-headline-d6283d9586b9dc206f8a9bd5"
+      ],
+      "partition_id": "rolling-x-leaf-5023da12c5e3701e16a5",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "serialized_input_bytes": 9166,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 12,
+    "held_before_semantic_assignment_count": 0,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "9767e4c5831760f2f68c73de0f34bac1ca279cc2cff260682da129d0eb71a44f",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-24a2a692e9fbb8dccda2",
+      "headline_ids": [
+        "cc-x-headline-aa39225c53034b354854e50f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-87be125b74b4d63d1036"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official press release or regulatory filing from Micron detailing the $10B investment",
+        "Breakdown of the investment timeline and specific research areas",
+        "Analyst commentary on Micron's capital allocation strategy"
+      ],
+      "rank": 1,
+      "selection_case": "This is a major corporate capital expenditure announcement in the highly scrutinized semiconductor sector. It warrants analysis on how this impacts Micron's competitive positioning and the broader AI and compute hardware supply chain.",
+      "seo_intent": "Micron $10 billion investment Research Labs semiconductor memory compute",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-aa39225c53034b354854e50f",
+        "ordered_headline_ids": [
+          "cc-x-headline-aa39225c53034b354854e50f"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Infographic detailing Micron's historical R&D spend versus the projected $10 billion investment, alongside a timeline of expected technological milestones.",
+      "why_now": "Micron has just announced a massive $10 billion investment plan for R&D over the next decade, signaling long-term capital commitment to memory and compute advancements."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-291ad096e8f0e5e39851",
+      "headline_ids": [
+        "cc-x-headline-7b1b5268a36b6d482429f1d5",
+        "cc-x-headline-72d5149216828e0328388c38"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-a713d0cdcf6e772e7029"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Exact timing and details of the Treasury buyback announcement",
+        "Intraday pricing data for the 30-year Treasury",
+        "Commentary from fixed-income desks on the liquidity impact"
+      ],
+      "rank": 2,
+      "selection_case": "The market's immediate reaction to Treasury buybacks provides a window into underlying bond market mechanics and investor sentiment regarding US debt issuance.",
+      "seo_intent": "US 30-year Treasury yields buyback announcement debt management bond market",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-72d5149216828e0328388c38",
+        "ordered_headline_ids": [
+          "cc-x-headline-7b1b5268a36b6d482429f1d5",
+          "cc-x-headline-72d5149216828e0328388c38"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Intraday chart showing the price action of 30-year Treasuries before and after the buyback announcement.",
+      "why_now": "US 30-year Treasuries experienced a sharp reversal following a buyback announcement, highlighting current sensitivities in debt management and bond market liquidity."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-383fed4b50c37dfb3fed",
+      "headline_ids": [
+        "cc-x-headline-c0ec790889294e8b748b273a"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-d957c43f80e1927830cc"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Department of Labor's official initial jobless claims report",
+        "Data on continuing claims and other secondary labor metrics",
+        "Historical context on claims behavior during economic transitions"
+      ],
+      "rank": 3,
+      "selection_case": "Provides an opportunity to dissect the divergence between headline jobless claims and underlying labor market weakness, a critical theme for Fed policy expectations.",
+      "seo_intent": "US initial jobless claims labor market fragility economic indicators",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c0ec790889294e8b748b273a",
+        "ordered_headline_ids": [
+          "cc-x-headline-c0ec790889294e8b748b273a"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Dual-axis chart comparing initial jobless claims with a broader measure of labor market health, such as continuing claims or job openings.",
+      "why_now": "The latest initial jobless claims data has been released, showing steady numbers that contrast with other indicators suggesting labor market fragility."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "ea607a9d99a071d55cd8c81dec1f384e176f0e7c7ad950bea523ac760a045ae2",
+          "latency_seconds": 47.5016,
+          "logical_invocation_id": "inv_rolling_x_leaf_f8d9616fa21b56983ebb",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "00706f8c45430396a5fac87682b3e9e0c1fad8c3b31569c6b7a90fe898b3813d",
+          "prompt_logical_hash": "4c0776d80d973ab0223d9310658712d2cee9ca4894ef7dc60e5af8bab86e2cd0",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-EV6Iao3fOvKP9tMPqsSs2QY",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_f8d9616fa21b56983ebb",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 6877,
+            "completion_tokens_details": {
+              "reasoning_tokens": 4651
+            },
+            "prompt_tokens": 5883,
+            "total_tokens": 12760
+          },
+          "work_item_id": "rolling-x-leaf-5023da12c5e3701e16a5"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_f8d9616fa21b56983ebb",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_f8d9616fa21b56983ebb",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 47.5023,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 6877.0,
+        "prompt_tokens": 5883.0,
+        "total_tokens": 12760.0
+      },
+      "work_item_id": "rolling-x-leaf-5023da12c5e3701e16a5"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "e0c8ecd9d74d56d654599d5b4b58dc6af71553912ae62635626f2c55b520fb5f",
+          "latency_seconds": 23.8778,
+          "logical_invocation_id": "inv_rolling_x_global_dac7cc9b1408106b703c",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "dba766f2ad20031a4237a3d6bcee7dd04fc1844247a8405923a5bd51a6ec9afb",
+          "prompt_logical_hash": "9206b1fd446095b54fabea5aacbd9e3dd5ae6b3bea7c9efcf81f452d9ca33899",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-QV6IaofpFL7S1e8P_--EoQU",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_dac7cc9b1408106b703c",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 3238,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2164
+            },
+            "prompt_tokens": 5192,
+            "total_tokens": 8430
+          },
+          "work_item_id": "rolling-x-global-58ef977757c9d317e809"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_dac7cc9b1408106b703c",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_dac7cc9b1408106b703c",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 23.8785,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 3238.0,
+        "prompt_tokens": 5192.0,
+        "total_tokens": 8430.0
+      },
+      "work_item_id": "rolling-x-global-58ef977757c9d317e809"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "e0c8ecd9d74d56d654599d5b4b58dc6af71553912ae62635626f2c55b520fb5f",
+        "latency_seconds": 23.8778,
+        "logical_invocation_id": "inv_rolling_x_global_dac7cc9b1408106b703c",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "dba766f2ad20031a4237a3d6bcee7dd04fc1844247a8405923a5bd51a6ec9afb",
+        "prompt_logical_hash": "9206b1fd446095b54fabea5aacbd9e3dd5ae6b3bea7c9efcf81f452d9ca33899",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-QV6IaofpFL7S1e8P_--EoQU",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 1,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_dac7cc9b1408106b703c",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 0,
+          "max_same_model_retries": 1,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 2,
+          "per_model_max_attempts": [
+            2
+          ],
+          "remaining_attempt_budget": 1,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 3238,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2164
+          },
+          "prompt_tokens": 5192,
+          "total_tokens": 8430
+        },
+        "work_item_id": "rolling-x-global-58ef977757c9d317e809"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_dac7cc9b1408106b703c",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": [
+        2
+      ],
+      "remaining_attempt_budget": 1,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_dac7cc9b1408106b703c",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 23.8785,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 3238.0,
+      "prompt_tokens": 5192.0,
+      "total_tokens": 8430.0
+    },
+    "work_item_id": "rolling-x-global-58ef977757c9d317e809"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-24a2a692e9fbb8dccda2",
+  "selected_headline_ids": [
+    "cc-x-headline-aa39225c53034b354854e50f"
+  ],
+  "selection_rationale": "The shortlist prioritizes high-impact corporate investment in the semiconductor space, significant market reactions in US Treasuries, and critical labor market data, offering a mix of breaking corporate news and macroeconomic analysis.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 71.3808,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 10115.0,
+      "prompt_tokens": 11075.0,
+      "total_tokens": 21190.0
+    }
+  }
+}

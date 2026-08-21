@@ -1,0 +1,465 @@
+{
+  "canonical_input_hash": "f9b9e77b5c05e631be5193cecd27b8228bab9c40761df4ef9353d6bb011dc719",
+  "complete_input_coverage": false,
+  "counts": {
+    "accepted": 12,
+    "accepted_in_full_rolling_intake": 12,
+    "duplicates": 0,
+    "eligible_after_continuity": 12,
+    "rejected": 12091,
+    "source_files": 63,
+    "source_rows": 13016
+  },
+  "cutoff_time_utc": "2026-08-21T12:31:11.126806Z",
+  "headlines": [
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090416468584497173",
+      "external_content": {
+        "author_handle": "wallstengine",
+        "follow_up_data_need_candidates": [
+          "official_labor_release"
+        ],
+        "headline_text": "US JOBLESS CLAIMS 206K IN AUG. 15 WEEK; EST. 210K",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "labor"
+        ],
+        "url_or_source_ref": "https://x.com/wallstengine/status/2090416468584497173"
+      },
+      "headline_id": "cc-x-headline-7d4860da701df7f401a0c69f",
+      "source_locator": {
+        "line": 868,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:31:38Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090416563429970382",
+      "external_content": {
+        "author_handle": "MikeZaccardi",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Philly Fed Mfg 47.4 best since April 2021 https://t.co/unXpIbM08V",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/MikeZaccardi/status/2090416563429970382"
+      },
+      "headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+      "source_locator": {
+        "line": 866,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:32:01Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090416684943151206",
+      "external_content": {
+        "author_handle": "REXShares",
+        "follow_up_data_need_candidates": [
+          "official_labor_release"
+        ],
+        "headline_text": "BREAKING Initial Jobless Claims Act.: 206K, Est.: 210K, Prev.: 212K",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "labor"
+        ],
+        "url_or_source_ref": "https://x.com/REXShares/status/2090416684943151206"
+      },
+      "headline_id": "cc-x-headline-402b6e35b897ebe21a5e30c8",
+      "source_locator": {
+        "line": 863,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:32:30Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090416806980616268",
+      "external_content": {
+        "author_handle": "MikeZaccardi",
+        "follow_up_data_need_candidates": [
+          "official_labor_release"
+        ],
+        "headline_text": "Initial Claims ~steady at 206k https://t.co/jyUMOyYLA4",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "labor"
+        ],
+        "url_or_source_ref": "https://x.com/MikeZaccardi/status/2090416806980616268"
+      },
+      "headline_id": "cc-x-headline-edad5280888abfafe73b29d5",
+      "source_locator": {
+        "line": 864,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:32:59Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090416899821879709",
+      "external_content": {
+        "author_handle": "StockMKTNewz",
+        "follow_up_data_need_candidates": [
+          "official_labor_release"
+        ],
+        "headline_text": "206K people filed for unemployment this past week in the United States \ud83c\uddfa\ud83c\uddf8 below expectations 210K",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "labor"
+        ],
+        "url_or_source_ref": "https://x.com/StockMKTNewz/status/2090416899821879709"
+      },
+      "headline_id": "cc-x-headline-a530786f75a1e64daf0eea97",
+      "source_locator": {
+        "line": 862,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:33:21Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090416993497223493",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Fed's Daly: Rising bond yields don't give a signal for policy",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090416993497223493"
+      },
+      "headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+      "source_locator": {
+        "line": 860,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:33:43Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090416999524364492",
+      "external_content": {
+        "author_handle": "MikeZaccardi",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar",
+          "official_inflation_release"
+        ],
+        "headline_text": "Philly Fed Mfg prices paid falls to 40.9... low-end of the range back to early 2025 https://t.co/2fJnH7ltBV",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank",
+          "inflation"
+        ],
+        "url_or_source_ref": "https://x.com/MikeZaccardi/status/2090416999524364492"
+      },
+      "headline_id": "cc-x-headline-f5e1906ee46c4ac82a7ca373",
+      "source_locator": {
+        "line": 859,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:33:45Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417048257994953",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Fed's Daly: Rise in long term yields is a global issue, blunts signal for Fed.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090417048257994953"
+      },
+      "headline_id": "cc-x-headline-8dfc3780324a50304571eb6c",
+      "source_locator": {
+        "line": 858,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:33:57Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417102188339209",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Fed's Daly: I don't see Fed credibility at risk",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090417102188339209"
+      },
+      "headline_id": "cc-x-headline-5785b9dc13d379056dc55c30",
+      "source_locator": {
+        "line": 857,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:34:09Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417129669726418",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "FED'S DALY SAYS RISING BOND YIELDS DON'T GIVE SIGNAL FOR POLICY",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2090417129669726418"
+      },
+      "headline_id": "cc-x-headline-53684174ab9389dbac3c0dc4",
+      "source_locator": {
+        "line": 856,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:34:16Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417147411661057",
+      "external_content": {
+        "author_handle": "FirstSquawk",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "FED'S DALY: I DON'T SEE FED CREDIBILITY AT RISK",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/FirstSquawk/status/2090417147411661057"
+      },
+      "headline_id": "cc-x-headline-d0235b2bb7c33b1c861a363b",
+      "source_locator": {
+        "line": 855,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:34:20Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090417326956990869",
+      "external_content": {
+        "author_handle": "financialjuice",
+        "follow_up_data_need_candidates": [
+          "official_central_bank_statement_or_calendar"
+        ],
+        "headline_text": "Fed's Daly: Short term yields show markets understand fed reaction function.",
+        "official_source_urls": [],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "central_bank"
+        ],
+        "url_or_source_ref": "https://x.com/financialjuice/status/2090417326956990869"
+      },
+      "headline_id": "cc-x-headline-98524bac9e9f2e6720b8f3c8",
+      "source_locator": {
+        "line": 854,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-20T12:35:03Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    }
+  ],
+  "prepared_candidate_subset": true,
+  "rejection_counts": {
+    "source_timestamp_before_window": 12091
+  },
+  "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_files": [
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2020_02_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_21.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_10_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2024_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_01_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_02_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_04_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_03_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_01.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_03.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_21.jsonl"
+  ],
+  "unique_headline_ids": [
+    "cc-x-headline-7d4860da701df7f401a0c69f",
+    "cc-x-headline-5e0778b6937bccf4a878a839",
+    "cc-x-headline-402b6e35b897ebe21a5e30c8",
+    "cc-x-headline-edad5280888abfafe73b29d5",
+    "cc-x-headline-a530786f75a1e64daf0eea97",
+    "cc-x-headline-5940b992bf4f560c2f78eae1",
+    "cc-x-headline-f5e1906ee46c4ac82a7ca373",
+    "cc-x-headline-8dfc3780324a50304571eb6c",
+    "cc-x-headline-5785b9dc13d379056dc55c30",
+    "cc-x-headline-53684174ab9389dbac3c0dc4",
+    "cc-x-headline-d0235b2bb7c33b1c861a363b",
+    "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+  ],
+  "window_hours": 24.0,
+  "window_start_utc": "2026-08-20T12:31:11.126806Z"
+}

@@ -20,6 +20,7 @@ from live_contentops.official_primary_source_locator_v1 import (
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     _leaf_evidence_reachability,
     build_bounded_rolling_x_publishability_pool,
+    build_deterministic_rolling_x_assignment_fallback,
 )
 from live_contentops.preselection_intelligence_v1 import (
     apply_preselection_intelligence,
@@ -605,6 +606,103 @@ def test_publishability_pool_preserves_unused_semantic_leaf_bindings():
     assert reserve["entities_topics"] == ["Entity 1", "bound-event"]
     assert reserve["update_chain"]["ordered_headline_ids"] == ["h1"]
     assert result["publishability_candidate_pool"]["combined_candidate_binding_hash"]
+
+
+def test_publishability_pool_expands_bounded_deterministic_fallback():
+    _, rolling_input = _valid_pool_fixture()
+    rolling_input = deepcopy(rolling_input)
+    rolling_input["headlines"] = [
+        {
+            "headline_id": f"h{index}",
+            "source_timestamp_utc": "2026-08-11T23:00:00Z",
+            "external_content": {
+                "headline_text": f"Bound event {index}",
+                "official_source_urls": [],
+            },
+        }
+        for index in range(20)
+    ]
+    assignment = build_deterministic_rolling_x_assignment_fallback(
+        rolling_input=rolling_input,
+        max_ranked_clusters=12,
+    )
+
+    result = build_bounded_rolling_x_publishability_pool(
+        assignment=assignment,
+        rolling_input=rolling_input,
+    )
+
+    assert len(result["ranked_clusters"]) == 20
+    assert len(result["leaf_clusters"]) == 20
+    assert result["publishability_candidate_pool"]["reserve_candidate_count"] == 8
+    assert result["publishability_candidate_pool"]["held_after_bounded_pool_count"] == 0
+
+
+def test_canonical_cycle_falls_back_once_when_semantic_leaf_union_is_invalid(
+    monkeypatch, tmp_path
+):
+    assignment, rolling_input = _valid_pool_fixture()
+    invalid = deepcopy(assignment)
+    invalid["leaf_clusters"] = invalid["leaf_clusters"][:1]
+
+    def invalid_assignment(**kwargs):
+        invalid["input_binding"]["canonical_input_hash"] = kwargs[
+            "rolling_input"
+        ]["canonical_input_hash"]
+        return invalid
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        invalid_assignment,
+    )
+
+    def blocked_evidence(request):
+        return {
+            "status": "BLOCKED",
+            "cluster_id": request["cluster_id"],
+            "headline_ids": list(request["headline_ids"]),
+            "provided_evidence_capabilities": [],
+            "evidence_documents": [],
+            "claim_evidence_contract": {"status": "BLOCKED"},
+            "blockers": ["controlled_no_evidence"],
+            "capital_chronicle_authority_verified": False,
+            "numeric_evidence_required": False,
+            "publication_authority": False,
+        }
+
+    result = pipeline._run_rolling_x_newsroom_cycle(
+        run_id="invalid-semantic-leaf-union",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-12T00:00:00Z",
+        rolling_input={
+            **rolling_input,
+            "cutoff_time_utc": "2026-08-12T00:00:00Z",
+            "window_start_utc": "2026-08-11T00:00:00Z",
+            "window_hours": 24.0,
+            "unique_headline_ids": ["h0", "h1"],
+            "counts": {"accepted": 2},
+        },
+        evidence_acquirer=blocked_evidence,
+        story_type_classifier=lambda *, clusters, **_kwargs: {
+            "stories": [
+                {"cluster_id": row["cluster_id"], "story_type": "breaking_news"}
+                for row in clusters
+            ],
+            "story_type_by_cluster": {
+                row["cluster_id"]: "breaking_news" for row in clusters
+            },
+            "semantic_routing_grants_authority": False,
+        },
+        publication_enabled=False,
+    )
+
+    fallback = result["assignment"]["semantic_assignment_failure"]
+    assert fallback["reason_code"] == "ROLLING_X_SEMANTIC_ASSIGNMENT_BINDING_INVALID"
+    assert fallback["validation_error"] == (
+        "rolling_x_publishability_pool_leaf_headline_union_mismatch"
+    )
+    assert result["classification"] in {"NO_PUBLICATION", "BLOCKED"}
+    assert result["public_write_performed"] is False
 
 
 @pytest.mark.parametrize(

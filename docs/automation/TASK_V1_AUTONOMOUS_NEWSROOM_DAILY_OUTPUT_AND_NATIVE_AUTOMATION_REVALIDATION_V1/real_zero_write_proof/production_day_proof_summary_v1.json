@@ -1,0 +1,107 @@
+{
+  "schema_version": "contentops.v1_autonomous_newsroom_zero_write_proof.v1",
+  "task": "TASK_V1_AUTONOMOUS_NEWSROOM_DAILY_OUTPUT_AND_NATIVE_AUTOMATION_REVALIDATION_V1",
+  "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+  "operating_mode": "SHADOW_ONLY",
+  "target_qualified_article_count": 4,
+  "qualified_article_count": 0,
+  "remaining_build_deficit": 4,
+  "production_day_state": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+  "hard_external_block_reason": null,
+  "final_published_target_min": 5,
+  "final_published_target_max": 8,
+  "qualified_articles": [],
+  "bounded_proof_terminal_reason": "EDITORIAL_WORKER_VALIDATION_FAILED_AFTER_ONE_BOUNDED_REVISION",
+  "candidate_terminal_reasons": [
+    {
+      "rank": 1,
+      "cluster_id": "rolling-x-deterministic-cluster-5d3c33c8e5b1e99660de",
+      "headline_ids": [
+        "cc-x-headline-1806a9518a0c6151a32d40a9"
+      ],
+      "candidate_title": "RT @federalreserve: Our weekly #BalanceSheet update: #FedData",
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "evidence_result": "VIABLE",
+      "evidence_ids": [
+        "official-primary-1809a7967771a1b24bb9"
+      ],
+      "xhigh_worker_count": 1,
+      "xhigh_bounded_revision_count": 1,
+      "deterministic_validation": "FAIL",
+      "terminal_reason": "EDITORIAL_WORKER_VALIDATION_FAILED_AFTER_ONE_BOUNDED_REVISION",
+      "validation_blockers": [
+        "fake_or_unbound_quote_presentation"
+      ],
+      "qualified": false
+    }
+  ],
+  "candidate_pool": {
+    "assignment_input_headline_count": 64,
+    "source_ranked_candidate_count": 12,
+    "combined_candidate_count": 64,
+    "reserve_candidate_count": 52,
+    "held_after_bounded_pool_count": 0,
+    "combined_candidate_binding_hash": "12574896c62f5eb92221ae71677090b4a9551e0b1626a1cc660a747ffaafe945",
+    "pool_logical_hash": "bc0879358657e970b2e511274c8d87aa60a0fa4b64e692e07fd855dd87c239de"
+  },
+  "provider_telemetry": {
+    "semantic_assignment": {
+      "terminal_reason": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+      "deterministic_fallback_used": true,
+      "logical_router_calls": 2,
+      "provider_attempts": 2,
+      "prompt_tokens": 22821.0,
+      "completion_tokens": 53253.0,
+      "total_tokens": 76074.0,
+      "reported_cost": null
+    },
+    "grounded_research": {
+      "model": "vx/gemini-3.1-pro-preview(high)",
+      "provider_attempt_count": 1,
+      "terminal_disposition": "ACCEPTED",
+      "prompt_tokens": 6137.0,
+      "completion_tokens": 1836.0,
+      "total_tokens": 7973.0,
+      "reported_cost": {}
+    },
+    "xhigh_editorial": {
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "XHIGH",
+      "fresh": true,
+      "isolated": true,
+      "governed_input_hash": "18662767aa72937741e8345b876caf91ea56d277107d84d6fb74e4c41ea84ba0",
+      "bounded_revision_count": 1,
+      "token_or_cost_telemetry_exposed": false
+    }
+  },
+  "diagnostic_attempts": [
+    {
+      "attempt": 1,
+      "terminal_reason": "rolling_x_publishability_pool_leaf_headline_union_mismatch",
+      "disposition": "DEFECT_EXPOSED_AND_REPAIRED"
+    },
+    {
+      "attempt": 2,
+      "terminal_reason": "rolling_x_publishability_pool_leaf_headline_union_mismatch",
+      "disposition": "DETERMINISTIC_FALLBACK_PARTIAL_UNION_DEFECT_EXPOSED_AND_REPAIRED"
+    },
+    {
+      "attempt": 3,
+      "terminal_reason": "EDITORIAL_WORKER_VALIDATION_FAILED_AFTER_ONE_BOUNDED_REVISION",
+      "disposition": "TERMINAL_CURRENT_PROOF"
+    }
+  ],
+  "safety": {
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "unknown_write_count": 0,
+    "fifth_automation_created": 0,
+    "production_store_reset": 0,
+    "secret_or_session_inspection": 0,
+    "legacy_writer_fallback_used": false
+  },
+  "artifact_bindings": {
+    "terminal_cycle_evidence_sha256": "5fff37157917ec4bf96bfdde7451110fda5c53417c042cd61cd1f3d13a40972a",
+    "xhigh_editorial_worker_return_sha256": "96cf60af81b52157c70455f4843f88ed7f34df852c9c59847373c8ffed3f6567"
+  }
+}

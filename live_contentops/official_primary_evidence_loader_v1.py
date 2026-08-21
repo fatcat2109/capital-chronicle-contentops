@@ -492,6 +492,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
             )
         self._source_locator = source_locator
         self._request_count = 0
+        self._story_scope_acquisition_cache: dict[str, dict[str, Any]] = {}
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         requested_families = [
@@ -499,6 +500,49 @@ class BoundedOfficialPrimaryEvidenceLoader:
             if str(value) in SUPPORTED_FAMILIES
         ]
         context = request.get("story_context") or {}
+        story_scope_id = str(request.get("story_evidence_scope_id") or "")
+        acquisition_signature = sha256(
+            json.dumps(
+                {
+                    "story_evidence_scope_id": story_scope_id,
+                    "evaluation_as_of_utc": self._evaluation_as_of_utc,
+                    "requested_families": sorted(requested_families),
+                    "official_source_url_bindings": [
+                        dict(row)
+                        for row in context.get("official_source_url_bindings") or []
+                        if isinstance(row, Mapping)
+                    ],
+                    "leaf_summaries": [
+                        str(value) for value in context.get("leaf_summaries") or []
+                    ],
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        if story_scope_id and acquisition_signature in self._story_scope_acquisition_cache:
+            cached = json.loads(json.dumps(
+                self._story_scope_acquisition_cache[acquisition_signature]
+            ))
+            cached["rolling_x_story_binding"] = {
+                "cluster_id": request.get("cluster_id"),
+                "headline_ids": list(request.get("headline_ids") or []),
+                "request_logical_hash": request.get("request_logical_hash"),
+            }
+            provenance = dict(cached.get("provenance") or {})
+            original_reads = int(provenance.get("locator_request_count") or 0) + int(
+                provenance.get("official_evidence_get_count") or 0
+            )
+            provenance.update({
+                "request_count": self._request_count,
+                "request_count_for_call": 0,
+                "story_evidence_scope_id": story_scope_id,
+                "acquisition_cache_reused": True,
+                "network_reads_avoided_for_call": original_reads,
+                "reused_request_signature": acquisition_signature,
+            })
+            cached["provenance"] = provenance
+            return cached
         binding_rows = [
             row for row in (context.get("official_source_url_bindings") or [])
             if isinstance(row, Mapping)
@@ -605,6 +649,15 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 final_url, final_host = _safe_url(
                     str(response.get("final_url") or requested_url), allowed_hosts
                 )
+                sec_submission_index = bool(
+                    family in {"company_primary", "sec_regulatory"}
+                    and final_host == "data.sec.gov"
+                    and re.fullmatch(
+                        r"/submissions/CIK\d{10}\.json",
+                        urlsplit(final_url).path,
+                        re.IGNORECASE,
+                    )
+                )
                 if int(response.get("status") or 0) != 200:
                     raise RuntimeError("official_source_http_status_not_200")
                 headers = {
@@ -707,7 +760,13 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     ) or None,
                     "scheduled_event_rows": schedule_rows,
                     "schedule_extraction_grants_factual_numeric_permission_or_publication_authority": False,
-                    "public_claim_allowed": True,
+                    # The SEC submissions JSON is an issuer/filing locator index.  Its exact
+                    # bytes can establish that a filing exists, but cannot support the filing's
+                    # event facts or numbers.  Keep it discovery-only until an exact filing or
+                    # exhibit document is resolved; never let a model promote the index itself.
+                    "public_claim_allowed": not sec_submission_index,
+                    "discovery_only_source_index": sec_submission_index,
+                    "source_index_grants_event_fact_or_numeric_authority": False,
                     "retrieval_method": (
                         "READ_ONLY_HTTP_GET_BOUNDED_PREFIX"
                         if content_truncated
@@ -723,7 +782,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
         required = {str(value) for value in (request.get("required_evidence_capabilities") or [])}
         missing = required - supplied
         blockers.extend(f"required_evidence_capability_missing:{value}" for value in sorted(missing))
-        return {
+        result = {
             "status": "PASS" if not blockers else "BLOCKED",
             "rolling_x_story_binding": {
                 "cluster_id": request.get("cluster_id"),
@@ -741,6 +800,11 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 "locator_request_count": locator_request_count,
                 "official_evidence_get_count": official_evidence_get_count,
                 "request_count": self._request_count,
+                "request_count_for_call": locator_request_count + official_evidence_get_count,
+                "story_evidence_scope_id": story_scope_id or None,
+                "acquisition_cache_reused": False,
+                "network_reads_avoided_for_call": 0,
+                "request_signature": acquisition_signature,
                 "request_limit": self._max_requests,
                 "timeout_seconds": self._timeout_seconds,
                 "read_only_http_get_only": True,
@@ -749,3 +813,8 @@ class BoundedOfficialPrimaryEvidenceLoader:
             "blockers": sorted(set(blockers)),
             "publication_authority": False,
         }
+        if story_scope_id:
+            self._story_scope_acquisition_cache[acquisition_signature] = json.loads(
+                json.dumps(result)
+            )
+        return result

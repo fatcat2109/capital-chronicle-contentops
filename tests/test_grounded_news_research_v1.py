@@ -9,6 +9,7 @@ from live_contentops.grounded_news_research_v1 import (
     GROUNDING_MODE,
     GroundedNewsResearchInvocationError,
     GroundedNewsResearchV1,
+    _locator_event_core_query,
     _locator_query_seed,
     _model_failure,
     build_additive_cc_context_bundle,
@@ -40,6 +41,30 @@ def test_locator_seed_neutralizes_headline_hype_without_adding_facts():
         _locator_query_seed("Danube Water Levels Sink To Historic Lows")
         == "Danube Water Levels To low"
     )
+
+
+def test_frozen_social_headline_gets_bounded_event_core_locator_variant():
+    headline = (
+        "RT @tongbingxue: Xu Jiayin, founder of China Evergrande Group and former "
+        "China's richest man, was sentenced to life in prison by a Sh..."
+    )
+
+    assert _locator_event_core_query(headline) == (
+        "Xu Jiayin founder China Evergrande sentenced life prison"
+    )
+    plan = build_deterministic_locator_plan(
+        {
+            "normalized_headline_proposition": headline,
+            "important_entities": [],
+            "already_bound_source_urls": [],
+            "claims_or_questions_needing_verification": [],
+        },
+        max_queries=3,
+    )
+    assert plan["queries"][1] == (
+        "Xu Jiayin founder China Evergrande sentenced life prison"
+    )
+    assert plan["query_text_grants_factual_authority"] is False
 
 
 def test_post_filter_packet_drops_facts_bound_to_removed_documents():
@@ -456,7 +481,22 @@ def test_mode_downgrades_and_cached_research_does_not_repeat_calls():
 
     assert first["research_packet"]["suggested_article_mode"] == "BREAKING_BRIEF"
     assert second["cache_reused"] is True
+    assert second["research_calls"] == 0
+    assert second["public_retrieval_requests"] == 0
+    assert second["cache_reuse_provenance"]["cached_research_calls"] == 1
+    assert second["cache_reuse_provenance"][
+        "public_retrieval_requests_for_current_evaluation"
+    ] == 0
     assert calls == ["source_synthesis"]
+
+    new_need = {**request}
+    new_need["required_evidence_capabilities"] = [
+        *request["required_evidence_capabilities"],
+        "new_explicit_delta_capability",
+    ]
+    third = research(new_need)
+    assert third.get("cache_reused") is not True
+    assert calls == ["source_synthesis", "source_synthesis"]
 
 
 def test_deterministic_locator_plan_uses_bound_host_without_granting_authority():

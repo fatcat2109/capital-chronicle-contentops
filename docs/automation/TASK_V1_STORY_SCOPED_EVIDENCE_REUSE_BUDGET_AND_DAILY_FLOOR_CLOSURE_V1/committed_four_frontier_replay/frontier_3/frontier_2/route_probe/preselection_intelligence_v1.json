@@ -1,0 +1,993 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 4,
+  "evaluated_at_utc": "2026-08-21T12:31:11.126806Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 4,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-c6760e6301425322c780",
+    "rolling-x-global-cluster-9def919a63d51d885fd6",
+    "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+    "rolling-x-global-cluster-a9c11ba9a6f1723e5666"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-21T12:31:11.126806Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 5,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "61075f8c84465b2b46bcef6f1078034efdd71661dc631c0898493a7816329142",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Interest Rates",
+          "Central Banking",
+          "Inflation"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.024,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Federal Reserve",
+            "source_field": "entities_topics",
+            "source_value_sha256": "124a7daed73968c567e34c704dcd0aa22e42df0a5e21a3ed65381295806f4414"
+          },
+          {
+            "query_term": "Mary Daly",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c4cd258fbe963061a21b99334f621779b3e91d987196446ec0d86284c8db54b6"
+          },
+          {
+            "query_term": "Monetary Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "258ea27f23d798225cd496f5e078ad6ace0208e7a0590b9a904c94dcfd15f299"
+          },
+          {
+            "query_term": "Interest Rates",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1aa08293cc8ee05c7e74275be026ab64b426c1743fd27ff50a2d86ae851fc4ea"
+          },
+          {
+            "query_term": "Central Banking",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6c2564473ed847a0666511d3d72c0c0632fccb94220ff1717b6d0e16d20ff755"
+          },
+          {
+            "query_term": "Inflation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e4701a949a3fed7ab34b10d3f86e9f6ae12cd57eefeef63bf973874ea7795eab"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "leaf_summaries",
+          "leaf_summaries",
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Interest Rates",
+          "Central Banking",
+          "Inflation"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Federal Reserve",
+        "Mary Daly",
+        "Monetary Policy",
+        "Interest Rates",
+        "Central Banking",
+        "Inflation",
+        "Economic Outlook"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-f12a5b98b82a377b8c6779bc",
+        "cc-x-headline-0e2aa97095b1f181b8c961d1",
+        "cc-x-headline-4cacd0b7773f0180340c99e4",
+        "cc-x-headline-27ac7dd66dfc199f637da432",
+        "cc-x-headline-be8f874c937d2a32bf7a9f09",
+        "cc-x-headline-134362fe158081b970d9dba7",
+        "cc-x-headline-e261772e9e062cc4838682b3"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-e58675a12ca4c3602d18",
+        "rolling-x-leaf-cluster-d0f7aaccf02ae169c2e1",
+        "rolling-x-leaf-cluster-a8a31996963620b60755",
+        "rolling-x-leaf-cluster-9f4e9dd931eab56bbaae"
+      ],
+      "leaf_summaries": [
+        "San Francisco Fed President Mary Daly states that current monetary policy is in a good place and the central bank is monitoring markets.",
+        "San Francisco Fed President Mary Daly notes there is no evidence calling for pre-emptive interest rate hikes.",
+        "San Francisco Fed President Mary Daly expresses strong support for the Federal Reserve's decision to hold interest rates steady in July.",
+        "San Francisco Fed President Mary Daly states the modal outlook anticipates that inflation shocks will dissipate."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Full transcript or official recording of Mary Daly's remarks",
+        "Confirmation of the specific venue and context of her speech",
+        "Recent inflation data points referenced in her outlook"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Daly's comments collectively signal a strong consensus for holding rates steady and avoiding pre-emptive hikes, which is critical context for bond and equity markets assessing the Fed's next moves.",
+      "seo_intent": "Mary Daly Federal Reserve interest rates monetary policy inflation outlook",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f12a5b98b82a377b8c6779bc",
+        "ordered_headline_ids": [
+          "cc-x-headline-f12a5b98b82a377b8c6779bc",
+          "cc-x-headline-0e2aa97095b1f181b8c961d1",
+          "cc-x-headline-4cacd0b7773f0180340c99e4",
+          "cc-x-headline-27ac7dd66dfc199f637da432",
+          "cc-x-headline-be8f874c937d2a32bf7a9f09",
+          "cc-x-headline-134362fe158081b970d9dba7",
+          "cc-x-headline-e261772e9e062cc4838682b3"
+        ],
+        "relationship": "incremental_update"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-c6760e6301425322c780",
+      "visual_strategy": "A professional portrait of Mary Daly speaking at a recent event, or a chart showing the recent trajectory of the Fed Funds rate against inflation.",
+      "why_now": "San Francisco Fed President Mary Daly has just provided comprehensive remarks on the current state of monetary policy, inflation expectations, and interest rates.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Micron",
+          "Micron Research Labs",
+          "Boise",
+          "Semiconductors",
+          "Corporate Investment",
+          "Research and Development"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.022,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Micron",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4863c4714e737cef4da4f0c5e4a99d6667a0941dce6e828bec8f4de209f18942"
+          },
+          {
+            "query_term": "Micron Research Labs",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f8061cf107175998b2d2d23ff71473647823ec7d5dfcf2a91904972cf835beb5"
+          },
+          {
+            "query_term": "Boise",
+            "source_field": "entities_topics",
+            "source_value_sha256": "7b31860d956f0884c7d77d787644d858c6365738b98bca09ec3ae35678c3158a"
+          },
+          {
+            "query_term": "Semiconductors",
+            "source_field": "entities_topics",
+            "source_value_sha256": "65bb877811e2cfcfd2be7ce384228c82ab84346827d1f1be22422fb676b79a79"
+          },
+          {
+            "query_term": "Corporate Investment",
+            "source_field": "entities_topics",
+            "source_value_sha256": "395aea4e8ac54be957339cca880ecad83155365962de57b25668016bd2bf2890"
+          },
+          {
+            "query_term": "Research and Development",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2bdaac7bc8bfdeb2454807520fcfe79bf1de4c44c2c4f3e0fe8b28d08906e060"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Micron",
+          "Micron Research Labs",
+          "Boise",
+          "Semiconductors",
+          "Corporate Investment",
+          "Research and Development"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-9def919a63d51d885fd6",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Micron",
+        "Micron Research Labs",
+        "Boise",
+        "Semiconductors",
+        "Corporate Investment",
+        "Research and Development"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-257bb49f7296135d6935fe56"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-2a51ca718d74eba25887"
+      ],
+      "leaf_summaries": [
+        "Micron announces a $10 billion investment over the next decade to build Micron Research Labs, a new long-horizon research hub in Boise."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official Micron press release detailing the $10 billion investment",
+        "Timeline for construction and operational milestones",
+        "Details on potential local or federal tax incentives (e.g., CHIPS Act funding)"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 2,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "A $10 billion capital expenditure in domestic semiconductor R&D is highly material to Micron's long-term valuation and the broader US semiconductor supply chain narrative.",
+      "seo_intent": "Micron $10 billion investment Boise Research Labs semiconductor R&D",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-257bb49f7296135d6935fe56",
+        "ordered_headline_ids": [
+          "cc-x-headline-257bb49f7296135d6935fe56"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-9def919a63d51d885fd6",
+      "visual_strategy": "An architectural rendering of the planned Micron Research Labs or a high-quality image of a Micron semiconductor wafer.",
+      "why_now": "Micron has just announced a massive $10 billion, decade-long investment in a new research hub in Boise.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Federal Reserve Bank of Philadelphia",
+          "Economic Indicators",
+          "Business Conditions",
+          "Regional Economy",
+          "The Philly Fed Business",
+          "Regional Fed"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.022,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Federal Reserve Bank of Philadelphia",
+            "source_field": "entities_topics",
+            "source_value_sha256": "520ea1df6d53f058e7672295657ac45324a5b33425bfc49ee7cc85969f3937b7"
+          },
+          {
+            "query_term": "Economic Indicators",
+            "source_field": "entities_topics",
+            "source_value_sha256": "608195ba0e1857f250aec2dcca8e54c492a5d96d8fb34b396f64da74eb4cbde6"
+          },
+          {
+            "query_term": "Business Conditions",
+            "source_field": "entities_topics",
+            "source_value_sha256": "bb64e2835923fa81fd38c808682724013138f5519a7b26d6aa98735cf580b1cc"
+          },
+          {
+            "query_term": "Regional Economy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9d163bf02b7d66499e02fda11f68c473139190e4d2bd0e684196d3e6be06a9da"
+          },
+          {
+            "query_term": "The Philly Fed Business",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "0e8c67d7faea95e1c1029b38eab528cfc4815dc9a746d6ef88d7eca373b5ad73"
+          },
+          {
+            "query_term": "Regional Fed",
+            "source_field": "selection_case",
+            "source_value_sha256": "b206005cc0848411950dda20985fc852b8b4876c1647edf4aa5c153d2c09df6d"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Federal Reserve Bank of Philadelphia",
+          "Economic Indicators",
+          "Business Conditions",
+          "Regional Economy",
+          "The Philly Fed Business",
+          "Regional Fed"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries",
+          "selection_case"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Federal Reserve Bank of Philadelphia",
+        "Economic Indicators",
+        "Business Conditions",
+        "Regional Economy"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-d3cdafb244b049a322718ff7"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-ff657d1fc5f27b99b85d"
+      ],
+      "leaf_summaries": [
+        "The Philly Fed Business Conditions index surges to a more than 10-year high, prompting market commentary."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "The official data release from the Federal Reserve Bank of Philadelphia",
+        "Historical index data for the past 10-15 years for context",
+        "Breakdown of the sub-components driving the surge (e.g., new orders, employment)"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Regional Fed surveys are leading indicators of broader economic health. A decade-high surge challenges recent recessionary fears and provides a strong counter-narrative to slowing growth.",
+      "seo_intent": "Philly Fed Business Conditions index 10-year high regional economy manufacturing",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-d3cdafb244b049a322718ff7",
+        "ordered_headline_ids": [
+          "cc-x-headline-d3cdafb244b049a322718ff7"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+      "visual_strategy": "A line chart plotting the Philly Fed Business Conditions index over the past 10 years, highlighting the recent spike.",
+      "why_now": "The Philly Fed Business Conditions index has unexpectedly surged to a more than 10-year high.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "SK Hynix",
+          "Corporate Compensation",
+          "Semiconductors",
+          "Employee Bonuses",
+          "SK"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.02,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "SK Hynix",
+            "source_field": "entities_topics",
+            "source_value_sha256": "db57bcb87fa903cf1bb463fdb9cd32c4cd381b6cbff624d3d458b948404a9c78"
+          },
+          {
+            "query_term": "Corporate Compensation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "cc4f9f1e77a394088f3e5fc42ace70633a136d6a8d15aad30c857e6dea82af16"
+          },
+          {
+            "query_term": "Semiconductors",
+            "source_field": "entities_topics",
+            "source_value_sha256": "65bb877811e2cfcfd2be7ce384228c82ab84346827d1f1be22422fb676b79a79"
+          },
+          {
+            "query_term": "Employee Bonuses",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3e9666d82048957599244e2b18e7cedb9397adbfcf1c9e2d672276577650c8d7"
+          },
+          {
+            "query_term": "SK",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "11889b9b0f14ec9dfc72e9b01b9a5c098225fdf2001788b8a20b171f888611be"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "SK Hynix",
+          "Corporate Compensation",
+          "Semiconductors",
+          "Employee Bonuses",
+          "SK"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "SK Hynix",
+        "Corporate Compensation",
+        "Semiconductors",
+        "Employee Bonuses"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-2bc61f330736ebdf005d"
+      ],
+      "leaf_summaries": [
+        "SK Hynix announces plans to pay 60% of its employee bonuses in company stock."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official internal memo or public statement from SK Hynix regarding the bonus structure",
+        "Historical context on SK Hynix's previous bonus payouts",
+        "Current SK Hynix stock performance metrics"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 4,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "This move highlights capital preservation and employee alignment strategies within the highly cyclical and capital-intensive semiconductor memory sector.",
+      "seo_intent": "SK Hynix employee bonuses company stock compensation semiconductor industry",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+        "ordered_headline_ids": [
+          "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+      "visual_strategy": "A corporate image of SK Hynix headquarters or a graphic illustrating the shift from cash to stock compensation.",
+      "why_now": "SK Hynix has announced a significant shift in its compensation structure, opting to pay 60% of employee bonuses in company stock.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": false,
+  "reranked_order": [
+    "rolling-x-global-cluster-c6760e6301425322c780",
+    "rolling-x-global-cluster-9def919a63d51d885fd6",
+    "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+    "rolling-x-global-cluster-a9c11ba9a6f1723e5666"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

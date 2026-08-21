@@ -1,0 +1,1345 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 10,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "d257001218a3a3d7b1939913c5c0c3f9cabe808df586179a08d582fd8043aeef",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-797ca95a07ffaea14a9e"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "c8befd043a2df358f2ff1346da7274a9356f58e25ed9508db507a477ddb95e35",
+    "cutoff_time_utc": "2026-08-21T14:19:24.393115Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 10,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "eric swalwell",
+            "fbi",
+            "investigations"
+          ],
+          "first_utc": "2026-08-20T14:25:07Z",
+          "latest_utc": "2026-08-20T14:25:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9048,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "FBI",
+          "Eric Swalwell",
+          "San Francisco Airport",
+          "Investigations"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-0502b3ede6a84a1f69f4",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 90,
+          "evidence": 40,
+          "saturation_risk": 50,
+          "seo": 80
+        },
+        "summary": "The FBI has reportedly seized Representative Eric Swalwell's electronic devices at San Francisco Airport amid a sexual misconduct investigation."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "central_bank",
+            "federal reserve",
+            "goldman sachs"
+          ],
+          "first_utc": "2026-08-20T14:39:24Z",
+          "latest_utc": "2026-08-20T14:39:24Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.6668,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Goldman Sachs",
+          "Federal Reserve",
+          "Interest Rates",
+          "Market Volatility"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-10619006a5f1ccabc70b",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 60,
+          "evidence": 60,
+          "saturation_risk": 30,
+          "seo": 60
+        },
+        "summary": "Goldman Sachs notes that ambiguity surrounding the Federal Reserve's reaction function has caused an increase in US rate volatility."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "international relations",
+            "iran"
+          ],
+          "first_utc": "2026-08-20T14:26:00Z",
+          "latest_utc": "2026-08-20T14:26:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8901,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Iran",
+          "Sanctions",
+          "Geopolitics",
+          "International Relations"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-5338af46566033eebd67",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 70,
+          "evidence": 40,
+          "saturation_risk": 40,
+          "seo": 60
+        },
+        "summary": "Warning that any nation supporting the Iranian regime will face tremendous economic consequences."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "inflation",
+            "economic indicators",
+            "macroeconomics"
+          ],
+          "first_utc": "2026-08-20T14:31:01Z",
+          "latest_utc": "2026-08-20T14:31:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8065,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Inflation",
+          "Economic Indicators",
+          "Macroeconomics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-5355657f10490133589a",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 50,
+          "evidence": 50,
+          "saturation_risk": 40,
+          "seo": 60
+        },
+        "summary": "Timely inflation data indicates an annualized rate of approximately 2%."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "academia",
+            "free speech",
+            "nathan cofnas"
+          ],
+          "first_utc": "2026-08-20T14:30:01Z",
+          "latest_utc": "2026-08-20T14:30:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8232,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Nathan Cofnas",
+          "University of Ghent",
+          "Academia",
+          "Free Speech"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-58d42b9a48407e0fda64",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 30,
+          "engagement": 50,
+          "evidence": 30,
+          "saturation_risk": 20,
+          "seo": 20
+        },
+        "summary": "Criticism of the suspension of Nathan Cofnas at the University of Ghent, citing concerns over academic freedom."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "government finance",
+            "interest rates",
+            "macroeconomics"
+          ],
+          "first_utc": "2026-08-20T14:34:45Z",
+          "latest_utc": "2026-08-20T14:38:14Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.6862,
+          "update_velocity": 17.2249
+        },
+        "entities_topics": [
+          "Scott Irwin",
+          "Interest Rates",
+          "Government Finance",
+          "Macroeconomics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-5a4392102f2a6213de1d",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 60,
+          "engagement": 50,
+          "evidence": 40,
+          "saturation_risk": 30,
+          "seo": 40
+        },
+        "summary": "Discussion on the long-term equilibrium for real interest rates returning to 2-4% and its profound implications for global government finance."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "defense",
+            "geopolitics",
+            "military sales"
+          ],
+          "first_utc": "2026-08-20T14:34:02Z",
+          "latest_utc": "2026-08-20T14:34:02Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.7562,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "US State Dept",
+          "Qatar",
+          "Military Sales",
+          "Defense"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-8121fd3684ff4b64adc9",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 40,
+          "evidence": 80,
+          "saturation_risk": 20,
+          "seo": 60
+        },
+        "summary": "The US State Department has approved a possible $4.5 billion military sale to Qatar."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bond markets",
+            "fiscal",
+            "fiscal policy"
+          ],
+          "first_utc": "2026-08-20T14:39:46Z",
+          "latest_utc": "2026-08-20T14:39:46Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.6607,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "U.S. Treasury",
+          "Treasury Yields",
+          "Bond Markets",
+          "Fiscal Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-ac1e8dc1d2fb422182fd",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 50,
+          "evidence": 60,
+          "saturation_risk": 40,
+          "seo": 50
+        },
+        "summary": "Yields on longer-dated U.S. Treasurys have retraced declines that followed a rally fueled by changes to Treasury buyback policies."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "artificial intelligence",
+            "capex",
+            "data centers"
+          ],
+          "first_utc": "2026-08-20T14:28:11Z",
+          "latest_utc": "2026-08-20T14:39:23Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.6671,
+          "update_velocity": 5.3571
+        },
+        "entities_topics": [
+          "Artificial Intelligence",
+          "CAPEX",
+          "Data Centers",
+          "Technology Infrastructure"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-c5ca7025e1d6fe4fdfc6",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 70,
+          "evidence": 50,
+          "saturation_risk": 50,
+          "seo": 70
+        },
+        "summary": "Projections for massive AI infrastructure spending, with estimates of $765 billion in 2026 and over $1 trillion in AI CAPEX by 2027."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "energy",
+            "energy markets",
+            "market analysis"
+          ],
+          "first_utc": "2026-08-20T14:27:46Z",
+          "latest_utc": "2026-08-20T14:27:46Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8607,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Robin Brooks",
+          "Oil Prices",
+          "Energy Markets",
+          "Market Analysis"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-da99ba5e72ec37c3245c",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 40,
+          "engagement": 40,
+          "evidence": 30,
+          "saturation_risk": 30,
+          "seo": 20
+        },
+        "summary": "Commentary on previous predictions that oil prices would reach $200 and the lack of current vocal analysis from those proponents."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "c8befd043a2df358f2ff1346da7274a9356f58e25ed9508db507a477ddb95e35",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-00c1599b8e8593873c3259fd",
+      "cc-x-headline-1d55b8dc40da166f01dddd66",
+      "cc-x-headline-20c1a069b89c53b47e08c619",
+      "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+      "cc-x-headline-28ad77530f058e7d43b13054",
+      "cc-x-headline-397ceb8bb02b1d6fad0735e8",
+      "cc-x-headline-73f789b55823166fd8070359",
+      "cc-x-headline-7afba904fd3bc82215246d8c",
+      "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+      "cc-x-headline-9ad07405e8f44a41c5802e76",
+      "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+      "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 90,
+        "saturation_risk": 50,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f69691f6cc15fc3b0e59b71e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "FBI",
+        "Eric Swalwell",
+        "San Francisco Airport"
+      ],
+      "event_topic_summary": "The FBI has reportedly seized Representative Eric Swalwell's electronic devices at San Francisco Airport amid a sexual misconduct investigation.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-0502b3ede6a84a1f69f4",
+      "member_headline_ids": [
+        "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Investigations",
+        "US Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 30,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-9ad07405e8f44a41c5802e76",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-9ad07405e8f44a41c5802e76"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Goldman Sachs",
+        "Federal Reserve"
+      ],
+      "event_topic_summary": "Goldman Sachs notes that ambiguity surrounding the Federal Reserve's reaction function has caused an increase in US rate volatility.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-10619006a5f1ccabc70b",
+      "member_headline_ids": [
+        "cc-x-headline-9ad07405e8f44a41c5802e76"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Interest Rates",
+        "Market Volatility",
+        "Monetary Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 40,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d56df6d2fc68eeba98b6ae16"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Iran"
+      ],
+      "event_topic_summary": "Warning that any nation supporting the Iranian regime will face tremendous economic consequences.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-5338af46566033eebd67",
+      "member_headline_ids": [
+        "cc-x-headline-d56df6d2fc68eeba98b6ae16"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Sanctions",
+        "Geopolitics",
+        "International Relations"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 40,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-8adb4448c0e0f6f9bac3c2b1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Timely inflation data indicates an annualized rate of approximately 2%.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-5355657f10490133589a",
+      "member_headline_ids": [
+        "cc-x-headline-8adb4448c0e0f6f9bac3c2b1"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Inflation",
+        "Economic Indicators",
+        "Macroeconomics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 30,
+        "evidence_prospects": 30,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 20,
+        "seo_potential": 20
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7afba904fd3bc82215246d8c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7afba904fd3bc82215246d8c"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Nathan Cofnas",
+        "University of Ghent"
+      ],
+      "event_topic_summary": "Criticism of the suspension of Nathan Cofnas at the University of Ghent, citing concerns over academic freedom.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-58d42b9a48407e0fda64",
+      "member_headline_ids": [
+        "cc-x-headline-7afba904fd3bc82215246d8c"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Academia",
+        "Free Speech"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 30,
+        "seo_potential": 40
+      },
+      "canonical_representative_headline_id": "cc-x-headline-28ad77530f058e7d43b13054",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-28ad77530f058e7d43b13054",
+          "cc-x-headline-397ceb8bb02b1d6fad0735e8"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "Scott Irwin"
+      ],
+      "event_topic_summary": "Discussion on the long-term equilibrium for real interest rates returning to 2-4% and its profound implications for global government finance.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-5a4392102f2a6213de1d",
+      "member_headline_ids": [
+        "cc-x-headline-28ad77530f058e7d43b13054",
+        "cc-x-headline-397ceb8bb02b1d6fad0735e8"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Interest Rates",
+        "Government Finance",
+        "Macroeconomics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 40,
+        "saturation_risk": 20,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-20c1a069b89c53b47e08c619",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-20c1a069b89c53b47e08c619"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "US State Dept",
+        "Qatar"
+      ],
+      "event_topic_summary": "The US State Department has approved a possible $4.5 billion military sale to Qatar.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-8121fd3684ff4b64adc9",
+      "member_headline_ids": [
+        "cc-x-headline-20c1a069b89c53b47e08c619"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Military Sales",
+        "Defense",
+        "Geopolitics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 40,
+        "seo_potential": 50
+      },
+      "canonical_representative_headline_id": "cc-x-headline-1d55b8dc40da166f01dddd66",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-1d55b8dc40da166f01dddd66"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "U.S. Treasury"
+      ],
+      "event_topic_summary": "Yields on longer-dated U.S. Treasurys have retraced declines that followed a rally fueled by changes to Treasury buyback policies.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-ac1e8dc1d2fb422182fd",
+      "member_headline_ids": [
+        "cc-x-headline-1d55b8dc40da166f01dddd66"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Treasury Yields",
+        "Bond Markets",
+        "Fiscal Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 50,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-73f789b55823166fd8070359",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+          "cc-x-headline-73f789b55823166fd8070359"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Projections for massive AI infrastructure spending, with estimates of $765 billion in 2026 and over $1 trillion in AI CAPEX by 2027.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-c5ca7025e1d6fe4fdfc6",
+      "member_headline_ids": [
+        "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+        "cc-x-headline-73f789b55823166fd8070359"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Artificial Intelligence",
+        "CAPEX",
+        "Data Centers",
+        "Technology Infrastructure"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 40,
+        "evidence_prospects": 30,
+        "qualified_engagement_potential": 40,
+        "saturation_risk": 30,
+        "seo_potential": 20
+      },
+      "canonical_representative_headline_id": "cc-x-headline-00c1599b8e8593873c3259fd",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-00c1599b8e8593873c3259fd"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Robin Brooks"
+      ],
+      "event_topic_summary": "Commentary on previous predictions that oil prices would reach $200 and the lack of current vocal analysis from those proponents.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-da99ba5e72ec37c3245c",
+      "member_headline_ids": [
+        "cc-x-headline-00c1599b8e8593873c3259fd"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "topics": [
+        "Oil Prices",
+        "Energy Markets",
+        "Market Analysis"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-00c1599b8e8593873c3259fd",
+        "cc-x-headline-1d55b8dc40da166f01dddd66",
+        "cc-x-headline-20c1a069b89c53b47e08c619",
+        "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+        "cc-x-headline-28ad77530f058e7d43b13054",
+        "cc-x-headline-397ceb8bb02b1d6fad0735e8",
+        "cc-x-headline-73f789b55823166fd8070359",
+        "cc-x-headline-7afba904fd3bc82215246d8c",
+        "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+        "cc-x-headline-9ad07405e8f44a41c5802e76",
+        "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+        "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+      ],
+      "partition_id": "rolling-x-leaf-797ca95a07ffaea14a9e",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "serialized_input_bytes": 9668,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 897,
+    "held_before_semantic_assignment_count": 885,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "a4d62ebe6d61504308dc3885c878d7475b3379184b3a093607158ad52739483c",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-c999e754cfd666b8d489",
+      "headline_ids": [
+        "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+        "cc-x-headline-73f789b55823166fd8070359"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-c5ca7025e1d6fe4fdfc6"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Original source reports for the $765B and $1T projections",
+        "Breakdown of projected CAPEX by sector (semiconductors, cooling, power generation)",
+        "Historical comparison data to previous telecom and internet infrastructure build-outs"
+      ],
+      "rank": 1,
+      "selection_case": "AI CAPEX is the defining secular growth theme of the decade. Breaking down these massive projections into actionable supply chain, energy grid, and margin implications provides high-value, forward-looking analysis.",
+      "seo_intent": "AI infrastructure spending projections 2027 data centers capex",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-73f789b55823166fd8070359",
+        "ordered_headline_ids": [
+          "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+          "cc-x-headline-73f789b55823166fd8070359"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Stacked bar chart showing projected AI CAPEX growth from 2024 through 2027, segmented by hardware, data center real estate, and power infrastructure.",
+      "why_now": "New projections indicating AI infrastructure spending could cross $1 trillion by 2027 require immediate contextualization for tech, energy, and infrastructure investors."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-caad2375b61affa11889",
+      "headline_ids": [
+        "cc-x-headline-9ad07405e8f44a41c5802e76"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-10619006a5f1ccabc70b"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Direct access to the Goldman Sachs research note",
+        "Recent time-series data on US Treasury yield volatility",
+        "Recent public statements from Fed officials that have contributed to market ambiguity"
+      ],
+      "rank": 2,
+      "selection_case": "Goldman Sachs' note provides a strong institutional hook to explore why the market is struggling to price the Fed's reaction function, a critical issue for portfolio positioning.",
+      "seo_intent": "Federal Reserve reaction function US rate volatility Goldman Sachs note",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-9ad07405e8f44a41c5802e76",
+        "ordered_headline_ids": [
+          "cc-x-headline-9ad07405e8f44a41c5802e76"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Line graph overlaying the MOVE index (bond market volatility) with recent shifts in Fed funds rate futures.",
+      "why_now": "Rising US rate volatility is actively impacting asset pricing across equities and fixed income, driven by immediate uncertainty over the Federal Reserve's next policy steps."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-e95d78fd158c2fcd6dc8",
+      "headline_ids": [
+        "cc-x-headline-1d55b8dc40da166f01dddd66"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-ac1e8dc1d2fb422182fd"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Specific dates, volumes, and durations of recent Treasury buyback operations",
+        "Price action data for 10-year and 30-year Treasurys over the relevant trading window",
+        "Commentary from primary dealers regarding the actual liquidity impacts of the buybacks"
+      ],
+      "rank": 3,
+      "selection_case": "Treasury buyback operations are a relatively new and complex market mechanic. Explaining how they fueled a temporary rally and why it is now retracing serves our core mandate of deep market literacy.",
+      "seo_intent": "US Treasury yields buyback policy impact bond market liquidity",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-1d55b8dc40da166f01dddd66",
+        "ordered_headline_ids": [
+          "cc-x-headline-1d55b8dc40da166f01dddd66"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Annotated chart showing the yield curve movement before, during, and after the recent Treasury buyback announcements.",
+      "why_now": "Long-dated Treasury yields are actively retracing after a specific policy-driven rally, presenting a timely window to explain the mechanics and limits of Treasury buybacks."
+    },
+    {
+      "article_mode": "CAPITAL_CHRONICLE_VIEW",
+      "cluster_id": "rolling-x-global-cluster-ffe53794651adc277fea",
+      "headline_ids": [
+        "cc-x-headline-28ad77530f058e7d43b13054",
+        "cc-x-headline-397ceb8bb02b1d6fad0735e8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-5a4392102f2a6213de1d"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Academic or institutional research supporting the 2-4% real rate equilibrium thesis",
+        "Current data on global sovereign debt loads and projected interest expense burdens",
+        "Historical precedents for sovereign debt management in sustained high real-rate environments"
+      ],
+      "rank": 4,
+      "selection_case": "A structural shift back to 2-4% real rates upends a decade of fiscal assumptions. This allows us to publish a strong, evidence-backed house view on the future of government finance and crowding-out risks.",
+      "seo_intent": "Real interest rates equilibrium global government finance debt sustainability",
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-28ad77530f058e7d43b13054",
+        "ordered_headline_ids": [
+          "cc-x-headline-28ad77530f058e7d43b13054",
+          "cc-x-headline-397ceb8bb02b1d6fad0735e8"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Historical chart of real interest rates over the last 50 years, highlighting the zero-interest-rate policy (ZIRP) era versus historical norms.",
+      "why_now": "As central banks debate terminal rates, the long-term equilibrium of real interest rates has become the most consequential debate for sovereign debt sustainability."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "bd24c8da6c1ccfd51d22584821584a0b7ebc494d1b6794c1be5177d3e1c411ef",
+          "latency_seconds": 46.8884,
+          "logical_invocation_id": "inv_rolling_x_leaf_9d6a3d251cb7f72ad026",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "152d1a477cd8465dee7e5670cd638825e8a88b2c589c5d26e6b8323cd6ba4372",
+          "prompt_logical_hash": "1495f8a6bcace235a86df57b7a152b2f7a69f9db8eadad392fd3640eea7b73fa",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-CF-IaoHAJezc2roP76ThkAE",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_9d6a3d251cb7f72ad026",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 7053,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3841
+            },
+            "prompt_tokens": 6087,
+            "total_tokens": 13140
+          },
+          "work_item_id": "rolling-x-leaf-797ca95a07ffaea14a9e"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_9d6a3d251cb7f72ad026",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_9d6a3d251cb7f72ad026",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 46.8894,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 7053.0,
+        "prompt_tokens": 6087.0,
+        "total_tokens": 13140.0
+      },
+      "work_item_id": "rolling-x-leaf-797ca95a07ffaea14a9e"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "f3210e44548f34c243eff4ae9262ed4929e8a950d5016673b95f350f4e245764",
+          "latency_seconds": 34.5906,
+          "logical_invocation_id": "inv_rolling_x_global_e568e44c94530bc66f94",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "738ce418d1e398eaf7a0dffc4cc101c4d6e479fe7bf0f6085fbe812cf6c948fe",
+          "prompt_logical_hash": "3d851362aa8c25ad3323926e6801876ec654b6942ff5a671d4d8dde2c9129cff",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-N1-Iav_9F5j82roPtpLB0Ac",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_e568e44c94530bc66f94",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4539,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3058
+            },
+            "prompt_tokens": 6387,
+            "total_tokens": 10926
+          },
+          "work_item_id": "rolling-x-global-c8befd043a2df358f2ff"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_e568e44c94530bc66f94",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_e568e44c94530bc66f94",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 34.5912,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 4539.0,
+        "prompt_tokens": 6387.0,
+        "total_tokens": 10926.0
+      },
+      "work_item_id": "rolling-x-global-c8befd043a2df358f2ff"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "f3210e44548f34c243eff4ae9262ed4929e8a950d5016673b95f350f4e245764",
+        "latency_seconds": 34.5906,
+        "logical_invocation_id": "inv_rolling_x_global_e568e44c94530bc66f94",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "738ce418d1e398eaf7a0dffc4cc101c4d6e479fe7bf0f6085fbe812cf6c948fe",
+        "prompt_logical_hash": "3d851362aa8c25ad3323926e6801876ec654b6942ff5a671d4d8dde2c9129cff",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-N1-Iav_9F5j82roPtpLB0Ac",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 1,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_e568e44c94530bc66f94",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 0,
+          "max_same_model_retries": 1,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 2,
+          "per_model_max_attempts": [
+            2
+          ],
+          "remaining_attempt_budget": 1,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 4539,
+          "completion_tokens_details": {
+            "reasoning_tokens": 3058
+          },
+          "prompt_tokens": 6387,
+          "total_tokens": 10926
+        },
+        "work_item_id": "rolling-x-global-c8befd043a2df358f2ff"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_e568e44c94530bc66f94",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": [
+        2
+      ],
+      "remaining_attempt_budget": 1,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_e568e44c94530bc66f94",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 34.5912,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 4539.0,
+      "prompt_tokens": 6387.0,
+      "total_tokens": 10926.0
+    },
+    "work_item_id": "rolling-x-global-c8befd043a2df358f2ff"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-c999e754cfd666b8d489",
+  "selected_headline_ids": [
+    "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+    "cc-x-headline-73f789b55823166fd8070359"
+  ],
+  "selection_rationale": "The shortlist prioritizes high-impact macroeconomic shifts, Treasury market mechanics, and massive secular capital expenditure trends. These themes directly serve Capital Chronicle's core audience of institutional investors and financial professionals by focusing on structural market drivers rather than transient political noise.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 81.4806,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 11592.0,
+      "prompt_tokens": 12474.0,
+      "total_tokens": 24066.0
+    }
+  }
+}

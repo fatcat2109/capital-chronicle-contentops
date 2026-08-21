@@ -1,0 +1,1399 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 11,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "4b4f5d552b5990a4daf3bf01a844b8bf65aa79b7ac40662f9ad357f50cb24674",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-962ea3058893938cee3d"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "9fd7907bb554de1027db91a2e5f05268e6abf015345fccf143d68e6845426a2c",
+    "cutoff_time_utc": "2026-08-21T14:19:24.393115Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 11,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "autonomous vehicles",
+            "google",
+            "semiconductors"
+          ],
+          "first_utc": "2026-08-20T14:51:59Z",
+          "latest_utc": "2026-08-20T14:51:59Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.4571,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Google",
+          "Waymo",
+          "Technology",
+          "Semiconductors"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-0a2dbe0fa650b8ebd6f8",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 50,
+          "evidence": 70,
+          "saturation_risk": 20,
+          "seo": 60
+        },
+        "summary": "Google-owned Waymo introduced a purpose-built 5nm ASIC chip designed as a machine learning powerhouse for its robotaxis."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "business",
+            "politics",
+            "sk group"
+          ],
+          "first_utc": "2026-08-20T14:45:45Z",
+          "latest_utc": "2026-08-20T14:46:10Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.554,
+          "update_velocity": 144.0
+        },
+        "entities_topics": [
+          "South Korea",
+          "SK Group",
+          "Politics",
+          "Business"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-1712715d3eb66f8c0b73",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 40,
+          "engagement": 20,
+          "evidence": 60,
+          "saturation_risk": 10,
+          "seo": 30
+        },
+        "summary": "South Korean President Lee met with the SK Group Chair on Thursday."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "academia",
+            "culture",
+            "nathan cofnas"
+          ],
+          "first_utc": "2026-08-20T14:30:01Z",
+          "latest_utc": "2026-08-20T14:30:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8232,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "University of Ghent",
+          "Nathan Cofnas",
+          "Academia",
+          "Culture"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-1c9cc0a5a473bc78a089",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 30,
+          "engagement": 40,
+          "evidence": 20,
+          "saturation_risk": 10,
+          "seo": 20
+        },
+        "summary": "Commentary criticizing the suspension of Nathan Cofnas at the University of Ghent."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "chornomorsk",
+            "military conflict"
+          ],
+          "first_utc": "2026-08-20T14:51:13Z",
+          "latest_utc": "2026-08-20T14:51:13Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.4698,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Russia",
+          "Ukraine",
+          "Chornomorsk",
+          "Geopolitics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-23fac78b22e731c04444",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 60,
+          "evidence": 60,
+          "saturation_risk": 20,
+          "seo": 60
+        },
+        "summary": "Russia reportedly struck two cargo vessels in Ukraine's Chornomorsk port."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "energy",
+            "geopolitics",
+            "oil"
+          ],
+          "first_utc": "2026-08-20T14:50:00Z",
+          "latest_utc": "2026-08-20T14:50:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.4901,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "U.S.",
+          "Strait of Hormuz",
+          "Oman",
+          "Energy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-320c9e12bf451f4b7e74",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 80,
+          "evidence": 40,
+          "saturation_risk": 20,
+          "seo": 70
+        },
+        "summary": "The U.S. is reportedly operating a secret oil corridor through the Strait of Hormuz, moving 10 million barrels a day."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "china",
+            "national security"
+          ],
+          "first_utc": "2026-08-20T14:46:08Z",
+          "latest_utc": "2026-08-20T14:46:08Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.5546,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China",
+          "Russia",
+          "U.S.",
+          "USCC"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-495d92493abea8f52255",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 40,
+          "evidence": 80,
+          "saturation_risk": 10,
+          "seo": 50
+        },
+        "summary": "The USCC released a fact sheet examining the strategic partnership between China and Russia and its implications for U.S. national security."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "eric swalwell",
+            "fbi",
+            "investigations"
+          ],
+          "first_utc": "2026-08-20T14:25:07Z",
+          "latest_utc": "2026-08-20T14:25:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9048,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Eric Swalwell",
+          "FBI",
+          "San Francisco",
+          "U.S. Politics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-53781ece0ccbf02e28ad",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 90,
+          "evidence": 40,
+          "saturation_risk": 30,
+          "seo": 80
+        },
+        "summary": "The FBI reportedly seized Eric Swalwell's electronic devices at a San Francisco airport amid a sexual misconduct investigation."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "iran",
+            "sanctions"
+          ],
+          "first_utc": "2026-08-20T14:26:00Z",
+          "latest_utc": "2026-08-20T14:26:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8901,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Iran",
+          "Geopolitics",
+          "Sanctions",
+          "U.S. Politics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-daae400e9e8671a4e5db",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 80,
+          "evidence": 50,
+          "saturation_risk": 40,
+          "seo": 70
+        },
+        "summary": "Donald Trump warned that nations supporting the Iranian regime will face severe economic consequences."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "inflation",
+            "economics"
+          ],
+          "first_utc": "2026-08-20T14:31:01Z",
+          "latest_utc": "2026-08-20T14:31:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8065,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Inflation",
+          "Economics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-dcfe2de02ecb63ca3af6",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 50,
+          "evidence": 50,
+          "saturation_risk": 30,
+          "seo": 60
+        },
+        "summary": "Recent data indicates an annualized inflation rate of approximately 2%."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "markets",
+            "walton family",
+            "wealth"
+          ],
+          "first_utc": "2026-08-20T14:46:00Z",
+          "latest_utc": "2026-08-20T14:46:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.5568,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Walton family",
+          "Markets",
+          "Wealth"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-dd78c546d752ab317b18",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 50,
+          "engagement": 30,
+          "evidence": 30,
+          "saturation_risk": 10,
+          "seo": 40
+        },
+        "summary": "The Walton heirs are reportedly experiencing financial losses in the market today."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "crime"
+          ],
+          "first_utc": "2026-08-20T14:51:11Z",
+          "latest_utc": "2026-08-20T14:51:11Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.4704,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Crime"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-e751c0e98b0511470b24",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 20,
+          "engagement": 30,
+          "evidence": 10,
+          "saturation_risk": 10,
+          "seo": 10
+        },
+        "summary": "A social media post highlights a quote from a woman confessing to strangling her three children."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "9fd7907bb554de1027db91a2e5f05268e6abf015345fccf143d68e6845426a2c",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-2c66e34460f33d5c9ff05de8",
+      "cc-x-headline-34aecd19c0ebfab043d407c3",
+      "cc-x-headline-4c85f66c6ce67800ac5bc171",
+      "cc-x-headline-5eae84c639b0011520645be2",
+      "cc-x-headline-7afba904fd3bc82215246d8c",
+      "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+      "cc-x-headline-95350328d3ce4a5a423fa06f",
+      "cc-x-headline-9f9eb3288449e90af071559e",
+      "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+      "cc-x-headline-ea1b18e86a76594bc82e209a",
+      "cc-x-headline-f216d5c705e29eea71452709",
+      "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 20,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f216d5c705e29eea71452709",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f216d5c705e29eea71452709"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Google",
+        "Waymo"
+      ],
+      "event_topic_summary": "Google-owned Waymo introduced a purpose-built 5nm ASIC chip designed as a machine learning powerhouse for its robotaxis.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-0a2dbe0fa650b8ebd6f8",
+      "member_headline_ids": [
+        "cc-x-headline-f216d5c705e29eea71452709"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Technology",
+        "Semiconductors",
+        "Autonomous Vehicles"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 40,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 20,
+        "saturation_risk": 10,
+        "seo_potential": 30
+      },
+      "canonical_representative_headline_id": "cc-x-headline-95350328d3ce4a5a423fa06f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-95350328d3ce4a5a423fa06f",
+          "cc-x-headline-34aecd19c0ebfab043d407c3"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "South Korea",
+        "SK Group"
+      ],
+      "event_topic_summary": "South Korean President Lee met with the SK Group Chair on Thursday.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-1712715d3eb66f8c0b73",
+      "member_headline_ids": [
+        "cc-x-headline-95350328d3ce4a5a423fa06f",
+        "cc-x-headline-34aecd19c0ebfab043d407c3"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Politics",
+        "Business"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 30,
+        "evidence_prospects": 20,
+        "qualified_engagement_potential": 40,
+        "saturation_risk": 10,
+        "seo_potential": 20
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7afba904fd3bc82215246d8c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7afba904fd3bc82215246d8c"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "University of Ghent",
+        "Nathan Cofnas"
+      ],
+      "event_topic_summary": "Commentary criticizing the suspension of Nathan Cofnas at the University of Ghent.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-1c9cc0a5a473bc78a089",
+      "member_headline_ids": [
+        "cc-x-headline-7afba904fd3bc82215246d8c"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Academia",
+        "Culture"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 20,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5eae84c639b0011520645be2",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5eae84c639b0011520645be2"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Russia",
+        "Ukraine",
+        "Chornomorsk"
+      ],
+      "event_topic_summary": "Russia reportedly struck two cargo vessels in Ukraine's Chornomorsk port.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-23fac78b22e731c04444",
+      "member_headline_ids": [
+        "cc-x-headline-5eae84c639b0011520645be2"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Geopolitics",
+        "Military Conflict"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 20,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-9f9eb3288449e90af071559e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-9f9eb3288449e90af071559e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "U.S.",
+        "Strait of Hormuz",
+        "Oman"
+      ],
+      "event_topic_summary": "The U.S. is reportedly operating a secret oil corridor through the Strait of Hormuz, moving 10 million barrels a day.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-320c9e12bf451f4b7e74",
+      "member_headline_ids": [
+        "cc-x-headline-9f9eb3288449e90af071559e"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Energy",
+        "Geopolitics",
+        "Oil"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 40,
+        "saturation_risk": 10,
+        "seo_potential": 50
+      },
+      "canonical_representative_headline_id": "cc-x-headline-4c85f66c6ce67800ac5bc171",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-4c85f66c6ce67800ac5bc171"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China",
+        "Russia",
+        "U.S.",
+        "USCC"
+      ],
+      "event_topic_summary": "The USCC released a fact sheet examining the strategic partnership between China and Russia and its implications for U.S. national security.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-495d92493abea8f52255",
+      "member_headline_ids": [
+        "cc-x-headline-4c85f66c6ce67800ac5bc171"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Geopolitics",
+        "National Security"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 90,
+        "saturation_risk": 30,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f69691f6cc15fc3b0e59b71e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Eric Swalwell",
+        "FBI",
+        "San Francisco"
+      ],
+      "event_topic_summary": "The FBI reportedly seized Eric Swalwell's electronic devices at a San Francisco airport amid a sexual misconduct investigation.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-53781ece0ccbf02e28ad",
+      "member_headline_ids": [
+        "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "U.S. Politics",
+        "Investigations"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 40,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d56df6d2fc68eeba98b6ae16"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Iran"
+      ],
+      "event_topic_summary": "Donald Trump warned that nations supporting the Iranian regime will face severe economic consequences.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-daae400e9e8671a4e5db",
+      "member_headline_ids": [
+        "cc-x-headline-d56df6d2fc68eeba98b6ae16"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Geopolitics",
+        "Sanctions",
+        "U.S. Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 30,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-8adb4448c0e0f6f9bac3c2b1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Recent data indicates an annualized inflation rate of approximately 2%.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-dcfe2de02ecb63ca3af6",
+      "member_headline_ids": [
+        "cc-x-headline-8adb4448c0e0f6f9bac3c2b1"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Inflation",
+        "Economics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 50,
+        "evidence_prospects": 30,
+        "qualified_engagement_potential": 30,
+        "saturation_risk": 10,
+        "seo_potential": 40
+      },
+      "canonical_representative_headline_id": "cc-x-headline-ea1b18e86a76594bc82e209a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-ea1b18e86a76594bc82e209a"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Walton family"
+      ],
+      "event_topic_summary": "The Walton heirs are reportedly experiencing financial losses in the market today.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-dd78c546d752ab317b18",
+      "member_headline_ids": [
+        "cc-x-headline-ea1b18e86a76594bc82e209a"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Markets",
+        "Wealth"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 20,
+        "evidence_prospects": 10,
+        "qualified_engagement_potential": 30,
+        "saturation_risk": 10,
+        "seo_potential": 10
+      },
+      "canonical_representative_headline_id": "cc-x-headline-2c66e34460f33d5c9ff05de8",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-2c66e34460f33d5c9ff05de8"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "A social media post highlights a quote from a woman confessing to strangling her three children.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-e751c0e98b0511470b24",
+      "member_headline_ids": [
+        "cc-x-headline-2c66e34460f33d5c9ff05de8"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "topics": [
+        "Crime"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-2c66e34460f33d5c9ff05de8",
+        "cc-x-headline-34aecd19c0ebfab043d407c3",
+        "cc-x-headline-4c85f66c6ce67800ac5bc171",
+        "cc-x-headline-5eae84c639b0011520645be2",
+        "cc-x-headline-7afba904fd3bc82215246d8c",
+        "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+        "cc-x-headline-95350328d3ce4a5a423fa06f",
+        "cc-x-headline-9f9eb3288449e90af071559e",
+        "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+        "cc-x-headline-ea1b18e86a76594bc82e209a",
+        "cc-x-headline-f216d5c705e29eea71452709",
+        "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+      ],
+      "partition_id": "rolling-x-leaf-962ea3058893938cee3d",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "serialized_input_bytes": 9148,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 897,
+    "held_before_semantic_assignment_count": 885,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "57a5db2a46db3ac9fcb4d438319270fd9ff5cebdbe1e0b2f33da2e6e60783c8e",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-61875d4288d706829a13",
+      "headline_ids": [
+        "cc-x-headline-f216d5c705e29eea71452709"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-0a2dbe0fa650b8ebd6f8"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official technical blog post or press release from Waymo detailing the chip's specifications",
+        "Confirmation of the semiconductor foundry partner (e.g., TSMC or Samsung) manufacturing the 5nm chip",
+        "Performance benchmarks comparing the new ASIC to previous generation hardware"
+      ],
+      "rank": 1,
+      "selection_case": "This development signals a major shift from off-the-shelf GPUs to custom silicon in the AV sector. It appeals to tech, business, and investor audiences by highlighting Alphabet's vertical integration strategy and its downstream effects on the semiconductor supply chain.",
+      "seo_intent": "Waymo 5nm ASIC chip custom silicon autonomous vehicles Google robotaxi semiconductor",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f216d5c705e29eea71452709",
+        "ordered_headline_ids": [
+          "cc-x-headline-f216d5c705e29eea71452709"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "An architectural diagram or infographic comparing the efficiency and machine learning capabilities of Waymo's custom ASIC against standard hardware used in autonomous driving.",
+      "why_now": "Waymo has introduced a purpose-built 5nm ASIC chip designed specifically for its robotaxis, marking a critical milestone in autonomous vehicle hardware."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-2468bcf6f3306c620a71",
+      "headline_ids": [
+        "cc-x-headline-4c85f66c6ce67800ac5bc171"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-495d92493abea8f52255"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Direct link to the published USCC fact sheet",
+        "Specific quotes, statistics, or policy recommendations extracted directly from the document",
+        "Contextual background on recent USCC mandates or related congressional actions"
+      ],
+      "rank": 2,
+      "selection_case": "Provides high-signal, evidence-backed geopolitical intelligence directly from a primary government document. This is ideal for policy and macro-focused readers looking for authoritative assessments of Sino-Russian alignment.",
+      "seo_intent": "USCC fact sheet China Russia strategic partnership US national security implications",
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-4c85f66c6ce67800ac5bc171",
+        "ordered_headline_ids": [
+          "cc-x-headline-4c85f66c6ce67800ac5bc171"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Key excerpts and data points extracted from the USCC document, presented alongside a map highlighting areas of joint Sino-Russian military or economic cooperation.",
+      "why_now": "The U.S.-China Economic and Security Review Commission (USCC) has just released a formal fact sheet examining the strategic partnership between China and Russia."
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-dacd9528b9cf4c6f5fd3",
+      "headline_ids": [
+        "cc-x-headline-5eae84c639b0011520645be2"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-23fac78b22e731c04444"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Confirmation of the strikes from Ukrainian port authorities or regional military commands",
+        "Identification of the struck vessels, their flags, and their cargo",
+        "Independent maritime tracking data (AIS) showing vessel status and surrounding port traffic"
+      ],
+      "rank": 3,
+      "selection_case": "This is a critical update for global supply chain and agricultural commodities markets. It requires immediate, concise reporting on the extent of the damage, the origins of the vessels, and the immediate market reaction in wheat and shipping rates.",
+      "seo_intent": "Russia strike Chornomorsk port Ukraine cargo vessels Black Sea shipping disruption",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5eae84c639b0011520645be2",
+        "ordered_headline_ids": [
+          "cc-x-headline-5eae84c639b0011520645be2"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Satellite imagery of the Chornomorsk port or a maritime tracking map showing the last known positions of the affected cargo vessels.",
+      "why_now": "Reports indicate a fresh Russian military strike on two civilian cargo vessels in Ukraine's Chornomorsk port, threatening Black Sea shipping lanes."
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "cluster_id": "rolling-x-global-cluster-3948e07daa4700fa38e3",
+      "headline_ids": [
+        "cc-x-headline-9f9eb3288449e90af071559e"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-320c9e12bf451f4b7e74"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Maritime tracking data (AIS) corroborating unusual or 'dark' tanker movements in the region",
+        "Statements or off-record guidance from the DoD, DoE, or regional authorities (e.g., Oman, UAE)",
+        "Expert logistical analysis on the physical feasibility of moving 10 million barrels per day outside standard channels"
+      ],
+      "rank": 4,
+      "selection_case": "If true, this represents a massive geopolitical and energy market anomaly. The story requires rigorous investigation to either validate the logistical reality of moving 10m bpd covertly or to responsibly debunk a high-traction market rumor.",
+      "seo_intent": "US secret oil corridor Strait of Hormuz 10 million barrels energy markets Middle East",
+      "story_mode": "scenario_outlook",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-9f9eb3288449e90af071559e",
+        "ordered_headline_ids": [
+          "cc-x-headline-9f9eb3288449e90af071559e"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A map of the Strait of Hormuz overlaying global oil chokepoints, regional pipelines, and standard maritime traffic density to illustrate the logistical constraints of the claim.",
+      "why_now": "Unverified reports are circulating that the U.S. is operating a secret oil corridor through the Strait of Hormuz, allegedly moving 10 million barrels a day."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "bf6e00574d0c3696e594e278556067fd91dcebe6a261e0f29dc3adacdc9f1bf4",
+          "latency_seconds": 45.2749,
+          "logical_invocation_id": "inv_rolling_x_leaf_52b7c20ad317af8f3cb1",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "fd36be7fb5593282770e3c8dad3931d1b8e45c02bf5ea0434db1c480efc41279",
+          "prompt_logical_hash": "4de401ba8502d70473e9195878f34ee1549d368635466082ad33bb39f3f8a1eb",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-W2CIaqigCbDR2roPlO6IwQs",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_52b7c20ad317af8f3cb1",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 7269,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3904
+            },
+            "prompt_tokens": 5949,
+            "total_tokens": 13218
+          },
+          "work_item_id": "rolling-x-leaf-962ea3058893938cee3d"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_52b7c20ad317af8f3cb1",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_52b7c20ad317af8f3cb1",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 45.2757,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 7269.0,
+        "prompt_tokens": 5949.0,
+        "total_tokens": 13218.0
+      },
+      "work_item_id": "rolling-x-leaf-962ea3058893938cee3d"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "21507ac6de57622f38b1bdb48ff66929fa310da112e41181f2671f4d0b4d6f0f",
+          "latency_seconds": 38.4577,
+          "logical_invocation_id": "inv_rolling_x_global_8758f53e3723784a8a99",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "c936618f712dee139b86ab6af9afc975bff7b77da220ed6822b13ba678f001f8",
+          "prompt_logical_hash": "a15a101fddb833b4b6da2fa1a0ee5ab2f8549fb2b40e04ba77730d360a652b1e",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-iGCIapjIFOzc2roP76ThkAE",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_8758f53e3723784a8a99",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4494,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2906
+            },
+            "prompt_tokens": 6592,
+            "total_tokens": 11086
+          },
+          "work_item_id": "rolling-x-global-9fd7907bb554de1027db"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_8758f53e3723784a8a99",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_8758f53e3723784a8a99",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 38.4585,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 4494.0,
+        "prompt_tokens": 6592.0,
+        "total_tokens": 11086.0
+      },
+      "work_item_id": "rolling-x-global-9fd7907bb554de1027db"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "21507ac6de57622f38b1bdb48ff66929fa310da112e41181f2671f4d0b4d6f0f",
+        "latency_seconds": 38.4577,
+        "logical_invocation_id": "inv_rolling_x_global_8758f53e3723784a8a99",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "c936618f712dee139b86ab6af9afc975bff7b77da220ed6822b13ba678f001f8",
+        "prompt_logical_hash": "a15a101fddb833b4b6da2fa1a0ee5ab2f8549fb2b40e04ba77730d360a652b1e",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-iGCIapjIFOzc2roP76ThkAE",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 1,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_8758f53e3723784a8a99",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 0,
+          "max_same_model_retries": 1,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 2,
+          "per_model_max_attempts": [
+            2
+          ],
+          "remaining_attempt_budget": 1,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 4494,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2906
+          },
+          "prompt_tokens": 6592,
+          "total_tokens": 11086
+        },
+        "work_item_id": "rolling-x-global-9fd7907bb554de1027db"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_8758f53e3723784a8a99",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": [
+        2
+      ],
+      "remaining_attempt_budget": 1,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_8758f53e3723784a8a99",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 38.4585,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 4494.0,
+      "prompt_tokens": 6592.0,
+      "total_tokens": 11086.0
+    },
+    "work_item_id": "rolling-x-global-9fd7907bb554de1027db"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-61875d4288d706829a13",
+  "selected_headline_ids": [
+    "cc-x-headline-f216d5c705e29eea71452709"
+  ],
+  "selection_rationale": "The shortlist prioritizes high-signal, market-relevant developments with strong evidence prospects, avoiding unverified political rumors and clickbait. The top selection focuses on Alphabet's strategic shift toward custom silicon for autonomous vehicles, offering strong tech and semiconductor market implications. Secondary selections include a primary-source geopolitical document from the USCC, a breaking supply-chain disruption in the Black Sea, and a high-impact energy market claim requiring rigorous verification.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 83.7342,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 11763.0,
+      "prompt_tokens": 12541.0,
+      "total_tokens": 24304.0
+    }
+  }
+}

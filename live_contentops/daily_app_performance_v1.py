@@ -128,7 +128,10 @@ def _bootstrap_policy_payload() -> dict[str, Any]:
             "owner_locked": True,
             "automatic_schedule_mutation": False,
             "routine_opportunity_count": 4,
-            "publication_minimum": 0,
+            "publication_minimum": 5,
+            "build_qualified_floor": 4,
+            "final_published_target_band": [5, 8],
+            "owner_output_contract_mutable": False,
             "state": "CONFIGURED_DEFAULT_NO_LEARNING",
         },
         "baseline_qualified_engagement": None,
@@ -179,7 +182,10 @@ def _normalized_policy_payload(value: Mapping[str, Any] | None) -> dict[str, Any
         "owner_locked": True,
         "automatic_schedule_mutation": False,
         "routine_opportunity_count": 4,
-        "publication_minimum": 0,
+        "publication_minimum": 5,
+        "build_qualified_floor": 4,
+        "final_published_target_band": [5, 8],
+        "owner_output_contract_mutable": False,
     }
     normalized["schema_version"] = LEARNING_POLICY_SCHEMA_VERSION
     normalized["truth_evidence_numeric_permissions_mutable"] = False
@@ -1019,7 +1025,10 @@ def _accept_update(store, *, current, reason, confidence, mean_qualified, new_of
             "owner_locked": True,
             "automatic_schedule_mutation": False,
             "routine_opportunity_count": 4,
-            "publication_minimum": 0,
+            "publication_minimum": 5,
+            "build_qualified_floor": 4,
+            "final_published_target_band": [5, 8],
+            "owner_output_contract_mutable": False,
             "state": "RECOMMENDATION_RECORDED_OWNER_LOCKED",
         },
         "baseline_qualified_engagement": mean_qualified,
@@ -1097,7 +1106,10 @@ def _rollback(store, *, current, reason, confidence, mean_qualified, common, cre
         "owner_locked": True,
         "automatic_schedule_mutation": False,
         "routine_opportunity_count": 4,
-        "publication_minimum": 0,
+        "publication_minimum": 5,
+        "build_qualified_floor": 4,
+        "final_published_target_band": [5, 8],
+        "owner_output_contract_mutable": False,
         "state": "ROLLBACK_RECOMMENDATION_RECORDED_OWNER_LOCKED",
     }
     bounded_delta = {
@@ -1182,7 +1194,10 @@ def _decision_record(store, *, decision, reason, confidence, mean_qualified, cur
         "owner_locked": True,
         "automatic_schedule_mutation": False,
         "routine_opportunity_count": 4,
-        "publication_minimum": 0,
+        "publication_minimum": 5,
+        "build_qualified_floor": 4,
+        "final_published_target_band": [5, 8],
+        "owner_output_contract_mutable": False,
         "state": "HOLD_RECOMMENDATION_OWNER_LOCKED",
     }
     parent_version = (

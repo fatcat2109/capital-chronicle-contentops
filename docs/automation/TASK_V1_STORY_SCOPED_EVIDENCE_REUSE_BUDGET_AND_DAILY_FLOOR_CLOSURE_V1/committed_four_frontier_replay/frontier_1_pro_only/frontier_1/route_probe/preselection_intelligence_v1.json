@@ -1,0 +1,752 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 3,
+  "evaluated_at_utc": "2026-08-21T12:31:11.126806Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 3,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-921cf8527543d83f3551",
+    "rolling-x-global-cluster-b1f1e8911926a9b88504",
+    "rolling-x-global-cluster-87658c7092402677cd14"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-21T12:31:11.126806Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 5,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "9d9c9cf9cbbf20fc1292e46f3d419eeecd71d135051a1004afe89dc6656e0b18",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Walmart",
+          "Sparky",
+          "Retail",
+          "Artificial Intelligence",
+          "Consumer Spending",
+          "Corporate Earnings"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.021,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Walmart",
+            "source_field": "entities_topics",
+            "source_value_sha256": "be56e761bd06aae9d9a84cfe27861db8706b07dc5061ba8224b1524f78463851"
+          },
+          {
+            "query_term": "Sparky",
+            "source_field": "entities_topics",
+            "source_value_sha256": "084fda59314a4b56017a9f30fb97f7e31baa8706ff13f75444c022f0f8778d19"
+          },
+          {
+            "query_term": "Retail",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9e7237a7a74b6523b79462be05703b7e9fb81e5420fce40b5cf01410c1ae1809"
+          },
+          {
+            "query_term": "Artificial Intelligence",
+            "source_field": "entities_topics",
+            "source_value_sha256": "dfb50bcfcb2a88084a10faab8ffa50ae15776cf0b5481531134930f95797608e"
+          },
+          {
+            "query_term": "Consumer Spending",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3ff7f14925fd705a0400652c6ffb1d28025d1938974804885bd4d867a2c51c31"
+          },
+          {
+            "query_term": "Corporate Earnings",
+            "source_field": "entities_topics",
+            "source_value_sha256": "00b973c842cff992ce8695917ba9c3be26bd96fa1c8cae7bebeb15648555a8eb"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Walmart",
+          "Sparky",
+          "Retail",
+          "Artificial Intelligence",
+          "Consumer Spending",
+          "Corporate Earnings"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-921cf8527543d83f3551",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Walmart",
+        "Sparky",
+        "Retail",
+        "Artificial Intelligence",
+        "Consumer Spending",
+        "Corporate Earnings"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-2c7cc43b9cf6804bcb30df16",
+        "cc-x-headline-3b3985432675561712d7839c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-eb120f35cd8fafb7379d"
+      ],
+      "leaf_summaries": [
+        "Walmart's CEO reports continued growth driven by higher-income households and highlights a 70% year-over-year increase in customers using its AI assistant, Sparky, which drives higher order spending."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Exact quotes from Walmart CEO regarding Sparky and higher-income consumers",
+        "Data on average order value for AI-assisted vs standard transactions",
+        "Broader context on retail AI adoption"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "The 70% increase in AI assistant usage driving higher order spending offers a rare, quantifiable look at how generative AI is impacting consumer behavior and corporate top lines.",
+      "seo_intent": "Walmart AI assistant Sparky, Walmart higher-income shoppers, retail AI monetization, Walmart earnings analysis",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-3b3985432675561712d7839c",
+        "ordered_headline_ids": [
+          "cc-x-headline-2c7cc43b9cf6804bcb30df16",
+          "cc-x-headline-3b3985432675561712d7839c"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-921cf8527543d83f3551",
+      "visual_strategy": "Chart showing Walmart's e-commerce growth trajectory alongside a graphic illustrating the AI assistant's interface or retail AI adoption rates.",
+      "why_now": "Walmart's latest earnings commentary provides concrete evidence of AI monetization in retail, a critical theme for investors looking beyond semiconductor hardware.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Micron",
+          "United States",
+          "Semiconductors",
+          "Technology Investment",
+          "Corporate Expansion",
+          "US"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.026,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Micron",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4863c4714e737cef4da4f0c5e4a99d6667a0941dce6e828bec8f4de209f18942"
+          },
+          {
+            "query_term": "United States",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97"
+          },
+          {
+            "query_term": "Semiconductors",
+            "source_field": "entities_topics",
+            "source_value_sha256": "65bb877811e2cfcfd2be7ce384228c82ab84346827d1f1be22422fb676b79a79"
+          },
+          {
+            "query_term": "Technology Investment",
+            "source_field": "entities_topics",
+            "source_value_sha256": "74abb710454cc0488c6fc1ccb8e30a1ed7a2bfd0ec0010faf9cc2db1dc90c981"
+          },
+          {
+            "query_term": "Corporate Expansion",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5434fdf1ad56f1edc25d71e593be9346b2b6e2ba2ac9117b18a4c0f27871bd37"
+          },
+          {
+            "query_term": "US",
+            "source_field": "why_now",
+            "source_value_sha256": "b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Micron",
+          "United States",
+          "Semiconductors",
+          "Technology Investment",
+          "Corporate Expansion",
+          "US"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "why_now"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-b1f1e8911926a9b88504",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Micron",
+        "United States",
+        "Semiconductors",
+        "Technology Investment",
+        "Corporate Expansion"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-ee5580e94c9aa98fce1cb079"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-90c5a00a1da6026b4179"
+      ],
+      "leaf_summaries": [
+        "Micron announces a $10 billion investment over 10 years to build a new memory research laboratory in the United States."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Details of the $10B investment timeline and funding sources",
+        "Specific location and expected job creation for the research lab",
+        "Micron's official press release or filing"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 2,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "This significant capital expenditure underscores the strategic importance of US-based R&D in the global memory chip market, moving beyond just manufacturing facilities.",
+      "seo_intent": "Micron $10 billion US investment, Micron memory research lab, US semiconductor R&D, domestic chip manufacturing",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-ee5580e94c9aa98fce1cb079",
+        "ordered_headline_ids": [
+          "cc-x-headline-ee5580e94c9aa98fce1cb079"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-b1f1e8911926a9b88504",
+      "visual_strategy": "Map showing Micron's US footprint and planned R&D locations, or a chart of US semiconductor capital expenditures over the last decade.",
+      "why_now": "Micron's $10 billion commitment to a US-based memory research lab highlights the ongoing push for domestic semiconductor self-sufficiency.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Federal Reserve Bank of Philadelphia",
+          "Manufacturing",
+          "Economic Indicators",
+          "Inflation",
+          "The Philadelphia Fed Manufacturing",
+          "Full Philadelphia Fed Manufacturing"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.031,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Federal Reserve Bank of Philadelphia",
+            "source_field": "entities_topics",
+            "source_value_sha256": "520ea1df6d53f058e7672295657ac45324a5b33425bfc49ee7cc85969f3937b7"
+          },
+          {
+            "query_term": "Manufacturing",
+            "source_field": "entities_topics",
+            "source_value_sha256": "030ecd2d279c2261eacb2f418daf37cb8248894e2b369acca22d111af3c092bc"
+          },
+          {
+            "query_term": "Economic Indicators",
+            "source_field": "entities_topics",
+            "source_value_sha256": "608195ba0e1857f250aec2dcca8e54c492a5d96d8fb34b396f64da74eb4cbde6"
+          },
+          {
+            "query_term": "Inflation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e4701a949a3fed7ab34b10d3f86e9f6ae12cd57eefeef63bf973874ea7795eab"
+          },
+          {
+            "query_term": "The Philadelphia Fed Manufacturing",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "3ef97f5a6e6924360d3a0e319d223e6fabe91dfe487ece56e5d236dc9a6fc0c9"
+          },
+          {
+            "query_term": "Full Philadelphia Fed Manufacturing",
+            "source_field": "needed_evidence",
+            "source_value_sha256": "14121388223db016f55703a05f6d362feef982b7abc159550d9a2bbbb494c6cd"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Federal Reserve Bank of Philadelphia",
+          "Manufacturing",
+          "Economic Indicators",
+          "Inflation",
+          "The Philadelphia Fed Manufacturing",
+          "Full Philadelphia Fed Manufacturing"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries",
+          "needed_evidence"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-87658c7092402677cd14",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Federal Reserve Bank of Philadelphia",
+        "Manufacturing",
+        "Economic Indicators",
+        "Inflation"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-5e0778b6937bccf4a878a839",
+        "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-e3477632ea06b7d71d64"
+      ],
+      "leaf_summaries": [
+        "The Philadelphia Fed Manufacturing Index surged to 47.4, its highest level since April 2021, while the prices paid component fell to 40.9."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Full Philadelphia Fed Manufacturing Business Outlook Survey report",
+        "Historical context for the 47.4 reading",
+        "Breakdown of new orders and employment components within the survey"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "The divergence between surging manufacturing activity and falling prices paid provides a nuanced view of the current economic environment, suggesting growth without immediate inflationary pressure.",
+      "seo_intent": "Philly Fed Manufacturing Index August 2026, US manufacturing data, regional Fed surveys, inflation indicators",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+        "ordered_headline_ids": [
+          "cc-x-headline-5e0778b6937bccf4a878a839",
+          "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-87658c7092402677cd14",
+      "visual_strategy": "Line chart comparing the Philly Fed Manufacturing Index headline number against the prices paid component over the last 5 years.",
+      "why_now": "The Philadelphia Fed Manufacturing Index hit its highest level since April 2021, signaling unexpected strength in regional manufacturing.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": false,
+  "reranked_order": [
+    "rolling-x-global-cluster-921cf8527543d83f3551",
+    "rolling-x-global-cluster-b1f1e8911926a9b88504",
+    "rolling-x-global-cluster-87658c7092402677cd14"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

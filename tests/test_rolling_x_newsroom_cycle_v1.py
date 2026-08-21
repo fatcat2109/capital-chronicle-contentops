@@ -7,6 +7,7 @@ import pytest
 
 from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as implementation
 from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_PUBLICATION_DESTINATIONS
+from live_contentops.nine_router_ordered_model_router_v2 import ProviderResult
 
 
 def _all_ready():
@@ -377,6 +378,76 @@ def test_same_opportunity_reader_value_failure_advances_and_first_publishable_st
     assert result["critical_path_telemetry"]["mandatory_semantic_review_calls"] == 0
 
 
+def test_post_xhigh_validation_failure_terminalizes_candidate_and_advances_distinct_rank(
+    monkeypatch, tmp_path: Path
+):
+    selector_calls = []
+    builder_calls = []
+
+    def selector(**kwargs):
+        start = int(kwargs.get("start_after_rank") or 0)
+        selector_calls.append(start)
+        return _walk_viability(1 if start == 0 else 2)
+
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        selector,
+        lambda **kwargs: {
+            "status": "PASS",
+            "article": kwargs["article"],
+            "mandatory_semantic_review_calls": 0,
+            "review_history": [],
+        },
+    )
+
+    def builder(value):
+        rank = int(value["selected_rank"])
+        builder_calls.append(rank)
+        article = {
+            "title": f"Candidate {rank}",
+            "cluster_id": value["selected_cluster_id"],
+            "headline_ids": value["selected_headline_ids"],
+            "effective_article_mode": "BREAKING_BRIEF",
+        }
+        receipt = _xhigh_receipt(article, value["editorial_worker_request"])
+        if rank == 1:
+            receipt["bounded_revision_count"] = 1
+            receipt["article"]["substack_body_markdown"] += (
+                "\n\nThe publication title is “Federal Reserve H.4.1.”"
+            )
+            receipt["article"]["quote_source_records"] = []
+        return {
+            "article": receipt["article"],
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+            "editorial_worker_receipt": receipt,
+        }
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="candidate-walk-post-xhigh-validation",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-20T12:00:13Z",
+        article_builder=builder,
+        destination_readiness_override=_all_ready(),
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert builder_calls == [1, 2]
+    assert selector_calls == [0, 1]
+    attempts = result["candidate_walk"]["candidate_attempts"]
+    assert [row["rank"] for row in attempts] == [1, 2]
+    assert attempts[0]["terminal_reason"].startswith(
+        "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
+    )
+    assert attempts[0]["deterministic_validation_blockers"] == [
+        "fake_or_unbound_quote_presentation"
+    ]
+    assert attempts[1]["terminal_reason"] == "PUBLICATION_QUALIFIED"
+    assert len({row["cluster_id"] for row in attempts}) == 2
+    assert result["candidate_walk"]["selected_publication_candidate_rank"] == 2
+
+
 def test_same_opportunity_evidence_failure_advances_before_writer(monkeypatch, tmp_path: Path):
     builder_calls = []
     viability = _walk_viability(2)
@@ -457,7 +528,10 @@ def test_publication_article_without_valid_native_xhigh_receipt_fails_closed(
         publication_enabled=True,
     )
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+    assert result["exact_next_blocker"] == "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
+        "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+    )
     assert result["legacy_writer_fallback_used"] is False
     assert result["public_write_performed"] is False
 
@@ -1687,7 +1761,7 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
     assert result["classification"] == "NO_PUBLICATION"
 
 
-def test_publication_window_reuses_prepared_candidates_without_assignment_llm(
+def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk(
     monkeypatch, tmp_path: Path
 ):
     from live_contentops.newsroom_assignment_scheduler_v1 import (
@@ -1709,6 +1783,8 @@ def test_publication_window_reuses_prepared_candidates_without_assignment_llm(
         row["headline_id"] for row in rolling_input["headlines"]
     ]
     rolling_input["counts"] = {**rolling_input["counts"], "accepted": 8}
+    for row in rolling_input["headlines"]:
+        row["source_timestamp_utc"] = "2026-08-08T08:00:00Z"
     rolling_input["canonical_input_hash"] = _logical_hash(
         _rolling_x_canonical_hash_material(rolling_input)
     )
@@ -1716,18 +1792,76 @@ def test_publication_window_reuses_prepared_candidates_without_assignment_llm(
         rolling_input=rolling_input,
         prepared_at_utc="2026-08-08T09:18:54Z",
     )
-    monkeypatch.setattr(
-        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
-        lambda **_kwargs: (_ for _ in ()).throw(
-            AssertionError("prepared publication window must not run semantic assignment")
-        ),
-    )
+    provider_calls = []
+
+    def prepared_frontier_provider(prompt, model, timeout):
+        provider_calls.append({"prompt": prompt, "model": model, "timeout": timeout})
+        if "leaf_input:\n" in prompt:
+            payload = json.loads(prompt.split("leaf_input:\n", 1)[1])
+            ids = [row["headline_id"] for row in payload["headlines"]]
+            groups = [
+                (ids[:3], "duplicate"),
+                (ids[3:5], "material_update"),
+                *[([headline_id], "distinct") for headline_id in ids[5:]],
+            ]
+            clusters = []
+            for index, (member_ids, relationship) in enumerate(groups, start=1):
+                clusters.append({
+                    "member_headline_ids": member_ids,
+                    "event_topic_summary": f"Prepared distinct story {index}",
+                    "canonical_representative_headline_id": member_ids[-1],
+                    "entities": [f"Entity {index}"],
+                    "topics": ["prepared frontier"],
+                    "duplicate_update_chain": {
+                        "relationship": relationship,
+                        "ordered_headline_ids": member_ids,
+                    },
+                    "candidate_relevance_signals": {
+                        "audience_relevance": 70,
+                        "evidence_prospects": 70,
+                        "seo_potential": 60,
+                        "qualified_engagement_potential": 65,
+                        "saturation_risk": 20,
+                    },
+                })
+            output = {"clusters": clusters}
+        else:
+            payload = json.loads(prompt.split("global_editor_input:\n", 1)[1])
+            rows = []
+            for rank, summary in enumerate(payload["leaf_cluster_summaries"], start=1):
+                rows.append({
+                    "rank": rank,
+                    "leaf_cluster_ids": [summary["id"]],
+                    "cross_partition_relationship": summary["relationship"],
+                    "canonical_leaf_cluster_id": summary["id"],
+                    "story_mode": "reporting",
+                    "article_mode": "STANDARD_NEWS_ANALYSIS",
+                    "market_sensitive": False,
+                    "why_now": f"Prepared story {rank} is current and distinct.",
+                    "selection_case": "The bounded evidence path warrants evaluation.",
+                    "seo_intent": "Explain the current distinct story.",
+                    "visual_strategy": "Use a source-backed title card.",
+                    "needed_evidence": ["Verify the core proposition."],
+                })
+            output = {
+                "decision": "SELECT_STORY",
+                "selection_rationale": "The prepared frontier contains distinct candidates.",
+                "selected_shortlist_rank": 1,
+                "ranked_shortlist": rows,
+            }
+        return ProviderResult(
+            text=json.dumps(output),
+            resolved_model=model.split("/", 1)[-1].split("(", 1)[0],
+            usage={"prompt_tokens": 100, "completion_tokens": 50, "total_tokens": 150},
+            cost={"total_cost": 0.001},
+        )
 
     result = implementation._run_rolling_x_newsroom_cycle(
         run_id="prepared-window",
         output_dir=tmp_path,
         cutoff_utc="2026-08-08T09:48:54Z",
         prepared_candidate_state=prepared,
+        assignment_provider_call=prepared_frontier_provider,
         evidence_acquirer=lambda _request: {
             "status": "BLOCKED",
             "blockers": ["CONTROLLED_NO_EVIDENCE"],
@@ -1741,6 +1875,91 @@ def test_publication_window_reuses_prepared_candidates_without_assignment_llm(
     telemetry = result["critical_path_telemetry"]
     assert telemetry["prepared_candidate_state_reused"] is True
     assert telemetry["full_universe_semantic_assignment_on_critical_path"] is False
-    assert telemetry["assignment_semantic_calls"] == 0
+    assert telemetry["bounded_prepared_frontier_semantic_assignment"] is True
+    assert telemetry["assignment_semantic_calls"] == 2
     assert telemetry["story_type_semantic_calls"] == 0
     assert result["assignment"]["prepared_candidate_state_reused"] is True
+    assert len(provider_calls) == 2
+    assert result["candidate_walk"]["attempted_candidate_count"] == 5
+    frontier = result["prepared_story_frontier"]
+    assert frontier["prepared_headline_identity_count"] == 8
+    assert frontier["distinct_story_opportunity_count"] == 5
+    assert frontier["candidate_slots_saved_by_semantic_clustering"] == 3
+    assert frontier["relationship_counts"] == {
+        "duplicate": 1, "material_update": 1, "distinct": 3,
+    }
+    assert frontier["exact_headline_identity_coverage"] is True
+    assert set(frontier["leaf_covered_headline_ids"]) == set(
+        rolling_input["unique_headline_ids"]
+    )
+    assert any(
+        row["relationship"] == "material_update"
+        and row["headline_identity_count"] == 2
+        for row in frontier["duplicate_update_chain_collapse_matrix"]
+    )
+
+
+def test_prepared_frontier_semantic_failure_holds_before_evidence_fallback(
+    monkeypatch, tmp_path: Path
+):
+    from live_contentops.newsroom_assignment_scheduler_v1 import (
+        _logical_hash,
+        _rolling_x_canonical_hash_material,
+        build_prepared_rolling_x_candidate_state,
+    )
+
+    recorded = json.loads(Path(
+        "docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/rolling_x_intake_v1.json"
+    ).read_text(encoding="utf-8"))
+    rolling_input = {
+        **{key: value for key, value in recorded.items() if key != "headlines"},
+        "headlines": [dict(row) for row in recorded["headlines"][:4]],
+    }
+    rolling_input["unique_headline_ids"] = [
+        row["headline_id"] for row in rolling_input["headlines"]
+    ]
+    rolling_input["counts"] = {**rolling_input["counts"], "accepted": 4}
+    for row in rolling_input["headlines"]:
+        row["source_timestamp_utc"] = "2026-08-08T08:00:00Z"
+    rolling_input["canonical_input_hash"] = _logical_hash(
+        _rolling_x_canonical_hash_material(rolling_input)
+    )
+    prepared = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-08-08T09:18:54Z",
+    )
+    evidence_calls = []
+    blocked_assignment = {
+        "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+        "status": "BLOCKED",
+        "decision": None,
+        "reason_code": "ROLLING_X_LEAF_ASSIGNMENT_BLOCKED",
+        "leaf_clusters": [], "ranked_clusters": [], "router_calls": [],
+        "telemetry": {"logical_router_calls": 1},
+        "router_output_grants_publication_authority": False,
+    }
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **_kwargs: dict(blocked_assignment),
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="prepared-window-semantic-blocked",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T09:48:54Z",
+        prepared_candidate_state=prepared,
+        evidence_acquirer=lambda request: evidence_calls.append(request),
+        publication_enabled=False,
+        published_corpus=[],
+        cc_catalog={"stores": [], "root_exists": False},
+    )
+
+    assert result["assignment"]["status"] == "BLOCKED"
+    assert result["assignment"].get("assignment_method") != (
+        "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK"
+    )
+    assert result["prepared_story_frontier"]["status"] == "BLOCKED"
+    assert result["candidate_walk"]["attempted_candidate_count"] == 0
+    assert evidence_calls == []
+    assert result["public_write_performed"] is False
+    assert result["unknown_write_detected"] is False
