@@ -1,0 +1,2607 @@
+{
+  "attempted_candidate_count": 4,
+  "decision": "NO_PUBLICATION",
+  "evidence_acquired_after_ranking": true,
+  "evidence_friction_taxonomy": {
+    "attempts": [
+      {
+        "cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "BLOCKED",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 1,
+            "FACTUAL_OR_RISK_BLOCK": 1,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 5
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [
+            {
+              "blocker": "HTTP Error 403: Forbidden",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "evidence_documents_missing",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "minimum_trustworthy_evidence_missing",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "public_source_redirect_authority_invalid",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "supported_claims_missing",
+              "category": "FACTUAL_OR_RISK_BLOCK"
+            }
+          ],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-9def919a63d51d885fd6",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "BLOCKED",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 1,
+            "FACTUAL_OR_RISK_BLOCK": 1,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 5
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [
+            {
+              "blocker": "HTTP Error 401: HTTP Forbidden",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "evidence_documents_missing",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "minimum_trustworthy_evidence_missing",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "public_source_redirect_authority_invalid",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "supported_claims_missing",
+              "category": "FACTUAL_OR_RISK_BLOCK"
+            }
+          ],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "BLOCKED",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 2,
+            "FACTUAL_OR_RISK_BLOCK": 1,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 3
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [
+            {
+              "blocker": "evidence_documents_missing",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "minimum_trustworthy_evidence_missing",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "public_source_unavailable",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "supported_claims_missing",
+              "category": "FACTUAL_OR_RISK_BLOCK"
+            }
+          ],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "BLOCKED",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 2,
+            "FACTUAL_OR_RISK_BLOCK": 1,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 3
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [
+            {
+              "blocker": "evidence_documents_missing",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "minimum_trustworthy_evidence_missing",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "public_source_unavailable",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "supported_claims_missing",
+              "category": "FACTUAL_OR_RISK_BLOCK"
+            }
+          ],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      }
+    ],
+    "publication_authority": false,
+    "schema_version": "contentops.evidence_friction_taxonomy.v1"
+  },
+  "evidence_request_budget_blockers": [],
+  "evidence_request_budget_exhausted": false,
+  "global_infrastructure_blockers": [],
+  "global_infrastructure_exhausted": false,
+  "publication_authority_granted": false,
+  "publishability_pool_exhausted": true,
+  "rank_attempts": [
+    {
+      "blockers": [
+        "HTTP Error 403: Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "freshness_policy": "market_session",
+        "freshness_requirements": {},
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "market_move",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "primary_quantitative_chart",
+          "cross_asset_chart"
+        ]
+      },
+      "cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 1,
+          "FACTUAL_OR_RISK_BLOCK": 1,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 5
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [
+          {
+            "blocker": "HTTP Error 403: Forbidden",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "evidence_documents_missing",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "minimum_trustworthy_evidence_missing",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "public_source_redirect_authority_invalid",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "supported_claims_missing",
+            "category": "FACTUAL_OR_RISK_BLOCK"
+          }
+        ],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [
+          "HTTP Error 403: Forbidden",
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_redirect_authority_invalid",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "capital_chronicle_authority_verified": false,
+        "capital_chronicle_publication_authority": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "llm_numeric_authority": false,
+          "ordinary_latest_web_article_may_continue": true,
+          "packet_id": null,
+          "packet_sha256": null,
+          "reason_codes": [
+            "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+          ],
+          "schema_version": "contentops.cc_publication_authority_resolution.v1",
+          "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+        },
+        "cc_authority_utilization": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized_chart_count_available": 0,
+          "authorized_chart_count_consumed": 0,
+          "authorized_claim_count_available": 0,
+          "authorized_claim_count_consumed": 0,
+          "authorized_series_count_available": 0,
+          "authorized_series_count_consumed": 0,
+          "llm_numeric_authority": false,
+          "packet_discovered": false,
+          "packet_selected": null,
+          "packet_sha256": null,
+          "projection_validation_blockers": [],
+          "values_regenerated_or_repaired": false,
+          "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        },
+        "cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+        "deterministic_official_schedule_facts": [],
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 2,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": false,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "STANDARD_NEWS_ANALYSIS",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "STANDARD_NEWS_ANALYSIS",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 180,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "grounded_research": {
+            "blockers": [
+              "HTTP Error 403: Forbidden",
+              "public_source_redirect_authority_invalid"
+            ],
+            "elapsed_seconds": null,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": null,
+            "infrastructure_failure_class": null,
+            "latest_event_state_closure": {
+              "enhanced_breaking_zero_substantive_body": false,
+              "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+              "forward_state_detected": false,
+              "model_assertion_grants_event_state_authority": false,
+              "post_cutoff_document_ids_rejected": [],
+              "pre_closure_evidence_substance": {
+                "additional_source_is_eligibility_requirement": false,
+                "article_mode": "STANDARD_NEWS_ANALYSIS",
+                "documents": [],
+                "enough_for_useful_article": false,
+                "enrichment_recommended": true,
+                "publication_authority": false,
+                "schema_version": "contentops.evidence_substance_summary.v1",
+                "substantive_document_count": 0,
+                "target_usable_content_words": 180,
+                "usable_content_words": 0,
+                "usable_document_count": 0
+              },
+              "publication_authority": false,
+              "query_budget": {
+                "closure_queries_used": 0,
+                "initial_queries_used": 2,
+                "maximum_queries": 3
+              },
+              "schema_version": "contentops.latest_event_state_closure.v1",
+              "status": "NOT_REQUIRED"
+            },
+            "public_retrieval_requests": 5,
+            "research_calls": 0,
+            "retrieval_result": {
+              "accepted_document_count": 0,
+              "blockers": [
+                "HTTP Error 403: Forbidden",
+                "public_source_redirect_authority_invalid"
+              ],
+              "status": "BLOCKED"
+            },
+            "status": "BLOCKED",
+            "telemetry": []
+          }
+        },
+        "evidence_documents": [],
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "STANDARD_NEWS_ANALYSIS",
+          "documents": [],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 180,
+          "usable_content_words": 0,
+          "usable_document_count": 0
+        },
+        "headline_ids": [
+          "cc-x-headline-f12a5b98b82a377b8c6779bc",
+          "cc-x-headline-0e2aa97095b1f181b8c961d1",
+          "cc-x-headline-4cacd0b7773f0180340c99e4",
+          "cc-x-headline-27ac7dd66dfc199f637da432",
+          "cc-x-headline-be8f874c937d2a32bf7a9f09",
+          "cc-x-headline-134362fe158081b970d9dba7",
+          "cc-x-headline-e261772e9e062cc4838682b3"
+        ],
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "STANDARD_NEWS_ANALYSIS",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 180,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "minimum_trustworthy_evidence_packet": {
+          "blockers": [
+            "ordinary_core_factual_proposition_not_directly_bound"
+          ],
+          "evidence_packet_sha256": "b882e3421efaf24d9f7cc2f63bbfd2f2e30639bad9f77fdf3880cb6934d90096",
+          "publication_authority": false,
+          "risk_tier": "ORDINARY",
+          "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+          "status": "BLOCKED"
+        },
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [],
+        "publication_authority": false,
+        "publication_authorized_cc_projection": {},
+        "status": "BLOCKED",
+        "story_evidence_reuse": {
+          "acquisition_receipt_sha256": "f9e0ddebd4c06c4aef66ef5d1f1aeabbf2a7600a5c51ba7e1d463bbca185d8f4",
+          "factual_numeric_or_publication_authority_granted": false,
+          "network_reads_avoided": 5,
+          "network_reads_performed": 0,
+          "rebound_request_logical_hash": "13b651f048e3ea74087f6a71bd0a070940a596ad770f45c5ef1152d47e39cc7c",
+          "reused_document_ids": [],
+          "schema_version": "contentops.story_evidence_reuse.v1",
+          "story_evidence_scope_id": "b52807a474b3bd4d1cbfb8de9b7a7792ce0760586e70b7268316b4073e422860"
+        }
+      },
+      "evidence_receipt_sha256": "08a7c4b839fb34ebb1576f343b7003c0ab232faa8fb9a34d03d333233cc128e9",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-f12a5b98b82a377b8c6779bc",
+        "cc-x-headline-0e2aa97095b1f181b8c961d1",
+        "cc-x-headline-4cacd0b7773f0180340c99e4",
+        "cc-x-headline-27ac7dd66dfc199f637da432",
+        "cc-x-headline-be8f874c937d2a32bf7a9f09",
+        "cc-x-headline-134362fe158081b970d9dba7",
+        "cc-x-headline-e261772e9e062cc4838682b3"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "analysis",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": null,
+          "effective_mode": "STANDARD_NEWS_ANALYSIS",
+          "evidence_acquisition_action": "INITIAL_ACQUISITION",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 1,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 5
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "HTTP Error 403: Forbidden",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_redirect_authority_invalid",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 0,
+          "network_requests_performed": 5,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "d02390ffc517a7a6a9f3ca7bb79a18ebb773b7992cc4846d1009b980181d0961",
+          "requested_mode": "STANDARD_NEWS_ANALYSIS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "b52807a474b3bd4d1cbfb8de9b7a7792ce0760586e70b7268316b4073e422860"
+        },
+        {
+          "blockers": [
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "straight_news",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 1,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 5
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "HTTP Error 403: Forbidden",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_redirect_authority_invalid",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 5,
+          "network_requests_performed": 0,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "13b651f048e3ea74087f6a71bd0a070940a596ad770f45c5ef1152d47e39cc7c",
+          "requested_mode": "STANDARD_NEWS_ANALYSIS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "b52807a474b3bd4d1cbfb8de9b7a7792ce0760586e70b7268316b4073e422860"
+        }
+      ],
+      "mode_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 1,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+        "delta_evidence_requirements": {},
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "effective_article_mode": "BREAKING_BRIEF",
+        "evidence_acquisition_mode": "REUSED_STORY_SCOPED_EVIDENCE",
+        "freshness_policy": "market_session",
+        "headline_ids": [
+          "cc-x-headline-f12a5b98b82a377b8c6779bc",
+          "cc-x-headline-0e2aa97095b1f181b8c961d1",
+          "cc-x-headline-4cacd0b7773f0180340c99e4",
+          "cc-x-headline-27ac7dd66dfc199f637da432",
+          "cc-x-headline-be8f874c937d2a32bf7a9f09",
+          "cc-x-headline-134362fe158081b970d9dba7",
+          "cc-x-headline-e261772e9e062cc4838682b3"
+        ],
+        "market_sensitive": true,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+        "needed_evidence": [
+          "Full transcript or official recording of Mary Daly's remarks",
+          "Confirmation of the specific venue and context of her speech",
+          "Recent inflation data points referenced in her outlook"
+        ],
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "rank": 1,
+        "request_logical_hash": "13b651f048e3ea74087f6a71bd0a070940a596ad770f45c5ef1152d47e39cc7c",
+        "requested_article_mode": "STANDARD_NEWS_ANALYSIS",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 0,
+            "catalog_fingerprint": null,
+            "cc_context_richness": 0.0,
+            "connection_mode": "duckdb_read_only",
+            "deep_query_selected_tables": [],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [
+              "Federal Reserve",
+              "Mary Daly",
+              "Monetary Policy",
+              "Interest Rates",
+              "Central Banking",
+              "Inflation"
+            ],
+            "queried_table_count": 0,
+            "query_budget": {
+              "deep_query_table_limit": 8,
+              "entity_limit": 6,
+              "rows_per_entity": 5
+            },
+            "query_elapsed_ms": 0.024,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2",
+            "semantic_activation": {},
+            "state": "NO_RELEVANT_CC_CONTEXT",
+            "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+          },
+          "entities_topics": [
+            "Federal Reserve",
+            "Mary Daly",
+            "Monetary Policy",
+            "Interest Rates",
+            "Central Banking",
+            "Inflation",
+            "Economic Outlook"
+          ],
+          "evidence_reachability": {
+            "capital_chronicle_relevant_context": false,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "mode_downgrade_viable": true,
+            "public_source_candidate_count": 0,
+            "reputable_public_secondary_path": false,
+            "score": 0.0,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "San Francisco Fed President Mary Daly states that current monetary policy is in a good place and the central bank is monitoring markets.",
+            "San Francisco Fed President Mary Daly notes there is no evidence calling for pre-emptive interest rate hikes.",
+            "San Francisco Fed President Mary Daly expresses strong support for the Federal Reserve's decision to hold interest rates steady in July.",
+            "San Francisco Fed President Mary Daly states the modal outlook anticipates that inflation shocks will dissipate."
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [],
+          "official_source_urls": [],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 112.0,
+          "public_source_url_bindings": [],
+          "public_source_urls": [],
+          "selection_case": "Daly's comments collectively signal a strong consensus for holding rates steady and avoiding pre-emptive hikes, which is critical context for bond and equity markets assessing the Fed's next moves.",
+          "seo_intent": "Mary Daly Federal Reserve interest rates monetary policy inflation outlook",
+          "why_now": "San Francisco Fed President Mary Daly has just provided comprehensive remarks on the current state of monetary policy, inflation expectations, and interest rates."
+        },
+        "story_evidence_scope_binding": {
+          "assignment_authority_binding": "e42df2cfff06102a9434cd01e07ca964dec875d76a63c93af8183744026d39d9",
+          "cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+          "headline_ids": [
+            "cc-x-headline-f12a5b98b82a377b8c6779bc",
+            "cc-x-headline-0e2aa97095b1f181b8c961d1",
+            "cc-x-headline-4cacd0b7773f0180340c99e4",
+            "cc-x-headline-27ac7dd66dfc199f637da432",
+            "cc-x-headline-be8f874c937d2a32bf7a9f09",
+            "cc-x-headline-134362fe158081b970d9dba7",
+            "cc-x-headline-e261772e9e062cc4838682b3"
+          ],
+          "material_follow_up_context_logical_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "schema_version": "contentops.story_evidence_scope_binding.v1",
+          "story_evidence_scope_id": "b52807a474b3bd4d1cbfb8de9b7a7792ce0760586e70b7268316b4073e422860",
+          "update_chain_identity": "rolling-x-global-cluster-c6760e6301425322c780",
+          "update_chain_logical_hash": "ed8d5823c1d140b3d6807ca5e35374a04ab76de62c074e32c2bc82c0c03873b0"
+        },
+        "story_evidence_scope_id": "b52807a474b3bd4d1cbfb8de9b7a7792ce0760586e70b7268316b4073e422860",
+        "story_type": "market_move",
+        "update_chain_identity": "rolling-x-global-cluster-c6760e6301425322c780",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "status": "BLOCKED",
+      "story_evidence_delta_acquisition_count": 0,
+      "story_evidence_network_reads_avoided": 5,
+      "story_evidence_network_requests": 5,
+      "story_evidence_scope_id": "b52807a474b3bd4d1cbfb8de9b7a7792ce0760586e70b7268316b4073e422860"
+    },
+    {
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "freshness_policy": "market_session",
+        "freshness_requirements": {},
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "market_move",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "primary_quantitative_chart",
+          "cross_asset_chart"
+        ]
+      },
+      "cluster_id": "rolling-x-global-cluster-9def919a63d51d885fd6",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 1,
+          "FACTUAL_OR_RISK_BLOCK": 1,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 5
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [
+          {
+            "blocker": "HTTP Error 401: HTTP Forbidden",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "evidence_documents_missing",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "minimum_trustworthy_evidence_missing",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "public_source_redirect_authority_invalid",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "supported_claims_missing",
+            "category": "FACTUAL_OR_RISK_BLOCK"
+          }
+        ],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [
+          "HTTP Error 401: HTTP Forbidden",
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_redirect_authority_invalid",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "capital_chronicle_authority_verified": false,
+        "capital_chronicle_publication_authority": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "llm_numeric_authority": false,
+          "ordinary_latest_web_article_may_continue": true,
+          "packet_id": null,
+          "packet_sha256": null,
+          "reason_codes": [
+            "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+          ],
+          "schema_version": "contentops.cc_publication_authority_resolution.v1",
+          "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+        },
+        "cc_authority_utilization": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized_chart_count_available": 0,
+          "authorized_chart_count_consumed": 0,
+          "authorized_claim_count_available": 0,
+          "authorized_claim_count_consumed": 0,
+          "authorized_series_count_available": 0,
+          "authorized_series_count_consumed": 0,
+          "llm_numeric_authority": false,
+          "packet_discovered": false,
+          "packet_selected": null,
+          "packet_sha256": null,
+          "projection_validation_blockers": [],
+          "values_regenerated_or_repaired": false,
+          "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        },
+        "cluster_id": "rolling-x-global-cluster-9def919a63d51d885fd6",
+        "deterministic_official_schedule_facts": [],
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "grounded_research": {
+            "blockers": [
+              "HTTP Error 401: HTTP Forbidden",
+              "public_source_redirect_authority_invalid"
+            ],
+            "elapsed_seconds": null,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": null,
+            "infrastructure_failure_class": null,
+            "latest_event_state_closure": {
+              "enhanced_breaking_zero_substantive_body": false,
+              "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+              "forward_state_detected": false,
+              "model_assertion_grants_event_state_authority": false,
+              "post_cutoff_document_ids_rejected": [],
+              "pre_closure_evidence_substance": {
+                "additional_source_is_eligibility_requirement": false,
+                "article_mode": "BREAKING_BRIEF",
+                "documents": [],
+                "enough_for_useful_article": false,
+                "enrichment_recommended": true,
+                "publication_authority": false,
+                "schema_version": "contentops.evidence_substance_summary.v1",
+                "substantive_document_count": 0,
+                "target_usable_content_words": 90,
+                "usable_content_words": 0,
+                "usable_document_count": 0
+              },
+              "publication_authority": false,
+              "query_budget": {
+                "closure_queries_used": 0,
+                "initial_queries_used": 2,
+                "maximum_queries": 3
+              },
+              "schema_version": "contentops.latest_event_state_closure.v1",
+              "status": "NOT_REQUIRED"
+            },
+            "public_retrieval_requests": 4,
+            "research_calls": 0,
+            "retrieval_result": {
+              "accepted_document_count": 0,
+              "blockers": [
+                "HTTP Error 401: HTTP Forbidden",
+                "public_source_redirect_authority_invalid"
+              ],
+              "status": "BLOCKED"
+            },
+            "status": "BLOCKED",
+            "telemetry": []
+          }
+        },
+        "evidence_documents": [],
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "BREAKING_BRIEF",
+          "documents": [],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 90,
+          "usable_content_words": 0,
+          "usable_document_count": 0
+        },
+        "headline_ids": [
+          "cc-x-headline-257bb49f7296135d6935fe56"
+        ],
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "minimum_trustworthy_evidence_packet": {
+          "blockers": [
+            "ordinary_core_factual_proposition_not_directly_bound"
+          ],
+          "evidence_packet_sha256": "b882e3421efaf24d9f7cc2f63bbfd2f2e30639bad9f77fdf3880cb6934d90096",
+          "publication_authority": false,
+          "risk_tier": "ORDINARY",
+          "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+          "status": "BLOCKED"
+        },
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [],
+        "publication_authority": false,
+        "publication_authorized_cc_projection": {},
+        "status": "BLOCKED"
+      },
+      "evidence_receipt_sha256": "0cb18072da7fe68c98e20fb94df98b87bf10d62b8e9d8bd79b5f21cd38c366e0",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-257bb49f7296135d6935fe56"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "straight_news",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": null,
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_acquisition_action": "INITIAL_ACQUISITION",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 1,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 5
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "HTTP Error 401: HTTP Forbidden",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_redirect_authority_invalid",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 0,
+          "network_requests_performed": 4,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "33b41645fc00db50313ae1bb9a82ef7421c624fdbb8ec2e26639b181d8443c74",
+          "requested_mode": "BREAKING_BRIEF",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "7565392e6b929793ae7a07c490623e1a32cde89b88782a56f7270502a0be0a2a"
+        }
+      ],
+      "mode_downgrade_reason": null,
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 2,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-global-cluster-9def919a63d51d885fd6",
+        "delta_evidence_requirements": {},
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "effective_article_mode": "BREAKING_BRIEF",
+        "evidence_acquisition_mode": "INITIAL_ACQUISITION",
+        "freshness_policy": "market_session",
+        "headline_ids": [
+          "cc-x-headline-257bb49f7296135d6935fe56"
+        ],
+        "market_sensitive": true,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": null,
+        "needed_evidence": [
+          "Official Micron press release detailing the $10 billion investment",
+          "Timeline for construction and operational milestones",
+          "Details on potential local or federal tax incentives (e.g., CHIPS Act funding)"
+        ],
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "rank": 2,
+        "request_logical_hash": "33b41645fc00db50313ae1bb9a82ef7421c624fdbb8ec2e26639b181d8443c74",
+        "requested_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 0,
+            "catalog_fingerprint": null,
+            "cc_context_richness": 0.0,
+            "connection_mode": "duckdb_read_only",
+            "deep_query_selected_tables": [],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [
+              "Micron",
+              "Micron Research Labs",
+              "Boise",
+              "Semiconductors",
+              "Corporate Investment",
+              "Research and Development"
+            ],
+            "queried_table_count": 0,
+            "query_budget": {
+              "deep_query_table_limit": 8,
+              "entity_limit": 6,
+              "rows_per_entity": 5
+            },
+            "query_elapsed_ms": 0.022,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2",
+            "semantic_activation": {},
+            "state": "NO_RELEVANT_CC_CONTEXT",
+            "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+          },
+          "entities_topics": [
+            "Micron",
+            "Micron Research Labs",
+            "Boise",
+            "Semiconductors",
+            "Corporate Investment",
+            "Research and Development"
+          ],
+          "evidence_reachability": {
+            "capital_chronicle_relevant_context": false,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "mode_downgrade_viable": true,
+            "public_source_candidate_count": 0,
+            "reputable_public_secondary_path": false,
+            "score": 0.0,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "Micron announces a $10 billion investment over the next decade to build Micron Research Labs, a new long-horizon research hub in Boise."
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [],
+          "official_source_urls": [],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 110.0,
+          "public_source_url_bindings": [],
+          "public_source_urls": [],
+          "selection_case": "A $10 billion capital expenditure in domestic semiconductor R&D is highly material to Micron's long-term valuation and the broader US semiconductor supply chain narrative.",
+          "seo_intent": "Micron $10 billion investment Boise Research Labs semiconductor R&D",
+          "why_now": "Micron has just announced a massive $10 billion, decade-long investment in a new research hub in Boise."
+        },
+        "story_evidence_scope_binding": {
+          "assignment_authority_binding": "e42df2cfff06102a9434cd01e07ca964dec875d76a63c93af8183744026d39d9",
+          "cluster_id": "rolling-x-global-cluster-9def919a63d51d885fd6",
+          "headline_ids": [
+            "cc-x-headline-257bb49f7296135d6935fe56"
+          ],
+          "material_follow_up_context_logical_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "schema_version": "contentops.story_evidence_scope_binding.v1",
+          "story_evidence_scope_id": "7565392e6b929793ae7a07c490623e1a32cde89b88782a56f7270502a0be0a2a",
+          "update_chain_identity": "rolling-x-global-cluster-9def919a63d51d885fd6",
+          "update_chain_logical_hash": "a9997c481ed4cdb46f43353e90926adbb1fd2648e83632272474b6119a08ea73"
+        },
+        "story_evidence_scope_id": "7565392e6b929793ae7a07c490623e1a32cde89b88782a56f7270502a0be0a2a",
+        "story_type": "market_move",
+        "update_chain_identity": "rolling-x-global-cluster-9def919a63d51d885fd6",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "BREAKING_BRIEF",
+      "status": "BLOCKED",
+      "story_evidence_delta_acquisition_count": 0,
+      "story_evidence_network_reads_avoided": 0,
+      "story_evidence_network_requests": 4,
+      "story_evidence_scope_id": "7565392e6b929793ae7a07c490623e1a32cde89b88782a56f7270502a0be0a2a"
+    },
+    {
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "freshness_policy": "market_session",
+        "freshness_requirements": {},
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "market_move",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "primary_quantitative_chart",
+          "cross_asset_chart"
+        ]
+      },
+      "cluster_id": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 2,
+          "FACTUAL_OR_RISK_BLOCK": 1,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 3
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [
+          {
+            "blocker": "evidence_documents_missing",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "minimum_trustworthy_evidence_missing",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "public_source_unavailable",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "supported_claims_missing",
+            "category": "FACTUAL_OR_RISK_BLOCK"
+          }
+        ],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "capital_chronicle_authority_verified": false,
+        "capital_chronicle_publication_authority": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "llm_numeric_authority": false,
+          "ordinary_latest_web_article_may_continue": true,
+          "packet_id": null,
+          "packet_sha256": null,
+          "reason_codes": [
+            "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+          ],
+          "schema_version": "contentops.cc_publication_authority_resolution.v1",
+          "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+        },
+        "cc_authority_utilization": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized_chart_count_available": 0,
+          "authorized_chart_count_consumed": 0,
+          "authorized_claim_count_available": 0,
+          "authorized_claim_count_consumed": 0,
+          "authorized_series_count_available": 0,
+          "authorized_series_count_consumed": 0,
+          "llm_numeric_authority": false,
+          "packet_discovered": false,
+          "packet_selected": null,
+          "packet_sha256": null,
+          "projection_validation_blockers": [],
+          "values_regenerated_or_repaired": false,
+          "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        },
+        "cluster_id": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+        "deterministic_official_schedule_facts": [],
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 2,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": false,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "DATA_OR_DOCUMENT_LENS",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "DATA_OR_DOCUMENT_LENS",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 180,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "grounded_research": {
+            "blockers": [
+              "public_source_unavailable"
+            ],
+            "elapsed_seconds": null,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": null,
+            "infrastructure_failure_class": null,
+            "latest_event_state_closure": {
+              "enhanced_breaking_zero_substantive_body": false,
+              "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+              "forward_state_detected": false,
+              "model_assertion_grants_event_state_authority": false,
+              "post_cutoff_document_ids_rejected": [],
+              "pre_closure_evidence_substance": {
+                "additional_source_is_eligibility_requirement": false,
+                "article_mode": "DATA_OR_DOCUMENT_LENS",
+                "documents": [],
+                "enough_for_useful_article": false,
+                "enrichment_recommended": true,
+                "publication_authority": false,
+                "schema_version": "contentops.evidence_substance_summary.v1",
+                "substantive_document_count": 0,
+                "target_usable_content_words": 180,
+                "usable_content_words": 0,
+                "usable_document_count": 0
+              },
+              "publication_authority": false,
+              "query_budget": {
+                "closure_queries_used": 0,
+                "initial_queries_used": 2,
+                "maximum_queries": 3
+              },
+              "schema_version": "contentops.latest_event_state_closure.v1",
+              "status": "NOT_REQUIRED"
+            },
+            "public_retrieval_requests": 2,
+            "research_calls": 0,
+            "retrieval_result": {
+              "accepted_document_count": 0,
+              "blockers": [
+                "public_source_unavailable"
+              ],
+              "status": "BLOCKED"
+            },
+            "status": "BLOCKED",
+            "telemetry": []
+          }
+        },
+        "evidence_documents": [],
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "DATA_OR_DOCUMENT_LENS",
+          "documents": [],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 180,
+          "usable_content_words": 0,
+          "usable_document_count": 0
+        },
+        "headline_ids": [
+          "cc-x-headline-d3cdafb244b049a322718ff7"
+        ],
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "DATA_OR_DOCUMENT_LENS",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 180,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "minimum_trustworthy_evidence_packet": {
+          "blockers": [
+            "ordinary_core_factual_proposition_not_directly_bound"
+          ],
+          "evidence_packet_sha256": "b882e3421efaf24d9f7cc2f63bbfd2f2e30639bad9f77fdf3880cb6934d90096",
+          "publication_authority": false,
+          "risk_tier": "ORDINARY",
+          "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+          "status": "BLOCKED"
+        },
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [],
+        "publication_authority": false,
+        "publication_authorized_cc_projection": {},
+        "status": "BLOCKED",
+        "story_evidence_reuse": {
+          "acquisition_receipt_sha256": "57b59862370aa33c2cd49d7e992160989acd973e730ad0c44a101eaa319da910",
+          "factual_numeric_or_publication_authority_granted": false,
+          "network_reads_avoided": 2,
+          "network_reads_performed": 0,
+          "rebound_request_logical_hash": "10baf5d2efcb922ebb1b91f104400daab5cb7e3e9c8bb4c6b5f30707b9bdb3ac",
+          "reused_document_ids": [],
+          "schema_version": "contentops.story_evidence_reuse.v1",
+          "story_evidence_scope_id": "a238c2d32eaa4384f23bf5dcb986a5139ac83b2c56d3ce5296133c50d6200416"
+        }
+      },
+      "evidence_receipt_sha256": "69a7e9bbf8051d26f12b891298cf322606fb4216c7e51e5bba305cd5ce8e0cb0",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-d3cdafb244b049a322718ff7"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "analysis",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": null,
+          "effective_mode": "DATA_OR_DOCUMENT_LENS",
+          "evidence_acquisition_action": "INITIAL_ACQUISITION",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 0,
+          "network_requests_performed": 2,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "9b9b4f309d7108d866ddc2aec4f9db7c3996c1f942d75a79bf82d27ed4a03793",
+          "requested_mode": "DATA_OR_DOCUMENT_LENS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "a238c2d32eaa4384f23bf5dcb986a5139ac83b2c56d3ce5296133c50d6200416"
+        },
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "analysis",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+          "effective_mode": "STANDARD_NEWS_ANALYSIS",
+          "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 2,
+          "network_requests_performed": 0,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "73b0d2c6c3cec128fcdd2d0921d2e9642895a3619b10899e1c0e2cd106b9cdd0",
+          "requested_mode": "DATA_OR_DOCUMENT_LENS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "a238c2d32eaa4384f23bf5dcb986a5139ac83b2c56d3ce5296133c50d6200416"
+        },
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "straight_news",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 2,
+          "network_requests_performed": 0,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "10baf5d2efcb922ebb1b91f104400daab5cb7e3e9c8bb4c6b5f30707b9bdb3ac",
+          "requested_mode": "DATA_OR_DOCUMENT_LENS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "a238c2d32eaa4384f23bf5dcb986a5139ac83b2c56d3ce5296133c50d6200416"
+        }
+      ],
+      "mode_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 3,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+        "delta_evidence_requirements": {},
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "effective_article_mode": "BREAKING_BRIEF",
+        "evidence_acquisition_mode": "REUSED_STORY_SCOPED_EVIDENCE",
+        "freshness_policy": "market_session",
+        "headline_ids": [
+          "cc-x-headline-d3cdafb244b049a322718ff7"
+        ],
+        "market_sensitive": true,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+        "needed_evidence": [
+          "The official data release from the Federal Reserve Bank of Philadelphia",
+          "Historical index data for the past 10-15 years for context",
+          "Breakdown of the sub-components driving the surge (e.g., new orders, employment)"
+        ],
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "rank": 3,
+        "request_logical_hash": "10baf5d2efcb922ebb1b91f104400daab5cb7e3e9c8bb4c6b5f30707b9bdb3ac",
+        "requested_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 0,
+            "catalog_fingerprint": null,
+            "cc_context_richness": 0.0,
+            "connection_mode": "duckdb_read_only",
+            "deep_query_selected_tables": [],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [
+              "Federal Reserve Bank of Philadelphia",
+              "Economic Indicators",
+              "Business Conditions",
+              "Regional Economy",
+              "The Philly Fed Business",
+              "Regional Fed"
+            ],
+            "queried_table_count": 0,
+            "query_budget": {
+              "deep_query_table_limit": 8,
+              "entity_limit": 6,
+              "rows_per_entity": 5
+            },
+            "query_elapsed_ms": 0.022,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2",
+            "semantic_activation": {},
+            "state": "NO_RELEVANT_CC_CONTEXT",
+            "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+          },
+          "entities_topics": [
+            "Federal Reserve Bank of Philadelphia",
+            "Economic Indicators",
+            "Business Conditions",
+            "Regional Economy"
+          ],
+          "evidence_reachability": {
+            "capital_chronicle_relevant_context": false,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "mode_downgrade_viable": true,
+            "public_source_candidate_count": 0,
+            "reputable_public_secondary_path": false,
+            "score": 0.0,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "The Philly Fed Business Conditions index surges to a more than 10-year high, prompting market commentary."
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [],
+          "official_source_urls": [],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 108.0,
+          "public_source_url_bindings": [],
+          "public_source_urls": [],
+          "selection_case": "Regional Fed surveys are leading indicators of broader economic health. A decade-high surge challenges recent recessionary fears and provides a strong counter-narrative to slowing growth.",
+          "seo_intent": "Philly Fed Business Conditions index 10-year high regional economy manufacturing",
+          "why_now": "The Philly Fed Business Conditions index has unexpectedly surged to a more than 10-year high."
+        },
+        "story_evidence_scope_binding": {
+          "assignment_authority_binding": "e42df2cfff06102a9434cd01e07ca964dec875d76a63c93af8183744026d39d9",
+          "cluster_id": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+          "headline_ids": [
+            "cc-x-headline-d3cdafb244b049a322718ff7"
+          ],
+          "material_follow_up_context_logical_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "schema_version": "contentops.story_evidence_scope_binding.v1",
+          "story_evidence_scope_id": "a238c2d32eaa4384f23bf5dcb986a5139ac83b2c56d3ce5296133c50d6200416",
+          "update_chain_identity": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+          "update_chain_logical_hash": "3c867b15475db80b6dc55dda321e65899777a6c5936b655ec6ac4161a742b746"
+        },
+        "story_evidence_scope_id": "a238c2d32eaa4384f23bf5dcb986a5139ac83b2c56d3ce5296133c50d6200416",
+        "story_type": "market_move",
+        "update_chain_identity": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "status": "BLOCKED",
+      "story_evidence_delta_acquisition_count": 0,
+      "story_evidence_network_reads_avoided": 4,
+      "story_evidence_network_requests": 2,
+      "story_evidence_scope_id": "a238c2d32eaa4384f23bf5dcb986a5139ac83b2c56d3ce5296133c50d6200416"
+    },
+    {
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "freshness_policy": "event_24h",
+        "freshness_requirements": {
+          "max_age_hours": 36,
+          "requires_market_snapshot": false
+        },
+        "market_context_required": false,
+        "market_sensitive": true,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "company_filing_or_release",
+          "filing_or_release_timeline",
+          "affected_entities"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "company_primary",
+          "sec_regulatory",
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "company_sector_event",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "document_excerpt",
+          "source_reference"
+        ]
+      },
+      "cluster_id": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 2,
+          "FACTUAL_OR_RISK_BLOCK": 1,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 3
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [
+          {
+            "blocker": "evidence_documents_missing",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "minimum_trustworthy_evidence_missing",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "public_source_unavailable",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "supported_claims_missing",
+            "category": "FACTUAL_OR_RISK_BLOCK"
+          }
+        ],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "capital_chronicle_authority_verified": false,
+        "capital_chronicle_publication_authority": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "llm_numeric_authority": false,
+          "ordinary_latest_web_article_may_continue": true,
+          "packet_id": null,
+          "packet_sha256": null,
+          "reason_codes": [
+            "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+          ],
+          "schema_version": "contentops.cc_publication_authority_resolution.v1",
+          "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+        },
+        "cc_authority_utilization": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized_chart_count_available": 0,
+          "authorized_chart_count_consumed": 0,
+          "authorized_claim_count_available": 0,
+          "authorized_claim_count_consumed": 0,
+          "authorized_series_count_available": 0,
+          "authorized_series_count_consumed": 0,
+          "llm_numeric_authority": false,
+          "packet_discovered": false,
+          "packet_selected": null,
+          "packet_sha256": null,
+          "projection_validation_blockers": [],
+          "values_regenerated_or_repaired": false,
+          "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        },
+        "cluster_id": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+        "deterministic_official_schedule_facts": [],
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 2,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": false,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "STANDARD_NEWS_ANALYSIS",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "STANDARD_NEWS_ANALYSIS",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 180,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "grounded_research": {
+            "blockers": [
+              "public_source_unavailable"
+            ],
+            "elapsed_seconds": null,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": null,
+            "infrastructure_failure_class": null,
+            "latest_event_state_closure": {
+              "enhanced_breaking_zero_substantive_body": false,
+              "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+              "forward_state_detected": false,
+              "model_assertion_grants_event_state_authority": false,
+              "post_cutoff_document_ids_rejected": [],
+              "pre_closure_evidence_substance": {
+                "additional_source_is_eligibility_requirement": false,
+                "article_mode": "STANDARD_NEWS_ANALYSIS",
+                "documents": [],
+                "enough_for_useful_article": false,
+                "enrichment_recommended": true,
+                "publication_authority": false,
+                "schema_version": "contentops.evidence_substance_summary.v1",
+                "substantive_document_count": 0,
+                "target_usable_content_words": 180,
+                "usable_content_words": 0,
+                "usable_document_count": 0
+              },
+              "publication_authority": false,
+              "query_budget": {
+                "closure_queries_used": 0,
+                "initial_queries_used": 2,
+                "maximum_queries": 3
+              },
+              "schema_version": "contentops.latest_event_state_closure.v1",
+              "status": "NOT_REQUIRED"
+            },
+            "public_retrieval_requests": 2,
+            "research_calls": 0,
+            "retrieval_result": {
+              "accepted_document_count": 0,
+              "blockers": [
+                "public_source_unavailable"
+              ],
+              "status": "BLOCKED"
+            },
+            "status": "BLOCKED",
+            "telemetry": []
+          },
+          "official": {
+            "blockers": [],
+            "document_blockers": [
+              "official_evidence_document_0_missing:public_claim_permission"
+            ],
+            "exact_bound_host_authorized_families": [],
+            "provenance": {
+              "acquisition_cache_reused": false,
+              "bounded_truncation_allowed": true,
+              "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+              "locator": {
+                "candidate_official_url": "https://data.sec.gov/submissions/CIK0002120882.json",
+                "discovery_only": true,
+                "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+                "evidence_capabilities": [],
+                "factual_authority": false,
+                "locator_endpoint": "https://www.sec.gov/files/company_tickers.json",
+                "locator_query_logical_hash": "9605b8ed1b3e258a5f56926715daccc8deef92ba856ef083eb5bb6cc9f404656",
+                "locator_response_sha256": "84f1c78aabb686e73e6ec3d1e4df59e0571d2cd33b44d25bd345f68c0f5e0b0c",
+                "publication_authority": false,
+                "retrieved_at_utc": "2026-08-21T14:17:38.782532Z",
+                "source_adapter_family": "company_primary",
+                "source_published_at_utc": null,
+                "status": "PASS"
+              },
+              "locator_request_count": 1,
+              "network_reads_avoided_for_call": 0,
+              "official_evidence_get_count": 1,
+              "read_only_http_get_only": true,
+              "request_count": 2,
+              "request_count_for_call": 2,
+              "request_limit": 24,
+              "request_signature": "bce4be14deb0746464fa28a166930546a341f76507490f18968dcc1b83d8d740",
+              "retrieved_at_utc": "2026-08-21T14:17:39.190764Z",
+              "story_evidence_scope_id": "ec9c4951030eee886a779ad364e01e33de070378be176de83bf5c03df722888a",
+              "timeout_seconds": 12.0
+            },
+            "registry_authorized_families": [
+              "company_primary",
+              "sec_regulatory"
+            ],
+            "status": "PASS"
+          }
+        },
+        "evidence_documents": [],
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "STANDARD_NEWS_ANALYSIS",
+          "documents": [],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 180,
+          "usable_content_words": 0,
+          "usable_document_count": 0
+        },
+        "headline_ids": [
+          "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+        ],
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-21T12:31:11.126806Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "STANDARD_NEWS_ANALYSIS",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 180,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "minimum_trustworthy_evidence_packet": {
+          "blockers": [
+            "ordinary_core_factual_proposition_not_directly_bound"
+          ],
+          "evidence_packet_sha256": "b882e3421efaf24d9f7cc2f63bbfd2f2e30639bad9f77fdf3880cb6934d90096",
+          "publication_authority": false,
+          "risk_tier": "ORDINARY",
+          "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+          "status": "BLOCKED"
+        },
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [
+          "affected_entities",
+          "company_filing_or_release",
+          "filing_or_release_timeline"
+        ],
+        "publication_authority": false,
+        "publication_authorized_cc_projection": {},
+        "status": "BLOCKED",
+        "story_evidence_reuse": {
+          "acquisition_receipt_sha256": "e3bdf0e000e40d9c659384f4b9a85fd82c767a6e1f02233baa23d37c4540ab13",
+          "factual_numeric_or_publication_authority_granted": false,
+          "network_reads_avoided": 4,
+          "network_reads_performed": 0,
+          "rebound_request_logical_hash": "23da97b435fd9b617d6606dddf90ed15f6c1812dde45a9dca0b2c06b929e8618",
+          "reused_document_ids": [],
+          "schema_version": "contentops.story_evidence_reuse.v1",
+          "story_evidence_scope_id": "ec9c4951030eee886a779ad364e01e33de070378be176de83bf5c03df722888a"
+        }
+      },
+      "evidence_receipt_sha256": "0f681aeb1630353144055f732a8bfc616d8ae0a074a202a74e0571eaa90f1087",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "analysis",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": null,
+          "effective_mode": "STANDARD_NEWS_ANALYSIS",
+          "evidence_acquisition_action": "INITIAL_ACQUISITION",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 0,
+          "network_requests_performed": 4,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "107fcdfc9dc1866e77f536ee9c2b7d034f7572f99c1ac86908363ac601ae90a6",
+          "requested_mode": "STANDARD_NEWS_ANALYSIS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "ec9c4951030eee886a779ad364e01e33de070378be176de83bf5c03df722888a"
+        },
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "straight_news",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 4,
+          "network_requests_performed": 0,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "23da97b435fd9b617d6606dddf90ed15f6c1812dde45a9dca0b2c06b929e8618",
+          "requested_mode": "STANDARD_NEWS_ANALYSIS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "ec9c4951030eee886a779ad364e01e33de070378be176de83bf5c03df722888a"
+        }
+      ],
+      "mode_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 4,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+        "delta_evidence_requirements": {},
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "effective_article_mode": "BREAKING_BRIEF",
+        "evidence_acquisition_mode": "REUSED_STORY_SCOPED_EVIDENCE",
+        "freshness_policy": "event_24h",
+        "headline_ids": [
+          "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+        ],
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+        "needed_evidence": [
+          "Official internal memo or public statement from SK Hynix regarding the bonus structure",
+          "Historical context on SK Hynix's previous bonus payouts",
+          "Current SK Hynix stock performance metrics"
+        ],
+        "optional_evidence_capabilities": [
+          "company_filing_or_release",
+          "filing_or_release_timeline",
+          "affected_entities"
+        ],
+        "rank": 4,
+        "request_logical_hash": "23da97b435fd9b617d6606dddf90ed15f6c1812dde45a9dca0b2c06b929e8618",
+        "requested_article_mode": "STANDARD_NEWS_ANALYSIS",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "company_primary",
+          "sec_regulatory",
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 0,
+            "catalog_fingerprint": null,
+            "cc_context_richness": 0.0,
+            "connection_mode": "duckdb_read_only",
+            "deep_query_selected_tables": [],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [
+              "SK Hynix",
+              "Corporate Compensation",
+              "Semiconductors",
+              "Employee Bonuses",
+              "SK"
+            ],
+            "queried_table_count": 0,
+            "query_budget": {
+              "deep_query_table_limit": 8,
+              "entity_limit": 6,
+              "rows_per_entity": 5
+            },
+            "query_elapsed_ms": 0.02,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2",
+            "semantic_activation": {},
+            "state": "NO_RELEVANT_CC_CONTEXT",
+            "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+          },
+          "entities_topics": [
+            "SK Hynix",
+            "Corporate Compensation",
+            "Semiconductors",
+            "Employee Bonuses"
+          ],
+          "evidence_reachability": {
+            "capital_chronicle_relevant_context": false,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "mode_downgrade_viable": true,
+            "public_source_candidate_count": 0,
+            "reputable_public_secondary_path": false,
+            "score": 0.0,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "SK Hynix announces plans to pay 60% of its employee bonuses in company stock."
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [],
+          "official_source_urls": [],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 106.0,
+          "public_source_url_bindings": [],
+          "public_source_urls": [],
+          "selection_case": "This move highlights capital preservation and employee alignment strategies within the highly cyclical and capital-intensive semiconductor memory sector.",
+          "seo_intent": "SK Hynix employee bonuses company stock compensation semiconductor industry",
+          "why_now": "SK Hynix has announced a significant shift in its compensation structure, opting to pay 60% of employee bonuses in company stock."
+        },
+        "story_evidence_scope_binding": {
+          "assignment_authority_binding": "e42df2cfff06102a9434cd01e07ca964dec875d76a63c93af8183744026d39d9",
+          "cluster_id": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+          "headline_ids": [
+            "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+          ],
+          "material_follow_up_context_logical_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "schema_version": "contentops.story_evidence_scope_binding.v1",
+          "story_evidence_scope_id": "ec9c4951030eee886a779ad364e01e33de070378be176de83bf5c03df722888a",
+          "update_chain_identity": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+          "update_chain_logical_hash": "5b131a535306feb0165ba9c7e8ea402be20154c6128791c52709237cd11b3de4"
+        },
+        "story_evidence_scope_id": "ec9c4951030eee886a779ad364e01e33de070378be176de83bf5c03df722888a",
+        "story_type": "company_sector_event",
+        "update_chain_identity": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "status": "BLOCKED",
+      "story_evidence_delta_acquisition_count": 0,
+      "story_evidence_network_reads_avoided": 4,
+      "story_evidence_network_requests": 4,
+      "story_evidence_scope_id": "ec9c4951030eee886a779ad364e01e33de070378be176de83bf5c03df722888a"
+    }
+  ],
+  "ranked_candidate_count": 4,
+  "reason_code": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+  "schema_version": "capital_chronicle.rolling_x_ranked_evidence_viability.v1",
+  "selected_cluster": null,
+  "selected_cluster_id": null,
+  "selected_evidence": null,
+  "selected_headline_ids": [],
+  "selected_rank": null,
+  "start_after_rank": 0,
+  "status": "NO_PUBLICATION",
+  "story_scoped_evidence_telemetry": {
+    "delta_acquisition_count": 0,
+    "distinct_story_scope_count": 4,
+    "mode_reuse_never_grants_authority": true,
+    "network_reads_avoided": 13,
+    "network_requests_performed": 15
+  },
+  "unattempted_candidate_count": 0,
+  "viability_logical_hash": "228e02301def2036420b3b37303c9c1d15252898584448b953900897c10928d7",
+  "x_content_grants_evidence_authority": false
+}

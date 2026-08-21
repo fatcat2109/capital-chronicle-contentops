@@ -481,7 +481,22 @@ def test_mode_downgrades_and_cached_research_does_not_repeat_calls():
 
     assert first["research_packet"]["suggested_article_mode"] == "BREAKING_BRIEF"
     assert second["cache_reused"] is True
+    assert second["research_calls"] == 0
+    assert second["public_retrieval_requests"] == 0
+    assert second["cache_reuse_provenance"]["cached_research_calls"] == 1
+    assert second["cache_reuse_provenance"][
+        "public_retrieval_requests_for_current_evaluation"
+    ] == 0
     assert calls == ["source_synthesis"]
+
+    new_need = {**request}
+    new_need["required_evidence_capabilities"] = [
+        *request["required_evidence_capabilities"],
+        "new_explicit_delta_capability",
+    ]
+    third = research(new_need)
+    assert third.get("cache_reused") is not True
+    assert calls == ["source_synthesis", "source_synthesis"]
 
 
 def test_deterministic_locator_plan_uses_bound_host_without_granting_authority():

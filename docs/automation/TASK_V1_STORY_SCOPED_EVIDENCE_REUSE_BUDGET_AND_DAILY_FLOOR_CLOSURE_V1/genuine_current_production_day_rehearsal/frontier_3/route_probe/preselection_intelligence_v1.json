@@ -1,0 +1,1238 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 5,
+  "evaluated_at_utc": "2026-08-21T14:19:24.393115Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 5,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-4e445693b50a6c56aeb8",
+    "rolling-x-global-cluster-de1a51cc1a6ae4d2fa5c",
+    "rolling-x-global-cluster-598c7f4c7f11a020e4dc",
+    "rolling-x-global-cluster-8b1eb6c8c5c9b3419a3b",
+    "rolling-x-global-cluster-254157d6786aa040c137"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-21T14:19:24.393115Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 5,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "14026be01e47238c392a0dcbba8c7678ae7d96d6e06ff45c9ef9148a242ddb57",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Goldman Sachs",
+          "Artificial Intelligence",
+          "Infrastructure",
+          "Technology Investment",
+          "AI",
+          "Original Goldman Sachs"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.03,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Goldman Sachs",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b41182b4675fdc180da88e54224bac9a2eb7ada51b9b89fb1b456976262157e7"
+          },
+          {
+            "query_term": "Artificial Intelligence",
+            "source_field": "entities_topics",
+            "source_value_sha256": "dfb50bcfcb2a88084a10faab8ffa50ae15776cf0b5481531134930f95797608e"
+          },
+          {
+            "query_term": "Infrastructure",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6a23a73f81bc3c2a4241158abc208775139aba6693962f6c22c836a51b506377"
+          },
+          {
+            "query_term": "Technology Investment",
+            "source_field": "entities_topics",
+            "source_value_sha256": "74abb710454cc0488c6fc1ccb8e30a1ed7a2bfd0ec0010faf9cc2db1dc90c981"
+          },
+          {
+            "query_term": "AI",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "9ceb1c5eb8b8f85b2c1c58eae06f8e6e9b45cf8e2e48251de6778418d80e35ff"
+          },
+          {
+            "query_term": "Original Goldman Sachs",
+            "source_field": "needed_evidence",
+            "source_value_sha256": "1f712c9a844db90e99c9292b13be7a3de296bf0cea05efa46d97938f2e81ae5c"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Goldman Sachs",
+          "Artificial Intelligence",
+          "Infrastructure",
+          "Technology Investment",
+          "AI",
+          "Original Goldman Sachs"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries",
+          "needed_evidence"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-4e445693b50a6c56aeb8",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Goldman Sachs",
+        "Artificial Intelligence",
+        "Infrastructure",
+        "Technology Investment"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-286c85c3c74666d6498d7152"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-a710f282b1725c479904"
+      ],
+      "leaf_summaries": [
+        "Goldman Sachs projects AI infrastructure spending will surge to $1.64 trillion by 2031, driven primarily by compute and data center investments."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Original Goldman Sachs research note",
+        "Breakdown of the $1.64T into specific sub-sectors (e.g., power generation, cooling, semiconductors)"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Provides a concrete, institutionally backed figure ($1.64T) to anchor the ongoing AI capex narrative, offering high value to tech, energy, and infrastructure investors looking for long-term structural trends.",
+      "seo_intent": "Goldman Sachs AI infrastructure spending forecast 2031 data center investment",
+      "seo_learning_preferences": [],
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-286c85c3c74666d6498d7152",
+        "ordered_headline_ids": [
+          "cc-x-headline-286c85c3c74666d6498d7152"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-4e445693b50a6c56aeb8",
+      "visual_strategy": "Bar chart projecting AI infrastructure spending growth year-over-year through 2031, segmented by compute, power, and data center costs.",
+      "why_now": "Goldman Sachs has just released a major long-term forecast quantifying the massive capital expenditure expected in AI infrastructure over the next decade.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Bitcoin",
+          "Cryptocurrency",
+          "Market Liquidation",
+          "Digital Assets"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.036,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Bitcoin",
+            "source_field": "entities_topics",
+            "source_value_sha256": "999ab80261dbf10979049b0a927770ca8f70ecc086cb7e137cb6c217dd697d9b"
+          },
+          {
+            "query_term": "Cryptocurrency",
+            "source_field": "entities_topics",
+            "source_value_sha256": "adc78055d226f13f2e841e5583732c3e663d8e326f61edbff4475a5771c97c70"
+          },
+          {
+            "query_term": "Market Liquidation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "7fd3abaf1d85a8ed43e64d95834045dd96d19ad3c2b11815c66abe1813276baf"
+          },
+          {
+            "query_term": "Digital Assets",
+            "source_field": "entities_topics",
+            "source_value_sha256": "63c064318a85d88fb1d7bbc73cd23f459dd30ef778841944966e02dc383444ce"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Bitcoin",
+          "Cryptocurrency",
+          "Market Liquidation",
+          "Digital Assets"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-598c7f4c7f11a020e4dc",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Bitcoin",
+        "Cryptocurrency",
+        "Market Liquidation",
+        "Digital Assets"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-595403a3062105a2046eb579",
+        "cc-x-headline-ac6251fb1a261febde70943d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-cfed9c60e2df49a8269f"
+      ],
+      "leaf_summaries": [
+        "Bitcoin surpasses $72,000 following a massive single-day crypto short liquidation, prompting renewed market commentary on the asset's performance."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "On-chain or exchange data confirming the volume and scale of the short liquidations",
+        "Confirmation of the $72,000 price breach across major exchanges",
+        "Open interest data following the liquidation event"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-20T14:40:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-595403a3062105a2046eb579",
+          "url": "https://www.zerohedge.com/crypto/bitcoin-tops-72k-after-largest-single-day-crypto-short-liquidation-history"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/crypto/bitcoin-tops-72k-after-largest-single-day-crypto-short-liquidation-history"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 110.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-20T14:40:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-595403a3062105a2046eb579",
+          "url": "https://www.zerohedge.com/crypto/bitcoin-tops-72k-after-largest-single-day-crypto-short-liquidation-history"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/crypto/bitcoin-tops-72k-after-largest-single-day-crypto-short-liquidation-history"
+      ],
+      "rank": 2,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Moving beyond the basic price ticker to explain the mechanics of short liquidations provides actionable market intelligence and structural understanding for digital asset investors.",
+      "seo_intent": "Bitcoin price $72000 crypto short liquidation market analysis",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-595403a3062105a2046eb579",
+        "ordered_headline_ids": [
+          "cc-x-headline-595403a3062105a2046eb579",
+          "cc-x-headline-ac6251fb1a261febde70943d"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-598c7f4c7f11a020e4dc",
+      "visual_strategy": "Intraday price chart of Bitcoin overlaid with a histogram of short liquidation volume spikes.",
+      "why_now": "Bitcoin has broken the $72,000 threshold, driven by a specific market mechanic involving massive short liquidations.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Philly Fed",
+          "Goldman Sachs",
+          "Manufacturing",
+          "Economic Indicators",
+          "US Economy",
+          "The Philly Fed Manufacturing"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.021,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Philly Fed",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9d36c16fdfb43139d290f5cd5a6912072bef427c2d0470e18d20b650496068e1"
+          },
+          {
+            "query_term": "Goldman Sachs",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b41182b4675fdc180da88e54224bac9a2eb7ada51b9b89fb1b456976262157e7"
+          },
+          {
+            "query_term": "Manufacturing",
+            "source_field": "entities_topics",
+            "source_value_sha256": "030ecd2d279c2261eacb2f418daf37cb8248894e2b369acca22d111af3c092bc"
+          },
+          {
+            "query_term": "Economic Indicators",
+            "source_field": "entities_topics",
+            "source_value_sha256": "608195ba0e1857f250aec2dcca8e54c492a5d96d8fb34b396f64da74eb4cbde6"
+          },
+          {
+            "query_term": "US Economy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b09a5e27fa36af527a391b6a3ce0a292985debd01aea2f86fad44b8cc3cd38c5"
+          },
+          {
+            "query_term": "The Philly Fed Manufacturing",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "42687f04336be9add240021cecec71de2180bffb9b01668dd6c02ccf4a7a3293"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Philly Fed",
+          "Goldman Sachs",
+          "Manufacturing",
+          "Economic Indicators",
+          "US Economy",
+          "The Philly Fed Manufacturing"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-de1a51cc1a6ae4d2fa5c",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Philly Fed",
+        "Goldman Sachs",
+        "Manufacturing",
+        "Economic Indicators",
+        "US Economy"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-d192edbf257d0ca7ac681ba4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f1269c0b18bca4317e53"
+      ],
+      "leaf_summaries": [
+        "The Philly Fed Manufacturing 6-month-ahead business conditions index surged to +73.6, marking its highest level since 1983."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official release data from the Federal Reserve Bank of Philadelphia",
+        "Contextual data on what drove the 1983 spike for historical comparison",
+        "Cross-reference with other regional Fed manufacturing surveys"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "A historic data extreme provides an excellent hook to analyze underlying macroeconomic health, exploring whether this optimism is justified by order books or if it is an anomalous sentiment spike.",
+      "seo_intent": "Philly Fed manufacturing index 1983 high US economic indicators",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-d192edbf257d0ca7ac681ba4",
+        "ordered_headline_ids": [
+          "cc-x-headline-d192edbf257d0ca7ac681ba4"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-de1a51cc1a6ae4d2fa5c",
+      "visual_strategy": "Historical line chart of the Philly Fed 6-month-ahead index from 1980 to present, highlighting the current spike in historical context.",
+      "why_now": "The Philly Fed 6-month-ahead business conditions index just hit a level not seen since 1983, signaling a massive and sudden shift in manufacturing sentiment.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Robin Brooks",
+          "China",
+          "Iran",
+          "Oil Prices",
+          "Energy Markets",
+          "Macroeconomics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.021,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Robin Brooks",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0257120af26e8d6afadda14720b1b9ed73192d5bd5cd61f65f87d0a2d13eb890"
+          },
+          {
+            "query_term": "China",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9c7f5d3858f8b5efbd6b354eac828c76aa36abb372c21c098596a69fdc8d260f"
+          },
+          {
+            "query_term": "Iran",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b5798dfe8101381b8949bb084e861f93056ff214b3a9a69ddf57e84bd2aa76f4"
+          },
+          {
+            "query_term": "Oil Prices",
+            "source_field": "entities_topics",
+            "source_value_sha256": "52e01fb28ecea78dbcd2927db2d86caaf83a692cb3c2b8e296860c71cb968180"
+          },
+          {
+            "query_term": "Energy Markets",
+            "source_field": "entities_topics",
+            "source_value_sha256": "32bb7b06765b405b4264d7543c3c7e7144ebc7c147932d1c1bee85992bb5d5c1"
+          },
+          {
+            "query_term": "Macroeconomics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "35055939c96c73de5f4231b7958df4f5d633d88befdf3e0ea5d9cb88a15e494b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Robin Brooks",
+          "China",
+          "Iran",
+          "Oil Prices",
+          "Energy Markets",
+          "Macroeconomics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-8b1eb6c8c5c9b3419a3b",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Robin Brooks",
+        "China",
+        "Iran",
+        "Oil Prices",
+        "Energy Markets",
+        "Macroeconomics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "WHAT_THE_MARKET_IS_MISSING",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-00c1599b8e8593873c3259fd",
+        "cc-x-headline-78243bb80c25fe4543382868",
+        "cc-x-headline-4546d529a72df7f70511205c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-fbb55878ac604adf5f13"
+      ],
+      "leaf_summaries": [
+        "Economist Robin Brooks argues against $200 oil forecasts, citing high price elasticity of demand and noting that China's import drop is tied to Iranian blockades rather than broader economic weakness."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Direct quotes or the original analytical note from Robin Brooks",
+        "Customs data on Chinese oil import volumes",
+        "Tracking data on Iranian oil shipments and specific blockade impacts"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-20T14:27:46Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-00c1599b8e8593873c3259fd",
+          "url": "https://robinjbrooks.substack.com/p/requiem-for-200-oil"
+        }
+      ],
+      "official_source_urls": [
+        "https://robinjbrooks.substack.com/p/requiem-for-200-oil"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 108.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-20T14:27:46Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-00c1599b8e8593873c3259fd",
+          "url": "https://robinjbrooks.substack.com/p/requiem-for-200-oil"
+        }
+      ],
+      "public_source_urls": [
+        "https://robinjbrooks.substack.com/p/requiem-for-200-oil"
+      ],
+      "rank": 4,
+      "resolved_article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "selection_case": "Offers a strong contrarian, evidence-based thesis that challenges prevailing market fears about oil prices and Chinese demand, perfect for a differentiated house view.",
+      "seo_intent": "Robin Brooks oil price forecast China imports Iran blockade",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-4546d529a72df7f70511205c",
+        "ordered_headline_ids": [
+          "cc-x-headline-00c1599b8e8593873c3259fd",
+          "cc-x-headline-78243bb80c25fe4543382868",
+          "cc-x-headline-4546d529a72df7f70511205c"
+        ],
+        "relationship": "incremental_update"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-8b1eb6c8c5c9b3419a3b",
+      "visual_strategy": "Comparative chart showing Chinese oil imports plotted against Iranian export disruptions and global benchmark oil prices.",
+      "why_now": "Amidst sensational $200 oil forecasts, a prominent economist is providing a timely counter-narrative based on specific geopolitical blockades rather than broad macroeconomic weakness.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "US State Department",
+          "Qatar",
+          "Defense Sales",
+          "Geopolitics",
+          "Military",
+          "US"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.021,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "US State Department",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ffb99550bee97fad8389148cc9ee237b58d1b677159893a3fc6fac32b76deec2"
+          },
+          {
+            "query_term": "Qatar",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b59ff4af8cf032f77dc99bc98b267ba0cc40face88ebe119f69a498a5e46536a"
+          },
+          {
+            "query_term": "Defense Sales",
+            "source_field": "entities_topics",
+            "source_value_sha256": "eca4acdfafe59632d7703b93fff148910694ecf342145ba941bfc11f6f9c105d"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          },
+          {
+            "query_term": "Military",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b9aa6feb28cbe5b927e79eb165a1cfd61ad33aa0738c082470101b04db1b6100"
+          },
+          {
+            "query_term": "US",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "US State Department",
+          "Qatar",
+          "Defense Sales",
+          "Geopolitics",
+          "Military",
+          "US"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-254157d6786aa040c137",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "US State Department",
+        "Qatar",
+        "Defense Sales",
+        "Geopolitics",
+        "Military"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-20c1a069b89c53b47e08c619"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-1a523ac0ce06f3b6493b"
+      ],
+      "leaf_summaries": [
+        "The US State Department has reportedly approved a potential $4.5 billion military equipment sale to Qatar."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official notification from the Defense Security Cooperation Agency (DSCA) or State Department",
+        "List of primary defense contractors benefiting from the sale",
+        "Details on the specific military hardware and support services included"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 104.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 5,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "A straightforward, high-value geopolitical and defense industry brief that impacts defense contractors and Middle East policy watchers without requiring speculative analysis.",
+      "seo_intent": "US State Department Qatar military sale $4.5 billion defense equipment",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-20c1a069b89c53b47e08c619",
+        "ordered_headline_ids": [
+          "cc-x-headline-20c1a069b89c53b47e08c619"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-254157d6786aa040c137",
+      "visual_strategy": "Map of the Gulf region highlighting Qatar's strategic position, alongside a breakdown of the equipment included in the package.",
+      "why_now": "The US State Department has just approved a major $4.5 billion arms sale to Qatar, updating the geopolitical and defense procurement landscape.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": true,
+  "reranked_order": [
+    "rolling-x-global-cluster-4e445693b50a6c56aeb8",
+    "rolling-x-global-cluster-598c7f4c7f11a020e4dc",
+    "rolling-x-global-cluster-de1a51cc1a6ae4d2fa5c",
+    "rolling-x-global-cluster-8b1eb6c8c5c9b3419a3b",
+    "rolling-x-global-cluster-254157d6786aa040c137"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

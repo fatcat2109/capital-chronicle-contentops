@@ -1,0 +1,46 @@
+{
+  "factual_or_numeric_authority_granted": false,
+  "llm_or_provider_calls": 0,
+  "publication_authority_granted": false,
+  "router_summary": null,
+  "routing_method": "DETERMINISTIC_CONSERVATIVE_FALLBACK",
+  "semantic_router_failure_class": "ValueError",
+  "semantic_router_failure_recovered": true,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-global-cluster-61875d4288d706829a13",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-2468bcf6f3306c620a71",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "geopolitical_event"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-dacd9528b9cf4c6f5fd3",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-3948e07daa4700fa38e3",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-global-cluster-2468bcf6f3306c620a71": "geopolitical_event",
+    "rolling-x-global-cluster-3948e07daa4700fa38e3": "market_move",
+    "rolling-x-global-cluster-61875d4288d706829a13": "market_move",
+    "rolling-x-global-cluster-dacd9528b9cf4c6f5fd3": "market_move"
+  }
+}

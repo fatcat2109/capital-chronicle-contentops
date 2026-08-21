@@ -1,0 +1,766 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 3,
+  "evaluated_at_utc": "2026-08-21T12:31:11.126806Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 3,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-54e4ab3abe27f81d9de7",
+    "rolling-x-global-cluster-ae831501e76c5a7bc838",
+    "rolling-x-global-cluster-9d9e246b67f24344a203"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-21T12:31:11.126806Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 5,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "712ee3ccbb240c75f9e3c567bb054ee1e3040192888fc6fb35ee4bc752bda897",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Federal Reserve Bank of Philadelphia",
+          "Manufacturing Index",
+          "Economic Indicators",
+          "Inflation",
+          "The Philadelphia Fed Manufacturing",
+          "Full Philadelphia Fed Manufacturing"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.036,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Federal Reserve Bank of Philadelphia",
+            "source_field": "entities_topics",
+            "source_value_sha256": "520ea1df6d53f058e7672295657ac45324a5b33425bfc49ee7cc85969f3937b7"
+          },
+          {
+            "query_term": "Manufacturing Index",
+            "source_field": "entities_topics",
+            "source_value_sha256": "7e9893bd6786dcb5aea7d0a8a2dbc62cee930a3e19d9fb9cc5efedc4e202a4c6"
+          },
+          {
+            "query_term": "Economic Indicators",
+            "source_field": "entities_topics",
+            "source_value_sha256": "608195ba0e1857f250aec2dcca8e54c492a5d96d8fb34b396f64da74eb4cbde6"
+          },
+          {
+            "query_term": "Inflation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e4701a949a3fed7ab34b10d3f86e9f6ae12cd57eefeef63bf973874ea7795eab"
+          },
+          {
+            "query_term": "The Philadelphia Fed Manufacturing",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "3ef97f5a6e6924360d3a0e319d223e6fabe91dfe487ece56e5d236dc9a6fc0c9"
+          },
+          {
+            "query_term": "Full Philadelphia Fed Manufacturing",
+            "source_field": "needed_evidence",
+            "source_value_sha256": "14121388223db016f55703a05f6d362feef982b7abc159550d9a2bbbb494c6cd"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Federal Reserve Bank of Philadelphia",
+          "Manufacturing Index",
+          "Economic Indicators",
+          "Inflation",
+          "The Philadelphia Fed Manufacturing",
+          "Full Philadelphia Fed Manufacturing"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries",
+          "needed_evidence"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-54e4ab3abe27f81d9de7",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Federal Reserve Bank of Philadelphia",
+        "Manufacturing Index",
+        "Economic Indicators",
+        "Inflation"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-5e0778b6937bccf4a878a839",
+        "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-54c40eaf0cdc60ac0ae6"
+      ],
+      "leaf_summaries": [
+        "The Philadelphia Fed Manufacturing Index rose to 47.4, the highest since April 2021, while the prices paid index fell to 40.9."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Full Philadelphia Fed Manufacturing Business Outlook Survey report",
+        "Historical data for the prices paid and new orders components",
+        "Analyst commentary on the divergence between activity and inflation metrics"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "A day after the release, the headline number is known, but the internal divergence between activity and pricing power offers a valuable lens into regional economic health and inflation pressures.",
+      "seo_intent": "Philadelphia Fed Manufacturing Index analysis, prices paid index, US regional manufacturing data, inflation indicators",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+        "ordered_headline_ids": [
+          "cc-x-headline-5e0778b6937bccf4a878a839",
+          "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-54e4ab3abe27f81d9de7",
+      "visual_strategy": "A dual-axis line chart comparing the headline Philly Fed Manufacturing Index against the prices paid component over the last five years.",
+      "why_now": "The Philadelphia Fed Manufacturing Index hit its highest level since April 2021, but the prices paid component fell, creating a compelling 'growth without inflation' narrative that requires deeper component analysis.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "United States",
+          "Jobless Claims",
+          "Labor Market",
+          "Economic Indicators",
+          "US",
+          "employment"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.042,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "United States",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97"
+          },
+          {
+            "query_term": "Jobless Claims",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2c36ddbd7fde44b8dc74dce0608cfd56f915e4468f6aa653bf1f4935840992c9"
+          },
+          {
+            "query_term": "Labor Market",
+            "source_field": "entities_topics",
+            "source_value_sha256": "112535214fca3dbb1789c6c353e2e7d44fe8d0c8d9ac9949a9f72a21f09e6ad2"
+          },
+          {
+            "query_term": "Economic Indicators",
+            "source_field": "entities_topics",
+            "source_value_sha256": "608195ba0e1857f250aec2dcca8e54c492a5d96d8fb34b396f64da74eb4cbde6"
+          },
+          {
+            "query_term": "US",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+          },
+          {
+            "query_term": "employment",
+            "source_field": "selection_case",
+            "source_value_sha256": "6cc7e2f263a24a3d7f320d3cf2ee21e703300d271943452194d52df79f9a5446"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "United States",
+          "Jobless Claims",
+          "Labor Market",
+          "Economic Indicators",
+          "US",
+          "employment"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries",
+          "selection_case"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-ae831501e76c5a7bc838",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "United States",
+        "Jobless Claims",
+        "Labor Market",
+        "Economic Indicators"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-7d4860da701df7f401a0c69f",
+        "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "cc-x-headline-edad5280888abfafe73b29d5",
+        "cc-x-headline-a530786f75a1e64daf0eea97"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-77c4e4cba5f276c9749a"
+      ],
+      "leaf_summaries": [
+        "US initial jobless claims came in at 206K for the week, slightly below the estimated 210K and down from the previous 212K."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Department of Labor weekly claims report",
+        "Continuing claims data for broader context",
+        "Economist reactions to the sustained low level of claims"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 2,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Provides an opportunity to synthesize recent labor market data and assess the ongoing tightness in employment despite restrictive monetary policy.",
+      "seo_intent": "US initial jobless claims, labor market resilience, employment data analysis, US economy",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "ordered_headline_ids": [
+          "cc-x-headline-7d4860da701df7f401a0c69f",
+          "cc-x-headline-402b6e35b897ebe21a5e30c8",
+          "cc-x-headline-edad5280888abfafe73b29d5",
+          "cc-x-headline-a530786f75a1e64daf0eea97"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-ae831501e76c5a7bc838",
+      "visual_strategy": "A bar chart showing the four-week moving average of initial jobless claims compared to consensus estimates over the past six months.",
+      "why_now": "Initial jobless claims continue to defy expectations of a labor market slowdown, coming in below estimates and reinforcing the higher-for-longer rate narrative.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Bond Yields",
+          "Central Banks",
+          "San Francisco Fed President"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.016,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Federal Reserve",
+            "source_field": "entities_topics",
+            "source_value_sha256": "124a7daed73968c567e34c704dcd0aa22e42df0a5e21a3ed65381295806f4414"
+          },
+          {
+            "query_term": "Mary Daly",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c4cd258fbe963061a21b99334f621779b3e91d987196446ec0d86284c8db54b6"
+          },
+          {
+            "query_term": "Monetary Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "258ea27f23d798225cd496f5e078ad6ace0208e7a0590b9a904c94dcfd15f299"
+          },
+          {
+            "query_term": "Bond Yields",
+            "source_field": "entities_topics",
+            "source_value_sha256": "bb6a2d3067f3699a5d3ff38ab64510a8aee1ef8b16757ef9cd14487231c46d55"
+          },
+          {
+            "query_term": "Central Banks",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3e55af998fc1c31670cdca99974658c1be4aa5eba2c7d9c17cebdb11365b124e"
+          },
+          {
+            "query_term": "San Francisco Fed President",
+            "source_field": "why_now",
+            "source_value_sha256": "9ee6ed74ab36e27db913f9c46bdab1eb9c96a45d78ba3f3952c98e5c417ed0ff"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Bond Yields",
+          "Central Banks",
+          "San Francisco Fed President"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "why_now"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-9d9e246b67f24344a203",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Federal Reserve",
+        "Mary Daly",
+        "Monetary Policy",
+        "Bond Yields",
+        "Central Banks"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "cc-x-headline-8dfc3780324a50304571eb6c",
+        "cc-x-headline-5785b9dc13d379056dc55c30",
+        "cc-x-headline-53684174ab9389dbac3c0dc4",
+        "cc-x-headline-d0235b2bb7c33b1c861a363b",
+        "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-6d90b29b152ff220af38"
+      ],
+      "leaf_summaries": [
+        "Fed's Mary Daly comments on monetary policy, stating that rising bond yields do not signal policy shifts and that the central bank's credibility is not at risk."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Transcript or official recording of Mary Daly's remarks",
+        "Recent Treasury yield curve movements",
+        "Comparison with recent statements from other FOMC members"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Addresses market concerns about rising yields by contextualizing Daly's pushback against the idea that higher yields signal a shift in the Fed's fundamental policy stance.",
+      "seo_intent": "Mary Daly Fed comments, US bond yields monetary policy, Federal Reserve credibility, interest rate outlook",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "ordered_headline_ids": [
+          "cc-x-headline-5940b992bf4f560c2f78eae1",
+          "cc-x-headline-8dfc3780324a50304571eb6c",
+          "cc-x-headline-5785b9dc13d379056dc55c30",
+          "cc-x-headline-53684174ab9389dbac3c0dc4",
+          "cc-x-headline-d0235b2bb7c33b1c861a363b",
+          "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-9d9e246b67f24344a203",
+      "visual_strategy": "A line chart tracking the 10-year Treasury yield alongside key dates of recent Fed official speeches.",
+      "why_now": "San Francisco Fed President Mary Daly's remarks provide timely insight into how the central bank views the recent run-up in bond yields and its implications for policy.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": false,
+  "reranked_order": [
+    "rolling-x-global-cluster-54e4ab3abe27f81d9de7",
+    "rolling-x-global-cluster-ae831501e76c5a7bc838",
+    "rolling-x-global-cluster-9d9e246b67f24344a203"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

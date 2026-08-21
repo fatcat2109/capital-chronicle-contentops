@@ -236,18 +236,46 @@ class BoundedPublicSecondaryEvidenceLoader:
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._request_count = 0
         self._candidate_request_start = 0
+        self._request_count_by_story_scope: dict[str, int] = {}
+        self._active_story_scope_id: str | None = None
+        self._response_cache_by_story_scope: dict[
+            str, dict[str, dict[str, Any]]
+        ] = {}
+        self._reused_request_signatures_by_story_scope: dict[str, list[str]] = {}
 
     def _get(self, url: str) -> dict[str, Any]:
+        if self._active_story_scope_id:
+            cached = self._response_cache_by_story_scope.get(
+                self._active_story_scope_id, {}
+            ).get(url)
+            if cached is not None:
+                self._reused_request_signatures_by_story_scope.setdefault(
+                    self._active_story_scope_id, []
+                ).append(sha256(url.encode("utf-8")).hexdigest())
+                return dict(cached)
         if self._request_count >= self._max_requests:
             raise RuntimeError("public_source_request_budget_exhausted")
-        if (
-            self._request_count - self._candidate_request_start
-            >= self._max_requests_per_candidate
-        ):
+        candidate_request_count = (
+            self._request_count_by_story_scope.get(self._active_story_scope_id, 0)
+            if self._active_story_scope_id
+            else self._request_count - self._candidate_request_start
+        )
+        if candidate_request_count >= self._max_requests_per_candidate:
             raise RuntimeError("public_source_candidate_request_budget_exhausted")
         _public_host(url, resolve_dns=self._validate_dns)
         self._request_count += 1
-        return dict(self._http_get(url, self._timeout_seconds, self._max_response_bytes))
+        if self._active_story_scope_id:
+            self._request_count_by_story_scope[self._active_story_scope_id] = (
+                candidate_request_count + 1
+            )
+        response = dict(
+            self._http_get(url, self._timeout_seconds, self._max_response_bytes)
+        )
+        if self._active_story_scope_id:
+            self._response_cache_by_story_scope.setdefault(
+                self._active_story_scope_id, {}
+            )[url] = dict(response)
+        return response
 
     def _direct_document(
         self,
@@ -697,7 +725,19 @@ class BoundedPublicSecondaryEvidenceLoader:
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         request_count_at_start = self._request_count
-        self._candidate_request_start = request_count_at_start
+        story_scope_id = str(request.get("story_evidence_scope_id") or "")
+        story_request_count_at_start = self._request_count_by_story_scope.get(
+            story_scope_id, 0
+        )
+        reused_signature_count_at_start = len(
+            self._reused_request_signatures_by_story_scope.get(story_scope_id, [])
+        )
+        if story_scope_id:
+            self._candidate_request_start = request_count_at_start
+            self._active_story_scope_id = story_scope_id
+        else:
+            self._candidate_request_start = request_count_at_start
+            self._active_story_scope_id = None
         context = request.get("story_context") or {}
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
         rows = [
@@ -781,7 +821,28 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "request_count": self._request_count,
                 "request_count_total": self._request_count,
                 "request_count_for_candidate": (
-                    self._request_count - request_count_at_start
+                    self._request_count_by_story_scope.get(story_scope_id, 0)
+                    if story_scope_id
+                    else self._request_count - self._candidate_request_start
+                ),
+                "request_count_for_call": self._request_count - request_count_at_start,
+                "story_evidence_scope_id": story_scope_id or None,
+                "candidate_request_boundary_reused": bool(
+                    story_scope_id and story_request_count_at_start > 0
+                ),
+                "network_reads_avoided_for_call": max(
+                    0,
+                    len(
+                        self._reused_request_signatures_by_story_scope.get(
+                            story_scope_id, []
+                        )
+                    )
+                    - reused_signature_count_at_start,
+                ),
+                "reused_request_signatures": list(
+                    self._reused_request_signatures_by_story_scope.get(
+                        story_scope_id, []
+                    )[reused_signature_count_at_start:]
                 ),
                 "request_limit": self._max_requests,
                 "request_limit_per_candidate": self._max_requests_per_candidate,

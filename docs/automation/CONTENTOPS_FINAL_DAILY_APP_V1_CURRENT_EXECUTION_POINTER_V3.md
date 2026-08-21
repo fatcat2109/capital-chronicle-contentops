@@ -25,7 +25,15 @@ P0-G1/G2 growth-first editorial spectrum, mode-aware evidence, bounded material-
 
 P0-G3 actual breaking/normal/quiet/house-view zero-write artifacts were owner-audited and merged into master at `369c0cc289e790b8218ba30b2696a926db04356a`.
 
-Draft P0-G4 PR #12 exists and is frozen while the current owner-output-contract / Codex execution-bridge gap is corrected.
+The accepted continuation lineage now runs through:
+
+1. `TASK_V1_AUTONOMOUS_NEWSROOM_DAILY_OUTPUT_AND_NATIVE_AUTOMATION_REVALIDATION_V1`;
+2. `TASK_V1_DAILY_OUTPUT_CANDIDATE_CONTINUATION_QUOTE_REPAIR_AND_FINAL_FLOOR_PROOF_V1`;
+3. `TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1`;
+4. `TASK_V1_DISTINCT_STORY_FRONTIER_AND_EVIDENCE_YIELD_FLOOR_CLOSURE_V1`;
+5. `TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1`.
+
+Draft P0-G4 PR #12 remains frozen while the 4/32 zero-write build floor is unproven.
 
 ## Current owner output contract
 
@@ -41,40 +49,24 @@ Candidate abstention remains valid. A production day below the active floor is n
 
 Stale phrases such as `no publication quota`, `publication minimum zero`, or whole-day `NO_PUBLICATION` success are superseded.
 
-## Current execution truth gap
+## Current execution truth
 
-FDA-G may run continuously and ingest current state, but repository code does not prove that FDA-G directly launches Codex Desktop.
-
-`live_contentops/codex_desktop_newsroom_operator_v1.py` is not a scheduler/Desktop/model bridge.
-
-The repository contains intended four-task configuration, but actual host Codex Automation existence/state is currently `UNPROVEN` until supported product/host inventory confirms it.
-
-Therefore do not claim:
-
-- four Codex tasks exist;
-- they are paused/enabled;
-- unattended Codex execution works;
-- material-event metadata immediately wakes Codex;
-
-without actual host evidence.
+Hash-bound host observation in the accepted Automation-revalidation task proves exactly four native
+V1 Automations, all `PAUSED`. Later zero-write tasks preserved that state and created no fifth task.
+This does not prove unattended public execution or authorize FDA-G/material-event metadata to launch
+Codex or write publicly.
 
 ## Current next capability
 
-`TASK_V1_DAILY_OUTPUT_FLOOR_AND_CODEX_AUTOMATION_EXECUTION_BRIDGE_V1`
+`BOUNDED_FIRST_PARTY_LOCATOR_SOURCE_FAMILY_AND_QUERY_PUBLISHER_RESOLUTION_CLOSURE`
 
-This task must run before resuming the real canary.
-
-Required capability:
-
-1. inventory actual installed Codex Automation support and ContentOps automation objects;
-2. prove or correct the intended four routine Automations without creating a fifth;
-3. define deterministic `newsroom_production_day_id` across 17:00/21:00/23:00/following-01:00 Bangkok windows;
-4. implement build floor `4`, final target `5–8`, counts, deficit, and hard-block states;
-5. allow later routine windows to recover earlier deficit through bounded additional candidate/article work;
-6. preserve all truth/evidence/numeric/permission/rights gates;
-7. expose daily-output and actual/unknown automation state in V5;
-8. prove one zero-public-write Codex Automation execution path where supported;
-9. classify material-event-to-Codex execution truth without overclaim.
+The story-scoped reuse proof closed duplicate downgrade acquisition but truthfully ended 0/4 articles
+and 0/32 derivative intents after 17 distinct current stories. The residual matrix demonstrates exact
+official-locator/source-family gaps for EIA, Philly Fed, State/DSCA, and USCC, plus a company-primary
+Waymo gap and bounded public query/access/publisher-resolution failures. Correct only those exact
+reproducible paths through the existing evidence architecture, then repeat the same four-frontier
+zero-write proof. Do not raise budgets, widen source authority generically, bypass access controls,
+enable Automations, or resume the real canary before the floor is proven.
 
 ## Routine automation intent
 
@@ -88,11 +80,12 @@ Intended routine schedule only:
 - coordinator `gpt-5.6-sol / HIGH`;
 - final article worker fresh isolated `gpt-5.6-sol / XHIGH` only at article boundary.
 
-These are intended configuration values, not proof that host Automations currently exist.
+These are the observed four paused Automation identities' intended schedule values; they remain no
+authority to enable, recreate, or publicly execute them.
 
 ## P0-G4 after current correction
 
-After the daily-output/Codex bridge task is accepted:
+After the 4/32 zero-write floor is accepted:
 
 1. rerun bounded P0-G4A current-candidate preflight under zero public write;
 2. require genuine qualified article + eight packages + exact JIT destination identity/readiness;

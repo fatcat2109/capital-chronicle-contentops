@@ -1,0 +1,54 @@
+{
+  "factual_or_numeric_authority_granted": false,
+  "llm_or_provider_calls": 0,
+  "publication_authority_granted": false,
+  "router_summary": null,
+  "routing_method": "DETERMINISTIC_CONSERVATIVE_FALLBACK",
+  "semantic_router_failure_class": "ValueError",
+  "semantic_router_failure_recovered": true,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-global-cluster-4e445693b50a6c56aeb8",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-598c7f4c7f11a020e4dc",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-de1a51cc1a6ae4d2fa5c",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-8b1eb6c8c5c9b3419a3b",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-254157d6786aa040c137",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "geopolitical_event"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-global-cluster-254157d6786aa040c137": "geopolitical_event",
+    "rolling-x-global-cluster-4e445693b50a6c56aeb8": "market_move",
+    "rolling-x-global-cluster-598c7f4c7f11a020e4dc": "market_move",
+    "rolling-x-global-cluster-8b1eb6c8c5c9b3419a3b": "market_move",
+    "rolling-x-global-cluster-de1a51cc1a6ae4d2fa5c": "market_move"
+  }
+}

@@ -1,18 +1,24 @@
 # ContentOps V1 Current Context Map
 
-Authority date: 2026-08-20
+Authority date: 2026-08-21
 
 This is a curated implementation/discovery map, not product authority. Jim's latest instruction, root authority, fresh GitHub bytes, exact code/tests/evidence, and current runtime evidence outrank this map when they conflict.
 
 ## Current product state
 
-`P0_1_ACCEPTED / P0_2_ACCEPTANCE_UNPROVEN`
+`DAILY_YIELD_LINEAGE_ACCEPTED / DEGRADED_DAILY_OUTPUT_DEFICIT`
 
-Latest runtime evidence reports `FDA_G_SOAK_ACTIVE` on current master with healthy heartbeat/ingestion, one logical supervisor root from the Windows wrapper/child topology, `UNKNOWN_WRITE=0`, and all four existing V1 scheduled newsroom tasks still `PAUSED`. Re-observe runtime truth for any task that depends on current production state.
+P0-G3 is accepted. The accepted continuation lineage now includes daily-output/native-Automation
+revalidation, candidate continuation/quote repair, evidence-yield reachability correction,
+distinct-story frontier correction, and story/update-chain-scoped evidence reuse across mode
+downgrade. Hash-bound host evidence observed exactly four native V1 Automations, all `PAUSED`; the
+current story-reuse task did not mutate them.
 
-The P0-G1/G2 implementation slice is zero-write validated on its dedicated task branch. The next capability is:
-
-`P0-G3 — ZERO-WRITE MULTI-MODE REPLAY + JIM/CHATGPT ACTUAL EDITORIAL ARTIFACT AUDIT`
+The latest genuine four-frontier zero-write proof attempted 17 distinct stories, performed 71
+bounded evidence reads, avoided 89 duplicate same-story downgrade reads, and produced 0/4 qualified
+articles and 0/32 derivative intents with `UNKNOWN_WRITE=0`. The next exact capability is bounded
+first-party locator/source-family plus query/publisher-resolution closure for that proof's residual
+matrix, followed by the same four-frontier rehearsal.
 
 ## Canonical product flow
 
@@ -36,7 +42,9 @@ one-click launcher
 -> Daily App read model -> V5 control surface
 ```
 
-No-publication remains valid. No publication quota exists.
+Candidate-level no-publication remains valid. A whole production day below the build/proof floor of
+4 qualified zero-public-write articles is `DEGRADED_DAILY_OUTPUT_DEFICIT` unless a true hard external
+blocker is proven. Filler remains forbidden; the final V1 target remains 5–8 published articles/day.
 
 ## Editorial modes
 
@@ -79,7 +87,9 @@ Start_ContentOps_Daily_App.cmd
               -> current rolling universe / prepared candidates
               -> apply_preselection_intelligence
               -> story type + editorial mode/capability selection
+              -> one story/update-chain-scoped evidence acquisition ledger
               -> RollingXTargetedEvidenceAdapter
+              -> deterministic lower-mode sufficiency recheck; bounded same-ledger delta only for a new need
               -> official_primary_source_locator_v1 / official_primary_evidence_loader_v1 where applicable
               -> publication-authorized CC/context resolution
               -> build_rolling_x_grounded_article_and_media
@@ -186,14 +196,14 @@ These are identities, not permission to inspect credentials/session material.
 
 ## Current validation sequence
 
-1. preserve the zero-write-validated P0-G1/G2 growth-first editorial, bounded wake, and canonical-first implementation;
-2. run P0-G3 zero-write replay for official breaking + wake/no-wake, normal analysis, quiet day, and critical/opinion cases;
-3. Jim/ChatGPT review actual article/package outputs;
-4. fresh explicit owner grant for one real canary;
-5. canonical Substack + exactly eight derivatives + strict readback/reconciliation + `UNKNOWN_WRITE=0`;
-6. enable only the four existing scheduled tasks after accepted canary; separately obtain an explicit owner trigger-scope grant before activating automatic material-event public-write wakeups, otherwise keep that path shadow-only;
-7. unattended/cold-start proof across scheduled operation plus the material-event trigger path at the highest scope currently authorized;
-8. reproduce/close any real V5 build/runtime defect and complete screenshot-based visual acceptance.
+1. preserve the accepted daily-output/Automation, continuation/quote, evidence-yield, distinct-story, and story-scoped-reuse lineage;
+2. close only the exact first-party locator/source-family and query/publisher-resolution misses demonstrated by the current 17-story residual matrix;
+3. rerun the same four-frontier zero-public-write production day and require at least 4 qualified articles plus exactly 32 derivative intents for the first four;
+4. require one fresh isolated `gpt-5.6-sol / XHIGH` receipt for each warranted final article and `UNKNOWN_WRITE=0`;
+5. Jim/ChatGPT review actual article/package outputs;
+6. obtain a fresh explicit owner grant for one real canary;
+7. enable only the four existing paused tasks after accepted canary; never create a fifth task;
+8. complete unattended/cold-start proof and V5 screenshot acceptance.
 
 ## Stale traps
 
@@ -201,6 +211,7 @@ Do not route from:
 
 - old branch/HEAD fast-forward instructions;
 - P0-1 as a current next task;
+- P0-G3 or the original daily-output/Automation bridge as the current next task;
 - old manual-GO canary text as the immediate next implementation;
 - blanket all-nine-ready-before-any-canonical-write semantics;
 - “no yield work” language when used to block the current owner-directed growth-first behavior implementation;

@@ -1,0 +1,995 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 4,
+  "evaluated_at_utc": "2026-08-21T14:19:24.393115Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 4,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-52fd4ce18cf5a235faca",
+    "rolling-x-global-cluster-c6c85fec933a29fa6362",
+    "rolling-x-global-cluster-df65ab7ae9597292c921",
+    "rolling-x-global-cluster-3674239471f30bd032a3"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {},
+    "as_of_utc": "2026-08-21T14:19:24.393115Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 0,
+    "recent_publication_timestamps_utc": [],
+    "remaining_target_min": 5,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "4b79073670154932e0192ce7dae9be63422db475618db689b72ee41ba1d594aa",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 0,
+  "ranked_clusters": [
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Monte dei Paschi",
+          "Banco BPM",
+          "Banca Generali",
+          "Mergers and Acquisitions",
+          "Banking",
+          "European Finance"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.034,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Monte dei Paschi",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5ac46f5d1da9d23d9c5a0a3756b80d6e998d19581db1ff9a04a21c2b56a65d7b"
+          },
+          {
+            "query_term": "Banco BPM",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2361f09758b5250c59c7accc5fc61b5f2c7775dabf0be0d47d8118401d63aa95"
+          },
+          {
+            "query_term": "Banca Generali",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6f59a519628ae35024d83fa219a727ab69f294812fa506b05720f777f063fcea"
+          },
+          {
+            "query_term": "Mergers and Acquisitions",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f42e22b2f1bd80ed9be76d38e18c2d14e3acc097cdc4d4b840b2657977f8360b"
+          },
+          {
+            "query_term": "Banking",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2702e84965c37716996dccafb1f0b7c786349302fe0c6edc86c9b0e93388dc35"
+          },
+          {
+            "query_term": "European Finance",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e5ac4708abd89e7c98143f3971f9e8cbc2e876a411ea8dd7e23328e4444214b6"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Monte dei Paschi",
+          "Banco BPM",
+          "Banca Generali",
+          "Mergers and Acquisitions",
+          "Banking",
+          "European Finance"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-52fd4ce18cf5a235faca",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Monte dei Paschi",
+        "Banco BPM",
+        "Banca Generali",
+        "Mergers and Acquisitions",
+        "Banking",
+        "European Finance"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-6a27b701de857841262be930"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f1226500fb280732a962"
+      ],
+      "leaf_summaries": [
+        "The Monte dei Paschi board has reportedly approved bids for Banco BPM and Banca Generali."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official board statements or regulatory filings from Monte dei Paschi",
+        "Confirmation of bid details, structures, and valuations",
+        "Official responses or statements from Banco BPM and Banca Generali"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 1,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "High-evidence M&A activity involving major European financial institutions is highly relevant and actionable for our core financial audience.",
+      "seo_intent": "Monte dei Paschi Banco BPM Banca Generali merger acquisition Italian banking",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-6a27b701de857841262be930",
+        "ordered_headline_ids": [
+          "cc-x-headline-6a27b701de857841262be930"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-52fd4ce18cf5a235faca",
+      "visual_strategy": "Corporate logos of the involved banks or a chart showing their respective market shares and combined asset footprint in Italy.",
+      "why_now": "The Monte dei Paschi board has reportedly approved bids for Banco BPM and Banca Generali, signaling immediate and major consolidation in the European banking sector.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "U.S. Energy Information Administration",
+          "Natural Gas",
+          "Energy Inventories",
+          "Commodities",
+          "EIA"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.012,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "U.S. Energy Information Administration",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e8b4cd49a406908a1a08ae453d7d2a9ffcd3578d2dac3744b4367c6247e4be0f"
+          },
+          {
+            "query_term": "Natural Gas",
+            "source_field": "entities_topics",
+            "source_value_sha256": "cc6a2e6559a71c68a8d2b729dc8ecefbec0dd563db105d93f231b276d4d0d7f8"
+          },
+          {
+            "query_term": "Energy Inventories",
+            "source_field": "entities_topics",
+            "source_value_sha256": "00049439bc6641f6a7bcf0cca57ce08e3477920980d630ead1a95535b916c518"
+          },
+          {
+            "query_term": "Commodities",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9b283ec7748a27bc557aab4550d4d6f2d4e1153b2ee3bf028fdc9e4c5d0a12a6"
+          },
+          {
+            "query_term": "EIA",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "490f8f97910e3db90c55d27670fc52360e2ee1e476e828d3a83476936c9659d7"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "U.S. Energy Information Administration",
+          "Natural Gas",
+          "Energy Inventories",
+          "Commodities",
+          "EIA"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-df65ab7ae9597292c921",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "U.S. Energy Information Administration",
+        "Natural Gas",
+        "Energy Inventories",
+        "Commodities"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": true
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+        "cc-x-headline-362ef440e34d55f85b27968e",
+        "cc-x-headline-dec34be8845e679963997d05"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-90694a187ffe8673159a"
+      ],
+      "leaf_summaries": [
+        "The U.S. EIA reports a weekly natural gas storage build of 16 billion cubic feet, surpassing the forecast of 14 billion."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official EIA weekly natural gas storage report data",
+        "Historical context for seasonal storage levels",
+        "Immediate natural gas futures price reaction to the data miss"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-20T14:30:57Z",
+          "feed_publisher_handle": "financialjuice",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-dec34be8845e679963997d05",
+          "url": "https://ir.eia.gov/secure/ngs/ngs.html?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9pci5laWEuZ292L3NlY3VyZS9uZ3MvKiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4NzgzNjgwMH0sIkRhdGVHcmVhdGVyVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzg3MjM2MjAwfX19XX0&Signature=NPkXpo5qHY5Jb30LsQf8IwMjGZcYwlorM5YA82eMvO12NR7PvE-nYd5brnrCj7P~bh9zLbG6KLn~wURTCYZ2Vh41pvpFYAEPgGlVa1CXENevUJss0rRwJYeaphnvjOL-~X7HA4xAPkBd2lW1~nFuOjzLUGI~AEaI0Y5yZVO43AbBrKXhfWAM5ph~QtlTAI0VtVmqyDH1MDWWS3AGCAbgJW3obGRGj4ipC3NVU~LE25bFYISVPHSwGp-4DF-l1n8DDs-opbo-p59XjJdrXLndBSbzeJIplfTUd93ZnVmXk0yuq1-QhDZdR8bRvELbRuL5y7uBmYrD5mlpS1vulDmxPA&Key-Pair-Id=KK7DFWX94UKIW"
+        }
+      ],
+      "official_source_urls": [
+        "https://ir.eia.gov/secure/ngs/ngs.html?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9pci5laWEuZ292L3NlY3VyZS9uZ3MvKiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4NzgzNjgwMH0sIkRhdGVHcmVhdGVyVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzg3MjM2MjAwfX19XX0&Signature=NPkXpo5qHY5Jb30LsQf8IwMjGZcYwlorM5YA82eMvO12NR7PvE-nYd5brnrCj7P~bh9zLbG6KLn~wURTCYZ2Vh41pvpFYAEPgGlVa1CXENevUJss0rRwJYeaphnvjOL-~X7HA4xAPkBd2lW1~nFuOjzLUGI~AEaI0Y5yZVO43AbBrKXhfWAM5ph~QtlTAI0VtVmqyDH1MDWWS3AGCAbgJW3obGRGj4ipC3NVU~LE25bFYISVPHSwGp-4DF-l1n8DDs-opbo-p59XjJdrXLndBSbzeJIplfTUd93ZnVmXk0yuq1-QhDZdR8bRvELbRuL5y7uBmYrD5mlpS1vulDmxPA&Key-Pair-Id=KK7DFWX94UKIW"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 110.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-20T14:30:57Z",
+          "feed_publisher_handle": "financialjuice",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-dec34be8845e679963997d05",
+          "url": "https://ir.eia.gov/secure/ngs/ngs.html?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9pci5laWEuZ292L3NlY3VyZS9uZ3MvKiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4NzgzNjgwMH0sIkRhdGVHcmVhdGVyVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzg3MjM2MjAwfX19XX0&Signature=NPkXpo5qHY5Jb30LsQf8IwMjGZcYwlorM5YA82eMvO12NR7PvE-nYd5brnrCj7P~bh9zLbG6KLn~wURTCYZ2Vh41pvpFYAEPgGlVa1CXENevUJss0rRwJYeaphnvjOL-~X7HA4xAPkBd2lW1~nFuOjzLUGI~AEaI0Y5yZVO43AbBrKXhfWAM5ph~QtlTAI0VtVmqyDH1MDWWS3AGCAbgJW3obGRGj4ipC3NVU~LE25bFYISVPHSwGp-4DF-l1n8DDs-opbo-p59XjJdrXLndBSbzeJIplfTUd93ZnVmXk0yuq1-QhDZdR8bRvELbRuL5y7uBmYrD5mlpS1vulDmxPA&Key-Pair-Id=KK7DFWX94UKIW"
+        }
+      ],
+      "public_source_urls": [
+        "https://ir.eia.gov/secure/ngs/ngs.html?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9pci5laWEuZ292L3NlY3VyZS9uZ3MvKiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4NzgzNjgwMH0sIkRhdGVHcmVhdGVyVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzg3MjM2MjAwfX19XX0&Signature=NPkXpo5qHY5Jb30LsQf8IwMjGZcYwlorM5YA82eMvO12NR7PvE-nYd5brnrCj7P~bh9zLbG6KLn~wURTCYZ2Vh41pvpFYAEPgGlVa1CXENevUJss0rRwJYeaphnvjOL-~X7HA4xAPkBd2lW1~nFuOjzLUGI~AEaI0Y5yZVO43AbBrKXhfWAM5ph~QtlTAI0VtVmqyDH1MDWWS3AGCAbgJW3obGRGj4ipC3NVU~LE25bFYISVPHSwGp-4DF-l1n8DDs-opbo-p59XjJdrXLndBSbzeJIplfTUd93ZnVmXk0yuq1-QhDZdR8bRvELbRuL5y7uBmYrD5mlpS1vulDmxPA&Key-Pair-Id=KK7DFWX94UKIW"
+      ],
+      "rank": 2,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "A clear, high-evidence data release that directly impacts commodities markets, perfect for a quick data lens piece.",
+      "seo_intent": "EIA natural gas storage report build forecast commodities energy inventories",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+        "ordered_headline_ids": [
+          "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+          "cc-x-headline-362ef440e34d55f85b27968e",
+          "cc-x-headline-dec34be8845e679963997d05"
+        ],
+        "relationship": "duplicate"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-df65ab7ae9597292c921",
+      "visual_strategy": "Line chart comparing actual natural gas storage builds versus forecasts and historical averages over the past quarter.",
+      "why_now": "The U.S. EIA just reported a weekly natural gas storage build of 16 billion cubic feet, surpassing the consensus forecast of 14 billion.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "U.S. Government",
+          "Mining",
+          "Government Grants",
+          "Critical Minerals",
+          "equities",
+          "DOE"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.022,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "U.S. Government",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1c49e670f20cf2376d52a59c484d99a4d40dccd76ad50444e0d9ab1050af8de8"
+          },
+          {
+            "query_term": "Mining",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0f8691601be6ba02ca101b1c71032584e9099d1248c1430c7550f33b87608834"
+          },
+          {
+            "query_term": "Government Grants",
+            "source_field": "entities_topics",
+            "source_value_sha256": "565d883a2a3857deff7b25c372dc59cbdf460f3a8a67ed7f0f136eef660f09c1"
+          },
+          {
+            "query_term": "Critical Minerals",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d2b1d65f46fa60a57b9f9a18dd5b8840f6900992a69800e8b9b4fbc6069df437"
+          },
+          {
+            "query_term": "equities",
+            "source_field": "why_now",
+            "source_value_sha256": "e6d7869def0694ecf68665532ede0ee78ae65fdd81cca15947db81882b35d134"
+          },
+          {
+            "query_term": "DOE",
+            "source_field": "needed_evidence",
+            "source_value_sha256": "57f8284d9de19cb6bf39022ca7ee49b13bc411d6b143d62b4eea0219738b68f7"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "U.S. Government",
+          "Mining",
+          "Government Grants",
+          "Critical Minerals",
+          "equities",
+          "DOE"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "needed_evidence",
+          "why_now"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-c6c85fec933a29fa6362",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "U.S. Government",
+        "Mining",
+        "Government Grants",
+        "Critical Minerals"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-a93a1347aadd40ce036fd757"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-80e6a450af03f4c4ffcb"
+      ],
+      "leaf_summaries": [
+        "The U.S. government is reportedly preparing to award $500 million in grants to seven companies to support critical minerals projects."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "List of the seven specific companies receiving the grants",
+        "Details on the specific critical minerals targeted by the funding",
+        "Official announcement or documentation from the relevant U.S. government department (e.g., DOE or DOD)"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 110.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 3,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "The intersection of government industrial policy, national security, and the mining sector provides strong material for standard news analysis with clear market implications.",
+      "seo_intent": "US government critical minerals grants mining companies funding supply chain",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a93a1347aadd40ce036fd757",
+        "ordered_headline_ids": [
+          "cc-x-headline-a93a1347aadd40ce036fd757"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-c6c85fec933a29fa6362",
+      "visual_strategy": "Map of the proposed mining projects or a chart showing U.S. reliance on imported critical minerals versus domestic production goals.",
+      "why_now": "The U.S. government is preparing to award $500 million in grants to seven companies to support critical minerals projects, impacting supply chains and mining equities.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "China",
+          "Strait of Hormuz",
+          "Oil",
+          "Energy Demand",
+          "Commodities Market",
+          "Middle East"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.011,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "China",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9c7f5d3858f8b5efbd6b354eac828c76aa36abb372c21c098596a69fdc8d260f"
+          },
+          {
+            "query_term": "Strait of Hormuz",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ffe2f21830aa3144ab24739bc5ef09d2d0ca5826d350ece77df90b4f21ee6bcf"
+          },
+          {
+            "query_term": "Oil",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3dbbac4fbabc49fe7550eb7dcc8a16c18af90f91ef915cc0bfa995250e8a4035"
+          },
+          {
+            "query_term": "Energy Demand",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c0ea86828e43d37486844b81f416e0f6964707c87497f50c2abd53e472ed16cc"
+          },
+          {
+            "query_term": "Commodities Market",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6e6e67de5507a982618582d1e24564e69299afed626650321187d1480461cd7d"
+          },
+          {
+            "query_term": "Middle East",
+            "source_field": "why_now",
+            "source_value_sha256": "3d04f1f308379413c1016867c5f7dad65a61d660a827480b92363c2e14cee18e"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "China",
+          "Strait of Hormuz",
+          "Oil",
+          "Energy Demand",
+          "Commodities Market",
+          "Middle East"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "why_now"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-3674239471f30bd032a3",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "China",
+        "Strait of Hormuz",
+        "Oil",
+        "Energy Demand",
+        "Commodities Market"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "WHAT_THE_MARKET_IS_MISSING",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-ec6a77209e08c6465600b171"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-84e6dee69ed08e9a7691"
+      ],
+      "leaf_summaries": [
+        "Analysis of the oil market emphasizing the critical role of Chinese import demand over Strait of Hormuz exit flows in determining prices."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Recent macroeconomic data on Chinese crude oil imports and refinery runs",
+        "Metrics on Strait of Hormuz shipping volumes and disruption probabilities",
+        "Expert analysis on the weighting of geopolitical risk vs. demand fundamentals in current oil price models"
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.0,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "rank": 4,
+      "resolved_article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "selection_case": "Provides a contrarian, analytical perspective on energy markets, shifting focus from geopolitical noise to fundamental macroeconomic demand.",
+      "seo_intent": "China oil demand Strait of Hormuz energy market analysis crude prices",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-ec6a77209e08c6465600b171",
+        "ordered_headline_ids": [
+          "cc-x-headline-ec6a77209e08c6465600b171"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-3674239471f30bd032a3",
+      "visual_strategy": "Comparative graph showing Chinese oil import volumes versus Middle East risk premiums in crude pricing over the last 12 months.",
+      "why_now": "Recent oil market volatility has focused heavily on Middle East tensions, but underlying Chinese demand may be the true, underappreciated price driver.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": true,
+  "reranked_order": [
+    "rolling-x-global-cluster-52fd4ce18cf5a235faca",
+    "rolling-x-global-cluster-df65ab7ae9597292c921",
+    "rolling-x-global-cluster-c6c85fec933a29fa6362",
+    "rolling-x-global-cluster-3674239471f30bd032a3"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

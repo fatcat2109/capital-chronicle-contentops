@@ -30,6 +30,7 @@ Any file containing these current-looking claims is stale for routing unless exp
 - FDA-G directly launches native Codex Desktop;
 - material-event metadata directly wakes Codex;
 - P0-G3 remains the current next task;
+- the original daily-output/Codex Automation bridge remains the current next task;
 - passive wait-for-perfect-candidate is the current sole next action.
 
 ## 3. Current replacement semantics
@@ -40,8 +41,11 @@ Any file containing these current-looking claims is stale for routing unless exp
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
 - Later windows may recover earlier deficit through bounded additional candidate/article work.
 - No fifth routine task merely to satisfy the floor.
-- Actual Codex Automation inventory/state must be proven on the installed supported host/product.
+- Hash-bound accepted host observation proves exactly four native V1 Automations, all `PAUSED`;
+  later zero-write tasks preserve them and create no fifth task.
 - FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
+- Current next capability is the exact first-party locator/source-family and query/publisher-resolution
+  closure demonstrated by the story-scoped reuse residual matrix, followed by the 4/32 floor proof.
 
 ## 4. Historical/non-routing families
 
@@ -74,7 +78,8 @@ The current `docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md` has been rew
 
 ## 6. PR #12
 
-PR #12 is frozen historical P0-G4 preflight evidence and explicitly marked `FROZEN_SUPERSEDED_FOR_CURRENT_ROUTING` until the daily-output/Codex execution-bridge correction is accepted.
+PR #12 is frozen historical P0-G4 preflight evidence and explicitly marked
+`FROZEN_SUPERSEDED_FOR_CURRENT_ROUTING` until the current 4/32 zero-write build floor is accepted.
 
 Do not merge or continue it as the current next task.
 

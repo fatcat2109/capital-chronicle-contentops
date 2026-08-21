@@ -1,0 +1,1479 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 9,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "dd61ec96f1e469780320ecb56dc3b2ac5efd1c22533205ceb7a09250fdfc48a8",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-3f8b232bf2a0f020de10"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "e42df2cfff06102a9434cd01e07ca964dec875d76a63c93af8183744026d39d9",
+    "cutoff_time_utc": "2026-08-21T12:31:11.126806Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 9,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "boise",
+            "corporate investment",
+            "micron"
+          ],
+          "first_utc": "2026-08-20T12:35:28Z",
+          "latest_utc": "2026-08-20T12:35:28Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9286,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Micron",
+          "Micron Research Labs",
+          "Boise",
+          "Semiconductors"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-2a51ca718d74eba25887",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 70,
+          "evidence": 85,
+          "saturation_risk": 30,
+          "seo": 80
+        },
+        "summary": "Micron announces a $10 billion investment over the next decade to build Micron Research Labs, a new long-horizon research hub in Boise."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "corporate compensation",
+            "employee bonuses",
+            "semiconductors"
+          ],
+          "first_utc": "2026-08-20T12:36:00Z",
+          "latest_utc": "2026-08-20T12:36:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9198,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "SK Hynix",
+          "Corporate Compensation",
+          "Semiconductors",
+          "Employee Bonuses"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-2bc61f330736ebdf005d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 60,
+          "evidence": 75,
+          "saturation_risk": 20,
+          "seo": 60
+        },
+        "summary": "SK Hynix announces plans to pay 60% of its employee bonuses in company stock."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bond markets",
+            "government debt",
+            "treasury yields"
+          ],
+          "first_utc": "2026-08-20T12:36:53Z",
+          "latest_utc": "2026-08-20T12:36:53Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.905,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "US Treasury",
+          "Bond Markets",
+          "Treasury Yields",
+          "Government Debt"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-6ea4a90a6e45c47a9fcf",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 75,
+          "evidence": 85,
+          "saturation_risk": 40,
+          "seo": 70
+        },
+        "summary": "US 30-year Treasuries erase their previous gains following a buyback announcement."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "inflation",
+            "central_bank",
+            "economic outlook"
+          ],
+          "first_utc": "2026-08-20T12:36:05Z",
+          "latest_utc": "2026-08-20T12:36:05Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9184,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Inflation",
+          "Monetary Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-9f4e9dd931eab56bbaae",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 75,
+          "evidence": 80,
+          "saturation_risk": 40,
+          "seo": 75
+        },
+        "summary": "San Francisco Fed President Mary Daly states the modal outlook anticipates that inflation shocks will dissipate."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "central banking",
+            "central_bank",
+            "federal reserve"
+          ],
+          "first_utc": "2026-08-20T12:36:48Z",
+          "latest_utc": "2026-08-20T12:36:48Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9064,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Interest Rates"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-a8a31996963620b60755",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 75,
+          "evidence": 80,
+          "saturation_risk": 40,
+          "seo": 70
+        },
+        "summary": "San Francisco Fed President Mary Daly expresses strong support for the Federal Reserve's decision to hold interest rates steady in July."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "central banking",
+            "central_bank",
+            "federal reserve"
+          ],
+          "first_utc": "2026-08-20T12:35:29Z",
+          "latest_utc": "2026-08-20T12:35:37Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.9261,
+          "update_velocity": 450.0
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Interest Rates"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-d0f7aaccf02ae169c2e1",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 85,
+          "engagement": 80,
+          "evidence": 80,
+          "saturation_risk": 50,
+          "seo": 75
+        },
+        "summary": "San Francisco Fed President Mary Daly notes there is no evidence calling for pre-emptive interest rate hikes."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "central_bank",
+            "central banking",
+            "federal reserve"
+          ],
+          "first_utc": "2026-08-20T12:35:16Z",
+          "latest_utc": "2026-08-20T12:35:34Z",
+          "material_update": false,
+          "members": 3,
+          "recency_hours": 23.927,
+          "update_velocity": 400.0
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "Mary Daly",
+          "Monetary Policy",
+          "Interest Rates"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-e58675a12ca4c3602d18",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 85,
+          "engagement": 80,
+          "evidence": 80,
+          "saturation_risk": 60,
+          "seo": 75
+        },
+        "summary": "San Francisco Fed President Mary Daly states that current monetary policy is in a good place and the central bank is monitoring markets."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "chatgpt",
+            "generative ai"
+          ],
+          "first_utc": "2026-08-20T12:35:32Z",
+          "latest_utc": "2026-08-20T12:35:32Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9275,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "ChatGPT",
+          "Artificial Intelligence",
+          "Generative AI",
+          "Public Speaking"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-e636526c7dbdaba8f6ac",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 55,
+          "evidence": 50,
+          "saturation_risk": 20,
+          "seo": 65
+        },
+        "summary": "An individual reportedly used ChatGPT to write an inaugural speech that contained fabricated quotes."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "business conditions",
+            "central_bank",
+            "economic indicators"
+          ],
+          "first_utc": "2026-08-20T12:35:14Z",
+          "latest_utc": "2026-08-20T12:35:14Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9325,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Federal Reserve Bank of Philadelphia",
+          "Economic Indicators",
+          "Business Conditions",
+          "Regional Economy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-ff657d1fc5f27b99b85d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 70,
+          "evidence": 85,
+          "saturation_risk": 30,
+          "seo": 70
+        },
+        "summary": "The Philly Fed Business Conditions index surges to a more than 10-year high, prompting market commentary."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "e42df2cfff06102a9434cd01e07ca964dec875d76a63c93af8183744026d39d9",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-0e2aa97095b1f181b8c961d1",
+      "cc-x-headline-134362fe158081b970d9dba7",
+      "cc-x-headline-257bb49f7296135d6935fe56",
+      "cc-x-headline-27ac7dd66dfc199f637da432",
+      "cc-x-headline-4cacd0b7773f0180340c99e4",
+      "cc-x-headline-5c89975438cfd6903ccbebef",
+      "cc-x-headline-be8f874c937d2a32bf7a9f09",
+      "cc-x-headline-d3cdafb244b049a322718ff7",
+      "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+      "cc-x-headline-e261772e9e062cc4838682b3",
+      "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+      "cc-x-headline-f12a5b98b82a377b8c6779bc"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 30,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-257bb49f7296135d6935fe56",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-257bb49f7296135d6935fe56"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Micron",
+        "Micron Research Labs",
+        "Boise"
+      ],
+      "event_topic_summary": "Micron announces a $10 billion investment over the next decade to build Micron Research Labs, a new long-horizon research hub in Boise.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-2a51ca718d74eba25887",
+      "member_headline_ids": [
+        "cc-x-headline-257bb49f7296135d6935fe56"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Semiconductors",
+        "Corporate Investment",
+        "Research and Development"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 20,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "SK Hynix"
+      ],
+      "event_topic_summary": "SK Hynix announces plans to pay 60% of its employee bonuses in company stock.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-2bc61f330736ebdf005d",
+      "member_headline_ids": [
+        "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Corporate Compensation",
+        "Semiconductors",
+        "Employee Bonuses"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 40,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5c89975438cfd6903ccbebef",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5c89975438cfd6903ccbebef"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "US Treasury"
+      ],
+      "event_topic_summary": "US 30-year Treasuries erase their previous gains following a buyback announcement.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-6ea4a90a6e45c47a9fcf",
+      "member_headline_ids": [
+        "cc-x-headline-5c89975438cfd6903ccbebef"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Bond Markets",
+        "Treasury Yields",
+        "Government Debt"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 40,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e261772e9e062cc4838682b3",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e261772e9e062cc4838682b3"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Federal Reserve",
+        "Mary Daly"
+      ],
+      "event_topic_summary": "San Francisco Fed President Mary Daly states the modal outlook anticipates that inflation shocks will dissipate.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-9f4e9dd931eab56bbaae",
+      "member_headline_ids": [
+        "cc-x-headline-e261772e9e062cc4838682b3"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Inflation",
+        "Monetary Policy",
+        "Economic Outlook"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 40,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-134362fe158081b970d9dba7",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-134362fe158081b970d9dba7"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Federal Reserve",
+        "Mary Daly"
+      ],
+      "event_topic_summary": "San Francisco Fed President Mary Daly expresses strong support for the Federal Reserve's decision to hold interest rates steady in July.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-a8a31996963620b60755",
+      "member_headline_ids": [
+        "cc-x-headline-134362fe158081b970d9dba7"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Monetary Policy",
+        "Interest Rates",
+        "Central Banking"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 50,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-be8f874c937d2a32bf7a9f09",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-27ac7dd66dfc199f637da432",
+          "cc-x-headline-be8f874c937d2a32bf7a9f09"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "Federal Reserve",
+        "Mary Daly"
+      ],
+      "event_topic_summary": "San Francisco Fed President Mary Daly notes there is no evidence calling for pre-emptive interest rate hikes.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-d0f7aaccf02ae169c2e1",
+      "member_headline_ids": [
+        "cc-x-headline-27ac7dd66dfc199f637da432",
+        "cc-x-headline-be8f874c937d2a32bf7a9f09"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Monetary Policy",
+        "Interest Rates",
+        "Central Banking"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 60,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f12a5b98b82a377b8c6779bc",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f12a5b98b82a377b8c6779bc",
+          "cc-x-headline-0e2aa97095b1f181b8c961d1",
+          "cc-x-headline-4cacd0b7773f0180340c99e4"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "Federal Reserve",
+        "Mary Daly"
+      ],
+      "event_topic_summary": "San Francisco Fed President Mary Daly states that current monetary policy is in a good place and the central bank is monitoring markets.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-e58675a12ca4c3602d18",
+      "member_headline_ids": [
+        "cc-x-headline-f12a5b98b82a377b8c6779bc",
+        "cc-x-headline-0e2aa97095b1f181b8c961d1",
+        "cc-x-headline-4cacd0b7773f0180340c99e4"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Monetary Policy",
+        "Interest Rates",
+        "Central Banking"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 55,
+        "saturation_risk": 20,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d6283d9586b9dc206f8a9bd5"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "ChatGPT"
+      ],
+      "event_topic_summary": "An individual reportedly used ChatGPT to write an inaugural speech that contained fabricated quotes.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-e636526c7dbdaba8f6ac",
+      "member_headline_ids": [
+        "cc-x-headline-d6283d9586b9dc206f8a9bd5"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Artificial Intelligence",
+        "Generative AI",
+        "Public Speaking"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 30,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d3cdafb244b049a322718ff7",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d3cdafb244b049a322718ff7"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Federal Reserve Bank of Philadelphia"
+      ],
+      "event_topic_summary": "The Philly Fed Business Conditions index surges to a more than 10-year high, prompting market commentary.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-ff657d1fc5f27b99b85d",
+      "member_headline_ids": [
+        "cc-x-headline-d3cdafb244b049a322718ff7"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "topics": [
+        "Economic Indicators",
+        "Business Conditions",
+        "Regional Economy"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-0e2aa97095b1f181b8c961d1",
+        "cc-x-headline-134362fe158081b970d9dba7",
+        "cc-x-headline-257bb49f7296135d6935fe56",
+        "cc-x-headline-27ac7dd66dfc199f637da432",
+        "cc-x-headline-4cacd0b7773f0180340c99e4",
+        "cc-x-headline-5c89975438cfd6903ccbebef",
+        "cc-x-headline-be8f874c937d2a32bf7a9f09",
+        "cc-x-headline-d3cdafb244b049a322718ff7",
+        "cc-x-headline-d6283d9586b9dc206f8a9bd5",
+        "cc-x-headline-e261772e9e062cc4838682b3",
+        "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+        "cc-x-headline-f12a5b98b82a377b8c6779bc"
+      ],
+      "partition_id": "rolling-x-leaf-3f8b232bf2a0f020de10",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "serialized_input_bytes": 8666,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 12,
+    "held_before_semantic_assignment_count": 0,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "0d6d642f34a0293781dc134d60a1bba090d52fbaae337b9bff91f39816f397d6",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+      "headline_ids": [
+        "cc-x-headline-f12a5b98b82a377b8c6779bc",
+        "cc-x-headline-0e2aa97095b1f181b8c961d1",
+        "cc-x-headline-4cacd0b7773f0180340c99e4",
+        "cc-x-headline-27ac7dd66dfc199f637da432",
+        "cc-x-headline-be8f874c937d2a32bf7a9f09",
+        "cc-x-headline-134362fe158081b970d9dba7",
+        "cc-x-headline-e261772e9e062cc4838682b3"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-e58675a12ca4c3602d18",
+        "rolling-x-leaf-cluster-d0f7aaccf02ae169c2e1",
+        "rolling-x-leaf-cluster-a8a31996963620b60755",
+        "rolling-x-leaf-cluster-9f4e9dd931eab56bbaae"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Full transcript or official recording of Mary Daly's remarks",
+        "Confirmation of the specific venue and context of her speech",
+        "Recent inflation data points referenced in her outlook"
+      ],
+      "rank": 1,
+      "selection_case": "Daly's comments collectively signal a strong consensus for holding rates steady and avoiding pre-emptive hikes, which is critical context for bond and equity markets assessing the Fed's next moves.",
+      "seo_intent": "Mary Daly Federal Reserve interest rates monetary policy inflation outlook",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f12a5b98b82a377b8c6779bc",
+        "ordered_headline_ids": [
+          "cc-x-headline-f12a5b98b82a377b8c6779bc",
+          "cc-x-headline-0e2aa97095b1f181b8c961d1",
+          "cc-x-headline-4cacd0b7773f0180340c99e4",
+          "cc-x-headline-27ac7dd66dfc199f637da432",
+          "cc-x-headline-be8f874c937d2a32bf7a9f09",
+          "cc-x-headline-134362fe158081b970d9dba7",
+          "cc-x-headline-e261772e9e062cc4838682b3"
+        ],
+        "relationship": "incremental_update"
+      },
+      "visual_strategy": "A professional portrait of Mary Daly speaking at a recent event, or a chart showing the recent trajectory of the Fed Funds rate against inflation.",
+      "why_now": "San Francisco Fed President Mary Daly has just provided comprehensive remarks on the current state of monetary policy, inflation expectations, and interest rates."
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-9def919a63d51d885fd6",
+      "headline_ids": [
+        "cc-x-headline-257bb49f7296135d6935fe56"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-2a51ca718d74eba25887"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official Micron press release detailing the $10 billion investment",
+        "Timeline for construction and operational milestones",
+        "Details on potential local or federal tax incentives (e.g., CHIPS Act funding)"
+      ],
+      "rank": 2,
+      "selection_case": "A $10 billion capital expenditure in domestic semiconductor R&D is highly material to Micron's long-term valuation and the broader US semiconductor supply chain narrative.",
+      "seo_intent": "Micron $10 billion investment Boise Research Labs semiconductor R&D",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-257bb49f7296135d6935fe56",
+        "ordered_headline_ids": [
+          "cc-x-headline-257bb49f7296135d6935fe56"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "An architectural rendering of the planned Micron Research Labs or a high-quality image of a Micron semiconductor wafer.",
+      "why_now": "Micron has just announced a massive $10 billion, decade-long investment in a new research hub in Boise."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-e260c8f29ccf3c2c95e8",
+      "headline_ids": [
+        "cc-x-headline-d3cdafb244b049a322718ff7"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-ff657d1fc5f27b99b85d"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "The official data release from the Federal Reserve Bank of Philadelphia",
+        "Historical index data for the past 10-15 years for context",
+        "Breakdown of the sub-components driving the surge (e.g., new orders, employment)"
+      ],
+      "rank": 3,
+      "selection_case": "Regional Fed surveys are leading indicators of broader economic health. A decade-high surge challenges recent recessionary fears and provides a strong counter-narrative to slowing growth.",
+      "seo_intent": "Philly Fed Business Conditions index 10-year high regional economy manufacturing",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-d3cdafb244b049a322718ff7",
+        "ordered_headline_ids": [
+          "cc-x-headline-d3cdafb244b049a322718ff7"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A line chart plotting the Philly Fed Business Conditions index over the past 10 years, highlighting the recent spike.",
+      "why_now": "The Philly Fed Business Conditions index has unexpectedly surged to a more than 10-year high."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-a9c11ba9a6f1723e5666",
+      "headline_ids": [
+        "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-2bc61f330736ebdf005d"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Official internal memo or public statement from SK Hynix regarding the bonus structure",
+        "Historical context on SK Hynix's previous bonus payouts",
+        "Current SK Hynix stock performance metrics"
+      ],
+      "rank": 4,
+      "selection_case": "This move highlights capital preservation and employee alignment strategies within the highly cyclical and capital-intensive semiconductor memory sector.",
+      "seo_intent": "SK Hynix employee bonuses company stock compensation semiconductor industry",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-e5d97c7d5893bc0fda8e039d",
+        "ordered_headline_ids": [
+          "cc-x-headline-e5d97c7d5893bc0fda8e039d"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A corporate image of SK Hynix headquarters or a graphic illustrating the shift from cash to stock compensation.",
+      "why_now": "SK Hynix has announced a significant shift in its compensation structure, opting to pay 60% of employee bonuses in company stock."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "rejected",
+          "failure_class": "structured_output_schema_invalid",
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "0fe14333717f93e2b32b4055d60f2aa93c3b4504f3279b3bd6a8c5ec348a34fc",
+          "latency_seconds": 56.0793,
+          "logical_invocation_id": "inv_rolling_x_leaf_9d7bd0fb4ba84996b4f4",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "a5c898e78cdfa18e32fb69fe654953d23374dc5434fba8c893ad164b40e60990",
+          "prompt_logical_hash": "12f39b50acccf77d8d29436bbdd4192cb8583f57a62b9a729983bd8e196eb093",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-WV2IavefGuHCweoPlvfqwAw",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_9d7bd0fb4ba84996b4f4",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "FAIL",
+          "usage": {
+            "completion_tokens": 8938,
+            "completion_tokens_details": {
+              "reasoning_tokens": 6900
+            },
+            "prompt_tokens": 5758,
+            "total_tokens": 14696
+          },
+          "work_item_id": "rolling-x-leaf-3f8b232bf2a0f020de10"
+        },
+        {
+          "attempt_number_for_model": 2,
+          "attempt_number_global": 2,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "0fe14333717f93e2b32b4055d60f2aa93c3b4504f3279b3bd6a8c5ec348a34fc",
+          "latency_seconds": 54.1047,
+          "logical_invocation_id": "inv_rolling_x_leaf_9d7bd0fb4ba84996b4f4",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "e20402db7556e31996a3a6b4f3d5fc5111b6766582077ade4b57f51238fab217",
+          "prompt_logical_hash": "928119138cb2376f2171a479b86ca34b4212218339687240ba8b182cd30509ae",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-kV2IapzjF6GAs8IP9MPB8Ak",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 0,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 2
+            },
+            "consumed_attempts": 2,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 1,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_9d7bd0fb4ba84996b4f4",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 0,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 1,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 9137,
+            "completion_tokens_details": {
+              "reasoning_tokens": 6155
+            },
+            "prompt_tokens": 5878,
+            "total_tokens": 15015
+          },
+          "work_item_id": "rolling-x-leaf-3f8b232bf2a0f020de10"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "consumed_attempts": 2,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 1,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_9d7bd0fb4ba84996b4f4",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 0,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_9d7bd0fb4ba84996b4f4",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 2,
+      "total_cost": null,
+      "total_elapsed_seconds": 110.1855,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 1,
+      "total_usage": {
+        "completion_tokens": 18075.0,
+        "prompt_tokens": 11636.0,
+        "total_tokens": 29711.0
+      },
+      "work_item_id": "rolling-x-leaf-3f8b232bf2a0f020de10"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "rejected",
+          "failure_class": "structured_output_schema_invalid",
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "83a761eb087c9de0391a9b78d71ff6bd723ddbdae3a2d3c2332237836dadb586",
+          "latency_seconds": 30.4017,
+          "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "20af4a2d6d2442565e38031179177de0ce7421d328f482a3e9e9b5076845dc5f",
+          "prompt_logical_hash": "ddf8994d2e823400cfa96bb34366b7d5ff3a7f1fc812bf6e481f248016de5653",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-x12Iaq_LHaLDweoPq9H5yA4",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_diagnostic_code": "global_unknown_leaf_cluster_id",
+          "structured_validation_result": "FAIL",
+          "usage": {
+            "completion_tokens": 3847,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2277
+            },
+            "prompt_tokens": 6089,
+            "total_tokens": 9936
+          },
+          "work_item_id": "rolling-x-global-e42df2cfff06102a9434"
+        },
+        {
+          "attempt_number_for_model": 2,
+          "attempt_number_global": 2,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "83a761eb087c9de0391a9b78d71ff6bd723ddbdae3a2d3c2332237836dadb586",
+          "latency_seconds": 26.1557,
+          "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "9758451e552adefb0b6e33c1584b64bd25c36801c67166b719bfaf83d5683acc",
+          "prompt_logical_hash": "89351733af6a65616d05bf62617d1202a50d7cb36de206f60395c0749bfe78e4",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-5V2IaqOQN_OZs8IP4qO2wA4",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 0,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 2
+            },
+            "consumed_attempts": 2,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 1,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 0,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 1,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 3558,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2376
+            },
+            "prompt_tokens": 6549,
+            "total_tokens": 10107
+          },
+          "work_item_id": "rolling-x-global-e42df2cfff06102a9434"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "consumed_attempts": 2,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 1,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 0,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 2,
+      "total_cost": null,
+      "total_elapsed_seconds": 56.5586,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 1,
+      "total_usage": {
+        "completion_tokens": 7405.0,
+        "prompt_tokens": 12638.0,
+        "total_tokens": 20043.0
+      },
+      "work_item_id": "rolling-x-global-e42df2cfff06102a9434"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "rejected",
+        "failure_class": "structured_output_schema_invalid",
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "83a761eb087c9de0391a9b78d71ff6bd723ddbdae3a2d3c2332237836dadb586",
+        "latency_seconds": 30.4017,
+        "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "20af4a2d6d2442565e38031179177de0ce7421d328f482a3e9e9b5076845dc5f",
+        "prompt_logical_hash": "ddf8994d2e823400cfa96bb34366b7d5ff3a7f1fc812bf6e481f248016de5653",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-x12Iaq_LHaLDweoPq9H5yA4",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 1,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 0,
+          "max_same_model_retries": 1,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 2,
+          "per_model_max_attempts": [
+            2
+          ],
+          "remaining_attempt_budget": 1,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_diagnostic_code": "global_unknown_leaf_cluster_id",
+        "structured_validation_result": "FAIL",
+        "usage": {
+          "completion_tokens": 3847,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2277
+          },
+          "prompt_tokens": 6089,
+          "total_tokens": 9936
+        },
+        "work_item_id": "rolling-x-global-e42df2cfff06102a9434"
+      },
+      {
+        "attempt_number_for_model": 2,
+        "attempt_number_global": 2,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "83a761eb087c9de0391a9b78d71ff6bd723ddbdae3a2d3c2332237836dadb586",
+        "latency_seconds": 26.1557,
+        "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "9758451e552adefb0b6e33c1584b64bd25c36801c67166b719bfaf83d5683acc",
+        "prompt_logical_hash": "89351733af6a65616d05bf62617d1202a50d7cb36de206f60395c0749bfe78e4",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-5V2IaqOQN_OZs8IP4qO2wA4",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 0,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 2
+          },
+          "consumed_attempts": 2,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 1,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 0,
+          "max_same_model_retries": 1,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 2,
+          "per_model_max_attempts": [
+            2
+          ],
+          "remaining_attempt_budget": 0,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 1,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 3558,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2376
+          },
+          "prompt_tokens": 6549,
+          "total_tokens": 10107
+        },
+        "work_item_id": "rolling-x-global-e42df2cfff06102a9434"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 2
+      },
+      "consumed_attempts": 2,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 1,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": [
+        2
+      ],
+      "remaining_attempt_budget": 0,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_fab5091ae32bbbce0bef",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 2,
+    "total_cost": null,
+    "total_elapsed_seconds": 56.5586,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 1,
+    "total_usage": {
+      "completion_tokens": 7405.0,
+      "prompt_tokens": 12638.0,
+      "total_tokens": 20043.0
+    },
+    "work_item_id": "rolling-x-global-e42df2cfff06102a9434"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-c6760e6301425322c780",
+  "selected_headline_ids": [
+    "cc-x-headline-f12a5b98b82a377b8c6779bc",
+    "cc-x-headline-0e2aa97095b1f181b8c961d1",
+    "cc-x-headline-4cacd0b7773f0180340c99e4",
+    "cc-x-headline-27ac7dd66dfc199f637da432",
+    "cc-x-headline-be8f874c937d2a32bf7a9f09",
+    "cc-x-headline-134362fe158081b970d9dba7",
+    "cc-x-headline-e261772e9e062cc4838682b3"
+  ],
+  "selection_rationale": "Consolidated Federal Reserve commentary from Mary Daly provides a clear view on the central bank's current stance, alongside significant corporate investment news from Micron and strong regional economic data from the Philly Fed.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 166.7441,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 4,
+    "token_usage": {
+      "completion_tokens": 25480.0,
+      "prompt_tokens": 24274.0,
+      "total_tokens": 49754.0
+    }
+  }
+}

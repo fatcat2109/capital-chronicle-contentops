@@ -615,3 +615,34 @@ def test_cycle_request_budget_is_shared_across_rank_fallback_calls():
     assert first_packet["provenance"]["request_count"] == 1
     assert "official_source_request_budget_exhausted" in second_packet["blockers"]
     assert second_packet["provenance"]["request_count"] == 1
+
+
+def test_same_story_mode_recheck_reuses_exact_official_bytes_without_network_read():
+    url = "https://api.federalregister.gov/v1/documents/2026-12345.json"
+    body = json.dumps({
+        "title": "Final rule",
+        "publication_date": "2026-08-08",
+        "effective_on": "2026-09-08",
+    }).encode()
+    calls = []
+    loader = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        http_get=lambda requested, *_args: calls.append(requested)
+        or _response(url, body),
+    )
+    request = _request(
+        family="official_regulatory_fiscal",
+        required=[],
+        url=url,
+    )
+    request["story_evidence_scope_id"] = "official-story-scope"
+
+    first = loader(request)
+    second = loader({**request, "request_logical_hash": "b" * 64})
+
+    assert first["official_source_documents"] == second["official_source_documents"]
+    assert calls == [url]
+    assert second["rolling_x_story_binding"]["request_logical_hash"] == "b" * 64
+    assert second["provenance"]["request_count_for_call"] == 0
+    assert second["provenance"]["acquisition_cache_reused"] is True
+    assert second["provenance"]["network_reads_avoided_for_call"] == 1

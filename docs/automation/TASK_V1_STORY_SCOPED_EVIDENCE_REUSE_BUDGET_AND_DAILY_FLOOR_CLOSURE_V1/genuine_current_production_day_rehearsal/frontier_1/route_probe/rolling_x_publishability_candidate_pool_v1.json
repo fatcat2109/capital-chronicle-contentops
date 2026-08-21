@@ -1,0 +1,11 @@
+{
+  "bounded_pool_limit": 4,
+  "combined_candidate_count": 4,
+  "factual_or_numeric_authority_granted": false,
+  "full_universe_expansion_performed": false,
+  "llm_or_provider_calls": 2,
+  "publication_authority_granted": false,
+  "same_cycle_ranked_evidence_walk": true,
+  "schema_version": "contentops.rolling_x_publishability_candidate_pool.v1",
+  "status": "PREPARED_DISTINCT_STORY_SET_REUSED"
+}

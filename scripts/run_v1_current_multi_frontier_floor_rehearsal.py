@@ -132,11 +132,15 @@ def _new_state(
     sidecar_glob: str,
     rolling_input_path: Path | None = None,
     parent_cycle_root: Path | None = None,
+    cycle_artifact_path: Path | None = None,
+    task_label: str = TASK,
 ) -> dict[str, Any]:
     now = datetime.now(timezone.utc)
     rolling = (
         _load(rolling_input_path)
         if rolling_input_path is not None
+        else dict(_load(cycle_artifact_path).get("intake") or {})
+        if cycle_artifact_path is not None
         else _load_parent_cycle_replay_input(parent_cycle_root)
         if parent_cycle_root is not None
         else load_rolling_x_headline_sidecars(
@@ -148,7 +152,7 @@ def _new_state(
     _write(rolling_path, rolling)
     state = {
         "schema_version": SCHEMA,
-        "task_label": TASK,
+        "task_label": task_label,
         "created_at_utc": now.isoformat().replace("+00:00", "Z"),
         "production_day_id": newsroom_production_day_id(now),
         "cutoff_utc": rolling["cutoff_time_utc"],
@@ -156,12 +160,17 @@ def _new_state(
         "input_mode": (
             "FROZEN_REPLAY"
             if rolling_input_path
+            else "COMMITTED_FRONTIER_ARTIFACT_REPLAY"
+            if cycle_artifact_path
             else "PARENT_FOUR_FRONTIER_REPLAY"
             if parent_cycle_root
             else "GENUINE_CURRENT_INPUT"
         ),
         "source_rolling_input_path": str(rolling_input_path) if rolling_input_path else None,
         "source_parent_cycle_root": str(parent_cycle_root) if parent_cycle_root else None,
+        "source_cycle_artifact_path": (
+            str(cycle_artifact_path) if cycle_artifact_path else None
+        ),
         "rolling_input_path": str(rolling_path),
         "rolling_input_sha256": _sha(rolling),
         "full_current_headline_count": int((rolling.get("counts") or {}).get("accepted") or 0),
@@ -187,12 +196,21 @@ def _state(
     sidecar_glob: str,
     rolling_input_path: Path | None = None,
     parent_cycle_root: Path | None = None,
+    cycle_artifact_path: Path | None = None,
+    task_label: str = TASK,
 ) -> dict[str, Any]:
     path = _state_path(root)
     return (
         _load(path)
         if path.exists()
-        else _new_state(root, sidecar_glob, rolling_input_path, parent_cycle_root)
+        else _new_state(
+            root,
+            sidecar_glob,
+            rolling_input_path,
+            parent_cycle_root,
+            cycle_artifact_path,
+            task_label,
+        )
     )
 
 
@@ -230,6 +248,36 @@ def _frontier_row(
             + int(official.get("official_evidence_get_count") or 0),
             "status": attempt.get("status"),
             "blockers": list(attempt.get("blockers") or []),
+            "story_evidence_scope_id": attempt.get("story_evidence_scope_id"),
+            "network_requests_performed": int(
+                attempt.get("story_evidence_network_requests") or 0
+            ),
+            "network_reads_avoided": int(
+                attempt.get("story_evidence_network_reads_avoided") or 0
+            ),
+            "delta_acquisition_count": int(
+                attempt.get("story_evidence_delta_acquisition_count") or 0
+            ),
+            "mode_attempts": [
+                {
+                    "effective_mode": row.get("effective_mode"),
+                    "status": row.get("status"),
+                    "evidence_acquisition_action": row.get(
+                        "evidence_acquisition_action"
+                    ),
+                    "network_requests_performed": int(
+                        row.get("network_requests_performed") or 0
+                    ),
+                    "network_reads_avoided": int(
+                        row.get("network_reads_avoided") or 0
+                    ),
+                    "delta_evidence_requirements": dict(
+                        row.get("delta_evidence_requirements") or {}
+                    ),
+                }
+                for row in attempt.get("mode_attempts") or []
+                if isinstance(row, Mapping)
+            ],
         })
     story_frontier = dict(result.get("prepared_story_frontier") or {})
     return {
@@ -259,6 +307,15 @@ def _frontier_row(
         "requests_by_distinct_story": request_rows,
         "public_request_total": sum(row["public_requests"] for row in request_rows),
         "official_request_total": sum(row["official_requests"] for row in request_rows),
+        "story_scoped_network_request_total": sum(
+            row["network_requests_performed"] for row in request_rows
+        ),
+        "story_scoped_network_reads_avoided": sum(
+            row["network_reads_avoided"] for row in request_rows
+        ),
+        "story_scoped_delta_acquisition_count": sum(
+            row["delta_acquisition_count"] for row in request_rows
+        ),
         "selected_rank": viability.get("selected_rank"),
         "selected_cluster_id": viability.get("selected_cluster_id"),
         "evidence_status": selected_evidence.get("status"),
@@ -287,7 +344,7 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
     return {
         **dict(state),
         "schema_version": SCHEMA,
-        "task_label": TASK,
+        "task_label": state.get("task_label") or TASK,
         "classification": classification,
         "frontier_count": completed,
         "prepared_headline_identity_slot_count": sum(
@@ -325,6 +382,18 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
         "official_request_total": sum(
             int(row.get("official_request_total") or 0) for row in frontiers
         ),
+        "story_scoped_network_request_total": sum(
+            int(row.get("story_scoped_network_request_total") or 0)
+            for row in frontiers
+        ),
+        "story_scoped_network_reads_avoided": sum(
+            int(row.get("story_scoped_network_reads_avoided") or 0)
+            for row in frontiers
+        ),
+        "story_scoped_delta_acquisition_count": sum(
+            int(row.get("story_scoped_delta_acquisition_count") or 0)
+            for row in frontiers
+        ),
         "exact_next_blocker_taxonomy": sorted(
             {
                 str(row.get("exact_next_blocker") or "")
@@ -347,8 +416,17 @@ def probe(
     sidecar_glob: str,
     rolling_input_path: Path | None = None,
     parent_cycle_root: Path | None = None,
+    cycle_artifact_path: Path | None = None,
+    task_label: str = TASK,
 ) -> dict[str, Any]:
-    state = _state(root, sidecar_glob, rolling_input_path, parent_cycle_root)
+    state = _state(
+        root,
+        sidecar_glob,
+        rolling_input_path,
+        parent_cycle_root,
+        cycle_artifact_path,
+        task_label,
+    )
     if state.get("pending_frontier"):
         raise ValueError("pending_frontier_must_be_completed_first")
     if len(state.get("frontiers") or []) >= MAX_FRONTIERS:
@@ -527,10 +605,14 @@ def main() -> int:
     parser.add_argument("--sidecar-glob", default=DEFAULT_X_SIDECAR_GLOB)
     parser.add_argument("--rolling-input", type=Path)
     parser.add_argument("--parent-cycle-root", type=Path)
+    parser.add_argument("--cycle-artifact", type=Path)
     parser.add_argument("--worker-return", type=Path)
+    parser.add_argument("--task-label", default=TASK)
     args = parser.parse_args()
-    if args.rolling_input and args.parent_cycle_root:
-        raise ValueError("rolling_input_and_parent_cycle_root_are_mutually_exclusive")
+    if sum(bool(value) for value in (
+        args.rolling_input, args.parent_cycle_root, args.cycle_artifact
+    )) > 1:
+        raise ValueError("rolling_input_parent_cycle_root_and_cycle_artifact_are_mutually_exclusive")
     root = args.root.resolve()
     if args.action == "probe":
         result = probe(
@@ -538,6 +620,8 @@ def main() -> int:
             args.sidecar_glob,
             args.rolling_input.resolve(strict=True) if args.rolling_input else None,
             args.parent_cycle_root.resolve(strict=True) if args.parent_cycle_root else None,
+            args.cycle_artifact.resolve(strict=True) if args.cycle_artifact else None,
+            args.task_label,
         )
     elif args.action == "complete":
         if args.worker_return is None:

@@ -1,0 +1,1594 @@
+{
+  "assignment": {
+    "assignment_logical_hash": "e26b3776fa969afba17cb6c54b80bdaafac2480b186f1562f526da378e25b698",
+    "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
+    "decision": "SELECT_STORY",
+    "factual_or_numeric_authority_granted": false,
+    "input_binding": {
+      "canonical_input_hash": "f9b9e77b5c05e631be5193cecd27b8228bab9c40761df4ef9353d6bb011dc719",
+      "held_count": 0,
+      "input_count": 12,
+      "selected_count": 12
+    },
+    "leaf_clusters": [
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-98524bac9e9f2e6720b8f3c8",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "Fed's Daly: Short term yields show markets understand fed reaction function.",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-9e3f9157b553da26e884",
+        "member_headline_ids": [
+          "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-d0235b2bb7c33b1c861a363b",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-d0235b2bb7c33b1c861a363b"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "FED'S DALY: I DON'T SEE FED CREDIBILITY AT RISK",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-3f5c5ae1ac040b25a0cb",
+        "member_headline_ids": [
+          "cc-x-headline-d0235b2bb7c33b1c861a363b"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-53684174ab9389dbac3c0dc4",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-53684174ab9389dbac3c0dc4"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "FED'S DALY SAYS RISING BOND YIELDS DON'T GIVE SIGNAL FOR POLICY",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-9745e4d6e32e3aeef8af",
+        "member_headline_ids": [
+          "cc-x-headline-53684174ab9389dbac3c0dc4"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-5785b9dc13d379056dc55c30",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-5785b9dc13d379056dc55c30"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "Fed's Daly: I don't see Fed credibility at risk",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-f23d882ed68f22067ec6",
+        "member_headline_ids": [
+          "cc-x-headline-5785b9dc13d379056dc55c30"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-8dfc3780324a50304571eb6c",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-8dfc3780324a50304571eb6c"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "Fed's Daly: Rise in long term yields is a global issue, blunts signal for Fed.",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-1682d04d907e7e16e371",
+        "member_headline_ids": [
+          "cc-x-headline-8dfc3780324a50304571eb6c"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-f5e1906ee46c4ac82a7ca373",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "Philly Fed Mfg prices paid falls to 40.9... low-end of the range back to early 2025",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-efc5d101e9bbbff38283",
+        "member_headline_ids": [
+          "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-5940b992bf4f560c2f78eae1"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "Fed's Daly: Rising bond yields don't give a signal for policy",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-1ae4dee6a730e8af6543",
+        "member_headline_ids": [
+          "cc-x-headline-5940b992bf4f560c2f78eae1"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-a530786f75a1e64daf0eea97",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-a530786f75a1e64daf0eea97"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "206K people filed for unemployment this past week in the United States \ud83c\uddfa\ud83c\uddf8 below expectations 210K",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-bd32377a8b59e7f545ee",
+        "member_headline_ids": [
+          "cc-x-headline-a530786f75a1e64daf0eea97"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-edad5280888abfafe73b29d5",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-edad5280888abfafe73b29d5"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "Initial Claims ~steady at 206k",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-220491fcf15d7c47defd",
+        "member_headline_ids": [
+          "cc-x-headline-edad5280888abfafe73b29d5"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-402b6e35b897ebe21a5e30c8"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "BREAKING Initial Jobless Claims Act.: 206K, Est.: 210K, Prev.: 212K",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-9b26f4ded65c3fc58b90",
+        "member_headline_ids": [
+          "cc-x-headline-402b6e35b897ebe21a5e30c8"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-5e0778b6937bccf4a878a839"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "Philly Fed Mfg 47.4 best since April 2021",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-a34de4864d486e22fa18",
+        "member_headline_ids": [
+          "cc-x-headline-5e0778b6937bccf4a878a839"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      },
+      {
+        "candidate_relevance_signals": {
+          "audience_relevance": 0,
+          "evidence_prospects": 0,
+          "qualified_engagement_potential": 0,
+          "saturation_risk": 0,
+          "seo_potential": 0
+        },
+        "canonical_representative_headline_id": "cc-x-headline-7d4860da701df7f401a0c69f",
+        "duplicate_update_chain": {
+          "ordered_headline_ids": [
+            "cc-x-headline-7d4860da701df7f401a0c69f"
+          ],
+          "relationship": "distinct"
+        },
+        "entities": [],
+        "event_topic_summary": "US JOBLESS CLAIMS 206K IN AUG. 15 WEEK; EST. 210K",
+        "leaf_cluster_id": "rolling-x-deterministic-leaf-df8ae75a44866485e685",
+        "member_headline_ids": [
+          "cc-x-headline-7d4860da701df7f401a0c69f"
+        ],
+        "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+        "topics": []
+      }
+    ],
+    "ranked_clusters": [
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-9e3f9157b553da26e884",
+        "headline_ids": [
+          "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-9e3f9157b553da26e884"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 1,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-98524bac9e9f2e6720b8f3c8",
+          "ordered_headline_ids": [
+            "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "Fed's Daly: Short term yields show markets understand fed reaction function."
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-3f5c5ae1ac040b25a0cb",
+        "headline_ids": [
+          "cc-x-headline-d0235b2bb7c33b1c861a363b"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-3f5c5ae1ac040b25a0cb"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 2,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-d0235b2bb7c33b1c861a363b",
+          "ordered_headline_ids": [
+            "cc-x-headline-d0235b2bb7c33b1c861a363b"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "FED'S DALY: I DON'T SEE FED CREDIBILITY AT RISK"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-9745e4d6e32e3aeef8af",
+        "headline_ids": [
+          "cc-x-headline-53684174ab9389dbac3c0dc4"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-9745e4d6e32e3aeef8af"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 3,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-53684174ab9389dbac3c0dc4",
+          "ordered_headline_ids": [
+            "cc-x-headline-53684174ab9389dbac3c0dc4"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "FED'S DALY SAYS RISING BOND YIELDS DON'T GIVE SIGNAL FOR POLICY"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-f23d882ed68f22067ec6",
+        "headline_ids": [
+          "cc-x-headline-5785b9dc13d379056dc55c30"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-f23d882ed68f22067ec6"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 4,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-5785b9dc13d379056dc55c30",
+          "ordered_headline_ids": [
+            "cc-x-headline-5785b9dc13d379056dc55c30"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "Fed's Daly: I don't see Fed credibility at risk"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-1682d04d907e7e16e371",
+        "headline_ids": [
+          "cc-x-headline-8dfc3780324a50304571eb6c"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-1682d04d907e7e16e371"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 5,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-8dfc3780324a50304571eb6c",
+          "ordered_headline_ids": [
+            "cc-x-headline-8dfc3780324a50304571eb6c"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "Fed's Daly: Rise in long term yields is a global issue, blunts signal for Fed."
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-efc5d101e9bbbff38283",
+        "headline_ids": [
+          "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-efc5d101e9bbbff38283"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 6,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-f5e1906ee46c4ac82a7ca373",
+          "ordered_headline_ids": [
+            "cc-x-headline-f5e1906ee46c4ac82a7ca373"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "Philly Fed Mfg prices paid falls to 40.9... low-end of the range back to early 2025"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-1ae4dee6a730e8af6543",
+        "headline_ids": [
+          "cc-x-headline-5940b992bf4f560c2f78eae1"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-1ae4dee6a730e8af6543"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 7,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+          "ordered_headline_ids": [
+            "cc-x-headline-5940b992bf4f560c2f78eae1"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "Fed's Daly: Rising bond yields don't give a signal for policy"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-bd32377a8b59e7f545ee",
+        "headline_ids": [
+          "cc-x-headline-a530786f75a1e64daf0eea97"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-bd32377a8b59e7f545ee"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 8,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-a530786f75a1e64daf0eea97",
+          "ordered_headline_ids": [
+            "cc-x-headline-a530786f75a1e64daf0eea97"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "206K people filed for unemployment this past week in the United States \ud83c\uddfa\ud83c\uddf8 below expectations 210K"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-220491fcf15d7c47defd",
+        "headline_ids": [
+          "cc-x-headline-edad5280888abfafe73b29d5"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-220491fcf15d7c47defd"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 9,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-edad5280888abfafe73b29d5",
+          "ordered_headline_ids": [
+            "cc-x-headline-edad5280888abfafe73b29d5"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "Initial Claims ~steady at 206k"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-9b26f4ded65c3fc58b90",
+        "headline_ids": [
+          "cc-x-headline-402b6e35b897ebe21a5e30c8"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-9b26f4ded65c3fc58b90"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 10,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-402b6e35b897ebe21a5e30c8",
+          "ordered_headline_ids": [
+            "cc-x-headline-402b6e35b897ebe21a5e30c8"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "BREAKING Initial Jobless Claims Act.: 206K, Est.: 210K, Prev.: 212K"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-a34de4864d486e22fa18",
+        "headline_ids": [
+          "cc-x-headline-5e0778b6937bccf4a878a839"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-a34de4864d486e22fa18"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 11,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+          "ordered_headline_ids": [
+            "cc-x-headline-5e0778b6937bccf4a878a839"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "Philly Fed Mfg 47.4 best since April 2021"
+      },
+      {
+        "article_mode": "breaking",
+        "cluster_id": "rolling-x-deterministic-cluster-df8ae75a44866485e685",
+        "headline_ids": [
+          "cc-x-headline-7d4860da701df7f401a0c69f"
+        ],
+        "leaf_cluster_ids": [
+          "rolling-x-deterministic-leaf-df8ae75a44866485e685"
+        ],
+        "market_sensitive": false,
+        "needed_evidence": [
+          "Corroborate the limited factual claim from public evidence."
+        ],
+        "rank": 12,
+        "selection_case": "Fresh discovery item with a bounded public evidence path.",
+        "seo_intent": "",
+        "story_mode": "reporting",
+        "update_chain": {
+          "canonical_headline_id": "cc-x-headline-7d4860da701df7f401a0c69f",
+          "ordered_headline_ids": [
+            "cc-x-headline-7d4860da701df7f401a0c69f"
+          ],
+          "relationship": "distinct"
+        },
+        "visual_strategy": "Deterministic source-backed title card.",
+        "why_now": "US JOBLESS CLAIMS 206K IN AUG. 15 WEEK; EST. 210K"
+      }
+    ],
+    "reason_code": null,
+    "router_calls": [],
+    "router_output_grants_publication_authority": false,
+    "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+    "selected_cluster_id": "rolling-x-deterministic-cluster-9e3f9157b553da26e884",
+    "selected_headline_ids": [
+      "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+    ],
+    "semantic_assignment_failure_recovered": true,
+    "status": "SUCCESS",
+    "telemetry": {
+      "fallback_transitions": 0,
+      "logical_router_calls": 0,
+      "provider_attempts": 0,
+      "token_usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 0,
+        "total_tokens": 0
+      }
+    },
+    "x_content_grants_evidence_authority": false
+  },
+  "bounded_semantic_assignment_required_at_editorial_opportunity": true,
+  "compact_headline_count": 12,
+  "continuity_binding": {},
+  "factual_or_numeric_authority_granted": false,
+  "full_rolling_headline_count": 12,
+  "full_universe_semantic_assignment_calls": 0,
+  "llm_or_provider_calls": 0,
+  "preparation_method": "DETERMINISTIC_CONTINUITY_FRONTIER_EVIDENCE_REACHABLE",
+  "prepared_at_utc": "2026-08-21T12:31:11.126806Z",
+  "prepared_candidate_count": 12,
+  "prepared_candidate_logical_hash": "7a759988980e38c1de2b41ace467868f3b2ec2d92bf7aaede8230dab77386298",
+  "prepared_frontier": {
+    "deferred_headline_ids": [],
+    "deferred_headline_ids_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "deferred_identity_count": 0,
+    "eligible_editorial_opportunities": [
+      {
+        "capacity": 12,
+        "end_utc": "2026-08-21T13:31:11.126806Z",
+        "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+        "policy_id": "",
+        "policy_version": "",
+        "session": "immediate_prepared_frontier",
+        "start_utc": "2026-08-21T12:31:11.126806Z",
+        "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+      }
+    ],
+    "eligible_editorial_opportunities_hash": "20c4d236feb196fd413dc5cd4d1bebebc904e5df41a8ac14d2afbcb3d053671b",
+    "eligible_identity_count": 12,
+    "evaluated_identity_count": 0,
+    "frontier_accounted_identity_count": 12,
+    "frontier_dispositions_grant_evidence_walk_evaluation": false,
+    "frontier_dispositions_grant_factual_or_numeric_authority": false,
+    "frontier_dispositions_grant_publication_authority": false,
+    "frontier_logical_hash": "c0c3bbec1a08bf30f4608d053a845d1a6af22a78c50513b431e19abb0139e657",
+    "frontier_reconciliation_total": 12,
+    "frontier_reconciliation_valid": true,
+    "full_current_headline_count": 12,
+    "full_universe_frontier_accounting_model_or_provider_calls": 0,
+    "full_universe_semantic_processing_performed": false,
+    "future_evaluation_requires_terminal_refresh": false,
+    "identity_dispositions": [
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 3,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:32:30Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 10,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-53684174ab9389dbac3c0dc4",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:34:16Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 9,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-5785b9dc13d379056dc55c30",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:34:09Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 6,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:33:43Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 2,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:32:01Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 1,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-7d4860da701df7f401a0c69f",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:31:38Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 8,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-8dfc3780324a50304571eb6c",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:33:57Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 12,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-98524bac9e9f2e6720b8f3c8",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:35:03Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 5,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-a530786f75a1e64daf0eea97",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:33:21Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 11,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-d0235b2bb7c33b1c861a363b",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:34:20Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 4,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-edad5280888abfafe73b29d5",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:32:59Z"
+      },
+      {
+        "accounting_level": "PREPARED_CANDIDATE_SELECTION",
+        "capacity_slot": 7,
+        "cheap_frontier_evaluated": true,
+        "disposition": "SELECTED_FOR_CURRENT_PREPARED_FRONTIER",
+        "disposition_at_utc": "2026-08-21T12:31:11.126806Z",
+        "evidence_walk_evaluated": false,
+        "factual_or_numeric_authority_granted": false,
+        "headline_id": "cc-x-headline-f5e1906ee46c4ac82a7ca373",
+        "material_reentry": false,
+        "opportunity": {
+          "capacity": 12,
+          "end_utc": "2026-08-21T13:31:11.126806Z",
+          "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+          "policy_id": "",
+          "policy_version": "",
+          "session": "immediate_prepared_frontier",
+          "start_utc": "2026-08-21T12:31:11.126806Z",
+          "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+        },
+        "publication_authority_granted": false,
+        "rolling_expiry_utc": "2026-08-21T12:33:45Z"
+      }
+    ],
+    "identity_dispositions_hash": "de0156e26dc2771c09bd330e316e20e3a21f0b076a42e69b39da53f9a04a297d",
+    "not_promoted_headline_ids": [],
+    "not_promoted_headline_ids_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "not_promoted_identity_count": 0,
+    "opportunity_schedule_derived_from_policy": false,
+    "reentry_identity_count": 0,
+    "retained_audit_disposition_count": 0,
+    "retained_audit_dispositions": [],
+    "retained_audit_dispositions_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "rolling_window_hours": 24.0,
+    "schema_version": "contentops.rolling_x_prepared_frontier.v2",
+    "selected_headline_ids": [
+      "cc-x-headline-7d4860da701df7f401a0c69f",
+      "cc-x-headline-5e0778b6937bccf4a878a839",
+      "cc-x-headline-402b6e35b897ebe21a5e30c8",
+      "cc-x-headline-edad5280888abfafe73b29d5",
+      "cc-x-headline-a530786f75a1e64daf0eea97",
+      "cc-x-headline-5940b992bf4f560c2f78eae1",
+      "cc-x-headline-f5e1906ee46c4ac82a7ca373",
+      "cc-x-headline-8dfc3780324a50304571eb6c",
+      "cc-x-headline-5785b9dc13d379056dc55c30",
+      "cc-x-headline-53684174ab9389dbac3c0dc4",
+      "cc-x-headline-d0235b2bb7c33b1c861a363b",
+      "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+    ],
+    "selected_headline_ids_hash": "1022bb910c997f9ffd886c8b3cb7745c540ac89e31504b3f71604b6df4e6eb55",
+    "selection_order": [
+      "material_update_or_priority_reentry",
+      "rolling_expiry_ascending_against_exact_owner_calendar",
+      "known_evidence_path_priority",
+      "source_timestamp_ascending",
+      "headline_id"
+    ],
+    "target_editorial_opportunity": {
+      "capacity": 12,
+      "end_utc": "2026-08-21T13:31:11.126806Z",
+      "opportunity_id": "immediate-prepared-opportunity-c576d085ed44faa4a2015fab",
+      "policy_id": "",
+      "policy_version": "",
+      "session": "immediate_prepared_frontier",
+      "start_utc": "2026-08-21T12:31:11.126806Z",
+      "trigger": "EXPLICIT_IMMEDIATE_PREPARATION"
+    },
+    "unchanged_evaluated_excluded_count": 0
+  },
+  "prepared_input": {
+    "canonical_input_hash": "f9b9e77b5c05e631be5193cecd27b8228bab9c40761df4ef9353d6bb011dc719",
+    "complete_input_coverage": false,
+    "counts": {
+      "accepted": 12,
+      "accepted_in_full_rolling_intake": 12,
+      "duplicates": 0,
+      "eligible_after_continuity": 12,
+      "rejected": 12091,
+      "source_files": 63,
+      "source_rows": 13016
+    },
+    "cutoff_time_utc": "2026-08-21T12:31:11.126806Z",
+    "headlines": [
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090416468584497173",
+        "external_content": {
+          "author_handle": "wallstengine",
+          "follow_up_data_need_candidates": [
+            "official_labor_release"
+          ],
+          "headline_text": "US JOBLESS CLAIMS 206K IN AUG. 15 WEEK; EST. 210K",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "labor"
+          ],
+          "url_or_source_ref": "https://x.com/wallstengine/status/2090416468584497173"
+        },
+        "headline_id": "cc-x-headline-7d4860da701df7f401a0c69f",
+        "source_locator": {
+          "line": 868,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:31:38Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090416563429970382",
+        "external_content": {
+          "author_handle": "MikeZaccardi",
+          "follow_up_data_need_candidates": [
+            "official_central_bank_statement_or_calendar"
+          ],
+          "headline_text": "Philly Fed Mfg 47.4 best since April 2021 https://t.co/unXpIbM08V",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "central_bank"
+          ],
+          "url_or_source_ref": "https://x.com/MikeZaccardi/status/2090416563429970382"
+        },
+        "headline_id": "cc-x-headline-5e0778b6937bccf4a878a839",
+        "source_locator": {
+          "line": 866,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:32:01Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090416684943151206",
+        "external_content": {
+          "author_handle": "REXShares",
+          "follow_up_data_need_candidates": [
+            "official_labor_release"
+          ],
+          "headline_text": "BREAKING Initial Jobless Claims Act.: 206K, Est.: 210K, Prev.: 212K",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "labor"
+          ],
+          "url_or_source_ref": "https://x.com/REXShares/status/2090416684943151206"
+        },
+        "headline_id": "cc-x-headline-402b6e35b897ebe21a5e30c8",
+        "source_locator": {
+          "line": 863,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:32:30Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090416806980616268",
+        "external_content": {
+          "author_handle": "MikeZaccardi",
+          "follow_up_data_need_candidates": [
+            "official_labor_release"
+          ],
+          "headline_text": "Initial Claims ~steady at 206k https://t.co/jyUMOyYLA4",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "labor"
+          ],
+          "url_or_source_ref": "https://x.com/MikeZaccardi/status/2090416806980616268"
+        },
+        "headline_id": "cc-x-headline-edad5280888abfafe73b29d5",
+        "source_locator": {
+          "line": 864,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:32:59Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090416899821879709",
+        "external_content": {
+          "author_handle": "StockMKTNewz",
+          "follow_up_data_need_candidates": [
+            "official_labor_release"
+          ],
+          "headline_text": "206K people filed for unemployment this past week in the United States \ud83c\uddfa\ud83c\uddf8 below expectations 210K",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "labor"
+          ],
+          "url_or_source_ref": "https://x.com/StockMKTNewz/status/2090416899821879709"
+        },
+        "headline_id": "cc-x-headline-a530786f75a1e64daf0eea97",
+        "source_locator": {
+          "line": 862,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:33:21Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090416993497223493",
+        "external_content": {
+          "author_handle": "financialjuice",
+          "follow_up_data_need_candidates": [
+            "official_central_bank_statement_or_calendar"
+          ],
+          "headline_text": "Fed's Daly: Rising bond yields don't give a signal for policy",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "central_bank"
+          ],
+          "url_or_source_ref": "https://x.com/financialjuice/status/2090416993497223493"
+        },
+        "headline_id": "cc-x-headline-5940b992bf4f560c2f78eae1",
+        "source_locator": {
+          "line": 860,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:33:43Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090416999524364492",
+        "external_content": {
+          "author_handle": "MikeZaccardi",
+          "follow_up_data_need_candidates": [
+            "official_central_bank_statement_or_calendar",
+            "official_inflation_release"
+          ],
+          "headline_text": "Philly Fed Mfg prices paid falls to 40.9... low-end of the range back to early 2025 https://t.co/2fJnH7ltBV",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "central_bank",
+            "inflation"
+          ],
+          "url_or_source_ref": "https://x.com/MikeZaccardi/status/2090416999524364492"
+        },
+        "headline_id": "cc-x-headline-f5e1906ee46c4ac82a7ca373",
+        "source_locator": {
+          "line": 859,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:33:45Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090417048257994953",
+        "external_content": {
+          "author_handle": "financialjuice",
+          "follow_up_data_need_candidates": [
+            "official_central_bank_statement_or_calendar"
+          ],
+          "headline_text": "Fed's Daly: Rise in long term yields is a global issue, blunts signal for Fed.",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "central_bank"
+          ],
+          "url_or_source_ref": "https://x.com/financialjuice/status/2090417048257994953"
+        },
+        "headline_id": "cc-x-headline-8dfc3780324a50304571eb6c",
+        "source_locator": {
+          "line": 858,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:33:57Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090417102188339209",
+        "external_content": {
+          "author_handle": "financialjuice",
+          "follow_up_data_need_candidates": [
+            "official_central_bank_statement_or_calendar"
+          ],
+          "headline_text": "Fed's Daly: I don't see Fed credibility at risk",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "central_bank"
+          ],
+          "url_or_source_ref": "https://x.com/financialjuice/status/2090417102188339209"
+        },
+        "headline_id": "cc-x-headline-5785b9dc13d379056dc55c30",
+        "source_locator": {
+          "line": 857,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:34:09Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090417129669726418",
+        "external_content": {
+          "author_handle": "FirstSquawk",
+          "follow_up_data_need_candidates": [
+            "official_central_bank_statement_or_calendar"
+          ],
+          "headline_text": "FED'S DALY SAYS RISING BOND YIELDS DON'T GIVE SIGNAL FOR POLICY",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "central_bank"
+          ],
+          "url_or_source_ref": "https://x.com/FirstSquawk/status/2090417129669726418"
+        },
+        "headline_id": "cc-x-headline-53684174ab9389dbac3c0dc4",
+        "source_locator": {
+          "line": 856,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:34:16Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090417147411661057",
+        "external_content": {
+          "author_handle": "FirstSquawk",
+          "follow_up_data_need_candidates": [
+            "official_central_bank_statement_or_calendar"
+          ],
+          "headline_text": "FED'S DALY: I DON'T SEE FED CREDIBILITY AT RISK",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "central_bank"
+          ],
+          "url_or_source_ref": "https://x.com/FirstSquawk/status/2090417147411661057"
+        },
+        "headline_id": "cc-x-headline-d0235b2bb7c33b1c861a363b",
+        "source_locator": {
+          "line": 855,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:34:20Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      },
+      {
+        "authority_constraints": {
+          "analysis_or_forecast_authority": false,
+          "discovery_and_ranking_only": true,
+          "numeric_truth_authority": false,
+          "publication_authority": false
+        },
+        "dedupe_identity": "dedup_key:tweet_id:2090417326956990869",
+        "external_content": {
+          "author_handle": "financialjuice",
+          "follow_up_data_need_candidates": [
+            "official_central_bank_statement_or_calendar"
+          ],
+          "headline_text": "Fed's Daly: Short term yields show markets understand fed reaction function.",
+          "official_source_urls": [],
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "tags": [
+            "central_bank"
+          ],
+          "url_or_source_ref": "https://x.com/financialjuice/status/2090417326956990869"
+        },
+        "headline_id": "cc-x-headline-98524bac9e9f2e6720b8f3c8",
+        "source_locator": {
+          "line": 854,
+          "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl"
+        },
+        "source_timestamp_field": "headline_timestamp",
+        "source_timestamp_utc": "2026-08-20T12:35:03Z",
+        "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+      }
+    ],
+    "prepared_candidate_subset": true,
+    "rejection_counts": {
+      "source_timestamp_before_window": 12091
+    },
+    "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+    "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+    "source_files": [
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2020_02_08.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_19.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_21.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_27.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_10_18.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2024_07_25.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_01_08.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_02_27.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_04_30.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_05_24.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_25.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_03_19.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_14.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_15.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_09.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_01.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_03.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_18.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_19.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl",
+      "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_21.jsonl"
+    ],
+    "unique_headline_ids": [
+      "cc-x-headline-7d4860da701df7f401a0c69f",
+      "cc-x-headline-5e0778b6937bccf4a878a839",
+      "cc-x-headline-402b6e35b897ebe21a5e30c8",
+      "cc-x-headline-edad5280888abfafe73b29d5",
+      "cc-x-headline-a530786f75a1e64daf0eea97",
+      "cc-x-headline-5940b992bf4f560c2f78eae1",
+      "cc-x-headline-f5e1906ee46c4ac82a7ca373",
+      "cc-x-headline-8dfc3780324a50304571eb6c",
+      "cc-x-headline-5785b9dc13d379056dc55c30",
+      "cc-x-headline-53684174ab9389dbac3c0dc4",
+      "cc-x-headline-d0235b2bb7c33b1c861a363b",
+      "cc-x-headline-98524bac9e9f2e6720b8f3c8"
+    ],
+    "window_hours": 24.0,
+    "window_start_utc": "2026-08-20T12:31:11.126806Z"
+  },
+  "publication_authority_granted": false,
+  "schema_version": "contentops.rolling_x_prepared_candidate_state.v1",
+  "source_cutoff_utc": "2026-08-21T12:31:11.126806Z",
+  "status": "READY",
+  "story_routing": {
+    "factual_or_numeric_authority_granted": false,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "router_summary": null,
+    "routing_method": "DETERMINISTIC_CONSERVATIVE_FALLBACK",
+    "semantic_router_failure_recovered": true,
+    "semantic_routing_grants_authority": false,
+    "stories": [
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-9e3f9157b553da26e884",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-3f5c5ae1ac040b25a0cb",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-9745e4d6e32e3aeef8af",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-f23d882ed68f22067ec6",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-1682d04d907e7e16e371",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+        "routing_confidence": "HIGH",
+        "story_type": "market_move"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-efc5d101e9bbbff38283",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-1ae4dee6a730e8af6543",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-bd32377a8b59e7f545ee",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-220491fcf15d7c47defd",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-9b26f4ded65c3fc58b90",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-a34de4864d486e22fa18",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      },
+      {
+        "cluster_id": "rolling-x-deterministic-cluster-df8ae75a44866485e685",
+        "evidence_profile_authoritative_for_exact_story_type": true,
+        "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+        "routing_confidence": "BOUNDED_FALLBACK",
+        "story_type": "general_public_event"
+      }
+    ],
+    "story_type_by_cluster": {
+      "rolling-x-deterministic-cluster-1682d04d907e7e16e371": "market_move",
+      "rolling-x-deterministic-cluster-1ae4dee6a730e8af6543": "general_public_event",
+      "rolling-x-deterministic-cluster-220491fcf15d7c47defd": "general_public_event",
+      "rolling-x-deterministic-cluster-3f5c5ae1ac040b25a0cb": "general_public_event",
+      "rolling-x-deterministic-cluster-9745e4d6e32e3aeef8af": "general_public_event",
+      "rolling-x-deterministic-cluster-9b26f4ded65c3fc58b90": "general_public_event",
+      "rolling-x-deterministic-cluster-9e3f9157b553da26e884": "general_public_event",
+      "rolling-x-deterministic-cluster-a34de4864d486e22fa18": "general_public_event",
+      "rolling-x-deterministic-cluster-bd32377a8b59e7f545ee": "general_public_event",
+      "rolling-x-deterministic-cluster-df8ae75a44866485e685": "general_public_event",
+      "rolling-x-deterministic-cluster-efc5d101e9bbbff38283": "general_public_event",
+      "rolling-x-deterministic-cluster-f23d882ed68f22067ec6": "general_public_event"
+    }
+  },
+  "story_type_semantic_calls": 0
+}

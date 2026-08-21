@@ -77,20 +77,19 @@ Current known architecture rule:
 
 P0-G3 growth-first multi-mode zero-write proof is accepted and merged on current master lineage.
 
-P0-G4 draft PR #12 is frozen while the owner-output-contract / Codex execution-bridge gap is corrected. Its historical `NO_PUBLICATION_WAIT...` evidence remains valid evidence for that attempt but its whole-day-success semantics do not route current work.
+P0-G4 draft PR #12 is frozen while the owner 4/32 zero-write build floor remains unproven. Its
+historical `NO_PUBLICATION_WAIT...` evidence remains valid evidence for that attempt but its
+whole-day-success semantics do not route current work.
 
-Current next capability:
+Accepted continuation lineage:
 
-`V1 DAILY OUTPUT FLOOR + CODEX AUTOMATION EXECUTION BRIDGE`
+`DAILY OUTPUT/AUTOMATION REVALIDATION -> CANDIDATE CONTINUATION/QUOTE REPAIR -> EVIDENCE-YIELD
+REACHABILITY -> DISTINCT-STORY FRONTIER -> STORY-SCOPED EVIDENCE REUSE`
 
-Required before resuming the real canary:
-
-- authoritative daily floor/target contract;
-- deterministic newsroom production-day accounting;
-- bounded deficit catch-up;
-- actual Codex host Automation inventory/setup truth;
-- zero-write Automation execution proof where supported;
-- truthful V5 daily-output/automation state.
+The latest four-frontier zero-write proof attempted 17 distinct current stories, avoided 89 duplicate
+downgrade reads, and ended `DEGRADED_DAILY_OUTPUT_DEFICIT` at 0/4 articles and 0/32 derivative
+intents. Current next capability is exact first-party locator/source-family and bounded
+query/publisher-resolution closure for its residual matrix, followed by the unchanged floor proof.
 
 ## Growth-first V1 rules that remain current
 

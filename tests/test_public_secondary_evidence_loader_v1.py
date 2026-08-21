@@ -285,3 +285,100 @@ def test_authorized_ap_news_listing_resolves_through_one_same_host_sitemap_index
         AP_SITEMAP_CHILD_URL,
         AP_PUBLISHER_URL,
     ]
+
+
+def test_story_scope_cannot_reset_per_candidate_allowance_and_other_story_is_isolated():
+    calls: list[str] = []
+
+    def http_get(url: str, _timeout: float, _maximum: int):
+        calls.append(url)
+        body = (
+            b"<html><head><meta property='article:published_time' "
+            b"content='2026-08-18T12:39:43Z'/></head><body>"
+            + b"Bound public evidence text. " * 20
+            + b"</body></html>"
+        )
+        return _response(url, body, "text/html")
+
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=4,
+        max_requests_per_candidate=1,
+        http_get=http_get,
+    )
+    first = _request()
+    first["story_evidence_scope_id"] = "story-scope-one"
+    first["story_context"]["public_source_url_bindings"] = [{
+        "headline_id": "headline-qatar-pilots",
+        "url": "https://www.reuters.com/world/first-story",
+    }]
+    first_result = loader(first)
+    assert first_result["status"] == "PASS"
+
+    same_story = _request()
+    same_story["story_evidence_scope_id"] = "story-scope-one"
+    same_story["story_context"]["public_source_url_bindings"] = [{
+        "headline_id": "headline-qatar-pilots",
+        "url": "https://apnews.com/article/delta-source",
+    }]
+    same_result = loader(same_story)
+    assert same_result["status"] == "BLOCKED"
+    assert same_result["provenance"]["request_count_for_candidate"] == 1
+    assert same_result["provenance"]["request_count_for_call"] == 0
+    assert same_result["provenance"]["candidate_request_boundary_reused"] is True
+    assert "public_source_candidate_request_budget_exhausted" in same_result["blockers"]
+
+    different_story = _request()
+    different_story["story_evidence_scope_id"] = "story-scope-two"
+    different_story["story_context"]["public_source_url_bindings"] = [{
+        "headline_id": "headline-qatar-pilots",
+        "url": "https://apnews.com/article/other-story",
+    }]
+    other_result = loader(different_story)
+    assert other_result["status"] == "PASS"
+    assert other_result["provenance"]["request_count_for_candidate"] == 1
+    assert other_result["provenance"]["request_count_for_call"] == 1
+    assert calls == [
+        "https://www.reuters.com/world/first-story",
+        "https://apnews.com/article/other-story",
+    ]
+
+
+def test_same_story_delta_reuses_identical_request_signature_without_network_read():
+    calls: list[str] = []
+
+    def http_get(url: str, _timeout: float, _maximum: int):
+        calls.append(url)
+        body = (
+            b"<html><head><meta property='article:published_time' "
+            b"content='2026-08-18T12:39:43Z'/></head><body>"
+            + b"Bound public evidence text. " * 20
+            + b"</body></html>"
+        )
+        return _response(url, body, "text/html")
+
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=4,
+        max_requests_per_candidate=2,
+        http_get=http_get,
+    )
+    request = _request()
+    request["story_evidence_scope_id"] = "same-story-scope"
+    request["story_context"]["public_source_url_bindings"] = [{
+        "headline_id": "headline-qatar-pilots",
+        "url": "https://www.reuters.com/world/same-story",
+    }]
+
+    first = loader(request)
+    second = loader({**request, "request_logical_hash": "b" * 64})
+
+    assert first["status"] == second["status"] == "PASS"
+    assert calls == [
+        "https://www.reuters.com/world/same-story",
+        RSS_URL,
+    ]
+    assert second["provenance"]["request_count_for_call"] == 0
+    assert second["provenance"]["request_count_for_candidate"] == 2
+    assert second["provenance"]["network_reads_avoided_for_call"] == 2
+    assert len(second["provenance"]["reused_request_signatures"]) == 2

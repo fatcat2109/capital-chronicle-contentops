@@ -1,0 +1,1468 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 10,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "9dbcf656df50c0ed6985b6490bae31d8ca7a6d8c62a50cba53e16ffbf0bb5221",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-9937fbb4da83e58bf4c7"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "74479b3513a3a49792c845ab6657a538ae72641efea897fd14cd6eb76a37b955",
+    "cutoff_time_utc": "2026-08-21T14:19:24.393115Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 10,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "kraneshares",
+            "market growth"
+          ],
+          "first_utc": "2026-08-20T14:28:11Z",
+          "latest_utc": "2026-08-20T14:28:11Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8537,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "KraneShares",
+          "Artificial Intelligence",
+          "Technology Infrastructure",
+          "Market Growth"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-1e847f41bd8441d8447e",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 60,
+          "evidence": 60,
+          "saturation_risk": 30,
+          "seo": 65
+        },
+        "summary": "AI spending is projected to reach $765 billion in 2026, driving significant growth in connectivity and networking infrastructure."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "commodities market",
+            "energy",
+            "market analysis"
+          ],
+          "first_utc": "2026-08-20T14:27:46Z",
+          "latest_utc": "2026-08-20T14:27:46Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8607,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Robin Brooks",
+          "Oil",
+          "Commodities Market",
+          "Market Analysis"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-240c1e1bede42c98aa87",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 40,
+          "engagement": 50,
+          "evidence": 20,
+          "saturation_risk": 10,
+          "seo": 30
+        },
+        "summary": "Commentary on past predictions of oil reaching $200 and criticism of momentum-based analysis in the energy market."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "academia",
+            "culture wars",
+            "nathan cofnas"
+          ],
+          "first_utc": "2026-08-20T14:30:01Z",
+          "latest_utc": "2026-08-20T14:30:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8232,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Nathan Cofnas",
+          "University of Ghent",
+          "Academia",
+          "Politics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-5f71d81846239a875f8d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 40,
+          "engagement": 60,
+          "evidence": 30,
+          "saturation_risk": 20,
+          "seo": 45
+        },
+        "summary": "Commentary criticizing the suspension of Nathan Cofnas at the University of Ghent."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "eric swalwell",
+            "fbi",
+            "investigations"
+          ],
+          "first_utc": "2026-08-20T14:25:07Z",
+          "latest_utc": "2026-08-20T14:25:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9048,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Eric Swalwell",
+          "FBI",
+          "San Francisco Airport",
+          "Investigations"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-7a1520b97427b4b39b2b",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 90,
+          "engagement": 95,
+          "evidence": 75,
+          "saturation_risk": 60,
+          "seo": 85
+        },
+        "summary": "The FBI reportedly seized Representative Eric Swalwell's electronic devices at San Francisco Airport amid a sexual misconduct investigation."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "critical minerals",
+            "government grants",
+            "mining"
+          ],
+          "first_utc": "2026-08-20T14:24:24Z",
+          "latest_utc": "2026-08-20T14:24:24Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9168,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "U.S. Government",
+          "Mining",
+          "Government Grants",
+          "Critical Minerals"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-80e6a450af03f4c4ffcb",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 60,
+          "evidence": 70,
+          "saturation_risk": 20,
+          "seo": 65
+        },
+        "summary": "The U.S. government is reportedly preparing to award $500 million in grants to seven companies to support critical minerals projects."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "china",
+            "commodities market",
+            "energy"
+          ],
+          "first_utc": "2026-08-20T14:20:01Z",
+          "latest_utc": "2026-08-20T14:20:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9898,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China",
+          "Strait of Hormuz",
+          "Oil",
+          "Energy Demand"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-84e6dee69ed08e9a7691",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 60,
+          "evidence": 45,
+          "saturation_risk": 20,
+          "seo": 55
+        },
+        "summary": "Analysis of the oil market emphasizing the critical role of Chinese import demand over Strait of Hormuz exit flows in determining prices."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "energy",
+            "commodities",
+            "energy inventories"
+          ],
+          "first_utc": "2026-08-20T14:30:23Z",
+          "latest_utc": "2026-08-20T14:30:57Z",
+          "material_update": false,
+          "members": 3,
+          "recency_hours": 23.8076,
+          "update_velocity": 211.7647
+        },
+        "entities_topics": [
+          "U.S. Energy Information Administration",
+          "Natural Gas",
+          "Energy Inventories",
+          "Commodities"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-90694a187ffe8673159a",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 85,
+          "engagement": 75,
+          "evidence": 95,
+          "saturation_risk": 80,
+          "seo": 70
+        },
+        "summary": "The U.S. EIA reports a weekly natural gas storage build of 16 billion cubic feet, surpassing the forecast of 14 billion."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "economic sanctions",
+            "geopolitics",
+            "international relations"
+          ],
+          "first_utc": "2026-08-20T14:26:00Z",
+          "latest_utc": "2026-08-20T14:26:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8901,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Iran",
+          "Geopolitics",
+          "Economic Sanctions",
+          "International Relations"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-b5fb4be40dc11cc83539",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 85,
+          "evidence": 40,
+          "saturation_risk": 50,
+          "seo": 75
+        },
+        "summary": "Warnings issued regarding severe economic consequences for any nation that provides support to the Iranian regime."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "inflation",
+            "economic indicators",
+            "macroeconomics"
+          ],
+          "first_utc": "2026-08-20T14:31:01Z",
+          "latest_utc": "2026-08-20T14:31:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8065,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Inflation",
+          "Macroeconomics",
+          "Economic Indicators"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-edbb33d845e3b8aebbac",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 65,
+          "evidence": 50,
+          "saturation_risk": 30,
+          "seo": 60
+        },
+        "summary": "Timely inflation indicators suggest the U.S. annualized inflation rate is running at approximately 2%."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "banca generali",
+            "banco bpm",
+            "banking"
+          ],
+          "first_utc": "2026-08-20T14:26:01Z",
+          "latest_utc": "2026-08-20T14:26:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8898,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Monte dei Paschi",
+          "Banco BPM",
+          "Banca Generali",
+          "Mergers and Acquisitions"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-f1226500fb280732a962",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 65,
+          "evidence": 80,
+          "saturation_risk": 40,
+          "seo": 60
+        },
+        "summary": "The Monte dei Paschi board has reportedly approved bids for Banco BPM and Banca Generali."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "74479b3513a3a49792c845ab6657a538ae72641efea897fd14cd6eb76a37b955",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-00c1599b8e8593873c3259fd",
+      "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+      "cc-x-headline-362ef440e34d55f85b27968e",
+      "cc-x-headline-6a27b701de857841262be930",
+      "cc-x-headline-7afba904fd3bc82215246d8c",
+      "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+      "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+      "cc-x-headline-a93a1347aadd40ce036fd757",
+      "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+      "cc-x-headline-dec34be8845e679963997d05",
+      "cc-x-headline-ec6a77209e08c6465600b171",
+      "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 30,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-271c22ad6a1016a5c5c7f2e0"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "KraneShares"
+      ],
+      "event_topic_summary": "AI spending is projected to reach $765 billion in 2026, driving significant growth in connectivity and networking infrastructure.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-1e847f41bd8441d8447e",
+      "member_headline_ids": [
+        "cc-x-headline-271c22ad6a1016a5c5c7f2e0"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Artificial Intelligence",
+        "Technology Infrastructure",
+        "Market Growth"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 40,
+        "evidence_prospects": 20,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 10,
+        "seo_potential": 30
+      },
+      "canonical_representative_headline_id": "cc-x-headline-00c1599b8e8593873c3259fd",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-00c1599b8e8593873c3259fd"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Robin Brooks"
+      ],
+      "event_topic_summary": "Commentary on past predictions of oil reaching $200 and criticism of momentum-based analysis in the energy market.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-240c1e1bede42c98aa87",
+      "member_headline_ids": [
+        "cc-x-headline-00c1599b8e8593873c3259fd"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Oil",
+        "Commodities Market",
+        "Market Analysis"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 40,
+        "evidence_prospects": 30,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 20,
+        "seo_potential": 45
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7afba904fd3bc82215246d8c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7afba904fd3bc82215246d8c"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Nathan Cofnas",
+        "University of Ghent"
+      ],
+      "event_topic_summary": "Commentary criticizing the suspension of Nathan Cofnas at the University of Ghent.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-5f71d81846239a875f8d",
+      "member_headline_ids": [
+        "cc-x-headline-7afba904fd3bc82215246d8c"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Academia",
+        "Politics",
+        "Culture Wars"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 90,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 95,
+        "saturation_risk": 60,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f69691f6cc15fc3b0e59b71e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Eric Swalwell",
+        "FBI",
+        "San Francisco Airport"
+      ],
+      "event_topic_summary": "The FBI reportedly seized Representative Eric Swalwell's electronic devices at San Francisco Airport amid a sexual misconduct investigation.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-7a1520b97427b4b39b2b",
+      "member_headline_ids": [
+        "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Investigations",
+        "U.S. Politics",
+        "Law Enforcement"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 20,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a93a1347aadd40ce036fd757",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a93a1347aadd40ce036fd757"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "U.S. Government"
+      ],
+      "event_topic_summary": "The U.S. government is reportedly preparing to award $500 million in grants to seven companies to support critical minerals projects.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-80e6a450af03f4c4ffcb",
+      "member_headline_ids": [
+        "cc-x-headline-a93a1347aadd40ce036fd757"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Mining",
+        "Government Grants",
+        "Critical Minerals"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 45,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 20,
+        "seo_potential": 55
+      },
+      "canonical_representative_headline_id": "cc-x-headline-ec6a77209e08c6465600b171",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-ec6a77209e08c6465600b171"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China",
+        "Strait of Hormuz"
+      ],
+      "event_topic_summary": "Analysis of the oil market emphasizing the critical role of Chinese import demand over Strait of Hormuz exit flows in determining prices.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-84e6dee69ed08e9a7691",
+      "member_headline_ids": [
+        "cc-x-headline-ec6a77209e08c6465600b171"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Oil",
+        "Energy Demand",
+        "Commodities Market"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 95,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 80,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+          "cc-x-headline-362ef440e34d55f85b27968e",
+          "cc-x-headline-dec34be8845e679963997d05"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "U.S. Energy Information Administration"
+      ],
+      "event_topic_summary": "The U.S. EIA reports a weekly natural gas storage build of 16 billion cubic feet, surpassing the forecast of 14 billion.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-90694a187ffe8673159a",
+      "member_headline_ids": [
+        "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+        "cc-x-headline-362ef440e34d55f85b27968e",
+        "cc-x-headline-dec34be8845e679963997d05"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Natural Gas",
+        "Energy Inventories",
+        "Commodities"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 50,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d56df6d2fc68eeba98b6ae16"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Iran"
+      ],
+      "event_topic_summary": "Warnings issued regarding severe economic consequences for any nation that provides support to the Iranian regime.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-b5fb4be40dc11cc83539",
+      "member_headline_ids": [
+        "cc-x-headline-d56df6d2fc68eeba98b6ae16"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Geopolitics",
+        "Economic Sanctions",
+        "International Relations"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 30,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-8adb4448c0e0f6f9bac3c2b1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Timely inflation indicators suggest the U.S. annualized inflation rate is running at approximately 2%.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-edbb33d845e3b8aebbac",
+      "member_headline_ids": [
+        "cc-x-headline-8adb4448c0e0f6f9bac3c2b1"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Inflation",
+        "Macroeconomics",
+        "Economic Indicators"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 40,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-6a27b701de857841262be930",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-6a27b701de857841262be930"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Monte dei Paschi",
+        "Banco BPM",
+        "Banca Generali"
+      ],
+      "event_topic_summary": "The Monte dei Paschi board has reportedly approved bids for Banco BPM and Banca Generali.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-f1226500fb280732a962",
+      "member_headline_ids": [
+        "cc-x-headline-6a27b701de857841262be930"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "topics": [
+        "Mergers and Acquisitions",
+        "Banking",
+        "European Finance"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-00c1599b8e8593873c3259fd",
+        "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+        "cc-x-headline-362ef440e34d55f85b27968e",
+        "cc-x-headline-6a27b701de857841262be930",
+        "cc-x-headline-7afba904fd3bc82215246d8c",
+        "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+        "cc-x-headline-8adb4448c0e0f6f9bac3c2b1",
+        "cc-x-headline-a93a1347aadd40ce036fd757",
+        "cc-x-headline-d56df6d2fc68eeba98b6ae16",
+        "cc-x-headline-dec34be8845e679963997d05",
+        "cc-x-headline-ec6a77209e08c6465600b171",
+        "cc-x-headline-f69691f6cc15fc3b0e59b71e"
+      ],
+      "partition_id": "rolling-x-leaf-9937fbb4da83e58bf4c7",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "serialized_input_bytes": 10131,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 897,
+    "held_before_semantic_assignment_count": 885,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "0085c2b88de7c8a66cd82843f96711bdd4778d91d304974e98f5bbcb15440a1a",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-52fd4ce18cf5a235faca",
+      "headline_ids": [
+        "cc-x-headline-6a27b701de857841262be930"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f1226500fb280732a962"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official board statements or regulatory filings from Monte dei Paschi",
+        "Confirmation of bid details, structures, and valuations",
+        "Official responses or statements from Banco BPM and Banca Generali"
+      ],
+      "rank": 1,
+      "selection_case": "High-evidence M&A activity involving major European financial institutions is highly relevant and actionable for our core financial audience.",
+      "seo_intent": "Monte dei Paschi Banco BPM Banca Generali merger acquisition Italian banking",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-6a27b701de857841262be930",
+        "ordered_headline_ids": [
+          "cc-x-headline-6a27b701de857841262be930"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Corporate logos of the involved banks or a chart showing their respective market shares and combined asset footprint in Italy.",
+      "why_now": "The Monte dei Paschi board has reportedly approved bids for Banco BPM and Banca Generali, signaling immediate and major consolidation in the European banking sector."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-c6c85fec933a29fa6362",
+      "headline_ids": [
+        "cc-x-headline-a93a1347aadd40ce036fd757"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-80e6a450af03f4c4ffcb"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "List of the seven specific companies receiving the grants",
+        "Details on the specific critical minerals targeted by the funding",
+        "Official announcement or documentation from the relevant U.S. government department (e.g., DOE or DOD)"
+      ],
+      "rank": 2,
+      "selection_case": "The intersection of government industrial policy, national security, and the mining sector provides strong material for standard news analysis with clear market implications.",
+      "seo_intent": "US government critical minerals grants mining companies funding supply chain",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a93a1347aadd40ce036fd757",
+        "ordered_headline_ids": [
+          "cc-x-headline-a93a1347aadd40ce036fd757"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Map of the proposed mining projects or a chart showing U.S. reliance on imported critical minerals versus domestic production goals.",
+      "why_now": "The U.S. government is preparing to award $500 million in grants to seven companies to support critical minerals projects, impacting supply chains and mining equities."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-df65ab7ae9597292c921",
+      "headline_ids": [
+        "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+        "cc-x-headline-362ef440e34d55f85b27968e",
+        "cc-x-headline-dec34be8845e679963997d05"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-90694a187ffe8673159a"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official EIA weekly natural gas storage report data",
+        "Historical context for seasonal storage levels",
+        "Immediate natural gas futures price reaction to the data miss"
+      ],
+      "rank": 3,
+      "selection_case": "A clear, high-evidence data release that directly impacts commodities markets, perfect for a quick data lens piece.",
+      "seo_intent": "EIA natural gas storage report build forecast commodities energy inventories",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+        "ordered_headline_ids": [
+          "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+          "cc-x-headline-362ef440e34d55f85b27968e",
+          "cc-x-headline-dec34be8845e679963997d05"
+        ],
+        "relationship": "duplicate"
+      },
+      "visual_strategy": "Line chart comparing actual natural gas storage builds versus forecasts and historical averages over the past quarter.",
+      "why_now": "The U.S. EIA just reported a weekly natural gas storage build of 16 billion cubic feet, surpassing the consensus forecast of 14 billion."
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "cluster_id": "rolling-x-global-cluster-3674239471f30bd032a3",
+      "headline_ids": [
+        "cc-x-headline-ec6a77209e08c6465600b171"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-84e6dee69ed08e9a7691"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Recent macroeconomic data on Chinese crude oil imports and refinery runs",
+        "Metrics on Strait of Hormuz shipping volumes and disruption probabilities",
+        "Expert analysis on the weighting of geopolitical risk vs. demand fundamentals in current oil price models"
+      ],
+      "rank": 4,
+      "selection_case": "Provides a contrarian, analytical perspective on energy markets, shifting focus from geopolitical noise to fundamental macroeconomic demand.",
+      "seo_intent": "China oil demand Strait of Hormuz energy market analysis crude prices",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-ec6a77209e08c6465600b171",
+        "ordered_headline_ids": [
+          "cc-x-headline-ec6a77209e08c6465600b171"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Comparative graph showing Chinese oil import volumes versus Middle East risk premiums in crude pricing over the last 12 months.",
+      "why_now": "Recent oil market volatility has focused heavily on Middle East tensions, but underlying Chinese demand may be the true, underappreciated price driver."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "2044701c4906e0be5441d8b5964c365d956b353361c0e1ff845af5e0a04a421a",
+          "latency_seconds": 45.337,
+          "logical_invocation_id": "inv_rolling_x_leaf_3054628cbbb70642ca5b",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "629bebfaf6263da439c0d8d1563b040bbc9cb08a4a9358b3a16beb4fd8816242",
+          "prompt_logical_hash": "76385aac12df1add172da3b443f09e52aa1b7c3cdab2f409c2139f8a48beae92",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-cV6Iaq2eCYGFpt8P1c7vkAI",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_3054628cbbb70642ca5b",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 6974,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3750
+            },
+            "prompt_tokens": 6461,
+            "total_tokens": 13435
+          },
+          "work_item_id": "rolling-x-leaf-9937fbb4da83e58bf4c7"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_3054628cbbb70642ca5b",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_3054628cbbb70642ca5b",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 45.3382,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 6974.0,
+        "prompt_tokens": 6461.0,
+        "total_tokens": 13435.0
+      },
+      "work_item_id": "rolling-x-leaf-9937fbb4da83e58bf4c7"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "rejected",
+          "failure_class": "structured_output_schema_invalid",
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "c9eeb6692fe9539a00e66fe4bb07860a435929d287fcd1651056f834be96a3ec",
+          "latency_seconds": 38.3964,
+          "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "3df738ff0c0e07f5c45715443cdbf8af94b465a0a073a8709c8aab9dc55c9f71",
+          "prompt_logical_hash": "ffb6eb4601f5d848633b943ccb749c61217015a1632cc79f360891634d3dbcbe",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-nl6IaoO2GbaOpt8Ph4yh2AE",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_diagnostic_code": "global_unknown_leaf_cluster_id",
+          "structured_validation_result": "FAIL",
+          "usage": {
+            "completion_tokens": 4673,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3233
+            },
+            "prompt_tokens": 6388,
+            "total_tokens": 11061
+          },
+          "work_item_id": "rolling-x-global-74479b3513a3a49792c8"
+        },
+        {
+          "attempt_number_for_model": 2,
+          "attempt_number_global": 2,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "c9eeb6692fe9539a00e66fe4bb07860a435929d287fcd1651056f834be96a3ec",
+          "latency_seconds": 32.5857,
+          "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "a485f2a3b16e725610b15399d7f9aa0e9d057a5a59b5ff8b1705e7882aaf3946",
+          "prompt_logical_hash": "d4bbd64ba767f1e12ca6a93197a0f9394c44c166c67c4d9990987446f9819609",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-xF6IatXwMa7Cpt8PuLPDuQg",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 0,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 2
+            },
+            "consumed_attempts": 2,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 1,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 0,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2
+            ],
+            "remaining_attempt_budget": 0,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 1,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4055,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2665
+            },
+            "prompt_tokens": 6875,
+            "total_tokens": 10930
+          },
+          "work_item_id": "rolling-x-global-74479b3513a3a49792c8"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "consumed_attempts": 2,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 1,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2
+        ],
+        "remaining_attempt_budget": 0,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 2,
+      "total_cost": null,
+      "total_elapsed_seconds": 70.9836,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 1,
+      "total_usage": {
+        "completion_tokens": 8728.0,
+        "prompt_tokens": 13263.0,
+        "total_tokens": 21991.0
+      },
+      "work_item_id": "rolling-x-global-74479b3513a3a49792c8"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "rejected",
+        "failure_class": "structured_output_schema_invalid",
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "c9eeb6692fe9539a00e66fe4bb07860a435929d287fcd1651056f834be96a3ec",
+        "latency_seconds": 38.3964,
+        "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "3df738ff0c0e07f5c45715443cdbf8af94b465a0a073a8709c8aab9dc55c9f71",
+        "prompt_logical_hash": "ffb6eb4601f5d848633b943ccb749c61217015a1632cc79f360891634d3dbcbe",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-nl6IaoO2GbaOpt8Ph4yh2AE",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 1,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 0,
+          "max_same_model_retries": 1,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 2,
+          "per_model_max_attempts": [
+            2
+          ],
+          "remaining_attempt_budget": 1,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_diagnostic_code": "global_unknown_leaf_cluster_id",
+        "structured_validation_result": "FAIL",
+        "usage": {
+          "completion_tokens": 4673,
+          "completion_tokens_details": {
+            "reasoning_tokens": 3233
+          },
+          "prompt_tokens": 6388,
+          "total_tokens": 11061
+        },
+        "work_item_id": "rolling-x-global-74479b3513a3a49792c8"
+      },
+      {
+        "attempt_number_for_model": 2,
+        "attempt_number_global": 2,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "c9eeb6692fe9539a00e66fe4bb07860a435929d287fcd1651056f834be96a3ec",
+        "latency_seconds": 32.5857,
+        "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "a485f2a3b16e725610b15399d7f9aa0e9d057a5a59b5ff8b1705e7882aaf3946",
+        "prompt_logical_hash": "d4bbd64ba767f1e12ca6a93197a0f9394c44c166c67c4d9990987446f9819609",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-xF6IatXwMa7Cpt8PuLPDuQg",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 0,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 2
+          },
+          "consumed_attempts": 2,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 1,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 0,
+          "max_same_model_retries": 1,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 2,
+          "per_model_max_attempts": [
+            2
+          ],
+          "remaining_attempt_budget": 0,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 1,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 4055,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2665
+          },
+          "prompt_tokens": 6875,
+          "total_tokens": 10930
+        },
+        "work_item_id": "rolling-x-global-74479b3513a3a49792c8"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 2
+      },
+      "consumed_attempts": 2,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 1,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": [
+        2
+      ],
+      "remaining_attempt_budget": 0,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_5bc7491b9c208744ccde",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 0,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 2,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 2,
+    "total_cost": null,
+    "total_elapsed_seconds": 70.9836,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 1,
+    "total_usage": {
+      "completion_tokens": 8728.0,
+      "prompt_tokens": 13263.0,
+      "total_tokens": 21991.0
+    },
+    "work_item_id": "rolling-x-global-74479b3513a3a49792c8"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-52fd4ce18cf5a235faca",
+  "selected_headline_ids": [
+    "cc-x-headline-6a27b701de857841262be930"
+  ],
+  "selection_rationale": "The shortlist prioritizes high-evidence, market-moving financial and commodities news. Leading the list is major M&A activity in the Italian banking sector, followed by significant U.S. government investments in critical minerals, a timely EIA natural gas data release, and a deep-dive analysis on global oil demand fundamentals.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 116.3218,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 3,
+    "token_usage": {
+      "completion_tokens": 15702.0,
+      "prompt_tokens": 19724.0,
+      "total_tokens": 35426.0
+    }
+  }
+}

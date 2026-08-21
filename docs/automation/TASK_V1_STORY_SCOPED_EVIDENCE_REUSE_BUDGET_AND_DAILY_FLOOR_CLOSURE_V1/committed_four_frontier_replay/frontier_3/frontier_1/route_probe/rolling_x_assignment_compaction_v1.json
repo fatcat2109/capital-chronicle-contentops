@@ -1,0 +1,11 @@
+{
+  "assignment_headline_count": 12,
+  "compaction_applied": true,
+  "factual_or_numeric_authority_granted": false,
+  "full_rolling_headline_count": 12,
+  "held_before_semantic_assignment_count": 0,
+  "llm_or_provider_calls": 0,
+  "publication_authority_granted": false,
+  "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+  "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+}

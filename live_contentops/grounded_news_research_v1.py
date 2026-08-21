@@ -1113,7 +1113,28 @@ class GroundedNewsResearchV1:
                 "headline_ids": compact["headline_ids"],
                 "proposition": compact["normalized_headline_proposition"],
                 "cutoff": self._evaluation_as_of_utc,
-                "risk": compact["risk_classification"],
+                "story_type": compact["story_type"],
+                "story_evidence_scope_id": request.get("story_evidence_scope_id"),
+                "needed_evidence": compact["claims_or_questions_needing_verification"],
+                "bound_source_urls": compact["already_bound_source_urls"],
+                "required_evidence_capabilities": sorted(
+                    str(value)
+                    for value in request.get("required_evidence_capabilities") or []
+                ),
+                "source_adapter_families": sorted(
+                    str(value) for value in request.get("source_adapter_families") or []
+                ),
+                "initial_document_bindings": sorted(
+                    str(
+                        row.get("document_id")
+                        or row.get("evidence_id")
+                        or row.get("canonical_content_sha256")
+                        or row.get("raw_sha256")
+                        or ""
+                    )
+                    for row in initial_documents
+                    if isinstance(row, Mapping)
+                ),
             }
         )
         if cache_key in self._cache:
@@ -1127,6 +1148,18 @@ class GroundedNewsResearchV1:
             )
             cached["research_packet"] = packet
             cached["cache_reused"] = True
+            cached["cache_reuse_provenance"] = {
+                "story_evidence_scope_id": request.get("story_evidence_scope_id"),
+                "cached_research_calls": int(cached.get("research_calls") or 0),
+                "cached_public_retrieval_requests": int(
+                    cached.get("public_retrieval_requests") or 0
+                ),
+                "research_calls_for_current_evaluation": 0,
+                "public_retrieval_requests_for_current_evaluation": 0,
+                "factual_numeric_or_publication_authority_granted": False,
+            }
+            cached["research_calls"] = 0
+            cached["public_retrieval_requests"] = 0
             return cached
 
         telemetry: list[dict[str, Any]] = []
@@ -1225,7 +1258,9 @@ class GroundedNewsResearchV1:
             documents, evaluation_as_of_utc=self._evaluation_as_of_utc
         )
         retrieved_provenance = retrieved.get("provenance") or {}
-        first_request_delta = retrieved_provenance.get("request_count_for_candidate")
+        first_request_delta = retrieved_provenance.get("request_count_for_call")
+        if first_request_delta is None:
+            first_request_delta = retrieved_provenance.get("request_count_for_candidate")
         public_requests = int(
             first_request_delta
             if first_request_delta is not None
@@ -1326,9 +1361,11 @@ class GroundedNewsResearchV1:
                     set(post_cutoff_document_ids).union(recovered_post_cutoff_ids)
                 )
                 recovered_provenance = recovered.get("provenance") or {}
-                recovery_request_delta = recovered_provenance.get(
-                    "request_count_for_candidate"
-                )
+                recovery_request_delta = recovered_provenance.get("request_count_for_call")
+                if recovery_request_delta is None:
+                    recovery_request_delta = recovered_provenance.get(
+                        "request_count_for_candidate"
+                    )
                 if recovery_request_delta is not None:
                     public_requests += int(recovery_request_delta)
                 else:
@@ -1415,7 +1452,11 @@ class GroundedNewsResearchV1:
                         "provenance": {},
                     }
                 closure_provenance = closure_retrieval.get("provenance") or {}
-                closure_delta = closure_provenance.get("request_count_for_candidate")
+                closure_delta = closure_provenance.get("request_count_for_call")
+                if closure_delta is None:
+                    closure_delta = closure_provenance.get(
+                        "request_count_for_candidate"
+                    )
                 public_requests += int(
                     closure_delta
                     if closure_delta is not None
