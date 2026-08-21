@@ -2462,6 +2462,7 @@ def build_prepared_rolling_x_candidate_state(
         "prepared_frontier": frontier,
         "continuity_binding": dict(continuity_binding or {}),
         "preparation_method": "DETERMINISTIC_CONTINUITY_FRONTIER_EVIDENCE_REACHABLE",
+        "bounded_semantic_assignment_required_at_editorial_opportunity": bool(prepared_rows),
         "full_universe_semantic_assignment_calls": 0,
         "story_type_semantic_calls": 0,
         "llm_or_provider_calls": 0,

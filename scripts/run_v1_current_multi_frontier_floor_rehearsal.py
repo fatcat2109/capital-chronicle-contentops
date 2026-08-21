@@ -27,6 +27,8 @@ from live_contentops.destination_transport_registry_v1 import (
 )
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     DEFAULT_X_SIDECAR_GLOB,
+    _logical_hash,
+    _rolling_x_canonical_hash_material,
     build_prepared_rolling_x_candidate_state,
     load_rolling_x_headline_sidecars,
 )
@@ -39,8 +41,8 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     GroundedArticleBuilderError,
 )
 
-SCHEMA = "contentops.v1_current_multi_frontier_floor_rehearsal.v1"
-TASK = "TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1"
+SCHEMA = "contentops.v1_distinct_story_frontier_floor_rehearsal.v1"
+TASK = "TASK_V1_DISTINCT_STORY_FRONTIER_AND_EVIDENCE_YIELD_FLOOR_CLOSURE_V1"
 MAX_FRONTIERS = 4
 MAX_QUALIFIED = 4
 MAX_XHIGH_ATTEMPTS = 8
@@ -89,11 +91,58 @@ def _state_path(root: Path) -> Path:
     return root / "multi_frontier_rehearsal_state_v1.json"
 
 
-def _new_state(root: Path, sidecar_glob: str) -> dict[str, Any]:
+def _load_parent_cycle_replay_input(parent_cycle_root: Path) -> dict[str, Any]:
+    paths = sorted(
+        parent_cycle_root.glob(
+            "frontier_*/route_probe/rolling_x_newsroom_cycle_evidence_v1.json"
+        ),
+        key=lambda path: int(path.parents[1].name.rsplit("_", 1)[-1]),
+    )
+    if len(paths) != MAX_FRONTIERS:
+        raise ValueError("parent_cycle_replay_requires_exactly_four_frontiers")
+    cycles = [_load(path) for path in paths]
+    rows_by_id: dict[str, dict[str, Any]] = {}
+    ordered_ids: list[str] = []
+    for cycle in cycles:
+        for row in (cycle.get("intake") or {}).get("headlines") or []:
+            headline_id = str(row.get("headline_id") or "")
+            if not headline_id or headline_id in rows_by_id:
+                continue
+            rows_by_id[headline_id] = dict(row)
+            ordered_ids.append(headline_id)
+    if len(ordered_ids) != 48:
+        raise ValueError("parent_cycle_replay_requires_exactly_48_headline_identities")
+    first = dict(cycles[0].get("intake") or {})
+    rolling = {
+        **first,
+        "unique_headline_ids": ordered_ids,
+        "headlines": [rows_by_id[headline_id] for headline_id in ordered_ids],
+        "counts": {**dict(first.get("counts") or {}), "accepted": len(ordered_ids)},
+        "complete_input_coverage": True,
+        "parent_cycle_replay_source_paths": [str(path) for path in paths],
+    }
+    rolling["canonical_input_hash"] = _logical_hash(
+        _rolling_x_canonical_hash_material(rolling)
+    )
+    return rolling
+
+
+def _new_state(
+    root: Path,
+    sidecar_glob: str,
+    rolling_input_path: Path | None = None,
+    parent_cycle_root: Path | None = None,
+) -> dict[str, Any]:
     now = datetime.now(timezone.utc)
-    rolling = load_rolling_x_headline_sidecars(
-        cutoff_utc=now,
-        sidecar_glob=sidecar_glob,
+    rolling = (
+        _load(rolling_input_path)
+        if rolling_input_path is not None
+        else _load_parent_cycle_replay_input(parent_cycle_root)
+        if parent_cycle_root is not None
+        else load_rolling_x_headline_sidecars(
+            cutoff_utc=now,
+            sidecar_glob=sidecar_glob,
+        )
     )
     rolling_path = root / "frozen_current_rolling_input_v1.json"
     _write(rolling_path, rolling)
@@ -104,6 +153,15 @@ def _new_state(root: Path, sidecar_glob: str) -> dict[str, Any]:
         "production_day_id": newsroom_production_day_id(now),
         "cutoff_utc": rolling["cutoff_time_utc"],
         "sidecar_glob": sidecar_glob,
+        "input_mode": (
+            "FROZEN_REPLAY"
+            if rolling_input_path
+            else "PARENT_FOUR_FRONTIER_REPLAY"
+            if parent_cycle_root
+            else "GENUINE_CURRENT_INPUT"
+        ),
+        "source_rolling_input_path": str(rolling_input_path) if rolling_input_path else None,
+        "source_parent_cycle_root": str(parent_cycle_root) if parent_cycle_root else None,
         "rolling_input_path": str(rolling_path),
         "rolling_input_sha256": _sha(rolling),
         "full_current_headline_count": int((rolling.get("counts") or {}).get("accepted") or 0),
@@ -124,9 +182,18 @@ def _new_state(root: Path, sidecar_glob: str) -> dict[str, Any]:
     return state
 
 
-def _state(root: Path, sidecar_glob: str) -> dict[str, Any]:
+def _state(
+    root: Path,
+    sidecar_glob: str,
+    rolling_input_path: Path | None = None,
+    parent_cycle_root: Path | None = None,
+) -> dict[str, Any]:
     path = _state_path(root)
-    return _load(path) if path.exists() else _new_state(root, sidecar_glob)
+    return (
+        _load(path)
+        if path.exists()
+        else _new_state(root, sidecar_glob, rolling_input_path, parent_cycle_root)
+    )
 
 
 def _attempted_headline_ids(result: Mapping[str, Any]) -> list[str]:
@@ -148,6 +215,23 @@ def _frontier_row(
     viability = dict(result.get("ranked_viability") or {})
     attempted = _attempted_headline_ids(result)
     selected_evidence = dict(viability.get("selected_evidence") or {})
+    request_rows = []
+    for attempt in viability.get("rank_attempts") or []:
+        receipt = dict(attempt.get("evidence_receipt") or {})
+        provenance = dict(receipt.get("evidence_acquisition_provenance") or {})
+        grounded = dict(provenance.get("grounded_research") or {})
+        official = dict((provenance.get("official") or {}).get("provenance") or {})
+        request_rows.append({
+            "rank": attempt.get("rank"),
+            "cluster_id": attempt.get("cluster_id"),
+            "headline_ids": list(attempt.get("headline_ids") or []),
+            "public_requests": int(grounded.get("public_retrieval_requests") or 0),
+            "official_requests": int(official.get("locator_request_count") or 0)
+            + int(official.get("official_evidence_get_count") or 0),
+            "status": attempt.get("status"),
+            "blockers": list(attempt.get("blockers") or []),
+        })
+    story_frontier = dict(result.get("prepared_story_frontier") or {})
     return {
         "frontier": number,
         "prepared_candidate_count": int(prepared.get("prepared_candidate_count") or 0),
@@ -157,6 +241,24 @@ def _frontier_row(
         "prepared_candidate_logical_hash": prepared.get("prepared_candidate_logical_hash"),
         "attempted_headline_ids": attempted,
         "attempted_distinct_candidate_count": int(viability.get("attempted_candidate_count") or len(attempted)),
+        "prepared_headline_identity_count": story_frontier.get(
+            "prepared_headline_identity_count"
+        ),
+        "distinct_story_opportunity_count": story_frontier.get(
+            "distinct_story_opportunity_count"
+        ),
+        "candidate_slots_saved_by_semantic_clustering": story_frontier.get(
+            "candidate_slots_saved_by_semantic_clustering"
+        ),
+        "exact_headline_identity_coverage": story_frontier.get(
+            "exact_headline_identity_coverage"
+        ),
+        "duplicate_update_chain_collapse_matrix": list(
+            story_frontier.get("duplicate_update_chain_collapse_matrix") or []
+        ),
+        "requests_by_distinct_story": request_rows,
+        "public_request_total": sum(row["public_requests"] for row in request_rows),
+        "official_request_total": sum(row["official_requests"] for row in request_rows),
         "selected_rank": viability.get("selected_rank"),
         "selected_cluster_id": viability.get("selected_cluster_id"),
         "evidence_status": selected_evidence.get("status"),
@@ -173,7 +275,8 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
     evaluated = set(str(value) for value in state.get("evaluated_headline_ids") or [])
     full = int(state.get("full_current_headline_count") or 0)
     qualified = list(state.get("qualified_article_records") or [])
-    completed = len(state.get("frontiers") or [])
+    frontiers = list(state.get("frontiers") or [])
+    completed = len(frontiers)
     classification = (
         "FLOOR_MET"
         if len(qualified) >= MAX_QUALIFIED
@@ -183,14 +286,52 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
     )
     return {
         **dict(state),
+        "schema_version": SCHEMA,
+        "task_label": TASK,
         "classification": classification,
         "frontier_count": completed,
+        "prepared_headline_identity_slot_count": sum(
+            int(row.get("prepared_headline_identity_count") or 0)
+            for row in frontiers
+        ),
+        "distinct_story_opportunity_count": sum(
+            int(row.get("distinct_story_opportunity_count") or 0)
+            for row in frontiers
+        ),
+        "candidate_slots_saved_by_semantic_clustering": sum(
+            int(row.get("candidate_slots_saved_by_semantic_clustering") or 0)
+            for row in frontiers
+        ),
+        "attempted_distinct_story_count": sum(
+            int(row.get("attempted_distinct_candidate_count") or 0)
+            for row in frontiers
+        ),
+        "attempted_headline_identity_count": len(evaluated),
         "distinct_candidate_count": len(evaluated),
         "remaining_held_identity_count": max(0, full - len(evaluated)),
         "qualified_count": len(qualified),
+        "qualified_derivative_intent_count": len(qualified) * 8,
+        "daily_qualified_article_floor": MAX_QUALIFIED,
+        "daily_derivative_intent_floor": MAX_QUALIFIED * 8,
+        "build_floor_satisfied": len(qualified) >= MAX_QUALIFIED,
         "remaining_build_deficit": max(0, MAX_QUALIFIED - len(qualified)),
         "no_repeat_proof": len(evaluated)
-        == sum(len(row.get("attempted_headline_ids") or []) for row in state.get("frontiers") or []),
+        == sum(len(row.get("attempted_headline_ids") or []) for row in frontiers),
+        "exact_headline_identity_coverage_all_frontiers": bool(frontiers)
+        and all(row.get("exact_headline_identity_coverage") is True for row in frontiers),
+        "public_request_total": sum(
+            int(row.get("public_request_total") or 0) for row in frontiers
+        ),
+        "official_request_total": sum(
+            int(row.get("official_request_total") or 0) for row in frontiers
+        ),
+        "exact_next_blocker_taxonomy": sorted(
+            {
+                str(row.get("exact_next_blocker") or "")
+                for row in frontiers
+                if str(row.get("exact_next_blocker") or "")
+            }
+        ),
         "safety": {
             "public_writes": int(state.get("public_write_count") or 0),
             "publication_provider_writes": int(state.get("publication_provider_write_count") or 0),
@@ -201,8 +342,13 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def probe(root: Path, sidecar_glob: str) -> dict[str, Any]:
-    state = _state(root, sidecar_glob)
+def probe(
+    root: Path,
+    sidecar_glob: str,
+    rolling_input_path: Path | None = None,
+    parent_cycle_root: Path | None = None,
+) -> dict[str, Any]:
+    state = _state(root, sidecar_glob, rolling_input_path, parent_cycle_root)
     if state.get("pending_frontier"):
         raise ValueError("pending_frontier_must_be_completed_first")
     if len(state.get("frontiers") or []) >= MAX_FRONTIERS:
@@ -379,11 +525,20 @@ def main() -> int:
         required=True,
     )
     parser.add_argument("--sidecar-glob", default=DEFAULT_X_SIDECAR_GLOB)
+    parser.add_argument("--rolling-input", type=Path)
+    parser.add_argument("--parent-cycle-root", type=Path)
     parser.add_argument("--worker-return", type=Path)
     args = parser.parse_args()
+    if args.rolling_input and args.parent_cycle_root:
+        raise ValueError("rolling_input_and_parent_cycle_root_are_mutually_exclusive")
     root = args.root.resolve()
     if args.action == "probe":
-        result = probe(root, args.sidecar_glob)
+        result = probe(
+            root,
+            args.sidecar_glob,
+            args.rolling_input.resolve(strict=True) if args.rolling_input else None,
+            args.parent_cycle_root.resolve(strict=True) if args.parent_cycle_root else None,
+        )
     elif args.action == "complete":
         if args.worker_return is None:
             raise ValueError("worker_return_required")
@@ -392,6 +547,8 @@ def main() -> int:
         result = repair_empty_last_frontier(root)
     else:
         result = _summary(_load(_state_path(root)))
+        _write(_state_path(root), result)
+        _write(root / "multi_frontier_floor_rehearsal_summary_v1.json", result)
     print(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=True))
     return 0
 

@@ -4480,23 +4480,23 @@ def _run_rolling_x_newsroom_cycle(
     )
     activity.record("CANDIDATE_SELECTION")
     try:
-        assignment = (
-            {
-                **dict(prepared_state["assignment"]),
+        assignment = assign_rolling_x_headlines_with_nine_router(
+            rolling_input=assignment_input,
+            timeout_seconds=assignment_timeout_seconds,
+            provider_call=assignment_provider_call,
+            leaf_checkpoints=leaf_checkpoints,
+            global_checkpoint=global_checkpoint,
+        )
+        if prepared_state is not None:
+            assignment = {
+                **assignment,
                 "prepared_candidate_state_reused": True,
                 "prepared_candidate_logical_hash": prepared_state.get(
                     "prepared_candidate_logical_hash"
                 ),
+                "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+                "full_universe_semantic_assignment_performed": False,
             }
-            if prepared_state is not None
-            else assign_rolling_x_headlines_with_nine_router(
-                rolling_input=assignment_input,
-                timeout_seconds=assignment_timeout_seconds,
-                provider_call=assignment_provider_call,
-                leaf_checkpoints=leaf_checkpoints,
-                global_checkpoint=global_checkpoint,
-            )
-        )
     except RoutedInvocationError as exc:
         summary = dict(getattr(exc, "summary", {}) or {})
         role = str(summary.get("role_task_id") or "")
@@ -4536,6 +4536,7 @@ def _run_rolling_x_newsroom_cycle(
             "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
         }
         and assignment_provider_call is None
+        and prepared_state is None
         and isinstance(assignment_input.get("headlines"), list)
         and bool(assignment_input.get("headlines"))
     ):
@@ -4571,12 +4572,14 @@ def _run_rolling_x_newsroom_cycle(
             ranked_assignment = assignment
             publishability_candidate_pool = {
                 "schema_version": "contentops.rolling_x_publishability_candidate_pool.v1",
-                "status": "PREPARED_CANDIDATE_SET_REUSED",
+                "status": "PREPARED_DISTINCT_STORY_SET_REUSED",
                 "bounded_pool_limit": len(assignment.get("ranked_clusters") or []),
                 "combined_candidate_count": len(assignment.get("ranked_clusters") or []),
                 "same_cycle_ranked_evidence_walk": True,
                 "full_universe_expansion_performed": False,
-                "llm_or_provider_calls": 0,
+                "llm_or_provider_calls": int(
+                    (assignment.get("telemetry") or {}).get("logical_router_calls") or 0
+                ),
                 "factual_or_numeric_authority_granted": False,
                 "publication_authority_granted": False,
             }
@@ -4866,6 +4869,7 @@ def _run_rolling_x_newsroom_cycle(
             if prepared_state is not None
             else None
         ),
+        "prepared_story_frontier": None,
         "publishability_candidate_pool": publishability_candidate_pool,
         "ranked_viability": viability,
         "runtime_preflight": runtime_preflight,
@@ -4883,13 +4887,79 @@ def _run_rolling_x_newsroom_cycle(
         },
     }
 
+    if prepared_state is not None:
+        prepared_ids = [
+            str(row.get("headline_id") or "")
+            for row in intake.get("headlines") or []
+            if isinstance(row, Mapping)
+        ]
+        leaf_clusters = [
+            dict(row)
+            for row in assignment.get("leaf_clusters") or []
+            if isinstance(row, Mapping)
+        ]
+        leaf_covered_ids = [
+            str(headline_id)
+            for cluster in leaf_clusters
+            for headline_id in cluster.get("member_headline_ids") or []
+        ]
+        exact_leaf_coverage = (
+            len(leaf_covered_ids) == len(set(leaf_covered_ids))
+            and set(leaf_covered_ids) == set(prepared_ids)
+        )
+        relationship_counts: dict[str, int] = {}
+        collapse_matrix: list[dict[str, Any]] = []
+        for cluster in leaf_clusters:
+            relationship = str(
+                (cluster.get("duplicate_update_chain") or {}).get("relationship")
+                or "unknown"
+            )
+            relationship_counts[relationship] = relationship_counts.get(relationship, 0) + 1
+            member_ids = [str(value) for value in cluster.get("member_headline_ids") or []]
+            collapse_matrix.append({
+                "leaf_cluster_id": str(cluster.get("leaf_cluster_id") or ""),
+                "relationship": relationship,
+                "canonical_headline_id": str(
+                    cluster.get("canonical_representative_headline_id") or ""
+                ),
+                "member_headline_ids": member_ids,
+                "headline_identity_count": len(member_ids),
+                "candidate_slots_saved": max(0, len(member_ids) - 1),
+            })
+        distinct_story_count = len(leaf_clusters)
+        evidence["prepared_story_frontier"] = {
+            "schema_version": "contentops.prepared_distinct_story_frontier.v1",
+            "status": (
+                "READY"
+                if assignment.get("status") == "SUCCESS" and exact_leaf_coverage
+                else "BLOCKED"
+            ),
+            "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+            "prepared_headline_identity_count": len(prepared_ids),
+            "distinct_story_opportunity_count": distinct_story_count,
+            "evidence_candidate_count": len(assignment.get("ranked_clusters") or []),
+            "candidate_slots_saved_by_semantic_clustering": max(
+                0, len(prepared_ids) - distinct_story_count
+            ),
+            "relationship_counts": relationship_counts,
+            "duplicate_update_chain_collapse_matrix": collapse_matrix,
+            "prepared_headline_ids": prepared_ids,
+            "leaf_covered_headline_ids": leaf_covered_ids,
+            "exact_headline_identity_coverage": exact_leaf_coverage,
+            "max_evidence_candidate_count": 12,
+            "bounded_semantic_assignment_calls": int(
+                (assignment.get("telemetry") or {}).get("logical_router_calls") or 0
+            ),
+            "semantic_assignment_failure": assignment.get("semantic_assignment_failure"),
+            "factual_or_numeric_authority_granted": False,
+            "publication_authority_granted": False,
+        }
+
     def _persist_cycle_evidence() -> None:
         article_telemetry = dict(evidence.get("article_build_telemetry") or {})
         editorial_telemetry = dict(evidence.get("editorial_cycle") or {})
-        assignment_calls = (
-            0
-            if prepared_state is not None
-            else int((assignment.get("telemetry") or {}).get("logical_router_calls") or 0)
+        assignment_calls = int(
+            (assignment.get("telemetry") or {}).get("logical_router_calls") or 0
         )
         story_calls = 0 if prepared_state is not None else int(
             bool(
@@ -4928,6 +4998,7 @@ def _run_rolling_x_newsroom_cycle(
                 or 0
             ),
             "full_universe_semantic_assignment_on_critical_path": prepared_state is None,
+            "bounded_prepared_frontier_semantic_assignment": prepared_state is not None,
             "assignment_semantic_calls": assignment_calls,
             "story_type_semantic_calls": story_calls,
             "article_writer_semantic_calls": writer_calls,
