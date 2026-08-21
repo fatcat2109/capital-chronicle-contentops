@@ -1458,15 +1458,9 @@ def test_writer_utility_preflight_rejects_thin_copy_and_accepts_useful_copy():
     assert builder._writer_utility_preflight(_useful_writer_output(), governed) == []
 
 
-def test_default_writer_uses_one_repair_then_one_separate_cx_utility_rescue(
-    monkeypatch,
-):
+def test_default_writer_requires_native_xhigh_after_its_one_bounded_repair(monkeypatch):
     from live_contentops import nine_router_llm_seam_v2 as seam
-    from live_contentops.nine_router_ordered_model_router_v2 import (
-        ACCEPTED,
-        CX_FINAL_FALLBACK_MODEL,
-        ORDERED_MODEL_POOL,
-    )
+    from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ORDERED_MODEL_POOL
 
     context = extract_governed_story_context(_viability())
     prompt = builder.build_article_generation_prompt(context, [])
@@ -1500,32 +1494,20 @@ def test_default_writer_uses_one_repair_then_one_separate_cx_utility_rescue(
                 "attempts": [],
                 "output": second[2],
             }
-        accepted = kwargs["validator"](json.dumps(_useful_writer_output()))
-        assert accepted[0] is True
-        return {
-            "terminal_disposition": ACCEPTED,
-            "logical_invocation_id": kwargs["logical_invocation_id"],
-            "selected_model": CX_FINAL_FALLBACK_MODEL,
-            "models_attempted_in_order": [CX_FINAL_FALLBACK_MODEL],
-            "total_attempts": 1,
-            "total_fallback_transitions": 0,
-            "total_structured_repair_attempts": 0,
-            "attempts": [],
-            "output": accepted[2],
-        }
+        raise AssertionError("no second 9Router writer invocation is permitted")
 
     monkeypatch.setattr(seam, "routed_llm_invocation", fake_routed)
-    generated = builder._default_article_generator(prompt)
+    with pytest.raises(
+        GroundedArticleBuilderError,
+        match="TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
+    ) as raised:
+        builder._default_article_generator(prompt)
 
-    assert calls == [
-        seam.ROLE_ARTICLE_WRITING,
-        seam.ROLE_ARTICLE_WRITING_CX_RESCUE,
-    ]
-    telemetry = generated["_writer_router_telemetry"]
+    assert calls == [seam.ROLE_ARTICLE_WRITING]
+    telemetry = raised.value.writer_router_telemetry
     assert telemetry["normal_repair_attempted"] is True
-    assert telemetry["cx_utility_rescue_attempted"] is True
-    assert telemetry["logical_invocations"] == 2
-    assert generated["_writer_utility_preflight"]["classification"] == "PASS"
+    assert telemetry["native_xhigh_required_after_failed_utility"] is True
+    assert telemetry["logical_invocations"] == 1
 
 
 def test_source_coverage_repair_requires_exact_supplied_source_markers(monkeypatch):
@@ -1564,7 +1546,7 @@ def test_source_coverage_repair_requires_exact_supplied_source_markers(monkeypat
     assert generated["title"] == _useful_writer_output()["title"]
 
 
-def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):
+def test_default_writer_does_not_use_a_second_router_for_failed_utility(monkeypatch):
     from live_contentops import nine_router_llm_seam_v2 as seam
     from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ORDERED_MODEL_POOL
 
@@ -1591,21 +1573,7 @@ def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):
                 "attempts": [],
                 "output": second[2],
             }
-        unsupported = _useful_writer_output()
-        unsupported["substack_body_markdown"] += (
-            "\n\nA newly discovered lunar bank guaranteed profits across every global market."
-        )
-        rejected = kwargs["validator"](json.dumps(unsupported))
-        assert rejected[0] is False
-        assert rejected[1] == "factual_validation_failure"
-        return {
-            "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
-            "models_attempted_in_order": ["cx/gpt-5.6-sol(xhigh)"],
-            "total_attempts": 1,
-            "total_structured_repair_attempts": 0,
-            "attempts": [],
-            "output": None,
-        }
+        raise AssertionError("no second 9Router utility rescue is permitted")
 
     monkeypatch.setattr(seam, "routed_llm_invocation", fake_routed)
     with pytest.raises(
@@ -1613,11 +1581,9 @@ def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):
         match="TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
     ) as raised:
         builder._default_article_generator(prompt)
-    assert raised.value.writer_router_telemetry["logical_invocations"] == 2
-    assert raised.value.writer_router_telemetry["cx_utility_rescue_attempted"] is True
-    assert raised.value.writer_router_telemetry["cx_rescue"]["terminal_disposition"] == (
-        "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
-    )
+    telemetry = raised.value.writer_router_telemetry
+    assert telemetry["logical_invocations"] == 1
+    assert telemetry["native_xhigh_required_after_failed_utility"] is True
 
 
 # --- Phase 2: media factual provenance (framing/X cannot become evidence facts) ---

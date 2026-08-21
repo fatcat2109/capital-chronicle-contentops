@@ -81,12 +81,7 @@ def _run(script, *, validator=None):
     return result, calls
 
 
-def test_exact_owner_ladder_is_immutable_and_ignores_incident_override(monkeypatch) -> None:
-    monkeypatch.setenv("CONTENTOPS_BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE", "FLASH_ONLY")
-    monkeypatch.setenv(
-        "CONTENTOPS_BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_AT_UTC",
-        "2099-01-01T00:00:00Z",
-    )
+def test_exact_owner_ladder_is_immutable_without_an_incident_override() -> None:
     assert V1_GROUNDED_RESEARCH_MODEL_LADDER == EXPECTED_LADDER
     assert GROUNDED_RESEARCH_MODEL_POOL is V1_GROUNDED_RESEARCH_MODEL_LADDER
     assert model_pool_for_role(GROUNDED_RESEARCH_ROLE) is GROUNDED_RESEARCH_MODEL_POOL

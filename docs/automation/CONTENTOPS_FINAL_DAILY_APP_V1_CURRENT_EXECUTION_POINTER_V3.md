@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — V1 Current Execution Pointer V3
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_V1_LANE_POINTER`
 
 ## Root authority
@@ -24,6 +24,11 @@ P0-1 authority/context/source work is accepted.
 P0-G1/G2 growth-first editorial spectrum, mode-aware evidence, bounded material-event mechanics, and canonical-first distribution are implemented/accepted on current lineage.
 
 P0-G3 actual breaking/normal/quiet/house-view zero-write artifacts were owner-audited and merged into master at `369c0cc289e790b8218ba30b2696a926db04356a`.
+
+The first-party locator correction is accepted and merged in the fresh `origin/master` baseline
+`2d39880fda3504201add67b15a0801847cc496b1`. Its former `new/claude-fable-5` route-health
+observation is historical only: it is superseded by the permanent V1 Gemini-only 9Router authority
+in `TASK_V1_FINAL_MODEL_AUTHORITY_CONVERGENCE_4_32_PROOF_AND_ONE_LIVE_CANARY_V1`.
 
 The accepted continuation lineage now runs through:
 
@@ -59,15 +64,19 @@ FDA-G/material-event metadata to launch Codex or write publicly.
 
 ## Current next capability
 
-`BOUNDED_FIRST_PARTY_LOCATOR_SOURCE_FAMILY_AND_QUERY_PUBLISHER_RESOLUTION_CLOSURE`
+`TASK_V1_FINAL_MODEL_AUTHORITY_CONVERGENCE_4_32_PROOF_AND_ONE_LIVE_CANARY_V1`
 
-The story-scoped reuse proof closed duplicate downgrade acquisition but truthfully ended 0/4 articles
-and 0/32 derivative intents after 17 distinct current stories. The residual matrix demonstrates exact
-official-locator/source-family gaps for EIA, Philly Fed, State/DSCA, and USCC, plus a company-primary
-Waymo gap and bounded public query/access/publisher-resolution failures. Correct only those exact
-reproducible paths through the existing evidence architecture, then repeat the same four-frontier
-zero-write proof. Do not raise budgets, widen source authority generically, bypass access controls,
-enable Automations, or resume the real canary before the floor is proven.
+The accepted locator work repaired the exact first-party surfaces. This task converges every reachable
+current V1 9Router role on the ordered two-model Gemini pool: `vx/gemini-3.1-pro-preview(high)` and
+`vx/gemini-3.5-flash(high)`. Leaf semantics use Flash then Pro; global/editorial/research roles use
+Pro then Flash. A qualified public article remains a native Desktop `gpt-5.6-sol / HIGH` coordinator
+handoff to a fresh isolated `gpt-5.6-sol / XHIGH` editorial worker, never a routed GPT/CX fallback.
+
+Run exactly four genuine-current, KILL_SWITCH zero-write frontiers. Only four qualified article records
+with all eight derivative intents (4/32), exact governed-input hashes, and valid XHIGH worker receipts
+may open the separately bounded one-canary readiness/readback gate. A below-floor run is
+`DEGRADED_DAILY_OUTPUT_DEFICIT`: preserve the exact evidence blocker, do not raise budgets or widen
+authority, and do not create, enable, resume, or infer state for Automations.
 
 ## Routine automation intent
 
@@ -82,8 +91,9 @@ Intended routine schedule only:
 - final article worker fresh isolated `gpt-5.6-sol / XHIGH` only at article boundary.
 
 These are the intended schedule values of the four identities observed paused at the accepted host
-epoch; current host state is `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`, and the observation remains no
-authority to enable, recreate, or publicly execute them.
+epoch; the paused-automation epoch is historical only. Current host state is
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED`, and the observation remains no authority to enable, recreate,
+or publicly execute them.
 
 ## P0-G4 after current correction
 

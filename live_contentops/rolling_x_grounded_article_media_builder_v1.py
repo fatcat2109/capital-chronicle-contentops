@@ -1900,17 +1900,13 @@ def _compact_writer_router_telemetry(summary: Mapping[str, Any]) -> dict[str, An
 
 
 def _default_article_generator(prompt: str) -> dict[str, Any]:
-    """Route article generation through the canonical 9Router quality-first pool."""
+    """Legacy zero-write compatibility writer; public articles require native XHIGH."""
     from live_contentops.nine_router_llm_seam_v2 import (
         ROLE_ARTICLE_WRITING,
-        ROLE_ARTICLE_WRITING_CX_RESCUE,
         RoutedInvocationError,
         routed_llm_invocation,
     )
-    from live_contentops.nine_router_ordered_model_router_v2 import (
-        ACCEPTED,
-        CX_FINAL_FALLBACK_MODEL,
-    )
+    from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED
 
     governed_input: dict[str, Any] = {}
     try:
@@ -2045,81 +2041,24 @@ def _default_article_generator(prompt: str) -> dict[str, Any]:
             "normal_repair_attempted": bool(
                 normal_telemetry["total_structured_repair_attempts"]
             ),
-            "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
-            in normal_telemetry["models_attempted_in_order"],
-            "cx_utility_rescue_attempted": False,
+            "native_xhigh_required_after_failed_utility": False,
         }
         return generated
 
-    if summary.get("selected_model") == CX_FINAL_FALLBACK_MODEL:
-        raise GroundedArticleBuilderError(
-            CODEX_EDITORIAL_BRAIN_TRIGGER,
-            writer_router_telemetry={
-                "logical_invocations": 1,
-                "normal": normal_telemetry,
-                "normal_repair_attempted": bool(
-                    normal_telemetry["total_structured_repair_attempts"]
-                ),
-                "cx_provider_fallback_attempted": True,
-                "cx_utility_rescue_attempted": False,
-            },
-        )
-
-    failure_codes = [str(value) for value in utility.get("failure_codes") or []]
-    rescue_prompt = "\n".join(
-        [
-            prompt,
-            "CX_WRITER_UTILITY_RESCUE_REQUIRED:",
-            ",".join(failure_codes)[:500] or "WRITER_UTILITY_FAILED",
-            "Produce a fresh article from the exact same governed evidence. Add no research, "
-            "URLs, facts, numbers, or source identities. Correct only reader utility and prose.",
-        ]
+    raise GroundedArticleBuilderError(
+        CODEX_EDITORIAL_BRAIN_TRIGGER,
+        writer_router_telemetry={
+            "logical_invocations": 1,
+            "normal": normal_telemetry,
+            "normal_repair_attempted": bool(
+                normal_telemetry["total_structured_repair_attempts"]
+            ),
+            "native_xhigh_required_after_failed_utility": True,
+            "utility_failure_codes": [
+                str(value) for value in utility.get("failure_codes") or []
+            ],
+        },
     )
-
-    def rescue_validator(raw: str) -> tuple[bool, str | None, Any, str | None]:
-        return parse_and_validate(raw, accept_utility_failure_after_repair=False)
-
-    rescue_summary = routed_llm_invocation(
-        prompt=rescue_prompt,
-        role_task_id=ROLE_ARTICLE_WRITING_CX_RESCUE,
-        logical_invocation_id=f"rolling_x_article_cx_rescue_{_sha256_text(prompt)[:20]}",
-        work_item_id=cluster_id,
-        timeout_seconds=240.0,
-        validator=rescue_validator,
-        governed_input={"schema_version": SCHEMA_VERSION},
-        prompt_template="rolling_x_grounded_article_cx_utility_rescue",
-        prompt_version="v1",
-    )
-    if rescue_summary.get("terminal_disposition") != ACCEPTED or not isinstance(
-        rescue_summary.get("output"), Mapping
-    ):
-        raise GroundedArticleBuilderError(
-            CODEX_EDITORIAL_BRAIN_TRIGGER,
-            writer_router_telemetry={
-                "logical_invocations": 2,
-                "normal": normal_telemetry,
-                "cx_rescue": _compact_writer_router_telemetry(rescue_summary),
-                "normal_repair_attempted": bool(
-                    normal_telemetry["total_structured_repair_attempts"]
-                ),
-                "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
-                in normal_telemetry["models_attempted_in_order"],
-                "cx_utility_rescue_attempted": True,
-            },
-        )
-    rescued = dict(rescue_summary["output"])
-    rescued["_writer_router_telemetry"] = {
-        "logical_invocations": 2,
-        "normal": normal_telemetry,
-        "cx_rescue": _compact_writer_router_telemetry(rescue_summary),
-        "normal_repair_attempted": bool(
-            normal_telemetry["total_structured_repair_attempts"]
-        ),
-        "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
-        in normal_telemetry["models_attempted_in_order"],
-        "cx_utility_rescue_attempted": True,
-    }
-    return rescued
 
 
 def _deterministic_supported_claim_brief(
@@ -2361,8 +2300,7 @@ def build_rolling_x_grounded_article_and_media(
                     "normal_repair_attempted": bool(
                         exc.summary.get("total_structured_repair_attempts")
                     ),
-                    "cx_provider_fallback_attempted": False,
-                    "cx_utility_rescue_attempted": False,
+                    "native_xhigh_required_after_failed_utility": True,
                 },
             ) from exc
         if not isinstance(exc, RoutedInvocationError) or effective_mode not in {

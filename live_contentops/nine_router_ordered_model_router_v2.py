@@ -32,10 +32,8 @@ looks. If the gateway does not report identity at all, that is recorded honestly
 from __future__ import annotations
 
 import json
-import os
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from typing import Any, Callable, Mapping, Sequence
 
@@ -49,56 +47,52 @@ from live_contentops.llm_cost_governor_v1 import COST_TERMINAL_FAILURE_CLASSES
 SCHEMA_VERSION = "contentops.nine_router_ordered_model_router.v2"
 
 AUTHORITY_ID = "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2"
-AUTHORITY_VERSION = "v2"
+AUTHORITY_VERSION = "v3_gemini_only_v1"
 SUPERSEDES_AUTHORITY_ID = "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1"
 GATEWAY = "9router"
 
-#: The exact ordered model pool. Every entry is an opaque exact string; the router never
-#: parses, normalises, or "corrects" a model ID. P0 remains the primary preference.
+#: Current V1 can reach only these two exact 9Router models.  The router never parses,
+#: normalises, or "corrects" an authority entry.  Final editorial prose remains a native
+#: Codex Desktop XHIGH responsibility; this pool is semantic/review assistance only.
+V1_GEMINI_ONLY_MODEL_AUTHORITY_ID = "CONTENTOPS_V1_GEMINI_ONLY_9ROUTER_MODEL_AUTHORITY_V1"
 ORDERED_MODEL_POOL: tuple[str, ...] = (
-    "new/claude-fable-5",
-    "new/gpt-5.6-sol-xhigh",
-    "new/claude-opus-5",
     "vx/gemini-3.1-pro-preview(high)",
+    "vx/gemini-3.5-flash(high)",
 )
 PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
 
-#: Cheap leaf semantic labour may prefer the exact high-throughput Flash model without
-#: changing the quality-first pool above. Final editorial and article-writing roles retain
-#: the canonical quality ordering. Keeping this registry beside the canonical pool means the
-#: provider adapter and router still share one authority surface.
+#: Cheap leaf semantic labour starts with Flash.  Assignment, research, and review start
+#: with Pro.  All fallbacks remain inside the same immutable two-model authority.
 NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
 PASSIVE_INTERACTION_QUALITY_ROLE = "passive_interaction_quality_classification"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
 GROUNDED_RESEARCH_ROLE = "v1_grounded_researcher"
-ARTICLE_WRITING_CX_RESCUE_ROLE = "v1_article_writing_cx_utility_rescue"
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
-GEMINI_PRO_MODEL = ORDERED_MODEL_POOL[-1]
-CX_FINAL_FALLBACK_MODEL = "cx/gpt-5.6-sol(xhigh)"
-V1_GROUNDED_RESEARCH_MODEL_LADDER: tuple[str, ...] = (
-    "vx/gemini-3.1-pro-preview(high)",
-    "vx/gemini-3.5-flash(high)",
-)
+GEMINI_PRO_MODEL = PRIMARY_MODEL
+V1_GROUNDED_RESEARCH_MODEL_LADDER: tuple[str, ...] = ORDERED_MODEL_POOL
 NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     NEWSROOM_LEAF_SCAN_MODEL,
-    *ORDERED_MODEL_POOL,
+    GEMINI_PRO_MODEL,
 )
-V1_HIGH_QUALITY_MODEL_POOL: tuple[str, ...] = (
-    *ORDERED_MODEL_POOL,
-    CX_FINAL_FALLBACK_MODEL,
-)
+V1_HIGH_QUALITY_MODEL_POOL: tuple[str, ...] = ORDERED_MODEL_POOL
 ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = V1_HIGH_QUALITY_MODEL_POOL
 GROUNDED_RESEARCH_MODEL_POOL: tuple[str, ...] = V1_GROUNDED_RESEARCH_MODEL_LADDER
-ARTICLE_WRITING_CX_RESCUE_MODEL_POOL: tuple[str, ...] = (CX_FINAL_FALLBACK_MODEL,)
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
     PASSIVE_INTERACTION_QUALITY_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
-    # Article prose is final editorial work, so it uses the exact quality-first order. Flash
-    # remains authorized only for the cheap semantic leaf role above.
+    NEWSROOM_GLOBAL_EDITOR_ROLE: V1_HIGH_QUALITY_MODEL_POOL,
+    # Legacy zero-write writer compatibility only.  A publication-qualified article is
+    # authored by a fresh native Codex Desktop XHIGH worker, never by 9Router.
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,
     GROUNDED_RESEARCH_ROLE: GROUNDED_RESEARCH_MODEL_POOL,
-    ARTICLE_WRITING_CX_RESCUE_ROLE: ARTICLE_WRITING_CX_RESCUE_MODEL_POOL,
+    "platform_native_variant_generation": NEWSROOM_LEAF_SCAN_MODEL_POOL,
+    "tier1_editorial_review": V1_HIGH_QUALITY_MODEL_POOL,
+    "substack_idea_ranking": NEWSROOM_LEAF_SCAN_MODEL_POOL,
+    "rolling_x_editorial_revision": V1_HIGH_QUALITY_MODEL_POOL,
+    "structured_output_repair": V1_HIGH_QUALITY_MODEL_POOL,
+    "rolling_x_story_type_classifier": NEWSROOM_LEAF_SCAN_MODEL_POOL,
+    "nine_router_preflight_probe": V1_HIGH_QUALITY_MODEL_POOL,
 }
 AUTHORIZED_MODELS = frozenset(
     model
@@ -106,77 +100,13 @@ AUTHORIZED_MODELS = frozenset(
     for model in pool
 )
 
-# Temporary, process-only pre-launch incident seam. The canonical quality order above stays
-# authoritative when these variables are absent, invalid, or expired. A 24-hour maximum keeps
-# a build-time provider incident from silently becoming launch policy.
-BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV = (
-    "CONTENTOPS_BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE"
-)
-BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV = (
-    "CONTENTOPS_BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_AT_UTC"
-)
-BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODES = frozenset(
-    {"PRO_AND_FLASH", "PRO_ONLY", "FLASH_ONLY"}
-)
-MAX_BUILD_ACCEPTANCE_GEMINI_INCIDENT_DURATION = timedelta(hours=24)
-
-
-def build_acceptance_gemini_incident(
-    *, now_utc: datetime | None = None,
-) -> dict[str, Any] | None:
-    """Return a validated, short-lived Gemini incident override or ``None``.
-
-    No arbitrary model identifier is accepted: the mode maps only to the two exact Gemini IDs
-    already present in the canonical authority. Invalid configuration fails closed to normal
-    quality-first routing.
-    """
-    mode = os.environ.get(BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV, "").strip()
-    raw_expiry = os.environ.get(BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV, "").strip()
-    if mode not in BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODES or not raw_expiry:
-        return None
-    try:
-        expiry = datetime.fromisoformat(raw_expiry.replace("Z", "+00:00"))
-    except ValueError:
-        return None
-    if expiry.tzinfo is None or expiry.utcoffset() != timedelta(0):
-        return None
-    now = now_utc or datetime.now(timezone.utc)
-    if now.tzinfo is None:
-        return None
-    now = now.astimezone(timezone.utc)
-    expiry = expiry.astimezone(timezone.utc)
-    if expiry <= now or expiry - now > MAX_BUILD_ACCEPTANCE_GEMINI_INCIDENT_DURATION:
-        return None
-    return {
-        "mode": mode,
-        "expires_at_utc": expiry.isoformat().replace("+00:00", "Z"),
-        "production_default_unchanged": True,
-    }
-
-
-def _incident_model_pool_for_role(role_task_id: str, mode: str) -> tuple[str, ...]:
-    if str(role_task_id) == ARTICLE_WRITING_CX_RESCUE_ROLE:
-        return ARTICLE_WRITING_CX_RESCUE_MODEL_POOL
-    if mode == "PRO_AND_FLASH":
-        return (
-            (NEWSROOM_LEAF_SCAN_MODEL,)
-            if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE
-            else (GEMINI_PRO_MODEL,)
-        )
-    if mode == "PRO_ONLY":
-        return (GEMINI_PRO_MODEL,)
-    return (NEWSROOM_LEAF_SCAN_MODEL,)
-
-#: Per-model attempt ceilings, indexed by priority. P0/P1 get one retry each; P2/P3 get a
-#: single attempt, because by the time the router reaches them the invocation has already
-#: spent most of its global budget and a further same-model retry buys little.
-PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
-NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1, 1)
-# The first quality model retains one bounded same-model structured repair.  This keeps the
-# declared global-editor repair path reachable for a deterministic validation failure while
-# preserving the existing five-attempt total and three fallback transitions.
-NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1)
-V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 2, 2, 2)
+#: Each of the two authorized models gets at most one bounded same-model retry. A model
+#: change never refreshes this budget.
+PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2)
+NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2)
+# The first model retains one bounded same-model structured repair before eligible fallback.
+NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2)
+V1_HIGH_QUALITY_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2)
 # The two-route grounded-research pool permits one attempt per provider plus at most one
 # bounded same-model structured-output repair. Infrastructure failures never retry the same
 # model, and Flash is the only fallback.
@@ -185,13 +115,13 @@ GROUNDED_RESEARCH_MAX_FALLBACK_TRANSITIONS = 1
 GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2)
 
 MAX_TOTAL_PROVIDER_ATTEMPTS = 6
-MAX_FALLBACK_TRANSITIONS = 3
+MAX_FALLBACK_TRANSITIONS = 1
 MAX_SAME_MODEL_RETRIES = 1
 MAX_STRUCTURED_OUTPUT_REPAIR_ATTEMPTS = 1
 MAX_CUMULATIVE_RETRY_SLEEP_SECONDS = 45.0
 DEFAULT_WALL_CLOCK_BUDGET_SECONDS = 300.0
-NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS = 4
-V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS = 4
+NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS = 1
+V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS = 1
 NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS = 1200.0
 NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS = 1200.0
 
@@ -277,31 +207,30 @@ def _hash(value: Any) -> str:
 
 def authority_packet() -> dict[str, Any]:
     """The machine-readable statement of what this router is authorized to do."""
-    incident = build_acceptance_gemini_incident()
     packet = {
         "authority_id": AUTHORITY_ID,
         "authority_version": AUTHORITY_VERSION,
         "supersedes": SUPERSEDES_AUTHORITY_ID,
-        "supersedes_rule": "prior authority prohibited all fallback; ordered fallback is now authorized",
+        "supersedes_rule": "ordered provider fallback remains bounded and never bypasses a gate",
         "gateway": GATEWAY,
+        "v1_model_authority_id": V1_GEMINI_ONLY_MODEL_AUTHORITY_ID,
         "ordered_model_pool": list(ORDERED_MODEL_POOL),
         "primary_model": PRIMARY_MODEL,
-        "global_quality_first_pool_unchanged": True,
         "role_specific_model_pools": {
             role: list(pool) for role, pool in ROLE_MODEL_POOLS.items()
         },
         "newsroom_leaf_scan_model": NEWSROOM_LEAF_SCAN_MODEL,
         "newsroom_leaf_scan_is_semantic_labor_only": True,
-        "newsroom_global_editor_uses_quality_first_pool": True,
-        "article_writing_uses_quality_first_pool": True,
+        "newsroom_global_editor_uses_pro_then_flash": True,
+        "article_writing_via_9router_is_legacy_zero_write_compatibility_only": True,
+        "publication_qualified_article_uses_native_codex_desktop_xhigh": True,
         "v1_grounded_research_gateway": GATEWAY,
         "v1_grounded_research_model_ladder": list(V1_GROUNDED_RESEARCH_MODEL_LADDER),
         "v1_grounded_research_model_order_is_deterministic": True,
         "v1_grounded_research_grants_factual_or_numeric_authority": False,
         "v1_grounded_research_grants_publication_authority": False,
-        "v1_cx_final_fallback_model": CX_FINAL_FALLBACK_MODEL,
-        "v1_cx_final_fallback_roles": [ARTICLE_WRITING_ROLE],
-        "v1_cx_utility_rescue_is_separate_single_model_invocation": True,
+        "forbidden_non_gemini_v1_models_reachable": False,
+        "temporary_gemini_incident_override_supported": False,
         "v1_high_quality_retry_policy": {
             "max_total_provider_attempts": MAX_TOTAL_PROVIDER_ATTEMPTS,
             "max_fallback_transitions": V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
@@ -319,13 +248,9 @@ def authority_packet() -> dict[str, Any]:
             "bounded": True,
             "two_model_pool_aligned": True,
         },
-        "temporary_build_acceptance_gemini_incident_supported": True,
-        "temporary_build_acceptance_gemini_incident_max_hours": 24,
-        "temporary_build_acceptance_gemini_incident": incident,
-        "production_launch_uses_incident_override_by_default": False,
         "newsroom_global_editor_retry_policy": {
-            "max_total_provider_attempts": 5,
-            "max_fallback_transitions": 3,
+            "max_total_provider_attempts": 4,
+            "max_fallback_transitions": 1,
             "max_same_model_retries": 0,
             "max_structured_output_repair_attempts": 1,
             "per_model_max_attempts": list(
@@ -372,27 +297,11 @@ def retry_budget_policy() -> dict[str, Any]:
 
 def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
     """Return the one canonical model ordering for a semantic role."""
-    # The owner-locked V1 research ladder is exact and must not be replaced by the
-    # temporary build-acceptance Gemini incident seam.
-    if str(role_task_id) == GROUNDED_RESEARCH_ROLE:
-        return GROUNDED_RESEARCH_MODEL_POOL
-    incident = build_acceptance_gemini_incident()
-    if incident is not None:
-        return _incident_model_pool_for_role(role_task_id, str(incident["mode"]))
-    return ROLE_MODEL_POOLS.get(str(role_task_id), ORDERED_MODEL_POOL)
+    return ROLE_MODEL_POOLS.get(str(role_task_id), V1_HIGH_QUALITY_MODEL_POOL)
 
 
 def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
     """Allocate one immutable bounded budget appropriate to the canonical role pool."""
-    if str(role_task_id) == ARTICLE_WRITING_CX_RESCUE_ROLE:
-        return RetryBudget(
-            logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=1,
-            max_fallback_transitions=0,
-            max_same_model_retries=0,
-            max_structured_output_repair_attempts=0,
-            per_model_max_attempts=(1,),
-        )
     if str(role_task_id) == GROUNDED_RESEARCH_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
@@ -401,20 +310,6 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
             max_same_model_retries=0,
             max_structured_output_repair_attempts=1,
             per_model_max_attempts=GROUNDED_RESEARCH_PER_MODEL_MAX_ATTEMPTS,
-        )
-    if build_acceptance_gemini_incident() is not None:
-        wall_clock_budget_seconds = DEFAULT_WALL_CLOCK_BUDGET_SECONDS
-        if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
-            wall_clock_budget_seconds = NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS
-        elif str(role_task_id) == NEWSROOM_GLOBAL_EDITOR_ROLE:
-            wall_clock_budget_seconds = NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS
-        return RetryBudget(
-            logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=2,
-            max_fallback_transitions=0,
-            max_same_model_retries=1,
-            wall_clock_budget_seconds=wall_clock_budget_seconds,
-            per_model_max_attempts=(2,),
         )
     if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
         return RetryBudget(
@@ -426,19 +321,16 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
     if str(role_task_id) == NEWSROOM_GLOBAL_EDITOR_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=5,
-            max_fallback_transitions=3,
+            max_total_provider_attempts=4,
+            max_fallback_transitions=1,
             max_same_model_retries=0,
             wall_clock_budget_seconds=NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
             per_model_max_attempts=NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
         )
     if str(role_task_id) == ARTICLE_WRITING_ROLE:
-        # One structured repair may be spent on whichever normal V1 quality model produced the
-        # malformed/defective output. Four infrastructure failures plus that one repair still
-        # leave the sixth and final slot for CX. Infrastructure never burns a same-model retry.
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=6,
+            max_total_provider_attempts=4,
             max_fallback_transitions=V1_HIGH_QUALITY_MAX_FALLBACK_TRANSITIONS,
             max_same_model_retries=0,
             max_structured_output_repair_attempts=1,
@@ -1003,10 +895,9 @@ def _summary_without_output(summary: Mapping[str, Any]) -> dict[str, Any]:
 def _bare_model_id(value: str) -> str:
     """The model ID without its gateway routing prefix or reasoning-effort suffix.
 
-    9router accepts ``new/claude-fable-5`` and reports the effective model back as
-    ``claude-fable-5``. Comparing raw strings would flag every healthy call as a
-    substitution, so identity is compared on the bare ID. A genuine swap to a different
-    model still differs after normalisation and is still caught.
+    The gateway can report a model without its routing prefix. Comparing raw strings would
+    flag a healthy response as a substitution, so identity is compared on the bare ID. A
+    genuine swap to a different model still differs after normalisation and is caught.
 
     The pool also carries an opaque ``(effort)`` suffix on some entries (e.g.
     ``vx/gemini-3.1-pro-preview(high)``) that selects a request-time reasoning-effort

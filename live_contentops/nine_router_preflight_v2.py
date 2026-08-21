@@ -90,9 +90,9 @@ def preflight_model(
 
     text = (result.text or "").strip()
     observed = result.resolved_model
-    # The gateway reports the effective model without its routing prefix
-    # ("new/claude-fable-5" -> "claude-fable-5"). Compare on the bare ID so a naming
-    # convention is not misreported as a substitution, while a real swap still fails.
+    # The gateway may report the effective model without its routing prefix.
+    # Compare the canonical bare ID so a naming convention is not misreported as a
+    # substitution, while a real swap still fails.
     identity_verified = observed is not None and normalize_model_identity(
         observed
     ) == normalize_model_identity(model)
