@@ -1,0 +1,90 @@
+{
+  "schema_version": "contentops.v1_final_model_authority_convergence_receipt.v1",
+  "task_label": "TASK_V1_FINAL_MODEL_AUTHORITY_CONVERGENCE_4_32_PROOF_AND_ONE_LIVE_CANARY_V1",
+  "starting_origin_master": "2d39880fda3504201add67b15a0801847cc496b1",
+  "run_created_at_utc": "2026-08-21T17:26:36.671313Z",
+  "run_timezone": "Asia/Bangkok",
+  "classification": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+  "phase_a": {
+    "authorized_routed_models": [
+      "vx/gemini-3.1-pro-preview(high)",
+      "vx/gemini-3.5-flash(high)"
+    ],
+    "non_gemini_current_v1_routed_models_reachable": false,
+    "qualified_public_article_boundary": "native_codex_desktop_high_to_fresh_xhigh_worker",
+    "live_zero_write_preflight": {
+      "effective_model_identities_verified": true,
+      "provider_cost_fields_reported": false,
+      "by_model": {
+        "vx/gemini-3.1-pro-preview(high)": {
+          "prompt_tokens": 2015,
+          "completion_tokens": 156,
+          "total_tokens": 2171
+        },
+        "vx/gemini-3.5-flash(high)": {
+          "prompt_tokens": 2015,
+          "completion_tokens": 97,
+          "total_tokens": 2112
+        }
+      }
+    }
+  },
+  "phase_b": {
+    "input_mode": "GENUINE_CURRENT_INPUT",
+    "frozen_input_sha256": "6986d0be62dbfb21bd5cb1c77411cf0c751acccd7842db859f7e305a0d51a329",
+    "frontier_count": 4,
+    "exact_headline_identity_coverage": true,
+    "no_repeat_proof": true,
+    "qualified_article_count": 0,
+    "qualified_derivative_intent_count": 0,
+    "required_article_count": 4,
+    "required_derivative_intent_count": 32,
+    "remaining_build_deficit": 4,
+    "read_only_source_requests": {
+      "public": 64,
+      "official": 0
+    },
+    "model_usage": {
+      "vx/gemini-3.1-pro-preview(high)": {
+        "successful_invocations": 12,
+        "provider_attempts": 12,
+        "prompt_tokens": 35019,
+        "completion_tokens": 15504,
+        "total_tokens": 50523,
+        "provider_cost_fields_reported": false
+      },
+      "vx/gemini-3.5-flash(high)": {
+        "successful_invocations": 0,
+        "provider_attempts": 0,
+        "provider_cost_fields_reported": false
+      }
+    },
+    "xhigh": {
+      "worker_requests": 0,
+      "worker_receipts": 0,
+      "revisions": 0,
+      "reason": "No current candidate reached the governed article boundary."
+    },
+    "safety": {
+      "public_writes": 0,
+      "publication_provider_writes": 0,
+      "unknown_writes": 0,
+      "production_store_resets": 0,
+      "fifth_automations_created": 0
+    },
+    "exact_blocker_taxonomy": [
+      "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE"
+    ]
+  },
+  "phase_c": {
+    "executed": false,
+    "canary_authorized": false,
+    "reason": "Phase B did not satisfy the required 4 qualified articles and 32 derivative intents."
+  },
+  "validation": {
+    "focused_suite": "164 passed",
+    "codegraph": "CODEGRAPH_CURRENT",
+    "diff_check": "passed"
+  }
+}
