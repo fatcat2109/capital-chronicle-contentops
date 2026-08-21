@@ -1993,22 +1993,24 @@ def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk
             output = {"clusters": clusters}
         else:
             payload = json.loads(prompt.split("global_editor_input:\n", 1)[1])
-            rows = []
-            for rank, summary in enumerate(payload["leaf_cluster_summaries"], start=1):
-                rows.append({
-                    "rank": rank,
-                    "leaf_cluster_ids": [summary["id"]],
-                    "cross_partition_relationship": summary["relationship"],
-                    "canonical_leaf_cluster_id": summary["id"],
-                    "story_mode": "reporting",
-                    "article_mode": "STANDARD_NEWS_ANALYSIS",
-                    "market_sensitive": False,
-                    "why_now": f"Prepared story {rank} is current and distinct.",
-                    "selection_case": "The bounded evidence path warrants evaluation.",
-                    "seo_intent": "Explain the current distinct story.",
-                    "visual_strategy": "Use a source-backed title card.",
-                    "needed_evidence": ["Verify the core proposition."],
-                })
+            # Deliberately shortlist just one of five prepared semantic leaves.  The
+            # prepared-path pool must supply the other four bounded leaves to the
+            # existing evidence walker without revisiting the full rolling universe.
+            summary = payload["leaf_cluster_summaries"][0]
+            rows = [{
+                "rank": 1,
+                "leaf_cluster_ids": [summary["id"]],
+                "cross_partition_relationship": summary["relationship"],
+                "canonical_leaf_cluster_id": summary["id"],
+                "story_mode": "reporting",
+                "article_mode": "STANDARD_NEWS_ANALYSIS",
+                "market_sensitive": False,
+                "why_now": "Prepared shortlist story is current and distinct.",
+                "selection_case": "The bounded evidence path warrants evaluation.",
+                "seo_intent": "Explain the current distinct story.",
+                "visual_strategy": "Use a source-backed title card.",
+                "needed_evidence": ["Verify the core proposition."],
+            }]
             output = {
                 "decision": "SELECT_STORY",
                 "selection_rationale": "The prepared frontier contains distinct candidates.",
@@ -2046,7 +2048,24 @@ def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk
     assert telemetry["story_type_semantic_calls"] == 0
     assert result["assignment"]["prepared_candidate_state_reused"] is True
     assert len(provider_calls) == 2
+    pool = result["publishability_candidate_pool"]
+    assert pool["prepared_frontier_only"] is True
+    assert pool["full_universe_expansion_performed"] is False
+    assert pool["source_ranked_candidate_count"] == 1
+    assert pool["reserve_candidate_count"] == 4
+    assert pool["combined_candidate_count"] == 5
+    assert pool["compact_universe_exhausted_by_pool"] is True
     assert result["candidate_walk"]["attempted_candidate_count"] == 5
+    assert result["ranked_viability"]["reason_code"] == (
+        "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+    )
+    attempts = result["ranked_viability"]["rank_attempts"]
+    assert len({row["cluster_id"] for row in attempts}) == 5
+    attempted_ids = {
+        headline_id
+        for row in attempts
+        for headline_id in row["headline_ids"]
+    }
     frontier = result["prepared_story_frontier"]
     assert frontier["prepared_headline_identity_count"] == 8
     assert frontier["distinct_story_opportunity_count"] == 5
@@ -2058,6 +2077,7 @@ def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk
     assert set(frontier["leaf_covered_headline_ids"]) == set(
         rolling_input["unique_headline_ids"]
     )
+    assert attempted_ids == set(frontier["prepared_headline_ids"])
     assert any(
         row["relationship"] == "material_update"
         and row["headline_identity_count"] == 2

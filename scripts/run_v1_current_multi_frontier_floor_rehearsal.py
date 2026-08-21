@@ -42,7 +42,7 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
 )
 
 SCHEMA = "contentops.v1_distinct_story_frontier_floor_rehearsal.v1"
-TASK = "TASK_V1_POST_XHIGH_REVISION_OWNERSHIP_CANDIDATE_CONTINUATION_4_32_AND_CANARY_V1"
+TASK = "TASK_V1_PREPARED_FRONTIER_PUBLISHABILITY_POOL_REUSE_4_32_AND_ONE_CANARY_V1"
 MAX_FRONTIERS = 4
 MAX_QUALIFIED = 4
 MAX_XHIGH_ATTEMPTS = 8
@@ -369,6 +369,7 @@ def _frontier_row(
     *, number: int, prepared: Mapping[str, Any], result: Mapping[str, Any], path: Path
 ) -> dict[str, Any]:
     viability = dict(result.get("ranked_viability") or {})
+    pool = dict(result.get("publishability_candidate_pool") or {})
     attempted = _attempted_headline_ids(result)
     selected_evidence = dict(viability.get("selected_evidence") or {})
     request_rows = []
@@ -433,6 +434,19 @@ def _frontier_row(
         "distinct_story_opportunity_count": story_frontier.get(
             "distinct_story_opportunity_count"
         ),
+        "global_editor_shortlist_count": int(
+            pool.get("source_ranked_candidate_count")
+            or story_frontier.get("evidence_candidate_count")
+            or 0
+        ),
+        "unused_semantic_leaf_reserve_count": int(
+            pool.get("reserve_candidate_count") or 0
+        ),
+        "final_publishability_pool_count": int(
+            pool.get("combined_candidate_count") or 0
+        ),
+        "publishability_pool_status": pool.get("status"),
+        "prepared_frontier_pool_reused": pool.get("prepared_frontier_only"),
         "candidate_slots_saved_by_semantic_clustering": story_frontier.get(
             "candidate_slots_saved_by_semantic_clustering"
         ),
@@ -457,6 +471,11 @@ def _frontier_row(
         "selected_rank": viability.get("selected_rank"),
         "selected_cluster_id": viability.get("selected_cluster_id"),
         "evidence_status": selected_evidence.get("status"),
+        "evidence_qualified": selected_evidence.get("status") == "PASS",
+        "ranked_viability_reason_code": viability.get("reason_code"),
+        "publishability_pool_exhausted": bool(
+            viability.get("publishability_pool_exhausted")
+        ),
         "result_classification": result.get("classification"),
         "exact_next_blocker": result.get("exact_next_blocker"),
         "cycle_evidence_path": str(path / "rolling_x_newsroom_cycle_evidence_v1.json"),
@@ -495,6 +514,18 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "candidate_slots_saved_by_semantic_clustering": sum(
             int(row.get("candidate_slots_saved_by_semantic_clustering") or 0)
+            for row in frontiers
+        ),
+        "global_editor_shortlist_count": sum(
+            int(row.get("global_editor_shortlist_count") or 0)
+            for row in frontiers
+        ),
+        "unused_semantic_leaf_reserve_count": sum(
+            int(row.get("unused_semantic_leaf_reserve_count") or 0)
+            for row in frontiers
+        ),
+        "final_publishability_pool_count": sum(
+            int(row.get("final_publishability_pool_count") or 0)
             for row in frontiers
         ),
         "attempted_distinct_story_count": sum(

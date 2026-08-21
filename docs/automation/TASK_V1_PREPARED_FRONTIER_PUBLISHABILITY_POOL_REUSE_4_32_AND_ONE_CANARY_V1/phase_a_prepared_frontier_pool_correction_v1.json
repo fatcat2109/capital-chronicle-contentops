@@ -1,0 +1,60 @@
+{
+  "schema_version": "contentops.v1.prepared_frontier_publishability_pool_correction.v1",
+  "task_label": "TASK_V1_PREPARED_FRONTIER_PUBLISHABILITY_POOL_REUSE_4_32_AND_ONE_CANARY_V1",
+  "recorded_at_utc": "2026-08-21T21:07:39Z",
+  "starting_branch_head": "523437cf7cab872b5b72c42fa3f9d2d457b47de0",
+  "starting_origin_master_head": "2d39880fda3504201add67b15a0801847cc496b1",
+  "baseline_current_proof": {
+    "prepared_headline_identity_count": 48,
+    "prepared_frontier_count": 4,
+    "semantic_distinct_story_opportunity_count": 45,
+    "evidence_attempted_distinct_story_count": 19,
+    "qualified_article_count": 0,
+    "qualified_derivative_intent_count": 0,
+    "public_retrieval_request_count": 55,
+    "official_retrieval_request_count": 2,
+    "native_xhigh_worker_count": 1,
+    "same_worker_revision_count": 1,
+    "router_final_writer_count": 0,
+    "public_write_count": 0,
+    "source_receipt": "docs/automation/TASK_V1_POST_XHIGH_REVISION_OWNERSHIP_CANDIDATE_CONTINUATION_4_32_AND_CANARY_V1/phase_c_current_4_32_residual_receipt_v1.json"
+  },
+  "defect": {
+    "location": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py:_run_rolling_x_newsroom_cycle",
+    "prepared_path_before": "Prepared state assigned ranked_assignment directly to the global-editor shortlist and emitted synthetic pool telemetry.",
+    "effect": "Unused, eligible semantic leaf clusters inside the same prepared frontier could not reach the existing rank-ordered evidence walker.",
+    "authority_change": "none"
+  },
+  "correction": {
+    "prepared_path_after": "The prepared path calls build_bounded_rolling_x_publishability_pool with the immutable prepared assignment input and prepared_frontier_only=true.",
+    "candidate_scope": "The pool can contain only the prepared assignment's selected global-shortlist clusters plus eligible unused semantic leaf clusters from that same prepared input.",
+    "full_universe_expansion_performed": false,
+    "existing_selector_reused": "select_first_viable_rolling_x_cluster",
+    "candidate_limit": "Existing ROLLING_X_PUBLISHABILITY_POOL_LIMIT and the prepared distinct-story cardinality continue to bound the pool.",
+    "unchanged": [
+      "prepared headline identity binding and semantic leaf clustering",
+      "evidence, freshness, readiness, KILL_SWITCH, and publication gates",
+      "candidate-local continuation and native XHIGH same-worker revision ownership",
+      "9Router Gemini research ladder and no-router-final-writer boundary",
+      "source families, request budgets, automation state, V2, and public-write authority"
+    ]
+  },
+  "regression_proof": {
+    "test": "tests/test_rolling_x_newsroom_cycle_v1.py::test_publication_window_clusters_only_prepared_frontier_before_evidence_walk",
+    "fixture": "One prepared global shortlist cluster and five prepared semantic leaf clusters from eight exact headline identities.",
+    "assertions": [
+      "prepared_frontier_only=true and full_universe_expansion_performed=false",
+      "source shortlist=1, reserve=4, final bounded pool=5",
+      "all five unique prepared candidates reach the evidence walker",
+      "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED is reached only after that exact pool is exhausted",
+      "attempted headline identities equal the prepared identities with no duplicate cluster"
+    ],
+    "focused_suite": "python -m pytest -q tests/test_v1_current_multi_frontier_floor_rehearsal_v1.py tests/test_v1_throughput_architecture_v1.py tests/test_rolling_x_hierarchical_assignment_v1.py tests/test_rolling_x_v1_publishability_closure_v1.py tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py tests/test_v1_9router_research_model_ladder_v1.py tests/test_codex_desktop_newsroom_operator_v1.py tests/test_rolling_x_newsroom_cycle_v1.py",
+    "focused_suite_result": "196 passed"
+  },
+  "fresh_current_execution": {
+    "required": true,
+    "raw_artifact_root": "artifacts/v1_prepared_frontier_publishability_pool_reuse_4_32_current_20260822",
+    "public_write_authority": "zero until a fresh 4/32 pass and JIT nine-surface readiness readback"
+  }
+}

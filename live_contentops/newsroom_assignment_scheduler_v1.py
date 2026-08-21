@@ -2650,6 +2650,7 @@ def build_bounded_rolling_x_publishability_pool(
     assignment: Mapping[str, Any],
     rolling_input: Mapping[str, Any],
     max_ranked_clusters: int = ROLLING_X_PUBLISHABILITY_POOL_LIMIT,
+    prepared_frontier_only: bool = False,
 ) -> dict[str, Any]:
     """Derive a broader zero-model pool for the existing ranked evidence selector.
 
@@ -2675,6 +2676,8 @@ def build_bounded_rolling_x_publishability_pool(
         "source_ranked_candidate_count": len(source_clusters),
         "compact_headline_count": len(headlines) if isinstance(headlines, list) else 0,
         "same_cycle_ranked_evidence_walk": True,
+        "prepared_frontier_only": bool(prepared_frontier_only),
+        "full_universe_expansion_performed": False,
         "existing_ranked_evidence_selector_reused": True,
         "exact_official_host_registry_used": True,
         "llm_or_provider_calls": 0,

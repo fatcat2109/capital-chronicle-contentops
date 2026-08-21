@@ -4623,20 +4623,18 @@ def _run_rolling_x_newsroom_cycle(
         and assignment.get("ranked_clusters")
     ):
         if prepared_state is not None:
-            ranked_assignment = assignment
-            publishability_candidate_pool = {
-                "schema_version": "contentops.rolling_x_publishability_candidate_pool.v1",
-                "status": "PREPARED_DISTINCT_STORY_SET_REUSED",
-                "bounded_pool_limit": len(assignment.get("ranked_clusters") or []),
-                "combined_candidate_count": len(assignment.get("ranked_clusters") or []),
-                "same_cycle_ranked_evidence_walk": True,
-                "full_universe_expansion_performed": False,
-                "llm_or_provider_calls": int(
-                    (assignment.get("telemetry") or {}).get("logical_router_calls") or 0
-                ),
-                "factual_or_numeric_authority_granted": False,
-                "publication_authority_granted": False,
-            }
+            # The prepared input is already the exact bounded frontier.  Reuse the
+            # normal bounded pool here so unused semantic leaves on that frontier
+            # receive the same evidence-walker opportunity as a global shortlist.
+            # This never widens back to the full rolling intake.
+            ranked_assignment = build_bounded_rolling_x_publishability_pool(
+                assignment=assignment,
+                rolling_input=assignment_input,
+                prepared_frontier_only=True,
+            )
+            publishability_candidate_pool = dict(
+                ranked_assignment.get("publishability_candidate_pool") or {}
+            )
         else:
             try:
                 ranked_assignment = build_bounded_rolling_x_publishability_pool(
