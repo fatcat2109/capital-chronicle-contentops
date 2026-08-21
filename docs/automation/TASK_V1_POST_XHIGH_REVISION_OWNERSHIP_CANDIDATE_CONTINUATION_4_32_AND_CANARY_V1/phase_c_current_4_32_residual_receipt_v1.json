@@ -1,0 +1,97 @@
+{
+  "schema_version": "contentops.v1_post_xhigh_current_4_32_residual_receipt.v1",
+  "task_label": "TASK_V1_POST_XHIGH_REVISION_OWNERSHIP_CANDIDATE_CONTINUATION_4_32_AND_CANARY_V1",
+  "execution": {
+    "classification": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+    "input_mode": "GENUINE_CURRENT_INPUT",
+    "current_input_identity_count": 758,
+    "current_input_sha256": "0b7ccbbc5d154501ab56fda18edfad2211570cde806465c2e7561a5ab6c4a95a",
+    "frontier_count": 4,
+    "prepared_headline_identity_slot_count": 48,
+    "distinct_story_opportunity_count": 45,
+    "attempted_distinct_story_count": 19,
+    "attempted_headline_identity_count": 21,
+    "no_repeat_proof": true,
+    "qualified_article_count": 0,
+    "qualified_derivative_intent_count": 0,
+    "required_qualified_article_count": 4,
+    "required_derivative_intent_count": 32,
+    "residual_article_deficit": 4,
+    "raw_evidence_root_untracked": "artifacts/v1_post_xhigh_revision_ownership_candidate_continuation_4_32_current_after_probe_fix_20260822"
+  },
+  "frontier_outcomes": [
+    {
+      "frontier": 1,
+      "classification": "NO_PUBLICATION",
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "distinct_candidates_attempted": 3,
+      "story_scoped_network_request_count": 11
+    },
+    {
+      "frontier": 2,
+      "classification": "NO_PUBLICATION",
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "distinct_candidates_attempted": 5,
+      "story_scoped_network_request_count": 11
+    },
+    {
+      "frontier": 3,
+      "classification": "NO_PUBLICATION",
+      "terminal_reason": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+      "distinct_candidates_attempted": 6,
+      "story_scoped_network_request_count": 19,
+      "native_xhigh_worker_count": 1,
+      "same_worker_revision_count": 1,
+      "post_revision_candidate_terminal_reason": "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED",
+      "router_final_writer_invocation_count": 0,
+      "fresh_replacement_worker_count": 0
+    },
+    {
+      "frontier": 4,
+      "classification": "NO_PUBLICATION",
+      "terminal_reason": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "distinct_candidates_attempted": 5,
+      "story_scoped_network_request_count": 16
+    }
+  ],
+  "bounded_economics": {
+    "public_retrieval_requests": 55,
+    "official_retrieval_requests": 2,
+    "story_scoped_network_requests": 57,
+    "story_scoped_network_reads_avoided": 71,
+    "story_scoped_delta_acquisitions": 0,
+    "xhigh_attempt_count": 1,
+    "xhigh_worker_return_count": 2,
+    "xhigh_revision_count": 1
+  },
+  "highest_blocker": {
+    "taxonomy": [
+      "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "ALL_BOUNDED_CANDIDATES_EXHAUSTED"
+    ],
+    "sanitized_detail": [
+      "minimum trustworthy evidence was unavailable for the blocked candidates",
+      "the one article-qualified candidate exhausted its same-worker revision budget without passing semantic review"
+    ]
+  },
+  "canary": {
+    "status": "BLOCKED_NOT_ATTEMPTED",
+    "exact_blocker": "4_32_GATE_FAILED_QUALIFIED_COUNT_0_OF_4",
+    "publication_or_reconciliation_called": false
+  },
+  "safety": {
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "unknown_writes": 0,
+    "production_store_resets": 0,
+    "fifth_automations_created": 0,
+    "automations_enabled_or_recreated": false,
+    "master_merged": false,
+    "raw_artifacts_committed": false
+  },
+  "sanitization": {
+    "article_copy_persisted": false,
+    "raw_provider_or_worker_content_persisted": false,
+    "secrets_or_session_material_persisted": false
+  }
+}

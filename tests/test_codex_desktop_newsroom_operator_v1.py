@@ -20,12 +20,14 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     EDITORIAL_WORKER_REASONING_EFFORT,
     MANUAL_GO_PROMPT,
     build_editorial_worker_routing_packet,
+    build_same_xhigh_worker_revision_contract,
     build_live_zero_write_rehearsal,
     classify_desktop_candidate_universe,
     four_task_setup_packet,
     load_terminal_editorial_continuity,
     persist_supported_automation_host_observation,
     validate_editorial_worker_return,
+    validate_same_xhigh_worker_revision_return,
 )
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     build_prepared_rolling_x_candidate_state,
@@ -1012,6 +1014,75 @@ def test_xhigh_return_rejects_wrong_hash_second_revision_and_public_write():
                 "public_write_attempted": True,
             },
             expected_governed_input_hash=expected_hash,
+        )
+
+
+def test_same_xhigh_worker_revision_contract_preserves_exact_binding_and_budget():
+    route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context={
+            "accepted_evidence_packet": {
+                "status": "PASS",
+                "evidence_documents": [{"document_id": "official-1"}],
+            },
+            "exact_source_handles": ["https://example.test/official-1"],
+        },
+        readiness_checked_before_editorial=True,
+        readiness_state="READY",
+    )
+    original = {
+        "governed_input_hash": route["governed_input_hash"],
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "XHIGH",
+        "fresh": True,
+        "isolated": True,
+        "bounded_revision_count": 0,
+        "public_write_attempted": False,
+        "article": {"title": "Original governed article", "evidence_document_ids": ["official-1"]},
+    }
+    validation = validate_editorial_worker_return(
+        worker_return=original,
+        expected_governed_input_hash=route["governed_input_hash"],
+    )
+    contract = build_same_xhigh_worker_revision_contract(
+        worker_return=original,
+        worker_validation=validation,
+        worker_request=route["worker_request"],
+        deterministic_review={"hard_editorial_blockers": ["mode_declared"]},
+        semantic_review={
+            "decision": "NEEDS_REVISION",
+            "failed_checks": ["material_claims_supported"],
+            "issues": [{"code": "unsupported_claims"}],
+        },
+    )
+
+    assert contract["decision"] == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+    assert contract["same_worker_required"] is True
+    assert contract["fresh_replacement_worker_forbidden"] is True
+    assert contract["router_final_writer_forbidden"] is True
+    assert contract["required_bounded_revision_count"] == 1
+    assert contract["worker_request"]["fresh_worker_creation"] is False
+    assert contract["worker_request"]["bounded_governed_context"] == route["worker_request"]["bounded_governed_context"]
+    assert contract["immutable_evidence_identity"]["evidence_document_ids"] == ["official-1"]
+
+    revised = {
+        **original,
+        "bounded_revision_count": 1,
+        "same_worker_revision_of_return_hash": validation["worker_return_hash"],
+        "article": {"title": "Revised governed article", "evidence_document_ids": ["official-1"]},
+    }
+    revised_validation = validate_same_xhigh_worker_revision_return(
+        worker_return=revised,
+        revision_contract=contract,
+    )
+    assert revised_validation["same_xhigh_worker_revision"] is True
+    assert revised_validation["same_xhigh_worker_revision_contract_hash"] == contract["revision_contract_hash"]
+
+    altered_contract = {**contract, "immutable_evidence_identity": {"evidence_document_ids": ["other"]}}
+    with pytest.raises(ValueError, match="contract_hash_mismatch"):
+        validate_same_xhigh_worker_revision_return(
+            worker_return=revised,
+            revision_contract=altered_contract,
         )
 
 

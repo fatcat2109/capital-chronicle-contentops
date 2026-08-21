@@ -1,4 +1,4 @@
-"""Stateful zero-write rehearsal for at most four current maximum-12 frontiers.
+"""Stateful zero-write rehearsal for four qualified current frontiers.
 
 The script deliberately stops at each native Desktop editorial boundary. ``probe`` captures
 the exact governed worker request without using a legacy writer; ``complete`` consumes one
@@ -42,7 +42,7 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
 )
 
 SCHEMA = "contentops.v1_distinct_story_frontier_floor_rehearsal.v1"
-TASK = "TASK_V1_DISTINCT_STORY_FRONTIER_AND_EVIDENCE_YIELD_FLOOR_CLOSURE_V1"
+TASK = "TASK_V1_POST_XHIGH_REVISION_OWNERSHIP_CANDIDATE_CONTINUATION_4_32_AND_CANARY_V1"
 MAX_FRONTIERS = 4
 MAX_QUALIFIED = 4
 MAX_XHIGH_ATTEMPTS = 8
@@ -178,6 +178,7 @@ def _new_state(
         "qualified_article_records": [],
         "frontiers": [],
         "xhigh_attempt_count": 0,
+        "xhigh_worker_return_count": 0,
         "xhigh_revision_count": 0,
         "pending_frontier": None,
         "classification": "IN_PROGRESS",
@@ -615,6 +616,9 @@ def probe(
             "worker_request_path": str(request_path),
             "governed_input_hash": route.get("governed_input_hash"),
             "probe_cycle_evidence_path": row["cycle_evidence_path"],
+            "viability_checkpoint_path": str(
+                probe_dir / "rolling_x_ranked_viability_v1.json"
+            ),
         }
         _write(_state_path(root), state)
         return {"status": "XHIGH_REQUIRED", **dict(state["pending_frontier"])}
@@ -645,17 +649,29 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
     leaf_checkpoints, global_checkpoint, story_type_by_cluster = (
         _semantic_resume_checkpoints_from_probe(probe)
     )
-    probe_viability = _validated_probe_viability_checkpoint(
-        _load(Path(str(pending["probe_cycle_evidence_path"])).parent / "rolling_x_ranked_viability_v1.json")
+    viability_checkpoint_path = Path(
+        str(
+            pending.get("viability_checkpoint_path")
+            or Path(str(pending["probe_cycle_evidence_path"])).parent
+            / "rolling_x_ranked_viability_v1.json"
+        )
     )
+    probe_viability = _validated_probe_viability_checkpoint(_load(viability_checkpoint_path))
+    revision_contract_path = pending.get("same_xhigh_worker_revision_contract_path")
+    if revision_contract_path:
+        probe_viability["same_xhigh_worker_revision_contract"] = _load(
+            Path(str(revision_contract_path))
+        )
+        probe_viability.pop("viability_logical_hash", None)
+        probe_viability["viability_logical_hash"] = _sha(probe_viability)
     builder_invoked = False
 
     def builder(value: Mapping[str, Any]) -> dict[str, Any]:
         nonlocal builder_invoked
+        builder_invoked = True
         request = dict(value.get("editorial_worker_request") or {})
         if str(request.get("governed_input_hash") or "") != expected_hash:
-            raise GroundedArticleBuilderError("TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE")
-        builder_invoked = True
+            raise GroundedArticleBuilderError("NEXT_NATIVE_XHIGH_WORKER_REQUIRED")
         return {
             "schema_version": "contentops.rolling_x_grounded_article_media_builder.v1",
             "article": dict(receipt.get("article") or {}),
@@ -702,9 +718,69 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
     row["worker_return_path"] = str(worker_return_path)
     row["worker_return_sha256"] = _sha(receipt)
     row["bounded_revision_count"] = int(receipt.get("bounded_revision_count") or 0)
+    state["xhigh_worker_return_count"] = int(
+        state.get("xhigh_worker_return_count") or 0
+    ) + 1
     state["xhigh_revision_count"] = int(state.get("xhigh_revision_count") or 0) + row[
         "bounded_revision_count"
     ]
+    if result.get("exact_next_blocker") == "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+        revision_contract = dict(
+            result.get("same_xhigh_worker_revision_contract") or {}
+        )
+        if not revision_contract:
+            raise ValueError("same_xhigh_worker_revision_contract_missing")
+        contract_path = final_dir / "same_xhigh_worker_revision_contract_v1.json"
+        request_path = final_dir / "same_xhigh_worker_revision_request_v1.json"
+        _write(contract_path, revision_contract)
+        _write(request_path, dict(revision_contract.get("worker_request") or {}))
+        state["pending_frontier"] = {
+            **pending,
+            "worker_request_path": str(request_path),
+            "same_xhigh_worker_revision_contract_path": str(contract_path),
+            "prior_worker_return_path": str(worker_return_path),
+            "prior_worker_return_sha256": _sha(receipt),
+            "viability_checkpoint_path": str(
+                final_dir / "rolling_x_ranked_viability_v1.json"
+            ),
+            "last_cycle_evidence_path": row["cycle_evidence_path"],
+        }
+        _write(_state_path(root), state)
+        return {
+            "status": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+            "frontier": row,
+            "revision_contract_path": str(contract_path),
+            "worker_request_path": str(request_path),
+        }
+    if result.get("exact_next_blocker") == "NEXT_NATIVE_XHIGH_WORKER_REQUIRED":
+        route = dict(result.get("editorial_worker_routing") or {})
+        if route.get("decision") != "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER":
+            raise ValueError("candidate_continuation_worker_route_missing")
+        if int(state.get("xhigh_attempt_count") or 0) >= MAX_XHIGH_ATTEMPTS:
+            raise ValueError("xhigh_attempt_budget_exhausted")
+        next_rank = int((result.get("ranked_viability") or {}).get("selected_rank") or 0)
+        request_path = final_dir / (
+            f"editorial_worker_request_candidate_{next_rank}_v1.json"
+        )
+        _write(request_path, dict(route.get("worker_request") or {}))
+        state["xhigh_attempt_count"] = int(state.get("xhigh_attempt_count") or 0) + 1
+        state["pending_frontier"] = {
+            **pending,
+            "worker_request_path": str(request_path),
+            "governed_input_hash": route.get("governed_input_hash"),
+            "viability_checkpoint_path": str(
+                final_dir / "rolling_x_ranked_viability_v1.json"
+            ),
+            "last_cycle_evidence_path": row["cycle_evidence_path"],
+            "candidate_continuation_from_rank": row.get("selected_rank"),
+        }
+        state["pending_frontier"].pop("same_xhigh_worker_revision_contract_path", None)
+        _write(_state_path(root), state)
+        return {
+            "status": "XHIGH_REQUIRED_FOR_CANDIDATE_CONTINUATION",
+            "frontier": row,
+            "worker_request_path": str(request_path),
+        }
     state["evaluated_headline_ids"] = sorted(
         set(state.get("evaluated_headline_ids") or []).union(row["attempted_headline_ids"])
     )

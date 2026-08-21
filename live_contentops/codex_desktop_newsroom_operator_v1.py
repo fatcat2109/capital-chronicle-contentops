@@ -444,6 +444,171 @@ def build_editorial_worker_routing_packet(
     return result
 
 
+def _sanitized_review_codes(value: Any) -> list[str]:
+    """Keep only stable review-code identifiers in a worker continuation contract."""
+    codes: set[str] = set()
+    for row in value or []:
+        if isinstance(row, Mapping):
+            candidate = str(row.get("code") or "")
+        else:
+            candidate = str(row or "")
+        if candidate:
+            codes.add(candidate)
+    return sorted(codes)
+
+
+def build_same_xhigh_worker_revision_contract(
+    *,
+    worker_return: Mapping[str, Any],
+    worker_validation: Mapping[str, Any],
+    worker_request: Mapping[str, Any],
+    deterministic_review: Mapping[str, Any],
+    semantic_review: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Issue one exact same-worker revision request without creating an author fallback.
+
+    The original worker was fresh and isolated.  A revision therefore resumes that same bounded
+    worker; it is neither a new XHIGH worker nor a 9Router article-writing request.  The full
+    governed context is retained only in the runtime request, while review feedback is reduced to
+    stable deterministic/sanitized codes.
+    """
+    governed_input_hash = str(worker_validation.get("governed_input_hash") or "")
+    bounded_context = worker_request.get("bounded_governed_context")
+    if not governed_input_hash or not isinstance(bounded_context, Mapping):
+        raise ValueError("same_xhigh_revision_governed_context_required")
+    if str(worker_request.get("governed_input_hash") or "") != governed_input_hash:
+        raise ValueError("same_xhigh_revision_worker_request_hash_mismatch")
+    if _logical_hash(dict(bounded_context)) != governed_input_hash:
+        raise ValueError("same_xhigh_revision_governed_context_hash_mismatch")
+    revision_count = int(worker_return.get("bounded_revision_count") or 0)
+    if revision_count < 0 or revision_count >= MAX_EDITORIAL_REVISIONS:
+        raise ValueError("same_xhigh_revision_budget_exhausted")
+    return_hash = str(worker_validation.get("worker_return_hash") or "")
+    if not return_hash:
+        raise ValueError("same_xhigh_revision_prior_return_hash_required")
+    if _logical_hash(worker_return) != return_hash:
+        raise ValueError("same_xhigh_revision_prior_return_binding_mismatch")
+    accepted_evidence = dict(bounded_context.get("accepted_evidence_packet") or {})
+    evidence_identity = sorted(
+        {
+            str(row.get("document_id") or row.get("evidence_id") or "")
+            for row in accepted_evidence.get("evidence_documents") or []
+            if isinstance(row, Mapping)
+            and str(row.get("document_id") or row.get("evidence_id") or "")
+        }
+    )
+    contract = {
+        "schema_version": "contentops.same_xhigh_worker_revision_contract.v1",
+        "decision": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+        "governed_input_hash": governed_input_hash,
+        "prior_worker_return_hash": return_hash,
+        "prior_bounded_revision_count": revision_count,
+        "required_bounded_revision_count": revision_count + 1,
+        "maximum_bounded_revision_count": MAX_EDITORIAL_REVISIONS,
+        "same_worker_required": True,
+        "fresh_replacement_worker_forbidden": True,
+        "router_final_writer_forbidden": True,
+        "worker_request": {
+            "model": EDITORIAL_WORKER_MODEL,
+            "reasoning_effort": EDITORIAL_WORKER_REASONING_EFFORT,
+            "resume_same_isolated_worker": True,
+            "fresh_worker_creation": False,
+            "governed_input_hash": governed_input_hash,
+            "bounded_governed_context": dict(bounded_context),
+            "exact_source_marker_contract": dict(
+                worker_request.get("exact_source_marker_contract") or {}
+            ),
+            "max_bounded_editorial_revisions": MAX_EDITORIAL_REVISIONS,
+        },
+        "immutable_evidence_identity": {
+            "evidence_document_ids": evidence_identity,
+            "exact_source_handles": [
+                str(value)
+                for value in bounded_context.get("exact_source_handles") or []
+                if str(value)
+            ],
+        },
+        "deterministic_blockers": {
+            "hard_editorial_blockers": _sanitized_review_codes(
+                deterministic_review.get("hard_editorial_blockers")
+            ),
+            "editorial_blockers": _sanitized_review_codes(
+                deterministic_review.get("editorial_blockers")
+            ),
+            "reader_value_blockers": _sanitized_review_codes(
+                (deterministic_review.get("reader_value_gate") or {}).get("blockers")
+                if isinstance(deterministic_review.get("reader_value_gate"), Mapping)
+                else []
+            ),
+        },
+        "semantic_review": {
+            "decision": str(semantic_review.get("decision") or "NEEDS_REVISION"),
+            "failed_checks": _sanitized_review_codes(
+                semantic_review.get("failed_checks")
+            ),
+            "material_failed_checks": _sanitized_review_codes(
+                semantic_review.get("material_failed_checks")
+            ),
+            "issue_codes": _sanitized_review_codes(semantic_review.get("issues")),
+        },
+        "public_write_authority": False,
+        "publication_authority": False,
+    }
+    contract["revision_contract_hash"] = _logical_hash(contract)
+    return contract
+
+
+def validate_same_xhigh_worker_revision_return(
+    *,
+    worker_return: Mapping[str, Any],
+    revision_contract: Mapping[str, Any],
+    expected_editorial_packet: Mapping[str, Any] | None = None,
+    accepted_evidence_packet: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Validate the one permitted same-worker revision against its original receipt."""
+    if revision_contract.get("decision") != "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+        raise ValueError("same_xhigh_revision_contract_invalid")
+    supplied_contract = dict(revision_contract)
+    supplied_contract_hash = str(supplied_contract.pop("revision_contract_hash", "") or "")
+    if not supplied_contract_hash or _logical_hash(supplied_contract) != supplied_contract_hash:
+        raise ValueError("same_xhigh_revision_contract_hash_mismatch")
+    if worker_return.get("same_worker_revision_of_return_hash") != revision_contract.get(
+        "prior_worker_return_hash"
+    ):
+        raise ValueError("same_xhigh_revision_prior_return_hash_mismatch")
+    if int(worker_return.get("bounded_revision_count") or 0) != int(
+        revision_contract.get("required_bounded_revision_count") or -1
+    ):
+        raise ValueError("same_xhigh_revision_count_mismatch")
+    article_evidence_ids = {
+        str(value)
+        for value in (worker_return.get("article") or {}).get("evidence_document_ids") or []
+        if str(value)
+    }
+    immutable_evidence_ids = {
+        str(value)
+        for value in (
+            revision_contract.get("immutable_evidence_identity") or {}
+        ).get("evidence_document_ids") or []
+        if str(value)
+    }
+    if article_evidence_ids and article_evidence_ids != immutable_evidence_ids:
+        raise ValueError("same_xhigh_revision_evidence_identity_mismatch")
+    validated = validate_editorial_worker_return(
+        worker_return=worker_return,
+        expected_governed_input_hash=str(revision_contract.get("governed_input_hash") or ""),
+        expected_editorial_packet=expected_editorial_packet,
+        accepted_evidence_packet=accepted_evidence_packet,
+    )
+    return {
+        **validated,
+        "same_xhigh_worker_revision": True,
+        "same_xhigh_worker_revision_contract_hash": str(
+            revision_contract.get("revision_contract_hash") or ""
+        ),
+    }
+
+
 def validate_editorial_worker_return(
     *,
     worker_return: Mapping[str, Any],

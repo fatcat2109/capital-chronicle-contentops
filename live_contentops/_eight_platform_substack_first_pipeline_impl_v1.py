@@ -2604,6 +2604,9 @@ def _run_bounded_rolling_x_editorial_cycle(
     media_assets: Sequence[Mapping[str, Any]],
     editorial_reviewer: Callable[[Mapping[str, Any]], Mapping[str, Any]],
     article_reviser: Callable[[Mapping[str, Any], Mapping[str, Any], int], Mapping[str, Any]],
+    native_xhigh_worker_return: Mapping[str, Any] | None = None,
+    native_xhigh_worker_validation: Mapping[str, Any] | None = None,
+    native_xhigh_worker_request: Mapping[str, Any] | None = None,
     max_revision_rounds: int = 1,
 ) -> dict[str, Any]:
     """Run one semantic review, at most one revision, and only a required re-review."""
@@ -2785,6 +2788,57 @@ def _run_bounded_rolling_x_editorial_cycle(
             }
         if review_index == max_revision_rounds:
             break
+        if native_xhigh_worker_return is not None:
+            revision_count = int(
+                native_xhigh_worker_return.get("bounded_revision_count") or 0
+            )
+            if revision_count >= max_revision_rounds:
+                review_row["revision"] = {
+                    "round": review_index + 1,
+                    "status": "NOT_ATTEMPTED_NATIVE_XHIGH_BUDGET_EXHAUSTED",
+                    "native_xhigh_article_reviser_forbidden": True,
+                    "prior_bounded_revision_count": revision_count,
+                    "maximum_bounded_revision_count": max_revision_rounds,
+                }
+                return {
+                    "status": "NO_PUBLICATION",
+                    "reason_code": "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED",
+                    "article": candidate,
+                    "revision_rounds_completed": revision_count,
+                    "review_history": history,
+                    "publication_authority_granted": False,
+                }
+            if (
+                native_xhigh_worker_validation is None
+                or native_xhigh_worker_request is None
+            ):
+                raise ValueError("native_xhigh_revision_binding_required")
+            from live_contentops.codex_desktop_newsroom_operator_v1 import (
+                build_same_xhigh_worker_revision_contract,
+            )
+
+            revision_contract = build_same_xhigh_worker_revision_contract(
+                worker_return=native_xhigh_worker_return,
+                worker_validation=native_xhigh_worker_validation,
+                worker_request=native_xhigh_worker_request,
+                deterministic_review=deterministic,
+                semantic_review=semantic,
+            )
+            review_row["revision"] = {
+                "round": review_index + 1,
+                "status": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                "native_xhigh_article_reviser_forbidden": True,
+                "same_xhigh_worker_revision_contract": revision_contract,
+            }
+            return {
+                "status": "NO_PUBLICATION",
+                "reason_code": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                "article": candidate,
+                "revision_rounds_completed": revision_count,
+                "review_history": history,
+                "same_xhigh_worker_revision_contract": revision_contract,
+                "publication_authority_granted": False,
+            }
         try:
             revised = article_reviser(dict(candidate), semantic, review_index + 1)
         except RoutedInvocationError as exc:
@@ -5252,71 +5306,83 @@ def _run_rolling_x_newsroom_cycle(
         build_editorial_worker_routing_packet,
     )
 
-    selected_evidence = viability.get("selected_evidence") or {}
-    evidence_documents = (
-        list(selected_evidence.get("evidence_documents") or [])
-        if isinstance(selected_evidence, Mapping)
-        else []
-    )
-    exact_source_handles = [
-        str(
-            row.get("source_url") or row.get("url")
-            or row.get("document_id") or row.get("evidence_id") or ""
+    def _editorial_route_for_viability(
+        current_viability: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        selected_evidence = current_viability.get("selected_evidence") or {}
+        evidence_documents = (
+            list(selected_evidence.get("evidence_documents") or [])
+            if isinstance(selected_evidence, Mapping)
+            else []
         )
-        for row in evidence_documents
-        if isinstance(row, Mapping)
-    ]
-    exact_source_handles = [value for value in exact_source_handles if value]
-    if not exact_source_handles:
         exact_source_handles = [
-            str(value) for value in viability.get("selected_headline_ids") or []
-            if str(value)
+            str(
+                row.get("source_url") or row.get("url")
+                or row.get("document_id") or row.get("evidence_id") or ""
+            )
+            for row in evidence_documents
+            if isinstance(row, Mapping)
         ]
-    selected_attempt = next(
-        (
-            row for row in viability.get("rank_attempts") or []
-            if isinstance(row, Mapping) and row.get("rank") == viability.get("selected_rank")
-        ),
-        {},
-    )
-    selected_request = (
-        dict(selected_attempt.get("request") or {})
-        if isinstance(selected_attempt, Mapping)
-        else {}
-    )
-    editorial_article_mode = str(
-        selected_request.get("effective_article_mode")
-        or selected_request.get("resolved_article_mode")
-        or selected_attempt.get("effective_article_mode")
-        or selected_attempt.get("resolved_article_mode")
-        or (viability.get("selected_cluster") or {}).get("effective_article_mode")
-        or (viability.get("selected_cluster") or {}).get("resolved_article_mode")
-        or selected_request.get("article_mode")
-        or selected_request.get("story_mode")
-        or selected_attempt.get("article_mode")
-        or selected_attempt.get("story_mode")
-        or (viability.get("selected_cluster") or {}).get("article_mode")
-        or (viability.get("selected_cluster") or {}).get("story_mode")
-        or "STANDARD_ANALYSIS"
-    )
-    editorial_route = build_editorial_worker_routing_packet(
-        opportunity_state="ARTICLE_QUALIFIED",
-        governed_context={
-            "accepted_evidence_packet": selected_evidence,
-            "exact_source_handles": exact_source_handles,
-            "destination_package_constraints": {
-                "required_destinations": list(EXPECTED_DESTINATIONS),
-                "article_media_optional": True,
+        exact_source_handles = [value for value in exact_source_handles if value]
+        if not exact_source_handles:
+            exact_source_handles = [
+                str(value) for value in current_viability.get("selected_headline_ids") or []
+                if str(value)
+            ]
+        selected_attempt = next(
+            (
+                row for row in current_viability.get("rank_attempts") or []
+                if isinstance(row, Mapping)
+                and row.get("rank") == current_viability.get("selected_rank")
+            ),
+            {},
+        )
+        selected_request = (
+            dict(selected_attempt.get("request") or {})
+            if isinstance(selected_attempt, Mapping)
+            else {}
+        )
+        editorial_article_mode = str(
+            selected_request.get("effective_article_mode")
+            or selected_request.get("resolved_article_mode")
+            or selected_attempt.get("effective_article_mode")
+            or selected_attempt.get("resolved_article_mode")
+            or (current_viability.get("selected_cluster") or {}).get(
+                "effective_article_mode"
+            )
+            or (current_viability.get("selected_cluster") or {}).get(
+                "resolved_article_mode"
+            )
+            or selected_request.get("article_mode")
+            or selected_request.get("story_mode")
+            or selected_attempt.get("article_mode")
+            or selected_attempt.get("story_mode")
+            or (current_viability.get("selected_cluster") or {}).get("article_mode")
+            or (current_viability.get("selected_cluster") or {}).get("story_mode")
+            or "STANDARD_ANALYSIS"
+        )
+        return build_editorial_worker_routing_packet(
+            opportunity_state="ARTICLE_QUALIFIED",
+            governed_context={
+                "accepted_evidence_packet": selected_evidence,
+                "exact_source_handles": exact_source_handles,
+                "destination_package_constraints": {
+                    "required_destinations": list(EXPECTED_DESTINATIONS),
+                    "article_media_optional": True,
+                },
             },
-        },
-        readiness_checked_before_editorial=publication_enabled,
-        readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
-        article_mode=editorial_article_mode,
-    )
-    evidence["editorial_worker_routing"] = editorial_route
+            readiness_checked_before_editorial=publication_enabled,
+            readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
+            article_mode=editorial_article_mode,
+        )
 
     if article_builder is None:
         if publication_enabled:
+            # A probe must expose the exact initial worker request without producing article
+            # copy.  Normal canonical execution instead rebuilds this route inside the
+            # candidate loop so a candidate-local continuation cannot inherit another rank.
+            editorial_route = _editorial_route_for_viability(viability)
+            evidence["editorial_worker_routing"] = editorial_route
             evidence["classification"] = "NO_PUBLICATION"
             evidence["exact_next_blocker"] = "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
             evidence["editorial_worker_count_requested"] = 1
@@ -5354,6 +5420,11 @@ def _run_rolling_x_newsroom_cycle(
 
     built_checkpoint_path = output_dir / "rolling_x_grounded_article_media_v1.json"
     while viability.get("status") == "SUCCESS":
+        # A candidate-local continuation must receive its own exact governed packet.  Never
+        # reuse the first candidate's evidence identity or worker request for a distinct rank.
+        selected_evidence = viability.get("selected_evidence") or {}
+        editorial_route = _editorial_route_for_viability(viability)
+        evidence["editorial_worker_routing"] = editorial_route
         selected_rank = int(viability.get("selected_rank") or 0)
         walk_row = _candidate_walk_row(selected_rank)
         activity.record(
@@ -5420,6 +5491,7 @@ def _run_rolling_x_newsroom_cycle(
             if publication_enabled:
                 from live_contentops.codex_desktop_newsroom_operator_v1 import (
                     validate_editorial_worker_return,
+                    validate_same_xhigh_worker_revision_return,
                 )
 
                 receipt = dict((built or {}).get("editorial_worker_receipt") or {})
@@ -5429,19 +5501,30 @@ def _run_rolling_x_newsroom_cycle(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
                     )
                 try:
-                    worker_validation = validate_editorial_worker_return(
-                        worker_return=receipt,
-                        expected_governed_input_hash=expected_hash,
-                        expected_editorial_packet=dict(
-                            (
-                                editorial_route.get("worker_request") or {}
-                            ).get("bounded_governed_context", {}).get(
-                                "institutional_edge_editorial_packet"
-                            )
+                    validation_kwargs = {
+                        "expected_editorial_packet": dict(
+                            (editorial_route.get("worker_request") or {}).get(
+                                "bounded_governed_context", {}
+                            ).get("institutional_edge_editorial_packet")
                             or {}
                         ),
-                        accepted_evidence_packet=selected_evidence,
+                        "accepted_evidence_packet": selected_evidence,
+                    }
+                    revision_contract = dict(
+                        viability.get("same_xhigh_worker_revision_contract") or {}
                     )
+                    if revision_contract:
+                        worker_validation = validate_same_xhigh_worker_revision_return(
+                            worker_return=receipt,
+                            revision_contract=revision_contract,
+                            **validation_kwargs,
+                        )
+                    else:
+                        worker_validation = validate_editorial_worker_return(
+                            worker_return=receipt,
+                            expected_governed_input_hash=expected_hash,
+                            **validation_kwargs,
+                        )
                 except TypeError:
                     raise GroundedArticleBuilderError(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
@@ -5478,6 +5561,24 @@ def _run_rolling_x_newsroom_cycle(
                 _write_json(built_checkpoint_path, built)
         except GroundedArticleBuilderError as exc:
             blocker_text = str(exc)
+            if blocker_text == "NEXT_NATIVE_XHIGH_WORKER_REQUIRED":
+                # The previous candidate reached a local editorial terminal.  The selected
+                # distinct candidate has its own governed packet and must receive one new fresh
+                # XHIGH worker; no model-router authoring fallback is permitted here.
+                walk_row.update(
+                    {
+                        "writer_invocation_result": "XHIGH_REQUIRED_FOR_CANDIDATE_CONTINUATION",
+                        "writer_blockers": [blocker_text],
+                        "terminal_reason": blocker_text,
+                    }
+                )
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = blocker_text
+                evidence["legacy_writer_fallback_used"] = False
+                evidence["public_write_performed"] = False
+                _persist_candidate_walk(terminal_reason=blocker_text)
+                _persist_cycle_evidence()
+                return evidence
             if blocker_text == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID" or blocker_text.startswith(
                 "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
             ):
@@ -5601,11 +5702,27 @@ def _run_rolling_x_newsroom_cycle(
             _persist_cycle_evidence()
             return evidence
         activity.record("FACTUAL_CHECK", story_label=article.get("title"))
+        native_xhigh_worker_return: Mapping[str, Any] | None = None
+        native_xhigh_worker_validation: Mapping[str, Any] | None = None
+        native_xhigh_worker_request: Mapping[str, Any] | None = None
+        if publication_enabled:
+            native_xhigh_worker_return = dict(
+                (built or {}).get("editorial_worker_receipt") or {}
+            )
+            native_xhigh_worker_validation = dict(
+                (built or {}).get("editorial_worker_validation") or {}
+            )
+            native_xhigh_worker_request = dict(
+                editorial_route.get("worker_request") or {}
+            )
         editorial = _run_bounded_rolling_x_editorial_cycle(
             article=article,
             media_assets=media_assets,
             editorial_reviewer=reviewer,
             article_reviser=reviser,
+            native_xhigh_worker_return=native_xhigh_worker_return,
+            native_xhigh_worker_validation=native_xhigh_worker_validation,
+            native_xhigh_worker_request=native_xhigh_worker_request,
         )
         if editorial.get("status") == "PASS":
             from live_contentops.capital_chronicle_institutional_edge_v1 import (
@@ -5655,10 +5772,18 @@ def _run_rolling_x_newsroom_cycle(
                     ).get("blockers")
                     or []
                 )
-            if reason in {
-                "EDITORIAL_REVIEW_ROUTER_FAILURE",
-                "EDITORIAL_REVISION_ROUTER_FAILURE",
-            }:
+            if reason == "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = reason
+                evidence["same_xhigh_worker_revision_contract"] = dict(
+                    editorial.get("same_xhigh_worker_revision_contract") or {}
+                )
+                evidence["legacy_writer_fallback_used"] = False
+                evidence["public_write_performed"] = False
+                _persist_candidate_walk(terminal_reason=reason)
+                _persist_cycle_evidence()
+                return evidence
+            if reason == "EDITORIAL_REVIEW_ROUTER_FAILURE":
                 evidence["classification"] = "NO_PUBLICATION"
                 evidence["exact_next_blocker"] = reason
                 _persist_candidate_walk(terminal_reason=reason)
