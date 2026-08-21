@@ -45,10 +45,10 @@ The current-input run froze 897 headlines at one cutoff and completed exactly fo
 
 - 17 distinct stories attempted;
 - 71 public reads, 0 official reads, 71 total actual reads;
-- 89 same-story downgrade reads avoided across 23 reuse-mode attempts;
+- 89 same-story downgrade reads avoided across 22 reuse-mode attempts;
 - 0 repeated URL/query-signature network calls;
 - 0 delta acquisitions;
-- 5 truthful per-story allowance exhaustions and 0 global exhaustion;
+- 6 truthful per-story allowance exhaustions and 0 global exhaustion;
 - 0 evidence-qualified stories;
 - 0 XHIGH calls because no story reached the article boundary;
 - 0 qualified articles and 0/32 derivative intents;
