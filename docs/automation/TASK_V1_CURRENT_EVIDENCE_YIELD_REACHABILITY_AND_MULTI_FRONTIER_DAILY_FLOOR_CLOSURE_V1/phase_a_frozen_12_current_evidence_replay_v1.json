@@ -1,0 +1,4197 @@
+{
+  "after_accepted_evidence_document_count": 1,
+  "after_evidence_qualified_candidate_count": 1,
+  "before_accepted_evidence_document_count": 0,
+  "before_evidence_qualified_candidate_count": 0,
+  "candidate_results": [
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-61c3ecd48ffd887475cf",
+      "deterministic_locator_queries": [
+        "Oman Air appoints Nasser Al Sharji as CEO"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 1,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 1,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-8785b3f48f6b99091fcdaa4c"
+      ],
+      "headline_proposition": "Oman Air appoints Nasser Al Sharji as CEO",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Oman+Air+appoints+Nasser+Al+Sharji+CEO&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Oman+Air+appoints+Nasser+Al+Sharji+CEO&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 13656,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 1,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 0,
+      "rank": 1,
+      "request_logical_hash": "eb665c107b8ed40b359cdbfc3af32309a6fb69ee217b2156cf970ef04f14120a",
+      "rss_listing_candidate_count": 10,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T00:02:30Z",
+          "publisher": "AeroMorning.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "aeromorning.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Oman Air appoints Nasser Al Sharji CEO, entering a new phase"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T05:42:10Z",
+          "publisher": "Aviation Business Middle East",
+          "publisher_host_allowed": false,
+          "publisher_identity": "aviationbusinessme.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8571,
+          "title": "Oman Air Names Nasser Al Sharji As New CEO"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:52:00Z",
+          "publisher": "IndexBox",
+          "publisher_host_allowed": false,
+          "publisher_identity": "indexbox.io",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8571,
+          "title": "Oman Air Names Nasser Al Sharji CEO Effective September 1, 2026 - News and Statistics"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T14:03:55Z",
+          "publisher": "TradeArabia",
+          "publisher_host_allowed": false,
+          "publisher_identity": "tradearabia.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8571,
+          "title": "Oman Air appoints Nasser Al Sharji as new Chief Executive Officer"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T08:49:28Z",
+          "publisher": "safariindia.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "safariindia.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Oman Air Appoints New CEO"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T23:31:02Z",
+          "publisher": "Air Cargo Week",
+          "publisher_host_allowed": false,
+          "publisher_identity": "aircargoweek.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.7143,
+          "title": "Oman Air Announces Nasser Al Sharji as New Chief Executive Officer"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:08:23Z",
+          "publisher": "Arabian Gulf Business Insight | AGBI",
+          "publisher_host_allowed": false,
+          "publisher_identity": "agbi.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5714,
+          "title": "Oman Air appoints new CEO as restructuring continues"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-01-14T08:00:00Z",
+          "publisher": "Oman Observer",
+          "publisher_host_allowed": false,
+          "publisher_identity": "omanobserver.om",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4,
+          "title": "Oman Airports gets new CEO"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T14:47:22Z",
+          "publisher": "Oman Observer",
+          "publisher_host_allowed": false,
+          "publisher_identity": "omanobserver.om",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Oman Air, SalamAir announce new CEOs"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2023-09-18T07:00:00Z",
+          "publisher": "STAT Times",
+          "publisher_host_allowed": false,
+          "publisher_identity": "stattimes.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.0,
+          "title": "Neel Jones Shah joins Airblox board"
+        }
+      ],
+      "source_adapter_families": [
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-57feb4e5d07ddad51350",
+      "deterministic_locator_queries": [
+        "DEERE DE JUST REPORTED EARNINGS EPS of 5 10 beating expectations of 4 71 Revenue of 11B beating expectations of 10 7B",
+        "DEERE DE EARNINGS EPS Revenue 11B 7B"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 2,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-eabab063e26734d62d640be2"
+      ],
+      "headline_proposition": "DEERE $DE JUST REPORTED EARNINGS EPS of $5.10 beating expectations of $4.71\ud83d\udfe2 Revenue of $11B beating expectations of $10.7B\ud83d\udfe2",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "www.sec.gov",
+          "final_url": "https://www.sec.gov/files/company_tickers.json",
+          "redirected": false,
+          "requested_host": "www.sec.gov",
+          "requested_url": "https://www.sec.gov/files/company_tickers.json",
+          "response_bytes": 794799,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "data.sec.gov",
+          "final_url": "https://data.sec.gov/submissions/CIK0000315189.json",
+          "redirected": false,
+          "requested_host": "data.sec.gov",
+          "requested_url": "https://data.sec.gov/submissions/CIK0000315189.json",
+          "response_bytes": 164044,
+          "status": 200
+        }
+      ],
+      "official_locator_attempt": {
+        "candidate_official_url": "https://data.sec.gov/submissions/CIK0000315189.json",
+        "discovery_only": true,
+        "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+        "evidence_capabilities": [],
+        "factual_authority": false,
+        "locator_endpoint": "https://www.sec.gov/files/company_tickers.json",
+        "locator_query_logical_hash": "66790a2e9fbd26f4d59976b646a923d57070f8e3d0a46af4bb104b301944076c",
+        "locator_response_sha256": "84f1c78aabb686e73e6ec3d1e4df59e0571d2cd33b44d25bd345f68c0f5e0b0c",
+        "publication_authority": false,
+        "retrieved_at_utc": "2026-08-21T10:59:53.444124Z",
+        "source_adapter_family": "company_primary",
+        "source_published_at_utc": null,
+        "status": "PASS"
+      },
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [
+        "affected_entities",
+        "company_filing_or_release",
+        "filing_or_release_timeline"
+      ],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=DEERE+DE+JUST+REPORTED+EARNINGS+EPS+beating+expectations+Revenue+beating+expectations&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=DEERE+DE+JUST+REPORTED+EARNINGS+EPS+beating+expectations+Revenue+beating+expectations&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 41226,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=DEERE+DE+EARNINGS+EPS+Revenue&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=DEERE+DE+EARNINGS+EPS+Revenue&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 67983,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 0,
+      "rank": 2,
+      "request_logical_hash": "a543be670394291d08aeb5d8db14b26f3a7672d7e757580d2a7a92d47389ce6a",
+      "rss_listing_candidate_count": 24,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-08-14T07:00:00Z",
+          "publisher": "CNBC",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cnbc.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.125,
+          "title": "John Deere forecasts $600 million in tariff impacts this year"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-21T07:00:00Z",
+          "publisher": "Yahoo Finance",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.7143,
+          "title": "Deere (DE) Q2 Earnings and Revenues Beat Estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:15:01Z",
+          "publisher": "Yahoo Finance UK",
+          "publisher_host_allowed": false,
+          "publisher_identity": "uk.finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.7143,
+          "title": "Deere (DE) Beats Q3 Earnings and Revenue Estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-12T08:00:00Z",
+          "publisher": "Finviz",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finviz.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5556,
+          "title": "Deere (DE) Expected to Beat Earnings Estimates: Can the Stock Move Higher?"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-23T07:00:00Z",
+          "publisher": "Seeking Alpha",
+          "publisher_host_allowed": false,
+          "publisher_identity": "seekingalpha.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5,
+          "title": "Earnings Scoreboard: 100% of reporting S&P 500 firms beat earnings expectations, 79% deliver Y/Y growth"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-19T03:48:33Z",
+          "publisher": "StockStory",
+          "publisher_host_allowed": false,
+          "publisher_identity": "stockstory.org",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5,
+          "title": "Earnings To Watch: Deere (DE) Reports Q2 Results Tomorrow"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-03T07:00:00Z",
+          "publisher": "Yahoo Finance",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "Bristol-Myers Squibb Company Just Beat Earnings Expectations: Here's What Analysts Think Will Happen Next"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-21T07:00:00Z",
+          "publisher": "Investing.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "investing.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "Earnings call transcript: Deere & Company Q2 2026 beats expectations, stock dips"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-08-14T07:00:00Z",
+          "publisher": "Investing.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "investing.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "Earnings call transcript: Deere Q3 2025 beats expectations, stock drops"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-16T07:00:00Z",
+          "publisher": "Seeking Alpha",
+          "publisher_host_allowed": false,
+          "publisher_identity": "seekingalpha.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "Earnings Scoreboard: 7 out of 9 key S&P 500 reporting firms deliver clean EPS beats and growth"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-11-28T08:00:00Z",
+          "publisher": "TechStock\u00b2",
+          "publisher_host_allowed": false,
+          "publisher_identity": "ts2.tech",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "Deere & Company (DE) Stock Today, Nov. 28, 2025: Price, Earnings Beat, Tariff Headwinds and 2026 Outlook"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-21T07:00:00Z",
+          "publisher": "Vinanet",
+          "publisher_host_allowed": false,
+          "publisher_identity": "vinanet.vn",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "DE Q2 2026 Earnings: EPS Beat by Over 11% Amid Cautious Market Sentiment - Post-Announcement Reaction"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-08-14T07:00:00Z",
+          "publisher": "CNBC",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cnbc.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.2,
+          "title": "John Deere forecasts $600 million in tariff impacts this year"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-19T08:00:00Z",
+          "publisher": "MarketWatch",
+          "publisher_host_allowed": true,
+          "publisher_identity": "marketwatch.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.2,
+          "title": "Deere\u2019s stock is having its best month in 50 years, as the tractor maker rides the AI boom"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-15T07:00:00Z",
+          "publisher": "dars.gov.et",
+          "publisher_host_allowed": false,
+          "publisher_identity": "dars.gov.et",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Deere & Company (DE) Q1 2026 Earnings: EPS Surges 11.5% Above Estimates Amid Limited Revenue Disclosure - Profit Inflection Point"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-09T07:00:00Z",
+          "publisher": "TradingKey",
+          "publisher_host_allowed": false,
+          "publisher_identity": "tradingkey.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Deere & Co (DE) Earnings Forecast: Future EPS & Revenue Growth Estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-29T07:00:00Z",
+          "publisher": "dars.gov.et",
+          "publisher_host_allowed": false,
+          "publisher_identity": "dars.gov.et",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Deere Q1 2026 Earnings: Robust EPS Surprise Despite Soft Revenue Context - Earnings Forecast Report"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:15:01Z",
+          "publisher": "Yahoo Finance",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Deere (DE) Beats Q3 Earnings and Revenue Estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-21T07:00:00Z",
+          "publisher": "Yahoo Finance",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Deere (DE) Q2 Earnings and Revenues Beat Estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:02:12Z",
+          "publisher": "GuruFocus",
+          "publisher_host_allowed": false,
+          "publisher_identity": "gurufocus.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Is Deere & Co (DE) Stock Overvalued After Q3 Earnings Beat? EPS"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-11T08:00:00Z",
+          "publisher": "AlphaStreet",
+          "publisher_host_allowed": false,
+          "publisher_identity": "news.alphastreet.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Deere & Company (DE) likely to report lower revenue, earnings for Q1 FY26"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T12:24:54Z",
+          "publisher": "Blockonomi",
+          "publisher_host_allowed": false,
+          "publisher_identity": "blockonomi.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6,
+          "title": "Deere (DE) Stock Gains Momentum Following Strong Q3 Earnings Performance"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-12T08:00:00Z",
+          "publisher": "Finviz",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finviz.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6,
+          "title": "Deere (DE) Expected to Beat Earnings Estimates: Can the Stock Move Higher?"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-13T05:59:00Z",
+          "publisher": "MarketBeat",
+          "publisher_host_allowed": false,
+          "publisher_identity": "marketbeat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6,
+          "title": "Deere & Company (DE) Projected to Announce Earnings on Thursday"
+        }
+      ],
+      "source_adapter_families": [
+        "company_primary",
+        "sec_regulatory",
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_CURRENT_SOURCE_FAMILY_UNSUPPORTED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-a240778ab8517aa13476",
+      "deterministic_locator_queries": [
+        "Ocado Group Nemlig to construct CFC near Copenhagen",
+        "Ocado Nemlig construct CFC near Copenhagen"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 2,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-5acf0c1716ce790078947715"
+      ],
+      "headline_proposition": "Ocado Group, Nemlig to construct CFC near Copenhagen",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Ocado+Group+Nemlig+construct+CFC+near+Copenhagen&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Ocado+Group+Nemlig+construct+CFC+near+Copenhagen&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 9849,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Ocado+Nemlig+construct+CFC+near+Copenhagen&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Ocado+Nemlig+construct+CFC+near+Copenhagen&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 9924,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 0,
+      "rank": 3,
+      "request_logical_hash": "6020ce444c117e85c9a9665fd8f9913dd8a4b056aed4b1bf15ab74813d01c38d",
+      "rss_listing_candidate_count": 14,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:11:43Z",
+          "publisher": "Reuters",
+          "publisher_host_allowed": true,
+          "publisher_identity": "reuters.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.2857,
+          "title": "Ocado confirms Denmark's nemlig as latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T04:09:03Z",
+          "publisher": "Retail Technology Innovation Hub",
+          "publisher_host_allowed": false,
+          "publisher_identity": "retailtechinnovationhub.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "And the European retailer is\u2026Ocado Group unveils nemlig as the partner announced back in July"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:53:57Z",
+          "publisher": "foodmarket.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "foodmarket.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Ocado Confirms Nemlig as Its Latest European Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T16:08:38Z",
+          "publisher": "Ocado Group",
+          "publisher_host_allowed": false,
+          "publisher_identity": "ocadogroup.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Ocado confirms nemlig as its latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T05:46:42Z",
+          "publisher": "Retail Bulletin",
+          "publisher_host_allowed": false,
+          "publisher_identity": "theretailbulletin.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.2857,
+          "title": "Ocado confirms Nemlig as latest grocery partner in Denmark"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:51:06Z",
+          "publisher": "ESM Magazine",
+          "publisher_host_allowed": false,
+          "publisher_identity": "esmmagazine.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.1667,
+          "title": "Ocado Unveils New European Grocery Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:14:49Z",
+          "publisher": "Finimize",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finimize.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.1667,
+          "title": "Ocado Finds A New Grocery Partner In Denmark"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:11:43Z",
+          "publisher": "Reuters",
+          "publisher_host_allowed": true,
+          "publisher_identity": "reuters.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.3333,
+          "title": "Ocado confirms Denmark's nemlig as latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:53:57Z",
+          "publisher": "foodmarket.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "foodmarket.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Ocado Confirms Nemlig as Its Latest European Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:45:14Z",
+          "publisher": "Retail Week",
+          "publisher_host_allowed": false,
+          "publisher_identity": "retail-week.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Ocado names Danish grocer Nemlig as new European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T04:09:03Z",
+          "publisher": "Retail Technology Innovation Hub",
+          "publisher_host_allowed": false,
+          "publisher_identity": "retailtechinnovationhub.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "And the European retailer is\u2026Ocado Group unveils nemlig as the partner announced back in July"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T05:46:42Z",
+          "publisher": "Retail Bulletin",
+          "publisher_host_allowed": false,
+          "publisher_identity": "theretailbulletin.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Ocado confirms Nemlig as latest grocery partner in Denmark"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:51:06Z",
+          "publisher": "ESM Magazine",
+          "publisher_host_allowed": false,
+          "publisher_identity": "esmmagazine.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.1667,
+          "title": "Ocado Unveils New European Grocery Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:14:49Z",
+          "publisher": "Finimize",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finimize.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.1667,
+          "title": "Ocado Finds A New Grocery Partner In Denmark"
+        }
+      ],
+      "source_adapter_families": [
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 1,
+      "accepted_evidence_documents": [
+        {
+          "canonical_content_sha256": "208a173d11f648256ca62b4f0be6cfd464d568a821b0747e995da4466ee4f753",
+          "canonical_resolution_status": "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP",
+          "document_id": "public-secondary-518418cc33ab761fad18",
+          "published_at_utc": "2026-08-20T04:21:25Z",
+          "publisher": "Apnews",
+          "raw_sha256": "518418cc33ab761fad18ec1c75fbb0439122cc91c8614f85403b583cbb6fbc86",
+          "source_authority_class": "reputable_secondary_source",
+          "source_identity": "apnews.com",
+          "source_url": "https://apnews.com/article/china-evergrande-founder-real-estate-fraud-5573868904b3ced0c5c9b0314c56ae5a",
+          "title": "Chinese court sentences founder of troubled property developer Evergrande to life in prison"
+        }
+      ],
+      "cluster_id": "rolling-x-deterministic-cluster-e5011b7ea5b592503218",
+      "deterministic_locator_queries": [
+        "RT tongbingxue Xu Jiayin founder of China Evergrande Group and former China\u2019s richest man was sentenced to life in prison by a Sh",
+        "Xu Jiayin founder China Evergrande sentenced life prison"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [
+              {
+                "document_id": "public-secondary-518418cc33ab761fad18",
+                "source_authority_class": "reputable_secondary_source",
+                "title_only": false,
+                "usable_content_words": 7308
+              }
+            ],
+            "enough_for_useful_article": true,
+            "enrichment_recommended": false,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 1,
+            "target_usable_content_words": 90,
+            "usable_content_words": 7308,
+            "usable_document_count": 1
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 5,
+        "research_calls": 1,
+        "retrieval_result": {
+          "accepted_document_count": 1,
+          "blockers": [],
+          "status": "PASS"
+        },
+        "status": "PASS"
+      },
+      "headline_ids": [
+        "cc-x-headline-c6852ae084614e0c5387761e"
+      ],
+      "headline_proposition": "RT @tongbingxue: Xu Jiayin (\u8bb8\u5bb6\u5370), founder of China Evergrande Group and former China\u2019s richest man, was sentenced to life in prison by a Sh...",
+      "minimum_trustworthy_evidence_status": "PASS",
+      "new_blockers": [],
+      "new_status": "PASS",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [
+        "basic_attributed_facts",
+        "credible_event_confirmation"
+      ],
+      "provider_telemetry": {
+        "completion_tokens": 1843,
+        "cost_reporting_status": "UNAVAILABLE_FROM_PROVIDER_RECEIPTS",
+        "logical_calls": 1,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "prompt_tokens": 5006,
+        "provider_attempts": 1,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [
+          "ACCEPTED"
+        ],
+        "total_tokens": 6849
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=RT+tongbingxue+Xu+Jiayin+founder+China+Evergrande+Group+former+China+richest+man&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=RT+tongbingxue+Xu+Jiayin+founder+China+Evergrande+Group+former+China+richest+man&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 1255,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Xu+Jiayin+founder+China+Evergrande+sentenced+life+prison&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Xu+Jiayin+founder+China+Evergrande+sentenced+life+prison&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 150340,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "apnews.com",
+          "final_url": "https://apnews.com/news-sitemap.xml",
+          "redirected": false,
+          "requested_host": "apnews.com",
+          "requested_url": "https://apnews.com/news-sitemap.xml",
+          "response_bytes": 485,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "apnews.com",
+          "final_url": "https://apnews.com/news-sitemap-content.xml",
+          "redirected": false,
+          "requested_host": "apnews.com",
+          "requested_url": "https://apnews.com/news-sitemap-content.xml",
+          "response_bytes": 340119,
+          "status": 200
+        },
+        {
+          "content_truncated": true,
+          "error": null,
+          "final_host": "apnews.com",
+          "final_url": "https://apnews.com/article/china-evergrande-founder-real-estate-fraud-5573868904b3ced0c5c9b0314c56ae5a",
+          "redirected": false,
+          "requested_host": "apnews.com",
+          "requested_url": "https://apnews.com/article/china-evergrande-founder-real-estate-fraud-5573868904b3ced0c5c9b0314c56ae5a",
+          "response_bytes": 800000,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 3,
+      "rank": 4,
+      "request_logical_hash": "c88caccec3f17ee54cb1abc030764242e9fdebe51b62b518f13b71b76359def3",
+      "rss_listing_candidate_count": 12,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:31:00Z",
+          "publisher": "AP News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "apnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.75,
+          "title": "Chinese court sentences founder of troubled property developer Evergrande to life in prison"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T06:08:02Z",
+          "publisher": "BBC",
+          "publisher_host_allowed": true,
+          "publisher_identity": "bbc.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.75,
+          "title": "Founder of collapsed Chinese property giant Evergrande sentenced to life in prison"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T07:31:55Z",
+          "publisher": "NPR",
+          "publisher_host_allowed": true,
+          "publisher_identity": "npr.org",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.75,
+          "title": "Chinese court sentences founder of property developer Evergrande to life in prison"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T05:33:31Z",
+          "publisher": "CNN",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cnn.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.625,
+          "title": "Evergrande tycoon at the heart of China\u2019s property crisis sentenced to life in prison"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T04:43:00Z",
+          "publisher": "Breakingthenews.net",
+          "publisher_host_allowed": false,
+          "publisher_identity": "breakingthenews.net",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Evergrande founder sentenced to life in prison"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T22:20:00Z",
+          "publisher": "ColombiaOne.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "colombiaone.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "China Sentences Evergrande Founder Xu Jiayin to Life in Prison for Financial Crimes"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T18:37:00Z",
+          "publisher": "finance.biggo.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finance.biggo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Chinese Court Sentences Evergrande Founder Xu Jiayin to Life in Prison, Confiscates All Assets"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T07:30:00Z",
+          "publisher": "firstonline.info",
+          "publisher_host_allowed": false,
+          "publisher_identity": "firstonline.info",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Evergrande founder Xu Jiayin sentenced to life in prison: from the real estate empire to the collapse of the Chinese giant"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T07:23:39Z",
+          "publisher": "Informat.ro",
+          "publisher_host_allowed": false,
+          "publisher_identity": "informat.ro",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "China: The founder of the real estate giant Evergrande, Xu Jiayin, sentenced to life in prison for fraud."
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T12:07:00Z",
+          "publisher": "TVB",
+          "publisher_host_allowed": false,
+          "publisher_identity": "news.tvb.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Evergrande founder Xu Jiayin sentenced to life in prison"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T10:47:02Z",
+          "publisher": "China Academy",
+          "publisher_host_allowed": false,
+          "publisher_identity": "thechinaacademy.org",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Evergrande Founder Xu Jiayin Sentenced to Life in Prison: The Rise and Fall of China\u2019s $300 Billion Property Empire"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T19:21:54Z",
+          "publisher": "Tribune Online",
+          "publisher_host_allowed": false,
+          "publisher_identity": "tribuneonlineng.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "China sentences Evergrande founder to life in prison"
+        }
+      ],
+      "source_adapter_families": [
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_CURRENT_ADAPTER_SHOULD_HAVE_FOUND",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-df4fc62b4aceda810497",
+      "deterministic_locator_queries": [
+        "Ocado Group confirms Nemlig as European partner",
+        "Ocado confirms Nemlig as European partner"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 4,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "public_source_redirect_authority_invalid"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-dfb0e6ec6da47f69001eca8b"
+      ],
+      "headline_proposition": "Ocado Group confirms Nemlig as European partner",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Ocado+Group+confirms+Nemlig+European+partner&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Ocado+Group+confirms+Nemlig+European+partner&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 19636,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": "HTTP Error 401: HTTP Forbidden",
+          "final_host": "www.reuters.com",
+          "final_url": "https://www.reuters.com/news-sitemap.xml",
+          "redirected": false,
+          "requested_host": "www.reuters.com",
+          "requested_url": "https://www.reuters.com/news-sitemap.xml",
+          "response_bytes": 0,
+          "status": null
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQR3NQUlpCRkt0Ty1paDdVR3Z1THZUTGNTOUZKM3dGR1pUMHZKRzVlazBjNlZfWE1OMjd3Y19RZnZWdjRtSzlxNmJfOF9DYm5tRVE4QVJPVlkwaDlvVE0wbWNmTXU4YVRROFd3MG1MUm5sNWhOM0hOelpBRVRMdHlqeGtLdlBTd3VweEpVWDRMeHJKZTRhcWdWM3dlOTU5MEtRbUxJM1lvX1JnM041QzdzaEdueTFXZw?oc=5&hl=en-US&gl=US&ceid=US:en",
+          "redirected": true,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQR3NQUlpCRkt0Ty1paDdVR3Z1THZUTGNTOUZKM3dGR1pUMHZKRzVlazBjNlZfWE1OMjd3Y19RZnZWdjRtSzlxNmJfOF9DYm5tRVE4QVJPVlkwaDlvVE0wbWNmTXU4YVRROFd3MG1MUm5sNWhOM0hOelpBRVRMdHlqeGtLdlBTd3VweEpVWDRMeHJKZTRhcWdWM3dlOTU5MEtRbUxJM1lvX1JnM041QzdzaEdueTFXZw?oc=5",
+          "response_bytes": 581657,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Ocado+confirms+Nemlig+European+partner&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Ocado+confirms+Nemlig+European+partner&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 18809,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 1,
+      "rank": 5,
+      "request_logical_hash": "98598bbaaf4e045e6aa96c052eb0a723f9bab5f2cffc9e5a8353b2c658c060ce",
+      "rss_listing_candidate_count": 24,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:11:43Z",
+          "publisher": "Reuters",
+          "publisher_host_allowed": true,
+          "publisher_identity": "reuters.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.8333,
+          "title": "Ocado confirms Denmark's nemlig as latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:30:54Z",
+          "publisher": "checkout.ie",
+          "publisher_host_allowed": false,
+          "publisher_identity": "checkout.ie",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "Ocado Confirms Denmark\u2019s Nemlig As Latest European Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:53:57Z",
+          "publisher": "foodmarket.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "foodmarket.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "Ocado Confirms Nemlig as Its Latest European Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:10:29Z",
+          "publisher": "Euronext Markets",
+          "publisher_host_allowed": false,
+          "publisher_identity": "live.euronext.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "Ocado confirms Denmark's nemlig as latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T16:08:38Z",
+          "publisher": "Ocado Group",
+          "publisher_host_allowed": false,
+          "publisher_identity": "ocadogroup.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "Ocado confirms nemlig as its latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T04:09:03Z",
+          "publisher": "Retail Technology Innovation Hub",
+          "publisher_host_allowed": false,
+          "publisher_identity": "retailtechinnovationhub.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "And the European retailer is\u2026Ocado Group unveils nemlig as the partner announced back in July"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:45:14Z",
+          "publisher": "Retail Week",
+          "publisher_host_allowed": false,
+          "publisher_identity": "retail-week.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6667,
+          "title": "Ocado names Danish grocer Nemlig as new European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T05:46:42Z",
+          "publisher": "Retail Bulletin",
+          "publisher_host_allowed": false,
+          "publisher_identity": "theretailbulletin.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6667,
+          "title": "Ocado confirms Nemlig as latest grocery partner in Denmark"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:51:06Z",
+          "publisher": "ESM Magazine",
+          "publisher_host_allowed": false,
+          "publisher_identity": "esmmagazine.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5,
+          "title": "Ocado Unveils New European Grocery Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-22T07:00:00Z",
+          "publisher": "checkout.ie",
+          "publisher_host_allowed": false,
+          "publisher_identity": "checkout.ie",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Ocado To Build Robotic Warehouse For Unnamed European Retailer"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T09:13:20Z",
+          "publisher": "International Supermarket News",
+          "publisher_host_allowed": false,
+          "publisher_identity": "internationalsupermarketnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Ocado and nemlig: A New Test for the Future of Robotic Grocery Retail"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2020-08-19T07:39:14Z",
+          "publisher": "marketscreener.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "marketscreener.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Ocado Group plc Stock (OCDO) - Quote London S.E."
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:11:43Z",
+          "publisher": "Reuters",
+          "publisher_host_allowed": true,
+          "publisher_identity": "reuters.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 1.0,
+          "title": "Ocado confirms Denmark's nemlig as latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:30:54Z",
+          "publisher": "checkout.ie",
+          "publisher_host_allowed": false,
+          "publisher_identity": "checkout.ie",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Ocado Confirms Denmark\u2019s Nemlig As Latest European Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:53:57Z",
+          "publisher": "foodmarket.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "foodmarket.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Ocado Confirms Nemlig as Its Latest European Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:10:29Z",
+          "publisher": "Euronext Markets",
+          "publisher_host_allowed": false,
+          "publisher_identity": "live.euronext.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Ocado confirms Denmark's nemlig as latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T16:08:38Z",
+          "publisher": "Ocado Group",
+          "publisher_host_allowed": false,
+          "publisher_identity": "ocadogroup.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Ocado confirms nemlig as its latest European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:45:14Z",
+          "publisher": "Retail Week",
+          "publisher_host_allowed": false,
+          "publisher_identity": "retail-week.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Ocado names Danish grocer Nemlig as new European partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T04:09:03Z",
+          "publisher": "Retail Technology Innovation Hub",
+          "publisher_host_allowed": false,
+          "publisher_identity": "retailtechinnovationhub.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "And the European retailer is\u2026Ocado Group unveils nemlig as the partner announced back in July"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T05:46:42Z",
+          "publisher": "Retail Bulletin",
+          "publisher_host_allowed": false,
+          "publisher_identity": "theretailbulletin.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Ocado confirms Nemlig as latest grocery partner in Denmark"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:51:06Z",
+          "publisher": "ESM Magazine",
+          "publisher_host_allowed": false,
+          "publisher_identity": "esmmagazine.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6,
+          "title": "Ocado Unveils New European Grocery Partner"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T09:13:20Z",
+          "publisher": "International Supermarket News",
+          "publisher_host_allowed": false,
+          "publisher_identity": "internationalsupermarketnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4,
+          "title": "Ocado and nemlig: A New Test for the Future of Robotic Grocery Retail"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-28T07:00:00Z",
+          "publisher": "checkout.ie",
+          "publisher_host_allowed": false,
+          "publisher_identity": "checkout.ie",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.0,
+          "title": "Amazon Invests $20bn In UK In 2025"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2021-08-24T07:00:00Z",
+          "publisher": "checkout.ie",
+          "publisher_host_allowed": false,
+          "publisher_identity": "checkout.ie",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.0,
+          "title": "Irish Distillers Launches Virtual Irish Whiskey Academy At Midleton Distillery"
+        }
+      ],
+      "source_adapter_families": [
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_PUBLISHER_RESOLUTION_FAILED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-d82565e96b5a28182be9",
+      "deterministic_locator_queries": [
+        "5 2 magnitude earthquake 270 km south-southeast of Dunhuang China USGS",
+        "magnitude earthquake km south-southeast Dunhuang China USGS"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 2,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-8e3d5cf0f112440656734d0c"
+      ],
+      "headline_proposition": "5.2 magnitude earthquake 270 km south-southeast of Dunhuang, China: USGS",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=magnitude+earthquake+km+south-southeast+Dunhuang+China+USGS&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=magnitude+earthquake+km+south-southeast+Dunhuang+China+USGS&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 15222,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=magnitude+earthquake+km+south-southeast+Dunhuang+China+USGS&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=magnitude+earthquake+km+south-southeast+Dunhuang+China+USGS&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 15222,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 0,
+      "rank": 6,
+      "request_logical_hash": "8f6b3d7c35f459bb0b7ec2f8709efa9e055a384d8db38ab56c663c22518fc129",
+      "rss_listing_candidate_count": 18,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-17T07:00:00Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.7143,
+          "title": "Moderate mag. 4.9 earthquake - Qinghai, 268 km south of Dunhuang, Gansu, China, on Wednesday, Jun 17, 2026, at 10:06 am (Shanghai time)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-01T07:00:00Z",
+          "publisher": "Gulf News",
+          "publisher_host_allowed": false,
+          "publisher_identity": "gulfnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6,
+          "title": "Magnitude 5.3 earthquake jolts northwestern China"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-01T00:20:59Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5714,
+          "title": "Strong mag. 5.2 earthquake - 268 km SSE of Dunhuang, China, on Wednesday, Jul 1, 2026, at 07:44 am (GMT +8)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-16T07:00:00Z",
+          "publisher": "Free Press Journal",
+          "publisher_host_allowed": false,
+          "publisher_identity": "freepressjournal.in",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Powerful 6.3-Magnitude Earthquake Strikes Chinas Qinghai Province, No Casualties Reported | VIDEO"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-18T23:36:35Z",
+          "publisher": "Gulf News",
+          "publisher_host_allowed": false,
+          "publisher_identity": "gulfnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "5.9-magnitude quake shakes China's central Qinghai province: USGS"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-28T07:00:00Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Moderate mag. 4.6 earthquake - Qinghai, 187 km north of Guolemude, Heilongjiang, China, on Sunday, Jun 28, 2026, at 11:39 am (Shanghai time)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:14:00Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Strong mag. 5.2 earthquake - 163 km northeast of Guolemude, Heilongjiang, China, on Thursday, Aug 20, 2026, at 05:49 pm (Shanghai time)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:09:00Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Strong mag. 5.2 earthquake - Qinghai, 163 km north of Guolemude, Heilongjiang, China, on Thursday, Aug 20, 2026, at 05:49 pm (Shanghai time)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-03T07:00:00Z",
+          "publisher": "facebook.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "facebook.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.2857,
+          "title": "Magnitude 5.5 earthquake hits near coast of central Chile, GFZ says | via Reuters"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-17T07:00:00Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.7143,
+          "title": "Moderate mag. 4.9 earthquake - Qinghai, 268 km south of Dunhuang, Gansu, China, on Wednesday, Jun 17, 2026, at 10:06 am (Shanghai time)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-01T07:00:00Z",
+          "publisher": "Gulf News",
+          "publisher_host_allowed": false,
+          "publisher_identity": "gulfnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6,
+          "title": "Magnitude 5.3 earthquake jolts northwestern China"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-01T00:20:59Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5714,
+          "title": "Strong mag. 5.2 earthquake - 268 km SSE of Dunhuang, China, on Wednesday, Jul 1, 2026, at 07:44 am (GMT +8)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-16T07:00:00Z",
+          "publisher": "Free Press Journal",
+          "publisher_host_allowed": false,
+          "publisher_identity": "freepressjournal.in",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Powerful 6.3-Magnitude Earthquake Strikes Chinas Qinghai Province, No Casualties Reported | VIDEO"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-18T23:36:35Z",
+          "publisher": "Gulf News",
+          "publisher_host_allowed": false,
+          "publisher_identity": "gulfnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "5.9-magnitude quake shakes China's central Qinghai province: USGS"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-28T07:00:00Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Moderate mag. 4.6 earthquake - Qinghai, 187 km north of Guolemude, Heilongjiang, China, on Sunday, Jun 28, 2026, at 11:39 am (Shanghai time)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:14:00Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Strong mag. 5.2 earthquake - 163 km northeast of Guolemude, Heilongjiang, China, on Thursday, Aug 20, 2026, at 05:49 pm (Shanghai time)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:09:00Z",
+          "publisher": "Volcano Discovery",
+          "publisher_host_allowed": false,
+          "publisher_identity": "volcanodiscovery.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Strong mag. 5.2 earthquake - Qinghai, 163 km north of Guolemude, Heilongjiang, China, on Thursday, Aug 20, 2026, at 05:49 pm (Shanghai time)"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-03T07:00:00Z",
+          "publisher": "facebook.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "facebook.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.2857,
+          "title": "Magnitude 5.5 earthquake hits near coast of central Chile, GFZ says | via Reuters"
+        }
+      ],
+      "source_adapter_families": [
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-7c92ea074cb76d0d0c93",
+      "deterministic_locator_queries": [
+        "OMAN LASTING SECURITY IN STRAIT OF HORMUZ REQUIRES PERMANENT PEACE IN REGION",
+        "OMAN LASTING SECURITY STRAIT HORMUZ REQUIRES PERMANENT PEACE"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 2,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-f3a1f5add2bf0758217b03b4"
+      ],
+      "headline_proposition": "OMAN: LASTING SECURITY IN STRAIT OF HORMUZ REQUIRES PERMANENT PEACE IN REGION",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=OMAN+LASTING+SECURITY+STRAIT+HORMUZ+REQUIRES+PERMANENT+PEACE+REGION&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=OMAN+LASTING+SECURITY+STRAIT+HORMUZ+REQUIRES+PERMANENT+PEACE+REGION&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 70244,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=OMAN+LASTING+SECURITY+STRAIT+HORMUZ+REQUIRES+PERMANENT+PEACE&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=OMAN+LASTING+SECURITY+STRAIT+HORMUZ+REQUIRES+PERMANENT+PEACE&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 70451,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 0,
+      "rank": 7,
+      "request_logical_hash": "dbe83baba4667cd015882b4d21c2c520b0a576ac2101f00561187a71b34506b0",
+      "rss_listing_candidate_count": 24,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:01:08Z",
+          "publisher": "news.cgtn.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "news.cgtn.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "OMAN SAYS LASTING SECURITY IN STRAIT OF HORMUZ REQUIRES PERMANENT PEACE IN REGION"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:47:55Z",
+          "publisher": "Arab News",
+          "publisher_host_allowed": false,
+          "publisher_identity": "arabnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8889,
+          "title": "Oman says lasting security in Strait of Hormuz requires regional peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T23:21:25Z",
+          "publisher": "arabnews.jp",
+          "publisher_host_allowed": false,
+          "publisher_identity": "arabnews.jp",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8889,
+          "title": "Oman says lasting security in Strait of Hormuz requires regional peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T14:32:44Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8889,
+          "title": "Oman Says Lasting Security in Strait of Hormuz Requires Regional Peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T09:35:00Z",
+          "publisher": "Al Arabiya English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.alarabiya.net",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8889,
+          "title": "Oman says lasting security in Strait of Hormuz requires regional peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:09:02Z",
+          "publisher": "Devdiscourse",
+          "publisher_host_allowed": false,
+          "publisher_identity": "devdiscourse.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Oman Calls for Lasting Peace in Hormuz"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:19:18Z",
+          "publisher": "Investing.com Australia",
+          "publisher_host_allowed": false,
+          "publisher_identity": "m.au.investing.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6667,
+          "title": "Oman calls for permanent peace in Strait of Hormuz region By Investing.com"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-24T07:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Oman Opens Temporary Strait of Hormuz Shipping Routes, Says No Tolls Will Be Charged"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-08T07:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.2222,
+          "title": "NATO, Gulf States Discuss Regional Security, Encourage Closer Cooperation"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-07T07:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.2222,
+          "title": "Saudi Arabia Condemns Any Attempt to Close the Strait of Hormuz or Disrupt Waterways"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-13T07:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.2222,
+          "title": "UAE: Two Iranian Missiles Struck Oil Tankers in Strait of Hormuz"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-03-03T08:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.1429,
+          "title": "Drones Hit Fuel Tank at Oman\u2019s Duqm Port"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:01:08Z",
+          "publisher": "news.cgtn.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "news.cgtn.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "OMAN SAYS LASTING SECURITY IN STRAIT OF HORMUZ REQUIRES PERMANENT PEACE IN REGION"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:47:55Z",
+          "publisher": "Arab News",
+          "publisher_host_allowed": false,
+          "publisher_identity": "arabnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.875,
+          "title": "Oman says lasting security in Strait of Hormuz requires regional peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T23:21:25Z",
+          "publisher": "arabnews.jp",
+          "publisher_host_allowed": false,
+          "publisher_identity": "arabnews.jp",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.875,
+          "title": "Oman says lasting security in Strait of Hormuz requires regional peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T14:32:44Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.875,
+          "title": "Oman Says Lasting Security in Strait of Hormuz Requires Regional Peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T09:35:00Z",
+          "publisher": "Al Arabiya English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.alarabiya.net",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.875,
+          "title": "Oman says lasting security in Strait of Hormuz requires regional peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:09:02Z",
+          "publisher": "Devdiscourse",
+          "publisher_host_allowed": false,
+          "publisher_identity": "devdiscourse.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8,
+          "title": "Oman Calls for Lasting Peace in Hormuz"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:19:18Z",
+          "publisher": "Investing.com Australia",
+          "publisher_host_allowed": false,
+          "publisher_identity": "m.au.investing.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.625,
+          "title": "Oman calls for permanent peace in Strait of Hormuz region By Investing.com"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-29T07:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.375,
+          "title": "France, Oman Stress Importance of Freedom of Navigation in Hormuz Strait"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-27T07:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.375,
+          "title": "GCC Secretary-General Welcomes Omani Initiative on Strait of Hormuz, Condemns Iranian Threats"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2022-07-14T07:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "Oman Sultan Discusses Energy Security, Nuclear Deal in Germany"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-07T07:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "Saudi Arabia Condemns Any Attempt to Close the Strait of Hormuz or Disrupt Waterways"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-02-25T08:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "Saudi Arabia Reaffirms Its Commitment to Promoting Global Peace, Security"
+        }
+      ],
+      "source_adapter_families": [
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-c457b95970ed7f984dc7",
+      "deterministic_locator_queries": [
+        "DEERE DE Q3\u201926 EARNINGS HIGHLIGHTS Revenue 11 0B Est 10 74B 6 YoY EPS 5 10 Est 4 71 7 YoY Net Income 1 4B Est 1 27B 7 YoY Construction amp Forestry Sales 3 6B 18 YoY",
+        "DEERE DE Q3\u201926 EARNINGS Revenue 0B Est 74B"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 2,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-ecabb606421ffb5fbf8a3c61"
+      ],
+      "headline_proposition": "DEERE $DE Q3\u201926 EARNINGS HIGHLIGHTS \ud83d\udd39 Revenue: $11.0B (Est. $10.74B) \ud83d\udfe2; +6% YoY \ud83d\udd39 EPS: $5.10 (Est. $4.71) \ud83d\udfe2; +7% YoY \ud83d\udd39 Net Income: $1.4B (Est. $1.27B) \ud83d\udfe2; +7% YoY \ud83d\udd39 Construction &amp; Forestry Sales: $3.6B; +18% YoY Raises FY26 Guide: \ud83d\udd39...",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "www.sec.gov",
+          "final_url": "https://www.sec.gov/files/company_tickers.json",
+          "redirected": false,
+          "requested_host": "www.sec.gov",
+          "requested_url": "https://www.sec.gov/files/company_tickers.json",
+          "response_bytes": 794799,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "data.sec.gov",
+          "final_url": "https://data.sec.gov/submissions/CIK0000315189.json",
+          "redirected": false,
+          "requested_host": "data.sec.gov",
+          "requested_url": "https://data.sec.gov/submissions/CIK0000315189.json",
+          "response_bytes": 164044,
+          "status": 200
+        }
+      ],
+      "official_locator_attempt": {
+        "candidate_official_url": "https://data.sec.gov/submissions/CIK0000315189.json",
+        "discovery_only": true,
+        "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+        "evidence_capabilities": [],
+        "factual_authority": false,
+        "locator_endpoint": "https://www.sec.gov/files/company_tickers.json",
+        "locator_query_logical_hash": "65cda2f7dd82e8b5a7a6e0edfcfd40c2f595a6cd2ffcd0b34e17f80022bbbf8a",
+        "locator_response_sha256": "84f1c78aabb686e73e6ec3d1e4df59e0571d2cd33b44d25bd345f68c0f5e0b0c",
+        "publication_authority": false,
+        "retrieved_at_utc": "2026-08-21T11:00:18.569562Z",
+        "source_adapter_family": "company_primary",
+        "source_published_at_utc": null,
+        "status": "PASS"
+      },
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [
+        "affected_entities",
+        "company_filing_or_release",
+        "filing_or_release_timeline"
+      ],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=DEERE+DE+Q3+EARNINGS+HIGHLIGHTS+Revenue+Est+YoY+EPS+Est+YoY+Net&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=DEERE+DE+Q3+EARNINGS+HIGHLIGHTS+Revenue+Est+YoY+EPS+Est+YoY+Net&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 10661,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=DEERE+DE+Q3+EARNINGS+Revenue+Est&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=DEERE+DE+Q3+EARNINGS+Revenue+Est&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 51374,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 0,
+      "rank": 8,
+      "request_logical_hash": "43e75191627a6fa0b32c7341593e96291c90837a2051910b7dcb87b5f398e214",
+      "rss_listing_candidate_count": 19,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T12:24:54Z",
+          "publisher": "Blockonomi",
+          "publisher_host_allowed": false,
+          "publisher_identity": "blockonomi.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4,
+          "title": "Deere (DE) Stock Gains Momentum Following Strong Q3 Earnings Performance"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-19T09:17:00Z",
+          "publisher": "Ad-hoc-news.de",
+          "publisher_host_allowed": false,
+          "publisher_identity": "ad-hoc-news.de",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3,
+          "title": "Deere stock softens ahead of Q3 earnings as guidance and precision agriculture story draw scrutiny"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-06T07:00:00Z",
+          "publisher": "Yahoo Finance",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.2222,
+          "title": "Encompass Health Q1 EPS Tops, Revenues Climb on Solid Discharges"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-12-10T08:00:00Z",
+          "publisher": "24/7 Wall St.",
+          "publisher_host_allowed": false,
+          "publisher_identity": "247wallst.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.1111,
+          "title": "Deere Calls 2026 the Bottom as Caterpillar Rides Energy Growth Past Estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T14:13:51Z",
+          "publisher": "TechStock\u00b2",
+          "publisher_host_allowed": false,
+          "publisher_identity": "ts2.tech",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.1,
+          "title": "Deere\u2019s Construction Boom Lifts Profit 69% as AI Expansion Counters Agriculture Downturn"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-19T17:43:06Z",
+          "publisher": "Vinanet",
+          "publisher_host_allowed": false,
+          "publisher_identity": "vinanet.vn",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.1,
+          "title": "BioNTech (BNTX) Quarter in Focus: EPS Misses Its Estimate in the Latest Reading; Session Move: The Stock Gains 19.95% on the Day - Retail Earnings Report"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-12-15T08:00:00Z",
+          "publisher": "24/7 Wall St.",
+          "publisher_host_allowed": false,
+          "publisher_identity": "247wallst.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.0,
+          "title": "The Best Dividend Stocks for Retirement Portfolios in 2026"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-08-14T07:00:00Z",
+          "publisher": "CNBC",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cnbc.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.1667,
+          "title": "John Deere forecasts $600 million in tariff impacts this year"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:43:44Z",
+          "publisher": "marketscreener.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "marketscreener.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 1.0,
+          "title": "Earnings Flash (DE) Deere & Company Reports Q3 Revenue $12.61B, vs. FactSet Est of $10.81B"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:12:55Z",
+          "publisher": "marketscreener.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "marketscreener.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "Earnings Flash (DE) Deere Posts Fiscal Q3 EPS $5.10, vs. FactSet Est of $4.72"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:13:07Z",
+          "publisher": "marketscreener.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "marketscreener.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "Earnings Flash (DE) Deere Posts Fiscal Q3 Net Sales $12.61B, vs. FactSet Est $10.81B"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:15:01Z",
+          "publisher": "Yahoo Finance UK",
+          "publisher_host_allowed": false,
+          "publisher_identity": "uk.finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "Deere (DE) Beats Q3 Earnings and Revenue Estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T12:24:54Z",
+          "publisher": "Blockonomi",
+          "publisher_host_allowed": false,
+          "publisher_identity": "blockonomi.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6667,
+          "title": "Deere (DE) Stock Gains Momentum Following Strong Q3 Earnings Performance"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T13:30:02Z",
+          "publisher": "Yahoo Finance",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6667,
+          "title": "Deere (DE) Q3 Earnings: Taking a Look at Key Metrics Versus Estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:00:29Z",
+          "publisher": "Yahoo Finance",
+          "publisher_host_allowed": false,
+          "publisher_identity": "finance.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6667,
+          "title": "Deere shares rise as fiscal Q3 earnings and revenue beat forecasts"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:15:26Z",
+          "publisher": "Investing.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "investing.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6667,
+          "title": "Deere shares climb as fiscal Q3 earnings and revenue top estimates"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:10:00Z",
+          "publisher": "Sahm",
+          "publisher_host_allowed": false,
+          "publisher_identity": "sahmcapital.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6667,
+          "title": "How To Earn $500 A Month From Deere Stock Ahead Of Q3 Earnings"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:10:00Z",
+          "publisher": "KING5.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "king5.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.6,
+          "title": "Deere: Fiscal Q3 Earnings Snapshot"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T16:26:55Z",
+          "publisher": "24/7 Wall St.",
+          "publisher_host_allowed": false,
+          "publisher_identity": "247wallst.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5,
+          "title": "Deere Q3 2026: Revenue Beats by 17% as Construction Surges"
+        }
+      ],
+      "source_adapter_families": [
+        "company_primary",
+        "sec_regulatory",
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_CURRENT_SOURCE_FAMILY_UNSUPPORTED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-e78adb560c1db08df4a1",
+      "deterministic_locator_queries": [
+        "UK CBI TRENDS TOTAL ORDERS AUG 25 EST 40 PREV 45",
+        "UK CBI TRENDS TOTAL ORDERS AUG EST"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 2,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-b5d27bd42745fef3b43ffb18"
+      ],
+      "headline_proposition": "UK CBI TRENDS TOTAL ORDERS AUG: -25 (EST -40; PREV -45)",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=UK+CBI+TRENDS+TOTAL+ORDERS+AUG+EST+PREV&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=UK+CBI+TRENDS+TOTAL+ORDERS+AUG+EST+PREV&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 2635,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=UK+CBI+TRENDS+TOTAL+ORDERS+AUG+EST&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=UK+CBI+TRENDS+TOTAL+ORDERS+AUG+EST&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 2625,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 0,
+      "rank": 9,
+      "request_logical_hash": "2adfc006295505d4e12717fbcdb7ff5ec6b6ef3b6b9a5bc480870922ece9bdf8",
+      "rss_listing_candidate_count": 2,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:24:21Z",
+          "publisher": "FXStreet",
+          "publisher_host_allowed": false,
+          "publisher_identity": "fxstreet.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.0,
+          "title": "A signal, not a fix: Treasury doubles long-end buybacks, Iran whipsaws between deal and D-Day"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:24:21Z",
+          "publisher": "FXStreet",
+          "publisher_host_allowed": false,
+          "publisher_identity": "fxstreet.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.0,
+          "title": "A signal, not a fix: Treasury doubles long-end buybacks, Iran whipsaws between deal and D-Day"
+        }
+      ],
+      "source_adapter_families": [
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_QUERY_OR_ALIAS_MISSED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-458a44c06bc9d07b170b",
+      "deterministic_locator_queries": [
+        "Oman Remains committed to maritime security international law and rejects further escalation or conflict in the region",
+        "Oman Remains committed maritime security international law rejects"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": true,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 6,
+        "research_calls": 2,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_request_budget_exhausted",
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-bb323957d1c969583e944f60"
+      ],
+      "headline_proposition": "Oman: Remains committed to maritime security, international law, and rejects further escalation or conflict in the region",
+      "minimum_trustworthy_evidence_status": null,
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "www.federalregister.gov",
+          "final_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest&conditions%5Bterm%5D=oman+remains+committed+maritime+security+international+law+rejects&conditions%5Bpublication_date%5D%5Bgte%5D=2026-08-19&conditions%5Bpublication_date%5D%5Blte%5D=2026-08-20",
+          "redirected": false,
+          "requested_host": "www.federalregister.gov",
+          "requested_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest&conditions%5Bterm%5D=oman+remains+committed+maritime+security+international+law+rejects&conditions%5Bpublication_date%5D%5Bgte%5D=2026-08-19&conditions%5Bpublication_date%5D%5Blte%5D=2026-08-20",
+          "response_bytes": 159,
+          "status": 200
+        }
+      ],
+      "official_locator_attempt": {
+        "blockers": [
+          "official_source_locator_candidate_unavailable"
+        ],
+        "locator_endpoint": "https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest&conditions%5Bterm%5D=oman+remains+committed+maritime+security+international+law+rejects&conditions%5Bpublication_date%5D%5Bgte%5D=2026-08-19&conditions%5Bpublication_date%5D%5Blte%5D=2026-08-20",
+        "locator_query_logical_hash": "bc0ae59d51baf38610ea8ab1f56b7c93ac3231f9ad7b83063546950005c048d6",
+        "status": "BLOCKED"
+      },
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 1844,
+        "cost_reporting_status": "UNAVAILABLE_FROM_PROVIDER_RECEIPTS",
+        "logical_calls": 2,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "prompt_tokens": 5604,
+        "provider_attempts": 2,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [
+          "ACCEPTED",
+          "ACCEPTED"
+        ],
+        "total_tokens": 7448
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Oman+statement+maritime+security+international+law+rejects+escalation&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Oman+statement+maritime+security+international+law+rejects+escalation&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 83015,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Oman+Remains+committed+maritime+security+international+law+rejects+further+escalation+conflict+region&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Oman+Remains+committed+maritime+security+international+law+rejects+further+escalation+conflict+region&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 52792,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Oman+maritime+security+international+law+escalation+Red+Sea+Gulf&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Oman+maritime+security+international+law+escalation+Red+Sea+Gulf&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 92575,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": "HTTP Error 404: Not Found",
+          "final_host": "www.jpost.com",
+          "final_url": "https://www.jpost.com/news-sitemap.xml",
+          "redirected": false,
+          "requested_host": "www.jpost.com",
+          "requested_url": "https://www.jpost.com/news-sitemap.xml",
+          "response_bytes": 0,
+          "status": null
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1kMlJfWnYxVWNhWHdBTk9HQU1DLXdkMFA5MVhCNURzVy1sLTZ4NUhhQk9jUlR4SFFIbF9vR3NrWFZ1RHlsSTkwTnZfX05ZVWItWERyZ04zYURfZUlS?oc=5&hl=en-US&gl=US&ceid=US:en",
+          "redirected": true,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1kMlJfWnYxVWNhWHdBTk9HQU1DLXdkMFA5MVhCNURzVy1sLTZ4NUhhQk9jUlR4SFFIbF9vR3NrWFZ1RHlsSTkwTnZfX05ZVWItWERyZ04zYURfZUlS?oc=5",
+          "response_bytes": 578944,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Oman+Foreign+Ministry+Badr+Albusaidi+statement+regional+conflict+shipping&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Oman+Foreign+Ministry+Badr+Albusaidi+statement+regional+conflict+shipping&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 73097,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 4,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 1,
+      "rank": 10,
+      "request_logical_hash": "4137d9cdb580958b8631fb3fc5acbf1e5df96e22c0f8ec2588e12ea07acea802",
+      "rss_listing_candidate_count": 48,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-26T07:00:00Z",
+          "publisher": "Al Jazeera",
+          "publisher_host_allowed": true,
+          "publisher_identity": "aljazeera.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.25,
+          "title": "Iran slams the GCC and the US for \u2018interventionist\u2019 statement: What we know"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-05T07:00:00Z",
+          "publisher": "Al Jazeera",
+          "publisher_host_allowed": true,
+          "publisher_identity": "aljazeera.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.125,
+          "title": "\u2018Dangerous escalation\u2019: World condemns Iran after attacks on UAE"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-04T07:00:00Z",
+          "publisher": "CNBC",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cnbc.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.125,
+          "title": "UK and France agree with Oman to ensure safety of its territorial waters"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-04-20T07:00:00Z",
+          "publisher": "Al Jazeera",
+          "publisher_host_allowed": true,
+          "publisher_identity": "aljazeera.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "Cloud over US-Iran talks: What are the key sticking points?"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-29T07:00:00Z",
+          "publisher": "CBS News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cbsnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "Iran calls Strait of Hormuz situation \"sensitive and complex\" as U.S. sends officials to Qatar for talks"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-26T07:00:00Z",
+          "publisher": "CBS News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cbsnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "Iran strikes vessel in Strait of Hormuz amid debate over \"transit fees\""
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-11T07:00:00Z",
+          "publisher": "CBS News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cbsnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "U.S. and Iran trade attacks again after Trump pledges Tehran will \"pay the price\" for not accepting deal"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-05T07:00:00Z",
+          "publisher": "CBS News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cbsnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "U.S. sinks 7 small Iranian boats as Iran launches attacks on UAE and ships in Strait of Hormuz"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:01:42Z",
+          "publisher": "news.cgtn.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "news.cgtn.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.875,
+          "title": "OMAN SAYS IT REMAINS COMMITTED TO MARITIME SECURITY, INTERNATIONAL LAW AND REJECTS FURTHER ESCALATION OR CONFLICT IN REGION"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-25T07:00:00Z",
+          "publisher": "Anadolu Ajans\u0131",
+          "publisher_host_allowed": false,
+          "publisher_identity": "aa.com.tr",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.375,
+          "title": "GCC says future regional arrangements must safeguard Gulf states\u2019 security interests"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T15:35:18Z",
+          "publisher": "thenationalnews.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "thenationalnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.375,
+          "title": "Japanese FM visits Saudi Arabia and Oman with maritime security in focus"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-23T08:00:00Z",
+          "publisher": "Times Kuwait",
+          "publisher_host_allowed": false,
+          "publisher_identity": "timeskuwait.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.375,
+          "title": "Regional solidarity grows as Arab States reject Iraq\u2019s maritime claims against Kuwait"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-03-05T08:00:00Z",
+          "publisher": "CBS News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cbsnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.1818,
+          "title": "Hegseth says U.S. \"just getting started\" in Iran war as conflict intensifies and spreads"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-05T07:00:00Z",
+          "publisher": "Al Jazeera",
+          "publisher_host_allowed": true,
+          "publisher_identity": "aljazeera.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.125,
+          "title": "\u2018Dangerous escalation\u2019: World condemns Iran after attacks on UAE"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-28T08:00:00Z",
+          "publisher": "Al Jazeera",
+          "publisher_host_allowed": true,
+          "publisher_identity": "aljazeera.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "World reacts to US, Israel attack on Iran, Tehran retaliation"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-03-12T07:00:00Z",
+          "publisher": "CBS News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cbsnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "Trump vows to end war soon as Iran hits ships, threatens banks, and toll on U.S. forces emerges"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-05T07:00:00Z",
+          "publisher": "CBS News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cbsnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "U.S. sinks 7 small Iranian boats as Iran launches attacks on UAE and ships in Strait of Hormuz"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:01:42Z",
+          "publisher": "news.cgtn.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "news.cgtn.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.8333,
+          "title": "OMAN SAYS IT REMAINS COMMITTED TO MARITIME SECURITY, INTERNATIONAL LAW AND REJECTS FURTHER ESCALATION OR CONFLICT IN REGION"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T14:32:44Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Oman Says Lasting Security in Strait of Hormuz Requires Regional Peace"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-03-02T08:00:00Z",
+          "publisher": "Skuld",
+          "publisher_host_allowed": false,
+          "publisher_identity": "skuld.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Maritime security update: Gulf Region / Strait of Hormuz and Red Sea"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T15:35:18Z",
+          "publisher": "thenationalnews.com",
+          "publisher_host_allowed": false,
+          "publisher_identity": "thenationalnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Japanese FM visits Saudi Arabia and Oman with maritime security in focus"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:33:16Z",
+          "publisher": "Oman Observer",
+          "publisher_host_allowed": false,
+          "publisher_identity": "omanobserver.om",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "Oman, Japan call for political solution to ease regional tensions"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-29T07:00:00Z",
+          "publisher": "Ynetnews",
+          "publisher_host_allowed": false,
+          "publisher_identity": "ynetnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "Oman rejects Iran-backed tolls on ships crossing Strait of Hormuz"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:35:06Z",
+          "publisher": "Investing.com Australia",
+          "publisher_host_allowed": false,
+          "publisher_identity": "au.investing.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.2222,
+          "title": "Oman calls for permanent peace in Strait of Hormuz region By Investing.com"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-07T07:00:00Z",
+          "publisher": "The Jerusalem Post",
+          "publisher_host_allowed": true,
+          "publisher_identity": "jpost.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.4286,
+          "title": "Iran\u2019s maritime threats put Gulf security at risk"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2024-02-02T08:00:00Z",
+          "publisher": "Reuters",
+          "publisher_host_allowed": true,
+          "publisher_identity": "reuters.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.2222,
+          "title": "How Yemen\u2019s Houthi rebels are carrying out attacks on Red Sea ships"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-03-02T08:00:00Z",
+          "publisher": "CNBC",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cnbc.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "The Strait of Hormuz crisis explained: What it means for global shipping"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-17T07:00:00Z",
+          "publisher": "NPR",
+          "publisher_host_allowed": true,
+          "publisher_identity": "npr.org",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "The U.S.-Iran battle over the Strait of Hormuz raises risks for global waterways"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-03-02T08:00:00Z",
+          "publisher": "Skuld",
+          "publisher_host_allowed": false,
+          "publisher_identity": "skuld.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5556,
+          "title": "Maritime security update: Gulf Region / Strait of Hormuz and Red Sea"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-01-06T08:00:00Z",
+          "publisher": "ASHARQ AL-AWSAT English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.aawsat.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5,
+          "title": "Egypt and Oman Discuss Red Sea Security, Bilateral Cooperation"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2022-06-15T01:10:03Z",
+          "publisher": "United Against Nuclear Iran | UANI",
+          "publisher_host_allowed": false,
+          "publisher_identity": "unitedagainstnucleariran.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5,
+          "title": "Iran\u2019s Threat to Maritime Security"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-05-28T07:00:00Z",
+          "publisher": "Africa Center for Strategic Studies",
+          "publisher_host_allowed": false,
+          "publisher_identity": "africacenter.org",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "Expanding Al Shabaab\u2013Houthi Ties Escalate Security Threats to Red Sea Region"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-23T07:00:00Z",
+          "publisher": "Gulf Times",
+          "publisher_host_allowed": false,
+          "publisher_identity": "gulf-times.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "Red Sea attack threat to energy security: Qatar | Gulf Times"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2021-08-09T07:00:00Z",
+          "publisher": "The Washington Institute",
+          "publisher_host_allowed": false,
+          "publisher_identity": "washingtoninstitute.org",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4286,
+          "title": "Iran-Israel Escalation at Sea: The Need for an International Coalition Response"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-03-21T07:00:00Z",
+          "publisher": "International Crisis Group",
+          "publisher_host_allowed": false,
+          "publisher_identity": "crisisgroup.org",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4,
+          "title": "Calming the Red Sea\u2019s Turbulent Waters"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2023-12-12T08:00:00Z",
+          "publisher": "Skuld",
+          "publisher_host_allowed": false,
+          "publisher_identity": "skuld.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4,
+          "title": "Updated threats to shipping in the Red Sea"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-05-07T07:00:00Z",
+          "publisher": "The Jerusalem Post",
+          "publisher_host_allowed": true,
+          "publisher_identity": "jpost.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.2222,
+          "title": "Why Oman is helping to end the conflict between the US and Houthis"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-24T07:00:00Z",
+          "publisher": "The Jerusalem Post",
+          "publisher_host_allowed": true,
+          "publisher_identity": "jpost.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.125,
+          "title": "Iran, Oman agree to establish controls, rules in Strait of Hormuz"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-28T08:00:00Z",
+          "publisher": "Al Jazeera",
+          "publisher_host_allowed": true,
+          "publisher_identity": "aljazeera.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.1111,
+          "title": "Multiple Arab states that host US assets targeted in Iran retaliation"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-28T07:00:00Z",
+          "publisher": "Al Jazeera",
+          "publisher_host_allowed": true,
+          "publisher_identity": "aljazeera.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.1111,
+          "title": "Why has Trump threatened to bomb Oman, amid Iran war escalation?"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-11T07:00:00Z",
+          "publisher": "CNBC",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cnbc.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.1111,
+          "title": "U.S. and Iran trade airstrikes again amid conflicting claims over Strait of Hormuz"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-10T07:00:00Z",
+          "publisher": "Axios",
+          "publisher_host_allowed": true,
+          "publisher_identity": "axios.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "U.S. gives Iran Saturday deadline to publicly renounce Hormuz attacks"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-26T07:00:00Z",
+          "publisher": "CBS News",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cbsnews.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "Iran strikes vessel in Strait of Hormuz amid debate over \"transit fees\""
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-27T07:00:00Z",
+          "publisher": "The Jerusalem Post",
+          "publisher_host_allowed": true,
+          "publisher_identity": "jpost.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "Strait of Hormuz toll dispute raises US-Iran tensions"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-03-10T07:00:00Z",
+          "publisher": "India's News.Net",
+          "publisher_host_allowed": false,
+          "publisher_identity": "indiasnews.net",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5556,
+          "title": "'Regional, US interests best served by ceasefire, return to diplomacy': Oman Foreign Minister Badr Albusaidi"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-25T07:00:00Z",
+          "publisher": "Anadolu Ajans\u0131",
+          "publisher_host_allowed": false,
+          "publisher_identity": "aa.com.tr",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.4444,
+          "title": "Egyptian foreign minister discusses regional de-escalation, maritime security with Iranian, Omani counterparts"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-05-03T07:00:00Z",
+          "publisher": "Anadolu Ajans\u0131",
+          "publisher_host_allowed": false,
+          "publisher_identity": "aa.com.tr",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.375,
+          "title": "Omani, Iranian foreign ministers discuss maritime security, de-escalation"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-12-31T08:00:00Z",
+          "publisher": "Al Arabiya English",
+          "publisher_host_allowed": false,
+          "publisher_identity": "english.alarabiya.net",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.3333,
+          "title": "Saudi, Omani foreign ministers discuss Yemen developments in Riyadh meeting"
+        }
+      ],
+      "source_adapter_families": [
+        "official_regulatory_fiscal",
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_PUBLISHER_RESOLUTION_FAILED",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-296596b9bc5812ef9c03",
+      "deterministic_locator_queries": [
+        "European sovereign debt particularly long-dated bonds is a dreadful hedge against volatility and an atrocious real investment It offers asymmetric risk limited upside if yields fall but large mark-to-market losses",
+        "European sovereign debt particularly long-dated bonds dreadful hedge"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 2,
+        "research_calls": 0,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "public_source_unavailable"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-547c977e1be7ba18d44df297"
+      ],
+      "headline_proposition": "European sovereign debt\u2014particularly long-dated bonds\u2014is a dreadful hedge against volatility and an atrocious real investment. It offers asymmetric risk: limited upside if yields fall but large mark-to-market losses when inflation and...",
+      "minimum_trustworthy_evidence_status": "BLOCKED",
+      "new_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 0,
+        "cost_reporting_status": "NOT_INCURRED_NO_PROVIDER_CALL",
+        "logical_calls": 0,
+        "models_attempted_in_order": [],
+        "prompt_tokens": 0,
+        "provider_attempts": 0,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [],
+        "total_tokens": 0
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=European+sovereign+debt+particularly+long-dated+bonds+is+dreadful+hedge+against+volatility+atrocious&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=European+sovereign+debt+particularly+long-dated+bonds+is+dreadful+hedge+against+volatility+atrocious&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 1295,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=European+sovereign+debt+particularly+long-dated+bonds+dreadful+hedge&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=European+sovereign+debt+particularly+long-dated+bonds+dreadful+hedge&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 1231,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 0,
+      "rank": 11,
+      "request_logical_hash": "ba754e90233b20730aad886e0ab6f5f04411058fdaa2df2fb6d18d038b66e055",
+      "rss_listing_candidate_count": 0,
+      "rss_listing_candidates": [],
+      "source_adapter_families": [
+        "official_catalyst",
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_TRULY_UNAVAILABLE_AT_CUTOFF",
+      "xhigh_called": false
+    },
+    {
+      "accepted_evidence_document_count": 0,
+      "accepted_evidence_documents": [],
+      "cluster_id": "rolling-x-deterministic-cluster-e9ef928eebe2b33bd52e",
+      "deterministic_locator_queries": [
+        "UK CBI ORDERS ACTUAL 25 FORECAST 40 PREVIOUS 45 MACRO",
+        "UK CBI ORDERS"
+      ],
+      "grounded_research": {
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": true,
+          "evaluation_as_of_utc": "2026-08-20T23:37:06.897041Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 90,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 6,
+        "research_calls": 2,
+        "retrieval_result": {
+          "accepted_document_count": 0,
+          "blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 404: Not Found",
+            "public_source_redirect_authority_invalid",
+            "public_source_request_budget_exhausted"
+          ],
+          "status": "BLOCKED"
+        },
+        "status": "BLOCKED"
+      },
+      "headline_ids": [
+        "cc-x-headline-bbc6efc098d44a010ded358e"
+      ],
+      "headline_proposition": "UK CBI ORDERS ACTUAL -25 (FORECAST -40, PREVIOUS -45) $MACRO",
+      "minimum_trustworthy_evidence_status": null,
+      "new_blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation"
+      ],
+      "new_status": "BLOCKED",
+      "official_http_trace": [],
+      "official_locator_attempt": null,
+      "old_blockers": [
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "old_status": "BLOCKED",
+      "provided_evidence_capabilities": [],
+      "provider_telemetry": {
+        "completion_tokens": 2152,
+        "cost_reporting_status": "UNAVAILABLE_FROM_PROVIDER_RECEIPTS",
+        "logical_calls": 2,
+        "models_attempted_in_order": [
+          "vx/gemini-3.1-pro-preview(high)"
+        ],
+        "prompt_tokens": 5630,
+        "provider_attempts": 2,
+        "reported_cost_usd": null,
+        "terminal_dispositions": [
+          "ACCEPTED",
+          "ACCEPTED"
+        ],
+        "total_tokens": 7782
+      },
+      "public_http_trace": [
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=UK+CBI+orders+forecast&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=UK+CBI+orders+forecast&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 60410,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": "HTTP Error 401: HTTP Forbidden",
+          "final_host": "www.reuters.com",
+          "final_url": "https://www.reuters.com/news-sitemap.xml",
+          "redirected": false,
+          "requested_host": "www.reuters.com",
+          "requested_url": "https://www.reuters.com/news-sitemap.xml",
+          "response_bytes": 0,
+          "status": null
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNVjMwMVh0b0JnX3NCZ2tiTE1MWkhpXzZmaVc2Q1lkYURzbmhFNHdvTXpzRHkweG1sUGlFQlFlM1RpVE50aVh3NDNEZ1ZuMC14XzRXeUg3T0plS2lEREFGNmJLTFNZZGN6S0prS1ZPTGYxU3NUbDV5X0R3ekhaODAtM0V1cGFoQm9zbVBUYm4zN3NUOFBFQmI3YmxyTk1TM2N6bDJrUFZMT3V6eFRh?oc=5&hl=en-US&gl=US&ceid=US:en",
+          "redirected": true,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNVjMwMVh0b0JnX3NCZ2tiTE1MWkhpXzZmaVc2Q1lkYURzbmhFNHdvTXpzRHkweG1sUGlFQlFlM1RpVE50aVh3NDNEZ1ZuMC14XzRXeUg3T0plS2lEREFGNmJLTFNZZGN6S0prS1ZPTGYxU3NUbDV5X0R3ekhaODAtM0V1cGFoQm9zbVBUYm4zN3NUOFBFQmI3YmxyTk1TM2N6bDJrUFZMT3V6eFRh?oc=5",
+          "response_bytes": 581308,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": "HTTP Error 404: Not Found",
+          "final_host": "www.theguardian.com",
+          "final_url": "https://www.theguardian.com/news-sitemap.xml",
+          "redirected": false,
+          "requested_host": "www.theguardian.com",
+          "requested_url": "https://www.theguardian.com/news-sitemap.xml",
+          "response_bytes": 0,
+          "status": null
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxONHZsdGVuS1dVQmxPR3hKdEJacjBFcUtSbkZ3bVBzdERSQlJ3MmVIcXVVMktmQkJSVU9qd0xsaFQ1a2ZBYkNIWkstR1VwNnAzbTEwSHRnNmFDbnZoaVdDMnVCTlYxUE5YVUdRejFOQmN4MWJhV1VjOWRVV2NIZFYtbzh1clRra05lZUJxVDNkNklrb1FnTzhmb0tLbnQwTzJEWWE3RWZVdzZNNWNvaG5zOHA3LVBWMklwTE16R0w2b2lHX1Rob21J?oc=5&hl=en-US&gl=US&ceid=US:en",
+          "redirected": true,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxONHZsdGVuS1dVQmxPR3hKdEJacjBFcUtSbkZ3bVBzdERSQlJ3MmVIcXVVMktmQkJSVU9qd0xsaFQ1a2ZBYkNIWkstR1VwNnAzbTEwSHRnNmFDbnZoaVdDMnVCTlYxUE5YVUdRejFOQmN4MWJhV1VjOWRVV2NIZFYtbzh1clRra05lZUJxVDNkNklrb1FnTzhmb0tLbnQwTzJEWWE3RWZVdzZNNWNvaG5zOHA3LVBWMklwTE16R0w2b2lHX1Rob21J?oc=5",
+          "response_bytes": 582105,
+          "status": 200
+        },
+        {
+          "content_truncated": false,
+          "error": null,
+          "final_host": "news.google.com",
+          "final_url": "https://news.google.com/rss/search?q=Confederation+British+Industry+CBI+Industrial+Trends+order+book&hl=en-US&gl=US&ceid=US%3Aen",
+          "redirected": false,
+          "requested_host": "news.google.com",
+          "requested_url": "https://news.google.com/rss/search?q=Confederation+British+Industry+CBI+Industrial+Trends+order+book&hl=en-US&gl=US&ceid=US%3Aen",
+          "response_bytes": 35710,
+          "status": 200
+        }
+      ],
+      "public_secondary_query_count": 2,
+      "public_write_authority": false,
+      "publisher_resolution_attempt_count": 2,
+      "rank": 12,
+      "request_logical_hash": "f5b38b478b473ecaeb37acaaa56cbbf878bd3e99b54566e0d60ac2e7b4f6154f",
+      "rss_listing_candidate_count": 24,
+      "rss_listing_candidates": [
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-09-23T07:00:00Z",
+          "publisher": "Reuters",
+          "publisher_host_allowed": true,
+          "publisher_identity": "reuters.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.5,
+          "title": "UK factories downturn eases but tax hike concerns persist, CBI says"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-02-20T08:00:00Z",
+          "publisher": "Reuters",
+          "publisher_host_allowed": true,
+          "publisher_identity": "reuters.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.5,
+          "title": "UK factories expect gentle pickup over next three months, CBI says"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-24T08:00:00Z",
+          "publisher": "Reuters",
+          "publisher_host_allowed": true,
+          "publisher_identity": "reuters.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.5,
+          "title": "Wet weather keeps UK shoppers at home, CBI survey says"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2023-06-11T07:00:00Z",
+          "publisher": "The Guardian",
+          "publisher_host_allowed": true,
+          "publisher_identity": "theguardian.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.5,
+          "title": "Economic growth to pick up but risks to recovery \u2018elevated\u2019, say UK forecasts"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2015-03-23T07:00:00Z",
+          "publisher": "The Guardian",
+          "publisher_host_allowed": true,
+          "publisher_identity": "theguardian.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.5,
+          "title": "UK exports orders hit by sterling strength and eurozone crisis"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-08-27T07:00:00Z",
+          "publisher": "The Guardian",
+          "publisher_host_allowed": true,
+          "publisher_identity": "theguardian.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.25,
+          "title": "Confidence drops across UK services in face of higher costs and weak demand"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-09-16T07:00:00Z",
+          "publisher": "The Guardian",
+          "publisher_host_allowed": true,
+          "publisher_identity": "theguardian.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.25,
+          "title": "New headache for Rachel Reeves as OBR expected to lower productivity forecast"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2025-11-25T08:00:00Z",
+          "publisher": "CNBC",
+          "publisher_host_allowed": true,
+          "publisher_identity": "cnbc.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "The UK's Autumn Budget is coming: Here's what it could mean for your money"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2018-03-21T07:00:00Z",
+          "publisher": "Yahoo News Canada",
+          "publisher_host_allowed": false,
+          "publisher_identity": "ca.news.yahoo.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.75,
+          "title": "UK factory orders gauge falls to five-month low in March - CBI"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T10:06:00Z",
+          "publisher": "US News Money",
+          "publisher_host_allowed": false,
+          "publisher_identity": "money.usnews.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.75,
+          "title": "UK Factory Orders Show Best Performance Since November 2024, CBI Survey Shows"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2015-02-16T08:00:00Z",
+          "publisher": "Bailiwick Express",
+          "publisher_host_allowed": false,
+          "publisher_identity": "bailiwickexpress.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5,
+          "title": "CBI upgrades growth forecast"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T05:15:00Z",
+          "publisher": "Exchange Rates UK",
+          "publisher_host_allowed": false,
+          "publisher_identity": "exchangerates.org.uk",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.5,
+          "title": "Pound To Dollar Price News, Forecast: Five-Month Best Leaves GBP Facing UK Data Test"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2016-07-25T07:00:00Z",
+          "publisher": "Financial Times",
+          "publisher_host_allowed": true,
+          "publisher_identity": "ft.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.25,
+          "title": "UK business confidence drops to lowest since financial crisis after Brexit \u2013 CBI"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-02-19T08:00:00Z",
+          "publisher": "The Guardian",
+          "publisher_host_allowed": true,
+          "publisher_identity": "theguardian.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.25,
+          "title": "UK manufacturing still beset by low orders and price pressure, says CBI"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2015-03-23T07:00:00Z",
+          "publisher": "The Guardian",
+          "publisher_host_allowed": true,
+          "publisher_identity": "theguardian.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.125,
+          "title": "UK exports orders hit by sterling strength and eurozone crisis"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2019-12-17T08:00:00Z",
+          "publisher": "The Guardian",
+          "publisher_host_allowed": true,
+          "publisher_identity": "theguardian.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.125,
+          "title": "UK manufacturing output falling at fastest rate since 2009, says CBI"
+        },
+        {
+          "eligible_listing_identity": true,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2021-07-22T07:00:00Z",
+          "publisher": "The Guardian",
+          "publisher_host_allowed": true,
+          "publisher_identity": "theguardian.com",
+          "publisher_name_allowed": true,
+          "relevance_score": 0.0,
+          "title": "Number of UK factory workers rising at fastest rate for almost 50 years"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-21T03:50:02Z",
+          "publisher": "Fibre2Fashion",
+          "publisher_host_allowed": false,
+          "publisher_identity": "fibre2fashion.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.375,
+          "title": "UK export order books return to 'normal' after over 4 years: CBI"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-23T07:00:00Z",
+          "publisher": "Crypto Briefing",
+          "publisher_host_allowed": false,
+          "publisher_identity": "cryptobriefing.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "UK manufacturing orders hit lowest level since 2020 as CBI survey stays firmly negative"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-25T07:00:00Z",
+          "publisher": "Fibre2Fashion",
+          "publisher_host_allowed": false,
+          "publisher_identity": "fibre2fashion.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "UK manufacturing order books hit near six-year low as output declines"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-08-20T11:27:49Z",
+          "publisher": "Global Banking & Finance Review",
+          "publisher_host_allowed": false,
+          "publisher_identity": "globalbankingandfinance.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "UK Factory Orders See Biggest Rise Since 2024, CBI Survey Reports"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-07-23T07:00:00Z",
+          "publisher": "Global Banking & Finance Review",
+          "publisher_host_allowed": false,
+          "publisher_identity": "globalbankingandfinance.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "UK Factory Orders Slump as Cost Pressures Rise, CBI Survey Reports"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2026-06-23T07:00:00Z",
+          "publisher": "Global Banking & Finance Review",
+          "publisher_host_allowed": false,
+          "publisher_identity": "globalbankingandfinance.com",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "UK Manufacturing Orders Shrink at Fastest Rate Since 2020, Says CBI"
+        },
+        {
+          "eligible_listing_identity": false,
+          "listing_grants_factual_authority": false,
+          "published_at_utc": "2015-08-23T07:00:00Z",
+          "publisher": "This is Money",
+          "publisher_host_allowed": false,
+          "publisher_identity": "thisismoney.co.uk",
+          "publisher_name_allowed": false,
+          "relevance_score": 0.25,
+          "title": "Some respite for UK manufacturers as order books recover and exports tick up in August, says survey, but expectations low"
+        }
+      ],
+      "source_adapter_families": [
+        "public_secondary"
+      ],
+      "source_reachability_classification": "SOURCE_EXISTS_BUT_PUBLISHER_RESOLUTION_FAILED",
+      "xhigh_called": false
+    }
+  ],
+  "cost_reporting_status": "UNAVAILABLE_FROM_PROVIDER_RECEIPTS",
+  "created_at_utc": "2026-08-21T11:01:14.102013Z",
+  "distinct_candidate_count": 12,
+  "frozen_candidate_count": 12,
+  "historical_cutoff_utc": "2026-08-20T23:37:06.897041Z",
+  "official_requests": 5,
+  "public_secondary_requests": 36,
+  "repeated_candidate_count": 0,
+  "reported_cost_usd": null,
+  "research_completion_tokens": 5839,
+  "research_prompt_tokens": 16240,
+  "research_provider_attempts": 5,
+  "research_total_tokens": 22079,
+  "safety": {
+    "production_store_mutation": 0,
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "secret_or_session_inspection": 0,
+    "unknown_write": 0,
+    "xhigh_calls": 0
+  },
+  "schema_version": "contentops.v1_current_evidence_yield_frozen_12_replay.v1",
+  "source_artifact": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1\\docs\\automation\\TASK_V1_DAILY_OUTPUT_CANDIDATE_CONTINUATION_QUOTE_REPAIR_AND_FINAL_FLOOR_PROOF_V1\\current_production_day_proof\\rolling_x_ranked_viability_v1.json",
+    "sha256": "b1aac8a3357d0e7f06ccce27636805cf4dcb517a08306644269b5c9ed2850b08"
+  },
+  "source_authority_invariants": {
+    "discovery_listing_grants_factual_authority": false,
+    "exact_publisher_or_official_bytes_required": true,
+    "model_output_grants_factual_authority": false,
+    "post_cutoff_documents_rejected": true,
+    "sitemap_metadata_grants_factual_authority": false,
+    "source_url_invention_permitted": false,
+    "unapproved_source_class_rejected": true
+  },
+  "source_commit": "ab249e1ea51f03fbe32237a0f613b12e13559a9f",
+  "task_label": "TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1"
+}
