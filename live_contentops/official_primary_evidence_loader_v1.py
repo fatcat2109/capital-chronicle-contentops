@@ -605,6 +605,15 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 final_url, final_host = _safe_url(
                     str(response.get("final_url") or requested_url), allowed_hosts
                 )
+                sec_submission_index = bool(
+                    family in {"company_primary", "sec_regulatory"}
+                    and final_host == "data.sec.gov"
+                    and re.fullmatch(
+                        r"/submissions/CIK\d{10}\.json",
+                        urlsplit(final_url).path,
+                        re.IGNORECASE,
+                    )
+                )
                 if int(response.get("status") or 0) != 200:
                     raise RuntimeError("official_source_http_status_not_200")
                 headers = {
@@ -707,7 +716,13 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     ) or None,
                     "scheduled_event_rows": schedule_rows,
                     "schedule_extraction_grants_factual_numeric_permission_or_publication_authority": False,
-                    "public_claim_allowed": True,
+                    # The SEC submissions JSON is an issuer/filing locator index.  Its exact
+                    # bytes can establish that a filing exists, but cannot support the filing's
+                    # event facts or numbers.  Keep it discovery-only until an exact filing or
+                    # exhibit document is resolved; never let a model promote the index itself.
+                    "public_claim_allowed": not sec_submission_index,
+                    "discovery_only_source_index": sec_submission_index,
+                    "source_index_grants_event_fact_or_numeric_authority": False,
                     "retrieval_method": (
                         "READ_ONLY_HTTP_GET_BOUNDED_PREFIX"
                         if content_truncated

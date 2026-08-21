@@ -334,6 +334,10 @@ def test_sec_company_primary_source_supplies_exact_filing_facts():
     assert set(packet["provided_evidence_capabilities"]) == {
         "company_filing_or_release", "filing_or_release_timeline", "affected_entities"
     }
+    document = packet["official_source_documents"][0]
+    assert document["discovery_only_source_index"] is True
+    assert document["public_claim_allowed"] is False
+    assert document["source_index_grants_event_fact_or_numeric_authority"] is False
 
 
 def test_official_macro_source_supplies_exact_release_values_timestamps_definitions():
