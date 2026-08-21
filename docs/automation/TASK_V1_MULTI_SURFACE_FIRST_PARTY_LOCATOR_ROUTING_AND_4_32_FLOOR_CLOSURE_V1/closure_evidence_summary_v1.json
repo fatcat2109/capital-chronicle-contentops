@@ -1,0 +1,125 @@
+{
+  "schema_version": "contentops.v1_multi_surface_first_party_locator_floor_closure.v1",
+  "task_label": "TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1",
+  "classification": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+  "starting_sha": "25f560abb952f3646b3e4f18671dd22a96f8fa16",
+  "capability_history_reconciliation": {
+    "CURRENTLY_PROVEN_AND_REUSE": [
+      "canonical official-primary loader, allowlists, HTTPS and same-authority redirects",
+      "official_macro, official_regulatory_fiscal, company_primary, sec_regulatory, and official_policy families",
+      "BLS, Federal Register, SEC, and Federal Reserve locator parsers",
+      "RollingXTargetedEvidenceAdapter, grounded research, capability registry, claim/evidence/freshness gates",
+      "story-scoped evidence reuse, four-frontier rehearsal, and zero-write packaging boundary"
+    ],
+    "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY": [
+      "current_oil_release_source_v1 EIA first-party retrieval/parsing knowledge",
+      "prior generic query/publisher reachability recovery",
+      "prior P0-2A publisher resolution and grounded-research yield recovery"
+    ],
+    "NEW_IMPLEMENTATION_GAP": [
+      "ordered multi-surface routing inside the existing official locator",
+      "EIA weekly natural-gas storage surface",
+      "Philadelphia Fed MBOS surface",
+      "current State FMS press-release surface",
+      "USCC research surface",
+      "narrow Waymo company-primary publication surface",
+      "exact-surface story-profile precedence before generic market/geopolitical fallback"
+    ],
+    "CURRENT_HOST_RUNTIME_PROOF_REQUIRED": [
+      "current existence, configuration, and state of the four historically observed native V1 Automations"
+    ],
+    "SUPERSEDED_DO_NOT_REUSE": [
+      "DSCA as publisher of new post-February-2026 FMS web notices",
+      "historical Automation observation as current host-state proof"
+    ]
+  },
+  "locator_before_after": [
+    {
+      "family": "official_macro",
+      "before": "BLS news-release index/parser only",
+      "after": [
+        "BLS news-release index/parser unchanged",
+        "eia_weekly_natural_gas_storage_v1",
+        "philadelphia_fed_mbos_v1"
+      ]
+    },
+    {
+      "family": "official_regulatory_fiscal",
+      "before": "Federal Register API/parser only",
+      "after": [
+        "Federal Register API/parser unchanged",
+        "state_current_fms_press_releases_v1",
+        "uscc_research_v1"
+      ]
+    },
+    {
+      "family": "company_primary",
+      "before": "SEC company ticker index only",
+      "after": [
+        "SEC company ticker index unchanged",
+        "waymo_company_blog_rss_v1"
+      ]
+    },
+    {
+      "family": "official_policy",
+      "before": "Federal Reserve FOMC calendar",
+      "after": "unchanged"
+    }
+  ],
+  "committed_residual_replay": {
+    "path": "docs/automation/TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1/committed_17_story_residual_replay_v1.json",
+    "sha256": "00e4c7892aceae65e3c5ccf7b0c0be78b90092e6df0c79f0543a7d04652a204e",
+    "residual_story_count": 17,
+    "exact_first_party_surface_story_count": 5,
+    "official_bytes_verified_story_count": 5,
+    "locator_requests": 5,
+    "evidence_get_count": 5,
+    "network_request_count": 10,
+    "public_secondary_reopened": false,
+    "request_budget_changed": false,
+    "other_story_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION"
+  },
+  "genuine_current_four_frontier_rehearsal": {
+    "summary_path": "docs/automation/TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1/genuine_current_production_day_rehearsal/multi_frontier_floor_rehearsal_summary_v1.json",
+    "summary_sha256": "5a97c434ce7cd6533a51acf159c7caf7d63f61a54c749c844fc8625d56b4257f",
+    "frozen_input_path": "docs/automation/TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1/genuine_current_production_day_rehearsal/frozen_current_rolling_input_v1.json",
+    "frozen_input_file_sha256": "d16a3c84e766ff6351cffc066c1992fb57b703efb50750f06ca7de548c85db32",
+    "canonical_rolling_input_sha256": "1b396226a48091982c0e5831882175c8260e40d162ad65ff683e173a12d2d51b",
+    "cutoff_utc": "2026-08-21T16:10:47.306418Z",
+    "full_current_headline_count": 792,
+    "frontier_count": 4,
+    "prepared_headline_identity_slots": 48,
+    "qualified_article_count": 0,
+    "qualified_derivative_intent_count": 0,
+    "remaining_article_deficit": 4,
+    "remaining_derivative_intent_deficit": 32,
+    "xhigh_attempt_count": 0,
+    "xhigh_receipts": [],
+    "article_identities_body_hashes": [],
+    "derivative_identities": [],
+    "exact_next_blocker": {
+      "code": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "requested_route": "new/claude-fable-5",
+      "provider_status_class": "4xx_client_403",
+      "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+      "effect": "no governed global assignment; therefore no evidence acquisition or warranted XHIGH boundary"
+    }
+  },
+  "validation": {
+    "focused_locator_loader_evidence_and_newsroom_regressions": "222 passed",
+    "exact_head_ci_fast": "RUN_AFTER_FINAL_EXACT_HEAD_COMMIT"
+  },
+  "safety": {
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "unknown_write": 0,
+    "automation_enablement": 0,
+    "fifth_automation_created": 0,
+    "production_store_reset": 0,
+    "browser_actions": 0,
+    "credential_session_or_token_inspection": 0,
+    "core_analyzer_authority_expansion": false,
+    "v2_mutation": false
+  }
+}

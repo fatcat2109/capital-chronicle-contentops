@@ -1,0 +1,11 @@
+{
+  "attempted_candidate_count": 0,
+  "decision": null,
+  "publishability_pool_exhausted": true,
+  "rank_attempts": [],
+  "ranked_candidate_count": 0,
+  "reason_code": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+  "status": "BLOCKED",
+  "unattempted_candidate_count": 0,
+  "viability_logical_hash": "2fc68ae95fd13a89590db3a965f7cd8bcefd91453f74798148c8bc6ec30cdbc8"
+}

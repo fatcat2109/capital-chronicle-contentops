@@ -3535,6 +3535,9 @@ def classify_rolling_x_story_types_deterministically(
     from live_contentops.source_capability_registry_v2 import (
         effective_rolling_x_capability_registry,
     )
+    from live_contentops.official_primary_source_locator_v1 import (
+        routed_official_locator_surface_ids,
+    )
 
     registry = effective_rolling_x_capability_registry(capability_registry)
     allowed = set(registry.get("story_types") or {})
@@ -3592,6 +3595,13 @@ def classify_rolling_x_story_types_deterministically(
         r"\b(?:prices?|rall(?:y|ies|ied)|selloff|slump|surge|jump|fall|fell|drop|"
         r"rise|rose|gain|loss|breakout|intraday|record high|record low|market move)\b"
     )
+    exact_surface_story_types = {
+        "eia_weekly_natural_gas_storage_v1": "data_release",
+        "philadelphia_fed_mbos_v1": "data_release",
+        "state_current_fms_press_releases_v1": "regulatory_fiscal_event",
+        "uscc_research_v1": "regulatory_fiscal_event",
+        "waymo_company_blog_rss_v1": "company_sector_event",
+    }
     for cluster in clusters:
         cluster_id = str(cluster.get("cluster_id") or "")
         if not cluster_id or cluster_id in mapping:
@@ -3605,7 +3615,14 @@ def classify_rolling_x_story_types_deterministically(
                 cluster.get("selection_case"),
             )
         ).casefold()
-        if cluster.get("market_sensitive") is True or (
+        exact_surface_ids = routed_official_locator_surface_ids(
+            {"story_context": dict(cluster)}
+        )
+        if exact_surface_ids:
+            story_type = exact_surface_story_types[exact_surface_ids[0]]
+            matched_basis = "EXACT_FIRST_PARTY_LOCATOR_SURFACE_PROFILE"
+            confidence = "HIGH"
+        elif cluster.get("market_sensitive") is True or (
             market_asset.search(text) and market_action.search(text)
         ):
             story_type = "market_move"

@@ -26,8 +26,10 @@ OFFICIAL_HOSTS_BY_FAMILY = {
         "home.treasury.gov",
         "fiscaldata.treasury.gov",
         "www.whitehouse.gov",
+        "www.state.gov",
+        "www.uscc.gov",
     }),
-    "company_primary": frozenset({"data.sec.gov", "www.sec.gov"}),
+    "company_primary": frozenset({"data.sec.gov", "www.sec.gov", "waymo.com"}),
     "sec_regulatory": frozenset({"data.sec.gov", "www.sec.gov"}),
     "official_policy": frozenset({"www.federalreserve.gov"}),
     "official_macro": frozenset({
@@ -42,6 +44,7 @@ OFFICIAL_HOSTS_BY_FAMILY = {
         "fiscaldata.treasury.gov",
         "home.treasury.gov",
         "www.eia.gov",
+        "www.philadelphiafed.org",
         "data-api.ecb.europa.eu",
         "www.ecb.europa.eu",
     }),
@@ -58,8 +61,8 @@ ALLOWED_CONTENT_TYPES = frozenset({
     "text/xml",
 })
 USER_AGENT = (
-    "CapitalChronicleContentOps/1.0 "
-    "(bounded public-primary evidence acquisition; contact: repository maintainer)"
+    "Mozilla/5.0 (compatible; CapitalChronicleContentOps/1.0; "
+    "+https://github.com/fatcat2109/capital-chronicle-contentops)"
 )
 PDF_TEXT_MAX_CHARS = 100_000
 
@@ -133,7 +136,7 @@ def _parse_timestamp(value: Any) -> str | None:
                 parsed = parsed.replace(tzinfo=timezone.utc)
             return _iso_utc(parsed)
         except (TypeError, ValueError):
-            for pattern in ("%B %d, %Y", "%b %d, %Y"):
+            for pattern in ("%B %d, %Y", "%b %d, %Y", "%m/%d/%Y"):
                 try:
                     return _iso_utc(
                         datetime.strptime(text, pattern).replace(tzinfo=timezone.utc)
@@ -215,6 +218,7 @@ def _html_timestamp(text: str) -> str | None:
     patterns = (
         r'<time[^>]+datetime=["\']([^"\']+)',
         r'(?:release date|last modified date)\s*:?</[^>]+>\s*([A-Z][a-z]+\s+\d{1,2},\s+\d{4})',
+        r'\brelease date\s*:\s*(\d{1,2}/\d{1,2}/\d{4})',
     )
     for pattern in patterns:
         match = re.search(pattern, text, re.IGNORECASE)
@@ -403,6 +407,19 @@ def _verified_capabilities(
             capabilities.add("filing_or_release_timeline")
         if keys.intersection({"cik", "name", "entitytype", "issuer", "companyname"}):
             capabilities.add("affected_entities")
+        parsed_url = urlsplit(url)
+        waymo_company_release = bool(
+            family == "company_primary"
+            and str(parsed_url.hostname or "").casefold() == "waymo.com"
+            and re.fullmatch(r"/blog/20\d{2}/\d{2}/[a-z0-9-]+/?", parsed_url.path)
+            and re.search(r"\bwaymo\b", lowered)
+            and re.search(r"\b(asic|custom silicon|compute|robotaxi|waymo driver)\b", lowered)
+        )
+        if waymo_company_release:
+            capabilities.add("company_filing_or_release")
+            capabilities.add("affected_entities")
+            if _html_timestamp(text):
+                capabilities.add("filing_or_release_timeline")
     elif family == "official_macro":
         macro_keys = {
             "data", "results", "series", "seriesid", "value", "observations",
@@ -416,10 +433,32 @@ def _verified_capabilities(
                 document_title,
             )
         )
+        parsed_url = urlsplit(url)
+        eia_storage_release = bool(
+            str(parsed_url.hostname or "").casefold() == "www.eia.gov"
+            and parsed_url.path.casefold() == "/dnav/ng/ng_stor_wkly_s1_w.htm"
+            and "weekly working gas in underground storage" in lowered
+            and _html_timestamp(text)
+        )
+        philly_mbos_release = bool(
+            str(parsed_url.hostname or "").casefold() == "www.philadelphiafed.org"
+            and re.fullmatch(
+                r"/surveys-and-data/regional-economic-analysis/mbos-20\d{2}-\d{2}/?",
+                parsed_url.path,
+            )
+            and "manufacturing business outlook survey" in document_title
+            and re.search(
+                r"\b(?:january|february|march|april|may|june|july|august|"
+                r"september|october|november|december)\s+\d{1,2},\s+20\d{2}\b",
+                lowered,
+            )
+        )
         official_release = bool(
             keys.intersection(macro_keys)
             or re.search(r"\b(data release|news release|economic release|employment situation)\b", lowered)
             or dated_publication
+            or eia_storage_release
+            or philly_mbos_release
         )
         if official_release:
             capabilities.add("official_release")
@@ -427,7 +466,11 @@ def _verified_capabilities(
             r"(?:^|[^a-z])[-+]?\d+(?:\.\d+)?(?:[^a-z]|$)", text
         ):
             capabilities.add("authorized_release_values")
-        if keys.intersection({"releasedate", "release_date", "date", "period", "year"}) or _html_timestamp(text):
+        if (
+            keys.intersection({"releasedate", "release_date", "date", "period", "year"})
+            or _html_timestamp(text)
+            or philly_mbos_release
+        ):
             capabilities.add("release_timestamps")
         if keys.intersection({"seriesid", "periodname", "unit", "linedescription", "metric", "definitions"}) or (
             official_release

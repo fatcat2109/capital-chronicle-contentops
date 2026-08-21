@@ -5,6 +5,7 @@ import json
 
 from live_contentops.official_primary_source_locator_v1 import (
     BoundedOfficialPrimarySourceLocator,
+    routed_official_locator_families,
 )
 
 
@@ -245,3 +246,177 @@ def test_policy_locator_output_grants_no_evidence_authority():
     assert result["factual_authority"] is False
     assert result["evidence_capabilities"] == []
     assert result["publication_authority"] is False
+
+
+def _surface_request(family, entities, why_now):
+    request = _request(family)
+    request["evaluation_as_of_utc"] = "2026-08-21T12:00:00Z"
+    request["story_context"] = {
+        "entities_topics": entities,
+        "why_now": why_now,
+        "headline_text": "UNTRUSTED DISCOVERY TEXT",
+    }
+    return request
+
+
+def _assert_discovery_only(result, surface_id, candidate):
+    assert result["status"] == "PASS", result.get("blockers")
+    assert result["locator_surface_id"] == surface_id
+    assert result["candidate_official_url"] == candidate
+    assert result["discovery_only"] is True
+    assert result["factual_authority"] is False
+    assert result["evidence_capabilities"] == []
+    assert result["publication_authority"] is False
+
+
+def test_eia_storage_story_routes_to_exact_first_party_weekly_table():
+    request = _surface_request(
+        "official_macro",
+        ["EIA", "natural gas storage"],
+        "EIA weekly working gas in underground storage release",
+    )
+    body = b"""
+    <title>Weekly Working Gas in Underground Storage</title>
+    <td>Release Date: 8/20/2026</td>
+    """
+    seen = []
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: (seen.append(url) or _response(url, body))
+    )(request)
+    assert seen == ["https://www.eia.gov/dnav/ng/ng_stor_wkly_s1_w.htm"]
+    _assert_discovery_only(
+        result,
+        "eia_weekly_natural_gas_storage_v1",
+        "https://www.eia.gov/dnav/ng/ng_stor_wkly_s1_w.htm",
+    )
+
+
+def test_philadelphia_fed_story_routes_to_current_mbos_report():
+    request = _surface_request(
+        "official_macro",
+        ["Federal Reserve Bank of Philadelphia"],
+        "Philadelphia Fed Manufacturing Business Outlook Survey MBOS",
+    )
+    body = b"""
+    <script>
+    chartAttributes.sidebarData.publishedDate = 'August 20, 2026';
+    chartAttributes.sidebarData.reportLink = '/surveys-and-data/regional-economic-analysis/mbos-2026-08';
+    </script>
+    """
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, body)
+    )(request)
+    _assert_discovery_only(
+        result,
+        "philadelphia_fed_mbos_v1",
+        "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/mbos-2026-08",
+    )
+
+
+def test_current_state_fms_story_routes_to_state_not_legacy_dsca():
+    request = _surface_request(
+        "official_regulatory_fiscal",
+        ["US State Department", "Qatar"],
+        "Department of State approved a possible military sale of KC-46A aircraft",
+    )
+    candidate = (
+        "https://www.state.gov/releases/bureau-of-political-military-affairs/"
+        "2026/08/qatar-kc-46a-aerial-refueling-aircraft/"
+    )
+    body = json.dumps([{
+        "date_gmt": "2026-08-20T14:21:16",
+        "link": candidate,
+        "title": {"rendered": "Qatar – KC-46A Aerial Refueling Aircraft"},
+    }]).encode()
+    seen = []
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: (seen.append(url) or _response(url, body))
+    )(request)
+    assert len(seen) == 1
+    assert seen[0].startswith(
+        "https://www.state.gov/wp-json/wp/v2/state_press_release?"
+    )
+    assert "dsca" not in seen[0].casefold()
+    _assert_discovery_only(result, "state_current_fms_press_releases_v1", candidate)
+
+
+def test_uscc_story_routes_to_exact_first_party_research_publication():
+    request = _surface_request(
+        "official_regulatory_fiscal",
+        ["USCC", "China-Russia"],
+        "USCC released a China-Russia fact sheet research publication",
+    )
+    body = b"""
+    <time datetime="2026-08-20T12:00:00Z">08/20/2026</time>
+    <a href="/research/china-russia-fact-sheet-short-primer-relationship">
+      China-Russia Fact Sheet: A Short Primer on the Relationship
+    </a>
+    """
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, body)
+    )(request)
+    _assert_discovery_only(
+        result,
+        "uscc_research_v1",
+        "https://www.uscc.gov/research/china-russia-fact-sheet-short-primer-relationship",
+    )
+
+
+def test_waymo_story_routes_only_to_company_first_party_blog_rss():
+    request = _surface_request(
+        "company_primary",
+        ["Waymo"],
+        "Waymo introduced purpose-built 5nm ASIC custom silicon for robotaxi compute",
+    )
+    body = b"""
+    <rss><channel><item>
+      <title><![CDATA[A look under our trunk: what's in our compute]]></title>
+      <link>https://waymo.com/blog/2026/08/look-under-our-trunk</link>
+      <pubDate>Thu, 20 Aug 2026 00:00:00 GMT</pubDate>
+    </item></channel></rss>
+    """
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, body)
+    )(request)
+    _assert_discovery_only(
+        result,
+        "waymo_company_blog_rss_v1",
+        "https://waymo.com/blog/2026/08/look-under-our-trunk/",
+    )
+
+
+def test_context_routing_is_deterministic_and_grants_no_cross_family_authority():
+    request = _surface_request(
+        "official_macro",
+        ["Waymo"],
+        "Waymo purpose-built ASIC custom silicon compute",
+    )
+    calls = []
+    assert routed_official_locator_families(request) == frozenset({"company_primary"})
+    first = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda *_args: calls.append(_args)
+    )(request)
+    second = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda *_args: calls.append(_args)
+    )(request)
+    assert first == second == {
+        "status": "BLOCKED",
+        "blockers": ["official_source_locator_surface_family_mismatch"],
+    }
+    assert calls == []
+
+
+def test_ambiguous_multi_surface_context_fails_closed_before_network():
+    request = _surface_request(
+        "official_macro",
+        ["EIA", "natural gas storage", "Philadelphia Fed"],
+        "EIA underground storage and Philadelphia Fed manufacturing index MBOS",
+    )
+    calls = []
+    assert routed_official_locator_families(request) == frozenset()
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda *_args: calls.append(_args)
+    )(request)
+    assert result["status"] == "BLOCKED"
+    assert result["blockers"] == ["official_source_locator_surface_ambiguous"]
+    assert calls == []
