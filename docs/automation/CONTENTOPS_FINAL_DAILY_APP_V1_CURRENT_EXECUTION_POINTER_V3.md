@@ -51,10 +51,11 @@ Stale phrases such as `no publication quota`, `publication minimum zero`, or who
 
 ## Current execution truth
 
-Hash-bound host observation in the accepted Automation-revalidation task proves exactly four native
-V1 Automations, all `PAUSED`. Later zero-write tasks preserved that state and created no fifth task.
-This does not prove unattended public execution or authorize FDA-G/material-event metadata to launch
-Codex or write publicly.
+Hash-bound host observation in the accepted Automation-revalidation task proves that exactly four
+native V1 Automations were `PAUSED` at that observation epoch. Later zero-write tasks prove no task
+mutation, not current host state. Any current existence/configuration/state claim is
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. This does not prove unattended public execution or authorize
+FDA-G/material-event metadata to launch Codex or write publicly.
 
 ## Current next capability
 
@@ -80,7 +81,8 @@ Intended routine schedule only:
 - coordinator `gpt-5.6-sol / HIGH`;
 - final article worker fresh isolated `gpt-5.6-sol / XHIGH` only at article boundary.
 
-These are the observed four paused Automation identities' intended schedule values; they remain no
+These are the intended schedule values of the four identities observed paused at the accepted host
+epoch; current host state is `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`, and the observation remains no
 authority to enable, recreate, or publicly execute them.
 
 ## P0-G4 after current correction

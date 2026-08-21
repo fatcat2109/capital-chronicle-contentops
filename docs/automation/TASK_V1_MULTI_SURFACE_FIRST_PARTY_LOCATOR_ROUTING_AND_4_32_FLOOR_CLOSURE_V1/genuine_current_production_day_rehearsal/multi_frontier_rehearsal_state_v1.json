@@ -1,0 +1,675 @@
+{
+  "attempted_distinct_story_count": 0,
+  "attempted_headline_identity_count": 0,
+  "build_floor_satisfied": false,
+  "candidate_slots_saved_by_semantic_clustering": 4,
+  "classification": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+  "created_at_utc": "2026-08-21T16:10:47.306418Z",
+  "cutoff_utc": "2026-08-21T16:10:47.306418Z",
+  "daily_derivative_intent_floor": 32,
+  "daily_qualified_article_floor": 4,
+  "distinct_candidate_count": 0,
+  "distinct_story_opportunity_count": 44,
+  "evaluated_headline_ids": [],
+  "exact_headline_identity_coverage_all_frontiers": true,
+  "exact_next_blocker_taxonomy": [
+    "ROLLING_X_GLOBAL_EDITOR_BLOCKED"
+  ],
+  "fifth_automation_created_count": 0,
+  "frontier_count": 4,
+  "frontiers": [
+    {
+      "attempted_distinct_candidate_count": 0,
+      "attempted_headline_ids": [],
+      "candidate_slots_saved_by_semantic_clustering": 1,
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_1\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "distinct_story_opportunity_count": 11,
+      "duplicate_update_chain_collapse_matrix": [
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-a4b853496b3c2688b5d5d695",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-14c450561a082a4fe444",
+          "member_headline_ids": [
+            "cc-x-headline-a4b853496b3c2688b5d5d695"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-14d30ed67317bde2ba590766",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-1fe6ae89eeb4d36eb471",
+          "member_headline_ids": [
+            "cc-x-headline-14d30ed67317bde2ba590766"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-d6728de8bd1c63c4dd913785",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-2c8c988dcf3a25da0d70",
+          "member_headline_ids": [
+            "cc-x-headline-d6728de8bd1c63c4dd913785"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-22ae11d33f33b462a850a8f2",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-44850304fbe8fbf6c721",
+          "member_headline_ids": [
+            "cc-x-headline-22ae11d33f33b462a850a8f2"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-709b2ce53ef925f93d265a96",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-61e78a344a713d2e7de5",
+          "member_headline_ids": [
+            "cc-x-headline-709b2ce53ef925f93d265a96"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-bb81e72d20577c03f869aca1",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6abdea86f3bd9e155a97",
+          "member_headline_ids": [
+            "cc-x-headline-bb81e72d20577c03f869aca1"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-e461d046cbb46e255078935e",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6ec7d24e7903cd58dca0",
+          "member_headline_ids": [
+            "cc-x-headline-e461d046cbb46e255078935e"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-a14d155c79f20a181129",
+          "member_headline_ids": [
+            "cc-x-headline-dad2e6c560f7ec03dd4bb879"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-b514dfb5694e935b7b3a",
+          "member_headline_ids": [
+            "cc-x-headline-bfbe0c02b51b0b0e05080cc7"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 1,
+          "canonical_headline_id": "cc-x-headline-ec51c398a61971dc490bdab9",
+          "headline_identity_count": 2,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-c88b4de7b2b0874f0839",
+          "member_headline_ids": [
+            "cc-x-headline-970d4e90ebd87900c4e7f34b",
+            "cc-x-headline-ec51c398a61971dc490bdab9"
+          ],
+          "relationship": "duplicate"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-ba2e98fae74fd87ac9157e03",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-f29daca86d55e7dd1b09",
+          "member_headline_ids": [
+            "cc-x-headline-ba2e98fae74fd87ac9157e03"
+          ],
+          "relationship": "distinct"
+        }
+      ],
+      "evidence_status": null,
+      "exact_headline_identity_coverage": true,
+      "exact_next_blocker": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+      "frontier": 1,
+      "official_request_total": 0,
+      "prepared_candidate_count": 12,
+      "prepared_candidate_logical_hash": "2fc9aa51f4c9a99e7927df169760a90ff4c7495244d2345ddd6e71f7eb268ecb",
+      "prepared_headline_identity_count": 12,
+      "prepared_headline_ids": [
+        "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+        "cc-x-headline-a4b853496b3c2688b5d5d695",
+        "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+        "cc-x-headline-e461d046cbb46e255078935e",
+        "cc-x-headline-bb81e72d20577c03f869aca1",
+        "cc-x-headline-d6728de8bd1c63c4dd913785",
+        "cc-x-headline-970d4e90ebd87900c4e7f34b",
+        "cc-x-headline-ba2e98fae74fd87ac9157e03",
+        "cc-x-headline-22ae11d33f33b462a850a8f2",
+        "cc-x-headline-ec51c398a61971dc490bdab9",
+        "cc-x-headline-14d30ed67317bde2ba590766",
+        "cc-x-headline-709b2ce53ef925f93d265a96"
+      ],
+      "prepared_state_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_1\\prepared_candidate_state_v1.json",
+      "public_request_total": 0,
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "requests_by_distinct_story": [],
+      "result_classification": "BLOCKED",
+      "selected_cluster_id": null,
+      "selected_rank": null,
+      "story_scoped_delta_acquisition_count": 0,
+      "story_scoped_network_reads_avoided": 0,
+      "story_scoped_network_request_total": 0,
+      "unknown_write_detected": false
+    },
+    {
+      "attempted_distinct_candidate_count": 0,
+      "attempted_headline_ids": [],
+      "candidate_slots_saved_by_semantic_clustering": 1,
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_2\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "distinct_story_opportunity_count": 11,
+      "duplicate_update_chain_collapse_matrix": [
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-a4b853496b3c2688b5d5d695",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-14c450561a082a4fe444",
+          "member_headline_ids": [
+            "cc-x-headline-a4b853496b3c2688b5d5d695"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-14d30ed67317bde2ba590766",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-1fe6ae89eeb4d36eb471",
+          "member_headline_ids": [
+            "cc-x-headline-14d30ed67317bde2ba590766"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-d6728de8bd1c63c4dd913785",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-2c8c988dcf3a25da0d70",
+          "member_headline_ids": [
+            "cc-x-headline-d6728de8bd1c63c4dd913785"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-22ae11d33f33b462a850a8f2",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-44850304fbe8fbf6c721",
+          "member_headline_ids": [
+            "cc-x-headline-22ae11d33f33b462a850a8f2"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-709b2ce53ef925f93d265a96",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-61e78a344a713d2e7de5",
+          "member_headline_ids": [
+            "cc-x-headline-709b2ce53ef925f93d265a96"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-bb81e72d20577c03f869aca1",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6abdea86f3bd9e155a97",
+          "member_headline_ids": [
+            "cc-x-headline-bb81e72d20577c03f869aca1"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-e461d046cbb46e255078935e",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6ec7d24e7903cd58dca0",
+          "member_headline_ids": [
+            "cc-x-headline-e461d046cbb46e255078935e"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-a14d155c79f20a181129",
+          "member_headline_ids": [
+            "cc-x-headline-dad2e6c560f7ec03dd4bb879"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-b514dfb5694e935b7b3a",
+          "member_headline_ids": [
+            "cc-x-headline-bfbe0c02b51b0b0e05080cc7"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 1,
+          "canonical_headline_id": "cc-x-headline-ec51c398a61971dc490bdab9",
+          "headline_identity_count": 2,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-c88b4de7b2b0874f0839",
+          "member_headline_ids": [
+            "cc-x-headline-970d4e90ebd87900c4e7f34b",
+            "cc-x-headline-ec51c398a61971dc490bdab9"
+          ],
+          "relationship": "duplicate"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-ba2e98fae74fd87ac9157e03",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-f29daca86d55e7dd1b09",
+          "member_headline_ids": [
+            "cc-x-headline-ba2e98fae74fd87ac9157e03"
+          ],
+          "relationship": "distinct"
+        }
+      ],
+      "evidence_status": null,
+      "exact_headline_identity_coverage": true,
+      "exact_next_blocker": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+      "frontier": 2,
+      "official_request_total": 0,
+      "prepared_candidate_count": 12,
+      "prepared_candidate_logical_hash": "2fc9aa51f4c9a99e7927df169760a90ff4c7495244d2345ddd6e71f7eb268ecb",
+      "prepared_headline_identity_count": 12,
+      "prepared_headline_ids": [
+        "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+        "cc-x-headline-a4b853496b3c2688b5d5d695",
+        "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+        "cc-x-headline-e461d046cbb46e255078935e",
+        "cc-x-headline-bb81e72d20577c03f869aca1",
+        "cc-x-headline-d6728de8bd1c63c4dd913785",
+        "cc-x-headline-970d4e90ebd87900c4e7f34b",
+        "cc-x-headline-ba2e98fae74fd87ac9157e03",
+        "cc-x-headline-22ae11d33f33b462a850a8f2",
+        "cc-x-headline-ec51c398a61971dc490bdab9",
+        "cc-x-headline-14d30ed67317bde2ba590766",
+        "cc-x-headline-709b2ce53ef925f93d265a96"
+      ],
+      "prepared_state_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_2\\prepared_candidate_state_v1.json",
+      "public_request_total": 0,
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "requests_by_distinct_story": [],
+      "result_classification": "BLOCKED",
+      "selected_cluster_id": null,
+      "selected_rank": null,
+      "story_scoped_delta_acquisition_count": 0,
+      "story_scoped_network_reads_avoided": 0,
+      "story_scoped_network_request_total": 0,
+      "unknown_write_detected": false
+    },
+    {
+      "attempted_distinct_candidate_count": 0,
+      "attempted_headline_ids": [],
+      "candidate_slots_saved_by_semantic_clustering": 1,
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_3\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "distinct_story_opportunity_count": 11,
+      "duplicate_update_chain_collapse_matrix": [
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-a4b853496b3c2688b5d5d695",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-14c450561a082a4fe444",
+          "member_headline_ids": [
+            "cc-x-headline-a4b853496b3c2688b5d5d695"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-14d30ed67317bde2ba590766",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-1fe6ae89eeb4d36eb471",
+          "member_headline_ids": [
+            "cc-x-headline-14d30ed67317bde2ba590766"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-d6728de8bd1c63c4dd913785",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-2c8c988dcf3a25da0d70",
+          "member_headline_ids": [
+            "cc-x-headline-d6728de8bd1c63c4dd913785"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-22ae11d33f33b462a850a8f2",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-44850304fbe8fbf6c721",
+          "member_headline_ids": [
+            "cc-x-headline-22ae11d33f33b462a850a8f2"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-709b2ce53ef925f93d265a96",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-61e78a344a713d2e7de5",
+          "member_headline_ids": [
+            "cc-x-headline-709b2ce53ef925f93d265a96"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-bb81e72d20577c03f869aca1",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6abdea86f3bd9e155a97",
+          "member_headline_ids": [
+            "cc-x-headline-bb81e72d20577c03f869aca1"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-e461d046cbb46e255078935e",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6ec7d24e7903cd58dca0",
+          "member_headline_ids": [
+            "cc-x-headline-e461d046cbb46e255078935e"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-a14d155c79f20a181129",
+          "member_headline_ids": [
+            "cc-x-headline-dad2e6c560f7ec03dd4bb879"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-b514dfb5694e935b7b3a",
+          "member_headline_ids": [
+            "cc-x-headline-bfbe0c02b51b0b0e05080cc7"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 1,
+          "canonical_headline_id": "cc-x-headline-ec51c398a61971dc490bdab9",
+          "headline_identity_count": 2,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-c88b4de7b2b0874f0839",
+          "member_headline_ids": [
+            "cc-x-headline-970d4e90ebd87900c4e7f34b",
+            "cc-x-headline-ec51c398a61971dc490bdab9"
+          ],
+          "relationship": "duplicate"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-ba2e98fae74fd87ac9157e03",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-f29daca86d55e7dd1b09",
+          "member_headline_ids": [
+            "cc-x-headline-ba2e98fae74fd87ac9157e03"
+          ],
+          "relationship": "distinct"
+        }
+      ],
+      "evidence_status": null,
+      "exact_headline_identity_coverage": true,
+      "exact_next_blocker": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+      "frontier": 3,
+      "official_request_total": 0,
+      "prepared_candidate_count": 12,
+      "prepared_candidate_logical_hash": "2fc9aa51f4c9a99e7927df169760a90ff4c7495244d2345ddd6e71f7eb268ecb",
+      "prepared_headline_identity_count": 12,
+      "prepared_headline_ids": [
+        "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+        "cc-x-headline-a4b853496b3c2688b5d5d695",
+        "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+        "cc-x-headline-e461d046cbb46e255078935e",
+        "cc-x-headline-bb81e72d20577c03f869aca1",
+        "cc-x-headline-d6728de8bd1c63c4dd913785",
+        "cc-x-headline-970d4e90ebd87900c4e7f34b",
+        "cc-x-headline-ba2e98fae74fd87ac9157e03",
+        "cc-x-headline-22ae11d33f33b462a850a8f2",
+        "cc-x-headline-ec51c398a61971dc490bdab9",
+        "cc-x-headline-14d30ed67317bde2ba590766",
+        "cc-x-headline-709b2ce53ef925f93d265a96"
+      ],
+      "prepared_state_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_3\\prepared_candidate_state_v1.json",
+      "public_request_total": 0,
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "requests_by_distinct_story": [],
+      "result_classification": "BLOCKED",
+      "selected_cluster_id": null,
+      "selected_rank": null,
+      "story_scoped_delta_acquisition_count": 0,
+      "story_scoped_network_reads_avoided": 0,
+      "story_scoped_network_request_total": 0,
+      "unknown_write_detected": false
+    },
+    {
+      "attempted_distinct_candidate_count": 0,
+      "attempted_headline_ids": [],
+      "candidate_slots_saved_by_semantic_clustering": 1,
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_4\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "distinct_story_opportunity_count": 11,
+      "duplicate_update_chain_collapse_matrix": [
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-a4b853496b3c2688b5d5d695",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-14c450561a082a4fe444",
+          "member_headline_ids": [
+            "cc-x-headline-a4b853496b3c2688b5d5d695"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-14d30ed67317bde2ba590766",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-1fe6ae89eeb4d36eb471",
+          "member_headline_ids": [
+            "cc-x-headline-14d30ed67317bde2ba590766"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-d6728de8bd1c63c4dd913785",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-2c8c988dcf3a25da0d70",
+          "member_headline_ids": [
+            "cc-x-headline-d6728de8bd1c63c4dd913785"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-22ae11d33f33b462a850a8f2",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-44850304fbe8fbf6c721",
+          "member_headline_ids": [
+            "cc-x-headline-22ae11d33f33b462a850a8f2"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-709b2ce53ef925f93d265a96",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-61e78a344a713d2e7de5",
+          "member_headline_ids": [
+            "cc-x-headline-709b2ce53ef925f93d265a96"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-bb81e72d20577c03f869aca1",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6abdea86f3bd9e155a97",
+          "member_headline_ids": [
+            "cc-x-headline-bb81e72d20577c03f869aca1"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-e461d046cbb46e255078935e",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-6ec7d24e7903cd58dca0",
+          "member_headline_ids": [
+            "cc-x-headline-e461d046cbb46e255078935e"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-a14d155c79f20a181129",
+          "member_headline_ids": [
+            "cc-x-headline-dad2e6c560f7ec03dd4bb879"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-b514dfb5694e935b7b3a",
+          "member_headline_ids": [
+            "cc-x-headline-bfbe0c02b51b0b0e05080cc7"
+          ],
+          "relationship": "distinct"
+        },
+        {
+          "candidate_slots_saved": 1,
+          "canonical_headline_id": "cc-x-headline-ec51c398a61971dc490bdab9",
+          "headline_identity_count": 2,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-c88b4de7b2b0874f0839",
+          "member_headline_ids": [
+            "cc-x-headline-970d4e90ebd87900c4e7f34b",
+            "cc-x-headline-ec51c398a61971dc490bdab9"
+          ],
+          "relationship": "duplicate"
+        },
+        {
+          "candidate_slots_saved": 0,
+          "canonical_headline_id": "cc-x-headline-ba2e98fae74fd87ac9157e03",
+          "headline_identity_count": 1,
+          "leaf_cluster_id": "rolling-x-leaf-cluster-f29daca86d55e7dd1b09",
+          "member_headline_ids": [
+            "cc-x-headline-ba2e98fae74fd87ac9157e03"
+          ],
+          "relationship": "distinct"
+        }
+      ],
+      "evidence_status": null,
+      "exact_headline_identity_coverage": true,
+      "exact_next_blocker": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+      "frontier": 4,
+      "official_request_total": 0,
+      "prepared_candidate_count": 12,
+      "prepared_candidate_logical_hash": "2fc9aa51f4c9a99e7927df169760a90ff4c7495244d2345ddd6e71f7eb268ecb",
+      "prepared_headline_identity_count": 12,
+      "prepared_headline_ids": [
+        "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+        "cc-x-headline-a4b853496b3c2688b5d5d695",
+        "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+        "cc-x-headline-e461d046cbb46e255078935e",
+        "cc-x-headline-bb81e72d20577c03f869aca1",
+        "cc-x-headline-d6728de8bd1c63c4dd913785",
+        "cc-x-headline-970d4e90ebd87900c4e7f34b",
+        "cc-x-headline-ba2e98fae74fd87ac9157e03",
+        "cc-x-headline-22ae11d33f33b462a850a8f2",
+        "cc-x-headline-ec51c398a61971dc490bdab9",
+        "cc-x-headline-14d30ed67317bde2ba590766",
+        "cc-x-headline-709b2ce53ef925f93d265a96"
+      ],
+      "prepared_state_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frontier_4\\prepared_candidate_state_v1.json",
+      "public_request_total": 0,
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "requests_by_distinct_story": [],
+      "result_classification": "BLOCKED",
+      "selected_cluster_id": null,
+      "selected_rank": null,
+      "story_scoped_delta_acquisition_count": 0,
+      "story_scoped_network_reads_avoided": 0,
+      "story_scoped_network_request_total": 0,
+      "unknown_write_detected": false
+    }
+  ],
+  "full_current_headline_count": 792,
+  "input_mode": "GENUINE_CURRENT_INPUT",
+  "no_repeat_proof": true,
+  "official_request_total": 0,
+  "pending_frontier": null,
+  "prepared_headline_identity_slot_count": 48,
+  "production_day_id": "newsroom-production-day-2026-08-21-bangkok",
+  "production_store_reset_count": 0,
+  "public_request_total": 0,
+  "public_write_count": 0,
+  "publication_provider_write_count": 0,
+  "qualified_article_records": [],
+  "qualified_count": 0,
+  "qualified_derivative_intent_count": 0,
+  "remaining_build_deficit": 4,
+  "remaining_held_identity_count": 792,
+  "rolling_input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1\\docs\\automation\\TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1\\genuine_current_production_day_rehearsal\\frozen_current_rolling_input_v1.json",
+  "rolling_input_sha256": "1b396226a48091982c0e5831882175c8260e40d162ad65ff683e173a12d2d51b",
+  "safety": {
+    "fifth_automation_created": 0,
+    "production_store_reset": 0,
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.v1_distinct_story_frontier_floor_rehearsal.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_cycle_artifact_path": null,
+  "source_parent_cycle_root": null,
+  "source_rolling_input_path": null,
+  "story_scoped_delta_acquisition_count": 0,
+  "story_scoped_network_reads_avoided": 0,
+  "story_scoped_network_request_total": 0,
+  "task_label": "TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1",
+  "unknown_write_count": 0,
+  "xhigh_attempt_count": 0,
+  "xhigh_revision_count": 0
+}

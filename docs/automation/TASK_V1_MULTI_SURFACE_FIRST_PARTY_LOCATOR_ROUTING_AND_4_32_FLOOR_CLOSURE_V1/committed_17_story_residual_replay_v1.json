@@ -1,0 +1,633 @@
+{
+  "committed_parent_closure": "docs/automation/TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1/closure_evidence_summary_v1.json",
+  "committed_residual_story_count": 17,
+  "created_at_utc": "2026-08-21T16:19:04.624222Z",
+  "evaluation_as_of_utc": "2026-08-21T14:19:24.393115Z",
+  "evidence_get_count": 5,
+  "exact_first_party_surface_story_count": 5,
+  "locator_output_grants_authority": false,
+  "locator_requests": 5,
+  "network_request_count": 10,
+  "official_bytes_verified_story_count": 5,
+  "provider_writes": 0,
+  "public_secondary_reopened": false,
+  "public_writes": 0,
+  "request_budget_changed": false,
+  "results": [
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-52fd4ce18cf5a235faca",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-6a27b701de857841262be930"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "ACCESS_CONTROLLED_PUBLIC_CANDIDATE_NO_ACCEPTED_ALTERNATIVE",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 403: Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 1,
+      "story": "The Monte dei Paschi board has reportedly approved bids for Banco BPM and Banca Generali."
+    },
+    {
+      "accepted_documents": [
+        {
+          "canonical_content_sha256": "7323a835d3352af68cef8fda5033a8ed8b80e72288e8af185cbf16434b885c53",
+          "document_id": "official-primary-7323a835d3352af68cef",
+          "public_claim_allowed": true,
+          "published_at_utc": "2026-08-20T00:00:00Z",
+          "source_url": "https://www.eia.gov/dnav/ng/ng_stor_wkly_s1_w.htm"
+        }
+      ],
+      "blockers": [],
+      "capabilities_verified": [
+        "authorized_release_values",
+        "official_release",
+        "release_definitions",
+        "release_timestamps"
+      ],
+      "cluster_id": "rolling-x-global-cluster-df65ab7ae9597292c921",
+      "evidence_get_count": 1,
+      "exact_candidate_url_discovered": "https://www.eia.gov/dnav/ng/ng_stor_wkly_s1_w.htm",
+      "final_evidence_disposition": "OFFICIAL_BYTES_VERIFIED_FOR_EXISTING_EVIDENCE_GATES",
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-7c01a1ca8c5db5a871f4f2a6",
+        "cc-x-headline-362ef440e34d55f85b27968e",
+        "cc-x-headline-dec34be8845e679963997d05"
+      ],
+      "locator_grants_factual_numeric_or_publication_authority": false,
+      "locator_query_logical_hash": "8d46115d4082170d95ad0975358223a5ead1b7c03b367e734d688393cadadd9f",
+      "locator_requests": 1,
+      "locator_surface_selected": "eia_weekly_natural_gas_storage_v1",
+      "prior_classification": [
+        "EXACT_SOURCE_FAMILY_ROUTING_OR_OFFICIAL_LOCATOR_MISS",
+        "TRUE_BOUNDED_PER_STORY_EXHAUSTION_AFTER_REUSE",
+        "ACCESS_CONTROLLED_PUBLIC_CANDIDATE_NO_ACCEPTED_ALTERNATIVE",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 2,
+      "source_adapter_family": "official_macro",
+      "story": "The U.S. EIA reports a weekly natural gas storage build of 16 billion cubic feet, surpassing the forecast of 14 billion."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-c6c85fec933a29fa6362",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-a93a1347aadd40ce036fd757"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 3,
+      "story": "The U.S. government is reportedly preparing to award $500 million in grants to seven companies to support critical minerals projects."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-3674239471f30bd032a3",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-ec6a77209e08c6465600b171"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 4,
+      "story": "Analysis of the oil market emphasizing the critical role of Chinese import demand over Strait of Hormuz exit flows in determining prices."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-c999e754cfd666b8d489",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-271c22ad6a1016a5c5c7f2e0",
+        "cc-x-headline-73f789b55823166fd8070359"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "ACCESS_CONTROLLED_PUBLIC_CANDIDATE_NO_ACCEPTED_ALTERNATIVE",
+        "DEAD_PUBLIC_CANDIDATE_OR_PUBLISHER_RESOLUTION_MISS",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS",
+        "PROPRIETARY_OR_COMMENTARY_EVIDENCE_NOT_PUBLICLY_BOUND"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 403: Forbidden",
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 1,
+      "story": "Projections for massive AI infrastructure spending, with estimates of $765 billion in 2026 and over $1 trillion in AI CAPEX by 2027."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-caad2375b61affa11889",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-9ad07405e8f44a41c5802e76"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "ACCESS_CONTROLLED_PUBLIC_CANDIDATE_NO_ACCEPTED_ALTERNATIVE",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS",
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS",
+        "PROPRIETARY_OR_COMMENTARY_EVIDENCE_NOT_PUBLICLY_BOUND"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 2,
+      "story": "Goldman Sachs notes that ambiguity surrounding the Federal Reserve's reaction function has caused an increase in US rate volatility."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-e95d78fd158c2fcd6dc8",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-1d55b8dc40da166f01dddd66"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "TRUE_BOUNDED_PER_STORY_EXHAUSTION_AFTER_REUSE",
+        "ACCESS_CONTROLLED_PUBLIC_CANDIDATE_NO_ACCEPTED_ALTERNATIVE",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS",
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 3,
+      "story": "Yields on longer-dated U.S. Treasurys have retraced declines that followed a rally fueled by changes to Treasury buyback policies."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-ffe53794651adc277fea",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-28ad77530f058e7d43b13054",
+        "cc-x-headline-397ceb8bb02b1d6fad0735e8"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS",
+        "PROPRIETARY_OR_COMMENTARY_EVIDENCE_NOT_PUBLICLY_BOUND"
+      ],
+      "prior_exact_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 4,
+      "story": "Discussion on the long-term equilibrium for real interest rates returning to 2-4% and its profound implications for global government finance."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-4e445693b50a6c56aeb8",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-286c85c3c74666d6498d7152"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "TRUE_BOUNDED_PER_STORY_EXHAUSTION_AFTER_REUSE",
+        "DEAD_PUBLIC_CANDIDATE_OR_PUBLISHER_RESOLUTION_MISS",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS",
+        "PROPRIETARY_OR_COMMENTARY_EVIDENCE_NOT_PUBLICLY_BOUND"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 1,
+      "story": "Goldman Sachs projects AI infrastructure spending will surge to $1.64 trillion by 2031, driven primarily by compute and data center investments."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-598c7f4c7f11a020e4dc",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-595403a3062105a2046eb579",
+        "cc-x-headline-ac6251fb1a261febde70943d"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 2,
+      "story": "Bitcoin surpasses $72,000 following a massive single-day crypto short liquidation, prompting renewed market commentary on the asset's performance."
+    },
+    {
+      "accepted_documents": [
+        {
+          "canonical_content_sha256": "05f99d6c70722585daa179f7a4a2d12bc4259d627b6adea02b3c64d95361c764",
+          "document_id": "official-primary-05f99d6c70722585daa1",
+          "public_claim_allowed": true,
+          "published_at_utc": "2026-08-20T00:00:00Z",
+          "source_url": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/mbos-2026-08"
+        }
+      ],
+      "blockers": [],
+      "capabilities_verified": [
+        "authorized_release_values",
+        "official_release",
+        "release_definitions",
+        "release_timestamps"
+      ],
+      "cluster_id": "rolling-x-global-cluster-de1a51cc1a6ae4d2fa5c",
+      "evidence_get_count": 1,
+      "exact_candidate_url_discovered": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/mbos-2026-08",
+      "final_evidence_disposition": "OFFICIAL_BYTES_VERIFIED_FOR_EXISTING_EVIDENCE_GATES",
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-d192edbf257d0ca7ac681ba4"
+      ],
+      "locator_grants_factual_numeric_or_publication_authority": false,
+      "locator_query_logical_hash": "683d87e6d914d82dcfae9d184f42d2bc43fe11ffc723216fb9f6296e210d9d77",
+      "locator_requests": 1,
+      "locator_surface_selected": "philadelphia_fed_mbos_v1",
+      "prior_classification": [
+        "EXACT_SOURCE_FAMILY_ROUTING_OR_OFFICIAL_LOCATOR_MISS",
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 3,
+      "source_adapter_family": "official_macro",
+      "story": "The Philly Fed Manufacturing 6-month-ahead business conditions index surged to +73.6, marking its highest level since 1983."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-8b1eb6c8c5c9b3419a3b",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-00c1599b8e8593873c3259fd",
+        "cc-x-headline-78243bb80c25fe4543382868",
+        "cc-x-headline-4546d529a72df7f70511205c"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS",
+        "PROPRIETARY_OR_COMMENTARY_EVIDENCE_NOT_PUBLICLY_BOUND"
+      ],
+      "prior_exact_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 4,
+      "story": "Economist Robin Brooks argues against $200 oil forecasts, citing high price elasticity of demand and noting that China's import drop is tied to Iranian blockades rather than broader economic weakness."
+    },
+    {
+      "accepted_documents": [
+        {
+          "canonical_content_sha256": "ad95ab3ee55841e058391d27c8e1bf1a7a77eab13ed9d42a23481d25754f3e2d",
+          "document_id": "official-primary-ad95ab3ee55841e05839",
+          "public_claim_allowed": true,
+          "published_at_utc": "2026-08-20T14:21:16Z",
+          "source_url": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/qatar-kc-46a-aerial-refueling-aircraft/"
+        }
+      ],
+      "blockers": [],
+      "capabilities_verified": [
+        "affected_entities",
+        "implementation_timeline",
+        "official_document"
+      ],
+      "cluster_id": "rolling-x-global-cluster-254157d6786aa040c137",
+      "evidence_get_count": 1,
+      "exact_candidate_url_discovered": "https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/qatar-kc-46a-aerial-refueling-aircraft/",
+      "final_evidence_disposition": "OFFICIAL_BYTES_VERIFIED_FOR_EXISTING_EVIDENCE_GATES",
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-20c1a069b89c53b47e08c619"
+      ],
+      "locator_grants_factual_numeric_or_publication_authority": false,
+      "locator_query_logical_hash": "e4d30870ada44e9b91d0e7036de119d527e4488d5f464e7a6b8b960fba910462",
+      "locator_requests": 1,
+      "locator_surface_selected": "state_current_fms_press_releases_v1",
+      "prior_classification": [
+        "EXACT_SOURCE_FAMILY_ROUTING_OR_OFFICIAL_LOCATOR_MISS",
+        "TRUE_BOUNDED_PER_STORY_EXHAUSTION_AFTER_REUSE",
+        "ACCESS_CONTROLLED_PUBLIC_CANDIDATE_NO_ACCEPTED_ALTERNATIVE",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS",
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 403: Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 5,
+      "source_adapter_family": "official_regulatory_fiscal",
+      "story": "The US State Department has reportedly approved a potential $4.5 billion military equipment sale to Qatar."
+    },
+    {
+      "accepted_documents": [
+        {
+          "canonical_content_sha256": "8620c13af4e1d43bb229f5ec258ddb3735dd9c5dead4163caed8a40a1824ea1a",
+          "document_id": "official-primary-8620c13af4e1d43bb229",
+          "public_claim_allowed": true,
+          "published_at_utc": "2026-08-20T00:00:00Z",
+          "source_url": "https://waymo.com/blog/2026/08/look-under-our-trunk/"
+        }
+      ],
+      "blockers": [],
+      "capabilities_verified": [
+        "affected_entities",
+        "company_filing_or_release"
+      ],
+      "cluster_id": "rolling-x-global-cluster-61875d4288d706829a13",
+      "evidence_get_count": 1,
+      "exact_candidate_url_discovered": "https://waymo.com/blog/2026/08/look-under-our-trunk/",
+      "final_evidence_disposition": "OFFICIAL_BYTES_VERIFIED_FOR_EXISTING_EVIDENCE_GATES",
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-f216d5c705e29eea71452709"
+      ],
+      "locator_grants_factual_numeric_or_publication_authority": false,
+      "locator_query_logical_hash": "b2af02b49cc7214a69bd4b13a6ce93d1c7e77ed1e164ceaaaaf48b064aebb139",
+      "locator_requests": 1,
+      "locator_surface_selected": "waymo_company_blog_rss_v1",
+      "prior_classification": [
+        "COMPANY_PRIMARY_LOCATOR_MISS",
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 1,
+      "source_adapter_family": "company_primary",
+      "story": "Google-owned Waymo introduced a purpose-built 5nm ASIC chip designed as a machine learning powerhouse for its robotaxis."
+    },
+    {
+      "accepted_documents": [
+        {
+          "canonical_content_sha256": "b9a639dab8164c49af9a23f790bd4e5ddc5705217a47317f9c9e4f89337f4f3e",
+          "document_id": "official-primary-b9a639dab8164c49af9a",
+          "public_claim_allowed": true,
+          "published_at_utc": "2026-08-20T12:00:00Z",
+          "source_url": "https://www.uscc.gov/research/china-russia-fact-sheet-short-primer-relationship"
+        }
+      ],
+      "blockers": [],
+      "capabilities_verified": [
+        "affected_entities",
+        "official_document"
+      ],
+      "cluster_id": "rolling-x-global-cluster-2468bcf6f3306c620a71",
+      "evidence_get_count": 1,
+      "exact_candidate_url_discovered": "https://www.uscc.gov/research/china-russia-fact-sheet-short-primer-relationship",
+      "final_evidence_disposition": "OFFICIAL_BYTES_VERIFIED_FOR_EXISTING_EVIDENCE_GATES",
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-4c85f66c6ce67800ac5bc171"
+      ],
+      "locator_grants_factual_numeric_or_publication_authority": false,
+      "locator_query_logical_hash": "18aa47014bbc9af93f421032c539c5e0a43498a8442b06deda839b8bb93f0f8b",
+      "locator_requests": 1,
+      "locator_surface_selected": "uscc_research_v1",
+      "prior_classification": [
+        "EXACT_SOURCE_FAMILY_ROUTING_OR_OFFICIAL_LOCATOR_MISS",
+        "QUERY_EVENT_CORE_OR_SOURCE_AVAILABILITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 2,
+      "source_adapter_family": "official_regulatory_fiscal",
+      "story": "The USCC released a fact sheet examining the strategic partnership between China and Russia and its implications for U.S. national security."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-dacd9528b9cf4c6f5fd3",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-5eae84c639b0011520645be2"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "TRUE_BOUNDED_PER_STORY_EXHAUSTION_AFTER_REUSE",
+        "ACCESS_CONTROLLED_PUBLIC_CANDIDATE_NO_ACCEPTED_ALTERNATIVE",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 3,
+      "story": "Russia reportedly struck two cargo vessels in Ukraine's Chornomorsk port."
+    },
+    {
+      "accepted_documents": [],
+      "capabilities_verified": [],
+      "cluster_id": "rolling-x-global-cluster-3948e07daa4700fa38e3",
+      "evidence_get_count": 0,
+      "exact_candidate_url_discovered": null,
+      "final_evidence_disposition": "NO_EXACT_FIRST_PARTY_ROUTE_RETAIN_PRIOR_ABSTENTION",
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-9f9eb3288449e90af071559e"
+      ],
+      "locator_requests": 0,
+      "locator_surface_selected": null,
+      "prior_classification": [
+        "TRUE_BOUNDED_PER_STORY_EXHAUSTION_AFTER_REUSE",
+        "ACCESS_CONTROLLED_PUBLIC_CANDIDATE_NO_ACCEPTED_ALTERNATIVE",
+        "DEAD_PUBLIC_CANDIDATE_OR_PUBLISHER_RESOLUTION_MISS",
+        "PUBLISHER_REDIRECT_AUTHORITY_MISS"
+      ],
+      "prior_exact_blockers": [
+        "HTTP Error 403: Forbidden",
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "public_secondary_reopened": false,
+      "rank": 4,
+      "story": "The U.S. is reportedly operating a secret oil corridor through the Strait of Hormuz, moving 10 million barrels a day."
+    }
+  ],
+  "schema_version": "contentops.v1_first_party_locator_residual_replay.v1",
+  "unknown_write": 0
+}

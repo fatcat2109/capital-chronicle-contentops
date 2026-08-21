@@ -2,9 +2,13 @@ from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
+import pytest
+
+import live_contentops.official_primary_evidence_loader_v1 as loader_module
 
 from live_contentops.official_primary_evidence_loader_v1 import (
     BoundedOfficialPrimaryEvidenceLoader,
+    _default_http_get,
 )
 
 
@@ -171,6 +175,103 @@ def test_generic_dated_official_page_does_not_gain_release_capability():
 
     assert packet["status"] == "BLOCKED"
     assert "official_release" not in packet["provided_evidence_capabilities"]
+
+
+def test_exact_eia_weekly_storage_table_verifies_release_values_and_timestamp():
+    url = "https://www.eia.gov/dnav/ng/ng_stor_wkly_s1_w.htm"
+    body = b"""
+      <html><head><title>Weekly Working Gas in Underground Storage</title></head>
+      <body><h1>Weekly Working Gas in Underground Storage</h1>
+      <p>Total Lower 48 States: 3,169 billion cubic feet</p>
+      <a>Definitions, Sources & Notes</a>
+      <td>Release Date: 8/20/2026</td></body></html>
+    """
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-21T12:00:00Z",
+        http_get=lambda *_args: _response(url, body, "text/html"),
+    )(_request(
+        family="official_macro",
+        required=[
+            "official_release",
+            "authorized_release_values",
+            "release_timestamps",
+        ],
+        url=url,
+    ))
+
+    assert packet["status"] == "PASS", packet.get("blockers")
+    assert packet["official_source_documents"][0]["published_at_utc"] == (
+        "2026-08-20T00:00:00Z"
+    )
+    assert set(packet["provided_evidence_capabilities"]) >= {
+        "official_release",
+        "authorized_release_values",
+        "release_timestamps",
+    }
+
+
+def test_exact_philadelphia_fed_mbos_page_verifies_release_values():
+    url = (
+        "https://www.philadelphiafed.org/surveys-and-data/"
+        "regional-economic-analysis/mbos-2026-08"
+    )
+    body = b"""
+      <html><head><title>Manufacturing Business Outlook Survey (MBOS) - August 2026 Report</title>
+      </head><body><h1>Manufacturing Business Outlook Survey</h1>
+      <p>August 20, 2026. The current general activity index was 47.4.</p>
+      <p>Seasonally adjusted series and definitions are provided.</p></body></html>
+    """
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-21T12:00:00Z",
+        http_get=lambda *_args: {
+            **_response(url, body, "text/html"),
+            "headers": {
+                "content-type": "text/html",
+                "last-modified": "Thu, 20 Aug 2026 12:00:00 GMT",
+            },
+        },
+    )(_request(
+        family="official_macro",
+        required=["official_release", "authorized_release_values"],
+        url=url,
+    ))
+
+    assert packet["status"] == "PASS", packet.get("blockers")
+    assert set(packet["provided_evidence_capabilities"]) >= {
+        "official_release",
+        "authorized_release_values",
+        "release_timestamps",
+    }
+
+
+def test_narrow_waymo_company_publication_verifies_release_without_widening_other_blogs():
+    url = "https://waymo.com/blog/2026/08/look-under-our-trunk/"
+    body = b"""
+      <html><head><title>A look under our trunk: what's in our compute</title>
+      <meta property="article:published_time" content="2026-08-20T00:00:00Z"></head>
+      <body><h1>Waymo compute</h1><p>Our purpose-built 5nm ASIC is custom silicon
+      for the Waymo Driver and robotaxi compute.</p></body></html>
+    """
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-21T12:00:00Z",
+        http_get=lambda *_args: _response(url, body, "text/html"),
+    )(_request(
+        family="company_primary",
+        required=[
+            "company_filing_or_release",
+            "filing_or_release_timeline",
+            "affected_entities",
+        ],
+        url=url,
+    ))
+
+    assert packet["status"] == "PASS", packet.get("blockers")
+    assert set(packet["provided_evidence_capabilities"]) >= {
+        "company_filing_or_release",
+        "filing_or_release_timeline",
+        "affected_entities",
+    }
+    assert packet["publication_authority"] is False
 
 
 def test_bea_schedule_rows_are_exactly_bound_to_official_bytes_and_document_hash():
@@ -384,6 +485,15 @@ def test_x_arbitrary_hosts_and_missing_exact_capabilities_fail_closed():
     assert "official_source_url_family_binding_invalid" in x_packet["blockers"]
     assert network_calls == []
 
+    company_packet = loader(_request(
+        family="company_primary",
+        required=["company_filing_or_release"],
+        url="https://arbitrary-company.example/blog/release",
+    ))
+    assert company_packet["status"] == "BLOCKED"
+    assert "official_source_url_family_binding_invalid" in company_packet["blockers"]
+    assert network_calls == []
+
     url = "https://www.bls.gov/news.release/empty.htm"
     weak = BoundedOfficialPrimaryEvidenceLoader(
         evaluation_as_of_utc=AS_OF,
@@ -403,6 +513,34 @@ def test_x_arbitrary_hosts_and_missing_exact_capabilities_fail_closed():
         row == "required_evidence_capability_missing:authorized_release_values"
         for row in weak["blockers"]
     )
+
+
+def test_default_transport_forbids_cross_authority_redirect_even_within_family(monkeypatch):
+    def fake_build_opener(handler):
+        redirect_handler = handler()
+
+        class FakeOpener:
+            def open(self, request, timeout):
+                redirect_handler.redirect_request(
+                    request,
+                    None,
+                    302,
+                    "Found",
+                    {},
+                    "https://www.bls.gov/news.release/empsit.nr0.htm",
+                )
+
+        return FakeOpener()
+
+    monkeypatch.setattr(loader_module.urllib.request, "build_opener", fake_build_opener)
+    with pytest.raises(
+        ValueError, match="official_source_cross_authority_redirect_forbidden"
+    ):
+        _default_http_get(
+            "https://www.eia.gov/dnav/ng/ng_stor_wkly_s1_w.htm",
+            12.0,
+            1_000_000,
+        )
 
 
 def test_source_url_without_exact_headline_binding_does_not_trigger_network():

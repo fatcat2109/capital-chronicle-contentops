@@ -784,6 +784,58 @@ def test_deterministic_story_routing_is_domain_accurate_and_token_bounded():
     assert result["story_type_by_cluster"]["airport"] != "supply_chain_event"
 
 
+def test_exact_first_party_surfaces_precede_generic_market_and_geopolitical_profiles():
+    clusters = [
+        {
+            "cluster_id": "eia",
+            "market_sensitive": True,
+            "entities_topics": ["EIA", "natural gas storage"],
+            "leaf_summaries": ["Natural gas prices moved after the weekly storage report."],
+            "why_now": "EIA weekly working gas in underground storage release",
+        },
+        {
+            "cluster_id": "philly",
+            "market_sensitive": True,
+            "entities_topics": ["Federal Reserve Bank of Philadelphia"],
+            "leaf_summaries": ["Stocks rose after the Philadelphia Fed Manufacturing Index."],
+            "why_now": "Philadelphia Fed Manufacturing Business Outlook Survey MBOS",
+        },
+        {
+            "cluster_id": "state-fms",
+            "entities_topics": ["US State Department", "Qatar"],
+            "leaf_summaries": ["A military sale of KC-46A aircraft was approved."],
+            "why_now": "Department of State foreign military sale",
+        },
+        {
+            "cluster_id": "uscc",
+            "entities_topics": ["USCC", "China-Russia"],
+            "leaf_summaries": ["Geopolitical partnership research."],
+            "why_now": "USCC released a China-Russia fact sheet",
+        },
+        {
+            "cluster_id": "waymo",
+            "market_sensitive": True,
+            "entities_topics": ["Waymo"],
+            "leaf_summaries": ["Alphabet shares rose after a robotaxi compute announcement."],
+            "why_now": "Waymo introduced a purpose-built 5nm ASIC custom silicon",
+        },
+    ]
+
+    result = classify_rolling_x_story_types_deterministically(clusters=clusters)
+
+    assert result["story_type_by_cluster"] == {
+        "eia": "data_release",
+        "philly": "data_release",
+        "state-fms": "regulatory_fiscal_event",
+        "uscc": "regulatory_fiscal_event",
+        "waymo": "company_sector_event",
+    }
+    assert all(
+        row["reason"] == "EXACT_FIRST_PARTY_LOCATOR_SURFACE_PROFILE"
+        for row in result["stories"]
+    )
+
+
 def test_semantic_assignment_failure_has_evidence_reachable_zero_authority_fallback():
     headlines = [
         {

@@ -763,6 +763,9 @@ class RollingXTargetedEvidenceAdapter:
                 OFFICIAL_HOSTS_BY_FAMILY,
                 SUPPORTED_FAMILIES,
             )
+            from live_contentops.official_primary_source_locator_v1 import (
+                routed_official_locator_families,
+            )
 
             documents: list[dict[str, Any]] = []
             supplied: set[str] = set()
@@ -771,8 +774,13 @@ class RollingXTargetedEvidenceAdapter:
             exact_bound_official_families = _exact_bound_official_families(
                 request, OFFICIAL_HOSTS_BY_FAMILY
             )
+            context_routed_official_families = set(
+                routed_official_locator_families(request)
+            )
             official_families = sorted(
-                registry_official_families.union(exact_bound_official_families)
+                registry_official_families
+                .union(exact_bound_official_families)
+                .union(context_routed_official_families)
             )
             if official_families:
                 official_request = {
@@ -799,6 +807,10 @@ class RollingXTargetedEvidenceAdapter:
                     "exact_bound_host_authorized_families": sorted(
                         exact_bound_official_families
                     ),
+                    "exact_context_routed_families": sorted(
+                        context_routed_official_families
+                    ),
+                    "context_routing_grants_authority": False,
                 }
                 if official.get("official_source_documents"):
                     # Rebind the transport packet to the exact effective-mode request.

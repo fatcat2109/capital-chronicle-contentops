@@ -12,7 +12,8 @@ including `BREAKING_BRIEF`, through exactly one fresh isolated native `gpt-5.6-s
 worker; accepts only the exact hash-bound return; allows zero canonical article media; separates
 delivery-only media; never skips a mandatory derivative for optional media absence; and excludes
 TikTok from V1 payloads, locks, and destination requirements. Worker/runtime/delivery/readiness
-failure is a zero-write hold. The four native scheduled tasks remain exactly four and `PAUSED`.
+failure is a zero-write hold. Exactly four native scheduled tasks were observed `PAUSED` at the
+accepted host observation epoch; their current state is `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`.
 Status: `CURRENT_V1_OWNER_HANDOFF`
 
 ## Current grounded-research routing authority
@@ -82,12 +83,15 @@ Do not broadly reread historical task archives.
 
 ## Current pre-live authority
 
-Exactly four native V1 tasks already exist and are all `PAUSED`:
+The accepted host observation found exactly four native V1 tasks, all `PAUSED`, at that epoch:
 
 - `V1 Newsroom — London 1700`;
 - `V1 Newsroom — New York 2100`;
 - `V1 Newsroom — New York 2300`;
 - `V1 Newsroom — New York 0100`.
+
+Current existence, configuration, and state are `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` before any
+future action or claim depends on them. This historical observation is not current host proof.
 
 Do not create, recreate, enable, add a fifth task, or auto-scale. The exact next chain is:
 

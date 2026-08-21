@@ -214,6 +214,59 @@ def test_neutral_fallback_request_and_adapter_share_effective_registry():
     assert "evidence_request_source_adapter_registry_mismatch" not in blockers
 
 
+def test_exact_story_context_routes_neutral_profile_to_official_macro_loader():
+    request = _request(story_type="general_public_event")
+    request["story_context"] = {
+        "entities_topics": ["EIA", "natural gas storage"],
+        "why_now": "EIA weekly working gas in underground storage release",
+    }
+    request["request_logical_hash"] = _logical_hash(
+        {key: value for key, value in request.items() if key != "request_logical_hash"}
+    )
+    official_calls = []
+
+    def official_loader(effective_request):
+        official_calls.append(dict(effective_request))
+        return {
+            "status": "BLOCKED",
+            "provided_evidence_capabilities": [],
+            "official_source_documents": [],
+            "blockers": ["fixture_stop_after_route"],
+            "provenance": {"request_count": 1},
+        }
+
+    def public_loader(effective_request):
+        return {
+            "status": "BLOCKED",
+            "rolling_x_story_binding": {
+                "cluster_id": effective_request["cluster_id"],
+                "headline_ids": effective_request["headline_ids"],
+                "request_logical_hash": effective_request["request_logical_hash"],
+            },
+            "evidence_documents": [],
+            "provided_evidence_capabilities": [],
+            "blockers": ["fixture_public_unavailable"],
+        }
+
+    receipt = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=official_loader,
+        public_secondary_loader=public_loader,
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    assert len(official_calls) == 1
+    assert official_calls[0]["source_adapter_families"] == ["official_macro"]
+    assert receipt["evidence_acquisition_provenance"]["official"][
+        "registry_authorized_families"
+    ] == []
+    assert receipt["evidence_acquisition_provenance"]["official"][
+        "exact_context_routed_families"
+    ] == ["official_macro"]
+    assert receipt["evidence_acquisition_provenance"]["official"][
+        "context_routing_grants_authority"
+    ] is False
+
+
 def test_effective_registry_preserves_specialized_story_profiles_exactly():
     base = load_source_capability_registry()
     effective = effective_rolling_x_capability_registry(base)

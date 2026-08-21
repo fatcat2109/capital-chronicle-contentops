@@ -1,0 +1,1312 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 11,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "a0f4cc2430a6581519c83ecc079b4a85cdedbc563c1de24b888045c07f885b8f",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-0be799dbd7b44fb59c1a"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "a6b0ea02a7f242c8a98b3ea4434cce448a024922bfa2acd13edba46c844f4eec",
+    "cutoff_time_utc": "2026-08-21T16:10:47.306418Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 11,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "banking",
+            "fiscal",
+            "fiscal policy"
+          ],
+          "first_utc": "2026-08-20T16:12:58Z",
+          "latest_utc": "2026-08-20T16:12:58Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9637,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Sky News",
+          "Banking",
+          "Taxation",
+          "UK Economy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-14c450561a082a4fe444",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 65,
+          "evidence": 80,
+          "saturation_risk": 35,
+          "seo": 70
+        },
+        "summary": "Major UK banking institutions warn the government against implementing further tax increases."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "etf",
+            "ipo",
+            "spcx"
+          ],
+          "first_utc": "2026-08-20T16:22:22Z",
+          "latest_utc": "2026-08-20T16:22:22Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.807,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "SPCX",
+          "IPO",
+          "ETF",
+          "Stock Market"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-1fe6ae89eeb4d36eb471",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 45,
+          "engagement": 35,
+          "evidence": 50,
+          "saturation_risk": 20,
+          "seo": 40
+        },
+        "summary": "The SPCX ETF has fallen back below its initial public offering (IPO) price."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "economic warfare",
+            "foreign policy"
+          ],
+          "first_utc": "2026-08-20T16:18:06Z",
+          "latest_utc": "2026-08-20T16:18:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8781,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Scott Bessent",
+          "Iran",
+          "United States",
+          "Geopolitics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-2c8c988dcf3a25da0d70",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 75,
+          "evidence": 70,
+          "saturation_risk": 35,
+          "seo": 70
+        },
+        "summary": "Scott Bessent outlines a strategy to collapse the Iranian regime through economic warfare rather than major US combat operations."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "economics",
+            "enterprise spend"
+          ],
+          "first_utc": "2026-08-20T16:20:07Z",
+          "latest_utc": "2026-08-20T16:20:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8445,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Jevons Paradox",
+          "Artificial Intelligence",
+          "Token Prices",
+          "Enterprise Spend"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-44850304fbe8fbf6c721",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 80,
+          "evidence": 75,
+          "saturation_risk": 30,
+          "seo": 85
+        },
+        "summary": "AI token prices crash by 40% while enterprise spending on artificial intelligence increases by 50%, illustrating the Jevons Paradox."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "corporate culture",
+            "nike",
+            "politics"
+          ],
+          "first_utc": "2026-08-20T16:28:07Z",
+          "latest_utc": "2026-08-20T16:28:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.7112,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Nike",
+          "Ted Cruz",
+          "Stock Market",
+          "Corporate Culture"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-61e78a344a713d2e7de5",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 85,
+          "evidence": 60,
+          "saturation_risk": 50,
+          "seo": 75
+        },
+        "summary": "Senator Ted Cruz celebrates as Nike stock falls to a 12-year low, with critics attributing the decline to corporate social policies."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "china beige book",
+            "china economy",
+            "consumption"
+          ],
+          "first_utc": "2026-08-20T16:17:30Z",
+          "latest_utc": "2026-08-20T16:17:30Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8881,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China Beige Book",
+          "China Economy",
+          "Consumption",
+          "Industrial Production"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-6abdea86f3bd9e155a97",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 55,
+          "evidence": 55,
+          "saturation_risk": 20,
+          "seo": 50
+        },
+        "summary": "Analysis of China's economic strategy, noting that plans to boost domestic consumption continue to focus heavily on production."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "earnings report",
+            "jensen huang",
+            "nvidia"
+          ],
+          "first_utc": "2026-08-20T16:16:00Z",
+          "latest_utc": "2026-08-20T16:16:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9131,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "NVIDIA",
+          "Jensen Huang",
+          "Earnings Report",
+          "Semiconductors"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-6ec7d24e7903cd58dca0",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 85,
+          "engagement": 85,
+          "evidence": 80,
+          "saturation_risk": 45,
+          "seo": 90
+        },
+        "summary": "Preview of NVIDIA's upcoming quarterly earnings report hosted by CEO Jensen Huang, with analysts evaluating paths to new all-time highs."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "economic forecasting",
+            "market commentary",
+            "peter schiff"
+          ],
+          "first_utc": "2026-08-20T16:14:51Z",
+          "latest_utc": "2026-08-20T16:14:51Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9323,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Peter Schiff",
+          "Market Commentary",
+          "Social Media",
+          "Economic Forecasting"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-a14d155c79f20a181129",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 40,
+          "engagement": 50,
+          "evidence": 30,
+          "saturation_risk": 15,
+          "seo": 45
+        },
+        "summary": "Peter Schiff comments on social media predicting an economic or market event will occur sooner than expected."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "legal proceedings",
+            "lindsay clancy",
+            "social media controversy"
+          ],
+          "first_utc": "2026-08-20T16:11:14Z",
+          "latest_utc": "2026-08-20T16:11:14Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9926,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Lindsay Clancy",
+          "True Crime",
+          "Legal Proceedings",
+          "Social Media Controversy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-b514dfb5694e935b7b3a",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 50,
+          "engagement": 70,
+          "evidence": 45,
+          "saturation_risk": 45,
+          "seo": 65
+        },
+        "summary": "Social media commentary detailing the tragic criminal case of Lindsay Clancy and the actions surrounding her children."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "banking",
+            "deutsche bank",
+            "energy trading"
+          ],
+          "first_utc": "2026-08-20T16:18:08Z",
+          "latest_utc": "2026-08-20T16:20:45Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 23.834,
+          "update_velocity": 22.9299
+        },
+        "entities_topics": [
+          "Deutsche Bank",
+          "Energy Trading",
+          "Hiring",
+          "Banking"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-c88b4de7b2b0874f0839",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 65,
+          "engagement": 55,
+          "evidence": 70,
+          "saturation_risk": 40,
+          "seo": 60
+        },
+        "summary": "Deutsche Bank is reportedly rebuilding and revamping its energy trading division through a series of new hires."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "ben bernanke",
+            "central banking",
+            "federal reserve"
+          ],
+          "first_utc": "2026-08-20T16:19:26Z",
+          "latest_utc": "2026-08-20T16:19:26Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.8559,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Mary Daly",
+          "Ben Bernanke",
+          "Federal Reserve",
+          "Monetary Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "current_v1_path": "NO_CURRENT_PATH",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-f29daca86d55e7dd1b09",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 65,
+          "evidence": 65,
+          "saturation_risk": 25,
+          "seo": 60
+        },
+        "summary": "Discussion of Federal Reserve official Mary Daly's Tokyo speech advocating a non-gradualist 'cold turkey' policy approach, referencing Ben Bernanke."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": null,
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "a6b0ea02a7f242c8a98b3ea4434cce448a024922bfa2acd13edba46c844f4eec",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-14d30ed67317bde2ba590766",
+      "cc-x-headline-22ae11d33f33b462a850a8f2",
+      "cc-x-headline-709b2ce53ef925f93d265a96",
+      "cc-x-headline-970d4e90ebd87900c4e7f34b",
+      "cc-x-headline-a4b853496b3c2688b5d5d695",
+      "cc-x-headline-ba2e98fae74fd87ac9157e03",
+      "cc-x-headline-bb81e72d20577c03f869aca1",
+      "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+      "cc-x-headline-d6728de8bd1c63c4dd913785",
+      "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+      "cc-x-headline-e461d046cbb46e255078935e",
+      "cc-x-headline-ec51c398a61971dc490bdab9"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 35,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a4b853496b3c2688b5d5d695",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a4b853496b3c2688b5d5d695"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Sky News"
+      ],
+      "event_topic_summary": "Major UK banking institutions warn the government against implementing further tax increases.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-14c450561a082a4fe444",
+      "member_headline_ids": [
+        "cc-x-headline-a4b853496b3c2688b5d5d695"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "Banking",
+        "Taxation",
+        "UK Economy",
+        "Fiscal Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 45,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 35,
+        "saturation_risk": 20,
+        "seo_potential": 40
+      },
+      "canonical_representative_headline_id": "cc-x-headline-14d30ed67317bde2ba590766",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-14d30ed67317bde2ba590766"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "SPCX"
+      ],
+      "event_topic_summary": "The SPCX ETF has fallen back below its initial public offering (IPO) price.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-1fe6ae89eeb4d36eb471",
+      "member_headline_ids": [
+        "cc-x-headline-14d30ed67317bde2ba590766"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "IPO",
+        "ETF",
+        "Stock Market",
+        "Trading"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 35,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d6728de8bd1c63c4dd913785",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d6728de8bd1c63c4dd913785"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Scott Bessent",
+        "Iran",
+        "United States"
+      ],
+      "event_topic_summary": "Scott Bessent outlines a strategy to collapse the Iranian regime through economic warfare rather than major US combat operations.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-2c8c988dcf3a25da0d70",
+      "member_headline_ids": [
+        "cc-x-headline-d6728de8bd1c63c4dd913785"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "Geopolitics",
+        "Economic Warfare",
+        "Foreign Policy",
+        "Sanctions"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 30,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-22ae11d33f33b462a850a8f2",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-22ae11d33f33b462a850a8f2"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Jevons Paradox"
+      ],
+      "event_topic_summary": "AI token prices crash by 40% while enterprise spending on artificial intelligence increases by 50%, illustrating the Jevons Paradox.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-44850304fbe8fbf6c721",
+      "member_headline_ids": [
+        "cc-x-headline-22ae11d33f33b462a850a8f2"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "Artificial Intelligence",
+        "Token Prices",
+        "Enterprise Spend",
+        "Technology",
+        "Economics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 50,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-709b2ce53ef925f93d265a96",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-709b2ce53ef925f93d265a96"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Nike",
+        "Ted Cruz"
+      ],
+      "event_topic_summary": "Senator Ted Cruz celebrates as Nike stock falls to a 12-year low, with critics attributing the decline to corporate social policies.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-61e78a344a713d2e7de5",
+      "member_headline_ids": [
+        "cc-x-headline-709b2ce53ef925f93d265a96"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "Stock Market",
+        "Corporate Culture",
+        "Retail",
+        "Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 55,
+        "qualified_engagement_potential": 55,
+        "saturation_risk": 20,
+        "seo_potential": 50
+      },
+      "canonical_representative_headline_id": "cc-x-headline-bb81e72d20577c03f869aca1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-bb81e72d20577c03f869aca1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China Beige Book"
+      ],
+      "event_topic_summary": "Analysis of China's economic strategy, noting that plans to boost domestic consumption continue to focus heavily on production.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-6abdea86f3bd9e155a97",
+      "member_headline_ids": [
+        "cc-x-headline-bb81e72d20577c03f869aca1"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "China Economy",
+        "Consumption",
+        "Industrial Production",
+        "Economic Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 45,
+        "seo_potential": 90
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e461d046cbb46e255078935e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e461d046cbb46e255078935e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "NVIDIA",
+        "Jensen Huang"
+      ],
+      "event_topic_summary": "Preview of NVIDIA's upcoming quarterly earnings report hosted by CEO Jensen Huang, with analysts evaluating paths to new all-time highs.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-6ec7d24e7903cd58dca0",
+      "member_headline_ids": [
+        "cc-x-headline-e461d046cbb46e255078935e"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "Earnings Report",
+        "Semiconductors",
+        "Stock Market",
+        "Technology Sector"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 40,
+        "evidence_prospects": 30,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 15,
+        "seo_potential": 45
+      },
+      "canonical_representative_headline_id": "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-dad2e6c560f7ec03dd4bb879"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Peter Schiff"
+      ],
+      "event_topic_summary": "Peter Schiff comments on social media predicting an economic or market event will occur sooner than expected.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-a14d155c79f20a181129",
+      "member_headline_ids": [
+        "cc-x-headline-dad2e6c560f7ec03dd4bb879"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "Market Commentary",
+        "Social Media",
+        "Economic Forecasting"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 50,
+        "evidence_prospects": 45,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 45,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-bfbe0c02b51b0b0e05080cc7"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Lindsay Clancy"
+      ],
+      "event_topic_summary": "Social media commentary detailing the tragic criminal case of Lindsay Clancy and the actions surrounding her children.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-b514dfb5694e935b7b3a",
+      "member_headline_ids": [
+        "cc-x-headline-bfbe0c02b51b0b0e05080cc7"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "True Crime",
+        "Legal Proceedings",
+        "Social Media Controversy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 55,
+        "saturation_risk": 40,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-ec51c398a61971dc490bdab9",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-970d4e90ebd87900c4e7f34b",
+          "cc-x-headline-ec51c398a61971dc490bdab9"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "Deutsche Bank"
+      ],
+      "event_topic_summary": "Deutsche Bank is reportedly rebuilding and revamping its energy trading division through a series of new hires.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-c88b4de7b2b0874f0839",
+      "member_headline_ids": [
+        "cc-x-headline-970d4e90ebd87900c4e7f34b",
+        "cc-x-headline-ec51c398a61971dc490bdab9"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "Energy Trading",
+        "Hiring",
+        "Banking",
+        "Financial Markets"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 65,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 25,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-ba2e98fae74fd87ac9157e03",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-ba2e98fae74fd87ac9157e03"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Mary Daly",
+        "Ben Bernanke",
+        "Federal Reserve"
+      ],
+      "event_topic_summary": "Discussion of Federal Reserve official Mary Daly's Tokyo speech advocating a non-gradualist 'cold turkey' policy approach, referencing Ben Bernanke.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-f29daca86d55e7dd1b09",
+      "member_headline_ids": [
+        "cc-x-headline-ba2e98fae74fd87ac9157e03"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "topics": [
+        "Monetary Policy",
+        "Interest Rates",
+        "Central Banking",
+        "Macroeconomics"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-14d30ed67317bde2ba590766",
+        "cc-x-headline-22ae11d33f33b462a850a8f2",
+        "cc-x-headline-709b2ce53ef925f93d265a96",
+        "cc-x-headline-970d4e90ebd87900c4e7f34b",
+        "cc-x-headline-a4b853496b3c2688b5d5d695",
+        "cc-x-headline-ba2e98fae74fd87ac9157e03",
+        "cc-x-headline-bb81e72d20577c03f869aca1",
+        "cc-x-headline-bfbe0c02b51b0b0e05080cc7",
+        "cc-x-headline-d6728de8bd1c63c4dd913785",
+        "cc-x-headline-dad2e6c560f7ec03dd4bb879",
+        "cc-x-headline-e461d046cbb46e255078935e",
+        "cc-x-headline-ec51c398a61971dc490bdab9"
+      ],
+      "partition_id": "rolling-x-leaf-0be799dbd7b44fb59c1a",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 9113,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 792,
+    "held_before_semantic_assignment_count": 780,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "2fc9aa51f4c9a99e7927df169760a90ff4c7495244d2345ddd6e71f7eb268ecb",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [],
+  "reason_code": "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "25ea066792ce878ba24ad36fcf374e8c50431b16267712599f99367d07cbba48",
+          "latency_seconds": 51.1971,
+          "logical_invocation_id": "inv_rolling_x_leaf_cc91338cc09fef311980",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "c0fb512376fcb160bbc0e88a2cc6d46259df1d8a82e6b7e3f0dc1616a86b87b0",
+          "prompt_logical_hash": "c5e437e733b4bfbb035d1b63dc8eada4ebcac45deff9749d08785946df9fd2fd",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-e3mIaoS4IbqK7OsPsfPO8Qs",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_cc91338cc09fef311980",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 4,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 10900,
+            "completion_tokens_details": {
+              "reasoning_tokens": 7395
+            },
+            "prompt_tokens": 5918,
+            "total_tokens": 16818
+          },
+          "work_item_id": "rolling-x-leaf-0be799dbd7b44fb59c1a"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_cc91338cc09fef311980",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 4,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_cc91338cc09fef311980",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 4,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "new/claude-fable-5": 1,
+          "new/claude-opus-5": 1,
+          "new/gpt-5.6-sol-xhigh": 1,
+          "vx/gemini-3.1-pro-preview(high)": 1,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 51.1978,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 10900.0,
+        "prompt_tokens": 5918.0,
+        "total_tokens": 16818.0
+      },
+      "work_item_id": "rolling-x-leaf-0be799dbd7b44fb59c1a"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "rejected",
+          "failure_class": "http_403_forbidden",
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "21b20b79e570472f9a875c115c5cb9adf07b3608d88f859c057f818ce3399476",
+          "latency_seconds": 2.0439,
+          "logical_invocation_id": "inv_rolling_x_global_985013b1c6435dd1ddbf",
+          "model_identity_provider_verified": false,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "prompt_logical_hash": "5a6d41ec748d38887bbf951a25ac58255e8bf717fe1a23117c2bf5ca5ad82f34",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": null,
+          "provider_status_class": "4xx_client_403",
+          "remaining_attempt_budget": 4,
+          "requested_model": "new/claude-fable-5",
+          "resolved_model": null,
+          "retry_after_seconds": 62.0,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "new/claude-fable-5": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_985013b1c6435dd1ddbf",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 3,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 5,
+            "per_model_max_attempts": [
+              2,
+              1,
+              1,
+              1
+            ],
+            "remaining_attempt_budget": 4,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "NOT_EVALUATED",
+          "usage": null,
+          "work_item_id": "rolling-x-global-a6b0ea02a7f242c8a98b"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "new/claude-fable-5": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_985013b1c6435dd1ddbf",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 5,
+        "per_model_max_attempts": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "remaining_attempt_budget": 4,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_985013b1c6435dd1ddbf",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": false,
+      "models_attempted_in_order": [
+        "new/claude-fable-5"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 5,
+        "per_model_max_attempts": {
+          "new/claude-fable-5": 2,
+          "new/claude-opus-5": 1,
+          "new/gpt-5.6-sol-xhigh": 1,
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": null,
+      "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+      "terminal_selected_route": null,
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 2.0441,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": null,
+      "work_item_id": "rolling-x-global-a6b0ea02a7f242c8a98b"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "rejected",
+        "failure_class": "http_403_forbidden",
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "21b20b79e570472f9a875c115c5cb9adf07b3608d88f859c057f818ce3399476",
+        "latency_seconds": 2.0439,
+        "logical_invocation_id": "inv_rolling_x_global_985013b1c6435dd1ddbf",
+        "model_identity_provider_verified": false,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "prompt_logical_hash": "5a6d41ec748d38887bbf951a25ac58255e8bf717fe1a23117c2bf5ca5ad82f34",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": null,
+        "provider_status_class": "4xx_client_403",
+        "remaining_attempt_budget": 4,
+        "requested_model": "new/claude-fable-5",
+        "resolved_model": null,
+        "retry_after_seconds": 62.0,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "new/claude-fable-5": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_985013b1c6435dd1ddbf",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 3,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 5,
+          "per_model_max_attempts": [
+            2,
+            1,
+            1,
+            1
+          ],
+          "remaining_attempt_budget": 4,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "NOT_EVALUATED",
+        "usage": null,
+        "work_item_id": "rolling-x-global-a6b0ea02a7f242c8a98b"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "new/claude-fable-5": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_985013b1c6435dd1ddbf",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 3,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 5,
+      "per_model_max_attempts": [
+        2,
+        1,
+        1,
+        1
+      ],
+      "remaining_attempt_budget": 4,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_985013b1c6435dd1ddbf",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": false,
+    "models_attempted_in_order": [
+      "new/claude-fable-5"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 3,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 5,
+      "per_model_max_attempts": {
+        "new/claude-fable-5": 2,
+        "new/claude-opus-5": 1,
+        "new/gpt-5.6-sol-xhigh": 1,
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": null,
+    "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+    "terminal_selected_route": null,
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 2.0441,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": null,
+    "work_item_id": "rolling-x-global-a6b0ea02a7f242c8a98b"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": null,
+  "selected_headline_ids": [],
+  "selection_rationale": "",
+  "status": "BLOCKED",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 53.2419,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 10900.0,
+      "prompt_tokens": 5918.0,
+      "total_tokens": 16818.0
+    }
+  }
+}
