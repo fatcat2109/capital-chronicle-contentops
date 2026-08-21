@@ -68,7 +68,7 @@
   ],
   "committed_residual_replay": {
     "path": "docs/automation/TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1/committed_17_story_residual_replay_v1.json",
-    "sha256": "00e4c7892aceae65e3c5ccf7b0c0be78b90092e6df0c79f0543a7d04652a204e",
+    "sha256": "da2d5e8348c3d9bd52e5b70aa612d4a1cc0daae8d89abfd789c19893dbd45f66",
     "residual_story_count": 17,
     "exact_first_party_surface_story_count": 5,
     "official_bytes_verified_story_count": 5,
@@ -81,9 +81,9 @@
   },
   "genuine_current_four_frontier_rehearsal": {
     "summary_path": "docs/automation/TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1/genuine_current_production_day_rehearsal/multi_frontier_floor_rehearsal_summary_v1.json",
-    "summary_sha256": "5a97c434ce7cd6533a51acf159c7caf7d63f61a54c749c844fc8625d56b4257f",
+    "summary_sha256": "b529d196b6edb9273fed2693d0761dda2cfc4790c96e60163564342ea0bc00e9",
     "frozen_input_path": "docs/automation/TASK_V1_MULTI_SURFACE_FIRST_PARTY_LOCATOR_ROUTING_AND_4_32_FLOOR_CLOSURE_V1/genuine_current_production_day_rehearsal/frozen_current_rolling_input_v1.json",
-    "frozen_input_file_sha256": "d16a3c84e766ff6351cffc066c1992fb57b703efb50750f06ca7de548c85db32",
+    "frozen_input_file_sha256": "8babb7fec0f45eb94f012e8feb44c802dabff3f575536e93b2f467dbbd2068e9",
     "canonical_rolling_input_sha256": "1b396226a48091982c0e5831882175c8260e40d162ad65ff683e173a12d2d51b",
     "cutoff_utc": "2026-08-21T16:10:47.306418Z",
     "full_current_headline_count": 792,
