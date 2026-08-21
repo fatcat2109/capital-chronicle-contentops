@@ -81340,7 +81340,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-21T11:08:17Z",
+  "generation_timestamp_utc": "2026-08-21T12:49:23Z",
   "generator_version": "2.5.0",
   "included_roots": [
     "live_contentops/",
@@ -117467,7 +117467,7 @@
     {
       "id": "python_symbol:scripts/build_v1_distinct_story_frontier_closure_summary.py::main",
       "kind": "python_function",
-      "line": 187,
+      "line": 190,
       "path": "scripts/build_v1_distinct_story_frontier_closure_summary.py",
       "symbol": "main"
     },
@@ -119799,7 +119799,7 @@
     {
       "id": "scripts/build_v1_distinct_story_frontier_closure_summary.py",
       "kind": "python_module",
-      "size_bytes": 13240
+      "size_bytes": 13470
     },
     {
       "id": "scripts/capture_v1_bounded_correction_ui_v1.py",
@@ -127887,6 +127887,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "4788b57bde3a210fb2653268ce93e4a8346921e2",
-  "source_tree_digest": "9aa02643dbd3dc32cf5c2479ab1870007c3a462a319b4f56c1b4185c06a860dc"
+  "source_head": "73b2be822ca0920a4f063ac3b561d6c322ab1754",
+  "source_tree_digest": "55015e041f4e7a952b9c93447d61c8454a15e92eae04103529001aa03433af04"
 }
