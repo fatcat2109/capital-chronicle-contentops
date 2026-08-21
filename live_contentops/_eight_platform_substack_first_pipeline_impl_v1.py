@@ -434,7 +434,9 @@ def build_native_derivative_payloads(
         or article.get("editorial_mode")
         or ""
     ).upper()
-    if ordinary_brief or article_mode == "BREAKING_BRIEF":
+    media_ids = [str(value) for value in media_asset_ids if str(value)]
+    text_only_package = not media_ids
+    if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package:
         def accepted_brief_sentence(*values: Any) -> str:
             for value in values:
                 normalized = " ".join(str(value or "").split())
@@ -476,8 +478,6 @@ def build_native_derivative_payloads(
             article.get("social_cross_asset_summary"),
             article.get("cross_asset_implications"),
         )
-        media_ids = [str(value) for value in media_asset_ids if str(value)]
-
         def brief_layout(*, detail: str, continuation: str, limit: int) -> dict[str, Any]:
             layout = _root_and_replies(
                 title=title,

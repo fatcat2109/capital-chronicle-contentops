@@ -155,7 +155,9 @@ def _surface_matches(surface_id: str, request: Mapping[str, Any]) -> bool:
         return bool(
             re.search(r"\b(state department|department of state)\b", text)
             and re.search(
-                r"\b(foreign military sale|military sale|arms sale|major arms sale|kc-46a?)\b",
+                r"\b(foreign military sales?|military sales?|arms sales?|major arms sales?|kc-46a?)\b"
+                r"|\bpossible sale of\b.{0,100}\b(aircraft|helicopters?|missiles?|munitions?|"
+                r"weapons?|weapon systems?)\b",
                 text,
             )
         )

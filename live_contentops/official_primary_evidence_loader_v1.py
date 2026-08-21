@@ -245,6 +245,18 @@ def _html_fragment_text(value: str) -> str:
     return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", value)).split())
 
 
+def _html_canonical_visible_text(value: str) -> str:
+    """Return visible official-page text without executable or comment boilerplate."""
+    visible = re.sub(r"<!--[\s\S]*?-->", " ", value)
+    visible = re.sub(
+        r"<(?:script|style|noscript|template)\b[^>]*>[\s\S]*?</(?:script|style|noscript|template)>",
+        " ",
+        visible,
+        flags=re.IGNORECASE,
+    )
+    return _html_fragment_text(visible)
+
+
 def _scheduled_period_or_edition_label(title: str) -> str | None:
     """Return only an exact date/period suffix already present in a schedule-row title."""
     match = re.search(
@@ -752,6 +764,11 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     }
                     else []
                 )
+                canonical_text = (
+                    _html_canonical_visible_text(text)
+                    if content_type in {"application/xhtml+xml", "text/html"}
+                    else text
+                )
                 if schedule_rows:
                     verified.update({
                         "official_schedule",
@@ -797,7 +814,9 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     "canonical_content_sha256": content_sha256,
                     "content_type": content_type,
                     "byte_length": len(body),
-                    "canonical_content_text": text[:100_000] if text else None,
+                    "canonical_content_text": (
+                        canonical_text[:100_000] if canonical_text else None
+                    ),
                     "source_excerpt": "\n".join(
                         str(row["source_text"]) for row in schedule_rows
                     ) or None,

@@ -120,6 +120,42 @@ def test_breaking_and_ordinary_briefs_are_native_self_contained_and_undispatched
             )
 
 
+def test_document_lens_without_article_media_uses_eight_text_only_native_packages():
+    canonical_url = "https://capitalchronicle.substack.com/p/pending-publication"
+    article = {
+        "title": "State Department Approves Possible APKWS II Sale to Italy",
+        "subtitle": (
+            "The August 21 notice covers Italy's request for 5,031 guidance "
+            "sections under Transmittal #26-92."
+        ),
+        "social_hook": (
+            "The State Department approved a possible foreign military sale "
+            "to Italy."
+        ),
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "substack_body_markdown": (
+            "The official notice establishes the possible-sale status. "
+            "Italy requested 5,031 guidance sections. "
+            "A later official record would establish a subsequent change."
+        ),
+    }
+
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection={},
+        canonical_url=canonical_url,
+        media_asset_ids=(),
+    )
+
+    assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
+    assert len(payloads) == 8
+    assert all(canonical_url in str(payload.get("full_text") or payload["text"]) for payload in payloads.values())
+    assert all(payload["hard_truncation_used"] is False for payload in payloads.values())
+    for platform in ("x", "threads"):
+        assert all(not row["media_asset_ids"] for row in payloads[platform]["posts"])
+        assert payloads[platform]["quality_metrics"]["complete_article_visual_count"] == 0
+
+
 def test_native_briefs_never_promote_pre_evidence_selection_hypotheses() -> None:
     canonical_url = "https://capitalchronicle.substack.com/p/final-article-only"
     article = {

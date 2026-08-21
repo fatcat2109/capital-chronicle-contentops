@@ -848,17 +848,91 @@ def _attention_metadata_for_leaf_cluster(
     }
 
 
+def _context_routed_official_locator_projection(
+    cluster: Mapping[str, Any],
+    records_by_id: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Project an existing exact locator predicate without discovery or authority.
+
+    The official locator remains the only registry and routing authority.  This helper merely
+    supplies its already-accepted context fields before acquisition so scheduling can represent
+    a route the downstream adapter would otherwise discover later.
+    """
+    from live_contentops.official_primary_source_locator_v1 import (
+        routed_official_locator_families,
+        routed_official_locator_surface_ids,
+    )
+
+    headline_ids = [
+        str(value)
+        for value in (
+            cluster.get("member_headline_ids") or cluster.get("headline_ids") or []
+        )
+        if str(value)
+    ]
+    headline_texts: list[str] = []
+    follow_up_needs: list[str] = []
+    record_tags: list[str] = []
+    for headline_id in headline_ids:
+        external = (records_by_id.get(headline_id) or {}).get("external_content") or {}
+        headline_text = " ".join(str(external.get("headline_text") or "").split())
+        if headline_text:
+            headline_texts.append(headline_text)
+        follow_up_needs.extend(
+            str(value) for value in external.get("follow_up_data_need_candidates") or []
+            if str(value)
+        )
+        record_tags.extend(
+            str(value) for value in external.get("tags") or [] if str(value)
+        )
+
+    leaf_summaries = [
+        str(value) for value in cluster.get("leaf_summaries") or [] if str(value)
+    ]
+    event_topic_summary = str(cluster.get("event_topic_summary") or "").strip()
+    if event_topic_summary and event_topic_summary not in leaf_summaries:
+        leaf_summaries.append(event_topic_summary)
+    entities_topics = list(dict.fromkeys([
+        *[str(value) for value in cluster.get("entities_topics") or [] if str(value)],
+        *[str(value) for value in cluster.get("entities") or [] if str(value)],
+        *[str(value) for value in cluster.get("topics") or [] if str(value)],
+        *record_tags,
+    ]))
+    request = {
+        "needed_evidence": list(cluster.get("needed_evidence") or []),
+        "story_context": {
+            "entities_topics": entities_topics,
+            "leaf_summaries": leaf_summaries,
+            "why_now": str(cluster.get("why_now") or ""),
+            "headline_text": " ".join(headline_texts),
+            "event_topic_summary": event_topic_summary,
+            "follow_up_data_need_candidates": list(dict.fromkeys(follow_up_needs)),
+            "needed_evidence": list(cluster.get("needed_evidence") or []),
+            "seo_intent": str(cluster.get("seo_intent") or ""),
+        },
+    }
+    surface_ids = routed_official_locator_surface_ids(request)
+    families = routed_official_locator_families(request)
+    return {
+        "applicable": bool(surface_ids and families),
+        "surface_ids": list(surface_ids),
+        "families": sorted(families),
+        "projection_only": True,
+        "grants_factual_or_evidence_or_publication_authority": False,
+    }
+
+
 def _leaf_evidence_reachability(
     cluster: Mapping[str, Any],
     records_by_id: Mapping[str, Mapping[str, Any]],
 ) -> dict[str, Any]:
     """Deterministic pre-global-editor evidence-reachability metadata (editorial only).
 
-    Derived solely from already-known product state: official source URLs bound to member
-    headlines and the first-party source families those hosts belong to. No provider call and
-    no network request is made. Grants NO factual, numeric, evidence, permission, or
-    publication authority. The global editor may still rank stories whose current V1 evidence
-    path is difficult or absent; reachability is a feasibility/priority signal only.
+    Derived solely from already-known product state: bound official URLs plus the existing exact
+    official-locator context predicates. No provider call, discovery, or network request is made.
+    Grants NO factual, numeric, evidence, permission, or publication authority. The global editor
+    may still rank stories whose current V1 path is difficult or absent; reachability is a
+    feasibility/priority signal only.
     """
     from urllib.parse import urlsplit
 
@@ -882,9 +956,14 @@ def _leaf_evidence_reachability(
             if host in hosts:
                 matched_families.add(family)
     direct_primary_binding = bool(matched_families)
-    bounded_locator_available = bool(matched_families & set(LOCATOR_FAMILIES))
+    locator_projection = _context_routed_official_locator_projection(cluster, records_by_id)
+    bounded_locator_available = bool(
+        matched_families & set(LOCATOR_FAMILIES)
+    ) or bool(locator_projection["applicable"])
     if direct_primary_binding:
         current_v1_path = "SUPPORTED_NOW"
+    elif locator_projection["applicable"]:
+        current_v1_path = "LOCATOR_SUPPORTED"
     elif official_urls:
         current_v1_path = "CONDITIONAL"
     else:
@@ -893,6 +972,9 @@ def _leaf_evidence_reachability(
         "direct_primary_binding": direct_primary_binding,
         "supported_source_families": sorted(matched_families),
         "bounded_locator_available": bounded_locator_available,
+        "context_routed_locator_applicable": locator_projection["applicable"],
+        "context_routed_locator_surface_ids": locator_projection["surface_ids"],
+        "context_routed_locator_families": locator_projection["families"],
         "current_v1_path": current_v1_path,
         "grants_factual_or_evidence_or_publication_authority": False,
     }
@@ -1817,6 +1899,7 @@ def _rolling_x_publishability_path_profile(
     headline_ids: Sequence[str],
     *,
     records_by_id: Mapping[str, Mapping[str, Any]],
+    story_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Rank bounded evidence paths before acquisition; never grant evidence authority."""
     from live_contentops.official_primary_evidence_loader_v1 import (
@@ -1839,10 +1922,19 @@ def _rolling_x_publishability_path_profile(
         for family_hosts in OFFICIAL_HOSTS_BY_FAMILY.values()
         for host in family_hosts
     }
+    locator_projection = _context_routed_official_locator_projection(
+        {**dict(story_context or {}), "headline_ids": list(headline_ids)},
+        records_by_id,
+    )
     if hosts.intersection(exact_official_hosts):
-        priority = 3
+        priority = 4
         tier = "EXACT_OFFICIAL_DIRECT"
         bounded_request_upper_bound = 1
+    elif locator_projection["applicable"]:
+        priority = 3
+        tier = "EXACT_CONTEXT_ROUTED_OFFICIAL_LOCATOR"
+        # One bounded locator read plus one exact candidate-document read.
+        bounded_request_upper_bound = 2
     elif hosts.intersection(REPUTABLE_SECONDARY_HOSTS):
         priority = 2
         tier = "REPUTABLE_PUBLIC_SECONDARY"
@@ -1861,6 +1953,9 @@ def _rolling_x_publishability_path_profile(
         "tier": tier,
         "bound_public_url_count": len(urls),
         "bounded_request_upper_bound_per_candidate": bounded_request_upper_bound,
+        "context_routed_locator_applicable": locator_projection["applicable"],
+        "context_routed_locator_surface_ids": locator_projection["surface_ids"],
+        "context_routed_locator_families": locator_projection["families"],
         "grants_factual_or_evidence_or_publication_authority": False,
     }
 
@@ -2843,7 +2938,7 @@ def build_bounded_rolling_x_publishability_pool(
         row["publishability_pool_origin"] = "EDITORIAL_SHORTLIST"
         row["publishability_original_order"] = expected_rank
         row["publishability_path_profile"] = _rolling_x_publishability_path_profile(
-            headline_ids, records_by_id=records_by_id
+            headline_ids, records_by_id=records_by_id, story_context=row
         )
         seen_cluster_ids.add(cluster_id)
         seen_headline_ids.update(headline_ids)
@@ -2903,7 +2998,7 @@ def build_bounded_rolling_x_publishability_pool(
                 "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
                 "publishability_original_order": len(existing) + leaf_order,
                 "publishability_path_profile": _rolling_x_publishability_path_profile(
-                    member_ids, records_by_id=records_by_id
+                    member_ids, records_by_id=records_by_id, story_context=leaf
                 ),
             })
 
@@ -2924,7 +3019,7 @@ def build_bounded_rolling_x_publishability_pool(
         row["publishability_pool_origin"] = "DETERMINISTIC_EVIDENCE_REACHABILITY_RESERVE"
         row["publishability_original_order"] = len(existing) + fallback_order
         row["publishability_path_profile"] = _rolling_x_publishability_path_profile(
-            headline_ids, records_by_id=records_by_id
+            headline_ids, records_by_id=records_by_id, story_context=row
         )
         reserve_rows.append(row)
         for leaf_id in [str(value) for value in (row.get("leaf_cluster_ids") or [])]:

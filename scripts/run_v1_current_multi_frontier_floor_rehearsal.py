@@ -692,6 +692,61 @@ def probe(
     return {"status": "FRONTIER_COMPLETE_NO_XHIGH", **row, "summary": state}
 
 
+def probe_locator_recovery(
+    root: Path,
+    continuity_root: Path,
+    sidecar_glob: str,
+    task_label: str,
+) -> dict[str, Any]:
+    """Run one canary-only slice from the prior walk's held current continuity.
+
+    This does not append a fifth 4/32 frontier. It starts a separate single-slice canary state,
+    binds the exact prior frozen input/evaluated identities, and lets the unchanged frontier and
+    publishability builders choose from held identities using current evidence-path priority.
+    """
+    if _state_path(root).exists():
+        raise ValueError("locator_recovery_root_must_be_new")
+    source_summary_path = continuity_root / "multi_frontier_floor_rehearsal_summary_v1.json"
+    source_input_path = continuity_root / "frozen_current_rolling_input_v1.json"
+    source_summary = _load(source_summary_path)
+    source_input = _load(source_input_path)
+    if int(source_summary.get("frontier_count") or 0) != MAX_FRONTIERS:
+        raise ValueError("locator_recovery_four_frontier_continuity_required")
+    if str(source_summary.get("rolling_input_sha256") or "") != _sha(source_input):
+        raise ValueError("locator_recovery_rolling_input_binding_invalid")
+    if source_summary.get("pending_frontier"):
+        raise ValueError("locator_recovery_pending_parent_frontier_forbidden")
+
+    state = _new_state(
+        root,
+        sidecar_glob,
+        rolling_input_path=source_input_path,
+        task_label=task_label,
+        acceptance_profile=MVP_CANARY_ACCEPTANCE_PROFILE,
+    )
+    state["evaluated_headline_ids"] = sorted(
+        str(value) for value in source_summary.get("evaluated_headline_ids") or []
+    )
+    state["input_mode"] = "GENUINE_CURRENT_HELD_CONTINUITY_RECOVERY"
+    state["locator_recovery_slice"] = True
+    state["locator_recovery_does_not_extend_4_32_frontiers"] = True
+    state["continuity_binding"] = {
+        "source_root": str(continuity_root),
+        "source_summary_sha256": _sha(source_summary),
+        "source_rolling_input_sha256": _sha(source_input),
+        "source_evaluated_headline_ids_sha256": _sha(state["evaluated_headline_ids"]),
+        "source_frontier_count": MAX_FRONTIERS,
+        "source_attempted_distinct_story_count": int(
+            source_summary.get("attempted_distinct_story_count") or 0
+        ),
+        "source_remaining_held_identity_count": int(
+            source_summary.get("remaining_held_identity_count") or 0
+        ),
+    }
+    _write(_state_path(root), state)
+    return probe(root, sidecar_glob)
+
+
 def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
     state = _load(_state_path(root))
     pending = dict(state.get("pending_frontier") or {})
@@ -926,7 +981,9 @@ def main() -> int:
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument(
         "--action",
-        choices=("probe", "complete", "summary", "repair-empty-last"),
+        choices=(
+            "probe", "probe-locator-recovery", "complete", "summary", "repair-empty-last"
+        ),
         required=True,
     )
     parser.add_argument("--sidecar-glob", default=DEFAULT_X_SIDECAR_GLOB)
@@ -936,6 +993,7 @@ def main() -> int:
     parser.add_argument("--worker-return", type=Path)
     parser.add_argument("--task-label", default=TASK)
     parser.add_argument("--acceptance-profile")
+    parser.add_argument("--continuity-root", type=Path)
     args = parser.parse_args()
     if sum(bool(value) for value in (
         args.rolling_input, args.parent_cycle_root, args.cycle_artifact
@@ -951,6 +1009,17 @@ def main() -> int:
             args.cycle_artifact.resolve(strict=True) if args.cycle_artifact else None,
             args.task_label,
             args.acceptance_profile,
+        )
+    elif args.action == "probe-locator-recovery":
+        if args.continuity_root is None:
+            raise ValueError("continuity_root_required")
+        if any((args.rolling_input, args.parent_cycle_root, args.cycle_artifact)):
+            raise ValueError("locator_recovery_uses_bound_continuity_input_only")
+        result = probe_locator_recovery(
+            root,
+            args.continuity_root.resolve(strict=True),
+            args.sidecar_glob,
+            args.task_label,
         )
     elif args.action == "complete":
         if args.worker_return is None:
