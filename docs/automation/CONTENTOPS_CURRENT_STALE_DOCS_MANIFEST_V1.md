@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
 Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, task-existence, canary, or sequencing assumptions.
@@ -32,10 +32,15 @@ Any file containing these current-looking claims is stale for routing unless exp
 - P0-G3 remains the current next task;
 - the original daily-output/Codex Automation bridge remains the current next task;
 - passive wait-for-perfect-candidate is the current sole next action.
+- the 4-qualified/32-intent throughput proof is a prerequisite for one supervised MVP canary.
 
 ## 3. Current replacement semantics
 
-- BUILD/PROOF floor: 4 qualified zero-public-write articles per newsroom production day.
+- MVP canary launch gate: one current useful zero-write article plus eight derivative intents,
+  hard-safe native XHIGH/claim/system validation, JIT nine-surface identity/readiness, and owner
+  audit before an explicit public-write grant.
+- POST-LAUNCH throughput/unattended-operation gate: 4 qualified zero-write articles and 32
+  derivative intents per newsroom production day.
 - FINAL V1 target: 5–8 published articles per newsroom production day.
 - Candidate abstention is valid; whole-day deficit is degraded unless exact hard external blocker.
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
@@ -45,8 +50,11 @@ Any file containing these current-looking claims is stale for routing unless exp
   `PAUSED` at that observation epoch; later zero-write tasks prove only that they issued no task
   mutation. Current existence/configuration/state claims are `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`.
 - FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
-- Current next capability is the exact first-party locator/source-family and query/publisher-resolution
-  closure demonstrated by the story-scoped reuse residual matrix, followed by the 4/32 floor proof.
+- Current next capability remains the exact one-candidate MVP canary-ready slice. The latest
+  2026-08-22 bounded current walk exhausted its four fixed slices at 48 identities/42 opportunities
+  without accepted evidence; no XHIGH or JIT step was authorized. Resume from the exact evidence
+  blocker. The earlier 41-story proof's two XHIGH returns remain audit inputs but both retain hard
+  claim/binding failures.
 
 ## 4. Historical/non-routing families
 
@@ -79,8 +87,8 @@ The current `docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md` has been rew
 
 ## 6. PR #12
 
-PR #12 is frozen historical P0-G4 preflight evidence and explicitly marked
-`FROZEN_SUPERSEDED_FOR_CURRENT_ROUTING` until the current 4/32 zero-write build floor is accepted.
+PR #12 remains frozen historical P0-G4 preflight evidence. It is not the current MVP canary slice
+and does not supply current candidate, JIT identity/readiness, or owner-gate proof.
 
 Do not merge or continue it as the current next task.
 

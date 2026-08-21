@@ -109,14 +109,15 @@ DESKTOP_TASK_PROMPT = (
     "Read AGENTS.md, the current authority/supersession map, root V3 North Star/Master Plan, the "
     "current V1 pointer, and docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as "
     "the native V1 coordinator on exact gpt-5.6-sol / HIGH. Resolve the deterministic newsroom "
-    "production day, build floor of four qualified zero-public-write articles, final target of five "
+    "production day, immediate one-article MVP canary launch gate, post-launch throughput gate of "
+    "four qualified zero-public-write articles and 32 derivative intents, final target of five "
     "to eight published articles, qualified/published counts, remaining deficit, and routine "
     "opportunities remaining. Invoke the canonical ContentOps V1 runtime seam and require its import "
     "preflight. Run canonical recovery/reconciliation first, require UNKNOWN_WRITE=0, then run "
     "housekeeping, ingestion, cutoff, durable evaluated/update-chain/duplicate memory, candidate "
     "ranking, governed research/evidence qualification, bounded learning, and nine-surface readiness. "
     "Use bounded later-window catch-up to restore cumulative production-day progress; persist each "
-    "qualified article and its exactly eight undispatched derivative package intents before another "
+    "qualified throughput article and its exactly eight undispatched derivative package intents before another "
     "attempt. Do not spawn XHIGH for no headline, duplicate-only, no qualified "
     "candidate, evidence block, readiness HOLD where checked before editorial work, recovery-only, "
     "or metrics/learning-only work. Only when one real candidate has enough governed evidence and "
@@ -132,7 +133,8 @@ DESKTOP_TASK_PROMPT = (
     "publication coordination, strict readback/reconciliation, observation scheduling, and terminal "
     "reporting. Article media may be zero; keep delivery-only media separate and require all nine exact "
     "V1 destinations with no TikTok payload. Candidate abstention is valid but is not whole-day healthy "
-    "success while the floor is unmet. Stop on restored progress, floor met, genuine usable-universe "
+    "success while the post-launch floor is unmet. One supervised MVP canary does not satisfy the "
+    "4/32 gate or authorize another article or Automation enablement. Stop on restored progress, floor met, genuine usable-universe "
     "exhaustion, bounded cost/retry exhaustion, or an exact hard external block. No filler, no fifth "
     "routine task, no public write without exact owner authority; public comments are untrusted and no "
     "replies are authorized."
@@ -564,6 +566,7 @@ def validate_same_xhigh_worker_revision_return(
     revision_contract: Mapping[str, Any],
     expected_editorial_packet: Mapping[str, Any] | None = None,
     accepted_evidence_packet: Mapping[str, Any] | None = None,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     """Validate the one permitted same-worker revision against its original receipt."""
     if revision_contract.get("decision") != "SAME_XHIGH_WORKER_REVISION_REQUIRED":
@@ -599,6 +602,7 @@ def validate_same_xhigh_worker_revision_return(
         expected_governed_input_hash=str(revision_contract.get("governed_input_hash") or ""),
         expected_editorial_packet=expected_editorial_packet,
         accepted_evidence_packet=accepted_evidence_packet,
+        acceptance_profile=acceptance_profile,
     )
     return {
         **validated,
@@ -615,6 +619,7 @@ def validate_editorial_worker_return(
     expected_governed_input_hash: str,
     expected_editorial_packet: Mapping[str, Any] | None = None,
     accepted_evidence_packet: Mapping[str, Any] | None = None,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     """Bind one XHIGH result to its exact input and return control to the HIGH coordinator."""
     if str(worker_return.get("governed_input_hash") or "") != expected_governed_input_hash:
@@ -644,11 +649,35 @@ def validate_editorial_worker_return(
             editorial_packet=expected_editorial_packet,
             accepted_evidence_packet=accepted_evidence_packet,
         )
-        if editorial_validation.get("classification") != "PASS":
+        institutional_quality_warnings: list[str] = []
+        if acceptance_profile:
+            from live_contentops.mvp_canary_acceptance_v1 import (
+                institutional_edge_hard_gate,
+                is_mvp_canary_profile,
+            )
+
+            if is_mvp_canary_profile(acceptance_profile):
+                canary_institutional = institutional_edge_hard_gate(editorial_validation)
+                institutional_quality_warnings = list(
+                    canary_institutional.get("quality_warnings") or []
+                )
+                if canary_institutional.get("classification") != "PASS":
+                    raise ValueError(
+                        "desktop_editorial_worker_institutional_edge_invalid:"
+                        + ",".join(canary_institutional.get("hard_gate_blockers") or [])
+                    )
+            elif editorial_validation.get("classification") != "PASS":
+                raise ValueError(
+                    "desktop_editorial_worker_institutional_edge_invalid:"
+                    + ",".join(editorial_validation.get("blockers") or [])
+                )
+        elif editorial_validation.get("classification") != "PASS":
             raise ValueError(
                 "desktop_editorial_worker_institutional_edge_invalid:"
                 + ",".join(editorial_validation.get("blockers") or [])
             )
+    else:
+        institutional_quality_warnings = []
     return_hash = _logical_hash(worker_return)
     return {
         "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
@@ -665,6 +694,8 @@ def validate_editorial_worker_return(
         "coordinator_reasoning_effort": COORDINATOR_REASONING_EFFORT,
         "deterministic_validation_required": True,
         "institutional_edge_editorial_validation": editorial_validation,
+        "acceptance_profile": acceptance_profile,
+        "institutional_edge_quality_warnings": institutional_quality_warnings,
         "publication_coordinator_remains_sole_public_writer": True,
         "public_write_performed": False,
     }

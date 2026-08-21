@@ -40,6 +40,10 @@ from live_contentops.newsroom_production_day_v1 import (
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     GroundedArticleBuilderError,
 )
+from live_contentops.mvp_canary_acceptance_v1 import (
+    MVP_CANARY_ACCEPTANCE_PROFILE,
+    is_mvp_canary_profile,
+)
 
 SCHEMA = "contentops.v1_distinct_story_frontier_floor_rehearsal.v1"
 TASK = "TASK_V1_PREPARED_FRONTIER_PUBLISHABILITY_POOL_REUSE_4_32_AND_ONE_CANARY_V1"
@@ -134,6 +138,7 @@ def _new_state(
     parent_cycle_root: Path | None = None,
     cycle_artifact_path: Path | None = None,
     task_label: str = TASK,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     now = datetime.now(timezone.utc)
     rolling = (
@@ -153,6 +158,7 @@ def _new_state(
     state = {
         "schema_version": SCHEMA,
         "task_label": task_label,
+        "acceptance_profile": acceptance_profile,
         "created_at_utc": now.isoformat().replace("+00:00", "Z"),
         "production_day_id": newsroom_production_day_id(now),
         "cutoff_utc": rolling["cutoff_time_utc"],
@@ -176,6 +182,7 @@ def _new_state(
         "full_current_headline_count": int((rolling.get("counts") or {}).get("accepted") or 0),
         "evaluated_headline_ids": [],
         "qualified_article_records": [],
+        "mvp_canary_artifact_records": [],
         "frontiers": [],
         "xhigh_attempt_count": 0,
         "xhigh_worker_return_count": 0,
@@ -199,6 +206,7 @@ def _state(
     parent_cycle_root: Path | None = None,
     cycle_artifact_path: Path | None = None,
     task_label: str = TASK,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     path = _state_path(root)
     return (
@@ -211,6 +219,7 @@ def _state(
             parent_cycle_root,
             cycle_artifact_path,
             task_label,
+            acceptance_profile,
         )
     )
 
@@ -489,15 +498,25 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
     evaluated = set(str(value) for value in state.get("evaluated_headline_ids") or [])
     full = int(state.get("full_current_headline_count") or 0)
     qualified = list(state.get("qualified_article_records") or [])
+    canary_records = list(state.get("mvp_canary_artifact_records") or [])
     frontiers = list(state.get("frontiers") or [])
     completed = len(frontiers)
-    classification = (
-        "FLOOR_MET"
-        if len(qualified) >= MAX_QUALIFIED
-        else "DEGRADED_DAILY_OUTPUT_DEFICIT"
-        if completed >= MAX_FRONTIERS and not state.get("pending_frontier")
-        else "IN_PROGRESS"
-    )
+    if is_mvp_canary_profile(state.get("acceptance_profile")):
+        classification = (
+            "MVP_CANARY_ARTIFACTS_READY_JIT_PENDING"
+            if canary_records
+            else "MVP_CANARY_CURRENT_WALK_EXHAUSTED_NO_ACCEPTED_EVIDENCE"
+            if completed >= MAX_FRONTIERS and not state.get("pending_frontier")
+            else "IN_PROGRESS"
+        )
+    else:
+        classification = (
+            "FLOOR_MET"
+            if len(qualified) >= MAX_QUALIFIED
+            else "DEGRADED_DAILY_OUTPUT_DEFICIT"
+            if completed >= MAX_FRONTIERS and not state.get("pending_frontier")
+            else "IN_PROGRESS"
+        )
     return {
         **dict(state),
         "schema_version": SCHEMA,
@@ -537,8 +556,13 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
         "remaining_held_identity_count": max(0, full - len(evaluated)),
         "qualified_count": len(qualified),
         "qualified_derivative_intent_count": len(qualified) * 8,
+        "mvp_canary_artifact_count": len(canary_records),
+        "mvp_canary_does_not_count_toward_4_32": True,
         "daily_qualified_article_floor": MAX_QUALIFIED,
         "daily_derivative_intent_floor": MAX_QUALIFIED * 8,
+        "daily_floor_is_post_launch_only": is_mvp_canary_profile(
+            state.get("acceptance_profile")
+        ),
         "build_floor_satisfied": len(qualified) >= MAX_QUALIFIED,
         "remaining_build_deficit": max(0, MAX_QUALIFIED - len(qualified)),
         "no_repeat_proof": len(evaluated)
@@ -587,6 +611,7 @@ def probe(
     parent_cycle_root: Path | None = None,
     cycle_artifact_path: Path | None = None,
     task_label: str = TASK,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     state = _state(
         root,
@@ -595,6 +620,7 @@ def probe(
         parent_cycle_root,
         cycle_artifact_path,
         task_label,
+        acceptance_profile,
     )
     if state.get("pending_frontier"):
         raise ValueError("pending_frontier_must_be_completed_first")
@@ -631,6 +657,7 @@ def probe(
         publication_enabled=True,
         operating_mode="KILL_SWITCH",
         destination_readiness_override=_ready(),
+        acceptance_profile=state.get("acceptance_profile"),
     )
     route = dict(result.get("editorial_worker_routing") or {})
     row = _frontier_row(number=number, prepared=prepared, result=result, path=probe_dir)
@@ -740,6 +767,7 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
         publication_enabled=True,
         operating_mode="KILL_SWITCH",
         destination_readiness_override=_ready(),
+        acceptance_profile=state.get("acceptance_profile"),
     )
     if not builder_invoked:
         raise ValueError("bound_editorial_worker_return_not_reached_by_reused_probe_selection")
@@ -815,7 +843,36 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
     state["evaluated_headline_ids"] = sorted(
         set(state.get("evaluated_headline_ids") or []).union(row["attempted_headline_ids"])
     )
-    if result.get("classification") == "PASS_PUBLICATION_PLAN_READY":
+    if (
+        result.get("classification") == "PASS_PUBLICATION_PLAN_READY"
+        and is_mvp_canary_profile(state.get("acceptance_profile"))
+    ):
+        release = dict(result.get("release_candidate") or {})
+        payloads = dict(release.get("payloads") or {})
+        canary_record = {
+            "schema_version": "contentops.mvp_canary_zero_write_artifact_record.v1",
+            "classification": "MVP_CANARY_ARTIFACTS_READY_JIT_PENDING",
+            "acceptance_profile": MVP_CANARY_ACCEPTANCE_PROFILE,
+            "frontier": number,
+            "selected_rank": row.get("selected_rank"),
+            "selected_cluster_id": row.get("selected_cluster_id"),
+            "cycle_evidence_path": row.get("cycle_evidence_path"),
+            "worker_return_path": str(worker_return_path),
+            "worker_return_sha256": row["worker_return_sha256"],
+            "derivative_destinations": sorted(payloads),
+            "derivative_intent_count": len(payloads),
+            "public_write_performed": bool(result.get("public_write_performed")),
+            "unknown_write_detected": bool(result.get("unknown_write_detected")),
+            "counts_toward_post_launch_4_32": False,
+            "owner_public_write_grant_present": False,
+            "publication_authority": False,
+        }
+        row["mvp_canary_artifact_record"] = canary_record
+        state["mvp_canary_artifact_records"] = [
+            *list(state.get("mvp_canary_artifact_records") or []),
+            canary_record,
+        ]
+    elif result.get("classification") == "PASS_PUBLICATION_PLAN_READY":
         record = qualify_zero_write_article(
             result=result,
             output_dir=final_dir,
@@ -878,6 +935,7 @@ def main() -> int:
     parser.add_argument("--cycle-artifact", type=Path)
     parser.add_argument("--worker-return", type=Path)
     parser.add_argument("--task-label", default=TASK)
+    parser.add_argument("--acceptance-profile")
     args = parser.parse_args()
     if sum(bool(value) for value in (
         args.rolling_input, args.parent_cycle_root, args.cycle_artifact
@@ -892,6 +950,7 @@ def main() -> int:
             args.parent_cycle_root.resolve(strict=True) if args.parent_cycle_root else None,
             args.cycle_artifact.resolve(strict=True) if args.cycle_artifact else None,
             args.task_label,
+            args.acceptance_profile,
         )
     elif args.action == "complete":
         if args.worker_return is None:

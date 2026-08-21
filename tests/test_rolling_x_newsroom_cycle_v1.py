@@ -1245,7 +1245,14 @@ def test_rolling_x_release_candidate_builds_and_verifies_canonical_lock(tmp_path
     assert set(implementation._RELEASE_PREPARATION_ARTIFACTS).issubset(
         {path.name for path in tmp_path.iterdir()}
     )
+    canonical_html = (tmp_path / "canonical_article.html").read_text(encoding="utf-8")
+    assert canonical_html.startswith("<!doctype html>")
+    assert "<h1>Official Event Update</h1>" in canonical_html
     context = json.loads((tmp_path / "run_context_v1.json").read_text(encoding="utf-8"))
+    assert context["article"]["article_html_export_path"] == str(
+        tmp_path / "canonical_article.html"
+    )
+    assert len(context["article"]["article_html_sha256"]) == 64
     assert context["rolling_x_live_path_used"] is True
     assert context["generic_live_path_used"] is False
     payloads = json.loads((tmp_path / "native_payloads_rehearsal_v1.json").read_text(encoding="utf-8"))

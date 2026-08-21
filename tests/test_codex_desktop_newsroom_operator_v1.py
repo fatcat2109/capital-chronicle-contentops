@@ -809,7 +809,9 @@ def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
         ("V1 Newsroom — New York 0100", "Tuesday-Saturday", "01:00"),
     ]
     assert "native V1 coordinator on exact gpt-5.6-sol / HIGH" in DESKTOP_TASK_PROMPT
-    assert "four qualified zero-public-write articles" in DESKTOP_TASK_PROMPT
+    assert "immediate one-article MVP canary launch gate" in DESKTOP_TASK_PROMPT
+    assert "four qualified zero-public-write articles and 32 derivative intents" in DESKTOP_TASK_PROMPT
+    assert "does not satisfy the 4/32 gate" in DESKTOP_TASK_PROMPT
     assert "five to eight published articles" in DESKTOP_TASK_PROMPT
     assert "Only when one real candidate has enough governed evidence" in DESKTOP_TASK_PROMPT
     assert "Start one fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in MANUAL_GO_PROMPT

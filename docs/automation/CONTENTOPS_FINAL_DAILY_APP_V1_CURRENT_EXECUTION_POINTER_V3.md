@@ -38,13 +38,20 @@ The accepted continuation lineage now runs through:
 4. `TASK_V1_DISTINCT_STORY_FRONTIER_AND_EVIDENCE_YIELD_FLOOR_CLOSURE_V1`;
 5. `TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1`.
 
-Draft P0-G4 PR #12 remains frozen while the 4/32 zero-write build floor is unproven.
+Draft P0-G4 PR #12 remains frozen historical evidence and is not the current canary slice.
 
 ## Current owner output contract
 
-BUILD/PROOF:
+IMMEDIATE MVP CANARY:
 
-`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES per newsroom production day`
+`one useful current zero-write article + eight derivative intents + JIT nine-surface readiness`
+
+The slice stops for owner audit before any public write. Hard factual/system/write gates remain
+mandatory; standard editorial/SEO perfection findings remain observable warnings.
+
+POST-LAUNCH THROUGHPUT/UNATTENDED OPERATION:
+
+`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
 
 FINAL V1:
 
@@ -64,19 +71,24 @@ FDA-G/material-event metadata to launch Codex or write publicly.
 
 ## Current next capability
 
-`TASK_V1_FINAL_MODEL_AUTHORITY_CONVERGENCE_4_32_PROOF_AND_ONE_LIVE_CANARY_V1`
+`TASK_V1_MVP_CANARY_LAUNCH_GATE_RESET_AND_CANARY_READY_SLICE_V1`
 
-The accepted locator work repaired the exact first-party surfaces. This task converges every reachable
-current V1 9Router role on the ordered two-model Gemini pool: `vx/gemini-3.1-pro-preview(high)` and
-`vx/gemini-3.5-flash(high)`. Leaf semantics use Flash then Pro; global/editorial/research roles use
-Pro then Flash. A qualified public article remains a native Desktop `gpt-5.6-sol / HIGH` coordinator
-handoff to a fresh isolated `gpt-5.6-sol / XHIGH` editorial worker, never a routed GPT/CX fallback.
+The accepted model-authority work retains the Gemini-only research/semantic pool and native Desktop
+HIGH -> fresh isolated XHIGH final-writer boundary. The latest prepared-frontier proof walked 41/41
+distinct story opportunities and produced two bound XHIGH returns. Neither is reusable as-is: the
+CFTC-positioning draft failed unsupported-causality safety, and the FX-expiry draft failed numeric
+source binding. Audit them, then perform only the bounded fresh-current work needed to produce one
+hard-safe canary-ready article and eight zero-write packages. Do not rerun another four-frontier/4-32
+campaign. Perform supported JIT read-only identity/readiness checks for all nine destinations and
+stop before publication with `UNKNOWN_WRITE=0`.
 
-Run exactly four genuine-current, KILL_SWITCH zero-write frontiers. Only four qualified article records
-with all eight derivative intents (4/32), exact governed-input hashes, and valid XHIGH worker receipts
-may open the separately bounded one-canary readiness/readback gate. A below-floor run is
-`DEGRADED_DAILY_OUTPUT_DEFICIT`: preserve the exact evidence blocker, do not raise budgets or widen
-authority, and do not create, enable, resume, or infer state for Automations.
+The bounded 2026-08-22 current walk completed at
+`MVP_CANARY_CURRENT_WALK_EXHAUSTED_NO_ACCEPTED_EVIDENCE`: 48 current headline identities, 42
+distinct story opportunities, 91 story-scoped requests, 86 reads avoided, zero accepted candidates,
+zero XHIGH requests, zero packages, zero public writes, and `UNKNOWN_WRITE=0`. Because the canonical
+JIT contract begins only after a qualified transaction exists, JIT was not reached. The exact
+remaining blocker is accepted current evidence for one candidate; do not manufacture a transaction
+identity merely to probe destinations.
 
 ## Routine automation intent
 
@@ -95,21 +107,19 @@ epoch; the paused-automation epoch is historical only. Current host state is
 `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`, and the observation remains no authority to enable, recreate,
 or publicly execute them.
 
-## P0-G4 after current correction
+## Owner-gated canary after current zero-write slice
 
-After the 4/32 zero-write floor is accepted:
+1. require genuine hard-safe article + eight packages + exact JIT destination identity/readiness;
+2. Jim/ChatGPT audit actual candidate/artifacts;
+3. obtain an explicit one-canary `OWNER_GATED_EXTERNAL` grant;
+4. publish/read back canonical Substack and exactly eight derivatives;
+5. reconcile all attempted objects and require `UNKNOWN_WRITE=0`;
+6. audit actual public objects.
 
-1. rerun bounded P0-G4A current-candidate preflight under zero public write;
-2. require genuine qualified article + eight packages + exact JIT destination identity/readiness;
-3. Jim/ChatGPT audit actual candidate/artifacts;
-4. obtain an explicit one-canary `OWNER_GATED_EXTERNAL` grant;
-5. publish/read back canonical Substack and exactly eight derivatives;
-6. reconcile all attempted objects and require `UNKNOWN_WRITE=0`;
-7. audit actual public objects.
+## Post-launch 4/32 and P0-G5 after accepted canary
 
-## P0-G5 after accepted canary
-
-Use only actual proven routine Codex Automations. No fifth routine task.
+First prove 4 qualified zero-write articles / 32 derivative intents. Then use only actual proven
+routine Codex Automations. No fifth routine task.
 
 Prove unattended calendar-time execution, production-day floor/target accounting, bounded catch-up, cold-start/restart, no duplicate article/public object, recovery/readback, and bounded cost.
 

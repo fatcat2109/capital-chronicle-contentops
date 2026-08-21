@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import json
 import os
 import re
@@ -1331,6 +1332,8 @@ def _persist_final_platform_matrix(output_dir: Path, evidence: Mapping[str, Any]
 
 
 _RELEASE_PREPARATION_ARTIFACTS = (
+    "canonical_article.md",
+    "canonical_article.html",
     "headline_intake_v1.json",
     "llm_idea_ranking_v1.json",
     "grounded_support_v1.json",
@@ -2608,6 +2611,7 @@ def _run_bounded_rolling_x_editorial_cycle(
     native_xhigh_worker_validation: Mapping[str, Any] | None = None,
     native_xhigh_worker_request: Mapping[str, Any] | None = None,
     max_revision_rounds: int = 1,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     """Run one semantic review, at most one revision, and only a required re-review."""
     from live_contentops.tier1_editorial_quality_v1 import (
@@ -2615,6 +2619,10 @@ def _run_bounded_rolling_x_editorial_cycle(
         combine_editorial_gates,
     )
     from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+    from live_contentops.mvp_canary_acceptance_v1 import (
+        evaluate_mvp_canary_editorial_gate,
+        is_mvp_canary_profile,
+    )
 
     def sanitized_router_failure(exc: RoutedInvocationError) -> dict[str, Any]:
         summary = dict(getattr(exc, "summary", {}) or {})
@@ -2652,6 +2660,21 @@ def _run_bounded_rolling_x_editorial_cycle(
         deterministic = audit_tier1_article(candidate, media_assets=media_assets)
         hard_review = review_minimum_evidence_news_brief(candidate)
         combined = combine_editorial_gates(deterministic, hard_review)
+        canary_gate = (
+            evaluate_mvp_canary_editorial_gate(
+                article=candidate,
+                deterministic_review=deterministic,
+                hard_factual_review=hard_review,
+                media_assets=media_assets,
+            )
+            if is_mvp_canary_profile(acceptance_profile)
+            else None
+        )
+        effective_pass = bool(
+            canary_gate.get("classification") == "PASS"
+            if canary_gate is not None
+            else combined.get("classification") == "PASS"
+        )
         history = [{
             "review_index": 0,
             "revision_rounds_completed": 0,
@@ -2664,12 +2687,13 @@ def _run_bounded_rolling_x_editorial_cycle(
                 "publication_authority": False,
             },
             "combined_editorial_gate": combined,
+            "mvp_canary_editorial_gate": canary_gate,
         }]
         return {
-            "status": "PASS" if combined.get("classification") == "PASS" else "NO_PUBLICATION",
+            "status": "PASS" if effective_pass else "NO_PUBLICATION",
             "reason_code": (
                 None
-                if combined.get("classification") == "PASS"
+                if effective_pass
                 else (
                     "INSUFFICIENT_READER_VALUE"
                     if (deterministic.get("reader_value_gate") or {}).get("classification")
@@ -2682,6 +2706,10 @@ def _run_bounded_rolling_x_editorial_cycle(
             "semantic_review_required": False,
             "mandatory_semantic_review_calls": 0,
             "review_history": history,
+            "acceptance_profile": acceptance_profile,
+            "canary_quality_warnings": list(
+                (canary_gate or {}).get("quality_warnings") or []
+            ),
             "publication_authority_granted": False,
         }
 
@@ -2769,6 +2797,16 @@ def _run_bounded_rolling_x_editorial_cycle(
             semantic.setdefault("issues", ["semantic_review_decision_invalid"])
         semantic["publication_authority"] = False
         combined = combine_editorial_gates(deterministic, semantic)
+        canary_gate = (
+            evaluate_mvp_canary_editorial_gate(
+                article=candidate,
+                deterministic_review=deterministic,
+                hard_factual_review=semantic,
+                media_assets=media_assets,
+            )
+            if is_mvp_canary_profile(acceptance_profile)
+            else None
+        )
         review_row = {
             "review_index": review_index,
             "revision_rounds_completed": review_index,
@@ -2776,14 +2814,23 @@ def _run_bounded_rolling_x_editorial_cycle(
             "deterministic_review": deterministic,
             "llm_semantic_review": semantic,
             "combined_editorial_gate": combined,
+            "mvp_canary_editorial_gate": canary_gate,
         }
         history.append(review_row)
-        if combined.get("classification") == "PASS":
+        if (
+            canary_gate.get("classification") == "PASS"
+            if canary_gate is not None
+            else combined.get("classification") == "PASS"
+        ):
             return {
                 "status": "PASS",
                 "article": candidate,
                 "revision_rounds_completed": review_index,
                 "review_history": history,
+                "acceptance_profile": acceptance_profile,
+                "canary_quality_warnings": list(
+                    (canary_gate or {}).get("quality_warnings") or []
+                ),
                 "publication_authority_granted": False,
             }
         if review_index == max_revision_rounds:
@@ -2947,6 +2994,7 @@ def _validate_rolling_x_release_inputs(
     article: Mapping[str, Any],
     media_assets: Sequence[Mapping[str, Any]],
     viability: Mapping[str, Any],
+    acceptance_profile: str | None = None,
 ) -> list[str]:
     from live_contentops.tier1_editorial_quality_v1 import evaluate_reader_value
 
@@ -2963,12 +3011,33 @@ def _validate_rolling_x_release_inputs(
         blockers.append("article_selected_cluster_binding_mismatch")
     if article.get("x_content_grants_factual_authority") is not False:
         blockers.append("article_must_deny_x_factual_authority")
-    reader_value = evaluate_reader_value(article, media_assets=media_assets)
-    if reader_value.get("classification") != "PASS":
-        blockers.append("INSUFFICIENT_READER_VALUE")
+    from live_contentops.mvp_canary_acceptance_v1 import (
+        evaluate_mvp_canary_minimum_useful_floor,
+        is_mvp_canary_profile,
+    )
+
+    if is_mvp_canary_profile(acceptance_profile):
+        useful_floor = evaluate_mvp_canary_minimum_useful_floor(
+            article, media_assets=media_assets
+        )
+        if useful_floor.get("classification") != "PASS":
+            blockers.append("INSUFFICIENT_MVP_CANARY_READER_VALUE")
+    else:
+        reader_value = evaluate_reader_value(article, media_assets=media_assets)
+        if reader_value.get("classification") != "PASS":
+            blockers.append("INSUFFICIENT_READER_VALUE")
     if str(article.get("institutional_edge_editorial_packet_sha256") or ""):
         validation = article.get("institutional_edge_editorial_validation")
-        if not isinstance(validation, Mapping) or validation.get("classification") != "PASS":
+        if not isinstance(validation, Mapping):
+            blockers.append("institutional_edge_editorial_validation_missing_or_blocked")
+        elif is_mvp_canary_profile(acceptance_profile):
+            from live_contentops.mvp_canary_acceptance_v1 import (
+                institutional_edge_hard_gate,
+            )
+
+            if institutional_edge_hard_gate(validation).get("classification") != "PASS":
+                blockers.append("institutional_edge_editorial_validation_missing_or_blocked")
+        elif validation.get("classification") != "PASS":
             blockers.append("institutional_edge_editorial_validation_missing_or_blocked")
     evidence_ids = {
         str(row.get("evidence_id") or row.get("document_id") or row.get("source_id") or "")
@@ -3011,9 +3080,13 @@ def _prepare_rolling_x_release_candidate(
     media: Mapping[str, Any],
     editorial_cycle: Mapping[str, Any],
     destination_readiness: Mapping[str, Any],
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     """Write and lock the canonical backend's exact artifacts without a public write."""
-    from live_contentops.article_rich_text_v1 import markdown_to_rich_text
+    from live_contentops.article_rich_text_v1 import (
+        markdown_to_rich_text,
+        rich_text_to_html,
+    )
 
     final_article = dict(article)
     from live_contentops.capital_chronicle_institutional_edge_v1 import (
@@ -3027,6 +3100,7 @@ def _prepare_rolling_x_release_candidate(
         article=final_article,
         media_assets=media_assets,
         viability=viability,
+        acceptance_profile=acceptance_profile,
     )
     selection = _rolling_x_selection_contract(
         assignment=assignment,
@@ -3074,16 +3148,30 @@ def _prepare_rolling_x_release_candidate(
         marker = f"[[VISUAL:{asset.get('asset_id')}]]"
         local_body = local_body.replace(marker, f"![{asset.get('alt_text')}]({asset.get('path')})")
     _write_text(article_path, local_body)
+    canonical_rich_text = markdown_to_rich_text(body)
+    canonical_html_path = output_dir / "canonical_article.html"
+    canonical_html = (
+        '<!doctype html><html><head><meta charset="utf-8">'
+        f"<title>{html.escape(str(final_article.get('title') or ''))}</title>"
+        "</head><body><article>"
+        f"<h1>{html.escape(str(final_article.get('title') or ''))}</h1>"
+        f"<p>{html.escape(str(final_article.get('subtitle') or final_article.get('dek') or ''))}</p>"
+        f"{rich_text_to_html(canonical_rich_text)}"
+        "</article></body></html>"
+    )
+    _write_text(canonical_html_path, canonical_html)
     final_article.update(
         {
             "canonical_url": str(final_article.get("canonical_url") or "https://capitalchronicle.substack.com/p/pending-publication"),
             "substack_body_markdown_sha256": _sha256(body),
             "article_export_path": str(article_path),
             "article_markdown_sha256": _sha256_file(article_path),
+            "article_html_export_path": str(canonical_html_path),
+            "article_html_sha256": _sha256_file(canonical_html_path),
             "word_count": len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", rendered)),
             "numeric_claims_from_x": False,
             "publication_authority": False,
-            "canonical_rich_text": markdown_to_rich_text(body),
+            "canonical_rich_text": canonical_rich_text,
         }
     )
     support = {
@@ -3115,6 +3203,10 @@ def _prepare_rolling_x_release_candidate(
         "classification": "PASS" if editorial_cycle.get("status") == "PASS" else "NEEDS_REVISION",
         "bounded_revision_cycle": dict(editorial_cycle),
         "revision_round_limit": 1,
+        "acceptance_profile": acceptance_profile,
+        "canary_quality_warnings": list(
+            editorial_cycle.get("canary_quality_warnings") or []
+        ),
         "publication_authority": False,
     }
     for name, value in (
@@ -4403,6 +4495,7 @@ def _run_rolling_x_newsroom_cycle(
     material_event_priority: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     if sidecar_glob is None:
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
@@ -4900,6 +4993,7 @@ def _run_rolling_x_newsroom_cycle(
         "run_id": run_id,
         "created_at": _utc_now(),
         "operating_mode": operating_mode,
+        "acceptance_profile": acceptance_profile,
         "intake": intake,
         "assignment": assignment,
         "preselection_intelligence": preselection,
@@ -5507,6 +5601,7 @@ def _run_rolling_x_newsroom_cycle(
                             or {}
                         ),
                         "accepted_evidence_packet": selected_evidence,
+                        "acceptance_profile": acceptance_profile,
                     }
                     revision_contract = dict(
                         viability.get("same_xhigh_worker_revision_contract") or {}
@@ -5721,6 +5816,7 @@ def _run_rolling_x_newsroom_cycle(
             native_xhigh_worker_return=native_xhigh_worker_return,
             native_xhigh_worker_validation=native_xhigh_worker_validation,
             native_xhigh_worker_request=native_xhigh_worker_request,
+            acceptance_profile=acceptance_profile,
         )
         if editorial.get("status") == "PASS":
             from live_contentops.capital_chronicle_institutional_edge_v1 import (
@@ -5744,7 +5840,31 @@ def _run_rolling_x_newsroom_cycle(
                 final_institutional_validation
             )
             editorial = {**dict(editorial), "article": final_editorial_article}
-            if final_institutional_validation.get("classification") != "PASS":
+            from live_contentops.mvp_canary_acceptance_v1 import (
+                institutional_edge_hard_gate,
+                is_mvp_canary_profile,
+            )
+
+            final_institutional_gate = (
+                institutional_edge_hard_gate(final_institutional_validation)
+                if is_mvp_canary_profile(acceptance_profile)
+                else None
+            )
+            if final_institutional_gate is not None:
+                editorial = {
+                    **editorial,
+                    "institutional_edge_canary_gate": final_institutional_gate,
+                    "canary_quality_warnings": sorted(
+                        set(editorial.get("canary_quality_warnings") or []).union(
+                            final_institutional_gate.get("quality_warnings") or []
+                        )
+                    ),
+                }
+            if (
+                final_institutional_gate.get("classification") != "PASS"
+                if final_institutional_gate is not None
+                else final_institutional_validation.get("classification") != "PASS"
+            ):
                 editorial = {
                     **editorial,
                     "status": "NO_PUBLICATION",
@@ -5816,6 +5936,7 @@ def _run_rolling_x_newsroom_cycle(
             media=media,
             editorial_cycle=editorial,
             destination_readiness=readiness,
+            acceptance_profile=acceptance_profile,
         )
         evidence["release_candidate_preparation"] = preparation
         evidence["platform_package_generated"] = bool(preparation.get("payloads"))

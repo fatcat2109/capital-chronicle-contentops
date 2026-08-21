@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_ROOT_AUTHORITY`
 Repository: `fatcat2109/capital-chronicle-contentops`
 
@@ -50,16 +50,27 @@ The following claims are INVALID for current V1 unless they are supported by the
 - `the four Codex tasks are PAUSED/READY/ENABLED` when that state comes only from repo configuration;
 - `FDA-G directly launches Codex` unless an actual supported execution bridge is proven;
 - `material-event wake immediately invokes Codex` unless a supported bridge is proven.
+- `4 qualified / 32 derivative intents` must pass before one supervised MVP canary may be
+  prepared for its owner gate.
 
 If any current-looking subordinate document says one of the above, treat that wording as superseded and do not route from it.
 
 Configured intent is not observed runtime/host truth.
 
-## 4. Current V1 owner output contract
+## 4. Current V1 owner launch and output contract
 
-During BUILD/PROOF:
+The immediate `MVP_CANARY_LAUNCH_GATE` requires exactly one genuinely useful current article,
+native XHIGH authorship, hard-safe evidence/claim binding, deterministic safety validation,
+exactly eight derivative package intents, JIT nine-surface identity/readiness, zero public writes,
+and `UNKNOWN_WRITE=0`. It stops before publication for Jim/ChatGPT audit and an explicit owner
+public-write grant.
 
-`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES per newsroom production day`
+The `POST_LAUNCH_THROUGHPUT_GATE` remains:
+
+`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+
+That gate is required before claiming production-grade daily yield or enabling unattended routine
+Automations. It is no longer a prerequisite for the one supervised MVP canary owner gate.
 
 Final V1 operating target:
 
@@ -69,7 +80,7 @@ These are not filler quotas.
 
 Candidate-level abstention is allowed. Whole-day deficit is not healthy success.
 
-If the active production day ends below the build floor without an exact hard external blocker, classify:
+If a post-launch throughput proof ends below the 4/32 floor without an exact hard external blocker, classify:
 
 `DEGRADED_DAILY_OUTPUT_DEFICIT`
 
@@ -159,11 +170,16 @@ P0-G3 and the following V1 daily-yield lineage are accepted on the current task 
 4. distinct-story frontier correction;
 5. story/update-chain-scoped evidence reuse across mode downgrade.
 
-The four-frontier proof still ends `DEGRADED_DAILY_OUTPUT_DEFICIT` at 0/4 articles and 0/32
-derivative intents. The next exact product gate is bounded first-party locator/source-family and
-query/publisher-resolution closure for the demonstrated residual story matrix, followed by the same
-four-frontier zero-public-write proof. Do not resume P0-G4 canary, enable the four paused Automations,
-or create a fifth Automation while the build floor remains unproven.
+The latest prepared-frontier proof walked all 41 distinct story opportunities and reached two fresh
+native XHIGH returns, but both failed hard deterministic claim/binding checks and the run ended at
+0/4 articles and 0/32 derivative intents with `UNKNOWN_WRITE=0`. The current exact task is
+`TASK_V1_MVP_CANARY_LAUNCH_GATE_RESET_AND_CANARY_READY_SLICE_V1`. Its 2026-08-22 bounded current
+walk ended `MVP_CANARY_CURRENT_WALK_EXHAUSTED_NO_ACCEPTED_EVIDENCE` after 48 headline identities and
+42 distinct opportunities. No candidate reached XHIGH, packages, or JIT readiness. Resume only from
+the exact accepted-evidence blocker; do not fabricate a canary, probe JIT without a qualified
+transaction, or rerun a 4/32 campaign in this task. The 4/32 proof remains required afterward for
+production-grade daily yield and unattended routine Automation enablement. One canary never
+authorizes a second article, Automation enablement, or public write.
 
 ## 12. Change discipline
 

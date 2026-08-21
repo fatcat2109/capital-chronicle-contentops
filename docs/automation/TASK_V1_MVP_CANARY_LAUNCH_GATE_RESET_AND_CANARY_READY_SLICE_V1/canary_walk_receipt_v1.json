@@ -1,0 +1,31 @@
+{
+  "schema_version": "contentops.mvp_canary_bounded_current_walk_receipt.v1",
+  "task": "TASK_V1_MVP_CANARY_LAUNCH_GATE_RESET_AND_CANARY_READY_SLICE_V1",
+  "acceptance_profile": "MVP_CANARY_LAUNCH_GATE_V1",
+  "classification": "MVP_CANARY_CURRENT_WALK_EXHAUSTED_NO_ACCEPTED_EVIDENCE",
+  "cutoff_utc": "2026-08-21T22:01:04.297963Z",
+  "input_mode": "GENUINE_CURRENT_INPUT",
+  "frontier_count": 4,
+  "attempted_headline_identity_count": 48,
+  "distinct_story_opportunity_count": 42,
+  "attempted_distinct_story_count": 40,
+  "story_scoped_network_request_total": 91,
+  "public_request_total": 88,
+  "official_request_total": 3,
+  "story_scoped_network_reads_avoided": 86,
+  "accepted_candidate_count": 0,
+  "native_xhigh_attempt_count": 0,
+  "native_xhigh_worker_return_count": 0,
+  "derivative_intent_count": 0,
+  "jit_nine_surface_result": "NOT_REACHED_NO_ACCEPTED_EVIDENCE",
+  "exact_next_blockers": [
+    "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+    "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE"
+  ],
+  "public_write_count": 0,
+  "publication_provider_write_count": 0,
+  "unknown_write_count": 0,
+  "counts_toward_post_launch_4_32": false,
+  "owner_public_write_grant_present": false,
+  "publication_authority": false
+}

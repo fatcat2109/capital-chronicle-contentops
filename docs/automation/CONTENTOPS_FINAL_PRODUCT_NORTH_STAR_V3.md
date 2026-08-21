@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR`
 
 ## 1. Product role
@@ -17,13 +17,27 @@ Truth, permissions, rights, exact identity, numeric authority, and recovery are 
 
 Jim's latest explicit owner direction is authoritative.
 
-### Build-phase floor
+### MVP canary launch gate
+
+Before throughput perfection, ship one supervised end-to-end MVP canary slice under zero public
+write. It must contain one current useful native-XHIGH article, hard-safe evidence and claim
+binding, deterministic validation, canonical Markdown/HTML/SEO artifacts, exactly eight derivative
+package intents, exact JIT identity/readiness for Substack plus all eight destinations, and
+`UNKNOWN_WRITE=0`. It stops for Jim/ChatGPT audit and an explicit one-canary public-write grant.
+
+Editorial/SEO perfection findings remain observable `CANARY_QUALITY_WARNINGS`; factual, numeric/CC,
+identity, permission, rights, native-worker, serialization, and write safety can never be warnings.
+
+### Post-launch throughput floor
 
 During the current V1 build/proof phase, one newsroom production day must produce at least:
 
-`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES`
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS`
 
-A qualified build article must clear the current factual, evidence, numeric, rights, reader-value, authority, and editorial-worker contracts and persist its native package intents. It is not required to be publicly dispatched during build/proof.
+A qualified throughput article must clear the normal production validation contract and persist its
+native package intents. The 4/32 proof remains required before production-grade daily-yield claims
+or unattended routine Automation enablement, but is not a prerequisite for the one supervised MVP
+canary owner gate.
 
 ### Final V1 target
 
@@ -156,13 +170,13 @@ A derivative-local outage does not erase canonical truth, but final nine-surface
 Current sequence:
 
 1. P0-G3 growth-first multi-mode zero-write proof is accepted and merged.
-2. Before continuing the live canary, correct current authority and prove the real Codex automation/execution bridge plus build daily-output-floor behavior.
-3. Produce a genuine current qualified canary candidate under zero public write.
+2. Audit the latest 41-story residual proof's two XHIGH returns; preserve their hard failures.
+3. Produce exactly one genuine current `CANARY_READY_FOR_OWNER_PUBLIC_WRITE_GATE` zero-write slice.
 4. Obtain explicit one-canary owner public-write grant.
 5. Publish/read back canonical Substack plus exactly eight derivatives and finish `UNKNOWN_WRITE=0`.
-6. Prove unattended/cold-start operation using only actual proven routine Automations; material-event live execution remains separately owner-gated.
-7. Close truthful V5 UI and screenshot-based owner QA.
-8. Accept/freeze V1 only after these proofs.
+6. Prove the 4/32 post-launch throughput gate without filler or weakened truth.
+7. Prove unattended/cold-start operation using only actual proven routine Automations; material-event live execution remains separately owner-gated.
+8. Close truthful V5 UI and screenshot-based owner QA, then accept/freeze V1.
 
 ## 12. Canonical UI
 

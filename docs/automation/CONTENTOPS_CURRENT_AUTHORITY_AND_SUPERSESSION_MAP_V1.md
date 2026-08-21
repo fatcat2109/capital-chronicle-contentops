@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Authority and Supersession Map V1
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, or branch assumptions.
@@ -35,14 +35,18 @@ Jim's latest explicit instruction remains highest product authority.
 
 The following rules are current and supersede all conflicting earlier wording:
 
-1. BUILD/PROOF floor = `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES` per newsroom production day.
-2. FINAL V1 target = `5–8 PUBLISHED ARTICLES` per newsroom production day.
-3. Candidate abstention remains valid; a whole-day deficit is not healthy success.
-4. A production day ending below the build floor without an exact hard external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
-5. The intended 17:00, 21:00, 23:00, and following 01:00 Bangkok windows belong to one deterministic newsroom production day.
-6. Later routine opportunities must be able to recover earlier deficits through bounded additional candidate/article work.
+1. Immediate `MVP_CANARY_LAUNCH_GATE` = exactly one current useful zero-write article, native XHIGH
+   final authorship, hard-safe evidence/claim binding, eight derivative package intents, JIT exact
+   nine-surface identity/readiness, and `UNKNOWN_WRITE=0`, followed by owner audit before any write.
+2. The prior 4-qualified/32-intent proof is not a prerequisite for that one supervised MVP canary.
+3. `POST_LAUNCH_THROUGHPUT_GATE` remains `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE
+   INTENTS` before production-grade daily-yield claims or unattended routine Automation enablement.
+4. FINAL V1 target = `5–8 PUBLISHED ARTICLES` per newsroom production day.
+5. Candidate abstention remains valid; a whole-day throughput deficit is not healthy success.
+6. The intended 17:00, 21:00, 23:00, and following 01:00 Bangkok windows belong to one deterministic newsroom production day.
 7. No fifth routine task may be created merely to satisfy the floor.
-8. Truth, evidence, numeric authority, rights, identity, and permission gates remain unchanged.
+8. Truth, evidence, numeric/CC authority, rights, identity, permission, native-worker binding, and
+   write-reconciliation gates remain unchanged and can never become canary warnings.
 9. Filler remains forbidden.
 
 ## Codex Automation truth override
@@ -86,10 +90,15 @@ Accepted continuation lineage:
 `DAILY OUTPUT/AUTOMATION REVALIDATION -> CANDIDATE CONTINUATION/QUOTE REPAIR -> EVIDENCE-YIELD
 REACHABILITY -> DISTINCT-STORY FRONTIER -> STORY-SCOPED EVIDENCE REUSE`
 
-The latest four-frontier zero-write proof attempted 17 distinct current stories, avoided 89 duplicate
-downgrade reads, and ended `DEGRADED_DAILY_OUTPUT_DEFICIT` at 0/4 articles and 0/32 derivative
-intents. Current next capability is exact first-party locator/source-family and bounded
-query/publisher-resolution closure for its residual matrix, followed by the unchanged floor proof.
+The latest prepared-frontier proof attempted all 41 distinct story opportunities and reached two
+fresh native XHIGH returns. The CFTC-positioning candidate failed `unsupported_causality`; the
+FX-expiry candidate failed `numeric_source_binding_violation`. Both are hard stops, not quality
+warnings. The current exact task is `TASK_V1_MVP_CANARY_LAUNCH_GATE_RESET_AND_CANARY_READY_SLICE_V1`:
+produce exactly one hard-safe zero-write canary candidate and stop at the owner public-write gate.
+Its bounded 2026-08-22 walk found no accepted evidence packet across 48 identities/42 distinct
+opportunities, so the task is truthfully blocked before XHIGH and JIT. Resume from that exact
+evidence blocker; do not rerun a 4/32 campaign. The unchanged 4/32 proof follows only after the
+supervised canary as the post-launch throughput/unattended-operation gate.
 
 ## Growth-first V1 rules that remain current
 

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN`
 
 North Star: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
@@ -12,7 +12,10 @@ Finish one coherent autonomous growth newsroom that reliably produces useful pub
 
 Current highest-priority owner contract:
 
-- BUILD/PROOF: at least `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES` per newsroom production day;
+- MVP launch: exactly one current useful zero-write native-XHIGH article, eight derivative intents,
+  hard-safe validation, JIT nine-surface identity/readiness, and owner audit before any public write;
+- POST-LAUNCH THROUGHPUT: at least `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS`
+  per newsroom production day before unattended production-grade operation;
 - FINAL V1: `5–8 PUBLISHED ARTICLES` per newsroom production day;
 - candidate abstention remains allowed;
 - a whole-day deficit below the active floor is degraded unless an exact hard external blocker is proven;
@@ -34,6 +37,16 @@ Accepted and do not reopen without a demonstrated defect:
 Current P0-G4 draft PR #12 is not final authority for new daily-output semantics and remains frozen until this plan's execution-bridge correction is merged/reconciled.
 
 ## 2. Current demonstrated gap
+
+The latest prepared-frontier proof exhausted 41/41 distinct story opportunities and reached two
+fresh native XHIGH returns. The CFTC-positioning return failed hard on unsupported causality; the
+FX-expiry return failed hard on numeric source binding. Those findings cannot be downgraded. The
+immediate gap is one hard-safe MVP canary slice, not another 4/32 campaign.
+
+The 2026-08-22 bounded current walk then evaluated 48 identities/42 distinct opportunities and
+found no accepted evidence packet. It stopped before XHIGH, packaging, JIT, and publication with
+`UNKNOWN_WRITE=0`. This is a truthful evidence-availability blocker, not permission to relax truth
+or synthesize a canary.
 
 Two product gaps must be closed before resuming the real publication canary.
 
@@ -66,24 +79,24 @@ Before unattended/editorial automation claims, actual host truth must prove:
 
 Configured intent must never be promoted to observed host state.
 
-## 3. Immediate P0 task — authority reset + daily output + Codex automation bridge
+## 3. Immediate P0 task — MVP canary launch-gate reset and canary-ready slice
 
-Before P0-G4 continues, execute one bounded heavy vertical slice:
+Execute one bounded heavy vertical slice:
 
-`TASK_V1_DAILY_OUTPUT_FLOOR_AND_CODEX_AUTOMATION_EXECUTION_BRIDGE_V1`
+`TASK_V1_MVP_CANARY_LAUNCH_GATE_RESET_AND_CANARY_READY_SLICE_V1`
 
 Required deliverables:
 
-1. actual Codex host automation inventory;
-2. current authority/docs reconciled to owner floor/target;
-3. deterministic `newsroom_production_day_id`;
-4. build/final counters and deficit states;
-5. bounded deficit recovery inside the intended four routine opportunities;
-6. exact native Codex Automation setup/repair if supported by the installed product, otherwise exact owner UI setup gate;
-7. V5 daily-output/automation-state truth fields;
-8. one zero-public-write automation invocation proof when supported;
-9. no source/evidence/numeric/permission weakening;
-10. no fifth routine task and no second scheduler.
+1. active authority/docs reconciled to MVP-canary-first sequencing;
+2. explicit `MVP_CANARY_LAUNCH_GATE_V1` hard-gate versus quality-warning profile;
+3. exact audit of both current XHIGH candidates;
+4. one bounded fresh-current walk only if neither candidate is hard-safe/current;
+5. exactly one native-XHIGH final article with canonical Markdown/HTML/SEO artifacts;
+6. exactly eight zero-write derivative package intents;
+7. supported JIT read-only identity/readiness for all nine destinations;
+8. `UNKNOWN_WRITE=0`, zero publisher/transport writes, and stop before publication;
+9. no source/evidence/numeric/CC/permission/identity/rights/worker-binding weakening;
+10. proof that one canary grants no second article, Automation enablement, or public write.
 
 ## 4. Production-day accounting contract
 
@@ -148,9 +161,10 @@ V5 must show:
 
 If the build floor is unmet, generic `Running Idle — healthy waiting` must not hide the production deficit.
 
-## 8. Resume P0-G4 only after the bridge/floor task passes
+## 8. One supervised MVP canary before the post-launch throughput proof
 
-Then resume one real canary path:
+The current slice may return `CANARY_READY_FOR_OWNER_PUBLIC_WRITE_GATE` only after every hard gate
+and JIT identity/readiness check passes. It then stops for owner audit and exact grant.
 
 ### P0-G4A
 
@@ -172,9 +186,10 @@ After exact owner grant:
 
 A canary grant authorizes only that canary unless explicitly widened.
 
-## 9. P0-G5 unattended/cold-start proof
+## 9. Post-launch throughput and unattended/cold-start proof
 
-After owner-accepted canary:
+After owner-accepted canary, first prove 4 qualified zero-write articles / 32 derivative intents,
+then:
 
 - use only actual proven native routine Automations;
 - no fifth routine task;
