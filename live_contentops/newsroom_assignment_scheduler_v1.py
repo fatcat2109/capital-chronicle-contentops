@@ -2111,12 +2111,20 @@ def build_prepared_rolling_x_candidate_state(
     def frontier_key(row: Mapping[str, Any]) -> tuple[Any, ...]:
         headline_id = str(row.get("headline_id") or "")
         source_time, expires_at = row_times(row)
+        # A direct, already-bound official path is a cheap feasibility signal, not evidence.
+        # It must be considered before rolling expiry so the bounded frontier cannot spend all
+        # of its current slots on evidence-hostile social discoveries while an eligible exact
+        # first-party document remains held. Re-entry still takes precedence and every selected
+        # identity continues through the same evidence, claim, and publication gates.
+        evidence_path_priority = int(
+            _rolling_x_publishability_path_profile(
+                [headline_id], records_by_id={headline_id: row}
+            )["priority"]
+        )
         return (
             0 if headline_id in reentry else 1,
+            -evidence_path_priority,
             expires_at.timestamp(),
-            -int(_rolling_x_publishability_path_profile(
-                [headline_id], records_by_id={headline_id: row}
-            )["priority"]),
             source_time.timestamp(),
             headline_id,
         )
@@ -2397,8 +2405,8 @@ def build_prepared_rolling_x_candidate_state(
         "schema_version": "contentops.rolling_x_prepared_frontier.v2",
         "selection_order": [
             "material_update_or_priority_reentry",
-            "rolling_expiry_ascending_against_exact_owner_calendar",
             "known_evidence_path_priority",
+            "rolling_expiry_ascending_against_exact_owner_calendar",
             "source_timestamp_ascending",
             "headline_id",
         ],
