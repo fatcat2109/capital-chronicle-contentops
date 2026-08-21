@@ -227,6 +227,127 @@ def _attempted_headline_ids(result: Mapping[str, Any]) -> list[str]:
     )
 
 
+def _semantic_resume_checkpoints_from_probe(
+    probe: Mapping[str, Any],
+) -> tuple[dict[str, dict[str, Any]], dict[str, Any], dict[str, str]]:
+    """Rebuild hash-bound semantic checkpoints from the accepted worker-request probe.
+
+    A worker return is bound to the exact candidate selected by its probe.  Re-running the
+    live semantic selectors during ``complete`` would allow a different current ranking to
+    strand that valid return before its deterministic article validation.  The probe already
+    records the accepted, provider-verified leaf and global router receipts, so reuse only
+    those exact receipts.  This changes no source/evidence/publication gate and grants no
+    model output factual or publication authority.
+    """
+    assignment = dict(probe.get("assignment") or {})
+    canonical_input_hash = str((assignment.get("input_binding") or {}).get("canonical_input_hash") or "")
+    global_input = dict(assignment.get("compact_global_editor_input") or {})
+    leaf_partitions = [
+        dict(row) for row in assignment.get("leaf_partitions") or [] if isinstance(row, Mapping)
+    ]
+    leaf_clusters = [
+        dict(row) for row in assignment.get("leaf_clusters") or [] if isinstance(row, Mapping)
+    ]
+    router_calls = [
+        dict(row) for row in assignment.get("router_calls") or [] if isinstance(row, Mapping)
+    ]
+    global_summary = dict(assignment.get("router_summary") or {})
+    story_routing = dict(probe.get("story_routing") or {})
+    story_types = {
+        str(key): str(value)
+        for key, value in dict(story_routing.get("story_type_by_cluster") or {}).items()
+    }
+    if (
+        not canonical_input_hash
+        or not global_input
+        or not leaf_partitions
+        or not leaf_clusters
+        or not global_summary
+        or global_summary.get("terminal_disposition") != "ACCEPTED"
+        or not story_types
+    ):
+        raise ValueError("probe_semantic_resume_checkpoint_missing_or_unaccepted")
+
+    leaf_checkpoints: dict[str, dict[str, Any]] = {}
+    for partition in leaf_partitions:
+        partition_id = str(partition.get("partition_id") or "")
+        if not partition_id:
+            raise ValueError("probe_semantic_resume_checkpoint_partition_missing")
+        summaries = [
+            row
+            for row in router_calls
+            if row.get("role_task_id") == "rolling_x_newsroom_leaf_scan"
+            and row.get("work_item_id") == partition_id
+            and row.get("terminal_disposition") == "ACCEPTED"
+        ]
+        clusters = [
+            row for row in leaf_clusters if str(row.get("partition_id") or "") == partition_id
+        ]
+        if len(summaries) != 1 or not clusters:
+            raise ValueError("probe_semantic_resume_leaf_checkpoint_invalid")
+        leaf_checkpoints[partition_id] = {
+            "canonical_input_hash": canonical_input_hash,
+            "partition_id": partition_id,
+            "partition_index": partition.get("partition_index"),
+            "headline_ids": list(partition.get("headline_ids") or []),
+            "router_summary": summaries[0],
+            "output": {"clusters": clusters},
+        }
+
+    global_attempts = [
+        dict(row) for row in global_summary.get("attempts") or [] if isinstance(row, Mapping)
+    ]
+    accepted_attempts = [row for row in global_attempts if row.get("disposition") == "accepted"]
+    if len(accepted_attempts) != 1:
+        raise ValueError("probe_semantic_resume_global_checkpoint_invalid")
+    accepted_attempt = accepted_attempts[0]
+    ranked_clusters = [
+        dict(row) for row in assignment.get("ranked_clusters") or [] if isinstance(row, Mapping)
+    ]
+    global_output = {
+        "decision": assignment.get("decision"),
+        "selection_rationale": assignment.get("selection_rationale"),
+        "selected_cluster_id": assignment.get("selected_cluster_id"),
+        "selected_headline_ids": list(assignment.get("selected_headline_ids") or []),
+        "ranked_clusters": ranked_clusters,
+        "shortlist_count": len(ranked_clusters),
+        "evaluated_leaf_cluster_count": len(leaf_clusters),
+        "global_editor_used_compact_leaf_summaries_only": True,
+        "attention_used_as_factual_truth": False,
+        "router_output_grants_publication_authority": False,
+    }
+    global_output["global_result_logical_hash"] = _logical_hash(global_output)
+    global_checkpoint = {
+        "canonical_input_hash": canonical_input_hash,
+        "cutoff_time_utc": global_input.get("cutoff_time_utc"),
+        "global_input_logical_hash": _logical_hash(global_input),
+        "ordered_leaf_cluster_ids": [
+            str(row.get("id") or "") for row in global_input.get("leaf_cluster_summaries") or []
+        ],
+        "global_invocation_id": global_summary.get("logical_invocation_id"),
+        "work_item_id": global_summary.get("work_item_id"),
+        "role_task_id": global_summary.get("role_task_id"),
+        "prompt_template": accepted_attempt.get("prompt_template"),
+        "prompt_version": accepted_attempt.get("prompt_version"),
+        "governed_input_hash": accepted_attempt.get("governed_input_hash"),
+        "terminal_disposition": global_summary.get("terminal_disposition"),
+        "selected_model": global_summary.get("selected_model"),
+        "router_summary": global_summary,
+        "output": global_output,
+        "accepted_provider_identity": {
+            "gateway": accepted_attempt.get("gateway"),
+            "requested_model": accepted_attempt.get("requested_model"),
+            "resolved_model": accepted_attempt.get("resolved_model"),
+            "provider_invocation_id": accepted_attempt.get("provider_invocation_id"),
+            "model_identity_provider_verified": accepted_attempt.get(
+                "model_identity_provider_verified"
+            ),
+        },
+        "global_result_logical_hash": global_output["global_result_logical_hash"],
+    }
+    return leaf_checkpoints, global_checkpoint, story_types
+
+
 def _frontier_row(
     *, number: int, prepared: Mapping[str, Any], result: Mapping[str, Any], path: Path
 ) -> dict[str, Any]:
@@ -504,11 +625,18 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
         raise ValueError("worker_return_governed_input_hash_mismatch")
     rolling = _load(Path(str(state["rolling_input_path"])))
     prepared = _load(Path(str(pending["prepared_state_path"])))
+    probe = _load(Path(str(pending["probe_cycle_evidence_path"])))
+    leaf_checkpoints, global_checkpoint, story_type_by_cluster = (
+        _semantic_resume_checkpoints_from_probe(probe)
+    )
+    builder_invoked = False
 
     def builder(value: Mapping[str, Any]) -> dict[str, Any]:
+        nonlocal builder_invoked
         request = dict(value.get("editorial_worker_request") or {})
         if str(request.get("governed_input_hash") or "") != expected_hash:
             raise GroundedArticleBuilderError("TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE")
+        builder_invoked = True
         return {
             "schema_version": "contentops.rolling_x_grounded_article_media_builder.v1",
             "article": dict(receipt.get("article") or {}),
@@ -528,11 +656,16 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
         cutoff_utc=str(state["cutoff_utc"]),
         rolling_input=rolling,
         prepared_candidate_state=prepared,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
+        story_type_by_cluster=story_type_by_cluster,
         article_builder=builder,
         publication_enabled=True,
         operating_mode="KILL_SWITCH",
         destination_readiness_override=_ready(),
     )
+    if not builder_invoked:
+        raise ValueError("bound_editorial_worker_return_not_reached_by_reused_probe_selection")
     row = _frontier_row(number=number, prepared=prepared, result=result, path=final_dir)
     row["prepared_state_path"] = pending["prepared_state_path"]
     row["governed_input_hash"] = expected_hash
