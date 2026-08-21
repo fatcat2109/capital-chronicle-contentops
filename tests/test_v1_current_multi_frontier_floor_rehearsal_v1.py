@@ -4,7 +4,9 @@ from __future__ import annotations
 import pytest
 
 from scripts.run_v1_current_multi_frontier_floor_rehearsal import (
+    _sha,
     _semantic_resume_checkpoints_from_probe,
+    _validated_probe_viability_checkpoint,
 )
 
 
@@ -109,3 +111,21 @@ def test_worker_completion_refuses_an_unaccepted_or_incomplete_probe() -> None:
 
     with pytest.raises(ValueError, match="probe_semantic_resume_checkpoint_missing_or_unaccepted"):
         _semantic_resume_checkpoints_from_probe(probe)
+
+
+def test_worker_completion_reuses_only_the_exact_hash_bound_probe_viability() -> None:
+    viability = {
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "selected_cluster_id": "global-cluster-1",
+        "selected_evidence": {"headline_ids": ["headline-1"]},
+        "rank_attempts": [],
+    }
+    viability["viability_logical_hash"] = _sha(viability)
+
+    reused = _validated_probe_viability_checkpoint(viability)
+
+    assert reused == viability
+    tampered = {**viability, "selected_cluster_id": "different-cluster"}
+    with pytest.raises(ValueError, match="probe_viability_checkpoint_invalid"):
+        _validated_probe_viability_checkpoint(tampered)

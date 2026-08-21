@@ -348,6 +348,22 @@ def _semantic_resume_checkpoints_from_probe(
     return leaf_checkpoints, global_checkpoint, story_types
 
 
+def _validated_probe_viability_checkpoint(value: Mapping[str, Any]) -> dict[str, Any]:
+    """Accept only the exact hash-bound viable candidate selected before XHIGH dispatch."""
+    checkpoint = dict(value)
+    claimed_hash = str(checkpoint.pop("viability_logical_hash") or "")
+    if (
+        not claimed_hash
+        or claimed_hash != _sha(checkpoint)
+        or checkpoint.get("status") != "SUCCESS"
+        or checkpoint.get("decision") != "SELECT_STORY"
+        or not str(checkpoint.get("selected_cluster_id") or "")
+        or not isinstance(checkpoint.get("selected_evidence"), Mapping)
+    ):
+        raise ValueError("probe_viability_checkpoint_invalid")
+    return {**checkpoint, "viability_logical_hash": claimed_hash}
+
+
 def _frontier_row(
     *, number: int, prepared: Mapping[str, Any], result: Mapping[str, Any], path: Path
 ) -> dict[str, Any]:
@@ -629,6 +645,9 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
     leaf_checkpoints, global_checkpoint, story_type_by_cluster = (
         _semantic_resume_checkpoints_from_probe(probe)
     )
+    probe_viability = _validated_probe_viability_checkpoint(
+        _load(Path(str(pending["probe_cycle_evidence_path"])).parent / "rolling_x_ranked_viability_v1.json")
+    )
     builder_invoked = False
 
     def builder(value: Mapping[str, Any]) -> dict[str, Any]:
@@ -650,6 +669,17 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
 
     number = int(pending["frontier"])
     final_dir = root / f"frontier_{number}" / "canonical_zero_write_rehearsal"
+    if (final_dir / "rolling_x_newsroom_cycle_evidence_v1.json").exists():
+        suffix = 2
+        while (
+            root
+            / f"frontier_{number}"
+            / f"canonical_zero_write_rehearsal_attempt_{suffix}"
+            / "rolling_x_newsroom_cycle_evidence_v1.json"
+        ).exists():
+            suffix += 1
+        final_dir = root / f"frontier_{number}" / f"canonical_zero_write_rehearsal_attempt_{suffix}"
+    _write(final_dir / "rolling_x_ranked_viability_v1.json", probe_viability)
     result = _run_rolling_x_newsroom_cycle(
         run_id=f"v1-current-floor-frontier-{number}-canonical-zero-write",
         output_dir=final_dir,
