@@ -3089,6 +3089,17 @@ def _prepare_rolling_x_release_candidate(
     )
 
     final_article = dict(article)
+    canonical_candidate = str(final_article.get("canonical_url") or "").strip()
+    if not canonical_candidate or "pending-publication" in canonical_candidate:
+        slug = str(
+            final_article.get("canonical_slug_candidate")
+            or final_article.get("slug")
+            or ""
+        ).strip(" /")
+        if not slug:
+            raise ValueError("rolling_x_canonical_slug_required")
+        canonical_candidate = f"https://capitalchronicle.substack.com/p/{slug}"
+    final_article["canonical_url"] = canonical_candidate
     from live_contentops.capital_chronicle_institutional_edge_v1 import (
         build_editorial_seo_package,
     )
@@ -3267,7 +3278,7 @@ def _prepare_rolling_x_release_candidate(
             payloads = build_native_derivative_payloads(
                 article=final_article,
                 selection=selection,
-                canonical_url="https://capitalchronicle.substack.com/p/pending-publication",
+                canonical_url=canonical_candidate,
                 media_asset_ids=media_ids,
             )
         except Exception as exc:
@@ -5532,9 +5543,12 @@ def _run_rolling_x_newsroom_cycle(
         try:
             built: Mapping[str, Any] | None = None
             checkpoint_source: Path | None = None
-            if candidate_checkpoint_path.exists():
+            revision_continuation_requested = bool(
+                viability.get("same_xhigh_worker_revision_contract")
+            )
+            if candidate_checkpoint_path.exists() and not revision_continuation_requested:
                 checkpoint_source = candidate_checkpoint_path
-            elif built_checkpoint_path.exists():
+            elif built_checkpoint_path.exists() and not revision_continuation_requested:
                 legacy_built = _read_json(built_checkpoint_path)
                 legacy_article = dict(legacy_built.get("article") or {})
                 if (
@@ -5574,19 +5588,68 @@ def _run_rolling_x_newsroom_cycle(
                     },
                 }
             else:
-                built = article_builder({
+                worker_viability = {
                     **dict(viability),
                     "editorial_worker_request": dict(
                         editorial_route.get("worker_request") or {}
                     ),
-                })
+                }
+                same_worker_contract = dict(
+                    viability.get("same_xhigh_worker_revision_contract") or {}
+                )
+                same_worker_reviser = getattr(
+                    article_builder, "revise_same_worker", None
+                )
+                if same_worker_contract and callable(same_worker_reviser):
+                    built = same_worker_reviser(worker_viability)
+                else:
+                    built = article_builder(worker_viability)
             if publication_enabled:
                 from live_contentops.codex_desktop_newsroom_operator_v1 import (
                     validate_editorial_worker_return,
                     validate_same_xhigh_worker_revision_return,
                 )
+                from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+                    resolve_editorial_worker_article_for_public_lock,
+                )
 
                 receipt = dict((built or {}).get("editorial_worker_receipt") or {})
+                built_article_for_resolution = dict((built or {}).get("article") or {})
+                worker_body_for_resolution = str(
+                    built_article_for_resolution.get("substack_body_markdown") or ""
+                )
+                official_direct_provider_return = isinstance(
+                    receipt.get("official_codex_turn_receipt"), Mapping
+                )
+                if receipt and worker_body_for_resolution and (
+                    "[[SOURCE:" in worker_body_for_resolution
+                    or official_direct_provider_return
+                ):
+                    raw_worker_return_sha256 = _json_sha256(receipt)
+                    raw_worker_article_sha256 = _json_sha256(
+                        dict(receipt.get("article") or {})
+                    )
+                    resolved_article = resolve_editorial_worker_article_for_public_lock(
+                        built_article_for_resolution,
+                        viability=viability,
+                    )
+                    receipt["raw_worker_return_sha256"] = str(
+                        receipt.get("raw_worker_return_sha256")
+                        or raw_worker_return_sha256
+                    )
+                    receipt["raw_worker_article_sha256"] = str(
+                        receipt.get("raw_worker_article_sha256")
+                        or raw_worker_article_sha256
+                    )
+                    receipt["resolved_public_body_sha256"] = str(
+                        resolved_article.get("resolved_public_body_sha256") or ""
+                    )
+                    receipt["article"] = resolved_article
+                    built = {
+                        **dict(built or {}),
+                        "article": resolved_article,
+                        "editorial_worker_receipt": receipt,
+                    }
                 expected_hash = str(editorial_route.get("governed_input_hash") or "")
                 if not expected_hash:
                     raise GroundedArticleBuilderError(
@@ -5891,6 +5954,20 @@ def _run_rolling_x_newsroom_cycle(
                     or []
                 )
             if reason == "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+                same_worker_reviser = getattr(
+                    article_builder, "revise_same_worker", None
+                )
+                if callable(same_worker_reviser) and not viability.get(
+                    "same_xhigh_worker_revision_contract"
+                ):
+                    viability = {
+                        **dict(viability),
+                        "same_xhigh_worker_revision_contract": dict(
+                            editorial.get("same_xhigh_worker_revision_contract") or {}
+                        ),
+                    }
+                    walk_row["terminal_reason"] = None
+                    continue
                 evidence["classification"] = "NO_PUBLICATION"
                 evidence["exact_next_blocker"] = reason
                 evidence["same_xhigh_worker_revision_contract"] = dict(

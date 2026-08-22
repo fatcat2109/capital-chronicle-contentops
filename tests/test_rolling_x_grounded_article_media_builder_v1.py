@@ -13,6 +13,7 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     build_rolling_x_grounded_article_and_media,
     build_source_backed_media_assets,
     extract_governed_story_context,
+    resolve_editorial_worker_article_for_public_lock,
     validate_generated_article,
     _untraceable_numeric_claims,
     _authority_blockers,
@@ -747,6 +748,43 @@ def test_source_resolution_prevents_adjacent_duplicate_publisher_attribution():
     assert "Reuters Reuters" not in resolved
     assert "According to Reuters, the rule changed" in resolved
     assert "Reuters reported the timetable" in resolved
+
+
+@pytest.mark.parametrize("revision_count", [0, 1])
+def test_final_worker_source_markers_resolve_before_public_lock_for_fresh_and_revision(
+    revision_count,
+):
+    article = {
+        "title": "Treasury rule",
+        "substack_body_markdown": (
+            "The Treasury published its final rule [[SOURCE:SOURCE_1]]."
+        ),
+        "bounded_revision_count": revision_count,
+    }
+
+    resolved = resolve_editorial_worker_article_for_public_lock(
+        article, viability=_viability()
+    )
+
+    assert "[[SOURCE:" not in resolved["substack_body_markdown"]
+    assert FR_URL in resolved["substack_body_markdown"]
+    assert resolved["raw_worker_body_sha256"] != resolved["resolved_public_body_sha256"]
+    assert resolved["source_reference_resolution"]["status"] == "PASS"
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        "Unsupported handle [[SOURCE:SOURCE_99]].",
+        "Unsupported URL https://unbound.example.invalid/report.",
+    ],
+)
+def test_final_worker_source_resolution_fails_closed_for_unknown_identity(body):
+    with pytest.raises(GroundedArticleBuilderError):
+        resolve_editorial_worker_article_for_public_lock(
+            {"title": "Blocked", "substack_body_markdown": body},
+            viability=_viability(),
+        )
 
 
 def test_analytical_mode_blocks_without_capital_chronicle_authority(tmp_path):

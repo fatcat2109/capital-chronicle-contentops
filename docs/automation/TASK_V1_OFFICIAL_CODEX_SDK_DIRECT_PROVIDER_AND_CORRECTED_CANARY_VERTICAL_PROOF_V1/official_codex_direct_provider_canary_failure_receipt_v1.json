@@ -1,0 +1,57 @@
+{
+  "api_key_fallback_calls": 0,
+  "authority_update_performed": false,
+  "base_commit": "01883d666b93912147b0ba62b8e496a196d9114a",
+  "branch": "codex/v1-official-codex-sdk-direct-provider-canary-v1",
+  "classification": "BLOCKED_CANARY_LOCAL_VALIDATION_FAILED_NO_SECOND_PROOF_RUN",
+  "deterministic_failure": {
+    "candidate_rank": 2,
+    "canonical_pipeline_classification": "NO_PUBLICATION",
+    "canonical_pipeline_exact_next_blocker": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+    "failure_phase": "LOCAL_VALIDATION",
+    "institutional_edge_blockers": [
+      "epistemic_claim_not_present_in_public_copy",
+      "epistemic_claim_layer_invalid",
+      "structured_data_description_mismatch",
+      "structured_data_dates_missing_or_unbound",
+      "structured_data_author_identity_mismatch",
+      "structured_data_publisher_identity_mismatch"
+    ],
+    "model_turn_completed_before_local_rejection": true,
+    "public_lock_created": false
+  },
+  "evidence": {
+    "accepted_evidence_document_ids": [
+      "official-primary-ffb8e742e0932254c29d"
+    ],
+    "article_mode": "DATA_OR_DOCUMENT_LENS",
+    "false_residual_supported_count_after_current_rebuild": 0,
+    "governed_input_hash": "629012ad17e2a579aa6c3742e97a20d717e43c3e003005434dc95e7d380a4de6",
+    "selected_cluster_id": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1"
+  },
+  "live_provider_attempt": {
+    "auth_classification": "CHATGPT",
+    "fresh_ephemeral_thread_count": 1,
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "XHIGH",
+    "replacement_thread_count": 0,
+    "same_thread_revision_count": 0,
+    "sdk_version": "0.147.0",
+    "transport": "OFFICIAL_CODEX_APP_SERVER_STDIO",
+    "turn_result_receipt_persisted": false,
+    "turn_result_receipt_unavailable_reason": "INITIAL_IMPLEMENTATION_PERSISTED_SECRET_FREE_RECEIPT_ONLY_AFTER_PRODUCT_VALIDATION",
+    "writer_turn_count": 1
+  },
+  "no_second_production_proof_run": true,
+  "owner_success_classification_claimed": false,
+  "nine_surface_jit_preflight": {
+    "status": "NOT_REACHED_PUBLIC_LOCK_NOT_CREATED",
+    "write_count": 0
+  },
+  "provider_publication_write_count": 0,
+  "public_write_count": 0,
+  "raw_artifacts_committed": false,
+  "raw_artifacts_path": "artifacts/v1_official_codex_direct_provider_canary_20260822",
+  "task": "TASK_V1_OFFICIAL_CODEX_SDK_DIRECT_PROVIDER_AND_CORRECTED_CANARY_VERTICAL_PROOF_V1",
+  "unknown_write_count": 0
+}

@@ -109,37 +109,49 @@ def run_rolling_x_newsroom_cycle(
     material_event_priority: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return _execute(
-        "run_rolling_x_newsroom_cycle",
-        run_id=run_id,
-        output_dir=output_dir,
-        cutoff_utc=cutoff_utc,
-        sidecar_glob=sidecar_glob,
-        window_hours=window_hours,
-        cdp_port=cdp_port,
-        assignment_timeout_seconds=assignment_timeout_seconds,
-        assignment_provider_call=assignment_provider_call,
-        rolling_input=rolling_input,
-        prepared_candidate_state=prepared_candidate_state,
-        leaf_checkpoints=leaf_checkpoints,
-        global_checkpoint=global_checkpoint,
-        capital_chronicle_root=capital_chronicle_root,
-        evidence_acquirer=evidence_acquirer,
-        story_type_by_cluster=story_type_by_cluster,
-        story_type_classifier=story_type_classifier,
-        story_type_provider_call=story_type_provider_call,
-        story_type_timeout_seconds=story_type_timeout_seconds,
-        article_builder=article_builder,
-        editorial_reviewer=editorial_reviewer,
-        article_reviser=article_reviser,
-        publication_enabled=publication_enabled,
-        operating_mode=operating_mode,
-        published_corpus=published_corpus,
-        cc_catalog=cc_catalog,
-        learning_policy=learning_policy,
-        material_event_priority=material_event_priority,
-        destination_readiness_override=destination_readiness_override,
+    kwargs = {
+        "run_id": run_id,
+        "output_dir": output_dir,
+        "cutoff_utc": cutoff_utc,
+        "sidecar_glob": sidecar_glob,
+        "window_hours": window_hours,
+        "cdp_port": cdp_port,
+        "assignment_timeout_seconds": assignment_timeout_seconds,
+        "assignment_provider_call": assignment_provider_call,
+        "rolling_input": rolling_input,
+        "prepared_candidate_state": prepared_candidate_state,
+        "leaf_checkpoints": leaf_checkpoints,
+        "global_checkpoint": global_checkpoint,
+        "capital_chronicle_root": capital_chronicle_root,
+        "evidence_acquirer": evidence_acquirer,
+        "story_type_by_cluster": story_type_by_cluster,
+        "story_type_classifier": story_type_classifier,
+        "story_type_provider_call": story_type_provider_call,
+        "story_type_timeout_seconds": story_type_timeout_seconds,
+        "editorial_reviewer": editorial_reviewer,
+        "article_reviser": article_reviser,
+        "publication_enabled": publication_enabled,
+        "operating_mode": operating_mode,
+        "published_corpus": published_corpus,
+        "cc_catalog": cc_catalog,
+        "learning_policy": learning_policy,
+        "material_event_priority": material_event_priority,
+        "destination_readiness_override": destination_readiness_override,
+    }
+    if article_builder is not None or not publication_enabled:
+        return _execute(
+            "run_rolling_x_newsroom_cycle", article_builder=article_builder, **kwargs
+        )
+    # The official SDK provider is created only when the canonical runtime reaches its existing
+    # publication-enabled editorial boundary. It is not a second orchestrator or scheduler.
+    from live_contentops.official_codex_provider_v1 import (
+        OfficialCodexEditorialArticleBuilder,
     )
+
+    with OfficialCodexEditorialArticleBuilder(output_dir=output_dir) as direct_builder:
+        return _execute(
+            "run_rolling_x_newsroom_cycle", article_builder=direct_builder, **kwargs
+        )
 
 
 def reconcile_public_substack_for_derivative_resume(

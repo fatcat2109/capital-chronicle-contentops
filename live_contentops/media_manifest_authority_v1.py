@@ -128,6 +128,21 @@ def _glyph_safe_display_text(value: str, *, unicode_font_loaded: bool) -> str:
     )
 
 
+def _reader_facing_source_date(value: str | None) -> str | None:
+    """Render a source date for readers without leaking a machine timestamp onto the card."""
+    source = str(value or "").strip()
+    if not source:
+        return None
+    try:
+        from datetime import datetime
+
+        parsed = datetime.fromisoformat(source.replace("Z", "+00:00"))
+    except ValueError:
+        # A source may already provide a reader-facing date instead of an ISO timestamp.
+        return source
+    return f"{parsed.strftime('%B')} {parsed.day}, {parsed.year}"
+
+
 def build_delivery_only_editorial_card(
     *,
     output_path: str | Path,
@@ -176,11 +191,12 @@ def build_delivery_only_editorial_card(
     for row in lines(display_title, 50)[:7]:
         draw.text((110, y), row, fill="#f8fafc", font=font)
         y += 58
+    source_date = _reader_facing_source_date(published_at)
     source_text = f"Source: {source_label}"
-    if published_at:
-        source_text += f" | {published_at}"
+    if source_date:
+        source_text += f" | {source_date}"
     draw.text((110, 875), source_text[:92], fill="#cbd5e1", font=small)
-    draw.text((110, 930), "Read the governed analysis on Capital Chronicle", fill="#e0b85a", font=small)
+    draw.text((110, 930), "Read the full brief on Capital Chronicle", fill="#e0b85a", font=small)
     image.save(target, format="PNG", optimize=True)
     metadata = image_metadata_from_file(target)
     return {
@@ -203,6 +219,8 @@ def build_delivery_only_editorial_card(
         "source_label": str(source_label),
         "source_page_url": str(source_page_url),
         "source_published_at": str(published_at or "") or None,
+        "reader_facing_source_date": source_date,
+        "reader_facing_cta": "Read the full brief on Capital Chronicle",
         "provenance_status": "VERIFIED_SOURCE_METADATA_CONTENTOPS_RENDER",
         "rights_basis": "CONTENTOPS_OWNED_LAYOUT_SOURCE_METADATA_ONLY",
         "article_inclusion": False,

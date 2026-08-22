@@ -1256,6 +1256,10 @@ def test_rolling_x_release_candidate_builds_and_verifies_canonical_lock(tmp_path
     assert context["rolling_x_live_path_used"] is True
     assert context["generic_live_path_used"] is False
     payloads = json.loads((tmp_path / "native_payloads_rehearsal_v1.json").read_text(encoding="utf-8"))
+    exact_url = "https://capitalchronicle.substack.com/p/official-event-update"
+    assert len(payloads) == 8
+    assert all(exact_url in str(package.get("text") or "") for package in payloads.values())
+    assert "pending-publication" not in json.dumps(payloads)
     assert payloads["x"]["quality_metrics"]["complete_article_visual_count"] == 3
     assert payloads["threads"]["quality_metrics"]["reply_count"] == 2
 

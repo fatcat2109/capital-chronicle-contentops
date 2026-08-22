@@ -126,3 +126,19 @@ def test_delivery_card_renders_newsroom_unicode_without_missing_glyphs(tmp_path:
             "FT flags lender insurance gap around Meta-BlackRock's $14bn data centre"
         )
         assert card["display_fallback_applied"] is True
+
+
+def test_delivery_card_uses_reader_facing_source_date_and_full_brief_cta(tmp_path: Path):
+    card = build_delivery_only_editorial_card(
+        output_path=tmp_path / "delivery-card.png",
+        title="State Department Approves Possible APKWS II Sale to Italy",
+        source_label="Defense Security Cooperation Agency",
+        source_page_url="https://www.dsca.mil/press-media/major-arms-sales/italy-apkws-ii",
+        published_at="2026-08-20T14:32:19Z",
+    )
+
+    assert card["reader_facing_source_date"] == "August 20, 2026"
+    assert card["reader_facing_cta"] == "Read the full brief on Capital Chronicle"
+    assert card["canonical_article_media"] is False
+    assert card["article_inclusion"] is False
+    assert card["delivery_only"] is True

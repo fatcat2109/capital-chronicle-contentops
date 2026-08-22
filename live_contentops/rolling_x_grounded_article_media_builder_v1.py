@@ -1358,6 +1358,42 @@ def _resolve_generated_source_references(
     return resolved, list(dict.fromkeys(referenced)), list(dict.fromkeys(blockers))
 
 
+def resolve_editorial_worker_article_for_public_lock(
+    article: Mapping[str, Any], *, viability: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Resolve source handles for every native-worker path before canonical locking.
+
+    The worker's raw article/body hashes remain available as provenance. Unknown handles and
+    unbound URLs fail closed through the same resolver used by the normal grounded builder.
+    """
+    raw_article = dict(article)
+    raw_body = str(raw_article.get("substack_body_markdown") or "")
+    context = extract_governed_story_context(viability)
+    resolved_body, referenced_source_ids, blockers = _resolve_generated_source_references(
+        raw_body,
+        context=context,
+    )
+    if blockers:
+        raise GroundedArticleBuilderError(";".join(blockers))
+    resolved = dict(raw_article)
+    resolved["substack_body_markdown"] = resolved_body
+    resolved["source_binding_ids_referenced"] = referenced_source_ids
+    resolved["raw_worker_article_sha256"] = _sha256_text(
+        json.dumps(raw_article, sort_keys=True, separators=(",", ":"), default=str)
+    )
+    resolved["raw_worker_body_sha256"] = _sha256_text(raw_body)
+    resolved["resolved_public_body_sha256"] = _sha256_text(resolved_body)
+    resolved["source_reference_resolution"] = {
+        "status": "PASS",
+        "resolver": "GROUNDED_SOURCE_BINDING_RESOLVER_V1",
+        "referenced_source_ids": referenced_source_ids,
+        "unknown_source_handle_count": 0,
+        "unbound_source_url_count": 0,
+    }
+    resolved["canonical_rich_text"] = markdown_to_rich_text(resolved_body)
+    return resolved
+
+
 def _allowed_source_urls(context: Mapping[str, Any]) -> set[str]:
     return {
         str(binding.get("reader_source_url") or "")
@@ -2312,9 +2348,10 @@ def build_rolling_x_grounded_article_and_media(
         }
         generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
 
+    raw_generated_body = str(generated.get("substack_body_markdown") or "")
     resolved_body, referenced_source_ids, source_reference_blockers = (
         _resolve_generated_source_references(
-            str(generated.get("substack_body_markdown") or ""),
+            raw_generated_body,
             context=context,
         )
     )
@@ -2405,6 +2442,17 @@ def build_rolling_x_grounded_article_and_media(
             generated.get("social_cross_asset_summary") or ""
         ).strip(),
         "substack_body_markdown": str(generated.get("substack_body_markdown") or ""),
+        "raw_worker_body_sha256": _sha256_text(raw_generated_body),
+        "resolved_public_body_sha256": _sha256_text(
+            str(generated.get("substack_body_markdown") or "")
+        ),
+        "source_reference_resolution": {
+            "status": "PASS",
+            "resolver": "GROUNDED_SOURCE_BINDING_RESOLVER_V1",
+            "referenced_source_ids": referenced_source_ids,
+            "unknown_source_handle_count": 0,
+            "unbound_source_url_count": 0,
+        },
         "primary_reader_question": str(
             generated.get("primary_reader_question") or ""
         ).strip(),
