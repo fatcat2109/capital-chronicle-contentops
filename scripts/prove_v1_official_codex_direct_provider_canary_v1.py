@@ -36,7 +36,7 @@ from scripts.run_v1_current_multi_frontier_floor_rehearsal import (
 
 
 TASK = (
-    "TASK_V1_OFFICIAL_CODEX_SDK_DIRECT_PROVIDER_AND_CORRECTED_CANARY_VERTICAL_PROOF_V1"
+    "TASK_V1_OFFICIAL_CODEX_ARTICLE_CONTRACT_RELIABILITY_AND_AUTONOMOUS_CANARY_CLOSEOUT_V1"
 )
 CLASSIFICATION = (
     "PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF"
@@ -182,43 +182,78 @@ def _safe_jit(jit: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def prove(*, source_root: Path, output_dir: Path, receipt_path: Path) -> dict[str, Any]:
-    route_probe = source_root / "route_probe"
-    probe = _read(route_probe / "rolling_x_newsroom_cycle_evidence_v1.json")
-    rolling = dict(probe.get("intake") or {})
-    prepared = _read(route_probe / "rolling_x_prepared_candidate_state_v1.json")
-    viability, claim_contract = _rebuild_current_viability(source_root)
-    leaf_checkpoints, global_checkpoint, story_types = (
-        _semantic_resume_checkpoints_from_probe(probe)
-    )
-    output_dir.mkdir(parents=True, exist_ok=True)
-    _write(output_dir / "rolling_x_ranked_viability_v1.json", viability)
-    with OfficialCodexEditorialArticleBuilder(
-        output_dir=output_dir,
-        required_title=EXPECTED_TITLE,
-    ) as article_builder:
-        preflight = article_builder.preflight()
-        result = _run_rolling_x_newsroom_cycle(
-            run_id="v1-official-codex-direct-provider-italy-current-head-canary",
-            output_dir=output_dir,
-            cutoff_utc=str(rolling.get("cutoff_time_utc") or ""),
-            rolling_input=rolling,
-            prepared_candidate_state=prepared,
-            leaf_checkpoints=leaf_checkpoints,
-            global_checkpoint=global_checkpoint,
-            story_type_by_cluster=story_types,
-            article_builder=article_builder,
-            publication_enabled=True,
-            operating_mode="KILL_SWITCH",
-            destination_readiness_override=_ready_override(),
-            acceptance_profile=MVP_CANARY_ACCEPTANCE_PROFILE,
+def prove(
+    *,
+    source_root: Path,
+    output_dir: Path,
+    receipt_path: Path,
+    resume_existing: bool = False,
+) -> dict[str, Any]:
+    if resume_existing:
+        result = _read(output_dir / "rolling_x_newsroom_cycle_evidence_v1.json")
+        viability = _read(output_dir / "rolling_x_ranked_viability_v1.json")
+        claim_contract = dict(
+            (viability.get("selected_evidence") or {}).get(
+                "claim_evidence_contract"
+            )
+            or {}
         )
+        grounded_for_preflight = _read(
+            output_dir / "rolling_x_grounded_article_media_v1.json"
+        )
+        completed_turn = dict(
+            (
+                grounded_for_preflight.get("editorial_worker_receipt") or {}
+            ).get("official_codex_turn_receipt")
+            or {}
+        )
+        preflight = {
+            "status": "PASS_REUSED_COMPLETED_TURN_RECEIPT_NO_NEW_MODEL_CALL",
+            "provider": completed_turn.get("provider"),
+            "transport": completed_turn.get("transport"),
+            "sdk_version": completed_turn.get("sdk_version"),
+            "auth_classification": completed_turn.get("auth_classification"),
+            "api_key_fallback_calls": completed_turn.get("api_key_fallback_calls"),
+            "model": completed_turn.get("model"),
+            "reasoning_effort": completed_turn.get("reasoning_effort"),
+        }
+    else:
+        route_probe = source_root / "route_probe"
+        probe = _read(route_probe / "rolling_x_newsroom_cycle_evidence_v1.json")
+        rolling = dict(probe.get("intake") or {})
+        prepared = _read(route_probe / "rolling_x_prepared_candidate_state_v1.json")
+        viability, claim_contract = _rebuild_current_viability(source_root)
+        leaf_checkpoints, global_checkpoint, story_types = (
+            _semantic_resume_checkpoints_from_probe(probe)
+        )
+        output_dir.mkdir(parents=True, exist_ok=True)
+        _write(output_dir / "rolling_x_ranked_viability_v1.json", viability)
+        with OfficialCodexEditorialArticleBuilder(
+            output_dir=output_dir,
+            required_title=EXPECTED_TITLE,
+        ) as article_builder:
+            preflight = article_builder.preflight()
+            result = _run_rolling_x_newsroom_cycle(
+                run_id="v1-official-codex-direct-provider-italy-current-head-canary",
+                output_dir=output_dir,
+                cutoff_utc=str(rolling.get("cutoff_time_utc") or ""),
+                rolling_input=rolling,
+                prepared_candidate_state=prepared,
+                leaf_checkpoints=leaf_checkpoints,
+                global_checkpoint=global_checkpoint,
+                story_type_by_cluster=story_types,
+                article_builder=article_builder,
+                publication_enabled=True,
+                operating_mode="KILL_SWITCH",
+                destination_readiness_override=_ready_override(),
+                acceptance_profile=MVP_CANARY_ACCEPTANCE_PROFILE,
+            )
     if result.get("classification") != "PASS_PUBLICATION_PLAN_READY":
         raise ValueError(
             "direct_provider_canary_pipeline_failed:"
             + str(result.get("exact_next_blocker") or result.get("classification"))
         )
-    preparation = dict(result.get("release_candidate") or {})
+    preparation = dict(result.get("release_candidate_preparation") or {})
     context = dict(preparation.get("context") or {})
     article = dict(context.get("article") or {})
     payloads = dict(preparation.get("payloads") or {})
@@ -230,6 +265,44 @@ def prove(*, source_root: Path, output_dir: Path, receipt_path: Path) -> dict[st
         raise ValueError("exact_canary_article_evidence_identity_mismatch")
     if "[[SOURCE:" in str(article.get("substack_body_markdown") or ""):
         raise ValueError("raw_source_marker_reached_canonical_article")
+    public_copy = "\n".join(
+        str(article.get(key) or "")
+        for key in (
+            "title",
+            "subtitle",
+            "seo_title",
+            "meta_description",
+            "social_lede",
+            "substack_body_markdown",
+        )
+    )
+    epistemic_claims = list(article.get("epistemic_claims") or [])
+    if not epistemic_claims or any(
+        " ".join(str(row.get("text") or "").split()).casefold()
+        not in " ".join(public_copy.split()).casefold()
+        for row in epistemic_claims
+        if isinstance(row, Mapping)
+    ):
+        raise ValueError("epistemic_claims_must_be_present_in_public_copy")
+    institutional = dict(article.get("institutional_edge_editorial_validation") or {})
+    if institutional.get("classification") != "PASS":
+        raise ValueError("institutional_edge_validation_must_pass")
+    structured = dict(article.get("structured_data_packet") or {})
+    if (
+        structured.get("headline") != article.get("title")
+        or structured.get("description") != article.get("meta_description")
+        or structured.get("author") != "Capital Chronicle"
+        or structured.get("publisher") != "Capital Chronicle"
+        or structured.get("publication_time_binding")
+        != "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION"
+        or structured.get("eligible_for_emission") is not False
+    ):
+        raise ValueError("structured_data_visible_identity_date_binding_invalid")
+    if any(
+        marker.casefold() in public_copy.casefold()
+        for marker in ("Norway", "South Korea", "simultaneously", "coordinated")
+    ):
+        raise ValueError("false_multi_country_residual_reintroduced")
     if len(payloads) != 8 or "pending-publication" in json.dumps(payloads):
         raise ValueError("exact_eight_real_path_derivative_packages_required")
     media = dict(context.get("media") or {})
@@ -243,18 +316,29 @@ def prove(*, source_root: Path, output_dir: Path, receipt_path: Path) -> dict[st
 
     lock = dict(preparation.get("release_candidate_lock") or {})
     attempt_identity = str(lock.get("lock_sha256") or "")
-    orchestrator = ContentOpsProductionOrchestrator()
-    readiness_manager = DestinationReadinessManager(
-        store=None,
-        edge_runtime_ensurer=lambda **kwargs: orchestrator.execute(
-            "ensure_canonical_edge_publishing_runtime", **kwargs
-        ),
-    )
-    jit = readiness_manager.verify_full_v1_transaction_preflight(
-        attempt_identity=attempt_identity,
-        persist=False,
-    )
-    _write(output_dir / "full_v1_transaction_preflight_v1.json", jit)
+    jit_path = output_dir / "full_v1_transaction_preflight_v1.json"
+    if resume_existing and jit_path.exists():
+        jit = _read(jit_path)
+    else:
+        orchestrator = ContentOpsProductionOrchestrator()
+        readiness_manager = DestinationReadinessManager(
+            store=None,
+            edge_runtime_ensurer=lambda **kwargs: orchestrator.execute(
+                "ensure_canonical_edge_publishing_runtime", **kwargs
+            ),
+        )
+        jit = readiness_manager.verify_full_v1_transaction_preflight(
+            attempt_identity=attempt_identity,
+            persist=False,
+        )
+        _write(jit_path, jit)
+    if (
+        str(jit.get("status") or "") != "READY"
+        or jit.get("all_required_destinations_ready") is not True
+        or int(jit.get("unknown_write_count") or 0) != 0
+        or jit.get("public_write_performed") is not False
+    ):
+        raise ValueError("full_v1_transaction_preflight_not_ready")
     plan = _build_rolling_x_publication_plan(
         run_id="v1-official-codex-direct-provider-italy-current-head-canary",
         output_dir=output_dir,
@@ -263,10 +347,18 @@ def prove(*, source_root: Path, output_dir: Path, receipt_path: Path) -> dict[st
         readiness=jit,
     )
     _write(output_dir / "publication_plan_current_jit_v1.json", plan)
+    plan_destinations = {
+        str(row.get("destination") or "")
+        for row in plan.get("destinations") or []
+        if isinstance(row, dict)
+    }
+    if plan_destinations != set(V1_REQUIRED_PUBLICATION_DESTINATIONS):
+        raise ValueError("publication_plan_exact_nine_destinations_required")
     grounded = _read(output_dir / "rolling_x_grounded_article_media_v1.json")
     worker = dict(grounded.get("editorial_worker_receipt") or {})
     validation = dict(grounded.get("editorial_worker_validation") or {})
     turn = dict(worker.get("official_codex_turn_receipt") or {})
+    initial_turn = dict(worker.get("initial_official_codex_turn_receipt") or turn)
     revision_count = int(validation.get("bounded_revision_count") or 0)
     direct_turns = 1 + revision_count
     if direct_turns not in {1, 2} or revision_count not in {0, 1}:
@@ -276,7 +368,9 @@ def prove(*, source_root: Path, output_dir: Path, receipt_path: Path) -> dict[st
         "schema_version": "contentops.official_codex_direct_provider_canary_receipt.v1",
         "task": TASK,
         "classification": CLASSIFICATION,
-        "base_commit": "01883d666b93912147b0ba62b8e496a196d9114a",
+        "fetched_starting_branch_commit": (
+            "626e4f35252b52025ce2a15c9634fcb38f4d4f86"
+        ),
         "provider_preflight": preflight,
         "provider": {
             "transport": turn.get("transport"),
@@ -298,10 +392,55 @@ def prove(*, source_root: Path, output_dir: Path, receipt_path: Path) -> dict[st
             "usage": turn.get("turn_result_usage"),
             "duration_ms": turn.get("turn_result_duration_ms"),
             "raw_turn_result_sha256": turn.get("turn_result_final_response_sha256"),
+            "transport_schema_sha256": turn.get("transport_schema_sha256"),
+            "transport_schema_top_level_property_count": turn.get(
+                "transport_schema_top_level_property_count"
+            ),
+            "developer_instruction_sha256": turn.get(
+                "developer_instruction_sha256"
+            ),
+            "provider_input_identity_sha256": turn.get(
+                "provider_input_identity_sha256"
+            ),
             "raw_model_article_sha256": worker.get("raw_model_article_sha256"),
             "raw_worker_body_sha256": worker.get("raw_worker_body_sha256"),
             "resolved_public_body_sha256": worker.get("resolved_public_body_sha256"),
             "gemini_formatter_calls": turn.get("gemini_formatter_calls"),
+            "initial_turn": {
+                "turn_index": initial_turn.get("turn_index"),
+                "turn_result_final_response_sha256": initial_turn.get(
+                    "turn_result_final_response_sha256"
+                ),
+                "structured_output_sha256": initial_turn.get(
+                    "structured_output_sha256"
+                ),
+                "normalized_article_sha256": initial_turn.get(
+                    "normalized_article_sha256"
+                ),
+                "usage": initial_turn.get("turn_result_usage"),
+                "duration_ms": initial_turn.get("turn_result_duration_ms"),
+            },
+            "revision_turn": (
+                {
+                    "turn_index": turn.get("turn_index"),
+                    "turn_result_final_response_sha256": turn.get(
+                        "turn_result_final_response_sha256"
+                    ),
+                    "structured_output_sha256": turn.get(
+                        "structured_output_sha256"
+                    ),
+                    "normalized_article_sha256": turn.get(
+                        "normalized_article_sha256"
+                    ),
+                    "usage": turn.get("turn_result_usage"),
+                    "duration_ms": turn.get("turn_result_duration_ms"),
+                }
+                if revision_count
+                else None
+            ),
+            "initial_deterministic_blockers": list(
+                worker.get("initial_deterministic_blockers") or []
+            ),
         },
         "claim_correction": {
             "claim_contract_sha256": claim_contract.get("claim_contract_sha256"),
@@ -324,6 +463,20 @@ def prove(*, source_root: Path, output_dir: Path, receipt_path: Path) -> dict[st
                 context.get("editorial_seo_package") or {}
             ).get("editorial_seo_package_sha256"),
             "raw_source_markers_remaining": 0,
+            "raw_worker_article_sha256": worker.get("raw_model_article_sha256"),
+            "resolved_public_article_sha256": _hash(article),
+            "institutional_edge_final_blockers": list(
+                institutional.get("blockers") or []
+            ),
+            "epistemic_claim_count": len(epistemic_claims),
+            "structured_data_binding": {
+                "author": structured.get("author"),
+                "publisher": structured.get("publisher"),
+                "publication_time_binding": structured.get(
+                    "publication_time_binding"
+                ),
+                "eligible_for_emission": structured.get("eligible_for_emission"),
+            },
         },
         "release": {
             "release_lock_sha256": lock.get("lock_sha256"),
@@ -332,7 +485,16 @@ def prove(*, source_root: Path, output_dir: Path, receipt_path: Path) -> dict[st
             "pending_publication_occurrences": 0,
             "canonical_article_media_count": int(media.get("article_media_count") or 0),
             "delivery_only_media_count": int(media.get("delivery_media_count") or 0),
+            "derivative_payload_sha256": {
+                destination: _hash(payload)
+                for destination, payload in sorted(payloads.items())
+            },
         },
+        "governed_input_hash": worker.get("governed_input_hash"),
+        "evidence_hash": turn.get("evidence_hash"),
+        "representation_normalization": dict(
+            worker.get("representation_normalization") or {}
+        ),
         "jit_preflight": _safe_jit(jit),
         "publication_plan_destination_count": len(plan.get("destinations") or []),
         "public_write_count": 0,
@@ -349,11 +511,13 @@ def main() -> int:
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--receipt", type=Path, required=True)
+    parser.add_argument("--resume-existing", action="store_true")
     args = parser.parse_args()
     result = prove(
         source_root=args.source_root.resolve(),
         output_dir=args.output_dir.resolve(),
         receipt_path=args.receipt.resolve(),
+        resume_existing=args.resume_existing,
     )
     print(
         json.dumps(

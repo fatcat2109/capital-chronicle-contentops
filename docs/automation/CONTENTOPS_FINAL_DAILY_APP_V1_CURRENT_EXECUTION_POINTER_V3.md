@@ -63,36 +63,32 @@ Stale phrases such as `no publication quota`, `publication minimum zero`, or who
 
 ## Current execution truth
 
-Hash-bound host observation in the accepted Automation-revalidation task proves that exactly four
-native V1 Automations were `PAUSED` at that observation epoch. Later zero-write tasks prove no task
-mutation, not current host state. Any current existence/configuration/state claim is
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. This does not prove unattended public execution or authorize
-FDA-G/material-event metadata to launch Codex or write publicly.
+The official ChatGPT-authenticated Codex App Server/SDK provider is proven as the V1
+heavy-editorial invocation path. The accepted vertical proof used `gpt-5.6-sol / XHIGH`, one fresh
+isolated thread, one bounded same-thread repair, no API-key fallback, and deterministic validation
+after return. The provider has no factual, numeric, permission, gate, or public-write authority.
+
+Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` for V1 invocation. Their prior host
+observations remain historical evidence only. Do not recreate or enable them.
 
 ## Current next capability
 
-`TASK_V1_MVP_CANARY_LAUNCH_GATE_RESET_AND_CANARY_READY_SLICE_V1`
+The exact Italy zero-write canary is ready for Jim/ChatGPT audit. Its accepted classification is:
 
-The accepted model-authority work retains the Gemini-only research/semantic pool and native Desktop
-HIGH -> fresh isolated XHIGH final-writer boundary. The latest prepared-frontier proof walked 41/41
-distinct story opportunities and produced two bound XHIGH returns. Neither is reusable as-is: the
-CFTC-positioning draft failed unsupported-causality safety, and the FX-expiry draft failed numeric
-source binding. Audit them, then perform only the bounded fresh-current work needed to produce one
-hard-safe canary-ready article and eight zero-write packages. Do not rerun another four-frontier/4-32
-campaign. Perform supported JIT read-only identity/readiness checks for all nine destinations and
-stop before publication with `UNKNOWN_WRITE=0`.
+`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`
 
-The bounded 2026-08-22 current walk completed at
-`MVP_CANARY_CURRENT_WALK_EXHAUSTED_NO_ACCEPTED_EVIDENCE`: 48 current headline identities, 42
-distinct story opportunities, 91 story-scoped requests, 86 reads avoided, zero accepted candidates,
-zero XHIGH requests, zero packages, zero public writes, and `UNKNOWN_WRITE=0`. Because the canonical
-JIT contract begins only after a qualified transaction exists, JIT was not reached. The exact
-remaining blocker is accepted current evidence for one candidate; do not manufacture a transaction
-identity merely to probe destinations.
+It has the title `State Department Approves Possible APKWS II Sale to Italy`, mode
+`DATA_OR_DOCUMENT_LENS`, evidence ID `official-primary-ffb8e742e0932254c29d`, eight derivative
+packages, and exact JIT readiness for Substack plus all eight derivative destinations. Public-write
+count and `UNKNOWN_WRITE` are both zero.
 
-## Routine automation intent
+Do not generate a second article, rerun the provider, or write publicly. The next action is owner
+audit of this exact artifact set. The 4/32 proof remains required before production-grade
+daily-yield or unattended routine-operation claims. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
 
-Intended routine schedule only:
+## Routine schedule policy
+
+The four production-day windows remain:
 
 - London 17:00 Monday–Friday;
 - New York 21:00 Monday–Friday;
@@ -102,10 +98,9 @@ Intended routine schedule only:
 - coordinator `gpt-5.6-sol / HIGH`;
 - final article worker fresh isolated `gpt-5.6-sol / XHIGH` only at article boundary.
 
-These are the intended schedule values of the four identities observed paused at the accepted host
-epoch; the paused-automation epoch is historical only. Current host state is
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED`, and the observation remains no authority to enable, recreate,
-or publicly execute them.
+These are schedule-policy values, not authority to recreate the superseded Desktop Scheduled
+Automations. No fifth window may be added. Actual scheduling through the existing V1 runtime remains
+separate from public-write authority.
 
 ## Owner-gated canary after current zero-write slice
 
@@ -116,10 +111,10 @@ or publicly execute them.
 5. reconcile all attempted objects and require `UNKNOWN_WRITE=0`;
 6. audit actual public objects.
 
-## Post-launch 4/32 and P0-G5 after accepted canary
+## Post-canary 4/32 and P0-G5 after owner acceptance
 
 First prove 4 qualified zero-write articles / 32 derivative intents. Then use only actual proven
-routine Codex Automations. No fifth routine task.
+routine runtime scheduling through the official Codex provider. No fifth routine window.
 
 Prove unattended calendar-time execution, production-day floor/target accounting, bounded catch-up, cold-start/restart, no duplicate article/public object, recovery/readback, and bounded cost.
 
@@ -134,7 +129,7 @@ V5 must truthfully show:
 - production-day ID;
 - qualified build count `X/4` and deficit;
 - final target `5–8/day` with build/public-write distinction;
-- observed Codex Automation state or `AUTOMATION_STATE_UNAVAILABLE`;
+- official Codex provider/runtime state, while any prior Desktop Automation state remains historical;
 - publication/recovery/UNKNOWN_WRITE/cost state.
 
 An unmet build floor must not be hidden behind generic healthy-idle copy.
@@ -147,5 +142,5 @@ An unmet build floor must not be hidden behind generic healthy-idle copy.
 - no blind retry of ambiguous writes;
 - no fifth routine task;
 - no second newsroom/store/publisher/control plane;
-- no invented host Automation state;
+- no revival of superseded Desktop Scheduled Automations;
 - no credential/access-token Codex bridge without explicit owner approval.

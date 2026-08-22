@@ -16,6 +16,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
+from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+    ARTICLE_TRANSPORT_SCHEMA,
+    normalize_article_transport_nulls,
+    normalize_article_transport_representation,
+)
+
 
 OFFICIAL_SDK_VERSION = "0.147.0"
 PROVIDER_ID = "OPENAI_CODEX_CHATGPT"
@@ -24,12 +30,7 @@ AUTH_CLASSIFICATION = "CHATGPT"
 MODEL = "gpt-5.6-sol"
 EFFORT = "xhigh"
 API_KEY_ENVIRONMENT_NAMES = ("OPENAI_API_KEY", "CODEX_API_KEY")
-TRANSPORT_SCHEMA: dict[str, Any] = {
-    "type": "object",
-    "properties": {"article_json": {"type": "string"}},
-    "required": ["article_json"],
-    "additionalProperties": False,
-}
+TRANSPORT_SCHEMA: dict[str, Any] = ARTICLE_TRANSPORT_SCHEMA
 PHASES = frozenset(
     {
         "AUTH_PREFLIGHT",
@@ -85,6 +86,49 @@ def _usage(value: Any) -> dict[str, int]:
             "total_tokens",
         )
     }
+
+
+def _transport_schema_error(value: Any, schema: Mapping[str, Any], path: str = "$") -> str | None:
+    """Validate the small strict-output schema subset without adding a runtime dependency."""
+    expected = schema.get("type")
+    allowed_types = list(expected) if isinstance(expected, list) else [expected]
+    if value is None:
+        if "null" in allowed_types:
+            return None
+        return f"{path}:null_not_allowed"
+    matches = (
+        ("object" in allowed_types and isinstance(value, dict))
+        or ("array" in allowed_types and isinstance(value, list))
+        or ("string" in allowed_types and isinstance(value, str))
+        or ("boolean" in allowed_types and isinstance(value, bool))
+    )
+    if not matches:
+        return f"{path}:type_invalid"
+    if "enum" in schema and value not in schema["enum"]:
+        return f"{path}:enum_invalid"
+    if isinstance(value, dict):
+        properties = schema.get("properties")
+        properties = properties if isinstance(properties, Mapping) else {}
+        required = set(schema.get("required") or [])
+        missing = required.difference(value)
+        if missing:
+            return f"{path}:required_missing"
+        if schema.get("additionalProperties") is False and set(value).difference(properties):
+            return f"{path}:additional_property"
+        for key, child in value.items():
+            child_schema = properties.get(key)
+            if isinstance(child_schema, Mapping):
+                error = _transport_schema_error(child, child_schema, f"{path}.{key}")
+                if error:
+                    return error
+    if isinstance(value, list):
+        item_schema = schema.get("items")
+        if isinstance(item_schema, Mapping):
+            for index, child in enumerate(value):
+                error = _transport_schema_error(child, item_schema, f"{path}[{index}]")
+                if error:
+                    return error
+    return None
 
 
 class OfficialCodexProviderError(RuntimeError):
@@ -290,18 +334,18 @@ class OfficialCodexEditorialSession:
             raise OfficialCodexProviderError(
                 "CODEX_SESSION_ALREADY_CLOSED", phase="LOCAL_VALIDATION"
             )
-        attempt_key = _sha256(
-            {
-                "provider": PROVIDER_ID,
-                "model": MODEL,
-                "effort": EFFORT,
-                "role": role,
-                "governed_input_hash": governed_input_hash,
-                "evidence_hash": evidence_hash,
-                "prompt_sha256": _sha256(prompt),
-                "schema_sha256": _sha256(TRANSPORT_SCHEMA),
-            }
-        )
+        input_identity = {
+            "provider": PROVIDER_ID,
+            "model": MODEL,
+            "effort": EFFORT,
+            "role": role,
+            "governed_input_hash": governed_input_hash,
+            "evidence_hash": evidence_hash,
+            "prompt_sha256": _sha256(prompt),
+            "developer_instruction_sha256": _sha256(developer_instructions),
+            "schema_sha256": _sha256(TRANSPORT_SCHEMA),
+        }
+        attempt_key = _sha256(input_identity)
         if attempt_key in self._seen_attempt_keys:
             raise OfficialCodexProviderError(
                 "DUPLICATE_LOGICAL_PROVIDER_CALL_BLOCKED", phase="LOCAL_VALIDATION"
@@ -370,30 +414,15 @@ class OfficialCodexEditorialSession:
                 phase="STRUCTURED_OUTPUT",
                 model_turn_completed=True,
             ) from exc
-        if (
-            not isinstance(envelope, dict)
-            or set(envelope) != {"article_json"}
-            or not isinstance(envelope.get("article_json"), str)
-        ):
+        schema_error = _transport_schema_error(envelope, TRANSPORT_SCHEMA)
+        if schema_error:
             raise OfficialCodexProviderError(
                 "CODEX_STRICT_TRANSPORT_SCHEMA_INVALID",
                 phase="STRUCTURED_OUTPUT",
                 model_turn_completed=True,
             )
-        try:
-            output = json.loads(envelope["article_json"])
-        except json.JSONDecodeError as exc:
-            raise OfficialCodexProviderError(
-                "CODEX_ARTICLE_JSON_INVALID",
-                phase="TURN_RESULT_NORMALIZATION",
-                model_turn_completed=True,
-            ) from exc
-        if not isinstance(output, dict):
-            raise OfficialCodexProviderError(
-                "CODEX_ARTICLE_OUTPUT_NOT_OBJECT",
-                phase="TURN_RESULT_NORMALIZATION",
-                model_turn_completed=True,
-            )
+        output = normalize_article_transport_nulls(envelope)
+        removed_transport_null_fields = sorted(set(envelope).difference(output))
         item_types = [_item_type(item) for item in getattr(result, "items", ())]
         forbidden = (
             "command",
@@ -448,6 +477,8 @@ class OfficialCodexEditorialSession:
             "same_thread_revision": bool(revision),
             "turn_index": self._turn_count,
             "attempt_key": attempt_key,
+            "provider_input_identity": input_identity,
+            "provider_input_identity_sha256": attempt_key,
             "governed_input_hash": governed_input_hash,
             "evidence_hash": evidence_hash,
             "prompt_utf8_bytes": len(prompt.encode("utf-8")),
@@ -464,6 +495,10 @@ class OfficialCodexEditorialSession:
             "turn_result_duration_ms": duration_ms,
             "structured_output_sha256": _sha256(envelope),
             "normalized_article_sha256": _sha256(output),
+            "transport_nullable_fields_removed": removed_transport_null_fields,
+            "transport_schema_top_level_property_count": len(
+                TRANSPORT_SCHEMA["properties"]
+            ),
             "completed_phase": "LOCAL_VALIDATION",
             "post_turn_metadata_phase": "POST_TURN_METADATA_READBACK",
             "post_turn_metadata_status": metadata_status,
@@ -494,7 +529,11 @@ class OfficialCodexEditorialArticleBuilder:
         "and exact source markers in the user prompt. You have no factual, numeric, permission, "
         "Capital Chronicle analytical, publication, or public-write authority. Do not use tools, "
         "commands, files, web browsing, or external knowledge. Return the complete requested "
-        "article object serialized as JSON in the article_json string."
+        "article object directly under the supplied native output schema. Public article copy is "
+        "only the reader-visible headline, dek, search/social metadata, and body. Every "
+        "epistemic_claims entry must declare a material claim whose exact text is actually present "
+        "in that public copy. Structured data represents that same visible article and is never a "
+        "separate place to add prose, facts, analysis, or dates."
     )
 
     def __init__(
@@ -512,6 +551,7 @@ class OfficialCodexEditorialArticleBuilder:
             environment=environment,
         )
         self._initial_worker_receipt: dict[str, Any] | None = None
+        self._initial_turn_receipt: dict[str, Any] | None = None
         self.required_title = " ".join(str(required_title or "").split()) or None
 
     def __enter__(self) -> "OfficialCodexEditorialArticleBuilder":
@@ -549,6 +589,52 @@ class OfficialCodexEditorialArticleBuilder:
     def _article_hash(article: Mapping[str, Any]) -> str:
         return _sha256(dict(article))
 
+    @staticmethod
+    def _bounded_revision_feedback(contract: Mapping[str, Any]) -> dict[str, Any]:
+        """Project a runtime revision contract to hashes, authority flags, and blocker codes."""
+        deterministic = contract.get("deterministic_blockers")
+        deterministic_codes: list[str] = []
+        if isinstance(deterministic, Mapping):
+            for values in deterministic.values():
+                if isinstance(values, list):
+                    deterministic_codes.extend(str(value) for value in values if str(value))
+        elif isinstance(deterministic, list):
+            deterministic_codes.extend(str(value) for value in deterministic if str(value))
+        semantic = contract.get("semantic_review")
+        semantic = semantic if isinstance(semantic, Mapping) else {}
+        semantic_codes = sorted(
+            {
+                str(value)
+                for key in ("failed_checks", "material_failed_checks", "issue_codes")
+                for value in (semantic.get(key) or [])
+                if str(value)
+            }
+        )
+        return {
+            "schema_version": contract.get("schema_version"),
+            "decision": contract.get("decision"),
+            "governed_input_hash": contract.get("governed_input_hash"),
+            "prior_worker_return_hash": contract.get("prior_worker_return_hash"),
+            "required_bounded_revision_count": contract.get(
+                "required_bounded_revision_count"
+            ),
+            "maximum_bounded_revision_count": contract.get(
+                "maximum_bounded_revision_count"
+            ),
+            "same_worker_required": contract.get("same_worker_required"),
+            "fresh_replacement_worker_forbidden": contract.get(
+                "fresh_replacement_worker_forbidden"
+            ),
+            "deterministic_blocker_codes": sorted(set(deterministic_codes)),
+            "semantic_review_codes": semantic_codes,
+            "immutable_evidence_identity": dict(
+                contract.get("immutable_evidence_identity") or {}
+            ),
+            "revision_contract_hash": contract.get("revision_contract_hash"),
+            "publication_authority": False,
+            "public_write_authority": False,
+        }
+
     def _build(
         self,
         viability: Mapping[str, Any],
@@ -582,7 +668,9 @@ class OfficialCodexEditorialArticleBuilder:
             if revision:
                 effective_prompt += (
                     "\n\nSAME_WORKER_REVISION_CONTRACT:\n"
-                    + _canonical_json(dict(revision_contract or {}))
+                    + _canonical_json(
+                        self._bounded_revision_feedback(revision_contract or {})
+                    )
                 )
                 effective_prompt += (
                     "\nRevise your prior article in this same thread. Address only the supplied "
@@ -599,6 +687,8 @@ class OfficialCodexEditorialArticleBuilder:
                 revision=revision,
             )
             raw_article = dict(execution.output)
+            if not revision:
+                self._initial_turn_receipt = dict(execution.receipt)
             # Persist only the secret-free normalized TurnResult receipt. This happens before
             # product validation so a completed turn remains auditable even if local validation
             # rejects the article. Raw model output is retained only in memory.
@@ -618,7 +708,21 @@ class OfficialCodexEditorialArticleBuilder:
                 + "\n",
                 encoding="utf-8",
             )
-            return raw_article
+            try:
+                governed_prompt = json.loads(prompt.rsplit("\nGOVERNED_INPUT:\n", 1)[1])
+                normalization_context = {
+                    "institutional_edge_editorial_packet": dict(
+                        governed_prompt.get("institutional_edge_editorial_packet") or {}
+                    )
+                }
+            except (IndexError, json.JSONDecodeError, TypeError, ValueError):
+                # A test double may use a minimal prompt. The unchanged product validator remains
+                # fail-closed when a real production prompt omits its governed binding packet.
+                normalization_context = {}
+            return normalize_article_transport_representation(
+                raw_article,
+                context=normalization_context,
+            )
 
         try:
             built = build_rolling_x_grounded_article_and_media(
@@ -648,9 +752,7 @@ class OfficialCodexEditorialArticleBuilder:
                     "required_bounded_revision_count": 1,
                     "maximum_bounded_revision_count": 1,
                     "prior_worker_return_hash": _sha256(raw_article),
-                    "deterministic_blockers": [
-                        value for value in str(exc).split(";") if value
-                    ],
+                    "deterministic_blockers": self._sanitized_product_blockers(exc),
                     "governed_input_hash": governed_hash,
                     "public_write_authority": False,
                     "publication_authority": False,
@@ -703,6 +805,35 @@ class OfficialCodexEditorialArticleBuilder:
                 str((built.get("article") or {}).get("substack_body_markdown") or "")
             ),
             "official_codex_turn_receipt": dict(execution.receipt),
+            "initial_official_codex_turn_receipt": dict(
+                self._initial_turn_receipt or execution.receipt
+            ),
+            "initial_deterministic_blockers": list(
+                (revision_contract or {}).get("deterministic_blockers") or []
+            ),
+            "representation_normalization": {
+                "status": "PASS_REPRESENTATION_ONLY",
+                "canonical_aliases_bound": [
+                    "canonical_editorial_headline<-title",
+                    "dek<-subtitle",
+                    "search_title<-seo_title",
+                    "social_hook<-social_lede",
+                ],
+                "fixed_identity_fields_bound": [
+                    "author_identity",
+                    "publisher_identity",
+                    "structured_data_packet.author",
+                    "structured_data_packet.publisher",
+                ],
+                "structured_data_visible_copy_fields_bound": [
+                    "headline",
+                    "description",
+                ],
+                "publication_time_state": (
+                    "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION"
+                ),
+                "semantic_content_invented": False,
+            },
             "public_write_attempted": False,
             "publication_authority": False,
         }
@@ -720,6 +851,21 @@ class OfficialCodexEditorialArticleBuilder:
         if revision_contract is None:
             self._initial_worker_receipt = worker_receipt
         return built
+
+    @staticmethod
+    def _sanitized_product_blockers(exc: Exception) -> list[str]:
+        """Extract exact deterministic codes without carrying article/provider prose forward."""
+        blockers: list[str] = []
+        for segment in str(exc).split(";"):
+            segment = segment.strip()
+            if not segment:
+                continue
+            if segment.startswith("institutional_edge_editorial_validation_failed:"):
+                segment = segment.split(":", 1)[1]
+                blockers.extend(value.strip() for value in segment.split(",") if value.strip())
+            else:
+                blockers.append(segment)
+        return list(dict.fromkeys(blockers))
 
     def __call__(self, viability: Mapping[str, Any]) -> dict[str, Any]:
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import (

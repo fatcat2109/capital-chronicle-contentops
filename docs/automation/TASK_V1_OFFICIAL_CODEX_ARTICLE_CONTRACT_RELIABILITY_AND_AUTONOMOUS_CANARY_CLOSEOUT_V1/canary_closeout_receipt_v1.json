@@ -1,0 +1,171 @@
+{
+  "article": {
+    "canonical_html_sha256": "c48386f2189eec1599903c5137c80ea9ddd0ffe9b61e14fb750a3dd709a67f30",
+    "canonical_markdown_sha256": "fff9d5f680609040823fa205d51c2d27b65430b0c8e7dd577020b99d4f972f89",
+    "canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible-apkws-ii-sale-italy",
+    "canonical_url_is_exact_p_path": true,
+    "editorial_seo_package_sha256": "650fed8e835c4c1565dd86d6c2213e2c6b833f4265412f7f45071f883b60088e",
+    "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "epistemic_claim_count": 6,
+    "evidence_document_ids": [
+      "official-primary-ffb8e742e0932254c29d"
+    ],
+    "institutional_edge_final_blockers": [],
+    "raw_source_markers_remaining": 0,
+    "raw_worker_article_sha256": "0edf6c605ffc23bd7e562e045d883f5aefcb570228a1e364e216a8a7654b643c",
+    "resolved_public_article_sha256": "81974de2e0c3e2a54349cd19db191edaebbe17b09cd1d9cd611925b38a9e1adc",
+    "structured_data_binding": {
+      "author": "Capital Chronicle",
+      "eligible_for_emission": false,
+      "publication_time_binding": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+      "publisher": "Capital Chronicle"
+    },
+    "title": "State Department Approves Possible APKWS II Sale to Italy"
+  },
+  "claim_correction": {
+    "claim_contract_sha256": "8fda4e8c805186f661456a31019c1f8209a67d78b9344aed302a1cd2e224d56e",
+    "false_residual_supported_count": 0,
+    "omitted_claim_count": 3,
+    "supported_claim_count": 4
+  },
+  "classification": "PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF",
+  "evidence_hash": "20cc504d5992cbad6262bc777dccad7afbbfea17c62a2b7e63337a5d08a131ba",
+  "fetched_starting_branch_commit": "626e4f35252b52025ce2a15c9634fcb38f4d4f86",
+  "governed_input_hash": "629012ad17e2a579aa6c3742e97a20d717e43c3e003005434dc95e7d380a4de6",
+  "jit_preflight": {
+    "active_exact_destination_probes": 9,
+    "all_required_destinations_ready": true,
+    "attempt_identity": "d86729049c255782a00965d92d7d3994f963a395c61f95e02b45a5a066ddffac",
+    "destinations": {
+      "discord": "READY_NON_BROWSER_BINDING",
+      "facebook_page": "READY_NON_BROWSER_BINDING",
+      "instagram_business": "READY_NON_BROWSER_BINDING",
+      "linkedin": "READY_NON_BROWSER_BINDING",
+      "substack": "READY_AUTHENTICATED",
+      "telegram": "READY_NON_BROWSER_BINDING",
+      "threads": "READY_NON_BROWSER_BINDING",
+      "x": "READY_AUTHENTICATED",
+      "youtube": "READY_AUTHENTICATED"
+    },
+    "public_write_performed": false,
+    "status": "READY"
+  },
+  "live_attempts": [
+    {
+      "attempt": 1,
+      "concrete_delta_after_attempt": "DETERMINISTIC_SOURCE_DISPLAY_LABEL_AND_BOUNDED_REVISION_FEEDBACK",
+      "initial": {
+        "duration_ms": 179746,
+        "structured_output_sha256": "2e1959bee4cd76f051552efb27fc654d5945bc334346999b171e061ff36c89b0",
+        "total_tokens": 31716,
+        "turn_result_final_response_sha256": "04e223d211e1836129047fe55819570ce5dd2f96a16eed6d67209542c5fff5a1"
+      },
+      "revision": {
+        "duration_ms": 182895,
+        "structured_output_sha256": "e6b83be5cbe9a4b87c26b481ec4226ebd6b192de3fcca3af4f04661440398961",
+        "terminal_blockers": [
+          "grounded_paragraph_source_coverage_incomplete:2"
+        ],
+        "total_tokens": 86794,
+        "turn_result_final_response_sha256": "af43b22f7a685d7b01264db33cc4c3b8bbc375cd75a43edd326ec7a5522c0a53"
+      }
+    },
+    {
+      "attempt": 2,
+      "initial": {
+        "deterministic_blockers": [
+          "epistemic_claim_not_present_in_public_copy"
+        ],
+        "duration_ms": 164193,
+        "normalized_article_sha256": "a998b6e6651e0f9eda10c11668633ee65e95c12b885602ad9f00fc22f13ac43a",
+        "structured_output_sha256": "eb1ed1b3ea376bd8fce64218351d8ffb522f41210d56fbef63724961512d9338",
+        "total_tokens": 30734,
+        "turn_result_final_response_sha256": "0cb16b22a4fd9be566e62e05806c18f956597e730444e44fe805e47cbe7939d9"
+      },
+      "revision": {
+        "deterministic_blockers": [],
+        "duration_ms": 28300,
+        "normalized_article_sha256": "0edf6c605ffc23bd7e562e045d883f5aefcb570228a1e364e216a8a7654b643c",
+        "structured_output_sha256": "526ccc710e3d53e9f590c7e9220718713428ff3a2cf304fbfd9558d2d89396c4",
+        "total_tokens": 70011,
+        "turn_result_final_response_sha256": "59b584481b38e7950f4cfbfee5baf51ddc48ecccc1390d58f2667d494089d204"
+      }
+    }
+  ],
+  "owner_public_write_grant_present": false,
+  "provider": {
+    "api_key_fallback_calls": 0,
+    "auth_classification": "CHATGPT",
+    "developer_instruction_sha256": "e63473a330f14f6efc87ed53be8de4c5c4b1cb07a1813922de6ef4289cc87f2a",
+    "direct_turn_count": 2,
+    "fresh_isolated_thread_count": 1,
+    "gemini_formatter_calls": 0,
+    "model": "gpt-5.6-sol",
+    "post_turn_metadata_status": "PASS_EPHEMERAL",
+    "provider_input_identity_sha256": "4e68e500213a33a2e0dfd4f55dbe5a43cee16cc1a4191571e33d1e856872ab68",
+    "reasoning_effort": "XHIGH",
+    "runtime_version": "0.147.0",
+    "same_thread_revision_count": 1,
+    "sdk_version": "0.147.0",
+    "thread_id_hash": "babb66ca06e1562cf5e25c74e6db20a07f4f94213cf5334e4964d7cdcbc2b085",
+    "thread_read_include_turns": false,
+    "transport": "OFFICIAL_CODEX_APP_SERVER_STDIO",
+    "transport_schema_sha256": "bfbac0352074f7a221b1113fc959692d5daf64604afaf3a4334ffc53a606379b",
+    "transport_schema_top_level_property_count": 31,
+    "turn_result_is_primary_authority": true
+  },
+  "provider_publication_write_count": 0,
+  "public_write_count": 0,
+  "publication_plan_destination_count": 9,
+  "release": {
+    "canonical_article_media_count": 0,
+    "delivery_only_media_count": 1,
+    "derivative_destinations": [
+      "discord",
+      "facebook_page",
+      "instagram_business",
+      "linkedin",
+      "telegram",
+      "threads",
+      "x",
+      "youtube"
+    ],
+    "derivative_package_count": 8,
+    "derivative_payload_sha256": {
+      "discord": "79c563550a0eaae376e72c8e3d87bc0431b1930b838387e8a721f333caea4411",
+      "facebook_page": "e508f33ff0dcfec931b8bef2df663aab12f8ffaf5c726c15385d069d7ad7a6be",
+      "instagram_business": "8f2ef6b4d2cb2b3bcfcf857d1c9efbd8a7d20540633c76fabbc8bdca8081b61c",
+      "linkedin": "869ac3536b75f55f315fff486e2391fa3749a916c67fb25ac2f8b2217a9092f4",
+      "telegram": "e5db1b99a85bd85c65a14db8ac28e9b739d75f106d1b9df938f2dd947355ae74",
+      "threads": "0028e3a782f954142cb09b860ff5f3420d0f10b16e7232f588ac051af898b213",
+      "x": "8675d6b55abc73a668438a9337337e1ff4f5954f640b18b270e8d49c683a64a7",
+      "youtube": "011c72b1560fc92bd79bf44f275fe9b58189f865fdfc022bc7519d3733c52d22"
+    },
+    "pending_publication_occurrences": 0,
+    "release_lock_sha256": "d86729049c255782a00965d92d7d3994f963a395c61f95e02b45a5a066ddffac"
+  },
+  "representation_normalization": {
+    "canonical_aliases_bound": [
+      "canonical_editorial_headline<-title",
+      "dek<-subtitle",
+      "search_title<-seo_title",
+      "social_hook<-social_lede"
+    ],
+    "fixed_identity_fields_bound": [
+      "author_identity",
+      "publisher_identity",
+      "structured_data_packet.author",
+      "structured_data_packet.publisher"
+    ],
+    "publication_time_state": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+    "semantic_content_invented": false,
+    "status": "PASS_REPRESENTATION_ONLY",
+    "structured_data_visible_copy_fields_bound": [
+      "headline",
+      "description"
+    ]
+  },
+  "schema_version": "contentops.official_codex_article_contract_closeout_receipt.v1",
+  "task": "TASK_V1_OFFICIAL_CODEX_ARTICLE_CONTRACT_RELIABILITY_AND_AUTONOMOUS_CANARY_CLOSEOUT_V1",
+  "unknown_write_count": 0
+}

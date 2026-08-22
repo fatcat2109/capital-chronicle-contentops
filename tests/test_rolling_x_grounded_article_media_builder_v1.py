@@ -750,6 +750,50 @@ def test_source_resolution_prevents_adjacent_duplicate_publisher_attribution():
     assert "Reuters reported the timetable" in resolved
 
 
+def test_hostname_source_label_uses_exact_page_title_publisher_and_preserves_sentences():
+    from live_contentops.mvp_canary_acceptance_v1 import (
+        evaluate_mvp_canary_minimum_useful_floor,
+    )
+
+    document = _official_document()
+    document.update(
+        {
+            "publisher": "www.state.gov",
+            "source_identity": "www.state.gov",
+            "title": (
+                "Italy – Guidance Section Single Variant Air-to-Air Advanced Precision "
+                "Kill Weapon System-II - United States Department of State"
+            ),
+            "reader_source_url": "https://www.state.gov/example",
+        }
+    )
+    context = extract_governed_story_context(_viability(evidence=_evidence([document])))
+    body = (
+        "The State Department approved a possible sale to Italy and recorded the action in "
+        "its public notice [[SOURCE:SOURCE_1]].\n\n"
+        "Italy requested the specified guidance sections and related equipment described in "
+        "that notice [[SOURCE:SOURCE_1]].\n\n"
+        "The notice also identifies the congressional notification date and transmittal "
+        "number for readers to verify [[SOURCE:SOURCE_1]]."
+    )
+    resolved, _source_ids, blockers = builder._resolve_generated_source_references(
+        body,
+        context=context,
+    )
+    gate = evaluate_mvp_canary_minimum_useful_floor(
+        {
+            "title": "State Department Approves Possible APKWS II Sale to Italy",
+            "subtitle": "The official notice defines the proposed transaction and its status.",
+            "substack_body_markdown": resolved,
+        }
+    )
+
+    assert blockers == []
+    assert "[United States Department of State](https://www.state.gov/example)" in resolved
+    assert "www.state.gov]" not in resolved
+    assert gate["checks"]["minimum_reader_substance"] is True
+
+
 @pytest.mark.parametrize("revision_count", [0, 1])
 def test_final_worker_source_markers_resolve_before_public_lock_for_fresh_and_revision(
     revision_count,

@@ -919,6 +919,165 @@ ARTICLE_OUTPUT_CONTRACT = {
     "social_policy_summary": "optional derivative copy; empty string is permitted",
     "social_cross_asset_summary": "optional derivative copy; empty string is permitted",
 }
+
+# This JSON Schema is a transport projection of ARTICLE_OUTPUT_CONTRACT, not a second
+# product contract.  Key parity is asserted when it is built.  Semantic acceptance remains
+# exclusively with validate_generated_article() and validate_institutional_edge_article().
+_ARTICLE_TRANSPORT_NULLABLE_TEXT_FIELDS = frozenset(
+    {
+        "market_mechanism",
+        "policy_context",
+        "cross_asset_implications",
+        "social_mechanism_summary",
+        "social_policy_summary",
+        "social_cross_asset_summary",
+        "seo_primary_keyword",
+    }
+)
+_EPISTEMIC_LAYERS = (
+    "OBSERVED_FACT",
+    "ATTRIBUTED_INTERPRETATION",
+    "CAPITAL_CHRONICLE_ANALYSIS",
+    "SCENARIO_OR_UNCERTAINTY",
+)
+_EPISTEMIC_PUBLIC_TREATMENTS = (
+    "DIRECT_SOURCE_FACT",
+    "ADJACENT_ATTRIBUTION",
+    "EXPLICIT_ANALYSIS",
+    "SUPPORTED_SYNTHESIS",
+    "CONDITIONAL",
+)
+
+
+def _closed_object(properties: Mapping[str, Any]) -> dict[str, Any]:
+    """Return the official strict-output object shape for exactly these properties."""
+    return {
+        "type": "object",
+        "properties": dict(properties),
+        "required": list(properties),
+        "additionalProperties": False,
+    }
+
+
+def build_article_transport_schema() -> dict[str, Any]:
+    """Project the canonical writer contract into a recursively closed transport schema."""
+    text = {"type": "string"}
+    nullable_text = {"type": ["string", "null"]}
+    string_array = {"type": "array", "items": text}
+    internal_link = _closed_object(
+        {
+            "relation": {
+                "type": "string",
+                "enum": [
+                    "same_event_chain",
+                    "technical_explainer",
+                    "prior_data_release",
+                    "prior_capital_chronicle_analysis",
+                    "material_update_predecessor",
+                ],
+            },
+            "anchor_text": text,
+            "candidate_slug": text,
+        }
+    )
+    epistemic_claim = _closed_object(
+        {
+            "text": text,
+            "layer": {"type": "string", "enum": list(_EPISTEMIC_LAYERS)},
+            "public_treatment": {
+                "type": "string",
+                "enum": list(_EPISTEMIC_PUBLIC_TREATMENTS),
+            },
+            "source_ids": string_array,
+        }
+    )
+    quote_record = _closed_object({"quote_text": text, "source_ids": string_array})
+    structured_data = _closed_object(
+        {
+            "@type": {"type": "string", "enum": ["Article", "NewsArticle"]},
+            "headline": text,
+            "description": text,
+            "datePublished": text,
+            "dateModified": text,
+            "publication_time_binding": text,
+            "eligible_for_emission": {"type": "boolean"},
+            "author": {"type": "string", "enum": ["Capital Chronicle"]},
+            "publisher": {"type": "string", "enum": ["Capital Chronicle"]},
+        }
+    )
+    properties: dict[str, Any] = {}
+    for field in ARTICLE_OUTPUT_CONTRACT:
+        if field in _ARTICLE_TRANSPORT_NULLABLE_TEXT_FIELDS:
+            properties[field] = nullable_text
+        elif field in {"secondary_reader_questions", "entities", "topics", "humor_lines"}:
+            properties[field] = string_array
+        elif field == "internal_link_candidates":
+            properties[field] = {"type": "array", "items": internal_link}
+        elif field == "structured_data_packet":
+            properties[field] = structured_data
+        elif field == "epistemic_claims":
+            properties[field] = {"type": "array", "items": epistemic_claim}
+        elif field == "quote_source_records":
+            properties[field] = {"type": "array", "items": quote_record}
+        elif field == "search_freshness_class":
+            properties[field] = {
+                "type": "string",
+                "enum": ["BREAKING", "CURRENT", "UPDATE", "EVERGREEN"],
+            }
+        elif field in {"author_identity", "publisher_identity"}:
+            properties[field] = {"type": "string", "enum": ["Capital Chronicle"]}
+        else:
+            properties[field] = text
+    if set(properties) != set(ARTICLE_OUTPUT_CONTRACT):
+        raise RuntimeError("article_transport_schema_contract_key_drift")
+    return _closed_object(properties)
+
+
+ARTICLE_TRANSPORT_SCHEMA = build_article_transport_schema()
+
+
+def normalize_article_transport_nulls(article: Mapping[str, Any]) -> dict[str, Any]:
+    """Remove only nullable transport placeholders; never synthesize semantic content."""
+    return {
+        key: value
+        for key, value in dict(article).items()
+        if not (key in _ARTICLE_TRANSPORT_NULLABLE_TEXT_FIELDS and value is None)
+    }
+
+
+def normalize_article_transport_representation(
+    article: Mapping[str, Any], *, context: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Bind deterministic aliases/identity/pre-publication metadata before product validation."""
+    normalized = normalize_article_transport_nulls(article)
+    normalized["canonical_editorial_headline"] = str(normalized.get("title") or "")
+    normalized["dek"] = str(normalized.get("subtitle") or "")
+    normalized["search_title"] = str(normalized.get("seo_title") or "")
+    normalized["social_hook"] = str(normalized.get("social_lede") or "")
+    normalized["author_identity"] = "Capital Chronicle"
+    normalized["publisher_identity"] = "Capital Chronicle"
+    packet = context.get("institutional_edge_editorial_packet")
+    packet = packet if isinstance(packet, Mapping) else {}
+    normalized["institutional_edge_editorial_packet_sha256"] = str(
+        packet.get("editorial_packet_sha256") or ""
+    )
+    # No canonical publication has occurred at this zero-write boundary.  The existing validator
+    # explicitly recognizes this truthful coordinator-bound state; an evidence-document timestamp
+    # must never be misrepresented as the article's publication timestamp.
+    normalized["structured_data_packet"] = {
+        "@type": "NewsArticle",
+        "headline": normalized["canonical_editorial_headline"],
+        "description": str(normalized.get("meta_description") or ""),
+        "datePublished": "",
+        "dateModified": "",
+        "publication_time_binding": (
+            "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION"
+        ),
+        "eligible_for_emission": False,
+        "author": "Capital Chronicle",
+        "publisher": "Capital Chronicle",
+    }
+    return normalized
 _INSTITUTIONAL_EDGE_LIST_FIELDS = frozenset(
     {
         "secondary_reader_questions",
@@ -1032,7 +1191,7 @@ def build_article_generation_prompt(
                 or document.get("evidence_id")
                 or document.get("source_id"),
                 "title": document.get("title"),
-                "publisher": document.get("publisher") or document.get("source_identity"),
+                "publisher": _reader_source_publisher(document),
                 "published_at_utc": document.get("published_at_utc"),
                 "event_time_utc": document.get("event_time_utc"),
                 "source_authority_class": document.get("source_authority_class"),
@@ -1111,11 +1270,7 @@ def build_article_generation_prompt(
     semantic_terms = ", ".join(audit_metadata["seo_semantic_terms"])
     mechanism_terms = ", ".join(audit_metadata["mechanism_terms"])
     catalyst_terms = ", ".join(audit_metadata["named_catalyst_terms"][:2])
-    publisher = str(
-        _primary_document(context).get("publisher")
-        or _primary_document(context).get("source_identity")
-        or "the official source"
-    )
+    publisher = _reader_source_publisher(_primary_document(context))
     effective_mode = str(context.get("effective_article_mode") or "BREAKING_BRIEF")
     brief = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
     house_view = effective_mode in {
@@ -1175,7 +1330,8 @@ def build_article_generation_prompt(
             "The editorial_mode_contract grants no factual, numeric, Core Analyzer, permission, or publication authority. For house-view modes it permits only explicitly labeled qualitative ContentOps editorial inference from the supported facts.",
             "Write natural reader-facing copy: use the publisher name rather than a raw URL as link text, use sentence case for common nouns, state the core news once, and remove internal/pipeline/template language.",
             "Keep canonical headline, search title, social hook, meta description, structured data, and every declared epistemic claim on the same supported proposition. SEO may narrow or clarify a claim but may never strengthen it.",
-            "Classify material public claims in epistemic_claims. Bind observed facts and attributed interpretation to exact evidence document IDs; mark Capital Chronicle synthesis as EXPLICIT_ANALYSIS or SUPPORTED_SYNTHESIS and scenarios as CONDITIONAL.",
+            "Public article copy means only the reader-visible headline, dek, search/social metadata, and substack_body_markdown. Classify material claims from that public copy in epistemic_claims; the exact text of every declaration must actually appear in the public copy. Bind observed facts and attributed interpretation to exact evidence document IDs; mark Capital Chronicle synthesis as EXPLICIT_ANALYSIS or SUPPORTED_SYNTHESIS and scenarios as CONDITIONAL.",
+            "structured_data_packet is representation of the same visible article, never separate prose. Its headline and description must repeat visible metadata, its author and publisher are Capital Chronicle, and its dates must remain in the supplied pre-publication binding state until the coordinator has an exact publication timestamp.",
             "Declare every presented quotation in quote_source_records and every intentional dry-humor line in humor_lines. Empty arrays are valid and zero humor is always valid.",
             "Do not add a generic financial-advice or informational-purpose disclaimer. Do not repeat the same claim in adjacent paragraphs merely to fill a template.",
             "Use only the exact supplied cluster_id and headline_ids. Do not invent or alter any ID.",
@@ -1230,6 +1386,18 @@ def _reader_source_url(document: Mapping[str, Any]) -> str | None:
     return candidate
 
 
+def _reader_source_publisher(document: Mapping[str, Any]) -> str:
+    """Prefer an exact human publisher identity when the stored label is only a hostname."""
+    publisher = " ".join(
+        str(document.get("publisher") or document.get("source_identity") or "").split()
+    )
+    if not re.fullmatch(r"(?:www\.)?[a-z0-9.-]+\.[a-z]{2,}", publisher, re.IGNORECASE):
+        return publisher or "Public source"
+    title = " ".join(sanitize_source_text(str(document.get("title") or "")).split())
+    title_suffix = title.rsplit(" - ", 1)[-1].strip() if " - " in title else ""
+    return title_suffix if len(title_suffix.split()) >= 2 else publisher
+
+
 def _source_bindings(context: Mapping[str, Any]) -> list[dict[str, Any]]:
     """Build stable source identities independently of any model-written URL string."""
     bindings: list[dict[str, Any]] = []
@@ -1250,9 +1418,7 @@ def _source_bindings(context: Mapping[str, Any]) -> list[dict[str, Any]]:
             )
         )
         source_id = "source-" + _sha256_text(identity_seed)[:16]
-        publisher = " ".join(
-            str(document.get("publisher") or document.get("source_identity") or "Public source").split()
-        )
+        publisher = _reader_source_publisher(document)
         title = " ".join(
             sanitize_source_text(str(document.get("title") or "Public report")).split()
         )[:300]

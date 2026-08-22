@@ -77,8 +77,59 @@ def _sdk_factory(fake):
     return lambda: (fake, approval, sandbox, efforts, "0.147.0")
 
 
+def _transport_article(**updates):
+    title = "State Department Approves Possible APKWS II Sale to Italy"
+    article = {
+        "title": title,
+        "canonical_editorial_headline": title,
+        "subtitle": "The official notice describes a possible sale, not a completed transfer.",
+        "dek": "The official notice describes a possible sale, not a completed transfer.",
+        "seo_title": title,
+        "search_title": title,
+        "meta_description": "The State Department approved a possible APKWS II sale to Italy.",
+        "author_identity": "Capital Chronicle",
+        "publisher_identity": "Capital Chronicle",
+        "canonical_slug_candidate": "state-department-apkws-ii-sale-italy",
+        "primary_reader_question": "What did the State Department approve for Italy?",
+        "secondary_reader_questions": [],
+        "entities": ["Italy", "U.S. Department of State"],
+        "topics": ["defense exports"],
+        "search_freshness_class": "CURRENT",
+        "internal_link_candidates": [],
+        "structured_data_packet": {
+            "@type": "NewsArticle",
+            "headline": title,
+            "description": "The State Department approved a possible APKWS II sale to Italy.",
+            "datePublished": "",
+            "dateModified": "",
+            "publication_time_binding": (
+                "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION"
+            ),
+            "eligible_for_emission": False,
+            "author": "Capital Chronicle",
+            "publisher": "Capital Chronicle",
+        },
+        "epistemic_claims": [],
+        "quote_source_records": [],
+        "humor_lines": [],
+        "seo_primary_keyword": "APKWS II sale to Italy",
+        "institutional_edge_editorial_packet_sha256": "c" * 64,
+        "market_mechanism": None,
+        "policy_context": None,
+        "cross_asset_implications": None,
+        "substack_body_markdown": "The State Department approved the possible sale.",
+        "social_lede": "The State Department approved a possible APKWS II sale to Italy.",
+        "social_hook": "The State Department approved a possible APKWS II sale to Italy.",
+        "social_mechanism_summary": None,
+        "social_policy_summary": None,
+        "social_cross_asset_summary": None,
+    }
+    article.update(updates)
+    return article
+
+
 def _turn(article, *, final_response=None):
-    envelope = {"article_json": json.dumps(article)}
+    envelope = _transport_article(**article)
     return SimpleNamespace(
         status="completed",
         error=None,
@@ -126,13 +177,15 @@ def test_chatgpt_auth_only_explicit_model_effort_and_read_only_ephemeral_thread(
     assert session.preflight()["auth_classification"] == AUTH_CLASSIFICATION
     result = _run(session)
 
-    assert result.output == {"title": "Italy"}
+    assert result.output["title"] == "Italy"
+    assert "market_mechanism" not in result.output
     assert len(fake.thread_start_calls) == 1
     start = fake.thread_start_calls[0]
     assert start["ephemeral"] is True
     assert start["model"] == MODEL
     assert start["sandbox"] == "read_only"
     assert start["approval_mode"] == "deny_all"
+    assert start["developer_instructions"] == "bounded developer contract"
     run_kwargs = fake.thread.run_calls[0][1]
     assert run_kwargs["effort"] == EFFORT
     assert run_kwargs["output_schema"] == TRANSPORT_SCHEMA
@@ -140,6 +193,11 @@ def test_chatgpt_auth_only_explicit_model_effort_and_read_only_ephemeral_thread(
     assert result.receipt["turn_result_is_primary_authority"] is True
     assert result.receipt["turn_result_usage"]["total_tokens"] == 30
     assert result.receipt["turn_result_duration_ms"] == 123
+    assert result.receipt["provider_input_identity"][
+        "developer_instruction_sha256"
+    ] == result.receipt["developer_instruction_sha256"]
+    assert result.receipt["provider_input_identity_sha256"] == result.receipt["attempt_key"]
+    assert result.receipt["transport_schema_top_level_property_count"] >= 30
     assert fake.thread.read_calls == [False]
 
 
@@ -197,6 +255,136 @@ def test_native_strict_schema_and_structured_output_phase_fail_closed(tmp_path):
     assert fake.thread.run_calls[0][1]["output_schema"]["additionalProperties"] is False
 
 
+def test_real_article_transport_schema_is_recursively_closed_and_canonical_keyed():
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        ARTICLE_OUTPUT_CONTRACT,
+    )
+
+    assert set(TRANSPORT_SCHEMA["properties"]) == set(ARTICLE_OUTPUT_CONTRACT)
+    assert TRANSPORT_SCHEMA["required"] == list(ARTICLE_OUTPUT_CONTRACT)
+    assert "article_json" not in TRANSPORT_SCHEMA["properties"]
+
+    def assert_closed(schema):
+        if schema.get("type") == "object":
+            assert schema["additionalProperties"] is False
+            assert schema["required"] == list(schema["properties"])
+            for child in schema["properties"].values():
+                assert_closed(child)
+        if schema.get("type") == "array":
+            assert_closed(schema["items"])
+
+    assert_closed(TRANSPORT_SCHEMA)
+
+
+def test_transport_null_normalization_removes_only_declared_optional_nulls(tmp_path):
+    fake = _FakeCodex([_turn({})])
+    session = OfficialCodexEditorialSession(
+        proof_cwd=tmp_path / "cwd", sdk_factory=_sdk_factory(fake), environment={}
+    )
+
+    result = _run(session)
+
+    assert result.receipt["transport_nullable_fields_removed"] == [
+        "cross_asset_implications",
+        "market_mechanism",
+        "policy_context",
+        "social_cross_asset_summary",
+        "social_mechanism_summary",
+        "social_policy_summary",
+    ]
+    assert result.output["seo_primary_keyword"] == "APKWS II sale to Italy"
+
+
+def test_representation_normalization_binds_only_alias_identity_packet_and_pending_dates():
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        normalize_article_transport_representation,
+    )
+
+    raw = _transport_article(
+        canonical_editorial_headline="Conflicting headline",
+        dek="Conflicting dek",
+        search_title="Conflicting search title",
+        social_hook="Conflicting hook",
+        institutional_edge_editorial_packet_sha256="model-controlled",
+        structured_data_packet={
+            "@type": "Article",
+            "headline": "Separate prose",
+            "description": "Separate prose",
+            "datePublished": "invented",
+            "dateModified": "invented",
+            "publication_time_binding": "invented",
+            "eligible_for_emission": True,
+            "author": "Capital Chronicle",
+            "publisher": "Capital Chronicle",
+        },
+    )
+    normalized = normalize_article_transport_representation(
+        raw,
+        context={
+            "institutional_edge_editorial_packet": {
+                "editorial_packet_sha256": "d" * 64
+            }
+        },
+    )
+
+    assert normalized["canonical_editorial_headline"] == raw["title"]
+    assert normalized["dek"] == raw["subtitle"]
+    assert normalized["search_title"] == raw["seo_title"]
+    assert normalized["social_hook"] == raw["social_lede"]
+    assert normalized["institutional_edge_editorial_packet_sha256"] == "d" * 64
+    assert normalized["structured_data_packet"] == {
+        "@type": "NewsArticle",
+        "headline": raw["title"],
+        "description": raw["meta_description"],
+        "datePublished": "",
+        "dateModified": "",
+        "publication_time_binding": (
+            "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION"
+        ),
+        "eligible_for_emission": False,
+        "author": "Capital Chronicle",
+        "publisher": "Capital Chronicle",
+    }
+    assert normalized["epistemic_claims"] == raw["epistemic_claims"]
+    assert normalized["substack_body_markdown"] == raw["substack_body_markdown"]
+
+
+def test_revision_feedback_excludes_repeated_governed_context_and_keeps_codes_hashes():
+    feedback = OfficialCodexEditorialArticleBuilder._bounded_revision_feedback(
+        {
+            "schema_version": "contentops.same_xhigh_worker_revision_contract.v1",
+            "decision": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+            "governed_input_hash": "a" * 64,
+            "prior_worker_return_hash": "b" * 64,
+            "required_bounded_revision_count": 1,
+            "maximum_bounded_revision_count": 1,
+            "same_worker_required": True,
+            "fresh_replacement_worker_forbidden": True,
+            "deterministic_blockers": {
+                "hard_editorial_blockers": ["reader_value_floor"],
+                "reader_value_blockers": ["minimum_reader_substance"],
+            },
+            "semantic_review": {
+                "failed_checks": ["reader_facing_prose"],
+                "issue_codes": ["pipeline_artifacts_in_prose"],
+            },
+            "worker_request": {"bounded_governed_context": {"large": "excluded"}},
+            "revision_contract_hash": "c" * 64,
+        }
+    )
+
+    assert "worker_request" not in feedback
+    assert feedback["deterministic_blocker_codes"] == [
+        "minimum_reader_substance",
+        "reader_value_floor",
+    ]
+    assert feedback["semantic_review_codes"] == [
+        "pipeline_artifacts_in_prose",
+        "reader_facing_prose",
+    ]
+    assert feedback["governed_input_hash"] == "a" * 64
+
+
 def test_one_revision_resumes_same_thread_and_exact_duplicate_is_blocked(tmp_path):
     fake = _FakeCodex([_turn({"title": "Initial"}), _turn({"title": "Revised"})])
     session = OfficialCodexEditorialSession(
@@ -245,7 +433,13 @@ def test_local_product_validation_uses_one_same_thread_repair_and_persists_recei
         build_calls.append(article["title"])
         if len(build_calls) == 1:
             raise article_module.GroundedArticleBuilderError(
-                "structured_data_description_mismatch"
+                "institutional_edge_editorial_validation_failed:"
+                "epistemic_claim_not_present_in_public_copy,"
+                "epistemic_claim_layer_invalid,"
+                "structured_data_description_mismatch,"
+                "structured_data_dates_missing_or_unbound,"
+                "structured_data_author_identity_mismatch,"
+                "structured_data_publisher_identity_mismatch"
             )
         return {
             "article": article,
@@ -284,6 +478,18 @@ def test_local_product_validation_uses_one_same_thread_repair_and_persists_recei
     receipt = built["editorial_worker_receipt"]
     assert receipt["bounded_revision_count"] == 1
     assert receipt["same_worker_local_validation_revision"] is True
+    assert receipt["initial_deterministic_blockers"] == [
+        "epistemic_claim_not_present_in_public_copy",
+        "epistemic_claim_layer_invalid",
+        "structured_data_description_mismatch",
+        "structured_data_dates_missing_or_unbound",
+        "structured_data_author_identity_mismatch",
+        "structured_data_publisher_identity_mismatch",
+    ]
+    assert receipt["initial_official_codex_turn_receipt"]["turn_index"] == 0
+    revision_prompt = fake.thread.run_calls[1][0]
+    for blocker in receipt["initial_deterministic_blockers"]:
+        assert blocker in revision_prompt
     assert built["critical_path_telemetry"]["official_codex_direct_provider_calls"] == 2
     assert (tmp_path / "official_codex_turn_receipt_v1.json").is_file()
     assert (tmp_path / "official_codex_turn_receipt_revision_1_v1.json").is_file()

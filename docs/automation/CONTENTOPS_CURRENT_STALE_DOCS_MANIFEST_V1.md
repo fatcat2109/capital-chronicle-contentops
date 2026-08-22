@@ -50,11 +50,14 @@ Any file containing these current-looking claims is stale for routing unless exp
   `PAUSED` at that observation epoch; later zero-write tasks prove only that they issued no task
   mutation. Current existence/configuration/state claims are `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`.
 - FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
-- Current next capability remains the exact one-candidate MVP canary-ready slice. The latest
-  2026-08-22 bounded current walk exhausted its four fixed slices at 48 identities/42 opportunities
-  without accepted evidence; no XHIGH or JIT step was authorized. Resume from the exact evidence
-  blocker. The earlier 41-story proof's two XHIGH returns remain audit inputs but both retain hard
-  claim/binding failures.
+- Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` as the V1 runtime invocation path;
+  their prior host observations remain historical evidence only.
+- The proven heavy-editorial invocation path is the official ChatGPT-authenticated Codex App
+  Server/SDK provider behind the canonical V1 article-builder seam.
+- The exact one-candidate MVP zero-write slice is complete with
+  `PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`. The current next action
+  is Jim/ChatGPT audit of that exact Italy article and nine-surface plan. No second article or
+  public write is authorized.
 
 ## 4. Historical/non-routing families
 

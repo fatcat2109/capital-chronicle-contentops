@@ -36,8 +36,8 @@ During the current V1 build/proof phase, one newsroom production day must produc
 
 A qualified throughput article must clear the normal production validation contract and persist its
 native package intents. The 4/32 proof remains required before production-grade daily-yield claims
-or unattended routine Automation enablement, but is not a prerequisite for the one supervised MVP
-canary owner gate.
+or unattended routine operation, but was not a prerequisite for the one supervised MVP canary
+owner gate.
 
 ### Final V1 target
 
@@ -81,24 +81,27 @@ Later windows must be able to recover an earlier deficit. Do not create filler m
 
 FDA-G is the always-on low-cost runtime/intake/state authority. It can ingest, maintain durable state, evaluate cheap opportunity metadata, reconcile, and expose current truth.
 
-Current repository code does **not** prove that FDA-G directly launches Codex Desktop. `live_contentops/codex_desktop_newsroom_operator_v1.py` is continuity/routing support and is explicitly not a scheduler or Desktop/model bridge.
+The official ChatGPT-authenticated Codex App Server/SDK provider is the proven heavy-editorial
+invocation path behind the canonical V1 article-builder seam. It starts one fresh isolated
+`gpt-5.6-sol / XHIGH` thread at a warranted article boundary and allows at most one bounded
+same-thread repair from concrete deterministic validation deltas.
 
 Therefore:
 
-- repo configuration describing Codex tasks is not proof that host Codex Automations exist;
-- actual Codex Automation inventory/state must be proven from supported host/product evidence;
-- do not claim four native Codex tasks are present, paused, enabled, or unattended unless host evidence proves it;
-- intended automation configuration and observed automation objects are separate facts.
+- deterministic validators remain factual, numeric, permission, gate, and publication authority;
+- the provider has no public-write authority and used no API-key fallback in the accepted proof;
+- Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` for V1 invocation;
+- their prior object/state receipts remain historical evidence only.
 
-The preferred routine heavy-editorial architecture is:
+The current heavy-editorial architecture is:
 
-`FDA-G background intake/state -> native Codex Automation wake -> HIGH coordinator -> fresh isolated XHIGH editorial worker when warranted -> deterministic validation -> zero-write or authorized publication lifecycle`
+`FDA-G / existing V1 runtime -> official ChatGPT-authenticated Codex provider -> fresh isolated XHIGH thread when warranted -> deterministic validation -> zero-write or separately authorized publication lifecycle`
 
 No second newsroom/store/publisher/control plane.
 
-## 5. Routine automation intent
+## 5. Routine schedule policy
 
-The intended four routine Codex opportunities are:
+The four routine opportunities are:
 
 - London 17:00 Monday–Friday;
 - New York 21:00 Monday–Friday;
@@ -110,15 +113,13 @@ The intended four routine Codex opportunities are:
 
 Do not create a fifth routine opportunity merely to satisfy the daily floor. Catch-up belongs inside the existing production-day logic and bounded candidate walk.
 
-Until host inventory proves these Automations exist, their status is `UNPROVEN_HOST_AUTOMATION_STATE`.
+These values do not authorize recreation or enablement of the superseded Desktop Scheduled
+Automations.
 
 ## 6. Material-event wake truth
 
-FDA-G may detect/prioritize material events. That does not itself prove an immediate native Codex editorial wake.
-
-Until an actual supported execution bridge is proven, classify immediate material-event-to-Codex execution as:
-
-`MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN`
+FDA-G may detect and prioritize material events for the existing runtime. This grants no extra model
+turn, bypasses no gate, and supplies no public-write authority.
 
 Do not invent a credential/token bridge as a side effect of this contract. Any separate access-token/API execution bridge is a new execution/security boundary and requires explicit owner approval.
 
@@ -170,19 +171,22 @@ A derivative-local outage does not erase canonical truth, but final nine-surface
 Current sequence:
 
 1. P0-G3 growth-first multi-mode zero-write proof is accepted and merged.
-2. Audit the latest 41-story residual proof's two XHIGH returns; preserve their hard failures.
-3. Produce exactly one genuine current `CANARY_READY_FOR_OWNER_PUBLIC_WRITE_GATE` zero-write slice.
-4. Obtain explicit one-canary owner public-write grant.
-5. Publish/read back canonical Substack plus exactly eight derivatives and finish `UNKNOWN_WRITE=0`.
-6. Prove the 4/32 post-launch throughput gate without filler or weakened truth.
-7. Prove unattended/cold-start operation using only actual proven routine Automations; material-event live execution remains separately owner-gated.
-8. Close truthful V5 UI and screenshot-based owner QA, then accept/freeze V1.
+2. The official-provider Italy zero-write canary is complete at
+   `PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`.
+3. Jim/ChatGPT audits that exact article and nine-surface plan.
+4. Only after an explicit one-canary owner grant, publish/read back canonical Substack plus exactly
+   eight derivatives and finish `UNKNOWN_WRITE=0`.
+5. Prove the 4/32 post-canary throughput gate without filler or weakened truth.
+6. Prove unattended/cold-start operation through the existing V1 runtime and official Codex
+   provider; do not revive Desktop Scheduled Automations.
+7. Close truthful V5 UI and screenshot-based owner QA, then accept/freeze V1.
 
 ## 12. Canonical UI
 
 `ui/contentops_v5/` must expose truthful runtime, evidence, authority, publication/recovery, cost, and daily production state. During build it must show qualified articles versus the `4` floor and remaining deficit. It must not present an unmet daily floor as a generic healthy idle state.
 
-Automation state displayed in the UI must come from an actual safe observable source. Configured intended schedules must never be rendered as observed `READY/PAUSED` host automation truth.
+Provider/runtime state displayed in the UI must come from an actual safe observable source.
+Configured schedule policy must never be rendered as current Desktop Automation state.
 
 ## 13. Hard stops
 

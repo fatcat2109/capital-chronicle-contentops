@@ -40,7 +40,7 @@ The following rules are current and supersede all conflicting earlier wording:
    nine-surface identity/readiness, and `UNKNOWN_WRITE=0`, followed by owner audit before any write.
 2. The prior 4-qualified/32-intent proof is not a prerequisite for that one supervised MVP canary.
 3. `POST_LAUNCH_THROUGHPUT_GATE` remains `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE
-   INTENTS` before production-grade daily-yield claims or unattended routine Automation enablement.
+   INTENTS` before production-grade daily-yield claims or unattended routine operation.
 4. FINAL V1 target = `5–8 PUBLISHED ARTICLES` per newsroom production day.
 5. Candidate abstention remains valid; a whole-day throughput deficit is not healthy success.
 6. The intended 17:00, 21:00, 23:00, and following 01:00 Bangkok windows belong to one deterministic newsroom production day.
@@ -49,15 +49,17 @@ The following rules are current and supersede all conflicting earlier wording:
    write-reconciliation gates remain unchanged and can never become canary warnings.
 9. Filler remains forbidden.
 
-## Codex Automation truth override
+## Codex provider and Automation truth override
 
-Repository configuration is not host proof.
+The official ChatGPT-authenticated Codex App Server/SDK provider is now the proven V1
+heavy-editorial invocation path behind the canonical article-builder seam. The accepted proof used
+`gpt-5.6-sol / XHIGH`, one fresh isolated thread, at most one bounded same-thread repair, no API-key
+fallback, and zero public writes. Deterministic validators remain authority after model return.
 
-Historical evidence proves the exact four native Codex Automations existed on this host/profile
-and were repeatedly read back. Their current existence, configuration, and state require fresh
-host revalidation. The historical native HIGH -> fresh isolated XHIGH exercise and accepted
-nine-surface transport/readback exercise remain reusable capability evidence; neither supplies
-current Automation-state truth or restores publication-minimum-zero routing.
+Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` for V1 runtime invocation. Historical
+evidence that four objects existed and were paused at a prior epoch is preserved, but those objects
+must not be recreated, enabled, or used to route current V1 execution. Their former invocation role
+is superseded, not promoted to current host truth.
 
 Current subordinate statements such as:
 
@@ -71,10 +73,11 @@ are superseded unless exact host/runtime evidence proves the relevant fact.
 Current known architecture rule:
 
 - FDA-G is the continuous intake/state/runtime authority;
+- FDA-G / the existing V1 runtime invokes heavy editorial work through the official
+  ChatGPT-authenticated Codex provider;
 - `live_contentops/codex_desktop_newsroom_operator_v1.py` is not a scheduler or Desktop/model bridge;
-- actual Codex Automations must be inventoried from the installed supported product/host;
-- intended schedule configuration and observed automation objects are distinct facts;
-- immediate material-event-to-Codex execution is `NOT_PROVEN` until a supported execution bridge is demonstrated;
+- the four 17:00/21:00/23:00/following-01:00 Bangkok windows remain schedule policy, with no fifth
+  window, independent of the superseded Desktop Automation objects;
 - any credential/access-token/API Codex bridge is separately owner-gated.
 
 ## Current V1 lane state
@@ -90,15 +93,16 @@ Accepted continuation lineage:
 `DAILY OUTPUT/AUTOMATION REVALIDATION -> CANDIDATE CONTINUATION/QUOTE REPAIR -> EVIDENCE-YIELD
 REACHABILITY -> DISTINCT-STORY FRONTIER -> STORY-SCOPED EVIDENCE REUSE`
 
-The latest prepared-frontier proof attempted all 41 distinct story opportunities and reached two
-fresh native XHIGH returns. The CFTC-positioning candidate failed `unsupported_causality`; the
-FX-expiry candidate failed `numeric_source_binding_violation`. Both are hard stops, not quality
-warnings. The current exact task is `TASK_V1_MVP_CANARY_LAUNCH_GATE_RESET_AND_CANARY_READY_SLICE_V1`:
-produce exactly one hard-safe zero-write canary candidate and stop at the owner public-write gate.
-Its bounded 2026-08-22 walk found no accepted evidence packet across 48 identities/42 distinct
-opportunities, so the task is truthfully blocked before XHIGH and JIT. Resume from that exact
-evidence blocker; do not rerun a 4/32 campaign. The unchanged 4/32 proof follows only after the
-supervised canary as the post-launch throughput/unattended-operation gate.
+`TASK_V1_OFFICIAL_CODEX_ARTICLE_CONTRACT_RELIABILITY_AND_AUTONOMOUS_CANARY_CLOSEOUT_V1` closed the
+official-provider article contract and passed the exact same-story Italy zero-write canary:
+
+`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`
+
+The proof contains the exact final title, `DATA_OR_DOCUMENT_LENS`, the bound official evidence ID,
+all eight derivatives, JIT readiness for all nine surfaces, zero public writes, and
+`UNKNOWN_WRITE=0`. The current next gate is Jim/ChatGPT audit of that exact canary and plan. No
+second article, public write, or routine-operation claim is authorized. The 4/32 proof remains the
+post-canary throughput gate, and `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
 
 ## Growth-first V1 rules that remain current
 
@@ -126,6 +130,7 @@ The following phrases or equivalent semantics must never route a fresh V1 task:
 - `the four Codex tasks are paused` without host inventory proof;
 - `material events only prioritize the next scheduled opportunity` as final execution architecture;
 - `FDA-G immediately wakes Codex` without a supported execution bridge;
+- Desktop Scheduled Automations as the current V1 heavy-editorial invocation path;
 - P0-G3 as the next task;
 - any branch/HEAD/pointer that predates the accepted P0-G3 merge and current owner override.
 

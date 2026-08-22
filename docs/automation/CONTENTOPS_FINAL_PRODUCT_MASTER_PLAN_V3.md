@@ -36,19 +36,17 @@ Accepted and do not reopen without a demonstrated defect:
 
 Current P0-G4 draft PR #12 is not final authority for new daily-output semantics and remains frozen until this plan's execution-bridge correction is merged/reconciled.
 
-## 2. Current demonstrated gap
+## 2. Current demonstrated state
 
-The latest prepared-frontier proof exhausted 41/41 distinct story opportunities and reached two
-fresh native XHIGH returns. The CFTC-positioning return failed hard on unsupported causality; the
-FX-expiry return failed hard on numeric source binding. Those findings cannot be downgraded. The
-immediate gap is one hard-safe MVP canary slice, not another 4/32 campaign.
+The official-provider article-contract closeout resolved the bounded MVP-canary gap on the same
+Italy story. The exact result is
+`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`: one hard-safe current
+article, eight derivative packages, nine-surface JIT `READY`, zero public writes, and
+`UNKNOWN_WRITE=0`.
 
-The 2026-08-22 bounded current walk then evaluated 48 identities/42 distinct opportunities and
-found no accepted evidence packet. It stopped before XHIGH, packaging, JIT, and publication with
-`UNKNOWN_WRITE=0`. This is a truthful evidence-availability blocker, not permission to relax truth
-or synthesize a canary.
-
-Two product gaps must be closed before resuming the real publication canary.
+The earlier 41-story and 48-identity attempts remain immutable historical evidence of their exact
+hard blockers. They no longer route the next action. Jim/ChatGPT audit of the exact successful
+canary is now the only immediate gate; no second article or public write is authorized.
 
 ### 2.1 Daily-output contract gap
 
@@ -62,41 +60,39 @@ The system needs one deterministic newsroom production-day accounting layer that
 - allows later windows to recover an earlier deficit through bounded additional candidate/article work;
 - does not loop forever, repeat terminal unchanged candidates, or manufacture filler.
 
-### 2.2 Codex execution-bridge truth gap
+### 2.2 Codex provider execution truth
 
-FDA-G continuously ingests and maintains state, but current repository code does not prove a direct FDA-G-to-Codex Desktop invocation path.
+FDA-G continuously ingests and maintains state. The official ChatGPT-authenticated Codex App
+Server/SDK provider is the proven heavy-editorial invocation path behind the canonical article
+builder.
 
-`live_contentops/codex_desktop_newsroom_operator_v1.py` is not a scheduler or Desktop/model bridge. Repository setup packets describing four native Codex tasks are configuration intent only.
+The accepted proof established one fresh isolated `gpt-5.6-sol / XHIGH` thread, at most one bounded
+same-thread repair, ChatGPT managed authentication, no API-key fallback, and deterministic local
+validation after model return.
 
-Before unattended/editorial automation claims, actual host truth must prove:
+The remaining boundaries are:
 
-- whether current Codex supports native Automations;
-- whether the four intended ContentOps Automations actually exist;
-- their exact state, project, schedule, model, reasoning effort, and prompt;
-- whether they can run unattended on this host;
-- whether their HIGH coordinator can create the required fresh isolated XHIGH worker;
-- whether any supported immediate material-event-to-Codex wake exists.
+- the provider has zero factual, numeric, permission, gate, and public-write authority;
+- Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` for V1 invocation;
+- the four schedule windows remain policy, with no fifth window;
+- publication and unattended-throughput acceptance remain separate gates.
 
-Configured intent must never be promoted to observed host state.
+Historical Desktop Automation objects and state remain evidence only.
 
-## 3. Immediate P0 task — MVP canary launch-gate reset and canary-ready slice
+## 3. Immediate P0 task — owner audit of the canary-ready slice
 
-Execute one bounded heavy vertical slice:
+The completed task is:
 
-`TASK_V1_MVP_CANARY_LAUNCH_GATE_RESET_AND_CANARY_READY_SLICE_V1`
+`TASK_V1_OFFICIAL_CODEX_ARTICLE_CONTRACT_RELIABILITY_AND_AUTONOMOUS_CANARY_CLOSEOUT_V1`
 
-Required deliverables:
+Accepted classification:
 
-1. active authority/docs reconciled to MVP-canary-first sequencing;
-2. explicit `MVP_CANARY_LAUNCH_GATE_V1` hard-gate versus quality-warning profile;
-3. exact audit of both current XHIGH candidates;
-4. one bounded fresh-current walk only if neither candidate is hard-safe/current;
-5. exactly one native-XHIGH final article with canonical Markdown/HTML/SEO artifacts;
-6. exactly eight zero-write derivative package intents;
-7. supported JIT read-only identity/readiness for all nine destinations;
-8. `UNKNOWN_WRITE=0`, zero publisher/transport writes, and stop before publication;
-9. no source/evidence/numeric/CC/permission/identity/rights/worker-binding weakening;
-10. proof that one canary grants no second article, Automation enablement, or public write.
+`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`
+
+Jim/ChatGPT must now audit that exact Italy article, its eight derivative packages, and the
+nine-surface JIT-ready plan. Do not invoke a second article or perform any public write. The 4/32
+proof remains required before production-grade throughput or unattended routine-operation claims.
+`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
 
 ## 4. Production-day accounting contract
 
@@ -136,15 +132,16 @@ Later windows may catch up earlier misses. Bounded cost, durable cutoff, update-
 
 ## 6. Codex execution architecture
 
-Preferred routine architecture:
+Current routine architecture:
 
-`FDA-G background intake/state -> native Codex Automation -> gpt-5.6-sol/HIGH coordinator -> one fresh isolated gpt-5.6-sol/XHIGH worker per warranted final article -> deterministic validation -> zero-write build output or authorized publication`
+`FDA-G / existing V1 runtime -> official ChatGPT-authenticated Codex provider -> one fresh isolated gpt-5.6-sol/XHIGH thread per warranted final article -> deterministic validation -> zero-write build output or separately authorized publication`
 
 FDA-G remains the always-on cheap runtime authority. Codex is the heavy editorial execution layer.
 
-Do not create a Python/Desktop bridge merely because the host tasks are missing. First use supported native Codex Automation capabilities. If owner UI configuration is required, stop and request that exact action rather than inventing task state.
+Do not recreate or enable the superseded Desktop Scheduled Automations. The provider is not a
+public-write bridge and no credential/access-token/API alternative is authorized.
 
-Immediate material-event-to-Codex execution is `NOT_PROVEN` until a supported bridge is demonstrated. Any credential/access-token/API bridge is a separate owner-gated execution/security change.
+Material-event priority grants no extra model turn and no public-write authority.
 
 ## 7. V5 operator contract
 
@@ -155,8 +152,8 @@ V5 must show:
 - remaining build deficit;
 - final target `5–8/day` with build/public-write state distinction;
 - production-day state;
-- actual observed Codex Automation state where safely observable, otherwise `AUTOMATION_STATE_UNAVAILABLE`;
-- next intended/observed Codex opportunity without conflating configured intent and host truth;
+- official Codex provider/runtime state;
+- next scheduled existing-runtime opportunity without reviving superseded Desktop Automation state;
 - normal runtime/evidence/authority/publication/recovery/cost state.
 
 If the build floor is unmet, generic `Running Idle — healthy waiting` must not hide the production deficit.
@@ -191,8 +188,9 @@ A canary grant authorizes only that canary unless explicitly widened.
 After owner-accepted canary, first prove 4 qualified zero-write articles / 32 derivative intents,
 then:
 
-- use only actual proven native routine Automations;
-- no fifth routine task;
+- use the existing V1 runtime schedule with the official Codex provider;
+- do not revive Desktop Scheduled Automations;
+- no fifth routine window;
 - prove production-day floor/target accounting under calendar-time unattended execution;
 - prove restart/cold-start, cutoff/recovery, no duplicate articles/public objects, bounded cost, and truthful deficit/hard-block states;
 - separately owner-gate any live automatic material-event Codex/public-write wake capability.
@@ -214,13 +212,13 @@ V1 is final only when:
 1. one reliable Daily App remains continuously healthy;
 2. build proof demonstrates the 4-qualified-article floor without filler or weakened truth;
 3. final operating behavior targets 5–8 published articles per newsroom production day;
-4. actual Codex execution/Automation bridge is proven, not merely configured in docs;
+4. the official Codex provider execution path is proven and routine scheduling is accepted;
 5. real canonical Substack + eight derivatives canary is accepted with `UNKNOWN_WRITE=0`;
 6. unattended/cold-start execution is proven;
 7. UI truth and visual acceptance are complete.
 
 ## 12. Hard stops
 
-Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-account or unauthorized public write, destructive production-state mutation, unresolved `UNKNOWN_WRITE`, unsupported automation mutation, or inability to distinguish configured task intent from actual host automation state.
+Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-account or unauthorized public write, destructive production-state mutation, unresolved `UNKNOWN_WRITE`, revival of superseded Desktop Scheduled Automations, or inability to distinguish schedule policy from runtime truth.
 
 Protected historical `v1.0` remains immutable.
