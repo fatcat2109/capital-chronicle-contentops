@@ -12,9 +12,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13687,
+    "edges": 13696,
     "entrypoints": 16,
-    "nodes": 7242,
+    "nodes": 7245,
     "nodes_by_kind": {
       "authority_doc": 7,
       "cli_command": 27,
@@ -24,9 +24,9 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 595,
-      "python_function": 3973,
+      "python_function": 3975,
       "python_method": 280,
-      "python_module": 753,
+      "python_module": 754,
       "schema": 188,
       "test": 728,
       "typescript_export": 506,
@@ -69053,6 +69053,42 @@
       "to": "python_symbol:live_contentops/production_orchestrator_v1.py::ContentOpsProductionOrchestrator"
     },
     {
+      "from": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/destination_transport_registry_v1.py::DestinationReadinessManager"
+    },
+    {
+      "from": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore"
+    },
+    {
+      "from": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/production_orchestrator_v1.py::ContentOpsProductionOrchestrator"
+    },
+    {
+      "from": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1"
+    },
+    {
+      "from": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator"
+    },
+    {
       "from": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -70713,6 +70749,24 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/prove_v1_official_codex_direct_provider_canary_v1.py::prove"
+    },
+    {
+      "from": "scripts/publish_v1_one_live_desktop_canary_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::main"
+    },
+    {
+      "from": "scripts/publish_v1_one_live_desktop_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::main"
+    },
+    {
+      "from": "scripts/publish_v1_one_live_desktop_canary_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::run"
     },
     {
       "from": "scripts/run_direct_image_bakeoff_v1.py",
@@ -82276,7 +82330,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-22T15:18:55Z",
+  "generation_timestamp_utc": "2026-08-22T16:14:59Z",
   "generator_version": "2.5.0",
   "included_roots": [
     "live_contentops/",
@@ -119167,6 +119221,20 @@
       "symbol": "prove"
     },
     {
+      "id": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::main",
+      "kind": "python_function",
+      "line": 561,
+      "path": "scripts/publish_v1_one_live_desktop_canary_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/publish_v1_one_live_desktop_canary_v1.py::run",
+      "kind": "python_function",
+      "line": 220,
+      "path": "scripts/publish_v1_one_live_desktop_canary_v1.py",
+      "symbol": "run"
+    },
+    {
       "id": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::Cell",
       "kind": "python_class",
       "line": 69,
@@ -121252,6 +121320,11 @@
       "id": "scripts/prove_v1_official_codex_direct_provider_canary_v1.py",
       "kind": "python_module",
       "size_bytes": 23567
+    },
+    {
+      "id": "scripts/publish_v1_one_live_desktop_canary_v1.py",
+      "kind": "python_module",
+      "size_bytes": 24693
     },
     {
       "id": "scripts/run_direct_image_bakeoff_v1.py",
@@ -129294,6 +129367,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "2e2ce6dfea7bd12f45689e3fc1416e00c18cbb92",
-  "source_tree_digest": "7cc25f88d6b84f436c8584518c72bc3c7525cbeda36b73b65bb8f46b9f0b1a92"
+  "source_head": "bcdada4674402be42d1624cdd1ea5029617aef98",
+  "source_tree_digest": "817d537ac2ffc9d9f1f6308710670a76b5d1fe446f2fe0fb88c8653466e67d9e"
 }
