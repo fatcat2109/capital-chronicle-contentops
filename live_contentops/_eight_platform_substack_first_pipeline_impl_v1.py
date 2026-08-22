@@ -278,6 +278,67 @@ def _first_complete_sentence(value: str) -> str:
     return match.group(1) if match else normalized
 
 
+_SEMANTIC_DEDUP_STOP_WORDS = frozenset(
+    {
+        "a", "an", "and", "as", "at", "by", "for", "from", "in", "is", "it",
+        "of", "on", "or", "that", "the", "this", "to", "was", "with",
+    }
+)
+
+
+def _semantic_dedup_terms(value: str) -> set[str]:
+    """Return a small deterministic fingerprint for reader-facing derivative deduplication."""
+    terms: set[str] = set()
+    for raw in re.findall(r"[a-z0-9]+", str(value or "").casefold()):
+        if raw in _SEMANTIC_DEDUP_STOP_WORDS:
+            continue
+        term = raw
+        if len(term) > 5 and term.endswith("ing"):
+            term = term[:-3]
+        elif len(term) > 4 and term.endswith("ed"):
+            term = term[:-2]
+        elif len(term) > 4 and term.endswith("es"):
+            term = term[:-2]
+        elif len(term) > 3 and term.endswith("s"):
+            term = term[:-1]
+        terms.add(term)
+    return terms
+
+
+def _materially_identical_derivative_sentence(left: str, right: str) -> bool:
+    """Detect exact or strongly overlapping restatements without an LLM formatter."""
+    left_key = re.sub(r"\W+", " ", str(left or "").casefold()).strip()
+    right_key = re.sub(r"\W+", " ", str(right or "").casefold()).strip()
+    if not left_key or not right_key:
+        return False
+    if left_key == right_key:
+        return True
+    left_terms = _semantic_dedup_terms(left_key)
+    right_terms = _semantic_dedup_terms(right_key)
+    if min(len(left_terms), len(right_terms)) < 4:
+        return False
+    overlap = len(left_terms.intersection(right_terms))
+    containment = overlap / min(len(left_terms), len(right_terms))
+    union = len(left_terms.union(right_terms))
+    return containment >= 0.75 and overlap / max(1, union) >= 0.55
+
+
+def _next_distinct_derivative_sentence(
+    values: Sequence[Any], *, rejected: Sequence[str]
+) -> str:
+    """Choose the next complete source-bound sentence, omitting redundant fields."""
+    for value in values:
+        for sentence in _sentence_units(str(value or "")):
+            candidate = _punctuate(_first_complete_sentence(sentence))
+            if candidate and not any(
+                _materially_identical_derivative_sentence(candidate, prior)
+                for prior in rejected
+                if prior
+            ):
+                return candidate
+    return ""
+
+
 def _sharp_social_lede(value: str, *, maximum: int) -> str:
     sentence = _first_complete_sentence(value)
     if len(sentence) <= maximum:
@@ -392,11 +453,12 @@ def _root_and_replies(
     root_parts = [title, canonical_url]
     root = "\n\n".join(root_parts)
     remaining = list(continuation_parts)
-    with_dek = "\n\n".join([title, dek, canonical_url])
-    if len(with_dek) <= limit:
-        root = with_dek
-    else:
-        remaining.insert(0, dek)
+    if dek:
+        with_dek = "\n\n".join([title, dek, canonical_url])
+        if len(with_dek) <= limit:
+            root = with_dek
+        else:
+            remaining.insert(0, dek)
     if len(root) > limit:
         raise ValueError("headline_and_canonical_url_exceed_platform_limit")
     replies = _split_complete_chunks(remaining, limit=limit)
@@ -437,13 +499,6 @@ def build_native_derivative_payloads(
     media_ids = [str(value) for value in media_asset_ids if str(value)]
     text_only_package = not media_ids
     if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package:
-        def accepted_brief_sentence(*values: Any) -> str:
-            for value in values:
-                normalized = " ".join(str(value or "").split())
-                if normalized:
-                    return _punctuate(_first_complete_sentence(normalized))
-            return ""
-
         def native_brief_text(*parts: str, limit: int, platform: str) -> str:
             text = "\n\n".join(part for part in parts if part)
             if len(text) > limit:
@@ -454,29 +509,40 @@ def build_native_derivative_payloads(
             _punctuate(sentence)
             for sentence in _sentence_units(str(article.get("substack_body_markdown") or ""))
         )
-        brief_dek = accepted_brief_sentence(
-            article.get("social_hook"),
-            article.get("social_lede"),
-            article.get("subtitle"),
-            article_body_sentences[0] if article_body_sentences else "",
+        brief_dek = _next_distinct_derivative_sentence(
+            (
+                article.get("social_hook"),
+                article.get("social_lede"),
+                article.get("subtitle"),
+                *article_body_sentences,
+            ),
+            rejected=(title,),
         )
         if not brief_dek:
             raise ValueError("native_brief_requires_accepted_reader_detail")
-        mechanism = accepted_brief_sentence(
-            article.get("social_mechanism_summary"),
-            article.get("market_mechanism"),
-            article_body_sentences[1] if len(article_body_sentences) > 1 else "",
-            brief_dek,
+        mechanism = _next_distinct_derivative_sentence(
+            (
+                article.get("social_mechanism_summary"),
+                article.get("market_mechanism"),
+                *article_body_sentences,
+            ),
+            rejected=(title, brief_dek),
         )
-        context = accepted_brief_sentence(
-            article.get("social_policy_summary"),
-            article.get("policy_context"),
-            article_body_sentences[2] if len(article_body_sentences) > 2 else "",
-            mechanism,
+        context = _next_distinct_derivative_sentence(
+            (
+                article.get("social_policy_summary"),
+                article.get("policy_context"),
+                *article_body_sentences,
+            ),
+            rejected=(title, brief_dek, mechanism),
         )
-        watch_point = accepted_brief_sentence(
-            article.get("social_cross_asset_summary"),
-            article.get("cross_asset_implications"),
+        watch_point = _next_distinct_derivative_sentence(
+            (
+                article.get("social_cross_asset_summary"),
+                article.get("cross_asset_implications"),
+                *article_body_sentences,
+            ),
+            rejected=(title, brief_dek, mechanism, context),
         )
         def brief_layout(*, detail: str, continuation: str, limit: int) -> dict[str, Any]:
             layout = _root_and_replies(
@@ -514,7 +580,7 @@ def build_native_derivative_payloads(
             limit=280,
         )
         threads_brief = brief_layout(
-            detail=context,
+            detail=context or brief_dek,
             continuation=f"What to watch: {watch_point}" if watch_point else "",
             limit=500,
         )
@@ -539,8 +605,8 @@ def build_native_derivative_payloads(
                 "format": "professional_brief",
                 "text": native_brief_text(
                     title,
-                    f"Why it matters: {mechanism}",
-                    f"Context: {context}",
+                    f"Why it matters: {mechanism}" if mechanism else "",
+                    f"Context: {context}" if context else "",
                     f"Read the full brief: {canonical_url}",
                     limit=3_000,
                     platform="linkedin",
@@ -553,7 +619,7 @@ def build_native_derivative_payloads(
                 "text": native_brief_text(
                     f"**Newsroom brief: {title}**",
                     brief_dek,
-                    f"**Context:** {context}",
+                    f"**Context:** {context}" if context else "",
                     f"Source-bound brief: {canonical_url}",
                     limit=2_000,
                     platform="discord",
@@ -566,7 +632,7 @@ def build_native_derivative_payloads(
                 "text": native_brief_text(
                     title,
                     brief_dek,
-                    f"Why it matters: {mechanism}",
+                    f"Why it matters: {mechanism}" if mechanism else "",
                     f"Read the full brief: {canonical_url}",
                     limit=63_206,
                     platform="facebook_page",
@@ -579,7 +645,7 @@ def build_native_derivative_payloads(
                 "text": native_brief_text(
                     title,
                     brief_dek,
-                    f"In focus: {context}",
+                    f"In focus: {context}" if context else "",
                     f"Full brief: {canonical_url}",
                     "#CapitalChronicle",
                     limit=2_200,

@@ -8,6 +8,7 @@ from live_contentops.mvp_canary_acceptance_v1 import (
     build_mvp_canary_launch_gate_record,
     classify_institutional_edge_blockers,
     evaluate_mvp_canary_editorial_gate,
+    evaluate_mvp_canary_minimum_useful_floor,
 )
 from live_contentops.tier1_editorial_quality_v1 import (
     LLM_REVIEW_CHECKS,
@@ -80,6 +81,53 @@ def test_quality_shortfalls_remain_visible_but_do_not_block_hard_safe_canary():
     assert "mode_declared" in canary["quality_warnings"]
     assert "clear_news_peg" in canary["quality_warnings"]
     assert canary["quality_warnings_grant_factual_authority"] is False
+
+
+def test_mvp_usefulness_reuses_mode_aware_reader_floor_instead_of_universal_brief_floor():
+    breaking = evaluate_mvp_canary_minimum_useful_floor(_brief())
+    assert breaking["classification"] == "PASS"
+    assert breaking["mode_aware_floor_class"] == "CONCISE_UPDATE"
+    assert breaking["mode_aware_utility_floor"] == {
+        "minimum_words": 60,
+        "minimum_reader_sentences": 3,
+    }
+
+    analytical = {
+        **_brief(),
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "editorial_mode": "DOCUMENT_LENS",
+    }
+    blocked = evaluate_mvp_canary_minimum_useful_floor(analytical)
+    assert blocked["classification"] == "BLOCKED_MINIMUM_USEFUL_FLOOR"
+    assert blocked["mode_aware_floor_class"] == "DATA_RICH_OR_ANALYTICAL"
+    assert blocked["mode_aware_utility_floor"] == {
+        "minimum_words": 180,
+        "minimum_reader_sentences": 6,
+    }
+    assert "minimum_reader_substance" in blocked["blockers"]
+
+
+def test_mode_proportional_document_lens_can_pass_without_full_formatting_perfection():
+    sentences = [
+        "The official document records the agency decision, identifies the parties, and defines the proposal without converting that proposal into a completed transaction.",
+        "Its itemized request gives readers the concrete scale of the package while preserving the document's distinction between a possible sale and a final agreement.",
+        "The notice also supplies the notification date and transmittal identifier, which make the source record independently traceable for a later update.",
+        "That procedural context matters because congressional notification is a documented step in the record, not proof that delivery, payment, or operational use has occurred.",
+        "For readers, the useful analytical boundary is therefore the combination of stated scope, requested quantity, and formal status rather than an unsupported market or policy forecast.",
+        "A subsequent official notice, contract record, or delivery disclosure would be the evidence needed to establish a later phase, and none is inferred here.",
+        "This document-lens treatment keeps the factual record separate from analysis while explaining what the record changes, what it leaves open, and what would confirm the next step.",
+        "The result is useful without claiming that the request fixes a delivery schedule, contract value, operational outcome, or broader strategic consequence that the accepted document does not establish.",
+    ]
+    article = {
+        **_brief(),
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "editorial_mode": "DOCUMENT_LENS",
+        "substack_body_markdown": "\n\n".join(sentences),
+    }
+    result = evaluate_mvp_canary_minimum_useful_floor(article)
+    assert result["classification"] == "PASS"
+    assert result["checks"]["minimum_reader_substance"] is True
+    assert result["reader_value_telemetry"]["formatting_targets_are_advisory"] is True
 
 
 def test_factual_or_numeric_failure_can_never_be_downgraded_to_warning():

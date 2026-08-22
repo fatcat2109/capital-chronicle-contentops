@@ -20,6 +20,9 @@ SCHEMA_VERSION = "contentops.tier1_editorial_quality.v2"
 SUPPORTED_ARTICLE_MODES = {"straight_news", "data_release", "policy_decision", "market_move", "explainer", "deep_analysis", "scenario_outlook", "analysis", "week_ahead"}
 ANALYSIS_MODES = {"deep_analysis", "scenario_outlook"}
 READER_ANALYSIS_MODES = {"analysis", "deep_analysis", "scenario_outlook"}
+READER_ANALYTICAL_PRODUCT_MODES = {
+    "DATA_OR_DOCUMENT_LENS",
+}
 HEADLINE_MAX_LENGTHS = {"reader": 95, "seo": 70, "social": 120, "push": 70, "youtube_community": 100}
 PROCESS_LANGUAGE_PATTERNS = (
     r"\bthe editorial task\b",
@@ -222,7 +225,10 @@ def evaluate_reader_value(
     )
     editorial_mode = str(article.get("editorial_mode") or article.get("article_mode") or "")
     concise = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
-    analytical = editorial_mode in READER_ANALYSIS_MODES
+    analytical = (
+        editorial_mode.casefold() in READER_ANALYSIS_MODES
+        or effective_mode.upper() in READER_ANALYTICAL_PRODUCT_MODES
+    )
     if concise:
         floor = {"minimum_paragraphs": 3, "minimum_words": 90, "minimum_headings": 0}
         utility_floor = {"minimum_words": 60, "minimum_reader_sentences": 3}

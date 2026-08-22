@@ -109,8 +109,7 @@ def evaluate_mvp_canary_minimum_useful_floor(
             and int(reader.get("meaningful_paragraph_count") or 0) >= 2
         ),
         "minimum_reader_substance": bool(
-            int(reader.get("reader_prose_word_count") or 0) >= 60
-            and int(reader.get("reader_sentence_count") or 0) >= 3
+            (reader.get("checks") or {}).get("mode_appropriate_substance")
         ),
         "no_process_or_pipeline_leakage": bool(
             (reader.get("checks") or {}).get("no_process_or_pipeline_language")
@@ -126,6 +125,8 @@ def evaluate_mvp_canary_minimum_useful_floor(
         "checks": checks,
         "blockers": blockers,
         "reader_value_telemetry": reader,
+        "mode_aware_utility_floor": dict(reader.get("utility_floor") or {}),
+        "mode_aware_floor_class": reader.get("floor_class"),
         "publication_authority": False,
     }
 

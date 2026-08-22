@@ -74,6 +74,12 @@ FAKE_OR_UNBOUND_QUOTE_REPAIR_INSTRUCTION = (
 AUTOMATION_HOST_OBSERVATION_SCHEMA_VERSION = (
     "contentops.codex_automation_host_observation.v1"
 )
+HYBRID_EDITORIAL_RUN_IDENTITY_SCHEMA_VERSION = (
+    "contentops.hybrid_editorial_run_identity.v1"
+)
+HYBRID_EDITORIAL_ARBITRATION_SCHEMA_VERSION = (
+    "contentops.hybrid_editorial_arbitration.v1"
+)
 EXACT_V1_AUTOMATION_IDS = (
     "v1-newsroom-london-1700",
     "v1-newsroom-new-york-2100",
@@ -293,6 +299,185 @@ def _logical_hash(value: Any) -> str:
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
     ).hexdigest()
+
+
+def build_hybrid_editorial_run_identity(
+    *,
+    runtime_run_id: str,
+    production_day_id: str,
+    opportunity_id: str,
+    story_identity: str,
+    governed_input_hash: str,
+) -> dict[str, Any]:
+    """Bind both editorial providers to one existing runtime opportunity and evidence packet."""
+    values = {
+        "runtime_run_id": str(runtime_run_id or "").strip(),
+        "production_day_id": str(production_day_id or "").strip(),
+        "opportunity_id": str(opportunity_id or "").strip(),
+        "story_identity": str(story_identity or "").strip(),
+        "governed_input_hash": str(governed_input_hash or "").strip().lower(),
+    }
+    missing = sorted(key for key, value in values.items() if not value)
+    if missing:
+        raise ValueError("hybrid_editorial_run_identity_missing:" + ",".join(missing))
+    evidence_hash = values["governed_input_hash"]
+    if len(evidence_hash) != 64 or any(
+        character not in "0123456789abcdef" for character in evidence_hash
+    ):
+        raise ValueError("hybrid_editorial_governed_input_hash_invalid")
+    identity = {
+        "schema_version": HYBRID_EDITORIAL_RUN_IDENTITY_SCHEMA_VERSION,
+        **values,
+    }
+    identity["canonical_run_identity"] = _logical_hash(identity)
+    return identity
+
+
+def _validate_hybrid_run_identity(identity: Mapping[str, Any]) -> dict[str, Any]:
+    supplied = dict(identity)
+    canonical = str(supplied.pop("canonical_run_identity", "") or "")
+    if supplied.get("schema_version") != HYBRID_EDITORIAL_RUN_IDENTITY_SCHEMA_VERSION:
+        raise ValueError("hybrid_editorial_run_identity_schema_invalid")
+    if not canonical or _logical_hash(supplied) != canonical:
+        raise ValueError("hybrid_editorial_run_identity_hash_mismatch")
+    return {**supplied, "canonical_run_identity": canonical}
+
+
+def arbitrate_hybrid_editorial_execution(
+    *,
+    run_identity: Mapping[str, Any],
+    observed_at_utc: datetime | str,
+    valid_window_ends_at_utc: datetime | str,
+    desktop_primary_receipt: Mapping[str, Any] | None = None,
+    sdk_fallback_receipt: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Choose one editorial owner without adding a scheduler, store, queue, or publisher.
+
+    Desktop is the routine primary.  The SDK can begin only after an observable primary failure or
+    missed valid window.  Once fallback starts, a late Desktop completion is retained as evidence
+    but cannot become a second canonical article or public object.
+    """
+    identity = _validate_hybrid_run_identity(run_identity)
+    observed = _parse_utc(observed_at_utc)
+    window_end = _parse_utc(valid_window_ends_at_utc)
+    if observed is None or window_end is None:
+        raise ValueError("hybrid_editorial_arbitration_time_invalid")
+    canonical_id = identity["canonical_run_identity"]
+
+    desktop = dict(desktop_primary_receipt or {})
+    fallback = dict(sdk_fallback_receipt or {})
+    for label, receipt in (("desktop", desktop), ("sdk", fallback)):
+        receipt_identity = str(receipt.get("canonical_run_identity") or "")
+        if receipt_identity and receipt_identity != canonical_id:
+            raise ValueError(f"hybrid_editorial_{label}_run_identity_mismatch")
+
+    desktop_state = str(desktop.get("state") or "NOT_OBSERVED").strip().upper()
+    fallback_state = str(fallback.get("state") or "NOT_STARTED").strip().upper()
+    valid_desktop_states = {
+        "NOT_OBSERVED", "PENDING", "ACCEPTED", "MISSED_VALID_WINDOW",
+        "FAILED_PRIMARY", "TERMINAL_NO_ARTICLE",
+    }
+    valid_fallback_states = {"NOT_STARTED", "STARTED", "ACCEPTED", "FAILED"}
+    if desktop_state not in valid_desktop_states:
+        raise ValueError("hybrid_editorial_desktop_state_invalid")
+    if fallback_state not in valid_fallback_states:
+        raise ValueError("hybrid_editorial_sdk_state_invalid")
+
+    late_desktop = False
+    if desktop_state == "ACCEPTED":
+        desktop_completed = _parse_utc(desktop.get("completed_at_utc"))
+        if desktop_completed is None:
+            raise ValueError("hybrid_editorial_desktop_completion_time_required")
+        late_desktop = desktop_completed > window_end
+
+    fallback_has_started = fallback_state != "NOT_STARTED"
+    if fallback_has_started:
+        if fallback_state == "ACCEPTED":
+            decision = "ACCEPT_SDK_FALLBACK"
+            owner = "SDK_FALLBACK"
+            reason = "SDK_FALLBACK_ALREADY_ACCEPTED"
+        elif fallback_state == "FAILED":
+            decision = "SDK_FALLBACK_FAILED_NO_DESKTOP_REENTRY"
+            owner = "NONE"
+            reason = "SDK_FALLBACK_TERMINAL"
+        else:
+            decision = "SDK_FALLBACK_ALREADY_IN_FLIGHT"
+            owner = "SDK_FALLBACK"
+            reason = "SDK_FALLBACK_ALREADY_STARTED"
+        late_desktop = late_desktop or desktop_state == "ACCEPTED"
+    elif desktop_state == "ACCEPTED" and not late_desktop:
+        decision = "ACCEPT_DESKTOP_PRIMARY"
+        owner = "DESKTOP_PRIMARY"
+        reason = "DESKTOP_PRIMARY_ACCEPTED_WITHIN_VALID_WINDOW"
+    elif desktop_state == "TERMINAL_NO_ARTICLE":
+        decision = "TERMINAL_NO_ARTICLE_NO_PROVIDER_FALLBACK"
+        owner = "NONE"
+        reason = "CANONICAL_CONTENT_OR_SAFETY_GATE_TERMINAL"
+    elif desktop_state in {"MISSED_VALID_WINDOW", "FAILED_PRIMARY"}:
+        decision = "START_SDK_FALLBACK"
+        owner = "SDK_FALLBACK"
+        reason = f"DESKTOP_PRIMARY_{desktop_state}"
+    elif late_desktop:
+        decision = "START_SDK_FALLBACK"
+        owner = "SDK_FALLBACK"
+        reason = "DESKTOP_PRIMARY_COMPLETED_AFTER_VALID_WINDOW"
+    elif observed > window_end:
+        decision = "START_SDK_FALLBACK"
+        owner = "SDK_FALLBACK"
+        reason = "DESKTOP_PRIMARY_VALID_WINDOW_EXPIRED"
+    else:
+        decision = "WAIT_FOR_DESKTOP_PRIMARY"
+        owner = "NONE"
+        reason = "DESKTOP_PRIMARY_VALID_WINDOW_OPEN"
+
+    receipt = {
+        "schema_version": HYBRID_EDITORIAL_ARBITRATION_SCHEMA_VERSION,
+        "run_identity": identity,
+        "canonical_run_identity": canonical_id,
+        "runtime_run_id": identity["runtime_run_id"],
+        "observed_at_utc": _iso_utc(observed),
+        "valid_window_ends_at_utc": _iso_utc(window_end),
+        "desktop_primary_state": desktop_state,
+        "sdk_fallback_state": fallback_state,
+        "decision": decision,
+        "reason": reason,
+        "canonical_article_owner": owner,
+        "desktop_is_primary_for_routine_opportunities": True,
+        "sdk_roles": ["BOUNDED_FALLBACK", "DIRECT_EVENT_PATH", "BENCHMARK"],
+        "sdk_fallback_start_authorized": decision == "START_SDK_FALLBACK",
+        "late_desktop_completion_suppressed": bool(late_desktop),
+        "duplicate_article_or_public_object_authorized": False,
+        "scheduler_created": False,
+        "store_created": False,
+        "publisher_created": False,
+        "publication_authority": False,
+        "public_write_performed": False,
+    }
+    receipt["arbitration_logical_hash"] = _logical_hash(receipt)
+    return receipt
+
+
+def validate_hybrid_editorial_arbitration_receipt(
+    receipt: Mapping[str, Any], *, expected_runtime_run_id: str | None = None
+) -> dict[str, Any]:
+    """Validate an arbitration receipt before the facade constructs an SDK fallback."""
+    supplied = dict(receipt)
+    supplied_hash = str(supplied.pop("arbitration_logical_hash", "") or "")
+    if supplied.get("schema_version") != HYBRID_EDITORIAL_ARBITRATION_SCHEMA_VERSION:
+        raise ValueError("hybrid_editorial_arbitration_schema_invalid")
+    if not supplied_hash or _logical_hash(supplied) != supplied_hash:
+        raise ValueError("hybrid_editorial_arbitration_hash_mismatch")
+    identity = supplied.get("run_identity")
+    if not isinstance(identity, Mapping):
+        raise ValueError("hybrid_editorial_arbitration_run_identity_missing")
+    validated_identity = _validate_hybrid_run_identity(identity)
+    if supplied.get("canonical_run_identity") != validated_identity["canonical_run_identity"]:
+        raise ValueError("hybrid_editorial_arbitration_identity_binding_mismatch")
+    if expected_runtime_run_id is not None and supplied.get("runtime_run_id") != str(
+        expected_runtime_run_id
+    ):
+        raise ValueError("hybrid_editorial_arbitration_runtime_run_id_mismatch")
+    return {**supplied, "arbitration_logical_hash": supplied_hash}
 
 
 def prepared_candidate_continuity_binding(

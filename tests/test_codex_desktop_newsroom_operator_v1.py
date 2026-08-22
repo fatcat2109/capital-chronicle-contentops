@@ -19,7 +19,9 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     EDITORIAL_WORKER_MODEL,
     EDITORIAL_WORKER_REASONING_EFFORT,
     MANUAL_GO_PROMPT,
+    arbitrate_hybrid_editorial_execution,
     build_editorial_worker_routing_packet,
+    build_hybrid_editorial_run_identity,
     build_same_xhigh_worker_revision_contract,
     build_live_zero_write_rehearsal,
     classify_desktop_candidate_universe,
@@ -27,6 +29,7 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     load_terminal_editorial_continuity,
     persist_supported_automation_host_observation,
     validate_editorial_worker_return,
+    validate_hybrid_editorial_arbitration_receipt,
     validate_same_xhigh_worker_revision_return,
 )
 from live_contentops.newsroom_assignment_scheduler_v1 import (
@@ -1143,6 +1146,117 @@ def test_routing_packet_preserves_canonical_product_mode_semantics(
     assert worker["grants_capital_chronicle_authority"] is False
     assert worker["grants_permission_authority"] is False
     assert worker["grants_public_write_authority"] is False
+
+
+def test_hybrid_arbitration_waits_for_and_accepts_desktop_inside_valid_window():
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="italy-canary-1",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="a" * 64,
+    )
+    pending = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T00:45:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "PENDING",
+        },
+    )
+    assert pending["decision"] == "WAIT_FOR_DESKTOP_PRIMARY"
+    assert pending["sdk_fallback_start_authorized"] is False
+
+    accepted = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T00:55:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "ACCEPTED",
+            "completed_at_utc": "2026-08-22T00:54:00Z",
+        },
+    )
+    assert accepted["decision"] == "ACCEPT_DESKTOP_PRIMARY"
+    assert accepted["canonical_article_owner"] == "DESKTOP_PRIMARY"
+    assert accepted["duplicate_article_or_public_object_authorized"] is False
+    assert validate_hybrid_editorial_arbitration_receipt(
+        accepted, expected_runtime_run_id="italy-canary-1"
+    )["arbitration_logical_hash"]
+
+
+@pytest.mark.parametrize("desktop_state", ["MISSED_VALID_WINDOW", "FAILED_PRIMARY"])
+def test_hybrid_arbitration_authorizes_sdk_only_after_exact_desktop_miss_or_failure(
+    desktop_state,
+):
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="italy-canary-fallback",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="b" * 64,
+    )
+    receipt = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T01:01:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": desktop_state,
+        },
+    )
+    assert receipt["decision"] == "START_SDK_FALLBACK"
+    assert receipt["sdk_fallback_start_authorized"] is True
+    assert receipt["canonical_article_owner"] == "SDK_FALLBACK"
+
+
+def test_hybrid_arbitration_suppresses_late_desktop_after_sdk_fallback_started():
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="italy-canary-late",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="c" * 64,
+    )
+    receipt = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T01:10:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "ACCEPTED",
+            "completed_at_utc": "2026-08-22T01:05:00Z",
+        },
+        sdk_fallback_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "STARTED",
+        },
+    )
+    assert receipt["decision"] == "SDK_FALLBACK_ALREADY_IN_FLIGHT"
+    assert receipt["late_desktop_completion_suppressed"] is True
+    assert receipt["duplicate_article_or_public_object_authorized"] is False
+
+
+def test_hybrid_arbitration_does_not_provider_shop_after_content_gate_terminal():
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="italy-canary-terminal",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="d" * 64,
+    )
+    receipt = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T01:10:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "TERMINAL_NO_ARTICLE",
+        },
+    )
+    assert receipt["decision"] == "TERMINAL_NO_ARTICLE_NO_PROVIDER_FALLBACK"
+    assert receipt["sdk_fallback_start_authorized"] is False
 
 
 def test_active_policy_sections_reach_next_desktop_briefing(tmp_path):
