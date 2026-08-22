@@ -82330,7 +82330,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-22T16:14:59Z",
+  "generation_timestamp_utc": "2026-08-22T21:53:05Z",
   "generator_version": "2.5.0",
   "included_roots": [
     "live_contentops/",
@@ -84629,7 +84629,7 @@
     {
       "id": "live_contentops/newsroom_production_day_v1.py",
       "kind": "python_module",
-      "size_bytes": 18947
+      "size_bytes": 19172
     },
     {
       "id": "live_contentops/next_article_brief_source_pack_review_v6.py",
@@ -104271,7 +104271,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::build_production_day_snapshot",
       "kind": "python_function",
-      "line": 405,
+      "line": 406,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "build_production_day_snapshot"
     },
@@ -104306,7 +104306,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::persist_production_day_snapshot",
       "kind": "python_function",
-      "line": 458,
+      "line": 461,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "persist_production_day_snapshot"
     },
@@ -119321,35 +119321,35 @@
     {
       "id": "python_symbol:scripts/run_v1_current_multi_frontier_floor_rehearsal.py::complete",
       "kind": "python_function",
-      "line": 750,
+      "line": 971,
       "path": "scripts/run_v1_current_multi_frontier_floor_rehearsal.py",
       "symbol": "complete"
     },
     {
       "id": "python_symbol:scripts/run_v1_current_multi_frontier_floor_rehearsal.py::main",
       "kind": "python_function",
-      "line": 979,
+      "line": 1201,
       "path": "scripts/run_v1_current_multi_frontier_floor_rehearsal.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/run_v1_current_multi_frontier_floor_rehearsal.py::probe",
       "kind": "python_function",
-      "line": 607,
+      "line": 825,
       "path": "scripts/run_v1_current_multi_frontier_floor_rehearsal.py",
       "symbol": "probe"
     },
     {
       "id": "python_symbol:scripts/run_v1_current_multi_frontier_floor_rehearsal.py::probe_locator_recovery",
       "kind": "python_function",
-      "line": 695,
+      "line": 916,
       "path": "scripts/run_v1_current_multi_frontier_floor_rehearsal.py",
       "symbol": "probe_locator_recovery"
     },
     {
       "id": "python_symbol:scripts/run_v1_current_multi_frontier_floor_rehearsal.py::repair_empty_last_frontier",
       "kind": "python_function",
-      "line": 958,
+      "line": 1180,
       "path": "scripts/run_v1_current_multi_frontier_floor_rehearsal.py",
       "symbol": "repair_empty_last_frontier"
     },
@@ -121384,7 +121384,7 @@
     {
       "id": "scripts/run_v1_current_multi_frontier_floor_rehearsal.py",
       "kind": "python_module",
-      "size_bytes": 45855
+      "size_bytes": 56557
     },
     {
       "id": "scripts/run_v1_current_yield_shadow_opportunities.py",
@@ -122149,7 +122149,7 @@
     {
       "id": "tests/test_daily_app_publication_lifecycle_v1.py",
       "kind": "test",
-      "size_bytes": 21235
+      "size_bytes": 24907
     },
     {
       "id": "tests/test_daily_app_supervisor_v1.py",
@@ -123194,7 +123194,7 @@
     {
       "id": "tests/test_newsroom_production_day_v1.py",
       "kind": "test",
-      "size_bytes": 9056
+      "size_bytes": 9465
     },
     {
       "id": "tests/test_next_article_brief_source_pack_review_ui_guardrail_v6.py",
@@ -123874,7 +123874,7 @@
     {
       "id": "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
       "kind": "test",
-      "size_bytes": 32400
+      "size_bytes": 36582
     },
     {
       "id": "tests/test_primary_payload_classes_contract.py",
@@ -124679,7 +124679,7 @@
     {
       "id": "tests/test_v1_current_multi_frontier_floor_rehearsal_v1.py",
       "kind": "test",
-      "size_bytes": 4950
+      "size_bytes": 5993
     },
     {
       "id": "tests/test_v1_current_yield_shadow_runner_v1.py",
@@ -129367,6 +129367,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "bcdada4674402be42d1624cdd1ea5029617aef98",
-  "source_tree_digest": "817d537ac2ffc9d9f1f6308710670a76b5d1fe446f2fe0fb88c8653466e67d9e"
+  "source_head": "5327be938f4435c0644bcae41f84535bfd967029",
+  "source_tree_digest": "ea3cafdc1201ac17b584a8b081271d9d5dc8281b20fb4941b4a5202ee311f682"
 }

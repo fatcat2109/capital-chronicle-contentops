@@ -179,6 +179,15 @@ def test_floor_states_and_bounded_catchup_are_deterministic(tmp_path):
         reference=reference, output_root=tmp_path, routine_opportunities_used_override=4
     )
     assert depleted.production_day_state == STATE_DEGRADED_DAILY_OUTPUT_DEFICIT
+    exhausted = build_production_day_snapshot(
+        reference=reference,
+        output_root=tmp_path,
+        routine_opportunities_used_override=2,
+        bounded_useful_universe_exhausted=True,
+    )
+    assert exhausted.production_day_state == STATE_DEGRADED_DAILY_OUTPUT_DEFICIT
+    assert exhausted.routine_opportunities_remaining == 2
+    assert exhausted.bounded_useful_universe_exhausted is True
     blocked = build_production_day_snapshot(
         reference=reference,
         output_root=tmp_path,

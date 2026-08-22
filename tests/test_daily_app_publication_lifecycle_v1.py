@@ -7,7 +7,10 @@ public publication.
 """
 from __future__ import annotations
 
+import hashlib
+import json
 from datetime import datetime, timezone
+from pathlib import Path
 
 import pytest
 
@@ -22,6 +25,9 @@ from live_contentops.daily_app_supervisor_v1 import (
     STATUS_UNKNOWN_WRITE,
     STATUS_CONTROLLED_NO_WRITE,
     STATUS_DISPATCH_CONFIRMED,
+)
+from live_contentops.destination_transport_registry_v1 import (
+    V1_REQUIRED_DERIVATIVE_DESTINATIONS,
 )
 
 WINDOW_START = datetime(2026, 8, 10, 13, tzinfo=timezone.utc)
@@ -43,11 +49,97 @@ def _fixed_clock(dt):
 
 def _plan_cycle(destinations=("substack",), package_identity="pkg-1"):
     def cycle(*, run_id, output_dir, cutoff_utc, publication_enabled, **kwargs):
+        root = Path(output_dir)
+        body = f"# Governed lifecycle fixture {run_id}\n\nEvidence-bound final analysis."
+        identity = hashlib.sha256(body.encode("utf-8")).hexdigest()
+        governed_hash = hashlib.sha256(f"governed-{run_id}".encode()).hexdigest()
+
+        def write_json(name, value):
+            root.mkdir(parents=True, exist_ok=True)
+            (root / name).write_text(json.dumps(value), encoding="utf-8")
+
+        write_json(
+            "article_manifest_v1.json",
+            {
+                "title": f"Governed lifecycle fixture {run_id}",
+                "substack_body_markdown": body,
+                "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+                "institutional_edge_editorial_validation": {"classification": "PASS"},
+            },
+        )
+        write_json(
+            "grounded_support_v1.json",
+            {
+                "status": "PASS",
+                "targeted_evidence": {
+                    "evidence_documents": [{"evidence_id": f"evidence-{run_id}"}]
+                },
+            },
+        )
+        write_json("media_manifest_v1.json", {"status": "PASS"})
+        write_json("editorial_quality_gate_v1.json", {"classification": "PASS"})
+        write_json(
+            "native_payloads_rehearsal_v1.json",
+            {
+                destination: {"text": destination}
+                for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+            },
+        )
+        write_json(
+            "release_candidate_lock_v1.json",
+            {
+                "article_body_sha256": identity,
+                "source_packet_sha256": hashlib.sha256(
+                    f"source-{run_id}".encode()
+                ).hexdigest(),
+                "payload_sha256": {
+                    destination: hashlib.sha256(destination.encode()).hexdigest()
+                    for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+                },
+                "public_write_performed": False,
+            },
+        )
+        write_json(
+            "no_write_rehearsal_v1.json",
+            {"classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"},
+        )
+        write_json(
+            "rolling_x_grounded_article_media_v1.json",
+            {
+                "editorial_worker_receipt": {
+                    "model": "gpt-5.6-sol",
+                    "reasoning_effort": "XHIGH",
+                    "fresh": True,
+                    "isolated": True,
+                    "resume_existing": False,
+                    "governed_input_hash": governed_hash,
+                    "bounded_revision_count": 0,
+                    "public_write_attempted": False,
+                },
+                "editorial_worker_validation": {"coordinator_resumes": True},
+            },
+        )
         return {
-            "classification": "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1",
+            "run_id": run_id,
+            "classification": "PASS_PUBLICATION_PLAN_READY",
+            "editorial_worker_routing": {"governed_input_hash": governed_hash},
             "publication_lifecycle_plan": {
                 "ready_destinations": list(destinations),
                 "package_identity": package_identity,
+                "article_identity": identity,
+                "story_identity": f"story-{run_id}",
+                "update_chain_identity": f"chain-{run_id}",
+                "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+                "required_derivative_destinations": list(
+                    V1_REQUIRED_DERIVATIVE_DESTINATIONS
+                ),
+                "destinations": [
+                    {"destination": "substack"},
+                    *[
+                        {"destination": destination}
+                        for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+                    ],
+                ],
             },
             "public_write_performed": False,
             "unknown_write_detected": False,

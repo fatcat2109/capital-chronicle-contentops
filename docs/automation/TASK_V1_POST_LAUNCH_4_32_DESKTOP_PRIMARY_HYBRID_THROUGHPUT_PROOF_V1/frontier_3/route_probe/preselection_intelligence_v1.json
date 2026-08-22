@@ -1,0 +1,2729 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 10,
+  "evaluated_at_utc": "2026-08-22T22:14:27.784365Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 10,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-f8e32736c629bd64175a",
+    "rolling-x-global-cluster-10272fc02907c8ff716a",
+    "rolling-x-global-cluster-4c787a284c4fc5d661ba",
+    "rolling-x-global-cluster-7a7be0c36344154fd126",
+    "rolling-x-global-cluster-44a7adf9a4e97eb9e14e",
+    "rolling-x-semantic-reserve-d6a0d6ed56f8c809365b",
+    "rolling-x-semantic-reserve-8ce4d4e53eaf3622f37c",
+    "rolling-x-semantic-reserve-9eb8b91245bf1a0a245a",
+    "rolling-x-semantic-reserve-80d8eb4032a903c9f267",
+    "rolling-x-semantic-reserve-f2120cb6005f1e065c44"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {
+      "DATA_OR_DOCUMENT_LENS": 1
+    },
+    "as_of_utc": "2026-08-22T22:14:27.784365Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [
+      {
+        "count": 1,
+        "entity": "defense industry"
+      },
+      {
+        "count": 1,
+        "entity": "foreign policy"
+      },
+      {
+        "count": 1,
+        "entity": "italy"
+      },
+      {
+        "count": 1,
+        "entity": "military sales"
+      },
+      {
+        "count": 1,
+        "entity": "national security"
+      },
+      {
+        "count": 1,
+        "entity": "norway"
+      },
+      {
+        "count": 1,
+        "entity": "south korea"
+      },
+      {
+        "count": 1,
+        "entity": "u s"
+      }
+    ],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 1,
+    "recent_publication_timestamps_utc": [
+      "2026-08-22T21:29:16.076304+00:00"
+    ],
+    "remaining_target_min": 4,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "2bfea386533217831cb491447cbcdb3d4d08be759b74d4c3349d045548cb8d71",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 3,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "US Department of the Treasury",
+          "Donald Trump",
+          "Finance",
+          "ESG",
+          "Government Policy",
+          "Investment"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.028,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "US Department of the Treasury",
+            "source_field": "entities_topics",
+            "source_value_sha256": "353fa91c82921c04f008c641d24dfa4665633cb9dadf43f299f2ffa43be57610"
+          },
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Finance",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a5a718fe610ba97267620b39803f6ad2827c00457943240dc942a5b2223a5f66"
+          },
+          {
+            "query_term": "ESG",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b422d626a1ea190e2c2565c4c1e6e457712a3ac8a2317db43c55cb0b3d537609"
+          },
+          {
+            "query_term": "Government Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6a2e3bff16fa8901904ac5cf3cf36446863388fb8291cb97716d4c4386deab21"
+          },
+          {
+            "query_term": "Investment",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6c5e8a71e1e4de06ab7331258b4c09955c2c4dd0a18b091d8969f7e49af0ec53"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "US Department of the Treasury",
+          "Donald Trump",
+          "Finance",
+          "ESG",
+          "Government Policy",
+          "Investment"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-f8e32736c629bd64175a",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "US Department of the Treasury",
+        "Donald Trump",
+        "Finance",
+        "ESG",
+        "Government Policy",
+        "Investment"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-5effb42f4b99f77ec1e3"
+      ],
+      "leaf_summaries": [
+        "The Treasury Department bars ESG funds from Trump Accounts, citing concerns over political activism."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-f8e32736c629bd64175a",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+        ],
+        "new_official_source_candidates": [
+          "https://www.foxbusiness.com/economy/treasury-department-bars-esg-funds-from-trump-accounts-citing-political-activism-concerns"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Official Treasury Department memo or press release",
+        "Specific definitions of the affected accounts in the regulatory text",
+        "Reactions or impact assessments from major ESG fund managers"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:29:12Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-74f6c33a66bd4b71dfe284d6",
+          "url": "https://www.foxbusiness.com/economy/treasury-department-bars-esg-funds-from-trump-accounts-citing-political-activism-concerns"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.foxbusiness.com/economy/treasury-department-bars-esg-funds-from-trump-accounts-citing-political-activism-concerns"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0909,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.8008,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:29:12Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-74f6c33a66bd4b71dfe284d6",
+          "url": "https://www.foxbusiness.com/economy/treasury-department-bars-esg-funds-from-trump-accounts-citing-political-activism-concerns"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.foxbusiness.com/economy/treasury-department-bars-esg-funds-from-trump-accounts-citing-political-activism-concerns"
+      ],
+      "publishability_original_order": 1,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "This directly impacts asset managers, ESG fund flows, and institutional compliance, making it a core story for financial and policy readers seeking to understand the shifting regulatory landscape.",
+      "seo_intent": "Treasury Department ESG funds ban, Trump accounts ESG rules, political activism in finance regulation",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-74f6c33a66bd4b71dfe284d6",
+        "ordered_headline_ids": [
+          "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-f8e32736c629bd64175a",
+      "visual_strategy": "A split graphic showing the US Treasury building alongside a declining chart line or stylized ESG iconography.",
+      "why_now": "The Treasury Department has officially barred ESG funds from specific accounts, marking a significant escalation in the regulatory pushback against political activism in finance.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "China",
+          "Voter Fraud",
+          "Elections",
+          "Law Enforcement",
+          "Legal"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.04,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "China",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9c7f5d3858f8b5efbd6b354eac828c76aa36abb372c21c098596a69fdc8d260f"
+          },
+          {
+            "query_term": "Voter Fraud",
+            "source_field": "entities_topics",
+            "source_value_sha256": "648ab834dff4e76245bb8fac9d793fd4b62aabd9673a39c029c2f2e2a4aa5a40"
+          },
+          {
+            "query_term": "Elections",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f8252088044af0116d31baa759c26dffaa46ef75a21d307d0ef55324a980ae3"
+          },
+          {
+            "query_term": "Law Enforcement",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d2e728e98aff40416cc72fc6f90b9f5cc27f36b339e3a6a7d3f99a3a8cbd16d9"
+          },
+          {
+            "query_term": "Legal",
+            "source_field": "entities_topics",
+            "source_value_sha256": "221ef46b788b7bf8b11167a48f44b0805e8967dc13b3761c80debc5f4b00766c"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "China",
+          "Voter Fraud",
+          "Elections",
+          "Law Enforcement",
+          "Legal"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-4c787a284c4fc5d661ba",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "China",
+        "Voter Fraud",
+        "Elections",
+        "Law Enforcement",
+        "Legal"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-abd16c65ecf1381eff8ad279"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-966e9d7d200eb36da5e0"
+      ],
+      "leaf_summaries": [
+        "A Chinese national is arrested for voter fraud after allegedly casting a ballot in the 2024 election."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Arrest warrant or formal charging documents",
+        "Statement from local or federal election officials",
+        "Details on how the ballot was cast and subsequently detected"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:30:33Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-abd16c65ecf1381eff8ad279",
+          "url": "https://www.washingtonexaminer.com/news/4694130/chinese-national-arrested-voter-fraud-casting-ballot-in-2024-election/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.washingtonexaminer.com/news/4694130/chinese-national-arrested-voter-fraud-casting-ballot-in-2024-election/"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 110.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:30:33Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-abd16c65ecf1381eff8ad279",
+          "url": "https://www.washingtonexaminer.com/news/4694130/chinese-national-arrested-voter-fraud-casting-ballot-in-2024-election/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.washingtonexaminer.com/news/4694130/chinese-national-arrested-voter-fraud-casting-ballot-in-2024-election/"
+      ],
+      "publishability_original_order": 3,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 2,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Combines high-interest topics of election integrity and geopolitical tensions, requiring strict factual reporting to provide clarity and avoid unwarranted speculation.",
+      "seo_intent": "Chinese national arrested voter fraud 2024 election, non-citizen voting arrest",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-abd16c65ecf1381eff8ad279",
+        "ordered_headline_ids": [
+          "cc-x-headline-abd16c65ecf1381eff8ad279"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-4c787a284c4fc5d661ba",
+      "visual_strategy": "A generic but authoritative image of a polling place or a stylized gavel integrated with election imagery.",
+      "why_now": "Law enforcement has arrested a Chinese national for allegedly casting a fraudulent ballot in the 2024 election.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "NSA",
+          "Donald Trump",
+          "National Security",
+          "Elections",
+          "Intelligence",
+          "Politics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.022,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "NSA",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5ac830aa4ee07a35f07039fa43587e63866b25874b4db45a757b8f5e9afcfbc9"
+          },
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "National Security",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a3c251173918d37824eb3bf32cfb0f48bb6ae4e53cceda0dad7bc49e9bb27a1a"
+          },
+          {
+            "query_term": "Elections",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f8252088044af0116d31baa759c26dffaa46ef75a21d307d0ef55324a980ae3"
+          },
+          {
+            "query_term": "Intelligence",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0d385b7213b44058d4058a9f8d9e36173f1d2387c576ddeedfc589b4cf4f724c"
+          },
+          {
+            "query_term": "Politics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "934ce114b831d9afccc89355d9d06c91bdd8ed7e68aa13d3f11ae16f4e01c314"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "NSA",
+          "Donald Trump",
+          "National Security",
+          "Elections",
+          "Intelligence",
+          "Politics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-10272fc02907c8ff716a",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "NSA",
+        "Donald Trump",
+        "National Security",
+        "Elections",
+        "Intelligence",
+        "Politics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-06a9f7563233f70012692010"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-1ebafdacccdd61a55845"
+      ],
+      "leaf_summaries": [
+        "A memo reveals the NSA withheld election threat reporting during the Trump administration to avoid 'deep state' accusations."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-10272fc02907c8ff716a",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-06a9f7563233f70012692010"
+        ],
+        "new_official_source_candidates": [
+          "https://justthenews.com/government/security/nsa-analyst-agency-sat-2016-election-interference-intel-avoid-trump-era"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Copy of the leaked or declassified NSA memo",
+        "Confirmation of the specific election threats that were withheld from reporting",
+        "On-the-record comments from current or former intelligence officials"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:26:02Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-06a9f7563233f70012692010",
+          "url": "https://justthenews.com/government/security/nsa-analyst-agency-sat-2016-election-interference-intel-avoid-trump-era"
+        }
+      ],
+      "official_source_urls": [
+        "https://justthenews.com/government/security/nsa-analyst-agency-sat-2016-election-interference-intel-avoid-trump-era"
+      ],
+      "portfolio_concentration_penalty": 0.25,
+      "portfolio_concentration_penalty_effective": 0.25,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.1,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 106.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:26:02Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-06a9f7563233f70012692010",
+          "url": "https://justthenews.com/government/security/nsa-analyst-agency-sat-2016-election-interference-intel-avoid-trump-era"
+        }
+      ],
+      "public_source_urls": [
+        "https://justthenews.com/government/security/nsa-analyst-agency-sat-2016-election-interference-intel-avoid-trump-era"
+      ],
+      "publishability_original_order": 2,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 3,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Raises critical questions about the politicization of intelligence and institutional integrity, appealing strongly to readers interested in national security, governance, and institutional accountability.",
+      "seo_intent": "NSA withheld election threat reporting, Trump administration deep state, intelligence community politicization memo",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-06a9f7563233f70012692010",
+        "ordered_headline_ids": [
+          "cc-x-headline-06a9f7563233f70012692010"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-10272fc02907c8ff716a",
+      "visual_strategy": "Abstract representation of classified documents with the NSA seal subtly visible in the background.",
+      "why_now": "A newly revealed memo exposes that the NSA altered its intelligence reporting protocols regarding election threats during the Trump administration to avoid political backlash.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Economy",
+          "Manufacturing",
+          "Trade",
+          "PMI"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.011,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Economy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1c76461cfdf46a40c04426258150be2aedae98747949a030932de2980c00914b"
+          },
+          {
+            "query_term": "Manufacturing",
+            "source_field": "entities_topics",
+            "source_value_sha256": "030ecd2d279c2261eacb2f418daf37cb8248894e2b369acca22d111af3c092bc"
+          },
+          {
+            "query_term": "Trade",
+            "source_field": "entities_topics",
+            "source_value_sha256": "387e75d8cfaf047f2bdb53bfe4f499f1afd1f176d0b259dda1c87c7efd522988"
+          },
+          {
+            "query_term": "PMI",
+            "source_field": "needed_evidence",
+            "source_value_sha256": "584bfa277e6299321279925d4843ec30e7e7f855d11b6ab687eec559a14e024b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Economy",
+          "Manufacturing",
+          "Trade",
+          "PMI"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "needed_evidence"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-44a7adf9a4e97eb9e14e",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Economy",
+        "Manufacturing",
+        "Trade"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-db7a0ec756c450e4e664e1ad"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f36edb41d4680c2d6d00"
+      ],
+      "leaf_summaries": [
+        "Analysis of the current economic landscape, highlighting a major boom in the hard goods sector."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Underlying economic data reports (e.g., durable goods orders, PMI)",
+        "Analyst commentary on the sustainability of the boom",
+        "Identification of specific sub-sectors driving the growth"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:32:27Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-db7a0ec756c450e4e664e1ad",
+          "url": "https://www.realclearpolitics.com/articles/2026/08/20/this_is_the_best_hard_goods_boom_in_decades_154427.html"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.realclearpolitics.com/articles/2026/08/20/this_is_the_best_hard_goods_boom_in_decades_154427.html"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 106.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:32:27Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-db7a0ec756c450e4e664e1ad",
+          "url": "https://www.realclearpolitics.com/articles/2026/08/20/this_is_the_best_hard_goods_boom_in_decades_154427.html"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.realclearpolitics.com/articles/2026/08/20/this_is_the_best_hard_goods_boom_in_decades_154427.html"
+      ],
+      "publishability_original_order": 5,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 4,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Provides actionable economic insights for investors and policy watchers looking for sector-specific growth trends and manufacturing resilience.",
+      "seo_intent": "Hard goods sector economic boom, US manufacturing growth data, durable goods economic analysis",
+      "seo_learning_preferences": [],
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-db7a0ec756c450e4e664e1ad",
+        "ordered_headline_ids": [
+          "cc-x-headline-db7a0ec756c450e4e664e1ad"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-44a7adf9a4e97eb9e14e",
+      "visual_strategy": "A high-quality image of a modern manufacturing facility or an upward-trending chart overlaid on industrial equipment.",
+      "why_now": "Recent economic data indicates a significant boom in the hard goods manufacturing sector, defying broader macroeconomic slowdown fears.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "DNC",
+          "ICE",
+          "White House",
+          "Democratic Party",
+          "Immigration",
+          "Policy"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.02,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "DNC",
+            "source_field": "entities_topics",
+            "source_value_sha256": "82457dbdf5d8e92e423a0645c6fb92df052c03cebe9c524c739b458082edb123"
+          },
+          {
+            "query_term": "ICE",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1f246aef0b8c13192798a58c1d145517f98b3f121542a931af7dbf9ade1505b3"
+          },
+          {
+            "query_term": "White House",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1458658fbff2be3ff4f4540447bad8780498d916e09c38a8b79fa1211e5dd04a"
+          },
+          {
+            "query_term": "Democratic Party",
+            "source_field": "entities_topics",
+            "source_value_sha256": "56e4395809c507b842eb8231d6bdc5c45ec5562463f7b6f584a6207061673a24"
+          },
+          {
+            "query_term": "Immigration",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f3712771716e1f89abe139864fbf42ad1ad76e77c0931b90febee3ea6fa8cc56"
+          },
+          {
+            "query_term": "Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "762ce0dcba2b85f5b8d13797e640894703c726f9af8438992aaefbf5d7b82e47"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "DNC",
+          "ICE",
+          "White House",
+          "Democratic Party",
+          "Immigration",
+          "Policy"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-7a7be0c36344154fd126",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "DNC",
+        "ICE",
+        "White House",
+        "Democratic Party",
+        "Immigration",
+        "Policy",
+        "Crime",
+        "Politics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 2,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+        "cc-x-headline-09026c841b5a7e9d3a2562fd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-0115d2042dc4b3a061b9"
+      ],
+      "leaf_summaries": [
+        "Democrats and the DNC pass a resolution seeking to abolish ICE, drawing criticism and contrasting with White House crime narratives."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-7a7be0c36344154fd126",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+          "cc-x-headline-09026c841b5a7e9d3a2562fd"
+        ],
+        "new_official_source_candidates": [
+          "https://www.dailywire.com/news/white-house-touts-historic-crime-shift-as-dnc-votes-to-abolish-ice",
+          "https://thefederalist.com/2026/08/17/yes-democrats-just-passed-a-resolution-seeking-to-abolish-ice/"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Text of the DNC resolution",
+        "Roll call or vote count on the resolution",
+        "Recent White House statements on border enforcement to establish the contrast"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:25:34Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+          "url": "https://www.dailywire.com/news/white-house-touts-historic-crime-shift-as-dnc-votes-to-abolish-ice"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:27:45Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-09026c841b5a7e9d3a2562fd",
+          "url": "https://thefederalist.com/2026/08/17/yes-democrats-just-passed-a-resolution-seeking-to-abolish-ice/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.dailywire.com/news/white-house-touts-historic-crime-shift-as-dnc-votes-to-abolish-ice",
+        "https://thefederalist.com/2026/08/17/yes-democrats-just-passed-a-resolution-seeking-to-abolish-ice/"
+      ],
+      "portfolio_concentration_penalty": 0.125,
+      "portfolio_concentration_penalty_effective": 0.125,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0435,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 2,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 105.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:25:34Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+          "url": "https://www.dailywire.com/news/white-house-touts-historic-crime-shift-as-dnc-votes-to-abolish-ice"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:27:45Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-09026c841b5a7e9d3a2562fd",
+          "url": "https://thefederalist.com/2026/08/17/yes-democrats-just-passed-a-resolution-seeking-to-abolish-ice/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.dailywire.com/news/white-house-touts-historic-crime-shift-as-dnc-votes-to-abolish-ice",
+        "https://thefederalist.com/2026/08/17/yes-democrats-just-passed-a-resolution-seeking-to-abolish-ice/"
+      ],
+      "publishability_original_order": 4,
+      "publishability_path_profile": {
+        "bound_public_url_count": 2,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 5,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Highlights internal party fractures and shifts in immigration policy platforms ahead of major electoral cycles, providing valuable context on political strategy.",
+      "seo_intent": "DNC resolution abolish ICE, Democratic party immigration policy shift, White House crime narrative",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+        "ordered_headline_ids": [
+          "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+          "cc-x-headline-09026c841b5a7e9d3a2562fd"
+        ],
+        "relationship": "incremental_update"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-7a7be0c36344154fd126",
+      "visual_strategy": "Side-by-side photos of DNC leadership and White House officials, or neutral ICE enforcement imagery.",
+      "why_now": "The DNC has passed a resolution seeking to abolish ICE, creating a stark contrast with the White House's current messaging on crime and border security.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Melania Trump",
+          "IndyCar",
+          "Charity",
+          "Scholarships",
+          "Foster Care",
+          "Fashion"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.011,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Melania Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "963142eb1463243ffe67d046963462409c678603a025dcd903e1738a24a010df"
+          },
+          {
+            "query_term": "IndyCar",
+            "source_field": "entities_topics",
+            "source_value_sha256": "327aca803b1c1265fa2ce933c3619d7ad48716a612c73f6a445212a3a50526cd"
+          },
+          {
+            "query_term": "Charity",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e4ea98d49448ddbad6087432bbd54363d8698d7ce0d5c541d684275cb4236785"
+          },
+          {
+            "query_term": "Scholarships",
+            "source_field": "entities_topics",
+            "source_value_sha256": "241476525ca3c66c4839f5ee36b957d38669c221ab07c88392f43f1d3ae88b47"
+          },
+          {
+            "query_term": "Foster Care",
+            "source_field": "entities_topics",
+            "source_value_sha256": "565fa3bd4e1cbcd61f015d55cd99aefa433e50a72f9b3af2761dbc1dd1df0051"
+          },
+          {
+            "query_term": "Fashion",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2197f38267d389d13f2c78355deb4bdfeca25b7573a1546cacdb5d49c55cae2e"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Melania Trump",
+          "IndyCar",
+          "Charity",
+          "Scholarships",
+          "Foster Care",
+          "Fashion"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-d6a0d6ed56f8c809365b",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Melania Trump",
+        "IndyCar",
+        "Charity",
+        "Scholarships",
+        "Foster Care",
+        "Fashion"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-185d6477a9185110d3a65da9"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-1e3245890630fdb5db11"
+      ],
+      "leaf_summaries": [
+        "Melania Trump partners with IndyCar to provide scholarships for foster children, debuting a new style."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:29:51Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-185d6477a9185110d3a65da9",
+          "url": "https://nypost.com/2026/08/20/us-news/melania-trump-links-up-with-indycar-for-foster-kid-scholarships/"
+        }
+      ],
+      "official_source_urls": [
+        "https://nypost.com/2026/08/20/us-news/melania-trump-links-up-with-indycar-for-foster-kid-scholarships/"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 6,
+      "preselection_score": 104.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:29:51Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-185d6477a9185110d3a65da9",
+          "url": "https://nypost.com/2026/08/20/us-news/melania-trump-links-up-with-indycar-for-foster-kid-scholarships/"
+        }
+      ],
+      "public_source_urls": [
+        "https://nypost.com/2026/08/20/us-news/melania-trump-links-up-with-indycar-for-foster-kid-scholarships/"
+      ],
+      "publishability_original_order": 7,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 6,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-185d6477a9185110d3a65da9"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-d6a0d6ed56f8c809365b",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Melania Trump partners with IndyCar to provide scholarships for foster children, debuting a new style.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "Oval Office",
+          "Human Interest",
+          "Rescue",
+          "White House Events"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.012,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Oval Office",
+            "source_field": "entities_topics",
+            "source_value_sha256": "030c909e5f1e693365a386139f2cd0bedafd5b3b18c62920afbd855f7f8a498a"
+          },
+          {
+            "query_term": "Human Interest",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a26914ea77d734e75d2ce973d6b4725a1d25a6866ab4e657cb3fc9c3b2fb22fe"
+          },
+          {
+            "query_term": "Rescue",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c9b9d73f21a2f840e2cf92bfc12e4cc16e1a49d2a622c38b34959f7643301b3a"
+          },
+          {
+            "query_term": "White House Events",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f8e75405773fa6406180e5c19104ebddbfc8f7c93f3a3e8b3f2c41ecafbb5f29"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "Oval Office",
+          "Human Interest",
+          "Rescue",
+          "White House Events"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-8ce4d4e53eaf3622f37c",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "Oval Office",
+        "Human Interest",
+        "Rescue",
+        "White House Events"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 2,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-7126e3f69e3056021e9e3719",
+        "cc-x-headline-e59f6c545a6d39748a18cd93"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-55154af57ba9fc582016"
+      ],
+      "leaf_summaries": [
+        "Donald Trump hosts a teen lifeguard and a boy saved from a dangerous ocean rescue in the Oval Office to celebrate the boy's birthday."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:26:34Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-7126e3f69e3056021e9e3719",
+          "url": "https://www.foxnews.com/media/boy-passed-out-deadly-ocean-waves-celebrates-miracle-birthday-trump-oval-office"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:28:09Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-e59f6c545a6d39748a18cd93",
+          "url": "https://www.foxnews.com/politics/trump-meets-teen-lifeguard-boy-saved-viral-ocean-rescue-oval-office"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.foxnews.com/media/boy-passed-out-deadly-ocean-waves-celebrates-miracle-birthday-trump-oval-office",
+        "https://www.foxnews.com/politics/trump-meets-teen-lifeguard-boy-saved-viral-ocean-rescue-oval-office"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 7,
+      "preselection_score": 102.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:26:34Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-7126e3f69e3056021e9e3719",
+          "url": "https://www.foxnews.com/media/boy-passed-out-deadly-ocean-waves-celebrates-miracle-birthday-trump-oval-office"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:28:09Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-e59f6c545a6d39748a18cd93",
+          "url": "https://www.foxnews.com/politics/trump-meets-teen-lifeguard-boy-saved-viral-ocean-rescue-oval-office"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.foxnews.com/media/boy-passed-out-deadly-ocean-waves-celebrates-miracle-birthday-trump-oval-office",
+        "https://www.foxnews.com/politics/trump-meets-teen-lifeguard-boy-saved-viral-ocean-rescue-oval-office"
+      ],
+      "publishability_original_order": 9,
+      "publishability_path_profile": {
+        "bound_public_url_count": 2,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 7,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7126e3f69e3056021e9e3719",
+          "cc-x-headline-e59f6c545a6d39748a18cd93"
+        ],
+        "relationship": "incremental_update"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-8ce4d4e53eaf3622f37c",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Donald Trump hosts a teen lifeguard and a boy saved from a dangerous ocean rescue in the Oval Office to celebrate the boy's birthday.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "US Congress",
+          "Government Reform",
+          "Term Limits",
+          "Elections",
+          "Politics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.013,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "US Congress",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a2a316266acbc4dc95893d9ffd773682f5300835b43ddc15088c2b35c24910dd"
+          },
+          {
+            "query_term": "Government Reform",
+            "source_field": "entities_topics",
+            "source_value_sha256": "8898db777cd693a858e1a6748339b73f6431b2cdcca7a8554d45a9d8ee393b8e"
+          },
+          {
+            "query_term": "Term Limits",
+            "source_field": "entities_topics",
+            "source_value_sha256": "15d46ced234ec1f49060caa04a2e7d4f82af838d13d6d81f1e76ed15b07b0698"
+          },
+          {
+            "query_term": "Elections",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f8252088044af0116d31baa759c26dffaa46ef75a21d307d0ef55324a980ae3"
+          },
+          {
+            "query_term": "Politics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "934ce114b831d9afccc89355d9d06c91bdd8ed7e68aa13d3f11ae16f4e01c314"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "US Congress",
+          "Government Reform",
+          "Term Limits",
+          "Elections",
+          "Politics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-9eb8b91245bf1a0a245a",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "US Congress",
+        "Government Reform",
+        "Term Limits",
+        "Elections",
+        "Politics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-45b54fd55327db61362e64e8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-a3bef454e4e1dd30e719"
+      ],
+      "leaf_summaries": [
+        "Donald Trump expresses support for congressional term limits, noting their popularity with the general public."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:31:30Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-45b54fd55327db61362e64e8",
+          "url": "https://justthenews.com/politics-policy/all-things-trump/trump-says-he-okay-term-limits-congress-very-popular-public"
+        }
+      ],
+      "official_source_urls": [
+        "https://justthenews.com/politics-policy/all-things-trump/trump-says-he-okay-term-limits-congress-very-popular-public"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 8,
+      "preselection_score": 100.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:31:30Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-45b54fd55327db61362e64e8",
+          "url": "https://justthenews.com/politics-policy/all-things-trump/trump-says-he-okay-term-limits-congress-very-popular-public"
+        }
+      ],
+      "public_source_urls": [
+        "https://justthenews.com/politics-policy/all-things-trump/trump-says-he-okay-term-limits-congress-very-popular-public"
+      ],
+      "publishability_original_order": 12,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 8,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-45b54fd55327db61362e64e8"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-9eb8b91245bf1a0a245a",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Donald Trump expresses support for congressional term limits, noting their popularity with the general public.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Culture Wars",
+          "Commentary"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.011,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Culture Wars",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ec8be803768c715a9e6aa6aaf9e9aa959f4a141b05ded604356cdbc9448711b0"
+          },
+          {
+            "query_term": "Commentary",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c36e84bd5a7e40c2df787a8c2fc791031ba28339f4354d6e056b426a7f2c8748"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Culture Wars",
+          "Commentary"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-80d8eb4032a903c9f267",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Culture Wars",
+        "Commentary"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-82ad5256438173c5a085275e"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-c5dca18d51db70490793"
+      ],
+      "leaf_summaries": [
+        "An opinion piece criticizing the impact of progressive cultural movements, describing them as destructive."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:26:49Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-82ad5256438173c5a085275e",
+          "url": "https://www.nationalreview.com/2026/08/woke-one-wasnt-just-crazy-it-was-destructive/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.nationalreview.com/2026/08/woke-one-wasnt-just-crazy-it-was-destructive/"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 9,
+      "preselection_score": 98.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:26:49Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-82ad5256438173c5a085275e",
+          "url": "https://www.nationalreview.com/2026/08/woke-one-wasnt-just-crazy-it-was-destructive/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.nationalreview.com/2026/08/woke-one-wasnt-just-crazy-it-was-destructive/"
+      ],
+      "publishability_original_order": 13,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 9,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-82ad5256438173c5a085275e"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-80d8eb4032a903c9f267",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "An opinion piece criticizing the impact of progressive cultural movements, describing them as destructive.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Democratic Party",
+          "Culture Wars",
+          "Politics",
+          "Commentary"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.012,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Democratic Party",
+            "source_field": "entities_topics",
+            "source_value_sha256": "56e4395809c507b842eb8231d6bdc5c45ec5562463f7b6f584a6207061673a24"
+          },
+          {
+            "query_term": "Culture Wars",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ec8be803768c715a9e6aa6aaf9e9aa959f4a141b05ded604356cdbc9448711b0"
+          },
+          {
+            "query_term": "Politics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "934ce114b831d9afccc89355d9d06c91bdd8ed7e68aa13d3f11ae16f4e01c314"
+          },
+          {
+            "query_term": "Commentary",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c36e84bd5a7e40c2df787a8c2fc791031ba28339f4354d6e056b426a7f2c8748"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Democratic Party",
+          "Culture Wars",
+          "Politics",
+          "Commentary"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-f2120cb6005f1e065c44",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Democratic Party",
+        "Culture Wars",
+        "Politics",
+        "Commentary"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-287ff51b45f773dbcce8cc2b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f307d9e4b93a9a1a0a62"
+      ],
+      "leaf_summaries": [
+        "Commentary on progressive political strategies, framing them as a transition to a new phase of 'woke' ideology."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:27:24Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-287ff51b45f773dbcce8cc2b",
+          "url": "https://www.washingtontimes.com/news/2026/aug/16/radical-democrats-gearing-woke-20/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.washingtontimes.com/news/2026/aug/16/radical-democrats-gearing-woke-20/"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 10,
+      "preselection_score": 98.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:27:24Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-287ff51b45f773dbcce8cc2b",
+          "url": "https://www.washingtontimes.com/news/2026/aug/16/radical-democrats-gearing-woke-20/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.washingtontimes.com/news/2026/aug/16/radical-democrats-gearing-woke-20/"
+      ],
+      "publishability_original_order": 14,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 10,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-287ff51b45f773dbcce8cc2b"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-f2120cb6005f1e065c44",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Commentary on progressive political strategies, framing them as a transition to a new phase of 'woke' ideology.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": true,
+  "reranked_order": [
+    "rolling-x-global-cluster-f8e32736c629bd64175a",
+    "rolling-x-global-cluster-4c787a284c4fc5d661ba",
+    "rolling-x-global-cluster-10272fc02907c8ff716a",
+    "rolling-x-global-cluster-44a7adf9a4e97eb9e14e",
+    "rolling-x-global-cluster-7a7be0c36344154fd126",
+    "rolling-x-semantic-reserve-d6a0d6ed56f8c809365b",
+    "rolling-x-semantic-reserve-8ce4d4e53eaf3622f37c",
+    "rolling-x-semantic-reserve-9eb8b91245bf1a0a245a",
+    "rolling-x-semantic-reserve-80d8eb4032a903c9f267",
+    "rolling-x-semantic-reserve-f2120cb6005f1e065c44"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

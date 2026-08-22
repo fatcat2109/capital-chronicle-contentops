@@ -1,0 +1,1416 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 10,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "5152f36fff904d5399d0f85b0705c3bedc442990cd895389e5e909914b941ae7",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-c815c2a24531d6d2308d"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "9698ea80a2106ece279a7a48ad095fe5b47a5d82909220842434fb6b55957c96",
+    "cutoff_time_utc": "2026-08-22T22:14:27.784365Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 10,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "crime",
+            "democratic party",
+            "dnc"
+          ],
+          "first_utc": "2026-08-21T23:25:34Z",
+          "latest_utc": "2026-08-21T23:27:45Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 22.7786,
+          "update_velocity": 27.4809
+        },
+        "entities_topics": [
+          "DNC",
+          "ICE",
+          "White House",
+          "Democratic Party"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-0115d2042dc4b3a061b9",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 80,
+          "engagement": 90,
+          "evidence": 75,
+          "saturation_risk": 50,
+          "seo": 85
+        },
+        "summary": "Democrats and the DNC pass a resolution seeking to abolish ICE, drawing criticism and contrasting with White House crime narratives."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "charity",
+            "fashion",
+            "foster care"
+          ],
+          "first_utc": "2026-08-21T23:29:51Z",
+          "latest_utc": "2026-08-21T23:29:51Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.7436,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Melania Trump",
+          "IndyCar",
+          "Charity",
+          "Scholarships"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-1e3245890630fdb5db11",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 70,
+          "evidence": 70,
+          "saturation_risk": 30,
+          "seo": 75
+        },
+        "summary": "Melania Trump partners with IndyCar to provide scholarships for foster children, debuting a new style."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "elections",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-21T23:26:02Z",
+          "latest_utc": "2026-08-21T23:26:02Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.8072,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "NSA",
+          "Donald Trump",
+          "National Security",
+          "Elections"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-1ebafdacccdd61a55845",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 85,
+          "evidence": 80,
+          "saturation_risk": 40,
+          "seo": 70
+        },
+        "summary": "A memo reveals the NSA withheld election threat reporting during the Trump administration to avoid 'deep state' accusations."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "donald trump",
+            "human interest"
+          ],
+          "first_utc": "2026-08-21T23:26:34Z",
+          "latest_utc": "2026-08-21T23:28:09Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 22.7719,
+          "update_velocity": 37.8947
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "Oval Office",
+          "Human Interest",
+          "Rescue"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-55154af57ba9fc582016",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 75,
+          "engagement": 85,
+          "evidence": 85,
+          "saturation_risk": 30,
+          "seo": 80
+        },
+        "summary": "Donald Trump hosts a teen lifeguard and a boy saved from a dangerous ocean rescue in the Oval Office to celebrate the boy's birthday."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "esg",
+            "finance"
+          ],
+          "first_utc": "2026-08-21T23:29:12Z",
+          "latest_utc": "2026-08-21T23:29:12Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.7544,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "US Department of the Treasury",
+          "Donald Trump",
+          "Finance",
+          "ESG"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-5effb42f4b99f77ec1e3",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 75,
+          "evidence": 75,
+          "saturation_risk": 35,
+          "seo": 70
+        },
+        "summary": "The Treasury Department bars ESG funds from Trump Accounts, citing concerns over political activism."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "china",
+            "elections",
+            "law enforcement"
+          ],
+          "first_utc": "2026-08-21T23:30:33Z",
+          "latest_utc": "2026-08-21T23:30:33Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.7319,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China",
+          "Voter Fraud",
+          "Elections",
+          "Law Enforcement"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-966e9d7d200eb36da5e0",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 85,
+          "evidence": 85,
+          "saturation_risk": 45,
+          "seo": 80
+        },
+        "summary": "A Chinese national is arrested for voter fraud after allegedly casting a ballot in the 2024 election."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "elections",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-21T23:31:30Z",
+          "latest_utc": "2026-08-21T23:31:30Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.7161,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "US Congress",
+          "Government Reform",
+          "Term Limits"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-a3bef454e4e1dd30e719",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 80,
+          "evidence": 80,
+          "saturation_risk": 35,
+          "seo": 75
+        },
+        "summary": "Donald Trump expresses support for congressional term limits, noting their popularity with the general public."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "commentary",
+            "culture wars"
+          ],
+          "first_utc": "2026-08-21T23:26:49Z",
+          "latest_utc": "2026-08-21T23:26:49Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.7941,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Culture Wars",
+          "Commentary"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-c5dca18d51db70490793",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 55,
+          "engagement": 65,
+          "evidence": 45,
+          "saturation_risk": 40,
+          "seo": 60
+        },
+        "summary": "An opinion piece criticizing the impact of progressive cultural movements, describing them as destructive."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "commentary",
+            "culture wars",
+            "democratic party"
+          ],
+          "first_utc": "2026-08-21T23:27:24Z",
+          "latest_utc": "2026-08-21T23:27:24Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.7844,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Democratic Party",
+          "Culture Wars",
+          "Politics",
+          "Commentary"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-f307d9e4b93a9a1a0a62",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 70,
+          "evidence": 50,
+          "saturation_risk": 45,
+          "seo": 65
+        },
+        "summary": "Commentary on progressive political strategies, framing them as a transition to a new phase of 'woke' ideology."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "economy",
+            "manufacturing",
+            "trade"
+          ],
+          "first_utc": "2026-08-21T23:32:27Z",
+          "latest_utc": "2026-08-21T23:32:27Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.7002,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Economy",
+          "Manufacturing",
+          "Trade"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-f36edb41d4680c2d6d00",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 60,
+          "evidence": 65,
+          "saturation_risk": 30,
+          "seo": 60
+        },
+        "summary": "Analysis of the current economic landscape, highlighting a major boom in the hard goods sector."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "9698ea80a2106ece279a7a48ad095fe5b47a5d82909220842434fb6b55957c96",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-06a9f7563233f70012692010",
+      "cc-x-headline-09026c841b5a7e9d3a2562fd",
+      "cc-x-headline-185d6477a9185110d3a65da9",
+      "cc-x-headline-287ff51b45f773dbcce8cc2b",
+      "cc-x-headline-45b54fd55327db61362e64e8",
+      "cc-x-headline-7126e3f69e3056021e9e3719",
+      "cc-x-headline-74f6c33a66bd4b71dfe284d6",
+      "cc-x-headline-82ad5256438173c5a085275e",
+      "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+      "cc-x-headline-abd16c65ecf1381eff8ad279",
+      "cc-x-headline-db7a0ec756c450e4e664e1ad",
+      "cc-x-headline-e59f6c545a6d39748a18cd93"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 90,
+        "saturation_risk": 50,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+          "cc-x-headline-09026c841b5a7e9d3a2562fd"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "DNC",
+        "ICE",
+        "White House",
+        "Democratic Party"
+      ],
+      "event_topic_summary": "Democrats and the DNC pass a resolution seeking to abolish ICE, drawing criticism and contrasting with White House crime narratives.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-0115d2042dc4b3a061b9",
+      "member_headline_ids": [
+        "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+        "cc-x-headline-09026c841b5a7e9d3a2562fd"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Immigration",
+        "Policy",
+        "Crime",
+        "Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 30,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-185d6477a9185110d3a65da9",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-185d6477a9185110d3a65da9"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Melania Trump",
+        "IndyCar"
+      ],
+      "event_topic_summary": "Melania Trump partners with IndyCar to provide scholarships for foster children, debuting a new style.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-1e3245890630fdb5db11",
+      "member_headline_ids": [
+        "cc-x-headline-185d6477a9185110d3a65da9"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Charity",
+        "Scholarships",
+        "Foster Care",
+        "Fashion"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 40,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-06a9f7563233f70012692010",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-06a9f7563233f70012692010"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "NSA",
+        "Donald Trump"
+      ],
+      "event_topic_summary": "A memo reveals the NSA withheld election threat reporting during the Trump administration to avoid 'deep state' accusations.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-1ebafdacccdd61a55845",
+      "member_headline_ids": [
+        "cc-x-headline-06a9f7563233f70012692010"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "National Security",
+        "Elections",
+        "Intelligence",
+        "Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 30,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-e59f6c545a6d39748a18cd93",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7126e3f69e3056021e9e3719",
+          "cc-x-headline-e59f6c545a6d39748a18cd93"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Donald Trump",
+        "Oval Office"
+      ],
+      "event_topic_summary": "Donald Trump hosts a teen lifeguard and a boy saved from a dangerous ocean rescue in the Oval Office to celebrate the boy's birthday.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-55154af57ba9fc582016",
+      "member_headline_ids": [
+        "cc-x-headline-7126e3f69e3056021e9e3719",
+        "cc-x-headline-e59f6c545a6d39748a18cd93"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Human Interest",
+        "Rescue",
+        "White House Events"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 35,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-74f6c33a66bd4b71dfe284d6",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "US Department of the Treasury",
+        "Donald Trump"
+      ],
+      "event_topic_summary": "The Treasury Department bars ESG funds from Trump Accounts, citing concerns over political activism.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-5effb42f4b99f77ec1e3",
+      "member_headline_ids": [
+        "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Finance",
+        "ESG",
+        "Government Policy",
+        "Investment"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 45,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-abd16c65ecf1381eff8ad279",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-abd16c65ecf1381eff8ad279"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China"
+      ],
+      "event_topic_summary": "A Chinese national is arrested for voter fraud after allegedly casting a ballot in the 2024 election.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-966e9d7d200eb36da5e0",
+      "member_headline_ids": [
+        "cc-x-headline-abd16c65ecf1381eff8ad279"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Voter Fraud",
+        "Elections",
+        "Law Enforcement",
+        "Legal"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 35,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-45b54fd55327db61362e64e8",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-45b54fd55327db61362e64e8"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump",
+        "US Congress"
+      ],
+      "event_topic_summary": "Donald Trump expresses support for congressional term limits, noting their popularity with the general public.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-a3bef454e4e1dd30e719",
+      "member_headline_ids": [
+        "cc-x-headline-45b54fd55327db61362e64e8"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Government Reform",
+        "Term Limits",
+        "Elections",
+        "Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 55,
+        "evidence_prospects": 45,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 40,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-82ad5256438173c5a085275e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-82ad5256438173c5a085275e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "An opinion piece criticizing the impact of progressive cultural movements, describing them as destructive.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-c5dca18d51db70490793",
+      "member_headline_ids": [
+        "cc-x-headline-82ad5256438173c5a085275e"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Culture Wars",
+        "Commentary"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 45,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-287ff51b45f773dbcce8cc2b",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-287ff51b45f773dbcce8cc2b"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Democratic Party"
+      ],
+      "event_topic_summary": "Commentary on progressive political strategies, framing them as a transition to a new phase of 'woke' ideology.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-f307d9e4b93a9a1a0a62",
+      "member_headline_ids": [
+        "cc-x-headline-287ff51b45f773dbcce8cc2b"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Culture Wars",
+        "Politics",
+        "Commentary"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 65,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 30,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-db7a0ec756c450e4e664e1ad",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-db7a0ec756c450e4e664e1ad"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "Analysis of the current economic landscape, highlighting a major boom in the hard goods sector.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-f36edb41d4680c2d6d00",
+      "member_headline_ids": [
+        "cc-x-headline-db7a0ec756c450e4e664e1ad"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "topics": [
+        "Economy",
+        "Manufacturing",
+        "Trade"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-06a9f7563233f70012692010",
+        "cc-x-headline-09026c841b5a7e9d3a2562fd",
+        "cc-x-headline-185d6477a9185110d3a65da9",
+        "cc-x-headline-287ff51b45f773dbcce8cc2b",
+        "cc-x-headline-45b54fd55327db61362e64e8",
+        "cc-x-headline-7126e3f69e3056021e9e3719",
+        "cc-x-headline-74f6c33a66bd4b71dfe284d6",
+        "cc-x-headline-82ad5256438173c5a085275e",
+        "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+        "cc-x-headline-abd16c65ecf1381eff8ad279",
+        "cc-x-headline-db7a0ec756c450e4e664e1ad",
+        "cc-x-headline-e59f6c545a6d39748a18cd93"
+      ],
+      "partition_id": "rolling-x-leaf-c815c2a24531d6d2308d",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 13528,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 499,
+    "held_before_semantic_assignment_count": 487,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "82fea8ad594238cec1fbdd5f68cb9ffdcf554cacaa8f3d18d4147fed2d45dc02",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-f8e32736c629bd64175a",
+      "headline_ids": [
+        "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-5effb42f4b99f77ec1e3"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official Treasury Department memo or press release",
+        "Specific definitions of the affected accounts in the regulatory text",
+        "Reactions or impact assessments from major ESG fund managers"
+      ],
+      "rank": 1,
+      "selection_case": "This directly impacts asset managers, ESG fund flows, and institutional compliance, making it a core story for financial and policy readers seeking to understand the shifting regulatory landscape.",
+      "seo_intent": "Treasury Department ESG funds ban, Trump accounts ESG rules, political activism in finance regulation",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-74f6c33a66bd4b71dfe284d6",
+        "ordered_headline_ids": [
+          "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A split graphic showing the US Treasury building alongside a declining chart line or stylized ESG iconography.",
+      "why_now": "The Treasury Department has officially barred ESG funds from specific accounts, marking a significant escalation in the regulatory pushback against political activism in finance."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-10272fc02907c8ff716a",
+      "headline_ids": [
+        "cc-x-headline-06a9f7563233f70012692010"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-1ebafdacccdd61a55845"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Copy of the leaked or declassified NSA memo",
+        "Confirmation of the specific election threats that were withheld from reporting",
+        "On-the-record comments from current or former intelligence officials"
+      ],
+      "rank": 2,
+      "selection_case": "Raises critical questions about the politicization of intelligence and institutional integrity, appealing strongly to readers interested in national security, governance, and institutional accountability.",
+      "seo_intent": "NSA withheld election threat reporting, Trump administration deep state, intelligence community politicization memo",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-06a9f7563233f70012692010",
+        "ordered_headline_ids": [
+          "cc-x-headline-06a9f7563233f70012692010"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Abstract representation of classified documents with the NSA seal subtly visible in the background.",
+      "why_now": "A newly revealed memo exposes that the NSA altered its intelligence reporting protocols regarding election threats during the Trump administration to avoid political backlash."
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-4c787a284c4fc5d661ba",
+      "headline_ids": [
+        "cc-x-headline-abd16c65ecf1381eff8ad279"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-966e9d7d200eb36da5e0"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Arrest warrant or formal charging documents",
+        "Statement from local or federal election officials",
+        "Details on how the ballot was cast and subsequently detected"
+      ],
+      "rank": 3,
+      "selection_case": "Combines high-interest topics of election integrity and geopolitical tensions, requiring strict factual reporting to provide clarity and avoid unwarranted speculation.",
+      "seo_intent": "Chinese national arrested voter fraud 2024 election, non-citizen voting arrest",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-abd16c65ecf1381eff8ad279",
+        "ordered_headline_ids": [
+          "cc-x-headline-abd16c65ecf1381eff8ad279"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A generic but authoritative image of a polling place or a stylized gavel integrated with election imagery.",
+      "why_now": "Law enforcement has arrested a Chinese national for allegedly casting a fraudulent ballot in the 2024 election."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-7a7be0c36344154fd126",
+      "headline_ids": [
+        "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+        "cc-x-headline-09026c841b5a7e9d3a2562fd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-0115d2042dc4b3a061b9"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Text of the DNC resolution",
+        "Roll call or vote count on the resolution",
+        "Recent White House statements on border enforcement to establish the contrast"
+      ],
+      "rank": 4,
+      "selection_case": "Highlights internal party fractures and shifts in immigration policy platforms ahead of major electoral cycles, providing valuable context on political strategy.",
+      "seo_intent": "DNC resolution abolish ICE, Democratic party immigration policy shift, White House crime narrative",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+        "ordered_headline_ids": [
+          "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+          "cc-x-headline-09026c841b5a7e9d3a2562fd"
+        ],
+        "relationship": "incremental_update"
+      },
+      "visual_strategy": "Side-by-side photos of DNC leadership and White House officials, or neutral ICE enforcement imagery.",
+      "why_now": "The DNC has passed a resolution seeking to abolish ICE, creating a stark contrast with the White House's current messaging on crime and border security."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-44a7adf9a4e97eb9e14e",
+      "headline_ids": [
+        "cc-x-headline-db7a0ec756c450e4e664e1ad"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f36edb41d4680c2d6d00"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Underlying economic data reports (e.g., durable goods orders, PMI)",
+        "Analyst commentary on the sustainability of the boom",
+        "Identification of specific sub-sectors driving the growth"
+      ],
+      "rank": 5,
+      "selection_case": "Provides actionable economic insights for investors and policy watchers looking for sector-specific growth trends and manufacturing resilience.",
+      "seo_intent": "Hard goods sector economic boom, US manufacturing growth data, durable goods economic analysis",
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-db7a0ec756c450e4e664e1ad",
+        "ordered_headline_ids": [
+          "cc-x-headline-db7a0ec756c450e4e664e1ad"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "A high-quality image of a modern manufacturing facility or an upward-trending chart overlaid on industrial equipment.",
+      "why_now": "Recent economic data indicates a significant boom in the hard goods manufacturing sector, defying broader macroeconomic slowdown fears."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "7cea4663471b2de145a919e503cad87c0431dfed682169919e95bdfe39867ca1",
+          "latency_seconds": 49.0015,
+          "logical_invocation_id": "inv_rolling_x_leaf_7a8916c45abc7164c291",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "df69c17b8dd5e0c01a2f7b775571e2f78f38b3cf240d2a08f8d2fbbd69476ec3",
+          "prompt_logical_hash": "5604e7e2ea21212d4e12d9b497c0af7add3e96589b97891a73e5461b7e954e2a",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-xiyKat_bCe-Npt8P1sGmoAo",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_7a8916c45abc7164c291",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 11885,
+            "completion_tokens_details": {
+              "reasoning_tokens": 8665
+            },
+            "prompt_tokens": 9816,
+            "total_tokens": 21701
+          },
+          "work_item_id": "rolling-x-leaf-c815c2a24531d6d2308d"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_7a8916c45abc7164c291",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_7a8916c45abc7164c291",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 49.0028,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 11885.0,
+        "prompt_tokens": 9816.0,
+        "total_tokens": 21701.0
+      },
+      "work_item_id": "rolling-x-leaf-c815c2a24531d6d2308d"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "d2dd9ea47c227b6290ed5f62469a2d44806576694d4be3a553306432c9d80627",
+          "latency_seconds": 37.8017,
+          "logical_invocation_id": "inv_rolling_x_global_601f69f2552b4aef0c18",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "7133a6388fa1b4b1570cca3ffd1df4768c177f7ea2c91c151aba4e19e769c2cf",
+          "prompt_logical_hash": "0ee6115c7cd4f77fb5c849a4a14d1dc563f51284c5fe4b1f461e37330766728b",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-9iyKarj8N5j1pt8P9cisqQI",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 3,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_601f69f2552b4aef0c18",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 4,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 3,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 5158,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3492
+            },
+            "prompt_tokens": 6615,
+            "total_tokens": 11773
+          },
+          "work_item_id": "rolling-x-global-9698ea80a2106ece279a"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_601f69f2552b4aef0c18",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 3,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_601f69f2552b4aef0c18",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 37.8023,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 5158.0,
+        "prompt_tokens": 6615.0,
+        "total_tokens": 11773.0
+      },
+      "work_item_id": "rolling-x-global-9698ea80a2106ece279a"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "d2dd9ea47c227b6290ed5f62469a2d44806576694d4be3a553306432c9d80627",
+        "latency_seconds": 37.8017,
+        "logical_invocation_id": "inv_rolling_x_global_601f69f2552b4aef0c18",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "7133a6388fa1b4b1570cca3ffd1df4768c177f7ea2c91c151aba4e19e769c2cf",
+        "prompt_logical_hash": "0ee6115c7cd4f77fb5c849a4a14d1dc563f51284c5fe4b1f461e37330766728b",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-9iyKarj8N5j1pt8P9cisqQI",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 3,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_601f69f2552b4aef0c18",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 1,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 4,
+          "per_model_max_attempts": [
+            2,
+            2
+          ],
+          "remaining_attempt_budget": 3,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 5158,
+          "completion_tokens_details": {
+            "reasoning_tokens": 3492
+          },
+          "prompt_tokens": 6615,
+          "total_tokens": 11773
+        },
+        "work_item_id": "rolling-x-global-9698ea80a2106ece279a"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_601f69f2552b4aef0c18",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": [
+        2,
+        2
+      ],
+      "remaining_attempt_budget": 3,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_601f69f2552b4aef0c18",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2,
+        "vx/gemini-3.5-flash(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 37.8023,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 5158.0,
+      "prompt_tokens": 6615.0,
+      "total_tokens": 11773.0
+    },
+    "work_item_id": "rolling-x-global-9698ea80a2106ece279a"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-f8e32736c629bd64175a",
+  "selected_headline_ids": [
+    "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+  ],
+  "selection_rationale": "The selected stories prioritize intersectional finance, national security, and significant policy shifts over pure political rhetoric or human interest. The Treasury's ESG ruling and the NSA's intelligence withholding offer the highest value for deep analysis and institutional accountability, fitting perfectly with Capital Chronicle's mandate.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 86.8051,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 17043.0,
+      "prompt_tokens": 16431.0,
+      "total_tokens": 33474.0
+    }
+  }
+}

@@ -1,0 +1,1339 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 9,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "25e144d0e18629605bb2e293cc5ac9ef67c26d814434b0330c075939ce7c9016",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-b80697ac79c1abab8c45"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "b1832b6521470a096a3b632d48258ab3b78a73d5dbcdc3027b3146f42eb12aaa",
+    "cutoff_time_utc": "2026-08-22T22:14:27.784365Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 9,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "donald trump",
+            "elections"
+          ],
+          "first_utc": "2026-08-21T23:21:31Z",
+          "latest_utc": "2026-08-21T23:23:41Z",
+          "material_update": false,
+          "members": 4,
+          "recency_hours": 22.8463,
+          "update_velocity": 83.0769
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "Strait of Hormuz",
+          "Iran",
+          "United States"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-02a92c06ab5fd4f10094",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 85,
+          "engagement": 75,
+          "evidence": 70,
+          "saturation_risk": 60,
+          "seo": 80
+        },
+        "summary": "Donald Trump claims total control over the Strait of Hormuz amid ongoing tensions with Iran, proposing to declare it a U.S. territory during campaign events."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "civil rights",
+            "department of education",
+            "education"
+          ],
+          "first_utc": "2026-08-21T23:25:19Z",
+          "latest_utc": "2026-08-21T23:25:19Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.8191,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Department of Education",
+          "United States",
+          "Education",
+          "Civil Rights"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-035e28390b32643c63cb",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 70,
+          "evidence": 75,
+          "saturation_risk": 30,
+          "seo": 70
+        },
+        "summary": "The Department of Education will no longer require school discipline policies that discriminate on the basis of race."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "alexander hamilton",
+            "american politics",
+            "donald trump"
+          ],
+          "first_utc": "2026-08-21T23:24:37Z",
+          "latest_utc": "2026-08-21T23:24:37Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.8308,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "Alexander Hamilton",
+          "Thomas Jefferson",
+          "History"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-0947f1a177524eef913c",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 40,
+          "engagement": 50,
+          "evidence": 40,
+          "saturation_risk": 20,
+          "seo": 45
+        },
+        "summary": "Historians draw parallels between Donald Trump's political strategy and the founding-era playbooks of Hamilton and Jefferson."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "energy",
+            "china",
+            "commodities"
+          ],
+          "first_utc": "2026-08-22T07:37:16Z",
+          "latest_utc": "2026-08-22T07:37:16Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 14.6199,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China",
+          "Energy",
+          "Oil Prices",
+          "Global Trade"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-89040893385f72ddb223",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 55,
+          "engagement": 50,
+          "evidence": 90,
+          "saturation_risk": 35,
+          "seo": 60
+        },
+        "summary": "China limits its crude oil purchases as global oil prices remain elevated above $90 per barrel."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bruce blakeman",
+            "campaigns",
+            "donald trump"
+          ],
+          "first_utc": "2026-08-21T23:22:31Z",
+          "latest_utc": "2026-08-21T23:22:31Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.8658,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "Bruce Blakeman",
+          "Long Island",
+          "New York"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-903bb94db52e0c13140d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 70,
+          "evidence": 80,
+          "saturation_risk": 50,
+          "seo": 75
+        },
+        "summary": "Donald Trump campaigns for Bruce Blakeman on Long Island, praising law enforcement and predicting a new golden age."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "economic policy",
+            "economy"
+          ],
+          "first_utc": "2026-08-21T23:23:55Z",
+          "latest_utc": "2026-08-21T23:23:55Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.8424,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Scott Bessent",
+          "Donald Trump",
+          "Joe Biden",
+          "Economy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-a1cab5048cf0547e009d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 50,
+          "evidence": 50,
+          "saturation_risk": 45,
+          "seo": 55
+        },
+        "summary": "Scott Bessent praises Donald Trump's economic policies, claiming he fixed the Biden administration's economic issues."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bronx",
+            "campaigns",
+            "crime"
+          ],
+          "first_utc": "2026-08-21T23:22:12Z",
+          "latest_utc": "2026-08-21T23:22:12Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.8711,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "Bronx",
+          "New York",
+          "Campaigns"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-b4bfe705f8c4d2047a56",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 80,
+          "evidence": 85,
+          "saturation_risk": 50,
+          "seo": 85
+        },
+        "summary": "Donald Trump pauses a campaign speech to embrace the parents of a 12-year-old stray bullet victim in the Bronx."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "economy",
+            "fiscal",
+            "fiscal policy"
+          ],
+          "first_utc": "2026-08-21T23:21:09Z",
+          "latest_utc": "2026-08-21T23:21:09Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.8886,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "United States",
+          "Fiscal Policy",
+          "Taxes",
+          "Economy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-db8314ae9896d44d4571",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 65,
+          "evidence": 80,
+          "saturation_risk": 40,
+          "seo": 75
+        },
+        "summary": "Reports indicate that American tax refunds have increased by $43 billion this year, framed as a fiscal success."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "crime",
+            "donald trump",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-21T23:23:28Z",
+          "latest_utc": "2026-08-21T23:23:28Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.8499,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "United States",
+          "Crime",
+          "Law Enforcement"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-f690a0248fdf54e53e15",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 65,
+          "evidence": 60,
+          "saturation_risk": 55,
+          "seo": 65
+        },
+        "summary": "Donald Trump highlights what he describes as the largest one-year drop in violent crime in United States history."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "b1832b6521470a096a3b632d48258ab3b78a73d5dbcdc3027b3146f42eb12aaa",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-08300b4396233972ec1e86fb",
+      "cc-x-headline-24ced7e8122ae9b0eef0ac22",
+      "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+      "cc-x-headline-6cdafa75710aa0d0fde00e39",
+      "cc-x-headline-7471b5ca532592cb58d66b3f",
+      "cc-x-headline-a6ef121e915c979fd95894bb",
+      "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "cc-x-headline-b4a208a227bdd197071d6b6c",
+      "cc-x-headline-b7bac9185093d38d48c760ad",
+      "cc-x-headline-da1900c30215d7def6d6b019",
+      "cc-x-headline-f12057c926c3345a6cd1a7dd",
+      "cc-x-headline-f8f9d90729cad1a7aa97350f"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 60,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a6ef121e915c979fd95894bb",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b7bac9185093d38d48c760ad",
+          "cc-x-headline-da1900c30215d7def6d6b019",
+          "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+          "cc-x-headline-a6ef121e915c979fd95894bb"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Donald Trump",
+        "Strait of Hormuz",
+        "Iran",
+        "United States"
+      ],
+      "event_topic_summary": "Donald Trump claims total control over the Strait of Hormuz amid ongoing tensions with Iran, proposing to declare it a U.S. territory during campaign events.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-02a92c06ab5fd4f10094",
+      "member_headline_ids": [
+        "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+        "cc-x-headline-a6ef121e915c979fd95894bb",
+        "cc-x-headline-b7bac9185093d38d48c760ad",
+        "cc-x-headline-da1900c30215d7def6d6b019"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "Geopolitics",
+        "Foreign Policy",
+        "National Security",
+        "Elections",
+        "Military"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 30,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-24ced7e8122ae9b0eef0ac22",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Department of Education",
+        "United States"
+      ],
+      "event_topic_summary": "The Department of Education will no longer require school discipline policies that discriminate on the basis of race.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-035e28390b32643c63cb",
+      "member_headline_ids": [
+        "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "Education",
+        "Civil Rights",
+        "School Discipline",
+        "Government Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 40,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 20,
+        "seo_potential": 45
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f12057c926c3345a6cd1a7dd",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f12057c926c3345a6cd1a7dd"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump",
+        "Alexander Hamilton",
+        "Thomas Jefferson"
+      ],
+      "event_topic_summary": "Historians draw parallels between Donald Trump's political strategy and the founding-era playbooks of Hamilton and Jefferson.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-0947f1a177524eef913c",
+      "member_headline_ids": [
+        "cc-x-headline-f12057c926c3345a6cd1a7dd"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "History",
+        "Political Strategy",
+        "American Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 55,
+        "evidence_prospects": 90,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 35,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China"
+      ],
+      "event_topic_summary": "China limits its crude oil purchases as global oil prices remain elevated above $90 per barrel.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-89040893385f72ddb223",
+      "member_headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "Energy",
+        "Oil Prices",
+        "Global Trade",
+        "Commodities",
+        "Economy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 50,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f8f9d90729cad1a7aa97350f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f8f9d90729cad1a7aa97350f"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump",
+        "Bruce Blakeman",
+        "Long Island",
+        "New York"
+      ],
+      "event_topic_summary": "Donald Trump campaigns for Bruce Blakeman on Long Island, praising law enforcement and predicting a new golden age.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-903bb94db52e0c13140d",
+      "member_headline_ids": [
+        "cc-x-headline-f8f9d90729cad1a7aa97350f"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "Campaigns",
+        "Elections",
+        "Law Enforcement",
+        "Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 50,
+        "saturation_risk": 45,
+        "seo_potential": 55
+      },
+      "canonical_representative_headline_id": "cc-x-headline-6cdafa75710aa0d0fde00e39",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-6cdafa75710aa0d0fde00e39"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Scott Bessent",
+        "Donald Trump",
+        "Joe Biden"
+      ],
+      "event_topic_summary": "Scott Bessent praises Donald Trump's economic policies, claiming he fixed the Biden administration's economic issues.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-a1cab5048cf0547e009d",
+      "member_headline_ids": [
+        "cc-x-headline-6cdafa75710aa0d0fde00e39"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "Economy",
+        "Economic Policy",
+        "Elections",
+        "Politics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 50,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7471b5ca532592cb58d66b3f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7471b5ca532592cb58d66b3f"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump",
+        "Bronx",
+        "New York"
+      ],
+      "event_topic_summary": "Donald Trump pauses a campaign speech to embrace the parents of a 12-year-old stray bullet victim in the Bronx.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-b4bfe705f8c4d2047a56",
+      "member_headline_ids": [
+        "cc-x-headline-7471b5ca532592cb58d66b3f"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "Campaigns",
+        "Elections",
+        "Crime",
+        "Human Interest"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 40,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-08300b4396233972ec1e86fb",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-08300b4396233972ec1e86fb"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "United States"
+      ],
+      "event_topic_summary": "Reports indicate that American tax refunds have increased by $43 billion this year, framed as a fiscal success.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-db8314ae9896d44d4571",
+      "member_headline_ids": [
+        "cc-x-headline-08300b4396233972ec1e86fb"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "Fiscal Policy",
+        "Taxes",
+        "Economy",
+        "Personal Finance"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 55,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b4a208a227bdd197071d6b6c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b4a208a227bdd197071d6b6c"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump",
+        "United States"
+      ],
+      "event_topic_summary": "Donald Trump highlights what he describes as the largest one-year drop in violent crime in United States history.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-f690a0248fdf54e53e15",
+      "member_headline_ids": [
+        "cc-x-headline-b4a208a227bdd197071d6b6c"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "topics": [
+        "Crime",
+        "Law Enforcement",
+        "Public Safety",
+        "Politics"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-08300b4396233972ec1e86fb",
+        "cc-x-headline-24ced7e8122ae9b0eef0ac22",
+        "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+        "cc-x-headline-6cdafa75710aa0d0fde00e39",
+        "cc-x-headline-7471b5ca532592cb58d66b3f",
+        "cc-x-headline-a6ef121e915c979fd95894bb",
+        "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "cc-x-headline-b4a208a227bdd197071d6b6c",
+        "cc-x-headline-b7bac9185093d38d48c760ad",
+        "cc-x-headline-da1900c30215d7def6d6b019",
+        "cc-x-headline-f12057c926c3345a6cd1a7dd",
+        "cc-x-headline-f8f9d90729cad1a7aa97350f"
+      ],
+      "partition_id": "rolling-x-leaf-b80697ac79c1abab8c45",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 13439,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 499,
+    "held_before_semantic_assignment_count": 487,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "54d123a2a468a03ce7b3cc64d142bb34ac5d309927749052068772daad1bb849",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+      "headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-89040893385f72ddb223"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official Chinese customs data on crude imports",
+        "Statements or purchasing schedules from major Chinese refiners (Sinopec, PetroChina)",
+        "Vessel tracking data for oil tankers bound for Chinese ports"
+      ],
+      "rank": 1,
+      "selection_case": "High evidence score and direct macroeconomic implications make this a prime Capital Chronicle story. China's pullback from crude purchases at these price levels provides a crucial signal for global inflation, refining margins, and energy markets.",
+      "seo_intent": "China crude oil imports limit, global oil prices $90 barrel impact, energy market demand destruction, Chinese refiners crude purchases",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Dual-axis chart overlaying Brent/WTI crude price trends against Chinese monthly crude import volumes to illustrate the price ceiling effect on demand.",
+      "why_now": "Global oil prices sustaining above $90 per barrel are triggering observable demand destruction in the world's largest importer, signaling a potential shift in global energy market dynamics."
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "cluster_id": "rolling-x-global-cluster-61bcb2f133a16af9c360",
+      "headline_ids": [
+        "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+        "cc-x-headline-a6ef121e915c979fd95894bb",
+        "cc-x-headline-b7bac9185093d38d48c760ad",
+        "cc-x-headline-da1900c30215d7def6d6b019"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-02a92c06ab5fd4f10094"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Exact transcripts of Donald Trump's campaign remarks regarding the Strait of Hormuz",
+        "Legal analysis of international maritime law and the UN Convention on the Law of the Sea regarding straits used for international navigation",
+        "Reactions from Iranian officials, regional allies, or energy market analysts"
+      ],
+      "rank": 2,
+      "selection_case": "While currently campaign rhetoric, the proposal to declare the Strait of Hormuz a US territory introduces tail-risk scenarios for US-Iran relations and global energy transit that markets may be underpricing, warranting a serious look at the legal and market implications.",
+      "seo_intent": "Trump Strait of Hormuz US territory proposal, US Iran geopolitical tensions, global oil transit chokepoint risk, maritime law Strait of Hormuz",
+      "story_mode": "scenario_outlook",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a6ef121e915c979fd95894bb",
+        "ordered_headline_ids": [
+          "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+          "cc-x-headline-a6ef121e915c979fd95894bb",
+          "cc-x-headline-b7bac9185093d38d48c760ad",
+          "cc-x-headline-da1900c30215d7def6d6b019"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Map of the Strait of Hormuz highlighting international shipping lanes, territorial waters of Iran and Oman, and daily oil transit volumes.",
+      "why_now": "A major US presidential candidate is proposing an unprecedented territorial claim over the world's most critical oil chokepoint, raising severe geopolitical and energy market risks."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-a5f179fa07666aba183b",
+      "headline_ids": [
+        "cc-x-headline-08300b4396233972ec1e86fb"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-db8314ae9896d44d4571"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Latest IRS filing season statistics report detailing average and total refund amounts",
+        "Treasury Department daily statement data on tax outflows",
+        "Analyst estimates on the marginal propensity to consume from tax refunds in the current economic environment"
+      ],
+      "rank": 3,
+      "selection_case": "This fiscal data point offers a counter-narrative to consumer tightening, providing a tangible metric to analyze upcoming retail sales, consumer debt repayment trends, and overall economic resilience.",
+      "seo_intent": "US tax refunds increase 2026, IRS refund data $43 billion, consumer spending impact tax season, US fiscal policy economy",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-08300b4396233972ec1e86fb",
+        "ordered_headline_ids": [
+          "cc-x-headline-08300b4396233972ec1e86fb"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Bar chart comparing year-to-date aggregate IRS tax refunds for the current year versus the previous three years.",
+      "why_now": "A $43 billion year-over-year increase in US tax refunds provides an unexpected liquidity injection for American consumers at a critical time for the economy."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-bee88bd8773198133feb",
+      "headline_ids": [
+        "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-035e28390b32643c63cb"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Official policy memorandum, Dear Colleague letter, or Federal Register notice from the Department of Education",
+        "Statements from civil rights organizations and national teachers' unions",
+        "Historical data on school suspension rates by demographic group to provide context"
+      ],
+      "rank": 4,
+      "selection_case": "A significant shift in federal education and civil rights policy that requires clear explanation of the legal mechanisms, the history of the policy, and the practical implications for school administrators and students.",
+      "seo_intent": "Department of Education school discipline policy change, race-based discipline requirements dropped, civil rights education policy US",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-24ced7e8122ae9b0eef0ac22",
+        "ordered_headline_ids": [
+          "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Timeline graphic showing the evolution of federal guidance on school discipline and disparate impact from previous administrations to the present.",
+      "why_now": "The Department of Education is officially reversing a major civil rights directive regarding school discipline, impacting thousands of school districts nationwide."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "8794fb53102fa083e241834e644ab7e2cdab59872169081021019ec913824008",
+          "latency_seconds": 56.2158,
+          "logical_invocation_id": "inv_rolling_x_leaf_3b01a4321ffbbf844b89",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "2d7ecf5a235f96a5473ce09427f1671e72f744691a41af14e5503f93bdbe4bb7",
+          "prompt_logical_hash": "4377e2fc420d1875dd87457253bb6191df86a06ab75a812035d389b9ca466498",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-HyCKaszDHLXy7OsP1L3smAY",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_3b01a4321ffbbf844b89",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 13595,
+            "completion_tokens_details": {
+              "reasoning_tokens": 10813
+            },
+            "prompt_tokens": 9598,
+            "total_tokens": 23193
+          },
+          "work_item_id": "rolling-x-leaf-b80697ac79c1abab8c45"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_3b01a4321ffbbf844b89",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_3b01a4321ffbbf844b89",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 56.2171,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 13595.0,
+        "prompt_tokens": 9598.0,
+        "total_tokens": 23193.0
+      },
+      "work_item_id": "rolling-x-leaf-b80697ac79c1abab8c45"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "51d94322d116b8884a8392f8fc97ec5396f2fc8b23e3fa6c8cb7fae967af6d53",
+          "latency_seconds": 32.3883,
+          "logical_invocation_id": "inv_rolling_x_global_6a63248a278de6a9c48f",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "fd44aee82781ec672cf00d5e11b5c2b954307716c40da62e557f2117bf5cbef3",
+          "prompt_logical_hash": "76d7f161643f7f6fc58235c7ba4e8cbaf279dd067f5b68b698c75c11ee8bb57d",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-VyCKarauJpKys8IPntaEIQ",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 3,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_6a63248a278de6a9c48f",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 4,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 3,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4189,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2599
+            },
+            "prompt_tokens": 6343,
+            "total_tokens": 10532
+          },
+          "work_item_id": "rolling-x-global-b1832b6521470a096a3b"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_6a63248a278de6a9c48f",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 3,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_6a63248a278de6a9c48f",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 32.39,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 4189.0,
+        "prompt_tokens": 6343.0,
+        "total_tokens": 10532.0
+      },
+      "work_item_id": "rolling-x-global-b1832b6521470a096a3b"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "51d94322d116b8884a8392f8fc97ec5396f2fc8b23e3fa6c8cb7fae967af6d53",
+        "latency_seconds": 32.3883,
+        "logical_invocation_id": "inv_rolling_x_global_6a63248a278de6a9c48f",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "fd44aee82781ec672cf00d5e11b5c2b954307716c40da62e557f2117bf5cbef3",
+        "prompt_logical_hash": "76d7f161643f7f6fc58235c7ba4e8cbaf279dd067f5b68b698c75c11ee8bb57d",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-VyCKarauJpKys8IPntaEIQ",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 3,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_6a63248a278de6a9c48f",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 1,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 4,
+          "per_model_max_attempts": [
+            2,
+            2
+          ],
+          "remaining_attempt_budget": 3,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 4189,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2599
+          },
+          "prompt_tokens": 6343,
+          "total_tokens": 10532
+        },
+        "work_item_id": "rolling-x-global-b1832b6521470a096a3b"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_6a63248a278de6a9c48f",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": [
+        2,
+        2
+      ],
+      "remaining_attempt_budget": 3,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_6a63248a278de6a9c48f",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2,
+        "vx/gemini-3.5-flash(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 32.39,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 4189.0,
+      "prompt_tokens": 6343.0,
+      "total_tokens": 10532.0
+    },
+    "work_item_id": "rolling-x-global-b1832b6521470a096a3b"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+  "selected_headline_ids": [
+    "cc-x-headline-b25c625dac499ab753cfa0a4"
+  ],
+  "selection_rationale": "The rolling universe presents strong macroeconomic and geopolitical signals. China's pullback on crude purchases due to high prices offers a critical market-sensitive data point on global energy demand. Additionally, unprecedented campaign rhetoric regarding the Strait of Hormuz presents a geopolitical tail-risk scenario worth analyzing. Domestic fiscal data showing a $43 billion increase in tax refunds provides a solid consumer liquidity angle, while a major shift in Department of Education civil rights policy rounds out the domestic policy coverage.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 88.6071,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 17784.0,
+      "prompt_tokens": 15941.0,
+      "total_tokens": 33725.0
+    }
+  }
+}

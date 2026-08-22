@@ -1,0 +1,3165 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 10,
+  "evaluated_at_utc": "2026-08-22T22:14:27.784365Z",
+  "held_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "United States",
+          "National Defense",
+          "Military Technology",
+          "Foreign Policy",
+          "Golden Dome"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.02,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "United States",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97"
+          },
+          {
+            "query_term": "National Defense",
+            "source_field": "entities_topics",
+            "source_value_sha256": "412fafa5e0399be65eed3381989c2605c69cf42a80cdbc7257e7238f7f283afc"
+          },
+          {
+            "query_term": "Military Technology",
+            "source_field": "entities_topics",
+            "source_value_sha256": "bec4c281be76c07f95afa4d3f06229d7c215d1590f927e027499d03089cb57fe"
+          },
+          {
+            "query_term": "Foreign Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9cd7d4bd6deac2ae551d65cedacd564fac4d45c33a4e92250b379a95e8e24c97"
+          },
+          {
+            "query_term": "Golden Dome",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "197c6265ed570c11faab6e0a5e9fa80b8531646a91b039c73f997386ea706afd"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "United States",
+          "National Defense",
+          "Military Technology",
+          "Foreign Policy",
+          "Golden Dome"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-b4bd9f02f2bf1b5e1733",
+      "editorial_classification": "HOLD",
+      "entities_topics": [
+        "Donald Trump",
+        "United States",
+        "National Defense",
+        "Military Technology",
+        "Foreign Policy"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-12f823f470a1e9d897e700e1"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-19cf113ae7d58eadf613"
+      ],
+      "leaf_summaries": [
+        "Donald Trump's proposed 'Golden Dome' missile defense system moves closer to implementation, transitioning from a campaign vision to policy reality."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-b4bd9f02f2bf1b5e1733",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-12f823f470a1e9d897e700e1"
+        ],
+        "new_official_source_candidates": [
+          "https://amac.us/newsline/trump-s-golden-dome-moves-from-vision-to-reality"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Draft legislation, Pentagon memos, or budget requests detailing the Golden Dome",
+        "Comments from major defense contractors regarding capability and bidding"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:34:41Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-12f823f470a1e9d897e700e1",
+          "url": "https://amac.us/newsline/trump-s-golden-dome-moves-from-vision-to-reality"
+        }
+      ],
+      "official_source_urls": [
+        "https://amac.us/newsline/trump-s-golden-dome-moves-from-vision-to-reality"
+      ],
+      "portfolio_concentration_penalty": 0.25,
+      "portfolio_concentration_penalty_effective": 0.25,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "HOLD",
+        "entity_overlap": 0.2632,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "HOLD",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 8,
+      "preselection_score": -917.2,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:34:41Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-12f823f470a1e9d897e700e1",
+          "url": "https://amac.us/newsline/trump-s-golden-dome-moves-from-vision-to-reality"
+        }
+      ],
+      "public_source_urls": [
+        "https://amac.us/newsline/trump-s-golden-dome-moves-from-vision-to-reality"
+      ],
+      "publishability_original_order": 8,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 8,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "A nationwide missile defense shield requires massive capital expenditure. Analyzing the feasibility, likely defense contractors involved, and budget implications makes this a strong forward-looking defense sector story.",
+      "seo_intent": "Golden Dome missile defense system Trump policy defense contractors",
+      "seo_learning_preferences": [],
+      "story_mode": "scenario_outlook",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-12f823f470a1e9d897e700e1",
+        "ordered_headline_ids": [
+          "cc-x-headline-12f823f470a1e9d897e700e1"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-b4bd9f02f2bf1b5e1733",
+      "visual_strategy": "Conceptual rendering of a missile defense intercept or a graphic showing the proposed coverage of the Golden Dome.",
+      "why_now": "The 'Golden Dome' missile defense system is transitioning from campaign rhetoric to actionable defense policy, signaling upcoming defense appropriations.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "held_shortlist_count": 1,
+  "input_shortlist_count": 11,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+    "rolling-x-global-cluster-d6756601f4a8e16a5414",
+    "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+    "rolling-x-global-cluster-c47ded7e4ba4d6192156",
+    "rolling-x-global-cluster-9a3816137ee28cb42109",
+    "rolling-x-global-cluster-876647dadf3107eabb48",
+    "rolling-x-global-cluster-59a7349957a6dceed790",
+    "rolling-x-global-cluster-b4bd9f02f2bf1b5e1733",
+    "rolling-x-semantic-reserve-ee9234af47ac18749749",
+    "rolling-x-semantic-reserve-4f5865655eaabacfae75",
+    "rolling-x-semantic-reserve-50346aed575b0b5de226"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {
+      "DATA_OR_DOCUMENT_LENS": 1
+    },
+    "as_of_utc": "2026-08-22T22:14:27.784365Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [
+      {
+        "count": 1,
+        "entity": "defense industry"
+      },
+      {
+        "count": 1,
+        "entity": "foreign policy"
+      },
+      {
+        "count": 1,
+        "entity": "italy"
+      },
+      {
+        "count": 1,
+        "entity": "military sales"
+      },
+      {
+        "count": 1,
+        "entity": "national security"
+      },
+      {
+        "count": 1,
+        "entity": "norway"
+      },
+      {
+        "count": 1,
+        "entity": "south korea"
+      },
+      {
+        "count": 1,
+        "entity": "u s"
+      }
+    ],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 1,
+    "recent_publication_timestamps_utc": [
+      "2026-08-22T21:29:16.076304+00:00"
+    ],
+    "remaining_target_min": 4,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "6401e7e9df27037b0ff20eba488d3f847c6d174734454b80d905f9dcae8dcb8e",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 3,
+  "ranked_clusters": [
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "Heidi Overton",
+          "Food and Drug Administration",
+          "Government Nominations",
+          "Healthcare Policy",
+          "Public Health"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.05,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Heidi Overton",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f3099775cd1640f2e19ccd21790dd3cb3c740ec77912dc80777ed05194e73349"
+          },
+          {
+            "query_term": "Food and Drug Administration",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d1e50fd125eff47d4387dc924019bb6748c15fd111d3621a3f4f3286b9b89310"
+          },
+          {
+            "query_term": "Government Nominations",
+            "source_field": "entities_topics",
+            "source_value_sha256": "8edc3901061e3df0e42319b98bb4a70e4babec2237b08097102ce2e6cae00556"
+          },
+          {
+            "query_term": "Healthcare Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e26fc7017342da6e52d727ffe179da6236253ad5931268e35d7ec10eae6181c6"
+          },
+          {
+            "query_term": "Public Health",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f515b951f24d701f0f2a96cb39ac11f7c968314c30129e6ccf3fa4a8cae85afb"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "Heidi Overton",
+          "Food and Drug Administration",
+          "Government Nominations",
+          "Healthcare Policy",
+          "Public Health"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "Heidi Overton",
+        "Food and Drug Administration",
+        "Government Nominations",
+        "Healthcare Policy",
+        "Public Health"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-cd7b7ab257425669e0d2519a"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-71ed995a5f1dc92f8cac"
+      ],
+      "leaf_summaries": [
+        "Donald Trump plans to nominate Dr. Heidi Overton to serve as the next commissioner of the Food and Drug Administration."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-cd7b7ab257425669e0d2519a"
+        ],
+        "new_official_source_candidates": [
+          "https://www.foxnews.com/politics/trump-nominate-dr-heidi-overton-next-fda-commissioner"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Official White House nomination announcement or credible on-the-record confirmation",
+        "Dr. Overton's past policy statements or track record regarding FDA regulation"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:35:06Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-cd7b7ab257425669e0d2519a",
+          "url": "https://www.foxnews.com/politics/trump-nominate-dr-heidi-overton-next-fda-commissioner"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.foxnews.com/politics/trump-nominate-dr-heidi-overton-next-fda-commissioner"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.037,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 112.8008,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:35:06Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-cd7b7ab257425669e0d2519a",
+          "url": "https://www.foxnews.com/politics/trump-nominate-dr-heidi-overton-next-fda-commissioner"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.foxnews.com/politics/trump-nominate-dr-heidi-overton-next-fda-commissioner"
+      ],
+      "publishability_original_order": 1,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 1,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "FDA leadership directly dictates the pace of drug approvals, regulatory scrutiny, and compliance costs. Confirming this nomination provides immediate value to healthcare investors and industry professionals.",
+      "seo_intent": "Heidi Overton FDA commissioner nomination Trump",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-cd7b7ab257425669e0d2519a",
+        "ordered_headline_ids": [
+          "cc-x-headline-cd7b7ab257425669e0d2519a"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+      "visual_strategy": "Professional portrait of Dr. Heidi Overton or a high-quality establishing shot of FDA headquarters.",
+      "why_now": "The planned nomination of Dr. Heidi Overton as FDA commissioner is a critical regulatory development with immediate implications for the pharmaceutical and healthcare sectors.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "United States",
+          "Healthcare",
+          "Pharmaceuticals",
+          "Inflation",
+          "Consumer Prices",
+          "US"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.043,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "United States",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97"
+          },
+          {
+            "query_term": "Healthcare",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e651d4fc0d415f11dde26cb780ba914e0b482245aaab08cc0b6f14d120192200"
+          },
+          {
+            "query_term": "Pharmaceuticals",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3da3ae7648301b12ff2b060af9c227606d8e293c302c6d37fe89c8d29739a508"
+          },
+          {
+            "query_term": "Inflation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e4701a949a3fed7ab34b10d3f86e9f6ae12cd57eefeef63bf973874ea7795eab"
+          },
+          {
+            "query_term": "Consumer Prices",
+            "source_field": "entities_topics",
+            "source_value_sha256": "58a9382b7b5fda94e15155a457af1649efa1edd317d884984e9918256c3e3542"
+          },
+          {
+            "query_term": "US",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "United States",
+          "Healthcare",
+          "Pharmaceuticals",
+          "Inflation",
+          "Consumer Prices",
+          "US"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-d6756601f4a8e16a5414",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "United States",
+        "Healthcare",
+        "Pharmaceuticals",
+        "Inflation",
+        "Consumer Prices"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-41e07ba3a68d9816573cd2de"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-e79adf9b96633cd0fc30"
+      ],
+      "leaf_summaries": [
+        "US pharmaceutical prices experience their sharpest decline since 1963, reducing the financial burden on American consumers."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Primary source data (e.g., CPI/PPI breakdown or official government health expenditure report)",
+        "Expert commentary on the sustainability of this price decline"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:34:20Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-41e07ba3a68d9816573cd2de",
+          "url": "https://amac.us/newsline/americans-stop-paying-the-worlds-pharmacy-tab-as-prices-fall-hardest-since-1963"
+        }
+      ],
+      "official_source_urls": [
+        "https://amac.us/newsline/americans-stop-paying-the-worlds-pharmacy-tab-as-prices-fall-hardest-since-1963"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 112.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:34:20Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-41e07ba3a68d9816573cd2de",
+          "url": "https://amac.us/newsline/americans-stop-paying-the-worlds-pharmacy-tab-as-prices-fall-hardest-since-1963"
+        }
+      ],
+      "public_source_urls": [
+        "https://amac.us/newsline/americans-stop-paying-the-worlds-pharmacy-tab-as-prices-fall-hardest-since-1963"
+      ],
+      "publishability_original_order": 2,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 2,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "This is a historic deflationary data point in a notoriously inflationary sector. Analyzing the drivers (e.g., policy changes, patent cliffs, or market dynamics) offers high-value insights for macro and healthcare audiences.",
+      "seo_intent": "US pharmaceutical prices drop 1963 inflation healthcare costs",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-41e07ba3a68d9816573cd2de",
+        "ordered_headline_ids": [
+          "cc-x-headline-41e07ba3a68d9816573cd2de"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-d6756601f4a8e16a5414",
+      "visual_strategy": "Data visualization charting US pharmaceutical price indices over the past several decades, highlighting the recent steep decline.",
+      "why_now": "Data revealing the sharpest decline in US pharmaceutical prices since 1963 has just surfaced, presenting a major macroeconomic and sector-specific milestone.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Environmental Protection Agency",
+          "Energy Policy",
+          "Gasoline Prices",
+          "Environmental Regulation",
+          "Domestic Supply",
+          "The Environmental Protection Agency"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.028,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Environmental Protection Agency",
+            "source_field": "entities_topics",
+            "source_value_sha256": "bed10f5b15aadfff6ad83d129dd01631fe07c9f867da836d2e9773b15694d090"
+          },
+          {
+            "query_term": "Energy Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "54530c84ea21f3f16f56145ad30b2b231f49491c0209799a3b5917286efe4546"
+          },
+          {
+            "query_term": "Gasoline Prices",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3b3e90d65eb2e48e139debd086778717561ae2d102aa428a156211ab90984d6a"
+          },
+          {
+            "query_term": "Environmental Regulation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6e97f9414a8585e4b2552e57d1379c0efaca6237263cdd2d09ad069d2305c333"
+          },
+          {
+            "query_term": "Domestic Supply",
+            "source_field": "entities_topics",
+            "source_value_sha256": "19213e15f47b860ff0b050540bd8a27a4c17455e7c605417062875a31a8398e8"
+          },
+          {
+            "query_term": "The Environmental Protection Agency",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "71361a953eb83e921369476efd7eec76a4870209ea74dc690e489de3ed50433f"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Environmental Protection Agency",
+          "Energy Policy",
+          "Gasoline Prices",
+          "Environmental Regulation",
+          "Domestic Supply",
+          "The Environmental Protection Agency"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-c47ded7e4ba4d6192156",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Environmental Protection Agency",
+        "Energy Policy",
+        "Gasoline Prices",
+        "Environmental Regulation",
+        "Domestic Supply"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-9135f4ee3068b742bf671460"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-571b161b99d464cca945"
+      ],
+      "leaf_summaries": [
+        "The Environmental Protection Agency plans to issue an emergency fuel waiver to boost domestic gasoline supply and lower prices at the pump."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-c47ded7e4ba4d6192156",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-9135f4ee3068b742bf671460"
+        ],
+        "new_official_source_candidates": [
+          "https://www.breitbart.com/environment/2026/08/20/exclusive-epa-to-enact-emergency-fuel-waiver-to-increase-domestic-gas-supply-lower-prices/"
+        ],
+        "previous_article_identity": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_body_sha256": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/us-energy-information-administration",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The [U.S. Energy Information Administration](https://www.eia.gov/outlooks/steo/) has published the Short-Term Energy Outlook.\n\n[[VISUAL:official_source_document_card]]\n\n[[VISUAL:decision_fact_card]]\n\n[[VISUAL:document_excerpt_card]]",
+        "previous_published_at_utc": "2026-08-12T15:30:22.127903+00:00",
+        "previous_story_identity": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "previous_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Official EPA press release or regulatory filing confirming the waiver",
+        "Details on the specific fuel blends and regions affected"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:36:06Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-9135f4ee3068b742bf671460",
+          "url": "https://www.breitbart.com/environment/2026/08/20/exclusive-epa-to-enact-emergency-fuel-waiver-to-increase-domestic-gas-supply-lower-prices/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.breitbart.com/environment/2026/08/20/exclusive-epa-to-enact-emergency-fuel-waiver-to-increase-domestic-gas-supply-lower-prices/"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "best_prior_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0556,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 246.735,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.8008,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:36:06Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-9135f4ee3068b742bf671460",
+          "url": "https://www.breitbart.com/environment/2026/08/20/exclusive-epa-to-enact-emergency-fuel-waiver-to-increase-domestic-gas-supply-lower-prices/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.breitbart.com/environment/2026/08/20/exclusive-epa-to-enact-emergency-fuel-waiver-to-increase-domestic-gas-supply-lower-prices/"
+      ],
+      "publishability_original_order": 4,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 3,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Fuel waivers are rare, market-moving interventions. Reporting on the scope, duration, and geographic target of the waiver provides actionable intelligence for energy traders and policy watchers.",
+      "seo_intent": "EPA emergency fuel waiver gasoline prices domestic supply",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-9135f4ee3068b742bf671460",
+        "ordered_headline_ids": [
+          "cc-x-headline-9135f4ee3068b742bf671460"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-c47ded7e4ba4d6192156",
+      "visual_strategy": "Photo of a US oil refinery or a gas station pump with a superimposed downward trend arrow.",
+      "why_now": "The EPA is preparing an emergency fuel waiver to address domestic gasoline supplies, a move that will immediately affect energy commodities and consumer prices.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "Iran",
+          "Sanctions",
+          "Foreign Policy",
+          "International Trade",
+          "National Security"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.026,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Iran",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b5798dfe8101381b8949bb084e861f93056ff214b3a9a69ddf57e84bd2aa76f4"
+          },
+          {
+            "query_term": "Sanctions",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ead8c1cf94e2f57df4f7b91fb944967745b1611036c1b5af8c3138e48882d661"
+          },
+          {
+            "query_term": "Foreign Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9cd7d4bd6deac2ae551d65cedacd564fac4d45c33a4e92250b379a95e8e24c97"
+          },
+          {
+            "query_term": "International Trade",
+            "source_field": "entities_topics",
+            "source_value_sha256": "db03fcb6d5490e7650ba7abe207841fdb0e3f8f6a57746c0d4b78ffbf60d1e41"
+          },
+          {
+            "query_term": "National Security",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a3c251173918d37824eb3bf32cfb0f48bb6ae4e53cceda0dad7bc49e9bb27a1a"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "Iran",
+          "Sanctions",
+          "Foreign Policy",
+          "International Trade",
+          "National Security"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "Iran",
+        "Sanctions",
+        "Foreign Policy",
+        "International Trade",
+        "National Security"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-b36ac3f656a602f0e1498c8d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-b1ab53fdf64f6b2f2b8b"
+      ],
+      "leaf_summaries": [
+        "President Trump announces 'Economic D-Day,' a major initiative aimed at dismantling Iran's shadow economy and illicit trade networks."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-b36ac3f656a602f0e1498c8d"
+        ],
+        "new_official_source_candidates": [
+          "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Specific policy mechanisms or executive orders detailing the 'Economic D-Day' strategy",
+        "Initial reactions from global energy markets and allied nations"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:33:25Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+          "url": "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+      ],
+      "portfolio_concentration_penalty": 0.25,
+      "portfolio_concentration_penalty_effective": 0.25,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.2,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 104.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:33:25Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+          "url": "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+      ],
+      "publishability_original_order": 3,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 4,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Aggressive moves against Iran's shadow economy have direct implications for global oil supply and geopolitical stability. The story requires analysis of the specific mechanisms the administration plans to use.",
+      "seo_intent": "Trump Economic D-Day Iran sanctions shadow economy oil markets",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+        "ordered_headline_ids": [
+          "cc-x-headline-b36ac3f656a602f0e1498c8d"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+      "visual_strategy": "Map graphic showing Iranian illicit trade routes or a split image of the White House and Iranian oil infrastructure.",
+      "why_now": "The announcement of 'Economic D-Day' targeting Iran signals a severe escalation in sanctions and economic warfare, likely impacting global energy markets.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Scott Bessent",
+          "Treasury Department",
+          "Donald Trump",
+          "Tax Policy",
+          "Immigration",
+          "Fiscal Policy"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.02,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Scott Bessent",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5149c55bd0daeb63191b82f9d76f910dbb80e6167382211ffc357666e973406b"
+          },
+          {
+            "query_term": "Treasury Department",
+            "source_field": "entities_topics",
+            "source_value_sha256": "cc52bddd392bc4e98f19e35e4b2fc16480c3205fd2af6709eaae21002bea2946"
+          },
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Tax Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "77ab927aee660d514f3dbcc87d0358dfa8ccbe0c1bde7196bb1a83ed6ec7a55e"
+          },
+          {
+            "query_term": "Immigration",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f3712771716e1f89abe139864fbf42ad1ad76e77c0931b90febee3ea6fa8cc56"
+          },
+          {
+            "query_term": "Fiscal Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b63c423a4451562685798ecc9cb4b5ec3063f5a26129c87db6575f9e591d63cd"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Scott Bessent",
+          "Treasury Department",
+          "Donald Trump",
+          "Tax Policy",
+          "Immigration",
+          "Fiscal Policy"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-876647dadf3107eabb48",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Scott Bessent",
+        "Treasury Department",
+        "Donald Trump",
+        "Tax Policy",
+        "Immigration",
+        "Fiscal Policy",
+        "Government Reform"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-23881fe252c888988f9acd15"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f649512e57f37fc41639"
+      ],
+      "leaf_summaries": [
+        "Treasury Secretary nominee Scott Bessent moves to end tax breaks for undocumented immigrants, framed as part of the 'Trump Effect' on fiscal policy."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-876647dadf3107eabb48",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-23881fe252c888988f9acd15"
+        ],
+        "new_official_source_candidates": [
+          "https://www.breitbart.com/politics/2026/08/19/trump-effect-bessent-ends-tax-breaks-for-illegals/"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Direct quotes or policy memos from Bessent regarding the tax breaks",
+        "Data on the current financial scale of the tax breaks in question"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:33:49Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-23881fe252c888988f9acd15",
+          "url": "https://www.breitbart.com/politics/2026/08/19/trump-effect-bessent-ends-tax-breaks-for-illegals/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.breitbart.com/politics/2026/08/19/trump-effect-bessent-ends-tax-breaks-for-illegals/"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0833,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 6,
+      "preselection_score": 102.8008,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:33:49Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-23881fe252c888988f9acd15",
+          "url": "https://www.breitbart.com/politics/2026/08/19/trump-effect-bessent-ends-tax-breaks-for-illegals/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.breitbart.com/politics/2026/08/19/trump-effect-bessent-ends-tax-breaks-for-illegals/"
+      ],
+      "publishability_original_order": 6,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 5,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "This provides an early look at the incoming Treasury's fiscal and social policy integration. Analyzing the economic footprint of these tax breaks versus the political messaging offers a strong analytical read.",
+      "seo_intent": "Scott Bessent Treasury tax breaks undocumented immigrants fiscal policy",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-23881fe252c888988f9acd15",
+        "ordered_headline_ids": [
+          "cc-x-headline-23881fe252c888988f9acd15"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-876647dadf3107eabb48",
+      "visual_strategy": "Photo of Scott Bessent speaking at a podium or a graphic showing US tax revenue flows.",
+      "why_now": "Treasury Secretary nominee Scott Bessent is outlining early fiscal priorities, specifically targeting tax breaks for undocumented immigrants.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "White House",
+          "Donald Trump",
+          "Public Health",
+          "Drug Policy",
+          "Law Enforcement",
+          "Fentanyl Crisis"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.026,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "White House",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1458658fbff2be3ff4f4540447bad8780498d916e09c38a8b79fa1211e5dd04a"
+          },
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Public Health",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f515b951f24d701f0f2a96cb39ac11f7c968314c30129e6ccf3fa4a8cae85afb"
+          },
+          {
+            "query_term": "Drug Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d0ad0ba24f3a7a286f806169b8fef61cd17b5517fcb0997dac35dc04994497a8"
+          },
+          {
+            "query_term": "Law Enforcement",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d2e728e98aff40416cc72fc6f90b9f5cc27f36b339e3a6a7d3f99a3a8cbd16d9"
+          },
+          {
+            "query_term": "Fentanyl Crisis",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b6278c6b6df4e72e43349fbef1fe7533eeee6ecfa46dae8dde3c92cbafd3c701"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "White House",
+          "Donald Trump",
+          "Public Health",
+          "Drug Policy",
+          "Law Enforcement",
+          "Fentanyl Crisis"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-59a7349957a6dceed790",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "White House",
+        "Donald Trump",
+        "Public Health",
+        "Drug Policy",
+        "Law Enforcement",
+        "Fentanyl Crisis"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-8cab97c84986250fa0837e20"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-4e100d9079cdc763b6d8"
+      ],
+      "leaf_summaries": [
+        "The Trump White House highlights a 22% drop in fentanyl deaths, attributing the decline to its administration's aggressive drug crackdown."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-59a7349957a6dceed790",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-8cab97c84986250fa0837e20"
+        ],
+        "new_official_source_candidates": [
+          "https://www.foxnews.com/politics/exclusive-fentanyl-deaths-plunge-22-trump-white-house-touts-crackdown-deadly-drug-crisis"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Underlying public health data (e.g., CDC provisional overdose death counts)",
+        "Expert analysis on whether the decline correlates with specific enforcement actions versus other factors like naloxone availability"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:41:29Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-8cab97c84986250fa0837e20",
+          "url": "https://www.foxnews.com/politics/exclusive-fentanyl-deaths-plunge-22-trump-white-house-touts-crackdown-deadly-drug-crisis"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.foxnews.com/politics/exclusive-fentanyl-deaths-plunge-22-trump-white-house-touts-crackdown-deadly-drug-crisis"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.04,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 7,
+      "preselection_score": 100.8008,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:41:29Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-8cab97c84986250fa0837e20",
+          "url": "https://www.foxnews.com/politics/exclusive-fentanyl-deaths-plunge-22-trump-white-house-touts-crackdown-deadly-drug-crisis"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.foxnews.com/politics/exclusive-fentanyl-deaths-plunge-22-trump-white-house-touts-crackdown-deadly-drug-crisis"
+      ],
+      "publishability_original_order": 7,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 6,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Public health data is often politicized. A data lens piece that verifies the 22% figure against CDC or independent health data, while examining the timeline of the administration's policies, provides necessary objective context.",
+      "seo_intent": "fentanyl deaths drop 22 percent Trump administration drug policy",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-8cab97c84986250fa0837e20",
+        "ordered_headline_ids": [
+          "cc-x-headline-8cab97c84986250fa0837e20"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-59a7349957a6dceed790",
+      "visual_strategy": "Bar chart showing year-over-year fentanyl overdose statistics with policy implementation dates marked.",
+      "why_now": "The administration is claiming a significant 22% drop in fentanyl deaths, tying it to recent policy crackdowns.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Trump Administration",
+          "White House",
+          "Drone Industry",
+          "Technology",
+          "National Security",
+          "Aviation"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.021,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Trump Administration",
+            "source_field": "entities_topics",
+            "source_value_sha256": "63543afd096a2e5b0b89ba508a0795cc00d84002da3ba993a78a4b8c33ea5384"
+          },
+          {
+            "query_term": "White House",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1458658fbff2be3ff4f4540447bad8780498d916e09c38a8b79fa1211e5dd04a"
+          },
+          {
+            "query_term": "Drone Industry",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f45af4bb4c1bdf5353b3f14af4731e7279071582af975de7fa100f458252639e"
+          },
+          {
+            "query_term": "Technology",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ca4c998c318731caa9ccee19c12c8bfc20c6c6605ecfff9551c11748cf464e87"
+          },
+          {
+            "query_term": "National Security",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a3c251173918d37824eb3bf32cfb0f48bb6ae4e53cceda0dad7bc49e9bb27a1a"
+          },
+          {
+            "query_term": "Aviation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "da3b4ebb57c0ea559bdb994677c3c52ae588744297fbfee6eb4f163094dcad0c"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Trump Administration",
+          "White House",
+          "Drone Industry",
+          "Technology",
+          "National Security",
+          "Aviation"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-9a3816137ee28cb42109",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Trump Administration",
+        "White House",
+        "Drone Industry",
+        "Technology",
+        "National Security",
+        "Aviation",
+        "Government Policy"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 2,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-0a54f4ba9322134cd185d1d6",
+        "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-94604f6762dd52f7a524"
+      ],
+      "leaf_summaries": [
+        "Trump administration officials and drone industry leaders hold the first White House 'Drone Dominance' meeting to address market threats and coordinate a whole-of-government drone initiative."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-9a3816137ee28cb42109",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-0a54f4ba9322134cd185d1d6",
+          "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6"
+        ],
+        "new_official_source_candidates": [
+          "https://www.washingtonexaminer.com/policy/defense/4694450/drone-market-threat-requires-whole-government-approach/#google_vignette",
+          "https://breakingdefense.com/2026/08/drone-companies-trump-admin-leaders-meet-for-first-white-house-done-dominance-meeting/"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "List of industry attendees and key administration officials present",
+        "Specific policy proposals, subsidies, or tariffs discussed during the meeting"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:36:20Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0a54f4ba9322134cd185d1d6",
+          "url": "https://www.washingtonexaminer.com/policy/defense/4694450/drone-market-threat-requires-whole-government-approach/#google_vignette"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:36:49Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6",
+          "url": "https://breakingdefense.com/2026/08/drone-companies-trump-admin-leaders-meet-for-first-white-house-done-dominance-meeting/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.washingtonexaminer.com/policy/defense/4694450/drone-market-threat-requires-whole-government-approach/#google_vignette",
+        "https://breakingdefense.com/2026/08/drone-companies-trump-admin-leaders-meet-for-first-white-house-done-dominance-meeting/"
+      ],
+      "portfolio_concentration_penalty": 0.25,
+      "portfolio_concentration_penalty_effective": 0.25,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.1818,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 2,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 100.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:36:20Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0a54f4ba9322134cd185d1d6",
+          "url": "https://www.washingtonexaminer.com/policy/defense/4694450/drone-market-threat-requires-whole-government-approach/#google_vignette"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:36:49Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6",
+          "url": "https://breakingdefense.com/2026/08/drone-companies-trump-admin-leaders-meet-for-first-white-house-done-dominance-meeting/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.washingtonexaminer.com/policy/defense/4694450/drone-market-threat-requires-whole-government-approach/#google_vignette",
+        "https://breakingdefense.com/2026/08/drone-companies-trump-admin-leaders-meet-for-first-white-house-done-dominance-meeting/"
+      ],
+      "publishability_original_order": 5,
+      "publishability_path_profile": {
+        "bound_public_url_count": 2,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 7,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "This intersects defense, technology, and trade policy. Identifying which industry leaders attended and what regulatory or funding support was promised is highly relevant to aerospace and defense investors.",
+      "seo_intent": "White House Drone Dominance meeting US drone industry policy",
+      "seo_learning_preferences": [],
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6",
+        "ordered_headline_ids": [
+          "cc-x-headline-0a54f4ba9322134cd185d1d6",
+          "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6"
+        ],
+        "relationship": "incremental_update"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-9a3816137ee28cb42109",
+      "visual_strategy": "Image of commercial or military drones in flight, or a photo from the White House meeting if available.",
+      "why_now": "The first White House 'Drone Dominance' meeting indicates a coordinated federal push to secure and expand the domestic drone industry against foreign competition.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Robin Brooks",
+          "Finance",
+          "Gold",
+          "US Dollar",
+          "Macroeconomics",
+          "dollar"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.018,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Robin Brooks",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0257120af26e8d6afadda14720b1b9ed73192d5bd5cd61f65f87d0a2d13eb890"
+          },
+          {
+            "query_term": "Finance",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a5a718fe610ba97267620b39803f6ad2827c00457943240dc942a5b2223a5f66"
+          },
+          {
+            "query_term": "Gold",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a4daf0798b131177c197cfbd9cbd193d66215cb7f9d6071505c0befc8611ff66"
+          },
+          {
+            "query_term": "US Dollar",
+            "source_field": "entities_topics",
+            "source_value_sha256": "40f06112b90c713dd3a42afac27beab2a1a326fb040c84317e39db907f4d981b"
+          },
+          {
+            "query_term": "Macroeconomics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "35055939c96c73de5f4231b7958df4f5d633d88befdf3e0ea5d9cb88a15e494b"
+          },
+          {
+            "query_term": "dollar",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "2e86fb410a87182af5a6c6603a6f1f7b6268a068bea0cdc9bc8e9122dce0753f"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Robin Brooks",
+          "Finance",
+          "Gold",
+          "US Dollar",
+          "Macroeconomics",
+          "dollar"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-ee9234af47ac18749749",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Robin Brooks",
+        "Finance",
+        "Gold",
+        "US Dollar",
+        "Macroeconomics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-15eeff851da105de55bcae6d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-49f4ac1542f1b6fd4cf9"
+      ],
+      "leaf_summaries": [
+        "Financial analyst Robin Brooks schedules a live stream to discuss the market impact of a recent buyback announcement on gold and the US dollar."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:42:04Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-15eeff851da105de55bcae6d",
+          "url": "https://open.substack.com/live-stream/330951?utm_source=live-stream-scheduled-upsell"
+        }
+      ],
+      "official_source_urls": [
+        "https://open.substack.com/live-stream/330951?utm_source=live-stream-scheduled-upsell"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 9,
+      "preselection_score": 98.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:42:04Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-15eeff851da105de55bcae6d",
+          "url": "https://open.substack.com/live-stream/330951?utm_source=live-stream-scheduled-upsell"
+        }
+      ],
+      "public_source_urls": [
+        "https://open.substack.com/live-stream/330951?utm_source=live-stream-scheduled-upsell"
+      ],
+      "publishability_original_order": 10,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 8,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-15eeff851da105de55bcae6d"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-ee9234af47ac18749749",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Financial analyst Robin Brooks schedules a live stream to discuss the market impact of a recent buyback announcement on gold and the US dollar.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "John Roberts",
+          "Supreme Court",
+          "White House",
+          "Donald Trump",
+          "Judiciary",
+          "Government Infrastructure"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.024,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "John Roberts",
+            "source_field": "entities_topics",
+            "source_value_sha256": "db9853ae97e27593b85aeddaf87ecc24aad1b9f0932d914658ae58e04f3f88b4"
+          },
+          {
+            "query_term": "Supreme Court",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d02fd5ea2829e5e24f75454c9331707a33058d6a206f0770d1dcc17dcf84cc01"
+          },
+          {
+            "query_term": "White House",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1458658fbff2be3ff4f4540447bad8780498d916e09c38a8b79fa1211e5dd04a"
+          },
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Judiciary",
+            "source_field": "entities_topics",
+            "source_value_sha256": "bdbf65bc75e4260aa35d959216fa4dba49242b03a9fd8beb6c1ac3bc612aa321"
+          },
+          {
+            "query_term": "Government Infrastructure",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d415ee9c9e96b48273792e0ba5269be6e6220b0c912283516fd189367efcfbf2"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "John Roberts",
+          "Supreme Court",
+          "White House",
+          "Donald Trump",
+          "Judiciary",
+          "Government Infrastructure"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-50346aed575b0b5de226",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "John Roberts",
+        "Supreme Court",
+        "White House",
+        "Donald Trump",
+        "Judiciary",
+        "Government Infrastructure",
+        "Legal Disputes"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-16b688069aeb72ed68a07f3f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-ec082b64ac445caaf177"
+      ],
+      "leaf_summaries": [
+        "Supreme Court Chief Justice John Roberts rules that construction work on the Trump White House ballroom is permitted to continue."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:39:27Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-16b688069aeb72ed68a07f3f",
+          "url": "https://nypost.com/2026/08/21/us-news/work-on-trump-white-house-ballroom-can-continue-supreme-court-chief-justice-john-roberts/"
+        }
+      ],
+      "official_source_urls": [
+        "https://nypost.com/2026/08/21/us-news/work-on-trump-white-house-ballroom-can-continue-supreme-court-chief-justice-john-roberts/"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 11,
+      "preselection_score": 98.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:39:27Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-16b688069aeb72ed68a07f3f",
+          "url": "https://nypost.com/2026/08/21/us-news/work-on-trump-white-house-ballroom-can-continue-supreme-court-chief-justice-john-roberts/"
+        }
+      ],
+      "public_source_urls": [
+        "https://nypost.com/2026/08/21/us-news/work-on-trump-white-house-ballroom-can-continue-supreme-court-chief-justice-john-roberts/"
+      ],
+      "publishability_original_order": 18,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 9,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-16b688069aeb72ed68a07f3f"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-50346aed575b0b5de226",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Supreme Court Chief Justice John Roberts rules that construction work on the Trump White House ballroom is permitted to continue.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Virginia",
+          "Biden Administration",
+          "Crime",
+          "Immigration Policy",
+          "Public Safety"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.037,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Virginia",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5effd14a16c3ba4c8138c0f2c60aef16263461a3e8e117c9c0b1ae644a9d5806"
+          },
+          {
+            "query_term": "Biden Administration",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d9f80fc50007c3d64cea965a1c99fc145ed025ae59e27e955befe1e2a489f91a"
+          },
+          {
+            "query_term": "Crime",
+            "source_field": "entities_topics",
+            "source_value_sha256": "796a12cd79404e1a74490e3af909b5a01394557695aad58363bce0e4f965fa30"
+          },
+          {
+            "query_term": "Immigration Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "7af0558e4cb49a1f5f9f0bc5d356cd9ffebcd6e5e302bcda8a540a83064f5461"
+          },
+          {
+            "query_term": "Public Safety",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3d88c43e74936faef3e3391abf593336e17b929dea3b9ad35d7eae4b7c20e751"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Virginia",
+          "Biden Administration",
+          "Crime",
+          "Immigration Policy",
+          "Public Safety"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-4f5865655eaabacfae75",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Virginia",
+        "Biden Administration",
+        "Crime",
+        "Immigration Policy",
+        "Public Safety"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-98deb729bf4335b1fa4bf13c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-8af3811aa7ee5e13ea6d"
+      ],
+      "leaf_summaries": [
+        "An undocumented immigrant released during the Biden administration is accused of stabbing a Virginia mother and dousing her in gasoline."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-semantic-reserve-4f5865655eaabacfae75",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_INFORMATION_LANGUAGE_PRESENT",
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_INFORMATION_LANGUAGE_PRESENT; NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-98deb729bf4335b1fa4bf13c"
+        ],
+        "new_official_source_candidates": [
+          "https://www.foxnews.com/politics/biden-admin-released-illegal-immigrant-accused-fatally-stabbing-fairfax-county-mother"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:35:37Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-98deb729bf4335b1fa4bf13c",
+          "url": "https://www.foxnews.com/politics/biden-admin-released-illegal-immigrant-accused-fatally-stabbing-fairfax-county-mother"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.foxnews.com/politics/biden-admin-released-illegal-immigrant-accused-fatally-stabbing-fairfax-county-mother"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0476,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_INFORMATION_LANGUAGE_PRESENT; NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [
+            "released"
+          ],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_INFORMATION_LANGUAGE_PRESENT",
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 2,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 2,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 10,
+      "preselection_score": 96.8008,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:35:37Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-98deb729bf4335b1fa4bf13c",
+          "url": "https://www.foxnews.com/politics/biden-admin-released-illegal-immigrant-accused-fatally-stabbing-fairfax-county-mother"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.foxnews.com/politics/biden-admin-released-illegal-immigrant-accused-fatally-stabbing-fairfax-county-mother"
+      ],
+      "publishability_original_order": 14,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 10,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-98deb729bf4335b1fa4bf13c"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-4f5865655eaabacfae75",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "An undocumented immigrant released during the Biden administration is accused of stabbing a Virginia mother and dousing her in gasoline.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": true,
+  "reranked_order": [
+    "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+    "rolling-x-global-cluster-d6756601f4a8e16a5414",
+    "rolling-x-global-cluster-c47ded7e4ba4d6192156",
+    "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+    "rolling-x-global-cluster-876647dadf3107eabb48",
+    "rolling-x-global-cluster-59a7349957a6dceed790",
+    "rolling-x-global-cluster-9a3816137ee28cb42109",
+    "rolling-x-semantic-reserve-ee9234af47ac18749749",
+    "rolling-x-semantic-reserve-50346aed575b0b5de226",
+    "rolling-x-semantic-reserve-4f5865655eaabacfae75"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

@@ -1,0 +1,2578 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 9,
+  "evaluated_at_utc": "2026-08-22T22:14:27.784365Z",
+  "held_clusters": [],
+  "held_shortlist_count": 0,
+  "input_shortlist_count": 9,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+    "rolling-x-global-cluster-61bcb2f133a16af9c360",
+    "rolling-x-global-cluster-a5f179fa07666aba183b",
+    "rolling-x-global-cluster-bee88bd8773198133feb",
+    "rolling-x-semantic-reserve-2db5db7a7209713bd973",
+    "rolling-x-semantic-reserve-feff030a7d5face131e7",
+    "rolling-x-semantic-reserve-b3945854aecfaea0ec38",
+    "rolling-x-semantic-reserve-a15d3d6dd6d27424b6c1",
+    "rolling-x-semantic-reserve-0ddf3e124ebbf483e190"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {
+      "DATA_OR_DOCUMENT_LENS": 1
+    },
+    "as_of_utc": "2026-08-22T22:14:27.784365Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [
+      {
+        "count": 1,
+        "entity": "defense industry"
+      },
+      {
+        "count": 1,
+        "entity": "foreign policy"
+      },
+      {
+        "count": 1,
+        "entity": "italy"
+      },
+      {
+        "count": 1,
+        "entity": "military sales"
+      },
+      {
+        "count": 1,
+        "entity": "national security"
+      },
+      {
+        "count": 1,
+        "entity": "norway"
+      },
+      {
+        "count": 1,
+        "entity": "south korea"
+      },
+      {
+        "count": 1,
+        "entity": "u s"
+      }
+    ],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 1,
+    "recent_publication_timestamps_utc": [
+      "2026-08-22T21:29:16.076304+00:00"
+    ],
+    "remaining_target_min": 4,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "3d768ad70748c223baa698037ea2138861967faebdaa83db9d47ef4a474c483c",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 3,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "China",
+          "Energy",
+          "Oil Prices",
+          "Global Trade",
+          "Commodities",
+          "Economy"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.02,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "China",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9c7f5d3858f8b5efbd6b354eac828c76aa36abb372c21c098596a69fdc8d260f"
+          },
+          {
+            "query_term": "Energy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "971c0299c4c921e032b6b853d88e7e29916657df0011485d7cd010991c99186b"
+          },
+          {
+            "query_term": "Oil Prices",
+            "source_field": "entities_topics",
+            "source_value_sha256": "52e01fb28ecea78dbcd2927db2d86caaf83a692cb3c2b8e296860c71cb968180"
+          },
+          {
+            "query_term": "Global Trade",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4fbdf605d02b256abd6794406a3b1494e67f333d9580ae72dc9de431c0d15251"
+          },
+          {
+            "query_term": "Commodities",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9b283ec7748a27bc557aab4550d4d6f2d4e1153b2ee3bf028fdc9e4c5d0a12a6"
+          },
+          {
+            "query_term": "Economy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1c76461cfdf46a40c04426258150be2aedae98747949a030932de2980c00914b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "China",
+          "Energy",
+          "Oil Prices",
+          "Global Trade",
+          "Commodities",
+          "Economy"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "China",
+        "Energy",
+        "Oil Prices",
+        "Global Trade",
+        "Commodities",
+        "Economy"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": true,
+        "score": 0.5,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-89040893385f72ddb223"
+      ],
+      "leaf_summaries": [
+        "China limits its crude oil purchases as global oil prices remain elevated above $90 per barrel."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "new_official_source_candidates": [
+          "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        ],
+        "previous_article_identity": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_body_sha256": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/us-energy-information-administration",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The [U.S. Energy Information Administration](https://www.eia.gov/outlooks/steo/) has published the Short-Term Energy Outlook.\n\n[[VISUAL:official_source_document_card]]\n\n[[VISUAL:decision_fact_card]]\n\n[[VISUAL:document_excerpt_card]]",
+        "previous_published_at_utc": "2026-08-12T15:30:22.127903+00:00",
+        "previous_story_identity": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "previous_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Official Chinese customs data on crude imports",
+        "Statements or purchasing schedules from major Chinese refiners (Sinopec, PetroChina)",
+        "Vessel tracking data for oil tankers bound for Chinese ports"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T07:37:16Z",
+          "feed_publisher_handle": "ChinaBeigeBook",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+          "url": "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "best_prior_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.2143,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 246.735,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": 126.0,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T07:37:16Z",
+          "feed_publisher_handle": "ChinaBeigeBook",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+          "url": "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+      ],
+      "publishability_original_order": 1,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 4,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 2,
+        "tier": "REPUTABLE_PUBLIC_SECONDARY"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "High evidence score and direct macroeconomic implications make this a prime Capital Chronicle story. China's pullback from crude purchases at these price levels provides a crucial signal for global inflation, refining margins, and energy markets.",
+      "seo_intent": "China crude oil imports limit, global oil prices $90 barrel impact, energy market demand destruction, Chinese refiners crude purchases",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+      "visual_strategy": "Dual-axis chart overlaying Brent/WTI crude price trends against Chinese monthly crude import volumes to illustrate the price ceiling effect on demand.",
+      "why_now": "Global oil prices sustaining above $90 per barrel are triggering observable demand destruction in the world's largest importer, signaling a potential shift in global energy market dynamics.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "United States",
+          "Fiscal Policy",
+          "Taxes",
+          "Economy",
+          "Personal Finance",
+          "US"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.011,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "United States",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97"
+          },
+          {
+            "query_term": "Fiscal Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b63c423a4451562685798ecc9cb4b5ec3063f5a26129c87db6575f9e591d63cd"
+          },
+          {
+            "query_term": "Taxes",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2a12f24f0593587f84eabd6ec700a98ef9b38c340c2275288da8107fc6be3e1b"
+          },
+          {
+            "query_term": "Economy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1c76461cfdf46a40c04426258150be2aedae98747949a030932de2980c00914b"
+          },
+          {
+            "query_term": "Personal Finance",
+            "source_field": "entities_topics",
+            "source_value_sha256": "afcc06c2bb1a853d3a3c1c16492ee043f0d77d4f2833a766e2b407aae5ba5017"
+          },
+          {
+            "query_term": "US",
+            "source_field": "why_now",
+            "source_value_sha256": "b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "United States",
+          "Fiscal Policy",
+          "Taxes",
+          "Economy",
+          "Personal Finance",
+          "US"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "why_now"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-a5f179fa07666aba183b",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "United States",
+        "Fiscal Policy",
+        "Taxes",
+        "Economy",
+        "Personal Finance"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-08300b4396233972ec1e86fb"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-db8314ae9896d44d4571"
+      ],
+      "leaf_summaries": [
+        "Reports indicate that American tax refunds have increased by $43 billion this year, framed as a fiscal success."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-a5f179fa07666aba183b",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-08300b4396233972ec1e86fb"
+        ],
+        "new_official_source_candidates": [
+          "https://www.breitbart.com/economy/2026/08/16/winning-americans-tax-refunds-increased-by-43-billion-this-year/"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Latest IRS filing season statistics report detailing average and total refund amounts",
+        "Treasury Department daily statement data on tax outflows",
+        "Analyst estimates on the marginal propensity to consume from tax refunds in the current economic environment"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:21:09Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-08300b4396233972ec1e86fb",
+          "url": "https://www.breitbart.com/economy/2026/08/16/winning-americans-tax-refunds-increased-by-43-billion-this-year/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.breitbart.com/economy/2026/08/16/winning-americans-tax-refunds-increased-by-43-billion-this-year/"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0476,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 108.8008,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:21:09Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-08300b4396233972ec1e86fb",
+          "url": "https://www.breitbart.com/economy/2026/08/16/winning-americans-tax-refunds-increased-by-43-billion-this-year/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.breitbart.com/economy/2026/08/16/winning-americans-tax-refunds-increased-by-43-billion-this-year/"
+      ],
+      "publishability_original_order": 3,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 2,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "This fiscal data point offers a counter-narrative to consumer tightening, providing a tangible metric to analyze upcoming retail sales, consumer debt repayment trends, and overall economic resilience.",
+      "seo_intent": "US tax refunds increase 2026, IRS refund data $43 billion, consumer spending impact tax season, US fiscal policy economy",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-08300b4396233972ec1e86fb",
+        "ordered_headline_ids": [
+          "cc-x-headline-08300b4396233972ec1e86fb"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-a5f179fa07666aba183b",
+      "visual_strategy": "Bar chart comparing year-to-date aggregate IRS tax refunds for the current year versus the previous three years.",
+      "why_now": "A $43 billion year-over-year increase in US tax refunds provides an unexpected liquidity injection for American consumers at a critical time for the economy.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Department of Education",
+          "United States",
+          "Education",
+          "Civil Rights",
+          "School Discipline",
+          "Government Policy"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.012,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Department of Education",
+            "source_field": "entities_topics",
+            "source_value_sha256": "93cebadfbb48c9000323f6a88096f393d21b6caed6322e1551b67210e9f52bfa"
+          },
+          {
+            "query_term": "United States",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97"
+          },
+          {
+            "query_term": "Education",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5563536fe27ab5aced23a0f97116d30035e5c182628302d2bcb5eb839017d75d"
+          },
+          {
+            "query_term": "Civil Rights",
+            "source_field": "entities_topics",
+            "source_value_sha256": "7f438df784cdf05886ee0e4af6423829b8ebbbd0986f0ac0b68e6425d8566f3a"
+          },
+          {
+            "query_term": "School Discipline",
+            "source_field": "entities_topics",
+            "source_value_sha256": "cbbfdcbd683b34b29a074b37dba4aa4dbfb04ad3f293dfca71c552f8fe3fc3f4"
+          },
+          {
+            "query_term": "Government Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6a2e3bff16fa8901904ac5cf3cf36446863388fb8291cb97716d4c4386deab21"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Department of Education",
+          "United States",
+          "Education",
+          "Civil Rights",
+          "School Discipline",
+          "Government Policy"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-bee88bd8773198133feb",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Department of Education",
+        "United States",
+        "Education",
+        "Civil Rights",
+        "School Discipline",
+        "Government Policy"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-035e28390b32643c63cb"
+      ],
+      "leaf_summaries": [
+        "The Department of Education will no longer require school discipline policies that discriminate on the basis of race."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-bee88bd8773198133feb",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+        ],
+        "new_official_source_candidates": [
+          "https://www.dailysignal.com/2026/08/18/department-education-no-longer-require-school-discipline-policies-that-discriminate-basis-race/"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Official policy memorandum, Dear Colleague letter, or Federal Register notice from the Department of Education",
+        "Statements from civil rights organizations and national teachers' unions",
+        "Historical data on school suspension rates by demographic group to provide context"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:25:19Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-24ced7e8122ae9b0eef0ac22",
+          "url": "https://www.dailysignal.com/2026/08/18/department-education-no-longer-require-school-discipline-policies-that-discriminate-basis-race/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.dailysignal.com/2026/08/18/department-education-no-longer-require-school-discipline-policies-that-discriminate-basis-race/"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0909,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 106.8008,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:25:19Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-24ced7e8122ae9b0eef0ac22",
+          "url": "https://www.dailysignal.com/2026/08/18/department-education-no-longer-require-school-discipline-policies-that-discriminate-basis-race/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.dailysignal.com/2026/08/18/department-education-no-longer-require-school-discipline-policies-that-discriminate-basis-race/"
+      ],
+      "publishability_original_order": 4,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 3,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "A significant shift in federal education and civil rights policy that requires clear explanation of the legal mechanisms, the history of the policy, and the practical implications for school administrators and students.",
+      "seo_intent": "Department of Education school discipline policy change, race-based discipline requirements dropped, civil rights education policy US",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-24ced7e8122ae9b0eef0ac22",
+        "ordered_headline_ids": [
+          "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-bee88bd8773198133feb",
+      "visual_strategy": "Timeline graphic showing the evolution of federal guidance on school discipline and disparate impact from previous administrations to the present.",
+      "why_now": "The Department of Education is officially reversing a major civil rights directive regarding school discipline, impacting thousands of school districts nationwide.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "Strait of Hormuz",
+          "Iran",
+          "United States",
+          "Geopolitics",
+          "Foreign Policy"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.017,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Strait of Hormuz",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ffe2f21830aa3144ab24739bc5ef09d2d0ca5826d350ece77df90b4f21ee6bcf"
+          },
+          {
+            "query_term": "Iran",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b5798dfe8101381b8949bb084e861f93056ff214b3a9a69ddf57e84bd2aa76f4"
+          },
+          {
+            "query_term": "United States",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          },
+          {
+            "query_term": "Foreign Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9cd7d4bd6deac2ae551d65cedacd564fac4d45c33a4e92250b379a95e8e24c97"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "Strait of Hormuz",
+          "Iran",
+          "United States",
+          "Geopolitics",
+          "Foreign Policy"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-61bcb2f133a16af9c360",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "Strait of Hormuz",
+        "Iran",
+        "United States",
+        "Geopolitics",
+        "Foreign Policy",
+        "National Security",
+        "Elections",
+        "Military"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 3,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "WHAT_THE_MARKET_IS_MISSING",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+        "cc-x-headline-a6ef121e915c979fd95894bb",
+        "cc-x-headline-b7bac9185093d38d48c760ad",
+        "cc-x-headline-da1900c30215d7def6d6b019"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-02a92c06ab5fd4f10094"
+      ],
+      "leaf_summaries": [
+        "Donald Trump claims total control over the Strait of Hormuz amid ongoing tensions with Iran, proposing to declare it a U.S. territory during campaign events."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-61bcb2f133a16af9c360",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+          "cc-x-headline-a6ef121e915c979fd95894bb",
+          "cc-x-headline-b7bac9185093d38d48c760ad",
+          "cc-x-headline-da1900c30215d7def6d6b019"
+        ],
+        "new_official_source_candidates": [
+          "https://nypost.com/2026/08/14/us-news/trump-says-hell-declare-strait-of-hormuz-a-us-territory-after-defeating-iran/",
+          "https://www.washingtonexaminer.com/policy/defense/4684362/trump-total-control-strait-of-hormuz-war-iran/",
+          "https://www.breitbart.com/politics/2026/08/12/trump-touts-stranglehold-iran-praise-be-allah/"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Exact transcripts of Donald Trump's campaign remarks regarding the Strait of Hormuz",
+        "Legal analysis of international maritime law and the UN Convention on the Law of the Sea regarding straits used for international navigation",
+        "Reactions from Iranian officials, regional allies, or energy market analysts"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:23:03Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+          "url": "https://nypost.com/2026/08/14/us-news/trump-says-hell-declare-strait-of-hormuz-a-us-territory-after-defeating-iran/"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:23:41Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-a6ef121e915c979fd95894bb",
+          "url": "https://www.washingtonexaminer.com/policy/defense/4684362/trump-total-control-strait-of-hormuz-war-iran/"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:21:31Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b7bac9185093d38d48c760ad",
+          "url": "https://www.breitbart.com/politics/2026/08/12/trump-touts-stranglehold-iran-praise-be-allah/"
+        }
+      ],
+      "official_source_urls": [
+        "https://nypost.com/2026/08/14/us-news/trump-says-hell-declare-strait-of-hormuz-a-us-territory-after-defeating-iran/",
+        "https://www.washingtonexaminer.com/policy/defense/4684362/trump-total-control-strait-of-hormuz-war-iran/",
+        "https://www.breitbart.com/politics/2026/08/12/trump-touts-stranglehold-iran-praise-be-allah/"
+      ],
+      "portfolio_concentration_penalty": 0.25,
+      "portfolio_concentration_penalty_effective": 0.25,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.2174,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 3,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 106.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:23:03Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+          "url": "https://nypost.com/2026/08/14/us-news/trump-says-hell-declare-strait-of-hormuz-a-us-territory-after-defeating-iran/"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:23:41Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-a6ef121e915c979fd95894bb",
+          "url": "https://www.washingtonexaminer.com/policy/defense/4684362/trump-total-control-strait-of-hormuz-war-iran/"
+        },
+        {
+          "feed_published_at_utc": "2026-08-21T23:21:31Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b7bac9185093d38d48c760ad",
+          "url": "https://www.breitbart.com/politics/2026/08/12/trump-touts-stranglehold-iran-praise-be-allah/"
+        }
+      ],
+      "public_source_urls": [
+        "https://nypost.com/2026/08/14/us-news/trump-says-hell-declare-strait-of-hormuz-a-us-territory-after-defeating-iran/",
+        "https://www.washingtonexaminer.com/policy/defense/4684362/trump-total-control-strait-of-hormuz-war-iran/",
+        "https://www.breitbart.com/politics/2026/08/12/trump-touts-stranglehold-iran-praise-be-allah/"
+      ],
+      "publishability_original_order": 2,
+      "publishability_path_profile": {
+        "bound_public_url_count": 4,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 4,
+      "resolved_article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "selection_case": "While currently campaign rhetoric, the proposal to declare the Strait of Hormuz a US territory introduces tail-risk scenarios for US-Iran relations and global energy transit that markets may be underpricing, warranting a serious look at the legal and market implications.",
+      "seo_intent": "Trump Strait of Hormuz US territory proposal, US Iran geopolitical tensions, global oil transit chokepoint risk, maritime law Strait of Hormuz",
+      "seo_learning_preferences": [],
+      "story_mode": "scenario_outlook",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-a6ef121e915c979fd95894bb",
+        "ordered_headline_ids": [
+          "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+          "cc-x-headline-a6ef121e915c979fd95894bb",
+          "cc-x-headline-b7bac9185093d38d48c760ad",
+          "cc-x-headline-da1900c30215d7def6d6b019"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-61bcb2f133a16af9c360",
+      "visual_strategy": "Map of the Strait of Hormuz highlighting international shipping lanes, territorial waters of Iran and Oman, and daily oil transit volumes.",
+      "why_now": "A major US presidential candidate is proposing an unprecedented territorial claim over the world's most critical oil chokepoint, raising severe geopolitical and energy market risks.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "Alexander Hamilton",
+          "Thomas Jefferson",
+          "History",
+          "Political Strategy",
+          "American Politics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.011,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Alexander Hamilton",
+            "source_field": "entities_topics",
+            "source_value_sha256": "855de73c3a0f7c5b2ea34d528f330aa928cd7fe479b0e7c6b242970bfadfa993"
+          },
+          {
+            "query_term": "Thomas Jefferson",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3c0f480cbbd79428a8d755757a0072eb0d28c3bc20e528d69842d974608c91c3"
+          },
+          {
+            "query_term": "History",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a420f71fffa9e49c8005d8a8715c7bc2f5de506928eeeb96a0dae0b93966d70"
+          },
+          {
+            "query_term": "Political Strategy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d22ddd53a6a40718d0bd883a85ec3b3986072505cf27bffd9e97dc83e305c56d"
+          },
+          {
+            "query_term": "American Politics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "8b3e4f3e47cdf7c62ce47f0d6ef82930318d9756ae0ea262c503ea88b81f066d"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "Alexander Hamilton",
+          "Thomas Jefferson",
+          "History",
+          "Political Strategy",
+          "American Politics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-2db5db7a7209713bd973",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "Alexander Hamilton",
+        "Thomas Jefferson",
+        "History",
+        "Political Strategy",
+        "American Politics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-f12057c926c3345a6cd1a7dd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-0947f1a177524eef913c"
+      ],
+      "leaf_summaries": [
+        "Historians draw parallels between Donald Trump's political strategy and the founding-era playbooks of Hamilton and Jefferson."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:24:37Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-f12057c926c3345a6cd1a7dd",
+          "url": "https://www.washingtontimes.com/news/2026/jul/1/hamilton-jefferson-trump-historians-see-founding-era-playbook-still/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.washingtontimes.com/news/2026/jul/1/hamilton-jefferson-trump-historians-see-founding-era-playbook-still/"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 106.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:24:37Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-f12057c926c3345a6cd1a7dd",
+          "url": "https://www.washingtontimes.com/news/2026/jul/1/hamilton-jefferson-trump-historians-see-founding-era-playbook-still/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.washingtontimes.com/news/2026/jul/1/hamilton-jefferson-trump-historians-see-founding-era-playbook-still/"
+      ],
+      "publishability_original_order": 7,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 5,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f12057c926c3345a6cd1a7dd"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-2db5db7a7209713bd973",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Historians draw parallels between Donald Trump's political strategy and the founding-era playbooks of Hamilton and Jefferson.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "Bruce Blakeman",
+          "Long Island",
+          "New York",
+          "Campaigns",
+          "Elections"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.01,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Bruce Blakeman",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1a2345d9117c6b01f2a9dc9994d4e9c9e6201f1902c05b5e691f4828ce61d7e1"
+          },
+          {
+            "query_term": "Long Island",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b08063778c8adc42bb683c8a0953271df2584c2d538c02eaa130866aeedfb117"
+          },
+          {
+            "query_term": "New York",
+            "source_field": "entities_topics",
+            "source_value_sha256": "8e1faddf90cfdced8d962d00de372a7c7a5b4c25b5bcc4d03d204c17b656dc2c"
+          },
+          {
+            "query_term": "Campaigns",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9f98c6e2802bd56bc85fefd21fcd8140a3025cf514ccd898e6f4503960d3508a"
+          },
+          {
+            "query_term": "Elections",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f8252088044af0116d31baa759c26dffaa46ef75a21d307d0ef55324a980ae3"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "Bruce Blakeman",
+          "Long Island",
+          "New York",
+          "Campaigns",
+          "Elections"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-feff030a7d5face131e7",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "Bruce Blakeman",
+        "Long Island",
+        "New York",
+        "Campaigns",
+        "Elections",
+        "Law Enforcement",
+        "Politics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-f8f9d90729cad1a7aa97350f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-903bb94db52e0c13140d"
+      ],
+      "leaf_summaries": [
+        "Donald Trump campaigns for Bruce Blakeman on Long Island, praising law enforcement and predicting a new golden age."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:22:31Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-f8f9d90729cad1a7aa97350f",
+          "url": "https://patch.com/new-york/longisland/trump-rallies-blakeman-during-long-island-visit"
+        }
+      ],
+      "official_source_urls": [
+        "https://patch.com/new-york/longisland/trump-rallies-blakeman-during-long-island-visit"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 6,
+      "preselection_score": 104.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:22:31Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-f8f9d90729cad1a7aa97350f",
+          "url": "https://patch.com/new-york/longisland/trump-rallies-blakeman-during-long-island-visit"
+        }
+      ],
+      "public_source_urls": [
+        "https://patch.com/new-york/longisland/trump-rallies-blakeman-during-long-island-visit"
+      ],
+      "publishability_original_order": 9,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 6,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f8f9d90729cad1a7aa97350f"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-feff030a7d5face131e7",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Donald Trump campaigns for Bruce Blakeman on Long Island, praising law enforcement and predicting a new golden age.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "Bronx",
+          "New York",
+          "Campaigns",
+          "Elections",
+          "Crime"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.011,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Bronx",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d35732b20f13e9b1ae6c318710ef20e3c1a1ac3760fbfaaa7453596cab2b56e0"
+          },
+          {
+            "query_term": "New York",
+            "source_field": "entities_topics",
+            "source_value_sha256": "8e1faddf90cfdced8d962d00de372a7c7a5b4c25b5bcc4d03d204c17b656dc2c"
+          },
+          {
+            "query_term": "Campaigns",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9f98c6e2802bd56bc85fefd21fcd8140a3025cf514ccd898e6f4503960d3508a"
+          },
+          {
+            "query_term": "Elections",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f8252088044af0116d31baa759c26dffaa46ef75a21d307d0ef55324a980ae3"
+          },
+          {
+            "query_term": "Crime",
+            "source_field": "entities_topics",
+            "source_value_sha256": "796a12cd79404e1a74490e3af909b5a01394557695aad58363bce0e4f965fa30"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "Bronx",
+          "New York",
+          "Campaigns",
+          "Elections",
+          "Crime"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-a15d3d6dd6d27424b6c1",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "Bronx",
+        "New York",
+        "Campaigns",
+        "Elections",
+        "Crime",
+        "Human Interest"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-7471b5ca532592cb58d66b3f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-b4bfe705f8c4d2047a56"
+      ],
+      "leaf_summaries": [
+        "Donald Trump pauses a campaign speech to embrace the parents of a 12-year-old stray bullet victim in the Bronx."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:22:12Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-7471b5ca532592cb58d66b3f",
+          "url": "https://www.foxnews.com/politics/trump-leaves-stage-mid-speech-embrace-parents-12-year-old-killed-stray-bullet-bronx"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.foxnews.com/politics/trump-leaves-stage-mid-speech-embrace-parents-12-year-old-killed-stray-bullet-bronx"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 8,
+      "preselection_score": 100.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:22:12Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-7471b5ca532592cb58d66b3f",
+          "url": "https://www.foxnews.com/politics/trump-leaves-stage-mid-speech-embrace-parents-12-year-old-killed-stray-bullet-bronx"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.foxnews.com/politics/trump-leaves-stage-mid-speech-embrace-parents-12-year-old-killed-stray-bullet-bronx"
+      ],
+      "publishability_original_order": 11,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 7,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7471b5ca532592cb58d66b3f"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-a15d3d6dd6d27424b6c1",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Donald Trump pauses a campaign speech to embrace the parents of a 12-year-old stray bullet victim in the Bronx.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Donald Trump",
+          "United States",
+          "Crime",
+          "Law Enforcement",
+          "Public Safety",
+          "Politics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.03,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "United States",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4a69f705fc64dc9ce39dea3f1c7c53700a8224a945e1813e693208c0dcaa4b97"
+          },
+          {
+            "query_term": "Crime",
+            "source_field": "entities_topics",
+            "source_value_sha256": "796a12cd79404e1a74490e3af909b5a01394557695aad58363bce0e4f965fa30"
+          },
+          {
+            "query_term": "Law Enforcement",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d2e728e98aff40416cc72fc6f90b9f5cc27f36b339e3a6a7d3f99a3a8cbd16d9"
+          },
+          {
+            "query_term": "Public Safety",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3d88c43e74936faef3e3391abf593336e17b929dea3b9ad35d7eae4b7c20e751"
+          },
+          {
+            "query_term": "Politics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "934ce114b831d9afccc89355d9d06c91bdd8ed7e68aa13d3f11ae16f4e01c314"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Donald Trump",
+          "United States",
+          "Crime",
+          "Law Enforcement",
+          "Public Safety",
+          "Politics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-0ddf3e124ebbf483e190",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Donald Trump",
+        "United States",
+        "Crime",
+        "Law Enforcement",
+        "Public Safety",
+        "Politics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 1,
+        "reputable_public_secondary_path": false,
+        "score": 0.1,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-b4a208a227bdd197071d6b6c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f690a0248fdf54e53e15"
+      ],
+      "leaf_summaries": [
+        "Donald Trump highlights what he describes as the largest one-year drop in violent crime in United States history."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:23:28Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b4a208a227bdd197071d6b6c",
+          "url": "https://www.washingtontimes.com/news/2026/aug/14/trump-touts-largest-one-year-drop-violent-crime-us-history/"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.washingtontimes.com/news/2026/aug/14/trump-touts-largest-one-year-drop-violent-crime-us-history/"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 9,
+      "preselection_score": 98.8,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-21T23:23:28Z",
+          "feed_publisher_handle": "TrumpTruthOnX",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b4a208a227bdd197071d6b6c",
+          "url": "https://www.washingtontimes.com/news/2026/aug/14/trump-touts-largest-one-year-drop-violent-crime-us-history/"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.washingtontimes.com/news/2026/aug/14/trump-touts-largest-one-year-drop-violent-crime-us-history/"
+      ],
+      "publishability_original_order": 13,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 8,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b4a208a227bdd197071d6b6c"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-0ddf3e124ebbf483e190",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Donald Trump highlights what he describes as the largest one-year drop in violent crime in United States history.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Scott Bessent",
+          "Donald Trump",
+          "Joe Biden",
+          "Economy",
+          "Economic Policy",
+          "Elections"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.01,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Scott Bessent",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5149c55bd0daeb63191b82f9d76f910dbb80e6167382211ffc357666e973406b"
+          },
+          {
+            "query_term": "Donald Trump",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+          },
+          {
+            "query_term": "Joe Biden",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e03dc3309f0c67fcd67ee823c1a19bc37e9df0077dbc3b01b0c05ccca8604b66"
+          },
+          {
+            "query_term": "Economy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1c76461cfdf46a40c04426258150be2aedae98747949a030932de2980c00914b"
+          },
+          {
+            "query_term": "Economic Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "2e2f4167c6d9a297c47ebf307192805e29d84ee818b1f1c6570d26e7c593faab"
+          },
+          {
+            "query_term": "Elections",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f8252088044af0116d31baa759c26dffaa46ef75a21d307d0ef55324a980ae3"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Scott Bessent",
+          "Donald Trump",
+          "Joe Biden",
+          "Economy",
+          "Economic Policy",
+          "Elections"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-b3945854aecfaea0ec38",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Scott Bessent",
+        "Donald Trump",
+        "Joe Biden",
+        "Economy",
+        "Economic Policy",
+        "Elections",
+        "Politics"
+      ],
+      "evidence_reachability": {
+        "capital_chronicle_relevant_context": false,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "mode_downgrade_viable": true,
+        "public_source_candidate_count": 0,
+        "reputable_public_secondary_path": false,
+        "score": 0.0,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-6cdafa75710aa0d0fde00e39"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-a1cab5048cf0547e009d"
+      ],
+      "leaf_summaries": [
+        "Scott Bessent praises Donald Trump's economic policies, claiming he fixed the Biden administration's economic issues."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-semantic-reserve-b3945854aecfaea0ec38",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [],
+        "material_delta_summary": "No explicit material delta signal detected.",
+        "new_headline_ids": [
+          "cc-x-headline-6cdafa75710aa0d0fde00e39"
+        ],
+        "new_official_source_candidates": [],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [],
+      "official_source_urls": [],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0417,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 0.753,
+        "material_delta_evaluation": {
+          "delta_summary": "No explicit material delta signal detected.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 7,
+      "preselection_score": 98.0008,
+      "public_source_url_bindings": [],
+      "public_source_urls": [],
+      "publishability_original_order": 10,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 9,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-6cdafa75710aa0d0fde00e39"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-b3945854aecfaea0ec38",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Scott Bessent praises Donald Trump's economic policies, claiming he fixed the Biden administration's economic issues.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": true,
+  "reranked_order": [
+    "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+    "rolling-x-global-cluster-a5f179fa07666aba183b",
+    "rolling-x-global-cluster-bee88bd8773198133feb",
+    "rolling-x-global-cluster-61bcb2f133a16af9c360",
+    "rolling-x-semantic-reserve-2db5db7a7209713bd973",
+    "rolling-x-semantic-reserve-feff030a7d5face131e7",
+    "rolling-x-semantic-reserve-a15d3d6dd6d27424b6c1",
+    "rolling-x-semantic-reserve-0ddf3e124ebbf483e190",
+    "rolling-x-semantic-reserve-b3945854aecfaea0ec38"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1"
+}

@@ -1,0 +1,1581 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 11,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "3c32a0061a2bf81dbcde6d17a0143c066cbaa99828b929f7836f4e0b868d5e77",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [],
+    "global_checkpoint_reused": true,
+    "global_editor_called_after_complete_leaf_coverage": false,
+    "reused_partition_ids": [
+      "rolling-x-leaf-7433f67bcdf785b852ec"
+    ]
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "35262b7b4fa11edbecba22914989709635fa413e2d3153f9f2ecaa71d1535ef8",
+    "cutoff_time_utc": "2026-08-22T22:14:27.784365Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 11,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "foreign policy",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-21T23:34:41Z",
+          "latest_utc": "2026-08-21T23:34:41Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.663,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "United States",
+          "National Defense",
+          "Military Technology"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-19cf113ae7d58eadf613",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 70,
+          "evidence": 60,
+          "saturation_risk": 50,
+          "seo": 75
+        },
+        "summary": "Donald Trump's proposed 'Golden Dome' missile defense system moves closer to implementation, transitioning from a campaign vision to policy reality."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "finance",
+            "gold",
+            "macroeconomics"
+          ],
+          "first_utc": "2026-08-21T23:42:04Z",
+          "latest_utc": "2026-08-21T23:42:04Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.5399,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Robin Brooks",
+          "Finance",
+          "Gold",
+          "US Dollar"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-49f4ac1542f1b6fd4cf9",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 45,
+          "engagement": 55,
+          "evidence": 50,
+          "saturation_risk": 20,
+          "seo": 40
+        },
+        "summary": "Financial analyst Robin Brooks schedules a live stream to discuss the market impact of a recent buyback announcement on gold and the US dollar."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "drug policy",
+            "fentanyl crisis"
+          ],
+          "first_utc": "2026-08-21T23:41:29Z",
+          "latest_utc": "2026-08-21T23:41:29Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.5497,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "White House",
+          "Donald Trump",
+          "Public Health",
+          "Drug Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-4e100d9079cdc763b6d8",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 85,
+          "engagement": 80,
+          "evidence": 80,
+          "saturation_risk": 40,
+          "seo": 80
+        },
+        "summary": "The Trump White House highlights a 22% drop in fentanyl deaths, attributing the decline to its administration's aggressive drug crackdown."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "domestic supply",
+            "energy policy",
+            "environmental protection agency"
+          ],
+          "first_utc": "2026-08-21T23:36:06Z",
+          "latest_utc": "2026-08-21T23:36:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.6394,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Environmental Protection Agency",
+          "Energy Policy",
+          "Gasoline Prices",
+          "Environmental Regulation"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-571b161b99d464cca945",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 70,
+          "evidence": 75,
+          "saturation_risk": 30,
+          "seo": 75
+        },
+        "summary": "The Environmental Protection Agency plans to issue an emergency fuel waiver to boost domestic gasoline supply and lower prices at the pump."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "food and drug administration",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-21T23:35:06Z",
+          "latest_utc": "2026-08-21T23:35:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.6561,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "Heidi Overton",
+          "Food and Drug Administration",
+          "Government Nominations"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-71ed995a5f1dc92f8cac",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 65,
+          "evidence": 85,
+          "saturation_risk": 30,
+          "seo": 70
+        },
+        "summary": "Donald Trump plans to nominate Dr. Heidi Overton to serve as the next commissioner of the Food and Drug Administration."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "biden administration",
+            "crime",
+            "energy"
+          ],
+          "first_utc": "2026-08-21T23:35:37Z",
+          "latest_utc": "2026-08-21T23:35:37Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.6474,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Virginia",
+          "Biden Administration",
+          "Crime",
+          "Immigration Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-8af3811aa7ee5e13ea6d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 85,
+          "evidence": 70,
+          "saturation_risk": 50,
+          "seo": 80
+        },
+        "summary": "An undocumented immigrant released during the Biden administration is accused of stabbing a Virginia mother and dousing her in gasoline."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "aviation",
+            "drone industry",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-21T23:36:20Z",
+          "latest_utc": "2026-08-21T23:36:49Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 22.6274,
+          "update_velocity": 124.1379
+        },
+        "entities_topics": [
+          "Trump Administration",
+          "White House",
+          "Drone Industry",
+          "Technology"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-94604f6762dd52f7a524",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 75,
+          "engagement": 65,
+          "evidence": 80,
+          "saturation_risk": 40,
+          "seo": 70
+        },
+        "summary": "Trump administration officials and drone industry leaders hold the first White House 'Drone Dominance' meeting to address market threats and coordinate a whole-of-government drone initiative."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "foreign policy",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-21T23:33:25Z",
+          "latest_utc": "2026-08-21T23:33:25Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.6841,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "Iran",
+          "Sanctions",
+          "Foreign Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-b1ab53fdf64f6b2f2b8b",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 80,
+          "evidence": 75,
+          "saturation_risk": 40,
+          "seo": 75
+        },
+        "summary": "President Trump announces 'Economic D-Day,' a major initiative aimed at dismantling Iran's shadow economy and illicit trade networks."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "inflation",
+            "consumer prices",
+            "healthcare"
+          ],
+          "first_utc": "2026-08-21T23:34:20Z",
+          "latest_utc": "2026-08-21T23:34:20Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.6688,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "United States",
+          "Healthcare",
+          "Pharmaceuticals",
+          "Inflation"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-e79adf9b96633cd0fc30",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 70,
+          "evidence": 70,
+          "saturation_risk": 35,
+          "seo": 75
+        },
+        "summary": "US pharmaceutical prices experience their sharpest decline since 1963, reducing the financial burden on American consumers."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "geopolitics",
+            "government infrastructure"
+          ],
+          "first_utc": "2026-08-21T23:39:27Z",
+          "latest_utc": "2026-08-21T23:39:27Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.5836,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "John Roberts",
+          "Supreme Court",
+          "White House",
+          "Donald Trump"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-ec082b64ac445caaf177",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 65,
+          "evidence": 85,
+          "saturation_risk": 30,
+          "seo": 60
+        },
+        "summary": "Supreme Court Chief Justice John Roberts rules that construction work on the Trump White House ballroom is permitted to continue."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "fiscal",
+            "fiscal policy"
+          ],
+          "first_utc": "2026-08-21T23:33:49Z",
+          "latest_utc": "2026-08-21T23:33:49Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 22.6774,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Scott Bessent",
+          "Treasury Department",
+          "Donald Trump",
+          "Tax Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-f649512e57f37fc41639",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 85,
+          "engagement": 85,
+          "evidence": 75,
+          "saturation_risk": 45,
+          "seo": 80
+        },
+        "summary": "Treasury Secretary nominee Scott Bessent moves to end tax breaks for undocumented immigrants, framed as part of the 'Trump Effect' on fiscal policy."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "35262b7b4fa11edbecba22914989709635fa413e2d3153f9f2ecaa71d1535ef8",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-0a54f4ba9322134cd185d1d6",
+      "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6",
+      "cc-x-headline-12f823f470a1e9d897e700e1",
+      "cc-x-headline-15eeff851da105de55bcae6d",
+      "cc-x-headline-16b688069aeb72ed68a07f3f",
+      "cc-x-headline-23881fe252c888988f9acd15",
+      "cc-x-headline-41e07ba3a68d9816573cd2de",
+      "cc-x-headline-8cab97c84986250fa0837e20",
+      "cc-x-headline-9135f4ee3068b742bf671460",
+      "cc-x-headline-98deb729bf4335b1fa4bf13c",
+      "cc-x-headline-b36ac3f656a602f0e1498c8d",
+      "cc-x-headline-cd7b7ab257425669e0d2519a"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 50,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-12f823f470a1e9d897e700e1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-12f823f470a1e9d897e700e1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump",
+        "United States"
+      ],
+      "event_topic_summary": "Donald Trump's proposed 'Golden Dome' missile defense system moves closer to implementation, transitioning from a campaign vision to policy reality.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-19cf113ae7d58eadf613",
+      "member_headline_ids": [
+        "cc-x-headline-12f823f470a1e9d897e700e1"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "National Defense",
+        "Military Technology",
+        "Foreign Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 45,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 55,
+        "saturation_risk": 20,
+        "seo_potential": 40
+      },
+      "canonical_representative_headline_id": "cc-x-headline-15eeff851da105de55bcae6d",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-15eeff851da105de55bcae6d"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Robin Brooks"
+      ],
+      "event_topic_summary": "Financial analyst Robin Brooks schedules a live stream to discuss the market impact of a recent buyback announcement on gold and the US dollar.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-49f4ac1542f1b6fd4cf9",
+      "member_headline_ids": [
+        "cc-x-headline-15eeff851da105de55bcae6d"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Finance",
+        "Gold",
+        "US Dollar",
+        "Macroeconomics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 40,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-8cab97c84986250fa0837e20",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-8cab97c84986250fa0837e20"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "White House",
+        "Donald Trump"
+      ],
+      "event_topic_summary": "The Trump White House highlights a 22% drop in fentanyl deaths, attributing the decline to its administration's aggressive drug crackdown.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-4e100d9079cdc763b6d8",
+      "member_headline_ids": [
+        "cc-x-headline-8cab97c84986250fa0837e20"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Public Health",
+        "Drug Policy",
+        "Law Enforcement",
+        "Fentanyl Crisis"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 30,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-9135f4ee3068b742bf671460",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-9135f4ee3068b742bf671460"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Environmental Protection Agency"
+      ],
+      "event_topic_summary": "The Environmental Protection Agency plans to issue an emergency fuel waiver to boost domestic gasoline supply and lower prices at the pump.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-571b161b99d464cca945",
+      "member_headline_ids": [
+        "cc-x-headline-9135f4ee3068b742bf671460"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Energy Policy",
+        "Gasoline Prices",
+        "Environmental Regulation",
+        "Domestic Supply"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 30,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-cd7b7ab257425669e0d2519a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-cd7b7ab257425669e0d2519a"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump",
+        "Heidi Overton",
+        "Food and Drug Administration"
+      ],
+      "event_topic_summary": "Donald Trump plans to nominate Dr. Heidi Overton to serve as the next commissioner of the Food and Drug Administration.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-71ed995a5f1dc92f8cac",
+      "member_headline_ids": [
+        "cc-x-headline-cd7b7ab257425669e0d2519a"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Government Nominations",
+        "Healthcare Policy",
+        "Public Health"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 50,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-98deb729bf4335b1fa4bf13c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-98deb729bf4335b1fa4bf13c"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Virginia",
+        "Biden Administration"
+      ],
+      "event_topic_summary": "An undocumented immigrant released during the Biden administration is accused of stabbing a Virginia mother and dousing her in gasoline.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-8af3811aa7ee5e13ea6d",
+      "member_headline_ids": [
+        "cc-x-headline-98deb729bf4335b1fa4bf13c"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Crime",
+        "Immigration Policy",
+        "Public Safety"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 40,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-0a54f4ba9322134cd185d1d6",
+          "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "Trump Administration",
+        "White House",
+        "Drone Industry"
+      ],
+      "event_topic_summary": "Trump administration officials and drone industry leaders hold the first White House 'Drone Dominance' meeting to address market threats and coordinate a whole-of-government drone initiative.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-94604f6762dd52f7a524",
+      "member_headline_ids": [
+        "cc-x-headline-0a54f4ba9322134cd185d1d6",
+        "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Technology",
+        "National Security",
+        "Aviation",
+        "Government Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 40,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b36ac3f656a602f0e1498c8d"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump",
+        "Iran"
+      ],
+      "event_topic_summary": "President Trump announces 'Economic D-Day,' a major initiative aimed at dismantling Iran's shadow economy and illicit trade networks.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-b1ab53fdf64f6b2f2b8b",
+      "member_headline_ids": [
+        "cc-x-headline-b36ac3f656a602f0e1498c8d"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Sanctions",
+        "Foreign Policy",
+        "International Trade",
+        "National Security"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 35,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-41e07ba3a68d9816573cd2de",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-41e07ba3a68d9816573cd2de"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "United States"
+      ],
+      "event_topic_summary": "US pharmaceutical prices experience their sharpest decline since 1963, reducing the financial burden on American consumers.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-e79adf9b96633cd0fc30",
+      "member_headline_ids": [
+        "cc-x-headline-41e07ba3a68d9816573cd2de"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Healthcare",
+        "Pharmaceuticals",
+        "Inflation",
+        "Consumer Prices"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 30,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-16b688069aeb72ed68a07f3f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-16b688069aeb72ed68a07f3f"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "John Roberts",
+        "Supreme Court",
+        "White House",
+        "Donald Trump"
+      ],
+      "event_topic_summary": "Supreme Court Chief Justice John Roberts rules that construction work on the Trump White House ballroom is permitted to continue.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-ec082b64ac445caaf177",
+      "member_headline_ids": [
+        "cc-x-headline-16b688069aeb72ed68a07f3f"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Judiciary",
+        "Government Infrastructure",
+        "Legal Disputes"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 45,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-23881fe252c888988f9acd15",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-23881fe252c888988f9acd15"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Scott Bessent",
+        "Treasury Department",
+        "Donald Trump"
+      ],
+      "event_topic_summary": "Treasury Secretary nominee Scott Bessent moves to end tax breaks for undocumented immigrants, framed as part of the 'Trump Effect' on fiscal policy.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-f649512e57f37fc41639",
+      "member_headline_ids": [
+        "cc-x-headline-23881fe252c888988f9acd15"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "topics": [
+        "Tax Policy",
+        "Immigration",
+        "Fiscal Policy",
+        "Government Reform"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-0a54f4ba9322134cd185d1d6",
+        "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6",
+        "cc-x-headline-12f823f470a1e9d897e700e1",
+        "cc-x-headline-15eeff851da105de55bcae6d",
+        "cc-x-headline-16b688069aeb72ed68a07f3f",
+        "cc-x-headline-23881fe252c888988f9acd15",
+        "cc-x-headline-41e07ba3a68d9816573cd2de",
+        "cc-x-headline-8cab97c84986250fa0837e20",
+        "cc-x-headline-9135f4ee3068b742bf671460",
+        "cc-x-headline-98deb729bf4335b1fa4bf13c",
+        "cc-x-headline-b36ac3f656a602f0e1498c8d",
+        "cc-x-headline-cd7b7ab257425669e0d2519a"
+      ],
+      "partition_id": "rolling-x-leaf-7433f67bcdf785b852ec",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 13734,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 499,
+    "held_before_semantic_assignment_count": 487,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "0834afc0c8152990645cb92ceabd09c6c3a0c1b3213a87b7d35bd81ed99ba1f4",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+      "headline_ids": [
+        "cc-x-headline-cd7b7ab257425669e0d2519a"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-71ed995a5f1dc92f8cac"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official White House nomination announcement or credible on-the-record confirmation",
+        "Dr. Overton's past policy statements or track record regarding FDA regulation"
+      ],
+      "rank": 1,
+      "selection_case": "FDA leadership directly dictates the pace of drug approvals, regulatory scrutiny, and compliance costs. Confirming this nomination provides immediate value to healthcare investors and industry professionals.",
+      "seo_intent": "Heidi Overton FDA commissioner nomination Trump",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-cd7b7ab257425669e0d2519a",
+        "ordered_headline_ids": [
+          "cc-x-headline-cd7b7ab257425669e0d2519a"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Professional portrait of Dr. Heidi Overton or a high-quality establishing shot of FDA headquarters.",
+      "why_now": "The planned nomination of Dr. Heidi Overton as FDA commissioner is a critical regulatory development with immediate implications for the pharmaceutical and healthcare sectors."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-d6756601f4a8e16a5414",
+      "headline_ids": [
+        "cc-x-headline-41e07ba3a68d9816573cd2de"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-e79adf9b96633cd0fc30"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Primary source data (e.g., CPI/PPI breakdown or official government health expenditure report)",
+        "Expert commentary on the sustainability of this price decline"
+      ],
+      "rank": 2,
+      "selection_case": "This is a historic deflationary data point in a notoriously inflationary sector. Analyzing the drivers (e.g., policy changes, patent cliffs, or market dynamics) offers high-value insights for macro and healthcare audiences.",
+      "seo_intent": "US pharmaceutical prices drop 1963 inflation healthcare costs",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-41e07ba3a68d9816573cd2de",
+        "ordered_headline_ids": [
+          "cc-x-headline-41e07ba3a68d9816573cd2de"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Data visualization charting US pharmaceutical price indices over the past several decades, highlighting the recent steep decline.",
+      "why_now": "Data revealing the sharpest decline in US pharmaceutical prices since 1963 has just surfaced, presenting a major macroeconomic and sector-specific milestone."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+      "headline_ids": [
+        "cc-x-headline-b36ac3f656a602f0e1498c8d"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-b1ab53fdf64f6b2f2b8b"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Specific policy mechanisms or executive orders detailing the 'Economic D-Day' strategy",
+        "Initial reactions from global energy markets and allied nations"
+      ],
+      "rank": 3,
+      "selection_case": "Aggressive moves against Iran's shadow economy have direct implications for global oil supply and geopolitical stability. The story requires analysis of the specific mechanisms the administration plans to use.",
+      "seo_intent": "Trump Economic D-Day Iran sanctions shadow economy oil markets",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+        "ordered_headline_ids": [
+          "cc-x-headline-b36ac3f656a602f0e1498c8d"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Map graphic showing Iranian illicit trade routes or a split image of the White House and Iranian oil infrastructure.",
+      "why_now": "The announcement of 'Economic D-Day' targeting Iran signals a severe escalation in sanctions and economic warfare, likely impacting global energy markets."
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-c47ded7e4ba4d6192156",
+      "headline_ids": [
+        "cc-x-headline-9135f4ee3068b742bf671460"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-571b161b99d464cca945"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official EPA press release or regulatory filing confirming the waiver",
+        "Details on the specific fuel blends and regions affected"
+      ],
+      "rank": 4,
+      "selection_case": "Fuel waivers are rare, market-moving interventions. Reporting on the scope, duration, and geographic target of the waiver provides actionable intelligence for energy traders and policy watchers.",
+      "seo_intent": "EPA emergency fuel waiver gasoline prices domestic supply",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-9135f4ee3068b742bf671460",
+        "ordered_headline_ids": [
+          "cc-x-headline-9135f4ee3068b742bf671460"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Photo of a US oil refinery or a gas station pump with a superimposed downward trend arrow.",
+      "why_now": "The EPA is preparing an emergency fuel waiver to address domestic gasoline supplies, a move that will immediately affect energy commodities and consumer prices."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-9a3816137ee28cb42109",
+      "headline_ids": [
+        "cc-x-headline-0a54f4ba9322134cd185d1d6",
+        "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-94604f6762dd52f7a524"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "List of industry attendees and key administration officials present",
+        "Specific policy proposals, subsidies, or tariffs discussed during the meeting"
+      ],
+      "rank": 5,
+      "selection_case": "This intersects defense, technology, and trade policy. Identifying which industry leaders attended and what regulatory or funding support was promised is highly relevant to aerospace and defense investors.",
+      "seo_intent": "White House Drone Dominance meeting US drone industry policy",
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6",
+        "ordered_headline_ids": [
+          "cc-x-headline-0a54f4ba9322134cd185d1d6",
+          "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6"
+        ],
+        "relationship": "incremental_update"
+      },
+      "visual_strategy": "Image of commercial or military drones in flight, or a photo from the White House meeting if available.",
+      "why_now": "The first White House 'Drone Dominance' meeting indicates a coordinated federal push to secure and expand the domestic drone industry against foreign competition."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-876647dadf3107eabb48",
+      "headline_ids": [
+        "cc-x-headline-23881fe252c888988f9acd15"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-f649512e57f37fc41639"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Direct quotes or policy memos from Bessent regarding the tax breaks",
+        "Data on the current financial scale of the tax breaks in question"
+      ],
+      "rank": 6,
+      "selection_case": "This provides an early look at the incoming Treasury's fiscal and social policy integration. Analyzing the economic footprint of these tax breaks versus the political messaging offers a strong analytical read.",
+      "seo_intent": "Scott Bessent Treasury tax breaks undocumented immigrants fiscal policy",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-23881fe252c888988f9acd15",
+        "ordered_headline_ids": [
+          "cc-x-headline-23881fe252c888988f9acd15"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Photo of Scott Bessent speaking at a podium or a graphic showing US tax revenue flows.",
+      "why_now": "Treasury Secretary nominee Scott Bessent is outlining early fiscal priorities, specifically targeting tax breaks for undocumented immigrants."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-59a7349957a6dceed790",
+      "headline_ids": [
+        "cc-x-headline-8cab97c84986250fa0837e20"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-4e100d9079cdc763b6d8"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Underlying public health data (e.g., CDC provisional overdose death counts)",
+        "Expert analysis on whether the decline correlates with specific enforcement actions versus other factors like naloxone availability"
+      ],
+      "rank": 7,
+      "selection_case": "Public health data is often politicized. A data lens piece that verifies the 22% figure against CDC or independent health data, while examining the timeline of the administration's policies, provides necessary objective context.",
+      "seo_intent": "fentanyl deaths drop 22 percent Trump administration drug policy",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-8cab97c84986250fa0837e20",
+        "ordered_headline_ids": [
+          "cc-x-headline-8cab97c84986250fa0837e20"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Bar chart showing year-over-year fentanyl overdose statistics with policy implementation dates marked.",
+      "why_now": "The administration is claiming a significant 22% drop in fentanyl deaths, tying it to recent policy crackdowns."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-b4bd9f02f2bf1b5e1733",
+      "headline_ids": [
+        "cc-x-headline-12f823f470a1e9d897e700e1"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-19cf113ae7d58eadf613"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Draft legislation, Pentagon memos, or budget requests detailing the Golden Dome",
+        "Comments from major defense contractors regarding capability and bidding"
+      ],
+      "rank": 8,
+      "selection_case": "A nationwide missile defense shield requires massive capital expenditure. Analyzing the feasibility, likely defense contractors involved, and budget implications makes this a strong forward-looking defense sector story.",
+      "seo_intent": "Golden Dome missile defense system Trump policy defense contractors",
+      "story_mode": "scenario_outlook",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-12f823f470a1e9d897e700e1",
+        "ordered_headline_ids": [
+          "cc-x-headline-12f823f470a1e9d897e700e1"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Conceptual rendering of a missile defense intercept or a graphic showing the proposed coverage of the Golden Dome.",
+      "why_now": "The 'Golden Dome' missile defense system is transitioning from campaign rhetoric to actionable defense policy, signaling upcoming defense appropriations."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "4afd73861da8dfb7420e9922acab5bd438accada132c58c5872d1f68fd771da9",
+          "latency_seconds": 47.7328,
+          "logical_invocation_id": "inv_rolling_x_leaf_4f9b1a57e377ae1b3255",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "1e6da190cb977aa79f557f0216222dc37c8f327a7dbbd2641c518e2d4f860862",
+          "prompt_logical_hash": "480ec748bcf98c92d3288474d5c550976c65f43cc1029d3c124bb677f589bd1f",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-ay2KavqTHLXy7OsP1L3smAY",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_4f9b1a57e377ae1b3255",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 12110,
+            "completion_tokens_details": {
+              "reasoning_tokens": 8535
+            },
+            "prompt_tokens": 9643,
+            "total_tokens": 21753
+          },
+          "work_item_id": "rolling-x-leaf-7433f67bcdf785b852ec"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_4f9b1a57e377ae1b3255",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_4f9b1a57e377ae1b3255",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 47.7342,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 12110.0,
+        "prompt_tokens": 9643.0,
+        "total_tokens": 21753.0
+      },
+      "work_item_id": "rolling-x-leaf-7433f67bcdf785b852ec"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "ee42a112a97ec24fedb09f869116c0f20c6997dcfa5b628c900334ca749f5719",
+          "latency_seconds": 38.3096,
+          "logical_invocation_id": "inv_rolling_x_global_e19ded25c56d19e6da6f",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "61fdfdac5200ef56f8e83f0ce89c0f5b4a4345ac3fc2f39cb28bb30e8233137b",
+          "prompt_logical_hash": "a42ca95c12a3219a3614d8af0afa54a546a00896f7dd4324b63f4a0565120d9a",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-mi2KavXrOPWS7OsP3PeNoQw",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 3,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_e19ded25c56d19e6da6f",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 4,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 3,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4892,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2291
+            },
+            "prompt_tokens": 6986,
+            "total_tokens": 11878
+          },
+          "work_item_id": "rolling-x-global-35262b7b4fa11edbecba"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_e19ded25c56d19e6da6f",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 3,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_e19ded25c56d19e6da6f",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 38.3111,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 4892.0,
+        "prompt_tokens": 6986.0,
+        "total_tokens": 11878.0
+      },
+      "work_item_id": "rolling-x-global-35262b7b4fa11edbecba"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "ee42a112a97ec24fedb09f869116c0f20c6997dcfa5b628c900334ca749f5719",
+        "latency_seconds": 38.3096,
+        "logical_invocation_id": "inv_rolling_x_global_e19ded25c56d19e6da6f",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "61fdfdac5200ef56f8e83f0ce89c0f5b4a4345ac3fc2f39cb28bb30e8233137b",
+        "prompt_logical_hash": "a42ca95c12a3219a3614d8af0afa54a546a00896f7dd4324b63f4a0565120d9a",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-mi2KavXrOPWS7OsP3PeNoQw",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 3,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_e19ded25c56d19e6da6f",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 1,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 4,
+          "per_model_max_attempts": [
+            2,
+            2
+          ],
+          "remaining_attempt_budget": 3,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 4892,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2291
+          },
+          "prompt_tokens": 6986,
+          "total_tokens": 11878
+        },
+        "work_item_id": "rolling-x-global-35262b7b4fa11edbecba"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_e19ded25c56d19e6da6f",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": [
+        2,
+        2
+      ],
+      "remaining_attempt_budget": 3,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_e19ded25c56d19e6da6f",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2,
+        "vx/gemini-3.5-flash(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 38.3111,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 4892.0,
+      "prompt_tokens": 6986.0,
+      "total_tokens": 11878.0
+    },
+    "work_item_id": "rolling-x-global-35262b7b4fa11edbecba"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+  "selected_headline_ids": [
+    "cc-x-headline-cd7b7ab257425669e0d2519a"
+  ],
+  "selection_rationale": "The current cycle is dominated by significant US policy shifts and macroeconomic data points. Priority is given to market-sensitive regulatory appointments (FDA), major inflation indicators (historic drop in pharma prices), geopolitical economic actions (Iran sanctions), and domestic energy interventions (EPA fuel waiver). We are discarding localized crime stories and minor administrative updates to maintain a high signal-to-noise ratio focused on capital and policy impacts.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 86.0453,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 17002.0,
+      "prompt_tokens": 16629.0,
+      "total_tokens": 33631.0
+    }
+  }
+}

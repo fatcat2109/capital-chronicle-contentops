@@ -1,0 +1,475 @@
+{
+  "canonical_input_hash": "b1832b6521470a096a3b632d48258ab3b78a73d5dbcdc3027b3146f42eb12aaa",
+  "complete_input_coverage": false,
+  "counts": {
+    "accepted": 12,
+    "accepted_in_full_rolling_intake": 499,
+    "duplicates": 0,
+    "eligible_after_continuity": 488,
+    "rejected": 13444,
+    "source_files": 67,
+    "source_rows": 13943
+  },
+  "cutoff_time_utc": "2026-08-22T22:14:27.784365Z",
+  "headlines": [
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091067162547134474",
+      "external_content": {
+        "author_handle": "ChinaBeigeBook",
+        "follow_up_data_need_candidates": [
+          "official_energy_inventory_or_opec_release",
+          "official_inflation_release"
+        ],
+        "headline_text": "China Keeps Oil Buying in Check as Crude Prices Stay Above $90 https://t.co/g4ZXcN5ogx",
+        "official_source_urls": [
+          "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "energy",
+          "geopolitics",
+          "inflation"
+        ],
+        "url_or_source_ref": "https://x.com/ChinaBeigeBook/status/2091067162547134474"
+      },
+      "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "source_locator": {
+        "line": 368,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T07:37:16Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942310662193230",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [
+          "official_treasury_or_budget_release"
+        ],
+        "headline_text": "Winning: Americans\u2019 Tax Refunds Increased by $43 Billion This Year: https://t.co/BF9KhJOfyS ( TS: Aug 21 2026, 1:08 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200c\u200d\u200b\u200c\u200c\u200d\u200b\u200b\u200b\u200c\u200b\u200b\u200c\u200b\u200d\u200c\u200d\u200b\u200c\u200d\u200b\u200d\u200c https://t.co/F31sUqwmqr",
+        "official_source_urls": [
+          "https://www.breitbart.com/economy/2026/08/16/winning-americans-tax-refunds-increased-by-43-billion-this-year/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "fiscal"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942310662193230"
+      },
+      "headline_id": "cc-x-headline-08300b4396233972ec1e86fb",
+      "source_locator": {
+        "line": 231,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:21:09Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942403813535861",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Trump Touts Stranglehold on Iran: \u2018Praise Be to Allah!\u2019 https://t.co/z1PMH5SylR ( TS: Aug 21 2026, 1:08 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200c\u200d\u200b\u200d\u200d\u200b\u200c\u200b\u200c\u200d\u200c\u200b\u200d\u200d\u200b\u200c\u200b\u200d\u200d\u200b\u200d\u200d\u200c https://t.co/xRvoiaLiBR",
+        "official_source_urls": [
+          "https://www.breitbart.com/politics/2026/08/12/trump-touts-stranglehold-iran-praise-be-allah/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942403813535861"
+      },
+      "headline_id": "cc-x-headline-b7bac9185093d38d48c760ad",
+      "source_locator": {
+        "line": 230,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:21:31Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942500597043551",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Trump: US Has Total Control of Hormuz: https://t.co/okEmwJw2Gc ( TS: Aug 21 2026, 1:09 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200c\u200d\u200c\u200b\u200c\u200d\u200c\u200d\u200c\u200d\u200c\u200d\u200d\u200c\u200d\u200d\u200b\u200c\u200d\u200d\u200c\u200d\u200c https://t.co/efUd0jCKfo",
+        "official_source_urls": [
+          "https://www.newsmax.com/world/globaltalk/trump-hormuz-iran/2026/08/12/id/1265856/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942500597043551"
+      },
+      "headline_id": "cc-x-headline-da1900c30215d7def6d6b019",
+      "source_locator": {
+        "line": 229,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:21:54Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942573808624098",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Trump leaves stage mid-speech to embrace parents of 12-year-old killed by stray bullet in the Bronx: https://t.co/auIMNsuHcT ( TS: Aug 21 2026, 1:09 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200c\u200d\u200c\u200c\u200c\u200b\u200c\u200d\u200b\u200c\u200d\u200b\u200c\u200c\u200c\u200b\u200b\u200d\u200c\u200c\u200b\u200c\u200c https://t.co/mibzFXoBgg",
+        "official_source_urls": [
+          "https://www.foxnews.com/politics/trump-leaves-stage-mid-speech-embrace-parents-12-year-old-killed-stray-bullet-bronx"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942573808624098"
+      },
+      "headline_id": "cc-x-headline-7471b5ca532592cb58d66b3f",
+      "source_locator": {
+        "line": 228,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:22:12Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942654679072870",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Trump Rallies For Blakeman, Celebrates Law Enforcement During LI Visit: 'Golden Age Of America Is Upon Us': https://t.co/ecxyj7SqtQ ( TS: Aug 21 2026, 1:14 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200d\u200c\u200c\u200b\u200d\u200d\u200c\u200c\u200d\u200b\u200c\u200c\u200c\u200b\u200d\u200d\u200b\u200d\u200b\u200b\u200c\u200c\u200d https://t.co/uRYcD8ohgC",
+        "official_source_urls": [
+          "https://patch.com/new-york/longisland/trump-rallies-blakeman-during-long-island-visit"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942654679072870"
+      },
+      "headline_id": "cc-x-headline-f8f9d90729cad1a7aa97350f",
+      "source_locator": {
+        "line": 227,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:22:31Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942789274186163",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Trump says he\u2019ll declare Strait of Hormuz a US territory after defeating Iran, during Long Island rally: https://t.co/dofqyPobEf ( TS: Aug 21 2026, 1:14 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200d\u200c\u200c\u200c\u200c\u200d\u200c\u200c\u200b\u200d\u200d\u200c\u200b\u200d\u200b\u200d\u200b\u200c\u200c\u200b\u200d\u200d\u200c https://t.co/dwLBau6prg",
+        "official_source_urls": [
+          "https://nypost.com/2026/08/14/us-news/trump-says-hell-declare-strait-of-hormuz-a-us-territory-after-defeating-iran/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942789274186163"
+      },
+      "headline_id": "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+      "source_locator": {
+        "line": 226,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:23:03Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942892475027901",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Trump touts largest one-year drop in violent crime in U.S. history: https://t.co/KFQhsnE0xf ( TS: Aug 21 2026, 1:17 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200d\u200d\u200c\u200b\u200d\u200b\u200c\u200c\u200b\u200d\u200d\u200b\u200b\u200d\u200d\u200c\u200d\u200c\u200c\u200c\u200c\u200c https://t.co/ksl6OzOwlb",
+        "official_source_urls": [
+          "https://www.washingtontimes.com/news/2026/aug/14/trump-touts-largest-one-year-drop-violent-crime-us-history/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942892475027901"
+      },
+      "headline_id": "cc-x-headline-b4a208a227bdd197071d6b6c",
+      "source_locator": {
+        "line": 225,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:23:28Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942947936383376",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [
+          "official_labor_release"
+        ],
+        "headline_text": "Trump claims \u2018total control\u2019 of Strait of Hormuz as war drags on: https://t.co/wxLTucJlnw ( TS: Aug 21 2026, 1:17 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200d\u200d\u200c\u200d\u200c\u200b\u200c\u200c\u200b\u200d\u200c\u200c\u200b\u200c\u200d\u200d\u200d\u200d\u200b\u200b\u200c https://t.co/voobNqB2UL",
+        "official_source_urls": [
+          "https://www.washingtonexaminer.com/policy/defense/4684362/trump-total-control-strait-of-hormuz-war-iran/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics",
+          "labor"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942947936383376"
+      },
+      "headline_id": "cc-x-headline-a6ef121e915c979fd95894bb",
+      "source_locator": {
+        "line": 224,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:23:41Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090943007323467992",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Scott Bessent: Trump Fixed Biden's 'Mess' \u2014 Economy Is Rising: https://t.co/2ngyppQWCs ( TS: Aug 21 2026, 1:17 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200d\u200d\u200d\u200b\u200b\u200c\u200b\u200c\u200b\u200b\u200d\u200b\u200c\u200b\u200c\u200c\u200d\u200b\u200d\u200b\u200c\u200c\u200c https://t.co/fLuQzfB7d4",
+        "official_source_urls": [
+          "https://www.newsmax.com/newsmax-tv/scott-bessent-donald-trump-biden-administration/2026/08/14/id/1266109/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090943007323467992"
+      },
+      "headline_id": "cc-x-headline-6cdafa75710aa0d0fde00e39",
+      "source_locator": {
+        "line": 223,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:23:55Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090943183178064206",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Hamilton, Jefferson and Trump: Historians see a founding-era playbook still at work: https://t.co/RoktXSCwVy ( TS: Aug 21 2026, 1:18 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200d\u200d\u200d\u200d\u200b\u200c\u200c\u200c\u200c\u200b\u200b\u200d\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200d\u200d\u200d https://t.co/fjr0ppVjG3",
+        "official_source_urls": [
+          "https://www.washingtontimes.com/news/2026/jul/1/hamilton-jefferson-trump-historians-see-founding-era-playbook-still/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090943183178064206"
+      },
+      "headline_id": "cc-x-headline-f12057c926c3345a6cd1a7dd",
+      "source_locator": {
+        "line": 221,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:24:37Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090943361842905144",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Department of Education to No Longer Require School Discipline Policies That Discriminate on the Basis of Race: https://t.co/YCaEbFHIPr ( TS: Aug 21 2026, 1:19 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200c\u200b\u200b\u200b\u200b\u200d\u200d\u200c\u200d\u200b\u200b\u200d\u200d\u200b\u200b\u200b\u200d\u200c\u200d\u200d\u200c https://t.co/Ff0z8FXWg6",
+        "official_source_urls": [
+          "https://www.dailysignal.com/2026/08/18/department-education-no-longer-require-school-discipline-policies-that-discriminate-basis-race/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090943361842905144"
+      },
+      "headline_id": "cc-x-headline-24ced7e8122ae9b0eef0ac22",
+      "source_locator": {
+        "line": 219,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:25:19Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    }
+  ],
+  "prepared_candidate_subset": true,
+  "rejection_counts": {
+    "source_timestamp_before_window": 13444
+  },
+  "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_files": [
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2020_02_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_21.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_10_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2024_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_01_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_02_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_04_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_03_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_01.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_03.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_21.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_23.jsonl"
+  ],
+  "unique_headline_ids": [
+    "cc-x-headline-b25c625dac499ab753cfa0a4",
+    "cc-x-headline-08300b4396233972ec1e86fb",
+    "cc-x-headline-b7bac9185093d38d48c760ad",
+    "cc-x-headline-da1900c30215d7def6d6b019",
+    "cc-x-headline-7471b5ca532592cb58d66b3f",
+    "cc-x-headline-f8f9d90729cad1a7aa97350f",
+    "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+    "cc-x-headline-b4a208a227bdd197071d6b6c",
+    "cc-x-headline-a6ef121e915c979fd95894bb",
+    "cc-x-headline-6cdafa75710aa0d0fde00e39",
+    "cc-x-headline-f12057c926c3345a6cd1a7dd",
+    "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+  ],
+  "window_hours": 24.0,
+  "window_start_utc": "2026-08-21T22:14:27.784365Z"
+}

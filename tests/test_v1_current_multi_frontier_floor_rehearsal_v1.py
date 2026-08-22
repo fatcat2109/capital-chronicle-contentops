@@ -5,6 +5,7 @@ import pytest
 
 from scripts.run_v1_current_multi_frontier_floor_rehearsal import (
     _sha,
+    _summary,
     _semantic_resume_checkpoints_from_probe,
     _validated_probe_viability_checkpoint,
 )
@@ -129,3 +130,30 @@ def test_worker_completion_reuses_only_the_exact_hash_bound_probe_viability() ->
     tampered = {**viability, "selected_cluster_id": "different-cluster"}
     with pytest.raises(ValueError, match="probe_viability_checkpoint_invalid"):
         _validated_probe_viability_checkpoint(tampered)
+
+
+def test_summary_counts_only_current_input_members_when_durable_memory_is_seeded() -> None:
+    state = {
+        "full_current_headline_count": 3,
+        "current_headline_ids": ["current-1", "current-2", "current-3"],
+        "evaluated_headline_ids": ["historical-1", "historical-2", "current-1"],
+        "qualified_article_records": [],
+        "mvp_canary_artifact_records": [],
+        "frontiers": [
+            {
+                "attempted_headline_ids": ["current-1"],
+                "attempted_distinct_candidate_count": 1,
+                "exact_headline_identity_coverage": True,
+            }
+        ],
+        "pending_frontier": None,
+    }
+
+    summary = _summary(state)
+
+    assert summary["classification"] == "IN_PROGRESS"
+    assert summary["bounded_useful_universe_exhausted"] is False
+    assert summary["remaining_held_identity_count"] == 2
+    assert summary["attempted_headline_identity_count"] == 1
+    assert summary["distinct_candidate_count"] == 1
+    assert summary["no_repeat_proof"] is True

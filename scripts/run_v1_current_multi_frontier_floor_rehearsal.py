@@ -25,6 +25,13 @@ from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
 from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_PUBLICATION_DESTINATIONS,
 )
+from live_contentops.codex_desktop_newsroom_operator_v1 import (
+    CANONICAL_PRODUCTION_OUTPUT_ROOT,
+    CANONICAL_PRODUCTION_STORE_PATH,
+    load_terminal_editorial_continuity,
+)
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     DEFAULT_X_SIDECAR_GLOB,
     _logical_hash,
@@ -33,7 +40,9 @@ from live_contentops.newsroom_assignment_scheduler_v1 import (
     load_rolling_x_headline_sidecars,
 )
 from live_contentops.newsroom_production_day_v1 import (
+    build_production_day_snapshot,
     newsroom_production_day_id,
+    persist_production_day_snapshot,
     persist_qualified_article_record,
     qualify_zero_write_article,
 )
@@ -44,6 +53,7 @@ from live_contentops.mvp_canary_acceptance_v1 import (
     MVP_CANARY_ACCEPTANCE_PROFILE,
     is_mvp_canary_profile,
 )
+from live_contentops.published_corpus_read_model_v1 import load_published_corpus
 
 SCHEMA = "contentops.v1_distinct_story_frontier_floor_rehearsal.v1"
 TASK = "TASK_V1_PREPARED_FRONTIER_PUBLISHABILITY_POOL_REUSE_4_32_AND_ONE_CANARY_V1"
@@ -73,6 +83,59 @@ def _sha(value: Any) -> str:
             value, ensure_ascii=True, separators=(",", ":"), sort_keys=True, default=str
         ).encode("utf-8")
     ).hexdigest()
+
+
+def _current_durable_state() -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Read the canonical continuity and published corpus without mutating either."""
+    continuity = load_terminal_editorial_continuity(
+        store_path=CANONICAL_PRODUCTION_STORE_PATH,
+        output_root=CANONICAL_PRODUCTION_OUTPUT_ROOT,
+    )
+    store = ContentOpsDurableStore(CANONICAL_PRODUCTION_STORE_PATH, auto_migrate=False)
+    corpus = load_published_corpus(store, output_root=CANONICAL_PRODUCTION_OUTPUT_ROOT)
+    articles = [article.to_dict() for article in corpus.get("articles") or []]
+    snapshot = {
+        "schema_version": "contentops.v1_current_durable_proof_input.v1",
+        "store_path": str(CANONICAL_PRODUCTION_STORE_PATH),
+        "output_root": str(CANONICAL_PRODUCTION_OUTPUT_ROOT),
+        "store_open_mode": "SQLITE_URI_MODE_RO_QUERY_ONLY",
+        "database_writes_performed": False,
+        "filesystem_writes_performed": False,
+        "continuity_state": continuity.get("state"),
+        "continuity_logical_hash": continuity.get("continuity_logical_hash"),
+        "terminal_window_id": continuity.get("terminal_window_id"),
+        "last_terminal_cutoff_utc": continuity.get("last_terminal_cutoff_utc"),
+        "evaluated_headline_ids": list(continuity.get("evaluated_headline_ids") or []),
+        "evaluated_headline_count": int(continuity.get("evaluated_headline_count") or 0),
+        "confirmed_canonical_count": int(corpus.get("article_count") or 0),
+        "published_articles": articles,
+        "italy_canary_matches": [
+            {
+                "story_identity": article.get("story_identity"),
+                "article_identity": article.get("article_identity"),
+                "title": article.get("title"),
+                "published_at_utc": article.get("published_at_utc"),
+                "content_status": article.get("content_status"),
+                "source_work_item_id": article.get("source_work_item_id"),
+            }
+            for article in articles
+            if "apkws ii sale to italy" in str(article.get("title") or "").casefold()
+        ],
+    }
+    snapshot["snapshot_sha256"] = _sha(snapshot)
+    return snapshot, articles
+
+
+def _published_corpus_from_state(state: Mapping[str, Any]) -> list[PublishedArticleRef]:
+    records = []
+    for value in state.get("published_corpus") or []:
+        row = dict(value)
+        row["entities"] = tuple(row.get("entities") or ())
+        row["derivative_public_objects"] = tuple(
+            dict(item) for item in row.get("derivative_public_objects") or []
+        )
+        records.append(PublishedArticleRef(**row))
+    return records
 
 
 def _ready() -> dict[str, Any]:
@@ -139,6 +202,7 @@ def _new_state(
     cycle_artifact_path: Path | None = None,
     task_label: str = TASK,
     acceptance_profile: str | None = None,
+    current_durable_state: bool = False,
 ) -> dict[str, Any]:
     now = datetime.now(timezone.utc)
     rolling = (
@@ -155,6 +219,20 @@ def _new_state(
     )
     rolling_path = root / "frozen_current_rolling_input_v1.json"
     _write(rolling_path, rolling)
+    current_headline_ids = sorted(
+        {
+            str(row.get("headline_id") or row.get("id"))
+            for row in rolling.get("headlines") or []
+            if isinstance(row, Mapping) and (row.get("headline_id") or row.get("id"))
+        }
+    )
+    durable_snapshot: dict[str, Any] = {}
+    published_corpus: list[dict[str, Any]] = []
+    evaluated_headline_ids: list[str] = []
+    if current_durable_state:
+        durable_snapshot, published_corpus = _current_durable_state()
+        evaluated_headline_ids = list(durable_snapshot["evaluated_headline_ids"])
+        _write(root / "current_durable_state_readonly_v1.json", durable_snapshot)
     state = {
         "schema_version": SCHEMA,
         "task_label": task_label,
@@ -179,8 +257,17 @@ def _new_state(
         ),
         "rolling_input_path": str(rolling_path),
         "rolling_input_sha256": _sha(rolling),
-        "full_current_headline_count": int((rolling.get("counts") or {}).get("accepted") or 0),
-        "evaluated_headline_ids": [],
+        "full_current_headline_count": len(current_headline_ids),
+        "current_headline_ids": current_headline_ids,
+        "evaluated_headline_ids": evaluated_headline_ids,
+        "initial_evaluated_headline_count": len(evaluated_headline_ids),
+        "current_durable_state_bound": current_durable_state,
+        "current_durable_state_snapshot": durable_snapshot,
+        "published_corpus": published_corpus,
+        "published_canonical_article_count": len(published_corpus),
+        "italy_canary_published_memory_count": len(
+            durable_snapshot.get("italy_canary_matches") or []
+        ),
         "qualified_article_records": [],
         "mvp_canary_artifact_records": [],
         "frontiers": [],
@@ -207,6 +294,7 @@ def _state(
     cycle_artifact_path: Path | None = None,
     task_label: str = TASK,
     acceptance_profile: str | None = None,
+    current_durable_state: bool = False,
 ) -> dict[str, Any]:
     path = _state_path(root)
     return (
@@ -220,6 +308,7 @@ def _state(
             cycle_artifact_path,
             task_label,
             acceptance_profile,
+            current_durable_state,
         )
     )
 
@@ -494,13 +583,111 @@ def _frontier_row(
     }
 
 
-def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
+def _persist_candidate_blocker_ledger(
+    root: Path, frontiers: list[Mapping[str, Any]]
+) -> tuple[Path, dict[str, Any]]:
+    """Project the exact terminal candidate walk into one compact audit ledger."""
+    frontier_records: list[dict[str, Any]] = []
+    candidate_count = 0
+    for frontier in frontiers:
+        evidence_path = Path(str(frontier.get("cycle_evidence_path") or ""))
+        cycle = _load(evidence_path) if evidence_path.is_file() else {}
+        walk = dict(cycle.get("candidate_walk") or {})
+        viability_by_rank = {
+            int(row.get("rank") or 0): row
+            for row in (cycle.get("ranked_viability") or {}).get("rank_attempts")
+            or []
+            if isinstance(row, Mapping)
+        }
+        candidates = []
+        for attempt in walk.get("candidate_attempts") or []:
+            if not isinstance(attempt, Mapping):
+                continue
+            viability_row = viability_by_rank.get(int(attempt.get("rank") or 0), {})
+            row = {
+                "rank": attempt.get("rank"),
+                "cluster_id": attempt.get("cluster_id"),
+                "headline_ids": list(
+                    attempt.get("headline_ids")
+                    or viability_row.get("headline_ids")
+                    or []
+                ),
+                "candidate_title": attempt.get("article_title")
+                or attempt.get("candidate_title"),
+                "effective_article_mode": attempt.get("effective_article_mode"),
+                "evidence_result": attempt.get("evidence_result"),
+                "evidence_blockers": list(attempt.get("evidence_blockers") or []),
+                "writer_invocation_result": attempt.get("writer_invocation_result"),
+                "writer_blockers": list(attempt.get("writer_blockers") or []),
+                "deterministic_validation_blockers": list(
+                    attempt.get("deterministic_validation_blockers") or []
+                ),
+                "reader_value_blockers": list(
+                    attempt.get("reader_value_blockers") or []
+                ),
+                "terminal_reason": attempt.get("terminal_reason"),
+            }
+            candidates.append(row)
+            candidate_count += 1
+        frontier_records.append(
+            {
+                "frontier": frontier.get("frontier"),
+                "cycle_evidence_path": str(evidence_path),
+                "result_classification": frontier.get("result_classification"),
+                "exact_next_blocker": frontier.get("exact_next_blocker"),
+                "candidate_count": len(candidates),
+                "candidates": candidates,
+            }
+        )
+    ledger = {
+        "schema_version": "contentops.v1_4_32_candidate_blocker_ledger.v1",
+        "frontier_count": len(frontier_records),
+        "candidate_count": candidate_count,
+        "frontiers": frontier_records,
+        "public_write_authority": False,
+    }
+    ledger["ledger_sha256"] = _sha(ledger)
+    path = root / "candidate_blocker_ledger_v1.json"
+    _write(path, ledger)
+    return path, ledger
+
+
+def _summary(state: Mapping[str, Any], root: Path | None = None) -> dict[str, Any]:
     evaluated = set(str(value) for value in state.get("evaluated_headline_ids") or [])
-    full = int(state.get("full_current_headline_count") or 0)
+    current_headline_ids = {
+        str(value) for value in state.get("current_headline_ids") or [] if str(value)
+    }
+    if not current_headline_ids and root is not None:
+        rolling_path = root / "frozen_current_rolling_input_v1.json"
+        if rolling_path.exists():
+            rolling = _load(rolling_path)
+            current_headline_ids = {
+                str(row.get("headline_id") or row.get("id"))
+                for row in rolling.get("headlines") or []
+                if isinstance(row, Mapping)
+                and (row.get("headline_id") or row.get("id"))
+            }
+    full = len(current_headline_ids) or int(
+        state.get("full_current_headline_count") or 0
+    )
     qualified = list(state.get("qualified_article_records") or [])
     canary_records = list(state.get("mvp_canary_artifact_records") or [])
     frontiers = list(state.get("frontiers") or [])
     completed = len(frontiers)
+    remaining_held = (
+        len(current_headline_ids.difference(evaluated))
+        if current_headline_ids
+        else max(0, full - len(evaluated))
+    )
+    attempted_headline_ids = [
+        str(value)
+        for row in frontiers
+        for value in row.get("attempted_headline_ids") or []
+        if str(value)
+    ]
+    bounded_useful_universe_exhausted = bool(
+        completed and remaining_held == 0 and not state.get("pending_frontier")
+    )
     if is_mvp_canary_profile(state.get("acceptance_profile")):
         classification = (
             "MVP_CANARY_ARTIFACTS_READY_JIT_PENDING"
@@ -514,14 +701,19 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
             "FLOOR_MET"
             if len(qualified) >= MAX_QUALIFIED
             else "DEGRADED_DAILY_OUTPUT_DEFICIT"
-            if completed >= MAX_FRONTIERS and not state.get("pending_frontier")
+            if (
+                completed >= MAX_FRONTIERS
+                or bounded_useful_universe_exhausted
+            ) and not state.get("pending_frontier")
             else "IN_PROGRESS"
         )
-    return {
+    summary = {
         **dict(state),
         "schema_version": SCHEMA,
         "task_label": state.get("task_label") or TASK,
         "classification": classification,
+        "current_headline_ids": sorted(current_headline_ids),
+        "full_current_headline_count": full,
         "frontier_count": completed,
         "prepared_headline_identity_slot_count": sum(
             int(row.get("prepared_headline_identity_count") or 0)
@@ -551,9 +743,12 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
             int(row.get("attempted_distinct_candidate_count") or 0)
             for row in frontiers
         ),
-        "attempted_headline_identity_count": len(evaluated),
-        "distinct_candidate_count": len(evaluated),
-        "remaining_held_identity_count": max(0, full - len(evaluated)),
+        "attempted_headline_identity_count": len(set(attempted_headline_ids)),
+        "distinct_candidate_count": len(current_headline_ids.intersection(evaluated))
+        if current_headline_ids
+        else len(evaluated),
+        "remaining_held_identity_count": remaining_held,
+        "bounded_useful_universe_exhausted": bounded_useful_universe_exhausted,
         "qualified_count": len(qualified),
         "qualified_derivative_intent_count": len(qualified) * 8,
         "mvp_canary_artifact_count": len(canary_records),
@@ -565,8 +760,8 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "build_floor_satisfied": len(qualified) >= MAX_QUALIFIED,
         "remaining_build_deficit": max(0, MAX_QUALIFIED - len(qualified)),
-        "no_repeat_proof": len(evaluated)
-        == sum(len(row.get("attempted_headline_ids") or []) for row in frontiers),
+        "no_repeat_proof": bool(frontiers)
+        and len(attempted_headline_ids) == len(set(attempted_headline_ids)),
         "exact_headline_identity_coverage_all_frontiers": bool(frontiers)
         and all(row.get("exact_headline_identity_coverage") is True for row in frontiers),
         "public_request_total": sum(
@@ -602,6 +797,29 @@ def _summary(state: Mapping[str, Any]) -> dict[str, Any]:
             "fifth_automation_created": int(state.get("fifth_automation_created_count") or 0),
         },
     }
+    # Do not carry a previously emitted terminal snapshot across a corrected or resumed
+    # in-progress state. A fresh canonical production-day record is emitted only at a real
+    # terminal boundary below.
+    summary.pop("canonical_production_day_record_path", None)
+    summary.pop("canonical_production_day", None)
+    if root is not None and classification in {
+        "FLOOR_MET",
+        "DEGRADED_DAILY_OUTPUT_DEFICIT",
+    }:
+        ledger_path, ledger = _persist_candidate_blocker_ledger(root, frontiers)
+        summary["candidate_blocker_ledger_path"] = str(ledger_path)
+        summary["candidate_blocker_ledger_sha256"] = ledger["ledger_sha256"]
+        production_day = build_production_day_snapshot(
+            reference=str(state.get("created_at_utc") or state.get("cutoff_utc")),
+            output_root=root,
+            published_corpus=(),
+            routine_opportunities_used_override=min(MAX_FRONTIERS, completed),
+            bounded_useful_universe_exhausted=bounded_useful_universe_exhausted,
+        )
+        production_day_path = persist_production_day_snapshot(root, production_day)
+        summary["canonical_production_day_record_path"] = str(production_day_path)
+        summary["canonical_production_day"] = production_day.to_dict()
+    return summary
 
 
 def probe(
@@ -612,6 +830,7 @@ def probe(
     cycle_artifact_path: Path | None = None,
     task_label: str = TASK,
     acceptance_profile: str | None = None,
+    current_durable_state: bool = False,
 ) -> dict[str, Any]:
     state = _state(
         root,
@@ -621,6 +840,7 @@ def probe(
         cycle_artifact_path,
         task_label,
         acceptance_profile,
+        current_durable_state,
     )
     if state.get("pending_frontier"):
         raise ValueError("pending_frontier_must_be_completed_first")
@@ -658,6 +878,7 @@ def probe(
         operating_mode="KILL_SWITCH",
         destination_readiness_override=_ready(),
         acceptance_profile=state.get("acceptance_profile"),
+        published_corpus=_published_corpus_from_state(state),
     )
     route = dict(result.get("editorial_worker_routing") or {})
     row = _frontier_row(number=number, prepared=prepared, result=result, path=probe_dir)
@@ -686,7 +907,7 @@ def probe(
     )
     state["frontiers"] = [*list(state.get("frontiers") or []), row]
     state["pending_frontier"] = None
-    state = _summary(state)
+    state = _summary(state, root)
     _write(_state_path(root), state)
     _write(root / "multi_frontier_floor_rehearsal_summary_v1.json", state)
     return {"status": "FRONTIER_COMPLETE_NO_XHIGH", **row, "summary": state}
@@ -823,6 +1044,7 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
         operating_mode="KILL_SWITCH",
         destination_readiness_override=_ready(),
         acceptance_profile=state.get("acceptance_profile"),
+        published_corpus=_published_corpus_from_state(state),
     )
     if not builder_invoked:
         raise ValueError("bound_editorial_worker_return_not_reached_by_reused_probe_selection")
@@ -949,7 +1171,7 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
     )
     state["frontiers"] = [*list(state.get("frontiers") or []), row]
     state["pending_frontier"] = None
-    state = _summary(state)
+    state = _summary(state, root)
     _write(_state_path(root), state)
     _write(root / "multi_frontier_floor_rehearsal_summary_v1.json", state)
     return {"status": "FRONTIER_COMPLETE", "frontier": row, "summary": state}
@@ -970,7 +1192,7 @@ def repair_empty_last_frontier(root: Path) -> dict[str, Any]:
     ):
         raise ValueError("last_frontier_not_repairable_empty_harness_result")
     state["frontiers"] = rows[:-1]
-    state = _summary(state)
+    state = _summary(state, root)
     _write(_state_path(root), state)
     _write(root / "multi_frontier_floor_rehearsal_summary_v1.json", state)
     return {"status": "EMPTY_HARNESS_FRONTIER_REMOVED", "removed": last, "summary": state}
@@ -994,6 +1216,11 @@ def main() -> int:
     parser.add_argument("--task-label", default=TASK)
     parser.add_argument("--acceptance-profile")
     parser.add_argument("--continuity-root", type=Path)
+    parser.add_argument(
+        "--current-durable-state",
+        action="store_true",
+        help="Bind read-only production continuity and reconciled canonical published memory.",
+    )
     args = parser.parse_args()
     if sum(bool(value) for value in (
         args.rolling_input, args.parent_cycle_root, args.cycle_artifact
@@ -1009,6 +1236,7 @@ def main() -> int:
             args.cycle_artifact.resolve(strict=True) if args.cycle_artifact else None,
             args.task_label,
             args.acceptance_profile,
+            args.current_durable_state,
         )
     elif args.action == "probe-locator-recovery":
         if args.continuity_root is None:
@@ -1028,7 +1256,7 @@ def main() -> int:
     elif args.action == "repair-empty-last":
         result = repair_empty_last_frontier(root)
     else:
-        result = _summary(_load(_state_path(root)))
+        result = _summary(_load(_state_path(root)), root)
         _write(_state_path(root), result)
         _write(root / "multi_frontier_floor_rehearsal_summary_v1.json", result)
     print(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=True))
