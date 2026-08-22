@@ -159,6 +159,11 @@ def _has_explicit_branded_house_inference(value: Any) -> bool:
     return bool(_BRANDED_HOUSE_INFERENCE_RE.search(str(value or "")))
 
 
+def _is_markdown_heading_only(value: Any) -> bool:
+    """Return true for a standalone Markdown heading, which is not a prose paragraph."""
+    return bool(re.fullmatch(r"#{1,6}\s+\S(?:.*\S)?", str(value or "").strip()))
+
+
 def _reserved_house_inference_texts(article: Mapping[str, Any], body: str) -> list[str]:
     """Return only copy explicitly presented as Capital Chronicle house analysis."""
     return list(dict.fromkeys(
@@ -1651,6 +1656,8 @@ def grounded_article_source_coverage(
     }
     paragraph_rows: list[dict[str, Any]] = []
     for index, raw in enumerate(re.split(r"\n\s*\n", body)):
+        if _is_markdown_heading_only(raw):
+            continue
         paragraph = re.sub(r"\[[^\]]+\]\([^\)]+\)", " ", raw)
         paragraph = re.sub(r"\[\[(?:SOURCE|VISUAL):[^\]]+\]\]", " ", paragraph)
         paragraph = re.sub(r"^#{1,6}\s+", "", paragraph.strip())
@@ -1941,6 +1948,8 @@ def _writer_response_source_coverage_blockers(
         if token.casefold() not in _AUDIT_STOPWORDS
     }
     for index, raw in enumerate(re.split(r"\n\s*\n", body)):
+        if _is_markdown_heading_only(raw):
+            continue
         paragraph = re.sub(r"\[\[(?:SOURCE|VISUAL):[^\]]+\]\]", " ", raw)
         paragraph = re.sub(r"^#{1,6}\s+", "", paragraph.strip())
         tokens = {

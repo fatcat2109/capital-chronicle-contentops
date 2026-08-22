@@ -284,6 +284,29 @@ def persist_supported_automation_host_observation(
         "task_count": 4,
         "all_exact_ids_present": True,
         "no_fifth_task_created": True,
+        "all_paused": all(str(row.get("status") or "").upper() == "PAUSED" for row in safe_tasks),
+        "all_model_match": all(
+            str(row.get("model") or "") == COORDINATOR_MODEL for row in safe_tasks
+        ),
+        "all_reasoning_effort_match": all(
+            str(row.get("reasoning_effort") or "").upper()
+            == COORDINATOR_REASONING_EFFORT
+            for row in safe_tasks
+        ),
+        "all_prompt_match_configured_intent": all(
+            str(row.get("prompt_sha256") or "")
+            == hashlib.sha256(expected["prompt"].encode("utf-8")).hexdigest()
+            for row in safe_tasks
+        ),
+        "supported_automation_operations_observed": [
+            "CREATE", "DELETE", "UPDATE", "VIEW"
+        ],
+        "supported_run_now_operation_observed": False,
+        "automation_configuration_mutated": False,
+        "automation_enabled": False,
+        "secrets_cookies_tokens_or_session_material_read": False,
+        "public_write_performed": False,
+        "unknown_write_count": 0,
         "tasks": sorted(safe_tasks, key=lambda row: str(row["id"])),
     }
     payload["observation_sha256"] = _logical_hash(payload)

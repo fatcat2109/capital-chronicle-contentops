@@ -1,0 +1,52 @@
+{
+  "schema_version": "contentops.desktop_primary_hybrid_validation_receipt.v1",
+  "task": "TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1",
+  "classification": "PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY",
+  "fetched_origin_master": "2d39880fda3504201add67b15a0801847cc496b1",
+  "exact_sdk_donor_base": "aa8693d2faeda89bf1fc6105aca0c04b15ac14e0",
+  "canary": {
+    "classification": "PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY",
+    "current_nine_surface_jit": "READY",
+    "derivative_package_count": 8,
+    "publication_plan_destination_count": 9,
+    "public_write_count": 0,
+    "provider_publication_write_count": 0,
+    "unknown_write_count": 0
+  },
+  "validation": {
+    "python_compile": "PASS",
+    "focused_task_regression": {
+      "status": "PASS",
+      "passed": 354,
+      "failed": 0,
+      "duration_seconds": 110.63
+    },
+    "codegraph_contract_tests": {
+      "status": "PASS",
+      "passed": 17,
+      "failed": 0,
+      "duration_seconds": 24.97
+    },
+    "codegraph": {
+      "generation_status": "GENERATED",
+      "check_status": "CODEGRAPH_CURRENT",
+      "nodes": 7242,
+      "edges": 13687,
+      "entrypoints": 16
+    },
+    "git_diff_check": "PASS"
+  },
+  "unrelated_preexisting_regression_observation": {
+    "status": "NOT_TOUCHED_NOT_REPAIRED",
+    "test": "tests/test_decision_time_freshness_and_current_operator_readiness_v1.py::test_committed_decision_time_evidence_logical_and_byte_hashes_validate",
+    "reason": "Historical final_manifest.json records the CRLF byte hash while the committed artifact is LF-normalized; git reports the artifact untouched.",
+    "manifest_expected_crlf_sha256": "994ebd0063cc5ad8dcf3a4bf61777e2f3191c8a86b08795a50a3d5726d2c1bda",
+    "committed_and_worktree_lf_sha256": "df400013ccf7f6e64f1da99021dcee76ae4b288c3decb0eca92259c2f522c814"
+  },
+  "automation_configuration_mutated": false,
+  "automation_enabled": false,
+  "fifth_task_created": false,
+  "four_thirty_two_campaign_started": false,
+  "public_write_performed": false,
+  "publication_authority": false
+}

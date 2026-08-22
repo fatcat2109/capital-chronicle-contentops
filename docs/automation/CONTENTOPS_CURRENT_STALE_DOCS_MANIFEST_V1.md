@@ -27,7 +27,7 @@ Any file containing these current-looking claims is stale for routing unless exp
 - candidate-level `NO_PUBLICATION` implies whole-day healthy success while the build floor is unmet;
 - exactly four Codex tasks already exist based only on repo setup/config;
 - the four Codex tasks are `PAUSED`, `READY`, or `ENABLED` without actual host inventory evidence;
-- FDA-G directly launches native Codex Desktop;
+- FDA-G directly launches native Codex Desktop without the supported Automation/runtime boundary;
 - material-event metadata directly wakes Codex;
 - P0-G3 remains the current next task;
 - the original daily-output/Codex Automation bridge remains the current next task;
@@ -46,18 +46,18 @@ Any file containing these current-looking claims is stale for routing unless exp
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
 - Later windows may recover earlier deficit through bounded additional candidate/article work.
 - No fifth routine task merely to satisfy the floor.
-- Hash-bound accepted host observation proves that exactly four native V1 Automations were
-  `PAUSED` at that observation epoch; later zero-write tasks prove only that they issued no task
-  mutation. Current existence/configuration/state claims are `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`.
+- Current hash-bound supported host observation proves exactly four native V1 Automations, all
+  `PAUSED`, on `gpt-5.6-sol / HIGH` at the four Bangkok windows. No mutation, enablement, or fifth
+  task occurred. Prompt normalization is still required before owner-gated enablement.
 - FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
-- Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` as the V1 runtime invocation path;
-  their prior host observations remain historical evidence only.
-- The proven heavy-editorial invocation path is the official ChatGPT-authenticated Codex App
-  Server/SDK provider behind the canonical V1 article-builder seam.
+- Desktop standalone fresh-run Automations are the primary routine editorial brain; current
+  calendar-time execution proof remains required because the supported surface exposed no run-now.
+- The proven official ChatGPT-authenticated Codex App Server/SDK provider remains the bounded
+  missed/failed-primary fallback, immediate direct path, and benchmark path.
 - The exact one-candidate MVP zero-write slice is complete with
-  `PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`. The current next action
-  is Jim/ChatGPT audit of that exact Italy article and nine-surface plan. No second article or
-  public write is authorized.
+  `PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`. The current next action is
+  Jim/ChatGPT audit of that exact Desktop Italy article and nine-surface plan. No task enablement,
+  second article, public write, or 4/32 start is authorized.
 
 ## 4. Historical/non-routing families
 

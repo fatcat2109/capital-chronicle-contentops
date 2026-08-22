@@ -1,27 +1,27 @@
-# Official Codex Provider V1 Newsroom Operator
+# Desktop-Primary Hybrid Codex V1 Newsroom Operator
 
 Authority date: 2026-08-22
 Status: `CURRENT_V1_CODEX_EXECUTION_CONTRACT`
 
-## 1. Proven invocation boundary
+## 1. Proven hybrid invocation boundary
 
-The official ChatGPT-authenticated Codex App Server/SDK provider is the proven V1 heavy-editorial
-invocation path behind the canonical article-builder seam.
+Desktop standalone fresh-run Automations are the primary routine V1 heavy-editorial brain behind
+the canonical article-builder seam. The accepted same-Italy proof established:
 
-The accepted vertical proof established:
+- one fresh standalone `gpt-5.6-sol / HIGH` Desktop coordinator;
+- exactly one fresh isolated `gpt-5.6-sol / XHIGH` final writer;
+- one bounded same-worker revision;
+- exact governed-input and native-worker receipt binding;
+- deterministic source, factual/numeric, institutional, SEO, usefulness, packaging, and readiness
+  validation after return;
+- zero publication authority, zero public/provider writes, and `UNKNOWN_WRITE=0`.
 
-- transport `OFFICIAL_CODEX_APP_SERVER_STDIO`;
-- authentication `CHATGPT`, with zero API-key fallback calls;
-- one fresh isolated `gpt-5.6-sol / XHIGH` thread;
-- at most one bounded repair on that same thread;
-- deterministic local validation after every return;
-- zero provider publication authority and zero public writes.
+The official ChatGPT-authenticated Codex App Server/SDK path remains proven for bounded fallback
+after an exact missed/failed Desktop primary, immediate direct invocation, and benchmarking. It is
+not a racing second routine scheduler.
 
-Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` as V1 runtime invocation. Preserve their
-historical evidence, but do not recreate, enable, or route V1 work through them.
-
-`live_contentops/codex_desktop_newsroom_operator_v1.py` remains continuity/routing support. It is
-not a scheduler, public-write bridge, or authority grant.
+`live_contentops/codex_desktop_newsroom_operator_v1.py` owns canonical hybrid run identity and the
+small deterministic arbitration. It is not a scheduler, public-write bridge, or authority grant.
 
 ## 2. Owner output contract
 
@@ -64,9 +64,13 @@ Existing V1 runtime coordinator:
 
 `gpt-5.6-sol / HIGH`
 
+Primary routine coordinator:
+
+one fresh standalone Desktop `gpt-5.6-sol / HIGH` run per actual opportunity.
+
 Final editorial worker:
 
-one fresh isolated `gpt-5.6-sol / XHIGH` provider thread for each warranted final canonical article.
+one fresh isolated `gpt-5.6-sol / XHIGH` worker for each warranted final canonical article.
 
 The grounded research/evidence model policy remains current repository authority and grants zero
 factual, numeric, permission, or public-write authority to model output.
@@ -77,14 +81,14 @@ scheduling, and terminal reporting. HIGH must not silently author the final cano
 
 ## 5. Daily deficit recovery contract
 
-At each scheduled existing-runtime opportunity:
+At each scheduled Desktop opportunity after explicit owner enablement:
 
 1. resolve the current newsroom production day;
 2. read qualified/published counts and remaining deficit;
 3. recover/reconcile existing state and require `UNKNOWN_WRITE=0`;
 4. load the current candidate universe using durable cutoff/evaluated/update-chain memory;
 5. walk strong candidates and applicable editorial modes;
-6. for each candidate that reaches the article boundary, invoke one fresh isolated XHIGH provider thread;
+6. for each candidate that reaches the article boundary, invoke one fresh isolated XHIGH worker;
 7. persist each qualified article/package result;
 8. continue only until cumulative expected progress is restored, the bounded universe is exhausted,
    bounded cost/retry limits are reached, or a hard external blocker occurs;
@@ -123,25 +127,29 @@ receives zero factual, numeric, Capital Chronicle, permission, gate, or public-w
 
 No legacy final-writer fallback.
 
-## 8. Official provider request contract
+## 8. Desktop-primary request contract
 
 Use current repository authority; do not embed stale branch SHAs.
 
 ```text
-Resolve the current newsroom production day and active output contract. Recover/reconcile state and require UNKNOWN_WRITE=0. At a genuinely qualified article boundary, start exactly one fresh isolated gpt-5.6-sol / XHIGH provider thread with only the bounded governed packet, exact input hash, full strict article output schema, and developer instructions. Persist the secret-free initial TurnResult receipt before product validation. If deterministic validation returns concrete repair deltas, allow at most one bounded revision on the same thread; never blind-retry. The provider has zero factual/numeric/CC/permission/gate/public-write authority. Deterministic validation and the existing V1 publication coordinator resume after return. Do not manufacture filler, weaken evidence, create a fifth window, revive Desktop Scheduled Automations, or perform public writes without exact owner authority.
+Resolve the current newsroom production day and active output contract. Recover/reconcile state and require UNKNOWN_WRITE=0. Run as a fresh standalone Desktop gpt-5.6-sol / HIGH coordinator. At a genuinely qualified article boundary, start exactly one fresh isolated gpt-5.6-sol / XHIGH worker with only the bounded governed packet, exact input hash, full strict article output schema, and developer instructions. Persist a secret-free worker receipt before product validation. If deterministic validation returns concrete repair deltas, allow at most one bounded revision on the same worker; never blind-retry or create a replacement worker. The coordinator and worker have zero factual/numeric/CC/permission/gate/public-write authority. Deterministic validation and the existing V1 publication coordinator resume after return. Do not manufacture filler, weaken evidence, create a fifth window, start an SDK fallback after accepting Desktop primary, or perform public writes without exact owner authority.
 ```
 
-## 9. Desktop Automation supersession rule
+## 9. Desktop Automation and SDK arbitration rule
 
-Historical Desktop Automation receipts remain evidence for their observed epoch. They are not a
-current execution dependency.
+Current supported host truth proves exactly four native Automation objects, all `PAUSED`, with the
+four schedules above and `gpt-5.6-sol / HIGH`. Their prompt hash differs from the current configured
+intent, and the supported surface exposed no run-now action. The accepted proof is therefore one
+fresh manual standalone Desktop run, not calendar-time execution.
 
-Forbidden actions:
+Before any enablement, Jim/ChatGPT must accept the exact zero-write canary and the host prompts must
+be normalized without creating a fifth object. No task is enabled by this contract.
 
-- creating a fifth scheduled window;
-- recreating the four prior Desktop Automation objects;
-- enabling or resuming those objects;
-- treating repository schedule configuration as public-write authority.
+Hybrid arbitration uses one canonical identity over runtime run, production day, opportunity,
+story, and governed input. Accepted Desktop primary wins inside its valid window. SDK fallback may
+start only after an exact missed/failed/expired primary condition. Once SDK fallback starts, late
+Desktop completion is suppressed and may create neither a duplicate article nor a public object.
+Terminal content-gate failure does not authorize provider shopping.
 
 ## 10. Material-event wake
 
@@ -160,11 +168,12 @@ authorize blind retry of ambiguous writes.
 
 ## 12. Current proof and remaining acceptance
 
-The Italy proof is accepted as
-`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`. It proves the provider
-invocation and one exact zero-write canary vertical; it does not prove production-grade throughput
-or authorize publication.
+The same-Italy Desktop-primary hybrid proof is accepted as
+`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`. The official SDK proof remains
+preserved as fallback/direct/benchmark capability evidence. The Desktop proof establishes one exact
+useful zero-write vertical; it does not prove calendar-time Automation execution,
+production-grade throughput, or publication authority.
 
-Next: Jim/ChatGPT audits the exact article and nine-surface plan. No second article or public write is
-authorized. The 4/32 gate remains required before production-grade daily-yield or unattended
-routine-operation claims. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+Next: Jim/ChatGPT audits the exact article and nine-surface plan. No task enablement, second article,
+public write, or 4/32 start is authorized. The 4/32 gate remains required before production-grade
+daily-yield or unattended routine-operation claims. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.

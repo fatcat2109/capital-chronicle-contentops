@@ -96,22 +96,26 @@ Later routine opportunities must be able to recover earlier deficit through boun
 
 FDA-G is the continuous low-cost intake/state/runtime authority.
 
-The proven heavy-editorial invocation path is:
+The current hybrid heavy-editorial path is:
 
-`FDA-G / existing V1 runtime -> official ChatGPT-authenticated Codex App Server/SDK provider -> fresh isolated gpt-5.6-sol / XHIGH thread at the qualified article boundary -> deterministic local validation -> zero-write build output or separately authorized publication`
+`FDA-G / existing V1 runtime -> fresh standalone Desktop gpt-5.6-sol / HIGH coordinator -> one fresh isolated gpt-5.6-sol / XHIGH final writer when warranted -> deterministic local validation -> zero-write build output or separately authorized publication`
 
-The accepted proof used ChatGPT managed authentication, no API-key fallback, one fresh thread, and
-one bounded same-thread repair. The provider has zero factual, numeric, permission, gate, or
-public-write authority.
+Desktop standalone Automations are the primary routine editorial brain. The official
+ChatGPT-authenticated Codex App Server/SDK provider remains the proven bounded fallback for an exact
+missed/failed Desktop primary, the direct path where immediate supported invocation is required,
+and the benchmark/controlled-experiment path. Neither model path has factual, numeric, permission,
+gate, or public-write authority.
 
-Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` as V1 runtime invocation. Preserve their
-historical evidence, but do not recreate, enable, or route V1 execution through them. The four
-17:00/21:00/23:00/following-01:00 Bangkok production-day windows remain schedule policy; do not add a
-fifth window.
+Current host observation proves exactly four existing native V1 Automations, all `PAUSED`, at the
+17:00/21:00/23:00/following-01:00 Bangkok windows with `gpt-5.6-sol / HIGH`. Their host prompts need
+owner-audited normalization before enablement, and the supported surface exposed no run-now action.
+The accepted Desktop parity proof therefore used one fresh standalone manual Desktop task and does
+not claim calendar-time execution. Do not enable the four tasks, create a fifth window, or start the
+4/32 campaign before the exact owner gate.
 
-`live_contentops/codex_desktop_newsroom_operator_v1.py` remains continuity/routing support, not a
-scheduler or public-write grant. Do not add an API/access-token bridge without explicit owner
-authorization.
+`live_contentops/codex_desktop_newsroom_operator_v1.py` supplies the canonical run identity and
+Desktop-primary/SDK-fallback arbitration; it is not a second scheduler or public-write grant. Do not
+add an API/access-token bridge without explicit owner authorization.
 
 ## 7. ContentOps/Core Analyzer boundary
 
@@ -175,16 +179,18 @@ P0-G3 and the following V1 daily-yield lineage are accepted on the current task 
 4. distinct-story frontier correction;
 5. story/update-chain-scoped evidence reuse across mode downgrade.
 
-The official-provider article-contract closeout produced the exact Italy canary
-`State Department Approves Possible APKWS II Sale to Italy` in `DATA_OR_DOCUMENT_LENS` mode from
-`official-primary-ffb8e742e0932254c29d`. It passed the current deterministic article contract,
-institutional edge, eight derivative-package build, and exact nine-surface JIT readiness with
-`UNKNOWN_WRITE=0` and zero public writes. The exact classification is
-`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`.
+The official-provider article-contract closeout remains accepted fallback/direct/benchmark
+evidence. The exact same Italy story then passed the fresh standalone Desktop HIGH -> fresh isolated
+XHIGH parity/hybrid canary in `DATA_OR_DOCUMENT_LENS` mode from
+`official-primary-ffb8e742e0932254c29d`. It passed the deterministic article/source/institutional
+contract, mode-aware usefulness, eight deduplicated derivatives, and exact nine-surface JIT
+readiness with `UNKNOWN_WRITE=0` and zero public/provider writes. The exact classification is
+`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`.
 
-The current next gate is Jim/ChatGPT audit of that exact zero-write canary and its nine-surface plan.
-This proof authorizes neither a second article nor any public write. The unchanged 4/32 proof remains
-required before production-grade daily-yield claims or unattended routine operation.
+The current next gate is Jim/ChatGPT audit of that exact Desktop zero-write canary and its
+nine-surface plan. This proof authorizes neither task enablement, a second article, 4/32 start, nor
+any public write. The unchanged 4/32 proof remains required before production-grade daily-yield
+claims or unattended routine operation.
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
 
 ## 12. Change discipline

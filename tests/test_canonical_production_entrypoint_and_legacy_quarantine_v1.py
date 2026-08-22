@@ -164,6 +164,7 @@ def test_public_rolling_x_facade_forwards_preselection_intelligence(monkeypatch,
     catalog = {"catalog_fingerprint": "catalog-1"}
     readiness = {"SUBSTACK_ARTICLE": {"readiness_state": "READY_AUTHENTICATED"}}
     desktop_builder = object()
+    desktop_reviewer = lambda article: article
 
     result = public_module.run_rolling_x_newsroom_cycle(
         run_id="operator-cycle-1",
@@ -175,6 +176,7 @@ def test_public_rolling_x_facade_forwards_preselection_intelligence(monkeypatch,
         cc_catalog=catalog,
         destination_readiness_override=readiness,
         article_builder=desktop_builder,
+        editorial_reviewer=desktop_reviewer,
     )
 
     assert len(calls) == 1
@@ -184,6 +186,7 @@ def test_public_rolling_x_facade_forwards_preselection_intelligence(monkeypatch,
     assert result["cc_catalog"] is catalog
     assert result["destination_readiness_override"] is readiness
     assert result["article_builder"] is desktop_builder
+    assert result["editorial_reviewer"] is desktop_reviewer
     assert result["editorial_execution_route"] == "DESKTOP_PRIMARY"
     assert result["desktop_primary_routine_authority"] is True
 
@@ -198,6 +201,14 @@ def test_public_rolling_x_facade_fails_closed_without_desktop_primary_builder_or
             output_dir=tmp_path,
             cutoff_utc="2026-08-22T00:00:00Z",
             publication_enabled=True,
+        )
+    with pytest.raises(ValueError, match="desktop_primary_editorial_reviewer_required"):
+        public_module.run_rolling_x_newsroom_cycle(
+            run_id="routine-primary-without-review",
+            output_dir=tmp_path,
+            cutoff_utc="2026-08-22T00:00:00Z",
+            publication_enabled=True,
+            article_builder=object(),
         )
     with pytest.raises(ValueError, match="sdk_fallback_arbitration_receipt_required"):
         public_module.run_rolling_x_newsroom_cycle(

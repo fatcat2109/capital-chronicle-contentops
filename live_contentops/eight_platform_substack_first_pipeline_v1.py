@@ -184,6 +184,8 @@ def run_rolling_x_newsroom_cycle(
     if article_builder is not None:
         if route != DESKTOP_PRIMARY_EDITORIAL_ROUTE:
             raise ValueError("injected_article_builder_is_desktop_primary_only")
+        if publication_enabled and not callable(editorial_reviewer):
+            raise ValueError("desktop_primary_editorial_reviewer_required")
         return execute_with_receipt(article_builder)
 
     if route == DESKTOP_PRIMARY_EDITORIAL_ROUTE:

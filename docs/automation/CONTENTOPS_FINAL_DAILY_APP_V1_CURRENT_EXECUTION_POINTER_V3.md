@@ -63,28 +63,33 @@ Stale phrases such as `no publication quota`, `publication minimum zero`, or who
 
 ## Current execution truth
 
-The official ChatGPT-authenticated Codex App Server/SDK provider is proven as the V1
-heavy-editorial invocation path. The accepted vertical proof used `gpt-5.6-sol / XHIGH`, one fresh
-isolated thread, one bounded same-thread repair, no API-key fallback, and deterministic validation
-after return. The provider has no factual, numeric, permission, gate, or public-write authority.
+Desktop standalone fresh-run Automations are the primary routine V1 editorial brain. A fresh
+`gpt-5.6-sol / HIGH` coordinator starts one fresh isolated `gpt-5.6-sol / XHIGH` final writer only
+when warranted, with at most one same-worker revision. The official ChatGPT-authenticated Codex App
+Server/SDK provider remains the proven resilient missed/failed-primary fallback, immediate direct
+path, and benchmark path. Deterministic ContentOps remains truth, permission, publication, and
+reconciliation authority.
 
-Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` for V1 invocation. Their prior host
-observations remain historical evidence only. Do not recreate or enable them.
+Current supported host truth is exactly four existing native V1 Automations, all `PAUSED`, with the
+four intended schedules and `gpt-5.6-sol / HIGH`. Their prompt hashes need normalization before
+owner-gated enablement. No fifth task was created and the supported surface exposed no run-now
+operation; the accepted manual standalone proof does not claim calendar-time execution.
 
 ## Current next capability
 
 The exact Italy zero-write canary is ready for Jim/ChatGPT audit. Its accepted classification is:
 
-`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`
+`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`
 
 It has the title `State Department Approves Possible APKWS II Sale to Italy`, mode
 `DATA_OR_DOCUMENT_LENS`, evidence ID `official-primary-ffb8e742e0932254c29d`, eight derivative
 packages, and exact JIT readiness for Substack plus all eight derivative destinations. Public-write
 count and `UNKNOWN_WRITE` are both zero.
 
-Do not generate a second article, rerun the provider, or write publicly. The next action is owner
-audit of this exact artifact set. The 4/32 proof remains required before production-grade
-daily-yield or unattended routine-operation claims. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+Do not generate a second article, enable an Automation, start 4/32, or write publicly. The next
+action is owner audit of this exact Desktop artifact set. The 4/32 proof remains required before
+production-grade daily-yield or unattended routine-operation claims.
+`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
 
 ## Routine schedule policy
 
@@ -98,9 +103,8 @@ The four production-day windows remain:
 - coordinator `gpt-5.6-sol / HIGH`;
 - final article worker fresh isolated `gpt-5.6-sol / XHIGH` only at article boundary.
 
-These are schedule-policy values, not authority to recreate the superseded Desktop Scheduled
-Automations. No fifth window may be added. Actual scheduling through the existing V1 runtime remains
-separate from public-write authority.
+These are the schedules of the four currently observed paused Desktop Automations. They grant no
+enablement or public-write authority. No fifth window may be added.
 
 ## Owner-gated canary after current zero-write slice
 
@@ -113,8 +117,8 @@ separate from public-write authority.
 
 ## Post-canary 4/32 and P0-G5 after owner acceptance
 
-First prove 4 qualified zero-write articles / 32 derivative intents. Then use only actual proven
-routine runtime scheduling through the official Codex provider. No fifth routine window.
+First prove 4 qualified zero-write articles / 32 derivative intents. Then use the owner-enabled
+four Desktop Automations as primary with bound SDK fallback arbitration. No fifth routine window.
 
 Prove unattended calendar-time execution, production-day floor/target accounting, bounded catch-up, cold-start/restart, no duplicate article/public object, recovery/readback, and bounded cost.
 
@@ -129,7 +133,7 @@ V5 must truthfully show:
 - production-day ID;
 - qualified build count `X/4` and deficit;
 - final target `5–8/day` with build/public-write distinction;
-- official Codex provider/runtime state, while any prior Desktop Automation state remains historical;
+- current Desktop-primary and SDK fallback/direct/benchmark runtime/arbitration state;
 - publication/recovery/UNKNOWN_WRITE/cost state.
 
 An unmet build floor must not be hidden behind generic healthy-idle copy.
@@ -142,5 +146,5 @@ An unmet build floor must not be hidden behind generic healthy-idle copy.
 - no blind retry of ambiguous writes;
 - no fifth routine task;
 - no second newsroom/store/publisher/control plane;
-- no revival of superseded Desktop Scheduled Automations;
+- no unauthorized Desktop Automation enablement or fifth task;
 - no credential/access-token Codex bridge without explicit owner approval.

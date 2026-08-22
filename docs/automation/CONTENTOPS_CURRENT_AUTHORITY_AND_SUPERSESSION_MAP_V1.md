@@ -49,22 +49,28 @@ The following rules are current and supersede all conflicting earlier wording:
    write-reconciliation gates remain unchanged and can never become canary warnings.
 9. Filler remains forbidden.
 
-## Codex provider and Automation truth override
+## Hybrid Codex and current Automation truth override
 
-The official ChatGPT-authenticated Codex App Server/SDK provider is now the proven V1
-heavy-editorial invocation path behind the canonical article-builder seam. The accepted proof used
-`gpt-5.6-sol / XHIGH`, one fresh isolated thread, at most one bounded same-thread repair, no API-key
-fallback, and zero public writes. Deterministic validators remain authority after model return.
+Desktop standalone fresh-run Automations are the primary routine V1 heavy-editorial brain. A fresh
+`gpt-5.6-sol / HIGH` coordinator may create one fresh isolated `gpt-5.6-sol / XHIGH` final writer at
+a warranted article boundary, with at most one bounded same-worker revision. Deterministic
+ContentOps remains factual, numeric, CC, permission, validation, publication, and reconciliation
+authority after return.
 
-Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` for V1 runtime invocation. Historical
-evidence that four objects existed and were paused at a prior epoch is preserved, but those objects
-must not be recreated, enabled, or used to route current V1 execution. Their former invocation role
-is superseded, not promoted to current host truth.
+The official ChatGPT-authenticated Codex App Server/SDK provider remains the currently proven
+resilient fallback for an exact missed/failed Desktop primary, the direct path for an immediate
+supported invocation, and the benchmark/controlled-experiment path. It may not race an accepted
+Desktop result or create a duplicate article/public object.
+
+The current supported host observation proves exactly four native V1 Automation objects, all
+`PAUSED`, configured for `gpt-5.6-sol / HIGH` at the four Bangkok windows. No object was changed or
+enabled and no fifth object was created. Their prompt hashes do not yet match the current configured
+intent, and the supported host surface exposed create/update/view/delete but no run-now operation.
+The accepted same-Italy proof used one fresh standalone manual Desktop task; calendar-time native
+execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` and is not claimed by that proof.
 
 Current subordinate statements such as:
 
-- `exactly four native Codex tasks already exist`;
-- `all four tasks are PAUSED`;
 - `publication minimum = 0`;
 - `FDA-G can wake Codex directly`;
 
@@ -73,11 +79,13 @@ are superseded unless exact host/runtime evidence proves the relevant fact.
 Current known architecture rule:
 
 - FDA-G is the continuous intake/state/runtime authority;
-- FDA-G / the existing V1 runtime invokes heavy editorial work through the official
-  ChatGPT-authenticated Codex provider;
-- `live_contentops/codex_desktop_newsroom_operator_v1.py` is not a scheduler or Desktop/model bridge;
-- the four 17:00/21:00/23:00/following-01:00 Bangkok windows remain schedule policy, with no fifth
-  window, independent of the superseded Desktop Automation objects;
+- the existing four Desktop Automations are the paused primary routine invocation objects, subject
+  to owner audit, prompt normalization, and explicit enablement;
+- the official ChatGPT-authenticated Codex provider is fallback/direct/benchmark, not a racing
+  second routine scheduler;
+- `live_contentops/codex_desktop_newsroom_operator_v1.py` owns canonical run identity and the small
+  deterministic primary/fallback arbitration, not scheduling or publication;
+- the four 17:00/21:00/23:00/following-01:00 Bangkok windows remain fixed, with no fifth window;
 - any credential/access-token/API Codex bridge is separately owner-gated.
 
 ## Current V1 lane state
@@ -93,16 +101,19 @@ Accepted continuation lineage:
 `DAILY OUTPUT/AUTOMATION REVALIDATION -> CANDIDATE CONTINUATION/QUOTE REPAIR -> EVIDENCE-YIELD
 REACHABILITY -> DISTINCT-STORY FRONTIER -> STORY-SCOPED EVIDENCE REUSE`
 
-`TASK_V1_OFFICIAL_CODEX_ARTICLE_CONTRACT_RELIABILITY_AND_AUTONOMOUS_CANARY_CLOSEOUT_V1` closed the
-official-provider article contract and passed the exact same-story Italy zero-write canary:
+The official SDK proof remains accepted historical/current capability evidence. The same accepted
+Italy story then passed the Desktop-primary hybrid convergence proof at:
 
-`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`
+`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`
 
-The proof contains the exact final title, `DATA_OR_DOCUMENT_LENS`, the bound official evidence ID,
-all eight derivatives, JIT readiness for all nine surfaces, zero public writes, and
-`UNKNOWN_WRITE=0`. The current next gate is Jim/ChatGPT audit of that exact canary and plan. No
-second article, public write, or routine-operation claim is authorized. The 4/32 proof remains the
-post-canary throughput gate, and `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+That proof binds a fresh standalone Desktop `gpt-5.6-sol / HIGH` coordinator, one fresh isolated
+`gpt-5.6-sol / XHIGH` worker with one same-worker revision, the exact governed-input hash and
+official evidence ID, a mode-proportional `DATA_OR_DOCUMENT_LENS`, eight semantically deduplicated
+derivatives, current JIT readiness for all nine surfaces, zero public/provider writes, and
+`UNKNOWN_WRITE=0`. The current next gate is Jim/ChatGPT audit of this exact Desktop artifact set and
+plan. No task enablement, second article, public write, or routine-operation claim is authorized.
+The 4/32 proof remains the post-canary throughput gate, and `V1_FINAL_PRODUCT_ACCEPTED` remains
+forbidden.
 
 ## Growth-first V1 rules that remain current
 
@@ -130,7 +141,7 @@ The following phrases or equivalent semantics must never route a fresh V1 task:
 - `the four Codex tasks are paused` without host inventory proof;
 - `material events only prioritize the next scheduled opportunity` as final execution architecture;
 - `FDA-G immediately wakes Codex` without a supported execution bridge;
-- Desktop Scheduled Automations as the current V1 heavy-editorial invocation path;
+- SDK/App Server as the sole primary routine V1 heavy-editorial invocation path;
 - P0-G3 as the next task;
 - any branch/HEAD/pointer that predates the accepted P0-G3 merge and current owner override.
 

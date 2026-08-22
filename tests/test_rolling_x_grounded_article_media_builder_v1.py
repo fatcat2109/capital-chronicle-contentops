@@ -784,6 +784,7 @@ def test_hostname_source_label_uses_exact_page_title_publisher_and_preserves_sen
         {
             "title": "State Department Approves Possible APKWS II Sale to Italy",
             "subtitle": "The official notice defines the proposed transaction and its status.",
+            "effective_article_mode": "BREAKING_BRIEF",
             "substack_body_markdown": resolved,
         }
     )
@@ -1065,7 +1066,9 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
         "telegram", "discord", "x", "linkedin", "facebook_page",
         "instagram_business", "threads", "youtube",
     }
-    assert payloads["x"]["reply_texts"] == []
+    assert payloads["x"]["reply_texts"] == [
+        "Watch: No market reaction is asserted here."
+    ]
 
     editorial = implementation._run_bounded_rolling_x_editorial_cycle(
         article=built["article"],
@@ -1489,6 +1492,27 @@ def test_writer_validator_rejects_uncovered_connective_paragraph():
     assert builder._writer_response_source_coverage_blockers(
         article, governed_input
     ) == ["grounded_paragraph_source_coverage_incomplete:1"]
+
+
+def test_writer_source_coverage_does_not_treat_markdown_heading_as_prose():
+    governed_input = {
+        "evidence_documents": [
+            {
+                "document_id": "d1",
+                "source_handle": "SOURCE_1",
+                "canonical_content_text": "The official notice documents the next phase.",
+            }
+        ],
+        "supported_claims": [],
+    }
+    article = {
+        "substack_body_markdown": (
+            "## What would establish the next phase\n\n"
+            "The official notice documents the next phase. [[SOURCE:SOURCE_1]]"
+        )
+    }
+
+    assert builder._writer_response_source_coverage_blockers(article, governed_input) == []
 
 
 def _useful_writer_output(handle="SOURCE_1"):

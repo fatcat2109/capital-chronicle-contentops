@@ -81,21 +81,23 @@ Later windows must be able to recover an earlier deficit. Do not create filler m
 
 FDA-G is the always-on low-cost runtime/intake/state authority. It can ingest, maintain durable state, evaluate cheap opportunity metadata, reconcile, and expose current truth.
 
-The official ChatGPT-authenticated Codex App Server/SDK provider is the proven heavy-editorial
-invocation path behind the canonical V1 article-builder seam. It starts one fresh isolated
-`gpt-5.6-sol / XHIGH` thread at a warranted article boundary and allows at most one bounded
-same-thread repair from concrete deterministic validation deltas.
+Desktop standalone fresh-run Automations are the primary routine heavy-editorial brain. Each
+routine opportunity uses a fresh `gpt-5.6-sol / HIGH` coordinator, which starts one fresh isolated
+`gpt-5.6-sol / XHIGH` final writer only at a warranted article boundary and permits at most one
+bounded same-worker repair from concrete deterministic validation deltas.
 
 Therefore:
 
 - deterministic validators remain factual, numeric, permission, gate, and publication authority;
-- the provider has no public-write authority and used no API-key fallback in the accepted proof;
-- Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` for V1 invocation;
-- their prior object/state receipts remain historical evidence only.
+- neither Desktop coordinator nor XHIGH worker has public-write authority;
+- the official ChatGPT-authenticated Codex App Server/SDK provider remains the proven resilient
+  missed/failed-primary fallback, immediate direct path, and benchmark path;
+- accepted Desktop and SDK receipts share one canonical run identity and may not produce duplicate
+  articles or public objects.
 
 The current heavy-editorial architecture is:
 
-`FDA-G / existing V1 runtime -> official ChatGPT-authenticated Codex provider -> fresh isolated XHIGH thread when warranted -> deterministic validation -> zero-write or separately authorized publication lifecycle`
+`FDA-G / existing V1 runtime -> fresh standalone Desktop HIGH coordinator -> fresh isolated XHIGH writer when warranted -> deterministic validation -> zero-write or separately authorized publication lifecycle`
 
 No second newsroom/store/publisher/control plane.
 
@@ -113,8 +115,9 @@ The four routine opportunities are:
 
 Do not create a fifth routine opportunity merely to satisfy the daily floor. Catch-up belongs inside the existing production-day logic and bounded candidate walk.
 
-These values do not authorize recreation or enablement of the superseded Desktop Scheduled
-Automations.
+Current host truth proves exactly these four existing native Automations, all paused on
+`gpt-5.6-sol / HIGH`. It does not authorize enablement. Their prompt hashes must be normalized and
+Jim/ChatGPT must pass the exact canary audit first.
 
 ## 6. Material-event wake truth
 
@@ -171,15 +174,16 @@ A derivative-local outage does not erase canonical truth, but final nine-surface
 Current sequence:
 
 1. P0-G3 growth-first multi-mode zero-write proof is accepted and merged.
-2. The official-provider Italy zero-write canary is complete at
-   `PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`.
-3. Jim/ChatGPT audits that exact article and nine-surface plan.
-4. Only after an explicit one-canary owner grant, publish/read back canonical Substack plus exactly
+2. The official-provider Italy proof remains accepted fallback/direct/benchmark evidence.
+3. The same-Italy Desktop-primary hybrid zero-write canary is complete at
+   `PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`.
+4. Jim/ChatGPT audits that exact Desktop article and nine-surface plan.
+5. Only after an explicit one-canary owner grant, publish/read back canonical Substack plus exactly
    eight derivatives and finish `UNKNOWN_WRITE=0`.
-5. Prove the 4/32 post-canary throughput gate without filler or weakened truth.
-6. Prove unattended/cold-start operation through the existing V1 runtime and official Codex
-   provider; do not revive Desktop Scheduled Automations.
-7. Close truthful V5 UI and screenshot-based owner QA, then accept/freeze V1.
+6. Prove the 4/32 post-canary throughput gate without filler or weakened truth.
+7. Prove calendar-time/unattended/cold-start operation through the existing four Desktop
+   Automations, with SDK fallback arbitration and no fifth task.
+8. Close truthful V5 UI and screenshot-based owner QA, then accept/freeze V1.
 
 ## 12. Canonical UI
 

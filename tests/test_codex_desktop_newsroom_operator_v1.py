@@ -845,6 +845,14 @@ def test_supported_host_observation_persists_only_exact_safe_four_task_readback(
     assert persisted["task_count"] == 4
     assert persisted["all_exact_ids_present"] is True
     assert persisted["no_fifth_task_created"] is True
+    assert persisted["all_paused"] is True
+    assert persisted["all_model_match"] is True
+    assert persisted["all_reasoning_effort_match"] is True
+    assert persisted["all_prompt_match_configured_intent"] is True
+    assert persisted["supported_run_now_operation_observed"] is False
+    assert persisted["automation_configuration_mutated"] is False
+    assert persisted["public_write_performed"] is False
+    assert persisted["unknown_write_count"] == 0
     assert all(row["status"] == "PAUSED" for row in persisted["tasks"])
     assert all("prompt" not in row for row in persisted["tasks"])
     assert all("prompt_sha256" in row for row in persisted["tasks"])

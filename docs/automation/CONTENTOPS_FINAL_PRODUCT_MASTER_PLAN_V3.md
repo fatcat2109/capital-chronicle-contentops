@@ -38,15 +38,16 @@ Current P0-G4 draft PR #12 is not final authority for new daily-output semantics
 
 ## 2. Current demonstrated state
 
-The official-provider article-contract closeout resolved the bounded MVP-canary gap on the same
-Italy story. The exact result is
-`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`: one hard-safe current
-article, eight derivative packages, nine-surface JIT `READY`, zero public writes, and
-`UNKNOWN_WRITE=0`.
+The official-provider article-contract closeout remains accepted fallback/direct/benchmark
+capability evidence. The same Italy story then resolved the Desktop-primary hybrid MVP-canary gap.
+The exact result is `PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`: one
+hard-safe mode-proportional current article, eight semantically deduplicated derivative packages,
+nine-surface JIT `READY`, zero public/provider writes, and `UNKNOWN_WRITE=0`.
 
 The earlier 41-story and 48-identity attempts remain immutable historical evidence of their exact
 hard blockers. They no longer route the next action. Jim/ChatGPT audit of the exact successful
-canary is now the only immediate gate; no second article or public write is authorized.
+Desktop canary is now the only immediate gate; no task enablement, second article, 4/32 start, or
+public write is authorized.
 
 ### 2.1 Daily-output contract gap
 
@@ -60,34 +61,38 @@ The system needs one deterministic newsroom production-day accounting layer that
 - allows later windows to recover an earlier deficit through bounded additional candidate/article work;
 - does not loop forever, repeat terminal unchanged candidates, or manufacture filler.
 
-### 2.2 Codex provider execution truth
+### 2.2 Hybrid Codex execution truth
 
-FDA-G continuously ingests and maintains state. The official ChatGPT-authenticated Codex App
-Server/SDK provider is the proven heavy-editorial invocation path behind the canonical article
-builder.
+FDA-G continuously ingests and maintains state. Desktop standalone fresh-run Automations are the
+primary routine editorial brain behind the canonical article-builder seam: one fresh
+`gpt-5.6-sol / HIGH` coordinator and, when warranted, one fresh isolated
+`gpt-5.6-sol / XHIGH` final writer with at most one same-worker revision.
 
-The accepted proof established one fresh isolated `gpt-5.6-sol / XHIGH` thread, at most one bounded
-same-thread repair, ChatGPT managed authentication, no API-key fallback, and deterministic local
-validation after model return.
+The official ChatGPT-authenticated Codex App Server/SDK provider remains the proven resilient
+fallback for an exact missed/failed Desktop primary, immediate direct path, and benchmark path.
 
 The remaining boundaries are:
 
-- the provider has zero factual, numeric, permission, gate, and public-write authority;
-- Desktop Scheduled Automations are `SUPERSEDED_DO_NOT_REUSE` for V1 invocation;
+- both execution paths have zero factual, numeric, permission, gate, and public-write authority;
+- accepted Desktop primary wins its valid window; SDK fallback starts only after an exact
+  missed/failed-primary condition and suppresses any late duplicate Desktop completion;
 - the four schedule windows remain policy, with no fifth window;
 - publication and unattended-throughput acceptance remain separate gates.
 
-Historical Desktop Automation objects and state remain evidence only.
+Current host truth proves four existing native objects, all paused, with the correct
+`gpt-5.6-sol / HIGH` model/effort and schedules. Prompt normalization and owner-gated enablement are
+still pending; the supported surface exposed no run-now action, so calendar-time execution is not
+claimed by the manual standalone proof.
 
 ## 3. Immediate P0 task — owner audit of the canary-ready slice
 
 The completed task is:
 
-`TASK_V1_OFFICIAL_CODEX_ARTICLE_CONTRACT_RELIABILITY_AND_AUTONOMOUS_CANARY_CLOSEOUT_V1`
+`TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1`
 
 Accepted classification:
 
-`PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF`
+`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`
 
 Jim/ChatGPT must now audit that exact Italy article, its eight derivative packages, and the
 nine-surface JIT-ready plan. Do not invoke a second article or perform any public write. The 4/32
@@ -134,12 +139,13 @@ Later windows may catch up earlier misses. Bounded cost, durable cutoff, update-
 
 Current routine architecture:
 
-`FDA-G / existing V1 runtime -> official ChatGPT-authenticated Codex provider -> one fresh isolated gpt-5.6-sol/XHIGH thread per warranted final article -> deterministic validation -> zero-write build output or separately authorized publication`
+`FDA-G / existing V1 runtime -> fresh standalone Desktop gpt-5.6-sol/HIGH coordinator -> one fresh isolated gpt-5.6-sol/XHIGH writer per warranted final article -> deterministic validation -> zero-write build output or separately authorized publication`
 
 FDA-G remains the always-on cheap runtime authority. Codex is the heavy editorial execution layer.
 
-Do not recreate or enable the superseded Desktop Scheduled Automations. The provider is not a
-public-write bridge and no credential/access-token/API alternative is authorized.
+Do not enable the four paused Desktop Automations before the exact owner gate or create a fifth. The
+SDK fallback is not a public-write bridge and no credential/access-token/API alternative is
+authorized.
 
 Material-event priority grants no extra model turn and no public-write authority.
 
@@ -152,8 +158,8 @@ V5 must show:
 - remaining build deficit;
 - final target `5–8/day` with build/public-write state distinction;
 - production-day state;
-- official Codex provider/runtime state;
-- next scheduled existing-runtime opportunity without reviving superseded Desktop Automation state;
+- Desktop primary and SDK fallback/direct/benchmark runtime/arbitration state;
+- next existing Desktop Automation opportunity and its exact observed enabled/paused truth;
 - normal runtime/evidence/authority/publication/recovery/cost state.
 
 If the build floor is unmet, generic `Running Idle — healthy waiting` must not hide the production deficit.
@@ -188,8 +194,8 @@ A canary grant authorizes only that canary unless explicitly widened.
 After owner-accepted canary, first prove 4 qualified zero-write articles / 32 derivative intents,
 then:
 
-- use the existing V1 runtime schedule with the official Codex provider;
-- do not revive Desktop Scheduled Automations;
+- use the existing four Desktop Automations as the primary routine editorial brain after explicit
+  owner enablement, with the SDK only as bounded fallback/direct/benchmark;
 - no fifth routine window;
 - prove production-day floor/target accounting under calendar-time unattended execution;
 - prove restart/cold-start, cutoff/recovery, no duplicate articles/public objects, bounded cost, and truthful deficit/hard-block states;
@@ -212,13 +218,13 @@ V1 is final only when:
 1. one reliable Daily App remains continuously healthy;
 2. build proof demonstrates the 4-qualified-article floor without filler or weakened truth;
 3. final operating behavior targets 5–8 published articles per newsroom production day;
-4. the official Codex provider execution path is proven and routine scheduling is accepted;
+4. Desktop-primary/SDK-fallback hybrid execution is proven and routine scheduling is accepted;
 5. real canonical Substack + eight derivatives canary is accepted with `UNKNOWN_WRITE=0`;
 6. unattended/cold-start execution is proven;
 7. UI truth and visual acceptance are complete.
 
 ## 12. Hard stops
 
-Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-account or unauthorized public write, destructive production-state mutation, unresolved `UNKNOWN_WRITE`, revival of superseded Desktop Scheduled Automations, or inability to distinguish schedule policy from runtime truth.
+Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-account or unauthorized public write, destructive production-state mutation, unresolved `UNKNOWN_WRITE`, unauthorized Automation enablement/fifth-task creation, duplicate Desktop/SDK execution, or inability to distinguish schedule policy from runtime truth.
 
 Protected historical `v1.0` remains immutable.

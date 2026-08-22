@@ -1,0 +1,64 @@
+{
+  "schema_version": "contentops.desktop_high_coordinator_final_review.v1",
+  "coordinator_model": "gpt-5.6-sol",
+  "coordinator_reasoning_effort": "HIGH",
+  "same_fresh_standalone_task": true,
+  "governed_input_hash": "629012ad17e2a579aa6c3742e97a20d717e43c3e003005434dc95e7d380a4de6",
+  "integrated_article_sha256": "89904ef211e9a62942beb4fe21e5dcebe45de7b7b029640a96d65a9faba8a71c",
+  "status": "SUCCESS",
+  "decision": "PASS",
+  "checks": {
+    "clear_news_peg": true,
+    "mode_consistent": true,
+    "material_claims_supported": true,
+    "no_factual_contradiction": true,
+    "no_fabricated_numbers": true,
+    "material_evidence_matches": true,
+    "no_misleading_framing": true,
+    "severe_coherence_ok": true,
+    "reader_facing_prose": true,
+    "no_unsupported_certainty": true,
+    "no_fabricated_quotes": true,
+    "no_financial_advice": true,
+    "why_now": true,
+    "material_market_consequence": false,
+    "concise_nut_graf": false,
+    "source_backed_mechanism": true,
+    "relevant_context": true,
+    "specific_confirmation_condition": true,
+    "specific_falsification_condition": false,
+    "high_information_density": true
+  },
+  "failed_checks": [
+    "material_market_consequence",
+    "concise_nut_graf",
+    "specific_falsification_condition"
+  ],
+  "material_failed_checks": [],
+  "advisory_failed_checks": [
+    "material_market_consequence",
+    "concise_nut_graf",
+    "specific_falsification_condition"
+  ],
+  "issues": [
+    {
+      "code": "material_market_consequence",
+      "evidence": "No market consequence is asserted; this is advisory and not required for DATA_OR_DOCUMENT_LENS."
+    },
+    {
+      "code": "concise_nut_graf",
+      "evidence": "The opening is a short framing sentence, with the substantive document record beginning under the first heading."
+    },
+    {
+      "code": "specific_falsification_condition",
+      "evidence": "The article specifies later official evidence that would establish a next phase but does not state a separate falsification test."
+    }
+  ],
+  "summary": "PASS. The integrated DATA_OR_DOCUMENT_LENS article is bound to the accepted State Department document, exact source identity, supported factual and numeric record, and revision-1 native XHIGH receipt. Grounded source coverage, source resolution, institutional edge validation, and worker validation all pass without blockers. The article distinguishes a possible sale and congressional notification from a completed transaction, uses resolved publisher link labels as reader citations, provides mode-proportional utility, and contains no unsupported certainty, fabricated numbers, quotations, financial advice, or public-write authority. Remaining false checks are advisory and do not block the MVP canary.",
+  "xhigh_worker_count": 1,
+  "bounded_revision_count": 1,
+  "new_worker_created": false,
+  "new_evidence_acquired": false,
+  "public_write_attempted": false,
+  "publication_authority": false
+}
