@@ -908,7 +908,10 @@ class RollingXTargetedEvidenceAdapter:
         grounded_researcher: Any = None,
         capability_registry: Mapping[str, Any] | None = None,
         source_route_health: Any = None,
+        coordinated_request_ceiling: int = 24,
     ) -> None:
+        if not 1 <= int(coordinated_request_ceiling) <= 96:
+            raise ValueError("evidence_loader_coordinated_request_ceiling_invalid")
         self._root = Path(capital_chronicle_root) if capital_chronicle_root else None
         self._evaluation_as_of_utc = evaluation_as_of_utc or _utc_now()
         self._packet_loader = packet_loader
@@ -922,7 +925,8 @@ class RollingXTargetedEvidenceAdapter:
             )
 
             official_evidence_loader = BoundedOfficialPrimaryEvidenceLoader(
-                evaluation_as_of_utc=self._evaluation_as_of_utc
+                evaluation_as_of_utc=self._evaluation_as_of_utc,
+                max_requests=int(coordinated_request_ceiling),
             )
         self._official_evidence_loader = official_evidence_loader
         if public_secondary_loader is None:
@@ -932,6 +936,7 @@ class RollingXTargetedEvidenceAdapter:
 
             public_secondary_loader = BoundedPublicSecondaryEvidenceLoader(
                 evaluation_as_of_utc=self._evaluation_as_of_utc,
+                max_requests=int(coordinated_request_ceiling),
                 source_route_health=source_route_health,
             )
         self._public_secondary_loader = public_secondary_loader

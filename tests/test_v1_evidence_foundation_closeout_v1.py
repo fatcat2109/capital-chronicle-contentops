@@ -823,6 +823,39 @@ def test_deterministically_viable_frontier_causes_zero_discovery_turns(
     assert accounting["ready_candidate_yield"] == 4
 
 
+def test_autonomous_batch_tail_path_propagates_unchanged_coordinator_request_ceiling(
+    monkeypatch, tmp_path: Path
+):
+    observed: dict[str, int] = {}
+
+    def default_acquirer_factory(**kwargs):
+        observed["coordinated_request_ceiling"] = int(
+            kwargs["coordinated_request_ceiling"]
+        )
+        return _pass_receipt
+
+    monkeypatch.setattr(
+        implementation,
+        "_default_rolling_x_evidence_acquirer",
+        default_acquirer_factory,
+    )
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=4,
+        autonomous_source_discovery_enabled=True,
+        source_discoverer=_BatchDiscoveryFixture(),
+        evidence_only_target_count=4,
+    )
+
+    assert observed == {"coordinated_request_ceiling": 96}
+    assert result["quota_efficient_source_discovery"]["budget"][
+        "max_deterministic_network_requests"
+    ] == 96
+    assert result["evidence_ready_pool"]["ready_candidate_count"] == 4
+
+
 def test_only_batch_unresolved_subset_reaches_one_bounded_tail_turn(
     monkeypatch, tmp_path: Path
 ):

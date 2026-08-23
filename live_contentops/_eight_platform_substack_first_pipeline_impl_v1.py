@@ -4364,6 +4364,7 @@ def _default_rolling_x_evidence_acquirer(
     capital_chronicle_root: str | Path | None,
     evaluation_as_of_utc: str | None = None,
     source_route_health: Mapping[str, Any] | None = None,
+    coordinated_request_ceiling: int = 24,
 ) -> Any:
     """Build the capability-driven governed adapter used by the production path."""
     from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
@@ -4374,6 +4375,7 @@ def _default_rolling_x_evidence_acquirer(
         capital_chronicle_root=capital_chronicle_root,
         evaluation_as_of_utc=evaluation_as_of_utc,
         source_route_health=source_route_health,
+        coordinated_request_ceiling=coordinated_request_ceiling,
     )
 
 
@@ -5016,12 +5018,20 @@ def _run_rolling_x_newsroom_cycle(
     cluster_by_id_for_activity = {
         str(row.get("cluster_id") or ""): row for row in ranked_clusters_for_activity
     }
+    coordinated_request_ceiling = 24
+    if autonomous_source_discovery_enabled:
+        from live_contentops.quota_efficient_source_discovery_v1 import (
+            DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS,
+        )
+
+        coordinated_request_ceiling = DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS
     base_evidence_acquirer = (
         evidence_acquirer
         or _default_rolling_x_evidence_acquirer(
             capital_chronicle_root=capital_chronicle_root,
             evaluation_as_of_utc=cutoff_utc,
             source_route_health=source_route_health,
+            coordinated_request_ceiling=coordinated_request_ceiling,
         )
     )
     effective_source_discoverer = source_discoverer

@@ -1,26 +1,51 @@
 {
   "schema_version": "contentops.v1_quota_efficient_batch_tail_tests_validation.v1",
-  "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+  "classification": "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED",
   "repository": "fatcat2109/capital-chronicle-contentops",
   "verified_fresh_origin_master": "c4239a96513c24fc9f7f331025386756d0248569",
-  "starting_branch_head": "c4239a96513c24fc9f7f331025386756d0248569",
+  "starting_branch_head": "e494ea8fbc9d21bc0a6604b1a76c3696b5266907",
   "branch": "codex/v1-quota-efficient-batch-tail-discovery-v1",
+  "unexpected_ref_drift": false,
+  "current_host_preflight": {
+    "status": "AVAILABLE",
+    "provider": "OPENAI_CODEX_CHATGPT",
+    "transport": "OFFICIAL_CODEX_APP_SERVER_STDIO",
+    "sdk_version": "0.147.0",
+    "auth_classification": "CHATGPT",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "HIGH",
+    "thread_ephemeral": true,
+    "sandbox": "read_only",
+    "approval_mode": "deny_all",
+    "api_key_environment_present": false,
+    "model_turn_completed": true,
+    "accounted_tokens": 15272
+  },
+  "demonstrated_defect_repair": {
+    "code": "DEFAULT_EVIDENCE_LOADERS_DID_NOT_RECEIVE_QUOTA_COORDINATOR_REQUEST_CEILING",
+    "effective_hard_deterministic_request_ceiling": 96,
+    "per_candidate_request_limit": 6,
+    "evidence_or_freshness_gate_weakened": false
+  },
+  "final_real_zero_write_proof": {
+    "status": "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED",
+    "cutoff_utc": "2026-08-23T14:01:59.304858Z",
+    "current_candidate_universe_count": 288,
+    "bounded_candidate_frontier_count": 12,
+    "ready_distinct_candidate_count": 1,
+    "batch_discovery_turns": 1,
+    "tail_discovery_turns": 1,
+    "total_discovery_turns": 2,
+    "accounted_discovery_tokens": 310521,
+    "deterministic_network_requests": 22,
+    "exact_remaining_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+  },
   "focused_pytest": {
+    "command": "python -m pytest -q tests/test_v1_evidence_foundation_closeout_v1.py tests/test_rolling_x_targeted_evidence_adapter_v1.py tests/test_official_primary_evidence_loader_v1.py tests/test_public_secondary_evidence_loader_v1.py",
     "status": "PASS",
-    "passed": 203,
+    "passed": 88,
     "failed": 0,
-    "duration_seconds": 56.80,
-    "files": [
-      "tests/test_v1_evidence_foundation_closeout_v1.py",
-      "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
-      "tests/test_official_primary_evidence_loader_v1.py",
-      "tests/test_public_secondary_evidence_loader_v1.py",
-      "tests/test_rolling_x_newsroom_cycle_v1.py",
-      "tests/test_rolling_x_evidence_viability_v1.py",
-      "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
-      "tests/test_daily_app_supervisor_v1.py",
-      "tests/test_codex_context_index.py"
-    ]
+    "duration_seconds": 2.37
   },
   "compileall": {
     "command": "python -m compileall -q live_contentops scripts",
@@ -34,31 +59,6 @@
     "edges": 13792
   },
   "git_diff_check": "PASS",
-  "real_zero_write_proof": {
-    "status": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
-    "current_candidate_universe_count": 335,
-    "bounded_candidate_frontier_count": 12,
-    "deterministic_network_requests": 19,
-    "url_discovery_model_turns": 0,
-    "accounted_url_discovery_tokens": 0,
-    "ready_distinct_candidate_count": 0,
-    "failure_code": "CHATGPT_USAGE_LIMIT_REACHED",
-    "failure_phase": "TURN_EXECUTION",
-    "model_turn_completed": false,
-    "proof_retried_after_exact_host_blocker": false
-  },
-  "deterministic_batch_tail_acceptance_fixture": {
-    "ready_distinct_candidate_count": 4,
-    "batch_discovery_turns": 1,
-    "tail_discovery_turns": 0,
-    "total_discovery_turns": 1,
-    "accounted_discovery_tokens": 120,
-    "writer_calls": 0,
-    "article_generation": 0,
-    "derivative_generation": 0,
-    "public_writes": 0,
-    "unknown_write": 0
-  },
   "safety": {
     "writer_calls": 0,
     "article_generation": 0,

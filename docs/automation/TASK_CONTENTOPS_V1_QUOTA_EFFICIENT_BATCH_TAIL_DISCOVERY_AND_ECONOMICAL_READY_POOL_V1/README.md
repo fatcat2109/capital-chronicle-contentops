@@ -1,69 +1,61 @@
-# V1 quota-efficient batch/tail discovery and economical ready-pool evidence
+# V1 quota-efficient batch/tail discovery current-host acceptance revalidation
 
 Authority date: 2026-08-23
-Final task classification: `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
+Final task classification: `FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED`
 
-## Implementation boundary
+## Repository and host state
 
-The canonical ranked evidence walk now performs deterministic acquisition first, caches exact
-story-bound receipts, sends only exact `SOURCE_DISCOVERY_REQUIRED` identities to one bounded batch
-turn, resumes deterministic retrieval/hash/freshness/claim admission, and permits a bounded tail
-only for the still-unresolved subset. `OfficialCodexUrlDiscoveryProvider` remains the sole model
-provider. The existing evidence adapter, official/public loaders, source-route health, canonical
-hashing, freshness, claim, permission, numeric-authority, and publication gates remain authority.
+Fresh fetch verification found `origin/master` at
+`c4239a96513c24fc9f7f331025386756d0248569` and the task branch at
+`e494ea8fbc9d21bc0a6604b1a76c3696b5266907`, with master as the exact merge base and no unexpected
+drift.
 
-Routine discovery still defaults off. The batch/tail path requires the existing explicit
-`autonomous_source_discovery_enabled=True` opt-in. Budgets fail closed at two batch turns, two tail
-turns, four total discovery turns, 2,000,000 accounted tokens, 12 stories per turn, and the unchanged
-96 deterministic-network-request production-day ceiling.
+The fresh supported App Server preflight passed with ChatGPT authentication, SDK `0.147.0`,
+`gpt-5.6-sol / HIGH`, an ephemeral thread, read-only sandbox, deny-all approval mode, and no API-key
+environment. The prior `CHATGPT_USAGE_LIMIT_REACHED` receipt is no longer current and has been
+removed.
 
-Model output remains URL-only locator input. Batch identity/headline/prior-blocker coverage is
-locally exact; cross-story binding, snippets, summaries, non-HTTPS/unregistered hosts, missing
-coverage, unexpected actions, and authority escalation are rejected before deterministic resume.
+ContentOps assignment used only the two owner-confirmed local 9Router routes:
+`vx/gemini-3.5-flash(high)` and `vx/gemini-3.1-pro-preview(high)`.
 
-## Deterministic implementation proof
+## Demonstrated defect and bounded repair
 
-Focused tests prove:
+The first server-available proof exposed one concrete coordinator/loader mismatch. The quota
+session enforced the unchanged deterministic ceiling of 96 requests, but the default official and
+public loaders remained capped at 24 and the public loader terminated deterministic resume when
+total accounting was only 35. The bounded repair propagates the existing coordinator ceiling to
+the default loaders only when explicit autonomous batch/tail discovery is enabled. The quota
+session remains the hard 96-request authority, and the per-candidate limit remains 6. Evidence,
+hash, freshness, capability, claim, permission, and publication gates are unchanged.
 
-- four exact story identities share one batch model turn;
-- deterministic-ready frontiers use zero discovery turns;
-- unresolved-only tail membership and one-tail-per-identity bounding;
-- cross-story/headline binding rejection before deterministic resume;
-- snippets/summaries/model claims grant no evidence authority;
-- same-candidate deterministic/resumed receipt reuse without rediscovery;
-- token and turn ceilings fail closed without a per-candidate fallback loop;
-- real loader/hash/freshness/claim gates remain downstream authority;
-- four-ready aggregation stays distinct and stops before writer/article/derivative/publication.
+Focused validation passed 88 tests. Compileall, CodeGraph generation/check, and `git diff --check`
+passed.
 
-The in-process end-to-end fixture reached four distinct governed evidence-ready candidates with one
-batch turn, zero tail turns, 120 accounted discovery tokens, zero writer/article/derivative/public
-writes, and `UNKNOWN_WRITE=0`.
+## Final post-repair proof
 
-## Fresh current-universe proof
+The fresh post-repair zero-write proof ran at cutoff `2026-08-23T14:01:59.304858Z`, loaded 288
+current headline identities, and prepared the bounded 12-candidate frontier.
 
-One fresh canonical zero-write attempt loaded 335 current headline identities and prepared the
-normal bounded 12-candidate frontier. Deterministic acquisition used 19 network requests, below the
-unchanged ceiling. Nine exact unresolved identities reached the batch boundary.
+One distinct candidate passed deterministic retrieval, content hashing, freshness, capability, and
+claim gates:
 
-The ChatGPT-authenticated App Server then rejected execution before a model turn because the account
-had reached its Codex usage limit. A separate minimal provider diagnostic confirmed the same exact
-host response and reported availability again at `Aug 30th, 2026 2:12 PM`. No API-key fallback,
-alternative credential, secret/session read, extra proof retry, or invented URL/evidence was used.
+- `rolling-x-global-cluster-94935b83bf36a4332d4d`, headline identities
+  `cc-x-headline-60b2102d06ca1c9cb74fb4a1` and
+  `cc-x-headline-567cf76077899037f72d4e6f`.
 
-Therefore the observed `0` discovery turns / `0` discovery tokens are not an economic acceptance
-result. Four fresh ready candidates were not produced, and the required PASS classification is
-forbidden until one fresh current-host proof completes under the implemented ceilings.
+The required four-candidate pool was not reached. Remaining candidates truthfully terminated on
+unresolved discovery, 403/404/access failures, stale or unresolved latest-event state, missing
+follow-up identity/material delta, or missing governed evidence. The exact remaining blocker is
+`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`. No further retry, speculative prompt tuning, gate weakening,
+or ceiling increase was performed.
 
-Exact receipts:
-
-- `real_zero_write_acceptance_receipt_v1.json` — first current-universe cycle extraction;
-- `host_runtime_blocker_receipt_v1.json` — exact sanitized host blocker and safety counts;
-- `tests_and_validation_v1.json` — deterministic validation and repository checks.
-
-## Safety result
+Economics passed: 1 batch turn, 1 tail turn, 2 total discovery turns, 310,521 accounted discovery
+tokens, and 22 deterministic requests. Compared with 35 turns / 10,237,897 tokens, the exact deltas
+are -33 turns / -9,927,376 tokens. No monetary savings are claimed.
 
 Writer calls `0`; article generation `0`; derivative generation `0`; public/provider writes `0`;
-`UNKNOWN_WRITE=0`; browser/CDP publication actions `0`; Automation mutations `0`; Capital Chronicle
-mutations `0`; V2 mutations `0`; secret/session reads `0`.
+`UNKNOWN_WRITE=0`; browser/CDP actions `0`; Automation mutations `0`; Capital Chronicle mutations
+`0`; V2 mutations `0`; secret/session reads `0`.
 
-No monetary savings are claimed because no exact price/cost receipt exists.
+`real_zero_write_acceptance_receipt_v1.json` is the coherent final receipt. No host blocker receipt
+is retained. Do not start the 4/32 proof from this result.
