@@ -132,6 +132,7 @@ jobs:
           echo 'Committed CodeGraph is stale; commit the generated artifact bytes and rerun.'
           exit 1
 
+  # Same-repo PRs may repair generated-only CodeGraph drift without consuming a builder session.
   branch-codegraph-refresh:
     if: (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/agent/web-')) || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
