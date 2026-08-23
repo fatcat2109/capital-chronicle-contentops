@@ -4365,6 +4365,7 @@ def _default_rolling_x_evidence_acquirer(
     evaluation_as_of_utc: str | None = None,
     source_route_health: Mapping[str, Any] | None = None,
     coordinated_request_ceiling: int = 24,
+    coordinated_candidate_request_ceiling: int = 6,
 ) -> Any:
     """Build the capability-driven governed adapter used by the production path."""
     from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
@@ -4376,6 +4377,9 @@ def _default_rolling_x_evidence_acquirer(
         evaluation_as_of_utc=evaluation_as_of_utc,
         source_route_health=source_route_health,
         coordinated_request_ceiling=coordinated_request_ceiling,
+        coordinated_candidate_request_ceiling=(
+            coordinated_candidate_request_ceiling
+        ),
     )
 
 
@@ -5034,6 +5038,11 @@ def _run_rolling_x_newsroom_cycle(
                 DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS,
             )
         )
+        configured_candidate_requests = int(
+            (quota_discovery_budget or {}).get(
+                "max_deterministic_requests_per_candidate", 6
+            )
+        )
         prior_requests = int(
             (quota_discovery_prior_accounting or {}).get(
                 "deterministic_network_requests"
@@ -5051,6 +5060,11 @@ def _run_rolling_x_newsroom_cycle(
             evaluation_as_of_utc=cutoff_utc,
             source_route_health=source_route_health,
             coordinated_request_ceiling=coordinated_request_ceiling,
+            coordinated_candidate_request_ceiling=(
+                configured_candidate_requests
+                if autonomous_source_discovery_enabled
+                else 6
+            ),
         )
     )
     effective_source_discoverer = source_discoverer
@@ -5082,6 +5096,8 @@ def _run_rolling_x_newsroom_cycle(
             "max_total_turns",
             "max_accounted_tokens",
             "max_deterministic_network_requests",
+            "max_locator_model_invocations",
+            "max_deterministic_requests_per_candidate",
             "max_batch_stories",
         }
         unknown_budget_keys = sorted(set(discovery_budget).difference(allowed_budget_keys))
@@ -5089,6 +5105,9 @@ def _run_rolling_x_newsroom_cycle(
             raise ValueError(
                 "quota_discovery_budget_keys_invalid:" + ",".join(unknown_budget_keys)
             )
+        discovery_budget.pop(
+            "max_deterministic_requests_per_candidate", None
+        )
         quota_discovery_session = QuotaEfficientSourceDiscoverySession(
             evidence_acquirer=base_evidence_acquirer,
             source_discoverer=effective_source_discoverer,

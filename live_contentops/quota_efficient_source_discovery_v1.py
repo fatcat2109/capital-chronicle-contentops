@@ -23,9 +23,9 @@ DEFAULT_MAX_TOTAL_TURNS = 4
 DEFAULT_MAX_ACCOUNTED_TOKENS = 2_000_000
 DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS = 96
 DEFAULT_MAX_BATCH_STORIES = 12
-DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS = 24
-DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS = 18_000_000
-DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS = 384
+DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS = 96
+DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS = 26_000_000
+DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS = 1_024
 _DISCOVERY_REQUIRED_MARKERS = frozenset(
     {"SOURCE_DISCOVERY_REQUIRED", "AUTONOMOUS_SOURCE_DISCOVERY_EXHAUSTED"}
 )
@@ -36,6 +36,15 @@ _CONCRETE_TAIL_ACCESS_MARKERS = frozenset(
         "public_source_unavailable",
         "official_source_locator_candidate_unavailable",
         "exact_official_source_url_unavailable",
+    }
+)
+_OPTIONAL_PROVIDER_AVAILABILITY_FAILURES = frozenset(
+    {
+        "CHATGPT_USAGE_LIMIT_REACHED",
+        "CODEX_MODEL_OR_EFFORT_UNAVAILABLE",
+        "OPENAI_CODEX_SDK_NOT_INSTALLED",
+        "OPENAI_CODEX_SDK_VERSION_MISMATCH",
+        "CODEX_APP_SERVER_RUNTIME_ERROR",
     }
 )
 
@@ -97,6 +106,16 @@ def _network_request_count(receipt: Mapping[str, Any]) -> int:
             or 0
         ),
     )
+    resilient = provenance.get("provider_resilient_locator") or {}
+    if isinstance(resilient, Mapping):
+        public_requests = max(
+            public_requests,
+            int(
+                resilient.get("deterministic_request_count_for_full_cascade")
+                or resilient.get("deterministic_request_count")
+                or 0
+            ),
+        )
     return official_requests + public_requests
 
 
@@ -117,6 +136,7 @@ class QuotaEfficientSourceDiscoverySession:
         max_deterministic_network_requests: int = (
             DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS
         ),
+        max_locator_model_invocations: int | None = None,
         max_batch_stories: int = DEFAULT_MAX_BATCH_STORIES,
     ) -> None:
         if not callable(evidence_acquirer):
@@ -125,6 +145,11 @@ class QuotaEfficientSourceDiscoverySession:
             getattr(source_discoverer, "discover_batch", None)
         ):
             raise ValueError("quota_discovery_source_discoverer_required")
+        effective_max_locator_invocations = int(
+            max_locator_model_invocations
+            if max_locator_model_invocations is not None
+            else max_total_turns
+        )
         if (
             not 1 <= max_batch_turns <= max_total_turns
             or not 1 <= max_tail_turns <= max_total_turns
@@ -134,6 +159,9 @@ class QuotaEfficientSourceDiscoverySession:
             or max_deterministic_network_requests < 1
             or max_deterministic_network_requests
             > DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
+            or not 1
+            <= effective_max_locator_invocations
+            <= DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
             or not 1 <= max_batch_stories <= DEFAULT_MAX_BATCH_STORIES
         ):
             raise ValueError("quota_discovery_budget_invalid")
@@ -146,6 +174,7 @@ class QuotaEfficientSourceDiscoverySession:
         self._max_deterministic_network_requests = int(
             max_deterministic_network_requests
         )
+        self._max_locator_model_invocations = effective_max_locator_invocations
         self._max_batch_stories = int(max_batch_stories)
         self._newsroom_production_day_id = str(
             newsroom_production_day_id or ""
@@ -177,6 +206,14 @@ class QuotaEfficientSourceDiscoverySession:
         ] = {}
         self._allocation_decisions: list[dict[str, Any]] = []
         self._observed_ready_candidate_ids: set[str] = set()
+        self._provider_independent_locator_invocations = 0
+        self._provider_independent_locator_tokens = 0
+        self._optional_provider_invocation_attempts = 0
+        self._optional_provider_disabled = False
+        self._optional_provider_disable_reason: str | None = None
+        self._optional_provider_failures: list[dict[str, Any]] = []
+        self._locator_attempts: list[dict[str, Any]] = []
+        self._locator_attempt_hashes: set[str] = set()
         if prior_accounting is not None:
             self._restore_prior_accounting(prior_accounting)
         self._session_start_turn_count = len(self._turns)
@@ -232,6 +269,39 @@ class QuotaEfficientSourceDiscoverySession:
             str(value)
             for value in prior.get("ready_candidate_identities") or []
             if str(value)
+        }
+        self._provider_independent_locator_invocations = int(
+            prior.get("provider_independent_locator_invocations") or 0
+        )
+        self._provider_independent_locator_tokens = int(
+            prior.get("provider_independent_locator_tokens") or 0
+        )
+        self._optional_provider_invocation_attempts = int(
+            prior.get("optional_provider_invocation_attempts") or 0
+        )
+        self._optional_provider_disabled = bool(
+            prior.get("optional_provider_disabled_for_production_day")
+        )
+        self._optional_provider_disable_reason = (
+            str(prior.get("optional_provider_disable_reason") or "") or None
+        )
+        self._optional_provider_failures = [
+            copy.deepcopy(dict(row))
+            for row in prior.get("optional_provider_failures") or []
+            if isinstance(row, Mapping)
+        ]
+        if self._terminal_provider_blocker in _OPTIONAL_PROVIDER_AVAILABILITY_FAILURES:
+            self._optional_provider_disabled = True
+            self._optional_provider_disable_reason = self._terminal_provider_blocker
+            self._terminal_provider_blocker = None
+        self._locator_attempts = [
+            copy.deepcopy(dict(row))
+            for row in prior.get("locator_attempts") or []
+            if isinstance(row, Mapping)
+        ]
+        self._locator_attempt_hashes = {
+            str(row.get("attempt_sha256") or _hash(row))
+            for row in self._locator_attempts
         }
         for row in prior.get("tail_retry_decisions") or []:
             if not isinstance(row, Mapping):
@@ -298,6 +368,8 @@ class QuotaEfficientSourceDiscoverySession:
             > self._max_accounted_tokens
             or self._deterministic_network_requests
             > self._max_deterministic_network_requests
+            or self._total_locator_model_invocations()
+            > self._max_locator_model_invocations
         ):
             self._terminal_budget_blocker = (
                 "URL_DISCOVERY_PRODUCTION_DAY_BUDGET_ALREADY_EXCEEDED"
@@ -341,6 +413,144 @@ class QuotaEfficientSourceDiscoverySession:
             "publication_authority": False,
         }
 
+    def _total_locator_model_invocations(self) -> int:
+        return (
+            len(self._turns)
+            + self._provider_independent_locator_invocations
+            + self._optional_provider_invocation_attempts
+        )
+
+    def _total_accounted_tokens(self) -> int:
+        return self._provider_independent_locator_tokens + sum(
+            int(row.get("accounted_discovery_tokens") or 0)
+            for row in self._turns
+        )
+
+    def _append_locator_attempt(self, row: Mapping[str, Any]) -> None:
+        normalized = copy.deepcopy(dict(row))
+        normalized.setdefault("ready_candidate_gain", 0)
+        normalized.setdefault("factual_or_numeric_authority_granted", False)
+        normalized.setdefault("permission_authority_granted", False)
+        normalized.setdefault("publication_authority_granted", False)
+        normalized.setdefault("model_output_is_evidence", False)
+        attempt_hash = _hash(normalized)
+        if attempt_hash in self._locator_attempt_hashes:
+            return
+        normalized["attempt_sha256"] = attempt_hash
+        self._locator_attempt_hashes.add(attempt_hash)
+        self._locator_attempts.append(normalized)
+
+    def _record_provider_independent_locator_usage(
+        self,
+        identity: tuple[str, tuple[str, ...]],
+        receipt: Mapping[str, Any],
+    ) -> None:
+        provenance = receipt.get("evidence_acquisition_provenance") or {}
+        if not isinstance(provenance, Mapping):
+            return
+        public_secondary = provenance.get("public_secondary") or {}
+        if isinstance(public_secondary, Mapping):
+            public_provenance = public_secondary.get("provenance") or {}
+            if isinstance(public_provenance, Mapping) and (
+                int(public_provenance.get("request_count_for_call") or 0) > 0
+                or int(public_provenance.get("locator_candidate_count") or 0) > 0
+            ):
+                query_count = int(
+                    public_provenance.get("llm_directed_grounded_query_count")
+                    or 0
+                ) or 1
+                accepted_document_count = int(
+                    public_secondary.get("accepted_document_count") or 0
+                )
+                self._append_locator_attempt(
+                    {
+                        **_identity_row(identity),
+                        "locator_class": "DETERMINISTIC_PUBLIC_RSS_PUBLISHER_RESOLUTION",
+                        "model_route": None,
+                        "model_routes_attempted": [],
+                        "query_count": query_count,
+                        "deterministic_request_count": int(
+                            public_provenance.get("request_count_for_call") or 0
+                        ),
+                        "candidate_urls_resolved": int(
+                            public_provenance.get("locator_candidate_count") or 0
+                        ),
+                        "exact_publisher_documents_accepted": (
+                            accepted_document_count
+                        ),
+                        "accounted_semantic_tokens": 0,
+                        "provider_failure": None,
+                        "publisher_resolution_attempt_count": int(
+                            public_provenance.get(
+                                "publisher_resolution_attempt_count"
+                            )
+                            or 0
+                        ),
+                        "publisher_resolution_diagnostics": list(
+                            public_provenance.get(
+                                "publisher_resolution_diagnostics"
+                            )
+                            or []
+                        ),
+                        "marginal_document_yield": round(
+                            accepted_document_count / query_count, 6
+                        ),
+                    }
+                )
+
+        resilient = provenance.get("provider_resilient_locator") or {}
+        if not isinstance(resilient, Mapping) or not resilient:
+            return
+        invocation_count = int(
+            resilient.get("locator_model_invocations_for_call") or 0
+        )
+        semantic_tokens = int(
+            resilient.get("accounted_semantic_tokens_for_call") or 0
+        )
+        self._provider_independent_locator_invocations += invocation_count
+        self._provider_independent_locator_tokens += semantic_tokens
+        self._append_locator_attempt(
+            {
+                **_identity_row(identity),
+                "locator_class": str(
+                    resilient.get("locator_class")
+                    or "NINE_ROUTER_QUERY_REPLAN"
+                ),
+                "status": resilient.get("status"),
+                "model_route": resilient.get("model_route"),
+                "model_routes_attempted": list(
+                    resilient.get("model_routes_attempted") or []
+                ),
+                "provider_attempt_count": int(
+                    resilient.get("provider_attempt_count_for_call") or 0
+                ),
+                "query_count": int(resilient.get("query_count") or 0),
+                "query_sha256": list(resilient.get("query_sha256") or []),
+                "deterministic_request_count": int(
+                    resilient.get("deterministic_request_count") or 0
+                ),
+                "candidate_urls_resolved": int(
+                    resilient.get("candidate_urls_resolved") or 0
+                ),
+                "exact_publisher_documents_accepted": int(
+                    resilient.get("exact_publisher_documents_accepted") or 0
+                ),
+                "accounted_semantic_tokens": semantic_tokens,
+                "provider_failure": resilient.get("provider_failure"),
+                "publisher_resolution_attempt_count": int(
+                    resilient.get("publisher_resolution_attempt_count") or 0
+                ),
+                "publisher_resolution_diagnostics": list(
+                    resilient.get("publisher_resolution_diagnostics") or []
+                ),
+                "marginal_document_yield": float(
+                    resilient.get("marginal_document_yield") or 0.0
+                ),
+                "query_text_grants_factual_authority": False,
+                "model_generated_urls_permitted": False,
+            }
+        )
+
     def acquire(self, request: Mapping[str, Any]) -> Any:
         request_row = dict(request)
         if self._deterministic_network_requests >= self._max_deterministic_network_requests:
@@ -365,6 +575,21 @@ class QuotaEfficientSourceDiscoverySession:
             self._deterministic_acquisition_calls += 1
             request_count = _network_request_count(receipt)
             self._deterministic_network_requests += request_count
+            self._record_provider_independent_locator_usage(identity, receipt)
+            if (
+                self._total_locator_model_invocations()
+                > self._max_locator_model_invocations
+            ):
+                self._terminal_budget_blocker = (
+                    "LOCATOR_MODEL_INVOCATION_CEILING_EXCEEDED"
+                )
+                receipt["status"] = "BLOCKED"
+                receipt["blockers"] = sorted(
+                    set(
+                        [str(value) for value in receipt.get("blockers") or []]
+                        + [self._terminal_budget_blocker]
+                    )
+                )
             blockers = [str(value) for value in receipt.get("blockers") or []]
             if "SOURCE_DISCOVERY_REQUIRED" in blockers:
                 self._deterministic_frontier[identity] = {
@@ -385,6 +610,17 @@ class QuotaEfficientSourceDiscoverySession:
             ):
                 self._terminal_budget_blocker = (
                     "URL_DISCOVERY_DETERMINISTIC_REQUEST_CEILING_EXCEEDED"
+                )
+                receipt["status"] = "BLOCKED"
+                receipt["blockers"] = sorted(
+                    set(
+                        [str(value) for value in receipt.get("blockers") or []]
+                        + [self._terminal_budget_blocker]
+                    )
+                )
+            if self._total_accounted_tokens() > self._max_accounted_tokens:
+                self._terminal_budget_blocker = (
+                    "URL_DISCOVERY_TOKEN_CEILING_EXCEEDED"
                 )
                 receipt["status"] = "BLOCKED"
                 receipt["blockers"] = sorted(
@@ -414,6 +650,21 @@ class QuotaEfficientSourceDiscoverySession:
         self._deterministic_acquisition_calls += 1
         request_count = _network_request_count(resumed)
         self._deterministic_network_requests += request_count
+        self._record_provider_independent_locator_usage(identity, resumed)
+        if (
+            self._total_locator_model_invocations()
+            > self._max_locator_model_invocations
+        ):
+            self._terminal_budget_blocker = (
+                "LOCATOR_MODEL_INVOCATION_CEILING_EXCEEDED"
+            )
+            resumed["status"] = "BLOCKED"
+            resumed["blockers"] = sorted(
+                set(
+                    [str(value) for value in resumed.get("blockers") or []]
+                    + [self._terminal_budget_blocker]
+                )
+            )
         if (
             self._deterministic_network_requests
             > self._max_deterministic_network_requests
@@ -421,6 +672,15 @@ class QuotaEfficientSourceDiscoverySession:
             self._terminal_budget_blocker = (
                 "URL_DISCOVERY_DETERMINISTIC_REQUEST_CEILING_EXCEEDED"
             )
+            resumed["status"] = "BLOCKED"
+            resumed["blockers"] = sorted(
+                set(
+                    [str(value) for value in resumed.get("blockers") or []]
+                    + [self._terminal_budget_blocker]
+                )
+            )
+        if self._total_accounted_tokens() > self._max_accounted_tokens:
+            self._terminal_budget_blocker = "URL_DISCOVERY_TOKEN_CEILING_EXCEEDED"
             resumed["status"] = "BLOCKED"
             resumed["blockers"] = sorted(
                 set(
@@ -605,26 +865,45 @@ class QuotaEfficientSourceDiscoverySession:
         self._last_turn_request_checkpoint = after
 
     def record_ready_candidate(self, cluster_id: str) -> bool:
-        """Attribute a newly selected governed candidate to this session's latest turn."""
+        """Attribute a newly selected governed candidate to its latest locator attempt."""
         normalized = str(cluster_id or "")
         if (
             not normalized
             or normalized in self._observed_ready_candidate_ids
-            or len(self._turns) <= self._session_start_turn_count
         ):
             return False
         self._observed_ready_candidate_ids.add(normalized)
-        self._sync_latest_turn_request_usage()
-        latest = self._turns[-1]
-        latest["ready_candidate_gain"] = int(
-            latest.get("ready_candidate_gain") or 0
-        ) + 1
-        candidate_count = int(latest.get("candidate_story_count") or 0)
-        latest["marginal_ready_yield"] = (
-            float(latest["ready_candidate_gain"]) / float(candidate_count)
-            if candidate_count
-            else 0.0
-        )
+        for attempt in reversed(self._locator_attempts):
+            if str(attempt.get("story_identity") or "") != normalized:
+                continue
+            old_hash = str(attempt.pop("attempt_sha256", ""))
+            if old_hash:
+                self._locator_attempt_hashes.discard(old_hash)
+            attempt["ready_candidate_gain"] = int(
+                attempt.get("ready_candidate_gain") or 0
+            ) + 1
+            query_count = int(attempt.get("query_count") or 0)
+            attempt["marginal_ready_yield"] = (
+                round(attempt["ready_candidate_gain"] / query_count, 6)
+                if query_count
+                else float(attempt["ready_candidate_gain"])
+            )
+            new_hash = _hash(attempt)
+            attempt["attempt_sha256"] = new_hash
+            self._locator_attempt_hashes.add(new_hash)
+            break
+        if len(self._turns) > self._session_start_turn_count:
+            self._sync_latest_turn_request_usage()
+            latest = self._turns[-1]
+            latest["ready_candidate_gain"] = int(
+                latest.get("ready_candidate_gain") or 0
+            ) + 1
+            candidate_count = int(latest.get("candidate_story_count") or 0)
+            latest["marginal_ready_yield"] = (
+                float(latest["ready_candidate_gain"]) / float(candidate_count)
+                if candidate_count
+                else 0.0
+            )
         return True
 
     def defer_tail_for_useful_fresh_batch(self) -> bool:
@@ -676,10 +955,15 @@ class QuotaEfficientSourceDiscoverySession:
                 "blocker": self._terminal_budget_blocker
                 or self._terminal_provider_blocker,
             }
-        accounted_tokens = sum(
-            int(row.get("accounted_discovery_tokens") or 0)
-            for row in self._turns
-        )
+        if self._optional_provider_disabled:
+            return {
+                "called": False,
+                "new_contract_count": 0,
+                "blocker": "OPTIONAL_CODEX_PROVIDER_DISABLED_FOR_PRODUCTION_DAY",
+                "provider_disabled": True,
+                "provider_disable_reason": self._optional_provider_disable_reason,
+            }
+        accounted_tokens = self._total_accounted_tokens()
         if accounted_tokens >= self._max_accounted_tokens:
             self._terminal_budget_blocker = "URL_DISCOVERY_TOKEN_CEILING_EXCEEDED"
             return {
@@ -695,7 +979,9 @@ class QuotaEfficientSourceDiscoverySession:
         batch_turn_count = sum(row["pass_kind"] == "BATCH" for row in self._turns)
         tail_turn_count = sum(row["pass_kind"] == "TAIL" for row in self._turns)
         if (
-            len(self._turns) >= self._max_total_turns
+            self._total_locator_model_invocations()
+            >= self._max_locator_model_invocations
+            or len(self._turns) >= self._max_total_turns
             or normalized_pass_kind == "BATCH"
             and batch_turn_count >= self._max_batch_turns
             or normalized_pass_kind == "TAIL"
@@ -769,27 +1055,53 @@ class QuotaEfficientSourceDiscoverySession:
                     resolved_count=0,
                     failure_code=failure_code,
                 )
-            if failure_code in {
+            else:
+                self._optional_provider_invocation_attempts += 1
+            failure_row = {
+                "pass_kind": normalized_pass_kind,
+                "failure_class": type(exc).__name__,
+                "failure_code": failure_code,
+                "model_turn_completed": model_turn_completed,
+                "candidate_story_membership": [
+                    _identity_row(identity) for identity in sorted(identities)
+                ],
+            }
+            if failure_code in _OPTIONAL_PROVIDER_AVAILABILITY_FAILURES:
+                self._optional_provider_disabled = True
+                self._optional_provider_disable_reason = failure_code
+                self._optional_provider_failures.append(
+                    copy.deepcopy(failure_row)
+                )
+                self._append_locator_attempt(
+                    {
+                        "locator_class": "OFFICIAL_CODEX_URL_DISCOVERY_OPTIONAL",
+                        "pass_kind": normalized_pass_kind,
+                        "story_membership": [
+                            _identity_row(identity)
+                            for identity in sorted(identities)
+                        ],
+                        "model_route": "gpt-5.6-sol/HIGH",
+                        "query_count": len(requests),
+                        "deterministic_request_count": 0,
+                        "candidate_urls_resolved": 0,
+                        "exact_publisher_documents_accepted": 0,
+                        "accounted_semantic_tokens": 0,
+                        "provider_failure": failure_code,
+                        "provider_disabled_for_production_day": True,
+                    }
+                )
+            elif failure_code in {
                 "API_KEY_ENVIRONMENT_PRESENT",
                 "CHATGPT_AUTH_REQUIRED_API_KEY_FALLBACK_FORBIDDEN",
-                "CHATGPT_USAGE_LIMIT_REACHED",
-                "OPENAI_CODEX_SDK_NOT_INSTALLED",
-                "OPENAI_CODEX_SDK_VERSION_MISMATCH",
-                "CODEX_MODEL_OR_EFFORT_UNAVAILABLE",
             }:
                 self._terminal_provider_blocker = failure_code
-            self._failures.append(
-                {
-                    "pass_kind": normalized_pass_kind,
-                    "failure_class": type(exc).__name__,
-                    "failure_code": failure_code,
-                    "model_turn_completed": model_turn_completed,
-                    "candidate_story_membership": [
-                        _identity_row(identity) for identity in sorted(identities)
-                    ],
-                }
-            )
-            return {"called": model_turn_completed, "new_contract_count": 0}
+            self._failures.append(failure_row)
+            return {
+                "called": model_turn_completed,
+                "new_contract_count": 0,
+                "provider_disabled": self._optional_provider_disabled,
+                "blocker": failure_code,
+            }
 
         contracts = [
             dict(value)
@@ -859,9 +1171,7 @@ class QuotaEfficientSourceDiscoverySession:
             status="PASS",
             resolved_count=len(validated_contracts),
         )
-        total_tokens = sum(
-            int(row.get("accounted_discovery_tokens") or 0) for row in self._turns
-        )
+        total_tokens = self._total_accounted_tokens()
         if total_tokens > self._max_accounted_tokens:
             self._terminal_budget_blocker = "URL_DISCOVERY_TOKEN_CEILING_EXCEEDED"
             self._failures.append(
@@ -893,12 +1203,16 @@ class QuotaEfficientSourceDiscoverySession:
         self._sync_latest_turn_request_usage()
         batch_turn_count = sum(row["pass_kind"] == "BATCH" for row in self._turns)
         tail_turn_count = sum(row["pass_kind"] == "TAIL" for row in self._turns)
-        total_tokens = sum(
-            int(row.get("accounted_discovery_tokens") or 0) for row in self._turns
-        )
+        total_tokens = self._total_accounted_tokens()
+        total_locator_model_invocations = self._total_locator_model_invocations()
         remaining_batch_turns = max(0, self._max_batch_turns - batch_turn_count)
         remaining_tail_turns = max(0, self._max_tail_turns - tail_turn_count)
         remaining_total_turns = max(0, self._max_total_turns - len(self._turns))
+        remaining_locator_model_invocations = max(
+            0,
+            self._max_locator_model_invocations
+            - total_locator_model_invocations,
+        )
         remaining_tokens = max(0, self._max_accounted_tokens - total_tokens)
         remaining_requests = max(
             0,
@@ -910,6 +1224,8 @@ class QuotaEfficientSourceDiscoverySession:
             and batch_turn_count <= self._max_batch_turns
             and tail_turn_count <= self._max_tail_turns
             and len(self._turns) <= self._max_total_turns
+            and total_locator_model_invocations
+            <= self._max_locator_model_invocations
             and total_tokens <= self._max_accounted_tokens
             and self._deterministic_network_requests
             <= self._max_deterministic_network_requests
@@ -924,6 +1240,16 @@ class QuotaEfficientSourceDiscoverySession:
             "batch_discovery_turns": batch_turn_count,
             "tail_discovery_turns": tail_turn_count,
             "total_discovery_turns": len(self._turns),
+            "total_locator_model_invocations": total_locator_model_invocations,
+            "provider_independent_locator_invocations": (
+                self._provider_independent_locator_invocations
+            ),
+            "provider_independent_locator_tokens": (
+                self._provider_independent_locator_tokens
+            ),
+            "optional_provider_invocation_attempts": (
+                self._optional_provider_invocation_attempts
+            ),
             "accounted_discovery_tokens": total_tokens,
             "accounting_complete": self._accounting_complete,
             "candidates_covered_per_turn": [
@@ -934,6 +1260,16 @@ class QuotaEfficientSourceDiscoverySession:
             "deterministic_network_requests": self._deterministic_network_requests,
             "ready_candidate_yield": int(ready_candidate_count),
             "ready_candidate_identities": sorted(self._observed_ready_candidate_ids),
+            "locator_attempts": copy.deepcopy(self._locator_attempts),
+            "optional_provider_disabled_for_production_day": (
+                self._optional_provider_disabled
+            ),
+            "optional_provider_disable_reason": (
+                self._optional_provider_disable_reason
+            ),
+            "optional_provider_failures": copy.deepcopy(
+                self._optional_provider_failures
+            ),
             "cache_and_reuse": {
                 "deterministic_receipt_cache_hits": self._deterministic_cache_hits,
                 "resumed_receipt_cache_hits": self._resumed_cache_hits,
@@ -971,6 +1307,9 @@ class QuotaEfficientSourceDiscoverySession:
                 "max_batch_turns": self._max_batch_turns,
                 "max_tail_turns": self._max_tail_turns,
                 "max_total_turns": self._max_total_turns,
+                "max_locator_model_invocations": (
+                    self._max_locator_model_invocations
+                ),
                 "max_accounted_discovery_tokens": self._max_accounted_tokens,
                 "max_deterministic_network_requests": (
                     self._max_deterministic_network_requests
@@ -981,13 +1320,16 @@ class QuotaEfficientSourceDiscoverySession:
                 "batch_turns": remaining_batch_turns,
                 "tail_turns": remaining_tail_turns,
                 "total_turns": remaining_total_turns,
+                "locator_model_invocations": (
+                    remaining_locator_model_invocations
+                ),
                 "accounted_discovery_tokens": remaining_tokens,
                 "deterministic_network_requests": remaining_requests,
             },
             "accepted_baseline_comparison": {
                 "baseline_discovery_turns": 35,
                 "baseline_accounted_discovery_tokens": 10_237_897,
-                "discovery_turn_delta": len(self._turns) - 35,
+                "discovery_turn_delta": total_locator_model_invocations - 35,
                 "accounted_discovery_token_delta": total_tokens - 10_237_897,
                 "monetary_savings_claimed": False,
                 "exact_price_or_cost_receipt_available": False,

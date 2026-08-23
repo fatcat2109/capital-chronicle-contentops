@@ -1206,6 +1206,7 @@ def test_production_day_quota_carries_turns_tokens_requests_and_exact_residual()
         "batch_turns": 0,
         "tail_turns": 2,
         "total_turns": 2,
+        "locator_model_invocations": 2,
         "accounted_discovery_tokens": 1_999_850,
         "deterministic_network_requests": 6,
     }
@@ -1403,7 +1404,7 @@ def test_same_candidate_request_reuses_governed_resumed_receipt_without_rediscov
     assert session.snapshot()["cache_and_reuse"]["resumed_receipt_cache_hits"] == 1
 
 
-def test_acceptance_receipt_reports_current_host_runtime_proof_required_for_usage_limit(
+def test_acceptance_receipt_does_not_global_stop_on_optional_codex_usage_limit(
     tmp_path: Path,
 ):
     cycle = {
@@ -1444,8 +1445,172 @@ def test_acceptance_receipt_reports_current_host_runtime_proof_required_for_usag
         runtime_output_dir=tmp_path,
     )
 
-    assert receipt["classification"] == "CURRENT_HOST_RUNTIME_PROOF_REQUIRED"
-    assert receipt["exact_remaining_blocker"] == "CHATGPT_USAGE_LIMIT_REACHED"
+    assert receipt["classification"] == "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED"
+    assert receipt["exact_remaining_blocker"] == (
+        "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+    )
+
+
+def test_codex_usage_limit_disables_optional_provider_and_unseen_walk_continues():
+    class UsageLimitedDiscovery:
+        def __init__(self):
+            self.calls = 0
+
+        def discover_batch(self, _requests, *, pass_kind):
+            self.calls += 1
+            assert pass_kind == "BATCH"
+            raise OfficialCodexProviderError(
+                "CHATGPT_USAGE_LIMIT_REACHED",
+                phase="TURN_EXECUTION",
+                model_turn_completed=False,
+            )
+
+    discoverer = UsageLimitedDiscovery()
+
+    def acquire(request):
+        if request["cluster_id"] == "unseen-provider-independent-ready":
+            return _pass_receipt(request)
+        return _source_discovery_required_receipt(request)
+
+    session = QuotaEfficientSourceDiscoverySession(
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        newsroom_production_day_id="newsroom-production-day-2026-08-24-bangkok",
+        max_batch_turns=96,
+        max_tail_turns=96,
+        max_total_turns=96,
+        max_locator_model_invocations=96,
+        max_accounted_tokens=26_000_000,
+        max_deterministic_network_requests=1_024,
+    )
+    blocked_request = {
+        "cluster_id": "codex-last-resort-story",
+        "headline_ids": ["headline-codex-last-resort"],
+        "rank": 1,
+        "request_logical_hash": "codex-last-resort-request",
+    }
+    initial = session.acquire(blocked_request)
+    result = session.discover_unresolved(
+        {
+            "rank_attempts": [
+                {
+                    "rank": 1,
+                    "request": blocked_request,
+                    "evidence_receipt": initial,
+                    "blockers": list(initial["blockers"]),
+                }
+            ]
+        },
+        pass_kind="BATCH",
+    )
+
+    assert result["provider_disabled"] is True
+    assert result["blocker"] == "CHATGPT_USAGE_LIMIT_REACHED"
+    ready_request = {
+        "cluster_id": "unseen-provider-independent-ready",
+        "headline_ids": ["headline-provider-independent-ready"],
+        "rank": 2,
+        "request_logical_hash": "provider-independent-ready-request",
+        "required_evidence_capabilities": [
+            "credible_event_confirmation",
+            "basic_attributed_facts",
+        ],
+    }
+    ready = session.acquire(ready_request)
+    assert ready["status"] == "PASS"
+    assert session.record_ready_candidate(ready_request["cluster_id"]) is True
+    snapshot = session.snapshot(ready_candidate_count=1)
+
+    assert discoverer.calls == 1
+    assert snapshot["status"] == "PASS"
+    assert snapshot["terminal_provider_blocker"] is None
+    assert snapshot["optional_provider_disabled_for_production_day"] is True
+    assert snapshot["optional_provider_disable_reason"] == (
+        "CHATGPT_USAGE_LIMIT_REACHED"
+    )
+    assert snapshot["optional_provider_invocation_attempts"] == 1
+    assert snapshot["total_locator_model_invocations"] == 1
+    assert snapshot["ready_candidate_identities"] == [
+        "unseen-provider-independent-ready"
+    ]
+    assert snapshot["locator_attempts"][-1]["locator_class"] == (
+        "OFFICIAL_CODEX_URL_DISCOVERY_OPTIONAL"
+    )
+    assert snapshot["locator_attempts"][-1][
+        "provider_disabled_for_production_day"
+    ] is True
+
+
+def test_provider_independent_locator_usage_is_counted_in_completion_budget():
+    def acquire(request):
+        receipt = _source_discovery_required_receipt(request)
+        receipt["evidence_acquisition_provenance"] = {
+            "public_secondary": {
+                "provenance": {
+                    "request_count_for_call": 2,
+                    "locator_candidate_count": 0,
+                    "publisher_resolution_attempt_count": 0,
+                    "publisher_resolution_diagnostics": [],
+                }
+            },
+            "provider_resilient_locator": {
+                "status": "PASS",
+                "locator_class": "NINE_ROUTER_QUERY_REPLAN",
+                "model_route": "vx/gemini-3.1-pro-preview(high)",
+                "model_routes_attempted": [
+                    "vx/gemini-3.1-pro-preview(high)"
+                ],
+                "provider_attempt_count_for_call": 1,
+                "locator_model_invocations_for_call": 1,
+                "accounted_semantic_tokens_for_call": 123,
+                "query_count": 2,
+                "query_sha256": ["query-one", "query-two"],
+                "deterministic_request_count": 2,
+                "deterministic_request_count_for_full_cascade": 4,
+                "candidate_urls_resolved": 0,
+                "exact_publisher_documents_accepted": 0,
+                "publisher_resolution_attempt_count": 0,
+                "publisher_resolution_diagnostics": [],
+                "marginal_document_yield": 0.0,
+                "query_text_grants_factual_authority": False,
+                "model_generated_urls_permitted": False,
+                "model_output_is_evidence": False,
+            },
+        }
+        return receipt
+
+    session = QuotaEfficientSourceDiscoverySession(
+        evidence_acquirer=acquire,
+        source_discoverer=_BatchDiscoveryFixture(),
+        max_batch_turns=96,
+        max_tail_turns=96,
+        max_total_turns=96,
+        max_locator_model_invocations=96,
+        max_accounted_tokens=26_000_000,
+        max_deterministic_network_requests=1_024,
+    )
+    request = {
+        "cluster_id": "provider-independent-accounting",
+        "headline_ids": ["headline-provider-independent-accounting"],
+        "rank": 1,
+        "request_logical_hash": "provider-independent-accounting-request",
+    }
+    session.acquire(request)
+    snapshot = session.snapshot()
+
+    assert snapshot["provider_independent_locator_invocations"] == 1
+    assert snapshot["total_locator_model_invocations"] == 1
+    assert snapshot["provider_independent_locator_tokens"] == 123
+    assert snapshot["accounted_discovery_tokens"] == 123
+    assert snapshot["deterministic_network_requests"] == 4
+    assert snapshot["remaining_budget"]["locator_model_invocations"] == 95
+    assert snapshot["remaining_budget"]["accounted_discovery_tokens"] == (
+        26_000_000 - 123
+    )
+    resilient = snapshot["locator_attempts"][-1]
+    assert resilient["locator_class"] == "NINE_ROUTER_QUERY_REPLAN"
+    assert resilient["model_route"] == "vx/gemini-3.1-pro-preview(high)"
+    assert resilient["model_generated_urls_permitted"] is False
 
 
 def test_ordinary_minimum_packet_pass_does_not_invent_supported_claim_requirement(
@@ -1517,6 +1682,8 @@ def test_ordinary_minimum_packet_pass_does_not_invent_supported_claim_requiremen
             "failures": [],
             "candidate_urls_are_evidence": False,
             "tail_is_subset_only": True,
+            "optional_provider_disabled_for_production_day": True,
+            "optional_provider_disable_reason": "CHATGPT_USAGE_LIMIT_REACHED",
         },
         "evidence_ready_pool": {"candidates": candidates},
         "ranked_viability": {"rank_attempts": attempts},
@@ -1734,16 +1901,19 @@ def test_multi_frontier_runner_freezes_universe_carries_budget_health_and_identi
         "batch_turns": 2,
         "tail_turns": 0,
         "total_turns": 2,
+        "locator_model_invocations": 2,
         "accounted_discovery_tokens": 20,
         "deterministic_network_requests": 4,
     }
     assert "quota_discovery_prior_accounting" not in cycle_calls[0]
     assert cycle_calls[0]["quota_discovery_budget"] == {
-        "max_batch_turns": 24,
-        "max_tail_turns": 24,
-        "max_total_turns": 24,
-        "max_accounted_tokens": 18_000_000,
-        "max_deterministic_network_requests": 384,
+        "max_batch_turns": 96,
+        "max_tail_turns": 96,
+        "max_total_turns": 96,
+        "max_accounted_tokens": 26_000_000,
+        "max_deterministic_network_requests": 1_024,
+        "max_locator_model_invocations": 96,
+        "max_deterministic_requests_per_candidate": 16,
     }
     assert [
         row["quota_discovery_fresh_unseen_available"] for row in cycle_calls

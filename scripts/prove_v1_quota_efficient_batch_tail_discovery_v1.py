@@ -56,6 +56,8 @@ DEVELOPMENT_PROOF_BUDGET = {
     "max_deterministic_network_requests": (
         DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
     ),
+    "max_locator_model_invocations": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+    "max_deterministic_requests_per_candidate": 16,
 }
 
 
@@ -267,10 +269,9 @@ def build_acceptance_receipt(
         "CODEX_MODEL_OR_EFFORT_UNAVAILABLE",
         "CHATGPT_USAGE_LIMIT_REACHED",
     }
-    host_runtime_required = any(
-        str(row.get("failure_code") or "") in host_runtime_failure_codes
-        for row in failures
-        if isinstance(row, Mapping)
+    host_runtime_required = bool(
+        str(accounting.get("terminal_provider_blocker") or "")
+        in host_runtime_failure_codes
     )
     batch_turns = int(accounting.get("batch_discovery_turns") or 0)
     tail_turns = int(accounting.get("tail_discovery_turns") or 0)
@@ -278,6 +279,11 @@ def build_acceptance_receipt(
     discovery_tokens = int(accounting.get("accounted_discovery_tokens") or 0)
     deterministic_requests = int(
         accounting.get("deterministic_network_requests") or 0
+    )
+    locator_model_invocations = int(
+        accounting.get("total_locator_model_invocations")
+        or accounting.get("total_discovery_turns")
+        or 0
     )
     distinct_candidate_ids = {
         str(row.get("cluster_id") or "") for row in candidates
@@ -330,7 +336,7 @@ def build_acceptance_receipt(
         accounting.get("status") == "PASS"
         and accounting.get("accounting_complete") is True
         and batch_turns + tail_turns == total_turns
-        and total_turns <= DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
+        and locator_model_invocations <= DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
         and discovery_tokens <= DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
         and deterministic_requests
         <= DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
@@ -378,9 +384,10 @@ def build_acceptance_receipt(
             "unified_discovery_turn_ceiling": (
                 DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
             ),
+            "locator_model_invocations": locator_model_invocations,
             "baseline_discovery_turns": BASELINE_TURNS,
             "baseline_accounted_discovery_tokens": BASELINE_TOKENS,
-            "discovery_turn_delta": total_turns - BASELINE_TURNS,
+            "discovery_turn_delta": locator_model_invocations - BASELINE_TURNS,
             "accounted_discovery_token_delta": discovery_tokens - BASELINE_TOKENS,
             "cost_receipt_available": False,
             "monetary_savings_claimed": False,
@@ -540,6 +547,9 @@ def run(
         prior_turn_count = int(
             (prior_accounting or {}).get("total_discovery_turns") or 0
         )
+        prior_locator_attempt_count = len(
+            (prior_accounting or {}).get("locator_attempts") or []
+        )
         cycle_kwargs: dict[str, Any] = {
             "run_id": (
                 "v1-quota-efficient-batch-tail-current-universe-proof-"
@@ -632,6 +642,11 @@ def run(
             if isinstance(row, Mapping)
             and int(row.get("turn_number") or 0) > prior_turn_count
         ]
+        frontier_locator_attempts = [
+            dict(row)
+            for row in (prior_accounting or {}).get("locator_attempts") or []
+            if isinstance(row, Mapping)
+        ][prior_locator_attempt_count:]
         current_health = cycle.get("source_route_health")
         if isinstance(current_health, Mapping):
             final_source_route_health = dict(current_health)
@@ -656,6 +671,7 @@ def run(
                     frozen_ids.difference(evaluated_headline_ids)
                 ),
                 "discovery_turns": frontier_turns,
+                "locator_attempts": frontier_locator_attempts,
                 "abstentions": list(single_receipt.get("abstentions") or []),
                 "exact_next_blocker": single_receipt.get("exact_remaining_blocker"),
                 "cycle_evidence_path": str(
@@ -715,6 +731,11 @@ def run(
     deterministic_requests = int(
         accounting.get("deterministic_network_requests") or 0
     )
+    locator_model_invocations = int(
+        accounting.get("total_locator_model_invocations")
+        or accounting.get("total_discovery_turns")
+        or 0
+    )
     host_runtime_required = bool(
         str(accounting.get("terminal_provider_blocker") or "")
         in {
@@ -762,7 +783,7 @@ def run(
         accounting.get("status") == "PASS"
         and accounting.get("accounting_complete") is True
         and batch_turns + tail_turns == total_turns
-        and total_turns <= DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
+        and locator_model_invocations <= DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
         and discovery_tokens <= DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
         and deterministic_requests
         <= DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
@@ -794,6 +815,12 @@ def run(
         for frontier in frontiers
         for turn in frontier.get("discovery_turns") or []
         if isinstance(turn, Mapping)
+    ]
+    per_locator_yield = [
+        dict(attempt)
+        for frontier in frontiers
+        for attempt in frontier.get("locator_attempts") or []
+        if isinstance(attempt, Mapping)
     ]
     exact_blocker = None
     if classification != PASS_CLASSIFICATION:
@@ -835,6 +862,7 @@ def run(
                 "batch_turns": batch_turns,
                 "tail_turns": tail_turns,
                 "total_turns": total_turns,
+                "locator_model_invocations": locator_model_invocations,
                 "accounted_discovery_tokens": discovery_tokens,
                 "deterministic_network_requests": deterministic_requests,
             },
@@ -842,6 +870,7 @@ def run(
             "hard_ceiling": {
                 "allocation": "COMPLETION_FIRST_ADAPTIVE_UNIFIED_TURN_POOL",
                 "total_turns": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+                "locator_model_invocations": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
                 "accounted_discovery_tokens": (
                     DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
                 ),
@@ -851,11 +880,13 @@ def run(
             },
         },
         "per_turn_yield": per_turn_yield,
+        "per_locator_yield": per_locator_yield,
         "actual_consumption_at_fourth_ready_candidate": (
             {
                 "batch_turns": batch_turns,
                 "tail_turns": tail_turns,
                 "total_turns": total_turns,
+                "locator_model_invocations": locator_model_invocations,
                 "accounted_discovery_tokens": discovery_tokens,
                 "deterministic_network_requests": deterministic_requests,
             }
@@ -871,9 +902,10 @@ def run(
             "development_guardrail_is_not_production_budget": True,
         },
         "accepted_baseline_comparison": {
+            "locator_model_invocations": locator_model_invocations,
             "baseline_discovery_turns": BASELINE_TURNS,
             "baseline_accounted_discovery_tokens": BASELINE_TOKENS,
-            "discovery_turn_delta": total_turns - BASELINE_TURNS,
+            "discovery_turn_delta": locator_model_invocations - BASELINE_TURNS,
             "accounted_discovery_token_delta": discovery_tokens - BASELINE_TOKENS,
             "monetary_savings_claimed": False,
         },

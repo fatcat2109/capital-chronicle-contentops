@@ -542,6 +542,157 @@ def test_ordinary_candidate_with_no_source_records_spends_zero_model_calls():
     assert calls == []
 
 
+def test_provider_resilient_locator_replan_emits_query_text_only():
+    phases: list[str] = []
+
+    def model(phase: str, _prompt: str) -> dict:
+        phases.append(phase)
+        return {
+            "queries": [
+                "US Commerce advanced semiconductor licensing restrictions"
+            ],
+            "verification_questions": ["Which agency announced the rule?"],
+            "preferred_source_classes": [
+                "official_primary",
+                "reputable_professional_reporting",
+            ],
+        }
+
+    research = GroundedNewsResearchV1(
+        evaluation_as_of_utc=AS_OF,
+        public_retriever=_retriever([]),
+        structured_model_call=model,
+    )
+    result = research.plan_locator_recovery(
+        _request(),
+        deterministic_blockers=["public_source_unavailable"],
+    )
+
+    assert result["status"] == "PASS"
+    assert phases == ["query_replan"]
+    assert result["query_count"] == 1
+    assert result["queries"] == [
+        "US Commerce advanced semiconductor licensing restrictions"
+    ]
+    assert result["model_generated_urls_permitted"] is False
+    assert result["model_output_is_evidence"] is False
+    assert result["query_text_grants_factual_authority"] is False
+    assert result["permission_authority"] is False
+    assert result["publication_authority"] is False
+
+
+def test_provider_resilient_locator_replan_rejects_model_generated_url():
+    research = GroundedNewsResearchV1(
+        evaluation_as_of_utc=AS_OF,
+        public_retriever=_retriever([]),
+        structured_model_call=lambda _phase, _prompt: {
+            "queries": ["https://www.reuters.com/invented-route"],
+            "verification_questions": [],
+            "preferred_source_classes": ["reputable_professional_reporting"],
+        },
+    )
+
+    result = research.plan_locator_recovery(
+        _request(),
+        deterministic_blockers=["public_source_unavailable"],
+    )
+
+    assert result["status"] == "BLOCKED"
+    assert result["queries"] == []
+    assert result["provider_failure"] == "research_query_url_forbidden"
+    assert result["model_generated_urls_permitted"] is False
+
+
+def test_adapter_runs_query_replan_then_deterministic_retrieval_before_codex():
+    document = _document()
+    retrieval_queries: list[list[str]] = []
+    base_model = _model_call(
+        [document["document_id"]], suggested_mode="BREAKING_BRIEF"
+    )
+
+    def model(phase: str, prompt: str) -> dict:
+        if phase == "query_replan":
+            return {
+                "queries": [
+                    "Commerce Department advanced chip licensing restrictions"
+                ],
+                "verification_questions": [],
+                "preferred_source_classes": [
+                    "reputable_professional_reporting"
+                ],
+            }
+        return base_model(phase, prompt)
+
+    def retrieve(request: dict) -> dict:
+        queries = list(
+            (request.get("story_context") or {}).get(
+                "grounded_research_queries"
+            )
+            or []
+        )
+        retrieval_queries.append(queries)
+        accepted = bool(queries) and queries[0].startswith("Commerce Department")
+        documents = [document] if accepted else []
+        return {
+            "status": "PASS" if documents else "BLOCKED",
+            "evidence_documents": documents,
+            "provided_evidence_capabilities": (
+                ["credible_event_confirmation", "basic_attributed_facts"]
+                if documents
+                else []
+            ),
+            "provenance": {
+                "request_count": len(retrieval_queries),
+                "request_count_for_call": 1,
+                "request_count_for_candidate": len(retrieval_queries),
+                "retrieved_at_utc": AS_OF,
+                "locator_candidate_count": len(documents),
+                "publisher_resolution_attempt_count": len(documents),
+                "publisher_resolution_diagnostics": [],
+            },
+            "rolling_x_story_binding": {
+                "cluster_id": request.get("cluster_id"),
+                "headline_ids": list(request.get("headline_ids") or []),
+                "request_logical_hash": request.get("request_logical_hash"),
+            },
+            "blockers": [] if documents else ["public_source_unavailable"],
+            "publication_authority": False,
+        }
+
+    research = GroundedNewsResearchV1(
+        evaluation_as_of_utc=AS_OF,
+        public_retriever=retrieve,
+        structured_model_call=model,
+    )
+    request = _request(mode="BREAKING_BRIEF")
+    adapter = RollingXTargetedEvidenceAdapter(
+        evaluation_as_of_utc=AS_OF,
+        public_secondary_loader=retrieve,
+        grounded_researcher=research,
+    )
+
+    receipt = adapter(request)
+
+    assert receipt["status"] == "PASS"
+    assert retrieval_queries[0] == []
+    assert retrieval_queries[1] == [
+        "Commerce Department advanced chip licensing restrictions"
+    ]
+    resilient = receipt["evidence_acquisition_provenance"][
+        "provider_resilient_locator"
+    ]
+    assert resilient["locator_class"] == "NINE_ROUTER_QUERY_REPLAN"
+    assert resilient["query_count"] == 1
+    assert resilient["candidate_urls_resolved"] == 1
+    assert resilient["exact_publisher_documents_accepted"] == 1
+    assert resilient["source_bytes_retrieved_deterministically"] is True
+    assert resilient["model_generated_urls_permitted"] is False
+    assert resilient["model_output_is_evidence"] is False
+    assert "codex_source_discovery" not in receipt[
+        "evidence_acquisition_provenance"
+    ]
+
+
 def test_terminal_router_authorization_failure_is_an_exact_global_stop():
     error = GroundedNewsResearchInvocationError(
         "source_synthesis",

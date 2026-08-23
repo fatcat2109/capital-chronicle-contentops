@@ -51,7 +51,7 @@ CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION = "contentops.codex_source_discovery_urls.
 CODEX_SOURCE_DISCOVERY_BATCH_SCHEMA_VERSION = (
     "contentops.codex_source_discovery_batch_urls.v1"
 )
-MAX_COORDINATED_DETERMINISTIC_REQUEST_CEILING = 384
+MAX_COORDINATED_DETERMINISTIC_REQUEST_CEILING = 1_024
 CODEX_SOURCE_DISCOVERY_TRIGGER_REASONS = frozenset(
     {"NO_VIABLE_DETERMINISTIC_PATH", "BOUNDED_ACCESS_FAILURE"}
 )
@@ -923,6 +923,7 @@ class RollingXTargetedEvidenceAdapter:
         capability_registry: Mapping[str, Any] | None = None,
         source_route_health: Any = None,
         coordinated_request_ceiling: int = 24,
+        coordinated_candidate_request_ceiling: int = 6,
     ) -> None:
         if not (
             1
@@ -930,6 +931,14 @@ class RollingXTargetedEvidenceAdapter:
             <= MAX_COORDINATED_DETERMINISTIC_REQUEST_CEILING
         ):
             raise ValueError("evidence_loader_coordinated_request_ceiling_invalid")
+        if not (
+            1
+            <= int(coordinated_candidate_request_ceiling)
+            <= int(coordinated_request_ceiling)
+        ):
+            raise ValueError(
+                "evidence_loader_candidate_request_ceiling_invalid"
+            )
         self._root = Path(capital_chronicle_root) if capital_chronicle_root else None
         self._evaluation_as_of_utc = evaluation_as_of_utc or _utc_now()
         self._packet_loader = packet_loader
@@ -960,6 +969,9 @@ class RollingXTargetedEvidenceAdapter:
             public_secondary_loader = BoundedPublicSecondaryEvidenceLoader(
                 evaluation_as_of_utc=self._evaluation_as_of_utc,
                 max_requests=int(coordinated_request_ceiling),
+                max_requests_per_candidate=int(
+                    coordinated_candidate_request_ceiling
+                ),
                 source_route_health=source_route_health,
                 shared_request_budget=shared_request_budget,
             )
@@ -1011,6 +1023,68 @@ class RollingXTargetedEvidenceAdapter:
                 "publication_authority": False,
             }
         return dict(raw)
+
+    def _run_locator_query_recovery(
+        self,
+        request: Mapping[str, Any],
+        *,
+        deterministic_blockers: list[str],
+    ) -> dict[str, Any]:
+        planner = getattr(self._grounded_researcher, "plan_locator_recovery", None)
+        if not callable(planner):
+            return {
+                "status": "BLOCKED",
+                "locator_class": "NINE_ROUTER_QUERY_REPLAN",
+                "queries": [],
+                "query_count": 0,
+                "locator_model_invocations_for_call": 0,
+                "provider_attempt_count_for_call": 0,
+                "accounted_semantic_tokens_for_call": 0,
+                "provider_failure": "grounded_query_replanner_unavailable",
+                "query_text_grants_factual_authority": False,
+                "model_generated_urls_permitted": False,
+                "model_output_is_evidence": False,
+                "permission_authority": False,
+                "publication_authority": False,
+            }
+        try:
+            raw = planner(
+                request,
+                deterministic_blockers=list(deterministic_blockers),
+            )
+        except (OSError, RuntimeError, TypeError, ValueError) as exc:
+            return {
+                "status": "BLOCKED",
+                "locator_class": "NINE_ROUTER_QUERY_REPLAN",
+                "queries": [],
+                "query_count": 0,
+                "locator_model_invocations_for_call": 0,
+                "provider_attempt_count_for_call": 0,
+                "accounted_semantic_tokens_for_call": 0,
+                "provider_failure": _sanitized_evidence_loader_error(
+                    "grounded_query_replanner_unavailable", exc
+                ),
+                "query_text_grants_factual_authority": False,
+                "model_generated_urls_permitted": False,
+                "model_output_is_evidence": False,
+                "permission_authority": False,
+                "publication_authority": False,
+            }
+        return dict(raw) if isinstance(raw, Mapping) else {
+            "status": "BLOCKED",
+            "locator_class": "NINE_ROUTER_QUERY_REPLAN",
+            "queries": [],
+            "query_count": 0,
+            "locator_model_invocations_for_call": 0,
+            "provider_attempt_count_for_call": 0,
+            "accounted_semantic_tokens_for_call": 0,
+            "provider_failure": "grounded_query_replanner_result_not_object",
+            "query_text_grants_factual_authority": False,
+            "model_generated_urls_permitted": False,
+            "model_output_is_evidence": False,
+            "permission_authority": False,
+            "publication_authority": False,
+        }
 
     def _load_packet(self, request: Mapping[str, Any]) -> dict[str, Any] | None:
         # Packet selection is story-bound. Do not cache one story's packet across the rolling
@@ -1288,6 +1362,11 @@ class RollingXTargetedEvidenceAdapter:
                     "status": secondary.get("status"),
                     "blockers": list(secondary.get("blockers") or []),
                     "provenance": dict(secondary.get("provenance") or {}),
+                    "accepted_document_count": sum(
+                        isinstance(row, Mapping)
+                        and row.get("public_claim_allowed") is True
+                        for row in secondary.get("evidence_documents") or []
+                    ),
                     "enrichment_requested": bool(
                         documents or pre_enrichment_freshness_exclusions
                     )
@@ -1335,6 +1414,211 @@ class RollingXTargetedEvidenceAdapter:
                     )
                 else:
                     diagnostics["public_secondary"]["binding_blockers"] = binding_blockers
+
+            if not documents and "public_secondary" in families:
+                pre_recovery_blockers = sorted(
+                    {
+                        str(value)
+                        for lane in ("official", "public_secondary")
+                        for value in (
+                            (diagnostics.get(lane) or {}).get("blockers") or []
+                        )
+                        if str(value)
+                    }
+                )
+                recovery_plan = self._run_locator_query_recovery(
+                    request,
+                    deterministic_blockers=pre_recovery_blockers,
+                )
+                recovery_queries = [
+                    str(value)
+                    for value in recovery_plan.get("queries") or []
+                    if str(value)
+                ]
+                recovery_result: dict[str, Any] = {
+                    "status": "BLOCKED",
+                    "blockers": [],
+                    "evidence_documents": [],
+                    "provided_evidence_capabilities": [],
+                    "provenance": {"request_count_for_call": 0},
+                }
+                if recovery_plan.get("status") == "PASS" and recovery_queries:
+                    recovery_request = {
+                        **dict(request),
+                        "story_context": {
+                            **dict(request.get("story_context") or {}),
+                            "grounded_research_queries": recovery_queries,
+                        },
+                        "evidence_enrichment_context": {
+                            "requested": True,
+                            "reason": "PROVIDER_RESILIENT_QUERY_REPLAN_AFTER_DETERMINISTIC_EXHAUSTION",
+                            "existing_evidence_substance": summarize_evidence_substance(
+                                request, documents
+                            ),
+                            "additional_source_is_eligibility_requirement": False,
+                        },
+                    }
+                    try:
+                        recovery_raw = self._public_secondary_loader(
+                            recovery_request
+                        )
+                        recovery_result = (
+                            dict(recovery_raw)
+                            if isinstance(recovery_raw, Mapping)
+                            else recovery_result
+                        )
+                    except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
+                        recovery_result = {
+                            **recovery_result,
+                            "blockers": [
+                                _sanitized_evidence_loader_error(
+                                    "public_secondary_recovery_unavailable", exc
+                                )
+                            ],
+                        }
+                    binding_blockers = _exact_binding_blockers(
+                        recovery_result, request
+                    )
+                    if not binding_blockers:
+                        known_at = (recovery_result.get("provenance") or {}).get(
+                            "retrieved_at_utc"
+                        )
+                        for row in recovery_result.get("evidence_documents") or []:
+                            if not isinstance(row, Mapping):
+                                continue
+                            document = dict(row)
+                            if (
+                                document.get("source_url")
+                                and document.get("source_identity")
+                                and document.get("source_authority_class")
+                                == "reputable_secondary_source"
+                                and document.get("public_claim_allowed") is True
+                                and document.get("canonical_content_sha256")
+                                and known_at
+                            ):
+                                document.update(
+                                    {
+                                        "known_at_utc": known_at,
+                                        "cluster_id": request.get("cluster_id"),
+                                        "headline_ids": list(
+                                            request.get("headline_ids") or []
+                                        ),
+                                        "request_logical_hash": request.get(
+                                            "request_logical_hash"
+                                        ),
+                                        "permission_state": "PUBLIC_CLAIM_ALLOWED",
+                                        "freshness_state": "FRESH_CURRENT_OPERATOR_READINESS",
+                                    }
+                                )
+                                documents.append(document)
+                        supplied.update(
+                            str(value)
+                            for value in recovery_result.get(
+                                "provided_evidence_capabilities"
+                            )
+                            or []
+                        )
+                    else:
+                        recovery_result["binding_blockers"] = binding_blockers
+
+                initial_requests = int(
+                    (
+                        (diagnostics.get("public_secondary") or {}).get(
+                            "provenance"
+                        )
+                        or {}
+                    ).get("request_count_for_call")
+                    or 0
+                )
+                recovery_provenance = dict(
+                    recovery_result.get("provenance") or {}
+                )
+                recovery_requests = int(
+                    recovery_provenance.get("request_count_for_call")
+                    or recovery_provenance.get("request_count_for_candidate")
+                    or 0
+                )
+                accepted_documents = [
+                    row
+                    for row in recovery_result.get("evidence_documents") or []
+                    if isinstance(row, Mapping)
+                    and row.get("public_claim_allowed") is True
+                ]
+                diagnostics["provider_resilient_locator"] = {
+                    "status": recovery_plan.get("status"),
+                    "locator_class": recovery_plan.get("locator_class")
+                    or "NINE_ROUTER_QUERY_REPLAN",
+                    "model_route": recovery_plan.get("model_route"),
+                    "model_routes_attempted": list(
+                        recovery_plan.get("model_routes_attempted") or []
+                    ),
+                    "provider_attempt_count": int(
+                        recovery_plan.get("provider_attempt_count") or 0
+                    ),
+                    "provider_attempt_count_for_call": int(
+                        recovery_plan.get("provider_attempt_count_for_call") or 0
+                    ),
+                    "locator_model_invocations_for_call": int(
+                        recovery_plan.get("locator_model_invocations_for_call")
+                        or 0
+                    ),
+                    "accounted_semantic_tokens": int(
+                        recovery_plan.get("accounted_semantic_tokens") or 0
+                    ),
+                    "accounted_semantic_tokens_for_call": int(
+                        recovery_plan.get(
+                            "accounted_semantic_tokens_for_call"
+                        )
+                        or 0
+                    ),
+                    "query_count": len(recovery_queries),
+                    "query_sha256": list(
+                        recovery_plan.get("query_sha256") or []
+                    ),
+                    "deterministic_request_count": recovery_requests,
+                    "deterministic_request_count_for_full_cascade": (
+                        initial_requests + recovery_requests
+                    ),
+                    "candidate_urls_resolved": len(accepted_documents),
+                    "exact_publisher_documents_accepted": len(
+                        accepted_documents
+                    ),
+                    "governed_evidence_document_gain": len(documents),
+                    "ready_candidate_gain": 0,
+                    "marginal_document_yield": (
+                        round(len(accepted_documents) / len(recovery_queries), 6)
+                        if recovery_queries
+                        else 0.0
+                    ),
+                    "provider_failure": recovery_plan.get("provider_failure"),
+                    "query_planner_pool_unavailable": bool(
+                        recovery_plan.get("query_planner_pool_unavailable")
+                    ),
+                    "public_retrieval_status": recovery_result.get("status"),
+                    "public_retrieval_blockers": list(
+                        recovery_result.get("blockers") or []
+                    ),
+                    "publisher_resolution_attempt_count": int(
+                        recovery_provenance.get(
+                            "publisher_resolution_attempt_count"
+                        )
+                        or 0
+                    ),
+                    "publisher_resolution_diagnostics": list(
+                        recovery_provenance.get(
+                            "publisher_resolution_diagnostics"
+                        )
+                        or []
+                    ),
+                    "query_text_grants_factual_authority": False,
+                    "model_generated_urls_permitted": False,
+                    "model_output_is_evidence": False,
+                    "source_bytes_retrieved_deterministically": bool(
+                        accepted_documents
+                    ),
+                    "permission_authority": False,
+                    "publication_authority": False,
+                }
 
             if not documents:
                 deterministic_blockers = sorted(

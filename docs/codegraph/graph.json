@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13796,
+    "edges": 13799,
     "entrypoints": 16,
-    "nodes": 7301,
+    "nodes": 7302,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -26,7 +26,7 @@
       "manifest": 17,
       "python_class": 598,
       "python_function": 4003,
-      "python_method": 286,
+      "python_method": 287,
       "python_module": 765,
       "schema": 194,
       "test": 729,
@@ -33939,6 +33939,12 @@
       "from": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter._run_locator_query_recovery"
+    },
+    {
+      "from": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.source_route_health_snapshot"
     },
     {
@@ -64767,6 +64773,12 @@
       "from": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.__call__",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter._run_locator_query_recovery"
+    },
+    {
+      "from": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.__call__",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_apply_codex_source_discovery"
     },
     {
@@ -64879,6 +64891,12 @@
     },
     {
       "from": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter._run_grounded_research",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_sanitized_evidence_loader_error"
+    },
+    {
+      "from": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter._run_locator_query_recovery",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_sanitized_evidence_loader_error"
@@ -83445,7 +83463,7 @@
     {
       "id": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "kind": "python_module",
-      "size_bytes": 408889
+      "size_bytes": 409622
     },
     {
       "id": "live_contentops/accepted_review_editorial_workflow_v6.py",
@@ -84750,7 +84768,7 @@
     {
       "id": "live_contentops/grounded_news_research_v1.py",
       "kind": "python_module",
-      "size_bytes": 79240
+      "size_bytes": 87387
     },
     {
       "id": "live_contentops/grounded_research.py",
@@ -85980,7 +85998,7 @@
     {
       "id": "live_contentops/public_secondary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 43352
+      "size_bytes": 47814
     },
     {
       "id": "live_contentops/publication_audit_record_contract_v6.py",
@@ -86030,7 +86048,7 @@
     {
       "id": "live_contentops/quota_efficient_source_discovery_v1.py",
       "kind": "python_module",
-      "size_bytes": 44078
+      "size_bytes": 59701
     },
     {
       "id": "live_contentops/rate_budget_kill_switch_matrix_contract.py",
@@ -86175,7 +86193,7 @@
     {
       "id": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "kind": "python_module",
-      "size_bytes": 88686
+      "size_bytes": 102089
     },
     {
       "id": "live_contentops/runtime_activity_projection_v1.py",
@@ -86979,7 +86997,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_apply_exact_editorial_replacements",
       "kind": "python_function",
-      "line": 7550,
+      "line": 7569,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_apply_exact_editorial_replacements"
     },
@@ -87070,7 +87088,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_dispatch_canonical_operation",
       "kind": "python_function",
-      "line": 8502,
+      "line": 8521,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_dispatch_canonical_operation"
     },
@@ -87091,7 +87109,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_ensure_canonical_edge_publishing_runtime",
       "kind": "python_function",
-      "line": 8462,
+      "line": 8481,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_ensure_canonical_edge_publishing_runtime"
     },
@@ -87105,7 +87123,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_implementation_main",
       "kind": "python_function",
-      "line": 8194,
+      "line": 8213,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_implementation_main"
     },
@@ -87287,21 +87305,21 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_existing_derivative_readbacks",
       "kind": "python_function",
-      "line": 7324,
+      "line": 7343,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_existing_derivative_readbacks"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_linkedin_activity_pair",
       "kind": "python_function",
-      "line": 7911,
+      "line": 7930,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_linkedin_activity_pair"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_public_substack_for_derivative_resume",
       "kind": "python_function",
-      "line": 6557,
+      "line": 6576,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_public_substack_for_derivative_resume"
     },
@@ -87322,28 +87340,28 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_substack_caption_fragment",
       "kind": "python_function",
-      "line": 7474,
+      "line": 7493,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_substack_caption_fragment"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_treasury_release_candidate_editorial",
       "kind": "python_function",
-      "line": 7561,
+      "line": 7580,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_treasury_release_candidate_editorial"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_final_treasury_auction_logic",
       "kind": "python_function",
-      "line": 7681,
+      "line": 7700,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_final_treasury_auction_logic"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_resume_eight_platform_derivatives",
       "kind": "python_function",
-      "line": 6589,
+      "line": 6608,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_resume_eight_platform_derivatives"
     },
@@ -87357,7 +87375,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_rolling_x_ranked_clusters_with_context",
       "kind": "python_function",
-      "line": 4382,
+      "line": 4386,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_rolling_x_ranked_clusters_with_context"
     },
@@ -87413,63 +87431,63 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle",
       "kind": "python_function",
-      "line": 4548,
+      "line": 4552,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._candidate_walk_row",
       "kind": "python_method",
-      "line": 5570,
+      "line": 5589,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._candidate_walk_row"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._editorial_route_for_viability",
       "kind": "python_method",
-      "line": 5878,
+      "line": 5897,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._editorial_route_for_viability"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._merge_viability_attempts",
       "kind": "python_method",
-      "line": 5474,
+      "line": 5493,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._merge_viability_attempts"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._next_viable_after",
       "kind": "python_method",
-      "line": 5600,
+      "line": 5619,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._next_viable_after"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._persist_candidate_walk",
       "kind": "python_method",
-      "line": 5573,
+      "line": 5592,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._persist_candidate_walk"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._persist_cycle_evidence",
       "kind": "python_method",
-      "line": 5392,
+      "line": 5411,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._persist_cycle_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle.select_with_quota_efficient_discovery",
       "kind": "python_method",
-      "line": 5134,
+      "line": 5153,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle.select_with_quota_efficient_discovery"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle.tracked_evidence_acquirer",
       "kind": "python_method",
-      "line": 5100,
+      "line": 5119,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle.tracked_evidence_acquirer"
     },
@@ -87553,7 +87571,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_validate_injected_rolling_x_story_types",
       "kind": "python_function",
-      "line": 4482,
+      "line": 4486,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_validate_injected_rolling_x_story_types"
     },
@@ -87567,7 +87585,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_validated_rolling_x_story_routing",
       "kind": "python_function",
-      "line": 4513,
+      "line": 4517,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_validated_rolling_x_story_routing"
     },
@@ -87616,14 +87634,14 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::compile_variant_reliability_evidence",
       "kind": "python_function",
-      "line": 8033,
+      "line": 8052,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "compile_variant_reliability_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::finalize_reliability_hardening_evidence",
       "kind": "python_function",
-      "line": 8071,
+      "line": 8090,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "finalize_reliability_hardening_evidence"
     },
@@ -100111,14 +100129,14 @@
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::GroundedNewsResearchV1",
       "kind": "python_class",
-      "line": 761,
+      "line": 786,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "GroundedNewsResearchV1"
     },
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::build_additive_cc_context_bundle",
       "kind": "python_function",
-      "line": 274,
+      "line": 299,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "build_additive_cc_context_bundle"
     },
@@ -100132,7 +100150,7 @@
     {
       "id": "python_symbol:live_contentops/grounded_news_research_v1.py::build_grounded_research_request",
       "kind": "python_function",
-      "line": 330,
+      "line": 355,
       "path": "live_contentops/grounded_news_research_v1.py",
       "symbol": "build_grounded_research_request"
     },
@@ -112081,7 +112099,7 @@
     {
       "id": "python_symbol:live_contentops/public_secondary_evidence_loader_v1.py::BoundedPublicSecondaryEvidenceLoader",
       "kind": "python_class",
-      "line": 228,
+      "line": 230,
       "path": "live_contentops/public_secondary_evidence_loader_v1.py",
       "symbol": "BoundedPublicSecondaryEvidenceLoader"
     },
@@ -112662,7 +112680,7 @@
     {
       "id": "python_symbol:live_contentops/quota_efficient_source_discovery_v1.py::QuotaEfficientSourceDiscoverySession",
       "kind": "python_class",
-      "line": 103,
+      "line": 122,
       "path": "live_contentops/quota_efficient_source_discovery_v1.py",
       "symbol": "QuotaEfficientSourceDiscoverySession"
     },
@@ -114167,7 +114185,7 @@
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.__call__",
       "kind": "python_method",
-      "line": 1057,
+      "line": 1131,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "RollingXTargetedEvidenceAdapter.__call__"
     },
@@ -114181,21 +114199,28 @@
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter._load_packet",
       "kind": "python_method",
-      "line": 1015,
+      "line": 1089,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "RollingXTargetedEvidenceAdapter._load_packet"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter._run_grounded_research",
       "kind": "python_method",
-      "line": 984,
+      "line": 996,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "RollingXTargetedEvidenceAdapter._run_grounded_research"
     },
     {
+      "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter._run_locator_query_recovery",
+      "kind": "python_method",
+      "line": 1027,
+      "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
+      "symbol": "RollingXTargetedEvidenceAdapter._run_locator_query_recovery"
+    },
+    {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.source_route_health_snapshot",
       "kind": "python_method",
-      "line": 980,
+      "line": 992,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "RollingXTargetedEvidenceAdapter.source_route_health_snapshot"
     },
@@ -120040,21 +120065,21 @@
     {
       "id": "python_symbol:scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py::build_acceptance_receipt",
       "kind": "python_function",
-      "line": 182,
+      "line": 184,
       "path": "scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py",
       "symbol": "build_acceptance_receipt"
     },
     {
       "id": "python_symbol:scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py::main",
       "kind": "python_function",
-      "line": 903,
+      "line": 935,
       "path": "scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py::run",
       "kind": "python_function",
-      "line": 468,
+      "line": 475,
       "path": "scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py",
       "symbol": "run"
     },
@@ -122254,7 +122279,7 @@
     {
       "id": "scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py",
       "kind": "python_module",
-      "size_bytes": 38382
+      "size_bytes": 39864
     },
     {
       "id": "scripts/prove_v1_throughput_semantic_contract_v1.py",
@@ -123624,7 +123649,7 @@
     {
       "id": "tests/test_grounded_news_research_v1.py",
       "kind": "test",
-      "size_bytes": 25102
+      "size_bytes": 30690
     },
     {
       "id": "tests/test_grounded_research_brief.py",
@@ -124919,7 +124944,7 @@
     {
       "id": "tests/test_public_secondary_evidence_loader_v1.py",
       "kind": "test",
-      "size_bytes": 20832
+      "size_bytes": 24222
     },
     {
       "id": "tests/test_publication_audit_record_contract_v6.py",
@@ -125639,7 +125664,7 @@
     {
       "id": "tests/test_v1_evidence_foundation_closeout_v1.py",
       "kind": "test",
-      "size_bytes": 83201
+      "size_bytes": 89957
     },
     {
       "id": "tests/test_v1_golden_product_regression_recovery_v1.py",
@@ -130323,5 +130348,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "6254f826ca861f66c01dd83e7cffecd408f230d3",
-  "source_tree_digest": "d9607bccc40058918b00fb706c2380c82baeb1f38868262e7f772f312fb9066c"
+  "source_tree_digest": "c58c0934a09fc5e7b54595c000f1a0e77023580f2a1721b8c419172e981f577a"
 }
