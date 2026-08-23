@@ -48,6 +48,9 @@ WEEK_AHEAD_REQUIRED_CAPABILITIES = frozenset({
     "scheduled_event_date_time",
 })
 CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION = "contentops.codex_source_discovery_urls.v1"
+CODEX_SOURCE_DISCOVERY_BATCH_SCHEMA_VERSION = (
+    "contentops.codex_source_discovery_batch_urls.v1"
+)
 CODEX_SOURCE_DISCOVERY_TRIGGER_REASONS = frozenset(
     {"NO_VIABLE_DETERMINISTIC_PATH", "BOUNDED_ACCESS_FAILURE"}
 )
@@ -67,7 +70,10 @@ _DISCOVERY_FAILURE_MARKERS = (
 
 
 def validate_codex_source_discovery_contract(
-    contract: Mapping[str, Any], *, request: Mapping[str, Any]
+    contract: Mapping[str, Any],
+    *,
+    request: Mapping[str, Any],
+    allow_empty_candidate_urls: bool = False,
 ) -> dict[str, Any]:
     """Accept URL locators only; model/search text can never enter evidence."""
     allowed_keys = {
@@ -131,7 +137,8 @@ def validate_codex_source_discovery_contract(
     candidate_urls = list(
         dict.fromkeys(str(value) for value in contract.get("candidate_urls") or [])
     )
-    if not 1 <= len(candidate_urls) <= 4:
+    minimum_candidate_count = 0 if allow_empty_candidate_urls else 1
+    if not minimum_candidate_count <= len(candidate_urls) <= 4:
         raise ValueError("codex_source_discovery_candidate_count_invalid")
     normalized_candidates: list[dict[str, str]] = []
     for url in candidate_urls:
@@ -175,6 +182,131 @@ def validate_codex_source_discovery_contract(
         "publication_authority_granted": False,
     }
     normalized["discovery_contract_sha256"] = sha256(
+        json.dumps(
+            normalized, sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
+    return normalized
+
+
+def validate_codex_source_discovery_batch_contract(
+    contract: Mapping[str, Any],
+    *,
+    requests: list[Mapping[str, Any]],
+    pass_kind: str,
+) -> dict[str, Any]:
+    """Validate one strict result row for every exact batch story identity.
+
+    Empty candidate lists are permitted only at the batch envelope so the deterministic caller can
+    identify the unresolved subset for a bounded tail.  Non-empty rows still pass the unchanged
+    URL-only per-candidate host and authority contract above.
+    """
+    allowed_keys = {
+        "schema_version",
+        "batch_id",
+        "pass_kind",
+        "story_results",
+        "search_snippets_included",
+        "model_summaries_included",
+        "candidate_urls_are_evidence",
+        "factual_or_numeric_authority_granted",
+        "publication_authority_granted",
+    }
+    extra = sorted(set(contract).difference(allowed_keys))
+    if extra:
+        raise ValueError(
+            "codex_source_discovery_batch_untrusted_fields:" + ",".join(extra)
+        )
+    if contract.get("schema_version") != CODEX_SOURCE_DISCOVERY_BATCH_SCHEMA_VERSION:
+        raise ValueError("codex_source_discovery_batch_schema_invalid")
+    normalized_pass_kind = str(pass_kind or "").upper()
+    if normalized_pass_kind not in {"BATCH", "TAIL"} or str(
+        contract.get("pass_kind") or ""
+    ).upper() != normalized_pass_kind:
+        raise ValueError("codex_source_discovery_batch_pass_kind_invalid")
+    if (
+        contract.get("search_snippets_included") is not False
+        or contract.get("model_summaries_included") is not False
+        or contract.get("candidate_urls_are_evidence") is not False
+        or contract.get("factual_or_numeric_authority_granted") is not False
+        or contract.get("publication_authority_granted") is not False
+    ):
+        raise ValueError("codex_source_discovery_batch_authority_contract_invalid")
+    if not str(contract.get("batch_id") or ""):
+        raise ValueError("codex_source_discovery_batch_id_missing")
+    if not 1 <= len(requests) <= 12:
+        raise ValueError("codex_source_discovery_batch_request_count_invalid")
+
+    request_by_identity: dict[tuple[str, tuple[str, ...]], Mapping[str, Any]] = {}
+    for request in requests:
+        identity = (
+            str(request.get("cluster_id") or ""),
+            tuple(sorted(str(value) for value in request.get("headline_ids") or [])),
+        )
+        if not identity[0] or not identity[1] or identity in request_by_identity:
+            raise ValueError("codex_source_discovery_batch_request_identity_invalid")
+        request_by_identity[identity] = request
+
+    raw_results = contract.get("story_results")
+    if not isinstance(raw_results, list) or len(raw_results) != len(request_by_identity):
+        raise ValueError("codex_source_discovery_batch_identity_coverage_invalid")
+    normalized_results: list[dict[str, Any]] = []
+    seen: set[tuple[str, tuple[str, ...]]] = set()
+    for raw in raw_results:
+        if not isinstance(raw, Mapping):
+            raise ValueError("codex_source_discovery_batch_story_result_not_object")
+        identity = (
+            str(raw.get("story_identity") or ""),
+            tuple(sorted(str(value) for value in raw.get("headline_ids") or [])),
+        )
+        if identity not in request_by_identity or identity in seen:
+            raise ValueError("codex_source_discovery_batch_story_identity_mismatch")
+        seen.add(identity)
+        request = request_by_identity[identity]
+        expected_blockers = sorted(
+            set(str(value) for value in request.get("prior_blockers") or [])
+        )
+        returned_blockers = sorted(
+            set(str(value) for value in raw.get("prior_blockers") or [])
+        )
+        if returned_blockers != expected_blockers:
+            raise ValueError("codex_source_discovery_batch_prior_blockers_mismatch")
+        normalized = validate_codex_source_discovery_contract(
+            raw,
+            request=request,
+            allow_empty_candidate_urls=True,
+        )
+        normalized_results.append(
+            {
+                **normalized,
+                "status": "FOUND" if normalized["candidates"] else "UNRESOLVED",
+            }
+        )
+    if seen != set(request_by_identity):
+        raise ValueError("codex_source_discovery_batch_identity_coverage_invalid")
+
+    normalized_results.sort(
+        key=lambda row: (row["story_identity"], tuple(row["headline_ids"]))
+    )
+    normalized = {
+        "schema_version": CODEX_SOURCE_DISCOVERY_BATCH_SCHEMA_VERSION,
+        "batch_id": str(contract.get("batch_id") or ""),
+        "pass_kind": normalized_pass_kind,
+        "story_results": normalized_results,
+        "story_count": len(normalized_results),
+        "resolved_story_count": sum(
+            row["status"] == "FOUND" for row in normalized_results
+        ),
+        "unresolved_story_count": sum(
+            row["status"] == "UNRESOLVED" for row in normalized_results
+        ),
+        "search_snippet_or_model_summary_authority": False,
+        "candidate_urls_are_evidence": False,
+        "deterministic_live_retrieval_required": True,
+        "factual_or_numeric_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+    normalized["discovery_batch_contract_sha256"] = sha256(
         json.dumps(
             normalized, sort_keys=True, separators=(",", ":")
         ).encode("utf-8")

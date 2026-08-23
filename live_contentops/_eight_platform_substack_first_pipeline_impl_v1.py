@@ -5038,6 +5038,19 @@ def _run_rolling_x_newsroom_cycle(
             output_dir=output_dir / "source_discovery"
         )
 
+    quota_discovery_session = None
+    if callable(effective_source_discoverer) or callable(
+        getattr(effective_source_discoverer, "discover_batch", None)
+    ):
+        from live_contentops.quota_efficient_source_discovery_v1 import (
+            QuotaEfficientSourceDiscoverySession,
+        )
+
+        quota_discovery_session = QuotaEfficientSourceDiscoverySession(
+            evidence_acquirer=base_evidence_acquirer,
+            source_discoverer=effective_source_discoverer,
+        )
+
     def tracked_evidence_acquirer(request: Mapping[str, Any]) -> Any:
         cluster = cluster_by_id_for_activity.get(str(request.get("cluster_id") or ""), {})
         activity.record(
@@ -5047,6 +5060,8 @@ def _run_rolling_x_newsroom_cycle(
             story_label=safe_story_label(cluster),
             grounding="latest-web source-bound research",
         )
+        if quota_discovery_session is not None:
+            return quota_discovery_session.acquire(dict(request))
         initial = base_evidence_acquirer(dict(request))
         if not isinstance(initial, Mapping):
             return initial
@@ -5054,98 +5069,72 @@ def _run_rolling_x_newsroom_cycle(
         initial_blockers = [str(value) for value in initial_receipt.get("blockers") or []]
         if "SOURCE_DISCOVERY_REQUIRED" not in initial_blockers:
             return initial_receipt
-        handshake = {
-            "schema_version": "contentops.autonomous_source_discovery_handshake.v1",
-            "story_identity": request.get("cluster_id"),
-            "headline_ids": list(request.get("headline_ids") or []),
-            "initial_receipt_sha256": _json_sha256(initial_receipt),
-            "prior_blockers": initial_blockers,
-            "same_candidate_resume_required": True,
-            "source_discovery_available": callable(effective_source_discoverer),
-            "search_snippet_or_model_summary_authority": False,
-            "publication_authority": False,
-        }
-        if not callable(effective_source_discoverer):
-            return {
-                **initial_receipt,
-                "autonomous_source_discovery": {
-                    **handshake,
-                    "status": "SUPPORTED_DISCOVERY_PROVIDER_UNAVAILABLE",
-                },
-            }
-        discovery_request = {
-            **dict(request),
-            "prior_blockers": initial_blockers,
-        }
-        health_snapshotter = getattr(
-            base_evidence_acquirer, "source_route_health_snapshot", None
-        )
-        if callable(health_snapshotter):
-            health_snapshot = health_snapshotter()
-            discovery_request["source_route_health_hosts"] = [
-                dict(row)
-                for row in (health_snapshot or {}).get("hosts") or []
-                if isinstance(row, Mapping)
-            ]
-        try:
-            discovery_result = effective_source_discoverer(discovery_request)
-        except Exception as exc:  # provider errors remain sanitized role-local blockers
-            provider_receipt = getattr(exc, "receipt", None)
-            return {
-                **initial_receipt,
-                "blockers": sorted(
-                    set(initial_blockers + ["SUPPORTED_SOURCE_DISCOVERY_FAILED:" + type(exc).__name__])
-                ),
-                "autonomous_source_discovery": {
-                    **handshake,
-                    "status": "SUPPORTED_SOURCE_DISCOVERY_FAILED",
-                    "failure_class": type(exc).__name__,
-                    "failure_code": str(
-                        getattr(exc, "code", type(exc).__name__)
-                    ),
-                    "provider_receipt": (
-                        dict(provider_receipt)
-                        if isinstance(provider_receipt, Mapping)
-                        else {}
-                    ),
-                },
-            }
-        discovery_result = (
-            dict(discovery_result) if isinstance(discovery_result, Mapping) else {}
-        )
-        contract = discovery_result.get("contract")
-        if not isinstance(contract, Mapping):
-            return {
-                **initial_receipt,
-                "blockers": sorted(
-                    set(initial_blockers + ["SUPPORTED_SOURCE_DISCOVERY_CONTRACT_MISSING"])
-                ),
-                "autonomous_source_discovery": {
-                    **handshake,
-                    "status": "SUPPORTED_SOURCE_DISCOVERY_CONTRACT_MISSING",
-                },
-            }
-        resumed_request = {**dict(request), "codex_source_discovery": dict(contract)}
-        resumed = base_evidence_acquirer(resumed_request)
-        if not isinstance(resumed, Mapping):
-            return resumed
         return {
-            **dict(resumed),
+            **initial_receipt,
             "autonomous_source_discovery": {
-                **handshake,
-                "status": "SAME_CANDIDATE_RESUMED",
-                "resumed_story_identity": resumed_request.get("cluster_id"),
-                "same_candidate_resumed": (
-                    resumed_request.get("cluster_id") == request.get("cluster_id")
-                    and list(resumed_request.get("headline_ids") or [])
-                    == list(request.get("headline_ids") or [])
-                ),
-                "provider_receipt": dict(
-                    discovery_result.get("provider_receipt") or {}
-                ),
-                "resumed_receipt_sha256": _json_sha256(dict(resumed)),
+                "schema_version": "contentops.autonomous_source_discovery_handshake.v1",
+                "story_identity": request.get("cluster_id"),
+                "headline_ids": list(request.get("headline_ids") or []),
+                "initial_receipt_sha256": _json_sha256(initial_receipt),
+                "prior_blockers": initial_blockers,
+                "same_candidate_resume_required": True,
+                "source_discovery_available": callable(effective_source_discoverer),
+                "search_snippet_or_model_summary_authority": False,
+                "publication_authority": False,
+                "status": "SUPPORTED_DISCOVERY_PROVIDER_UNAVAILABLE",
             },
         }
+
+    def select_with_quota_efficient_discovery(
+        *, start_after_rank: int = 0
+    ) -> dict[str, Any]:
+        current = select_first_viable_rolling_x_cluster(
+            assignment=ranked_assignment,
+            acquire_evidence=tracked_evidence_acquirer,
+            story_type_by_cluster=story_type_by_cluster,
+            start_after_rank=start_after_rank,
+        )
+        if current.get("status") == "SUCCESS" or quota_discovery_session is None:
+            return current
+        batch = quota_discovery_session.discover_unresolved(
+            current, pass_kind="BATCH"
+        )
+        if int(batch.get("new_contract_count") or 0) > 0:
+            current = select_first_viable_rolling_x_cluster(
+                assignment=ranked_assignment,
+                acquire_evidence=tracked_evidence_acquirer,
+                story_type_by_cluster=story_type_by_cluster,
+                start_after_rank=start_after_rank,
+            )
+        if current.get("status") != "SUCCESS":
+            tail = quota_discovery_session.discover_unresolved(
+                current, pass_kind="TAIL"
+            )
+            if int(tail.get("new_contract_count") or 0) > 0:
+                current = select_first_viable_rolling_x_cluster(
+                    assignment=ranked_assignment,
+                    acquire_evidence=tracked_evidence_acquirer,
+                    story_type_by_cluster=story_type_by_cluster,
+                    start_after_rank=start_after_rank,
+                )
+        accounting = quota_discovery_session.snapshot()
+        if (
+            current.get("status") != "SUCCESS"
+            and (
+                accounting.get("terminal_budget_blocker")
+                or accounting.get("terminal_provider_blocker")
+            )
+        ):
+            terminal_blocker = accounting.get(
+                "terminal_budget_blocker"
+            ) or accounting.get("terminal_provider_blocker")
+            current = {
+                **dict(current),
+                "status": "BLOCKED",
+                "decision": None,
+                "reason_code": terminal_blocker,
+            }
+        return current
 
     viability_path = output_dir / "rolling_x_ranked_viability_v1.json"
     viability_checkpoint: Mapping[str, Any] | None = None
@@ -5191,11 +5180,7 @@ def _run_rolling_x_newsroom_cycle(
             "rank_attempts": [],
         }
     else:
-        viability = select_first_viable_rolling_x_cluster(
-            assignment=ranked_assignment,
-            acquire_evidence=tracked_evidence_acquirer,
-            story_type_by_cluster=story_type_by_cluster,
-        )
+        viability = select_with_quota_efficient_discovery()
         if (
             preselection is not None
             and not (preselection.get("ranked_clusters") or [])
@@ -5248,6 +5233,20 @@ def _run_rolling_x_newsroom_cycle(
         "prepared_story_frontier": None,
         "publishability_candidate_pool": publishability_candidate_pool,
         "ranked_viability": viability,
+        "quota_efficient_source_discovery": (
+            quota_discovery_session.snapshot()
+            if quota_discovery_session is not None
+            else {
+                "schema_version": "contentops.quota_efficient_source_discovery.v1",
+                "status": "NOT_ENABLED_FAIL_CLOSED",
+                "batch_discovery_turns": 0,
+                "tail_discovery_turns": 0,
+                "total_discovery_turns": 0,
+                "accounted_discovery_tokens": 0,
+                "public_write_attempted": False,
+                "candidate_urls_are_evidence": False,
+            }
+        ),
         "runtime_preflight": runtime_preflight,
         "public_write_performed": False,
         "publishing_adapter_called": False,
@@ -5332,6 +5331,17 @@ def _run_rolling_x_newsroom_cycle(
         }
 
     def _persist_cycle_evidence() -> None:
+        if quota_discovery_session is not None:
+            evidence["quota_efficient_source_discovery"] = (
+                quota_discovery_session.snapshot(
+                    ready_candidate_count=int(
+                        (evidence.get("evidence_ready_pool") or {}).get(
+                            "ready_candidate_count"
+                        )
+                        or 0
+                    )
+                )
+            )
         health_snapshot = getattr(
             base_evidence_acquirer, "source_route_health_snapshot", None
         )
@@ -5545,12 +5555,7 @@ def _run_rolling_x_newsroom_cycle(
                     "publication_authority_granted": False,
                 }
             )
-        next_result = select_first_viable_rolling_x_cluster(
-            assignment=ranked_assignment,
-            acquire_evidence=tracked_evidence_acquirer,
-            story_type_by_cluster=story_type_by_cluster,
-            start_after_rank=rank,
-        )
+        next_result = select_with_quota_efficient_discovery(start_after_rank=rank)
         if (
             next_result.get("status") == "SUCCESS"
             and int(next_result.get("selected_rank") or 0) <= rank
@@ -5665,15 +5670,43 @@ def _run_rolling_x_newsroom_cycle(
                 break
 
         complete = len(evidence_ready_candidates) >= evidence_only_target_count
+        discovery_economics = (
+            quota_discovery_session.snapshot(
+                ready_candidate_count=len(evidence_ready_candidates)
+            )
+            if quota_discovery_session is not None
+            else None
+        )
+        discovery_economics_accepted = bool(
+            discovery_economics is None
+            or discovery_economics.get("status") == "PASS"
+        )
         evidence["classification"] = (
-            "PASS_V1_EVIDENCE_FOUNDATION_4_ARTICLE_READY_ZERO_WRITER"
-            if complete and evidence_only_target_count == 4
-            else "PASS_GOVERNED_EVIDENCE_READY_POOL_ZERO_WRITER"
+            "PASS_V1_QUOTA_EFFICIENT_BATCH_TAIL_DISCOVERY_ECONOMICAL_READY_POOL"
             if complete
+            and discovery_economics_accepted
+            and quota_discovery_session is not None
+            and evidence_only_target_count == 4
+            else "FAIL_V1_DISCOVERY_ECONOMICS_NOT_ACCEPTED"
+            if complete
+            and not discovery_economics_accepted
+            and quota_discovery_session is not None
+            and evidence_only_target_count == 4
+            else "PASS_V1_EVIDENCE_FOUNDATION_4_ARTICLE_READY_ZERO_WRITER"
+            if complete
+            and evidence_only_target_count == 4
+            else "PASS_GOVERNED_EVIDENCE_READY_POOL_ZERO_WRITER"
+            if complete and discovery_economics_accepted
             else "EVIDENCE_READY_POOL_INCOMPLETE"
         )
         evidence["exact_next_blocker"] = (
             None
+            if complete and discovery_economics_accepted
+            else str(
+                (discovery_economics or {}).get("terminal_budget_blocker")
+                or (discovery_economics or {}).get("terminal_provider_blocker")
+                or "URL_DISCOVERY_ACCOUNTING_OR_ECONOMICS_NOT_ACCEPTED"
+            )
             if complete
             else str(
                 viability.get("reason_code")
@@ -5685,6 +5718,7 @@ def _run_rolling_x_newsroom_cycle(
             "target_candidate_count": evidence_only_target_count,
             "ready_candidate_count": len(evidence_ready_candidates),
             "target_met": complete,
+            "discovery_economics_accepted": discovery_economics_accepted,
             "candidates": evidence_ready_candidates,
             "large_universe_to_cheap_feasibility_to_likely_sourceable_pool": True,
             "expensive_grounded_synthesis_only_after_deterministic_retrieval": True,
@@ -5692,6 +5726,8 @@ def _run_rolling_x_newsroom_cycle(
             "factual_or_numeric_authority_granted_by_routing": False,
             "publication_authority_granted": False,
         }
+        if discovery_economics is not None:
+            evidence["quota_efficient_source_discovery"] = discovery_economics
         health_snapshot = getattr(
             base_evidence_acquirer, "source_route_health_snapshot", None
         )

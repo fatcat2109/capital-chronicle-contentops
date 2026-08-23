@@ -1,0 +1,41 @@
+{
+  "schema_version": "contentops.v1_quota_efficient_discovery_host_runtime_blocker.v1",
+  "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+  "observed_date": "2026-08-23",
+  "provider": "OPENAI_CODEX_CHATGPT",
+  "transport": "OFFICIAL_CODEX_APP_SERVER_STDIO_WEB_SEARCH",
+  "sdk_version": "0.147.0",
+  "auth_classification": "CHATGPT",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "HIGH",
+  "failure_code": "CHATGPT_USAGE_LIMIT_REACHED",
+  "failure_phase": "TURN_EXECUTION",
+  "model_turn_completed": false,
+  "host_reported_retry_text": "Aug 30th, 2026 2:12 PM",
+  "api_key_or_alternative_credential_attempted": false,
+  "secret_token_cookie_or_session_read": false,
+  "acceptance_proof_retried_after_exact_host_blocker": false,
+  "first_current_universe_attempt": {
+    "current_candidate_universe_count": 335,
+    "bounded_candidate_frontier_count": 12,
+    "deterministic_network_requests": 19,
+    "url_discovery_model_turns": 0,
+    "accounted_url_discovery_tokens": 0,
+    "ready_distinct_candidate_count": 0,
+    "raw_acceptance_receipt_sha256": "c8daac283ddefa723e5b28b1e8f102d2db9f8d5c2f45f69e9af022cbf47daa28"
+  },
+  "safety": {
+    "writer_calls": 0,
+    "article_generation": 0,
+    "derivative_generation": 0,
+    "public_writes": 0,
+    "provider_write_calls": 0,
+    "unknown_write": 0,
+    "browser_or_cdp_publication_actions": 0,
+    "automation_mutations": 0,
+    "capital_chronicle_mutations": 0,
+    "v2_mutations": 0,
+    "secret_or_session_reads": 0
+  },
+  "exact_remaining_blocker": "Fresh ChatGPT-authenticated App Server capacity is unavailable until the host-reported reset; the four-ready evidence/economics acceptance proof cannot be truthfully completed on this host before then."
+}

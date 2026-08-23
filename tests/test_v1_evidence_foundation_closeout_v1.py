@@ -18,6 +18,9 @@ from live_contentops.official_codex_provider_v1 import (
 from live_contentops.official_codex_source_discovery_v1 import (
     OfficialCodexUrlDiscoveryProvider,
 )
+from live_contentops.quota_efficient_source_discovery_v1 import (
+    QuotaEfficientSourceDiscoverySession,
+)
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     GroundedArticleBuilderError,
     build_rolling_x_grounded_article_and_media,
@@ -26,6 +29,9 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
 )
 from scripts.prove_v1_evidence_foundation_closeout_v1 import (
     build_closeout_receipt,
+)
+from scripts.prove_v1_quota_efficient_batch_tail_discovery_v1 import (
+    build_acceptance_receipt,
 )
 
 
@@ -73,6 +79,103 @@ def _fake_discovery_sdk(item_types: list[str]):
                     )
                 ),
                 duration_ms=10,
+            )
+
+    class SDK:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return None
+
+        def account(self, **_kwargs):
+            return SimpleNamespace(account=SimpleNamespace(type="chatgpt"))
+
+        def models(self, **_kwargs):
+            return SimpleNamespace(
+                data=[
+                    SimpleNamespace(
+                        id="gpt-5.6-sol",
+                        supported_reasoning_efforts=[
+                            SimpleNamespace(reasoning_effort="high")
+                        ],
+                    )
+                ]
+            )
+
+        def thread_start(self, **_kwargs):
+            return Thread()
+
+    enum = SimpleNamespace(deny_all="deny_all", read_only="read_only", high="high")
+    return SDK(), enum, enum, enum, OFFICIAL_SDK_VERSION
+
+
+def _fake_batch_discovery_sdk(*, mutate_contract=None, runtime_error: str | None = None):
+    class Thread:
+        def run(self, prompt, **_kwargs):
+            if runtime_error is not None:
+                raise RuntimeError(runtime_error)
+            prompt_input = json.loads(prompt.rsplit("\n\n", 1)[1])
+            story_results = []
+            for index, request in enumerate(
+                prompt_input["story_requests"], start=1
+            ):
+                story_results.append(
+                    {
+                        "schema_version": (
+                            "contentops.codex_source_discovery_urls.v1"
+                        ),
+                        "story_identity": request["story_identity"],
+                        "headline_ids": list(request["headline_ids"]),
+                        "trigger_reason": "BOUNDED_ACCESS_FAILURE",
+                        "prior_blockers": list(request["prior_blockers"]),
+                        "candidate_urls": [
+                            f"https://apnews.com/article/batch-sdk-{index}"
+                        ],
+                        "search_call_id": f"batch-sdk-search-{index}",
+                        "searched_at_utc": "2026-08-23T02:00:01Z",
+                        "search_snippets_included": False,
+                        "model_summaries_included": False,
+                        "candidate_urls_are_evidence": False,
+                        "factual_or_numeric_authority_granted": False,
+                        "publication_authority_granted": False,
+                    }
+                )
+            contract = {
+                "schema_version": (
+                    "contentops.codex_source_discovery_batch_urls.v1"
+                ),
+                "batch_id": prompt_input["batch_id"],
+                "pass_kind": prompt_input["pass_kind"],
+                "story_results": story_results,
+                "search_snippets_included": False,
+                "model_summaries_included": False,
+                "candidate_urls_are_evidence": False,
+                "factual_or_numeric_authority_granted": False,
+                "publication_authority_granted": False,
+            }
+            if callable(mutate_contract):
+                contract = mutate_contract(contract)
+            return SimpleNamespace(
+                status="completed",
+                error=None,
+                final_response=json.dumps(contract),
+                items=[
+                    SimpleNamespace(type="userMessage"),
+                    SimpleNamespace(type="webSearch"),
+                    SimpleNamespace(type="agentMessage"),
+                ],
+                usage=SimpleNamespace(
+                    total=SimpleNamespace(
+                        input_tokens=20,
+                        cached_input_tokens=0,
+                        cache_write_input_tokens=0,
+                        output_tokens=4,
+                        reasoning_output_tokens=2,
+                        total_tokens=24,
+                    )
+                ),
+                duration_ms=20,
             )
 
     class SDK:
@@ -266,6 +369,100 @@ def _pass_receipt(request: dict) -> dict:
     }
 
 
+def _source_discovery_required_receipt(request: dict) -> dict:
+    return {
+        "status": "BLOCKED",
+        "cluster_id": request["cluster_id"],
+        "headline_ids": list(request["headline_ids"]),
+        "provided_evidence_capabilities": [],
+        "evidence_documents": [],
+        "claim_evidence_contract": {
+            "status": "BLOCKED",
+            "supported_claim_count": 0,
+            "fabricated_claim_count": 0,
+        },
+        "blockers": [
+            "public_source_http_403",
+            "evidence_documents_missing",
+            "SOURCE_DISCOVERY_REQUIRED",
+        ],
+        "publication_authority": False,
+    }
+
+
+def _contract_for_request(request: dict, *, suffix: str) -> dict:
+    return {
+        "schema_version": "contentops.codex_source_discovery_urls.v1",
+        "story_identity": request["cluster_id"],
+        "headline_ids": list(request["headline_ids"]),
+        "trigger_reason": "BOUNDED_ACCESS_FAILURE",
+        "prior_blockers": list(request["prior_blockers"]),
+        "candidate_urls": [f"https://apnews.com/article/{suffix}"],
+        "search_call_id": f"batch-search-{suffix}",
+        "searched_at_utc": "2026-08-23T02:00:01Z",
+        "search_snippets_included": False,
+        "model_summaries_included": False,
+        "candidate_urls_are_evidence": False,
+        "factual_or_numeric_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+
+
+class _BatchDiscoveryFixture:
+    def __init__(
+        self,
+        *,
+        unresolved_in_batch: set[str] | None = None,
+        tokens_by_pass: dict[str, int] | None = None,
+        cross_bind: bool = False,
+    ) -> None:
+        self.unresolved_in_batch = set(unresolved_in_batch or set())
+        self.tokens_by_pass = dict(tokens_by_pass or {"BATCH": 100, "TAIL": 50})
+        self.cross_bind = cross_bind
+        self.calls: list[dict] = []
+
+    def discover_batch(self, requests, *, pass_kind):
+        request_rows = [dict(request) for request in requests]
+        self.calls.append(
+            {
+                "pass_kind": pass_kind,
+                "story_membership": [row["cluster_id"] for row in request_rows],
+            }
+        )
+        contracts = [
+            _contract_for_request(
+                request,
+                suffix=f"{pass_kind.casefold()}-{index}",
+            )
+            for index, request in enumerate(request_rows, start=1)
+            if not (
+                pass_kind == "BATCH"
+                and request["cluster_id"] in self.unresolved_in_batch
+            )
+        ]
+        if self.cross_bind and contracts:
+            contracts[0] = {
+                **contracts[0],
+                "headline_ids": ["headline-from-another-story"],
+            }
+        return {
+            "contracts": contracts,
+            "provider_receipt": {
+                "schema_version": (
+                    "contentops.official_codex_url_discovery_batch_receipt.v1"
+                ),
+                "pass_kind": pass_kind,
+                "turn_result_usage": {
+                    "total_tokens": self.tokens_by_pass.get(pass_kind, 0)
+                },
+                "search_snippets_persisted": False,
+                "model_summaries_persisted": False,
+                "candidate_urls_are_evidence": False,
+                "public_write_attempted": False,
+            },
+        }
+
+
 def _run_cycle(monkeypatch, tmp_path: Path, *, count: int, **kwargs):
     assignment = _assignment(count)
     monkeypatch.setattr(
@@ -319,6 +516,116 @@ def test_official_url_discovery_requires_observed_web_search_and_persists_no_sea
     assert receipt["candidate_urls_are_evidence"] is False
     assert receipt["factual_or_numeric_authority_granted"] is False
     assert receipt["publication_authority_granted"] is False
+
+
+def test_official_url_discovery_batch_returns_exact_isolated_contracts_in_one_turn(
+    tmp_path: Path,
+):
+    provider = OfficialCodexUrlDiscoveryProvider(
+        output_dir=tmp_path,
+        sdk_factory=lambda: _fake_batch_discovery_sdk(),
+        environment={},
+    )
+    requests = [
+        {
+            **_discovery_request(),
+            "cluster_id": f"batch-story-{index}",
+            "headline_ids": [f"batch-headline-{index}"],
+        }
+        for index in range(1, 4)
+    ]
+
+    result = provider.discover_batch(requests, pass_kind="BATCH")
+
+    assert provider.call_count == 1
+    assert [row["story_identity"] for row in result["contracts"]] == [
+        "batch-story-1",
+        "batch-story-2",
+        "batch-story-3",
+    ]
+    receipt = result["provider_receipt"]
+    assert receipt["story_count"] == 3
+    assert receipt["resolved_story_count"] == 3
+    assert receipt["turn_result_usage"]["total_tokens"] == 24
+    assert receipt["search_snippets_persisted"] is False
+    assert receipt["model_summaries_persisted"] is False
+    assert receipt["candidate_urls_are_evidence"] is False
+    assert receipt["public_write_attempted"] is False
+
+
+def test_official_url_discovery_batch_rejects_cross_bound_headline_identity(
+    tmp_path: Path,
+):
+    def cross_bind(contract):
+        contract["story_results"][0]["headline_ids"] = ["wrong-headline"]
+        return contract
+
+    provider = OfficialCodexUrlDiscoveryProvider(
+        output_dir=tmp_path,
+        sdk_factory=lambda: _fake_batch_discovery_sdk(
+            mutate_contract=cross_bind
+        ),
+        environment={},
+    )
+    requests = [
+        {
+            **_discovery_request(),
+            "cluster_id": f"batch-story-{index}",
+            "headline_ids": [f"batch-headline-{index}"],
+        }
+        for index in range(1, 3)
+    ]
+
+    with pytest.raises(OfficialCodexProviderError) as error:
+        provider.discover_batch(requests, pass_kind="BATCH")
+
+    assert error.value.code == "CODEX_SOURCE_DISCOVERY_BATCH_CONTRACT_INVALID"
+    assert error.value.receipt["candidate_urls_persisted"] is False
+    assert error.value.receipt["candidate_urls_are_evidence"] is False
+    assert error.value.receipt["public_write_attempted"] is False
+
+
+def test_official_url_discovery_batch_rejects_model_summary_authority(
+    tmp_path: Path,
+):
+    def add_summary_authority(contract):
+        contract["model_summaries_included"] = True
+        return contract
+
+    provider = OfficialCodexUrlDiscoveryProvider(
+        output_dir=tmp_path,
+        sdk_factory=lambda: _fake_batch_discovery_sdk(
+            mutate_contract=add_summary_authority
+        ),
+        environment={},
+    )
+
+    with pytest.raises(OfficialCodexProviderError) as error:
+        provider.discover_batch([_discovery_request()], pass_kind="BATCH")
+
+    assert error.value.code == "CODEX_SOURCE_DISCOVERY_BATCH_CONTRACT_INVALID"
+    assert error.value.receipt["model_summaries_persisted"] is False
+    assert error.value.receipt["factual_or_numeric_authority_granted"] is False
+
+
+def test_official_url_discovery_batch_classifies_chatgpt_usage_limit_without_turn(
+    tmp_path: Path,
+):
+    provider = OfficialCodexUrlDiscoveryProvider(
+        output_dir=tmp_path,
+        sdk_factory=lambda: _fake_batch_discovery_sdk(
+            runtime_error="You've hit your usage limit. Purchase more credits."
+        ),
+        environment={},
+    )
+
+    with pytest.raises(OfficialCodexProviderError) as error:
+        provider.discover_batch([_discovery_request()], pass_kind="BATCH")
+
+    assert error.value.code == "CHATGPT_USAGE_LIMIT_REACHED"
+    assert error.value.phase == "TURN_EXECUTION"
+    assert error.value.model_turn_completed is False
+    assert error.value.receipt == {}
 
 
 @pytest.mark.parametrize("unexpected_item", ["commandExecution", "mcpToolCall", "fileChange"])
@@ -434,6 +741,325 @@ def test_evidence_only_cycle_collects_four_distinct_ready_candidates_and_never_c
     assert int(result.get("article_generation_attempts") or 0) == 0
     assert result["public_write_performed"] is False
     assert result["source_route_health_input_sha256"]
+
+
+def test_quota_efficient_cycle_shares_one_batch_turn_across_four_exact_story_identities(
+    monkeypatch, tmp_path: Path
+):
+    acquisition_calls: list[dict] = []
+    discoverer = _BatchDiscoveryFixture(tokens_by_pass={"BATCH": 120})
+
+    def acquire(request):
+        acquisition_calls.append(dict(request))
+        if "codex_source_discovery" not in request:
+            return _source_discovery_required_receipt(request)
+        assert request["codex_source_discovery"]["candidate_urls_are_evidence"] is False
+        return _pass_receipt(request)
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=4,
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        evidence_only_target_count=4,
+        article_builder=lambda _viability: (_ for _ in ()).throw(
+            AssertionError("batch evidence proof must not invoke article builder")
+        ),
+    )
+
+    accounting = result["quota_efficient_source_discovery"]
+    assert result["classification"] == (
+        "PASS_V1_QUOTA_EFFICIENT_BATCH_TAIL_DISCOVERY_ECONOMICAL_READY_POOL"
+    )
+    assert [row["cluster_id"] for row in result["evidence_ready_pool"]["candidates"]] == [
+        "evidence-ready-1",
+        "evidence-ready-2",
+        "evidence-ready-3",
+        "evidence-ready-4",
+    ]
+    assert discoverer.calls == [
+        {
+            "pass_kind": "BATCH",
+            "story_membership": [
+                "evidence-ready-1",
+                "evidence-ready-2",
+                "evidence-ready-3",
+                "evidence-ready-4",
+            ],
+        }
+    ]
+    assert accounting["batch_discovery_turns"] == 1
+    assert accounting["tail_discovery_turns"] == 0
+    assert accounting["total_discovery_turns"] == 1
+    assert accounting["accounted_discovery_tokens"] == 120
+    assert accounting["candidates_covered_per_turn"] == [4]
+    assert len(acquisition_calls) == 8
+    assert result["xhigh_worker_invocations"] == 0
+    assert result["article_generation_attempts"] == 0
+    assert result["publishing_adapter_called"] is False
+    assert result["public_write_performed"] is False
+    assert result["unknown_write_detected"] is False
+
+
+def test_deterministically_viable_frontier_causes_zero_discovery_turns(
+    monkeypatch, tmp_path: Path
+):
+    discoverer = _BatchDiscoveryFixture()
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=4,
+        evidence_acquirer=_pass_receipt,
+        source_discoverer=discoverer,
+        evidence_only_target_count=4,
+    )
+
+    accounting = result["quota_efficient_source_discovery"]
+    assert discoverer.calls == []
+    assert accounting["total_discovery_turns"] == 0
+    assert accounting["accounted_discovery_tokens"] == 0
+    assert accounting["ready_candidate_yield"] == 4
+
+
+def test_only_batch_unresolved_subset_reaches_one_bounded_tail_turn(
+    monkeypatch, tmp_path: Path
+):
+    unresolved = {"evidence-ready-2", "evidence-ready-3", "evidence-ready-4"}
+    discoverer = _BatchDiscoveryFixture(unresolved_in_batch=unresolved)
+
+    def acquire(request):
+        if "codex_source_discovery" not in request:
+            return _source_discovery_required_receipt(request)
+        return _pass_receipt(request)
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=4,
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        evidence_only_target_count=4,
+    )
+
+    accounting = result["quota_efficient_source_discovery"]
+    assert [row["pass_kind"] for row in discoverer.calls] == ["BATCH", "TAIL"]
+    assert discoverer.calls[0]["story_membership"] == [
+        "evidence-ready-1",
+        "evidence-ready-2",
+        "evidence-ready-3",
+        "evidence-ready-4",
+    ]
+    assert discoverer.calls[1]["story_membership"] == [
+        "evidence-ready-2",
+        "evidence-ready-3",
+        "evidence-ready-4",
+    ]
+    assert accounting["batch_discovery_turns"] == 1
+    assert accounting["tail_discovery_turns"] == 1
+    assert accounting["tail_is_subset_only"] is True
+    assert accounting["each_story_reaches_tail_at_most_once"] is True
+
+
+def test_batch_cross_story_binding_fails_closed_before_deterministic_resume(
+    monkeypatch, tmp_path: Path
+):
+    discoverer = _BatchDiscoveryFixture(cross_bind=True)
+    resumed_calls: list[dict] = []
+
+    def acquire(request):
+        if "codex_source_discovery" in request:
+            resumed_calls.append(dict(request))
+        return _source_discovery_required_receipt(request)
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=2,
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        evidence_only_target_count=1,
+    )
+
+    accounting = result["quota_efficient_source_discovery"]
+    assert resumed_calls == []
+    assert accounting["status"] == "PASS"
+    assert {
+        row["failure_code"] for row in accounting["failures"]
+    } == {"quota_discovery_provider_cross_story_binding"}
+    assert result["classification"] == "NO_PUBLICATION"
+
+
+def test_discovery_token_ceiling_rejects_contracts_and_stops_before_tail(
+    monkeypatch, tmp_path: Path
+):
+    discoverer = _BatchDiscoveryFixture(
+        tokens_by_pass={"BATCH": 2_000_001, "TAIL": 1}
+    )
+    resumed_calls: list[dict] = []
+
+    def acquire(request):
+        if "codex_source_discovery" in request:
+            resumed_calls.append(dict(request))
+        return _source_discovery_required_receipt(request)
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=2,
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        evidence_only_target_count=1,
+    )
+
+    accounting = result["quota_efficient_source_discovery"]
+    assert resumed_calls == []
+    assert [row["pass_kind"] for row in discoverer.calls] == ["BATCH"]
+    assert accounting["status"] == "BLOCKED"
+    assert accounting["terminal_budget_blocker"] == (
+        "URL_DISCOVERY_TOKEN_CEILING_EXCEEDED"
+    )
+    assert result["exact_next_blocker"] == "URL_DISCOVERY_TOKEN_CEILING_EXCEEDED"
+
+
+def test_discovery_turn_ceiling_fails_closed_without_per_candidate_fallback():
+    discoverer = _BatchDiscoveryFixture(unresolved_in_batch={"story-1", "story-2"})
+
+    def acquire(request):
+        return _source_discovery_required_receipt(request)
+
+    requests = [
+        {
+            "cluster_id": f"story-{index}",
+            "headline_ids": [f"headline-{index}"],
+            "rank": index,
+            "request_logical_hash": f"request-{index}",
+        }
+        for index in range(1, 3)
+    ]
+    session = QuotaEfficientSourceDiscoverySession(
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        max_batch_turns=1,
+        max_tail_turns=1,
+        max_total_turns=1,
+    )
+    attempts = []
+    for request in requests:
+        receipt = session.acquire(request)
+        attempts.append(
+            {
+                "rank": request["rank"],
+                "request": request,
+                "evidence_receipt": receipt,
+                "blockers": list(receipt["blockers"]),
+            }
+        )
+    viability = {"rank_attempts": attempts}
+
+    batch = session.discover_unresolved(viability, pass_kind="BATCH")
+    tail = session.discover_unresolved(viability, pass_kind="TAIL")
+
+    assert batch == {"called": True, "new_contract_count": 0}
+    assert tail["called"] is False
+    assert tail["blocker"] == "URL_DISCOVERY_TURN_CEILING_EXCEEDED"
+    assert len(discoverer.calls) == 1
+    assert session.snapshot()["status"] == "BLOCKED"
+
+
+def test_same_candidate_request_reuses_governed_resumed_receipt_without_rediscovery():
+    discoverer = _BatchDiscoveryFixture()
+    acquisition_calls: list[dict] = []
+
+    def acquire(request):
+        acquisition_calls.append(dict(request))
+        if "codex_source_discovery" not in request:
+            return _source_discovery_required_receipt(request)
+        return _pass_receipt(request)
+
+    request = {
+        "cluster_id": "evidence-ready-1",
+        "headline_ids": ["headline-1"],
+        "rank": 1,
+        "required_evidence_capabilities": [
+            "credible_event_confirmation",
+            "basic_attributed_facts",
+        ],
+        "request_logical_hash": "same-request-hash",
+    }
+    session = QuotaEfficientSourceDiscoverySession(
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+    )
+    initial = session.acquire(request)
+    viability = {
+        "rank_attempts": [
+            {
+                "rank": 1,
+                "request": request,
+                "evidence_receipt": initial,
+                "blockers": list(initial["blockers"]),
+            }
+        ]
+    }
+
+    assert session.discover_unresolved(viability, pass_kind="BATCH")[
+        "new_contract_count"
+    ] == 1
+    first = session.acquire(request)
+    second = session.acquire(request)
+
+    assert first["status"] == "PASS"
+    assert second == first
+    assert len(discoverer.calls) == 1
+    assert len(acquisition_calls) == 2
+    assert session.snapshot()["cache_and_reuse"]["resumed_receipt_cache_hits"] == 1
+
+
+def test_acceptance_receipt_reports_current_host_runtime_proof_required_for_usage_limit(
+    tmp_path: Path,
+):
+    cycle = {
+        "quota_efficient_source_discovery": {
+            "status": "PASS",
+            "accounting_complete": True,
+            "batch_discovery_turns": 0,
+            "tail_discovery_turns": 0,
+            "total_discovery_turns": 0,
+            "accounted_discovery_tokens": 0,
+            "deterministic_network_requests": 2,
+            "failures": [
+                {
+                    "failure_code": "CHATGPT_USAGE_LIMIT_REACHED",
+                    "model_turn_completed": False,
+                }
+            ],
+            "candidate_urls_are_evidence": False,
+            "tail_is_subset_only": True,
+        },
+        "evidence_ready_pool": {"candidates": []},
+        "ranked_viability": {"rank_attempts": []},
+        "critical_path_telemetry": {"article_writer_semantic_calls": 0},
+        "article_generation_attempts": 0,
+        "public_write_performed": False,
+        "publishing_adapter_called": False,
+        "unknown_write_detected": False,
+        "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+    }
+
+    receipt = build_acceptance_receipt(
+        cycle,
+        cutoff_utc="2026-08-23T02:00:00Z",
+        prepared_state={
+            "full_rolling_headline_count": 10,
+            "prepared_candidate_count": 4,
+        },
+        runtime_output_dir=tmp_path,
+    )
+
+    assert receipt["classification"] == "CURRENT_HOST_RUNTIME_PROOF_REQUIRED"
+    assert receipt["exact_remaining_blocker"] == "CHATGPT_USAGE_LIMIT_REACHED"
 
 
 def test_runtime_discovery_handshake_resumes_exact_same_candidate_without_hardcoded_url(
