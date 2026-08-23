@@ -1,0 +1,1890 @@
+{
+  "automation_mutations_performed_by_sweep": 0,
+  "automations": {
+    "all_model_high_match": true,
+    "all_paused": true,
+    "automation_update_view_cards_rendered": [
+      "v1-newsroom-london-1700",
+      "v1-newsroom-new-york-0100",
+      "v1-newsroom-new-york-2100",
+      "v1-newsroom-new-york-2300"
+    ],
+    "mutations_performed": 0,
+    "observation_method": "SUPPORTED_CODEX_APP_VIEW_PLUS_EXACT_SUPPORTED_AUTOMATION_TOML_SAFE_FIELDS",
+    "task_count": 4,
+    "tasks": [
+      {
+        "execution_environment": "local",
+        "exists": true,
+        "host_config_sha256": "ea8e1e11a82b6b600fffd791cf9e8560d0d5198905fd5da15170d50ec1f43b65",
+        "id": "v1-newsroom-london-1700",
+        "kind": "cron",
+        "model": "gpt-5.6-sol",
+        "mtime_utc": "2026-08-20T22:03:05.169960+00:00",
+        "name": "V1 Newsroom — London 1700",
+        "prompt_character_count": 2653,
+        "prompt_sha256": "45b0851101d9771791d7e4521a5db725028dfb0458661491417a7baedcfaef8f",
+        "reasoning_effort": "high",
+        "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=17;BYMINUTE=0",
+        "status": "PAUSED"
+      },
+      {
+        "execution_environment": "local",
+        "exists": true,
+        "host_config_sha256": "65e87f0e8e255ab7a334484d982b6d017b96d6af4b26ebe6a75760b10d464a19",
+        "id": "v1-newsroom-new-york-0100",
+        "kind": "cron",
+        "model": "gpt-5.6-sol",
+        "mtime_utc": "2026-08-20T22:03:05.424138+00:00",
+        "name": "V1 Newsroom — New York 0100",
+        "prompt_character_count": 2653,
+        "prompt_sha256": "45b0851101d9771791d7e4521a5db725028dfb0458661491417a7baedcfaef8f",
+        "reasoning_effort": "high",
+        "rrule": "RRULE:FREQ=WEEKLY;BYDAY=TU,WE,TH,FR,SA;BYHOUR=1;BYMINUTE=0",
+        "status": "PAUSED"
+      },
+      {
+        "execution_environment": "local",
+        "exists": true,
+        "host_config_sha256": "02403d7c03c9fc3b8a262e10e8ad76bfd9dc7ffe3c80fab60c811397d06d17ed",
+        "id": "v1-newsroom-new-york-2100",
+        "kind": "cron",
+        "model": "gpt-5.6-sol",
+        "mtime_utc": "2026-08-20T22:03:05.269017+00:00",
+        "name": "V1 Newsroom — New York 2100",
+        "prompt_character_count": 2653,
+        "prompt_sha256": "45b0851101d9771791d7e4521a5db725028dfb0458661491417a7baedcfaef8f",
+        "reasoning_effort": "high",
+        "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=21;BYMINUTE=0",
+        "status": "PAUSED"
+      },
+      {
+        "execution_environment": "local",
+        "exists": true,
+        "host_config_sha256": "303fe4651091871e67c93d1335540be991995d442c5da9fcff9dbf100b74ca21",
+        "id": "v1-newsroom-new-york-2300",
+        "kind": "cron",
+        "model": "gpt-5.6-sol",
+        "mtime_utc": "2026-08-20T22:03:05.345889+00:00",
+        "name": "V1 Newsroom — New York 2300",
+        "prompt_character_count": 2653,
+        "prompt_sha256": "45b0851101d9771791d7e4521a5db725028dfb0458661491417a7baedcfaef8f",
+        "reasoning_effort": "high",
+        "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=23;BYMINUTE=0",
+        "status": "PAUSED"
+      }
+    ]
+  },
+  "browser_or_session_reads_performed_by_sweep": 0,
+  "codegraph": {
+    "counts": {
+      "edges": 13775,
+      "entrypoints": 16,
+      "nodes": 7288,
+      "nodes_by_kind": {
+        "authority_doc": 7,
+        "cli_command": 27,
+        "directory_scope": 8,
+        "durable_table": 37,
+        "http_endpoint": 6,
+        "instructions": 8,
+        "manifest": 17,
+        "python_class": 597,
+        "python_function": 3998,
+        "python_method": 284,
+        "python_module": 763,
+        "schema": 192,
+        "test": 729,
+        "typescript_export": 506,
+        "typescript_or_javascript_module": 109
+      }
+    },
+    "excluded_noise": [
+      ".git",
+      ".pytest_cache",
+      ".ruff_cache",
+      ".task-runtime",
+      ".venv",
+      "__pycache__",
+      "build",
+      "dist",
+      "docs/archive/",
+      "docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/",
+      "exports",
+      "headline_ingestion/data/intake/headline_sidecars/",
+      "headline_ingestion/data/raw_archive/",
+      "node_modules",
+      "raw_archive",
+      "runtime",
+      "scratch",
+      "venv",
+      "virtualenvs"
+    ],
+    "excluded_roots": [
+      ".git/",
+      ".task-runtime/",
+      ".venv/ and virtualenvs/",
+      "node_modules/",
+      "Runtime outputs/",
+      "headline_ingestion/data/raw_archive/",
+      "headline_ingestion/data/intake/headline_sidecars/",
+      "docs/archive/ and non-anchor historical evidence/",
+      "screenshots, video, caches, and generated build artifacts"
+    ],
+    "generation_timestamp_utc": "2026-08-23T07:18:24Z",
+    "generator_version": "2.5.0",
+    "included_roots": [
+      "live_contentops/",
+      "headline_ingestion/",
+      "tests/",
+      "ui/contentops_v5/",
+      "scripts/",
+      "video/",
+      "current authority anchors",
+      "AGENTS hierarchy"
+    ],
+    "path": "docs/codegraph/graph.json",
+    "reference_only": {
+      "branches": [
+        {
+          "ref": "origin/task/tier2-b-remotion-multimodal-bakeoff-v1",
+          "relationships": [
+            {
+              "from": "video/remotion/src/Root.tsx",
+              "kind": "component",
+              "to": "video/remotion/src/scenes/SceneRenderer.tsx"
+            },
+            {
+              "from": "video/remotion/src/Root.tsx",
+              "kind": "type_import",
+              "to": "video/remotion/src/program/types.ts"
+            },
+            {
+              "from": "video/remotion/src/scenes/SceneRenderer.tsx",
+              "kind": "component_dispatch",
+              "to": "video/remotion/src/scenes/primitives.tsx"
+            },
+            {
+              "from": "video/remotion/src/scenes/SceneRenderer.tsx",
+              "kind": "component_wrapper",
+              "to": "video/remotion/src/scenes/scaffold.tsx"
+            },
+            {
+              "from": "live_contentops/tier2_remotion_factory_v1.py",
+              "kind": "renderer_target",
+              "to": "video/remotion/scripts/render-job.mjs"
+            }
+          ],
+          "status": "REJECTED_NOT_INDEXED_IN_MASTER"
+        },
+        {
+          "ref": "origin/task/tier2-image-generation-9router-contract-correction-v1",
+          "relationships": [],
+          "status": "REJECTED_NOT_INDEXED_IN_MASTER"
+        }
+      ]
+    },
+    "sha256": "6d353200c4e6ed05d7f0c57cd64367ee92be2d379f94b92cc3f64fe2902c2c97",
+    "source_head": "086fc1028b273018b9f183ada010202d14ff6ba9",
+    "source_tree_digest": "6e1ffa31fe477b1e9b5c1e1caa631bde4d81d846d62727021181c8636ca34949"
+  },
+  "collected_at_utc": "2026-08-23T09:25:31.830410+00:00",
+  "host_process_observation": {
+    "command_lines_serialized": false,
+    "listeners": [],
+    "processes": [],
+    "supported": true
+  },
+  "inspection_mode": "READ_ONLY_SANITIZED_METADATA_ONLY",
+  "production_store": {
+    "byte_count": 2142208,
+    "exists": true,
+    "journal_mode_observed": "wal",
+    "mtime_utc": "2026-08-23T02:19:13.130365+00:00",
+    "open_mode": "SQLITE_URI_MODE_RO",
+    "path": "A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3",
+    "quick_check": "ok",
+    "schema_version": 78,
+    "sha256": "f34bc26ee90d75f7e1b13d885651a92c93093b3dc814dce034e699a25a7c2970",
+    "table_count": 31,
+    "tables": [
+      {
+        "columns": [
+          "envelope_id",
+          "work_item_id",
+          "approved_by",
+          "expires_at",
+          "status"
+        ],
+        "name": "approval_envelopes",
+        "row_count": 0,
+        "safe_state_counts": {
+          "status": []
+        }
+      },
+      {
+        "columns": [
+          "artifact_id",
+          "artifact_type",
+          "story_id",
+          "work_item_id",
+          "storage_class",
+          "byte_length",
+          "sha256_hash",
+          "schema_version",
+          "created_at",
+          "producer_ref",
+          "sensitivity_class",
+          "artifact_scope",
+          "receipt_id",
+          "receipt_schema",
+          "receipt_source_identity",
+          "receipt_object_identity",
+          "receipt_verifier_identity",
+          "canonical_receipt_hash"
+        ],
+        "name": "artifact_references",
+        "row_count": 1,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "assignment_id",
+          "work_item_id",
+          "assignee_ref",
+          "assigned_at",
+          "status"
+        ],
+        "name": "assignments",
+        "row_count": 92,
+        "safe_state_counts": {
+          "status": [
+            {
+              "count": 92,
+              "value": "RELEASED"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "surface",
+          "platform",
+          "transport_registry_version",
+          "transport_type",
+          "readiness_state",
+          "destination_identity",
+          "identity_match",
+          "probe_kind",
+          "probed_at_utc",
+          "sanitized_detail_json"
+        ],
+        "name": "destination_readiness",
+        "row_count": 9,
+        "safe_state_counts": {
+          "identity_match": [
+            {
+              "count": 9,
+              "value": 1
+            }
+          ],
+          "readiness_state": [
+            {
+              "count": 6,
+              "value": "READY_NON_BROWSER_BINDING"
+            },
+            {
+              "count": 3,
+              "value": "READY_AUTHENTICATED"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "feedback_id",
+          "work_item_id",
+          "source",
+          "rating",
+          "recorded_at"
+        ],
+        "name": "feedback_records",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "heartbeat_id",
+          "worker_id",
+          "lease_id",
+          "last_seen_at",
+          "status"
+        ],
+        "name": "heartbeats",
+        "row_count": 1,
+        "safe_state_counts": {
+          "status": [
+            {
+              "count": 1,
+              "value": "ALIVE"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "incident_id",
+          "work_item_id",
+          "severity",
+          "description",
+          "created_at"
+        ],
+        "name": "incidents",
+        "row_count": 26,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "policy_version",
+          "parent_policy_version",
+          "created_at_utc",
+          "status",
+          "decision",
+          "sample_count",
+          "confidence",
+          "formula_version",
+          "observation_ids_json",
+          "evaluation_window",
+          "accepted_changes_json",
+          "bounded_delta_json",
+          "rollback_reference",
+          "decision_reason",
+          "policy_payload_json",
+          "policy_hash"
+        ],
+        "name": "learning_policy_versions",
+        "row_count": 11,
+        "safe_state_counts": {
+          "status": [
+            {
+              "count": 10,
+              "value": "SUPERSEDED"
+            },
+            {
+              "count": 1,
+              "value": "ACTIVE"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "review_id",
+          "summary",
+          "created_at"
+        ],
+        "name": "learning_reviews",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "lease_id",
+          "lease_key",
+          "work_item_id",
+          "owner_ref",
+          "fencing_token",
+          "acquired_at",
+          "renewed_at",
+          "expires_at",
+          "status"
+        ],
+        "name": "leases",
+        "row_count": 82,
+        "safe_state_counts": {
+          "status": [
+            {
+              "count": 82,
+              "value": "RELEASED"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "artifact_id",
+          "source_lineage_id",
+          "legacy_artifact_key",
+          "legacy_storage_path",
+          "legacy_sha256_hash",
+          "legacy_byte_length",
+          "source_record_json",
+          "source_record_hash",
+          "migrated_scope"
+        ],
+        "name": "legacy_artifact_evidence",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "work_item_id",
+          "lineage_id",
+          "baseline_event_json",
+          "baseline_event_hash",
+          "original_projection_hash",
+          "created_at"
+        ],
+        "name": "legacy_projection_baselines",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "metric_id",
+          "metric_name",
+          "metric_value",
+          "recorded_at"
+        ],
+        "name": "metrics",
+        "row_count": 7,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "receipt_id",
+          "source_lineage_id",
+          "source_database_hash",
+          "failed_version",
+          "error_class",
+          "error_message_hash",
+          "backup_path_hash",
+          "restore_integrity_status",
+          "recorded_at"
+        ],
+        "name": "migration_failure_receipts",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "invocation_id",
+          "work_item_id",
+          "model_id",
+          "prompt_tokens",
+          "completion_tokens",
+          "invoked_at"
+        ],
+        "name": "model_invocations",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "singleton_id",
+          "operating_mode",
+          "state_version",
+          "updated_at_utc",
+          "control_source"
+        ],
+        "name": "operating_controls",
+        "row_count": 1,
+        "safe_state_counts": {
+          "operating_mode": [
+            {
+              "count": 1,
+              "value": "SHADOW_ONLY"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "window_id",
+          "window_key",
+          "started_at",
+          "closed_at",
+          "status"
+        ],
+        "name": "operational_windows",
+        "row_count": 0,
+        "safe_state_counts": {
+          "status": []
+        }
+      },
+      {
+        "columns": [
+          "trigger_id",
+          "trigger_kind",
+          "requested_at_utc",
+          "requested_mode",
+          "control_state_version",
+          "state",
+          "consumed_at_utc",
+          "consumed_window_id",
+          "consumption_detail"
+        ],
+        "name": "operator_cycle_triggers",
+        "row_count": 45,
+        "safe_state_counts": {
+          "state": [
+            {
+              "count": 45,
+              "value": "CONSUMED"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "decision_id",
+          "work_item_id",
+          "operator_ref",
+          "action",
+          "notes",
+          "decided_at"
+        ],
+        "name": "operator_decisions",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "message_id",
+          "work_item_id",
+          "destination",
+          "payload",
+          "status",
+          "created_at"
+        ],
+        "name": "outbox_messages",
+        "row_count": 47,
+        "safe_state_counts": {
+          "status": [
+            {
+              "count": 24,
+              "value": "DISPATCH_CONFIRMED"
+            },
+            {
+              "count": 19,
+              "value": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+            },
+            {
+              "count": 2,
+              "value": "READY"
+            },
+            {
+              "count": 2,
+              "value": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "observation_id",
+          "schema_version",
+          "dispatch_id",
+          "work_item_id",
+          "platform",
+          "public_object_id",
+          "public_object_url_hash",
+          "observation_window",
+          "scheduled_for_utc",
+          "collected_at_utc",
+          "collector_capability_version",
+          "collection_status",
+          "metrics_native_json",
+          "metric_availability_json",
+          "source_identity",
+          "observation_hash",
+          "learning_eligible"
+        ],
+        "name": "performance_observations",
+        "row_count": 97,
+        "safe_state_counts": {
+          "collection_status": [
+            {
+              "count": 27,
+              "value": "SCHEDULED"
+            },
+            {
+              "count": 18,
+              "value": "BOUNDED_PLATFORM_METRICS_ROUTER_AVAILABLE"
+            },
+            {
+              "count": 18,
+              "value": "NOT_EXPOSED"
+            },
+            {
+              "count": 17,
+              "value": "COLLECTED"
+            },
+            {
+              "count": 8,
+              "value": "UNAVAILABLE"
+            },
+            {
+              "count": 5,
+              "value": "AUTH_REQUIRED"
+            },
+            {
+              "count": 3,
+              "value": "PERMISSION_REQUIRED"
+            },
+            {
+              "count": 1,
+              "value": "IDENTITY_MISMATCH"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "dispatch_id",
+          "message_id",
+          "platform",
+          "status",
+          "dispatched_at",
+          "public_object_id",
+          "public_object_url",
+          "public_object_url_hash"
+        ],
+        "name": "platform_dispatches",
+        "row_count": 31,
+        "safe_state_counts": {
+          "status": [
+            {
+              "count": 24,
+              "value": "DISPATCH_CONFIRMED"
+            },
+            {
+              "count": 3,
+              "value": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+            },
+            {
+              "count": 2,
+              "value": "DISPATCH_CONFIRMED_NO_WRITE"
+            },
+            {
+              "count": 2,
+              "value": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "readback_id",
+          "dispatch_id",
+          "readback_data",
+          "read_at"
+        ],
+        "name": "readbacks",
+        "row_count": 50,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "reconciliation_id",
+          "work_item_id",
+          "status",
+          "reconciled_at"
+        ],
+        "name": "reconciliations",
+        "row_count": 31,
+        "safe_state_counts": {
+          "status": [
+            {
+              "count": 23,
+              "value": "RECONCILED_CONFIRMED"
+            },
+            {
+              "count": 5,
+              "value": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+            },
+            {
+              "count": 3,
+              "value": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
+            }
+          ]
+        }
+      },
+      {
+        "columns": [
+          "review_id",
+          "work_item_id",
+          "reviewer_ref",
+          "decision",
+          "notes",
+          "reviewed_at"
+        ],
+        "name": "review_records",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "tick_id",
+          "window_id",
+          "tick_number",
+          "evaluated_at",
+          "work_items_evaluated"
+        ],
+        "name": "scheduler_ticks",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "singleton_id",
+          "source_lineage_id",
+          "source_schema_fingerprint",
+          "compatibility_version",
+          "dependency_manifest_json",
+          "dependency_manifest_hash",
+          "upgraded_at"
+        ],
+        "name": "schema_lineage_metadata",
+        "row_count": 1,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "version",
+          "checksum",
+          "applied_at",
+          "description"
+        ],
+        "name": "schema_migrations",
+        "row_count": 9,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "story_version_id",
+          "story_id",
+          "version_num",
+          "headline",
+          "body_text",
+          "created_at"
+        ],
+        "name": "story_versions",
+        "row_count": 0,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "event_id",
+          "transition_key",
+          "work_item_id",
+          "event_kind",
+          "event_seq",
+          "from_state",
+          "to_state",
+          "state_version",
+          "actor_class",
+          "actor_ref",
+          "reason_code",
+          "explanation",
+          "explanation_hash",
+          "correlation_id",
+          "policy_version",
+          "model_version",
+          "authority_type",
+          "authority_ref",
+          "authority_effect",
+          "lease_id",
+          "lease_key",
+          "fencing_token",
+          "input_artifact_ids",
+          "output_artifact_ids",
+          "artifact_snapshot_json",
+          "previous_event_hash",
+          "event_payload_json",
+          "event_hash",
+          "timestamp_utc"
+        ],
+        "name": "transition_events",
+        "row_count": 323,
+        "safe_state_counts": {}
+      },
+      {
+        "columns": [
+          "work_item_id",
+          "story_id",
+          "title",
+          "current_state",
+          "state_version",
+          "target_surface",
+          "created_at",
+          "updated_at"
+        ],
+        "name": "work_items",
+        "row_count": 83,
+        "safe_state_counts": {
+          "current_state": [
+            {
+              "count": 76,
+              "value": "REJECTED"
+            },
+            {
+              "count": 6,
+              "value": "EVIDENCE_READY"
+            },
+            {
+              "count": 1,
+              "value": "DISCOVERED"
+            }
+          ]
+        }
+      }
+    ],
+    "unknown_write_count": 0
+  },
+  "public_writes_performed_by_sweep": 0,
+  "runtime_roots": {
+    "ignored_worktree_runtime_roots": [
+      {
+        "byte_count": 431759228,
+        "exists": true,
+        "file_count": 42,
+        "metadata_fingerprint_sha256": "33247cd012ea27e4bb65ccc776e748afae9a8ef7e348fd0482078801ab3c552e",
+        "newest_mtime_utc": "2026-08-18T05:27:13.530159+00:00",
+        "path": "A:/Capital Chronicle/ContentOps/artifacts"
+      },
+      {
+        "byte_count": 6261510,
+        "exists": true,
+        "file_count": 75,
+        "metadata_fingerprint_sha256": "a6aeb324bf46bd6e3ea30d357516eb7453a144b0d80c67336f6f939bb04597c8",
+        "newest_mtime_utc": "2026-08-22T21:53:50.993433+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-v1-desktop-primary-hybrid-final-convergence-v1/artifacts"
+      },
+      {
+        "byte_count": 944197874,
+        "exists": true,
+        "file_count": 14,
+        "metadata_fingerprint_sha256": "8ceada5d67613062e2797c398da6310ed77b0d34eb2423e6662095b35f31aece",
+        "newest_mtime_utc": "2026-08-17T10:35:58.163795+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-v2-codex-job-brain-routing-v1/.task-runtime"
+      },
+      {
+        "byte_count": 547426,
+        "exists": true,
+        "file_count": 3,
+        "metadata_fingerprint_sha256": "612f9e4c8191c8ced41541d3cab4a3863222ca2c70f920a06699aefaf7ad5ed5",
+        "newest_mtime_utc": "2026-08-17T09:19:46.568463+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-v2-unattended-core-factory-v1/.task-runtime"
+      },
+      {
+        "byte_count": 105970422,
+        "exists": true,
+        "file_count": 513,
+        "metadata_fingerprint_sha256": "4e1119ece938caf0992ba8deaae42e5297a90d4e2f00765807119fb13465dd6e",
+        "newest_mtime_utc": "2026-08-21T23:34:07.297760+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-worktrees/v1-final-model-authority-convergence-4-32-proof-canary-v1/artifacts"
+      },
+      {
+        "byte_count": 7034196,
+        "exists": true,
+        "file_count": 58,
+        "metadata_fingerprint_sha256": "09a942e677a8e851e6472161ad46e597d1ed6ee979ddf28dece313ea1dfb8c55",
+        "newest_mtime_utc": "2026-08-22T13:48:26.211045+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-worktrees/v1-official-codex-sdk-direct-provider-canary-v1/artifacts"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "newest_mtime_utc": null,
+        "path": "A:/Capital Chronicle/ContentOps-worktrees/v2-desktop-session-native-core-proof-v1/.task-runtime"
+      },
+      {
+        "byte_count": 6233656966,
+        "exists": true,
+        "file_count": 571,
+        "metadata_fingerprint_sha256": "6a6e3ea91bf5cb4ab3819124eca4803a93d7f4d7af5b93f3cf72915d345d6fb7",
+        "newest_mtime_utc": "2026-08-16T10:00:00.367762+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-worktrees/v2-freeform-xhigh-owner-polish-v1/.task-runtime"
+      },
+      {
+        "byte_count": 114863998,
+        "exists": true,
+        "file_count": 339,
+        "metadata_fingerprint_sha256": "b059a17e84b897ded3327bc99bfef187de91548f35da96de8b1e4d78f30aa10d",
+        "newest_mtime_utc": "2026-08-18T13:25:15.349325+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-worktrees/v2-locale-activation-hardening-v1/.task-runtime"
+      },
+      {
+        "byte_count": 19482708,
+        "exists": true,
+        "file_count": 12,
+        "metadata_fingerprint_sha256": "bcd29db10fab8d31a7b0dc349ffb8c1f878d6f792c4727de1a15bae2fc60cc2f",
+        "newest_mtime_utc": "2026-08-18T13:55:17.710966+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-worktrees/v2-locale-audio-timeline-alignment-correction-v1/.task-runtime"
+      },
+      {
+        "byte_count": 68455,
+        "exists": true,
+        "file_count": 7,
+        "metadata_fingerprint_sha256": "74388de3f2c94100402f8c647c4504ec51945cba6e034ffdda888fae506203e3",
+        "newest_mtime_utc": "2026-08-17T06:55:42.544252+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-worktrees/v2-publication-adapter-reconciliation-provider-contract-correction-v1/.task-runtime"
+      },
+      {
+        "byte_count": 724,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "78d9920dd89f1ada27ffffcae93bf1cbd949e05bc71e690d1a5292694321d80e",
+        "newest_mtime_utc": "2026-08-17T08:29:27.505472+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-worktrees/v2-tiktok-draft-canary-v1/.task-runtime"
+      },
+      {
+        "byte_count": 293926730,
+        "exists": true,
+        "file_count": 394,
+        "metadata_fingerprint_sha256": "1cb35b4fa9b3bf71fe928a84c34ece1ea2e6a0f2ff800a39b6a38f80d59b4ab7",
+        "newest_mtime_utc": "2026-08-18T12:21:33.703955+00:00",
+        "path": "A:/Capital Chronicle/ContentOps-wt-v2-winlaunch/.task-runtime"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "newest_mtime_utc": null,
+        "path": "A:/Capital Chronicle/Worktrees/ContentOps/final-architecture-truth-sweep-v1/.task-runtime"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "newest_mtime_utc": null,
+        "path": "A:/Capital Chronicle/Worktrees/ContentOps/v1-four-window-closed-loop-current-master-integration-v1/.task-runtime"
+      },
+      {
+        "byte_count": 4952149,
+        "exists": true,
+        "file_count": 65,
+        "metadata_fingerprint_sha256": "e8faf28feb55c38ec1259592c96465c90b2fafaf6e3d8f430ae8c271d139a9c3",
+        "newest_mtime_utc": "2026-08-15T07:59:35.283008+00:00",
+        "path": "A:/Capital Chronicle/Worktrees/ContentOps/v1-real-daily-yield-recovery-v1/artifacts"
+      },
+      {
+        "byte_count": 3104026944,
+        "exists": true,
+        "file_count": 1690,
+        "metadata_fingerprint_sha256": "09c6db027835f1fe90937aaab4932b570f78c1a649ad23037d33719844f03e3d",
+        "newest_mtime_utc": "2026-08-16T14:15:33.187496+00:00",
+        "path": "A:/Capital Chronicle/Worktrees/ContentOps/v2-native-multiformat-multilingual-package-factory-v1/.task-runtime"
+      },
+      {
+        "byte_count": 86427,
+        "exists": true,
+        "file_count": 8,
+        "metadata_fingerprint_sha256": "644beb7382f9878482a3a86853b4a7dca0ccf51c9fde561d95ceae367146b984",
+        "newest_mtime_utc": "2026-08-16T16:12:09.797216+00:00",
+        "path": "A:/Capital Chronicle/Worktrees/ContentOps/v2-official-platform-publication-adapters-shadow-closed-loop-v1/.task-runtime"
+      },
+      {
+        "byte_count": 53964764,
+        "exists": true,
+        "file_count": 121,
+        "metadata_fingerprint_sha256": "b959bb03f0e441a496ef6837eef08df8ba9399cf7541dc1a1091bc3b0632a0de",
+        "newest_mtime_utc": "2026-08-18T08:48:45.703346+00:00",
+        "path": "A:/Capital Chronicle/Worktrees/ContentOps/v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1/.task-runtime"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "newest_mtime_utc": null,
+        "path": "A:/ccv2r/.task-runtime"
+      }
+    ],
+    "top_level": [
+      {
+        "byte_count": 255262417,
+        "exists": true,
+        "file_count": 11209,
+        "metadata_fingerprint_sha256": "1ba41903e2d66965a74a41d10ea376178a6d094bd6d5ec80f0e01596926dede2",
+        "name": "acceptance",
+        "newest_mtime_utc": "2026-08-14T06:29:30.376615+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 3443,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "7adaf037cf5fde6c69abcfe89527b2bd0284a9d381424afd59c93f432b6eab38",
+        "name": "automation_observation",
+        "newest_mtime_utc": "2026-08-20T23:41:49.302661+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 4851407,
+        "exists": true,
+        "file_count": 52,
+        "metadata_fingerprint_sha256": "3912fd8a92610b9bd36738ce82a62c83b75779ce3aba49cca70db191abee9005",
+        "name": "browser_qa",
+        "newest_mtime_utc": "2026-08-16T10:49:50.262714+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 875612,
+        "exists": true,
+        "file_count": 15,
+        "metadata_fingerprint_sha256": "bc70f3d1ff05224e636c4941704900856499d0a90e3f552113d20b58141b34bc",
+        "name": "codex_desktop_editorial",
+        "newest_mtime_utc": "2026-08-17T07:25:33.944589+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 293470776,
+        "exists": true,
+        "file_count": 12,
+        "metadata_fingerprint_sha256": "87bdcf210368accc2951ff40f159bf52328f8985ece992d87464c689f2bbb939",
+        "name": "codex_editorial_brain_task_proof_v1",
+        "newest_mtime_utc": "2026-08-15T13:59:38.010536+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 294912,
+        "mtime_utc": "2026-08-09T16:28:58.429335+00:00",
+        "name": "contentops_daily_app_v1.pre_schema_v7.20260810T085015.byte_exact.sqlite3",
+        "sha256": "7a98d81dad934949cd7a913defcdfaf4fedc73b0ab2c6649a97a1330b7850acb",
+        "type": "file"
+      },
+      {
+        "byte_count": 307200,
+        "mtime_utc": "2026-08-10T01:51:12.361044+00:00",
+        "name": "contentops_daily_app_v1.pre_v8_20260810T0328Z.sqlite3",
+        "sha256": "2f512d9be6348b09534154a691771d6f3779675a4f895c20f76b966bada9d407",
+        "type": "file"
+      },
+      {
+        "byte_count": 2142208,
+        "mtime_utc": "2026-08-23T02:19:13.130365+00:00",
+        "name": "contentops_daily_app_v1.sqlite3",
+        "sha256": "f34bc26ee90d75f7e1b13d885651a92c93093b3dc814dce034e699a25a7c2970",
+        "type": "file"
+      },
+      {
+        "byte_count": 32768,
+        "mtime_utc": "2026-08-23T09:28:03.570847+00:00",
+        "name": "contentops_daily_app_v1.sqlite3-shm",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+        "type": "file"
+      },
+      {
+        "byte_count": 0,
+        "mtime_utc": "2026-08-23T02:19:14.918003+00:00",
+        "name": "contentops_daily_app_v1.sqlite3-wal",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "type": "file"
+      },
+      {
+        "byte_count": 232061,
+        "exists": true,
+        "file_count": 3,
+        "metadata_fingerprint_sha256": "f2ca3ec689b9e4303f38817930b7b4afd7f9073ed4279375942ad55461df8343",
+        "name": "control",
+        "newest_mtime_utc": "2026-08-23T06:28:57.497463+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 302639956,
+        "exists": true,
+        "file_count": 961,
+        "metadata_fingerprint_sha256": "77e2da5f8d6e4705256d376e55766feb63059e1866ca9bdba4d2c81fb90da835",
+        "name": "daily_app_outputs",
+        "newest_mtime_utc": "2026-08-23T02:19:14.784478+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 53,
+        "exists": true,
+        "file_count": 2,
+        "metadata_fingerprint_sha256": "655c4e0dacfcac7a3fdce04581a7b75031b17a441ba7edb8355a68cbac8e01ed",
+        "name": "deployment_v1_xhigh_default",
+        "newest_mtime_utc": "2026-08-15T19:15:50.282849+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1152514,
+        "exists": true,
+        "file_count": 35,
+        "metadata_fingerprint_sha256": "0ec61ad0303ef7a15d06e2dd1adc7b979241639bc889b16fccae42bd13775d27",
+        "name": "evidence",
+        "newest_mtime_utc": "2026-08-17T09:26:16.495281+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 29559668,
+        "exists": true,
+        "file_count": 72,
+        "metadata_fingerprint_sha256": "106621093d062308a0afc9198d8ba862f3aa2016826dae58fe54691c2bf9d068",
+        "name": "evidence_gate_calibration_shadow_v1",
+        "newest_mtime_utc": "2026-08-11T12:59:10.548960+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 741132290,
+        "exists": true,
+        "file_count": 1276,
+        "metadata_fingerprint_sha256": "a9c348f65281afe6483ab8db443e7bb9f2fae8f0d32cc2f95e383471becbc852",
+        "name": "headline_ingestion",
+        "newest_mtime_utc": "2026-08-23T06:36:45.062566+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 9534,
+        "mtime_utc": "2026-08-09T13:27:00.452739+00:00",
+        "name": "historical-store-inventory.json",
+        "sha256": "8d4d29595e12c010162db0d55f742b741f82d050a1bdd05c63d23c520e4565c0",
+        "type": "file"
+      },
+      {
+        "byte_count": 665848,
+        "exists": true,
+        "file_count": 3,
+        "metadata_fingerprint_sha256": "bba652cf6a617fdb32a784118c0418a3c27823edc9584bf91fb7edf9a56efd68",
+        "name": "hourly_audit",
+        "newest_mtime_utc": "2026-08-15T19:54:25.210346+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 736,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "c7300e5f21fd2a38c88aa20ec31133b7cb5ee24f5d7025931276e41fcd053a0a",
+        "name": "linkedin_official_member_api",
+        "newest_mtime_utc": "2026-08-13T14:54:01.762924+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1794,
+        "exists": true,
+        "file_count": 2,
+        "metadata_fingerprint_sha256": "bd4db4687161d615d27f98485cdd2c28e3cbb2d0b948a19e7a398d7939b70a08",
+        "name": "manual_proofs",
+        "newest_mtime_utc": "2026-08-15T13:19:31.803572+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 532480,
+        "exists": true,
+        "file_count": 2,
+        "metadata_fingerprint_sha256": "ab129eb2d49472a0ecb4dca18fb12c1d48f0405dbd2f9bb17a22a726bfd8fbf8",
+        "name": "migration-backups",
+        "newest_mtime_utc": "2026-08-09T15:13:00.358989+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1098681,
+        "exists": true,
+        "file_count": 22,
+        "metadata_fingerprint_sha256": "e02e277aa23a144498f24691aee825e756093d7264cc8d2bba6e754602969ae5",
+        "name": "one_click_launcher",
+        "newest_mtime_utc": "2026-08-22T23:29:36.794414+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 4173893,
+        "exists": true,
+        "file_count": 11,
+        "metadata_fingerprint_sha256": "67c9deca080a4932c03f8c8c9b1705992605d747e0bfeddfd5d0cf8619a5c1fd",
+        "name": "p0_2_canary",
+        "newest_mtime_utc": "2026-08-19T10:25:23.988233+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 115835,
+        "exists": true,
+        "file_count": 22,
+        "metadata_fingerprint_sha256": "3da1b75a2c182fd2ae83c48c8de09db823ad4a0a3cd173fd597ffeef12c376dd",
+        "name": "preselection_closeout_shadow_v1",
+        "newest_mtime_utc": "2026-08-11T00:58:59.663872+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 880,
+        "mtime_utc": "2026-08-09T13:39:06.128856+00:00",
+        "name": "production-store-authority.json",
+        "sha256": "eda565be40d3b869c0a9c69b78c7f07a116ae1314ea7cab39a0863b7f9d4381c",
+        "type": "file"
+      },
+      {
+        "byte_count": 11471387,
+        "exists": true,
+        "file_count": 26,
+        "metadata_fingerprint_sha256": "2a8fef4ced7f1765858f490ab505e53b20bc80c43ccfd6005a0575b7709931dd",
+        "name": "proofs",
+        "newest_mtime_utc": "2026-08-20T23:52:16.504981+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 2335809,
+        "exists": true,
+        "file_count": 279,
+        "metadata_fingerprint_sha256": "b1880b4522e1dae2817d7a268cc3c2992e1e4a1875ea71cad4aa73e0556f5e2d",
+        "name": "references",
+        "newest_mtime_utc": "2026-08-14T12:28:35.012123+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 64290,
+        "exists": true,
+        "file_count": 9,
+        "metadata_fingerprint_sha256": "ac414003bc46b16cdc93b20de557f20eccebceb69521b6f1e53a51ef2b97c068",
+        "name": "soak",
+        "newest_mtime_utc": "2026-08-10T23:11:04.120968+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 312,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "1b6672ba05a70eb61181ce132cc5d1dafed13f75124b7de6126a94ef86dfce39",
+        "name": "task_tier2_v2_gpt56_creative_authorship_v1",
+        "newest_mtime_utc": "2026-08-13T05:49:33.430983+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 319,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "409be969e9760e0d1a9938074f3cba628fad83cf83e5410e663368d661d7b222",
+        "name": "task_tier2_v2_gpt56_creative_preflight_v1",
+        "newest_mtime_utc": "2026-08-13T05:27:56.911857+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 329,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "27659ec576c5d0872f0509a5b5a8c60f6304ba86d8675a87bc5d05575e874634",
+        "name": "task_tier2_v2_gpt56_creative_preflight_v1_run2",
+        "newest_mtime_utc": "2026-08-13T05:30:21.476648+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 6903293090,
+        "exists": true,
+        "file_count": 66536,
+        "metadata_fingerprint_sha256": "e84354fb041d878806bccab1b41bc2cc1a8d3070fbb7528483c8f285e9caad7c",
+        "name": "tier2",
+        "newest_mtime_utc": "2026-08-11T23:56:04.329363+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 3826,
+        "exists": true,
+        "file_count": 3,
+        "metadata_fingerprint_sha256": "ef142089ef35e9a2cd2c89304f66f288ca22701cea3bae88ec8004715cb476f7",
+        "name": "tier2-image-gateway-correction",
+        "newest_mtime_utc": "2026-08-11T06:38:37.747687+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "name": "v1-runtime",
+        "newest_mtime_utc": null,
+        "type": "directory"
+      },
+      {
+        "byte_count": 1040149,
+        "exists": true,
+        "file_count": 2,
+        "metadata_fingerprint_sha256": "3a7e8e0b41f98eba2e2fdcfe426854b297b93327b00884f066c7f8bdc0090093",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823",
+        "newest_mtime_utc": "2026-08-23T04:35:36.256536+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 506059,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "533d3ce202d6042062f82ce5e9022c67a2ffdcdcc2fff1e7117ed59026eb47fd",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier2",
+        "newest_mtime_utc": "2026-08-23T04:51:44.524225+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1662769,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "1ce60eedc0bca429767463facdeae183c20ff448492d58ba80407dabd256f8f4",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier2_proof1",
+        "newest_mtime_utc": "2026-08-23T05:02:49.532141+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1652029,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "41cc594a035a1809561f6e58d326eb00d2df9364ec1b080b1825e028adbf0ecb",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier2_proof2",
+        "newest_mtime_utc": "2026-08-23T05:17:23.807955+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 492693,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "8f65bb009b7bcf12c02c85c52b79022cad0238172683492c5135c258ae48eb2b",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier3",
+        "newest_mtime_utc": "2026-08-23T05:20:11.824911+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 2063806,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "e0f8267dfff3f6c4c53d1eef0d4b924964368d0bcf5496a82eca534c387da315",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier3_proof1",
+        "newest_mtime_utc": "2026-08-23T05:36:37.922831+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 475033,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "f75dd42147aadc69c5c67098140307da4d5eb55007f1c1a855b699022b222448",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier4",
+        "newest_mtime_utc": "2026-08-23T05:36:43.352683+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1941301,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "37b57312e79f476d14db4c556251438a32deda8f9f1051c16e26fd9970db2218",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier4_proof1",
+        "newest_mtime_utc": "2026-08-23T05:56:25.840844+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 461796,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "0da6ae1b9f6a1bde7ab56a560e3d7dacd2871b664d63bd0feea9757b82ef9877",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier5",
+        "newest_mtime_utc": "2026-08-23T05:58:23.302676+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1924261,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "087ce546d95537f61278b7f6e04f16f977450a853985c32ed977e054c5363891",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier5_proof1",
+        "newest_mtime_utc": "2026-08-23T06:14:04.765756+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 407526,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "ac361d8b33ee99cccc3e1a60b610b53f47b3dda384e29ae2ab3000e436df6bd1",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier6",
+        "newest_mtime_utc": "2026-08-23T06:14:32.231385+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 2056724,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "926a1b45800dea901a31fc472855167fe7e73b43c8b6399d6d527b3d989c43a5",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_frontier6_proof1",
+        "newest_mtime_utc": "2026-08-23T06:28:57.549028+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 2052706,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "8f5b17d579c8206720c2bcdfe675f729b7043ce21f4cc71571d390888de75e09",
+        "name": "v1_evidence_foundation_current_health_frontier_20260823_proof1",
+        "newest_mtime_utc": "2026-08-23T04:51:05.347749+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1045502,
+        "exists": true,
+        "file_count": 2,
+        "metadata_fingerprint_sha256": "1eb137e49cde05236f77fe5f91fde10e0ecd95ef98d2bf667a536892cbbe72ca",
+        "name": "v1_evidence_foundation_current_refrontier_20260823",
+        "newest_mtime_utc": "2026-08-23T04:16:38.816677+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1847913,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "8ad5719746a7d737bcbf198e9850a231224e6613b5df1c33e6ebd5eaf652d57b",
+        "name": "v1_evidence_foundation_current_refrontier_20260823_proof1",
+        "newest_mtime_utc": "2026-08-23T04:30:58.465717+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1456450,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "8d7a5e855f19c01a5a4760e555bdb9e051eafbc9adf8867aba019256ca2c2dd7",
+        "name": "v1_evidence_foundation_fresh_proof_20260823T0320Z",
+        "newest_mtime_utc": "2026-08-23T03:21:47.353489+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 527698,
+        "exists": true,
+        "file_count": 7,
+        "metadata_fingerprint_sha256": "d9e9d0d01f693a97bbf14438ad22e68e4853f7b2c441ab6ae8ac99ea1829e179",
+        "name": "v1_evidence_foundation_fresh_proof_20260823T0320Z_frontier2",
+        "newest_mtime_utc": "2026-08-23T03:23:42.581465+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1444082,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "bff123c0ea5ec2dab5c76c12646daeb6597772b141e3aacb83c6f6083fd16de5",
+        "name": "v1_evidence_foundation_fresh_proof_20260823T0320Z_retry2",
+        "newest_mtime_utc": "2026-08-23T03:31:32.783597+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1636960,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "857fed3f9d024b43013c6025092060dd81e9f31bad1951e1329121c51d8d8227",
+        "name": "v1_evidence_foundation_fresh_proof_20260823T0320Z_retry3",
+        "newest_mtime_utc": "2026-08-23T04:12:22.624068+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "name": "v1_evidence_foundation_provider_diagnostic_20260823",
+        "newest_mtime_utc": null,
+        "type": "directory"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "name": "v1_evidence_foundation_provider_reauth2_20260823",
+        "newest_mtime_utc": null,
+        "type": "directory"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "name": "v1_evidence_foundation_provider_reauth3_20260823",
+        "newest_mtime_utc": null,
+        "type": "directory"
+      },
+      {
+        "byte_count": 0,
+        "exists": true,
+        "file_count": 0,
+        "metadata_fingerprint_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "name": "v1_evidence_foundation_provider_reauth_20260823",
+        "newest_mtime_utc": null,
+        "type": "directory"
+      },
+      {
+        "byte_count": 50309,
+        "exists": true,
+        "file_count": 16,
+        "metadata_fingerprint_sha256": "af2626608124cee9ae5414c07f6399c187a660d38b3a17a309a7bcb9c0b76551",
+        "name": "v1_yield_closeout_shadow_20260813",
+        "newest_mtime_utc": "2026-08-13T06:33:25.210080+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 13224783,
+        "exists": true,
+        "file_count": 25,
+        "metadata_fingerprint_sha256": "bab0bd506b1c20827e8d35cdbd008dc02c08618a02cf3249a4a0c6cb35cf19e9",
+        "name": "v1_yield_closeout_shadow_current_20260813",
+        "newest_mtime_utc": "2026-08-13T06:51:49.154834+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 447222,
+        "exists": true,
+        "file_count": 11,
+        "metadata_fingerprint_sha256": "e9740813995cd66688e084f91bf41513c40b756ef867eaa0d976810eda3e2155",
+        "name": "v1_yield_closeout_shadow_replay2_20260813",
+        "newest_mtime_utc": "2026-08-13T06:49:01.048330+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 439831,
+        "exists": true,
+        "file_count": 11,
+        "metadata_fingerprint_sha256": "7137e1ad769a808f70b53c4f13a701ed4bca8349733425865f773aba6b2bed55",
+        "name": "v1_yield_closeout_shadow_replay3_20260813",
+        "newest_mtime_utc": "2026-08-13T06:53:37.627262+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 892315,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "93c1a8df55639fc417c2393ca33c99280b2944037897a8405e724638e8006ef8",
+        "name": "v1_yield_closeout_shadow_replay4_20260813",
+        "newest_mtime_utc": "2026-08-13T06:56:10.045533+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 734524,
+        "exists": true,
+        "file_count": 11,
+        "metadata_fingerprint_sha256": "75234d187c473417efe6bbf45578c5966d061e442572f90c63e2862cd49e0e40",
+        "name": "v1_yield_closeout_shadow_replay5_20260813",
+        "newest_mtime_utc": "2026-08-13T06:58:18.685445+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1212362,
+        "exists": true,
+        "file_count": 24,
+        "metadata_fingerprint_sha256": "0bdea81ccac1f0de84a57bd4e67f947214e73d5baab3c1dae4b1bcb4e621efbd",
+        "name": "v1_yield_closeout_shadow_replay6_20260813",
+        "newest_mtime_utc": "2026-08-13T07:03:20.058432+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1210975,
+        "exists": true,
+        "file_count": 25,
+        "metadata_fingerprint_sha256": "1705ec2f97ee28fa35f9fd014e23ad89bd641fd62617409420771e6c54077b9a",
+        "name": "v1_yield_closeout_shadow_replay7_20260813",
+        "newest_mtime_utc": "2026-08-13T07:07:05.224494+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 738074,
+        "exists": true,
+        "file_count": 10,
+        "metadata_fingerprint_sha256": "6ff0436a69498bb07f4ec06d6fcbc979bdf12823bfefe877d237ad7c3536d4e8",
+        "name": "v1_yield_closeout_shadow_replay_20260813",
+        "newest_mtime_utc": "2026-08-13T06:46:02.807201+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 17696,
+        "exists": true,
+        "file_count": 2,
+        "metadata_fingerprint_sha256": "ff2ca6d600646fa272ffd7906d2962c660622b0d3b281966983950c357d25f82",
+        "name": "v2_ab_review_20260814",
+        "newest_mtime_utc": "2026-08-14T07:23:46.245034+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 283674422,
+        "exists": true,
+        "file_count": 219,
+        "metadata_fingerprint_sha256": "e09eb81467950e9fc1e8af73c3bd65eba8bba1f5b7d8067f661039ce492a2d43",
+        "name": "v2_asset_first_treasury_20260814",
+        "newest_mtime_utc": "2026-08-14T13:56:26.404613+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 187360616,
+        "exists": true,
+        "file_count": 235,
+        "metadata_fingerprint_sha256": "d3588083bc00f4201044cf7f1d956d42b2c56b88d1e74725a099ca6144a45af0",
+        "name": "v2_asset_first_treasury_curve_20260814_r1",
+        "newest_mtime_utc": "2026-08-14T13:50:24.201774+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 102782229,
+        "exists": true,
+        "file_count": 28,
+        "metadata_fingerprint_sha256": "8b9b59426fdcab4e82fda7ffeda8c8bcd96ee20ce5f73f61aa9060ba7f62c101",
+        "name": "v2_breaking_retail_20260814",
+        "newest_mtime_utc": "2026-08-14T15:40:24.784501+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 2625627192,
+        "exists": true,
+        "file_count": 669,
+        "metadata_fingerprint_sha256": "0de779263f9a0aa6e1fce031177e541431effcbd469e4d6435d7de0899c7e8be",
+        "name": "v2_breaking_retail_owner_repair_20260815",
+        "newest_mtime_utc": "2026-08-14T18:22:15.174714+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 320155375,
+        "exists": true,
+        "file_count": 104,
+        "metadata_fingerprint_sha256": "cfbc7ba8a75f7f48516da9b6b964d03ec59d79394f486ac2f7e03092bdb32a00",
+        "name": "v2_codex_builder_ab_20260814",
+        "newest_mtime_utc": "2026-08-14T07:22:47.890065+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 613300335,
+        "exists": true,
+        "file_count": 511,
+        "metadata_fingerprint_sha256": "32463243499ffef30f850ce26ed8e0f78fa89103e216521a77ab0fa17e7aafc6",
+        "name": "v2_concrete_first_xhigh_replacement_20260813",
+        "newest_mtime_utc": "2026-08-13T22:12:43.797699+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 17113068,
+        "exists": true,
+        "file_count": 59,
+        "metadata_fingerprint_sha256": "40a9a333a08901b86b402ffb0eb55442ac8764434911c066db5cd40c6e9401a7",
+        "name": "v2_creative_authority_proof_20260814",
+        "newest_mtime_utc": "2026-08-14T11:30:37.663461+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 217517536,
+        "exists": true,
+        "file_count": 104,
+        "metadata_fingerprint_sha256": "280359b1a50bf6a247fe815ad6933368545c706f59e88e67987698eabbefef04",
+        "name": "v2_creative_authority_proof_20260814_r1",
+        "newest_mtime_utc": "2026-08-14T11:48:21.641147+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 115107693,
+        "exists": true,
+        "file_count": 106,
+        "metadata_fingerprint_sha256": "74d3461faeeadf69a118784bb879e1e56fd2187134b663167e23ae45d6b776fb",
+        "name": "v2_creative_pacing_ingestion_visual_state_20260815",
+        "newest_mtime_utc": "2026-08-15T11:02:21.094388+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 253211169,
+        "exists": true,
+        "file_count": 938,
+        "metadata_fingerprint_sha256": "50d0fd7e704909330c907ce318fef7ea99497963d5e51e941a7d35ac164419e7",
+        "name": "v2_creative_pacing_ingestion_visual_state_20260815_r2",
+        "newest_mtime_utc": "2026-08-15T11:51:13.839800+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 43564614,
+        "exists": true,
+        "file_count": 171,
+        "metadata_fingerprint_sha256": "ffd38247c5e85fed4842c2cabbda40c5ed5db279ade94adf751c5bf1f0ca40fc",
+        "name": "v2_gpt56_asset_rich_final_20260813",
+        "newest_mtime_utc": "2026-08-13T12:53:49.354662+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 36209070,
+        "exists": true,
+        "file_count": 171,
+        "metadata_fingerprint_sha256": "a65d13fdeb3ddffd509fc96313fc4bcb5ff3613a6abf72b64ad3575e351ae449",
+        "name": "v2_gpt56_asset_rich_final_r2_20260813",
+        "newest_mtime_utc": "2026-08-13T13:37:37.554118+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 300142425,
+        "exists": true,
+        "file_count": 492,
+        "metadata_fingerprint_sha256": "86acb5232282ea292601ce362a4ab54f2c548805d3b846b3398e8093a869872d",
+        "name": "v2_gpt56_asset_rich_final_r3_20260813",
+        "newest_mtime_utc": "2026-08-13T14:14:26.239789+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 253584488,
+        "exists": true,
+        "file_count": 382,
+        "metadata_fingerprint_sha256": "950e5ecc5336e6c8e37afbd71c0910bfb737aac5f957172c51b4c4c94e239a97",
+        "name": "v2_gpt56_asset_rich_final_r4_20260813",
+        "newest_mtime_utc": "2026-08-13T15:04:02.629492+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 321,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "673c5d135b2b25434c9639cff8e0ec4b7b56d3cd6f3b9918c54b767f44126760",
+        "name": "v2_gpt56_creative_editor_after_gateway_restart_20260813",
+        "newest_mtime_utc": "2026-08-13T09:28:17.648977+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 315,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "d3b9fab217bec6e5d717d776ff8c69cae64755fc90fea0984408e5b0810de3c0",
+        "name": "v2_gpt56_creative_editor_compact_20260813",
+        "newest_mtime_utc": "2026-08-13T07:11:46.839429+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 315,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "f9bcd710d07cd35c060362c2d68fdbbe7edd4d86eb6b48bb93265daee3d6a5d3",
+        "name": "v2_gpt56_creative_editor_compact_corrected_20260813",
+        "newest_mtime_utc": "2026-08-13T08:48:53.278094+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 315,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "a118666f25515066ee05d1a7914b9797c57c00a50eec24bad01ff3c77f8096a7",
+        "name": "v2_gpt56_creative_editor_compact_retry_20260813",
+        "newest_mtime_utc": "2026-08-13T08:28:35.599825+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 331,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "03f90cf2a791eeb0e272f1884eb7c37c5937f4aa462b97b0103187770cb60702",
+        "name": "v2_gpt56_creative_editor_diagnostic_20260813",
+        "newest_mtime_utc": "2026-08-13T06:51:02.149810+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 321,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "91ff4e113b951cf2528cb5ddb058f26605a1e51d07d28853601785593b6f649d",
+        "name": "v2_gpt56_creative_editor_explicit_resume_20260813",
+        "newest_mtime_utc": "2026-08-13T10:23:12.163223+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 321,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "8d08b3f7d185c9262b95440a0f6eae53e0928ffe7345f619a1678575a369438c",
+        "name": "v2_gpt56_creative_editor_minified_20260813",
+        "newest_mtime_utc": "2026-08-13T09:08:01.288190+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 321,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "4fcf97c6d4c1243bfe89c6aa4e137d550a6f3bb0ba43f335789c2664dd9e2ac0",
+        "name": "v2_gpt56_creative_editor_operator_resumed_20260813",
+        "newest_mtime_utc": "2026-08-13T09:49:53.104063+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 321,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "0ff18d48b29bd5bf3e49abf7d9b396b0347d9696a05d0be313fac239c4960e9f",
+        "name": "v2_gpt56_creative_editor_operator_resumed_20260813_v2",
+        "newest_mtime_utc": "2026-08-13T10:26:29.234066+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 6097840,
+        "exists": true,
+        "file_count": 26,
+        "metadata_fingerprint_sha256": "088740c2411bbc9c8acc29418a0b3828619416bf5491ad0abe4d30e3e0937b9a",
+        "name": "v2_gpt56_critic_mechanical_repairs_preview_20260813",
+        "newest_mtime_utc": "2026-08-13T13:58:25.456627+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 1846,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "cad69419962659c8f79a68ac373838f81e2c194c64d21e3da161b8622f7e836c",
+        "name": "v2_gpt56_motion_author_medium_20260813",
+        "newest_mtime_utc": "2026-08-13T11:45:13.719245+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 7039187,
+        "exists": true,
+        "file_count": 51,
+        "metadata_fingerprint_sha256": "c9bd95cdaa528974863960d903094a448f00d1c77ba7f7e696aac86cbc94256a",
+        "name": "v2_gpt56_preview_first_20260813",
+        "newest_mtime_utc": "2026-08-13T12:44:24.518203+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 321,
+        "exists": true,
+        "file_count": 1,
+        "metadata_fingerprint_sha256": "091dc1b9b19dde3c687a5c559e3a4e82b66bf46d91ac87226e8182f8f51377ea",
+        "name": "v2_gpt56_streaming_effort_ladder_20260813",
+        "newest_mtime_utc": "2026-08-13T11:19:35.970151+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 237847060,
+        "exists": true,
+        "file_count": 64,
+        "metadata_fingerprint_sha256": "fb92137d18f6f4792c1ec4f784b4f5d568921db2ee48d7484ac1f5d348125c85",
+        "name": "v2_lane_b_hybrid_mode_bakeoff_20260814",
+        "newest_mtime_utc": "2026-08-14T10:25:00.492129+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 213629946,
+        "exists": true,
+        "file_count": 110,
+        "metadata_fingerprint_sha256": "d9e7b5470cf3f86738b15d5ccc7220532d1ce4e7106a5a2d46686f254cd2111f",
+        "name": "v2_short_longform_low_cost_audio_20260815",
+        "newest_mtime_utc": "2026-08-15T05:50:22.977121+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 284033414,
+        "exists": true,
+        "file_count": 936,
+        "metadata_fingerprint_sha256": "8679f6baa6f76d02247d50ae0324e70ca2f4eb0cea42dea6023b4e764c9bc3f3",
+        "name": "v2_treasury_owner_visual_integrity_diversity_20260815",
+        "newest_mtime_utc": "2026-08-15T09:55:15.163489+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 578306853,
+        "exists": true,
+        "file_count": 682,
+        "metadata_fingerprint_sha256": "ae3fdaf626063c92df316eebb45cb5ee525046e8e9f84b5162e71ac677f6e13e",
+        "name": "v2_treasury_visual_material_richness_20260815",
+        "newest_mtime_utc": "2026-08-15T07:48:49.801046+00:00",
+        "type": "directory"
+      },
+      {
+        "byte_count": 12525829,
+        "exists": true,
+        "file_count": 38,
+        "metadata_fingerprint_sha256": "69a916384244713eeebcbdb9df2752c301c331891449fa5a607ee558a871c89e",
+        "name": "validation",
+        "newest_mtime_utc": "2026-08-19T19:39:57.151347+00:00",
+        "type": "directory"
+      }
+    ]
+  },
+  "schema_version": "contentops.final_architecture_truth_sweep.runtime_host_truth.v1"
+}

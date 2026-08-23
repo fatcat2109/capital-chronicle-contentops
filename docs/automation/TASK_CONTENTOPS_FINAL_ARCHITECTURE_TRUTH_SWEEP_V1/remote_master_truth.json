@@ -1,0 +1,447 @@
+{
+  "collected_at_utc": "2026-08-23T09:25:31.830410+00:00",
+  "expected_master_at_task_creation": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+  "first_parent_lineage": [
+    {
+      "date": "2026-08-23 14:40:38 +0700",
+      "parents": [
+        "2d39880fda3504201add67b15a0801847cc496b1",
+        "dca874e32052b4b0edab47e4cebb89be8eb6e4a1"
+      ],
+      "sha": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+      "subject": "merge: canonicalize accepted V1 evidence foundation"
+    },
+    {
+      "date": "2026-08-21 23:41:21 +0700",
+      "parents": [
+        "25f560abb952f3646b3e4f18671dd22a96f8fa16",
+        "54b600e94d3ce4e75714b468ecc9c6edf7ed67ff"
+      ],
+      "sha": "2d39880fda3504201add67b15a0801847cc496b1",
+      "subject": "merge: accept V1 first-party locator routing"
+    },
+    {
+      "date": "2026-08-21 22:10:43 +0700",
+      "parents": [
+        "0e1af449a370112c5e1c90989e83b6f946133317",
+        "5a10dd8bdfbe900bed945f24332942ba69858d2e"
+      ],
+      "sha": "25f560abb952f3646b3e4f18671dd22a96f8fa16",
+      "subject": "merge: accept V1 daily-yield evidence lineage"
+    },
+    {
+      "date": "2026-08-21 03:15:04 +0700",
+      "parents": [
+        "369c0cc289e790b8218ba30b2696a926db04356a",
+        "6e24c5313acdff23efeac03c87628b51510f03c5"
+      ],
+      "sha": "0e1af449a370112c5e1c90989e83b6f946133317",
+      "subject": "merge: reset V1 daily output and Codex automation authority"
+    },
+    {
+      "date": "2026-08-20 23:55:33 +0700",
+      "parents": [
+        "8864cf9322ec2ecbf1660ff45e77397166cd31b7",
+        "9e5958e8159a599caa4e9021ac5ca8afd78265e3"
+      ],
+      "sha": "369c0cc289e790b8218ba30b2696a926db04356a",
+      "subject": "merge: accept V1 P0-G3 multimode zero-write replay"
+    },
+    {
+      "date": "2026-08-20 06:15:11 +0700",
+      "parents": [
+        "4f40cd2fe851bcefaf101e9307753c12d8e7adb5",
+        "04c4316f85bc18474175e632c30f3f03031d9c5a"
+      ],
+      "sha": "8864cf9322ec2ecbf1660ff45e77397166cd31b7",
+      "subject": "merge: implement V1 growth-first editorial wake and canonical-first flow"
+    },
+    {
+      "date": "2026-08-20 04:14:28 +0700",
+      "parents": [
+        "f634c32bf3636815f48dc11deb0db780df697fca",
+        "d56655683e88a7c0e5608ef5697c166f8a72becb"
+      ],
+      "sha": "4f40cd2fe851bcefaf101e9307753c12d8e7adb5",
+      "subject": "merge: align V1 with growth-first newsroom direction"
+    },
+    {
+      "date": "2026-08-20 02:56:07 +0700",
+      "parents": [
+        "55bd707bef9979ca09eea7c05e9c25f82ad73f93",
+        "507737ed4d4faedd7037f2180ce41923ec86306d"
+      ],
+      "sha": "f634c32bf3636815f48dc11deb0db780df697fca",
+      "subject": "merge: fix V1 logical supervisor process trees"
+    },
+    {
+      "date": "2026-08-20 01:19:20 +0700",
+      "parents": [
+        "16b675a405c88a44c60e6ae68d2ae5642248996c",
+        "1c0c8b2e43746b51256babafabebdcb65d0f284f"
+      ],
+      "sha": "55bd707bef9979ca09eea7c05e9c25f82ad73f93",
+      "subject": "merge: reconcile hybrid execution authority"
+    },
+    {
+      "date": "2026-08-19 23:40:10 +0700",
+      "parents": [
+        "a2f9f0708fc7dadde0ea378f6f38c7854d88b766",
+        "92bb161c66769729440e54f1562061e229c70493"
+      ],
+      "sha": "16b675a405c88a44c60e6ae68d2ae5642248996c",
+      "subject": "merge: make hybrid execution policy current authority"
+    },
+    {
+      "date": "2026-08-19 21:55:06 +0700",
+      "parents": [
+        "3344ee64c1511ed868d64f4b0ef2520eb1ab05d8",
+        "55fff033b4b96985d7c7f7aef7ce18a83eb154d0"
+      ],
+      "sha": "a2f9f0708fc7dadde0ea378f6f38c7854d88b766",
+      "subject": "merge: correct CodeGraph tree-identical merge epochs"
+    },
+    {
+      "date": "2026-08-19 21:34:03 +0700",
+      "parents": [
+        "511f17ebe80f227b99c200c685e7f05b499bb544"
+      ],
+      "sha": "3344ee64c1511ed868d64f4b0ef2520eb1ab05d8",
+      "subject": "revert: remove accidental noop file"
+    },
+    {
+      "date": "2026-08-19 21:33:50 +0700",
+      "parents": [
+        "8918024b9ddbd6484b40e8bfbaf5dfcd2e1c8590"
+      ],
+      "sha": "511f17ebe80f227b99c200c685e7f05b499bb544",
+      "subject": "x"
+    },
+    {
+      "date": "2026-08-19 20:05:18 +0700",
+      "parents": [
+        "407233d0aad603ecfa53a248b8c3ebdff580d13a",
+        "b6f1da997161d4301bbbac801546d52ba28b7d5b"
+      ],
+      "sha": "8918024b9ddbd6484b40e8bfbaf5dfcd2e1c8590",
+      "subject": "merge: accepted P0 lineage and capability-routed execution"
+    },
+    {
+      "date": "2026-08-19 02:50:02 +0700",
+      "parents": [
+        "20aee1316b5a2a6ce5a16d5989110e923cc3e8ac"
+      ],
+      "sha": "407233d0aad603ecfa53a248b8c3ebdff580d13a",
+      "subject": "docs: lock ContentOps to Core Analyzer publication authority"
+    },
+    {
+      "date": "2026-08-19 02:27:31 +0700",
+      "parents": [
+        "959c3c23226e6ee6e553162fa7cd7462649a9c9a"
+      ],
+      "sha": "20aee1316b5a2a6ce5a16d5989110e923cc3e8ac",
+      "subject": "docs: reconcile final ContentOps authority"
+    },
+    {
+      "date": "2026-08-18 22:23:32 +0700",
+      "parents": [
+        "95e8373efd000085df22ed7e7f3623e9444e8aee"
+      ],
+      "sha": "959c3c23226e6ee6e553162fa7cd7462649a9c9a",
+      "subject": "Refresh V1 pre-live zero-write acceptance fixture"
+    },
+    {
+      "date": "2026-08-18 20:51:35 +0700",
+      "parents": [
+        "5701f1039a7f229f636d54bdf0a2133bb2bdcf23"
+      ],
+      "sha": "95e8373efd000085df22ed7e7f3623e9444e8aee",
+      "subject": "Correct V1 public visual integrity"
+    },
+    {
+      "date": "2026-08-18 19:28:39 +0700",
+      "parents": [
+        "458be8c7e011c617e04433e52523448e2f2b6fba"
+      ],
+      "sha": "5701f1039a7f229f636d54bdf0a2133bb2bdcf23",
+      "subject": "Close V1 Facebook X and Instagram recovery"
+    },
+    {
+      "date": "2026-08-18 16:28:36 +0700",
+      "parents": [
+        "4be025ab1dd23bf8cfa71d18499987de2f674aa0"
+      ],
+      "sha": "458be8c7e011c617e04433e52523448e2f2b6fba",
+      "subject": "Fix V1 delivery-only media hosting ownership"
+    },
+    {
+      "date": "2026-08-18 02:34:17 +0700",
+      "parents": [
+        "fe33c7fa62bcbe28ca271896fb8d298dec2ba4b4"
+      ],
+      "sha": "4be025ab1dd23bf8cfa71d18499987de2f674aa0",
+      "subject": "Record V1 latest-state correction canary evidence"
+    },
+    {
+      "date": "2026-08-18 02:10:06 +0700",
+      "parents": [
+        "19741a79ae659ccc580168100a88affffc0b74c7"
+      ],
+      "sha": "fe33c7fa62bcbe28ca271896fb8d298dec2ba4b4",
+      "subject": "fix(v1): close latest event state before editorial"
+    },
+    {
+      "date": "2026-08-18 00:22:58 +0700",
+      "parents": [
+        "d13ab6ac48a3d07c0eac23615ca9ba2155772909"
+      ],
+      "sha": "19741a79ae659ccc580168100a88affffc0b74c7",
+      "subject": "Record Gemini-only V1 zero-write canary evidence"
+    },
+    {
+      "date": "2026-08-18 00:15:42 +0700",
+      "parents": [
+        "5248482f317bcd7e63b426e9f798190c79619fe7"
+      ],
+      "sha": "d13ab6ac48a3d07c0eac23615ca9ba2155772909",
+      "subject": "Support text-only V1 breaking brief packages"
+    },
+    {
+      "date": "2026-08-17 23:56:44 +0700",
+      "parents": [
+        "f7110e39f5201c9e356fd2e8713812149c635587"
+      ],
+      "sha": "5248482f317bcd7e63b426e9f798190c79619fe7",
+      "subject": "Align V1 grounded research to Gemini-only ladder"
+    }
+  ],
+  "master_drift_from_task_creation": false,
+  "observed_remote_master": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+  "parents": [
+    "2d39880fda3504201add67b15a0801847cc496b1",
+    "dca874e32052b4b0edab47e4cebb89be8eb6e4a1"
+  ],
+  "pull_request_count": 17,
+  "pull_requests": [
+    {
+      "baseRefName": "master",
+      "headRefName": "codex/v1-evidence-foundation-autonomous-discovery-ready-pool-v1",
+      "headRefOid": "dca874e32052b4b0edab47e4cebb89be8eb6e4a1",
+      "mergeCommit": {
+        "oid": "f7c5543e08381f7f529e1b391a80a59f2032d76f"
+      },
+      "number": 17,
+      "state": "MERGED",
+      "title": "merge: canonicalize accepted V1 evidence foundation",
+      "updatedAt": "2026-08-23T07:40:39Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/17"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "task/v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1",
+      "headRefOid": "54b600e94d3ce4e75714b468ecc9c6edf7ed67ff",
+      "mergeCommit": {
+        "oid": "2d39880fda3504201add67b15a0801847cc496b1"
+      },
+      "number": 16,
+      "state": "MERGED",
+      "title": "V1 multi-surface first-party locator routing and floor closure",
+      "updatedAt": "2026-08-21T16:41:22Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/16"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "task/v1-story-scoped-evidence-reuse-budget-daily-floor-closure-v1",
+      "headRefOid": "5a10dd8bdfbe900bed945f24332942ba69858d2e",
+      "mergeCommit": {
+        "oid": "25f560abb952f3646b3e4f18671dd22a96f8fa16"
+      },
+      "number": 15,
+      "state": "MERGED",
+      "title": "V1 story-scoped evidence reuse and daily-floor closure",
+      "updatedAt": "2026-08-21T15:10:44Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/15"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "task/v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1",
+      "headRefOid": "bbd2ef9b104a01d7cbb14743b976ff30932a3e08",
+      "mergeCommit": {
+        "oid": "25f560abb952f3646b3e4f18671dd22a96f8fa16"
+      },
+      "number": 14,
+      "state": "MERGED",
+      "title": "V1 autonomous newsroom daily output and Automation revalidation",
+      "updatedAt": "2026-08-21T15:10:45Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/14"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "task/v1-daily-output-authority-reset-v1",
+      "headRefOid": "6e24c5313acdff23efeac03c87628b51510f03c5",
+      "mergeCommit": {
+        "oid": "0e1af449a370112c5e1c90989e83b6f946133317"
+      },
+      "number": 13,
+      "state": "MERGED",
+      "title": "docs(v1): reset daily output and Codex automation authority",
+      "updatedAt": "2026-08-20T20:15:05Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/13"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "task/v1-p0-g4-real-publication-canary-v1",
+      "headRefOid": "9a2640d3fe71565e53ed6d3804289b075386c8e2",
+      "mergeCommit": null,
+      "number": 12,
+      "state": "OPEN",
+      "title": "FROZEN — P0-G4 preflight evidence before daily-output/Codex bridge reset",
+      "updatedAt": "2026-08-20T19:57:43Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/12"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "agent/web-v1-p0-g3-mode-semantics",
+      "headRefOid": "4208c57d95ccdc4f2d5aa3d10b4e6132c104e66b",
+      "mergeCommit": null,
+      "number": 11,
+      "state": "CLOSED",
+      "title": "fix(v1): separate story novelty from editorial mode",
+      "updatedAt": "2026-08-20T12:06:22Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/11"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "task/v1-p0-g3-zero-write-multimode-replay-v1",
+      "headRefOid": "9e5958e8159a599caa4e9021ac5ca8afd78265e3",
+      "mergeCommit": {
+        "oid": "369c0cc289e790b8218ba30b2696a926db04356a"
+      },
+      "number": 10,
+      "state": "MERGED",
+      "title": "V1 P0-G3 zero-write multimode replay evidence",
+      "updatedAt": "2026-08-20T16:55:34Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/10"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "task/v1-growth-first-editorial-wake-canonical-first-v1",
+      "headRefOid": "04c4316f85bc18474175e632c30f3f03031d9c5a",
+      "mergeCommit": {
+        "oid": "8864cf9322ec2ecbf1660ff45e77397166cd31b7"
+      },
+      "number": 9,
+      "state": "MERGED",
+      "title": "V1 P0-G1/G2 growth-first editorial wake and canonical-first slice",
+      "updatedAt": "2026-08-19T23:15:12Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/9"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "agent/web-v1-growth-first-authority-reconciliation-v1",
+      "headRefOid": "d56655683e88a7c0e5608ef5697c166f8a72becb",
+      "mergeCommit": {
+        "oid": "4f40cd2fe851bcefaf101e9307753c12d8e7adb5"
+      },
+      "number": 8,
+      "state": "MERGED",
+      "title": "docs: align V1 with growth-first newsroom direction",
+      "updatedAt": "2026-08-19T21:14:28Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/8"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "codex/p0-2-v1-logical-supervisor-process-tree-correction-v1",
+      "headRefOid": "507737ed4d4faedd7037f2180ce41923ec86306d",
+      "mergeCommit": {
+        "oid": "f634c32bf3636815f48dc11deb0db780df697fca"
+      },
+      "number": 7,
+      "state": "MERGED",
+      "title": "fix(v1): count logical supervisor process trees",
+      "updatedAt": "2026-08-19T19:56:07Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/7"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "agent/web-contentops-hybrid-authority-hygiene-v2",
+      "headRefOid": "1c0c8b2e43746b51256babafabebdcb65d0f284f",
+      "mergeCommit": {
+        "oid": "55bd707bef9979ca09eea7c05e9c25f82ad73f93"
+      },
+      "number": 6,
+      "state": "MERGED",
+      "title": "docs: reconcile hybrid execution authority",
+      "updatedAt": "2026-08-19T18:19:21Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/6"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "agent/web-contentops-hybrid-policy-current-status-v1",
+      "headRefOid": "92bb161c66769729440e54f1562061e229c70493",
+      "mergeCommit": {
+        "oid": "16b675a405c88a44c60e6ae68d2ae5642248996c"
+      },
+      "number": 5,
+      "state": "MERGED",
+      "title": "docs: make hybrid execution policy current authority",
+      "updatedAt": "2026-08-19T16:40:11Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/5"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "codex/post-merge-codegraph-tree-identical-merge-epoch-v1",
+      "headRefOid": "55fff033b4b96985d7c7f7aef7ce18a83eb154d0",
+      "mergeCommit": {
+        "oid": "a2f9f0708fc7dadde0ea378f6f38c7854d88b766"
+      },
+      "number": 4,
+      "state": "MERGED",
+      "title": "fix: resolve tree-identical merge CodeGraph epochs",
+      "updatedAt": "2026-08-19T14:55:07Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/4"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "agent/web-contentops-p0-hybrid-integration-v2",
+      "headRefOid": "b6f1da997161d4301bbbac801546d52ba28b7d5b",
+      "mergeCommit": {
+        "oid": "8918024b9ddbd6484b40e8bfbaf5dfcd2e1c8590"
+      },
+      "number": 3,
+      "state": "MERGED",
+      "title": "integrate: accepted P0 source path plus capability-routed execution",
+      "updatedAt": "2026-08-19T13:05:19Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/3"
+    },
+    {
+      "baseRefName": "agent/web-contentops-p0-hybrid-integration-v2",
+      "headRefName": "codex/p0-2a-real-candidate-source-reachability-retry-v1",
+      "headRefOid": "3319809e9c2526e3b518d5d58f1e2c23fbd2afac",
+      "mergeCommit": {
+        "oid": "fa46dc564679ae0d29ab395c7a916101e8f3d3cc"
+      },
+      "number": 2,
+      "state": "MERGED",
+      "title": "integrate: accepted P0 lineage into hybrid execution candidate",
+      "updatedAt": "2026-08-19T12:10:13Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/2"
+    },
+    {
+      "baseRefName": "master",
+      "headRefName": "agent/web-contentops-hybrid-execution-policy-pilot-v1",
+      "headRefOid": "0abefe0db54233f2bf952d9ca29754cd2c20902c",
+      "mergeCommit": null,
+      "number": 1,
+      "state": "CLOSED",
+      "title": "superseded: docs: pilot capability-routed hybrid execution",
+      "updatedAt": "2026-08-19T12:45:16Z",
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/1"
+    }
+  ],
+  "remote_branch_count": 149,
+  "remote_branches_unique_to_master_count": 58,
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "schema_version": "contentops.final_architecture_truth_sweep.remote_master_truth.v1",
+  "starting_remote_master": "f7c5543e08381f7f529e1b391a80a59f2032d76f"
+}

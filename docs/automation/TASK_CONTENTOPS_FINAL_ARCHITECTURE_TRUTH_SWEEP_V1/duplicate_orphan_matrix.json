@@ -1,0 +1,154 @@
+{
+  "schema_version": "contentops.final_architecture_truth_sweep.duplicate_orphan_matrix.v1",
+  "findings": [
+    {
+      "id": "DUP_01_LEGACY_SCHEDULER",
+      "kind": "duplicate_scheduler",
+      "paths": ["live_contentops/scheduler_v6.py", "live_contentops/daily_editorial_scheduler_v6.py", "live_contentops/fast_one_cycle_automation_v0.py"],
+      "canonical_owner": "live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor plus the four native Desktop Automations",
+      "caller_truth": "Legacy CLI/tests remain, but live entrypoints are explicitly QUARANTINED.",
+      "evidence": ["live_contentops/live_entrypoint_registry_v1.py", "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py"],
+      "disposition": "SUPERSEDED_DO_NOT_REUSE"
+    },
+    {
+      "id": "DUP_02_LEGACY_HTTP_LAUNCH",
+      "kind": "orphan_entrypoint",
+      "paths": ["live_contentops/server.py::POST /api/run-pipeline"],
+      "canonical_owner": "live_contentops/production_orchestrator_v1.py and Daily App control endpoints",
+      "caller_truth": "Route returns HTTP 423, live_launch_authorized=false, thread_created=false, subprocess_created=false.",
+      "evidence": ["live_contentops/server.py:231", "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_ui_route_is_registered_and_server_route_is_quarantined"],
+      "disposition": "SUPERSEDED_DO_NOT_REUSE"
+    },
+    {
+      "id": "DUP_03_LEGACY_STATE_APPROVAL_OUTBOX_MODULES",
+      "kind": "duplicate_state_and_evidence_families",
+      "paths": ["live_contentops/approval_ledger.py", "live_contentops/dispatch_outbox.py", "live_contentops/content_lifecycle_engine.py", "many *_contract.py V6 scaffold modules"],
+      "canonical_owner": "live_contentops/durable_operational_store_v1.py plus publication_coordinator_v1.py",
+      "caller_truth": "The broad CLI imports old utilities, but current V1 production composition uses the canonical durable store/coordinator. Historical V6 tests do not grant runtime authority.",
+      "evidence": ["AGENTS.md canonical boundaries", "live_contentops/production_runtime_v1.py", "docs/codegraph/graph.json"],
+      "disposition": "KEEP_HISTORICAL_CODE_QUARANTINED; DO_NOT_BUILD_NEW_PARALLEL_STORE"
+    },
+    {
+      "id": "DUP_04_ADAPTERS_PARTLY_CANONICAL",
+      "kind": "false_positive_avoided",
+      "paths": ["live_contentops/telegram_live_adapter_v6.py", "live_contentops/discord_live_adapter_v6.py", "live_contentops/facebook_page_adapter_v6.py", "live_contentops/instagram_adapter_v6.py", "live_contentops/threads_adapter_v6.py"],
+      "canonical_owner": "live_contentops/destination_transport_registry_v1.py",
+      "caller_truth": "Despite V6 filenames, these exact adapters are registered implementations behind the current V1 transport registry; they are not automatically orphaned.",
+      "evidence": ["live_contentops/destination_transport_registry_v1.py::SURFACE_TRANSPORTS", "tests/test_publication_coordinator_v1.py::test_registry_locks_surface_transport_and_browser_roles"],
+      "disposition": "CURRENTLY_PROVEN_AND_REUSE_ONLY_BEHIND_REGISTRY"
+    },
+    {
+      "id": "DUP_05_V5_LEGACY_SHELL",
+      "kind": "duplicate_ui",
+      "paths": ["ui/contentops_v5/src/App.tsx", "ui/contentops_v5/src/fixtures.ts", "ui/contentops_v5/src/views/V6CommandCenter.tsx"],
+      "canonical_owner": "ui/contentops_v5/src/main.tsx -> views/DailyAppConsole.tsx",
+      "caller_truth": "main.tsx renders DailyAppConsole; fixture/demo views are historical surfaces and not live read-model authority.",
+      "evidence": ["ui/contentops_v5/AGENTS.md", "ui/contentops_v5/src/main.tsx"],
+      "disposition": "HISTORICAL_OR_TEST_ONLY; DO_NOT_CREATE_SECOND_DASHBOARD"
+    },
+    {
+      "id": "DUP_06_TIER2_A_FIXED_RENDERER",
+      "kind": "superseded_renderer",
+      "paths": ["live_contentops/tier2_video_factory_v1.py"],
+      "canonical_owner": "video/freeform_chapter_pipeline_v1 plus story-specific Remotion source for professional V2",
+      "caller_truth": "tier2-video-local remains a registered technical CLI and preserves the numeric/rights boundary, but its high-level compositor is not the professional final-media design authority.",
+      "evidence": ["live_contentops/AGENTS.md", "video/AGENTS.md", "tests/test_tier2_video_factory_v1.py"],
+      "disposition": "REUSE_GOVERNED_INPUT_RIGHTS_HASH_UTILITIES; DO_NOT_RESTORE_FIXED_COMPOSITOR"
+    },
+    {
+      "id": "DUP_07_SOURCE_CHART_SHORT_UTILITY",
+      "kind": "significant_module_without_canonical_product_caller",
+      "paths": ["live_contentops/source_chart_short_video_v1.py"],
+      "canonical_owner": "V2 story-specific Remotion authoring",
+      "caller_truth": "Only its direct unit test references the module; no current V1/V2 canonical runtime imports it.",
+      "evidence": ["tests/test_source_chart_short_video_v1.py"],
+      "disposition": "REFERENCE_UTILITY_ONLY; DO_NOT_TREAT_AS_INTEGRATED_V2"
+    },
+    {
+      "id": "DUP_08_FREEFORM_PIPELINE_STANDALONE",
+      "kind": "current_substrate_not_integrated_factory",
+      "paths": ["video/freeform_chapter_pipeline_v1/"],
+      "canonical_owner": "Future reconciled single V2 factory",
+      "caller_truth": "It has its own safe CLI/tests and current-master code, but is not wired to the branch-only unattended durable factory or publication control plane.",
+      "evidence": ["video/freeform_chapter_pipeline_v1/README.md", "tests/test_v2_freeform_chapter_pipeline_v1.py"],
+      "disposition": "CURRENTLY_PROVEN_SUBSTRATE; INTEGRATE_LATER_WITHOUT_PARALLEL_STACK"
+    },
+    {
+      "id": "DUP_09_V2_PUBLICATION_STANDALONE",
+      "kind": "current_shadow_control_plane_not_integrated_runtime",
+      "paths": ["video/official_platform_publication_v1/"],
+      "canonical_owner": "Future reconciled V2 publication lifecycle under explicit owner grant",
+      "caller_truth": "Only shadow_demo/tests use PublicationControlPlane; constants prohibit live provider writes and the package has no HTTP/OAuth/browser/scheduler implementation.",
+      "evidence": ["video/official_platform_publication_v1/README.md", "tests/test_v2_official_platform_publication_adapters_shadow_v1.py"],
+      "disposition": "CURRENTLY_PROVEN_AND_REUSE; DO_NOT_MISTAKE_FOR_LIVE_UPLOAD_CAPABILITY"
+    },
+    {
+      "id": "DUP_10_BRANCH_ONLY_UNATTENDED_STACK",
+      "kind": "useful_orphan_branch_architecture",
+      "paths": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/unattended_core_factory_v1/", "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/daily_operator_v1.py", "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/locale_activation_hardening_v1/"],
+      "canonical_owner": "Future single V2 factory reconciled onto current master",
+      "caller_truth": "The lineage has 48 commits unique to master and focused proof, but its modules are absent from current master.",
+      "evidence": ["local_remote_delta_matrix.json", "historical_proof_index.json"],
+      "disposition": "SELECTIVE_RECONCILIATION_AND_CURRENT_REVALIDATION; NEVER_WHOLESALE_MERGE_STALE_AUTHORITY"
+    },
+    {
+      "id": "DUP_11_LOCAL_BREAKING_NEWS_LEDGER",
+      "kind": "uncommitted_duplicate_v2_store",
+      "paths": ["A:/Capital Chronicle/Worktrees/ContentOps/v2-breaking-news-crisp-master-elevenlabs-authority-clip-v1/live_contentops/breaking_news_crisp_v1.py::BreakingNewsLedger"],
+      "canonical_owner": "Branch-only unattended_core_factory V2 durable store if/when reconciled",
+      "caller_truth": "Untracked test/script/project use a separate two-table SQLite ledger. The work predates current free-form/creative-review authority and is incomplete.",
+      "evidence": ["local_repo_topology.json"],
+      "disposition": "SUPERSEDED_DO_NOT_REUSE"
+    },
+    {
+      "id": "DUP_12_ANTIGRAVITY_FRAMEWORK",
+      "kind": "parallel_orchestration_branch",
+      "paths": ["origin/antigravity/v1-main-sub-framework-authority-zero-write-v1"],
+      "canonical_owner": "Fresh standalone Desktop tasks plus durable run identity and bounded isolated workers",
+      "caller_truth": "Three commits remain unique to master; the persistent MAIN/SUB conversation design conflicts with current execution authority.",
+      "disposition": "SUPERSEDED_DO_NOT_REUSE"
+    },
+    {
+      "id": "DUP_13_OBSERVATION_DASHBOARD_BRANCH",
+      "kind": "branch_only_overlapping_ui_read_model",
+      "paths": ["origin/antigravity/contentops-v1-v2-natural-observation-dashboard-v1:live_contentops/contentops_observation_read_model_v1.py", "origin/antigravity/contentops-v1-v2-natural-observation-dashboard-v1:ui/contentops_v5/"],
+      "canonical_owner": "live_contentops/daily_app_ui_read_model_v1.py and DailyAppConsole",
+      "caller_truth": "One remote commit is not in master, but current master independently contains performance observations, learning policy, and UI projection. No local-only commit is lost because the tip is present remotely.",
+      "disposition": "COMPARE_SELECTIVELY_IF_A_CURRENT_UI_GAP_IS_DEMONSTRATED; DO_NOT_CHERRY_PICK_WHOLE"
+    },
+    {
+      "id": "DUP_14_SECOND_FULL_CLONE",
+      "kind": "duplicate_repository_checkout",
+      "paths": ["A:/Capital Chronicle/tools/cc-live-contentops", "five linked worktrees under A:/Capital Chronicle/tools/"],
+      "canonical_owner": "A:/Capital Chronicle/ContentOps common Git directory and registered worktrees",
+      "caller_truth": "Second clone is detached at bcf5574, contains 6 worktrees, 8 stashes, and two commits absent from every fetched remote. Those two commits are product-subsumed by current master.",
+      "evidence": ["local_repo_topology.json", "local_remote_delta_matrix.json"],
+      "disposition": "PRESERVE_FOR_OWNER_CLEANUP; NO_PRODUCT_RECOVERY_REQUIRED"
+    },
+    {
+      "id": "DUP_15_DUPLICATE_CLONE_LINE_ENDING_DRIFT",
+      "kind": "bulk_dirty_worktree_noise",
+      "paths": ["A:/Capital Chronicle/tools/cc-wt-tmp/lf-merge2"],
+      "canonical_owner": "None; historical temporary worktree",
+      "caller_truth": "491 dirty paths (477 tracked, 14 untracked), dominated by old V6 fixtures/tests/raw headline data and generated drift.",
+      "evidence": ["local_repo_topology.json::duplicate_clone.worktrees"],
+      "disposition": "DO_NOT_MERGE_OR_USE_AS_CAPABILITY_AUTHORITY"
+    },
+    {
+      "id": "DUP_16_UNSUPPORTED_CODEX_UI_EXPERIMENTS",
+      "kind": "unsafe_local_experiments",
+      "paths": ["A:/Capital Chronicle/ContentOps/scripts/experiments/codex_desktop_uia_*.py", "A:/Capital Chronicle/ContentOps/scripts/experiments/codex_desktop_bridge_spike.py"],
+      "canonical_owner": "Supported native Automation/task tools and official App Server/SDK seam",
+      "caller_truth": "17 untracked experiment files exist; they use UIA/focus/input probing and are outside current supported execution architecture.",
+      "disposition": "SUPERSEDED_DO_NOT_REUSE; PRESERVE FINGERPRINT ONLY"
+    },
+    {
+      "id": "DUP_17_CODEGRAPH_STASHES",
+      "kind": "generated_context_drift",
+      "paths": ["main clone stash@{0} e5f8ffb3ec442f3ad7f25e3050f00c0e7086230b", "main clone stash@{1} 5fd53e0e5a0c97cc5e7789009bf3146462866d4b"],
+      "canonical_owner": "Current generated CodeGraph at origin/master",
+      "caller_truth": "Stashes are predominantly old graph.json regeneration plus small telemetry drift; current --check is CODEGRAPH_CURRENT.",
+      "disposition": "DO_NOT_APPLY"
+    }
+  ]
+}

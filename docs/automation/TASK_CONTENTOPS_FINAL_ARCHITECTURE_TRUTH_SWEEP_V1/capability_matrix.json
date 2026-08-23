@@ -1,0 +1,598 @@
+{
+  "schema_version": "contentops.final_architecture_truth_sweep.capability_matrix.v1",
+  "authority_note": "Non-authoritative master-plan lock input. Classifications bind current origin/master f7c5543e08381f7f529e1b391a80a59f2032d76f plus the exact historical/runtime evidence named per row.",
+  "classification_definitions": {
+    "CURRENTLY_PROVEN_AND_REUSE": "Present on current master with focused tests and/or accepted exact evidence; do not rebuild.",
+    "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY": "Proven on a named historical branch/runtime epoch but absent from or divergent with current master; reconcile and revalidate instead of rebuilding.",
+    "CURRENT_HOST_RUNTIME_PROOF_REQUIRED": "Repository mechanics exist, but the remaining claim depends on fresh supported host/runtime/owner evidence.",
+    "NEW_IMPLEMENTATION_GAP": "Searched against current master, remote branches, local worktrees, stashes, reflogs, and runtime evidence; no accepted current implementation closes the product capability.",
+    "SUPERSEDED_DO_NOT_REUSE": "Conflicts with current authority or duplicates the canonical architecture; preserve only as historical evidence."
+  },
+  "capabilities": [
+    {
+      "id": "V1_01_INTAKE_CURRENT_STORY_UNIVERSE",
+      "lane": "V1",
+      "capability": "Continuous zero-LLM X intake and rolling current-story universe",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/continuous_headline_ingest_v1.py::run_ingestion_housekeeping_iteration", "live_contentops/newsroom_assignment_scheduler_v1.py::load_rolling_x_headline_sidecars"],
+      "tests": ["tests/test_contentops_continuous_intelligence_realign_v1.py::test_three_iterations_append_only_genuinely_new_headlines", "tests/test_contentops_continuous_intelligence_realign_v1.py::test_rolling_24h_reconstructs_full_universe_across_files"],
+      "evidence": ["A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/_continuous_newsroom (1 file, 3,787,645 bytes at sweep epoch)"],
+      "commit": "02f884760ee64dc71072128ab148612bbf81b751"
+    },
+    {
+      "id": "V1_02_STORY_UPDATE_CHAIN",
+      "lane": "V1",
+      "capability": "Published-memory story/update-chain, material-follow-up, correction, contradiction, and duplicate semantics",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/preselection_intelligence_v1.py::apply_preselection_intelligence", "live_contentops/published_corpus_read_model_v1.py", "live_contentops/editorial_portfolio_v1.py"],
+      "tests": ["tests/test_contentops_continuous_intelligence_realign_v1.py::test_material_follow_up_with_delta", "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py::test_duplicate_corpus_rows_still_hold_repeat_and_allow_material_follow_up"],
+      "evidence": ["docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/current_durable_state_readonly_v1.json"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a"
+    },
+    {
+      "id": "V1_03_RANKING_PRESELECTION",
+      "lane": "V1",
+      "capability": "Hierarchical assignment, preselection, current frontier reservation, and sourceability-aware ordering",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/newsroom_assignment_scheduler_v1.py", "live_contentops/preselection_intelligence_v1.py::apply_preselection_intelligence"],
+      "tests": ["tests/test_preselection_published_memory_breaking_wake_closeout_v1.py::test_four_candidate_preselection_classifies_filters_and_changes_order", "tests/test_v1_throughput_architecture_v1.py::test_continuity_frontier_advances_reserved_identities_at_real_owner_windows"],
+      "evidence": ["docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/current_production_day_evidence_foundation_proof_v1.json"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a"
+    },
+    {
+      "id": "V1_04_SOURCEABILITY",
+      "lane": "V1",
+      "capability": "Sourceability/reachability ranking without factual-authority promotion",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/source_capability_registry_v2.py", "live_contentops/preselection_intelligence_v1.py", "live_contentops/rolling_x_targeted_evidence_adapter_v1.py"],
+      "tests": ["tests/test_preselection_published_memory_breaking_wake_closeout_v1.py::test_sourceability_ranking_prefers_observed_accessible_registered_path_without_authority", "tests/test_rolling_x_targeted_evidence_adapter_v1.py::test_neutral_fallback_request_and_adapter_share_effective_registry"],
+      "evidence": ["docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/capability_archaeology_v1.json"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a"
+    },
+    {
+      "id": "V1_05_DETERMINISTIC_RESEARCH_LOCATORS",
+      "lane": "V1",
+      "capability": "Deterministic governed research, exact official locators, and bounded public retrieval",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/grounded_news_research_v1.py", "live_contentops/official_primary_source_locator_v1.py", "live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter"],
+      "tests": ["tests/test_official_primary_evidence_loader_v1.py::test_missing_bound_url_locates_then_gets_exact_official_document_with_bindings", "tests/test_rolling_x_targeted_evidence_adapter_v1.py::test_codex_source_discovery_accepts_urls_only_and_routes_through_governed_loader"],
+      "evidence": ["docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/redirect_before_after_matrix_v1.json"],
+      "commit": "3da02099c26d573d79d719b6cae54c1cda698619"
+    },
+    {
+      "id": "V1_06_OFFICIAL_PUBLIC_EVIDENCE",
+      "lane": "V1",
+      "capability": "Official-primary, reputable-secondary, provenance, freshness, claim binding, and request budgets",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/official_primary_evidence_loader_v1.py", "live_contentops/claim_evidence_contract_v1.py", "live_contentops/rolling_x_targeted_evidence_adapter_v1.py"],
+      "tests": ["tests/test_official_primary_evidence_loader_v1.py::test_official_pdf_uses_bounded_injected_text_extraction_for_factual_depth", "tests/test_rolling_x_targeted_evidence_adapter_v1.py::test_valid_exact_governed_market_packet_satisfies_all_declared_capabilities"],
+      "evidence": ["docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/current_production_day_evidence_foundation_proof_v1.json"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a"
+    },
+    {
+      "id": "V1_07_REDIRECT_PUBLISHER_RESOLUTION",
+      "lane": "V1",
+      "capability": "Exact redirect/publisher resolution with cross-authority redirects rejected",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/official_primary_evidence_loader_v1.py", "live_contentops/official_primary_source_locator_v1.py"],
+      "tests": ["tests/test_official_primary_evidence_loader_v1.py::test_default_transport_forbids_cross_authority_redirect_even_within_family", "tests/test_v1_evidence_foundation_closeout_v1.py"],
+      "evidence": ["docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/redirect_before_after_matrix_v1.json"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a"
+    },
+    {
+      "id": "V1_08_SOURCE_ROUTE_HEALTH",
+      "lane": "V1",
+      "capability": "Cross-opportunity routing-only source-route health with exact-route scope",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_source_route_health_state", "live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._persist_source_route_health_state"],
+      "tests": ["tests/test_v1_evidence_foundation_closeout_v1.py::test_production_day_aggregator_proves_health_carry_forward_from_monotonic_routes"],
+      "evidence": ["docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/current_production_day_evidence_foundation_proof_v1.json"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a"
+    },
+    {
+      "id": "V1_09_REQUEST_EVIDENCE_REUSE",
+      "lane": "V1",
+      "capability": "Story/update-chain-scoped evidence reuse and delta-only reacquisition",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/official_primary_evidence_loader_v1.py", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py"],
+      "tests": ["tests/test_official_primary_evidence_loader_v1.py::test_same_story_mode_recheck_reuses_exact_official_bytes_without_network_read", "tests/test_v1_current_multi_frontier_floor_rehearsal_v1.py::test_worker_completion_reuses_exact_accepted_probe_checkpoints"],
+      "evidence": ["docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/final_throughput_proof_receipt_v1.json (82 reads avoided, two delta acquisitions)"],
+      "commit": "25f560abb952f3646b3e4f18671dd22a96f8fa16"
+    },
+    {
+      "id": "V1_10_CODEX_URL_DISCOVERY",
+      "lane": "V1",
+      "capability": "Official Codex App Server URL-only discovery handshake with observed webSearch and deterministic admission",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/official_codex_source_discovery_v1.py::OfficialCodexUrlDiscoveryProvider", "live_contentops/rolling_x_targeted_evidence_adapter_v1.py"],
+      "tests": ["tests/test_v1_evidence_foundation_closeout_v1.py::test_official_url_discovery_requires_observed_web_search_and_persists_no_search_text", "tests/test_v1_evidence_foundation_closeout_v1.py::test_runtime_discovery_handshake_resumes_exact_same_candidate_without_hardcoded_url"],
+      "evidence": ["docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/README.md"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a",
+      "constraint": "Reuse only as explicit bounded tail/proof capability; its per-trigger default is economically superseded."
+    },
+    {
+      "id": "V1_11_CC_CORE_ANALYZER_INTEROP",
+      "lane": "V1",
+      "capability": "Read-only CC catalog/context plus exact publication-authorized story/use binding",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/capital_chronicle_data_catalog_v1.py::CapitalChronicleDataCatalog", "live_contentops/cc_publication_authority_v1.py"],
+      "tests": ["tests/test_contentops_continuous_intelligence_realign_v1.py::test_cc_catalog_is_read_only_and_compact", "tests/test_codex_desktop_newsroom_operator_v1.py::test_governed_surface_authority_is_distinct_from_context_and_schema_failure_is_bounded"],
+      "evidence": ["docs/automation/TASK_P0_1_CORE_ANALYZER_AUTHORITY_CONTEXT_SOURCE_REACHABILITY_V1/README.md"],
+      "commit": "16cb39db7987126c0cab272c41016f5adae0906e"
+    },
+    {
+      "id": "V1_12_EIGHT_EDITORIAL_MODES",
+      "lane": "V1",
+      "capability": "Eight-mode editorial spectrum and claim/mode-proportional evidence",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/editorial_portfolio_v1.py::SUPPORTED_ARTICLE_MODES", "live_contentops/source_capability_registry_v2.py"],
+      "tests": ["tests/test_rolling_x_newsroom_cycle_v1.py::test_canonical_cycle_routes_resolved_product_mode_before_legacy_fallback", "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py::test_full_canonical_shadow_reaches_article_review_and_platform_package"],
+      "evidence": ["docs/automation/P0_G3_ZERO_WRITE_MULTIMODE_REPLAY_V1/"],
+      "commit": "369c0cc289e790b8218ba30b2696a926db04356a"
+    },
+    {
+      "id": "V1_13_HIGH_XHIGH_EDITORIAL_PATH",
+      "lane": "V1",
+      "capability": "Fresh HIGH coordinator, one isolated hash-bound XHIGH writer, and at most one same-worker repair",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/codex_desktop_newsroom_operator_v1.py::build_editorial_worker_routing_packet", "live_contentops/codex_desktop_newsroom_operator_v1.py::build_same_xhigh_worker_revision_contract", "live_contentops/rolling_x_grounded_article_media_builder_v1.py"],
+      "tests": ["tests/test_codex_desktop_newsroom_operator_v1.py::test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_high_resumes", "tests/test_rolling_x_newsroom_cycle_v1.py::test_native_xhigh_needs_revision_requires_same_worker_without_router_rewriter"],
+      "evidence": ["docs/automation/TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1/README.md"],
+      "commit": "bcdada4674402be42d1624cdd1ea5029617aef98"
+    },
+    {
+      "id": "V1_14_ARTICLE_VALIDATION",
+      "lane": "V1",
+      "capability": "Source markers, claim/numeric authority, utility, institutional-quality, and release-lock validation",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/rolling_x_grounded_article_media_builder_v1.py::build_rolling_x_grounded_article_and_media", "live_contentops/tier1_editorial_quality_v1.py", "live_contentops/claim_evidence_contract_v1.py"],
+      "tests": ["tests/test_rolling_x_grounded_article_media_builder_v1.py::test_writer_validator_rejects_used_fact_without_its_bound_source", "tests/test_rolling_x_newsroom_cycle_v1.py::test_rolling_x_release_candidate_builds_and_verifies_canonical_lock"],
+      "evidence": ["docs/automation/TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1/validation_receipt_v1.json"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a"
+    },
+    {
+      "id": "V1_15_ARTICLE_MEDIA",
+      "lane": "V1",
+      "capability": "Rights-aware visual intent/discovery, source-backed media, delivery-only media, and valid zero-canonical-media path",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/visual_asset_discovery_v1.py", "live_contentops/rolling_x_grounded_article_media_builder_v1.py", "live_contentops/cloudinary_delivery_media_v1.py"],
+      "tests": ["tests/test_v1_golden_product_regression_recovery_v1.py::test_*visual*", "tests/test_rolling_x_newsroom_cycle_v1.py::test_enhanced_breaking_brief_uses_text_only_native_packages_without_article_media"],
+      "evidence": ["docs/automation/TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1/README.md (zero canonical media accepted)"],
+      "commit": "78d924aa852f8dd4db9e1d8ea1efedd421a9ee0f"
+    },
+    {
+      "id": "V1_16_PRODUCTION_DAY_ACCOUNTING",
+      "lane": "V1",
+      "capability": "Bangkok cross-midnight production-day ID, 4-floor counters, deficit state, and bounded catch-up",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/newsroom_production_day_v1.py::build_production_day_snapshot", "live_contentops/newsroom_production_day_v1.py::bounded_deficit_work_needed"],
+      "tests": ["tests/test_newsroom_production_day_v1.py::test_bangkok_production_day_groups_following_0100_then_rolls_afterward", "tests/test_newsroom_production_day_v1.py::test_floor_states_and_bounded_catchup_are_deterministic"],
+      "evidence": ["docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/newsroom_production_day_v1.json"],
+      "commit": "d763ae15973480384722aa6e8461ba00a8a494e5"
+    },
+    {
+      "id": "V1_17_CANONICAL_SUBSTACK",
+      "lane": "V1",
+      "capability": "Canonical Substack write/readback identity lifecycle",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator", "live_contentops/destination_transport_registry_v1.py", "live_contentops/edge_cdp_publishing_adapter_v1.py"],
+      "tests": ["tests/test_publication_coordinator_v1.py::test_substack_without_valid_canonical_url_is_not_real_and_derivatives_wait", "tests/test_publication_coordinator_v1.py::test_strict_readback_can_recover_valid_substack_url_and_idempotent_status"],
+      "evidence": ["docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/final_live_canary_receipt_v1.json"],
+      "commit": "5327be938f4435c0644bcae41f84535bfd967029"
+    },
+    {
+      "id": "V1_18_EXACTLY_EIGHT_DERIVATIVES",
+      "lane": "V1",
+      "capability": "Exactly eight native derivative package intents with ordered X/Threads reply chains",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py", "live_contentops/publication_coordinator_v1.py"],
+      "tests": ["tests/test_publication_coordinator_v1.py::test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once", "tests/test_rolling_x_newsroom_cycle_v1.py::test_release_candidate_defers_unready_derivative_to_exact_jit_verification"],
+      "evidence": ["docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/transport_execution_receipt_v1.json"],
+      "commit": "5327be938f4435c0644bcae41f84535bfd967029"
+    },
+    {
+      "id": "V1_19_DESTINATION_TRANSPORTS",
+      "lane": "V1",
+      "capability": "Nine exact transport registrations and destination JIT readiness/identity",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/destination_transport_registry_v1.py::SURFACE_TRANSPORTS", "live_contentops/destination_transport_registry_v1.py::DestinationReadinessManager", "live_contentops/production_runtime_v1.py::build_final_daily_app_production_runtime"],
+      "tests": ["tests/test_publication_coordinator_v1.py::test_registry_locks_surface_transport_and_browser_roles", "tests/test_destination_identity_pinning_v1.py"],
+      "evidence": ["runtime_host_truth.json::production_store.destination_readiness (9 ready, 9 identity_match at sweep epoch)"],
+      "commit": "e29bd8dfd2217f684c2e9d3819cfeebe91b3da14"
+    },
+    {
+      "id": "V1_20_UNKNOWN_WRITE_RECOVERY",
+      "lane": "V1",
+      "capability": "UNKNOWN_WRITE stop-retry/readback/reconcile, exact absence proof, restart-safe recovery, and destination-local continuation",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator", "live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._recover_stale_pending"],
+      "tests": ["tests/test_publication_coordinator_v1.py::test_unknown_write_is_read_back_even_when_old_and_never_blindly_retried", "tests/test_daily_app_automatic_readback_housekeeping_v1.py::test_unknown_write_recovery_zero_publisher_calls_and_invokes_readback"],
+      "evidence": ["runtime_host_truth.json::production_store.unknown_write_count=0", "docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/final_live_canary_receipt_v1.json"],
+      "commit": "5327be938f4435c0644bcae41f84535bfd967029"
+    },
+    {
+      "id": "V1_21_SCHEDULER_SUPERVISOR",
+      "lane": "V1",
+      "capability": "Single Daily App supervisor, routine-window/opportunity idempotency, continuous housekeeping, and shadow material-event priority",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor", "live_contentops/daily_app_launcher_v1.py"],
+      "tests": ["tests/test_daily_app_supervisor_v1.py", "tests/test_contentops_continuous_intelligence_realign_v1.py::test_run_now_consumes_through_same_canonical_cycle_with_fallback_sync_only"],
+      "evidence": ["docs/automation/TASK_V1_AUTONOMOUS_NEWSROOM_DAILY_OUTPUT_AND_NATIVE_AUTOMATION_REVALIDATION_V1/"],
+      "commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a"
+    },
+    {
+      "id": "V1_22_DESKTOP_SDK_ARBITRATION",
+      "lane": "V1",
+      "capability": "Desktop-primary/official-SDK fallback/direct/benchmark arbitration under one canonical run identity",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/codex_desktop_newsroom_operator_v1.py::build_hybrid_editorial_run_identity", "live_contentops/codex_desktop_newsroom_operator_v1.py::arbitrate_hybrid_editorial_execution"],
+      "tests": ["tests/test_codex_desktop_newsroom_operator_v1.py::test_hybrid_arbitration_authorizes_sdk_only_after_exact_desktop_miss_or_failure", "tests/test_codex_desktop_newsroom_operator_v1.py::test_hybrid_arbitration_suppresses_late_desktop_after_sdk_fallback_started"],
+      "evidence": ["docs/automation/TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1/canary_receipt_v1.json"],
+      "commit": "bcdada4674402be42d1624cdd1ea5029617aef98"
+    },
+    {
+      "id": "V1_23_FOUR_NATIVE_AUTOMATIONS",
+      "lane": "V1",
+      "capability": "Exactly four native Desktop HIGH Automations at the four owner windows",
+      "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+      "implementation": ["live_contentops/codex_desktop_newsroom_operator_v1.py::four_task_setup_packet"],
+      "tests": ["tests/test_codex_desktop_newsroom_operator_v1.py::test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up"],
+      "evidence": ["runtime_host_truth.json::automations (4 existing, all PAUSED, model/effort/schedules matched; supported view cards rendered)"],
+      "runtime_gap": "Calendar-time execution has not been proven on current master; supported host surface exposed no run-now action."
+    },
+    {
+      "id": "V1_24_COST_QUOTA_GOVERNANCE",
+      "lane": "V1",
+      "capability": "LLM pause fuse, bounded cycle/day budgets, provider fallback policy, and safe cost telemetry",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/llm_cost_governor_v1.py", "live_contentops/llm_operator_control_v1.py", "live_contentops/nine_router_ordered_model_router_v2.py"],
+      "tests": ["tests/test_llm_cost_governor_v1.py", "tests/test_nine_router_ordered_model_router_v2.py"],
+      "evidence": ["docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/final_throughput_proof_receipt_v1.json"],
+      "commit": "4c77f7eb7884f15ac4d7e5e9c38bd393ee5cd3b9"
+    },
+    {
+      "id": "V1_25_DURABLE_STATE",
+      "lane": "V1",
+      "capability": "Single durable SQLite authority with migrations, hashes, leases/fencing, replay, immutable transition events, outbox, readback, and reconciliation",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore", "live_contentops/historical_schema_compatibility_v1.py"],
+      "tests": ["tests/test_durable_operational_store_v1.py::test_exact_historical_lineage_upgrade_preserves_rows_and_replays", "tests/test_durable_operational_store_v1.py::test_concurrent_claims_only_one_winner"],
+      "evidence": ["runtime_host_truth.json::production_store (read-only quick_check=ok, 31 tables, schema_version=78, WAL)"],
+      "commit": "46a90a34143c99fc47bc77160bbf1bcbd6993252"
+    },
+    {
+      "id": "V1_26_V5_OPERATOR_UI_MECHANICS",
+      "lane": "V1",
+      "capability": "Canonical V5 Daily App console over the live read model, including production-day deficit and Automation observed-vs-intent truth",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/daily_app_ui_read_model_v1.py", "ui/contentops_v5/src/views/DailyAppConsole.tsx", "ui/contentops_v5/src/main.tsx"],
+      "tests": ["tests/test_daily_app_ui_read_model_v1.py::test_snapshot_keeps_supported_automation_observation_distinct_from_intent", "ui/contentops_v5/src/test/daily_app_console.test.tsx"],
+      "evidence": ["docs/automation/TASK_V1_AUTONOMOUS_NEWSROOM_DAILY_OUTPUT_AND_NATIVE_AUTOMATION_REVALIDATION_V1/v5_production_day_automation_truth.png"],
+      "commit": "8c629bc3b9c4fd13ab4dc64c72b8d3a3e41d80a9"
+    },
+    {
+      "id": "V1_27_RESTART_RECOVERY_MECHANICS",
+      "lane": "V1",
+      "capability": "Launcher duplicate-process fencing, restart reconstruction, stale-pending recovery, cooldown, and no-duplicate lifecycle",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/daily_app_launcher_v1.py::logical_canonical_supervisor_count", "live_contentops/daily_app_supervisor_v1.py", "live_contentops/publication_coordinator_v1.py"],
+      "tests": ["tests/test_daily_app_publication_lifecycle_v1.py::test_restart_no_duplicate_lifecycle_rows", "tests/test_daily_app_automatic_readback_housekeeping_v1.py::test_restart_resumes_same_durable_identity_without_duplicate_object"],
+      "evidence": ["commit f634c32bf3636815f48dc11deb0db780df697fca (logical supervisor process-tree correction)"],
+      "commit": "f634c32bf3636815f48dc11deb0db780df697fca"
+    },
+    {
+      "id": "V1_28_PERFORMANCE_LEARNING",
+      "lane": "V1",
+      "capability": "Destination observations, unavailable-not-zero semantics, immutable bounded learning-policy lineage, and next-run preference context",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/daily_app_performance_v1.py", "live_contentops/destination_performance_observer_v1.py", "live_contentops/performance_learning_v1.py"],
+      "tests": ["tests/test_daily_app_ui_read_model_v1.py::test_due_observation_preserves_unavailable_metric_not_zero", "tests/test_daily_app_ui_read_model_v1.py::test_learning_bootstrap_child_and_rollback_lineage"],
+      "evidence": ["runtime_host_truth.json (97 performance_observations; 11 policy versions, one ACTIVE)"],
+      "commit": "46a90a34143c99fc47bc77160bbf1bcbd6993252"
+    },
+    {
+      "id": "V1_29_REAL_NINE_SURFACE_CANARY",
+      "lane": "V1",
+      "capability": "One owner-granted real canonical article plus exactly eight destination packages, all reconciled",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["Canonical publication path above; no separate canary implementation"],
+      "tests": ["161/161 focused current publication/identity/Desktop/Substack/eight-platform tests recorded in canary README"],
+      "evidence": ["docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/final_live_canary_receipt_v1.json", "docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/screenshots/"],
+      "commit": "5327be938f4435c0644bcae41f84535bfd967029",
+      "result": "PASS_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_9_SURFACE_RECONCILED"
+    },
+    {
+      "id": "V1_30_4_32_THROUGHPUT_ACCEPTANCE",
+      "lane": "V1",
+      "capability": "Four qualified zero-write articles and 32 derivative intents in one production day",
+      "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+      "implementation": ["live_contentops/newsroom_production_day_v1.py", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py"],
+      "tests": ["tests/test_v1_current_multi_frontier_floor_rehearsal_v1.py", "tests/test_newsroom_production_day_v1.py"],
+      "evidence": ["docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/final_throughput_proof_receipt_v1.json"],
+      "current_truth": "Latest proof truthfully failed 0/4 and 0/32 after 40 distinct stories; mechanics exist but acceptance outcome is not proven."
+    },
+    {
+      "id": "V1_31_QUOTA_EFFICIENT_BATCH_TAIL_DISCOVERY",
+      "lane": "V1",
+      "capability": "Economically repeatable batch/tail URL discovery that preserves deterministic retrieval and hard evidence gates",
+      "classification": "NEW_IMPLEMENTATION_GAP",
+      "searched_against": ["origin/master", "58 remote branches unique to master", "both local clones", "114 registered worktrees across both clones", "10 stashes", "reflog/unreachable commits", "runtime evidence roots"],
+      "evidence": ["docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md", "docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/README.md"],
+      "gap": "Existing per-trigger provider proved discovery but consumed 35 calls and 10,237,897 tokens for four ready candidates; no accepted quota-efficient production implementation exists."
+    },
+    {
+      "id": "V1_32_AUTOMATION_PROMPT_NORMALIZATION",
+      "lane": "V1",
+      "capability": "Normalize the four existing host prompts to the current configured intent without creating or enabling a task",
+      "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+      "tests": ["tests/test_codex_desktop_newsroom_operator_v1.py::test_supported_host_observation_persists_only_exact_safe_four_task_readback"],
+      "evidence": ["docs/automation/TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1/host_automation_observation_v1.json", "runtime_host_truth.json::automations"],
+      "runtime_gap": "All four prompt SHA-256 values are identical to the prior observation but differ from configured_intent_prompt_sha256; mutation is owner-gated and was not performed."
+    },
+    {
+      "id": "V1_33_UNATTENDED_CALENDAR_COLD_START",
+      "lane": "V1",
+      "capability": "Calendar-time execution across all four native Automations, restart/cold-start, missed-primary SDK fallback, bounded cost, and duplicate suppression",
+      "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+      "implementation": ["live_contentops/codex_desktop_newsroom_operator_v1.py", "live_contentops/daily_app_supervisor_v1.py", "live_contentops/daily_app_launcher_v1.py"],
+      "tests": ["tests/test_codex_desktop_newsroom_operator_v1.py", "tests/test_contentops_daily_app_launcher_v1.py"],
+      "evidence": ["runtime_host_truth.json::host_process_observation (no active Daily App process/listener at sweep epoch)", "runtime_host_truth.json::automations (all PAUSED)"],
+      "runtime_gap": "Manual Desktop parity and scheduler mechanics do not prove calendar-time unattended operation."
+    },
+    {
+      "id": "V1_34_FINAL_V5_VISUAL_ACCEPTANCE",
+      "lane": "V1",
+      "capability": "Fresh current-source-epoch desktop/mobile V5 screenshot and owner visual acceptance",
+      "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+      "implementation": ["ui/contentops_v5/src/views/DailyAppConsole.tsx"],
+      "tests": ["ui/contentops_v5/src/test/daily_app_console.test.tsx"],
+      "evidence": ["Historical V5 screenshots exist, but actual current rendered acceptance was not performed in this read-only sweep."],
+      "runtime_gap": "Final visual PASS cannot be inferred from unit tests or older screenshots."
+    },
+    {
+      "id": "V2_01_NUMERIC_AUTHORITY_BOUNDARY",
+      "lane": "V2",
+      "capability": "Publication-authorized proprietary numeric boundary and lossless display-only projection",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/tier2_video_factory_v1.py::load_governed_input", "live_contentops/tier2_video_factory_v1.py::decide_video_eligibility"],
+      "tests": ["tests/test_tier2_video_factory_v1.py::test_historical_treasury_reporting_packet_is_not_media_display_authority", "tests/test_tier2_video_factory_v1.py::test_explicit_media_display_grant_is_video_selected"],
+      "evidence": ["docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/"],
+      "commit": "940554529f4092965420416d2f929a666f5df224"
+    },
+    {
+      "id": "V2_02_RIGHTS_PROVENANCE",
+      "lane": "V2",
+      "capability": "Rights/provenance/hash gates and claim/source binding for media assets",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/tier2_video_factory_v1.py", "live_contentops/media_rights_manifest_v6.py", "video/projects/frozen_without_breaking_v1/evidence/VISUAL_ASSET_MANIFEST.csv"],
+      "tests": ["tests/test_tier2_video_factory_v1.py::test_missing_rights_blocks_video_selection", "tests/test_tier2_video_factory_v1.py::test_every_factual_scene_has_exact_claim_and_source_bindings"],
+      "evidence": ["docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/"],
+      "commit": "940554529f4092965420416d2f929a666f5df224"
+    },
+    {
+      "id": "V2_03_FREEFORM_REMOTION_SUBSTRATE",
+      "lane": "V2",
+      "capability": "Viewer-authored free-form chapterized Remotion source, dirty-range rendering, chapter cache, assembly, audio-only rebuild, and mux",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["video/freeform_chapter_pipeline_v1/pipeline.py::FreeformChapterPipeline", "video/projects/frozen_without_breaking_v1/"],
+      "tests": ["tests/test_v2_freeform_chapter_pipeline_v1.py::test_new_path_does_not_import_fixed_professional_compositor", "tests/test_v2_freeform_chapter_pipeline_v1.py::test_audio_only_build_never_invokes_remotion"],
+      "evidence": ["video/freeform_chapter_pipeline_v1/README.md", "A:/Capital Chronicle/Runtime/ContentOps/v2_creative_authority_proof_20260814_r1/"],
+      "commit": "eee0ba77b04d526393e8275ed2df1370be40d968",
+      "constraint": "A clean current-master worktree lacks ignored project documentary assets. Focused sweep validation passed 185 tests and failed one dry-run cache-key test on missing ignored grocery_cashier_pexels_4121754.mp4; the exact asset exists in the historical freeform worktree with sha256 01a1d3b34fb1c812a769fabe480f976640684158dc5b94e750a72c2d3d4eb998. Current render/dependency-root revalidation remains required after reconciliation."
+    },
+    {
+      "id": "V2_04_AUDIO_CAPTION_PACKAGE_BASE",
+      "lane": "V2",
+      "capability": "Kokoro technical baseline, separated picture/audio, actual-audio-timed captions, platform-neutral content-addressed packages, and zero-rerender sidecars",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["live_contentops/video_tts_worker_v1.py", "video/freeform_chapter_pipeline_v1/package_factory.py", "video/freeform_chapter_pipeline_v1/localized_audio.py"],
+      "tests": ["tests/test_v2_multiformat_multilingual_package_factory_v1.py::test_caption_timing_comes_from_actual_segment_duration_and_supports_cjk", "tests/test_v2_zero_rerender_global_language_sidecars_v1.py::test_sidecar_proof_uses_stream_copy_and_declares_zero_render_operations"],
+      "evidence": ["docs/automation/TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1/FINAL_EVIDENCE.md"],
+      "commit": "8b91087edcef0a5bddd3e55f2a36122b5bd8252c"
+    },
+    {
+      "id": "V2_05_PUBLICATION_ADAPTER_CONTROL_PLANE",
+      "lane": "V2",
+      "capability": "Six-surface official request-plan/state/readback control plane with write authority compile-time disabled",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["video/official_platform_publication_v1/control_plane.py::PublicationControlPlane", "video/official_platform_publication_v1/providers/"],
+      "tests": ["tests/test_v2_official_platform_publication_adapters_shadow_v1.py::test_complete_six_surface_shadow_demo_and_zero_mutation_counters", "tests/test_v2_official_platform_publication_adapters_shadow_v1.py::test_state_machine_reconciles_success_and_blocks_blind_unknown_retry"],
+      "evidence": ["docs/automation/TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1/FINAL_EVIDENCE.md"],
+      "commit": "97cd13c914f1a48029cdc8529ab9ffd31637ec1d"
+    },
+    {
+      "id": "V2_06_LOCALIZATION_BASE",
+      "lane": "V2",
+      "capability": "Configurable locale profiles, governed anchor checks, local translation boundary, and no-picture-rerender localization",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "implementation": ["video/freeform_chapter_pipeline_v1/governed_translation.py", "video/freeform_chapter_pipeline_v1/locale_profiles.json", "video/freeform_chapter_pipeline_v1/package_factory.py"],
+      "tests": ["tests/test_v2_zero_rerender_global_language_sidecars_v1.py", "tests/test_v2_multiformat_multilingual_package_factory_v1.py"],
+      "evidence": ["docs/automation/TASK_CONTENTOPS_V2_ZERO_RERENDER_GLOBAL_LANGUAGE_SIDECAR_CORRECTION_V1/FINAL_EVIDENCE.md"],
+      "commit": "8b91087edcef0a5bddd3e55f2a36122b5bd8252c"
+    },
+    {
+      "id": "V2_07_CONCRETE_FIRST_ASSET_DISCOVERY",
+      "lane": "V2",
+      "capability": "Evidence expansion, asset needs, rights-safe discovery, candidate board, and visual-fit selection before storyboard",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-asset-first-editorial-visual-quality-hardening-v1:live_contentops/lane_b_asset_first_v1.py"],
+      "tests": ["origin/task/v2-asset-first-editorial-visual-quality-hardening-v1:tests/test_lane_b_asset_first_v1.py"],
+      "evidence": ["origin/task/v2-asset-first-editorial-visual-quality-hardening-v1:docs/automation/CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1/EVIDENCE.md"],
+      "branch_tip": "baeb053368bb41dbf963a0286916713d0d7166ea",
+      "reason": "Material branch proof exists, but the V2-specific module is absent from current master and must be reconciled to current free-form authority."
+    },
+    {
+      "id": "V2_08_NATIVE_CHART_MAP_DOCUMENT_TREATMENTS",
+      "lane": "V2",
+      "capability": "Story-specific native charts/maps/documents and governed data treatments",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-codex-creative-authority-visual-repair-loop-v1", "origin/task/v2-treasury-owner-visual-integrity-diversity-repair-v1"],
+      "tests": ["Historical branch visual-integrity and creative-authority suites"],
+      "evidence": ["A:/Capital Chronicle/Runtime/ContentOps/v2_creative_authority_proof_20260814_r1/", "A:/Capital Chronicle/Runtime/ContentOps/v2_treasury_owner_visual_integrity_diversity_20260815/"],
+      "branch_tips": ["e977f9637b5c461991b1ad76707e7b7d3c9ff917", "ae0abc575521392b043486415cefaa7179c14b48"]
+    },
+    {
+      "id": "V2_09_ACTUAL_SHORT_LONGFORM_MEDIA",
+      "lane": "V2",
+      "capability": "Actual short and longform render/package proof with viewer-facing review",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-core-proof-owner-acceptance-and-soak-gate-v1", "origin/task/v2-native-multiformat-multilingual-package-factory-v1"],
+      "tests": ["Historical focused suites recorded in exact evidence"],
+      "evidence": ["origin/task/v2-core-proof-owner-acceptance-and-soak-gate-v1:docs/automation/CONTENTOPS_V2_CORE_PROOF_ACTUAL_MEDIA_OWNER_ACCEPTANCE_AND_SOAK_GATE_V1.md", "runtime_host_truth.json::runtime_roots"],
+      "branch_tip": "77d7ac16432415afcbb113596554d551cd4f0fb9",
+      "reason": "Actual media was accepted with caveats on a historical branch/runtime epoch; it is not final cross-domain V2 acceptance."
+    },
+    {
+      "id": "V2_10_UNATTENDED_DURABLE_FACTORY",
+      "lane": "V2",
+      "capability": "Isolated V2 durable job/outbox, atomic claim, immutable stages, checkpoint invalidation, resume, media execution, and package path",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/unattended_core_factory_v1/", "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:scripts/run_v2_unattended_core_factory_v1.py"],
+      "tests": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:tests/test_v2_unattended_core_factory_v1.py"],
+      "evidence": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:docs/automation/TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY_DURABLE_SUPERVISOR_AND_ACTUAL_MEDIA_PROOF_V1/FINAL_EVIDENCE.md"],
+      "implementation_commit": "32648b355d3e526c91b412ccb09ca1cb32d6f7df"
+    },
+    {
+      "id": "V2_11_CACHE_RECOVERY_WINDOWS_PATH_FIX",
+      "lane": "V2",
+      "capability": "Chapter/render cache, corrupt-artifact invalidation, restart recovery, Windows path-safe media launch, and picture-duration correction",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/unattended_core_factory_v1/media.py", "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/unattended_core_factory_v1/supervisor.py"],
+      "tests": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:tests/test_v2_unattended_core_factory_v1.py"],
+      "evidence": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:docs/automation/CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_EVIDENCE_V1.md"],
+      "commits": ["575333fb2a37c494f122780f318cf11f94e8bf2d", "9d70c15c9d14c0d8b2d1462724ccb95d9bbd73bd", "fc338caa020aaeae0f87ca066064714405ced729"]
+    },
+    {
+      "id": "V2_12_PROFESSIONAL_AUDIO_AND_LOCALE_TIMELINE",
+      "lane": "V2",
+      "capability": "Actual narration timing lock, audio QA, ElevenLabs/Kokoro routed locale audio, and narrative-window placement correction",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/locale_activation_hardening_v1/", "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/unattended_core_factory_v1/transcript.py"],
+      "tests": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:tests/test_v2_locale_activation_hardening_v1.py", "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:tests/test_v2_locale_audio_timeline_alignment_correction_v1.py"],
+      "evidence": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:docs/automation/CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1/README.md", "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:docs/automation/CONTENTOPS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_BOUNDED_CORRECTION_V1/README.md"],
+      "commits": ["9ffa8c32e8e1af006a9f3d0961876a6bc5897a8d", "edbdb948d40fd589ea2df001c86af2faf1ef4c8f"]
+    },
+    {
+      "id": "V2_13_NATIVE_HIGH_XHIGH_RELAY",
+      "lane": "V2",
+      "capability": "Native HIGH Daily Operator to fresh XHIGH creative worker to HIGH finalizer relay with durable exact-once boundaries",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/daily_operator_v1.py"],
+      "tests": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:tests/test_v2_v1_readonly_daily_operator_v1.py"],
+      "evidence": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:docs/automation/TASK_CONTENTOPS_V2_NATIVE_STAGGERED_AUTOMATION_RELAY_SHADOW_CORRECTION_V1/"],
+      "commit": "84d302eadba7ae7bfbd2aee607a72d107508ea0f"
+    },
+    {
+      "id": "V2_14_V1_READONLY_TRIGGER",
+      "lane": "V2",
+      "capability": "Read-only V1 published-corpus/performance qualification into an isolated V2 durable decision/outbox",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:video/daily_operator_v1.py"],
+      "tests": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:tests/test_v2_v1_readonly_daily_operator_v1.py"],
+      "evidence": ["origin/task/v2-v1-readonly-trigger-codex-daily-operator-shadow-v1:docs/automation/TASK_CONTENTOPS_V2_V1_READONLY_TRIGGER_AND_CODEX_DAILY_OPERATOR_AUTOMATION_SHADOW_V1/FINAL_EVIDENCE.md"],
+      "commit": "93f12332fc1ab974fa2e7d5953f9d7d026880b6a"
+    },
+    {
+      "id": "V2_15_TIKTOK_DRAFT_CANARY",
+      "lane": "V2",
+      "capability": "Upload-to-TikTok sandbox draft delivery, no direct post, and readback/retry discipline",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "implementation": ["origin/task/v2-tiktok-upload-draft-readiness-exact-owner-live-canary-gate-v1:live_contentops/tiktok_sandbox_draft_canary_v1.py"],
+      "tests": ["origin/task/v2-tiktok-upload-draft-readiness-exact-owner-live-canary-gate-v1:tests/test_tiktok_sandbox_draft_canary_v1.py"],
+      "evidence": ["origin/task/v2-tiktok-upload-draft-readiness-exact-owner-live-canary-gate-v1:docs/automation/TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1/FINAL_EVIDENCE.md"],
+      "branch_tip": "9af400a42829db3b0ee2f679e09e6aab7f8266dd",
+      "constraint": "Historical sandbox draft evidence grants no current provider/public-write authority."
+    },
+    {
+      "id": "V2_16_GROWTH_LEARNING_LOOP",
+      "lane": "V2",
+      "capability": "Real V1-to-V2 qualification, audience/performance observation, and bounded packaging/priority learning in the unified product",
+      "classification": "NEW_IMPLEMENTATION_GAP",
+      "searched_against": ["current master V1 performance system", "branch-only V2 daily operator", "antigravity observation-dashboard branch", "V2 runtime/soak evidence"],
+      "evidence": ["docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md"],
+      "gap": "Pieces exist, but no accepted current-master V2 loop closes qualification -> production -> observed performance -> bounded learning without parallel authority."
+    },
+    {
+      "id": "V2_17_REPEATED_FRESH_STORY_PRODUCTION",
+      "lane": "V2",
+      "capability": "Repeated qualified fresh cross-domain story production on current authority",
+      "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+      "implementation": ["Current master free-form/package substrate plus historical unattended factory donor"],
+      "tests": ["Current deterministic suites and historical branch suites"],
+      "evidence": ["Historical three-story soak qualified three stories but initially stopped on WinError 206; later repair evidence is branch-only."],
+      "runtime_gap": "Needs fresh current-master actual-media jobs after V1 and branch reconciliation; no quota."
+    },
+    {
+      "id": "V2_18_FINAL_ACTUAL_MEDIA_ACCEPTANCE",
+      "lane": "V2",
+      "capability": "Final short/justified-longform taste, picture, sound, pacing, novelty, and publishability acceptance",
+      "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+      "implementation": ["Actual-media review seams exist in current/historical substrate"],
+      "tests": ["Deterministic tests cannot prove this claim"],
+      "evidence": ["Historical core proof was PASS_WITH_CAVEAT; current root requires actual-media XHIGH plus Jim/ChatGPT review."],
+      "runtime_gap": "Fresh rendered media and owner review are required; aesthetic judgments are not deterministic gates."
+    },
+    {
+      "id": "V2_19_SINGLE_STACK_RECONCILIATION",
+      "lane": "V2",
+      "capability": "Reconcile accepted branch-only unattended/locale/daily-operator substrate onto current master without stale authority or parallel stacks",
+      "classification": "NEW_IMPLEMENTATION_GAP",
+      "searched_against": ["origin/master", "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1", "all descendant V2 branch tips", "current V2 pointer", "local V2 worktrees"],
+      "evidence": ["local_remote_delta_matrix.json", "historical_proof_index.json"],
+      "gap": "Current master contains the free-form/package/publication substrates but not video/unattended_core_factory_v1, video/daily_operator_v1, or locale_activation_hardening_v1. Selective reconciliation is required after V1; wholesale branch merge is unsafe."
+    },
+    {
+      "id": "V2_20_FIXED_HIGH_LEVEL_COMPOSITOR",
+      "lane": "V2",
+      "capability": "Fixed renderer Lane-B professional path and HIGH/XHIGH/ULTRA visual bakeoff",
+      "classification": "SUPERSEDED_DO_NOT_REUSE",
+      "implementation": ["origin/codex/task-contentops-v2-lane-b-h1-v1:live_contentops/lane_b_hybrid_bakeoff_v1.py"],
+      "evidence": ["origin/codex/task-contentops-v2-lane-b-h1-v1@03087d19c7e18bea6f3812c63a871f33659b6312"],
+      "reason": "Current authority classifies the comparison invalid because all modes were constrained by the same fixed renderer ceiling."
+    },
+    {
+      "id": "V2_21_LEGACY_HORMUZ_ASSET_UNIVERSE",
+      "lane": "V2",
+      "capability": "Legacy EIA Hormuz raster and reused oil/tanker/refinery visual universe as professional media default",
+      "classification": "SUPERSEDED_DO_NOT_REUSE",
+      "evidence": ["Current root/video authority and historical visual-quality evidence"],
+      "reason": "Reference evidence only; rights-safe is insufficient when the asset is weak, overused, or below presentation quality."
+    },
+    {
+      "id": "V2_22_LOCAL_BREAKING_NEWS_CRISP_WIP",
+      "lane": "V2",
+      "capability": "Uncommitted breaking-news crisp-master/ElevenLabs branch implementation",
+      "classification": "SUPERSEDED_DO_NOT_REUSE",
+      "implementation": ["A:/Capital Chronicle/Worktrees/ContentOps/v2-breaking-news-crisp-master-elevenlabs-authority-clip-v1/live_contentops/breaking_news_crisp_v1.py", "A:/Capital Chronicle/Worktrees/ContentOps/v2-breaking-news-crisp-master-elevenlabs-authority-clip-v1/video/breaking_news_v1/"],
+      "tests": ["A:/Capital Chronicle/Worktrees/ContentOps/v2-breaking-news-crisp-master-elevenlabs-authority-clip-v1/tests/test_breaking_news_crisp_v1.py"],
+      "evidence": ["local_repo_topology.json (8 tracked modifications + 5 untracked roots; code SHA-256 f4766f8425de41c9d755a0d9ae03d509565a25879c0f6ba482911125ee777879)"],
+      "reason": "Unfinished 2026-08-14 WIP creates a separate BreakingNewsLedger, encodes deterministic aesthetic thresholds, and references retired MAX/ULTRA sequencing; preserve fingerprint only."
+    },
+    {
+      "id": "X_01_LEGACY_V6_SCHEDULERS_PUBLISHERS",
+      "lane": "CROSS",
+      "capability": "Legacy scheduler_v6, fast_one_cycle, old HTTP run-pipeline, and parallel live dispatch entrypoints",
+      "classification": "SUPERSEDED_DO_NOT_REUSE",
+      "implementation": ["live_contentops/scheduler_v6.py", "live_contentops/fast_one_cycle_automation_v0.py", "live_contentops/server.py::POST /api/run-pipeline"],
+      "tests": ["tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_scheduler_live_dispatch_fails_before_import", "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_ui_route_is_registered_and_server_route_is_quarantined"],
+      "reason": "The current canonical supervisor/publication coordinator owns execution; these paths are explicitly quarantined."
+    },
+    {
+      "id": "X_02_LEGACY_V5_FIXTURE_SHELL",
+      "lane": "CROSS",
+      "capability": "ui/contentops_v5/src/App.tsx and fixture-heavy V6 command-center surfaces as live truth",
+      "classification": "SUPERSEDED_DO_NOT_REUSE",
+      "implementation": ["ui/contentops_v5/src/App.tsx", "ui/contentops_v5/src/fixtures.ts"],
+      "evidence": ["ui/contentops_v5/src/main.tsx renders views/DailyAppConsole.tsx"],
+      "reason": "Retain historical/demo components only; they are not runtime authority and must not become a second dashboard."
+    },
+    {
+      "id": "X_03_ANTIGRAVITY_PARALLEL_ORCHESTRATION",
+      "lane": "CROSS",
+      "capability": "Persistent MAIN_CODEX/SUB_ANTIGRAVITY conversation orchestration as product runtime",
+      "classification": "SUPERSEDED_DO_NOT_REUSE",
+      "implementation": ["origin/antigravity/v1-main-sub-framework-authority-zero-write-v1@5af40f4812d560504b51c1a1c24d328fc4aa19dd"],
+      "reason": "Current V1/V2 authority uses fresh bounded tasks/workers and durable artifacts, not a hidden persistent conversation or parallel control plane."
+    }
+  ]
+}

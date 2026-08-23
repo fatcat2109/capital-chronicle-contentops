@@ -1,0 +1,86 @@
+{
+  "schema_version": "contentops.final_architecture_truth_sweep.codegraph_coverage_gap.v1",
+  "check_command": "python scripts/generate_codex_context_index.py --check",
+  "initial_check_result": "CODEGRAPH_CURRENT",
+  "root_dot_codegraph_directory_present": false,
+  "explorer_routing": "Skipped codegraph explore because the root .codegraph/ directory is absent, exactly as AGENTS.md requires. The committed deterministic graph/check remained available.",
+  "graph": {
+    "source_head": "086fc1028b273018b9f183ada010202d14ff6ba9",
+    "source_tree_digest": "6e1ffa31fe477b1e9b5c1e1caa631bde4d81d846d62727021181c8636ca34949",
+    "generator_version": "2.5.0",
+    "nodes": 7288,
+    "edges": 13775,
+    "entrypoints": 16,
+    "python_modules": 763,
+    "tests": 729,
+    "durable_tables": 37,
+    "authority_docs": 7
+  },
+  "sees": [
+    "Current-master Python modules/symbols/imports/calls",
+    "TypeScript/JavaScript relative imports and exports",
+    "Tests and covered_by relationships",
+    "CLI commands, HTTP endpoints, schemas, durable table definitions",
+    "Canonical V1 entrypoints and curated production relationships",
+    "Current authority anchors and scoped AGENTS hierarchy",
+    "Two explicitly rejected reference-only branches"
+  ],
+  "intentionally_excludes": [
+    ".git objects, refs, stashes, reflogs, unreachable commits",
+    "Runtime outputs, SQLite state and host process/port truth",
+    "Native Codex Automation host inventory",
+    "headline_ingestion/data/intake/headline_sidecars and raw_archive",
+    "docs/archive and broad historical TASK/evidence packets",
+    "screenshots, video, audio, render caches and generated media",
+    "node_modules, virtualenvs, caches and build outputs"
+  ],
+  "material_findings_outside_graph": [
+    {
+      "finding": "Two full local clones and 114 registered worktrees across them",
+      "evidence": "local_repo_topology.json"
+    },
+    {
+      "finding": "10 stashes, 90 reflog-only commits and 286 unreachable commits across both object stores",
+      "evidence": "local_repo_topology.json"
+    },
+    {
+      "finding": "58 fetched remote branches with commits unique to current master",
+      "evidence": "local_remote_delta_matrix.json"
+    },
+    {
+      "finding": "Branch-only V2 unattended factory, locale, Windows recovery, read-only trigger and native relay lineage",
+      "evidence": "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1@10d18873e2d716dcd53b681a4370ef7726a27f9b"
+    },
+    {
+      "finding": "Uncommitted V2 breaking-news code/test/Remotion project and canonical-checkout V1 runtime evidence",
+      "evidence": "local_repo_topology.json and historical_proof_index.json"
+    },
+    {
+      "finding": "Current production store: read-only quick_check=ok, 31 physical tables, 9 ready identities, UNKNOWN_WRITE=0",
+      "evidence": "runtime_host_truth.json"
+    },
+    {
+      "finding": "Four existing native V1 Automations, all PAUSED, plus no active Daily App process/listener at sweep epoch",
+      "evidence": "runtime_host_truth.json"
+    },
+    {
+      "finding": "899 MP4 files / about 6.0 GB in the ContentOps runtime plus 19 ignored worktree runtime/artifact roots",
+      "evidence": "runtime_host_truth.json::runtime_roots"
+    },
+    {
+      "finding": "Current master contains completed live-canary/failed-throughput/evidence-foundation packets that current V3 plan wording does not reconcile",
+      "evidence": "authority_conflict_matrix.json"
+    },
+    {
+      "finding": "One current-master V2 free-form test depends on an ignored 30,119,681-byte documentary asset present only in a historical worktree, so clean-checkout dependency portability is not represented by the graph",
+      "evidence": "tests/test_v2_freeform_chapter_pipeline_v1.py::test_video_only_chapter_render_never_regenerates_audio; ignored asset sha256 01a1d3b34fb1c812a769fabe480f976640684158dc5b94e750a72c2d3d4eb998"
+    }
+  ],
+  "blind_spot_risk": "CodeGraph is effective for current-master implementation discovery but cannot by design answer the task's Git archaeology, host/runtime, branch-proof, or actual-media questions. Its reference_only section lists only two rejected branches and omits the accepted branch-only V2 donor lineage.",
+  "recommendation": {
+    "regenerate_now": false,
+    "reason": "The deterministic check is current; regenerating solely to replace source_head would add noise without changing indexed source truth.",
+    "later_improvement_warranted": true,
+    "scope": "Add a compact generated/reference manifest of owner-designated accepted/rejected branch tips and capability families, especially the V2 unattended/native-relay donor. Do not index runtime payloads, secrets, raw sidecars, all historical evidence, or local Git internals into the canonical graph."
+  }
+}

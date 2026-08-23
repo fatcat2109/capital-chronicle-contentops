@@ -1,0 +1,110 @@
+{
+  "schema_version": "contentops.final_architecture_truth_sweep.authority_conflict_matrix.v1",
+  "resolution_rule": "Do not rewrite authority in this task. Preserve exact evidence, record the conflict, and let the subsequent owner MASTER PLAN LOCK reconcile current wording.",
+  "conflicts": [
+    {
+      "id": "AUTH_01_CANARY_ALREADY_PUBLISHED",
+      "severity": "CRITICAL_SEQUENCE_DRIFT",
+      "stale_claim": "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3 section 11 and CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3 sections 2/3/8 route to audit the zero-write Italy artifact and then publish the one canary.",
+      "current_truth": "Current master contains the later owner-scoped real canary at 5327be938f4435c0644bcae41f84535bfd967029: PASS_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_9_SURFACE_RECONCILED, 1 canonical + 8 derivative packages, all reconciled, UNKNOWN_WRITE=0.",
+      "evidence": ["docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/README.md", "docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/final_live_canary_receipt_v1.json"],
+      "lock_action": "Mark the technical live-canary gate complete and remove instructions to republish it. Retain any still-unrecorded owner aesthetic/business audit as an owner evidence item, never as authority for another write."
+    },
+    {
+      "id": "AUTH_02_4_32_ALREADY_ATTEMPTED_AND_FAILED",
+      "severity": "CRITICAL_SEQUENCE_DRIFT",
+      "stale_claim": "The V3 North Star/Master Plan describe 4/32 as a future post-canary proof.",
+      "current_truth": "A current-lineage proof at d763ae15973480384722aa6e8461ba00a8a494e5 already ran all four opportunities and truthfully failed 0/4 and 0/32 after 40 distinct stories; it is evidence, not an unstarted task.",
+      "evidence": ["docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/README.md", "docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/final_throughput_proof_receipt_v1.json"],
+      "lock_action": "Replace 'start 4/32' with 'close the proven evidence-economics/qualification blockers, then rerun the acceptance proof.'"
+    },
+    {
+      "id": "AUTH_03_PRODUCTION_DAY_ACCOUNTING_NOT_A_GAP",
+      "severity": "ROADMAP_REBUILD_RISK",
+      "stale_claim": "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3 section 2.1 says the system needs the production-day accounting layer.",
+      "current_truth": "newsroom_production_day_v1.py and focused tests implement cross-midnight day ID, qualification, published count, four-window progress, deficit, and bounded catch-up; the failed 4/32 receipt used it.",
+      "evidence": ["live_contentops/newsroom_production_day_v1.py", "tests/test_newsroom_production_day_v1.py", "docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/newsroom_production_day_v1.json"],
+      "lock_action": "Move accounting/catch-up from implementation gap to accepted foundation."
+    },
+    {
+      "id": "AUTH_04_HOST_AUTOMATION_TRUTH_STALE",
+      "severity": "CURRENT_STATE_DRIFT",
+      "stale_claim": "docs/CURRENT_CONTEXT.md and docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md say the four host tasks and their paused state are unproven.",
+      "current_truth": "Supported Automation view plus exact supported automation.toml safe fields show exactly four expected tasks, all PAUSED, gpt-5.6-sol/HIGH, correct schedules; prompt hashes remain mismatched to current configured intent.",
+      "evidence": ["runtime_host_truth.json::automations", "docs/automation/TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1/host_automation_observation_v1.json"],
+      "lock_action": "Update current bootstrap/overlay to observed host truth and retain calendar-time execution as unproven."
+    },
+    {
+      "id": "AUTH_05_V1_CONTEXT_NEXT_TASK_STALE",
+      "severity": "ROUTING_DRIFT",
+      "stale_claim": "docs/codegraph/V1_CONTEXT.md says the next exact capability is first-party locator/source-family and query/publisher-resolution closure followed by a four-frontier rehearsal.",
+      "current_truth": "Locator closure merged at 2d39880; the later evidence foundation merged at f7c5543 and produced four distinct evidence-ready candidates. Current pointer names quota-efficient batch/tail discovery as the remaining implementation gap.",
+      "evidence": ["docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md", "docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/README.md"],
+      "lock_action": "Refresh curated V1_CONTEXT after the plan lock; do not route from its locator-next wording."
+    },
+    {
+      "id": "AUTH_06_ROOT_SPINE_VS_NEWER_LANE_POINTER",
+      "severity": "UNRESOLVED_CURRENT_AUTHORITY_CONFLICT",
+      "stale_claim": "The V3 North Star/Master Plan immediate gate remains the Italy artifact audit/public canary, while the 2026-08-23 authority map/V1 pointer explicitly demote prior Italy/immediate-4/32 routing and stop at the four-candidate evidence foundation audit.",
+      "current_truth": "Both sets are marked current; exact repository evidence confirms the newer events occurred. The sweep cannot rewrite the hierarchy, so the conflict must be resolved by owner lock.",
+      "evidence": ["docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md", "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md", "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md", "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md"],
+      "lock_action": "Make the root spine acknowledge completed canary/failed throughput/current foundation; keep the pointer subordinate and consistent."
+    },
+    {
+      "id": "AUTH_07_STALE_MANIFEST_INCOMPLETE",
+      "severity": "ANTI_DRIFT_GAP",
+      "stale_claim": "CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1 demotes several families but does not explicitly demote docs/CURRENT_CONTEXT.md, docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md, or stale sections of V1_CONTEXT.md.",
+      "current_truth": "Those files contain host-unproven, production-day-gap, and locator-next wording contradicted by later accepted evidence.",
+      "evidence": ["docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md", "docs/CURRENT_CONTEXT.md", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md", "docs/codegraph/V1_CONTEXT.md"],
+      "lock_action": "Add exact stale sections/files or rewrite active bootstrap/curated context to the locked plan."
+    },
+    {
+      "id": "AUTH_08_DEMOTED_NINE_SURFACE_HANDOFF",
+      "severity": "HISTORICAL_ROUTING_TRAP",
+      "stale_claim": "docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md names older branch/task order, manual GO, pre-live steps, and older quality-probation semantics.",
+      "current_truth": "The stale manifest explicitly demotes this file; the real canary, failed 4/32 proof, and evidence foundation are later current-master facts.",
+      "evidence": ["docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md section 5", "docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md"],
+      "lock_action": "Keep as historical evidence only; remove it from fresh-session routing references."
+    },
+    {
+      "id": "AUTH_09_DISCOVERY_CAPABILITY_VS_PRODUCTION_DEFAULT",
+      "severity": "ECONOMICS_SEMANTIC_CONFLICT",
+      "stale_claim": "Historical foundation evidence proves autonomous Codex URL discovery and could be read as production-ready default behavior.",
+      "current_truth": "The authority map explicitly accepts the capability but rejects its 35-call/10,237,897-token per-trigger economics; routine execution must leave it disabled absent exact bounded opt-in.",
+      "evidence": ["docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md", "docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/README.md"],
+      "lock_action": "Separate 'implemented locator capability' from 'accepted production discovery policy' and name batch/tail architecture as the true new gap."
+    },
+    {
+      "id": "AUTH_10_V2_POINTER_BROKEN_REFERENCE",
+      "severity": "DOCUMENT_ROUTING_DEFECT",
+      "stale_claim": "Current V2 pointer links docs/automation/CONTENTOPS_V2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md.",
+      "current_truth": "That exact file is absent on current master; the detailed older V2 V2 plans exist under different names but are not the current root spine.",
+      "evidence": ["docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md", "rg --files docs/automation"],
+      "lock_action": "Replace the missing link with the exact locked V2 plan or remove it from the current read path."
+    },
+    {
+      "id": "AUTH_11_V2_BRANCH_PROOF_OUTSIDE_MASTER",
+      "severity": "HIDDEN_CAPABILITY_SEQUENCE_RISK",
+      "stale_claim": "Current-master V2 context broadly says accepted foundations but does not enumerate the branch-only unattended factory, Windows recovery, locales, read-only trigger, and native relay.",
+      "current_truth": "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1 contains 48 commits unique to master and exact proof of those capabilities through 10d18873, while current master has only the free-form/package/publication substrates.",
+      "evidence": ["local_remote_delta_matrix.json", "historical_proof_index.json"],
+      "lock_action": "Plan one selective current-master reconciliation/revalidation slice after V1; do not rebuild or wholesale merge stale authority."
+    },
+    {
+      "id": "AUTH_12_V2_NATIVE_RELAY_NOT_CURRENT_MASTER_AUTHORITY",
+      "severity": "BRANCH_AUTHORITY_BOUNDARY",
+      "stale_claim": "The branch-local V2 pointer at 10d18873 calls the native relay accepted and current.",
+      "current_truth": "Current master pointer intentionally says no independently authorized V2 task while root P0 is active and omits that branch-only section. Branch evidence is material historical proof, not current routing authority.",
+      "evidence": ["origin/task/v2-native-staggered-automation-relay-shadow-correction-v1:docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md", "origin/master:docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md"],
+      "lock_action": "Preserve the proof classification in history; promote only after selective reconciliation and owner lock."
+    },
+    {
+      "id": "AUTH_13_CODEGRAPH_EPOCH_APPEARANCE",
+      "severity": "DESCRIPTIVE_EPOCH_ONLY",
+      "stale_claim": "Generated graph source_head 086fc102 looks behind current master f7c5543.",
+      "current_truth": "python scripts/generate_codex_context_index.py --check returns CODEGRAPH_CURRENT because later commits are generated/evidence/tree-equivalent for indexed source digest.",
+      "evidence": ["docs/codegraph/graph.json", "codegraph_coverage_gap.json"],
+      "lock_action": "Do not regenerate merely to change the commit label; explain digest-based currentness."
+    }
+  ]
+}
