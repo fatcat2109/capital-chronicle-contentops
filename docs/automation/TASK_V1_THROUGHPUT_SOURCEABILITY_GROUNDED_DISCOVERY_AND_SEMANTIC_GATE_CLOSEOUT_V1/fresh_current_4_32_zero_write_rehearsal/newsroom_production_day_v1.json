@@ -1,0 +1,16 @@
+{
+  "bounded_useful_universe_exhausted": false,
+  "build_qualified_floor": 4,
+  "final_published_target_max": 8,
+  "final_published_target_min": 5,
+  "hard_external_block_reason": null,
+  "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+  "production_day_state": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+  "published_articles_today": 0,
+  "qualified_articles_today": 0,
+  "record_sha256": "e29547e8b285114c8b37fc9258dc8545b6677c4bf5f121e9e96afbf7ccbff4ea",
+  "remaining_build_deficit": 4,
+  "routine_opportunities_remaining": 0,
+  "routine_opportunities_used": 4,
+  "schema_version": "contentops.newsroom_production_day.v1"
+}

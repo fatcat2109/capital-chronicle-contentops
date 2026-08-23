@@ -1,0 +1,1623 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 12,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "0a7f0b55fe25cb6fbcc49ee23cff7e4330782e407b253087dff0875ac0759d86",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-dcef95e34d6b411db139"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "ae466d1adb382bd9d39a47512b8b04cc37a79686be1d51c221a7794177e98b67",
+    "cutoff_time_utc": "2026-08-23T01:18:44.810438Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 12,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald trump",
+            "esg",
+            "finance"
+          ],
+          "first_utc": "2026-08-22T20:55:07Z",
+          "latest_utc": "2026-08-22T20:55:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 4.3938,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "US Treasury",
+          "Donald Trump",
+          "ESG",
+          "Finance"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-0b0b73a54a72bf24779a",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 85,
+          "engagement": 88,
+          "evidence": 75,
+          "saturation_risk": 55,
+          "seo": 82
+        },
+        "summary": "US Treasury bars ESG funds from Trump accounts, citing concerns over left-wing political activism."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "donald j. trump",
+            "elections",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-22T22:10:45Z",
+          "latest_utc": "2026-08-22T22:10:45Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 3.1333,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald J. Trump",
+          "Truth Social",
+          "Social Media",
+          "Politics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-1125271a1406a42f1623",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 72,
+          "engagement": 82,
+          "evidence": 40,
+          "saturation_risk": 50,
+          "seo": 75
+        },
+        "summary": "Donald J. Trump posts a new video on Truth Social."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "government waste",
+            "housing",
+            "mortgages"
+          ],
+          "first_utc": "2026-08-22T20:20:07Z",
+          "latest_utc": "2026-08-22T20:20:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 4.9772,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "ZeroHedge",
+          "Personal Finance",
+          "Mortgages",
+          "Government Waste"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-25519f1a713e5b76e185",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 50,
+          "engagement": 48,
+          "evidence": 45,
+          "saturation_risk": 30,
+          "seo": 55
+        },
+        "summary": "Analysis of government spending or policy labeled as 'Waste of the Day' focusing on millionaire mortgages."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "automotive",
+            "canada",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-22T21:16:01Z",
+          "latest_utc": "2026-08-22T21:16:01Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 4.0455,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Jamieson Greer",
+          "United States",
+          "Canada",
+          "Trade Negotiations"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-5e0f3ba91aee5a0a44c3",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 84,
+          "engagement": 78,
+          "evidence": 88,
+          "saturation_risk": 35,
+          "seo": 80
+        },
+        "summary": "Jamieson Greer details a US trade offer to Canada, including removing the 232 softwood lumber tariff and cutting auto and metal tariffs, before talks collapsed."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "cgtn",
+            "china",
+            "china beige book"
+          ],
+          "first_utc": "2026-08-22T20:24:07Z",
+          "latest_utc": "2026-08-22T20:24:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 4.9105,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China Beige Book",
+          "CGTN",
+          "China",
+          "Economy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-7f958c328caeba3bc4d9",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 60,
+          "evidence": 50,
+          "saturation_risk": 35,
+          "seo": 58
+        },
+        "summary": "China Beige Book reacts to a CGTN report framing China's economic situation as an opportunity rather than a shock."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "energy supply",
+            "kaleidos",
+            "microreactors"
+          ],
+          "first_utc": "2026-08-22T19:10:07Z",
+          "latest_utc": "2026-08-22T19:10:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 6.1438,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Kaleidos",
+          "Nuclear Energy",
+          "Microreactors",
+          "Energy Supply"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-a0a5e254e7fa0e3b0d5c",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 68,
+          "engagement": 58,
+          "evidence": 62,
+          "saturation_risk": 30,
+          "seo": 64
+        },
+        "summary": "Portable 1MW Kaleidos microreactor secures a critical nuclear fuel supply deal extending through the 2030s."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "government policy",
+            "interest rates",
+            "irs"
+          ],
+          "first_utc": "2026-08-22T22:40:06Z",
+          "latest_utc": "2026-08-22T22:40:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 2.6441,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "IRS",
+          "Taxes",
+          "Interest Rates",
+          "Personal Finance"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-ae79715f0eba681ae310",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 62,
+          "evidence": 80,
+          "saturation_risk": 25,
+          "seo": 68
+        },
+        "summary": "The IRS announces a 7 percent interest rate for tax overpayments and underpayments."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "axios",
+            "diesel",
+            "energy"
+          ],
+          "first_utc": "2026-08-22T19:45:09Z",
+          "latest_utc": "2026-08-22T19:45:09Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 5.5599,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Axios",
+          "Strait of Hormuz",
+          "Energy",
+          "Shipping"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-c1e4a41228eeb58fb1e5",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 65,
+          "evidence": 60,
+          "saturation_risk": 40,
+          "seo": 70
+        },
+        "summary": "Axios reports 40 tankers transited the Strait of Hormuz, but highlights a more critical crisis concerning global diesel supplies."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "anthony fauci",
+            "law",
+            "legal defense"
+          ],
+          "first_utc": "2026-08-22T21:30:07Z",
+          "latest_utc": "2026-08-22T21:30:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 3.8105,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Anthony Fauci",
+          "Law",
+          "Legal Defense",
+          "Politics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-c63a92786ddf8275fe2a",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 78,
+          "engagement": 80,
+          "evidence": 65,
+          "saturation_risk": 45,
+          "seo": 72
+        },
+        "summary": "Lawyers representing Dr. Anthony Fauci establish a legal defense fund."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bessent",
+            "finance",
+            "hartnett"
+          ],
+          "first_utc": "2026-08-22T23:16:06Z",
+          "latest_utc": "2026-08-22T23:16:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 2.0441,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Hartnett",
+          "Bessent",
+          "Monetary Policy",
+          "Quantitative Easing"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-e6086d22a1b8ff88ee58",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 72,
+          "evidence": 70,
+          "saturation_risk": 50,
+          "seo": 75
+        },
+        "summary": "Hartnett discusses Bessent's 'Quasi QE' monetary approach, stating that success is expected and failure is unthinkable."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bill maher",
+            "culture wars",
+            "democrats"
+          ],
+          "first_utc": "2026-08-22T22:05:06Z",
+          "latest_utc": "2026-08-22T22:05:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 3.2274,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Bill Maher",
+          "Democrats",
+          "Culture Wars",
+          "Politics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-e6afde4d4494a78c74d5",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 86,
+          "evidence": 55,
+          "saturation_risk": 60,
+          "seo": 82
+        },
+        "summary": "Bill Maher criticizes Democrats for opening the door to political opposition by focusing on cultural issues and failing to define a woman."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "beijing innovation center of humanoid robotics",
+            "china"
+          ],
+          "first_utc": "2026-08-22T19:20:00Z",
+          "latest_utc": "2026-08-22T19:20:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 5.9791,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Beijing Innovation Center of Humanoid Robotics",
+          "Usain Bolt",
+          "China",
+          "Robotics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-fa51cc7be97f8ef0c73d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 82,
+          "engagement": 84,
+          "evidence": 70,
+          "saturation_risk": 40,
+          "seo": 85
+        },
+        "summary": "A Chinese humanoid robot developed by Beijing Innovation Center of Humanoid Robotics runs 100 meters in 9.39 seconds, beating Usain Bolt's record."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "ae466d1adb382bd9d39a47512b8b04cc37a79686be1d51c221a7794177e98b67",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-023288e368d823ff98977f1e",
+      "cc-x-headline-3f7db1d77fab1053eb291e21",
+      "cc-x-headline-5bdea69c7f9a8c0a31cdce17",
+      "cc-x-headline-646634d7aa5b4e08354ec91c",
+      "cc-x-headline-7b2cebf3733036a0101f5525",
+      "cc-x-headline-80e519986dfb9e8c2747143a",
+      "cc-x-headline-8365dac7f536bc94c4b82ef1",
+      "cc-x-headline-b152474e629338c7cfe4f645",
+      "cc-x-headline-bea6bd30c45164a45447feb5",
+      "cc-x-headline-c66be8ef66d353d7bce40c88",
+      "cc-x-headline-cfb902216227558ebeab6f65",
+      "cc-x-headline-f057c2e125e5b89d036cc725"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 88,
+        "saturation_risk": 55,
+        "seo_potential": 82
+      },
+      "canonical_representative_headline_id": "cc-x-headline-646634d7aa5b4e08354ec91c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-646634d7aa5b4e08354ec91c"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "US Treasury",
+        "Donald Trump"
+      ],
+      "event_topic_summary": "US Treasury bars ESG funds from Trump accounts, citing concerns over left-wing political activism.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-0b0b73a54a72bf24779a",
+      "member_headline_ids": [
+        "cc-x-headline-646634d7aa5b4e08354ec91c"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "ESG",
+        "Finance",
+        "Political Activism",
+        "Government Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 72,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 82,
+        "saturation_risk": 50,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f057c2e125e5b89d036cc725",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f057c2e125e5b89d036cc725"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald J. Trump",
+        "Truth Social"
+      ],
+      "event_topic_summary": "Donald J. Trump posts a new video on Truth Social.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-1125271a1406a42f1623",
+      "member_headline_ids": [
+        "cc-x-headline-f057c2e125e5b89d036cc725"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Social Media",
+        "Politics",
+        "Elections"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 50,
+        "evidence_prospects": 45,
+        "qualified_engagement_potential": 48,
+        "saturation_risk": 30,
+        "seo_potential": 55
+      },
+      "canonical_representative_headline_id": "cc-x-headline-3f7db1d77fab1053eb291e21",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-3f7db1d77fab1053eb291e21"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "ZeroHedge"
+      ],
+      "event_topic_summary": "Analysis of government spending or policy labeled as 'Waste of the Day' focusing on millionaire mortgages.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-25519f1a713e5b76e185",
+      "member_headline_ids": [
+        "cc-x-headline-3f7db1d77fab1053eb291e21"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Personal Finance",
+        "Mortgages",
+        "Government Waste",
+        "Housing"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 84,
+        "evidence_prospects": 88,
+        "qualified_engagement_potential": 78,
+        "saturation_risk": 35,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c66be8ef66d353d7bce40c88",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-c66be8ef66d353d7bce40c88"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Jamieson Greer",
+        "United States",
+        "Canada"
+      ],
+      "event_topic_summary": "Jamieson Greer details a US trade offer to Canada, including removing the 232 softwood lumber tariff and cutting auto and metal tariffs, before talks collapsed.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-5e0f3ba91aee5a0a44c3",
+      "member_headline_ids": [
+        "cc-x-headline-c66be8ef66d353d7bce40c88"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Trade Negotiations",
+        "Tariffs",
+        "Softwood Lumber",
+        "Automotive",
+        "Metals"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 35,
+        "seo_potential": 58
+      },
+      "canonical_representative_headline_id": "cc-x-headline-7b2cebf3733036a0101f5525",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-7b2cebf3733036a0101f5525"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China Beige Book",
+        "CGTN",
+        "China"
+      ],
+      "event_topic_summary": "China Beige Book reacts to a CGTN report framing China's economic situation as an opportunity rather than a shock.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-7f958c328caeba3bc4d9",
+      "member_headline_ids": [
+        "cc-x-headline-7b2cebf3733036a0101f5525"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Economy",
+        "Trade",
+        "Geopolitics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 68,
+        "evidence_prospects": 62,
+        "qualified_engagement_potential": 58,
+        "saturation_risk": 30,
+        "seo_potential": 64
+      },
+      "canonical_representative_headline_id": "cc-x-headline-bea6bd30c45164a45447feb5",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-bea6bd30c45164a45447feb5"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Kaleidos"
+      ],
+      "event_topic_summary": "Portable 1MW Kaleidos microreactor secures a critical nuclear fuel supply deal extending through the 2030s.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-a0a5e254e7fa0e3b0d5c",
+      "member_headline_ids": [
+        "cc-x-headline-bea6bd30c45164a45447feb5"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Nuclear Energy",
+        "Microreactors",
+        "Energy Supply",
+        "Technology"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 62,
+        "saturation_risk": 25,
+        "seo_potential": 68
+      },
+      "canonical_representative_headline_id": "cc-x-headline-8365dac7f536bc94c4b82ef1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-8365dac7f536bc94c4b82ef1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "IRS"
+      ],
+      "event_topic_summary": "The IRS announces a 7 percent interest rate for tax overpayments and underpayments.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-ae79715f0eba681ae310",
+      "member_headline_ids": [
+        "cc-x-headline-8365dac7f536bc94c4b82ef1"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Taxes",
+        "Interest Rates",
+        "Personal Finance",
+        "Government Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 40,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-023288e368d823ff98977f1e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-023288e368d823ff98977f1e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Axios",
+        "Strait of Hormuz"
+      ],
+      "event_topic_summary": "Axios reports 40 tankers transited the Strait of Hormuz, but highlights a more critical crisis concerning global diesel supplies.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-c1e4a41228eeb58fb1e5",
+      "member_headline_ids": [
+        "cc-x-headline-023288e368d823ff98977f1e"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Energy",
+        "Shipping",
+        "Diesel",
+        "Global Trade"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 78,
+        "evidence_prospects": 65,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 45,
+        "seo_potential": 72
+      },
+      "canonical_representative_headline_id": "cc-x-headline-80e519986dfb9e8c2747143a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-80e519986dfb9e8c2747143a"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Anthony Fauci"
+      ],
+      "event_topic_summary": "Lawyers representing Dr. Anthony Fauci establish a legal defense fund.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-c63a92786ddf8275fe2a",
+      "member_headline_ids": [
+        "cc-x-headline-80e519986dfb9e8c2747143a"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Law",
+        "Legal Defense",
+        "Politics",
+        "Public Health"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 72,
+        "saturation_risk": 50,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-5bdea69c7f9a8c0a31cdce17",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-5bdea69c7f9a8c0a31cdce17"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Hartnett",
+        "Bessent"
+      ],
+      "event_topic_summary": "Hartnett discusses Bessent's 'Quasi QE' monetary approach, stating that success is expected and failure is unthinkable.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-e6086d22a1b8ff88ee58",
+      "member_headline_ids": [
+        "cc-x-headline-5bdea69c7f9a8c0a31cdce17"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Monetary Policy",
+        "Quantitative Easing",
+        "Markets",
+        "Finance"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 55,
+        "qualified_engagement_potential": 86,
+        "saturation_risk": 60,
+        "seo_potential": 82
+      },
+      "canonical_representative_headline_id": "cc-x-headline-cfb902216227558ebeab6f65",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-cfb902216227558ebeab6f65"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Bill Maher",
+        "Democrats"
+      ],
+      "event_topic_summary": "Bill Maher criticizes Democrats for opening the door to political opposition by focusing on cultural issues and failing to define a woman.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-e6afde4d4494a78c74d5",
+      "member_headline_ids": [
+        "cc-x-headline-cfb902216227558ebeab6f65"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Culture Wars",
+        "Politics",
+        "Media",
+        "Social Issues"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 82,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 84,
+        "saturation_risk": 40,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b152474e629338c7cfe4f645",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b152474e629338c7cfe4f645"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Beijing Innovation Center of Humanoid Robotics",
+        "Usain Bolt",
+        "China"
+      ],
+      "event_topic_summary": "A Chinese humanoid robot developed by Beijing Innovation Center of Humanoid Robotics runs 100 meters in 9.39 seconds, beating Usain Bolt's record.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-fa51cc7be97f8ef0c73d",
+      "member_headline_ids": [
+        "cc-x-headline-b152474e629338c7cfe4f645"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "topics": [
+        "Robotics",
+        "Technology",
+        "Artificial Intelligence",
+        "Sprinting"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-023288e368d823ff98977f1e",
+        "cc-x-headline-3f7db1d77fab1053eb291e21",
+        "cc-x-headline-5bdea69c7f9a8c0a31cdce17",
+        "cc-x-headline-646634d7aa5b4e08354ec91c",
+        "cc-x-headline-7b2cebf3733036a0101f5525",
+        "cc-x-headline-80e519986dfb9e8c2747143a",
+        "cc-x-headline-8365dac7f536bc94c4b82ef1",
+        "cc-x-headline-b152474e629338c7cfe4f645",
+        "cc-x-headline-bea6bd30c45164a45447feb5",
+        "cc-x-headline-c66be8ef66d353d7bce40c88",
+        "cc-x-headline-cfb902216227558ebeab6f65",
+        "cc-x-headline-f057c2e125e5b89d036cc725"
+      ],
+      "partition_id": "rolling-x-leaf-dcef95e34d6b411db139",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 10107,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 409,
+    "held_before_semantic_assignment_count": 397,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "b399a4a35ce6f562cbdc94b28adebdbb22d5cb0eb384d6b5bee68ec7b99f8941",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-060f3fea367e6a7c286d",
+      "headline_ids": [
+        "cc-x-headline-c66be8ef66d353d7bce40c88"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-5e0f3ba91aee5a0a44c3"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official statements from Jamieson Greer or USTR",
+        "Confirmation of the specific tariff removal offers including 232 softwood lumber, auto, and metal"
+      ],
+      "rank": 1,
+      "selection_case": "High evidence and low saturation make this a prime macro-policy story with direct implications for the auto, metals, and lumber markets.",
+      "seo_intent": "US Canada trade talks collapse Jamieson Greer auto tariffs lumber",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c66be8ef66d353d7bce40c88",
+        "ordered_headline_ids": [
+          "cc-x-headline-c66be8ef66d353d7bce40c88"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Chart showing historical US-Canada trade volumes in autos and lumber, or a photo of border trade infrastructure.",
+      "why_now": "Details of the collapsed US-Canada trade talks have just surfaced, revealing the specific tariff concessions that were on the table before negotiations broke down."
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-1776d9c8958943d2e053",
+      "headline_ids": [
+        "cc-x-headline-646634d7aa5b4e08354ec91c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-0b0b73a54a72bf24779a"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official US Treasury press release or directive",
+        "Exact wording regarding 'left-wing political activism' and the scope of the affected accounts"
+      ],
+      "rank": 2,
+      "selection_case": "Strong engagement and SEO potential. This touches on the ongoing political and financial debate surrounding ESG investments and regulatory frameworks.",
+      "seo_intent": "US Treasury bans ESG funds Trump accounts political activism",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-646634d7aa5b4e08354ec91c",
+        "ordered_headline_ids": [
+          "cc-x-headline-646634d7aa5b4e08354ec91c"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Image of the US Treasury building with an overlaid graphic representing ESG investing.",
+      "why_now": "The US Treasury has just announced a ban on ESG funds for specific government-linked accounts, signaling a major policy shift."
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "cluster_id": "rolling-x-global-cluster-fef78ecc30ee39e31650",
+      "headline_ids": [
+        "cc-x-headline-5bdea69c7f9a8c0a31cdce17"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-e6086d22a1b8ff88ee58"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Original Hartnett note or commentary",
+        "Specific details of Bessent's proposed monetary framework"
+      ],
+      "rank": 3,
+      "selection_case": "High audience interest in monetary policy mechanics. Offers a chance to explain 'Quasi QE' and its potential market consequences.",
+      "seo_intent": "Hartnett Bessent Quasi QE monetary policy quantitative easing",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-5bdea69c7f9a8c0a31cdce17",
+        "ordered_headline_ids": [
+          "cc-x-headline-5bdea69c7f9a8c0a31cdce17"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Macroeconomic chart comparing traditional QE with proposed Quasi QE liquidity measures.",
+      "why_now": "Hartnett's recent commentary on Bessent's 'Quasi QE' approach provides a timely framework for understanding upcoming monetary policy shifts."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-70ac8df2f43e46a4673e",
+      "headline_ids": [
+        "cc-x-headline-bea6bd30c45164a45447feb5"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-a0a5e254e7fa0e3b0d5c"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Press release from Kaleidos or the fuel supplier",
+        "Terms and duration of the fuel supply agreement"
+      ],
+      "rank": 4,
+      "selection_case": "Excellent niche energy story with low saturation. Highlights tangible progress in next-generation nuclear technology and supply chain security.",
+      "seo_intent": "Kaleidos microreactor nuclear fuel supply deal 1MW portable reactor",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-bea6bd30c45164a45447feb5",
+        "ordered_headline_ids": [
+          "cc-x-headline-bea6bd30c45164a45447feb5"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Diagram or rendering of the Kaleidos 1MW portable microreactor.",
+      "why_now": "Kaleidos has secured a long-term nuclear fuel supply deal, resolving a critical bottleneck for the deployment of microreactors."
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-f70d0d087f21cfac0f00",
+      "headline_ids": [
+        "cc-x-headline-8365dac7f536bc94c4b82ef1"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-ae79715f0eba681ae310"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Official IRS announcement or revenue ruling document"
+      ],
+      "rank": 5,
+      "selection_case": "High evidence, highly practical information for businesses and individual taxpayers. Low saturation risk.",
+      "seo_intent": "IRS 7 percent interest rate tax overpayments underpayments",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-8365dac7f536bc94c4b82ef1",
+        "ordered_headline_ids": [
+          "cc-x-headline-8365dac7f536bc94c4b82ef1"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Simple infographic showing the new 7% rate applied to different tax scenarios.",
+      "why_now": "The IRS has officially set the interest rate for tax overpayments and underpayments at 7 percent."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-35f2f424ef9e1ad952a1",
+      "headline_ids": [
+        "cc-x-headline-023288e368d823ff98977f1e"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-c1e4a41228eeb58fb1e5"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Axios report on the Strait of Hormuz transits",
+        "Data on global diesel inventory levels and refining margins"
+      ],
+      "rank": 6,
+      "selection_case": "Strong energy market relevance. Pivots from a standard geopolitical headline to a deeper structural commodity issue.",
+      "seo_intent": "Global diesel supply crisis Strait of Hormuz oil tankers",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-023288e368d823ff98977f1e",
+        "ordered_headline_ids": [
+          "cc-x-headline-023288e368d823ff98977f1e"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Global map highlighting diesel trade routes and current supply bottlenecks.",
+      "why_now": "Recent reporting highlights a growing global diesel supply crisis, overshadowing standard transit metrics in the Strait of Hormuz."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-f014b0e655c9d507e25a",
+      "headline_ids": [
+        "cc-x-headline-b152474e629338c7cfe4f645"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-fa51cc7be97f8ef0c73d"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Verified video footage of the run",
+        "Official timing data from the Beijing Innovation Center of Humanoid Robotics"
+      ],
+      "rank": 7,
+      "selection_case": "High audience engagement and SEO potential. Requires careful verification of the 'beating Usain Bolt' claim to avoid overclaim while highlighting tech progress.",
+      "seo_intent": "Chinese humanoid robot 100m dash record Beijing Innovation Center",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b152474e629338c7cfe4f645",
+        "ordered_headline_ids": [
+          "cc-x-headline-b152474e629338c7cfe4f645"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Video still or photo of the humanoid robot in motion on a track.",
+      "why_now": "A Chinese humanoid robot has reportedly broken the 100-meter dash record, showcasing rapid advancements in robotics."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "afbb4c4b2e8a0383cd96e21f50684621d48d02045e66d6323c30f6d48ac4ddbb",
+          "latency_seconds": 37.6672,
+          "logical_invocation_id": "inv_rolling_x_leaf_4c7f0b87e390e6be5f73",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "426d9e14d404caa7614dbbfb7324b8c0509704545729d86a1ef71940f277dd35",
+          "prompt_logical_hash": "f47cfcaeeea7283d157a07af526f115b3a4b5d25803b8dffdbf2850289133c12",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-WU-KatPLLKPs2roPu5W70QQ",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_4c7f0b87e390e6be5f73",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 8728,
+            "completion_tokens_details": {
+              "reasoning_tokens": 5327
+            },
+            "prompt_tokens": 6579,
+            "total_tokens": 15307
+          },
+          "work_item_id": "rolling-x-leaf-dcef95e34d6b411db139"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_4c7f0b87e390e6be5f73",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_4c7f0b87e390e6be5f73",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 37.6684,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 8728.0,
+        "prompt_tokens": 6579.0,
+        "total_tokens": 15307.0
+      },
+      "work_item_id": "rolling-x-leaf-dcef95e34d6b411db139"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "78ba3149af73c5395d894de2bf7a037b5cd2f3aff70c65df6c1f7c2fbff847cf",
+          "latency_seconds": 42.2135,
+          "logical_invocation_id": "inv_rolling_x_global_afba854eceaac84b19c0",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "db909a0c7e8988c6cad07af4677b90d4a6ad767cb8a804f01e3d0441e33608ec",
+          "prompt_logical_hash": "5d232c2310f2fcb4463611ea89ede91894819f477f56ad954dd7366f82d0c7d1",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-f0-KarrQEuCn2roPz7uVuAc",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 3,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_afba854eceaac84b19c0",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 4,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 3,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 5917,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3817
+            },
+            "prompt_tokens": 7278,
+            "total_tokens": 13195
+          },
+          "work_item_id": "rolling-x-global-ae466d1adb382bd9d39a"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_afba854eceaac84b19c0",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 3,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_afba854eceaac84b19c0",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 42.2151,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 5917.0,
+        "prompt_tokens": 7278.0,
+        "total_tokens": 13195.0
+      },
+      "work_item_id": "rolling-x-global-ae466d1adb382bd9d39a"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "78ba3149af73c5395d894de2bf7a037b5cd2f3aff70c65df6c1f7c2fbff847cf",
+        "latency_seconds": 42.2135,
+        "logical_invocation_id": "inv_rolling_x_global_afba854eceaac84b19c0",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "db909a0c7e8988c6cad07af4677b90d4a6ad767cb8a804f01e3d0441e33608ec",
+        "prompt_logical_hash": "5d232c2310f2fcb4463611ea89ede91894819f477f56ad954dd7366f82d0c7d1",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-f0-KarrQEuCn2roPz7uVuAc",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 3,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_afba854eceaac84b19c0",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 1,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 4,
+          "per_model_max_attempts": [
+            2,
+            2
+          ],
+          "remaining_attempt_budget": 3,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 5917,
+          "completion_tokens_details": {
+            "reasoning_tokens": 3817
+          },
+          "prompt_tokens": 7278,
+          "total_tokens": 13195
+        },
+        "work_item_id": "rolling-x-global-ae466d1adb382bd9d39a"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_afba854eceaac84b19c0",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": [
+        2,
+        2
+      ],
+      "remaining_attempt_budget": 3,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_afba854eceaac84b19c0",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2,
+        "vx/gemini-3.5-flash(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 42.2151,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 5917.0,
+      "prompt_tokens": 7278.0,
+      "total_tokens": 13195.0
+    },
+    "work_item_id": "rolling-x-global-ae466d1adb382bd9d39a"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-060f3fea367e6a7c286d",
+  "selected_headline_ids": [
+    "cc-x-headline-c66be8ef66d353d7bce40c88"
+  ],
+  "selection_rationale": "The shortlist prioritizes high-evidence macro, trade, and energy developments over political outrage or culture war topics. The US-Canada trade collapse details and Treasury ESG rules lead the selection for their direct market and policy implications, followed by strong monetary policy and energy infrastructure stories.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 79.8835,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 14645.0,
+      "prompt_tokens": 13857.0,
+      "total_tokens": 28502.0
+    }
+  }
+}

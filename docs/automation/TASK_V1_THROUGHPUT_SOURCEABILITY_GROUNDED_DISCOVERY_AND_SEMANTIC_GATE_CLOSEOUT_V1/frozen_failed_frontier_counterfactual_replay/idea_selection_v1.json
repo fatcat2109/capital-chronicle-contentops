@@ -1,0 +1,299 @@
+{
+  "article_mode": "STANDARD_NEWS_ANALYSIS",
+  "capability_article_mode": "analysis",
+  "capital_chronicle_context": {
+    "all_discovered_stores_considered": true,
+    "candidate_table_count": 0,
+    "catalog_fingerprint": null,
+    "cc_context_richness": 0.0,
+    "connection_mode": "duckdb_read_only",
+    "deep_query_selected_tables": [],
+    "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+    "deep_query_table_limit": 8,
+    "grants_factual_or_numeric_authority": false,
+    "matched_store_count": 0,
+    "matched_store_ids": [],
+    "matched_table_count": 0,
+    "matches": [],
+    "mutated_upstream": false,
+    "queried_entities": [
+      "Donald Trump",
+      "Iran",
+      "Sanctions",
+      "Foreign Policy",
+      "International Trade",
+      "National Security"
+    ],
+    "queried_table_count": 0,
+    "query_budget": {
+      "deep_query_table_limit": 8,
+      "entity_limit": 6,
+      "rows_per_entity": 5
+    },
+    "query_elapsed_ms": 0.018,
+    "richness_components": {
+      "bounded_row_density": 0.0,
+      "entity_coverage": 0.0,
+      "matched_freshness_metadata_coverage": 0.0,
+      "matched_store_diversity": 0.0,
+      "quality_lineage_surface_coverage": 0.0
+    },
+    "schema_version": "contentops.story_scoped_cc_context.v2",
+    "semantic_activation": {},
+    "state": "NO_RELEVANT_CC_CONTEXT",
+    "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+  },
+  "capital_chronicle_publication_authority_discovery": {
+    "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+    "catalog_fingerprint": null,
+    "llm_numeric_authority": false,
+    "ordinary_latest_web_article_may_continue": true,
+    "packet_id": null,
+    "packet_sha256": null,
+    "publication_authority_granted_at_preselection": false,
+    "reason_codes": [
+      "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+    ],
+    "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+  },
+  "capital_chronicle_semantic_activation": {
+    "derivation_provenance": [
+      {
+        "query_term": "Donald Trump",
+        "source_field": "entities_topics",
+        "source_value_sha256": "6690e495cbabad0db84697dcb5e32ed477cc6c4801c1276ad6e671f118a36919"
+      },
+      {
+        "query_term": "Iran",
+        "source_field": "entities_topics",
+        "source_value_sha256": "b5798dfe8101381b8949bb084e861f93056ff214b3a9a69ddf57e84bd2aa76f4"
+      },
+      {
+        "query_term": "Sanctions",
+        "source_field": "entities_topics",
+        "source_value_sha256": "ead8c1cf94e2f57df4f7b91fb944967745b1611036c1b5af8c3138e48882d661"
+      },
+      {
+        "query_term": "Foreign Policy",
+        "source_field": "entities_topics",
+        "source_value_sha256": "9cd7d4bd6deac2ae551d65cedacd564fac4d45c33a4e92250b379a95e8e24c97"
+      },
+      {
+        "query_term": "International Trade",
+        "source_field": "entities_topics",
+        "source_value_sha256": "db03fcb6d5490e7650ba7abe207841fdb0e3f8f6a57746c0d4b78ffbf60d1e41"
+      },
+      {
+        "query_term": "National Security",
+        "source_field": "entities_topics",
+        "source_value_sha256": "a3c251173918d37824eb3bf32cfb0f48bb6ae4e53cceda0dad7bc49e9bb27a1a"
+      }
+    ],
+    "grants_factual_or_numeric_authority": false,
+    "narrative_fields_considered": [
+      "leaf_summaries",
+      "why_now",
+      "selection_case",
+      "needed_evidence",
+      "needed_evidence"
+    ],
+    "query_terms": [
+      "Donald Trump",
+      "Iran",
+      "Sanctions",
+      "Foreign Policy",
+      "International Trade",
+      "National Security"
+    ],
+    "schema_version": "contentops.cc_story_semantic_activation.v1",
+    "semantic_dimensions": [
+      "entities_topics"
+    ],
+    "state": "CONTEXT_ONLY_AVAILABLE",
+    "zero_context_reason": null
+  },
+  "cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+  "cross_asset_implications": null,
+  "dek": "Al Jazeera reported higher crude prices, the worst US equity losses in three weeks and an emergency Treasury move to double long-dated debt buybacks.",
+  "duplicate_hotspot_decision": {
+    "decision": "PASS_FIRST_VIABLE_RANKED_CLUSTER",
+    "publish_allowed": true
+  },
+  "editorial_classification": "BREAKING_NEW_STORY",
+  "entities_topics": [
+    "Donald Trump",
+    "Iran",
+    "Sanctions",
+    "Foreign Policy",
+    "International Trade",
+    "National Security"
+  ],
+  "evidence_reachability": {
+    "capital_chronicle_relevant_context": false,
+    "factual_authority_granted": false,
+    "known_official_path": false,
+    "mode_downgrade_viable": true,
+    "public_source_candidate_count": 1,
+    "reputable_public_secondary_path": false,
+    "score": 0.1,
+    "unregistered_official_suffix_candidate": false
+  },
+  "growth_editorial_mode_resolution": {
+    "canonical_mode_ladder": [
+      "BREAKING_BRIEF",
+      "FOLLOW_UP_UPDATE",
+      "STANDARD_NEWS_ANALYSIS",
+      "CAPITAL_CHRONICLE_VIEW",
+      "WHAT_THE_MARKET_IS_MISSING",
+      "EVERGREEN_EXPLAINER",
+      "DATA_OR_DOCUMENT_LENS",
+      "WEEK_AHEAD_OR_WATCH"
+    ],
+    "changes_evidence_or_permission_standards": false,
+    "grants_factual_or_numeric_authority": false,
+    "mode": "STANDARD_NEWS_ANALYSIS",
+    "quiet_day_utility_candidate": false,
+    "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+  },
+  "headline_ids": [
+    "cc-x-headline-b36ac3f656a602f0e1498c8d"
+  ],
+  "leaf_cluster_ids": [
+    "rolling-x-leaf-cluster-b1ab53fdf64f6b2f2b8b"
+  ],
+  "leaf_summaries": [
+    "President Trump announces 'Economic D-Day,' a major initiative aimed at dismantling Iran's shadow economy and illicit trade networks."
+  ],
+  "learning_policy_confidence": 0.0,
+  "learning_policy_sample_count": 0,
+  "learning_policy_version": null,
+  "learning_preference_matches": [],
+  "learning_preferences_change_evidence_or_publication_gates": false,
+  "learning_preferences_grant_factual_or_numeric_authority": false,
+  "learning_priority_bonus": 0.0,
+  "market_mechanism": "Al Jazeera reports that crude prices rose and US stocks fell after the announcement, while the Treasury moved to double long-dated debt buybacks in an attempt to calm the market.",
+  "market_sensitive": true,
+  "material_event_priority_bonus": 0.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_grants_factual_or_numeric_authority": false,
+  "material_event_priority_ids": [],
+  "material_event_priority_match": false,
+  "material_follow_up_context": {
+    "current_update_chain_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+    "grants_factual_or_numeric_authority": false,
+    "material_delta_reason_codes": [
+      "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+    ],
+    "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+    "new_headline_ids": [
+      "cc-x-headline-b36ac3f656a602f0e1498c8d"
+    ],
+    "new_official_source_candidates": [
+      "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+    ],
+    "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+    "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+    "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+    "previous_content_status": "CONTENT_AVAILABLE",
+    "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+    "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+    "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+    "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+    "schema_version": "contentops.material_follow_up_context.v1"
+  },
+  "needed_evidence": [
+    "Specific policy mechanisms or executive orders detailing the 'Economic D-Day' strategy",
+    "Initial reactions from global energy markets and allied nations"
+  ],
+  "official_source_url_bindings": [
+    {
+      "feed_published_at_utc": "2026-08-21T23:33:25Z",
+      "feed_publisher_handle": "TrumpTruthOnX",
+      "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+      "headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+      "url": "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+    }
+  ],
+  "official_source_urls": [
+    "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+  ],
+  "policy_context": "The report also attributes a rejection of Trump's economic D-Day threats to Iranian Foreign Minister Abbas Araghchi.",
+  "portfolio_concentration_penalty": 0.25,
+  "portfolio_concentration_penalty_effective": 0.25,
+  "preselection_novelty": {
+    "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+    "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+    "cc_context_richness": 0.0,
+    "decision": "BREAKING_NEW_STORY",
+    "entity_overlap": 0.2,
+    "grants_factual_or_numeric_authority": false,
+    "matched_article_age_hours": 0.753,
+    "material_delta_evaluation": {
+      "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+      "marker_hits": [],
+      "new_official_source_candidate_count": 1,
+      "reason_codes": [
+        "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+      ],
+      "signal_count": 1,
+      "x_content_grants_factual_authority": false
+    },
+    "material_delta_signals": 1,
+    "recommended_article_mode": "BREAKING_BRIEF",
+    "schema_version": "contentops.editorial_story_novelty.v1",
+    "update_chain_match": false
+  },
+  "preselection_occurs_before_article_generation": true,
+  "preselection_occurs_before_targeted_evidence": true,
+  "preselection_original_rank": 3,
+  "preselection_score": 104.8,
+  "public_source_url_bindings": [
+    {
+      "feed_published_at_utc": "2026-08-21T23:33:25Z",
+      "feed_publisher_handle": "TrumpTruthOnX",
+      "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+      "headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+      "url": "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+    }
+  ],
+  "public_source_urls": [
+    "https://www.dailywire.com/news/economic-d-day-trump-announces-unprecedented-operation-to-crush-irans-shadow-economy"
+  ],
+  "publication_authority": false,
+  "publishability_original_order": 3,
+  "publishability_path_profile": {
+    "bound_public_url_count": 1,
+    "bounded_request_upper_bound_per_candidate": 1,
+    "context_routed_locator_applicable": false,
+    "context_routed_locator_families": [],
+    "context_routed_locator_surface_ids": [],
+    "grants_factual_or_evidence_or_publication_authority": false,
+    "priority": 1,
+    "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+  },
+  "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+  "rank": 4,
+  "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+  "selection_case": "Aggressive moves against Iran's shadow economy have direct implications for global oil supply and geopolitical stability. The story requires analysis of the specific mechanisms the administration plans to use.",
+  "selection_method": "rolling_x_ranked_targeted_evidence_first_viable",
+  "seo_intent": "Trump Economic D-Day Iran sanctions shadow economy oil markets",
+  "seo_learning_preferences": [],
+  "seo_title": "Oil Prices and US Stocks After the Treasury Buyback Move",
+  "slug": "oil-prices-us-stocks-treasury-debt-buybacks",
+  "story_mode": "rapid_analysis",
+  "thesis": "Al Jazeera reported higher crude prices, the worst US equity losses in three weeks and an emergency Treasury move to double long-dated debt buybacks.",
+  "title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+  "topic_hash": "feac484f09790f5eacd2320f",
+  "update_chain": {
+    "canonical_headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+    "ordered_headline_ids": [
+      "cc-x-headline-b36ac3f656a602f0e1498c8d"
+    ],
+    "relationship": "distinct"
+  },
+  "update_chain_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+  "visual_strategy": "Map graphic showing Iranian illicit trade routes or a split image of the White House and Iranian oil infrastructure.",
+  "why_now": "The announcement of 'Economic D-Day' targeting Iran signals a severe escalation in sanctions and economic warfare, likely impacting global energy markets.",
+  "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false,
+  "x_content_is_discovery_and_ranking_only": true
+}

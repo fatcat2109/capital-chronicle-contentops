@@ -1,0 +1,2676 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 7,
+  "evaluated_at_utc": "2026-08-23T01:18:44.810438Z",
+  "held_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "China",
+          "Energy Markets",
+          "Crude Oil",
+          "Commodities",
+          "Global Trade",
+          "Inflation"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.098,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "China",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9c7f5d3858f8b5efbd6b354eac828c76aa36abb372c21c098596a69fdc8d260f"
+          },
+          {
+            "query_term": "Energy Markets",
+            "source_field": "entities_topics",
+            "source_value_sha256": "32bb7b06765b405b4264d7543c3c7e7144ebc7c147932d1c1bee85992bb5d5c1"
+          },
+          {
+            "query_term": "Crude Oil",
+            "source_field": "entities_topics",
+            "source_value_sha256": "302bac244b3f747740134ce11bab2d330d9ae5e18c7b244c8bfec8b437e3a08d"
+          },
+          {
+            "query_term": "Commodities",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9b283ec7748a27bc557aab4550d4d6f2d4e1153b2ee3bf028fdc9e4c5d0a12a6"
+          },
+          {
+            "query_term": "Global Trade",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4fbdf605d02b256abd6794406a3b1494e67f333d9580ae72dc9de431c0d15251"
+          },
+          {
+            "query_term": "Inflation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e4701a949a3fed7ab34b10d3f86e9f6ae12cd57eefeef63bf973874ea7795eab"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "China",
+          "Energy Markets",
+          "Crude Oil",
+          "Commodities",
+          "Global Trade",
+          "Inflation"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-6a64cf013292262f71e8",
+      "editorial_classification": "HOLD",
+      "entities_topics": [
+        "China",
+        "Energy Markets",
+        "Crude Oil",
+        "Commodities",
+        "Global Trade",
+        "Inflation"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 1,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": true,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": true,
+        "score": 0.495,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-0aa8152596f3440c622a"
+      ],
+      "leaf_summaries": [
+        "China limits its crude oil purchasing as global oil prices remain elevated above ninety dollars per barrel."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-6a64cf013292262f71e8",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "new_official_source_candidates": [
+          "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        ],
+        "previous_article_identity": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_body_sha256": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/us-energy-information-administration",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The [U.S. Energy Information Administration](https://www.eia.gov/outlooks/steo/) has published the Short-Term Energy Outlook.\n\n[[VISUAL:official_source_document_card]]\n\n[[VISUAL:decision_fact_card]]\n\n[[VISUAL:document_excerpt_card]]",
+        "previous_published_at_utc": "2026-08-12T15:30:22.127903+00:00",
+        "previous_story_identity": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "previous_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Chinese customs data on recent crude imports",
+        "Statements or purchasing data from Chinese state refiners (Sinopec, PetroChina)",
+        "Current Brent and WTI pricing data"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T07:37:16Z",
+          "feed_publisher_handle": "ChinaBeigeBook",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+          "url": "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "best_prior_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "cc_context_richness": 0.0,
+        "decision": "HOLD",
+        "entity_overlap": 0.2857,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 249.806,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "HOLD",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": -886.14,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T07:37:16Z",
+          "feed_publisher_handle": "ChinaBeigeBook",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+          "url": "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+      ],
+      "publishability_original_order": 4,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 4,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 2,
+        "tier": "REPUTABLE_PUBLIC_SECONDARY"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "China's demand destruction at the $90 threshold is a critical price-setting mechanism for global energy markets. This provides a clear ceiling narrative for the current oil rally.",
+      "seo_intent": "China limits crude oil purchases 90 barrel price ceiling",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-6a64cf013292262f71e8",
+      "visual_strategy": "Line chart of Brent and WTI crude prices overlaid with Chinese crude import volumes to show the inverse relationship at the $90 mark.",
+      "why_now": "Global oil prices have sustained above $90 per barrel, prompting China to actively limit its crude purchasing to manage import costs.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "held_shortlist_count": 1,
+  "input_shortlist_count": 8,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-6a64cf013292262f71e8",
+    "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+    "rolling-x-global-cluster-590f7fc35e0d8e478936",
+    "rolling-x-global-cluster-ec66ffa3bc94e727fc18",
+    "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2",
+    "rolling-x-semantic-reserve-eb073f48d2dfab020a66",
+    "rolling-x-semantic-reserve-f539eca0ae6329386c01",
+    "rolling-x-semantic-reserve-a0e413cb1a408049d487"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {
+      "DATA_OR_DOCUMENT_LENS": 1
+    },
+    "as_of_utc": "2026-08-23T01:18:44.810438Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [
+      {
+        "count": 1,
+        "entity": "defense industry"
+      },
+      {
+        "count": 1,
+        "entity": "foreign policy"
+      },
+      {
+        "count": 1,
+        "entity": "italy"
+      },
+      {
+        "count": 1,
+        "entity": "military sales"
+      },
+      {
+        "count": 1,
+        "entity": "national security"
+      },
+      {
+        "count": 1,
+        "entity": "norway"
+      },
+      {
+        "count": 1,
+        "entity": "south korea"
+      },
+      {
+        "count": 1,
+        "entity": "u s"
+      }
+    ],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 1,
+    "recent_publication_timestamps_utc": [
+      "2026-08-22T21:29:16.076304+00:00"
+    ],
+    "remaining_target_min": 4,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "245afa1397e87da00aaf3dc2908d2540eca5839afa3d75c820869936aa8e46b3",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 3,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "US Treasury",
+          "US Dollar",
+          "Gold",
+          "Emerging Markets",
+          "Japan",
+          "Macroeconomics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.033,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "US Treasury",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d5ed7f14a68ebb368f9de73ecb16fc37561d7a6717a7e882df576b8e6cf1bc2c"
+          },
+          {
+            "query_term": "US Dollar",
+            "source_field": "entities_topics",
+            "source_value_sha256": "40f06112b90c713dd3a42afac27beab2a1a326fb040c84317e39db907f4d981b"
+          },
+          {
+            "query_term": "Gold",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a4daf0798b131177c197cfbd9cbd193d66215cb7f9d6071505c0befc8611ff66"
+          },
+          {
+            "query_term": "Emerging Markets",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a094bd9ff7ead064030967d3277005fcf92cc5dc56250c91ec98618b6f4e4576"
+          },
+          {
+            "query_term": "Japan",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3a198a4272d97d95a4cedc59541dc17198af91367b3054252c92ee8bd41c8c85"
+          },
+          {
+            "query_term": "Macroeconomics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "35055939c96c73de5f4231b7958df4f5d633d88befdf3e0ea5d9cb88a15e494b"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "US Treasury",
+          "US Dollar",
+          "Gold",
+          "Emerging Markets",
+          "Japan",
+          "Macroeconomics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "US Treasury",
+        "US Dollar",
+        "Gold",
+        "Emerging Markets",
+        "Japan",
+        "Macroeconomics",
+        "Monetary Policy",
+        "Sovereign Debt",
+        "Currency Markets",
+        "Precious Metals",
+        "Bond Yields"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 5,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-b37370dc85dbc1522e84062a",
+        "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+        "cc-x-headline-2068c5bff9683fc98f5447f4",
+        "cc-x-headline-2229a9596e2b09cb715967e9",
+        "cc-x-headline-0de6446837f0f5b5e0845a88"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-9dd18faf15d28638848a"
+      ],
+      "leaf_summaries": [
+        "Analysts highlight a major US Dollar debasement cycle and rising gold demand following the US Treasury's buyback announcement, warning of market reactions to artificial yield caps."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_INFORMATION_LANGUAGE_PRESENT",
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_INFORMATION_LANGUAGE_PRESENT; NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-b37370dc85dbc1522e84062a",
+          "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+          "cc-x-headline-2068c5bff9683fc98f5447f4",
+          "cc-x-headline-2229a9596e2b09cb715967e9",
+          "cc-x-headline-0de6446837f0f5b5e0845a88"
+        ],
+        "new_official_source_candidates": [
+          "https://cnb.cx/4gHcgD4",
+          "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us",
+          "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off",
+          "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun",
+          "https://open.substack.com/live-stream/330951"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Official US Treasury buyback announcement details and schedule",
+        "Current gold and DXY market data",
+        "Analyst notes on yield cap implications and debasement cycles"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T06:37:35Z",
+          "feed_publisher_handle": "dlacalle_IA",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b37370dc85dbc1522e84062a",
+          "url": "https://cnb.cx/4gHcgD4"
+        },
+        {
+          "feed_published_at_utc": "2026-08-22T11:35:01Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+          "url": "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us"
+        },
+        {
+          "feed_published_at_utc": "2026-08-22T11:42:51Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-2068c5bff9683fc98f5447f4",
+          "url": "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off"
+        },
+        {
+          "feed_published_at_utc": "2026-08-22T11:49:52Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-2229a9596e2b09cb715967e9",
+          "url": "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun"
+        },
+        {
+          "feed_published_at_utc": "2026-08-22T11:55:05Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0de6446837f0f5b5e0845a88",
+          "url": "https://open.substack.com/live-stream/330951"
+        }
+      ],
+      "official_source_urls": [
+        "https://cnb.cx/4gHcgD4",
+        "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us",
+        "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off",
+        "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun",
+        "https://open.substack.com/live-stream/330951"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0345,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 3.825,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_INFORMATION_LANGUAGE_PRESENT; NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [
+            "follow"
+          ],
+          "new_official_source_candidate_count": 5,
+          "reason_codes": [
+            "NEW_INFORMATION_LANGUAGE_PRESENT",
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 2,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 2,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 114.8608,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T06:37:35Z",
+          "feed_publisher_handle": "dlacalle_IA",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b37370dc85dbc1522e84062a",
+          "url": "https://cnb.cx/4gHcgD4"
+        },
+        {
+          "feed_published_at_utc": "2026-08-22T11:35:01Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+          "url": "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us"
+        },
+        {
+          "feed_published_at_utc": "2026-08-22T11:42:51Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-2068c5bff9683fc98f5447f4",
+          "url": "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off"
+        },
+        {
+          "feed_published_at_utc": "2026-08-22T11:49:52Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-2229a9596e2b09cb715967e9",
+          "url": "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun"
+        },
+        {
+          "feed_published_at_utc": "2026-08-22T11:55:05Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0de6446837f0f5b5e0845a88",
+          "url": "https://open.substack.com/live-stream/330951"
+        }
+      ],
+      "public_source_urls": [
+        "https://cnb.cx/4gHcgD4",
+        "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us",
+        "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off",
+        "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun",
+        "https://open.substack.com/live-stream/330951"
+      ],
+      "publishability_original_order": 1,
+      "publishability_path_profile": {
+        "bound_public_url_count": 5,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "This is a core Capital Chronicle macro story. The intersection of Treasury buybacks, dollar debasement fears, and gold demand provides a rich vein for market analysis and directly impacts our readers' portfolios.",
+      "seo_intent": "US Treasury buyback impact on dollar and gold demand",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-2068c5bff9683fc98f5447f4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b37370dc85dbc1522e84062a",
+          "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+          "cc-x-headline-2068c5bff9683fc98f5447f4",
+          "cc-x-headline-2229a9596e2b09cb715967e9",
+          "cc-x-headline-0de6446837f0f5b5e0845a88"
+        ],
+        "relationship": "incremental_update"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+      "visual_strategy": "Chart overlaying US Treasury yields, the DXY (Dollar Index), and Gold prices over the past 6 months to illustrate the divergence.",
+      "why_now": "The US Treasury's buyback announcement is triggering immediate reassessments of dollar strength and gold demand, with analysts warning of artificial yield caps.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Turkey",
+          "Benjamin Netanyahu",
+          "Interpol",
+          "Israel",
+          "Geopolitics",
+          "International Law"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.055,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Turkey",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0cca93389edcd23bf3744032dcdcb52069aff904b42a1bcfb4fb88b2f6d018e8"
+          },
+          {
+            "query_term": "Benjamin Netanyahu",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3db477fb53a8fdecf3eb6c610654f916459d6d1bc40a409379ae3ebc5db23462"
+          },
+          {
+            "query_term": "Interpol",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d63e031a2e93e3f1f31a1c5572c26125426d205eb78038a89fd2b02127faa611"
+          },
+          {
+            "query_term": "Israel",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f7c6cb1b918498b8cdbe998baf20c0ad37f7064f08ddb108b2eddadb1a58e00b"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          },
+          {
+            "query_term": "International Law",
+            "source_field": "entities_topics",
+            "source_value_sha256": "283b78f315193832a9af614ebca137fc04e169a837df5f33afb3927d0c68bec8"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Turkey",
+          "Benjamin Netanyahu",
+          "Interpol",
+          "Israel",
+          "Geopolitics",
+          "International Law"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Turkey",
+        "Benjamin Netanyahu",
+        "Interpol",
+        "Israel",
+        "Geopolitics",
+        "International Law",
+        "Diplomacy",
+        "Middle East Conflict"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-0751d8d085a41b31e7448f99"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-eac11c04adba5f656159"
+      ],
+      "leaf_summaries": [
+        "Turkey issues an arrest warrant for Israeli Prime Prime Minister Benjamin Netanyahu and seeks an Interpol Red Notice, escalating geopolitical tensions."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official statement from the Turkish judiciary or foreign ministry",
+        "Interpol confirmation or procedural status of the Red Notice request",
+        "Official Israeli government response"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T11:35:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+          "url": "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 114.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T11:35:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+          "url": "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+      ],
+      "publishability_original_order": 2,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 2,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "High-impact geopolitical breaking news that will affect regional stability, diplomatic relations, and potentially defense and energy markets. Requires immediate, concise reporting.",
+      "seo_intent": "Turkey arrest warrant Benjamin Netanyahu Interpol Red Notice",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+        "ordered_headline_ids": [
+          "cc-x-headline-0751d8d085a41b31e7448f99"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+      "visual_strategy": "Map showing Turkey and Israel with diplomatic status indicators, or a formal photo of the leaders with Interpol graphics.",
+      "why_now": "Turkey has just issued an arrest warrant for Israeli PM Netanyahu and is seeking an Interpol Red Notice, representing a severe and immediate escalation in Middle Eastern geopolitical tensions.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "USPS",
+          "Federal Register",
+          "Supreme Court",
+          "Elections",
+          "Voting Regulations",
+          "Mail-in Ballots"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.025,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "USPS",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d77ef76021cbafa0fccf9c7e011ab9bd96517ce1d818f233c4f5aca0c7492daf"
+          },
+          {
+            "query_term": "Federal Register",
+            "source_field": "entities_topics",
+            "source_value_sha256": "fbb25e33a1e5cc4cff8d9130ebcca9ac6e3491ccb20119cbf779039b069e7402"
+          },
+          {
+            "query_term": "Supreme Court",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d02fd5ea2829e5e24f75454c9331707a33058d6a206f0770d1dcc17dcf84cc01"
+          },
+          {
+            "query_term": "Elections",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f8252088044af0116d31baa759c26dffaa46ef75a21d307d0ef55324a980ae3"
+          },
+          {
+            "query_term": "Voting Regulations",
+            "source_field": "entities_topics",
+            "source_value_sha256": "4501640a9377a27530526d8249d814c5e5ffc288fa7622b9049f8f52787db3e7"
+          },
+          {
+            "query_term": "Mail-in Ballots",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e4237cd2b1cc6355a38f389fcb4f361f363971b610c05540c04fa758cb276118"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "USPS",
+          "Federal Register",
+          "Supreme Court",
+          "Elections",
+          "Voting Regulations",
+          "Mail-in Ballots"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-ec66ffa3bc94e727fc18",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "USPS",
+        "Federal Register",
+        "Supreme Court",
+        "Elections",
+        "Voting Regulations",
+        "Mail-in Ballots",
+        "US Politics",
+        "Judiciary"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": true
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-f057b9c338d9f38976c1c58a"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-317a21b74b4f7cf9cc05"
+      ],
+      "leaf_summaries": [
+        "The US Postal Service finalizes a regulation to deny delivery of mail-in ballots with mismatched addresses, delaying implementation pending court orders."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Federal Register publication of the USPS rule",
+        "Court filings for the injunction or delay",
+        "Data on historical mismatched address ballot rejection rates"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T01:54:52Z",
+          "feed_publisher_handle": "joshgerstein",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-f057b9c338d9f38976c1c58a",
+          "url": "https://public-inspection.federalregister.gov/2026-17238.pdf"
+        }
+      ],
+      "official_source_urls": [
+        "https://public-inspection.federalregister.gov/2026-17238.pdf"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 112.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T01:54:52Z",
+          "feed_publisher_handle": "joshgerstein",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-f057b9c338d9f38976c1c58a",
+          "url": "https://public-inspection.federalregister.gov/2026-17238.pdf"
+        }
+      ],
+      "public_source_urls": [
+        "https://public-inspection.federalregister.gov/2026-17238.pdf"
+      ],
+      "publishability_original_order": 3,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 3,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "Election integrity and infrastructure are massive audience drivers. Analyzing the legal and logistical mechanics of this USPS rule provides high-value context for voters and policy watchers.",
+      "seo_intent": "USPS mail-in ballot mismatched address regulation delayed",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f057b9c338d9f38976c1c58a",
+        "ordered_headline_ids": [
+          "cc-x-headline-f057b9c338d9f38976c1c58a"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-ec66ffa3bc94e727fc18",
+      "visual_strategy": "Infographic explaining the ballot verification process and specifically where the USPS address matching rule applies in the chain of custody.",
+      "why_now": "The USPS has finalized a highly controversial regulation regarding mail-in ballots just ahead of election season, with immediate legal challenges delaying its implementation.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "The Market Ear",
+          "Artificial Intelligence",
+          "Stock Market Volatility",
+          "Momentum Trading",
+          "Quantitative Finance",
+          "AI"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.031,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "The Market Ear",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d832378c23d22051000981cfcd147c9df962ddb4b6aa9000b63cec85f0dfb38c"
+          },
+          {
+            "query_term": "Artificial Intelligence",
+            "source_field": "entities_topics",
+            "source_value_sha256": "dfb50bcfcb2a88084a10faab8ffa50ae15776cf0b5481531134930f95797608e"
+          },
+          {
+            "query_term": "Stock Market Volatility",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e4f596af69cd5d823418852867aab5b02a831db477c0d90b253f35353886ad7c"
+          },
+          {
+            "query_term": "Momentum Trading",
+            "source_field": "entities_topics",
+            "source_value_sha256": "397a78c376902de625318b330b551a3bda00a78c6057d4c49732f7ce26201a8c"
+          },
+          {
+            "query_term": "Quantitative Finance",
+            "source_field": "entities_topics",
+            "source_value_sha256": "072b5093542f694cae2b4aeeee9396b727f482151816b68ec2830eeace31af06"
+          },
+          {
+            "query_term": "AI",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "9ceb1c5eb8b8f85b2c1c58eae06f8e6e9b45cf8e2e48251de6778418d80e35ff"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "The Market Ear",
+          "Artificial Intelligence",
+          "Stock Market Volatility",
+          "Momentum Trading",
+          "Quantitative Finance",
+          "AI"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "The Market Ear",
+        "Artificial Intelligence",
+        "Stock Market Volatility",
+        "Momentum Trading",
+        "Quantitative Finance"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-09f479aafdfc90f19d6430d3"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-29854067c236589df7c0"
+      ],
+      "leaf_summaries": [
+        "Market analysis shows AI-driven volatility has led to more frequent 5% single-day momentum selloffs this year than in the previous five years combined."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "The specific market analysis report cited regarding the 5% selloffs",
+        "Historical daily momentum factor performance data",
+        "Trading volume data attributed to algorithmic and quant funds"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T09:59:21Z",
+          "feed_publisher_handle": "themarketear",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-09f479aafdfc90f19d6430d3",
+          "url": "https://www.zerohedge.com/the-market-ear/why-so-serious-12"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/the-market-ear/why-so-serious-12"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 110.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T09:59:21Z",
+          "feed_publisher_handle": "themarketear",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-09f479aafdfc90f19d6430d3",
+          "url": "https://www.zerohedge.com/the-market-ear/why-so-serious-12"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/the-market-ear/why-so-serious-12"
+      ],
+      "publishability_original_order": 5,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 4,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Provides a structural explanation for recent market volatility, appealing directly to our sophisticated financial audience looking for the 'why' behind sudden market drops.",
+      "seo_intent": "AI driven market volatility momentum selloffs quant trading",
+      "seo_learning_preferences": [],
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-09f479aafdfc90f19d6430d3",
+        "ordered_headline_ids": [
+          "cc-x-headline-09f479aafdfc90f19d6430d3"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2",
+      "visual_strategy": "Bar chart comparing the frequency of 5% single-day momentum selloffs this year versus the cumulative total of the past five years.",
+      "why_now": "New market analysis reveals a historic spike in 5% single-day momentum selloffs this year, driven by AI and quantitative trading strategies.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "ZeroHedge",
+          "Demographics",
+          "Interventionism",
+          "Family Policy",
+          "Socioeconomics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.021,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "ZeroHedge",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0bb3a691f68ebfeb17aaed17d7cbafe108a02fe3399cf2dee355b9567ab52e7d"
+          },
+          {
+            "query_term": "Demographics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "fd97ab293ccc16f300433ad9c53f30663516451fd1c624b2498db8d1b4ebf876"
+          },
+          {
+            "query_term": "Interventionism",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d52b627f08c7bc7b5e450862e34793b58c9403839b62f1a932252c95a58b0769"
+          },
+          {
+            "query_term": "Family Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "f04f8cd485211ca735a957929ebf9f13fc40c39d08c25d6971cc3fe27beb911d"
+          },
+          {
+            "query_term": "Socioeconomics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1edf603d5d521590e1fe51bc5b6606d3553ec57df6578395c9e5c469c4d30bae"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "ZeroHedge",
+          "Demographics",
+          "Interventionism",
+          "Family Policy",
+          "Socioeconomics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-eb073f48d2dfab020a66",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "ZeroHedge",
+        "Demographics",
+        "Interventionism",
+        "Family Policy",
+        "Socioeconomics"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-2f8890156f139dc2cc267509"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-7d1645ae4ed6b171221a"
+      ],
+      "leaf_summaries": [
+        "An opinion piece argues that government interventionism is negatively impacting family structures and reducing the willingness to reproduce."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-semantic-reserve-eb073f48d2dfab020a66",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-2f8890156f139dc2cc267509"
+        ],
+        "new_official_source_candidates": [
+          "https://www.zerohedge.com/political/six-nooses-how-interventionism-strangling-familys-will-reproduce"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T01:45:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-2f8890156f139dc2cc267509",
+          "url": "https://www.zerohedge.com/political/six-nooses-how-interventionism-strangling-familys-will-reproduce"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/political/six-nooses-how-interventionism-strangling-familys-will-reproduce"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0526,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 3.825,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 6,
+      "preselection_score": 106.8608,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T01:45:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-2f8890156f139dc2cc267509",
+          "url": "https://www.zerohedge.com/political/six-nooses-how-interventionism-strangling-familys-will-reproduce"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/political/six-nooses-how-interventionism-strangling-familys-will-reproduce"
+      ],
+      "publishability_original_order": 9,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 5,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-2f8890156f139dc2cc267509"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-eb073f48d2dfab020a66",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "An opinion piece argues that government interventionism is negatively impacting family structures and reducing the willingness to reproduce.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Ceuta",
+          "Spain",
+          "Migration",
+          "Border Security",
+          "European Union",
+          "Geopolitics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.064,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Ceuta",
+            "source_field": "entities_topics",
+            "source_value_sha256": "806e1149d0979aeb1bf423ca33dbe2755a453895285130671afecae259a91cfc"
+          },
+          {
+            "query_term": "Spain",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b8c3e5de9ae1f3bb7a8be5ff9e9e4b45c26b68e58fbeffb7d0d2129f0710fa78"
+          },
+          {
+            "query_term": "Migration",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3bc8b80675f42669325fbaf5daf25e062432ae997fc1e9e662a2f8024ddb7e96"
+          },
+          {
+            "query_term": "Border Security",
+            "source_field": "entities_topics",
+            "source_value_sha256": "21fb5d5dcf5a4726355366e719a667a0a936e0df31dcae9a1cf7db819ad3c77c"
+          },
+          {
+            "query_term": "European Union",
+            "source_field": "entities_topics",
+            "source_value_sha256": "bc94fde1aab26dad9a0b73199800095bbcd43741dd354be171fad5df9510a466"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Ceuta",
+          "Spain",
+          "Migration",
+          "Border Security",
+          "European Union",
+          "Geopolitics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-f539eca0ae6329386c01",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Ceuta",
+        "Spain",
+        "Migration",
+        "Border Security",
+        "European Union",
+        "Geopolitics"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-4138053c4738f8c83a00ccf7"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-7dabf18a2e470458812d"
+      ],
+      "leaf_summaries": [
+        "Reports indicate a Spanish beach was stormed as migration-related chaos spreads from the North African enclave of Ceuta."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-semantic-reserve-f539eca0ae6329386c01",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-4138053c4738f8c83a00ccf7"
+        ],
+        "new_official_source_candidates": [
+          "https://www.zerohedge.com/geopolitical/spanish-beach-stormed-ceuta-chaos-spreads"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T11:00:06Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-4138053c4738f8c83a00ccf7",
+          "url": "https://www.zerohedge.com/geopolitical/spanish-beach-stormed-ceuta-chaos-spreads"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/geopolitical/spanish-beach-stormed-ceuta-chaos-spreads"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0476,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 3.825,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 7,
+      "preselection_score": 104.8608,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T11:00:06Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-4138053c4738f8c83a00ccf7",
+          "url": "https://www.zerohedge.com/geopolitical/spanish-beach-stormed-ceuta-chaos-spreads"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/geopolitical/spanish-beach-stormed-ceuta-chaos-spreads"
+      ],
+      "publishability_original_order": 10,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 6,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-4138053c4738f8c83a00ccf7"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-f539eca0ae6329386c01",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Reports indicate a Spanish beach was stormed as migration-related chaos spreads from the North African enclave of Ceuta.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Assistant U.S. Attorney",
+          "Department of Justice",
+          "Law Enforcement",
+          "Federal Government",
+          "Death Investigation",
+          "An Assistant"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.037,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Assistant U.S. Attorney",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6656e7f7d990453ecf941cb973504af25fdf55c7b27566311104b8a078033811"
+          },
+          {
+            "query_term": "Department of Justice",
+            "source_field": "entities_topics",
+            "source_value_sha256": "ccdf09ebf5e4346d925b79ff115a9b975a7b6746161fcd3cd3565bc0cf746615"
+          },
+          {
+            "query_term": "Law Enforcement",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d2e728e98aff40416cc72fc6f90b9f5cc27f36b339e3a6a7d3f99a3a8cbd16d9"
+          },
+          {
+            "query_term": "Federal Government",
+            "source_field": "entities_topics",
+            "source_value_sha256": "99e4cb1c28e6a81e0f35133df36e42f43dfc820c193a190c0b5251f5192c164a"
+          },
+          {
+            "query_term": "Death Investigation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e0b6f78e04834677f534b0b072b418cc4f6805f17d32ba8e7598171ffdbd4010"
+          },
+          {
+            "query_term": "An Assistant",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "7a74283b893d9cbfac3d93bfc95671dc66ca5791479098c10077adebbe2cc8cd"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Assistant U.S. Attorney",
+          "Department of Justice",
+          "Law Enforcement",
+          "Federal Government",
+          "Death Investigation",
+          "An Assistant"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-a0e413cb1a408049d487",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Assistant U.S. Attorney",
+        "Department of Justice",
+        "Law Enforcement",
+        "Federal Government",
+        "Death Investigation"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-a0040922ce0538f129be99d7"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-8d01674cf0315a363c96"
+      ],
+      "leaf_summaries": [
+        "An Assistant U.S. Attorney has been found dead inside a federal building, prompting investigations."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-semantic-reserve-a0e413cb1a408049d487",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-a0040922ce0538f129be99d7"
+        ],
+        "new_official_source_candidates": [
+          "https://www.zerohedge.com/political/assistant-us-attorney-found-dead-inside-federal-building"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T01:20:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-a0040922ce0538f129be99d7",
+          "url": "https://www.zerohedge.com/political/assistant-us-attorney-found-dead-inside-federal-building"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/political/assistant-us-attorney-found-dead-inside-federal-building"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0435,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 3.825,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 8,
+      "preselection_score": 104.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T01:20:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-a0040922ce0538f129be99d7",
+          "url": "https://www.zerohedge.com/political/assistant-us-attorney-found-dead-inside-federal-building"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/political/assistant-us-attorney-found-dead-inside-federal-building"
+      ],
+      "publishability_original_order": 11,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 7,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a0040922ce0538f129be99d7"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-a0e413cb1a408049d487",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "An Assistant U.S. Attorney has been found dead inside a federal building, prompting investigations.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": true,
+  "reranked_order": [
+    "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+    "rolling-x-global-cluster-590f7fc35e0d8e478936",
+    "rolling-x-global-cluster-ec66ffa3bc94e727fc18",
+    "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2",
+    "rolling-x-semantic-reserve-eb073f48d2dfab020a66",
+    "rolling-x-semantic-reserve-f539eca0ae6329386c01",
+    "rolling-x-semantic-reserve-a0e413cb1a408049d487"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1",
+  "sourceability_observations_consumed": false,
+  "sourceability_signals_grant_authority": false
+}

@@ -1,0 +1,1518 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 11,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "ab4e5f761be90f7f3e05b92c385506ffef1600c11fead5e95c1588317009b7bb",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-3689b42620a725372880"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "128f187e5da59cf2ea70580748d36a722f3d9da4ecc25c90fc6ad4acef069b25",
+    "cutoff_time_utc": "2026-08-23T01:18:44.810438Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 11,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "central bank",
+            "central_bank",
+            "federal reserve"
+          ],
+          "first_utc": "2026-08-22T13:31:00Z",
+          "latest_utc": "2026-08-22T13:31:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 11.7958,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "Kalshi",
+          "Monetary Policy",
+          "Interest Rates"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-2dba5f6d5af14940fa27",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 70,
+          "evidence": 65,
+          "saturation_risk": 50,
+          "seo": 80
+        },
+        "summary": "Market odds show a 59% chance that the Federal Reserve will hike interest rates this year."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "alex jones",
+            "court ruling",
+            "defamation"
+          ],
+          "first_utc": "2026-08-22T15:40:07Z",
+          "latest_utc": "2026-08-22T15:40:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 9.6438,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Alex Jones",
+          "Sandy Hook",
+          "Law",
+          "Court Ruling"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-3a33f0e9b6076b005c97",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 85,
+          "evidence": 70,
+          "saturation_risk": 55,
+          "seo": 80
+        },
+        "summary": "Court reduces the $50 million judgment against Alex Jones over false Sandy Hook hoax claims."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "fiscal",
+            "fiscal policy",
+            "hedge funds"
+          ],
+          "first_utc": "2026-08-22T15:41:34Z",
+          "latest_utc": "2026-08-22T15:41:34Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 9.6197,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "US Treasury",
+          "Fiscal Policy",
+          "Yen",
+          "Yields"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-428bdffabc0bf1b0f5f2",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 75,
+          "evidence": 55,
+          "saturation_risk": 30,
+          "seo": 60
+        },
+        "summary": "Discussion on the US Treasury's correlated trades involving a stronger Yen and lower 30-year yields."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "debt",
+            "fiscal",
+            "fiscal policy"
+          ],
+          "first_utc": "2026-08-22T14:30:08Z",
+          "latest_utc": "2026-08-22T14:30:08Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 10.8102,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Interest Rates",
+          "Debt",
+          "Fiscal Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-4e8922278e5c329a5a0d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 55,
+          "evidence": 50,
+          "saturation_risk": 35,
+          "seo": 65
+        },
+        "summary": "An analysis of normal interest rates and what the current debt panic gets wrong."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "elections",
+            "islamic leaders",
+            "politics"
+          ],
+          "first_utc": "2026-08-22T12:10:07Z",
+          "latest_utc": "2026-08-22T12:10:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 13.1438,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Islamic Leaders",
+          "Politics",
+          "Religion",
+          "Elections"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-6285832afeef12e5e3d6",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 50,
+          "engagement": 60,
+          "evidence": 40,
+          "saturation_risk": 45,
+          "seo": 55
+        },
+        "summary": "Islamic leaders reportedly view the ballot box as a path to power."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "geopolitics",
+            "canada",
+            "tariffs"
+          ],
+          "first_utc": "2026-08-22T15:05:07Z",
+          "latest_utc": "2026-08-22T15:42:46Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 9.5997,
+          "update_velocity": 1.5936
+        },
+        "entities_topics": [
+          "US",
+          "Canada",
+          "Trade War",
+          "Tariffs"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-71f5a1492bbdef037651",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 85,
+          "engagement": 80,
+          "evidence": 70,
+          "saturation_risk": 60,
+          "seo": 90
+        },
+        "summary": "Reports of an erupting trade war between Canada and the US, with new 50% tariffs set on Canadian goods."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "energy",
+            "geopolitics",
+            "china"
+          ],
+          "first_utc": "2026-08-22T07:37:16Z",
+          "latest_utc": "2026-08-22T07:37:16Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 17.6913,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China",
+          "Oil",
+          "Energy",
+          "Geopolitics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-7d037b0bb29cde2e7178",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 75,
+          "evidence": 75,
+          "saturation_risk": 45,
+          "seo": 85
+        },
+        "summary": "China maintains a checked approach to oil buying as crude prices remain above $90."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bitcoin",
+            "cryptocurrency",
+            "debasement"
+          ],
+          "first_utc": "2026-08-22T14:01:00Z",
+          "latest_utc": "2026-08-22T14:01:00Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 11.2958,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Bitcoin",
+          "Seeking Alpha",
+          "Cryptocurrency",
+          "Finance"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-8239b4a5e60b86d892e0",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 80,
+          "evidence": 60,
+          "saturation_risk": 40,
+          "seo": 75
+        },
+        "summary": "Analysis of Bitcoin's historical drawdowns and its return as a debasement trade."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "aoc",
+            "commentary",
+            "politics"
+          ],
+          "first_utc": "2026-08-22T13:20:06Z",
+          "latest_utc": "2026-08-22T13:20:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 11.9774,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "AOC",
+          "Politics",
+          "Presidency",
+          "Commentary"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-da9b77012bfa6152276c",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 75,
+          "evidence": 40,
+          "saturation_risk": 50,
+          "seo": 70
+        },
+        "summary": "Speculative commentary or analysis regarding a hypothetical first term for a President AOC."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "diesel",
+            "energy"
+          ],
+          "first_utc": "2026-08-22T13:55:07Z",
+          "latest_utc": "2026-08-22T13:55:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 11.3938,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Russia",
+          "Jefferies",
+          "Refining",
+          "Diesel"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-dbfa5cca753199908b09",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 65,
+          "evidence": 60,
+          "saturation_risk": 40,
+          "seo": 70
+        },
+        "summary": "Analysis of the deepening diesel crack spread madness as Jefferies finds no easy exit from Russia's refining crisis."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "fandom",
+            "football",
+            "spain"
+          ],
+          "first_utc": "2026-08-22T12:45:08Z",
+          "latest_utc": "2026-08-22T12:45:08Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 12.5602,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Spain",
+          "UK",
+          "Sports",
+          "Football"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-e035914b0bbd91ce0b6a",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 40,
+          "engagement": 45,
+          "evidence": 30,
+          "saturation_risk": 20,
+          "seo": 50
+        },
+        "summary": "Data showing Spain and the UK leading in football fandom."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "128f187e5da59cf2ea70580748d36a722f3d9da4ecc25c90fc6ad4acef069b25",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-0f404def2cc89dee5221b443",
+      "cc-x-headline-1c937b50656d65ca360855bd",
+      "cc-x-headline-3a174d9e5af721f7b3e6ed53",
+      "cc-x-headline-54fba2bdbf2cd14fa5972cd8",
+      "cc-x-headline-567cf76077899037f72d4e6f",
+      "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+      "cc-x-headline-62004ce2de90bde32e9b050f",
+      "cc-x-headline-84425c7d62ff8a10ddb61f5e",
+      "cc-x-headline-9f551b45f2c5dd7e3817e0c1",
+      "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "cc-x-headline-d2f9c1a77c290c88fa5fac1c",
+      "cc-x-headline-fa50b074bcf8b5e29f0ece61"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 65,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 50,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-62004ce2de90bde32e9b050f",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-62004ce2de90bde32e9b050f"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Federal Reserve",
+        "Kalshi"
+      ],
+      "event_topic_summary": "Market odds show a 59% chance that the Federal Reserve will hike interest rates this year.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-2dba5f6d5af14940fa27",
+      "member_headline_ids": [
+        "cc-x-headline-62004ce2de90bde32e9b050f"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Monetary Policy",
+        "Interest Rates",
+        "Central Bank"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 55,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-d2f9c1a77c290c88fa5fac1c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-d2f9c1a77c290c88fa5fac1c"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Alex Jones",
+        "Sandy Hook"
+      ],
+      "event_topic_summary": "Court reduces the $50 million judgment against Alex Jones over false Sandy Hook hoax claims.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-3a33f0e9b6076b005c97",
+      "member_headline_ids": [
+        "cc-x-headline-d2f9c1a77c290c88fa5fac1c"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Law",
+        "Court Ruling",
+        "Defamation"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 55,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 30,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-1c937b50656d65ca360855bd",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-1c937b50656d65ca360855bd"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "US Treasury"
+      ],
+      "event_topic_summary": "Discussion on the US Treasury's correlated trades involving a stronger Yen and lower 30-year yields.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-428bdffabc0bf1b0f5f2",
+      "member_headline_ids": [
+        "cc-x-headline-1c937b50656d65ca360855bd"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Fiscal Policy",
+        "Yen",
+        "Yields",
+        "Hedge Funds"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 55,
+        "saturation_risk": 35,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-54fba2bdbf2cd14fa5972cd8",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-54fba2bdbf2cd14fa5972cd8"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [],
+      "event_topic_summary": "An analysis of normal interest rates and what the current debt panic gets wrong.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-4e8922278e5c329a5a0d",
+      "member_headline_ids": [
+        "cc-x-headline-54fba2bdbf2cd14fa5972cd8"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Interest Rates",
+        "Debt",
+        "Fiscal Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 50,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 45,
+        "seo_potential": 55
+      },
+      "canonical_representative_headline_id": "cc-x-headline-3a174d9e5af721f7b3e6ed53",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-3a174d9e5af721f7b3e6ed53"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Islamic Leaders"
+      ],
+      "event_topic_summary": "Islamic leaders reportedly view the ballot box as a path to power.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-6285832afeef12e5e3d6",
+      "member_headline_ids": [
+        "cc-x-headline-3a174d9e5af721f7b3e6ed53"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Politics",
+        "Religion",
+        "Elections"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 60,
+        "seo_potential": 90
+      },
+      "canonical_representative_headline_id": "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+          "cc-x-headline-567cf76077899037f72d4e6f"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "US",
+        "Canada"
+      ],
+      "event_topic_summary": "Reports of an erupting trade war between Canada and the US, with new 50% tariffs set on Canadian goods.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-71f5a1492bbdef037651",
+      "member_headline_ids": [
+        "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+        "cc-x-headline-567cf76077899037f72d4e6f"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Trade War",
+        "Tariffs",
+        "Geopolitics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 45,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China"
+      ],
+      "event_topic_summary": "China maintains a checked approach to oil buying as crude prices remain above $90.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-7d037b0bb29cde2e7178",
+      "member_headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Oil",
+        "Energy",
+        "Geopolitics",
+        "Commodities"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 40,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-84425c7d62ff8a10ddb61f5e",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-84425c7d62ff8a10ddb61f5e"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Bitcoin",
+        "Seeking Alpha"
+      ],
+      "event_topic_summary": "Analysis of Bitcoin's historical drawdowns and its return as a debasement trade.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-8239b4a5e60b86d892e0",
+      "member_headline_ids": [
+        "cc-x-headline-84425c7d62ff8a10ddb61f5e"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Cryptocurrency",
+        "Finance",
+        "Debasement"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 50,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-fa50b074bcf8b5e29f0ece61",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-fa50b074bcf8b5e29f0ece61"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "AOC"
+      ],
+      "event_topic_summary": "Speculative commentary or analysis regarding a hypothetical first term for a President AOC.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-da9b77012bfa6152276c",
+      "member_headline_ids": [
+        "cc-x-headline-fa50b074bcf8b5e29f0ece61"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Politics",
+        "Presidency",
+        "Commentary"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 40,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-0f404def2cc89dee5221b443",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-0f404def2cc89dee5221b443"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Russia",
+        "Jefferies"
+      ],
+      "event_topic_summary": "Analysis of the deepening diesel crack spread madness as Jefferies finds no easy exit from Russia's refining crisis.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-dbfa5cca753199908b09",
+      "member_headline_ids": [
+        "cc-x-headline-0f404def2cc89dee5221b443"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Refining",
+        "Diesel",
+        "Energy",
+        "Geopolitics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 40,
+        "evidence_prospects": 30,
+        "qualified_engagement_potential": 45,
+        "saturation_risk": 20,
+        "seo_potential": 50
+      },
+      "canonical_representative_headline_id": "cc-x-headline-9f551b45f2c5dd7e3817e0c1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-9f551b45f2c5dd7e3817e0c1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Spain",
+        "UK"
+      ],
+      "event_topic_summary": "Data showing Spain and the UK leading in football fandom.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-e035914b0bbd91ce0b6a",
+      "member_headline_ids": [
+        "cc-x-headline-9f551b45f2c5dd7e3817e0c1"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "topics": [
+        "Sports",
+        "Football",
+        "Fandom"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-0f404def2cc89dee5221b443",
+        "cc-x-headline-1c937b50656d65ca360855bd",
+        "cc-x-headline-3a174d9e5af721f7b3e6ed53",
+        "cc-x-headline-54fba2bdbf2cd14fa5972cd8",
+        "cc-x-headline-567cf76077899037f72d4e6f",
+        "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+        "cc-x-headline-62004ce2de90bde32e9b050f",
+        "cc-x-headline-84425c7d62ff8a10ddb61f5e",
+        "cc-x-headline-9f551b45f2c5dd7e3817e0c1",
+        "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "cc-x-headline-d2f9c1a77c290c88fa5fac1c",
+        "cc-x-headline-fa50b074bcf8b5e29f0ece61"
+      ],
+      "partition_id": "rolling-x-leaf-3689b42620a725372880",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 9913,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 409,
+    "held_before_semantic_assignment_count": 397,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "4fe647541b7694251bfff204437b21840cfe52f93ecc547d4aa3d983ac507de0",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-6f5dea917f4aecc18b82",
+      "headline_ids": [
+        "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+        "cc-x-headline-567cf76077899037f72d4e6f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-71f5a1492bbdef037651"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official government announcements, executive orders, or trade filings confirming the 50% tariff",
+        "Itemized list of specific Canadian goods targeted by the measure",
+        "Initial official response or retaliation threats from Canadian trade officials"
+      ],
+      "rank": 1,
+      "selection_case": "A sudden 50% tariff on a major trading partner is a massive macroeconomic shock. We need to immediately verify the scope, targeted goods, and official announcements to provide clarity to markets.",
+      "seo_intent": "US Canada trade war tariffs 50 percent goods",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+        "ordered_headline_ids": [
+          "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+          "cc-x-headline-567cf76077899037f72d4e6f"
+        ],
+        "relationship": "duplicate"
+      },
+      "visual_strategy": "Bar chart showing US-Canada trade volume by sector to highlight the industries most at risk from the newly reported tariffs.",
+      "why_now": "Reports of new 50% tariffs on Canadian goods signal a major, sudden escalation in North American trade tensions with immediate cross-border economic and FX impacts."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-5afd847f373e8a02658f",
+      "headline_ids": [
+        "cc-x-headline-0f404def2cc89dee5221b443"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-dbfa5cca753199908b09"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Direct copy of the Jefferies research note on Russian refining",
+        "Current global diesel crack spread pricing data",
+        "Vessel tracking or export data for Russian refined products to verify the bottleneck"
+      ],
+      "rank": 2,
+      "selection_case": "Energy markets are highly sensitive to refining bottlenecks right now. Unpacking the Jefferies note provides actionable intelligence for commodities traders and energy equity investors.",
+      "seo_intent": "Diesel crack spread Jefferies Russia refining crisis energy markets",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0f404def2cc89dee5221b443",
+        "ordered_headline_ids": [
+          "cc-x-headline-0f404def2cc89dee5221b443"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Line chart tracking the global diesel crack spread over the past 12 months alongside estimated Russian refined product export volumes.",
+      "why_now": "Diesel crack spreads are widening significantly, and new analysis from Jefferies highlights structural issues in Russian refining that could prolong the global supply squeeze."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-f433be6ff1a73454e7a0",
+      "headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-7d037b0bb29cde2e7178"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Recent Chinese customs data on crude imports",
+        "Statements or purchasing tender data from major Chinese state refiners like Sinopec and PetroChina",
+        "Global benchmark crude pricing data"
+      ],
+      "rank": 3,
+      "selection_case": "China is the marginal buyer of global crude. Their reluctance to chase prices above $90 sets a potential soft ceiling on the market, which is critical context for energy investors navigating the current rally.",
+      "seo_intent": "China oil buying crude prices above 90 global demand",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Overlay chart of Brent crude prices versus Chinese monthly crude import volumes to illustrate the price sensitivity.",
+      "why_now": "With crude oil prices sustaining above $90 per barrel, China's strategic purchasing behavior is shifting, directly impacting global demand forecasts."
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "cluster_id": "rolling-x-global-cluster-524d03dd15926d2ae1c3",
+      "headline_ids": [
+        "cc-x-headline-1c937b50656d65ca360855bd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-428bdffabc0bf1b0f5f2"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Tick-level data showing the correlation between JPY strength and 30-year Treasury buying",
+        "Analysis of Japanese institutional investor flows into US debt and current FX hedging costs",
+        "Recent US Treasury long-bond auction results and indirect bidder metrics"
+      ],
+      "rank": 4,
+      "selection_case": "Mainstream coverage often treats FX and US Treasuries in isolation. Connecting the dots on how Japanese monetary dynamics and hedging costs impact the long end of the US curve provides high-value alpha for macro readers.",
+      "seo_intent": "US Treasury yields Yen correlation macro trades 30-year",
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-1c937b50656d65ca360855bd",
+        "ordered_headline_ids": [
+          "cc-x-headline-1c937b50656d65ca360855bd"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Dual-axis chart comparing the USD/JPY exchange rate with the US 30-year Treasury yield over the recent quarter.",
+      "why_now": "Recent market action shows a strong correlation between a strengthening Japanese Yen and falling US 30-year yields, suggesting complex cross-border capital flows are driving the long end of the curve."
+    },
+    {
+      "article_mode": "CAPITAL_CHRONICLE_VIEW",
+      "cluster_id": "rolling-x-global-cluster-ce86d33d06bb287980c6",
+      "headline_ids": [
+        "cc-x-headline-54fba2bdbf2cd14fa5972cd8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-4e8922278e5c329a5a0d"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Historical federal funds rate and 10-year yield data over 50 years",
+        "CBO projections on debt servicing costs as a percentage of GDP",
+        "Academic or institutional research on r-star (the neutral rate of interest)"
+      ],
+      "rank": 5,
+      "selection_case": "Provides a strong editorial counter-narrative to prevailing doom-mongering about US debt, using historical rate contexts and r-star estimates to calm and educate the audience.",
+      "seo_intent": "Normal interest rates US debt crisis analysis historical yields",
+      "story_mode": "scenario_outlook",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-54fba2bdbf2cd14fa5972cd8",
+        "ordered_headline_ids": [
+          "cc-x-headline-54fba2bdbf2cd14fa5972cd8"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Long-term historical chart of US interest rates adjusted for inflation, plotted against federal debt-to-GDP ratios over the last 50 years.",
+      "why_now": "As debt panic narratives dominate financial media, a structural look at what constitutes 'normal' interest rates is necessary to ground the discourse."
+    },
+    {
+      "article_mode": "FOLLOW_UP_UPDATE",
+      "cluster_id": "rolling-x-global-cluster-fd6484b80dd7ec13d542",
+      "headline_ids": [
+        "cc-x-headline-d2f9c1a77c290c88fa5fac1c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-3a33f0e9b6076b005c97"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Official court order or docket filing reducing the judgment",
+        "Statutory text regarding damage caps in the relevant jurisdiction (e.g., Texas law on punitive damages)",
+        "Statements from plaintiffs' or defense counsel regarding the reduction and potential appeals"
+      ],
+      "rank": 6,
+      "selection_case": "This is a significant legal update to a widely followed story. It requires a straightforward, factual update explaining the legal mechanics behind the reduction, such as statutory caps on punitive damages.",
+      "seo_intent": "Alex Jones Sandy Hook judgment reduced court ruling damages",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-d2f9c1a77c290c88fa5fac1c",
+        "ordered_headline_ids": [
+          "cc-x-headline-d2f9c1a77c290c88fa5fac1c"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Graphic breaking down the original jury award into compensatory versus punitive damages, highlighting the portion reduced by statutory caps.",
+      "why_now": "A court has officially reduced the $50 million defamation judgment against Alex Jones, materially changing the financial outcome of the high-profile Sandy Hook case."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "07ae5ceedf0ff369a0652bab04d7aca2031a75415e65991340a6b5fb2a140b5b",
+          "latency_seconds": 53.7417,
+          "logical_invocation_id": "inv_rolling_x_leaf_690e2c71d7072b6fd13e",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "10d4c30d78c70393d9cb534aa8d4b7c6e45d1f4fcec7a20323457e890e1638d4",
+          "prompt_logical_hash": "fc4b94c2690452cfd2b017664f25f9feb89832b4500a500fe087d663548cfbde",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-AU6KauHoNuSV5t0PzrjI2Aw",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_690e2c71d7072b6fd13e",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 11746,
+            "completion_tokens_details": {
+              "reasoning_tokens": 8673
+            },
+            "prompt_tokens": 6284,
+            "total_tokens": 18030
+          },
+          "work_item_id": "rolling-x-leaf-3689b42620a725372880"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_690e2c71d7072b6fd13e",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_690e2c71d7072b6fd13e",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 53.7439,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 11746.0,
+        "prompt_tokens": 6284.0,
+        "total_tokens": 18030.0
+      },
+      "work_item_id": "rolling-x-leaf-3689b42620a725372880"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "a8d725ff3fb900cdd4e894c08c83af5ff5806b5cddb80047b1d83f41da00307f",
+          "latency_seconds": 45.6135,
+          "logical_invocation_id": "inv_rolling_x_global_08f390e15c9e4fed3a18",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "d35688e1fdf48f844f42ac9ba10a74a7675990f9deb18de159fd39c32f040369",
+          "prompt_logical_hash": "f590c4088a607e18183c058d999dead0a02ba84f1796c8a55008c803617e24ba",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-N06KaoGTHKSS7OsP0_CuAQ",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 3,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_08f390e15c9e4fed3a18",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 4,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 3,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 6142,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3960
+            },
+            "prompt_tokens": 6882,
+            "total_tokens": 13024
+          },
+          "work_item_id": "rolling-x-global-128f187e5da59cf2ea70"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_08f390e15c9e4fed3a18",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 3,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_08f390e15c9e4fed3a18",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 45.6149,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 6142.0,
+        "prompt_tokens": 6882.0,
+        "total_tokens": 13024.0
+      },
+      "work_item_id": "rolling-x-global-128f187e5da59cf2ea70"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "a8d725ff3fb900cdd4e894c08c83af5ff5806b5cddb80047b1d83f41da00307f",
+        "latency_seconds": 45.6135,
+        "logical_invocation_id": "inv_rolling_x_global_08f390e15c9e4fed3a18",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "d35688e1fdf48f844f42ac9ba10a74a7675990f9deb18de159fd39c32f040369",
+        "prompt_logical_hash": "f590c4088a607e18183c058d999dead0a02ba84f1796c8a55008c803617e24ba",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-N06KaoGTHKSS7OsP0_CuAQ",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 3,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_08f390e15c9e4fed3a18",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 1,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 4,
+          "per_model_max_attempts": [
+            2,
+            2
+          ],
+          "remaining_attempt_budget": 3,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 6142,
+          "completion_tokens_details": {
+            "reasoning_tokens": 3960
+          },
+          "prompt_tokens": 6882,
+          "total_tokens": 13024
+        },
+        "work_item_id": "rolling-x-global-128f187e5da59cf2ea70"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_08f390e15c9e4fed3a18",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": [
+        2,
+        2
+      ],
+      "remaining_attempt_budget": 3,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_08f390e15c9e4fed3a18",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2,
+        "vx/gemini-3.5-flash(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 45.6149,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 6142.0,
+      "prompt_tokens": 6882.0,
+      "total_tokens": 13024.0
+    },
+    "work_item_id": "rolling-x-global-128f187e5da59cf2ea70"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-6f5dea917f4aecc18b82",
+  "selected_headline_ids": [
+    "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+    "cc-x-headline-567cf76077899037f72d4e6f"
+  ],
+  "selection_rationale": "The rolling universe presents a mix of high-impact macroeconomic shifts, critical commodities data, and notable legal updates. The top priority is a reported major escalation in North American trade via 50% tariffs on Canadian goods, which demands immediate verification and reporting due to its massive market implications. This is followed by deep-dive opportunities into energy markets (diesel crack spreads and Russian refining) and shifting Chinese oil demand dynamics. We also selected two strong macro-analytical pieces on Treasury/Yen correlations and historical debt contexts to serve our core financial audience.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 99.3588,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 17888.0,
+      "prompt_tokens": 13166.0,
+      "total_tokens": 31054.0
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "bounded_pool_limit": 64,
+  "candidate_order": [
+    "rolling-x-global-cluster-6a64cf013292262f71e8",
+    "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+    "rolling-x-global-cluster-590f7fc35e0d8e478936",
+    "rolling-x-global-cluster-ec66ffa3bc94e727fc18",
+    "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2",
+    "rolling-x-semantic-reserve-eb073f48d2dfab020a66",
+    "rolling-x-semantic-reserve-f539eca0ae6329386c01",
+    "rolling-x-semantic-reserve-a0e413cb1a408049d487"
+  ],
+  "combined_candidate_binding_hash": "6a4918ff7d50edfde1bea286b406c39eb8a4abb8df420811567e057bfaf7dcda",
+  "combined_candidate_count": 8,
+  "compact_headline_count": 12,
+  "compact_universe_exhausted_by_pool": true,
+  "exact_official_host_registry_used": true,
+  "existing_ranked_evidence_selector_reused": true,
+  "factual_or_numeric_authority_granted": false,
+  "full_universe_expansion_performed": false,
+  "held_after_bounded_pool_count": 0,
+  "included_compact_headline_count": 12,
+  "llm_or_provider_calls": 0,
+  "pool_logical_hash": "99f12ad18225604f91d35935ebca421ef6770cf3029b56c5ff3e6f5bfbd6b683",
+  "prepared_frontier_only": true,
+  "publication_authority_granted": false,
+  "reserve_candidate_count": 3,
+  "same_cycle_ranked_evidence_walk": true,
+  "schema_version": "contentops.rolling_x_publishability_candidate_pool.v1",
+  "source_ranked_candidate_count": 5,
+  "status": "EXPANDED"
+}

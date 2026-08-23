@@ -1,0 +1,574 @@
+{
+  "accepted_canonical_content_sha256": [
+    "8d21ba0bee9145bf4fae5435343b495fbf12e0db2995e40edf7d2cb0e503d173"
+  ],
+  "accepted_raw_sha256": [
+    "499057e799b646ba66aa8dcc61f6a5aa479353f45119790b11a61b11e5c5097f"
+  ],
+  "authority": {
+    "candidate_urls_are_evidence": false,
+    "factual_or_numeric_authority_granted_by_codex": false,
+    "public_write_authority_granted": false,
+    "publication_authority_granted": false
+  },
+  "browser_cdp": {
+    "chrome_ingestion_profile_used": false,
+    "edge_publication_profile_used": false,
+    "reason": "The governed no-auth HTTP loader retrieved publisher bytes for every bounded case. Later freshness rejection is not a client-rendering problem and a browser would not make stale evidence eligible.",
+    "status": "NOT_REQUIRED"
+  },
+  "case_count": 4,
+  "cases": [
+    {
+      "accepted_documents": [],
+      "case_id": "frozen-frontier-1-rank-2-fbi-2025-crime",
+      "cluster_id": "rolling-x-global-cluster-fb86fa477b6e0d64591f",
+      "codex_candidate_urls": [
+        "https://apnews.com/article/9d9e79bb71174a604c4ab068a6887c82"
+      ],
+      "codex_output_fields": [
+        "candidate_urls"
+      ],
+      "deterministic_loader_provenance": {
+        "acquisition_sequence": [
+          "EXACT_BOUND_PUBLIC_SOURCE_MAX_TWO_STOP_ON_INACCESSIBLE",
+          "RELEVANT_REPUTABLE_NEWS_LOCATOR",
+          "RELEVANCE_FIRST_ACCESSIBLE_SOURCE_NARROWING",
+          "RESOLVE_PUBLISHER_ARTICLE_OR_ATTRIBUTE_WITHOUT_LINK"
+        ],
+        "additional_source_is_eligibility_requirement": false,
+        "bounded_enrichment_requested": false,
+        "candidate_request_boundary_reused": false,
+        "diagnostics": [],
+        "evaluation_as_of_utc": "2026-08-22T22:14:27.784365Z",
+        "llm_directed_grounded_query_count": 0,
+        "locator_candidate_count": 0,
+        "locator_only_record_count": 0,
+        "network_reads_avoided_for_call": 0,
+        "paywall_or_access_control_bypass": false,
+        "publisher_resolution_attempt_count": 0,
+        "publisher_resolution_diagnostics": [],
+        "read_only_public_gets": true,
+        "request_count": 1,
+        "request_count_for_call": 1,
+        "request_count_for_candidate": 1,
+        "request_count_total": 1,
+        "request_limit": 24,
+        "request_limit_per_candidate": 6,
+        "retrieved_at_utc": "2026-08-22T22:14:27Z",
+        "reused_request_signatures": [],
+        "stopped_when_useful_depth_reached": true,
+        "story_evidence_scope_id": "d3ef4df414461fbac0ea7a88b7f3734d0b626c2fca71b42f1e4f8be990853172"
+      },
+      "deterministically_retrieved_documents_before_truth_gates": [
+        {
+          "byte_length": 800000,
+          "canonical_content_sha256": "c73ac6516e73ec4b409974a05131a38fc438abfbeafd754d23ecd600fb93b73c",
+          "content_type": "text/html",
+          "document_id": "public-secondary-07b1a8f64ce3bf2cd683",
+          "public_claim_allowed": true,
+          "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+          "published_at_utc": "2026-08-14T21:09:45Z",
+          "publisher": "Apnews",
+          "raw_sha256": "07b1a8f64ce3bf2cd683c001a082c3cdaad7ef95e545ac0f79d858a6cb871d78",
+          "reader_source_url": "https://apnews.com/article/homicide-decrease-trump-crime-rates-fbi-9d9e79bb71174a604c4ab068a6887c82",
+          "requested_source_url": "https://apnews.com/article/9d9e79bb71174a604c4ab068a6887c82",
+          "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+          "source_authority_class": "reputable_secondary_source",
+          "source_identity": "apnews.com",
+          "source_url": "https://apnews.com/article/homicide-decrease-trump-crime-rates-fbi-9d9e79bb71174a604c4ab068a6887c82",
+          "title": "Homicides dropped 18.1% in 2025 to the lowest rate since 1956, FBI says"
+        }
+      ],
+      "discovery_contract": {
+        "candidate_urls_are_evidence": false,
+        "candidates": [
+          {
+            "host": "apnews.com",
+            "source_class": "REPUTABLE_PUBLIC_SECONDARY",
+            "url": "https://apnews.com/article/9d9e79bb71174a604c4ab068a6887c82"
+          }
+        ],
+        "deterministic_live_retrieval_required": true,
+        "discovery_contract_sha256": "bb620868961e1b1cf15c19b8f591f885e06c15fe5a89575b1bb0f58aff6e5f0c",
+        "factual_or_numeric_authority_granted": false,
+        "headline_ids": [
+          "cc-x-headline-eb2db0fa6b0ed6dc6f83461d"
+        ],
+        "prior_blockers": [
+          "HTTP Error 403: Forbidden",
+          "HTTP Error 404: Not Found",
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_candidate_request_budget_exhausted",
+          "public_source_redirect_authority_invalid",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation",
+          "supported_claims_missing"
+        ],
+        "publication_authority_granted": false,
+        "schema_version": "contentops.codex_source_discovery_urls.v1",
+        "search_call_id": "codex-web-search-20260823-batch-1",
+        "search_snippet_or_model_summary_authority": false,
+        "searched_at_utc": "2026-08-23T00:00:00Z",
+        "story_identity": "rolling-x-global-cluster-fb86fa477b6e0d64591f",
+        "trigger_reason": "BOUNDED_ACCESS_FAILURE"
+      },
+      "factual_or_numeric_authority_granted": false,
+      "headline_ids": [
+        "cc-x-headline-eb2db0fa6b0ed6dc6f83461d"
+      ],
+      "minimum_evidence_status": "BLOCKED",
+      "prior_blockers": [
+        "HTTP Error 403: Forbidden",
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "provided_evidence_capabilities": [
+        "basic_attributed_facts",
+        "credible_event_confirmation"
+      ],
+      "publication_authority_granted": false,
+      "receipt_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "official_evidence_document_0_stale_or_future"
+      ],
+      "receipt_status": "BLOCKED",
+      "requested_article_mode": "BREAKING_BRIEF",
+      "search_call_id": "codex-web-search-20260823-batch-1",
+      "search_snippet_or_model_summary_authority": false
+    },
+    {
+      "accepted_documents": [],
+      "case_id": "frozen-frontier-4-rank-1-fda-nomination",
+      "cluster_id": "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+      "codex_candidate_urls": [
+        "https://apnews.com/article/a54907d62a2482bd462410c0778266b9"
+      ],
+      "codex_output_fields": [
+        "candidate_urls"
+      ],
+      "deterministic_loader_provenance": {
+        "acquisition_sequence": [
+          "EXACT_BOUND_PUBLIC_SOURCE_MAX_TWO_STOP_ON_INACCESSIBLE",
+          "RELEVANT_REPUTABLE_NEWS_LOCATOR",
+          "RELEVANCE_FIRST_ACCESSIBLE_SOURCE_NARROWING",
+          "RESOLVE_PUBLISHER_ARTICLE_OR_ATTRIBUTE_WITHOUT_LINK"
+        ],
+        "additional_source_is_eligibility_requirement": false,
+        "bounded_enrichment_requested": false,
+        "candidate_request_boundary_reused": false,
+        "diagnostics": [],
+        "evaluation_as_of_utc": "2026-08-22T22:14:27.784365Z",
+        "llm_directed_grounded_query_count": 0,
+        "locator_candidate_count": 0,
+        "locator_only_record_count": 0,
+        "network_reads_avoided_for_call": 0,
+        "paywall_or_access_control_bypass": false,
+        "publisher_resolution_attempt_count": 0,
+        "publisher_resolution_diagnostics": [],
+        "read_only_public_gets": true,
+        "request_count": 2,
+        "request_count_for_call": 1,
+        "request_count_for_candidate": 1,
+        "request_count_total": 2,
+        "request_limit": 24,
+        "request_limit_per_candidate": 6,
+        "retrieved_at_utc": "2026-08-22T22:14:27Z",
+        "reused_request_signatures": [],
+        "stopped_when_useful_depth_reached": true,
+        "story_evidence_scope_id": "6a43e6663e0b7c61bac6bec5d59827bd1dbb6536bafe052199047418f3c40b3b"
+      },
+      "deterministically_retrieved_documents_before_truth_gates": [
+        {
+          "byte_length": 800000,
+          "canonical_content_sha256": "deae7d4ce026c721cf48d6cb04ae3eff6d2068bb8ab1a11ef0e6059d189097a9",
+          "content_type": "text/html",
+          "document_id": "public-secondary-e3e7955d34b104ddec6c",
+          "public_claim_allowed": true,
+          "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+          "published_at_utc": "2026-08-19T16:31:08Z",
+          "publisher": "Apnews",
+          "raw_sha256": "e3e7955d34b104ddec6c3d5fd013a04a7c44ed12afe71959a5ce6eabbd541e8d",
+          "reader_source_url": "https://apnews.com/article/fda-donald-trump-heidi-overton-marty-makary-a54907d62a2482bd462410c0778266b9",
+          "requested_source_url": "https://apnews.com/article/a54907d62a2482bd462410c0778266b9",
+          "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+          "source_authority_class": "reputable_secondary_source",
+          "source_identity": "apnews.com",
+          "source_url": "https://apnews.com/article/fda-donald-trump-heidi-overton-marty-makary-a54907d62a2482bd462410c0778266b9",
+          "title": "Trump picks Dr. Heidi Overton, a top White House aide, to lead the Food and Drug Administration"
+        }
+      ],
+      "discovery_contract": {
+        "candidate_urls_are_evidence": false,
+        "candidates": [
+          {
+            "host": "apnews.com",
+            "source_class": "REPUTABLE_PUBLIC_SECONDARY",
+            "url": "https://apnews.com/article/a54907d62a2482bd462410c0778266b9"
+          }
+        ],
+        "deterministic_live_retrieval_required": true,
+        "discovery_contract_sha256": "bbf275454e6ce7b3dd840254681aa2fae659cd88e8b20b4be12a1581772ea5ae",
+        "factual_or_numeric_authority_granted": false,
+        "headline_ids": [
+          "cc-x-headline-cd7b7ab257425669e0d2519a"
+        ],
+        "prior_blockers": [
+          "HTTP Error 404: Not Found",
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_redirect_authority_invalid",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation",
+          "supported_claims_missing"
+        ],
+        "publication_authority_granted": false,
+        "schema_version": "contentops.codex_source_discovery_urls.v1",
+        "search_call_id": "codex-web-search-20260823-batch-2",
+        "search_snippet_or_model_summary_authority": false,
+        "searched_at_utc": "2026-08-23T00:00:00Z",
+        "story_identity": "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+        "trigger_reason": "BOUNDED_ACCESS_FAILURE"
+      },
+      "factual_or_numeric_authority_granted": false,
+      "headline_ids": [
+        "cc-x-headline-cd7b7ab257425669e0d2519a"
+      ],
+      "minimum_evidence_status": "BLOCKED",
+      "prior_blockers": [
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "provided_evidence_capabilities": [
+        "basic_attributed_facts",
+        "credible_event_confirmation"
+      ],
+      "publication_authority_granted": false,
+      "receipt_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "official_evidence_document_0_stale_or_future"
+      ],
+      "receipt_status": "BLOCKED",
+      "requested_article_mode": "BREAKING_BRIEF",
+      "search_call_id": "codex-web-search-20260823-batch-2",
+      "search_snippet_or_model_summary_authority": false
+    },
+    {
+      "accepted_documents": [],
+      "case_id": "frozen-frontier-4-rank-2-drug-prices",
+      "cluster_id": "rolling-x-global-cluster-d6756601f4a8e16a5414",
+      "codex_candidate_urls": [
+        "https://apnews.com/article/75272c1a6eeac615014b3252971460da"
+      ],
+      "codex_output_fields": [
+        "candidate_urls"
+      ],
+      "deterministic_loader_provenance": {
+        "acquisition_sequence": [
+          "EXACT_BOUND_PUBLIC_SOURCE_MAX_TWO_STOP_ON_INACCESSIBLE",
+          "RELEVANT_REPUTABLE_NEWS_LOCATOR",
+          "RELEVANCE_FIRST_ACCESSIBLE_SOURCE_NARROWING",
+          "RESOLVE_PUBLISHER_ARTICLE_OR_ATTRIBUTE_WITHOUT_LINK"
+        ],
+        "additional_source_is_eligibility_requirement": false,
+        "bounded_enrichment_requested": false,
+        "candidate_request_boundary_reused": false,
+        "diagnostics": [],
+        "evaluation_as_of_utc": "2026-08-22T22:14:27.784365Z",
+        "llm_directed_grounded_query_count": 0,
+        "locator_candidate_count": 0,
+        "locator_only_record_count": 0,
+        "network_reads_avoided_for_call": 0,
+        "paywall_or_access_control_bypass": false,
+        "publisher_resolution_attempt_count": 0,
+        "publisher_resolution_diagnostics": [],
+        "read_only_public_gets": true,
+        "request_count": 3,
+        "request_count_for_call": 1,
+        "request_count_for_candidate": 1,
+        "request_count_total": 3,
+        "request_limit": 24,
+        "request_limit_per_candidate": 6,
+        "retrieved_at_utc": "2026-08-22T22:14:27Z",
+        "reused_request_signatures": [],
+        "stopped_when_useful_depth_reached": true,
+        "story_evidence_scope_id": "3b19f5223943d27c109c5932a9839f59007c3cd47c42cea3f7c9acf79ca6814d"
+      },
+      "deterministically_retrieved_documents_before_truth_gates": [
+        {
+          "byte_length": 800000,
+          "canonical_content_sha256": "e12a3148e083635189cc5a093bfca6acdf91c967e19ae715d25283fec3dff23a",
+          "content_type": "text/html",
+          "document_id": "public-secondary-58ef329f941c5786a83a",
+          "public_claim_allowed": true,
+          "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+          "published_at_utc": "2026-08-18T10:50:41Z",
+          "publisher": "Apnews",
+          "raw_sha256": "58ef329f941c5786a83a0a184a97ce5b56203eed26969881cfb722fddaafdf93",
+          "reader_source_url": "https://apnews.com/article/prescription-drug-prices-trump-mfn-cpi-75272c1a6eeac615014b3252971460da",
+          "requested_source_url": "https://apnews.com/article/75272c1a6eeac615014b3252971460da",
+          "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+          "source_authority_class": "reputable_secondary_source",
+          "source_identity": "apnews.com",
+          "source_url": "https://apnews.com/article/prescription-drug-prices-trump-mfn-cpi-75272c1a6eeac615014b3252971460da",
+          "title": "Drug prices have declined sharply, and Trump is taking credit. The reason behind the drop is complex"
+        }
+      ],
+      "discovery_contract": {
+        "candidate_urls_are_evidence": false,
+        "candidates": [
+          {
+            "host": "apnews.com",
+            "source_class": "REPUTABLE_PUBLIC_SECONDARY",
+            "url": "https://apnews.com/article/75272c1a6eeac615014b3252971460da"
+          }
+        ],
+        "deterministic_live_retrieval_required": true,
+        "discovery_contract_sha256": "1b474aa2071515d45460607ed4f3bc56c9d23bed0f0450655ea7b4d21fa0073e",
+        "factual_or_numeric_authority_granted": false,
+        "headline_ids": [
+          "cc-x-headline-41e07ba3a68d9816573cd2de"
+        ],
+        "prior_blockers": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation",
+          "supported_claims_missing"
+        ],
+        "publication_authority_granted": false,
+        "schema_version": "contentops.codex_source_discovery_urls.v1",
+        "search_call_id": "codex-web-search-20260823-batch-2",
+        "search_snippet_or_model_summary_authority": false,
+        "searched_at_utc": "2026-08-23T00:00:00Z",
+        "story_identity": "rolling-x-global-cluster-d6756601f4a8e16a5414",
+        "trigger_reason": "BOUNDED_ACCESS_FAILURE"
+      },
+      "factual_or_numeric_authority_granted": false,
+      "headline_ids": [
+        "cc-x-headline-41e07ba3a68d9816573cd2de"
+      ],
+      "minimum_evidence_status": "BLOCKED",
+      "prior_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "provided_evidence_capabilities": [
+        "basic_attributed_facts",
+        "credible_event_confirmation"
+      ],
+      "publication_authority_granted": false,
+      "receipt_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "official_evidence_document_0_stale_or_future"
+      ],
+      "receipt_status": "BLOCKED",
+      "requested_article_mode": "BREAKING_BRIEF",
+      "search_call_id": "codex-web-search-20260823-batch-2",
+      "search_snippet_or_model_summary_authority": false
+    },
+    {
+      "accepted_documents": [
+        {
+          "byte_length": 800000,
+          "canonical_content_sha256": "8d21ba0bee9145bf4fae5435343b495fbf12e0db2995e40edf7d2cb0e503d173",
+          "content_type": "text/html",
+          "document_id": "public-secondary-499057e799b646ba66aa",
+          "public_claim_allowed": true,
+          "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+          "published_at_utc": "2026-08-21T18:10:53Z",
+          "publisher": "Apnews",
+          "raw_sha256": "499057e799b646ba66aa8dcc61f6a5aa479353f45119790b11a61b11e5c5097f",
+          "reader_source_url": "https://apnews.com/article/trump-white-house-ballroom-supreme-court-b3eaee672028e584d0c520180c663e2c",
+          "requested_source_url": "https://apnews.com/article/b3eaee672028e584d0c520180c663e2c",
+          "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+          "source_authority_class": "reputable_secondary_source",
+          "source_identity": "apnews.com",
+          "source_url": "https://apnews.com/article/trump-white-house-ballroom-supreme-court-b3eaee672028e584d0c520180c663e2c",
+          "title": "Supreme Court's chief justice allows work on Trump\u2019s $400M White House ballroom to continue for now"
+        }
+      ],
+      "case_id": "frozen-frontier-4-rank-9-white-house-ballroom",
+      "cluster_id": "rolling-x-semantic-reserve-50346aed575b0b5de226",
+      "codex_candidate_urls": [
+        "https://apnews.com/article/b3eaee672028e584d0c520180c663e2c"
+      ],
+      "codex_output_fields": [
+        "candidate_urls"
+      ],
+      "deterministic_loader_provenance": {
+        "acquisition_sequence": [
+          "EXACT_BOUND_PUBLIC_SOURCE_MAX_TWO_STOP_ON_INACCESSIBLE",
+          "RELEVANT_REPUTABLE_NEWS_LOCATOR",
+          "RELEVANCE_FIRST_ACCESSIBLE_SOURCE_NARROWING",
+          "RESOLVE_PUBLISHER_ARTICLE_OR_ATTRIBUTE_WITHOUT_LINK"
+        ],
+        "additional_source_is_eligibility_requirement": false,
+        "bounded_enrichment_requested": false,
+        "candidate_request_boundary_reused": false,
+        "diagnostics": [],
+        "evaluation_as_of_utc": "2026-08-22T22:14:27.784365Z",
+        "llm_directed_grounded_query_count": 0,
+        "locator_candidate_count": 0,
+        "locator_only_record_count": 0,
+        "network_reads_avoided_for_call": 0,
+        "paywall_or_access_control_bypass": false,
+        "publisher_resolution_attempt_count": 0,
+        "publisher_resolution_diagnostics": [],
+        "read_only_public_gets": true,
+        "request_count": 4,
+        "request_count_for_call": 1,
+        "request_count_for_candidate": 1,
+        "request_count_total": 4,
+        "request_limit": 24,
+        "request_limit_per_candidate": 6,
+        "retrieved_at_utc": "2026-08-22T22:14:27Z",
+        "reused_request_signatures": [],
+        "stopped_when_useful_depth_reached": true,
+        "story_evidence_scope_id": "f7110da2820ebeed527c1cd952184f57c49ed8949464a30853119ef4f1e63133"
+      },
+      "deterministically_retrieved_documents_before_truth_gates": [
+        {
+          "byte_length": 800000,
+          "canonical_content_sha256": "8d21ba0bee9145bf4fae5435343b495fbf12e0db2995e40edf7d2cb0e503d173",
+          "content_type": "text/html",
+          "document_id": "public-secondary-499057e799b646ba66aa",
+          "public_claim_allowed": true,
+          "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+          "published_at_utc": "2026-08-21T18:10:53Z",
+          "publisher": "Apnews",
+          "raw_sha256": "499057e799b646ba66aa8dcc61f6a5aa479353f45119790b11a61b11e5c5097f",
+          "reader_source_url": "https://apnews.com/article/trump-white-house-ballroom-supreme-court-b3eaee672028e584d0c520180c663e2c",
+          "requested_source_url": "https://apnews.com/article/b3eaee672028e584d0c520180c663e2c",
+          "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+          "source_authority_class": "reputable_secondary_source",
+          "source_identity": "apnews.com",
+          "source_url": "https://apnews.com/article/trump-white-house-ballroom-supreme-court-b3eaee672028e584d0c520180c663e2c",
+          "title": "Supreme Court's chief justice allows work on Trump\u2019s $400M White House ballroom to continue for now"
+        }
+      ],
+      "discovery_contract": {
+        "candidate_urls_are_evidence": false,
+        "candidates": [
+          {
+            "host": "apnews.com",
+            "source_class": "REPUTABLE_PUBLIC_SECONDARY",
+            "url": "https://apnews.com/article/b3eaee672028e584d0c520180c663e2c"
+          }
+        ],
+        "deterministic_live_retrieval_required": true,
+        "discovery_contract_sha256": "f9c83ed0934f9c39105fd6a1ae5ae548784f76e34be1265c4b9daed7ce88dc01",
+        "factual_or_numeric_authority_granted": false,
+        "headline_ids": [
+          "cc-x-headline-16b688069aeb72ed68a07f3f"
+        ],
+        "prior_blockers": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_nonpublic_address_forbidden",
+          "public_source_published_after_evaluation_cutoff",
+          "public_source_redirect_authority_invalid",
+          "public_source_request_budget_exhausted",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation",
+          "supported_claims_missing"
+        ],
+        "publication_authority_granted": false,
+        "schema_version": "contentops.codex_source_discovery_urls.v1",
+        "search_call_id": "codex-web-search-20260823-batch-5",
+        "search_snippet_or_model_summary_authority": false,
+        "searched_at_utc": "2026-08-23T00:00:00Z",
+        "story_identity": "rolling-x-semantic-reserve-50346aed575b0b5de226",
+        "trigger_reason": "BOUNDED_ACCESS_FAILURE"
+      },
+      "factual_or_numeric_authority_granted": false,
+      "headline_ids": [
+        "cc-x-headline-16b688069aeb72ed68a07f3f"
+      ],
+      "minimum_evidence_status": "PASS",
+      "prior_blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_nonpublic_address_forbidden",
+        "public_source_published_after_evaluation_cutoff",
+        "public_source_redirect_authority_invalid",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "provided_evidence_capabilities": [
+        "basic_attributed_facts",
+        "credible_event_confirmation"
+      ],
+      "publication_authority_granted": false,
+      "receipt_blockers": [],
+      "receipt_status": "PASS",
+      "requested_article_mode": "BREAKING_BRIEF",
+      "search_call_id": "codex-web-search-20260823-batch-5",
+      "search_snippet_or_model_summary_authority": false
+    }
+  ],
+  "deterministically_accepted_document_count": 1,
+  "deterministically_retrieved_document_count": 4,
+  "economics": {
+    "codex_search_output_token_or_cost_receipt_available": false,
+    "codex_web_search_calls": 5,
+    "codex_web_search_query_count": 20,
+    "grounded_research_model_calls": 0,
+    "public_writes": 0,
+    "search_call_ids": [
+      "codex-web-search-20260823-batch-1",
+      "codex-web-search-20260823-batch-2",
+      "codex-web-search-20260823-batch-3",
+      "codex-web-search-20260823-batch-4",
+      "codex-web-search-20260823-batch-5"
+    ],
+    "unknown_write": 0
+  },
+  "receipt_sha256": "beccd617fbed9985fa1820738b236088bada19c0379eac2ac18866570c521300",
+  "recovered_case_count": 1,
+  "retrieved_canonical_content_sha256": [
+    "8d21ba0bee9145bf4fae5435343b495fbf12e0db2995e40edf7d2cb0e503d173",
+    "c73ac6516e73ec4b409974a05131a38fc438abfbeafd754d23ecd600fb93b73c",
+    "deae7d4ce026c721cf48d6cb04ae3eff6d2068bb8ab1a11ef0e6059d189097a9",
+    "e12a3148e083635189cc5a093bfca6acdf91c967e19ae715d25283fec3dff23a"
+  ],
+  "retrieved_case_count": 4,
+  "retrieved_raw_sha256": [
+    "07b1a8f64ce3bf2cd683c001a082c3cdaad7ef95e545ac0f79d858a6cb871d78",
+    "499057e799b646ba66aa8dcc61f6a5aa479353f45119790b11a61b11e5c5097f",
+    "58ef329f941c5786a83a0a184a97ce5b56203eed26969881cfb722fddaafdf93",
+    "e3e7955d34b104ddec6c3d5fd013a04a7c44ed12afe71959a5ce6eabbd541e8d"
+  ],
+  "schema_version": "contentops.v1_codex_url_discovery_recovery.v1",
+  "search_contract": {
+    "actual_page_retrieval_required": true,
+    "codex_output_is_candidate_urls_only": true,
+    "final_url_publisher_timestamp_content_and_hash_required": true,
+    "governed_host_policy_required": true,
+    "model_summaries_persisted": false,
+    "search_snippets_persisted": false
+  },
+  "task": "TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1"
+}

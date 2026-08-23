@@ -29,6 +29,7 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     CANONICAL_PRODUCTION_OUTPUT_ROOT,
     CANONICAL_PRODUCTION_STORE_PATH,
     load_terminal_editorial_continuity,
+    validate_editorial_worker_return,
 )
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
@@ -48,6 +49,7 @@ from live_contentops.newsroom_production_day_v1 import (
 )
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     GroundedArticleBuilderError,
+    resolve_editorial_worker_article_for_public_lock,
 )
 from live_contentops.mvp_canary_acceptance_v1 import (
     MVP_CANARY_ACCEPTANCE_PROFILE,
@@ -968,7 +970,11 @@ def probe_locator_recovery(
     return probe(root, sidecar_glob)
 
 
-def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
+def complete(
+    root: Path,
+    worker_return_path: Path,
+    semantic_review_receipt_path: Path | None = None,
+) -> dict[str, Any]:
     state = _load(_state_path(root))
     pending = dict(state.get("pending_frontier") or {})
     if not pending:
@@ -999,6 +1005,28 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
         probe_viability.pop("viability_logical_hash", None)
         probe_viability["viability_logical_hash"] = _sha(probe_viability)
     builder_invoked = False
+    editorial_reviewer = None
+    if semantic_review_receipt_path is not None:
+        semantic_replay = _load(semantic_review_receipt_path)
+        semantic_receipt = dict(
+            (semantic_replay.get("after") or {}).get("semantic_review_receipt")
+            or {}
+        )
+        expected_prompt_sha256 = str(semantic_receipt.get("prompt_sha256") or "")
+        if not expected_prompt_sha256 or semantic_receipt.get("decision") != "PASS":
+            raise ValueError("semantic_review_replay_receipt_not_pass")
+
+        def replay_editorial_reviewer(article: Mapping[str, Any]) -> dict[str, Any]:
+            from live_contentops.tier1_editorial_quality_v1 import (
+                build_llm_editorial_review_prompt,
+            )
+
+            prompt = build_llm_editorial_review_prompt(article)
+            if hashlib.sha256(prompt.encode("utf-8")).hexdigest() != expected_prompt_sha256:
+                raise ValueError("semantic_review_replay_prompt_hash_mismatch")
+            return dict(semantic_receipt)
+
+        editorial_reviewer = replay_editorial_reviewer
 
     def builder(value: Mapping[str, Any]) -> dict[str, Any]:
         nonlocal builder_invoked
@@ -1006,15 +1034,23 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
         request = dict(value.get("editorial_worker_request") or {})
         if str(request.get("governed_input_hash") or "") != expected_hash:
             raise GroundedArticleBuilderError("NEXT_NATIVE_XHIGH_WORKER_REQUIRED")
+        worker_validation = validate_editorial_worker_return(
+            worker_return=receipt,
+            expected_governed_input_hash=expected_hash,
+        )
+        resolved_article = resolve_editorial_worker_article_for_public_lock(
+            dict(receipt.get("article") or {}), viability=probe_viability
+        )
         return {
             "schema_version": "contentops.rolling_x_grounded_article_media_builder.v1",
-            "article": dict(receipt.get("article") or {}),
+            "article": resolved_article,
             "media": {"assets": []},
             "critical_path_telemetry": {
                 "article_writer_semantic_calls": 1,
                 "article_writer_owner": "FRESH_NATIVE_CODEX_DESKTOP_XHIGH",
             },
             "editorial_worker_receipt": receipt,
+            "editorial_worker_validation": worker_validation,
         }
 
     number = int(pending["frontier"])
@@ -1040,6 +1076,7 @@ def complete(root: Path, worker_return_path: Path) -> dict[str, Any]:
         global_checkpoint=global_checkpoint,
         story_type_by_cluster=story_type_by_cluster,
         article_builder=builder,
+        editorial_reviewer=editorial_reviewer,
         publication_enabled=True,
         operating_mode="KILL_SWITCH",
         destination_readiness_override=_ready(),
@@ -1213,6 +1250,7 @@ def main() -> int:
     parser.add_argument("--parent-cycle-root", type=Path)
     parser.add_argument("--cycle-artifact", type=Path)
     parser.add_argument("--worker-return", type=Path)
+    parser.add_argument("--semantic-review-receipt", type=Path)
     parser.add_argument("--task-label", default=TASK)
     parser.add_argument("--acceptance-profile")
     parser.add_argument("--continuity-root", type=Path)
@@ -1252,7 +1290,15 @@ def main() -> int:
     elif args.action == "complete":
         if args.worker_return is None:
             raise ValueError("worker_return_required")
-        result = complete(root, args.worker_return.resolve(strict=True))
+        result = complete(
+            root,
+            args.worker_return.resolve(strict=True),
+            (
+                args.semantic_review_receipt.resolve(strict=True)
+                if args.semantic_review_receipt is not None
+                else None
+            ),
+        )
     elif args.action == "repair-empty-last":
         result = repair_empty_last_frontier(root)
     else:

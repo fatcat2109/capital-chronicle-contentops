@@ -1,0 +1,2679 @@
+{
+  "attempted_candidate_count": 2,
+  "decision": "SELECT_STORY",
+  "evidence_acquired_after_ranking": true,
+  "evidence_friction_taxonomy": {
+    "attempts": [
+      {
+        "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "BLOCKED",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 2,
+            "FACTUAL_OR_RISK_BLOCK": 1,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 3
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [
+            {
+              "blocker": "evidence_documents_missing",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "minimum_trustworthy_evidence_missing",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "public_source_unavailable",
+              "category": "DATA_NOT_AVAILABLE"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+              "category": "SYSTEM_OR_BINDING_BLOCK"
+            },
+            {
+              "blocker": "supported_claims_missing",
+              "category": "FACTUAL_OR_RISK_BLOCK"
+            }
+          ],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+        "ordinary_policy_ceremony_reductions": [],
+        "status": "VIABLE",
+        "taxonomy": {
+          "counts": {
+            "DATA_NOT_AVAILABLE": 0,
+            "FACTUAL_OR_RISK_BLOCK": 0,
+            "POLICY_CEREMONY_BLOCK": 0,
+            "SYSTEM_OR_BINDING_BLOCK": 0
+          },
+          "ordinary_minimum_packet_directly_bound": false,
+          "publication_authority": false,
+          "rows": [],
+          "schema_version": "contentops.evidence_friction_taxonomy.v1"
+        }
+      }
+    ],
+    "publication_authority": false,
+    "schema_version": "contentops.evidence_friction_taxonomy.v1"
+  },
+  "evidence_request_budget_blockers": [],
+  "evidence_request_budget_exhausted": false,
+  "global_infrastructure_blockers": [],
+  "global_infrastructure_exhausted": false,
+  "publication_authority_granted": false,
+  "publishability_pool_exhausted": false,
+  "rank_attempts": [
+    {
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "freshness_policy": "market_session",
+        "freshness_requirements": {},
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "market_move",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "primary_quantitative_chart",
+          "cross_asset_chart"
+        ]
+      },
+      "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 2,
+          "FACTUAL_OR_RISK_BLOCK": 1,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 3
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [
+          {
+            "blocker": "evidence_documents_missing",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "minimum_trustworthy_evidence_missing",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "public_source_unavailable",
+            "category": "DATA_NOT_AVAILABLE"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+            "category": "SYSTEM_OR_BINDING_BLOCK"
+          },
+          {
+            "blocker": "supported_claims_missing",
+            "category": "FACTUAL_OR_RISK_BLOCK"
+          }
+        ],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [
+          "evidence_documents_missing",
+          "minimum_trustworthy_evidence_missing",
+          "public_source_unavailable",
+          "required_evidence_capability_missing:basic_attributed_facts",
+          "required_evidence_capability_missing:credible_event_confirmation"
+        ],
+        "capital_chronicle_authority_verified": false,
+        "capital_chronicle_publication_authority": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "llm_numeric_authority": false,
+          "ordinary_latest_web_article_may_continue": true,
+          "packet_id": null,
+          "packet_sha256": null,
+          "reason_codes": [
+            "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+          ],
+          "schema_version": "contentops.cc_publication_authority_resolution.v1",
+          "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+        },
+        "cc_authority_utilization": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized_chart_count_available": 0,
+          "authorized_chart_count_consumed": 0,
+          "authorized_claim_count_available": 0,
+          "authorized_claim_count_consumed": 0,
+          "authorized_series_count_available": 0,
+          "authorized_series_count_consumed": 0,
+          "llm_numeric_authority": false,
+          "packet_discovered": false,
+          "packet_selected": null,
+          "packet_sha256": null,
+          "projection_validation_blockers": [],
+          "values_regenerated_or_repaired": false,
+          "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        },
+        "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+        "deterministic_official_schedule_facts": [],
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 2,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": false,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "STANDARD_NEWS_ANALYSIS",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "STANDARD_NEWS_ANALYSIS",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 180,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "grounded_research": {
+            "blockers": [
+              "public_source_unavailable"
+            ],
+            "elapsed_seconds": null,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": null,
+            "infrastructure_failure_class": null,
+            "latest_event_state_closure": {
+              "enhanced_breaking_zero_substantive_body": false,
+              "evaluation_as_of_utc": "2026-08-23T01:18:44.810438Z",
+              "forward_state_detected": false,
+              "model_assertion_grants_event_state_authority": false,
+              "post_cutoff_document_ids_rejected": [],
+              "pre_closure_evidence_substance": {
+                "additional_source_is_eligibility_requirement": false,
+                "article_mode": "STANDARD_NEWS_ANALYSIS",
+                "documents": [],
+                "enough_for_useful_article": false,
+                "enrichment_recommended": true,
+                "publication_authority": false,
+                "schema_version": "contentops.evidence_substance_summary.v1",
+                "substantive_document_count": 0,
+                "target_usable_content_words": 180,
+                "usable_content_words": 0,
+                "usable_document_count": 0
+              },
+              "publication_authority": false,
+              "query_budget": {
+                "closure_queries_used": 0,
+                "initial_queries_used": 2,
+                "maximum_queries": 3
+              },
+              "schema_version": "contentops.latest_event_state_closure.v1",
+              "status": "NOT_REQUIRED"
+            },
+            "public_retrieval_requests": 2,
+            "research_calls": 0,
+            "retrieval_result": {
+              "accepted_document_count": 0,
+              "blockers": [
+                "public_source_unavailable"
+              ],
+              "status": "BLOCKED"
+            },
+            "status": "BLOCKED",
+            "telemetry": []
+          }
+        },
+        "evidence_documents": [],
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "STANDARD_NEWS_ANALYSIS",
+          "documents": [],
+          "enough_for_useful_article": false,
+          "enrichment_recommended": true,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 0,
+          "target_usable_content_words": 180,
+          "usable_content_words": 0,
+          "usable_document_count": 0
+        },
+        "headline_ids": [
+          "cc-x-headline-b37370dc85dbc1522e84062a",
+          "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+          "cc-x-headline-2068c5bff9683fc98f5447f4",
+          "cc-x-headline-2229a9596e2b09cb715967e9",
+          "cc-x-headline-0de6446837f0f5b5e0845a88"
+        ],
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-23T01:18:44.810438Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "STANDARD_NEWS_ANALYSIS",
+            "documents": [],
+            "enough_for_useful_article": false,
+            "enrichment_recommended": true,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 0,
+            "target_usable_content_words": 180,
+            "usable_content_words": 0,
+            "usable_document_count": 0
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "minimum_trustworthy_evidence_packet": {
+          "blockers": [
+            "ordinary_core_factual_proposition_not_directly_bound"
+          ],
+          "evidence_packet_sha256": "b882e3421efaf24d9f7cc2f63bbfd2f2e30639bad9f77fdf3880cb6934d90096",
+          "publication_authority": false,
+          "risk_tier": "ORDINARY",
+          "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+          "status": "BLOCKED"
+        },
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [],
+        "publication_authority": false,
+        "publication_authorized_cc_projection": {},
+        "status": "BLOCKED",
+        "story_evidence_reuse": {
+          "acquisition_receipt_sha256": "9caecbdb2c9c3c1a518111fff8b07a275f01d504a24db0de877352b90574c1fd",
+          "factual_numeric_or_publication_authority_granted": false,
+          "network_reads_avoided": 2,
+          "network_reads_performed": 0,
+          "rebound_request_logical_hash": "79a3366533ed00a5f86713e81b5e3244945d49ff8e76b4992dea882e157acc07",
+          "reused_document_ids": [],
+          "schema_version": "contentops.story_evidence_reuse.v1",
+          "story_evidence_scope_id": "3399ad5887114e2d55140c141eb188dc146d841afd75d0f69cd83b9642f7107f"
+        }
+      },
+      "evidence_receipt_sha256": "aac15e54cc93362e7580127ed8484a6b4c8fd45257e30f5fb9b5b9591c0fee90",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-b37370dc85dbc1522e84062a",
+        "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+        "cc-x-headline-2068c5bff9683fc98f5447f4",
+        "cc-x-headline-2229a9596e2b09cb715967e9",
+        "cc-x-headline-0de6446837f0f5b5e0845a88"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "analysis",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": null,
+          "effective_mode": "STANDARD_NEWS_ANALYSIS",
+          "evidence_acquisition_action": "INITIAL_ACQUISITION",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 0,
+          "network_requests_performed": 2,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "a05e2374cc04fafd52a97af0cfa54c9389d1454614d5dc8169483e2e298bdbab",
+          "requested_mode": "STANDARD_NEWS_ANALYSIS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "3399ad5887114e2d55140c141eb188dc146d841afd75d0f69cd83b9642f7107f"
+        },
+        {
+          "blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "capability_mode": "straight_news",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_acquisition_action": "REUSED_STORY_SCOPED_EVIDENCE",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 2,
+              "FACTUAL_OR_RISK_BLOCK": 1,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 3
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [
+              {
+                "blocker": "evidence_documents_missing",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "minimum_trustworthy_evidence_missing",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "public_source_unavailable",
+                "category": "DATA_NOT_AVAILABLE"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:basic_attributed_facts",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "required_evidence_capability_missing:credible_event_confirmation",
+                "category": "SYSTEM_OR_BINDING_BLOCK"
+              },
+              {
+                "blocker": "supported_claims_missing",
+                "category": "FACTUAL_OR_RISK_BLOCK"
+              }
+            ],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 2,
+          "network_requests_performed": 0,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "79a3366533ed00a5f86713e81b5e3244945d49ff8e76b4992dea882e157acc07",
+          "requested_mode": "STANDARD_NEWS_ANALYSIS",
+          "status": "BLOCKED",
+          "story_evidence_scope_id": "3399ad5887114e2d55140c141eb188dc146d841afd75d0f69cd83b9642f7107f"
+        }
+      ],
+      "mode_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 1,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+        "delta_evidence_requirements": {},
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "effective_article_mode": "BREAKING_BRIEF",
+        "evidence_acquisition_mode": "REUSED_STORY_SCOPED_EVIDENCE",
+        "freshness_policy": "market_session",
+        "headline_ids": [
+          "cc-x-headline-b37370dc85dbc1522e84062a",
+          "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+          "cc-x-headline-2068c5bff9683fc98f5447f4",
+          "cc-x-headline-2229a9596e2b09cb715967e9",
+          "cc-x-headline-0de6446837f0f5b5e0845a88"
+        ],
+        "market_sensitive": true,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED",
+        "needed_evidence": [
+          "Official US Treasury buyback announcement details and schedule",
+          "Current gold and DXY market data",
+          "Analyst notes on yield cap implications and debasement cycles"
+        ],
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "rank": 1,
+        "request_logical_hash": "79a3366533ed00a5f86713e81b5e3244945d49ff8e76b4992dea882e157acc07",
+        "requested_article_mode": "STANDARD_NEWS_ANALYSIS",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 0,
+            "catalog_fingerprint": null,
+            "cc_context_richness": 0.0,
+            "connection_mode": "duckdb_read_only",
+            "deep_query_selected_tables": [],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [
+              "US Treasury",
+              "US Dollar",
+              "Gold",
+              "Emerging Markets",
+              "Japan",
+              "Macroeconomics"
+            ],
+            "queried_table_count": 0,
+            "query_budget": {
+              "deep_query_table_limit": 8,
+              "entity_limit": 6,
+              "rows_per_entity": 5
+            },
+            "query_elapsed_ms": 0.038,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2",
+            "semantic_activation": {},
+            "state": "NO_RELEVANT_CC_CONTEXT",
+            "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+          },
+          "entities_topics": [
+            "US Treasury",
+            "US Dollar",
+            "Gold",
+            "Emerging Markets",
+            "Japan",
+            "Macroeconomics",
+            "Monetary Policy",
+            "Sovereign Debt",
+            "Currency Markets",
+            "Precious Metals",
+            "Bond Yields"
+          ],
+          "evidence_reachability": {
+            "adapter_family_coverage": 1.0,
+            "available_adapter_families": [
+              "public_secondary"
+            ],
+            "bounded_discovery_recovery_available": true,
+            "capital_chronicle_authority_granted": false,
+            "capital_chronicle_relevant_context": false,
+            "context_routed_official_locator_families": [],
+            "exact_matching_cc_publication_authorized_packet": false,
+            "expected_adapter_families": [
+              "public_secondary"
+            ],
+            "expected_evidence_capabilities": [
+              "credible_event_confirmation",
+              "basic_attributed_facts"
+            ],
+            "expected_request_cost": 3,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "known_paywall_waf_or_dead_link_risk": false,
+            "mode_downgrade_viable": true,
+            "numeric_authority_granted": false,
+            "observed_access_failure_count": 0,
+            "observed_repeated_access_failure": false,
+            "observed_same_day_host_success_count": 0,
+            "public_source_candidate_count": 5,
+            "publication_authority_granted": false,
+            "ranking_only": true,
+            "registered_official_locator_families": [],
+            "reputable_public_secondary_path": false,
+            "score": 0.245,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "Analysts highlight a major US Dollar debasement cycle and rising gold demand following the US Treasury's buyback announcement, warning of market reactions to artificial yield caps."
+          ],
+          "material_follow_up_context": {
+            "current_update_chain_identity": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+            "grants_factual_or_numeric_authority": false,
+            "material_delta_reason_codes": [
+              "NEW_INFORMATION_LANGUAGE_PRESENT",
+              "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+            ],
+            "material_delta_summary": "NEW_INFORMATION_LANGUAGE_PRESENT; NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+            "new_headline_ids": [
+              "cc-x-headline-b37370dc85dbc1522e84062a",
+              "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+              "cc-x-headline-2068c5bff9683fc98f5447f4",
+              "cc-x-headline-2229a9596e2b09cb715967e9",
+              "cc-x-headline-0de6446837f0f5b5e0845a88"
+            ],
+            "new_official_source_candidates": [
+              "https://cnb.cx/4gHcgD4",
+              "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us",
+              "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off",
+              "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun",
+              "https://open.substack.com/live-stream/330951"
+            ],
+            "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+            "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+            "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+            "previous_content_status": "CONTENT_AVAILABLE",
+            "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+            "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+            "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+            "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+            "schema_version": "contentops.material_follow_up_context.v1"
+          },
+          "official_source_url_bindings": [
+            {
+              "feed_published_at_utc": "2026-08-22T06:37:35Z",
+              "feed_publisher_handle": "dlacalle_IA",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-b37370dc85dbc1522e84062a",
+              "url": "https://cnb.cx/4gHcgD4"
+            },
+            {
+              "feed_published_at_utc": "2026-08-22T11:35:01Z",
+              "feed_publisher_handle": "robin_j_brooks",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+              "url": "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us"
+            },
+            {
+              "feed_published_at_utc": "2026-08-22T11:42:51Z",
+              "feed_publisher_handle": "robin_j_brooks",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-2068c5bff9683fc98f5447f4",
+              "url": "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off"
+            },
+            {
+              "feed_published_at_utc": "2026-08-22T11:49:52Z",
+              "feed_publisher_handle": "robin_j_brooks",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-2229a9596e2b09cb715967e9",
+              "url": "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun"
+            },
+            {
+              "feed_published_at_utc": "2026-08-22T11:55:05Z",
+              "feed_publisher_handle": "robin_j_brooks",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-0de6446837f0f5b5e0845a88",
+              "url": "https://open.substack.com/live-stream/330951"
+            }
+          ],
+          "official_source_urls": [
+            "https://cnb.cx/4gHcgD4",
+            "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us",
+            "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off",
+            "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun",
+            "https://open.substack.com/live-stream/330951"
+          ],
+          "portfolio_concentration_penalty": 0.0833,
+          "preselection_score": 114.8608,
+          "public_source_url_bindings": [
+            {
+              "feed_published_at_utc": "2026-08-22T06:37:35Z",
+              "feed_publisher_handle": "dlacalle_IA",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-b37370dc85dbc1522e84062a",
+              "url": "https://cnb.cx/4gHcgD4"
+            },
+            {
+              "feed_published_at_utc": "2026-08-22T11:35:01Z",
+              "feed_publisher_handle": "robin_j_brooks",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+              "url": "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us"
+            },
+            {
+              "feed_published_at_utc": "2026-08-22T11:42:51Z",
+              "feed_publisher_handle": "robin_j_brooks",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-2068c5bff9683fc98f5447f4",
+              "url": "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off"
+            },
+            {
+              "feed_published_at_utc": "2026-08-22T11:49:52Z",
+              "feed_publisher_handle": "robin_j_brooks",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-2229a9596e2b09cb715967e9",
+              "url": "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun"
+            },
+            {
+              "feed_published_at_utc": "2026-08-22T11:55:05Z",
+              "feed_publisher_handle": "robin_j_brooks",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-0de6446837f0f5b5e0845a88",
+              "url": "https://open.substack.com/live-stream/330951"
+            }
+          ],
+          "public_source_urls": [
+            "https://cnb.cx/4gHcgD4",
+            "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us",
+            "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off",
+            "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun",
+            "https://open.substack.com/live-stream/330951"
+          ],
+          "selection_case": "This is a core Capital Chronicle macro story. The intersection of Treasury buybacks, dollar debasement fears, and gold demand provides a rich vein for market analysis and directly impacts our readers' portfolios.",
+          "seo_intent": "US Treasury buyback impact on dollar and gold demand",
+          "why_now": "The US Treasury's buyback announcement is triggering immediate reassessments of dollar strength and gold demand, with analysts warning of artificial yield caps."
+        },
+        "story_evidence_scope_binding": {
+          "assignment_authority_binding": "31c9e74609b75e2076125922f9ab59b0ce583f505b7658956333b7975c267574",
+          "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+          "headline_ids": [
+            "cc-x-headline-b37370dc85dbc1522e84062a",
+            "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+            "cc-x-headline-2068c5bff9683fc98f5447f4",
+            "cc-x-headline-2229a9596e2b09cb715967e9",
+            "cc-x-headline-0de6446837f0f5b5e0845a88"
+          ],
+          "material_follow_up_context_logical_hash": "25d155f6a5425927a4cb800a6e47c4dee5c59ee42a0a2d4fe94346f87e1b3b45",
+          "schema_version": "contentops.story_evidence_scope_binding.v1",
+          "story_evidence_scope_id": "3399ad5887114e2d55140c141eb188dc146d841afd75d0f69cd83b9642f7107f",
+          "update_chain_identity": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+          "update_chain_logical_hash": "fd9e1df07aabad242decac5a2c5522c5bfda5520f3f4de99b79512bb8a6b7f75"
+        },
+        "story_evidence_scope_id": "3399ad5887114e2d55140c141eb188dc146d841afd75d0f69cd83b9642f7107f",
+        "story_type": "market_move",
+        "update_chain_identity": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "status": "BLOCKED",
+      "story_evidence_delta_acquisition_count": 0,
+      "story_evidence_network_reads_avoided": 2,
+      "story_evidence_network_requests": 2,
+      "story_evidence_scope_id": "3399ad5887114e2d55140c141eb188dc146d841afd75d0f69cd83b9642f7107f"
+    },
+    {
+      "blockers": [],
+      "capability_resolution": {
+        "article_mode": "straight_news",
+        "article_mode_source": "story_type_article_mode_profile",
+        "blockers": [],
+        "capital_chronicle_authority_required": false,
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "freshness_policy": "market_session",
+        "freshness_requirements": {},
+        "market_context_required": false,
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "product_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "source_family_id": "",
+        "status": "PASS",
+        "story_type": "market_move",
+        "visual_policy": "long_form_article",
+        "visual_requirements": {},
+        "visual_roles": [
+          "lead_contextual",
+          "primary_quantitative_chart",
+          "cross_asset_chart"
+        ]
+      },
+      "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+      "effective_article_mode": "BREAKING_BRIEF",
+      "evidence_friction_taxonomy": {
+        "counts": {
+          "DATA_NOT_AVAILABLE": 0,
+          "FACTUAL_OR_RISK_BLOCK": 0,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 0
+        },
+        "ordinary_minimum_packet_directly_bound": false,
+        "publication_authority": false,
+        "rows": [],
+        "schema_version": "contentops.evidence_friction_taxonomy.v1"
+      },
+      "evidence_receipt": {
+        "blockers": [],
+        "capital_chronicle_authority_verified": false,
+        "capital_chronicle_publication_authority": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized": false,
+          "intended_consumer": "contentops_publication",
+          "intended_use": "public_reporting",
+          "llm_numeric_authority": false,
+          "ordinary_latest_web_article_may_continue": true,
+          "packet_id": null,
+          "packet_sha256": null,
+          "reason_codes": [
+            "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+          ],
+          "schema_version": "contentops.cc_publication_authority_resolution.v1",
+          "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+        },
+        "cc_authority_utilization": {
+          "authority_class": "CONTEXT_DISCOVERY_ONLY",
+          "authorized_chart_count_available": 0,
+          "authorized_chart_count_consumed": 0,
+          "authorized_claim_count_available": 0,
+          "authorized_claim_count_consumed": 0,
+          "authorized_series_count_available": 0,
+          "authorized_series_count_consumed": 0,
+          "llm_numeric_authority": false,
+          "packet_discovered": false,
+          "packet_selected": null,
+          "packet_sha256": null,
+          "projection_validation_blockers": [],
+          "values_regenerated_or_repaired": false,
+          "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        },
+        "cc_context_bundle": {
+          "candidate_table_count": 0,
+          "catalog_fingerprint": null,
+          "cc_context_refs": [],
+          "cc_context_richness": 0.0,
+          "connection_mode": "duckdb_read_only",
+          "factual_or_numeric_authority_granted": false,
+          "matched_store_count": 0,
+          "matched_table_count": 0,
+          "mutated_upstream": false,
+          "ordinary_reporting_blocked_when_unavailable": false,
+          "proprietary_claim_authority_granted": false,
+          "queried_entities": [
+            "Turkey",
+            "Benjamin Netanyahu",
+            "Interpol",
+            "Israel",
+            "Geopolitics",
+            "International Law"
+          ],
+          "queried_table_count": 0,
+          "query_budget": {
+            "deep_query_table_limit": 8,
+            "entity_limit": 6,
+            "rows_per_entity": 5
+          },
+          "query_elapsed_ms": 0.05,
+          "schema_version": "contentops.additive_cc_story_context.v1",
+          "selected_tables": [],
+          "semantic_activation": {},
+          "state": "CC_CONTEXT_UNAVAILABLE",
+          "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+        },
+        "claim_evidence_contract": {
+          "blocked_claims": [],
+          "claim_contract_sha256": "a075e1c1a6cdfde6b5be16ba25c8b757d311102d84b2e92668d4acb4456b2992",
+          "fabricated_claim_count": 0,
+          "omitted_claim_count": 2,
+          "omitted_unsupported_claims": [
+            {
+              "claim_id": "claim-b173c4aeb27e7f5a",
+              "claim_text": "Benjamin Netanyahu's office dismissed the Turkish warrants as a 'pathetic attempt to intimidate' and accused Turkish President Erdogan of being antisemitic.",
+              "reason": "secondary_corroboration_insufficient",
+              "support_status": "OMITTED"
+            },
+            {
+              "claim_id": "claim-d1ab73637ca01249",
+              "claim_text": "Turkey has just issued an arrest warrant for Israeli PM Netanyahu and is seeking an Interpol Red Notice, representing a severe and immediate escalation in Middle Eastern geopolitical tensions.",
+              "reason": "candidate_claim_not_found_in_evidence",
+              "support_status": "OMITTED"
+            }
+          ],
+          "publication_authority": false,
+          "schema_version": "contentops.claim_evidence_contract.v1",
+          "status": "PASS",
+          "supported_claim_count": 6,
+          "supported_claims": [
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-7d54cea858975fb1",
+              "claim_text": "Turkish Justice Minister Akin Gurlek announced that Turkey's justice ministry requested the interior ministry to issue Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and one other suspect.",
+              "evidence_document_ids": [
+                "public-secondary-60f44099a5918234976f"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-ee8be777c37dd17c",
+              "claim_text": "The Turkish arrest warrants for Netanyahu and the other suspect were issued on July 14.",
+              "evidence_document_ids": [
+                "public-secondary-60f44099a5918234976f"
+              ],
+              "numeric_claim": true,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-f5ad33fd7daeba95",
+              "claim_text": "The charges in the Turkish warrants include genocide, crimes against humanity, and torture, stemming from Israel's interception of the Global Sumud Flotilla in May.",
+              "evidence_document_ids": [
+                "public-secondary-60f44099a5918234976f"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-c8452458107bdaea",
+              "claim_text": "Erdogan's office responded to Israel's statement by condemning it as 'petty political tactics' and an attempt to portray Turkey as a threat.",
+              "evidence_document_ids": [
+                "public-secondary-60f44099a5918234976f"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-b7586d1aa9717267",
+              "claim_text": "France, Italy, and Australia have also launched judicial proceedings related to the interception of the flotilla.",
+              "evidence_document_ids": [
+                "public-secondary-60f44099a5918234976f"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+            },
+            {
+              "attribution_required": true,
+              "authority_classes": [
+                "reputable_secondary_source"
+              ],
+              "claim_id": "claim-825d7ea040576f3b",
+              "claim_text": "Israeli National Security Minister Itamar Ben-Gvir previously released a video of himself provoking detained flotilla activists who were bound on their knees.",
+              "evidence_document_ids": [
+                "public-secondary-60f44099a5918234976f"
+              ],
+              "numeric_claim": false,
+              "quoted_claim": false,
+              "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+            }
+          ],
+          "x_content_grants_factual_authority": false
+        },
+        "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+        "deterministic_official_schedule_facts": [],
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "evidence_acquisition_provenance": {
+          "evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [
+              {
+                "document_id": "public-secondary-60f44099a5918234976f",
+                "source_authority_class": "reputable_secondary_source",
+                "title_only": false,
+                "usable_content_words": 826
+              }
+            ],
+            "enough_for_useful_article": true,
+            "enrichment_recommended": false,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 1,
+            "target_usable_content_words": 90,
+            "usable_content_words": 826,
+            "usable_document_count": 1
+          },
+          "grounded_research": {
+            "blockers": [],
+            "elapsed_seconds": 23.625,
+            "global_infrastructure_exhausted": false,
+            "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+            "infrastructure_failure_class": null,
+            "latest_event_state_closure": {
+              "enhanced_breaking_zero_substantive_body": false,
+              "evaluation_as_of_utc": "2026-08-23T01:18:44.810438Z",
+              "forward_state_detected": false,
+              "model_assertion_grants_event_state_authority": false,
+              "post_cutoff_document_ids_rejected": [],
+              "pre_closure_evidence_substance": {
+                "additional_source_is_eligibility_requirement": false,
+                "article_mode": "BREAKING_BRIEF",
+                "documents": [
+                  {
+                    "document_id": "public-secondary-60f44099a5918234976f",
+                    "source_authority_class": "reputable_secondary_source",
+                    "title_only": false,
+                    "usable_content_words": 826
+                  }
+                ],
+                "enough_for_useful_article": true,
+                "enrichment_recommended": false,
+                "publication_authority": false,
+                "schema_version": "contentops.evidence_substance_summary.v1",
+                "substantive_document_count": 1,
+                "target_usable_content_words": 90,
+                "usable_content_words": 826,
+                "usable_document_count": 1
+              },
+              "publication_authority": false,
+              "query_budget": {
+                "closure_queries_used": 0,
+                "initial_queries_used": 2,
+                "maximum_queries": 3
+              },
+              "schema_version": "contentops.latest_event_state_closure.v1",
+              "status": "NOT_REQUIRED"
+            },
+            "public_retrieval_requests": 3,
+            "research_calls": 1,
+            "retrieval_result": {
+              "accepted_document_count": 1,
+              "blockers": [],
+              "status": "PASS"
+            },
+            "status": "PASS",
+            "telemetry": [
+              {
+                "attempts": [
+                  {
+                    "provider_status_class": "2xx_success",
+                    "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                    "resolved_model": "gemini-3.1-pro-preview",
+                    "structured_validation_result": "PASS"
+                  }
+                ],
+                "budget_exhausted_reason": null,
+                "cost": {},
+                "logical_invocation_id": "v1_research_synthesis_65ac16a544a67f85dcf3",
+                "logical_invocation_reserved": true,
+                "models_attempted_in_order": [
+                  "vx/gemini-3.1-pro-preview(high)"
+                ],
+                "phase": "source_synthesis",
+                "provider_attempt_count": 1,
+                "recoverable_failure_classes": [],
+                "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+                "terminal_disposition": "ACCEPTED",
+                "terminal_failure_class": null,
+                "token_usage": {
+                  "completion_tokens": 2861.0,
+                  "prompt_tokens": 4976.0,
+                  "total_tokens": 7837.0
+                },
+                "wall_clock_elapsed_seconds": 22.5981
+              }
+            ]
+          }
+        },
+        "evidence_documents": [
+          {
+            "byte_length": 206123,
+            "canonical_content_sha256": "f6d00874eda0e9a26ace80a88670b42f20da3226ba5b3455b7f1f6466fabe477",
+            "canonical_content_text": "Turkiye accuses Israel\u2019s Netanyahu of \u2018genocide\u2019, seeks Interpol warrant | Israel-Palestine conflict News | Al Jazeera Skip links Skip to Content play Live Sign up Show navigation menu Navigation menu News Show more news sections Africa Asia US & Canada Latin America Europe Asia Pacific Middle East Explained Sport Opinion Video More Show more sections Features Economy Human Rights Climate Crisis Investigations Interactives In Pictures Science & Technology Podcasts Travel Sponsored Content play Live Click here to search search Sign up Navigation menu caret-left Israel-Palestine conflict Shackled, bleeding, raped: Abuse in Israeli prisons \u2018This is an apartheid regime\u2019 Does Trump have real leverage over Netanyahu? History of flotilla campaigns caret-right News | Israel-Palestine conflict Turkiye accuses Israel\u2019s Netanyahu of \u2018genocide\u2019, seeks Interpol warrant Netanyahu and Erdogan trade insults as Ankara seeks warrant for Israel\u2019s attacks on Global Sumud Flotilla activists headed for Gaza. Listen Listen (3 mins) Save Click here to share on social media share-nodes Share facebook x whatsapp-stroke copylink google Add Al Jazeera on Google info Israeli Prime Minister Benjamin Netanyahu [File: Ronen Zvulun/Reuters] By Al Jazeera Staff and Reuters Published On 21 Aug 2026 21 Aug 2026 Turkiye has sought an international arrest warrant for Israeli Prime Minister Benjamin Netanyahu, accusing him of \u201cgenocide\u201d for Israel\u2019s attack in May on activists aboard the Global Sumud Flotilla for Gaza . In a post on X on Friday, Turkish Justice Minister Akin Gurlek said arrest warrants had been issued on July 14 for Netanyahu and another suspect. Charges included genocide, crimes against humanity and torture, as part of a case against 35 people over the Israeli interception in international waters. Recommended Stories list of 4 items list 1 of 4 Turkiye unveils its first intercontinental ballistic missile: What we know list 2 of 4 Turkiye, Saudi Arabia, Pakistan sign joint defence agreement: What\u2019s in it? list 3 of 4 NATO summit begins: Who\u2019s attending and what\u2019s at stake? list 4 of 4 Turkiye says Mecca defence pact not aimed at Iran end of list \u201cIn line with the arrest warrants issued against Benjamin Netanyahu \u2026 our justice ministry has requested that \u2060the interior ministry issue [Interpol] red notices for them so that they may be sought \u2060internationally,\u201d Gurlek said. Turkiye will use all available legal mechanisms to ensure Israel is held accountable for its crimes in Gaza, he added. NATO member Turkiye has been one of the fiercest critics of Israel\u2019s genocidal war \u2060on Gaza and has previously issued domestic arrest warrants for Netanyahu over its attacks. Turkiye has also repeatedly called for international measures against Israel for what Ankara calls its violations of human rights and international law. Israel denies those charges. In May, Israeli forces fired on at least two vessels from the Global Sumud Flotilla sailing towards \u200cGaza. It was making a renewed attempt to deliver aid to the enclave after earlier missions were intercepted by the Israeli military in international waters. Israel\u2019s interception of the flotilla provoked international outcry. France, Italy and Australia have also launched judicial proceedings. Advertisement About 50 vessels were in the Global Sumud Flotilla that left Turkiye in May heading for the besieged Palestinian territory. The activists were detained in the Mediterranean by the Israeli military and then taken to an Israeli prison before being deported . Israel\u2019s far right National Security Minister, Itamar Ben-Gvir caused outrage at the time by releasing a video of himself angrily provoking flotilla activists who were on their knees with their hands tied behind their backs. \u201cWe will not allow the crimes committed in Gaza to be covered up or those responsible to be protected by a shield of impunity,\u201d Gurlek said. \u201cWe will resolutely use all means available under national and international law.\u201d Asked about Gurlek\u2019s statement, Netanyahu\u2019s office said: \u201c[Turkish President] Erdogan\u2019s pathetic attempt to intimidate \u2060the leaders and soldiers of Israel, the only true democracy in the \u2060Middle East, will go nowhere.\u201d His office accused Erdogan of being \u201cantisemitic\u201d and vowed that Israel would \u201ccontinue to act forcefully against Turkiye\u2019s attempts to destabilise the region\u201d. Soon after, in a post on X, Erdogan\u2019s office denounced Netanyahu\u2019s \u201cpetty political tactics\u201d and condemned what it called the Israeli government\u2019s attempt \u201cto present Turkiye as a new threat\u201d. aj-logo aj-logo aj-logo Advertisement About About Show more About Us Code of Ethics Terms and Conditions EU/EEA Regulatory Notice Privacy Policy Cookie Policy Cookie Preferences Accessibility Statement Sitemap Work for us Connect Connect Show more Contact Us User Accounts Help Advertise with us Stay Connected Newsletters Channel Finder TV Schedule Podcasts Submit a Tip Paid Partner Content Our Channels Our Channels Show more Al Jazeera Arabic Al Jazeera English Al Jazeera Investigative Unit Al Jazeera Mubasher Al Jazeera Documentary Al Jazeera Balkans AJ+ Our Network Our Network Show more Al Jazeera Centre for Studies Al Jazeera Media Institute Learn Arabic Al Jazeera Centre for Public Liberties & Human Rights Al Jazeera Forum Al Jazeera Hotel Partners Follow Al Jazeera English: facebook twitter youtube instagram-colored-outline rss \u00a9 2026 Al Jazeera Media Network",
+            "canonical_resolution_status": "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP",
+            "content_truncated": false,
+            "content_type": "text/html",
+            "discovery_path_is_reader_authority": false,
+            "discovery_path_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPV0dDbDdKUmpkMTVxQ1hFSHRjQS1rMmR3dG5XTnR0NndGVm5ENW44UXNWQl9tTG5qRjBDQnBkSENvWEJQUWNpY3pDZFZ4NGlDanVmam5tUGwzdWVIMDM0ZXJpMVZqR2pjenVsRW9uNlFGWjR4QmN0b1U3RXlOaWVBNUZTa010Uk9SSkx5TkdiU1JVTUpQZTNaNm5saUhvbjY1M1Rub1dKaGk0SmpjYlHSAbMBQVVfeXFMTnZfMzY3R0VYbzJiNThiQ251UkJnUm55Zm1TSTRneWF6bjJVcnZGWFhlOEJIY2JEVWFfN1diLVZDSlpqdEIxa3dnQmp0TEVHLWl5SHRlUUdheUR6UmdRU1ZSbV9VeTBXZ2ZJMzdTOC1TRmdndjVZZG5vM3FSek0zZmpabjlCWjQ2RWt5Y3g2XzQ4UHFSYWh5bFlWeGlXUTdvN2Y2X1phTFlVaUtwVzA5M2xDVFU?oc=5",
+            "document_id": "public-secondary-60f44099a5918234976f",
+            "event_time_utc": "2026-08-21T19:08:30Z",
+            "grounded_source_ref": "SRC_E9BBE585A9A43712",
+            "public_claim_allowed": true,
+            "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+            "published_at_utc": "2026-08-21T19:08:30Z",
+            "publisher": "Aljazeera",
+            "publisher_document_title_relevance": 1.0,
+            "publisher_locator_chain": [
+              {
+                "sha256": "094adac194bd5a1c4f693ced18e947848803d5c4a8223b629bc29e10cec083cf",
+                "url": "https://www.aljazeera.com/news-sitemap.xml"
+              }
+            ],
+            "publisher_locator_sha256": "094adac194bd5a1c4f693ced18e947848803d5c4a8223b629bc29e10cec083cf",
+            "publisher_locator_title_relevance": 1.0,
+            "publisher_locator_url": "https://www.aljazeera.com/news-sitemap.xml",
+            "raw_sha256": "60f44099a5918234976f0c4acf83a5c2de6b177f774953207487d2cb4e40b39e",
+            "reader_source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+            "requested_source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+            "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+            "source_authority_class": "reputable_secondary_source",
+            "source_headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+            "source_identity": "www.aljazeera.com",
+            "source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+            "title": "Turkiye accuses Israel\u2019s Netanyahu of \u2018genocide\u2019, seeks Interpol warrant"
+          }
+        ],
+        "evidence_review_tier": "ENHANCED",
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "BREAKING_BRIEF",
+          "documents": [
+            {
+              "document_id": "public-secondary-60f44099a5918234976f",
+              "source_authority_class": "reputable_secondary_source",
+              "title_only": false,
+              "usable_content_words": 826
+            }
+          ],
+          "enough_for_useful_article": true,
+          "enrichment_recommended": false,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 1,
+          "target_usable_content_words": 90,
+          "usable_content_words": 826,
+          "usable_document_count": 1
+        },
+        "grounded_research_packet": {
+          "attributed_numeric_facts": [
+            {
+              "attribution_required": true,
+              "source_ref": "SRC_E9BBE585A9A43712",
+              "statement": "The Turkish legal case regarding the Israeli interception involves 35 people.",
+              "value": 35
+            },
+            {
+              "attribution_required": true,
+              "source_ref": "SRC_E9BBE585A9A43712",
+              "statement": "The Global Sumud Flotilla that left Turkey in May consisted of approximately 50 vessels.",
+              "value": 50
+            }
+          ],
+          "cc_context": {
+            "candidate_table_count": 0,
+            "catalog_fingerprint": null,
+            "cc_context_refs": [],
+            "cc_context_richness": 0.0,
+            "connection_mode": "duckdb_read_only",
+            "factual_or_numeric_authority_granted": false,
+            "matched_store_count": 0,
+            "matched_table_count": 0,
+            "mutated_upstream": false,
+            "ordinary_reporting_blocked_when_unavailable": false,
+            "proprietary_claim_authority_granted": false,
+            "queried_entities": [
+              "Turkey",
+              "Benjamin Netanyahu",
+              "Interpol",
+              "Israel",
+              "Geopolitics",
+              "International Law"
+            ],
+            "queried_table_count": 0,
+            "query_budget": {
+              "deep_query_table_limit": 8,
+              "entity_limit": 6,
+              "rows_per_entity": 5
+            },
+            "query_elapsed_ms": 0.05,
+            "schema_version": "contentops.additive_cc_story_context.v1",
+            "selected_tables": [],
+            "semantic_activation": {},
+            "state": "CC_CONTEXT_UNAVAILABLE",
+            "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+          },
+          "cc_context_refs": [],
+          "confirmed_facts": [
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "F1",
+              "factual_statement": "Turkish Justice Minister Akin Gurlek announced that Turkey's justice ministry requested the interior ministry to issue Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and one other suspect.",
+              "source_refs": [
+                "SRC_E9BBE585A9A43712"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "F2",
+              "factual_statement": "The Turkish arrest warrants for Netanyahu and the other suspect were issued on July 14.",
+              "source_refs": [
+                "SRC_E9BBE585A9A43712"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "F3",
+              "factual_statement": "The charges in the Turkish warrants include genocide, crimes against humanity, and torture, stemming from Israel's interception of the Global Sumud Flotilla in May.",
+              "source_refs": [
+                "SRC_E9BBE585A9A43712"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "F4",
+              "factual_statement": "Benjamin Netanyahu's office dismissed the Turkish warrants as a 'pathetic attempt to intimidate' and accused Turkish President Erdogan of being antisemitic.",
+              "source_refs": [
+                "SRC_E9BBE585A9A43712"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "F5",
+              "factual_statement": "Erdogan's office responded to Israel's statement by condemning it as 'petty political tactics' and an attempt to portray Turkey as a threat.",
+              "source_refs": [
+                "SRC_E9BBE585A9A43712"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "F6",
+              "factual_statement": "France, Italy, and Australia have also launched judicial proceedings related to the interception of the flotilla.",
+              "source_refs": [
+                "SRC_E9BBE585A9A43712"
+              ]
+            },
+            {
+              "attribution_required": true,
+              "confidence_class": "HIGH",
+              "direct_or_inferred": "DIRECT",
+              "fact_id": "F7",
+              "factual_statement": "Israeli National Security Minister Itamar Ben-Gvir previously released a video of himself provoking detained flotilla activists who were bound on their knees.",
+              "source_refs": [
+                "SRC_E9BBE585A9A43712"
+              ]
+            }
+          ],
+          "context": [
+            "T",
+            "h",
+            "e",
+            "",
+            "d",
+            "i",
+            "p",
+            "l",
+            "o",
+            "m"
+          ],
+          "contradictions": [],
+          "core_factual_proposition": "Turkish Justice Minister Akin Gurlek announced that Turkey's justice ministry requested the interior ministry to issue Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and one other suspect.",
+          "enhanced_review_required": false,
+          "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+          "latest_event_state_closure": {
+            "enhanced_breaking_zero_substantive_body": false,
+            "evaluation_as_of_utc": "2026-08-23T01:18:44.810438Z",
+            "forward_state_detected": false,
+            "model_assertion_grants_event_state_authority": false,
+            "post_cutoff_document_ids_rejected": [],
+            "pre_closure_evidence_substance": {
+              "additional_source_is_eligibility_requirement": false,
+              "article_mode": "BREAKING_BRIEF",
+              "documents": [
+                {
+                  "document_id": "public-secondary-60f44099a5918234976f",
+                  "source_authority_class": "reputable_secondary_source",
+                  "title_only": false,
+                  "usable_content_words": 826
+                }
+              ],
+              "enough_for_useful_article": true,
+              "enrichment_recommended": false,
+              "publication_authority": false,
+              "schema_version": "contentops.evidence_substance_summary.v1",
+              "substantive_document_count": 1,
+              "target_usable_content_words": 90,
+              "usable_content_words": 826,
+              "usable_document_count": 1
+            },
+            "publication_authority": false,
+            "query_budget": {
+              "closure_queries_used": 0,
+              "initial_queries_used": 2,
+              "maximum_queries": 3
+            },
+            "schema_version": "contentops.latest_event_state_closure.v1",
+            "status": "NOT_REQUIRED"
+          },
+          "model_assertion_grants_factual_authority": false,
+          "model_suggested_article_mode": "BREAKING_BRIEF",
+          "post_filter_accepted_evidence_document_ids": [
+            "public-secondary-60f44099a5918234976f"
+          ],
+          "post_filter_removed_fact_count": 0,
+          "publication_authority": false,
+          "research_as_of_utc": "2026-08-23T01:18:44.810438Z",
+          "research_logical_hash": "43c3dbeca473621134fbea5474f80076fb7f28e0f08b229ec89e628d3f5e89b4",
+          "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+          "research_status": "PASS",
+          "risk_classification": "ORDINARY",
+          "schema_version": "contentops.grounded_news_research.v1",
+          "sources": [
+            {
+              "access_status": "ACCESSIBLE_SOURCE_RECORD",
+              "content_hash": "f6d00874eda0e9a26ace80a88670b42f20da3226ba5b3455b7f1f6466fabe477",
+              "evidence_document_id": "public-secondary-60f44099a5918234976f",
+              "published_at": "2026-08-21T19:08:30Z",
+              "publisher": "Aljazeera",
+              "reader_source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+              "retrieved_at": "2026-08-23T01:20:35.788354Z",
+              "source_authority_class": "reputable_secondary_source",
+              "source_ref": "SRC_E9BBE585A9A43712",
+              "source_type": "text/html",
+              "source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+              "support_metadata": {
+                "retrieved_content_available": true,
+                "secondary_listing_only": false,
+                "source_record_bound": true
+              },
+              "title": "Turkiye accuses Israel\u2019s Netanyahu of \u2018genocide\u2019, seeks Interpol warrant"
+            }
+          ],
+          "story_identity": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+          "suggested_article_mode": "BREAKING_BRIEF",
+          "uncertainties": [
+            "The identity of the second suspect named in the July 14 Turkish arrest warrant is not disclosed in the source.",
+            "The current procedural status of the Interpol Red Notice request\u2014specifically whether Interpol has reviewed, accepted, or rejected the request\u2014is unknown."
+          ],
+          "unsupported_or_unverified": [
+            "Turkey's allegations that Netanyahu committed 'genocide,' 'crimes against humanity,' and 'torture' are legal claims forming the basis of the warrant, not independently verified facts.",
+            "Israel's accusation that Turkish President Erdogan is 'antisemitic' and attempting to 'destabilise the region' are political statements rather than established facts."
+          ]
+        },
+        "headline_ids": [
+          "cc-x-headline-0751d8d085a41b31e7448f99"
+        ],
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-23T01:18:44.810438Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [
+              {
+                "document_id": "public-secondary-60f44099a5918234976f",
+                "source_authority_class": "reputable_secondary_source",
+                "title_only": false,
+                "usable_content_words": 826
+              }
+            ],
+            "enough_for_useful_article": true,
+            "enrichment_recommended": false,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 1,
+            "target_usable_content_words": 90,
+            "usable_content_words": 826,
+            "usable_document_count": 1
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "numeric_evidence_required": false,
+        "provided_evidence_capabilities": [
+          "basic_attributed_facts",
+          "credible_event_confirmation"
+        ],
+        "publication_authority": false,
+        "publication_authorized_cc_projection": {},
+        "status": "PASS",
+        "unsupported_claims_removed": 2
+      },
+      "evidence_receipt_sha256": "a041262ac12cfe96fd9cbdd07bfc239052dda4f035f5db88ffdace44eda5d13c",
+      "evidence_request_budget_blockers": [],
+      "global_infrastructure_blockers": [],
+      "headline_ids": [
+        "cc-x-headline-0751d8d085a41b31e7448f99"
+      ],
+      "mode_attempts": [
+        {
+          "blockers": [],
+          "capability_mode": "straight_news",
+          "delta_evidence_requirements": {},
+          "downgrade_reason": null,
+          "effective_mode": "BREAKING_BRIEF",
+          "evidence_acquisition_action": "INITIAL_ACQUISITION",
+          "evidence_friction_taxonomy": {
+            "counts": {
+              "DATA_NOT_AVAILABLE": 0,
+              "FACTUAL_OR_RISK_BLOCK": 0,
+              "POLICY_CEREMONY_BLOCK": 0,
+              "SYSTEM_OR_BINDING_BLOCK": 0
+            },
+            "ordinary_minimum_packet_directly_bound": false,
+            "publication_authority": false,
+            "rows": [],
+            "schema_version": "contentops.evidence_friction_taxonomy.v1"
+          },
+          "evidence_request_budget_blockers": [],
+          "global_infrastructure_blockers": [],
+          "network_reads_avoided": 0,
+          "network_requests_performed": 3,
+          "ordinary_policy_ceremony_reductions": [],
+          "request_logical_hash": "a4a033d3132cf27b5a172c7d311ad0df39c1ed1bf7ca5372142418e3a2ad4ef4",
+          "requested_mode": "BREAKING_BRIEF",
+          "status": "VIABLE",
+          "story_evidence_scope_id": "641afb5c253dd6b11cd919b769f0b62c72f6d9928864267c6a06c32898ecaa91"
+        }
+      ],
+      "mode_downgrade_reason": null,
+      "ordinary_policy_ceremony_reductions": [],
+      "rank": 2,
+      "request": {
+        "article_mode": "straight_news",
+        "capital_chronicle_numeric_or_analytical_authority_required": false,
+        "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+        "delta_evidence_requirements": {},
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "editorial_mode_contract": {
+          "canonical_product_mode": true,
+          "editorial_inference_authority_class": null,
+          "editorial_inference_is_core_analyzer_authority": false,
+          "editorial_inference_must_be_explicit": false,
+          "evidence_depth": 1,
+          "factual_premises_must_be_source_bound": true,
+          "grants_factual_numeric_permission_or_publication_authority": false,
+          "narrow_official_primary_fast_lane": true,
+          "narrow_official_schedule_fact_lane": false,
+          "product_article_mode": "BREAKING_BRIEF",
+          "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+          "qualitative_editorial_inference_permitted": false,
+          "quiet_day_may_lower_truth_or_permission_standards": false
+        },
+        "effective_article_mode": "BREAKING_BRIEF",
+        "evidence_acquisition_mode": "INITIAL_ACQUISITION",
+        "freshness_policy": "market_session",
+        "headline_ids": [
+          "cc-x-headline-0751d8d085a41b31e7448f99"
+        ],
+        "market_sensitive": true,
+        "market_snapshot_required": false,
+        "mode_downgrade_reason": null,
+        "needed_evidence": [
+          "Official statement from the Turkish judiciary or foreign ministry",
+          "Interpol confirmation or procedural status of the Red Notice request",
+          "Official Israeli government response"
+        ],
+        "optional_evidence_capabilities": [
+          "current_market_snapshot",
+          "prior_close",
+          "catalyst_evidence"
+        ],
+        "rank": 2,
+        "request_logical_hash": "a4a033d3132cf27b5a172c7d311ad0df39c1ed1bf7ca5372142418e3a2ad4ef4",
+        "requested_article_mode": "BREAKING_BRIEF",
+        "required_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
+        "source_adapter_families": [
+          "official_catalyst",
+          "public_secondary"
+        ],
+        "story_context": {
+          "capital_chronicle_context": {
+            "all_discovered_stores_considered": true,
+            "candidate_table_count": 0,
+            "catalog_fingerprint": null,
+            "cc_context_richness": 0.0,
+            "connection_mode": "duckdb_read_only",
+            "deep_query_selected_tables": [],
+            "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+            "deep_query_table_limit": 8,
+            "grants_factual_or_numeric_authority": false,
+            "matched_store_count": 0,
+            "matched_store_ids": [],
+            "matched_table_count": 0,
+            "matches": [],
+            "mutated_upstream": false,
+            "queried_entities": [
+              "Turkey",
+              "Benjamin Netanyahu",
+              "Interpol",
+              "Israel",
+              "Geopolitics",
+              "International Law"
+            ],
+            "queried_table_count": 0,
+            "query_budget": {
+              "deep_query_table_limit": 8,
+              "entity_limit": 6,
+              "rows_per_entity": 5
+            },
+            "query_elapsed_ms": 0.05,
+            "richness_components": {
+              "bounded_row_density": 0.0,
+              "entity_coverage": 0.0,
+              "matched_freshness_metadata_coverage": 0.0,
+              "matched_store_diversity": 0.0,
+              "quality_lineage_surface_coverage": 0.0
+            },
+            "schema_version": "contentops.story_scoped_cc_context.v2",
+            "semantic_activation": {},
+            "state": "NO_RELEVANT_CC_CONTEXT",
+            "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+          },
+          "entities_topics": [
+            "Turkey",
+            "Benjamin Netanyahu",
+            "Interpol",
+            "Israel",
+            "Geopolitics",
+            "International Law",
+            "Diplomacy",
+            "Middle East Conflict"
+          ],
+          "evidence_reachability": {
+            "adapter_family_coverage": 1.0,
+            "available_adapter_families": [
+              "public_secondary"
+            ],
+            "bounded_discovery_recovery_available": true,
+            "capital_chronicle_authority_granted": false,
+            "capital_chronicle_relevant_context": false,
+            "context_routed_official_locator_families": [],
+            "exact_matching_cc_publication_authorized_packet": false,
+            "expected_adapter_families": [
+              "public_secondary"
+            ],
+            "expected_evidence_capabilities": [
+              "credible_event_confirmation",
+              "basic_attributed_facts"
+            ],
+            "expected_request_cost": 3,
+            "factual_authority_granted": false,
+            "known_official_path": false,
+            "known_paywall_waf_or_dead_link_risk": false,
+            "mode_downgrade_viable": true,
+            "numeric_authority_granted": false,
+            "observed_access_failure_count": 0,
+            "observed_repeated_access_failure": false,
+            "observed_same_day_host_success_count": 0,
+            "public_source_candidate_count": 1,
+            "publication_authority_granted": false,
+            "ranking_only": true,
+            "registered_official_locator_families": [],
+            "reputable_public_secondary_path": false,
+            "score": 0.245,
+            "unregistered_official_suffix_candidate": false
+          },
+          "leaf_summaries": [
+            "Turkey issues an arrest warrant for Israeli Prime Prime Minister Benjamin Netanyahu and seeks an Interpol Red Notice, escalating geopolitical tensions."
+          ],
+          "material_follow_up_context": {},
+          "official_source_url_bindings": [
+            {
+              "feed_published_at_utc": "2026-08-22T11:35:07Z",
+              "feed_publisher_handle": "zerohedge",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+              "url": "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+            }
+          ],
+          "official_source_urls": [
+            "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+          ],
+          "portfolio_concentration_penalty": 0.0,
+          "preselection_score": 114.86,
+          "public_source_url_bindings": [
+            {
+              "feed_published_at_utc": "2026-08-22T11:35:07Z",
+              "feed_publisher_handle": "zerohedge",
+              "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+              "headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+              "url": "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+            }
+          ],
+          "public_source_urls": [
+            "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+          ],
+          "selection_case": "High-impact geopolitical breaking news that will affect regional stability, diplomatic relations, and potentially defense and energy markets. Requires immediate, concise reporting.",
+          "seo_intent": "Turkey arrest warrant Benjamin Netanyahu Interpol Red Notice",
+          "why_now": "Turkey has just issued an arrest warrant for Israeli PM Netanyahu and is seeking an Interpol Red Notice, representing a severe and immediate escalation in Middle Eastern geopolitical tensions."
+        },
+        "story_evidence_scope_binding": {
+          "assignment_authority_binding": "31c9e74609b75e2076125922f9ab59b0ce583f505b7658956333b7975c267574",
+          "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+          "headline_ids": [
+            "cc-x-headline-0751d8d085a41b31e7448f99"
+          ],
+          "material_follow_up_context_logical_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "schema_version": "contentops.story_evidence_scope_binding.v1",
+          "story_evidence_scope_id": "641afb5c253dd6b11cd919b769f0b62c72f6d9928864267c6a06c32898ecaa91",
+          "update_chain_identity": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+          "update_chain_logical_hash": "618f9c3d4d1cc2e5928ac8baafb25c467c04a7be8bbd3e6099d752f34b4c7170"
+        },
+        "story_evidence_scope_id": "641afb5c253dd6b11cd919b769f0b62c72f6d9928864267c6a06c32898ecaa91",
+        "story_type": "market_move",
+        "update_chain_identity": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+        "x_content_is_discovery_and_ranking_only": true
+      },
+      "requested_article_mode": "BREAKING_BRIEF",
+      "status": "VIABLE",
+      "story_evidence_delta_acquisition_count": 0,
+      "story_evidence_network_reads_avoided": 0,
+      "story_evidence_network_requests": 3,
+      "story_evidence_scope_id": "641afb5c253dd6b11cd919b769f0b62c72f6d9928864267c6a06c32898ecaa91"
+    }
+  ],
+  "ranked_candidate_count": 7,
+  "reason_code": "FIRST_VIABLE_RANKED_CLUSTER_SELECTED",
+  "schema_version": "capital_chronicle.rolling_x_ranked_evidence_viability.v1",
+  "selected_cluster": {
+    "article_mode": "BREAKING_BRIEF",
+    "capability_article_mode": "straight_news",
+    "capital_chronicle_context": {
+      "all_discovered_stores_considered": true,
+      "candidate_table_count": 0,
+      "catalog_fingerprint": null,
+      "cc_context_richness": 0.0,
+      "connection_mode": "duckdb_read_only",
+      "deep_query_selected_tables": [],
+      "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+      "deep_query_table_limit": 8,
+      "grants_factual_or_numeric_authority": false,
+      "matched_store_count": 0,
+      "matched_store_ids": [],
+      "matched_table_count": 0,
+      "matches": [],
+      "mutated_upstream": false,
+      "queried_entities": [
+        "Turkey",
+        "Benjamin Netanyahu",
+        "Interpol",
+        "Israel",
+        "Geopolitics",
+        "International Law"
+      ],
+      "queried_table_count": 0,
+      "query_budget": {
+        "deep_query_table_limit": 8,
+        "entity_limit": 6,
+        "rows_per_entity": 5
+      },
+      "query_elapsed_ms": 0.05,
+      "richness_components": {
+        "bounded_row_density": 0.0,
+        "entity_coverage": 0.0,
+        "matched_freshness_metadata_coverage": 0.0,
+        "matched_store_diversity": 0.0,
+        "quality_lineage_surface_coverage": 0.0
+      },
+      "schema_version": "contentops.story_scoped_cc_context.v2",
+      "semantic_activation": {},
+      "state": "NO_RELEVANT_CC_CONTEXT",
+      "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+    },
+    "capital_chronicle_publication_authority": {
+      "authorized": false,
+      "exact_story_consumer_use_binding_verified": false,
+      "llm_numeric_authority": false,
+      "ordinary_latest_web_article_may_continue": true,
+      "packet_id": null,
+      "packet_sha256": null,
+      "reason_codes": [
+        "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+      ],
+      "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+    },
+    "capital_chronicle_publication_authority_discovery": {
+      "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+      "catalog_fingerprint": null,
+      "llm_numeric_authority": false,
+      "ordinary_latest_web_article_may_continue": true,
+      "packet_id": null,
+      "packet_sha256": null,
+      "publication_authority_granted_at_preselection": false,
+      "reason_codes": [
+        "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+      ],
+      "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+    },
+    "capital_chronicle_semantic_activation": {
+      "derivation_provenance": [
+        {
+          "query_term": "Turkey",
+          "source_field": "entities_topics",
+          "source_value_sha256": "0cca93389edcd23bf3744032dcdcb52069aff904b42a1bcfb4fb88b2f6d018e8"
+        },
+        {
+          "query_term": "Benjamin Netanyahu",
+          "source_field": "entities_topics",
+          "source_value_sha256": "3db477fb53a8fdecf3eb6c610654f916459d6d1bc40a409379ae3ebc5db23462"
+        },
+        {
+          "query_term": "Interpol",
+          "source_field": "entities_topics",
+          "source_value_sha256": "d63e031a2e93e3f1f31a1c5572c26125426d205eb78038a89fd2b02127faa611"
+        },
+        {
+          "query_term": "Israel",
+          "source_field": "entities_topics",
+          "source_value_sha256": "f7c6cb1b918498b8cdbe998baf20c0ad37f7064f08ddb108b2eddadb1a58e00b"
+        },
+        {
+          "query_term": "Geopolitics",
+          "source_field": "entities_topics",
+          "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+        },
+        {
+          "query_term": "International Law",
+          "source_field": "entities_topics",
+          "source_value_sha256": "283b78f315193832a9af614ebca137fc04e169a837df5f33afb3927d0c68bec8"
+        }
+      ],
+      "grants_factual_or_numeric_authority": false,
+      "narrative_fields_considered": [
+        "leaf_summaries",
+        "why_now",
+        "selection_case",
+        "needed_evidence",
+        "needed_evidence",
+        "needed_evidence"
+      ],
+      "query_terms": [
+        "Turkey",
+        "Benjamin Netanyahu",
+        "Interpol",
+        "Israel",
+        "Geopolitics",
+        "International Law"
+      ],
+      "schema_version": "contentops.cc_story_semantic_activation.v1",
+      "semantic_dimensions": [
+        "entities_topics"
+      ],
+      "state": "CONTEXT_ONLY_AVAILABLE",
+      "zero_context_reason": null
+    },
+    "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "entities_topics": [
+      "Turkey",
+      "Benjamin Netanyahu",
+      "Interpol",
+      "Israel",
+      "Geopolitics",
+      "International Law",
+      "Diplomacy",
+      "Middle East Conflict"
+    ],
+    "evidence_reachability": {
+      "adapter_family_coverage": 1.0,
+      "available_adapter_families": [
+        "public_secondary"
+      ],
+      "bounded_discovery_recovery_available": true,
+      "capital_chronicle_authority_granted": false,
+      "capital_chronicle_relevant_context": false,
+      "context_routed_official_locator_families": [],
+      "exact_matching_cc_publication_authorized_packet": false,
+      "expected_adapter_families": [
+        "public_secondary"
+      ],
+      "expected_evidence_capabilities": [
+        "credible_event_confirmation",
+        "basic_attributed_facts"
+      ],
+      "expected_request_cost": 3,
+      "factual_authority_granted": false,
+      "known_official_path": false,
+      "known_paywall_waf_or_dead_link_risk": false,
+      "mode_downgrade_viable": true,
+      "numeric_authority_granted": false,
+      "observed_access_failure_count": 0,
+      "observed_repeated_access_failure": false,
+      "observed_same_day_host_success_count": 0,
+      "public_source_candidate_count": 1,
+      "publication_authority_granted": false,
+      "ranking_only": true,
+      "registered_official_locator_families": [],
+      "reputable_public_secondary_path": false,
+      "score": 0.245,
+      "unregistered_official_suffix_candidate": false
+    },
+    "growth_editorial_mode_resolution": {
+      "canonical_mode_ladder": [
+        "BREAKING_BRIEF",
+        "FOLLOW_UP_UPDATE",
+        "STANDARD_NEWS_ANALYSIS",
+        "CAPITAL_CHRONICLE_VIEW",
+        "WHAT_THE_MARKET_IS_MISSING",
+        "EVERGREEN_EXPLAINER",
+        "DATA_OR_DOCUMENT_LENS",
+        "WEEK_AHEAD_OR_WATCH"
+      ],
+      "changes_evidence_or_permission_standards": false,
+      "grants_factual_or_numeric_authority": false,
+      "mode": "BREAKING_BRIEF",
+      "quiet_day_utility_candidate": false,
+      "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+    },
+    "headline_ids": [
+      "cc-x-headline-0751d8d085a41b31e7448f99"
+    ],
+    "leaf_cluster_ids": [
+      "rolling-x-leaf-cluster-eac11c04adba5f656159"
+    ],
+    "leaf_summaries": [
+      "Turkey issues an arrest warrant for Israeli Prime Prime Minister Benjamin Netanyahu and seeks an Interpol Red Notice, escalating geopolitical tensions."
+    ],
+    "learning_policy_confidence": 0.0,
+    "learning_policy_sample_count": 0,
+    "learning_policy_version": null,
+    "learning_preference_matches": [],
+    "learning_preferences_change_evidence_or_publication_gates": false,
+    "learning_preferences_grant_factual_or_numeric_authority": false,
+    "learning_priority_bonus": 0.0,
+    "market_sensitive": true,
+    "material_event_priority_bonus": 0.0,
+    "material_event_priority_changes_eligibility_gates": false,
+    "material_event_priority_grants_factual_or_numeric_authority": false,
+    "material_event_priority_ids": [],
+    "material_event_priority_match": false,
+    "material_follow_up_context": null,
+    "needed_evidence": [
+      "Official statement from the Turkish judiciary or foreign ministry",
+      "Interpol confirmation or procedural status of the Red Notice request",
+      "Official Israeli government response"
+    ],
+    "official_source_url_bindings": [
+      {
+        "feed_published_at_utc": "2026-08-22T11:35:07Z",
+        "feed_publisher_handle": "zerohedge",
+        "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+        "headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+        "url": "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+      }
+    ],
+    "official_source_urls": [
+      "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+    ],
+    "portfolio_concentration_penalty": 0.0,
+    "portfolio_concentration_penalty_effective": 0.0,
+    "preselection_novelty": {
+      "best_prior_article": null,
+      "best_prior_title": null,
+      "cc_context_richness": 0.0,
+      "decision": "BREAKING_NEW_STORY",
+      "entity_overlap": 0.0,
+      "grants_factual_or_numeric_authority": false,
+      "matched_article_age_hours": null,
+      "material_delta_evaluation": {
+        "delta_summary": "No prior article matched.",
+        "marker_hits": [],
+        "new_official_source_candidate_count": 0,
+        "reason_codes": [],
+        "signal_count": 0,
+        "x_content_grants_factual_authority": false
+      },
+      "material_delta_signals": 0,
+      "recommended_article_mode": "BREAKING_BRIEF",
+      "schema_version": "contentops.editorial_story_novelty.v1",
+      "update_chain_match": false
+    },
+    "preselection_occurs_before_article_generation": true,
+    "preselection_occurs_before_targeted_evidence": true,
+    "preselection_original_rank": 3,
+    "preselection_score": 114.86,
+    "public_source_url_bindings": [
+      {
+        "feed_published_at_utc": "2026-08-22T11:35:07Z",
+        "feed_publisher_handle": "zerohedge",
+        "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+        "headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+        "url": "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+      }
+    ],
+    "public_source_urls": [
+      "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+    ],
+    "publishability_original_order": 2,
+    "publishability_path_profile": {
+      "bound_public_url_count": 1,
+      "bounded_request_upper_bound_per_candidate": 1,
+      "context_routed_locator_applicable": false,
+      "context_routed_locator_families": [],
+      "context_routed_locator_surface_ids": [],
+      "grants_factual_or_evidence_or_publication_authority": false,
+      "priority": 1,
+      "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+    },
+    "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+    "rank": 2,
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "selection_case": "High-impact geopolitical breaking news that will affect regional stability, diplomatic relations, and potentially defense and energy markets. Requires immediate, concise reporting.",
+    "seo_intent": "Turkey arrest warrant Benjamin Netanyahu Interpol Red Notice",
+    "seo_learning_preferences": [],
+    "story_mode": "reporting",
+    "update_chain": {
+      "canonical_headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+      "ordered_headline_ids": [
+        "cc-x-headline-0751d8d085a41b31e7448f99"
+      ],
+      "relationship": "distinct"
+    },
+    "update_chain_identity": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+    "visual_strategy": "Map showing Turkey and Israel with diplomatic status indicators, or a formal photo of the leaders with Interpol graphics.",
+    "why_now": "Turkey has just issued an arrest warrant for Israeli PM Netanyahu and is seeking an Interpol Red Notice, representing a severe and immediate escalation in Middle Eastern geopolitical tensions.",
+    "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+  },
+  "selected_cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+  "selected_evidence": {
+    "blockers": [],
+    "capital_chronicle_authority_verified": false,
+    "capital_chronicle_publication_authority": {
+      "authority_class": "CONTEXT_DISCOVERY_ONLY",
+      "authorized": false,
+      "intended_consumer": "contentops_publication",
+      "intended_use": "public_reporting",
+      "llm_numeric_authority": false,
+      "ordinary_latest_web_article_may_continue": true,
+      "packet_id": null,
+      "packet_sha256": null,
+      "reason_codes": [
+        "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+      ],
+      "schema_version": "contentops.cc_publication_authority_resolution.v1",
+      "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+    },
+    "cc_authority_utilization": {
+      "authority_class": "CONTEXT_DISCOVERY_ONLY",
+      "authorized_chart_count_available": 0,
+      "authorized_chart_count_consumed": 0,
+      "authorized_claim_count_available": 0,
+      "authorized_claim_count_consumed": 0,
+      "authorized_series_count_available": 0,
+      "authorized_series_count_consumed": 0,
+      "llm_numeric_authority": false,
+      "packet_discovered": false,
+      "packet_selected": null,
+      "packet_sha256": null,
+      "projection_validation_blockers": [],
+      "values_regenerated_or_repaired": false,
+      "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+    },
+    "cc_context_bundle": {
+      "candidate_table_count": 0,
+      "catalog_fingerprint": null,
+      "cc_context_refs": [],
+      "cc_context_richness": 0.0,
+      "connection_mode": "duckdb_read_only",
+      "factual_or_numeric_authority_granted": false,
+      "matched_store_count": 0,
+      "matched_table_count": 0,
+      "mutated_upstream": false,
+      "ordinary_reporting_blocked_when_unavailable": false,
+      "proprietary_claim_authority_granted": false,
+      "queried_entities": [
+        "Turkey",
+        "Benjamin Netanyahu",
+        "Interpol",
+        "Israel",
+        "Geopolitics",
+        "International Law"
+      ],
+      "queried_table_count": 0,
+      "query_budget": {
+        "deep_query_table_limit": 8,
+        "entity_limit": 6,
+        "rows_per_entity": 5
+      },
+      "query_elapsed_ms": 0.05,
+      "schema_version": "contentops.additive_cc_story_context.v1",
+      "selected_tables": [],
+      "semantic_activation": {},
+      "state": "CC_CONTEXT_UNAVAILABLE",
+      "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+    },
+    "claim_evidence_contract": {
+      "blocked_claims": [],
+      "claim_contract_sha256": "a075e1c1a6cdfde6b5be16ba25c8b757d311102d84b2e92668d4acb4456b2992",
+      "fabricated_claim_count": 0,
+      "omitted_claim_count": 2,
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-b173c4aeb27e7f5a",
+          "claim_text": "Benjamin Netanyahu's office dismissed the Turkish warrants as a 'pathetic attempt to intimidate' and accused Turkish President Erdogan of being antisemitic.",
+          "reason": "secondary_corroboration_insufficient",
+          "support_status": "OMITTED"
+        },
+        {
+          "claim_id": "claim-d1ab73637ca01249",
+          "claim_text": "Turkey has just issued an arrest warrant for Israeli PM Netanyahu and is seeking an Interpol Red Notice, representing a severe and immediate escalation in Middle Eastern geopolitical tensions.",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.claim_evidence_contract.v1",
+      "status": "PASS",
+      "supported_claim_count": 6,
+      "supported_claims": [
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-7d54cea858975fb1",
+          "claim_text": "Turkish Justice Minister Akin Gurlek announced that Turkey's justice ministry requested the interior ministry to issue Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and one other suspect.",
+          "evidence_document_ids": [
+            "public-secondary-60f44099a5918234976f"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-ee8be777c37dd17c",
+          "claim_text": "The Turkish arrest warrants for Netanyahu and the other suspect were issued on July 14.",
+          "evidence_document_ids": [
+            "public-secondary-60f44099a5918234976f"
+          ],
+          "numeric_claim": true,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-f5ad33fd7daeba95",
+          "claim_text": "The charges in the Turkish warrants include genocide, crimes against humanity, and torture, stemming from Israel's interception of the Global Sumud Flotilla in May.",
+          "evidence_document_ids": [
+            "public-secondary-60f44099a5918234976f"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-c8452458107bdaea",
+          "claim_text": "Erdogan's office responded to Israel's statement by condemning it as 'petty political tactics' and an attempt to portray Turkey as a threat.",
+          "evidence_document_ids": [
+            "public-secondary-60f44099a5918234976f"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-b7586d1aa9717267",
+          "claim_text": "France, Italy, and Australia have also launched judicial proceedings related to the interception of the flotilla.",
+          "evidence_document_ids": [
+            "public-secondary-60f44099a5918234976f"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-825d7ea040576f3b",
+          "claim_text": "Israeli National Security Minister Itamar Ben-Gvir previously released a video of himself provoking detained flotilla activists who were bound on their knees.",
+          "evidence_document_ids": [
+            "public-secondary-60f44099a5918234976f"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        }
+      ],
+      "x_content_grants_factual_authority": false
+    },
+    "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+    "deterministic_official_schedule_facts": [],
+    "editorial_mode_contract": {
+      "canonical_product_mode": true,
+      "editorial_inference_authority_class": null,
+      "editorial_inference_is_core_analyzer_authority": false,
+      "editorial_inference_must_be_explicit": false,
+      "evidence_depth": 1,
+      "factual_premises_must_be_source_bound": true,
+      "grants_factual_numeric_permission_or_publication_authority": false,
+      "narrow_official_primary_fast_lane": true,
+      "narrow_official_schedule_fact_lane": false,
+      "product_article_mode": "BREAKING_BRIEF",
+      "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+      "qualitative_editorial_inference_permitted": false,
+      "quiet_day_may_lower_truth_or_permission_standards": false
+    },
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [
+          {
+            "document_id": "public-secondary-60f44099a5918234976f",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": false,
+            "usable_content_words": 826
+          }
+        ],
+        "enough_for_useful_article": true,
+        "enrichment_recommended": false,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 1,
+        "target_usable_content_words": 90,
+        "usable_content_words": 826,
+        "usable_document_count": 1
+      },
+      "grounded_research": {
+        "blockers": [],
+        "elapsed_seconds": 23.625,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+        "infrastructure_failure_class": null,
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-23T01:18:44.810438Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [
+              {
+                "document_id": "public-secondary-60f44099a5918234976f",
+                "source_authority_class": "reputable_secondary_source",
+                "title_only": false,
+                "usable_content_words": 826
+              }
+            ],
+            "enough_for_useful_article": true,
+            "enrichment_recommended": false,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 1,
+            "target_usable_content_words": 90,
+            "usable_content_words": 826,
+            "usable_document_count": 1
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 3,
+        "research_calls": 1,
+        "retrieval_result": {
+          "accepted_document_count": 1,
+          "blockers": [],
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_synthesis_65ac16a544a67f85dcf3",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "source_synthesis",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 2861.0,
+              "prompt_tokens": 4976.0,
+              "total_tokens": 7837.0
+            },
+            "wall_clock_elapsed_seconds": 22.5981
+          }
+        ]
+      }
+    },
+    "evidence_documents": [
+      {
+        "byte_length": 206123,
+        "canonical_content_sha256": "f6d00874eda0e9a26ace80a88670b42f20da3226ba5b3455b7f1f6466fabe477",
+        "canonical_content_text": "Turkiye accuses Israel\u2019s Netanyahu of \u2018genocide\u2019, seeks Interpol warrant | Israel-Palestine conflict News | Al Jazeera Skip links Skip to Content play Live Sign up Show navigation menu Navigation menu News Show more news sections Africa Asia US & Canada Latin America Europe Asia Pacific Middle East Explained Sport Opinion Video More Show more sections Features Economy Human Rights Climate Crisis Investigations Interactives In Pictures Science & Technology Podcasts Travel Sponsored Content play Live Click here to search search Sign up Navigation menu caret-left Israel-Palestine conflict Shackled, bleeding, raped: Abuse in Israeli prisons \u2018This is an apartheid regime\u2019 Does Trump have real leverage over Netanyahu? History of flotilla campaigns caret-right News | Israel-Palestine conflict Turkiye accuses Israel\u2019s Netanyahu of \u2018genocide\u2019, seeks Interpol warrant Netanyahu and Erdogan trade insults as Ankara seeks warrant for Israel\u2019s attacks on Global Sumud Flotilla activists headed for Gaza. Listen Listen (3 mins) Save Click here to share on social media share-nodes Share facebook x whatsapp-stroke copylink google Add Al Jazeera on Google info Israeli Prime Minister Benjamin Netanyahu [File: Ronen Zvulun/Reuters] By Al Jazeera Staff and Reuters Published On 21 Aug 2026 21 Aug 2026 Turkiye has sought an international arrest warrant for Israeli Prime Minister Benjamin Netanyahu, accusing him of \u201cgenocide\u201d for Israel\u2019s attack in May on activists aboard the Global Sumud Flotilla for Gaza . In a post on X on Friday, Turkish Justice Minister Akin Gurlek said arrest warrants had been issued on July 14 for Netanyahu and another suspect. Charges included genocide, crimes against humanity and torture, as part of a case against 35 people over the Israeli interception in international waters. Recommended Stories list of 4 items list 1 of 4 Turkiye unveils its first intercontinental ballistic missile: What we know list 2 of 4 Turkiye, Saudi Arabia, Pakistan sign joint defence agreement: What\u2019s in it? list 3 of 4 NATO summit begins: Who\u2019s attending and what\u2019s at stake? list 4 of 4 Turkiye says Mecca defence pact not aimed at Iran end of list \u201cIn line with the arrest warrants issued against Benjamin Netanyahu \u2026 our justice ministry has requested that \u2060the interior ministry issue [Interpol] red notices for them so that they may be sought \u2060internationally,\u201d Gurlek said. Turkiye will use all available legal mechanisms to ensure Israel is held accountable for its crimes in Gaza, he added. NATO member Turkiye has been one of the fiercest critics of Israel\u2019s genocidal war \u2060on Gaza and has previously issued domestic arrest warrants for Netanyahu over its attacks. Turkiye has also repeatedly called for international measures against Israel for what Ankara calls its violations of human rights and international law. Israel denies those charges. In May, Israeli forces fired on at least two vessels from the Global Sumud Flotilla sailing towards \u200cGaza. It was making a renewed attempt to deliver aid to the enclave after earlier missions were intercepted by the Israeli military in international waters. Israel\u2019s interception of the flotilla provoked international outcry. France, Italy and Australia have also launched judicial proceedings. Advertisement About 50 vessels were in the Global Sumud Flotilla that left Turkiye in May heading for the besieged Palestinian territory. The activists were detained in the Mediterranean by the Israeli military and then taken to an Israeli prison before being deported . Israel\u2019s far right National Security Minister, Itamar Ben-Gvir caused outrage at the time by releasing a video of himself angrily provoking flotilla activists who were on their knees with their hands tied behind their backs. \u201cWe will not allow the crimes committed in Gaza to be covered up or those responsible to be protected by a shield of impunity,\u201d Gurlek said. \u201cWe will resolutely use all means available under national and international law.\u201d Asked about Gurlek\u2019s statement, Netanyahu\u2019s office said: \u201c[Turkish President] Erdogan\u2019s pathetic attempt to intimidate \u2060the leaders and soldiers of Israel, the only true democracy in the \u2060Middle East, will go nowhere.\u201d His office accused Erdogan of being \u201cantisemitic\u201d and vowed that Israel would \u201ccontinue to act forcefully against Turkiye\u2019s attempts to destabilise the region\u201d. Soon after, in a post on X, Erdogan\u2019s office denounced Netanyahu\u2019s \u201cpetty political tactics\u201d and condemned what it called the Israeli government\u2019s attempt \u201cto present Turkiye as a new threat\u201d. aj-logo aj-logo aj-logo Advertisement About About Show more About Us Code of Ethics Terms and Conditions EU/EEA Regulatory Notice Privacy Policy Cookie Policy Cookie Preferences Accessibility Statement Sitemap Work for us Connect Connect Show more Contact Us User Accounts Help Advertise with us Stay Connected Newsletters Channel Finder TV Schedule Podcasts Submit a Tip Paid Partner Content Our Channels Our Channels Show more Al Jazeera Arabic Al Jazeera English Al Jazeera Investigative Unit Al Jazeera Mubasher Al Jazeera Documentary Al Jazeera Balkans AJ+ Our Network Our Network Show more Al Jazeera Centre for Studies Al Jazeera Media Institute Learn Arabic Al Jazeera Centre for Public Liberties & Human Rights Al Jazeera Forum Al Jazeera Hotel Partners Follow Al Jazeera English: facebook twitter youtube instagram-colored-outline rss \u00a9 2026 Al Jazeera Media Network",
+        "canonical_resolution_status": "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP",
+        "content_truncated": false,
+        "content_type": "text/html",
+        "discovery_path_is_reader_authority": false,
+        "discovery_path_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPV0dDbDdKUmpkMTVxQ1hFSHRjQS1rMmR3dG5XTnR0NndGVm5ENW44UXNWQl9tTG5qRjBDQnBkSENvWEJQUWNpY3pDZFZ4NGlDanVmam5tUGwzdWVIMDM0ZXJpMVZqR2pjenVsRW9uNlFGWjR4QmN0b1U3RXlOaWVBNUZTa010Uk9SSkx5TkdiU1JVTUpQZTNaNm5saUhvbjY1M1Rub1dKaGk0SmpjYlHSAbMBQVVfeXFMTnZfMzY3R0VYbzJiNThiQ251UkJnUm55Zm1TSTRneWF6bjJVcnZGWFhlOEJIY2JEVWFfN1diLVZDSlpqdEIxa3dnQmp0TEVHLWl5SHRlUUdheUR6UmdRU1ZSbV9VeTBXZ2ZJMzdTOC1TRmdndjVZZG5vM3FSek0zZmpabjlCWjQ2RWt5Y3g2XzQ4UHFSYWh5bFlWeGlXUTdvN2Y2X1phTFlVaUtwVzA5M2xDVFU?oc=5",
+        "document_id": "public-secondary-60f44099a5918234976f",
+        "event_time_utc": "2026-08-21T19:08:30Z",
+        "grounded_source_ref": "SRC_E9BBE585A9A43712",
+        "public_claim_allowed": true,
+        "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+        "published_at_utc": "2026-08-21T19:08:30Z",
+        "publisher": "Aljazeera",
+        "publisher_document_title_relevance": 1.0,
+        "publisher_locator_chain": [
+          {
+            "sha256": "094adac194bd5a1c4f693ced18e947848803d5c4a8223b629bc29e10cec083cf",
+            "url": "https://www.aljazeera.com/news-sitemap.xml"
+          }
+        ],
+        "publisher_locator_sha256": "094adac194bd5a1c4f693ced18e947848803d5c4a8223b629bc29e10cec083cf",
+        "publisher_locator_title_relevance": 1.0,
+        "publisher_locator_url": "https://www.aljazeera.com/news-sitemap.xml",
+        "raw_sha256": "60f44099a5918234976f0c4acf83a5c2de6b177f774953207487d2cb4e40b39e",
+        "reader_source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+        "requested_source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+        "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+        "source_authority_class": "reputable_secondary_source",
+        "source_headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+        "source_identity": "www.aljazeera.com",
+        "source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+        "title": "Turkiye accuses Israel\u2019s Netanyahu of \u2018genocide\u2019, seeks Interpol warrant"
+      }
+    ],
+    "evidence_review_tier": "ENHANCED",
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [
+        {
+          "document_id": "public-secondary-60f44099a5918234976f",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": false,
+          "usable_content_words": 826
+        }
+      ],
+      "enough_for_useful_article": true,
+      "enrichment_recommended": false,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 1,
+      "target_usable_content_words": 90,
+      "usable_content_words": 826,
+      "usable_document_count": 1
+    },
+    "grounded_research_packet": {
+      "attributed_numeric_facts": [
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_E9BBE585A9A43712",
+          "statement": "The Turkish legal case regarding the Israeli interception involves 35 people.",
+          "value": 35
+        },
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_E9BBE585A9A43712",
+          "statement": "The Global Sumud Flotilla that left Turkey in May consisted of approximately 50 vessels.",
+          "value": 50
+        }
+      ],
+      "cc_context": {
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_refs": [],
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "factual_or_numeric_authority_granted": false,
+        "matched_store_count": 0,
+        "matched_table_count": 0,
+        "mutated_upstream": false,
+        "ordinary_reporting_blocked_when_unavailable": false,
+        "proprietary_claim_authority_granted": false,
+        "queried_entities": [
+          "Turkey",
+          "Benjamin Netanyahu",
+          "Interpol",
+          "Israel",
+          "Geopolitics",
+          "International Law"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.05,
+        "schema_version": "contentops.additive_cc_story_context.v1",
+        "selected_tables": [],
+        "semantic_activation": {},
+        "state": "CC_CONTEXT_UNAVAILABLE",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "cc_context_refs": [],
+      "confirmed_facts": [
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "F1",
+          "factual_statement": "Turkish Justice Minister Akin Gurlek announced that Turkey's justice ministry requested the interior ministry to issue Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and one other suspect.",
+          "source_refs": [
+            "SRC_E9BBE585A9A43712"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "F2",
+          "factual_statement": "The Turkish arrest warrants for Netanyahu and the other suspect were issued on July 14.",
+          "source_refs": [
+            "SRC_E9BBE585A9A43712"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "F3",
+          "factual_statement": "The charges in the Turkish warrants include genocide, crimes against humanity, and torture, stemming from Israel's interception of the Global Sumud Flotilla in May.",
+          "source_refs": [
+            "SRC_E9BBE585A9A43712"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "F4",
+          "factual_statement": "Benjamin Netanyahu's office dismissed the Turkish warrants as a 'pathetic attempt to intimidate' and accused Turkish President Erdogan of being antisemitic.",
+          "source_refs": [
+            "SRC_E9BBE585A9A43712"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "F5",
+          "factual_statement": "Erdogan's office responded to Israel's statement by condemning it as 'petty political tactics' and an attempt to portray Turkey as a threat.",
+          "source_refs": [
+            "SRC_E9BBE585A9A43712"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "F6",
+          "factual_statement": "France, Italy, and Australia have also launched judicial proceedings related to the interception of the flotilla.",
+          "source_refs": [
+            "SRC_E9BBE585A9A43712"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "F7",
+          "factual_statement": "Israeli National Security Minister Itamar Ben-Gvir previously released a video of himself provoking detained flotilla activists who were bound on their knees.",
+          "source_refs": [
+            "SRC_E9BBE585A9A43712"
+          ]
+        }
+      ],
+      "context": [
+        "T",
+        "h",
+        "e",
+        "",
+        "d",
+        "i",
+        "p",
+        "l",
+        "o",
+        "m"
+      ],
+      "contradictions": [],
+      "core_factual_proposition": "Turkish Justice Minister Akin Gurlek announced that Turkey's justice ministry requested the interior ministry to issue Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and one other suspect.",
+      "enhanced_review_required": false,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "latest_event_state_closure": {
+        "enhanced_breaking_zero_substantive_body": false,
+        "evaluation_as_of_utc": "2026-08-23T01:18:44.810438Z",
+        "forward_state_detected": false,
+        "model_assertion_grants_event_state_authority": false,
+        "post_cutoff_document_ids_rejected": [],
+        "pre_closure_evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "BREAKING_BRIEF",
+          "documents": [
+            {
+              "document_id": "public-secondary-60f44099a5918234976f",
+              "source_authority_class": "reputable_secondary_source",
+              "title_only": false,
+              "usable_content_words": 826
+            }
+          ],
+          "enough_for_useful_article": true,
+          "enrichment_recommended": false,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 1,
+          "target_usable_content_words": 90,
+          "usable_content_words": 826,
+          "usable_document_count": 1
+        },
+        "publication_authority": false,
+        "query_budget": {
+          "closure_queries_used": 0,
+          "initial_queries_used": 2,
+          "maximum_queries": 3
+        },
+        "schema_version": "contentops.latest_event_state_closure.v1",
+        "status": "NOT_REQUIRED"
+      },
+      "model_assertion_grants_factual_authority": false,
+      "model_suggested_article_mode": "BREAKING_BRIEF",
+      "post_filter_accepted_evidence_document_ids": [
+        "public-secondary-60f44099a5918234976f"
+      ],
+      "post_filter_removed_fact_count": 0,
+      "publication_authority": false,
+      "research_as_of_utc": "2026-08-23T01:18:44.810438Z",
+      "research_logical_hash": "43c3dbeca473621134fbea5474f80076fb7f28e0f08b229ec89e628d3f5e89b4",
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "risk_classification": "ORDINARY",
+      "schema_version": "contentops.grounded_news_research.v1",
+      "sources": [
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "f6d00874eda0e9a26ace80a88670b42f20da3226ba5b3455b7f1f6466fabe477",
+          "evidence_document_id": "public-secondary-60f44099a5918234976f",
+          "published_at": "2026-08-21T19:08:30Z",
+          "publisher": "Aljazeera",
+          "reader_source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+          "retrieved_at": "2026-08-23T01:20:35.788354Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_E9BBE585A9A43712",
+          "source_type": "text/html",
+          "source_url": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": false,
+            "source_record_bound": true
+          },
+          "title": "Turkiye accuses Israel\u2019s Netanyahu of \u2018genocide\u2019, seeks Interpol warrant"
+        }
+      ],
+      "story_identity": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+      "suggested_article_mode": "BREAKING_BRIEF",
+      "uncertainties": [
+        "The identity of the second suspect named in the July 14 Turkish arrest warrant is not disclosed in the source.",
+        "The current procedural status of the Interpol Red Notice request\u2014specifically whether Interpol has reviewed, accepted, or rejected the request\u2014is unknown."
+      ],
+      "unsupported_or_unverified": [
+        "Turkey's allegations that Netanyahu committed 'genocide,' 'crimes against humanity,' and 'torture' are legal claims forming the basis of the warrant, not independently verified facts.",
+        "Israel's accusation that Turkish President Erdogan is 'antisemitic' and attempting to 'destabilise the region' are political statements rather than established facts."
+      ]
+    },
+    "headline_ids": [
+      "cc-x-headline-0751d8d085a41b31e7448f99"
+    ],
+    "latest_event_state_closure": {
+      "enhanced_breaking_zero_substantive_body": false,
+      "evaluation_as_of_utc": "2026-08-23T01:18:44.810438Z",
+      "forward_state_detected": false,
+      "model_assertion_grants_event_state_authority": false,
+      "post_cutoff_document_ids_rejected": [],
+      "pre_closure_evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [
+          {
+            "document_id": "public-secondary-60f44099a5918234976f",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": false,
+            "usable_content_words": 826
+          }
+        ],
+        "enough_for_useful_article": true,
+        "enrichment_recommended": false,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 1,
+        "target_usable_content_words": 90,
+        "usable_content_words": 826,
+        "usable_document_count": 1
+      },
+      "publication_authority": false,
+      "query_budget": {
+        "closure_queries_used": 0,
+        "initial_queries_used": 2,
+        "maximum_queries": 3
+      },
+      "schema_version": "contentops.latest_event_state_closure.v1",
+      "status": "NOT_REQUIRED"
+    },
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [
+      "basic_attributed_facts",
+      "credible_event_confirmation"
+    ],
+    "publication_authority": false,
+    "publication_authorized_cc_projection": {},
+    "status": "PASS",
+    "unsupported_claims_removed": 2
+  },
+  "selected_headline_ids": [
+    "cc-x-headline-0751d8d085a41b31e7448f99"
+  ],
+  "selected_rank": 2,
+  "start_after_rank": 0,
+  "status": "SUCCESS",
+  "story_scoped_evidence_telemetry": {
+    "delta_acquisition_count": 0,
+    "distinct_story_scope_count": 2,
+    "mode_reuse_never_grants_authority": true,
+    "network_reads_avoided": 2,
+    "network_requests_performed": 5
+  },
+  "unattempted_candidate_count": 5,
+  "viability_logical_hash": "edb1ef60fcdb7ec25eb6fe904de1718f70864093e7e1084801e9cdd6af3acfbc",
+  "x_content_grants_evidence_authority": false
+}

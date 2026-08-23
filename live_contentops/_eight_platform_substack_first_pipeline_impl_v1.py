@@ -4570,6 +4570,7 @@ def _run_rolling_x_newsroom_cycle(
     cc_catalog: Mapping[str, Any] | None = None,
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
+    sourceability_observations: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
     acceptance_profile: str | None = None,
@@ -4883,6 +4884,7 @@ def _run_rolling_x_newsroom_cycle(
             cc_catalog=effective_catalog,
             learning_policy=dict(learning_policy or {}),
             material_event_priority=dict(material_event_priority or {}),
+            sourceability_observations=dict(sourceability_observations or {}),
             now=datetime.fromisoformat(str(cutoff_utc).replace("Z", "+00:00")),
         )
         _write_json(output_dir / "preselection_intelligence_v1.json", preselection)

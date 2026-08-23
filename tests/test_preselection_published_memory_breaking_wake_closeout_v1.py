@@ -403,6 +403,126 @@ def test_material_event_priority_reranks_matching_eligible_update_without_new_au
     assert result["publication_authority_granted"] is False
 
 
+def test_sourceability_ranking_prefers_observed_accessible_registered_path_without_authority(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.query_story_scoped_cc_context",
+        lambda _catalog, _entities: {
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matches": [],
+            "grants_factual_or_numeric_authority": False,
+        },
+    )
+    clusters = [
+        {
+            "cluster_id": "repeated-waf",
+            "rank": 1,
+            "headline_ids": ["h-waf"],
+            "entities_topics": ["Markets"],
+            "leaf_summaries": ["new market report"],
+            "public_source_urls": ["https://www.bloomberg.com/news/example"],
+        },
+        {
+            "cluster_id": "observed-accessible",
+            "rank": 2,
+            "headline_ids": ["h-ok"],
+            "entities_topics": ["Markets"],
+            "leaf_summaries": ["different market report"],
+            "public_source_urls": ["https://www.apnews.com/article/example"],
+        },
+    ]
+
+    result = apply_preselection_intelligence(
+        clusters,
+        published_corpus=[],
+        cc_catalog={"stores": []},
+        sourceability_observations={
+            "hosts": {
+                "www.bloomberg.com": {"http_403_count": 2},
+                "www.apnews.com": {"successful_retrieval_count": 1},
+            }
+        },
+        now=NOW,
+    )
+
+    assert result["reranked_order"][0] == "observed-accessible"
+    sourceability = result["ranked_clusters"][0]["evidence_reachability"]
+    assert sourceability["observed_same_day_host_success_count"] == 1
+    assert sourceability["ranking_only"] is True
+    assert sourceability["factual_authority_granted"] is False
+    assert result["sourceability_signals_grant_authority"] is False
+
+
+def test_sourceability_ranking_models_exact_story_bound_cc_packet_without_widening(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.query_story_scoped_cc_context",
+        lambda _catalog, _entities: {
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matches": [],
+            "grants_factual_or_numeric_authority": False,
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1._preselection_cc_publication_authority",
+        lambda cluster, **_kwargs: {
+            "state": (
+                "PUBLICATION_PACKET_AVAILABLE"
+                if cluster["cluster_id"] == "exact-cc"
+                else "PUBLICATION_PACKET_NOT_AVAILABLE"
+            ),
+            "authorized": cluster["cluster_id"] == "exact-cc",
+            "packet_sha256": "a" * 64 if cluster["cluster_id"] == "exact-cc" else None,
+            "exact_story_consumer_use_binding_verified": cluster["cluster_id"] == "exact-cc",
+            "publication_authority_granted_at_preselection": False,
+            "llm_numeric_authority": False,
+        },
+    )
+    clusters = [
+        {
+            "cluster_id": "unbound-public",
+            "rank": 1,
+            "story_type": "market_move",
+            "headline_ids": ["h-public"],
+            "entities_topics": ["Markets"],
+            "leaf_summaries": ["new market report"],
+            "public_source_urls": ["https://www.apnews.com/article/example"],
+        },
+        {
+            "cluster_id": "exact-cc",
+            "rank": 2,
+            "story_type": "market_move",
+            "headline_ids": ["h-cc"],
+            "entities_topics": ["Treasury"],
+            "leaf_summaries": ["new official curve update"],
+        },
+    ]
+
+    result = apply_preselection_intelligence(
+        clusters,
+        published_corpus=[],
+        cc_catalog={"stores": []},
+        now=NOW,
+    )
+
+    assert result["reranked_order"][0] == "exact-cc"
+    exact = result["ranked_clusters"][0]
+    assert exact["evidence_reachability"][
+        "exact_matching_cc_publication_authorized_packet"
+    ] is True
+    assert exact["evidence_reachability"]["ranking_only"] is True
+    assert exact["capital_chronicle_publication_authority"][
+        "publication_authority_granted_at_preselection"
+    ] is False
+    assert result["publication_authority_granted"] is False
+
+
 def test_duplicate_corpus_rows_still_hold_repeat_and_allow_material_follow_up(
     monkeypatch,
 ):

@@ -1540,6 +1540,18 @@ def resolve_editorial_worker_article_for_public_lock(
     raw_article = dict(article)
     raw_body = str(raw_article.get("substack_body_markdown") or "")
     context = extract_governed_story_context(viability)
+    source_bindings = _source_bindings(context)
+    supported_claims = _writer_supported_claims(context)
+    omitted_claims = [
+        dict(row)
+        for row in (
+            (context.get("claim_evidence_contract") or {}).get(
+                "omitted_unsupported_claims"
+            )
+            or []
+        )
+        if isinstance(row, Mapping)
+    ]
     resolved_body, referenced_source_ids, blockers = _resolve_generated_source_references(
         raw_body,
         context=context,
@@ -1548,6 +1560,32 @@ def resolve_editorial_worker_article_for_public_lock(
         raise GroundedArticleBuilderError(";".join(blockers))
     resolved = dict(raw_article)
     resolved["substack_body_markdown"] = resolved_body
+    # The native worker returns only the claim IDs it used.  Restore the exact governed claim
+    # objects and source identities from the accepted viability packet before any downstream
+    # semantic review.  Worker-authored claim/source objects can never override this projection.
+    resolved["supported_claims"] = supported_claims
+    resolved["omitted_unsupported_claims"] = omitted_claims
+    resolved["source_bindings"] = source_bindings
+    resolved["accepted_source_identities"] = [
+        {
+            **binding,
+            "source_identity": str(document.get("source_identity") or ""),
+            "source_authority_class": str(
+                document.get("source_authority_class") or ""
+            ),
+            "published_at_utc": str(document.get("published_at_utc") or ""),
+            "raw_sha256": str(document.get("raw_sha256") or ""),
+            "canonical_content_sha256": str(
+                document.get("canonical_content_sha256")
+                or document.get("content_sha256")
+                or ""
+            ),
+        }
+        for document, binding in zip(
+            (context.get("evidence_documents") or []), source_bindings
+        )
+        if isinstance(document, Mapping)
+    ]
     resolved["source_binding_ids_referenced"] = referenced_source_ids
     resolved["raw_worker_article_sha256"] = _sha256_text(
         json.dumps(raw_article, sort_keys=True, separators=(",", ":"), default=str)
@@ -1561,6 +1599,23 @@ def resolve_editorial_worker_article_for_public_lock(
         "unknown_source_handle_count": 0,
         "unbound_source_url_count": 0,
     }
+    resolved["semantic_review_contract_sha256"] = _sha256_text(
+        json.dumps(
+            {
+                "supported_claims": supported_claims,
+                "omitted_unsupported_claims": omitted_claims,
+                "evidence_document_ids": list(
+                    resolved.get("evidence_document_ids") or []
+                ),
+                "accepted_source_identities": resolved[
+                    "accepted_source_identities"
+                ],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+            default=str,
+        )
+    )
     resolved["canonical_rich_text"] = markdown_to_rich_text(resolved_body)
     return resolved
 

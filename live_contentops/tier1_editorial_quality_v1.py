@@ -51,6 +51,7 @@ ADVICE_PATTERNS = (
 SENTENCE_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9])")
 URL_RE = re.compile(r"https?://[^\s)]+")
 VISUAL_RE = re.compile(r"\[\[VISUAL:([^\]]+)\]\]")
+MARKDOWN_LINK_RE = re.compile(r"\[([^\]]+)\]\((https://[^)]+)\)")
 LLM_MATERIAL_REVIEW_CHECKS = (
     "clear_news_peg",
     "mode_consistent",
@@ -96,6 +97,33 @@ def rendered_body(markdown: str) -> str:
         body = re.sub(r"^#{1,6}\s+", "", body, flags=re.MULTILINE)
         body = re.sub(r"[*_`]", "", body)
         return re.sub(r"\n{3,}", "\n\n", body).strip()
+
+
+def _semantic_reader_visible_prose(article: Mapping[str, Any]) -> str:
+    """Project prose without turning standalone citation labels into false sentences."""
+    markdown = str(
+        article.get("substack_body_markdown") or article.get("body_markdown") or ""
+    )
+    source_urls = {
+        str(row.get("reader_source_url") or "")
+        for row in (
+            article.get("accepted_source_identities")
+            or article.get("source_bindings")
+            or []
+        )
+        if isinstance(row, Mapping) and row.get("reader_source_url")
+    }
+
+    def replace(match: re.Match[str]) -> str:
+        if match.group(2) not in source_urls:
+            return match.group(1)
+        prefix = markdown[: match.start()].rstrip()
+        # A bound source link immediately following sentence punctuation is a citation marker,
+        # not an additional prose token.  Inline grammatical links keep their visible label.
+        return "" if prefix.endswith((".", "!", "?", ";", ":")) else match.group(1)
+
+    citation_clean = MARKDOWN_LINK_RE.sub(replace, markdown)
+    return rendered_body(citation_clean)
 
 
 def _sentences(markdown: str) -> list[str]:
@@ -538,7 +566,20 @@ def build_llm_editorial_review_prompt(article: Mapping[str, Any]) -> str:
         ),
         "supported_claims": list(article.get("supported_claims") or []),
         "omitted_unsupported_claims": list(article.get("omitted_unsupported_claims") or []),
-        "rendered_body": str(article.get("rendered_body") or rendered_body(str(article.get("substack_body_markdown") or article.get("body_markdown") or ""))),
+        "evidence_document_ids": list(article.get("evidence_document_ids") or []),
+        "accepted_source_identities": [
+            dict(row)
+            for row in (
+                article.get("accepted_source_identities")
+                or article.get("source_bindings")
+                or []
+            )
+            if isinstance(row, Mapping)
+        ],
+        "semantic_review_contract_sha256": str(
+            article.get("semantic_review_contract_sha256") or ""
+        ),
+        "reader_visible_prose": _semantic_reader_visible_prose(article),
     }
     checks = ",".join(f'"{name}":true' for name in LLM_REVIEW_CHECKS)
     return "\n".join(
@@ -546,6 +587,7 @@ def build_llm_editorial_review_prompt(article: Mapping[str, Any]) -> str:
             "You are a Capital Chronicle standards editor reviewing reader-facing financial journalism.",
             "Review only the supplied article. Do not add facts, rewrite the story, or authorize publication.",
             "Every factual claim must be within supported_claims. Treat omitted_unsupported_claims as forbidden material. A clearly identified inference may explain implications of supported facts without the source stating that inference verbatim, but it must not add facts, numbers, forecasts, certainty, or independent analytical authority. Concise BREAKING_BRIEF and FOLLOW_UP_UPDATE modes do not require market analysis, forecasts, or institutional-field completeness.",
+            "accepted_source_identities and evidence_document_ids are exact governed identities. Citation labels removed from reader_visible_prose remain source metadata and must not be diagnosed as missing or duplicated reader prose.",
             "Mark a check false when support is ambiguous. Internal editorial/process/prompt/pipeline language is reader-facing failure.",
             "Mark material_claims_supported, no_factual_contradiction, no_fabricated_numbers, material_evidence_matches, no_misleading_framing, and severe_coherence_ok conservatively.",
             "SEO, keyword placement, optional context, market depth, confirmation/falsification framing, and sophisticated visuals are advisory and must not alone force revision.",

@@ -1,0 +1,789 @@
+{
+  "acceptance_profile": null,
+  "bounded_revision_cycle": {
+    "acceptance_profile": null,
+    "article": {
+      "accepted_source_identities": [
+        {
+          "canonical_content_sha256": "c53c7be4e3c05f28906706df75cedc8ff49d88eaaebf2dc5b8a13b8f0793d695",
+          "discovery_path_is_reader_authority": false,
+          "evidence_document_id": "public-secondary-391077ed98f0344511a3",
+          "published_at_utc": "2026-08-21T13:47:26Z",
+          "publisher": "Aljazeera",
+          "raw_sha256": "391077ed98f0344511a3b3123cfe3a61633240b146a17a84949d667ba3152e3f",
+          "reader_attribution_mode": "BOUND_LINK",
+          "reader_source_url": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+          "source_authority_class": "reputable_secondary_source",
+          "source_handle": "SOURCE_1",
+          "source_id": "source-7509293825b4a6a0",
+          "source_identity": "www.aljazeera.com",
+          "title": "Trump\u2019s \u2018economic D-Day\u2019 claims first victim: Not Iran, but US markets"
+        }
+      ],
+      "article_generation_method": "NATIVE_CODEX_DESKTOP_XHIGH_EDITORIAL_WORKER",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "author_identity": "Capital Chronicle",
+      "canonical_editorial_headline": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+      "canonical_rich_text": {
+        "blocks": [
+          {
+            "content": [
+              {
+                "text": "Al Jazeera reports that global crude oil prices rose following the announcement, with Brent crude and US crude both increasing on Thursday. ",
+                "type": "text"
+              },
+              {
+                "href": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+                "text": "Aljazeera",
+                "type": "link"
+              },
+              {
+                "text": " Al Jazeera also reports that US stock markets recorded their worst losses in three weeks on the Thursday after the announcement, with the Dow Jones and S&P 500 both closing lower. ",
+                "type": "text"
+              },
+              {
+                "href": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+                "text": "Aljazeera",
+                "type": "link"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "text": "What matters now is the sequence in the latest account: crude moved higher, US equities closed lower, and the Treasury announced a debt-buyback response intended to calm the market. ",
+                "type": "text"
+              },
+              {
+                "href": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+                "text": "Aljazeera",
+                "type": "link"
+              },
+              {
+                "text": " This is a useful cross-asset snapshot, but timing alone does not establish that the announcement explained every move.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "text": "The Treasury response",
+                "type": "text"
+              }
+            ],
+            "level": 2,
+            "type": "heading"
+          },
+          {
+            "content": [
+              {
+                "text": "The Treasury action supplies the clearest reported mechanism. Al Jazeera reports that the US Treasury announced an emergency move to double buybacks of long-dated debt in an attempt to calm the market. ",
+                "type": "text"
+              },
+              {
+                "href": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+                "text": "Aljazeera",
+                "type": "link"
+              },
+              {
+                "text": " That distinction matters: the account establishes the stated purpose of the move while leaving its effectiveness unresolved.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "text": "The political response",
+                "type": "text"
+              }
+            ],
+            "level": 2,
+            "type": "heading"
+          },
+          {
+            "content": [
+              {
+                "text": "Al Jazeera reports that Iranian Foreign Minister Abbas Araghchi dismissed Trump's economic D-Day threats and called them a diversion from America's own crisis. ",
+                "type": "text"
+              },
+              {
+                "href": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+                "text": "Aljazeera",
+                "type": "link"
+              },
+              {
+                "text": " His response belongs to the political record; it does not independently establish the merits of either side's broader position.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "text": "Sequence is not causation",
+                "type": "text"
+              }
+            ],
+            "level": 2,
+            "type": "heading"
+          },
+          {
+            "content": [
+              {
+                "text": "The account places higher crude prices, lower US equities and the Treasury response around the announcement. Those observations establish direction, timing and the stated purpose of the buyback move. They do not isolate the announcement as the sole driver of oil, equity or debt-market conditions.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "text": "What would confirm or challenge the picture",
+                "type": "text"
+              }
+            ],
+            "level": 2,
+            "type": "heading"
+          },
+          {
+            "content": [
+              {
+                "text": "Fresh market reporting showing the same directions would confirm that the cross-market pattern persisted beyond Thursday. A reversal in those directions would challenge that reading. Official Treasury detail on the buyback operation would confirm whether the announced move advanced, while a formal withdrawal or superseding notice would challenge it. These are observable checkpoints, not forecasts.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "schema_version": "contentops.article_rich_text.v1"
+      },
+      "canonical_slug_candidate": "oil-prices-us-stocks-treasury-debt-buybacks",
+      "capital_chronicle_authority": false,
+      "claim_evidence_contract_sha256": "8eceb2c93abfd058c6618ae1a1116196cadc7e341a41da85dd9ddfb3cfb6ae0e",
+      "cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+      "cross_asset_implications": null,
+      "dek": "Al Jazeera reported higher crude prices, the worst US equity losses in three weeks and an emergency Treasury move to double long-dated debt buybacks.",
+      "editorial_mode": "analysis",
+      "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "entities": [
+        "Al Jazeera",
+        "Brent crude",
+        "US crude",
+        "Dow Jones Industrial Average",
+        "S&P 500",
+        "US Treasury",
+        "Abbas Araghchi",
+        "Iran"
+      ],
+      "epistemic_claims": [
+        {
+          "layer": "OBSERVED_FACT",
+          "public_treatment": "DIRECT_SOURCE_FACT",
+          "source_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "text": "Al Jazeera reports that global crude oil prices rose following the announcement, with Brent crude and US crude both increasing on Thursday."
+        },
+        {
+          "layer": "OBSERVED_FACT",
+          "public_treatment": "DIRECT_SOURCE_FACT",
+          "source_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "text": "Al Jazeera also reports that US stock markets recorded their worst losses in three weeks on the Thursday after the announcement, with the Dow Jones and S&P 500 both closing lower."
+        },
+        {
+          "layer": "OBSERVED_FACT",
+          "public_treatment": "DIRECT_SOURCE_FACT",
+          "source_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "text": "Al Jazeera reports that the US Treasury announced an emergency move to double buybacks of long-dated debt in an attempt to calm the market."
+        },
+        {
+          "layer": "OBSERVED_FACT",
+          "public_treatment": "DIRECT_SOURCE_FACT",
+          "source_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "text": "Al Jazeera reports that Iranian Foreign Minister Abbas Araghchi dismissed Trump's economic D-Day threats and called them a diversion from America's own crisis."
+        },
+        {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "public_treatment": "CONDITIONAL",
+          "source_ids": [],
+          "text": "Fresh market reporting showing the same directions would confirm that the cross-market pattern persisted beyond Thursday."
+        },
+        {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "public_treatment": "CONDITIONAL",
+          "source_ids": [],
+          "text": "A reversal in those directions would challenge that reading."
+        }
+      ],
+      "evidence_document_ids": [
+        "public-secondary-391077ed98f0344511a3"
+      ],
+      "factual_authority": false,
+      "headline_ids": [
+        "cc-x-headline-b36ac3f656a602f0e1498c8d"
+      ],
+      "humor_lines": [],
+      "institutional_edge_editorial_packet_sha256": "b6de2fa29c5eaa50f39d35d205306cf3a88ad22432c280c4b17fac9f06228c8e",
+      "institutional_edge_editorial_validation": {
+        "blockers": [],
+        "checks": {
+          "epistemic_and_source_binding": true,
+          "packet_hash_bound": true,
+          "proposition_bound": true,
+          "required_surfaces_present": true,
+          "seo_truth_preserved": true,
+          "structured_data_matches_visible_copy": true,
+          "tone_policy_preserved": true
+        },
+        "classification": "PASS",
+        "editorial_packet_sha256": "b6de2fa29c5eaa50f39d35d205306cf3a88ad22432c280c4b17fac9f06228c8e",
+        "editorial_seo_package": {
+          "author_identity": "Capital Chronicle",
+          "canonical_editorial_headline": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+          "canonical_slug_candidate": "oil-prices-us-stocks-treasury-debt-buybacks",
+          "dek": "Al Jazeera reported higher crude prices, the worst US equity losses in three weeks and an emergency Treasury move to double long-dated debt buybacks.",
+          "editorial_seo_package_sha256": "339a37e28ce0b8098c6e6e5289e396cba46307157ecec426bb8b2fd25ba214e7",
+          "entities": [
+            "Al Jazeera",
+            "Brent crude",
+            "US crude",
+            "Dow Jones Industrial Average",
+            "S&P 500",
+            "US Treasury",
+            "Abbas Araghchi",
+            "Iran"
+          ],
+          "institutional_edge_editorial_packet_sha256": "b6de2fa29c5eaa50f39d35d205306cf3a88ad22432c280c4b17fac9f06228c8e",
+          "internal_link_candidates": [],
+          "meta_description": "Al Jazeera reported higher crude prices, lower US stocks and an emergency Treasury move to double long-dated debt buybacks after the announcement.",
+          "primary_reader_question": "What does the report establish about oil prices and US stocks after the announcement?",
+          "public_write_authority": false,
+          "publication_authority": false,
+          "publisher_identity": "Capital Chronicle",
+          "schema_version": "contentops.institutional_edge_seo_package.v1",
+          "search_freshness_class": "CURRENT",
+          "search_learning_status": "HOLD_WITHOUT_SEARCH_SPECIFIC_EVIDENCE",
+          "search_title": "Oil Prices and US Stocks After the Treasury Buyback Move",
+          "secondary_reader_questions": [
+            "What Treasury response did the report identify?",
+            "What remains uncertain about the reported market sequence?",
+            "How did Abbas Araghchi respond to Trump's threats?"
+          ],
+          "social_hook": "Al Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.",
+          "structured_data_packet": {
+            "@type": "NewsArticle",
+            "author": "Capital Chronicle",
+            "dateModified": "",
+            "datePublished": "",
+            "description": "Al Jazeera reported higher crude prices, lower US stocks and an emergency Treasury move to double long-dated debt buybacks after the announcement.",
+            "eligible_for_emission": false,
+            "headline": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+            "publication_time_binding": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+            "publisher": "Capital Chronicle"
+          },
+          "topics": [
+            "crude oil prices",
+            "US stock markets",
+            "Treasury debt buybacks",
+            "Iran"
+          ]
+        },
+        "factual_authority": false,
+        "numeric_authority": false,
+        "ordinary_semantic_review_calls": 0,
+        "public_write_authority": false,
+        "publication_authority": false,
+        "schema_version": "contentops.institutional_edge_editorial_validation.v1"
+      },
+      "internal_link_candidates": [],
+      "market_consequence_terms": [
+        "crude oil prices",
+        "US stock markets",
+        "Treasury"
+      ],
+      "market_mechanism": "Al Jazeera reports that crude prices rose and US stocks fell after the announcement, while the Treasury moved to double long-dated debt buybacks in an attempt to calm the market.",
+      "mechanism_terms": [
+        "double buybacks of long-dated debt",
+        "attempt to calm the market"
+      ],
+      "meta_description": "Al Jazeera reported higher crude prices, lower US stocks and an emergency Treasury move to double long-dated debt buybacks after the announcement.",
+      "named_catalyst_terms": [
+        "fresh market reporting",
+        "official Treasury detail"
+      ],
+      "news_peg_terms": [
+        "global crude oil prices",
+        "US stock markets"
+      ],
+      "numeric_authority": false,
+      "numeric_claims_from_llm": false,
+      "omitted_unsupported_claim_ids": [
+        "claim-447cf25b0e22221e",
+        "claim-996c7a3a0fdae9b1",
+        "claim-15d68a684b8a4603"
+      ],
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-447cf25b0e22221e",
+          "claim_text": "President Trump threatened 'economic warfare' and secondary sanctions against any country or entity providing a lifeline to Iran in a Truth Social post.",
+          "reason": "secondary_corroboration_insufficient",
+          "support_status": "OMITTED"
+        },
+        {
+          "claim_id": "claim-996c7a3a0fdae9b1",
+          "claim_text": "Treasury Secretary Scott Bessent stated on CNBC that the new economic warfare could include additional secondary sanctions on nations and companies conducting business with Iran.",
+          "reason": "secondary_corroboration_insufficient",
+          "support_status": "OMITTED"
+        },
+        {
+          "claim_id": "claim-15d68a684b8a4603",
+          "claim_text": "The announcement of 'Economic D-Day' targeting Iran signals a severe escalation in sanctions and economic warfare, likely impacting global energy markets.",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "policy_context": "The report also attributes a rejection of Trump's economic D-Day threats to Iranian Foreign Minister Abbas Araghchi.",
+      "primary_reader_question": "What does the report establish about oil prices and US stocks after the announcement?",
+      "primary_topic": "global crude oil prices",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "publisher_identity": "Capital Chronicle",
+      "quote_source_records": [],
+      "raw_worker_article_sha256": "45f9b67198901898668f7d9f639591994a9ed79f0d300c9d909510a9deb68522",
+      "raw_worker_body_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+      "resolved_public_body_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+      "search_freshness_class": "CURRENT",
+      "search_title": "Oil Prices and US Stocks After the Treasury Buyback Move",
+      "secondary_reader_questions": [
+        "What Treasury response did the report identify?",
+        "What remains uncertain about the reported market sequence?",
+        "How did Abbas Araghchi respond to Trump's threats?"
+      ],
+      "semantic_review_contract_sha256": "c826b94bb9545beab12161c3dc61fc629c73f03efe674a90fe3e53661926b79f",
+      "seo_primary_keyword": "oil prices",
+      "seo_semantic_terms": [
+        "global crude oil prices",
+        "US stock markets",
+        "long-dated debt"
+      ],
+      "seo_title": "Oil Prices and US Stocks After the Treasury Buyback Move",
+      "slug": "oil-prices-us-stocks-treasury-debt-buybacks",
+      "social_cross_asset_summary": "The report describes crude prices rising while the Dow Jones and S&P 500 closed lower.",
+      "social_hook": "Al Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.",
+      "social_lede": "Al Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.",
+      "social_mechanism_summary": "The report places higher crude prices, lower US stocks and the Treasury buyback announcement in the same market sequence.",
+      "social_policy_summary": "The Treasury announced an emergency move to double long-dated debt buybacks in an attempt to calm the market.",
+      "source_binding_ids_referenced": [
+        "source-7509293825b4a6a0"
+      ],
+      "source_bindings": [
+        {
+          "discovery_path_is_reader_authority": false,
+          "evidence_document_id": "public-secondary-391077ed98f0344511a3",
+          "publisher": "Aljazeera",
+          "reader_attribution_mode": "BOUND_LINK",
+          "reader_source_url": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+          "source_handle": "SOURCE_1",
+          "source_id": "source-7509293825b4a6a0",
+          "title": "Trump\u2019s \u2018economic D-Day\u2019 claims first victim: Not Iran, but US markets"
+        }
+      ],
+      "source_reference_resolution": {
+        "referenced_source_ids": [
+          "source-7509293825b4a6a0"
+        ],
+        "resolver": "GROUNDED_SOURCE_BINDING_RESOLVER_V1",
+        "status": "PASS",
+        "unbound_source_url_count": 0,
+        "unknown_source_handle_count": 0
+      },
+      "structured_data_packet": {
+        "@type": "NewsArticle",
+        "author": "Capital Chronicle",
+        "dateModified": "",
+        "datePublished": "",
+        "description": "Al Jazeera reported higher crude prices, lower US stocks and an emergency Treasury move to double long-dated debt buybacks after the announcement.",
+        "eligible_for_emission": false,
+        "headline": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+        "publication_time_binding": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+        "publisher": "Capital Chronicle"
+      },
+      "substack_body_markdown": "Al Jazeera reports that global crude oil prices rose following the announcement, with Brent crude and US crude both increasing on Thursday. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets) Al Jazeera also reports that US stock markets recorded their worst losses in three weeks on the Thursday after the announcement, with the Dow Jones and S&P 500 both closing lower. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets)\n\nWhat matters now is the sequence in the latest account: crude moved higher, US equities closed lower, and the Treasury announced a debt-buyback response intended to calm the market. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets) This is a useful cross-asset snapshot, but timing alone does not establish that the announcement explained every move.\n\n## The Treasury response\n\nThe Treasury action supplies the clearest reported mechanism. Al Jazeera reports that the US Treasury announced an emergency move to double buybacks of long-dated debt in an attempt to calm the market. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets) That distinction matters: the account establishes the stated purpose of the move while leaving its effectiveness unresolved.\n\n## The political response\n\nAl Jazeera reports that Iranian Foreign Minister Abbas Araghchi dismissed Trump's economic D-Day threats and called them a diversion from America's own crisis. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets) His response belongs to the political record; it does not independently establish the merits of either side's broader position.\n\n## Sequence is not causation\n\nThe account places higher crude prices, lower US equities and the Treasury response around the announcement. Those observations establish direction, timing and the stated purpose of the buyback move. They do not isolate the announcement as the sole driver of oil, equity or debt-market conditions.\n\n## What would confirm or challenge the picture\n\nFresh market reporting showing the same directions would confirm that the cross-market pattern persisted beyond Thursday. A reversal in those directions would challenge that reading. Official Treasury detail on the buyback operation would confirm whether the announced move advanced, while a formal withdrawal or superseding notice would challenge it. These are observable checkpoints, not forecasts.",
+      "subtitle": "Al Jazeera reported higher crude prices, the worst US equity losses in three weeks and an emergency Treasury move to double long-dated debt buybacks.",
+      "supported_claim_ids_used": [
+        "claim-e0579bf6854172e6",
+        "claim-6db855933f90603b",
+        "claim-1c881c1b2be1af29",
+        "claim-a1e0452d07877e6d"
+      ],
+      "supported_claims": [
+        {
+          "attribution_required": true,
+          "claim_id": "f1",
+          "claim_text": "President Trump threatened 'economic warfare' and secondary sanctions against any country or entity providing a lifeline to Iran in a Truth Social post.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "f2",
+          "claim_text": "Treasury Secretary Scott Bessent stated on CNBC that the new economic warfare could include additional secondary sanctions on nations and companies conducting business with Iran.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "f3",
+          "claim_text": "Following the announcement, global crude oil prices rose, with Brent crude and US crude both experiencing price increases on Thursday.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "f4",
+          "claim_text": "US stock markets experienced their worst losses in three weeks on the Thursday following the announcement, with both the Dow Jones and S&P 500 closing lower.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "f5",
+          "claim_text": "The US Treasury announced an emergency move to double buybacks of long-dated debt in an attempt to calm the market.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        },
+        {
+          "attribution_required": true,
+          "claim_id": "f6",
+          "claim_text": "Iranian Foreign Minister Abbas Araghchi dismissed Trump's 'economic D-Day' threats, calling them a diversion from America's own crisis.",
+          "direct_or_inferred": "DIRECT",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ],
+          "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+        }
+      ],
+      "title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+      "topics": [
+        "crude oil prices",
+        "US stock markets",
+        "Treasury debt buybacks",
+        "Iran"
+      ],
+      "x_content_grants_factual_authority": false
+    },
+    "canary_quality_warnings": [],
+    "publication_authority_granted": false,
+    "review_history": [
+      {
+        "article_sha256": "300ad0694b4535ae74f7dab69818b12faaab329c51dc990807650d7ad33273ab",
+        "combined_editorial_gate": {
+          "blockers": [],
+          "classification": "PASS",
+          "deterministic_pass": true,
+          "llm_cannot_override_deterministic_blockers": true,
+          "llm_semantic_pass": true,
+          "publication_authority": false
+        },
+        "deterministic_review": {
+          "advisory_editorial_findings": [],
+          "caveat_count": 0,
+          "classification": "PASS",
+          "duplicated_sentence_count": 0,
+          "editorial_blockers": [],
+          "editorial_checks": {
+            "concise_nut_graf": true,
+            "confirmation_condition": true,
+            "context_present": true,
+            "falsification_condition": true,
+            "high_information_density": true,
+            "lede_market_consequence": true,
+            "lede_what_changed": true,
+            "lede_why_now": true,
+            "mechanism_present": true,
+            "mode_declared": true,
+            "mode_rubric": true,
+            "named_next_catalysts": true,
+            "no_fabricated_quotes": true,
+            "no_financial_advice": true,
+            "no_process_language": true,
+            "original_value_claim_support": true,
+            "reader_value_floor": true,
+            "single_caveat": true
+          },
+          "editorial_score": 100,
+          "filler_hits": [],
+          "hard_editorial_blockers": [],
+          "headline_desk": {
+            "publication_authority": false,
+            "rejected_variant_count": 3,
+            "schema_version": "contentops.tier1_editorial_quality.v2",
+            "variants": [
+              {
+                "channel": "reader",
+                "checks": {
+                  "length": true,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": true,
+                  "search_intent": true,
+                  "specificity": true
+                },
+                "rejection_reasons": [],
+                "score": 100,
+                "text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks"
+              },
+              {
+                "channel": "seo",
+                "checks": {
+                  "length": true,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": true,
+                  "search_intent": true,
+                  "specificity": true
+                },
+                "rejection_reasons": [],
+                "score": 100,
+                "text": "Oil Prices and US Stocks After the Treasury Buyback Move"
+              },
+              {
+                "channel": "social",
+                "checks": {
+                  "length": false,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": false,
+                  "search_intent": true,
+                  "specificity": false
+                },
+                "rejection_reasons": [
+                  "present",
+                  "length",
+                  "specificity"
+                ],
+                "score": 50,
+                "text": ""
+              },
+              {
+                "channel": "push",
+                "checks": {
+                  "length": false,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": false,
+                  "search_intent": true,
+                  "specificity": false
+                },
+                "rejection_reasons": [
+                  "present",
+                  "length",
+                  "specificity"
+                ],
+                "score": 50,
+                "text": ""
+              },
+              {
+                "channel": "youtube_community",
+                "checks": {
+                  "length": false,
+                  "no_clickbait": true,
+                  "no_mismatch": true,
+                  "present": false,
+                  "search_intent": true,
+                  "specificity": false
+                },
+                "rejection_reasons": [
+                  "present",
+                  "length",
+                  "specificity"
+                ],
+                "score": 50,
+                "text": ""
+              }
+            ]
+          },
+          "paragraph_redundancy_findings": [],
+          "process_language_hits": [],
+          "reader_value_gate": {
+            "attribution_chain_dominant": false,
+            "attribution_marker_count": 0,
+            "blockers": [],
+            "checks": {
+              "captions_and_source_metadata_not_dominant": true,
+              "mode_appropriate_structure": true,
+              "mode_appropriate_substance": true,
+              "multiple_meaningful_reader_paragraphs": true,
+              "native_rich_text_serializable": true,
+              "no_process_or_pipeline_language": true,
+              "no_repetitive_filler": true,
+              "not_attribution_chain_copy": true,
+              "professional_writer_output": true,
+              "reader_value_independent_of_media": true,
+              "title_not_body": true
+            },
+            "classification": "PASS",
+            "duplicated_sentence_count": 0,
+            "floor": {
+              "minimum_headings": 2,
+              "minimum_paragraphs": 6,
+              "minimum_words": 350
+            },
+            "floor_class": "DATA_RICH_OR_ANALYTICAL",
+            "formatting_targets": {
+              "heading_target_met": true,
+              "paragraph_target_met": true,
+              "word_target_met": false
+            },
+            "formatting_targets_are_advisory": true,
+            "heading_count": 4,
+            "list_item_count": 0,
+            "markup_findings": [],
+            "meaningful_paragraph_count": 6,
+            "paragraph_redundancy_findings": [],
+            "process_language_hits": [],
+            "publication_authority": false,
+            "reader_prose_word_count": 297,
+            "reader_sentence_count": 16,
+            "reason_code": null,
+            "schema_version": "contentops.reader_value_release_gate.v1",
+            "utility_floor": {
+              "minimum_reader_sentences": 6,
+              "minimum_words": 180
+            },
+            "visual_count": 0,
+            "visual_quantity_is_fixed_quota": false
+          },
+          "rendered_body_sha256": "fa93f90db465f61967515772b66d102bd9843c02cdba9e32872ed644ba09ecc9",
+          "schema_version": "contentops.tier1_editorial_quality.v2",
+          "seo_blockers": [
+            "canonical_url_metadata",
+            "source_reference_links",
+            "chart_metadata",
+            "social_og_lead_media",
+            "visual_markers_complete"
+          ],
+          "seo_checks": {
+            "canonical_url_metadata": false,
+            "chart_metadata": false,
+            "clean_rendered_body": true,
+            "heading_hierarchy": true,
+            "meta_description": true,
+            "primary_topic_in_opening": true,
+            "reader_headline": true,
+            "semantic_keyword_coverage": true,
+            "seo_title": true,
+            "slug": true,
+            "social_og_lead_media": false,
+            "source_reference_links": false,
+            "title_dek_not_duplicated": true,
+            "visual_markers_complete": false
+          },
+          "seo_findings_are_advisory": true,
+          "seo_hygiene_is_observed_search_performance": false,
+          "seo_hygiene_score": 64,
+          "seo_score": 64,
+          "source_urls": [
+            "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets"
+          ],
+          "visual_asset_ids": [],
+          "word_count": 314
+        },
+        "llm_semantic_review": {
+          "advisory_failed_checks": [],
+          "advisory_only_revision_normalized_to_pass": false,
+          "checks": {
+            "clear_news_peg": true,
+            "concise_nut_graf": true,
+            "high_information_density": true,
+            "material_claims_supported": true,
+            "material_evidence_matches": true,
+            "material_market_consequence": true,
+            "mode_consistent": true,
+            "no_fabricated_numbers": true,
+            "no_fabricated_quotes": true,
+            "no_factual_contradiction": true,
+            "no_financial_advice": true,
+            "no_misleading_framing": true,
+            "no_unsupported_certainty": true,
+            "reader_facing_prose": true,
+            "relevant_context": true,
+            "severe_coherence_ok": true,
+            "source_backed_mechanism": true,
+            "specific_confirmation_condition": true,
+            "specific_falsification_condition": true,
+            "why_now": true
+          },
+          "decision": "PASS",
+          "failed_checks": [],
+          "issues": [],
+          "material_failed_checks": [],
+          "missing_or_invalid_checks": [],
+          "mode": "analysis",
+          "prompt_sha256": "aef3c7d8516ea3c24f310425eef1f2ee1d57d25a9e8642ff2435e7597efd1cb6",
+          "provider": "9router",
+          "provider_decision": "PASS",
+          "publication_authority": false,
+          "review_sha256": "4b84c5ba8b611fb25a89fef319f115a50f0ceece404bcbb113ccffcd6bc2930b",
+          "status": "SUCCESS",
+          "summary": "The article accurately reflects the supported claims from the source, provides clear analytical context without overstating causality, and includes specific, observable confirmation and falsification conditions. No unsupported claims or forbidden material were included."
+        },
+        "mvp_canary_editorial_gate": null,
+        "review_index": 0,
+        "revision_rounds_completed": 0
+      }
+    ],
+    "revision_rounds_completed": 0,
+    "status": "PASS"
+  },
+  "canary_quality_warnings": [],
+  "classification": "PASS",
+  "publication_authority": false,
+  "revision_round_limit": 1
+}

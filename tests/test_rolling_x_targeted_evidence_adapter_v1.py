@@ -11,6 +11,7 @@ from live_contentops.official_primary_evidence_loader_v1 import (
     BoundedOfficialPrimaryEvidenceLoader,
 )
 from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
+    CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION,
     RollingXTargetedEvidenceAdapter,
 )
 from live_contentops.source_capability_registry_v2 import (
@@ -212,6 +213,91 @@ def test_neutral_fallback_request_and_adapter_share_effective_registry():
     assert "unsupported_story_type" not in blockers
     assert "evidence_request_capability_registry_mismatch" not in blockers
     assert "evidence_request_source_adapter_registry_mismatch" not in blockers
+
+
+def test_codex_source_discovery_accepts_urls_only_and_routes_through_governed_loader():
+    request = _request(story_type="general_public_event")
+    request["story_context"] = {
+        "leaf_summaries": ["Agency published a current public notice."],
+        "public_source_url_bindings": [],
+    }
+    request["codex_source_discovery"] = {
+        "schema_version": CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION,
+        "story_identity": request["cluster_id"],
+        "headline_ids": request["headline_ids"],
+        "trigger_reason": "BOUNDED_ACCESS_FAILURE",
+        "prior_blockers": ["HTTP Error 403: Forbidden"],
+        "candidate_urls": ["https://www.apnews.com/article/current-notice"],
+        "search_call_id": "codex-search-1",
+        "searched_at_utc": AS_OF,
+        "search_snippets_included": False,
+        "model_summaries_included": False,
+        "candidate_urls_are_evidence": False,
+        "factual_or_numeric_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+    calls = []
+
+    def public_loader(effective_request):
+        calls.append(dict(effective_request))
+        binding = effective_request["story_context"]["public_source_url_bindings"][0]
+        assert binding["url"] == "https://www.apnews.com/article/current-notice"
+        assert binding["locator_only"] is True
+        return {
+            "status": "BLOCKED",
+            "rolling_x_story_binding": {
+                "cluster_id": effective_request["cluster_id"],
+                "headline_ids": effective_request["headline_ids"],
+                "request_logical_hash": effective_request["request_logical_hash"],
+            },
+            "evidence_documents": [],
+            "provided_evidence_capabilities": [],
+            "blockers": ["fixture_retrieval_stopped"],
+            "provenance": {"request_count": 1},
+        }
+
+    receipt = RollingXTargetedEvidenceAdapter(
+        public_secondary_loader=public_loader,
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    assert len(calls) == 1
+    discovery = receipt["evidence_acquisition_provenance"][
+        "codex_source_discovery"
+    ]
+    assert discovery["candidate_urls_are_evidence"] is False
+    assert discovery["deterministic_live_retrieval_required"] is True
+    assert receipt["publication_authority"] is False
+
+
+def test_codex_source_discovery_rejects_search_snippets_before_retrieval():
+    request = _request(story_type="general_public_event")
+    request["codex_source_discovery"] = {
+        "schema_version": CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION,
+        "story_identity": request["cluster_id"],
+        "headline_ids": request["headline_ids"],
+        "trigger_reason": "NO_VIABLE_DETERMINISTIC_PATH",
+        "prior_blockers": ["public_source_unavailable"],
+        "candidate_urls": ["https://www.apnews.com/article/current-notice"],
+        "search_snippets": ["model text must never be accepted"],
+        "search_snippets_included": False,
+        "model_summaries_included": False,
+        "candidate_urls_are_evidence": False,
+        "factual_or_numeric_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+    receipt = RollingXTargetedEvidenceAdapter(
+        public_secondary_loader=lambda _request: (_ for _ in ()).throw(
+            AssertionError("invalid discovery contract must stop before retrieval")
+        ),
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    assert receipt["status"] == "BLOCKED"
+    assert "codex_source_discovery_untrusted_fields:search_snippets" in receipt[
+        "blockers"
+    ]
+    assert receipt["publication_authority"] is False
 
 
 def test_exact_story_context_routes_neutral_profile_to_official_macro_loader():

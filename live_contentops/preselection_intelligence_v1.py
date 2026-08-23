@@ -67,49 +67,283 @@ _KNOWN_OFFICIAL_SUFFIXES = (
     ".gov", ".gov.au", ".gov.uk", ".europa.eu", ".int",
 )
 
+_OBSERVED_ACCESS_FAILURE_KEYS = frozenset(
+    {
+        "http_401_count",
+        "http_403_count",
+        "http_404_count",
+        "paywall_count",
+        "waf_count",
+        "dead_link_count",
+        "access_failure_count",
+    }
+)
 
-def _evidence_reachability(cluster: Mapping[str, Any], cc_context: Mapping[str, Any]) -> dict[str, Any]:
-    """Cheap feasibility signal only; it never grants factual authority."""
+_KNOWN_ACCESS_RISK_HOSTS = frozenset(
+    {
+        "bloomberg.com",
+        "ft.com",
+        "nytimes.com",
+        "reuters.com",
+        "wsj.com",
+        "www.bloomberg.com",
+        "www.ft.com",
+        "www.nytimes.com",
+        "www.reuters.com",
+        "www.wsj.com",
+    }
+)
+
+
+def _evidence_reachability(
+    cluster: Mapping[str, Any],
+    cc_context: Mapping[str, Any],
+    *,
+    sourceability_observations: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Rank expected acquisition feasibility without granting evidence authority.
+
+    Every input is either an already-registered locator/capability or an observed transport
+    outcome.  The score may change work order; only the governed loaders can turn retrieved
+    bytes into an accepted evidence document.
+    """
     from live_contentops.official_primary_evidence_loader_v1 import (
         OFFICIAL_HOSTS_BY_FAMILY,
     )
+    from live_contentops.official_primary_source_locator_v1 import (
+        routed_official_locator_families,
+    )
     from live_contentops.public_secondary_evidence_loader_v1 import REPUTABLE_SECONDARY_HOSTS
+    from live_contentops.source_capability_registry_v2 import (
+        effective_rolling_x_capability_registry,
+        resolve_story_capabilities,
+    )
 
-    urls = [
-        str(value)
-        for value in (
-            cluster.get("public_source_urls")
-            or cluster.get("official_source_urls")
-            or []
+    urls = list(
+        dict.fromkeys(
+            str(value)
+            for value in (
+                list(cluster.get("public_source_urls") or [])
+                + list(cluster.get("official_source_urls") or [])
+                + [
+                    row.get("url")
+                    for row in (
+                        list(cluster.get("public_source_url_bindings") or [])
+                        + list(cluster.get("official_source_url_bindings") or [])
+                    )
+                    if isinstance(row, Mapping)
+                ]
+            )
+            if str(value).startswith("https://")
         )
-        if str(value).startswith("https://")
-    ]
+    )
     hosts = {str(urlsplit(value).hostname or "").casefold() for value in urls}
-    exact_official_hosts = {
-        host
-        for family_hosts in OFFICIAL_HOSTS_BY_FAMILY.values()
-        for host in family_hosts
-    }
-    official = bool(hosts.intersection(exact_official_hosts))
+    registered_official_families = sorted(
+        family
+        for family, family_hosts in OFFICIAL_HOSTS_BY_FAMILY.items()
+        if hosts.intersection(family_hosts)
+    )
+    routed_locator_families = sorted(
+        set(routed_official_locator_families({"story_context": dict(cluster)}))
+    )
+    official = bool(registered_official_families or routed_locator_families)
     official_suffix_candidate = any(host.endswith(_KNOWN_OFFICIAL_SUFFIXES) for host in hosts)
     reputable_secondary = any(host in REPUTABLE_SECONDARY_HOSTS for host in hosts)
     cc_relevant = float(cc_context.get("cc_context_richness") or 0.0) >= 0.35
-    score = min(
-        1.0,
-        (0.55 if official else 0.0)
-        + (0.4 if reputable_secondary else 0.0)
-        + (0.2 if cc_relevant else 0.0)
-        + (0.1 if urls else 0.0),
+    cc_authority = cluster.get("capital_chronicle_publication_authority")
+    cc_authority = cc_authority if isinstance(cc_authority, Mapping) else {}
+    exact_cc_packet = bool(
+        cc_authority.get("authorized") is True
+        and cc_authority.get("state") == "PUBLICATION_PACKET_AVAILABLE"
+        and cc_authority.get("packet_sha256")
+        and cc_authority.get("exact_story_consumer_use_binding_verified") is True
     )
+
+    capability = resolve_story_capabilities(
+        {
+            "story_type": str(cluster.get("story_type") or "general_public_event"),
+            "article_mode": str(cluster.get("capability_article_mode") or "straight_news"),
+            "product_article_mode": str(
+                cluster.get("resolved_article_mode")
+                or cluster.get("effective_article_mode")
+                or "BREAKING_BRIEF"
+            ),
+        },
+        effective_rolling_x_capability_registry(),
+    )
+    expected_families = {
+        str(value) for value in capability.get("source_adapter_families") or []
+    }
+    available_families = set(registered_official_families).union(
+        routed_locator_families
+    )
+    if reputable_secondary:
+        available_families.add("public_secondary")
+    if exact_cc_packet:
+        available_families.update(
+            {"capital_chronicle_market_state", "capital_chronicle_database"}
+        )
+    bounded_discovery = bool(
+        "public_secondary" in expected_families or not available_families
+    )
+    if bounded_discovery:
+        available_families.add("public_secondary")
+    family_coverage = (
+        len(expected_families.intersection(available_families)) / len(expected_families)
+        if expected_families
+        else 0.0
+    )
+
+    observations = sourceability_observations or {}
+    observed_hosts = observations.get("hosts")
+    observed_hosts = observed_hosts if isinstance(observed_hosts, Mapping) else {}
+    successful_retrievals = 0
+    access_failures = 0
+    for host in hosts:
+        observation = observed_hosts.get(host)
+        if not isinstance(observation, Mapping):
+            observation = observed_hosts.get(host.removeprefix("www."))
+        if not isinstance(observation, Mapping):
+            continue
+        successful_retrievals += int(
+            observation.get("successful_retrieval_count") or 0
+        )
+        access_failures += sum(
+            int(observation.get(key) or 0) for key in _OBSERVED_ACCESS_FAILURE_KEYS
+        )
+    repeated_access_failure = access_failures >= 2
+    known_access_risk = bool(hosts.intersection(_KNOWN_ACCESS_RISK_HOSTS))
+    expected_request_cost = (
+        0
+        if exact_cc_packet
+        else 1
+        if registered_official_families or reputable_secondary
+        else 2
+        if routed_locator_families
+        else 3
+    ) + min(2, access_failures)
+    raw_score = (
+        (0.38 if registered_official_families else 0.0)
+        + (0.28 if routed_locator_families else 0.0)
+        + (0.44 if exact_cc_packet else 0.0)
+        + (0.28 if reputable_secondary else 0.0)
+        + (0.2 if successful_retrievals else 0.0)
+        + (0.18 * family_coverage)
+        + (0.08 if bounded_discovery else 0.0)
+        + (0.06 if urls else 0.0)
+        + (0.05 if cc_relevant else 0.0)
+        - (0.2 if repeated_access_failure else 0.0)
+        - (0.08 if known_access_risk and not successful_retrievals else 0.0)
+        - (0.025 * expected_request_cost)
+    )
+    score = max(0.0, min(1.0, raw_score))
     return {
         "score": round(score, 4),
         "known_official_path": official,
+        "registered_official_locator_families": registered_official_families,
+        "context_routed_official_locator_families": routed_locator_families,
         "unregistered_official_suffix_candidate": official_suffix_candidate and not official,
         "reputable_public_secondary_path": reputable_secondary,
         "capital_chronicle_relevant_context": cc_relevant,
+        "exact_matching_cc_publication_authorized_packet": exact_cc_packet,
         "public_source_candidate_count": len(urls),
+        "expected_evidence_capabilities": list(
+            capability.get("required_evidence_capabilities") or []
+        ),
+        "expected_adapter_families": sorted(expected_families),
+        "available_adapter_families": sorted(available_families),
+        "adapter_family_coverage": round(family_coverage, 4),
+        "bounded_discovery_recovery_available": bounded_discovery,
+        "observed_same_day_host_success_count": successful_retrievals,
+        "observed_access_failure_count": access_failures,
+        "observed_repeated_access_failure": repeated_access_failure,
+        "known_paywall_waf_or_dead_link_risk": known_access_risk,
+        "expected_request_cost": expected_request_cost,
         "mode_downgrade_viable": True,
+        "ranking_only": True,
         "factual_authority_granted": False,
+        "numeric_authority_granted": False,
+        "capital_chronicle_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+
+
+def _preselection_cc_publication_authority(
+    cluster: Mapping[str, Any],
+    *,
+    cc_catalog: Mapping[str, Any],
+    evaluation_as_of: datetime,
+    article_mode: str,
+) -> dict[str, Any]:
+    """Resolve only an exact, current story-bound packet for sourceability ranking.
+
+    The targeted evidence adapter repeats this resolution before accepting any evidence.  This
+    earlier read-only check exists solely so a genuinely matching governed packet is visible to
+    the cheap work-order score instead of being discovered after expensive acquisition begins.
+    """
+    from live_contentops.cc_evidence_bridge_v2 import build_evidence_packet_from_cc_root
+    from live_contentops.cc_publication_authority_v1 import resolve_publication_authority
+    from live_contentops.freshness_market_state_v2 import evaluate_freshness
+
+    cc_root = str(cc_catalog.get("cc_root") or "").strip()
+    story_binding = {
+        "cluster_id": cluster.get("cluster_id"),
+        "headline_ids": list(cluster.get("headline_ids") or []),
+        "request_logical_hash": cluster.get("request_logical_hash"),
+    }
+    unavailable = {
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE",
+        "authorized": False,
+        "packet_id": None,
+        "packet_sha256": None,
+        "exact_story_consumer_use_binding_verified": False,
+        "reason_codes": ["NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"],
+        "ordinary_latest_web_article_may_continue": True,
+        "llm_numeric_authority": False,
+    }
+    if not cc_root:
+        return unavailable
+    try:
+        packet = build_evidence_packet_from_cc_root(
+            cc_root,
+            as_of_utc=evaluation_as_of.isoformat().replace("+00:00", "Z"),
+            story_binding=story_binding,
+        )
+        assignment = packet.get("publication_assignment") or {}
+        freshness = evaluate_freshness(
+            packet,
+            {
+                "article_mode": _CAPABILITY_MODE.get(article_mode, "analysis"),
+                "market_sensitive": bool(assignment.get("market_sensitive")),
+                "market_snapshot_required": bool(assignment.get("market_sensitive")),
+                "fresh_material_delta": bool(assignment.get("fresh_material_delta")),
+                "readiness_evaluation_basis": "CURRENT_OPERATOR_READINESS",
+                "operator_evaluation_as_of_utc": evaluation_as_of.isoformat().replace(
+                    "+00:00", "Z"
+                ),
+            },
+        )
+        resolution = resolve_publication_authority(
+            packet,
+            story_binding=story_binding,
+            current_readiness_blockers=(
+                list(freshness.get("blockers") or [])
+                if freshness.get("decision") != "PASS"
+                else []
+            ),
+        )
+    except (FileNotFoundError, OSError, RuntimeError, TypeError, ValueError):
+        return unavailable
+    exact = bool(
+        resolution.get("authorized") is True
+        and resolution.get("state") == "PUBLICATION_PACKET_AVAILABLE"
+    )
+    return {
+        **dict(resolution),
+        "exact_story_consumer_use_binding_verified": exact,
+        "preselection_ranking_only": True,
+        "publication_authority_granted_at_preselection": False,
+        "llm_numeric_authority": False,
     }
 
 
@@ -239,6 +473,7 @@ def apply_preselection_intelligence(
     cc_catalog: Mapping[str, Any],
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
+    sourceability_observations: Mapping[str, Any] | None = None,
     now: datetime | None = None,
 ) -> dict[str, Any]:
     """Enrich and rerank the compact shortlist before any expensive story path."""
@@ -323,7 +558,24 @@ def apply_preselection_intelligence(
         # The expanded pool can contain dozens of candidates. Keep editorial rank as a useful
         # tiebreaker without allowing linear decay to make an exact-official path unreachable.
         base_score = 100.0 - min(max(1, original_rank) - 1, 8) * 2.0
-        reachability = _evidence_reachability(cluster, cc_context)
+        preselection_cc_authority = _preselection_cc_publication_authority(
+            cluster,
+            cc_catalog=cc_catalog,
+            evaluation_as_of=moment,
+            article_mode=str(mode_resolution["mode"]),
+        )
+        reachability = _evidence_reachability(
+            {
+                **cluster,
+                "capital_chronicle_publication_authority": preselection_cc_authority,
+                "resolved_article_mode": str(mode_resolution["mode"]),
+                "capability_article_mode": _CAPABILITY_MODE.get(
+                    str(mode_resolution["mode"])
+                ),
+            },
+            cc_context,
+            sourceability_observations=sourceability_observations,
+        )
         score = (
             base_score
             + _DECISION_BONUS[decision]
@@ -380,6 +632,7 @@ def apply_preselection_intelligence(
             "capital_chronicle_context": cc_context,
             "capital_chronicle_semantic_activation": semantic_activation,
             "capital_chronicle_publication_authority_discovery": publication_discovery,
+            "capital_chronicle_publication_authority": preselection_cc_authority,
             "portfolio_concentration_penalty": concentration,
             "portfolio_concentration_penalty_effective": round(effective_concentration, 4),
             "preselection_score": round(score, 4),
@@ -447,6 +700,8 @@ def apply_preselection_intelligence(
         "material_event_priority_ids": list(material_priority.get("priority_ids") or []),
         "material_event_priority_bonus_cap": 80.0,
         "material_event_priority_changes_eligibility_gates": False,
+        "sourceability_observations_consumed": bool(sourceability_observations),
+        "sourceability_signals_grant_authority": False,
         "occurs_before_targeted_evidence": True,
         "occurs_before_article_generation": True,
         "llm_or_provider_calls": 0,

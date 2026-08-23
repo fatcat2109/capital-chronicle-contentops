@@ -47,6 +47,193 @@ WEEK_AHEAD_REQUIRED_CAPABILITIES = frozenset({
     "scheduled_event_identity",
     "scheduled_event_date_time",
 })
+CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION = "contentops.codex_source_discovery_urls.v1"
+CODEX_SOURCE_DISCOVERY_TRIGGER_REASONS = frozenset(
+    {"NO_VIABLE_DETERMINISTIC_PATH", "BOUNDED_ACCESS_FAILURE"}
+)
+_DISCOVERY_FAILURE_MARKERS = (
+    "401",
+    "403",
+    "404",
+    "access",
+    "budget",
+    "dead_link",
+    "evidence_documents_missing",
+    "exact_official_source_url_unavailable",
+    "paywall",
+    "public_source_unavailable",
+    "waf",
+)
+
+
+def validate_codex_source_discovery_contract(
+    contract: Mapping[str, Any], *, request: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Accept URL locators only; model/search text can never enter evidence."""
+    allowed_keys = {
+        "schema_version",
+        "story_identity",
+        "headline_ids",
+        "trigger_reason",
+        "prior_blockers",
+        "candidate_urls",
+        "search_call_id",
+        "searched_at_utc",
+        "search_snippets_included",
+        "model_summaries_included",
+        "candidate_urls_are_evidence",
+        "factual_or_numeric_authority_granted",
+        "publication_authority_granted",
+    }
+    extra = sorted(set(contract).difference(allowed_keys))
+    if extra:
+        raise ValueError("codex_source_discovery_untrusted_fields:" + ",".join(extra))
+    if contract.get("schema_version") != CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION:
+        raise ValueError("codex_source_discovery_schema_invalid")
+    if str(contract.get("story_identity") or "") != str(
+        request.get("cluster_id") or ""
+    ):
+        raise ValueError("codex_source_discovery_story_identity_mismatch")
+    if sorted(str(value) for value in contract.get("headline_ids") or []) != sorted(
+        str(value) for value in request.get("headline_ids") or []
+    ):
+        raise ValueError("codex_source_discovery_headline_identity_mismatch")
+    trigger_reason = str(contract.get("trigger_reason") or "")
+    if trigger_reason not in CODEX_SOURCE_DISCOVERY_TRIGGER_REASONS:
+        raise ValueError("codex_source_discovery_trigger_invalid")
+    prior_blockers = [str(value) for value in contract.get("prior_blockers") or []]
+    blocker_text = " ".join(prior_blockers).casefold()
+    if not prior_blockers or not any(
+        marker in blocker_text for marker in _DISCOVERY_FAILURE_MARKERS
+    ):
+        raise ValueError("codex_source_discovery_prior_failure_unproven")
+    if (
+        contract.get("search_snippets_included") is not False
+        or contract.get("model_summaries_included") is not False
+        or contract.get("candidate_urls_are_evidence") is not False
+        or contract.get("factual_or_numeric_authority_granted") is not False
+        or contract.get("publication_authority_granted") is not False
+    ):
+        raise ValueError("codex_source_discovery_authority_contract_invalid")
+
+    from live_contentops.official_primary_evidence_loader_v1 import (
+        OFFICIAL_HOSTS_BY_FAMILY,
+    )
+    from live_contentops.public_secondary_evidence_loader_v1 import (
+        REPUTABLE_SECONDARY_HOSTS,
+    )
+
+    official_hosts = {
+        host
+        for family_hosts in OFFICIAL_HOSTS_BY_FAMILY.values()
+        for host in family_hosts
+    }
+    candidate_urls = list(
+        dict.fromkeys(str(value) for value in contract.get("candidate_urls") or [])
+    )
+    if not 1 <= len(candidate_urls) <= 4:
+        raise ValueError("codex_source_discovery_candidate_count_invalid")
+    normalized_candidates: list[dict[str, str]] = []
+    for url in candidate_urls:
+        parsed = urlsplit(url)
+        host = str(parsed.hostname or "").casefold()
+        if (
+            parsed.scheme != "https"
+            or not host
+            or parsed.username is not None
+            or parsed.password is not None
+            or parsed.port not in {None, 443}
+        ):
+            raise ValueError("codex_source_discovery_public_https_identity_invalid")
+        source_class = (
+            "REGISTERED_OFFICIAL_PRIMARY"
+            if host in official_hosts
+            else "REPUTABLE_PUBLIC_SECONDARY"
+            if host in REPUTABLE_SECONDARY_HOSTS
+            else ""
+        )
+        if not source_class:
+            raise ValueError("codex_source_discovery_host_policy_rejected")
+        normalized_candidates.append(
+            {"url": url, "host": host, "source_class": source_class}
+        )
+    normalized = {
+        "schema_version": CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION,
+        "story_identity": str(contract.get("story_identity") or ""),
+        "headline_ids": sorted(
+            str(value) for value in contract.get("headline_ids") or []
+        ),
+        "trigger_reason": trigger_reason,
+        "prior_blockers": sorted(set(prior_blockers)),
+        "search_call_id": str(contract.get("search_call_id") or ""),
+        "searched_at_utc": str(contract.get("searched_at_utc") or ""),
+        "candidates": normalized_candidates,
+        "candidate_urls_are_evidence": False,
+        "deterministic_live_retrieval_required": True,
+        "search_snippet_or_model_summary_authority": False,
+        "factual_or_numeric_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+    normalized["discovery_contract_sha256"] = sha256(
+        json.dumps(
+            normalized, sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+    ).hexdigest()
+    return normalized
+
+
+def _apply_codex_source_discovery(
+    request: Mapping[str, Any]
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    contract = request.get("codex_source_discovery")
+    if contract is None:
+        return dict(request), None
+    if not isinstance(contract, Mapping):
+        raise ValueError("codex_source_discovery_contract_not_object")
+    receipt = validate_codex_source_discovery_contract(contract, request=request)
+    context = dict(request.get("story_context") or {})
+    headline_id = str((request.get("headline_ids") or [""])[0])
+    public_bindings = [
+        dict(row)
+        for row in context.get("public_source_url_bindings") or []
+        if isinstance(row, Mapping)
+    ]
+    official_bindings = [
+        dict(row)
+        for row in context.get("official_source_url_bindings") or []
+        if isinstance(row, Mapping)
+    ]
+    discovered_public: list[dict[str, Any]] = []
+    discovered_official: list[dict[str, Any]] = []
+    for candidate in receipt["candidates"]:
+        binding = {
+            "headline_id": headline_id,
+            "url": candidate["url"],
+            "codex_discovery_contract_sha256": receipt[
+                "discovery_contract_sha256"
+            ],
+            "locator_only": True,
+            "locator_grants_factual_or_numeric_authority": False,
+        }
+        if candidate["source_class"] == "REGISTERED_OFFICIAL_PRIMARY":
+            discovered_official.append(binding)
+        else:
+            discovered_public.append(binding)
+    context["public_source_url_bindings"] = discovered_public + public_bindings
+    context["official_source_url_bindings"] = discovered_official + official_bindings
+    context["public_source_urls"] = list(
+        dict.fromkeys(
+            [row["url"] for row in discovered_public]
+            + [str(value) for value in context.get("public_source_urls") or []]
+        )
+    )
+    context["official_source_urls"] = list(
+        dict.fromkeys(
+            [row["url"] for row in discovered_official]
+            + [str(value) for value in context.get("official_source_urls") or []]
+        )
+    )
+    return {**dict(request), "story_context": context}, receipt
 
 
 def _with_cc_authority_evidence(
@@ -705,6 +892,12 @@ class RollingXTargetedEvidenceAdapter:
             return _blocked_receipt(
                 request, ["x_discovery_only_contract_missing"]
             )
+        try:
+            request, codex_discovery_receipt = _apply_codex_source_discovery(
+                request
+            )
+        except ValueError as exc:
+            return _blocked_receipt(request, [str(exc)])
         story_type = str(request.get("story_type") or "")
         capability = resolve_story_capabilities(
             {
@@ -770,6 +963,10 @@ class RollingXTargetedEvidenceAdapter:
             documents: list[dict[str, Any]] = []
             supplied: set[str] = set()
             diagnostics: dict[str, Any] = {}
+            if codex_discovery_receipt is not None:
+                diagnostics["codex_source_discovery"] = dict(
+                    codex_discovery_receipt
+                )
             registry_official_families = families.intersection(SUPPORTED_FAMILIES)
             exact_bound_official_families = _exact_bound_official_families(
                 request, OFFICIAL_HOSTS_BY_FAMILY

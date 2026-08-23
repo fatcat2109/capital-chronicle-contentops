@@ -1,0 +1,990 @@
+{
+  "candidate_count": 40,
+  "frontier_count": 4,
+  "frontiers": [
+    {
+      "candidate_count": 7,
+      "candidates": [
+        {
+          "candidate_title": "The US Treasury's buyback announcement is triggering immediate reassessments of dollar strength and gold demand, with analysts warning of artificial yield caps.",
+          "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-b37370dc85dbc1522e84062a",
+            "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+            "cc-x-headline-2068c5bff9683fc98f5447f4",
+            "cc-x-headline-2229a9596e2b09cb715967e9",
+            "cc-x-headline-0de6446837f0f5b5e0845a88"
+          ],
+          "rank": 1,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Turkey has just issued an arrest warrant for Israeli PM Netanyahu and is seeking an Interpol Red Notice, representing a severe and immediate escalation in Middle Eastern geopolitical tensions.",
+          "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [],
+          "evidence_result": "VIABLE",
+          "headline_ids": [
+            "cc-x-headline-0751d8d085a41b31e7448f99"
+          ],
+          "rank": 2,
+          "reader_value_blockers": [],
+          "terminal_reason": "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED",
+          "writer_blockers": [
+            "article_source_identity_reference_missing"
+          ],
+          "writer_invocation_result": "FAIL_CLOSED"
+        },
+        {
+          "candidate_title": "The USPS has finalized a highly controversial regulation regarding mail-in ballots just ahead of election season, with immediate legal challenges delaying its implementation.",
+          "cluster_id": "rolling-x-global-cluster-ec66ffa3bc94e727fc18",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-f057b9c338d9f38976c1c58a"
+          ],
+          "rank": 3,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "New market analysis reveals a historic spike in 5% single-day momentum selloffs this year, driven by AI and quantitative trading strategies.",
+          "cluster_id": "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-09f479aafdfc90f19d6430d3"
+          ],
+          "rank": 4,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "An opinion piece argues that government interventionism is negatively impacting family structures and reducing the willingness to reproduce.",
+          "cluster_id": "rolling-x-semantic-reserve-eb073f48d2dfab020a66",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-2f8890156f139dc2cc267509"
+          ],
+          "rank": 5,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Reports indicate a Spanish beach was stormed as migration-related chaos spreads from the North African enclave of Ceuta.",
+          "cluster_id": "rolling-x-semantic-reserve-f539eca0ae6329386c01",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-4138053c4738f8c83a00ccf7"
+          ],
+          "rank": 6,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "An Assistant U.S. Attorney has been found dead inside a federal building, prompting investigations.",
+          "cluster_id": "rolling-x-semantic-reserve-a0e413cb1a408049d487",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-a0040922ce0538f129be99d7"
+          ],
+          "rank": 7,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\fresh_current_4_32_zero_write_rehearsal\\frontier_1\\canonical_zero_write_rehearsal_attempt_2\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "exact_next_blocker": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+      "frontier": 1,
+      "result_classification": "NO_PUBLICATION"
+    },
+    {
+      "candidate_count": 10,
+      "candidates": [
+        {
+          "candidate_title": "Reports of new 50% tariffs on Canadian goods signal a major, sudden escalation in North American trade tensions with immediate cross-border economic and FX impacts.",
+          "cluster_id": "rolling-x-global-cluster-6f5dea917f4aecc18b82",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+            "cc-x-headline-567cf76077899037f72d4e6f"
+          ],
+          "rank": 1,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Diesel crack spreads are widening significantly, and new analysis from Jefferies highlights structural issues in Russian refining that could prolong the global supply squeeze.",
+          "cluster_id": "rolling-x-global-cluster-5afd847f373e8a02658f",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-0f404def2cc89dee5221b443"
+          ],
+          "rank": 2,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Recent market action shows a strong correlation between a strengthening Japanese Yen and falling US 30-year yields, suggesting complex cross-border capital flows are driving the long end of the curve.",
+          "cluster_id": "rolling-x-global-cluster-524d03dd15926d2ae1c3",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-1c937b50656d65ca360855bd"
+          ],
+          "rank": 3,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "As debt panic narratives dominate financial media, a structural look at what constitutes 'normal' interest rates is necessary to ground the discourse.",
+          "cluster_id": "rolling-x-global-cluster-ce86d33d06bb287980c6",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-54fba2bdbf2cd14fa5972cd8"
+          ],
+          "rank": 4,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "A court has officially reduced the $50 million defamation judgment against Alex Jones, materially changing the financial outcome of the high-profile Sandy Hook case.",
+          "cluster_id": "rolling-x-global-cluster-fd6484b80dd7ec13d542",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "FOLLOW_UP_UPDATE",
+          "evidence_blockers": [
+            "follow_up_material_delta_evidence_missing",
+            "follow_up_previous_article_identity_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-d2f9c1a77c290c88fa5fac1c"
+          ],
+          "rank": 5,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:follow_up_material_delta_evidence_missing|follow_up_previous_article_identity_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Market odds show a 59% chance that the Federal Reserve will hike interest rates this year.",
+          "cluster_id": "rolling-x-semantic-reserve-c5f9bb235b49afa854f2",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "official_evidence_document_0_stale_or_future",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-62004ce2de90bde32e9b050f"
+          ],
+          "rank": 6,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|official_evidence_document_0_stale_or_future|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Islamic leaders reportedly view the ballot box as a path to power.",
+          "cluster_id": "rolling-x-semantic-reserve-f94ac5d04119e90bcd80",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-3a174d9e5af721f7b3e6ed53"
+          ],
+          "rank": 7,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Analysis of Bitcoin's historical drawdowns and its return as a debasement trade.",
+          "cluster_id": "rolling-x-semantic-reserve-bf61e64682bb3a1a9933",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-84425c7d62ff8a10ddb61f5e"
+          ],
+          "rank": 8,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Speculative commentary or analysis regarding a hypothetical first term for a President AOC.",
+          "cluster_id": "rolling-x-semantic-reserve-532399d887fb651696c5",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-fa50b074bcf8b5e29f0ece61"
+          ],
+          "rank": 9,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Data showing Spain and the UK leading in football fandom.",
+          "cluster_id": "rolling-x-semantic-reserve-28a0db8ddf0a0a5c9dc8",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-9f551b45f2c5dd7e3817e0c1"
+          ],
+          "rank": 10,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\fresh_current_4_32_zero_write_rehearsal\\frontier_2\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+      "frontier": 2,
+      "result_classification": "NO_PUBLICATION"
+    },
+    {
+      "candidate_count": 11,
+      "candidates": [
+        {
+          "candidate_title": "With global crude oil prices persisting above $90 per barrel, China's strategic pullback in purchasing signals a potential shift in global demand dynamics that markets may be underpricing.",
+          "cluster_id": "rolling-x-global-cluster-bc25020eac9bf9e8c490",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-b25c625dac499ab753cfa0a4"
+          ],
+          "rank": 1,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Goldman Sachs has issued a timely warning on cracking AI stock momentum, signaling a potential major market rotation into banking and hard assets.",
+          "cluster_id": "rolling-x-global-cluster-bc1c8dc56c36bcb8a8f8",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-fa657856f02fdc5460d80b38"
+          ],
+          "rank": 2,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Rising speculation regarding a potential Treasury-Fed accord is threatening to inject new volatility into the bond market by questioning Federal Reserve independence.",
+          "cluster_id": "rolling-x-global-cluster-7224803e72213ca5bf9b",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-0069b1c2c07e084e88645a63"
+          ],
+          "rank": 3,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Long-term G10 bond yields are rising, and the analytical narrative is shifting from market mechanics (illiquidity) to fundamental fiscal concerns (sovereign debt levels).",
+          "cluster_id": "rolling-x-global-cluster-91b5f24a2b9733c15c2e",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-9db6356a84daa1177e7c6631"
+          ],
+          "rank": 4,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "A major US agricultural group is publicly breaking with Donald Trump over a specific trade proposal, highlighting tensions in populist trade policy.",
+          "cluster_id": "rolling-x-global-cluster-a4a7695233658c01f7bd",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-c30f0f4b30032eaa22358f77"
+          ],
+          "rank": 5,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Newly released financial disclosures show a prominent crypto critic holding digital assets, raising immediate questions about congressional ethics and policy alignment.",
+          "cluster_id": "rolling-x-global-cluster-3b9127b4fdd6f348ab10",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-ad9aca29654e0963227c6e1b"
+          ],
+          "rank": 6,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Controversy surrounding new educational mandates for students in Florida, sparking political debate between conservative and liberal groups.",
+          "cluster_id": "rolling-x-semantic-reserve-0cc0cc28865c9ab61523",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-a9240dc5ea2d23e77b117fa1"
+          ],
+          "rank": 7,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Analysis of why embracing artificial intelligence is becoming essential for higher education institutions rather than implementing bans.",
+          "cluster_id": "rolling-x-semantic-reserve-9d2e26e0350fa4937ad7",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-948cee295fd4409350bc2340"
+          ],
+          "rank": 8,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "A heated confrontation and shouting match occurs between a Florida socialist candidate who defeated Vindman and the Democratic Party Chair.",
+          "cluster_id": "rolling-x-semantic-reserve-1c63a9e86530ac71fe27",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-b1e50f842741bdbe270487c2"
+          ],
+          "rank": 9,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "WOLF Financial and GameStockHQ partner to host a two-week stock-picking competition featuring a one thousand dollar prize pool.",
+          "cluster_id": "rolling-x-semantic-reserve-9be001da25d95b3766a2",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-c3f17b59bc4c6137f5a28b5c",
+            "cc-x-headline-e175959e8c4e1b3084e3d265"
+          ],
+          "rank": 10,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Tehran condemns United States sanctions as a declaration of war against all nations and calls for a global revolt against the measures.",
+          "cluster_id": "rolling-x-semantic-reserve-2c15115f7c353a6d604e",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-dbc939d020496c08fa84a96a"
+          ],
+          "rank": 11,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\fresh_current_4_32_zero_write_rehearsal\\frontier_3\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+      "frontier": 3,
+      "result_classification": "NO_PUBLICATION"
+    },
+    {
+      "candidate_count": 12,
+      "candidates": [
+        {
+          "candidate_title": "Details of the collapsed US-Canada trade talks have just surfaced, revealing the specific tariff concessions that were on the table before negotiations broke down.",
+          "cluster_id": "rolling-x-global-cluster-060f3fea367e6a7c286d",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 403: Forbidden",
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-c66be8ef66d353d7bce40c88"
+          ],
+          "rank": 1,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 403: Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The US Treasury has just announced a ban on ESG funds for specific government-linked accounts, signaling a major policy shift.",
+          "cluster_id": "rolling-x-global-cluster-1776d9c8958943d2e053",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-646634d7aa5b4e08354ec91c"
+          ],
+          "rank": 2,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Hartnett's recent commentary on Bessent's 'Quasi QE' approach provides a timely framework for understanding upcoming monetary policy shifts.",
+          "cluster_id": "rolling-x-global-cluster-fef78ecc30ee39e31650",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-5bdea69c7f9a8c0a31cdce17"
+          ],
+          "rank": 3,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Kaleidos has secured a long-term nuclear fuel supply deal, resolving a critical bottleneck for the deployment of microreactors.",
+          "cluster_id": "rolling-x-global-cluster-70ac8df2f43e46a4673e",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-bea6bd30c45164a45447feb5"
+          ],
+          "rank": 4,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The IRS has officially set the interest rate for tax overpayments and underpayments at 7 percent.",
+          "cluster_id": "rolling-x-global-cluster-f70d0d087f21cfac0f00",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-8365dac7f536bc94c4b82ef1"
+          ],
+          "rank": 5,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Recent reporting highlights a growing global diesel supply crisis, overshadowing standard transit metrics in the Strait of Hormuz.",
+          "cluster_id": "rolling-x-global-cluster-35f2f424ef9e1ad952a1",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-023288e368d823ff98977f1e"
+          ],
+          "rank": 6,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "A Chinese humanoid robot has reportedly broken the 100-meter dash record, showcasing rapid advancements in robotics.",
+          "cluster_id": "rolling-x-global-cluster-f014b0e655c9d507e25a",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-b152474e629338c7cfe4f645"
+          ],
+          "rank": 7,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Donald J. Trump posts a new video on Truth Social.",
+          "cluster_id": "rolling-x-semantic-reserve-4e74825f3a5c8565eff8",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-f057c2e125e5b89d036cc725"
+          ],
+          "rank": 8,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Analysis of government spending or policy labeled as 'Waste of the Day' focusing on millionaire mortgages.",
+          "cluster_id": "rolling-x-semantic-reserve-b22ee088c9a60025779b",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-3f7db1d77fab1053eb291e21"
+          ],
+          "rank": 9,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "China Beige Book reacts to a CGTN report framing China's economic situation as an opportunity rather than a shock.",
+          "cluster_id": "rolling-x-semantic-reserve-81ace6f8f497c4aa6e7e",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-7b2cebf3733036a0101f5525"
+          ],
+          "rank": 10,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Bill Maher criticizes Democrats for opening the door to political opposition by focusing on cultural issues and failing to define a woman.",
+          "cluster_id": "rolling-x-semantic-reserve-d76c9e233e9659ce4ab1",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-cfb902216227558ebeab6f65"
+          ],
+          "rank": 11,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Lawyers representing Dr. Anthony Fauci establish a legal defense fund.",
+          "cluster_id": "rolling-x-semantic-reserve-6d9e17eb02a741b8e027",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-80e519986dfb9e8c2747143a"
+          ],
+          "rank": 12,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\fresh_current_4_32_zero_write_rehearsal\\frontier_4\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+      "frontier": 4,
+      "result_classification": "NO_PUBLICATION"
+    }
+  ],
+  "ledger_sha256": "17e6cf95f677da19b6d302df407395b0c06be2bca4da924178752dfbdb1be4ad",
+  "public_write_authority": false,
+  "schema_version": "contentops.v1_4_32_candidate_blocker_ledger.v1"
+}

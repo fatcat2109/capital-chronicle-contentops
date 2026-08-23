@@ -131,6 +131,7 @@ def run_rolling_x_newsroom_cycle(
     cc_catalog: Mapping[str, Any] | None = None,
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
+    sourceability_observations: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     editorial_execution_route: str = DESKTOP_PRIMARY_EDITORIAL_ROUTE,
     hybrid_arbitration_receipt: Mapping[str, Any] | None = None,
@@ -162,6 +163,7 @@ def run_rolling_x_newsroom_cycle(
         "cc_catalog": cc_catalog,
         "learning_policy": learning_policy,
         "material_event_priority": material_event_priority,
+        "sourceability_observations": sourceability_observations,
         "destination_readiness_override": destination_readiness_override,
     }
     route = str(editorial_execution_route or "").strip().upper()

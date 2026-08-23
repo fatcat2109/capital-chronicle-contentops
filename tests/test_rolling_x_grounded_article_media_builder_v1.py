@@ -817,6 +817,47 @@ def test_final_worker_source_markers_resolve_before_public_lock_for_fresh_and_re
     assert resolved["source_reference_resolution"]["status"] == "PASS"
 
 
+def test_exact_failed_oil_treasury_semantic_projection_restores_claims_and_clean_prose():
+    from live_contentops.tier1_editorial_quality_v1 import (
+        build_llm_editorial_review_prompt,
+    )
+
+    root = Path(__file__).resolve().parents[1]
+    evidence = root / (
+        "docs/automation/"
+        "TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/"
+        "frontier_4/canonical_zero_write_rehearsal_attempt_2"
+    )
+    candidate = json.loads(
+        (evidence / "rolling_x_grounded_article_media_candidate_4_v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    selected_viability = json.loads(
+        (
+            evidence.parent
+            / "route_probe/rolling_x_ranked_viability_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    resolved = resolve_editorial_worker_article_for_public_lock(
+        candidate["article"], viability=selected_viability
+    )
+    prompt = build_llm_editorial_review_prompt(resolved)
+    review_input = json.loads(prompt.split("ARTICLE:\n", 1)[1])
+
+    assert resolved["supported_claims"]
+    assert resolved["accepted_source_identities"]
+    assert resolved["semantic_review_contract_sha256"]
+    assert review_input["supported_claims"] == resolved["supported_claims"]
+    assert review_input["evidence_document_ids"] == resolved["evidence_document_ids"]
+    assert review_input["accepted_source_identities"] == resolved[
+        "accepted_source_identities"
+    ]
+    assert "Aljazeera Al Jazeera" not in review_input["reader_visible_prose"]
+    assert "provided supported_claims list is completely empty" not in prompt
+
+
 @pytest.mark.parametrize(
     "body",
     [
