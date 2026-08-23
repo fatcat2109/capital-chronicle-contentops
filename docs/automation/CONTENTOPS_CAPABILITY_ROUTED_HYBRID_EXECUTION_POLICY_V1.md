@@ -150,7 +150,8 @@ This execution policy does not alter:
 - Chrome 9222 ingestion-only and Edge 9223 publication/media/readback boundaries;
 - V2 isolation and zero video public-write authority;
 - actual rendered artifact review for UI/video/audio acceptance;
-- no-publication / zero images / zero video as valid outcomes;
+- candidate-level no-publication, zero article media, or zero V2 media as valid governed outcomes;
+  this does not make a whole V1 production day below its active floor healthy success;
 - protected `v1.0` at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 
 Execution efficiency must never redefine evidence.

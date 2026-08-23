@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — V1 Current Execution Pointer V3
 
 Authority date: 2026-08-23
-Status: `CURRENT_V1_LANE_POINTER`
+Status: `CURRENT_V1_LANE_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
 ## Root authority
 
@@ -10,125 +10,95 @@ Read first:
 - `AGENTS.md`
 - `docs/codegraph/INDEX.md`
 - `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+- `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`
 - `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 - `docs/codegraph/V1_CONTEXT.md`
 
-Older V1 documents are implementation/history only where compatible.
+Older V1 task packets and branch handoffs are exact historical evidence only where compatible.
 
-## Current accepted state
+## Locked current state
 
-P0-1 authority/context/source work is accepted.
+- Canonical runtime/store/supervisor/publisher/UI, production-day accounting, four-window harness,
+  bounded deficit recovery, Desktop/SDK arbitration, official-source evidence seams, nine
+  transports, and UNKNOWN_WRITE recovery are accepted foundation.
+- The owner-scoped Italy canary already published one canonical Substack article plus exactly eight
+  derivative packages; all nine reconciled with `UNKNOWN_WRITE=0`. Never route another Italy
+  canary merely to prove publication.
+- The first real four-opportunity 4/32 proof already ran against 40 distinct stories and truthfully
+  failed at `0 qualified articles / 0 derivative intents`. It must be rerun after economics repair;
+  its harness/accounting must not be rebuilt.
+- The later `330f19787ee0bd8ecc60780417042e19d64f8a1a` foundation produced four distinct
+  governed evidence-ready candidates with deterministic retrieval/hash/freshness, redirect repair,
+  shared route health, same-candidate resume, and frozen worker transport.
+- That foundation's 35 URL-discovery calls and 10,237,897 discovery tokens are
+  `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. The provider is a bounded reusable tail/proof
+  capability, not the routine production default.
 
-P0-G1/G2 growth-first editorial spectrum, mode-aware evidence, bounded material-event mechanics, and canonical-first distribution are implemented/accepted on current lineage.
+## Current next implementation capability
 
-P0-G3 actual breaking/normal/quiet/house-view zero-write artifacts were owner-audited and merged into master at `369c0cc289e790b8218ba30b2696a926db04356a`.
+`V1 QUOTA-EFFICIENT BATCH/TAIL DISCOVERY ON THE EXISTING EVIDENCE SEAM`
 
-The first-party locator correction is accepted and merged in the fresh `origin/master` baseline
-`2d39880fda3504201add67b15a0801847cc496b1`. Its former `new/claude-fable-5` route-health
-observation is historical only: it is superseded by the permanent V1 Gemini-only 9Router authority
-in `TASK_V1_FINAL_MODEL_AUTHORITY_CONVERGENCE_4_32_PROOF_AND_ONE_LIVE_CANARY_V1`.
+This is the sole demonstrated new V1 product implementation gap. Reuse the current discovery
+provider, handshake, route-health, deterministic retrieval/hash/freshness, and hard evidence gates.
+Do not weaken evidence or increase an unbounded per-candidate call ceiling. This pointer identifies
+the dependency; it does not authorize implementation without an exact owner task.
 
-The accepted continuation lineage now runs through:
-
-1. `TASK_V1_AUTONOMOUS_NEWSROOM_DAILY_OUTPUT_AND_NATIVE_AUTOMATION_REVALIDATION_V1`;
-2. `TASK_V1_DAILY_OUTPUT_CANDIDATE_CONTINUATION_QUOTE_REPAIR_AND_FINAL_FLOOR_PROOF_V1`;
-3. `TASK_V1_CURRENT_EVIDENCE_YIELD_REACHABILITY_AND_MULTI_FRONTIER_DAILY_FLOOR_CLOSURE_V1`;
-4. `TASK_V1_DISTINCT_STORY_FRONTIER_AND_EVIDENCE_YIELD_FLOOR_CLOSURE_V1`;
-5. `TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1`.
-
-Draft P0-G4 PR #12 remains frozen historical evidence and is not the current canary slice.
-
-## Current owner output contract
-
-CURRENT FOUNDATION GATE:
-
-`four DISTINCT current governed evidence-ready candidates / zero writer / zero article / zero public write`
-
-The `330f19787ee0bd8ecc60780417042e19d64f8a1a` foundation is accepted: autonomous URL-only
-discovery, deterministic retrieval/hash/freshness resumption on the same candidate, shared
-routing-only source health, the cheap evidence funnel, and frozen article transport remain
-available. Its per-trigger fresh Sol/HIGH URL-discovery default is
-`PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. Routine canonical execution leaves discovery disabled;
-only an explicit bounded tail/proof opt-in may invoke the existing provider. Without that opt-in,
-`SOURCE_DISCOVERY_REQUIRED` remains a fail-closed abstention.
+First-party locator/source-family and publisher-resolution closure are already accepted. They are
+not the next task.
 
 ## Current execution truth
 
-Desktop standalone fresh-run Automations are the primary routine V1 editorial brain. A fresh
-`gpt-5.6-sol / HIGH` coordinator starts one fresh isolated `gpt-5.6-sol / XHIGH` final writer only
-when warranted, with at most one same-worker revision. The official ChatGPT-authenticated Codex App
-Server/SDK provider remains the proven resilient missed/failed-primary fallback, immediate direct
-path, and benchmark path. Deterministic ContentOps remains truth, permission, publication, and
-reconciliation authority.
+Desktop standalone fresh-run Automations remain the primary routine heavy-editorial brain: fresh
+`gpt-5.6-sol / HIGH` coordinator -> one fresh isolated `gpt-5.6-sol / XHIGH` writer when warranted
+-> deterministic validation. The official ChatGPT-authenticated Codex App Server/SDK provider
+remains bounded missed/failed-primary fallback, immediate direct path, and benchmark path under the
+same canonical run identity.
 
-Current supported host truth is exactly four existing native V1 Automations, all `PAUSED`, with the
-four intended schedules and `gpt-5.6-sol / HIGH`. Their prompt hashes need normalization before
-owner-gated enablement. No fifth task was created and the supported surface exposed no run-now
-operation; the accepted manual standalone proof does not claim calendar-time execution.
+Exactly four native V1 Automations exist and are `PAUSED` on the correct model/effort/schedules.
+Their prompts require normalization. Their existence and paused state are accepted host truth;
+calendar-time execution remains unproven. No fifth task may be created.
 
-## Current next capability
+## Locked dependency order
 
-The current next capability is quota-efficient batch/tail discovery architecture, a future
-`NEW_IMPLEMENTATION_GAP` required before economically repeatable final 5–8/day claims. It is not
-authorized in this task. The prior Italy artifact and immediate 4/32 wording are
-historical/non-routing. Stop for Jim/ChatGPT audit; do not call XHIGH, generate an article, enable
-an Automation, create a fifth task, or write publicly. `V1_FINAL_PRODUCT_ACCEPTED` remains
-forbidden.
+1. quota-efficient batch/tail discovery implementation;
+2. fresh economical four-ready-candidate zero-write proof;
+3. rerun the existing 4/32 acceptance proof with accepted accounting and the HIGH/XHIGH path;
+4. normalize and read back only the four existing paused prompts under exact owner authority;
+5. obtain separate owner decisions for Automation enablement and routine public-write scope;
+6. prove calendar-time unattended/cold-start/SDK fallback/late-result/bounded-cost/duplicate
+   suppression, valid under zero public write if that is the exact owner grant;
+7. run fresh current-epoch V5 desktop/mobile visual and truth QA;
+8. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority.
 
 ## Routine schedule policy
 
-The four production-day windows remain:
+The four existing production-day opportunities remain:
 
 - London 17:00 Monday–Friday;
 - New York 21:00 Monday–Friday;
 - New York 23:00 Monday–Friday;
-- New York 01:00 Tuesday–Saturday;
+- New York 01:00 Tuesday–Saturday, belonging to the prior production day;
 - timezone Asia/Bangkok;
 - coordinator `gpt-5.6-sol / HIGH`;
-- final article worker fresh isolated `gpt-5.6-sol / XHIGH` only at article boundary.
+- final article worker fresh isolated `gpt-5.6-sol / XHIGH` only at the article boundary.
 
-These are the schedules of the four currently observed paused Desktop Automations. They grant no
-enablement or public-write authority. No fifth window may be added.
-
-## Owner-gated canary after current zero-write slice
-
-1. require genuine hard-safe article + eight packages + exact JIT destination identity/readiness;
-2. Jim/ChatGPT audit actual candidate/artifacts;
-3. obtain an explicit one-canary `OWNER_GATED_EXTERNAL` grant;
-4. publish/read back canonical Substack and exactly eight derivatives;
-5. reconcile all attempted objects and require `UNKNOWN_WRITE=0`;
-6. audit actual public objects.
-
-## Historical post-canary throughput wording
-
-Earlier 4-article/32-derivative and Italy-audit sequencing is retained as historical planning only.
-It does not authorize work after the current four-candidate evidence gate.
-
-Immediate/live material-event-to-Codex/publication capability remains separately owner-gated and must not be claimed until a supported execution bridge is proven.
+Prompt normalization is not enablement. Enablement is not public-write permission. Material-event
+priority grants no extra model turn or publication authority.
 
 ## V5 final closure
 
-V5 must truthfully show:
-
-- current runtime/source epoch/heartbeat;
-- candidate/evidence/CC authority state;
-- production-day ID;
-- qualified build count `X/4` and deficit;
-- final target `5–8/day` with build/public-write distinction;
-- current Desktop-primary and SDK fallback/direct/benchmark runtime/arbitration state;
-- publication/recovery/UNKNOWN_WRITE/cost state.
-
-An unmet build floor must not be hidden behind generic healthy-idle copy.
+V5 mechanics already expose the production-day/read-model foundation. Final closure is a fresh
+current-source/runtime-epoch rendered desktop/mobile visual and truth audit, not a mechanical
+rebuild. An unmet build floor must not be hidden behind generic healthy-idle copy.
 
 ## Non-negotiable boundaries
 
 - no fabricated facts/Core Analyzer numeric truth;
-- no permission widening;
-- no wrong-account/public write without owner grant;
+- no permission widening or wrong-account/public write;
 - no blind retry of ambiguous writes;
-- no fifth routine task;
+- no fifth routine task or unauthorized prompt/enablement mutation;
 - no second newsroom/store/publisher/control plane;
-- no unauthorized Desktop Automation enablement or fifth task;
-- no credential/access-token Codex bridge without explicit owner approval.
+- no credential/access-token Codex bridge without explicit owner approval;
+- no inferred `V1_FINAL_PRODUCT_ACCEPTED`.

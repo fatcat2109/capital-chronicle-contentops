@@ -1,230 +1,247 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-Authority date: 2026-08-22
-Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN`
+Authority date: 2026-08-23
+Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
 North Star: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 Authority map: `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+Accepted sweep: `docs/automation/TASK_CONTENTOPS_FINAL_ARCHITECTURE_TRUTH_SWEEP_V1/README.md`
 
-## 0. Objective
+## 0. Locked objective
 
-Finish one coherent autonomous growth newsroom that reliably produces useful publication-quality work every newsroom production day, while preserving hard truth, evidence, rights, identity, numeric-authority, recovery, and public-write boundaries.
+Finish one coherent autonomous growth newsroom and then one isolated retention-native video lane
+without rebuilding accepted systems, weakening truth, or confusing missing runtime acceptance with
+missing implementation.
 
-Current highest-priority owner contract:
+V1 build/proof floor:
 
-- MVP launch: exactly one current useful zero-write native-XHIGH article, eight derivative intents,
-  hard-safe validation, JIT nine-surface identity/readiness, and owner audit before any public write;
-- POST-LAUNCH THROUGHPUT: at least `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS`
-  per newsroom production day before unattended production-grade operation;
-- FINAL V1: `5–8 PUBLISHED ARTICLES` per newsroom production day;
-- candidate abstention remains allowed;
-- a whole-day deficit below the active floor is degraded unless an exact hard external blocker is proven;
-- filler and unsupported claims remain forbidden.
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
 
-## 1. Accepted foundation
+Final V1 operating target:
 
-Accepted and do not reopen without a demonstrated defect:
+`5–8 PUBLISHED ARTICLES per newsroom production day`
 
-- P0-1 publication-authority/context separation;
-- canonical V1 durable store/runtime/publication coordinator;
-- growth-first eight-mode editorial spectrum;
-- claim/mode-proportional evidence;
-- official-primary breaking fast lane;
-- quiet-day week-ahead/document/explainer/house-view behavior;
-- canonical-first derivative resilience;
-- P0-G3 multi-mode zero-write owner audit and merge at master lineage `369c0cc289e790b8218ba30b2696a926db04356a`.
+Candidate-level abstention remains valid. A whole production day below its active floor is degraded
+unless an exact hard external blocker is proven. No filler, unsupported claims, or weaker evidence,
+numeric-authority, rights, identity, permission, freshness, publication, or recovery gates.
 
-Current P0-G4 draft PR #12 is not final authority for new daily-output semantics and remains frozen until this plan's execution-bridge correction is merged/reconciled.
+## 1. Planning classification lock
 
-## 2. Current demonstrated state
+The owner-accepted architecture sweep is
+`PASS_FINAL_ARCHITECTURE_TRUTH_SWEEP_COMPLETE`. Its capability matrix is the current planning
+baseline:
 
-The official-provider article-contract closeout remains accepted fallback/direct/benchmark
-capability evidence. The same Italy story then resolved the Desktop-primary hybrid MVP-canary gap.
-The exact result is `PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`: one
-hard-safe mode-proportional current article, eight semantically deduplicated derivative packages,
-nine-surface JIT `READY`, zero public/provider writes, and `UNKNOWN_WRITE=0`.
+| Classification | Count | Required treatment |
+| --- | ---: | --- |
+| `CURRENTLY_PROVEN_AND_REUSE` | 34 | Reuse current implementation; do not rebuild. |
+| `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY` | 9 | Selectively reconcile where absent, then revalidate on current authority. |
+| `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` | 7 | Keep implementation; obtain fresh host/runtime/media/owner evidence. |
+| `NEW_IMPLEMENTATION_GAP` | 3 | Build only through a later exact owner task in dependency order. |
+| `SUPERSEDED_DO_NOT_REUSE` | 6 | Never route, restore, or promote. |
 
-The earlier 41-story and 48-identity attempts remain immutable historical evidence of their exact
-hard blockers. They no longer route the next action. Jim/ChatGPT audit of the exact successful
-Desktop canary is now the only immediate gate; no task enablement, second article, 4/32 start, or
-public write is authorized.
+Historical evidence proves what happened at its exact epoch; it is not current routing authority.
+Current runtime proof requirements are not permission to reimplement proven foundations.
 
-### 2.1 Daily-output contract gap
+## 2. Already built / currently proven — reuse, do not rebuild
 
-Current code/docs were built around publication-minimum-zero and one-opportunity semantics. That is stale under the current owner contract.
+### V1
 
-The system needs one deterministic newsroom production-day accounting layer that:
+- continuous zero-LLM intake, current-story universe, published memory, update chains, hierarchical
+  assignment, preselection, and sourceability ordering;
+- eight editorial modes with claim/mode-proportional evidence and a narrow official-primary
+  breaking path;
+- deterministic retrieval, official locators, redirect/publisher resolution, route health,
+  evidence/hash/freshness/claim binding, story-scoped reuse, and delta-only reacquisition;
+- `OfficialCodexUrlDiscoveryProvider`, same-candidate resume, and frozen worker transport as bounded
+  reusable capabilities; their old per-trigger economics are not accepted production policy;
+- read-only Core Analyzer context plus exact story/use publication-authority boundaries;
+- fresh Desktop HIGH -> isolated XHIGH writer -> deterministic validation, one bounded same-worker
+  repair, and Desktop-primary/SDK-fallback arbitration under one run identity;
+- article/utility/source/numeric/release validation and the valid zero-canonical-media path;
+- cross-midnight `newsroom_production_day_id`, four-floor counters, the existing four-opportunity
+  harness, persisted deficit state, and bounded catch-up;
+- canonical Substack, exactly eight derivative packages, nine destination transports/JIT identity,
+  destination-local continuation, readback/reconciliation, and
+  `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`;
+- one real owner-scoped Italy canary: one canonical article plus exactly eight derivatives, all
+  nine reconciled, `UNKNOWN_WRITE=0`;
+- one durable V1 store/supervisor/publication control plane, restart/recovery mechanics,
+  observation/immutable bounded learning, and the V5 live read model.
 
-- groups the 17:00, 21:00, 23:00, and following 01:00 Bangkok windows into one production day;
-- counts only qualified build articles and actual final published articles;
-- exposes build floor `4`, final target `5–8`, current count, deficit, and state;
-- allows later windows to recover an earlier deficit through bounded additional candidate/article work;
-- does not loop forever, repeat terminal unchanged candidates, or manufacture filler.
+Never rebuild production-day accounting, bounded deficit recovery, canonical transports, the
+durable store, UNKNOWN_WRITE recovery, Desktop/SDK arbitration, or the Italy canary.
 
-### 2.2 Hybrid Codex execution truth
+### V2 current master
 
-FDA-G continuously ingests and maintains state. Desktop standalone fresh-run Automations are the
-primary routine editorial brain behind the canonical article-builder seam: one fresh
-`gpt-5.6-sol / HIGH` coordinator and, when warranted, one fresh isolated
-`gpt-5.6-sol / XHIGH` final writer with at most one same-worker revision.
+- governed input/numeric-authority and rights/provenance/hash boundaries;
+- free-form chapterized viewer-authored Remotion substrate, dirty-range rendering, cache identity,
+  picture assembly, separated audio rebuild, and mux;
+- audio/caption/package/localization base, including actual-audio timing and zero-picture-rerender
+  sidecars;
+- corrected six-surface shadow publication request-plan/readback control plane for YouTube
+  video/Short, TikTok upload draft, explicit Instagram login variants, and Facebook Page Reels,
+  with live writes disabled.
 
-The official ChatGPT-authenticated Codex App Server/SDK provider remains the proven resilient
-fallback for an exact missed/failed Desktop primary, immediate direct path, and benchmark path.
+Never rebuild the V2 publication-control substrate or restore a parallel renderer/control stack.
 
-The remaining boundaries are:
+## 3. Historically proven — selectively reconcile/revalidate only
 
-- both execution paths have zero factual, numeric, permission, gate, and public-write authority;
-- accepted Desktop primary wins its valid window; SDK fallback starts only after an exact
-  missed/failed-primary condition and suppresses any late duplicate Desktop completion;
-- the four schedule windows remain policy, with no fifth window;
-- publication and unattended-throughput acceptance remain separate gates.
+The nine historically proven rows include concrete-first asset discovery, native chart/map/document
+treatments, prior actual short/longform media, the unattended durable factory, Windows/cache/
+recovery repairs, professional-audio/locale timeline work, native HIGH -> fresh XHIGH -> HIGH relay,
+read-only V1 qualification, and the TikTok sandbox draft canary.
 
-Current host truth proves four existing native objects, all paused, with the correct
-`gpt-5.6-sol / HIGH` model/effort and schedules. Prompt normalization and owner-gated enablement are
-still pending; the supported surface exposed no run-now action, so calendar-time execution is not
-claimed by the manual standalone proof.
+The principal donor lineage is:
 
-## 3. Immediate P0 task — owner audit of the canary-ready slice
+`task/v2-native-staggered-automation-relay-shadow-correction-v1@10d18873e2d716dcd53b681a4370ef7726a27f9b`
 
-The completed task is:
+It proves material capability absent current master in `video/unattended_core_factory_v1`,
+`video/daily_operator_v1.py`, and `video/locale_activation_hardening_v1`. It is historical proof,
+not current routing authority. Port only current-compatible capability after the V1 gate; never
+wholesale-merge its stale authority and never mutate V1 runtime/store/browser/publication state.
 
-`TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1`
+## 4. Current host/runtime proof required
 
-Accepted classification:
+Seven capability rows require fresh evidence rather than new architecture:
 
-`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`
+1. exact current reliance on the four native Desktop Automations under calendar-time execution;
+2. 4/32 acceptance after economics repair;
+3. normalization/readback of only the four existing host prompts under exact owner authority;
+4. unattended calendar-time/cold-start/missed-primary SDK fallback/late-result/cost/duplicate-
+   suppression proof;
+5. fresh current-epoch V5 desktop/mobile visual and truth acceptance;
+6. repeated qualified fresh cross-domain V2 story production after reconciliation;
+7. final V2 actual-media picture/sound/taste/pacing/novelty/publishability acceptance.
 
-Jim/ChatGPT must now audit that exact Italy article, its eight derivative packages, and the
-nine-surface JIT-ready plan. Do not invoke a second article or perform any public write. The 4/32
-proof remains required before production-grade throughput or unattended routine-operation claims.
-`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+Accepted host truth is exactly four native V1 Automations, all `PAUSED`, with correct model,
+reasoning effort, schedules, and mismatched prompts. Calendar-time execution remains unproven. At
+the sweep epoch the production database was opened read-only and was healthy with
+`UNKNOWN_WRITE=0`, while no Daily App process/listener was running. That at-rest observation is not
+a cold-start or unattended PASS.
 
-## 4. Production-day accounting contract
+## 5. True new implementation gaps
 
-The routine intended opportunities are:
+Exactly three gaps survived the accepted repository/branch/runtime truth sweep:
 
-- 17:00 Bangkok, Monday–Friday;
-- 21:00 Bangkok, Monday–Friday;
-- 23:00 Bangkok, Monday–Friday;
-- 01:00 Bangkok, Tuesday–Saturday, belonging to the prior newsroom production day.
+1. **V1 quota-efficient batch/tail discovery.** Reuse the existing discovery provider,
+   same-candidate handshake, route health, deterministic retrieval/hash/freshness, and hard
+   evidence gates. Change invocation economics/batching/tail selection only.
+2. **V2 selective single-stack reconciliation.** Reconcile current-compatible unattended/locale/
+   daily-operator donor capability onto the current free-form/package/publication substrate.
+3. **V2 integrated qualification/observation/bounded-learning loop.** Close qualified V1/story
+   input -> V2 production -> observed performance -> bounded packaging/priority learning without a
+   parallel authority system.
 
-Required states:
+Only gap 1 is the next V1 implementation capability. This authority lock does not authorize its
+implementation.
 
-- `ON_TRACK`
-- `DEFICIT_RECOVERABLE`
-- `FLOOR_MET`
-- `DEGRADED_DAILY_OUTPUT_DEFICIT`
-- `HARD_EXTERNAL_BLOCK`
+## 6. Superseded — never route or revive
 
-Candidate-level `NO_PUBLICATION` does not set production-day success while the floor remains unmet.
+The six superseded capability rows are:
 
-Hard external blockers must be exact and auditable; they must not be fabricated to excuse low yield.
+- fixed high-level V2 compositor and invalid HIGH/XHIGH/ULTRA bakeoff;
+- legacy Hormuz raster/reused oil-tanker-refinery asset universe as professional default;
+- incomplete uncommitted breaking-news crisp-master/separate-ledger WIP;
+- legacy V6 schedulers/publishers and old HTTP launch paths;
+- fixture-heavy legacy V5 shell as live truth;
+- persistent Antigravity parallel conversation/orchestration architecture.
 
-## 5. Deficit recovery without a fifth task
+Do not revive these merely because their historical artifacts are detailed.
 
-Do not create additional routine schedule objects to chase the floor.
+## 7. Locked V1 evidence truth
 
-At each actual routine Codex wake:
+The current sequence starts after three completed evidence events:
 
-1. load current production-day count/deficit;
-2. recover/read back any outstanding state;
-3. load fresh/current candidate universe and durable evaluated memory;
-4. walk strong candidates and applicable editorial modes;
-5. create qualified build article(s) until the current cumulative expected progress is restored, candidate/evidence universe is genuinely exhausted, bounded cost is reached, or a hard external blocker occurs;
-6. persist deficit before/after and terminal reasons.
+1. **Real canary complete.** Italy published one canonical Substack article plus exactly eight
+   derivative packages; all nine reconciled; `UNKNOWN_WRITE=0`. Never publish the same canary again
+   merely to prove transport.
+2. **First 4/32 proof complete and failed.** All four opportunities ran against 40 distinct stories
+   and produced `0 qualified articles / 0 derivative intents`. This is failed acceptance evidence,
+   not an unstarted implementation task. The accounting/harness is accepted.
+3. **Later evidence foundation complete.** Four distinct governed evidence-ready candidates were
+   produced with deterministic retrieval/hash/freshness, redirect repair, source-route health,
+   same-candidate resume, and frozen worker transport. Its 35 URL-discovery calls and 10,237,897
+   discovery tokens are `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`.
 
-Later windows may catch up earlier misses. Bounded cost, durable cutoff, update-chain semantics, and duplicate prevention remain mandatory.
+## 8. Final locked V1 roadmap
 
-## 6. Codex execution architecture
+Dependency order:
 
-Current routine architecture:
+1. master-plan/authority lock;
+2. owner-authorized quota-efficient batch/tail discovery on the existing evidence seam;
+3. fresh economical four-ready-candidate zero-write proof;
+4. rerun the existing 4/32 acceptance proof using accepted production-day accounting plus the
+   current Desktop HIGH / isolated XHIGH path;
+5. owner-authorized normalization and supported readback of only the four existing paused
+   Automation prompts;
+6. separate owner decisions for Automation enablement and routine public-write scope;
+7. calendar-time unattended/cold-start/SDK fallback/late-result/bounded-cost/duplicate-suppression
+   proof, valid under zero public write if that is the exact owner grant;
+8. fresh current-epoch V5 desktop/mobile visual and truth QA;
+9. explicit owner `V1_FINAL_PRODUCT_ACCEPTED` and freeze decision.
 
-`FDA-G / existing V1 runtime -> fresh standalone Desktop gpt-5.6-sol/HIGH coordinator -> one fresh isolated gpt-5.6-sol/XHIGH writer per warranted final article -> deterministic validation -> zero-write build output or separately authorized publication`
+Do not create a fifth Automation. Do not treat prompt normalization as enablement. Do not treat
+Automation enablement as public-write permission. Do not infer V1 acceptance from this plan.
 
-FDA-G remains the always-on cheap runtime authority. Codex is the heavy editorial execution layer.
+## 9. Automation and public-write gates
 
-Do not enable the four paused Desktop Automations before the exact owner gate or create a fifth. The
-SDK fallback is not a public-write bridge and no credential/access-token/API alternative is
-authorized.
+The four existing Automations are the only routine native task objects. The supported host surface
+proved their existence and paused state but exposed no run-now action. Prompt normalization and
+readback must occur before any enablement decision.
 
-Material-event priority grants no extra model turn and no public-write authority.
-
-## 7. V5 operator contract
-
-V5 must show:
-
-- newsroom production-day ID;
-- qualified build articles `X / 4`;
-- remaining build deficit;
-- final target `5–8/day` with build/public-write state distinction;
-- production-day state;
-- Desktop primary and SDK fallback/direct/benchmark runtime/arbitration state;
-- next existing Desktop Automation opportunity and its exact observed enabled/paused truth;
-- normal runtime/evidence/authority/publication/recovery/cost state.
-
-If the build floor is unmet, generic `Running Idle — healthy waiting` must not hide the production deficit.
-
-## 8. One supervised MVP canary before the post-launch throughput proof
-
-The current slice may return `CANARY_READY_FOR_OWNER_PUBLIC_WRITE_GATE` only after every hard gate
-and JIT identity/readiness check passes. It then stops for owner audit and exact grant.
-
-### P0-G4A
-
-- zero-write genuine current candidate;
-- article + eight packages locked;
-- exact JIT destination identities/readiness;
-- explicit owner public-write gate.
-
-### P0-G4B
-
-After exact owner grant:
-
-- canonical Substack publish/readback;
-- exactly eight derivative attempts;
-- destination-local recovery;
-- strict reconciliation;
-- `UNKNOWN_WRITE=0`;
-- actual public-object owner audit.
-
-A canary grant authorizes only that canary unless explicitly widened.
-
-## 9. Post-launch throughput and unattended/cold-start proof
-
-After owner-accepted canary, first prove 4 qualified zero-write articles / 32 derivative intents,
-then:
-
-- use the existing four Desktop Automations as the primary routine editorial brain after explicit
-  owner enablement, with the SDK only as bounded fallback/direct/benchmark;
-- no fifth routine window;
-- prove production-day floor/target accounting under calendar-time unattended execution;
-- prove restart/cold-start, cutoff/recovery, no duplicate articles/public objects, bounded cost, and truthful deficit/hard-block states;
-- separately owner-gate any live automatic material-event Codex/public-write wake capability.
+Automation enablement and routine public-write authority are separate owner gates. A calendar-time
+unattended proof may validly run with zero public-write authority if that is the exact grant. Any
+public-write scope must bind exact accounts/destinations, preserve canonical-first lifecycle,
+readback/reconciliation, and keep `UNKNOWN_WRITE=0`.
 
 ## 10. V5 final closure
 
-Before final V1 acceptance:
+V5 mechanics and the live read model are accepted foundation. Final V1 closure requires a fresh
+current-source/runtime-epoch rendered desktop/mobile audit proving truthful runtime, evidence,
+authority, production-day, Automation observed-versus-intent, publication/recovery, UNKNOWN_WRITE,
+and cost state. Visual PASS cannot be inferred from tests or older screenshots. This is revalidation,
+not a mechanical V5 rebuild.
 
-- current source epoch/build must be healthy;
-- daily-output/automation truth must be visible;
-- runtime/evidence/authority/publication/recovery/cost state must be truthful;
-- fresh browser screenshots must be independently reviewed against current design authority;
-- visual PASS cannot be inferred from tests.
+## 11. V2-after-V1 roadmap
 
-## 11. Final V1 definition of done
+V2 starts only after the explicit V1 gate:
+
+1. lock donor commits/capabilities and selectively reconcile them onto one current-compatible
+   stack while preserving current free-form authority and zero public write;
+2. revalidate unattended store/supervisor, Windows path/duration repair, transcript/audio timing,
+   locale packages, read-only V1 qualification, and native relay under current dependencies;
+3. produce fresh non-oil/non-Hormuz cross-domain qualified stories through the asset-first path;
+4. obtain actual-media XHIGH and Jim/ChatGPT review for a strong Short and justified longer format;
+5. close repeated-job soak, cache/recovery, TCO, transcript/package truth, and the integrated
+   V1->V2 growth-learning loop;
+6. only under a later exact owner grant, reverify destination identity/rights/provider contracts
+   and consider bounded V2 publication expansion.
+
+Branch evidence is historical proof, not permission to run V2 now. V1 runtime/store/browser/
+publication authority remains isolated. Current V2 public-write authority is exactly zero.
+
+## 12. Final V1 definition of done
 
 V1 is final only when:
 
-1. one reliable Daily App remains continuously healthy;
-2. build proof demonstrates the 4-qualified-article floor without filler or weakened truth;
-3. final operating behavior targets 5–8 published articles per newsroom production day;
-4. Desktop-primary/SDK-fallback hybrid execution is proven and routine scheduling is accepted;
-5. real canonical Substack + eight derivatives canary is accepted with `UNKNOWN_WRITE=0`;
-6. unattended/cold-start execution is proven;
-7. UI truth and visual acceptance are complete.
+1. quota-efficient evidence acquisition is implemented and economically evidenced;
+2. the existing 4/32 acceptance proof passes without filler or weaker truth;
+3. only the four existing Automation prompts are normalized/read back and their enablement scope is
+   explicitly decided;
+4. calendar-time unattended/cold-start/fallback/duplicate-suppression behavior is proven;
+5. fresh current-epoch V5 visual and truth QA passes;
+6. the owner explicitly records `V1_FINAL_PRODUCT_ACCEPTED` and freezes the product.
 
-## 12. Hard stops
+The real nine-surface canary, production-day accounting, publication transports, durable store,
+UNKNOWN_WRITE recovery, and Desktop/SDK arbitration are already accepted foundations and are not
+definition-of-done implementation items to repeat.
 
-Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-account or unauthorized public write, destructive production-state mutation, unresolved `UNKNOWN_WRITE`, unauthorized Automation enablement/fifth-task creation, duplicate Desktop/SDK execution, or inability to distinguish schedule policy from runtime truth.
+## 13. Hard stops
 
-Protected historical `v1.0` remains immutable.
+Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-account or
+unauthorized public write, destructive production-state mutation, unresolved `UNKNOWN_WRITE`,
+Automation mutation outside exact owner scope, fifth-task creation, duplicate Desktop/SDK execution,
+wholesale V2 donor merge, V1 authority contamination, or any implied V2 public-write expansion.
+
+Protected historical `v1.0` remains immutable at
+`6983bfb3ef300414b744f3f8f97ca81ff699348b`.

@@ -239,6 +239,7 @@ def test_generated_index_routes_v1_hot_paths_and_separates_v2(graph):
     ):
         assert f"## {heading}" in generated
     assert "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md" in generated
+    assert "CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md" in generated
     assert "CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md" in generated
     assert "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md" in generated
     assert "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md" in generated
@@ -251,6 +252,7 @@ def test_generated_v2_context_routes_through_current_v3_authority(graph):
     context = index.context_markdown(graph)
     normalized = " ".join(context.split())
     assert "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md" in normalized
+    assert "CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md" in normalized
     assert "CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md" in normalized
     assert "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md" in normalized
     assert "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md" in normalized
@@ -263,6 +265,7 @@ def test_generated_v2_context_routes_through_current_v3_authority(graph):
 
 def test_context_contract_paths_exist_and_outputs_have_no_secret_shapes(graph):
     assert index.validate_context_contract(graph) == []
+    assert "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md" in graph["authority_anchor_paths"]
     assert "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md" in graph["authority_anchor_paths"]
     for paths in index.HOT_PATHS.values():
         assert all((index.ROOT / path).exists() for path in paths)

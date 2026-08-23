@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `086fc1028b273018b9f183ada010202d14ff6ba9`. Source tree digest: `6e1ffa31fe477b1e9b5c1e1caa631bde4d81d846d62727021181c8636ca34949`.
+Generated from source HEAD `086fc1028b273018b9f183ada010202d14ff6ba9`. Source tree digest: `1bd28e9c4cc16ea6f0c6617ef23820660c5d8a0814334d9cd40ab193bcb5ad9a`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This generated map is descriptive repository state and is subordinate to root `AGENTS.md`.
@@ -12,13 +12,14 @@ task summaries.
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-7. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
-8. the appropriate current lane pointer
-9. the nearest scoped `AGENTS.md`
-10. exact implementation, tests, and evidence
+4. `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`
+5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+8. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
+9. the appropriate current lane pointer
+10. the nearest scoped `AGENTS.md`
+11. exact implementation, tests, and evidence
 
 ## Current product boundary
 
@@ -41,13 +42,13 @@ task summaries.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
-| Current authority | `AGENTS.md`, `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` | V3 North Star, V3 master plan, current lane pointers |
+| Current authority | `AGENTS.md`, `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`, `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md` | V3 North Star, V3 master plan, current lane pointers |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |
 
 ## Graph inventory
 
-- Nodes: `7288`
+- Nodes: `7289`
 - Edges: `13775`
 - Entrypoints: `16`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-

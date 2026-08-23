@@ -4,6 +4,7 @@
     "docs/AGENTS.md",
     "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
     "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
+    "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
     "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
     "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
     "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
@@ -14,9 +15,9 @@
   "counts": {
     "edges": 13775,
     "entrypoints": 16,
-    "nodes": 7288,
+    "nodes": 7289,
     "nodes_by_kind": {
-      "authority_doc": 7,
+      "authority_doc": 8,
       "cli_command": 27,
       "directory_scope": 8,
       "durable_table": 37,
@@ -82805,7 +82806,7 @@
     "docs/codegraph/graph.json"
   ],
   "generation_timestamp_utc": "2026-08-23T07:18:24Z",
-  "generator_version": "2.5.0",
+  "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
     "headline_ingestion/",
@@ -82837,7 +82838,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 10508
+      "size_bytes": 11577
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -83037,37 +83038,42 @@
     {
       "id": "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 9362
+      "size_bytes": 9485
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 8791
+      "size_bytes": 12378
+    },
+    {
+      "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
+      "kind": "authority_doc",
+      "size_bytes": 8823
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 6337
+      "size_bytes": 5293
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 10847
+      "size_bytes": 13768
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 10736
+      "size_bytes": 11612
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 4716
+      "size_bytes": 4429
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 12352
+      "size_bytes": 13806
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -119490,231 +119496,231 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_graph",
       "kind": "python_function",
-      "line": 844,
+      "line": 845,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_outputs",
       "kind": "python_function",
-      "line": 1207,
+      "line": 1212,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_bytes",
       "kind": "python_function",
-      "line": 294,
+      "line": 295,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "canonical_source_bytes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::canonical_source_size",
       "kind": "python_function",
-      "line": 302,
+      "line": 303,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "canonical_source_size"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::check_outputs",
       "kind": "python_function",
-      "line": 1223,
+      "line": 1228,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "check_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::context_markdown",
       "kind": "python_function",
-      "line": 1051,
+      "line": 1052,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "context_markdown"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::entrypoint_rows",
       "kind": "python_function",
-      "line": 749,
+      "line": 750,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "entrypoint_rows"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::git_commit_timestamp",
       "kind": "python_function",
-      "line": 233,
+      "line": 234,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "git_commit_timestamp"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::git_head",
       "kind": "python_function",
-      "line": 245,
+      "line": 246,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "git_head"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::http_endpoint_nodes",
       "kind": "python_function",
-      "line": 562,
+      "line": 563,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "http_endpoint_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::included",
       "kind": "python_function",
-      "line": 195,
+      "line": 196,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "included"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::index_markdown",
       "kind": "python_function",
-      "line": 1111,
+      "line": 1113,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "index_markdown"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::is_test_path",
       "kind": "python_function",
-      "line": 702,
+      "line": 703,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "is_test_path"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::main",
       "kind": "python_function",
-      "line": 1330,
+      "line": 1336,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::nearest_agents_file",
       "kind": "python_function",
-      "line": 316,
+      "line": 317,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "nearest_agents_file"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::node_kind",
       "kind": "python_function",
-      "line": 800,
+      "line": 801,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "node_kind"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::normalized_for_check",
       "kind": "python_function",
-      "line": 1217,
+      "line": 1222,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "normalized_for_check"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_call_edges",
       "kind": "python_function",
-      "line": 667,
+      "line": 668,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_call_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_definitions",
       "kind": "python_function",
-      "line": 463,
+      "line": 464,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_definitions"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_import_edges",
       "kind": "python_function",
-      "line": 345,
+      "line": 346,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_import_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_metadata_nodes",
       "kind": "python_function",
-      "line": 512,
+      "line": 513,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_metadata_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_module_name",
       "kind": "python_function",
-      "line": 336,
+      "line": 337,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_module_name"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::python_tree",
       "kind": "python_function",
-      "line": 456,
+      "line": 457,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "python_tree"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::read_text",
       "kind": "python_function",
-      "line": 329,
+      "line": 330,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "read_text"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::rel",
       "kind": "python_function",
-      "line": 191,
+      "line": 192,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "rel"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::source_digest",
       "kind": "python_function",
-      "line": 306,
+      "line": 307,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "source_digest"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::source_files",
       "kind": "python_function",
-      "line": 217,
+      "line": 218,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "source_files"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::test_relationships",
       "kind": "python_function",
-      "line": 711,
+      "line": 712,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "test_relationships"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::ts_import_edges",
       "kind": "python_function",
-      "line": 390,
+      "line": 391,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "ts_import_edges"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::typescript_export_nodes",
       "kind": "python_function",
-      "line": 490,
+      "line": 491,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "typescript_export_nodes"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_context_contract",
       "kind": "python_function",
-      "line": 1273,
+      "line": 1278,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_context_contract"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_graph",
       "kind": "python_function",
-      "line": 1251,
+      "line": 1256,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::write_outputs",
       "kind": "python_function",
-      "line": 1307,
+      "line": 1313,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "write_outputs"
     },
@@ -121986,7 +121992,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 55128
+      "size_bytes": 55600
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -122666,7 +122672,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 15223
+      "size_bytes": 15475
     },
     {
       "id": "tests/test_codex_desktop_newsroom_operator_v1.py",
@@ -130115,5 +130121,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "086fc1028b273018b9f183ada010202d14ff6ba9",
-  "source_tree_digest": "6e1ffa31fe477b1e9b5c1e1caa631bde4d81d846d62727021181c8636ca34949"
+  "source_tree_digest": "1bd28e9c4cc16ea6f0c6617ef23820660c5d8a0814334d9cd40ab193bcb5ad9a"
 }

@@ -10,15 +10,19 @@ Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, task
 Fresh work must route from:
 
 1. `AGENTS.md`
-2. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-3. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-4. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-5. `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`
-6. exact current code/tests/evidence/host truth.
+2. `docs/codegraph/INDEX.md`
+3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+4. this stale-doc manifest
+5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+9. the current lane pointer
+10. exact current code/tests/evidence/host truth.
 
 ## 2. Superseded semantics
 
-Any file containing these current-looking claims is stale for routing unless explicitly updated to the 2026-08-21 owner contract:
+Any file containing these current-looking claims is stale for routing unless explicitly updated to the 2026-08-23 authority lock:
 
 - `no mandatory post count`;
 - `no publication minimum exists`;
@@ -34,8 +38,16 @@ Any file containing these current-looking claims is stale for routing unless exp
 - passive wait-for-perfect-candidate is the current sole next action.
 - the 4-qualified/32-intent throughput proof is a prerequisite for one supervised MVP canary.
 - the Italy article audit is the current V1 next task;
+- the Italy nine-surface publication/readback still needs to run;
+- the 4/32 acceptance proof has never run;
+- production-day accounting or bounded deficit recovery still needs implementation;
+- the four native V1 Automations remain host-unproven;
+- first-party locator/source-family or publisher-resolution closure is the next V1 capability;
 - immediate 4/32 article/derivative generation is the current V1 next task.
 - per-trigger fresh Sol/HIGH URL discovery is the routine production default.
+- branch-proven V2 unattended/recovery/locale/native-relay systems must be rebuilt from zero;
+- V2 may write publicly; or
+- `V1_FINAL_PRODUCT_ACCEPTED` is already true.
 
 ## 3. Current replacement semantics
 
@@ -48,6 +60,14 @@ Any file containing these current-looking claims is stale for routing unless exp
   fail-closed `SOURCE_DISCOVERY_REQUIRED` abstention.
 - A quota-efficient batch/tail discovery architecture is a future implementation gap. It is required
   before treating final 5–8/day as economically repeatable and is not authorized by this task.
+- The owner-scoped Italy canary is completed technical evidence: one canonical Substack article
+  plus exactly eight derivatives, all nine reconciled, `UNKNOWN_WRITE=0`. It must not be repeated
+  merely to prove publication.
+- The first real four-opportunity 4/32 proof already ran and truthfully failed at `0/4 / 0/32`
+  after 40 distinct stories. It must be rerun only after economics repair and a fresh economical
+  four-ready-candidate proof.
+- Production-day accounting, the four-window harness, and bounded deficit recovery are accepted
+  foundation, not implementation gaps.
 - Candidate abstention remains valid and must retain exact blockers; the task may not manufacture
   PASS by increasing request ceilings or weakening evidence/freshness/claim gates.
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
@@ -61,8 +81,13 @@ Any file containing these current-looking claims is stale for routing unless exp
   calendar-time execution proof remains required because the supported surface exposed no run-now.
 - The proven official ChatGPT-authenticated Codex App Server/SDK provider remains the bounded
   missed/failed-primary fallback, immediate direct path, and benchmark path.
-- The prior Desktop Italy slice and 4/32 attempts remain preserved evidence, not current routing.
-  The current task stops for owner audit at the four-candidate pre-writer evidence gate.
+- The zero-write Desktop Italy slice, real nine-surface Italy canary, failed 4/32 proof, and later
+  four-ready-candidate foundation remain preserved evidence. None is an unstarted routing task.
+- Prompt normalization/readback, Automation enablement, and routine public-write authority are
+  three separate owner gates. Calendar-time unattended behavior remains unproven.
+- V2 starts only after the V1 gate with selective reconciliation of current-compatible donor
+  capability. Historical branch authority must not be wholesale merged; V2 public-write authority
+  remains zero.
 
 ## 4. Historical/non-routing families
 
@@ -92,6 +117,21 @@ The following files/families may contain useful detail/history but must not over
 - any old task/setup packet that states native Codex tasks exist without host proof.
 
 The current `docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md` has been rewritten and remains current.
+
+Pre-lock revisions of the following active routing files contained exact stale claims and must not
+be recovered from history or a task branch as current authority:
+
+- `AGENTS.md` — canary-audit/current-sequence wording;
+- `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` — pending-canary sequence;
+- `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md` — pending canary, unstarted 4/32,
+  and missing accounting wording;
+- `docs/CURRENT_CONTEXT.md` — host-unproven/accounting-gap sequence;
+- `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md` — host-unproven/accounting/canary sequence;
+- `docs/codegraph/V1_CONTEXT.md` — locator-next/four-frontier sequence;
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+  — missing plan link and absent donor-lineage boundary.
+
+Their current bytes are routing authority only where they agree with the locked root spine.
 
 ## 6. PR #12
 

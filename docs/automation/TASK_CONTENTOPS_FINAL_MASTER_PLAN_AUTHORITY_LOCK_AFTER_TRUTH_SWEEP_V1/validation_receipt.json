@@ -1,0 +1,43 @@
+{
+  "schema_version": "contentops.final_master_plan_authority_lock.validation_receipt.v1",
+  "classification": "PASS_FINAL_MASTER_PLAN_AUTHORITY_LOCK_READY_FOR_OWNER_AUDIT",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "branch": "codex/final-master-plan-authority-lock-v1",
+  "fresh_origin_master": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+  "accepted_sweep_source_head": "145cfa6dfc1f856289cfb57fa01977b497530e00",
+  "protected_v1_tag_peeled_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "final_commit_recording": "EXTERNAL_GIT_REF_AND_FINAL_RETURN",
+  "validations": {
+    "fresh_fetch_before_start": "PASS",
+    "task_branch_starts_at_exact_accepted_sweep_head": "PASS",
+    "accepted_sweep_descends_from_expected_origin_master": "PASS",
+    "current_authority_links_exist": "PASS / 19 CHECKED / 0 MISSING",
+    "v2_pointer_missing_filename_count": 0,
+    "fresh_session_stale_semantic_scan": "PASS / 0 POSITIVE-ROUTING HITS",
+    "historical_task_packet_rewrite_count": 0,
+    "product_implementation_change_count": 0,
+    "codegraph_documentation_tooling_change_count": 2,
+    "automation_runtime_publication_change_count": 0,
+    "codegraph_generator_test": "PASS / 17 PASSED",
+    "codegraph_check": "CODEGRAPH_CURRENT",
+    "json_parse": "PASS / 2 PACKET JSON FILES",
+    "git_diff_check": "PASS",
+    "staged_diff_check": "PASS / 19 EXPLICIT PATHS",
+    "final_refetch_origin_master": "PASS / f7c5543e08381f7f529e1b391a80a59f2032d76f",
+    "final_refetch_accepted_sweep": "PASS / 145cfa6dfc1f856289cfb57fa01977b497530e00"
+  },
+  "safety": {
+    "product_code_changes": 0,
+    "production_store_mutations": 0,
+    "runtime_proof_actions": 0,
+    "browser_or_session_interactions": 0,
+    "public_or_provider_writes": 0,
+    "automation_mutations": 0,
+    "automation_enablements": 0,
+    "fifth_automation_created": 0,
+    "capital_chronicle_mutations": 0,
+    "v2_public_write_expansion": 0,
+    "credential_cookie_token_session_reads": 0,
+    "historical_task_packet_rewrites": 0
+  }
+}

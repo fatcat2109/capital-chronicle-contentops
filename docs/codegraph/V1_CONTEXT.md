@@ -1,24 +1,32 @@
 # ContentOps V1 Current Context Map
 
-Authority date: 2026-08-21
+Authority date: 2026-08-23
 
 This is a curated implementation/discovery map, not product authority. Jim's latest instruction, root authority, fresh GitHub bytes, exact code/tests/evidence, and current runtime evidence outrank this map when they conflict.
 
 ## Current product state
 
-`DAILY_YIELD_LINEAGE_ACCEPTED / DEGRADED_DAILY_OUTPUT_DEFICIT`
+`CANARY_COMPLETE / FIRST_4_32_FAILED / EVIDENCE_FOUNDATION_READY / ECONOMICS_REPAIR_REQUIRED`
 
-P0-G3 is accepted. The accepted continuation lineage now includes daily-output/native-Automation
-revalidation, candidate continuation/quote repair, evidence-yield reachability correction,
-distinct-story frontier correction, and story/update-chain-scoped evidence reuse across mode
-downgrade. Hash-bound host evidence observed exactly four native V1 Automations, all `PAUSED`; the
-current story-reuse task did not mutate them.
+The canonical runtime/store/supervisor/publisher/UI, production-day accounting, four-window harness,
+bounded deficit recovery, Desktop/SDK arbitration, official-source evidence seams, destination
+transports, and UNKNOWN_WRITE recovery are accepted current foundation.
 
-The latest genuine four-frontier zero-write proof attempted 17 distinct stories, performed 71
-bounded evidence reads, avoided 89 duplicate same-story downgrade reads, and produced 0/4 qualified
-articles and 0/32 derivative intents with `UNKNOWN_WRITE=0`. The next exact capability is bounded
-first-party locator/source-family plus query/publisher-resolution closure for that proof's residual
-matrix, followed by the same four-frontier rehearsal.
+The owner-scoped Italy canary published one canonical Substack article plus exactly eight
+derivative packages; all nine reconciled with `UNKNOWN_WRITE=0`. The first real four-opportunity
+4/32 proof then ran against 40 distinct stories and truthfully failed at `0 qualified articles / 0
+derivative intents`. It is failed acceptance evidence, not an unstarted task.
+
+The later evidence foundation produced four distinct governed evidence-ready candidates with
+deterministic retrieval/hash/freshness, redirect repair, source-route health, same-candidate resume,
+and frozen worker transport. Its 35 URL-discovery calls and 10,237,897 discovery tokens are not an
+accepted routine production default. The next implementation capability is quota-efficient
+batch/tail discovery on the existing evidence seam. First-party locator/publisher resolution is
+already accepted.
+
+Exactly four native V1 Automations exist and are `PAUSED` with correct model/effort/schedules; their
+prompts require normalization. Calendar-time execution remains unproven. `V1_FINAL_PRODUCT_ACCEPTED`
+is not true.
 
 ## Canonical product flow
 
@@ -29,6 +37,7 @@ one-click launcher
 -> rolling current candidate universe + published memory
 -> routine window OR bounded material-event wake eligibility
 -> story type + editorial mode selection
+-> quota-efficient batch/tail discovery when authorized and needed
 -> claim/mode-specific evidence and CC authority resolution
 -> choose useful story or abstain
 -> one strong editorial worker when warranted
@@ -107,7 +116,7 @@ Start_ContentOps_Daily_App.cmd
 
 Use CodeGraph callers/callees around these seams before editing. Do not create parallel selection/evidence/publication/state/scheduler paths.
 
-## Hot implementation areas for current task
+## Canonical implementation areas for the next exact task
 
 ### Supervisor / material-event wake
 
@@ -115,7 +124,10 @@ Use CodeGraph callers/callees around these seams before editing. Do not create p
 - existing material-event trigger/update-chain and operator-trigger state discovered by CodeGraph
 - durable window/trigger/lease/idempotency tables and focused supervisor tests
 
-Current task must prove the wake path under `NO_PUBLIC_WRITE`/shadow validation before any live activation. After owner-accepted canary, final product direction requires the bounded supervisor-owned material-event wake capability, but **live automatic public-write activation remains separately owner-gated; canary authority alone does not grant that trigger scope. Without the explicit wake grant, keep the path shadow-only.** This remains distinct from the four scheduled tasks and does not authorize a fifth task.
+The next implementation task is not a wake-path rebuild. Material-event priority remains shadow-only
+unless a later exact owner grant authorizes more. Calendar-time unattended/cold-start/fallback proof
+comes only after discovery economics, the fresh ready pool, the 4/32 rerun, prompt normalization,
+and separate Automation/public-write decisions. No fifth task is authorized.
 
 ### Newsroom / selection
 
@@ -131,6 +143,11 @@ Current task must prove the wake path under `NO_PUBLIC_WRITE`/shadow validation 
 - `live_contentops/official_primary_source_locator_v1.py`
 - `live_contentops/official_primary_evidence_loader_v1.py`
 - exact current evidence capability/profile contracts discovered from callers/tests
+
+Quota-efficient batch/tail discovery must extend this existing seam. Reuse
+`OfficialCodexUrlDiscoveryProvider`, same-candidate resume, route health, deterministic retrieval,
+hashing, freshness, and hard admission gates. Do not create a parallel evidence system or accept
+the historical 35-call per-trigger path as routine production policy.
 
 ### Capital Chronicle authority
 
@@ -153,7 +170,7 @@ House-view/critical modes may express strong qualitative editorial judgment from
 - `live_contentops/production_runtime_v1.py`
 - publication-plan builder in the canonical rolling-X implementation
 
-Current root direction supersedes the older blanket rule that any derivative non-readiness must veto canonical Substack. Target product semantics are canonical Substack first, then exactly eight independently gated derivative packages with destination-local hold/recovery and strict readback/reconciliation.
+Current root direction supersedes the older blanket rule that any derivative non-readiness must veto canonical Substack. Target product semantics are canonical Substack first, then exactly eight independently gated derivative packages with destination-local hold/recovery and strict readback/reconciliation. The real Italy nine-surface canary already proved this exact technical lifecycle and must not be repeated merely as transport proof.
 
 No live/public write is authorized merely by this context map.
 
@@ -196,14 +213,19 @@ These are identities, not permission to inspect credentials/session material.
 
 ## Current validation sequence
 
-1. preserve the accepted daily-output/Automation, continuation/quote, evidence-yield, distinct-story, and story-scoped-reuse lineage;
-2. close only the exact first-party locator/source-family and query/publisher-resolution misses demonstrated by the current 17-story residual matrix;
-3. rerun the same four-frontier zero-public-write production day and require at least 4 qualified articles plus exactly 32 derivative intents for the first four;
-4. require one fresh isolated `gpt-5.6-sol / XHIGH` receipt for each warranted final article and `UNKNOWN_WRITE=0`;
-5. Jim/ChatGPT review actual article/package outputs;
-6. obtain a fresh explicit owner grant for one real canary;
-7. enable only the four existing paused tasks after accepted canary; never create a fifth task;
-8. complete unattended/cold-start proof and V5 screenshot acceptance.
+1. preserve all accepted V1 foundation, the completed Italy canary, the failed 4/32 receipt, and the
+   four-ready-candidate foundation;
+2. implement quota-efficient batch/tail discovery on the existing evidence seam under a later exact
+   owner task;
+3. prove a fresh economical four-ready-candidate zero-write pool;
+4. rerun the existing 4/32 proof through accepted production-day accounting and the current HIGH /
+   isolated XHIGH path, requiring `UNKNOWN_WRITE=0`;
+5. normalize/read back only the four existing paused prompts under exact owner authority;
+6. obtain separate owner decisions for Automation enablement and routine public-write scope;
+7. prove calendar-time unattended/cold-start/SDK fallback/late-result/bounded-cost/duplicate
+   suppression, valid under zero public write if that is the exact grant;
+8. perform fresh current-epoch V5 desktop/mobile rendered truth/visual QA;
+9. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority.
 
 ## Stale traps
 
@@ -213,6 +235,12 @@ Do not route from:
 - P0-1 as a current next task;
 - P0-G3 or the original daily-output/Automation bridge as the current next task;
 - old manual-GO canary text as the immediate next implementation;
+- any claim that the real Italy nine-surface canary is still pending;
+- any claim that the 4/32 proof has never run;
+- production-day accounting or bounded deficit recovery as an implementation gap;
+- the four native V1 Automations as host-unproven;
+- first-party locator/source-family or publisher-resolution closure as the next task;
+- per-trigger 35-call discovery as an accepted routine production default;
 - blanket all-nine-ready-before-any-canonical-write semantics;
 - “no yield work” language when used to block the current owner-directed growth-first behavior implementation;
 - “material events can only ever wait for the next routine window” as final V1 behavior after the accepted canary;
