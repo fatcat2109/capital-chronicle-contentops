@@ -6,6 +6,7 @@ article, derivative, browser, provider-write, and publication boundary.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -29,6 +30,11 @@ from live_contentops.newsroom_assignment_scheduler_v1 import (
     load_rolling_x_headline_sidecars,
 )
 from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
+from live_contentops.quota_efficient_source_discovery_v1 import (
+    DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS,
+    DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS,
+    DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+)
 from live_contentops.source_route_health_v1 import SCHEMA_VERSION as SOURCE_ROUTE_HEALTH_SCHEMA
 
 
@@ -42,6 +48,15 @@ BASELINE_TOKENS = 10_237_897
 CANONICAL_SOURCE_ROUTE_HEALTH_PATH = (
     CANONICAL_PRODUCTION_OUTPUT_ROOT / SOURCE_ROUTE_HEALTH_STATE_NAME
 )
+DEVELOPMENT_PROOF_BUDGET = {
+    "max_batch_turns": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+    "max_tail_turns": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+    "max_total_turns": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+    "max_accounted_tokens": DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS,
+    "max_deterministic_network_requests": (
+        DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
+    ),
+}
 
 
 def _hash(value: Any) -> str:
@@ -314,11 +329,11 @@ def build_acceptance_receipt(
     economics_pass = bool(
         accounting.get("status") == "PASS"
         and accounting.get("accounting_complete") is True
-        and batch_turns <= 2
-        and tail_turns <= 2
-        and total_turns <= 4
-        and discovery_tokens <= 2_000_000
-        and deterministic_requests <= 96
+        and batch_turns + tail_turns == total_turns
+        and total_turns <= DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
+        and discovery_tokens <= DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
+        and deterministic_requests
+        <= DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
     )
     if host_runtime_required:
         classification = HOST_PROOF_REQUIRED
@@ -355,10 +370,14 @@ def build_acceptance_receipt(
             "tail_discovery_turns": tail_turns,
             "total_discovery_turns": total_turns,
             "accounted_discovery_tokens": discovery_tokens,
-            "target_token_ceiling": 1_000_000,
-            "hard_token_ceiling": 2_000_000,
+            "hard_token_ceiling": DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS,
             "deterministic_network_requests": deterministic_requests,
-            "unchanged_deterministic_network_request_ceiling": 96,
+            "deterministic_network_request_ceiling": (
+                DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
+            ),
+            "unified_discovery_turn_ceiling": (
+                DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
+            ),
             "baseline_discovery_turns": BASELINE_TURNS,
             "baseline_accounted_discovery_tokens": BASELINE_TOKENS,
             "discovery_turn_delta": total_turns - BASELINE_TURNS,
@@ -473,6 +492,9 @@ def run(
     source_route_health = _load_current_source_route_health(
         source_route_health_path or CANONICAL_SOURCE_ROUTE_HEALTH_PATH
     )
+    frozen_ids = {
+        str(value) for value in rolling_input.get("unique_headline_ids") or [] if str(value)
+    }
     production_day_id = newsroom_production_day_id(cutoff)
     runtime_output_dir.mkdir(parents=True, exist_ok=True)
     _write(runtime_output_dir / "frozen_current_rolling_input_v1.json", rolling_input)
@@ -486,7 +508,7 @@ def run(
     final_source_route_health = dict(source_route_health)
     termination_reason: str | None = None
 
-    for frontier_number in range(1, 5):
+    for frontier_number in range(1, DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS + 1):
         prepared_state = build_prepared_rolling_x_candidate_state(
             rolling_input=rolling_input,
             prepared_at_utc=cutoff,
@@ -512,6 +534,12 @@ def run(
             break
         frontier_dir = runtime_output_dir / f"frontier_{frontier_number}"
         remaining_target = max(1, 4 - len(ready_by_cluster))
+        remaining_after_frontier = frozen_ids.difference(evaluated_headline_ids).difference(
+            prepared_headline_ids
+        )
+        prior_turn_count = int(
+            (prior_accounting or {}).get("total_discovery_turns") or 0
+        )
         cycle_kwargs: dict[str, Any] = {
             "run_id": (
                 "v1-quota-efficient-batch-tail-current-universe-proof-"
@@ -528,6 +556,10 @@ def run(
             "published_corpus": [],
             "cc_catalog": {"stores": [], "root_exists": False},
             "newsroom_production_day_id": production_day_id,
+            "quota_discovery_budget": DEVELOPMENT_PROOF_BUDGET,
+            "quota_discovery_fresh_unseen_available": bool(
+                remaining_after_frontier
+            ),
         }
         if final_source_route_health:
             cycle_kwargs["source_route_health"] = final_source_route_health
@@ -566,6 +598,40 @@ def run(
         current_accounting = cycle.get("quota_efficient_source_discovery")
         if isinstance(current_accounting, Mapping):
             prior_accounting = dict(current_accounting)
+        frontier_turns = [
+            {
+                "turn_number": int(row.get("turn_number") or 0),
+                "pass_kind": str(row.get("pass_kind") or ""),
+                "candidate_story_count": int(
+                    row.get("candidate_story_count") or 0
+                ),
+                "urls_resolved_count": int(
+                    row.get("urls_resolved_count")
+                    or row.get("resolved_story_count")
+                    or 0
+                ),
+                "ready_candidate_gain": int(
+                    row.get("ready_candidate_gain") or 0
+                ),
+                "accounted_discovery_tokens": int(
+                    row.get("accounted_discovery_tokens") or 0
+                ),
+                "deterministic_network_requests": int(
+                    row.get("deterministic_network_requests") or 0
+                ),
+                "marginal_url_yield": float(
+                    row.get("marginal_url_yield") or 0.0
+                ),
+                "marginal_ready_yield": float(
+                    row.get("marginal_ready_yield") or 0.0
+                ),
+                "status": str(row.get("status") or ""),
+                "failure_code": row.get("failure_code"),
+            }
+            for row in (prior_accounting or {}).get("turns") or []
+            if isinstance(row, Mapping)
+            and int(row.get("turn_number") or 0) > prior_turn_count
+        ]
         current_health = cycle.get("source_route_health")
         if isinstance(current_health, Mapping):
             final_source_route_health = dict(current_health)
@@ -580,6 +646,16 @@ def run(
                 "attempted_headline_ids": sorted(frontier_headline_ids),
                 "new_ready_candidate_ids": sorted(new_ready_ids),
                 "ready_candidate_count_after_frontier": len(ready_by_cluster),
+                "evaluated_distinct_story_count_after_frontier": len(
+                    attempted_story_ids
+                ),
+                "evaluated_distinct_headline_count_after_frontier": len(
+                    evaluated_headline_ids
+                ),
+                "remaining_unseen_headline_count_after_frontier": len(
+                    frozen_ids.difference(evaluated_headline_ids)
+                ),
+                "discovery_turns": frontier_turns,
                 "abstentions": list(single_receipt.get("abstentions") or []),
                 "exact_next_blocker": single_receipt.get("exact_remaining_blocker"),
                 "cycle_evidence_path": str(
@@ -594,11 +670,15 @@ def run(
                             "remaining_budget"
                         )
                         or {
-                            "batch_turns": 2,
-                            "tail_turns": 2,
-                            "total_turns": 4,
-                            "accounted_discovery_tokens": 2_000_000,
-                            "deterministic_network_requests": 96,
+                            "batch_turns": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+                            "tail_turns": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+                            "total_turns": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+                            "accounted_discovery_tokens": (
+                                DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
+                            ),
+                            "deterministic_network_requests": (
+                                DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
+                            ),
                         }
                     )
                 ),
@@ -615,6 +695,15 @@ def run(
             break
         if not frontier_headline_ids:
             termination_reason = "FRONTIER_PRODUCED_NO_EVALUATED_IDENTITIES"
+            break
+        if bool(
+            (prior_accounting or {}).get("terminal_budget_blocker")
+            or (prior_accounting or {}).get("terminal_provider_blocker")
+        ):
+            termination_reason = str(
+                (prior_accounting or {}).get("terminal_budget_blocker")
+                or (prior_accounting or {}).get("terminal_provider_blocker")
+            )
             break
 
     accounting = dict(prior_accounting or {})
@@ -661,11 +750,11 @@ def run(
     )
     economics_pass = bool(
         accounting.get("accounting_complete") is True
-        and batch_turns <= 2
-        and tail_turns <= 2
-        and total_turns <= 4
-        and discovery_tokens <= 2_000_000
-        and deterministic_requests <= 96
+        and batch_turns + tail_turns == total_turns
+        and total_turns <= DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
+        and discovery_tokens <= DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
+        and deterministic_requests
+        <= DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
     )
     identity_isolation_pass = not repeated_story_ids and not repeated_headline_ids
     classification = (
@@ -678,10 +767,21 @@ def run(
         if not economics_pass
         else "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED"
     )
-    frozen_ids = {
-        str(value) for value in rolling_input.get("unique_headline_ids") or [] if str(value)
-    }
     remaining_held_ids = sorted(frozen_ids.difference(evaluated_headline_ids))
+    blocker_distribution = Counter(
+        str(blocker)
+        for frontier in frontiers
+        for abstention in frontier.get("abstentions") or []
+        if isinstance(abstention, Mapping)
+        for blocker in abstention.get("blockers") or []
+        if str(blocker)
+    )
+    per_turn_yield = [
+        dict(turn)
+        for frontier in frontiers
+        for turn in frontier.get("discovery_turns") or []
+        if isinstance(turn, Mapping)
+    ]
     exact_blocker = None
     if classification != PASS_CLASSIFICATION:
         exact_blocker = (
@@ -713,6 +813,7 @@ def run(
         "repeated_story_ids": sorted(repeated_story_ids),
         "remaining_held_headline_ids": remaining_held_ids,
         "remaining_held_identity_count": len(remaining_held_ids),
+        "blocker_distribution": dict(sorted(blocker_distribution.items())),
         "ready_distinct_candidate_count": len(ready_candidates),
         "ready_candidates": ready_candidates,
         "discovery": accounting,
@@ -726,12 +827,35 @@ def run(
             },
             "unused": dict(accounting.get("remaining_budget") or {}),
             "hard_ceiling": {
-                "batch_turns": 2,
-                "tail_turns": 2,
-                "total_turns": 4,
-                "accounted_discovery_tokens": 2_000_000,
-                "deterministic_network_requests": 96,
+                "allocation": "COMPLETION_FIRST_ADAPTIVE_UNIFIED_TURN_POOL",
+                "total_turns": DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS,
+                "accounted_discovery_tokens": (
+                    DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
+                ),
+                "deterministic_network_requests": (
+                    DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
+                ),
             },
+        },
+        "per_turn_yield": per_turn_yield,
+        "actual_consumption_at_fourth_ready_candidate": (
+            {
+                "batch_turns": batch_turns,
+                "tail_turns": tail_turns,
+                "total_turns": total_turns,
+                "accounted_discovery_tokens": discovery_tokens,
+                "deterministic_network_requests": deterministic_requests,
+            }
+            if len(ready_candidates) >= 4
+            else None
+        ),
+        "allocation_policy": {
+            "completion_first": True,
+            "stop_at_four_ready_candidates": True,
+            "prefer_fresh_unseen_batches_while_marginal_url_yield_useful": True,
+            "tail_requires_prior_url_and_concrete_access_failure": True,
+            "sourceability_and_route_health_are_routing_only": True,
+            "development_guardrail_is_not_production_budget": True,
         },
         "accepted_baseline_comparison": {
             "baseline_discovery_turns": BASELINE_TURNS,

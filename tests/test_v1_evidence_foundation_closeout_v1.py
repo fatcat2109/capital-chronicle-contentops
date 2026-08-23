@@ -858,7 +858,7 @@ def test_autonomous_batch_tail_path_propagates_unchanged_coordinator_request_cei
     assert result["evidence_ready_pool"]["ready_candidate_count"] == 4
 
 
-def test_only_batch_unresolved_subset_reaches_one_bounded_tail_turn(
+def test_tail_skips_batch_unresolved_stories_without_a_prior_eligible_url(
     monkeypatch, tmp_path: Path
 ):
     unresolved = {"evidence-ready-2", "evidence-ready-3", "evidence-ready-4"}
@@ -879,22 +879,136 @@ def test_only_batch_unresolved_subset_reaches_one_bounded_tail_turn(
     )
 
     accounting = result["quota_efficient_source_discovery"]
-    assert [row["pass_kind"] for row in discoverer.calls] == ["BATCH", "TAIL"]
+    assert [row["pass_kind"] for row in discoverer.calls] == ["BATCH"]
     assert discoverer.calls[0]["story_membership"] == [
         "evidence-ready-1",
         "evidence-ready-2",
         "evidence-ready-3",
         "evidence-ready-4",
     ]
-    assert discoverer.calls[1]["story_membership"] == [
-        "evidence-ready-2",
-        "evidence-ready-3",
-        "evidence-ready-4",
-    ]
     assert accounting["batch_discovery_turns"] == 1
-    assert accounting["tail_discovery_turns"] == 1
+    assert accounting["tail_discovery_turns"] == 0
     assert accounting["tail_is_subset_only"] is True
     assert accounting["each_story_reaches_tail_at_most_once"] is True
+    skipped = {
+        row["story_identity"]: row["decision"]
+        for row in accounting["tail_retry_decisions"]
+    }
+    assert skipped == {
+        "evidence-ready-2": "SKIP_NO_PRIOR_ELIGIBLE_URL",
+        "evidence-ready-3": "SKIP_NO_PRIOR_ELIGIBLE_URL",
+        "evidence-ready-4": "SKIP_NO_PRIOR_ELIGIBLE_URL",
+    }
+
+
+def test_tail_uses_one_distinct_route_only_after_concrete_access_failure(
+    monkeypatch, tmp_path: Path
+):
+    class TailCaptureDiscovery(_BatchDiscoveryFixture):
+        def __init__(self):
+            super().__init__()
+            self.tail_prior_urls: dict[str, list[str]] = {}
+
+        def discover_batch(self, requests, *, pass_kind):
+            rows = [dict(request) for request in requests]
+            if pass_kind == "TAIL":
+                self.tail_prior_urls = {
+                    row["cluster_id"]: list(row.get("prior_discovered_urls") or [])
+                    for row in rows
+                }
+            return super().discover_batch(rows, pass_kind=pass_kind)
+
+    discoverer = TailCaptureDiscovery()
+
+    def acquire(request):
+        contract = dict(request.get("codex_source_discovery") or {})
+        if not contract:
+            return _source_discovery_required_receipt(request)
+        urls = [str(value) for value in contract.get("candidate_urls") or []]
+        if any("batch-" in value for value in urls):
+            blocked = _source_discovery_required_receipt(request)
+            blocked["blockers"] = [
+                *blocked["blockers"],
+                "HTTP Error 403: Forbidden",
+                "public_source_redirect_authority_invalid",
+            ]
+            return blocked
+        return _pass_receipt(request)
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=1,
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        evidence_only_target_count=1,
+    )
+
+    accounting = result["quota_efficient_source_discovery"]
+    assert [row["pass_kind"] for row in discoverer.calls] == ["BATCH", "TAIL"]
+    assert discoverer.tail_prior_urls == {
+        "evidence-ready-1": ["https://apnews.com/article/batch-1"]
+    }
+    assert accounting["tail_retry_decisions"] == [
+        {
+            "story_identity": "evidence-ready-1",
+            "headline_ids": ["headline-1"],
+            "decision": "ELIGIBLE_DISTINCT_ROUTE_AFTER_ACCESS_FAILURE",
+            "prior_discovered_url_count": 1,
+            "concrete_access_failures": [
+                "HTTP Error 403: Forbidden",
+                "public_source_redirect_authority_invalid",
+            ],
+            "distinct_route_required": True,
+        }
+    ]
+    assert accounting["turns"][0]["ready_candidate_gain"] == 0
+    assert accounting["turns"][1]["ready_candidate_gain"] == 1
+    assert result["evidence_ready_pool"]["ready_candidate_count"] == 1
+
+
+def test_productive_batch_defers_eligible_tail_while_fresh_unseen_work_remains(
+    monkeypatch, tmp_path: Path
+):
+    discoverer = _BatchDiscoveryFixture()
+
+    def acquire(request):
+        contract = dict(request.get("codex_source_discovery") or {})
+        if not contract:
+            return _source_discovery_required_receipt(request)
+        if request["cluster_id"] == "evidence-ready-1":
+            return _pass_receipt(request)
+        blocked = _source_discovery_required_receipt(request)
+        blocked["blockers"] = [
+            *blocked["blockers"],
+            "HTTP Error 403: Forbidden",
+        ]
+        return blocked
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=2,
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        evidence_only_target_count=2,
+        quota_discovery_fresh_unseen_available=True,
+    )
+
+    accounting = result["quota_efficient_source_discovery"]
+    assert [row["pass_kind"] for row in discoverer.calls] == ["BATCH"]
+    assert accounting["allocation_decisions"] == [
+        {
+            "decision": "DEFER_TAIL_FOR_FRESH_UNSEEN_BATCH",
+            "after_turn_number": 1,
+            "batch_resolved_story_count": 2,
+            "batch_candidate_story_count": 2,
+            "reason": "FRESH_BATCH_MARGINAL_URL_YIELD_REMAINS_USEFUL",
+        }
+    ]
+    assert accounting["turns"][0]["ready_candidate_gain"] == 1
+    assert accounting["turns"][0]["marginal_url_yield"] == 1.0
+    assert accounting["turns"][0]["marginal_ready_yield"] == 0.5
 
 
 def test_batch_cross_story_binding_fails_closed_before_deterministic_resume(
@@ -994,11 +1108,30 @@ def test_discovery_turn_ceiling_fails_closed_without_per_candidate_fallback():
     viability = {"rank_attempts": attempts}
 
     batch = session.discover_unresolved(viability, pass_kind="BATCH")
-    tail = session.discover_unresolved(viability, pass_kind="TAIL")
+    next_request = {
+        "cluster_id": "story-3",
+        "headline_ids": ["headline-3"],
+        "rank": 3,
+        "request_logical_hash": "request-3",
+    }
+    next_receipt = session.acquire(next_request)
+    second_batch = session.discover_unresolved(
+        {
+            "rank_attempts": [
+                {
+                    "rank": 3,
+                    "request": next_request,
+                    "evidence_receipt": next_receipt,
+                    "blockers": list(next_receipt["blockers"]),
+                }
+            ]
+        },
+        pass_kind="BATCH",
+    )
 
     assert batch == {"called": True, "new_contract_count": 0}
-    assert tail["called"] is False
-    assert tail["blocker"] == "URL_DISCOVERY_TURN_CEILING_EXCEEDED"
+    assert second_batch["called"] is False
+    assert second_batch["blocker"] == "URL_DISCOVERY_TURN_CEILING_EXCEEDED"
     assert len(discoverer.calls) == 1
     assert session.snapshot()["status"] == "BLOCKED"
 
@@ -1068,6 +1201,7 @@ def test_production_day_quota_carries_turns_tokens_requests_and_exact_residual()
     assert snapshot["total_discovery_turns"] == 2
     assert snapshot["accounted_discovery_tokens"] == 150
     assert snapshot["deterministic_network_requests"] == 90
+    assert snapshot["turns"][-1]["deterministic_network_requests"] == 20
     assert snapshot["remaining_budget"] == {
         "batch_turns": 0,
         "tail_turns": 2,
@@ -1604,6 +1738,16 @@ def test_multi_frontier_runner_freezes_universe_carries_budget_health_and_identi
         "deterministic_network_requests": 4,
     }
     assert "quota_discovery_prior_accounting" not in cycle_calls[0]
+    assert cycle_calls[0]["quota_discovery_budget"] == {
+        "max_batch_turns": 24,
+        "max_tail_turns": 24,
+        "max_total_turns": 24,
+        "max_accounted_tokens": 18_000_000,
+        "max_deterministic_network_requests": 384,
+    }
+    assert [
+        row["quota_discovery_fresh_unseen_available"] for row in cycle_calls
+    ] == [True, True, True, False]
     assert cycle_calls[1]["quota_discovery_prior_accounting"][
         "deterministic_network_requests"
     ] == 1

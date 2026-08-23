@@ -51,6 +51,7 @@ CODEX_SOURCE_DISCOVERY_SCHEMA_VERSION = "contentops.codex_source_discovery_urls.
 CODEX_SOURCE_DISCOVERY_BATCH_SCHEMA_VERSION = (
     "contentops.codex_source_discovery_batch_urls.v1"
 )
+MAX_COORDINATED_DETERMINISTIC_REQUEST_CEILING = 384
 CODEX_SOURCE_DISCOVERY_TRIGGER_REASONS = frozenset(
     {"NO_VIABLE_DETERMINISTIC_PATH", "BOUNDED_ACCESS_FAILURE"}
 )
@@ -276,6 +277,19 @@ def validate_codex_source_discovery_batch_contract(
             request=request,
             allow_empty_candidate_urls=True,
         )
+        if normalized_pass_kind == "TAIL":
+            prior_urls = {
+                str(value)
+                for value in request.get("prior_discovered_urls") or []
+                if str(value)
+            }
+            returned_urls = {
+                str(row.get("url") or "")
+                for row in normalized.get("candidates") or []
+                if isinstance(row, Mapping) and str(row.get("url") or "")
+            }
+            if prior_urls.intersection(returned_urls):
+                raise ValueError("codex_source_discovery_tail_route_not_distinct")
         normalized_results.append(
             {
                 **normalized,
@@ -910,7 +924,11 @@ class RollingXTargetedEvidenceAdapter:
         source_route_health: Any = None,
         coordinated_request_ceiling: int = 24,
     ) -> None:
-        if not 1 <= int(coordinated_request_ceiling) <= 96:
+        if not (
+            1
+            <= int(coordinated_request_ceiling)
+            <= MAX_COORDINATED_DETERMINISTIC_REQUEST_CEILING
+        ):
             raise ValueError("evidence_loader_coordinated_request_ceiling_invalid")
         self._root = Path(capital_chronicle_root) if capital_chronicle_root else None
         self._evaluation_as_of_utc = evaluation_as_of_utc or _utc_now()

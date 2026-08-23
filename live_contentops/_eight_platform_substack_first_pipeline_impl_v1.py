@@ -4581,6 +4581,8 @@ def _run_rolling_x_newsroom_cycle(
     evidence_only_target_count: int | None = None,
     newsroom_production_day_id: str | None = None,
     quota_discovery_prior_accounting: Mapping[str, Any] | None = None,
+    quota_discovery_budget: Mapping[str, Any] | None = None,
+    quota_discovery_fresh_unseen_available: bool = False,
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
     acceptance_profile: str | None = None,
@@ -5026,6 +5028,12 @@ def _run_rolling_x_newsroom_cycle(
             DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS,
         )
 
+        configured_discovery_requests = int(
+            (quota_discovery_budget or {}).get(
+                "max_deterministic_network_requests",
+                DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS,
+            )
+        )
         prior_requests = int(
             (quota_discovery_prior_accounting or {}).get(
                 "deterministic_network_requests"
@@ -5034,7 +5042,7 @@ def _run_rolling_x_newsroom_cycle(
         )
         coordinated_request_ceiling = max(
             1,
-            DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS - prior_requests,
+            configured_discovery_requests - prior_requests,
         )
     base_evidence_acquirer = (
         evidence_acquirer
@@ -5067,11 +5075,26 @@ def _run_rolling_x_newsroom_cycle(
             QuotaEfficientSourceDiscoverySession,
         )
 
+        discovery_budget = dict(quota_discovery_budget or {})
+        allowed_budget_keys = {
+            "max_batch_turns",
+            "max_tail_turns",
+            "max_total_turns",
+            "max_accounted_tokens",
+            "max_deterministic_network_requests",
+            "max_batch_stories",
+        }
+        unknown_budget_keys = sorted(set(discovery_budget).difference(allowed_budget_keys))
+        if unknown_budget_keys:
+            raise ValueError(
+                "quota_discovery_budget_keys_invalid:" + ",".join(unknown_budget_keys)
+            )
         quota_discovery_session = QuotaEfficientSourceDiscoverySession(
             evidence_acquirer=base_evidence_acquirer,
             source_discoverer=effective_source_discoverer,
             newsroom_production_day_id=newsroom_production_day_id,
             prior_accounting=quota_discovery_prior_accounting,
+            **discovery_budget,
         )
 
     def tracked_evidence_acquirer(request: Mapping[str, Any]) -> Any:
@@ -5118,6 +5141,10 @@ def _run_rolling_x_newsroom_cycle(
             start_after_rank=start_after_rank,
         )
         if current.get("status") == "SUCCESS" or quota_discovery_session is None:
+            if current.get("status") == "SUCCESS" and quota_discovery_session is not None:
+                quota_discovery_session.record_ready_candidate(
+                    str(current.get("selected_cluster_id") or "")
+                )
             return current
         batch = quota_discovery_session.discover_unresolved(
             current, pass_kind="BATCH"
@@ -5130,16 +5157,25 @@ def _run_rolling_x_newsroom_cycle(
                 start_after_rank=start_after_rank,
             )
         if current.get("status") != "SUCCESS":
-            tail = quota_discovery_session.discover_unresolved(
-                current, pass_kind="TAIL"
+            defer_tail = bool(
+                quota_discovery_fresh_unseen_available
+                and quota_discovery_session.defer_tail_for_useful_fresh_batch()
             )
-            if int(tail.get("new_contract_count") or 0) > 0:
-                current = select_first_viable_rolling_x_cluster(
-                    assignment=ranked_assignment,
-                    acquire_evidence=tracked_evidence_acquirer,
-                    story_type_by_cluster=story_type_by_cluster,
-                    start_after_rank=start_after_rank,
+            if not defer_tail:
+                tail = quota_discovery_session.discover_unresolved(
+                    current, pass_kind="TAIL"
                 )
+                if int(tail.get("new_contract_count") or 0) > 0:
+                    current = select_first_viable_rolling_x_cluster(
+                        assignment=ranked_assignment,
+                        acquire_evidence=tracked_evidence_acquirer,
+                        story_type_by_cluster=story_type_by_cluster,
+                        start_after_rank=start_after_rank,
+                    )
+        if current.get("status") == "SUCCESS":
+            quota_discovery_session.record_ready_candidate(
+                str(current.get("selected_cluster_id") or "")
+            )
         accounting = quota_discovery_session.snapshot()
         if (
             current.get("status") != "SUCCESS"

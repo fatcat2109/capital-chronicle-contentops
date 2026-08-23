@@ -23,8 +23,20 @@ DEFAULT_MAX_TOTAL_TURNS = 4
 DEFAULT_MAX_ACCOUNTED_TOKENS = 2_000_000
 DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS = 96
 DEFAULT_MAX_BATCH_STORIES = 12
+DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS = 24
+DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS = 18_000_000
+DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS = 384
 _DISCOVERY_REQUIRED_MARKERS = frozenset(
     {"SOURCE_DISCOVERY_REQUIRED", "AUTONOMOUS_SOURCE_DISCOVERY_EXHAUSTED"}
+)
+_CONCRETE_TAIL_ACCESS_MARKERS = frozenset(
+    {
+        "public_source_redirect_authority_invalid",
+        "public_source_route_suppressed_by_recent_health",
+        "public_source_unavailable",
+        "official_source_locator_candidate_unavailable",
+        "exact_official_source_url_unavailable",
+    }
 )
 
 
@@ -116,12 +128,12 @@ class QuotaEfficientSourceDiscoverySession:
         if (
             not 1 <= max_batch_turns <= max_total_turns
             or not 1 <= max_tail_turns <= max_total_turns
-            or max_total_turns > 4
+            or max_total_turns > DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
             or max_accounted_tokens < 1
-            or max_accounted_tokens > DEFAULT_MAX_ACCOUNTED_TOKENS
+            or max_accounted_tokens > DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
             or max_deterministic_network_requests < 1
             or max_deterministic_network_requests
-            > DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS
+            > DEVELOPMENT_PROOF_MAX_DETERMINISTIC_NETWORK_REQUESTS
             or not 1 <= max_batch_stories <= DEFAULT_MAX_BATCH_STORIES
         ):
             raise ValueError("quota_discovery_budget_invalid")
@@ -160,8 +172,15 @@ class QuotaEfficientSourceDiscoverySession:
         self._terminal_budget_blocker: str | None = None
         self._terminal_provider_blocker: str | None = None
         self._prior_accounting_sha256: str | None = None
+        self._tail_retry_decisions: dict[
+            tuple[str, tuple[str, ...]], dict[str, Any]
+        ] = {}
+        self._allocation_decisions: list[dict[str, Any]] = []
+        self._observed_ready_candidate_ids: set[str] = set()
         if prior_accounting is not None:
             self._restore_prior_accounting(prior_accounting)
+        self._session_start_turn_count = len(self._turns)
+        self._last_turn_request_checkpoint = self._deterministic_network_requests
 
     def _restore_prior_accounting(self, prior: Mapping[str, Any]) -> None:
         if prior.get("schema_version") != SCHEMA_VERSION:
@@ -204,6 +223,25 @@ class QuotaEfficientSourceDiscoverySession:
             for row in prior.get("failures") or []
             if isinstance(row, Mapping)
         ]
+        self._allocation_decisions = [
+            copy.deepcopy(dict(row))
+            for row in prior.get("allocation_decisions") or []
+            if isinstance(row, Mapping)
+        ]
+        self._observed_ready_candidate_ids = {
+            str(value)
+            for value in prior.get("ready_candidate_identities") or []
+            if str(value)
+        }
+        for row in prior.get("tail_retry_decisions") or []:
+            if not isinstance(row, Mapping):
+                continue
+            identity = (
+                str(row.get("story_identity") or ""),
+                tuple(sorted(str(value) for value in row.get("headline_ids") or [])),
+            )
+            if identity[0] and identity[1]:
+                self._tail_retry_decisions[identity] = copy.deepcopy(dict(row))
         for row in prior.get("batch_covered_story_membership") or []:
             if isinstance(row, Mapping):
                 self._batch_covered.add(
@@ -229,6 +267,24 @@ class QuotaEfficientSourceDiscoverySession:
             )
             if identity[0] and identity[1]:
                 self._deterministic_frontier[identity] = copy.deepcopy(dict(row))
+        for row in prior.get("discovery_contracts") or []:
+            if not isinstance(row, Mapping):
+                continue
+            contract = row.get("contract")
+            if not isinstance(contract, Mapping):
+                continue
+            identity = (
+                str(row.get("story_identity") or ""),
+                tuple(sorted(str(value) for value in row.get("headline_ids") or [])),
+            )
+            if not identity[0] or not identity[1]:
+                continue
+            self._contracts[identity] = copy.deepcopy(dict(contract))
+            provider_receipt = row.get("provider_receipt")
+            if isinstance(provider_receipt, Mapping):
+                self._contract_receipts[identity] = copy.deepcopy(
+                    dict(provider_receipt)
+                )
         if (
             len(self._turns) > self._max_total_turns
             or sum(row.get("pass_kind") == "BATCH" for row in self._turns)
@@ -414,10 +470,45 @@ class QuotaEfficientSourceDiscoverySession:
             identity = _identity(request)
             if pass_kind == "BATCH" and identity in self._batch_covered:
                 continue
-            if pass_kind == "TAIL" and (
-                identity not in self._batch_covered or identity in self._tail_covered
-            ):
-                continue
+            if pass_kind == "TAIL":
+                if identity not in self._batch_covered or identity in self._tail_covered:
+                    continue
+                contract = self._contracts.get(identity) or {}
+                prior_urls = [
+                    str(value) for value in contract.get("candidate_urls") or [] if str(value)
+                ]
+                concrete_failures = sorted(
+                    {
+                        blocker
+                        for blocker in blockers
+                        if blocker in _CONCRETE_TAIL_ACCESS_MARKERS
+                        or blocker.casefold().startswith("http error 4")
+                        or blocker.casefold().startswith("http error 5")
+                    }
+                )
+                if not prior_urls:
+                    self._tail_retry_decisions[identity] = {
+                        **_identity_row(identity),
+                        "decision": "SKIP_NO_PRIOR_ELIGIBLE_URL",
+                        "concrete_access_failures": concrete_failures,
+                        "distinct_route_required": True,
+                    }
+                    continue
+                if not concrete_failures:
+                    self._tail_retry_decisions[identity] = {
+                        **_identity_row(identity),
+                        "decision": "SKIP_NO_CONCRETE_ACCESS_FAILURE",
+                        "prior_discovered_url_count": len(prior_urls),
+                        "distinct_route_required": True,
+                    }
+                    continue
+                self._tail_retry_decisions[identity] = {
+                    **_identity_row(identity),
+                    "decision": "ELIGIBLE_DISTINCT_ROUTE_AFTER_ACCESS_FAILURE",
+                    "prior_discovered_url_count": len(prior_urls),
+                    "concrete_access_failures": concrete_failures,
+                    "distinct_route_required": True,
+                }
             discovery_request = {
                 **dict(request),
                 "prior_blockers": blockers,
@@ -465,6 +556,8 @@ class QuotaEfficientSourceDiscoverySession:
             accounted_tokens = 0
         else:
             accounted_tokens = int(token_value or 0)
+        self._sync_latest_turn_request_usage()
+        request_total_before = self._last_turn_request_checkpoint
         self._turns.append(
             {
                 "turn_number": len(self._turns) + 1,
@@ -478,7 +571,16 @@ class QuotaEfficientSourceDiscoverySession:
                     [_identity(request) for request in requests]
                 ),
                 "resolved_story_count": int(resolved_count),
+                "urls_resolved_count": int(resolved_count),
+                "ready_candidate_gain": 0,
+                "marginal_url_yield": (
+                    float(resolved_count) / float(len(requests)) if requests else 0.0
+                ),
+                "marginal_ready_yield": 0.0,
                 "accounted_discovery_tokens": accounted_tokens,
+                "deterministic_network_requests_before_turn": request_total_before,
+                "deterministic_network_requests_after_turn": request_total_before,
+                "deterministic_network_requests": 0,
                 "provider_receipt": copy.deepcopy(dict(provider_receipt)),
                 "failure_code": failure_code,
                 "search_snippets_persisted": False,
@@ -487,6 +589,73 @@ class QuotaEfficientSourceDiscoverySession:
                 "publication_authority_granted": False,
             }
         )
+
+    def _sync_latest_turn_request_usage(self) -> None:
+        if not self._turns or len(self._turns) <= self._session_start_turn_count:
+            return
+        latest = self._turns[-1]
+        before = int(
+            latest.get("deterministic_network_requests_before_turn")
+            or self._last_turn_request_checkpoint
+            or 0
+        )
+        after = int(self._deterministic_network_requests)
+        latest["deterministic_network_requests_after_turn"] = after
+        latest["deterministic_network_requests"] = max(0, after - before)
+        self._last_turn_request_checkpoint = after
+
+    def record_ready_candidate(self, cluster_id: str) -> bool:
+        """Attribute a newly selected governed candidate to this session's latest turn."""
+        normalized = str(cluster_id or "")
+        if (
+            not normalized
+            or normalized in self._observed_ready_candidate_ids
+            or len(self._turns) <= self._session_start_turn_count
+        ):
+            return False
+        self._observed_ready_candidate_ids.add(normalized)
+        self._sync_latest_turn_request_usage()
+        latest = self._turns[-1]
+        latest["ready_candidate_gain"] = int(
+            latest.get("ready_candidate_gain") or 0
+        ) + 1
+        candidate_count = int(latest.get("candidate_story_count") or 0)
+        latest["marginal_ready_yield"] = (
+            float(latest["ready_candidate_gain"]) / float(candidate_count)
+            if candidate_count
+            else 0.0
+        )
+        return True
+
+    def defer_tail_for_useful_fresh_batch(self) -> bool:
+        """Prefer the next unseen sourceable batch after a productive fresh batch."""
+        if len(self._turns) <= self._session_start_turn_count:
+            return False
+        latest = self._turns[-1]
+        should_defer = bool(
+            latest.get("pass_kind") == "BATCH"
+            and int(latest.get("resolved_story_count") or 0) > 0
+        )
+        if should_defer and not any(
+            int(row.get("after_turn_number") or 0)
+            == int(latest.get("turn_number") or 0)
+            and row.get("decision") == "DEFER_TAIL_FOR_FRESH_UNSEEN_BATCH"
+            for row in self._allocation_decisions
+        ):
+            self._allocation_decisions.append(
+                {
+                    "decision": "DEFER_TAIL_FOR_FRESH_UNSEEN_BATCH",
+                    "after_turn_number": int(latest.get("turn_number") or 0),
+                    "batch_resolved_story_count": int(
+                        latest.get("resolved_story_count") or 0
+                    ),
+                    "batch_candidate_story_count": int(
+                        latest.get("candidate_story_count") or 0
+                    ),
+                    "reason": "FRESH_BATCH_MARGINAL_URL_YIELD_REMAINS_USEFUL",
+                }
+            )
+        return should_defer
 
     def discover_unresolved(
         self,
@@ -721,6 +890,7 @@ class QuotaEfficientSourceDiscoverySession:
         }
 
     def snapshot(self, *, ready_candidate_count: int = 0) -> dict[str, Any]:
+        self._sync_latest_turn_request_usage()
         batch_turn_count = sum(row["pass_kind"] == "BATCH" for row in self._turns)
         tail_turn_count = sum(row["pass_kind"] == "TAIL" for row in self._turns)
         total_tokens = sum(
@@ -763,6 +933,7 @@ class QuotaEfficientSourceDiscoverySession:
             "deterministic_acquisition_calls": self._deterministic_acquisition_calls,
             "deterministic_network_requests": self._deterministic_network_requests,
             "ready_candidate_yield": int(ready_candidate_count),
+            "ready_candidate_identities": sorted(self._observed_ready_candidate_ids),
             "cache_and_reuse": {
                 "deterministic_receipt_cache_hits": self._deterministic_cache_hits,
                 "resumed_receipt_cache_hits": self._resumed_cache_hits,
@@ -777,6 +948,21 @@ class QuotaEfficientSourceDiscoverySession:
             ],
             "tail_covered_story_membership": [
                 _identity_row(identity) for identity in sorted(self._tail_covered)
+            ],
+            "tail_retry_decisions": [
+                copy.deepcopy(self._tail_retry_decisions[identity])
+                for identity in sorted(self._tail_retry_decisions)
+            ],
+            "allocation_decisions": copy.deepcopy(self._allocation_decisions),
+            "discovery_contracts": [
+                {
+                    **_identity_row(identity),
+                    "contract": copy.deepcopy(self._contracts[identity]),
+                    "provider_receipt": copy.deepcopy(
+                        self._contract_receipts.get(identity) or {}
+                    ),
+                }
+                for identity in sorted(self._contracts)
             ],
             "failures": copy.deepcopy(self._failures),
             "terminal_budget_blocker": self._terminal_budget_blocker,
@@ -810,6 +996,8 @@ class QuotaEfficientSourceDiscoverySession:
                 self._batch_covered
             ),
             "each_story_reaches_tail_at_most_once": True,
+            "completion_first_adaptive_allocation": True,
+            "tail_requires_prior_url_and_concrete_access_failure": True,
             "search_snippets_persisted": False,
             "model_summaries_persisted": False,
             "candidate_urls_are_evidence": False,
