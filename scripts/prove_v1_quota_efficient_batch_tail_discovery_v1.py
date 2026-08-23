@@ -715,6 +715,16 @@ def run(
     deterministic_requests = int(
         accounting.get("deterministic_network_requests") or 0
     )
+    host_runtime_required = bool(
+        str(accounting.get("terminal_provider_blocker") or "")
+        in {
+            "CHATGPT_AUTH_REQUIRED_API_KEY_FALLBACK_FORBIDDEN",
+            "OPENAI_CODEX_SDK_NOT_INSTALLED",
+            "OPENAI_CODEX_SDK_VERSION_MISMATCH",
+            "CODEX_MODEL_OR_EFFORT_UNAVAILABLE",
+            "CHATGPT_USAGE_LIMIT_REACHED",
+        }
+    )
     safety_keys = (
         "writer_calls",
         "article_generation",
@@ -749,7 +759,8 @@ def run(
         )
     )
     economics_pass = bool(
-        accounting.get("accounting_complete") is True
+        accounting.get("status") == "PASS"
+        and accounting.get("accounting_complete") is True
         and batch_turns + tail_turns == total_turns
         and total_turns <= DEVELOPMENT_PROOF_MAX_DISCOVERY_TURNS
         and discovery_tokens <= DEVELOPMENT_PROOF_MAX_ACCOUNTED_TOKENS
@@ -758,7 +769,9 @@ def run(
     )
     identity_isolation_pass = not repeated_story_ids and not repeated_headline_ids
     classification = (
-        PASS_CLASSIFICATION
+        HOST_PROOF_REQUIRED
+        if host_runtime_required
+        else PASS_CLASSIFICATION
         if candidate_contracts_pass
         and economics_pass
         and identity_isolation_pass
@@ -876,6 +889,9 @@ def run(
                 "candidate_urls_are_evidence"
             )
             is False,
+            "genuine_host_or_provider_dependency_unavailable": (
+                host_runtime_required
+            ),
         },
         "exact_remaining_blocker": exact_blocker,
     }

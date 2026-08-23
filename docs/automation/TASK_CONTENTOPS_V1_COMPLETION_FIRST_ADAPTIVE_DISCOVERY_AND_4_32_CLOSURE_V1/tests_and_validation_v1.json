@@ -1,0 +1,45 @@
+{
+  "schema_version": "contentops.v1_completion_first_adaptive_validation.v1",
+  "status": "PASS",
+  "focused_pytest": {
+    "status": "PASS",
+    "passed": 223,
+    "failed": 0,
+    "duration_seconds": 32.88,
+    "files": [
+      "tests/test_v1_evidence_foundation_closeout_v1.py",
+      "tests/test_official_primary_evidence_loader_v1.py",
+      "tests/test_public_secondary_evidence_loader_v1.py",
+      "tests/test_newsroom_production_day_v1.py",
+      "tests/test_daily_app_supervisor_v1.py",
+      "tests/test_rolling_x_newsroom_cycle_v1.py",
+      "tests/test_rolling_x_hierarchical_assignment_v1.py",
+      "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
+      "tests/test_rolling_x_targeted_evidence_adapter_v1.py"
+    ]
+  },
+  "post_runtime_classification_regression": {
+    "status": "PASS",
+    "passed": 36,
+    "failed": 0,
+    "duration_seconds": 2.58
+  },
+  "compileall": "PASS",
+  "codegraph": "CODEGRAPH_CURRENT",
+  "git_diff_check": "PASS",
+  "live_provider_retried_after_usage_limit": false,
+  "stage_b_started": false,
+  "safety": {
+    "writer_calls": 0,
+    "article_generation": 0,
+    "derivative_generation": 0,
+    "public_writes": 0,
+    "provider_write_calls": 0,
+    "unknown_write": 0,
+    "browser_or_cdp_publication_actions": 0,
+    "automation_mutations": 0,
+    "capital_chronicle_mutations": 0,
+    "v2_mutations": 0,
+    "secret_or_session_reads": 0
+  }
+}

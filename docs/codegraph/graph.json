@@ -82931,7 +82931,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-23T20:58:12Z",
+  "generation_timestamp_utc": "2026-08-23T22:40:39Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -120047,7 +120047,7 @@
     {
       "id": "python_symbol:scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py::main",
       "kind": "python_function",
-      "line": 887,
+      "line": 903,
       "path": "scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py",
       "symbol": "main"
     },
@@ -122254,7 +122254,7 @@
     {
       "id": "scripts/prove_v1_quota_efficient_batch_tail_discovery_v1.py",
       "kind": "python_module",
-      "size_bytes": 37774
+      "size_bytes": 38382
     },
     {
       "id": "scripts/prove_v1_throughput_semantic_contract_v1.py",
@@ -125639,7 +125639,7 @@
     {
       "id": "tests/test_v1_evidence_foundation_closeout_v1.py",
       "kind": "test",
-      "size_bytes": 79474
+      "size_bytes": 83201
     },
     {
       "id": "tests/test_v1_golden_product_regression_recovery_v1.py",
@@ -130322,6 +130322,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "a4fdb1ca5491f4791efb338cf558f6d2e897df1b",
-  "source_tree_digest": "9b13d84c3af366ebf243fe8d876ea967debe0c5a5fc30f9903055b7b4cb20f1e"
+  "source_head": "b29ee336a5982e20af7cbc06774a996d3527a0dd",
+  "source_tree_digest": "d9607bccc40058918b00fb706c2380c82baeb1f38868262e7f772f312fb9066c"
 }

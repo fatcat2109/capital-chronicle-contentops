@@ -1763,6 +1763,101 @@ def test_multi_frontier_runner_freezes_universe_carries_budget_health_and_identi
     ] is False
 
 
+def test_multi_frontier_runner_classifies_pre_turn_usage_limit_as_host_blocker(
+    monkeypatch, tmp_path: Path
+):
+    rolling_input = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "unique_headline_ids": ["headline-1"],
+        "headlines": [{"headline_id": "headline-1"}],
+        "counts": {"accepted": 1},
+    }
+    monkeypatch.setattr(
+        quota_proof,
+        "load_rolling_x_headline_sidecars",
+        lambda **_kwargs: rolling_input,
+    )
+    monkeypatch.setattr(
+        quota_proof,
+        "build_prepared_rolling_x_candidate_state",
+        lambda **_kwargs: {
+            "full_rolling_headline_count": 1,
+            "prepared_candidate_count": 1,
+            "prepared_frontier": {"selected_headline_ids": ["headline-1"]},
+            "autonomous_source_discovery_available": True,
+        },
+    )
+    monkeypatch.setattr(
+        quota_proof,
+        "run_rolling_x_newsroom_cycle",
+        lambda **kwargs: {
+            "quota_efficient_source_discovery": {
+                "schema_version": "contentops.quota_efficient_source_discovery.v1",
+                "newsroom_production_day_id": kwargs["newsroom_production_day_id"],
+                "status": "BLOCKED",
+                "accounting_complete": True,
+                "batch_discovery_turns": 0,
+                "tail_discovery_turns": 0,
+                "total_discovery_turns": 0,
+                "accounted_discovery_tokens": 0,
+                "deterministic_network_requests": 1,
+                "terminal_provider_blocker": "CHATGPT_USAGE_LIMIT_REACHED",
+                "remaining_budget": {
+                    "batch_turns": 24,
+                    "tail_turns": 24,
+                    "total_turns": 24,
+                    "accounted_discovery_tokens": 18_000_000,
+                    "deterministic_network_requests": 383,
+                },
+                "failures": [
+                    {
+                        "failure_code": "CHATGPT_USAGE_LIMIT_REACHED",
+                        "model_turn_completed": False,
+                    }
+                ],
+                "candidate_urls_are_evidence": False,
+                "tail_is_subset_only": True,
+                "turns": [],
+            },
+            "ranked_viability": {
+                "rank_attempts": [
+                    {
+                        "rank": 1,
+                        "cluster_id": "story-1",
+                        "headline_ids": ["headline-1"],
+                        "status": "BLOCKED",
+                        "blockers": ["SOURCE_DISCOVERY_REQUIRED"],
+                        "evidence_receipt": {
+                            "blockers": ["SOURCE_DISCOVERY_REQUIRED"]
+                        },
+                    }
+                ]
+            },
+            "evidence_ready_pool": {"candidates": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 0},
+            "article_generation_attempts": 0,
+            "public_write_performed": False,
+            "publishing_adapter_called": False,
+            "unknown_write_detected": False,
+            "exact_next_blocker": "CHATGPT_USAGE_LIMIT_REACHED",
+        },
+    )
+
+    receipt = quota_proof.run(
+        runtime_output_dir=tmp_path / "runtime",
+        evidence_output=tmp_path / "receipt.json",
+        cutoff_utc="2026-08-23T22:41:06Z",
+        source_route_health_path=tmp_path / "missing-health.json",
+    )
+
+    assert receipt["classification"] == "CURRENT_HOST_RUNTIME_PROOF_REQUIRED"
+    assert receipt["exact_remaining_blocker"] == "CHATGPT_USAGE_LIMIT_REACHED"
+    assert receipt["checks"][
+        "genuine_host_or_provider_dependency_unavailable"
+    ] is True
+    assert receipt["frontier_count"] == 1
+
+
 def test_quota_proof_reuses_daily_app_sourceability_and_route_health_inputs(
     monkeypatch, tmp_path: Path
 ):
