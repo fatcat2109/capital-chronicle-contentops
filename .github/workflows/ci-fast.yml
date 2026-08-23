@@ -58,6 +58,8 @@ jobs:
           v2_pointer = Path('docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md').read_text(encoding='utf-8')
           video_agents = Path('video/AGENTS.md').read_text(encoding='utf-8')
           v2_creative = Path('docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md').read_text(encoding='utf-8')
+          pipeline_api = Path('live_contentops/eight_platform_substack_first_pipeline_v1.py').read_text(encoding='utf-8')
+          pipeline_impl = Path('live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py').read_text(encoding='utf-8')
 
           assert 'CAPABILITY_ROUTED_HYBRID' in agents
           assert 'CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md' in agents
@@ -69,10 +71,21 @@ jobs:
           assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`' in video_agents
           assert 'Engineering/repository execution follows the root `CAPABILITY_ROUTED_HYBRID` policy.' in v2_creative
 
-          for text in (agents, authority_map, north_star, master_plan, v1_pointer, current_context, codex_operator):
+          # Durable product targets remain current, but the immediate routing gate is now the
+          # quota-safe evidence-foundation state rather than another 4/32 proof campaign.
+          for text in (agents, north_star, master_plan):
               upper = text.upper()
               assert '4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES' in upper
               assert '5–8 PUBLISHED ARTICLES' in upper
+
+          for text in (authority_map, v1_pointer):
+              assert 'PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED' in text
+              assert 'SOURCE_DISCOVERY_REQUIRED' in text
+              assert '5–8/day' in text
+
+          assert 'quota-efficient batch/tail discovery architecture' in v1_pointer.lower()
+          assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_api
+          assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_impl
 
           assert 'DEGRADED_DAILY_OUTPUT_DEFICIT' in agents
           assert 'DEGRADED_DAILY_OUTPUT_DEFICIT' in north_star
