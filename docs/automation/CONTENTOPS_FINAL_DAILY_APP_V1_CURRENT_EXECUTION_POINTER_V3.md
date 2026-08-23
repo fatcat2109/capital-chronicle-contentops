@@ -35,15 +35,21 @@ Older V1 task packets and branch handoffs are exact historical evidence only whe
 - That foundation's 35 URL-discovery calls and 10,237,897 discovery tokens are
   `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. The provider is a bounded reusable tail/proof
   capability, not the routine production default.
+- The final operating target remains `5–8/day` published articles per newsroom production day,
+  without filler or weaker truth/evidence/rights/permission/numeric-authority gates.
 
 ## Current next implementation capability
 
 `V1 QUOTA-EFFICIENT BATCH/TAIL DISCOVERY ON THE EXISTING EVIDENCE SEAM`
 
-This is the sole demonstrated new V1 product implementation gap. Reuse the current discovery
+The required design is a quota-efficient batch/tail discovery architecture. This is the sole
+demonstrated new V1 product implementation gap. Reuse the current discovery
 provider, handshake, route-health, deterministic retrieval/hash/freshness, and hard evidence gates.
 Do not weaken evidence or increase an unbounded per-candidate call ceiling. This pointer identifies
 the dependency; it does not authorize implementation without an exact owner task.
+
+Until that bounded implementation is authorized and available, missing source discovery remains a
+fail-closed `SOURCE_DISCOVERY_REQUIRED` abstention rather than permission to weaken admission.
 
 First-party locator/source-family and publisher-resolution closure are already accepted. They are
 not the next task.

@@ -14,6 +14,8 @@ Status: `CURRENT_V2_LANE_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 - `docs/codegraph/V2_CONTEXT.md`
 
+Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.
+
 ## Exact V2 lane detail
 
 These current-master files exist and may supply compatible V2 detail beneath the locked root spine:

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Capability-Routed Hybrid Execution Policy V1
 
-Authority date: 2026-08-19
+Authority date: 2026-08-23
 Status: `CURRENT_EXECUTION_POLICY`
 
 This policy changes only **how engineering work is executed**. It does not change the ContentOps product sequence, Capital Chronicle/Core Analyzer authority, V1/V2 boundaries, public-write authority, numeric authority, rights rules, KILL_SWITCH behavior, destination identity, readback/reconciliation, or protected release history.
@@ -107,14 +107,25 @@ Quota optimization is subordinate to truth.
 
 Default Web implementation policy:
 
-`fresh master -> dedicated agent/web-* branch -> scoped edits -> deterministic validation when available -> draft PR -> owner/reviewer decision`
+`fresh master -> dedicated task branch -> scoped edits -> deterministic validation -> PR -> independent hard-gate audit -> protected-branch merge after required checks pass`
 
 Rules:
 
 - no direct `master` mutation from the Web lane;
 - no force push;
+- no branch-protection bypass;
 - no silent unrelated changes;
-- no merge without explicit owner authorization;
+- ordinary reversible repository operations inside the accepted product roadmap do not require a
+  new per-operation owner authorization after the operator hard-gate audit has passed;
+- the operator may autonomously create/update task branches and PRs, make ordinary commits/pushes,
+  merge an independently audited PR through the repository's normal protected-branch path once
+  required checks pass, and perform other reversible repository maintenance needed to progress the
+  accepted roadmap;
+- repository autonomy does not expand the authorized task/product scope;
+- this does not authorize bypassing branch protection, force-push, mutation of protected `v1.0` or
+  history, secrets/credentials/cookies/tokens/private-session access, public/provider writes,
+  destructive production/canonical-store mutation, Capital Chronicle proprietary/numeric-authority
+  expansion, V2 public-write authority, or external/legal/rights release decisions;
 - exact base SHA, changed paths, commit SHA, CI/runtime scope and caveats must remain observable;
 - broad changes requiring working-tree atomicity or runtime iteration move to Codex rather than abusing low-level Git primitives merely because they exist.
 
@@ -196,4 +207,7 @@ Allowed task classifications remain `PASS`, `PASS_WITH_CAVEAT`, `BLOCKED`, and `
 
 ## 10. North Star
 
-**ChatGPT reasons and controls GitHub; GitHub Actions performs deterministic machine work; Codex is spent when the engineering problem requires a real execution environment and iterative runtime feedback; external/live authority remains explicitly owner-gated.**
+**ChatGPT/operator autonomously performs independently audited reversible repository work inside the
+accepted roadmap; GitHub Actions performs deterministic machine work; Codex is spent when the
+engineering problem requires a real execution environment and iterative runtime feedback; and
+external/live/irreversible authority remains explicitly owner-gated.**

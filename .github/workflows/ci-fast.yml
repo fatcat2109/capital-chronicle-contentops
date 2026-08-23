@@ -63,7 +63,25 @@ jobs:
           assert '`WEB_STATIC`' in agents and '`WEB_CI`' in agents
           assert '`CODEX_EXECUTION`' in agents and '`OWNER_GATED_EXTERNAL`' in agents
           assert 'Status: `CURRENT_EXECUTION_POLICY`' in policy
-          assert 'no merge without explicit owner authorization' in policy
+
+          for text in (agents, policy, authority_map):
+              normalized = ' '.join(text.lower().split())
+              assert 'ordinary reversible repository operations' in normalized
+              assert 'new per-operation owner authorization' in normalized
+              assert 'normal protected-branch path' in normalized
+              assert 'required checks pass' in normalized
+
+          for text in (agents, policy):
+              normalized = ' '.join(text.lower().split())
+              assert 'bypassing branch protection' in normalized
+              assert 'force-push' in normalized
+              assert 'public/provider writes' in normalized
+              assert 'destructive production/canonical-store' in normalized
+              assert 'capital chronicle proprietary/numeric-authority' in normalized
+              assert 'v2 public-write authority' in normalized
+
+          assert 'no merge without explicit owner authorization' not in policy
+          assert 'merge/push master without explicit owner authorization' not in agents
 
           for text in (agents, north_star, master_plan):
               upper = text.upper()

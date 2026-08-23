@@ -209,7 +209,20 @@ Current dependency order:
 
 Prefer one heavy bounded product slice over ceremony.
 
-Stage explicit paths only. Never `git add .` or `git add -A`. Never force-push. Never merge/push master without explicit owner authorization. Preserve unrelated work and protected history.
+Ordinary reversible repository operations inside the accepted product roadmap do not require a new
+per-operation owner authorization after the operator hard-gate audit has passed. The operator may
+autonomously create or update task branches and PRs, make ordinary commits and pushes, merge an
+independently audited PR through the repository's normal protected-branch path once required checks
+pass, and perform other reversible repository maintenance needed to progress that accepted roadmap.
+
+This repository autonomy does not expand task or product scope and does not authorize bypassing
+branch protection, force-push, mutation of protected `v1.0` or history, secrets/credentials/cookies/
+tokens/private-session access, public/provider writes, destructive production/canonical-store
+mutation, Capital Chronicle proprietary/numeric-authority expansion, V2 public-write authority, or
+external/legal/rights release decisions. Those boundaries remain `OWNER_GATED_EXTERNAL`.
+
+Stage explicit paths only. Never `git add .` or `git add -A`. Preserve unrelated work and protected
+history.
 
 ## 13. Hard stops
 

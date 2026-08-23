@@ -25,6 +25,11 @@ Candidate-level abstention remains valid. A whole production day below its activ
 unless an exact hard external blocker is proven. No filler, unsupported claims, or weaker evidence,
 numeric-authority, rights, identity, permission, freshness, publication, or recovery gates.
 
+The exact classification for a production day below the build floor without a proven hard external
+blocker is:
+
+`DEGRADED_DAILY_OUTPUT_DEFICIT`
+
 ## 1. Planning classification lock
 
 The owner-accepted architecture sweep is

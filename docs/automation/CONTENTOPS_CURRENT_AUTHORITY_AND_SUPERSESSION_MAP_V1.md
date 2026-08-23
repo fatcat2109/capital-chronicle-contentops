@@ -31,6 +31,14 @@ This map prevents fresh sessions from reviving stale quota, scheduler, canary, o
 
 Jim's latest explicit instruction remains highest product authority.
 
+For repository execution, ordinary reversible repository operations inside the accepted product
+roadmap do not require a new per-operation owner authorization after the operator hard-gate audit
+has passed. The operator may create/update task branches and PRs, make ordinary commits/pushes, and
+merge an independently audited PR through the repository's normal protected-branch path once
+required checks pass. This autonomy does not expand task scope or cross branch-protection,
+force-push, protected-history, secret/session, public/provider-write, destructive-store,
+Capital Chronicle proprietary/numeric-authority, V2 public-write, or external/legal/rights gates.
+
 ## Accepted architecture-sweep lock
 
 The owner-accepted architecture sweep is
