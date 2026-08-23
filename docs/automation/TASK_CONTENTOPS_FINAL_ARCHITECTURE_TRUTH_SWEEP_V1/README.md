@@ -127,3 +127,75 @@ a truthful at-rest snapshot, not a cold-start/unattended PASS.
 
 Sensitive locations, where relevant to topology, are represented only as
 `SENSITIVE_PATH_NOT_READ`.
+
+## Completeness correction A
+
+Correction source HEAD: `b943614916e10bbae37fd092d0046c457638d93f`.
+
+An exhaustive bounded filesystem/Git scan replaced the original collector's assumption that its
+two named clone roots were exhaustive. The scan encountered 266 candidate Git roots under
+`A:\Capital Chronicle`, identified 157 nonmatching repositories without inspecting their contents,
+and found 109 ContentOps candidate roots that deduplicate to exactly two Git common directories.
+Those two common directories register exactly 114 worktrees, including five primary-clone
+worktrees outside the `A:` scan root that were discovered through supported `git worktree list`
+readback. No additional ContentOps clone/common-dir or registered worktree was found relative to
+the original packet.
+
+Remote/tag correction truth:
+
+- original sweep epoch: 149 fetched `origin/*` refs before this evidence branch existed remotely;
+- correction epoch: 150 fetched refs;
+- the sole addition is `origin/codex/final-architecture-truth-sweep-v1` at the accepted evidence
+  commit; genuine product-branch drift is zero;
+- the repository has one tag, annotated `refs/tags/v1.0`;
+- its peeled commit is exactly `6983bfb3ef300414b744f3f8f97ca81ff699348b`;
+- no other materially unique tag lineage exists.
+
+Ignored-material correction truth:
+
+- 1,249 collapsed ignored paths were enumerated across all 114 registered worktrees using Git's
+  ignored-file facilities;
+- 1,121 were pruned as ordinary dependency/build/cache/transient bulk;
+- 128 material ignored entries survived the filter and all 128 were reviewed/dispositioned;
+- three ignored `.env` paths were recorded only as `SENSITIVE_PATH_NOT_READ`;
+- ignored runtime/evidence roots, generated UI configuration/epoch files, local CodeGraph databases,
+  and historical/current product source-asset roots exposed no new material architecture;
+- the known 30,119,681-byte documentary asset was observed through eight worktree/runtime aliases
+  resolving to two physical identities, every observed copy carrying SHA-256
+  `01a1d3b34fb1c812a769fabe480f976640684158dc5b94e750a72c2d3d4eb998`.
+
+The asset is a legitimate ignored runtime/test dependency and a clean-checkout portability caveat.
+It does not change `V2_03_FREEFORM_REMOTION_SUBSTRATE`; current dependency-root/render proof remains
+required after V2 reconciliation.
+
+Both commits absent all fetched remotes remain the already-known duplicate-clone commits. Both were
+reviewed path-by-path and remain fully product-subsumed/superseded; no recovery is authorized.
+
+Correction conclusion:
+
+- capability rows changed: `0` — total remains 59;
+- classification totals changed: `0`;
+- `NEW_IMPLEMENTATION_GAP` rows changed: `0` — the same three gaps remain;
+- V1 roadmap ordering changed: `false`;
+- V2 donor/reconciliation conclusion changed: `false`;
+- `MASTER_PLAN_LOCK_INPUT_REMAINS_VALID_UNCHANGED`.
+
+Exact completeness counters are all zero:
+
+- `unaccounted_matching_git_common_dir_count=0`;
+- `unaccounted_registered_worktree_count=0`;
+- `unreviewed_material_ignored_path_count=0`;
+- `unreviewed_local_only_commit_count=0`;
+- `unclassified_material_capability_count=0`.
+
+The prior `185 passed / 1 failed` test result was not rerun because product code is unchanged. It is
+retained only as `BUILDER_REPORTED_PREVIOUS_RUN_NOT_REEXECUTED_IN_CORRECTION`. Exact current
+commands, timestamps, exit codes, output digests, structured scan receipts, and staged-diff evidence
+are recorded in `validation_receipt.json`.
+
+Correction artifacts:
+
+- `collect_completeness_correction_a.py` — bounded discovery/ignored/tag/validation collector;
+- `workspace_repository_discovery.json` — exhaustive candidate/common-dir/worktree/tag truth;
+- `ignored_material_inventory.json` — metadata-first ignored inventory and dispositions;
+- `validation_receipt.json` — actual command and structured-operation evidence.

@@ -1,8 +1,47 @@
 {
   "branch": "codex/final-architecture-truth-sweep-v1",
   "classification": "PASS_FINAL_ARCHITECTURE_TRUTH_SWEEP_COMPLETE",
+  "completeness_correction_a": {
+    "capability_classification_change_count": 0,
+    "completeness_counters": {
+      "unaccounted_matching_git_common_dir_count": 0,
+      "unaccounted_registered_worktree_count": 0,
+      "unclassified_material_capability_count": 0,
+      "unreviewed_local_only_commit_count": 0,
+      "unreviewed_material_ignored_path_count": 0
+    },
+    "current_correction_remote_ref_count": 150,
+    "fresh_origin_master": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+    "ignored_material_inventory": "ignored_material_inventory.json",
+    "ignored_path_totals": {
+      "ignored_path_enumerated_count": 1249,
+      "ignored_path_pruned_as_normal_bulk_count": 1121,
+      "matching_registered_worktree_count": 114,
+      "material_ignored_path_count": 128,
+      "reviewed_material_ignored_path_count": 128,
+      "sensitive_path_not_read_count": 3,
+      "unreviewed_material_ignored_path_count": 0,
+      "worktree_enumeration_failure_count": 0
+    },
+    "local_only_commit_count": 2,
+    "master_plan_lock_input_status": "MASTER_PLAN_LOCK_INPUT_REMAINS_VALID_UNCHANGED",
+    "matching_git_common_dir_count": 2,
+    "matching_registered_worktree_count": 114,
+    "new_implementation_gap_change_count": 0,
+    "original_sweep_remote_ref_count": 149,
+    "previous_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+    "protected_v1_tag_matches_expected": true,
+    "protected_v1_tag_name": "refs/tags/v1.0",
+    "protected_v1_tag_resolved_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "remote_ref_delta_is_evidence_branch_only": true,
+    "reviewed_local_only_commit_count": 2,
+    "v1_roadmap_ordering_changed": false,
+    "v2_donor_reconciliation_conclusion_changed": false,
+    "validation_receipt": "validation_receipt.json",
+    "workspace_repository_discovery": "workspace_repository_discovery.json"
+  },
   "evidence_commit_recording": "EXTERNAL_GIT_REF_AND_FINAL_RETURN; excluded from self-referential packet hashes",
-  "file_count_excluding_manifest": 12,
+  "file_count_excluding_manifest": 16,
   "files": [
     {
       "byte_count": 11189,
@@ -20,6 +59,11 @@
       "sha256": "3d5ace77385b023b10ebd42386cf9e28805baef9e90fdca8a3e7900585dc5fe6"
     },
     {
+      "byte_count": 62920,
+      "path": "collect_completeness_correction_a.py",
+      "sha256": "dd52e87590a01e49dcfd847c5ed48195b58b9da4434064679b472f24fb43193a"
+    },
+    {
       "byte_count": 30102,
       "path": "collect_evidence.py",
       "sha256": "6c8755b64c5b4390f64f90f7fc2f730894bb4fcb8fccd9b6b3fb8a597ee5cc07"
@@ -33,6 +77,11 @@
       "byte_count": 19031,
       "path": "historical_proof_index.json",
       "sha256": "62c47d65e5ba304a5306e22f7935b7e14ccbf0e955be5e576d179ec8a4c76cb8"
+    },
+    {
+      "byte_count": 353376,
+      "path": "ignored_material_inventory.json",
+      "sha256": "de97b080aecef93935d087df76561a61f8ad487665b393537c977603717345cb"
     },
     {
       "byte_count": 320169,
@@ -50,9 +99,9 @@
       "sha256": "30856f76ffd695cc3432369a72126680941cedd966e87f9277c0720450451f7f"
     },
     {
-      "byte_count": 6613,
+      "byte_count": 10502,
       "path": "README.md",
-      "sha256": "c83f9aa7a9e4110be474f0c546c7758eec94f93250583d31d16be169a0e9f731"
+      "sha256": "3ac7adb8b155463d3dfa8e15b849d7822c8a8c284a32dac7f67859d45ff1b072"
     },
     {
       "byte_count": 16989,
@@ -63,10 +112,20 @@
       "byte_count": 66133,
       "path": "runtime_host_truth.json",
       "sha256": "5f5f5d0a981e4132ba1293404440efd55f4d7ccd62a037e52ed877d67b5a5066"
+    },
+    {
+      "byte_count": 26675,
+      "path": "validation_receipt.json",
+      "sha256": "e363a2179500658c5891becb9dd86d3722740e1b11f1d57ebe4e994dbee995e0"
+    },
+    {
+      "byte_count": 283447,
+      "path": "workspace_repository_discovery.json",
+      "sha256": "af6e76268adb3dc86de4722868f3e0548efcc18bac48a342a2d4915b17144e48"
     }
   ],
   "final_remote_master": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
-  "generated_at_utc": "2026-08-23T09:29:24.543650+00:00",
+  "generated_at_utc": "2026-08-23T10:07:31.520958+00:00",
   "remote_master_moved_during_sweep": false,
   "repository": "fatcat2109/capital-chronicle-contentops",
   "safety": {
@@ -95,18 +154,19 @@
     },
     "capability_count": 59,
     "codegraph_check": "CODEGRAPH_CURRENT",
+    "completeness_validation_receipt": "validation_receipt.json",
     "duplicate_clone_stash_count": 8,
     "duplicate_clone_worktree_count": 6,
     "every_currently_proven_claim_has_implementation_test_and_evidence": true,
     "every_new_gap_has_search_scope_evidence_and_gap": true,
     "focused_current_master_tests": {
-      "classification": "KNOWN_IGNORED_RUNTIME_ASSET_DEPENDENCY_CAVEAT",
+      "classification": "BUILDER_REPORTED_PREVIOUS_RUN_NOT_REEXECUTED_IN_CORRECTION",
       "failed": 1,
       "failure": "tests/test_v2_freeform_chapter_pipeline_v1.py::test_video_only_chapter_render_never_regenerates_audio",
       "missing_asset_sha256_from_historical_worktree": "01a1d3b34fb1c812a769fabe480f976640684158dc5b94e750a72c2d3d4eb998",
       "passed": 185
     },
-      "git_diff_check": "PASS_AFTER_EXPLICIT_STAGING",
+    "git_diff_check": "PASS_AFTER_EXPLICIT_STAGING",
     "json_parse": "PASS",
     "no_product_or_authority_paths_changed": true,
     "parsed_json_files": [
@@ -124,6 +184,7 @@
     "primary_worktree_count": 108,
     "production_store_quick_check": "ok",
     "production_store_unknown_write_count": 0,
-    "required_files_present": true
+    "required_files_present": true,
+    "staged_diff_check": "PASS"
   }
 }
