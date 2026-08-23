@@ -22,10 +22,13 @@ from live_contentops.eight_platform_substack_first_pipeline_v1 import (
     run_rolling_x_newsroom_cycle,
 )
 from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
+from live_contentops.daily_app_launcher_v1 import CANONICAL_PRODUCTION_OUTPUT_ROOT
+from live_contentops.daily_app_supervisor_v1 import SOURCE_ROUTE_HEALTH_STATE_NAME
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     build_prepared_rolling_x_candidate_state,
     load_rolling_x_headline_sidecars,
 )
+from live_contentops.source_route_health_v1 import SCHEMA_VERSION as SOURCE_ROUTE_HEALTH_SCHEMA
 
 
 PASS_CLASSIFICATION = (
@@ -35,6 +38,9 @@ ECONOMICS_FAILURE = "FAIL_V1_DISCOVERY_ECONOMICS_NOT_ACCEPTED"
 HOST_PROOF_REQUIRED = "CURRENT_HOST_RUNTIME_PROOF_REQUIRED"
 BASELINE_TURNS = 35
 BASELINE_TOKENS = 10_237_897
+CANONICAL_SOURCE_ROUTE_HEALTH_PATH = (
+    CANONICAL_PRODUCTION_OUTPUT_ROOT / SOURCE_ROUTE_HEALTH_STATE_NAME
+)
 
 
 def _hash(value: Any) -> str:
@@ -55,6 +61,21 @@ def _write(path: Path, value: Mapping[str, Any]) -> None:
         json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+
+
+def _load_current_source_route_health(path: Path) -> dict[str, Any]:
+    """Read the same routing-only snapshot consumed by the Daily App, when present."""
+    try:
+        value = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError):
+        return {}
+    if (
+        not isinstance(value, Mapping)
+        or value.get("schema_version") != SOURCE_ROUTE_HEALTH_SCHEMA
+        or value.get("routing_only") is not True
+    ):
+        return {}
+    return dict(value)
 
 
 def _attempts(cycle: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -256,6 +277,24 @@ def build_acceptance_receipt(
         },
         "abstentions": abstentions,
         "source_route_health": dict(cycle.get("source_route_health") or {}),
+        "sourceability_parity": {
+            "prepared_frontier_autonomous_source_discovery_available": (
+                prepared_state.get("autonomous_source_discovery_available") is True
+            ),
+            "prepared_frontier_source_route_health_input_sha256": (
+                prepared_state.get("source_route_health_input_sha256")
+            ),
+            "cycle_source_route_health_input_sha256": cycle.get(
+                "source_route_health_input_sha256"
+            ),
+            "preselection_sourceability_observations_consumed": bool(
+                (cycle.get("preselection_intelligence") or {}).get(
+                    "sourceability_observations_consumed"
+                )
+            ),
+            "routing_only": True,
+            "factual_numeric_or_publication_authority_granted": False,
+        },
         "safety": {
             "writer_calls": writer_calls,
             "article_generation": article_generation,
@@ -322,6 +361,7 @@ def run(
     evidence_output: Path,
     cutoff_utc: str | None = None,
     sidecar_glob: str | None = None,
+    source_route_health_path: Path | None = None,
 ) -> dict[str, Any]:
     if evidence_output.exists():
         raise ValueError("quota_discovery_acceptance_evidence_already_exists")
@@ -339,22 +379,32 @@ def run(
         sidecar_glob=effective_glob,
         window_hours=24.0,
     )
+    source_route_health = _load_current_source_route_health(
+        source_route_health_path or CANONICAL_SOURCE_ROUTE_HEALTH_PATH
+    )
     prepared_state = build_prepared_rolling_x_candidate_state(
         rolling_input=rolling_input,
         prepared_at_utc=cutoff,
+        autonomous_source_discovery_available=True,
+        source_route_health=source_route_health,
     )
+    cycle_kwargs: dict[str, Any] = {
+        "run_id": "v1-quota-efficient-batch-tail-current-universe-proof",
+        "output_dir": runtime_output_dir,
+        "cutoff_utc": cutoff,
+        "rolling_input": rolling_input,
+        "prepared_candidate_state": prepared_state,
+        "publication_enabled": False,
+        "operating_mode": "KILL_SWITCH",
+        "autonomous_source_discovery_enabled": True,
+        "evidence_only_target_count": 4,
+        "published_corpus": [],
+        "cc_catalog": {"stores": [], "root_exists": False},
+    }
+    if source_route_health:
+        cycle_kwargs["source_route_health"] = source_route_health
     cycle = run_rolling_x_newsroom_cycle(
-        run_id="v1-quota-efficient-batch-tail-current-universe-proof",
-        output_dir=runtime_output_dir,
-        cutoff_utc=cutoff,
-        rolling_input=rolling_input,
-        prepared_candidate_state=prepared_state,
-        publication_enabled=False,
-        operating_mode="KILL_SWITCH",
-        autonomous_source_discovery_enabled=True,
-        evidence_only_target_count=4,
-        published_corpus=[],
-        cc_catalog={"stores": [], "root_exists": False},
+        **cycle_kwargs,
     )
     receipt = build_acceptance_receipt(
         cycle,
@@ -372,12 +422,18 @@ def main() -> int:
     parser.add_argument("--evidence-output", required=True, type=Path)
     parser.add_argument("--cutoff-utc")
     parser.add_argument("--sidecar-glob")
+    parser.add_argument("--source-route-health-path", type=Path)
     args = parser.parse_args()
     receipt = run(
         runtime_output_dir=args.runtime_output_dir.resolve(),
         evidence_output=args.evidence_output.resolve(),
         cutoff_utc=args.cutoff_utc,
         sidecar_glob=args.sidecar_glob,
+        source_route_health_path=(
+            args.source_route_health_path.resolve()
+            if args.source_route_health_path is not None
+            else None
+        ),
     )
     print(receipt["classification"])
     return 0 if receipt["classification"] == PASS_CLASSIFICATION else 1

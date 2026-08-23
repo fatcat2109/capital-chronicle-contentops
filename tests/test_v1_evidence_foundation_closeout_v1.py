@@ -33,6 +33,7 @@ from scripts.prove_v1_evidence_foundation_closeout_v1 import (
 from scripts.prove_v1_quota_efficient_batch_tail_discovery_v1 import (
     build_acceptance_receipt,
 )
+from scripts import prove_v1_quota_efficient_batch_tail_discovery_v1 as quota_proof
 
 
 FROZEN_ROOT = Path(
@@ -1093,6 +1094,111 @@ def test_acceptance_receipt_reports_current_host_runtime_proof_required_for_usag
 
     assert receipt["classification"] == "CURRENT_HOST_RUNTIME_PROOF_REQUIRED"
     assert receipt["exact_remaining_blocker"] == "CHATGPT_USAGE_LIMIT_REACHED"
+
+
+def test_quota_proof_reuses_daily_app_sourceability_and_route_health_inputs(
+    monkeypatch, tmp_path: Path
+):
+    source_health = {
+        "schema_version": "contentops.source_route_health.v1",
+        "routing_only": True,
+        "hosts": [
+            {
+                "normalized_host": "apnews.com",
+                "success_count": 2,
+                "failure_count": 0,
+            },
+            {
+                "normalized_host": "bloomberg.com",
+                "success_count": 0,
+                "failure_count": 2,
+            },
+        ],
+        "routes": [],
+        "sourceability_or_health_grants_factual_authority": False,
+        "sourceability_or_health_grants_numeric_authority": False,
+        "sourceability_or_health_grants_permission_authority": False,
+        "sourceability_or_health_grants_publication_authority": False,
+    }
+    source_health_path = tmp_path / "source_route_health_v1.json"
+    source_health_path.write_text(json.dumps(source_health), encoding="utf-8")
+    rolling_input = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "headlines": [],
+        "unique_headline_ids": [],
+        "counts": {"accepted": 0},
+    }
+    observed: dict[str, dict] = {}
+
+    monkeypatch.setattr(
+        quota_proof,
+        "load_rolling_x_headline_sidecars",
+        lambda **_kwargs: rolling_input,
+    )
+
+    def prepare(**kwargs):
+        observed["prepared"] = dict(kwargs)
+        return {
+            "full_rolling_headline_count": 0,
+            "prepared_candidate_count": 0,
+            "autonomous_source_discovery_available": True,
+            "source_route_health_input_sha256": "route-health-input-hash",
+        }
+
+    monkeypatch.setattr(quota_proof, "build_prepared_rolling_x_candidate_state", prepare)
+
+    def cycle(**kwargs):
+        observed["cycle"] = dict(kwargs)
+        return {
+            "quota_efficient_source_discovery": {
+                "status": "PASS",
+                "accounting_complete": True,
+                "batch_discovery_turns": 0,
+                "tail_discovery_turns": 0,
+                "total_discovery_turns": 0,
+                "accounted_discovery_tokens": 0,
+                "deterministic_network_requests": 0,
+                "failures": [],
+                "candidate_urls_are_evidence": False,
+                "tail_is_subset_only": True,
+            },
+            "evidence_ready_pool": {"candidates": []},
+            "ranked_viability": {"rank_attempts": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 0},
+            "article_generation_attempts": 0,
+            "public_write_performed": False,
+            "publishing_adapter_called": False,
+            "unknown_write_detected": False,
+            "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+            "source_route_health_input_sha256": "route-health-input-hash",
+            "source_route_health": source_health,
+            "preselection_intelligence": {
+                "sourceability_observations_consumed": True,
+            },
+        }
+
+    monkeypatch.setattr(quota_proof, "run_rolling_x_newsroom_cycle", cycle)
+
+    receipt = quota_proof.run(
+        runtime_output_dir=tmp_path / "runtime",
+        evidence_output=tmp_path / "receipt.json",
+        cutoff_utc="2026-08-23T14:30:00Z",
+        source_route_health_path=source_health_path,
+    )
+
+    assert observed["prepared"]["autonomous_source_discovery_available"] is True
+    assert observed["prepared"]["source_route_health"] == source_health
+    assert observed["cycle"]["source_route_health"] == source_health
+    assert receipt["sourceability_parity"] == {
+        "prepared_frontier_autonomous_source_discovery_available": True,
+        "prepared_frontier_source_route_health_input_sha256": (
+            "route-health-input-hash"
+        ),
+        "cycle_source_route_health_input_sha256": "route-health-input-hash",
+        "preselection_sourceability_observations_consumed": True,
+        "routing_only": True,
+        "factual_numeric_or_publication_authority_granted": False,
+    }
 
 
 def test_runtime_discovery_handshake_resumes_exact_same_candidate_without_hardcoded_url(

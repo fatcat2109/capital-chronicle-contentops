@@ -1,61 +1,72 @@
-# V1 quota-efficient batch/tail discovery current-host acceptance revalidation
+# V1 batch/tail discovery ready-pool closure correction B
 
 Authority date: 2026-08-23
 Final task classification: `FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED`
 
-## Repository and host state
+## Repository state
 
 Fresh fetch verification found `origin/master` at
-`c4239a96513c24fc9f7f331025386756d0248569` and the task branch at
-`e494ea8fbc9d21bc0a6604b1a76c3696b5266907`, with master as the exact merge base and no unexpected
-drift.
+`c4239a96513c24fc9f7f331025386756d0248569` and the remote task branch at
+`e494ea8fbc9d21bc0a6604b1a76c3696b5266907` before Correction B, with master as the exact merge
+base and no unexpected drift.
 
-The fresh supported App Server preflight passed with ChatGPT authentication, SDK `0.147.0`,
-`gpt-5.6-sol / HIGH`, an ephemeral thread, read-only sandbox, deny-all approval mode, and no API-key
-environment. The prior `CHATGPT_USAGE_LIMIT_REACHED` receipt is no longer current and has been
-removed.
+Commit `d1bbc0721341fa17a1c7fdc17a47da88562b04f4` preserved and pushed the independently useful
+request-budget repair. Explicit autonomous batch/tail mode now propagates the existing 96-request
+coordinator ceiling to the default official/public loaders; the per-candidate limit remains 6 and
+all evidence, hash, freshness, capability, claim, permission, and publication gates are unchanged.
 
-ContentOps assignment used only the two owner-confirmed local 9Router routes:
-`vx/gemini-3.5-flash(high)` and `vx/gemini-3.1-pro-preview(high)`.
+## Sourceability parity finding
 
-## Demonstrated defect and bounded repair
+Before Correction B, the acceptance runner did not exercise the same sourceability inputs as the
+Daily App path:
 
-The first server-available proof exposed one concrete coordinator/loader mismatch. The quota
-session enforced the unchanged deterministic ceiling of 96 requests, but the default official and
-public loaders remained capped at 24 and the public loader terminated deterministic resume when
-total accounting was only 35. The bounded repair propagates the existing coordinator ceiling to
-the default loaders only when explicit autonomous batch/tail discovery is enabled. The quota
-session remains the hard 96-request authority, and the per-candidate limit remains 6. Evidence,
-hash, freshness, capability, claim, permission, and publication gates are unchanged.
+- Daily App loads the persisted routing-only `source_route_health_v1.json` snapshot and supplies it
+  to prepared frontier construction.
+- Daily App passes the same non-empty snapshot into the canonical cycle, where it becomes
+  preselection `sourceability_observations` and can rerank materially comparable candidates.
+- The runner built its frontier without `autonomous_source_discovery_available=True`, supplied no
+  persisted route-health snapshot to the builder, and supplied no snapshot to the canonical cycle.
 
-Focused validation passed 88 tests. Compileall, CodeGraph generation/check, and `git diff --check`
-passed.
+The focused correction reuses those existing seams. The runner now loads the same routing-only
+snapshot path when present, feeds it to both frontier construction and the canonical cycle, and
+marks autonomous discovery available during frontier construction. It adds no ranking system and
+grants no factual, numeric, permission, or publication authority.
 
-## Final post-repair proof
+At the final proof epoch the canonical persisted route-health file was absent. The receipt therefore
+truthfully records an empty current snapshot, `prepared_frontier_autonomous_source_discovery_available=true`,
+and `preselection_sourceability_observations_consumed=false`. No observations were fabricated.
 
-The fresh post-repair zero-write proof ran at cutoff `2026-08-23T14:01:59.304858Z`, loaded 288
-current headline identities, and prepared the bounded 12-candidate frontier.
+See `sourceability_route_health_parity_audit_v1.json` for the capability classifications.
 
-One distinct candidate passed deterministic retrieval, content hashing, freshness, capability, and
-claim gates:
+## Final proof
 
-- `rolling-x-global-cluster-94935b83bf36a4332d4d`, headline identities
-  `cc-x-headline-60b2102d06ca1c9cb74fb4a1` and
-  `cc-x-headline-567cf76077899037f72d4e6f`.
+One fresh post-correction zero-write proof ran at cutoff `2026-08-23T14:32:51.390611Z`, loaded 282
+current headline identities, and prepared a 12-candidate frontier using the production discovery-
+aware ordering.
 
-The required four-candidate pool was not reached. Remaining candidates truthfully terminated on
-unresolved discovery, 403/404/access failures, stale or unresolved latest-event state, missing
-follow-up identity/material delta, or missing governed evidence. The exact remaining blocker is
-`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`. No further retry, speculative prompt tuning, gate weakening,
-or ceiling increase was performed.
+One distinct candidate passed the governed evidence-ready pool:
 
-Economics passed: 1 batch turn, 1 tail turn, 2 total discovery turns, 310,521 accounted discovery
-tokens, and 22 deterministic requests. Compared with 35 turns / 10,237,897 tokens, the exact deltas
-are -33 turns / -9,927,376 tokens. No monetary savings are claimed.
+- cluster `rolling-x-global-cluster-82db0cbb80577ed8baae`;
+- headline `cc-x-headline-5b1a65456b1dc62be206f3d1`.
+
+The required four-candidate pool was not reached. Remaining candidates terminated on unresolved
+URL discovery, 401/access failures, unavailable public sources, or missing governed evidence. The
+exact residual blocker is `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`. No further proof was run.
+
+Economics remained within every hard ceiling: 1 batch turn, 1 tail turn, 2 total turns, 1,237,551
+accounted discovery tokens, and 16 deterministic requests. Compared with 35 turns / 10,237,897
+tokens, the exact deltas are -33 turns / -9,000,346 tokens. The natural 1M target was not achieved,
+but the hard 2M token ceiling passed. No monetary savings are claimed.
 
 Writer calls `0`; article generation `0`; derivative generation `0`; public/provider writes `0`;
 `UNKNOWN_WRITE=0`; browser/CDP actions `0`; Automation mutations `0`; Capital Chronicle mutations
 `0`; V2 mutations `0`; secret/session reads `0`.
 
-`real_zero_write_acceptance_receipt_v1.json` is the coherent final receipt. No host blocker receipt
-is retained. Do not start the 4/32 proof from this result.
+## Validation
+
+206 focused tests passed across batch/tail, evidence adapters/loaders, Daily App route-health
+persistence, preselection sourceability reranking, prepared frontier construction, and the canonical
+newsroom cycle. Compileall, CodeGraph generation/check, receipt hash validation, staged-diff review,
+and `git diff --check` passed.
+
+Do not start the 4/32 proof from this result.

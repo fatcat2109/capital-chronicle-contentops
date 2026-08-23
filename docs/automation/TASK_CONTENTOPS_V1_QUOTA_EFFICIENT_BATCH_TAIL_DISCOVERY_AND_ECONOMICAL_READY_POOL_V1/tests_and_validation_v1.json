@@ -3,49 +3,47 @@
   "classification": "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED",
   "repository": "fatcat2109/capital-chronicle-contentops",
   "verified_fresh_origin_master": "c4239a96513c24fc9f7f331025386756d0248569",
-  "starting_branch_head": "e494ea8fbc9d21bc0a6604b1a76c3696b5266907",
+  "remote_branch_before_correction_b": "e494ea8fbc9d21bc0a6604b1a76c3696b5266907",
+  "request_budget_repair_commit": "d1bbc0721341fa17a1c7fdc17a47da88562b04f4",
   "branch": "codex/v1-quota-efficient-batch-tail-discovery-v1",
   "unexpected_ref_drift": false,
-  "current_host_preflight": {
-    "status": "AVAILABLE",
-    "provider": "OPENAI_CODEX_CHATGPT",
-    "transport": "OFFICIAL_CODEX_APP_SERVER_STDIO",
-    "sdk_version": "0.147.0",
-    "auth_classification": "CHATGPT",
-    "model": "gpt-5.6-sol",
-    "reasoning_effort": "HIGH",
-    "thread_ephemeral": true,
-    "sandbox": "read_only",
-    "approval_mode": "deny_all",
-    "api_key_environment_present": false,
-    "model_turn_completed": true,
-    "accounted_tokens": 15272
-  },
-  "demonstrated_defect_repair": {
-    "code": "DEFAULT_EVIDENCE_LOADERS_DID_NOT_RECEIVE_QUOTA_COORDINATOR_REQUEST_CEILING",
-    "effective_hard_deterministic_request_ceiling": 96,
-    "per_candidate_request_limit": 6,
-    "evidence_or_freshness_gate_weakened": false
+  "sourceability_parity_correction": {
+    "runner_reuses_canonical_source_route_health_path": true,
+    "runner_feeds_route_health_to_prepared_frontier": true,
+    "runner_feeds_nonempty_route_health_to_canonical_cycle": true,
+    "runner_marks_autonomous_discovery_available_during_frontier_construction": true,
+    "current_host_snapshot_present": false,
+    "new_ranking_system_created": false,
+    "authority_expanded": false
   },
   "final_real_zero_write_proof": {
     "status": "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED",
-    "cutoff_utc": "2026-08-23T14:01:59.304858Z",
-    "current_candidate_universe_count": 288,
+    "cutoff_utc": "2026-08-23T14:32:51.390611Z",
+    "current_candidate_universe_count": 282,
     "bounded_candidate_frontier_count": 12,
     "ready_distinct_candidate_count": 1,
     "batch_discovery_turns": 1,
     "tail_discovery_turns": 1,
     "total_discovery_turns": 2,
-    "accounted_discovery_tokens": 310521,
-    "deterministic_network_requests": 22,
+    "accounted_discovery_tokens": 1237551,
+    "deterministic_network_requests": 16,
     "exact_remaining_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
   },
   "focused_pytest": {
-    "command": "python -m pytest -q tests/test_v1_evidence_foundation_closeout_v1.py tests/test_rolling_x_targeted_evidence_adapter_v1.py tests/test_official_primary_evidence_loader_v1.py tests/test_public_secondary_evidence_loader_v1.py",
     "status": "PASS",
-    "passed": 88,
+    "passed": 206,
     "failed": 0,
-    "duration_seconds": 2.37
+    "duration_seconds": 28.65,
+    "files": [
+      "tests/test_v1_evidence_foundation_closeout_v1.py",
+      "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
+      "tests/test_official_primary_evidence_loader_v1.py",
+      "tests/test_public_secondary_evidence_loader_v1.py",
+      "tests/test_daily_app_supervisor_v1.py",
+      "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
+      "tests/test_rolling_x_hierarchical_assignment_v1.py",
+      "tests/test_rolling_x_newsroom_cycle_v1.py"
+    ]
   },
   "compileall": {
     "command": "python -m compileall -q live_contentops scripts",
