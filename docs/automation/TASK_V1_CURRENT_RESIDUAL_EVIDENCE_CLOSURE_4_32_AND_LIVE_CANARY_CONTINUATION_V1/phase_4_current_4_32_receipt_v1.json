@@ -1,0 +1,114 @@
+{
+  "schema_version": "contentops.v1_current_4_32_receipt.v1",
+  "task_label": "TASK_V1_CURRENT_RESIDUAL_EVIDENCE_CLOSURE_4_32_AND_LIVE_CANARY_CONTINUATION_V1",
+  "result": {
+    "classification": "FAIL_4_OF_32_CURRENT_FLOOR_NO_LIVE_CANARY",
+    "reason": "All four required fresh current frontiers completed, but zero qualified articles and therefore zero of 32 derivative intents were produced. The required live-canary precondition was not met.",
+    "live_canary_authorized": false,
+    "live_canary_executed": false,
+    "v1_final_product_accepted": false
+  },
+  "current_input": {
+    "input_mode": "GENUINE_CURRENT_INPUT",
+    "cutoff_utc": "2026-08-21T18:37:43.665876Z",
+    "frozen_current_headline_count": 772,
+    "rolling_input_sha256": "09e1122504cd7c9caf7a424fec98903910f64f4553dd62b9383e065f65eedac7",
+    "full_frontier_identity_coverage": true,
+    "no_repeat_proof": true
+  },
+  "four_frontier_execution": {
+    "frontier_count": 4,
+    "distinct_candidate_count": 19,
+    "attempted_distinct_story_count": 15,
+    "attempted_headline_identity_count": 19,
+    "prepared_headline_identity_slots": 48,
+    "qualified_article_count": 0,
+    "qualified_derivative_intent_count": 0,
+    "required_qualified_article_floor": 4,
+    "required_derivative_intent_floor": 32,
+    "remaining_build_deficit": 4,
+    "frontier_outcomes": [
+      {
+        "frontier": 1,
+        "outcome": "NO_QUALIFIED_ARTICLE",
+        "selected_cluster_id": "rolling-x-global-cluster-9cb92287baf88639151f",
+        "exact_next_blocker": "EDITORIAL_REVISION_ROUTER_FAILURE",
+        "bounded_xhigh_return_consumed": true
+      },
+      {
+        "frontier": 2,
+        "outcome": "FRONTIER_COMPLETE_NO_XHIGH",
+        "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+      },
+      {
+        "frontier": 3,
+        "outcome": "FRONTIER_COMPLETE_NO_XHIGH",
+        "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+      },
+      {
+        "frontier": 4,
+        "outcome": "FRONTIER_COMPLETE_NO_XHIGH",
+        "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+      }
+    ],
+    "exact_next_blocker_taxonomy": [
+      "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+      "EDITORIAL_REVISION_ROUTER_FAILURE"
+    ]
+  },
+  "bound_editorial_worker": {
+    "fresh_isolated_worker_required_by_selected_candidate": true,
+    "return_validation": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+    "institutional_edge_validation": "PASS",
+    "governed_input_sha256": "6a8d55167aff5b90000ae652ef379da042d850baf6564d28ece76f41c0dc67ae",
+    "return_sha256": "bf6bd9a3fd711d4d9a9295aa6d374c07c41c8049160545cf75568bea0bfe8622",
+    "xhigh_attempt_count": 1,
+    "bounded_revision_count": 1,
+    "worker_public_write_attempted": false,
+    "post_return_result": "The deterministic coordinator rejected further continuation after the bounded revision path reached EDITORIAL_REVISION_ROUTER_FAILURE; no replacement XHIGH worker was created."
+  },
+  "safety_and_authority": {
+    "public_read_request_count": 57,
+    "official_read_request_count": 1,
+    "story_scoped_network_request_count": 58,
+    "story_scoped_network_reads_avoided": 72,
+    "public_write_count": 0,
+    "publication_provider_write_count": 0,
+    "unknown_write_count": 0,
+    "production_store_reset_count": 0,
+    "fifth_automation_created_count": 0,
+    "publishing_adapter_called": false
+  },
+  "narrow_corrections_exercised": {
+    "commits": [
+      "95718e5b v1: prioritize bound official evidence paths",
+      "d760c8ef v1: bind rehearsal completion to worker probe",
+      "b8f93456 v1: preserve probe evidence through worker return"
+    ],
+    "scope": "The corrections preserve the existing source registry, evidence/trust/freshness gates, per-story request ceilings, publication authority, model boundary, and automation state. They only keep exact selected-probe and governed-hash evidence stable through the zero-write continuation.",
+    "router_regression_scope": "Gemini-only router safety tests were restored and passed; no non-Gemini research route was introduced."
+  },
+  "verification": {
+    "focused_suite": "pytest -q tests/test_v1_current_multi_frontier_floor_rehearsal_v1.py tests/test_v1_throughput_architecture_v1.py tests/test_rolling_x_hierarchical_assignment_v1.py tests/test_rolling_x_v1_publishability_closure_v1.py tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py tests/test_v1_9router_research_model_ladder_v1.py",
+    "focused_suite_result": "117 passed",
+    "codegraph": "NOT_AVAILABLE: this worktree has no root .codegraph directory, so no CodeGraph regeneration or currentness claim is possible."
+  },
+  "raw_evidence": {
+    "valid_current_run_root": "artifacts/v1_current_residual_evidence_closure_4_32_resume_bound_20260822",
+    "summary_path": "artifacts/v1_current_residual_evidence_closure_4_32_resume_bound_20260822/multi_frontier_floor_rehearsal_summary_v1.json",
+    "frontier_one_worker_return": "artifacts/v1_current_residual_evidence_closure_4_32_resume_bound_20260822/frontier_1/editorial_worker_return_v1.json",
+    "frontier_one_canonical_cycle": "artifacts/v1_current_residual_evidence_closure_4_32_resume_bound_20260822/frontier_1/canonical_zero_write_rehearsal_attempt_2/rolling_x_newsroom_cycle_evidence_v1.json",
+    "provisional_pre_correction_root": "artifacts/v1_current_residual_evidence_closure_4_32_20260822",
+    "provisional_pre_correction_disposition": "PRESERVED_RAW_NOT_ACCEPTED_AS_FINAL: it exposed the selection/hash-continuity defects corrected above and is not used as proof of a completed current four-frontier run."
+  },
+  "required_stop": {
+    "condition": "qualified_article_count < 4",
+    "action": "STOP_AFTER_PHASE_4",
+    "not_performed": [
+      "Phase 5 readiness preflight",
+      "approved live single-article canary",
+      "public publication",
+      "automation enablement"
+    ]
+  }
+}

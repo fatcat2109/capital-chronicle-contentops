@@ -1,0 +1,110 @@
+{
+  "factual_or_numeric_authority_granted": false,
+  "llm_or_provider_calls": 0,
+  "publication_authority_granted": false,
+  "router_summary": null,
+  "routing_method": "DETERMINISTIC_CONSERVATIVE_FALLBACK",
+  "semantic_router_failure_class": "ValueError",
+  "semantic_router_failure_recovered": true,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-global-cluster-060f3fea367e6a7c286d",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-1776d9c8958943d2e053",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-fef78ecc30ee39e31650",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-70ac8df2f43e46a4673e",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "supply_chain_event"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-f70d0d087f21cfac0f00",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-35f2f424ef9e1ad952a1",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-f014b0e655c9d507e25a",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-4e74825f3a5c8565eff8",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-b22ee088c9a60025779b",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-81ace6f8f497c4aa6e7e",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "geopolitical_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-d76c9e233e9659ce4ab1",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-6d9e17eb02a741b8e027",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "regulatory_fiscal_event"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-global-cluster-060f3fea367e6a7c286d": "market_move",
+    "rolling-x-global-cluster-1776d9c8958943d2e053": "market_move",
+    "rolling-x-global-cluster-35f2f424ef9e1ad952a1": "market_move",
+    "rolling-x-global-cluster-70ac8df2f43e46a4673e": "supply_chain_event",
+    "rolling-x-global-cluster-f014b0e655c9d507e25a": "general_public_event",
+    "rolling-x-global-cluster-f70d0d087f21cfac0f00": "regulatory_fiscal_event",
+    "rolling-x-global-cluster-fef78ecc30ee39e31650": "market_move",
+    "rolling-x-semantic-reserve-4e74825f3a5c8565eff8": "general_public_event",
+    "rolling-x-semantic-reserve-6d9e17eb02a741b8e027": "regulatory_fiscal_event",
+    "rolling-x-semantic-reserve-81ace6f8f497c4aa6e7e": "geopolitical_event",
+    "rolling-x-semantic-reserve-b22ee088c9a60025779b": "regulatory_fiscal_event",
+    "rolling-x-semantic-reserve-d76c9e233e9659ce4ab1": "regulatory_fiscal_event"
+  }
+}

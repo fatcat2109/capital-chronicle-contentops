@@ -1,0 +1,369 @@
+{
+  "classification": "PREWRITE_READY_ZERO_PUBLIC_WRITE",
+  "owner_grant_scope": {
+    "canonical_html_sha256": "2d037d6df2956779157b37a6d7ddc848a5f3b9111db339eb7bde3cbb1d1c5286",
+    "canonical_markdown_sha256": "32bff9996e59bd924e9d41f10b4ed29fcbf9a431a38f187ee727929c12585d65",
+    "evidence_id": "official-primary-ffb8e742e0932254c29d",
+    "mode": "DATA_OR_DOCUMENT_LENS",
+    "release_lock_sha256": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+    "title": "State Department Approves Possible APKWS II Sale to Italy"
+  },
+  "prewrite": {
+    "canonical_article_media_count": 0,
+    "canonical_html_sha256": "2d037d6df2956779157b37a6d7ddc848a5f3b9111db339eb7bde3cbb1d1c5286",
+    "canonical_markdown_sha256": "32bff9996e59bd924e9d41f10b4ed29fcbf9a431a38f187ee727929c12585d65",
+    "captured_at_utc": "2026-08-22T21:26:14.757959Z",
+    "daily_app_listener_5174_active": true,
+    "jit": {
+      "active_exact_destination_probes": 9,
+      "all_required_destinations_ready": true,
+      "attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+      "destinations": {
+        "discord": {
+          "destination_identity": "discord_channel:1519311669216673802",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "discord",
+          "probe_kind": "DISCORD_WEBHOOK_IDENTITY",
+          "probed_at_utc": "2026-08-22T21:25:51.949880Z",
+          "readiness_state": "READY_NON_BROWSER_BINDING",
+          "sanitized_detail": {
+            "channel_identity_verified": true,
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "owner_pin_match": {
+              "stable_id_match": true
+            },
+            "webhook_identity_verified": true
+          },
+          "surface": "DISCORD_ANNOUNCEMENT",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "WEBHOOK_API",
+          "write_eligible": true
+        },
+        "facebook_page": {
+          "destination_identity": "Capital Chronicle",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "facebook_page",
+          "probe_kind": "OFFICIAL_API_IDENTITY",
+          "probed_at_utc": "2026-08-22T21:25:52.317512Z",
+          "readiness_state": "READY_NON_BROWSER_BINDING",
+          "sanitized_detail": {
+            "identity_field_present": true,
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "object_id_matches_owner_pin": true,
+            "owner_pin_match": {
+              "stable_id_match": true
+            }
+          },
+          "surface": "FACEBOOK_PAGE_POST",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "META_GRAPH_API",
+          "write_eligible": true
+        },
+        "instagram_business": {
+          "destination_identity": "official.capitalchronicle",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "instagram_business",
+          "probe_kind": "OFFICIAL_API_IDENTITY",
+          "probed_at_utc": "2026-08-22T21:25:52.659530Z",
+          "readiness_state": "READY_NON_BROWSER_BINDING",
+          "sanitized_detail": {
+            "identity_field_present": true,
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "object_id_matches_owner_pin": null,
+            "owner_pin_match": {
+              "public_handle_match": true
+            }
+          },
+          "surface": "INSTAGRAM_BUSINESS_POST",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "META_GRAPH_API",
+          "write_eligible": true
+        },
+        "linkedin": {
+          "destination_identity": "Jim Pham",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "linkedin",
+          "probe_kind": "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA",
+          "probed_at_utc": "2026-08-22T21:25:51.970252Z",
+          "readiness_state": "READY_NON_BROWSER_BINDING",
+          "sanitized_detail": {
+            "authenticated": true,
+            "cdp_navigation_performed": false,
+            "days_remaining": 50,
+            "expiry_at_utc": "2026-10-12T14:54:01.757677Z",
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "network_probe_performed": false,
+            "official_api_state": "READY_OFFICIAL_MEMBER_API",
+            "readback_capability": "READBACK_CAPABILITY_LIMITED",
+            "secure_store_binding": "WINDOWS_DPAPI_CURRENT_USER:contentops.linkedin.member.v1"
+          },
+          "surface": "LINKEDIN_POST",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "OFFICIAL_MEMBER_API",
+          "write_eligible": true
+        },
+        "substack": {
+          "destination_identity": "capitalchronicle.substack.com",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "substack",
+          "probe_kind": "EDGE_CDP_IDENTITY",
+          "probed_at_utc": "2026-08-22T21:25:43.991719Z",
+          "readiness_state": "READY_AUTHENTICATED",
+          "sanitized_detail": {
+            "authenticated": true,
+            "edge_recovery_status": null,
+            "edge_runtime_status": "READY_TO_ATTACH",
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "login_control_detected": false,
+            "owner_pin_match": {
+              "domain_match": true
+            }
+          },
+          "surface": "SUBSTACK_ARTICLE",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "EDGE_CDP",
+          "write_eligible": true
+        },
+        "telegram": {
+          "destination_identity": "@CapitalChronicle",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "telegram",
+          "probe_kind": "TELEGRAM_BOT_API_IDENTITY",
+          "probed_at_utc": "2026-08-22T21:25:45.469637Z",
+          "readiness_state": "READY_NON_BROWSER_BINDING",
+          "sanitized_detail": {
+            "bot_identity_verified": true,
+            "chat_access_verified": true,
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "owner_pin_match": {
+              "public_handle_match": true
+            }
+          },
+          "surface": "TELEGRAM_CHANNEL_POST",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "BOT_API",
+          "write_eligible": true
+        },
+        "threads": {
+          "destination_identity": "official.capitalchronicle",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "threads",
+          "probe_kind": "OFFICIAL_API_IDENTITY",
+          "probed_at_utc": "2026-08-22T21:25:53.303690Z",
+          "readiness_state": "READY_NON_BROWSER_BINDING",
+          "sanitized_detail": {
+            "identity_field_present": true,
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "object_id_matches_owner_pin": null,
+            "owner_pin_match": {
+              "public_handle_match": true
+            }
+          },
+          "surface": "THREADS_POST",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "THREADS_API",
+          "write_eligible": true
+        },
+        "x": {
+          "destination_identity": "@Capitalnicle",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "x",
+          "probe_kind": "EDGE_CDP_IDENTITY",
+          "probed_at_utc": "2026-08-22T21:25:51.529281Z",
+          "readiness_state": "READY_AUTHENTICATED",
+          "sanitized_detail": {
+            "authenticated": true,
+            "edge_recovery_status": null,
+            "edge_runtime_status": "READY_TO_ATTACH",
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "login_control_detected": false,
+            "owner_pin_match": {
+              "public_handle_match": true
+            }
+          },
+          "surface": "X_THREAD",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "EDGE_CDP",
+          "write_eligible": true
+        },
+        "youtube": {
+          "destination_identity": "@CapitalChronicleYouTube",
+          "identity_authority_version": "contentops.destination_identity_authority.v2",
+          "identity_match": true,
+          "platform": "youtube",
+          "probe_kind": "EDGE_CDP_IDENTITY",
+          "probed_at_utc": "2026-08-22T21:26:14.751145Z",
+          "readiness_state": "READY_AUTHENTICATED",
+          "sanitized_detail": {
+            "authenticated": true,
+            "edge_recovery_status": null,
+            "edge_runtime_status": "READY_TO_ATTACH",
+            "jit_attempt_identity": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+            "login_control_detected": false,
+            "owner_pin_match": {
+              "authenticated_channel_matches_pinned_handle_route": true,
+              "public_handle_match": true
+            }
+          },
+          "surface": "YOUTUBE_COMMUNITY_POST",
+          "transport_registry_version": "contentops.destination_transport_registry.v2",
+          "transport_type": "EDGE_CDP",
+          "write_eligible": true
+        }
+      },
+      "public_write_performed": false,
+      "required_destinations": [
+        "substack",
+        "telegram",
+        "x",
+        "discord",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "schema_version": "contentops.full_v1_transaction_preflight.v1",
+      "status": "READY",
+      "unknown_write_count": 0
+    },
+    "jit_ready": true,
+    "locked_input_status": "PASS",
+    "public_write_performed": false,
+    "publication_plan_sha256": "799febf712be810de6081bea587918f9653dfdf4a5fea431ce48cc6f63f40d47",
+    "release_lock_sha256": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241",
+    "store_unknown_write_count": 0
+  },
+  "public_write_count": 0,
+  "schema_version": "contentops.one_live_desktop_primary_hybrid_canary.v1",
+  "store_before": {
+    "captured_at_utc": "2026-08-22T21:25:36.489560Z",
+    "dispatch_count": 22,
+    "dispatch_ids": [
+      "dispatch_00f0a5af343844ce3e7f7268b54d6bf8",
+      "dispatch_1c4abc528841241af0cb3a37fdd062a1",
+      "dispatch_23f3eb096e110e4ee29bb8d5f02a5f14",
+      "dispatch_252fd726f9f80fc02a1bda7a35ca3894",
+      "dispatch_29c2452542e3f9e9b12f6372d24feb73",
+      "dispatch_2dfef646bf9db59167a3b8aa80e44da2",
+      "dispatch_4050e64bddcd33008cf146abff603c48",
+      "dispatch_49f7e3b7c7d1e50f60f2639d5b7dce97",
+      "dispatch_4a662234e18bae9d3aeb0393ef7c9a52",
+      "dispatch_4cc3c345c081dc1285c079ef5240678c",
+      "dispatch_5c1fb9e2225977fc5083750f09a39779",
+      "dispatch_72477f931231b34c9a972d42177d87ad",
+      "dispatch_80d2de84c10f5145eef635fef3bc15f4",
+      "dispatch_a436123a5bfa85264dd43d20c399dfd7",
+      "dispatch_a7c5e130dc657eaac0b2d7adf663819c",
+      "dispatch_c3e5c65821ce69a1c8aa86cc4902e3ef",
+      "dispatch_cc5e96904bc7468d3680b7d90464f833",
+      "dispatch_e4d2ca54675593fc2c4498aea21dffa8",
+      "dispatch_eb637c30afad5b8d928d8514b592a94c",
+      "dispatch_f5df96453a59effcf08bf12105d2724d",
+      "dispatch_fb1f5beed2d4fb4790fb8615efa6a559",
+      "dispatch_fc743ac737251072e3e97546b46793d6"
+    ],
+    "dispatch_status_counts": {
+      "DERIVATIVE_EXPIRED_STALE_NO_WRITE": 3,
+      "DISPATCH_CONFIRMED": 15,
+      "DISPATCH_CONFIRMED_NO_WRITE": 2,
+      "RECONCILED_ABSENT_SAFE_TO_RETRY": 2
+    },
+    "message_ids": [
+      "outbox_00f0a5af343844ce3e7f7268b54d6bf8",
+      "outbox_1c4abc528841241af0cb3a37fdd062a1",
+      "outbox_1ea0f04f4828c49f680ba5b5b0a6eb38",
+      "outbox_23f3eb096e110e4ee29bb8d5f02a5f14",
+      "outbox_252fd726f9f80fc02a1bda7a35ca3894",
+      "outbox_29c2452542e3f9e9b12f6372d24feb73",
+      "outbox_2dfef646bf9db59167a3b8aa80e44da2",
+      "outbox_4050e64bddcd33008cf146abff603c48",
+      "outbox_49f7e3b7c7d1e50f60f2639d5b7dce97",
+      "outbox_4a662234e18bae9d3aeb0393ef7c9a52",
+      "outbox_4cc3c345c081dc1285c079ef5240678c",
+      "outbox_5147b0b8405e76baaea4cf29b22f1c86",
+      "outbox_54488d452f813768ccecc08f890b2cab",
+      "outbox_5c1fb9e2225977fc5083750f09a39779",
+      "outbox_699070d5ec6ccb082e353ada07d60620",
+      "outbox_72477f931231b34c9a972d42177d87ad",
+      "outbox_7e54a13ca165711c96d91b21c42ca32e",
+      "outbox_8032fa4fbb26b474f398bd012c937666",
+      "outbox_80d2de84c10f5145eef635fef3bc15f4",
+      "outbox_8ac43666eb11ee59730f5affc6925c2b",
+      "outbox_a2d9c1a9cc88607400b5422dd72bf451",
+      "outbox_a436123a5bfa85264dd43d20c399dfd7",
+      "outbox_a7c5e130dc657eaac0b2d7adf663819c",
+      "outbox_b110110a733a1006f0b12c42eabf7f08",
+      "outbox_b5150e03d7091fb8c9eb13bdce566473",
+      "outbox_b88f064cc52c7eff1ac55c1d8f1568af",
+      "outbox_c3e5c65821ce69a1c8aa86cc4902e3ef",
+      "outbox_cc5e96904bc7468d3680b7d90464f833",
+      "outbox_ce7b300f39c0bceb0b470bbbf6d1fa63",
+      "outbox_d7d9a10732be66347a4d048034b92605",
+      "outbox_e4d2ca54675593fc2c4498aea21dffa8",
+      "outbox_e762907ac854d1f11b7d38de062ad05b",
+      "outbox_e77511fa0b8d00eed57b1f3441a13d76",
+      "outbox_ea4aa0c50623d41d1b6d6a0191530167",
+      "outbox_eb637c30afad5b8d928d8514b592a94c",
+      "outbox_f5df96453a59effcf08bf12105d2724d",
+      "outbox_fb1f5beed2d4fb4790fb8615efa6a559",
+      "outbox_fc743ac737251072e3e97546b46793d6"
+    ],
+    "operating_control": {
+      "control_source": "LOCAL_DAILY_APP_UI",
+      "operating_mode": "KILL_SWITCH",
+      "singleton_id": 1,
+      "state_version": 25,
+      "updated_at_utc": "2026-08-22T21:20:57.501805+00:00"
+    },
+    "outbox_count": 38,
+    "outbox_status_counts": {
+      "DERIVATIVE_EXPIRED_STALE_NO_WRITE": 19,
+      "DISPATCH_CONFIRMED": 15,
+      "READY": 2,
+      "RECONCILED_ABSENT_SAFE_TO_RETRY": 2
+    },
+    "pending_obligations": [
+      {
+        "created_at": "2026-08-09T13:37:47.380097+00:00",
+        "destination": "substack",
+        "message_id": "outbox_eb637c30afad5b8d928d8514b592a94c",
+        "status": "READY",
+        "work_item_id": "editorial-window-10871b89cb9ade3a0969de8c28d00320"
+      },
+      {
+        "created_at": "2026-08-09T13:37:47.420030+00:00",
+        "destination": "telegram",
+        "message_id": "outbox_c3e5c65821ce69a1c8aa86cc4902e3ef",
+        "status": "READY",
+        "work_item_id": "editorial-window-10871b89cb9ade3a0969de8c28d00320"
+      },
+      {
+        "created_at": "2026-08-11T18:46:27.403325+00:00",
+        "destination": "substack",
+        "message_id": "outbox_fc743ac737251072e3e97546b46793d6",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "work_item_id": "editorial-window-76db1cda03881f9e785bade7386cacea"
+      },
+      {
+        "created_at": "2026-08-12T07:20:32.274315+00:00",
+        "destination": "substack",
+        "message_id": "outbox_e4d2ca54675593fc2c4498aea21dffa8",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "work_item_id": "operator-requested-operator-trigger-c09f4941952d4bd594ff62db"
+      }
+    ],
+    "reconciliation_count": 22,
+    "unknown_write_count": 0
+  },
+  "task": "TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1",
+  "unknown_write_count": 0
+}

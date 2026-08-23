@@ -1,0 +1,68 @@
+{
+  "baseline_caveats": {
+    "builder_regression_reproduced_unchanged": {
+      "node": "tests/test_rolling_x_grounded_article_media_builder_v1.py::test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review",
+      "observed": "x reply_texts contains the pre-existing no-market-reaction line",
+      "status": "FAIL_PREEXISTING_UNRELATED"
+    },
+    "builder_ruff_reproduced_unchanged": {
+      "code": "F841",
+      "location": "live_contentops/rolling_x_grounded_article_media_builder_v1.py:2366",
+      "status": "FAIL_PREEXISTING_UNUSED_LOCAL"
+    },
+    "prior_branch_validation_caveats_not_reopened": [
+      "tests/test_evidence_gate_calibration_v1.py::test_e_deep_dive_downgrades_to_standard_when_cc_authority_is_unavailable",
+      "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once",
+      "tests/test_security_scans.py:45 IndentationError during full-suite collection"
+    ]
+  },
+  "canary_e2e": {
+    "classification": "PASS_OFFICIAL_CODEX_DIRECT_PROVIDER_CURRENT_HEAD_CANARY_VERTICAL_PROOF",
+    "mode": "OFFLINE_RESUME_OF_PERSISTED_SUCCESSFUL_PROVIDER_AND_JIT_RECEIPTS",
+    "new_model_calls": 0,
+    "new_readiness_probes": 0,
+    "public_write_count": 0,
+    "unknown_write_count": 0
+  },
+  "codegraph_check": "CODEGRAPH_CURRENT",
+  "diff_check": "PASS",
+  "focused_contract_regression": {
+    "deselected_preexisting": 1,
+    "failed": 0,
+    "passed": 127
+  },
+  "focused_contract_scope": [
+    "official provider",
+    "strict canonical transport schema",
+    "transport-null normalization",
+    "developer-instruction propagation",
+    "TurnResult primary output and include_turns=False",
+    "six frozen institutional-edge blockers",
+    "same-thread repair and initial receipt persistence",
+    "source-handle resolution",
+    "zero-media separation"
+  ],
+  "focused_ruff": {
+    "failed": 0,
+    "status": "PASS"
+  },
+  "focused_ruff_paths": [
+    "live_contentops/official_codex_provider_v1.py",
+    "scripts/prove_v1_official_codex_direct_provider_canary_v1.py",
+    "tests/test_official_codex_provider_v1.py",
+    "tests/test_capital_chronicle_institutional_edge_v1.py",
+    "tests/test_rolling_x_grounded_article_media_builder_v1.py"
+  ],
+  "broader_touched_regression": {
+    "failed": 0,
+    "passed": 113
+  },
+  "broader_touched_scope": [
+    "rolling newsroom cycle",
+    "V1 publishability closure and derivative URL binding",
+    "MVP canary acceptance",
+    "newsroom operator contract"
+  ],
+  "schema_version": "contentops.official_codex_article_contract_closeout_validation_receipt.v1",
+  "task": "TASK_V1_OFFICIAL_CODEX_ARTICLE_CONTRACT_RELIABILITY_AND_AUTONOMOUS_CANARY_CLOSEOUT_V1"
+}

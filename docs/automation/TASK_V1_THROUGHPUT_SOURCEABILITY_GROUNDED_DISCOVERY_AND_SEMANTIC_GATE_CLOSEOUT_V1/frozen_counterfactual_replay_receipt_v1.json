@@ -1,0 +1,211 @@
+{
+  "canonical_replay_result": {
+    "accepted_evidence_sha256": "2f9b2f5653d49d59835af5115969e532bee30eefc45f5d172f19e5326d1f9f70",
+    "article_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+    "classification": "PASS_PUBLICATION_PLAN_READY",
+    "package_payload_sha256": {
+      "discord": "9887cf89a0f2fd44f357715827098f81563653e962d19bc2151a233e0e0403b7",
+      "facebook_page": "f78be86a1690bc80333c72bf254a5865335b592208356a4416d0048d85e7d4e4",
+      "instagram_business": "965c960d2262c9aaea2f101cb8416fdb2160bb7ecbfae0cbb71ebe62de4a2861",
+      "linkedin": "3912787508a9ca931893f802e15da25350382d99cef243a3101e8aeb3f1c0257",
+      "telegram": "4de34b7091837645d804a1227d953fc84e4703ffa45a5a81bdd5e2c42565c64a",
+      "threads": "05555d0f4f671e4d9e3263dcc9ab16b0777676b6f9a067017f5f9944e7877cf0",
+      "x": "bcecac4cf503866d714d20e3dc21d2a1d15229a96ce1891516744d246d4c5141",
+      "youtube": "6b85993c6462c954c668994ee2c39f4592172e14024e43610c635cd9059d09f0"
+    },
+    "qualified_article_record": {
+      "accepted_evidence_ids": [
+        "public-secondary-391077ed98f0344511a3"
+      ],
+      "accepted_evidence_sha256": "2f9b2f5653d49d59835af5115969e532bee30eefc45f5d172f19e5326d1f9f70",
+      "article_body_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+      "article_identity": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+      "article_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\article_manifest_v1.json",
+      "attempt_run_id": "v1-frozen-throughput-counterfactual-replay",
+      "derivative_package_intent_count": 8,
+      "derivative_package_intents": [
+        {
+          "destination": "telegram",
+          "dispatch_state": "UNDISPATCHED",
+          "payload_sha256": "4de34b7091837645d804a1227d953fc84e4703ffa45a5a81bdd5e2c42565c64a"
+        },
+        {
+          "destination": "x",
+          "dispatch_state": "UNDISPATCHED",
+          "payload_sha256": "bcecac4cf503866d714d20e3dc21d2a1d15229a96ce1891516744d246d4c5141"
+        },
+        {
+          "destination": "discord",
+          "dispatch_state": "UNDISPATCHED",
+          "payload_sha256": "9887cf89a0f2fd44f357715827098f81563653e962d19bc2151a233e0e0403b7"
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_state": "UNDISPATCHED",
+          "payload_sha256": "3912787508a9ca931893f802e15da25350382d99cef243a3101e8aeb3f1c0257"
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_state": "UNDISPATCHED",
+          "payload_sha256": "f78be86a1690bc80333c72bf254a5865335b592208356a4416d0048d85e7d4e4"
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_state": "UNDISPATCHED",
+          "payload_sha256": "965c960d2262c9aaea2f101cb8416fdb2160bb7ecbfae0cbb71ebe62de4a2861"
+        },
+        {
+          "destination": "threads",
+          "dispatch_state": "UNDISPATCHED",
+          "payload_sha256": "05555d0f4f671e4d9e3263dcc9ab16b0777676b6f9a067017f5f9944e7877cf0"
+        },
+        {
+          "destination": "youtube",
+          "dispatch_state": "UNDISPATCHED",
+          "payload_sha256": "6b85993c6462c954c668994ee2c39f4592172e14024e43610c635cd9059d09f0"
+        }
+      ],
+      "editorial_worker": {
+        "bounded_revision_count": 1,
+        "fresh": true,
+        "governed_input_hash": "306107790a72fd9a1941fe3f2482b618fc6104d97e8d2200b9757a68276ee27c",
+        "isolated": true,
+        "model": "gpt-5.6-sol",
+        "public_write_attempted": false,
+        "reasoning_effort": "XHIGH",
+        "resume_existing": false
+      },
+      "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+      "parent_window_id": "frozen-counterfactual-frontier-4",
+      "public_write_performed": false,
+      "qualification_blockers": [],
+      "qualified": true,
+      "record_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\qualified_article_record_v1.json",
+      "record_sha256": "ff818aa01d96f401a5a7871b334f0da409d188638765a31db38ae45ccce5fb80",
+      "resolved_article_mode": "",
+      "schema_version": "contentops.newsroom_qualified_article.v1",
+      "story_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+      "title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+      "unknown_write_count": 0,
+      "update_chain_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73"
+    },
+    "qualified_count": 1,
+    "qualified_derivative_intent_count": 8,
+    "remaining_build_deficit": 3
+  },
+  "discovery_closeout": {
+    "recovered_case_count": 1,
+    "recovered_cases": [
+      {
+        "accepted_documents": [
+          {
+            "byte_length": 800000,
+            "canonical_content_sha256": "8d21ba0bee9145bf4fae5435343b495fbf12e0db2995e40edf7d2cb0e503d173",
+            "content_type": "text/html",
+            "document_id": "public-secondary-499057e799b646ba66aa",
+            "public_claim_allowed": true,
+            "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+            "published_at_utc": "2026-08-21T18:10:53Z",
+            "publisher": "Apnews",
+            "raw_sha256": "499057e799b646ba66aa8dcc61f6a5aa479353f45119790b11a61b11e5c5097f",
+            "reader_source_url": "https://apnews.com/article/trump-white-house-ballroom-supreme-court-b3eaee672028e584d0c520180c663e2c",
+            "requested_source_url": "https://apnews.com/article/b3eaee672028e584d0c520180c663e2c",
+            "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+            "source_authority_class": "reputable_secondary_source",
+            "source_identity": "apnews.com",
+            "source_url": "https://apnews.com/article/trump-white-house-ballroom-supreme-court-b3eaee672028e584d0c520180c663e2c",
+            "title": "Supreme Court's chief justice allows work on Trump\u2019s $400M White House ballroom to continue for now"
+          }
+        ],
+        "candidate_urls": [
+          "https://apnews.com/article/b3eaee672028e584d0c520180c663e2c"
+        ],
+        "case_id": "frozen-frontier-4-rank-9-white-house-ballroom",
+        "cluster_id": "rolling-x-semantic-reserve-50346aed575b0b5de226",
+        "minimum_evidence_status": "PASS",
+        "provided_evidence_capabilities": [
+          "basic_attributed_facts",
+          "credible_event_confirmation"
+        ]
+      }
+    ]
+  },
+  "economics": {
+    "canonical_counterfactual_resume_network_requests": 0,
+    "canonical_counterfactual_resume_new_model_calls": 0,
+    "failed_day_observed_grounded_research_calls": 14,
+    "failed_day_observed_grounded_research_tokens": 61759,
+    "failed_day_observed_network_requests": 117,
+    "failed_day_observed_public_retrieval_requests": 108,
+    "full_day_counterfactual_request_total": "NOT_CLAIMED_WITHOUT_RERUNNING_ALL_40",
+    "prior_codex_web_search_calls": 5,
+    "prior_codex_web_search_queries": 20,
+    "prior_discovery_proof_public_http_requests": 4
+  },
+  "frozen_universe": {
+    "attempted_distinct_story_count": 40,
+    "counterfactual_new_evidence_viable_story_count": 1,
+    "counterfactual_total_evidence_viable_story_count": 2,
+    "failed_story_count": 40,
+    "frontier_count": 4,
+    "held_identity_count": 453,
+    "original_evidence_viable_story_count": 1,
+    "rolling_input_sha256": "5ee6c7bc9428cc0efaa2fcb67abf05986657351cd07ce9a0cc9bd34ebac6c3da"
+  },
+  "receipt_sha256": "285499638c91013ae4911704a73cf58e1fa7b6779d82eb76c619b0ec4d90b36b",
+  "replay_kind": "DETERMINISTIC_COUNTERFACTUAL_NOT_NEW_PRODUCTION_DAY",
+  "safety": {
+    "fifth_automation_created": 0,
+    "public_writes": 0,
+    "publication_authority_granted_by_replay": false,
+    "publication_provider_writes": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.v1_frozen_failed_frontier_counterfactual_replay.v1",
+  "semantic_closeout": {
+    "after": {
+      "accepted_source_identity_count_received": 1,
+      "artificial_aljazeera_duplicate_absent": true,
+      "combined_classification": "PASS",
+      "deterministic_classification": "PASS",
+      "evidence_document_id_count_received": 1,
+      "issues": [],
+      "material_failed_checks": [],
+      "omitted_claim_count_received": 3,
+      "prompt_sha256": "aef3c7d8516ea3c24f310425eef1f2ee1d57d25a9e8642ff2435e7597efd1cb6",
+      "reader_visible_prose_sha256": "3b9937f86d40f7bb10e544b66a3cdbcab185901c79a988a0c25f366a0c9ab2b2",
+      "review_sha256": "4b84c5ba8b611fb25a89fef319f115a50f0ceece404bcbb113ccffcd6bc2930b",
+      "semantic_decision": "PASS",
+      "semantic_review_contract_sha256": "c826b94bb9545beab12161c3dc61fc629c73f03efe674a90fe3e53661926b79f",
+      "semantic_status": "SUCCESS",
+      "supported_claim_count_received": 6
+    },
+    "before": {
+      "deterministic_classification": "PASS",
+      "empty_supported_claim_contract_proven": true,
+      "issue_codes": [
+        "unsupported_claims",
+        "reader_facing_prose"
+      ],
+      "prompt_sha256": "e81533baaa31c1893be53bb04e984dd150a0083eac26230dadcaf2f435bc3a47",
+      "rendered_citation_artifact_proven": true,
+      "review_sha256": "282b4f1109886662d82397d74d16015737fde56ef821ea28c6f44deea69af2ab",
+      "semantic_decision": "NEEDS_REVISION",
+      "semantic_status": "SUCCESS",
+      "supported_claim_count_received": 0
+    },
+    "new_model_calls": 0,
+    "semantic_receipt_reused_by_exact_prompt_hash": true
+  },
+  "source_hashes": {
+    "candidate": "ed5586f64aab345a88b5bff9eb313c14315aae35b07d911521f1558da17ad416",
+    "discovery_receipt": "2bf24e4d432c23eba84f3754bf438eb2233cf8351acb6d8e1c8c74ca83dc82f1",
+    "failure_matrix": "c865ded2f61011d44b14ddb72bc947182d220102fc1d32db223f61e53ef9f3b7",
+    "probe": "0ef7129d5053ad08fe1e61ef7d880c08bef80ed944aeb59d24e8a6f43fb379a2",
+    "revision_contract": "a274515a31abf2105f393b761254e5d2282901b0324c2a6bf60cfac327617fcf",
+    "semantic_receipt": "3503b3b744cfe93623484229d29261afb639f44bb5941dda79c548996f97c997",
+    "viability": "d156e4215884742a3b05dfb54aba581601a4d440ff90f46452e0066c7d0a6c29",
+    "worker_request": "1ee04ed8f1159aebfd15cc38f5ca5903b59de914f28de5ffa31240b0e326411b"
+  },
+  "task": "TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1"
+}

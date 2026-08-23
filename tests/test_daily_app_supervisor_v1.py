@@ -64,6 +64,35 @@ def _supervisor(
     return supervisor, calls
 
 
+def test_source_route_health_snapshot_persists_in_existing_output_state_and_reloads(
+    tmp_path,
+):
+    supervisor, _calls = _supervisor(tmp_path)
+    snapshot = {
+        "schema_version": "contentops.source_route_health.v1",
+        "routing_only": True,
+        "hosts": [
+            {
+                "normalized_host": "example.com",
+                "success_count": 1,
+                "failure_count": 0,
+            }
+        ],
+        "routes": [],
+        "sourceability_or_health_grants_factual_authority": False,
+        "sourceability_or_health_grants_publication_authority": False,
+    }
+
+    persisted = supervisor._persist_source_route_health_state(
+        {"source_route_health": snapshot}
+    )
+    restarted, _calls = _supervisor(tmp_path)
+
+    assert persisted == snapshot
+    assert restarted._load_source_route_health_state() == snapshot
+    assert not (tmp_path / "store-2.sqlite3").exists()
+
+
 # --- Policy: deterministic bootstrap ---------------------------------------------
 
 

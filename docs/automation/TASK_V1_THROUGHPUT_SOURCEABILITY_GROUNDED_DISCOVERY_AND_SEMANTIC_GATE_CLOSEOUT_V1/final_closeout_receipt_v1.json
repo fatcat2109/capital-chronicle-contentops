@@ -1,0 +1,670 @@
+{
+  "capital_chronicle_interop": {
+    "capital_chronicle_mutated": false,
+    "coverage": {
+      "exact_current_packet_matches_failed_40": 0,
+      "exact_current_packet_matches_held_453": 0,
+      "family_compatibility_is_not_packet_availability_or_authority": true,
+      "family_coverage": [
+        {
+          "authority_granted_by_family_compatibility": false,
+          "blocker_codes": [],
+          "family_compatible_failed_story_count": 20,
+          "family_compatible_story_type_counts": {
+            "data_release": 2,
+            "market_move": 11,
+            "regulatory_fiscal_event": 7
+          },
+          "family_id": "story_scoped_publication_evidence_v1",
+          "upstream_status": "SUPPORTED"
+        },
+        {
+          "authority_granted_by_family_compatibility": false,
+          "blocker_codes": [
+            "reporting_permission_not_granted",
+            "public_source_url_mapping_incomplete",
+            "claim_unit_or_metric_mapping_incomplete"
+          ],
+          "family_compatible_failed_story_count": 13,
+          "family_compatible_story_type_counts": {
+            "data_release": 2,
+            "market_move": 11
+          },
+          "family_id": "governed_point_in_time_handoff_v1",
+          "upstream_status": "BLOCKED_PENDING_NEWSROOM_AUTHORITY_MAPPING"
+        },
+        {
+          "authority_granted_by_family_compatibility": false,
+          "blocker_codes": [
+            "narrative_context_not_numeric_truth",
+            "story_scoped_reporting_authority_required"
+          ],
+          "family_compatible_failed_story_count": 11,
+          "family_compatible_story_type_counts": {
+            "data_release": 2,
+            "geopolitical_event": 2,
+            "regulatory_fiscal_event": 7
+          },
+          "family_id": "official_catalyst_sidecars_hb8",
+          "upstream_status": "CONTEXT_ONLY"
+        },
+        {
+          "authority_granted_by_family_compatibility": false,
+          "blocker_codes": [
+            "headline_context_not_source_clearance",
+            "headline_context_not_numeric_truth",
+            "primary_source_required"
+          ],
+          "family_compatible_failed_story_count": 13,
+          "family_compatible_story_type_counts": {
+            "geopolitical_event": 2,
+            "market_move": 11
+          },
+          "family_id": "headline_and_x_sidecars",
+          "upstream_status": "CONTEXT_ONLY"
+        },
+        {
+          "authority_granted_by_family_compatibility": false,
+          "blocker_codes": [
+            "real_regime_undetermined",
+            "candidate_only_no_forecast_authority",
+            "story_scoped_reporting_authority_required"
+          ],
+          "family_compatible_failed_story_count": 13,
+          "family_compatible_story_type_counts": {
+            "data_release": 2,
+            "market_move": 11
+          },
+          "family_id": "macro_state_phase_b",
+          "upstream_status": "CONTEXT_ONLY"
+        },
+        {
+          "authority_granted_by_family_compatibility": false,
+          "blocker_codes": [
+            "source_specific_timestamp_mapping_required",
+            "claim_permission_mapping_required",
+            "citation_mapping_required"
+          ],
+          "family_compatible_failed_story_count": 11,
+          "family_compatible_story_type_counts": {
+            "data_release": 2,
+            "geopolitical_event": 2,
+            "regulatory_fiscal_event": 7
+          },
+          "family_id": "weather_energy_sanctions_trade_calendar",
+          "upstream_status": "BLOCKED_PENDING_NEWSROOM_AUTHORITY_MAPPING"
+        }
+      ],
+      "story_scoped_supported_family_compatible_failed_stories": 20,
+      "story_scoped_supported_family_compatible_fraction": "20/40"
+    },
+    "expected_utility": {
+      "current_realized_failed_story_authority_coverage": "0/40",
+      "current_realized_held_authority_coverage": "0/453",
+      "expected_request_or_model_savings": "UNMEASURED_UNTIL_FRESH_EXACT_STORY_BOUND_PACKETS_EXIST_AND_A_REPLAY_IS_RUN",
+      "maximum_observed_family_compatible_failed_story_ceiling": "20/40",
+      "ordinary_public_evidence_path_remains_available_when_packet_absent": true
+    },
+    "requirements_packet_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\CC_CONTENTOPS_PUBLICATION_INTEROP_REQUIREMENTS_V1.md",
+    "requirements_packet_sha256": "f2e1dd9094242f82e57d1bdc7b24d723d414017799c2a572340ffc62dde2a1ea",
+    "upstream_authority": {
+      "capital_chronicle_file_write_performed": false,
+      "checkout_or_branch_mutation_performed": false,
+      "commit": "7819ad53347bab6ae5023233b20c48ebb222bd60",
+      "database_opened": false,
+      "exact_commit_object_verified": true,
+      "local_checkout_head_before_and_after": "d402868034988c2d9a1dedebd99eceddb32b5f73",
+      "local_checkout_status_before_and_after": "CLEAN",
+      "provider_or_model_calls": 0,
+      "repository": "fatcat2109/Headline-Raw-data-json"
+    }
+  },
+  "cc_producer_authority_gap_is_only_remaining_blocker": false,
+  "classification": "DEGRADED_DAILY_OUTPUT_DEFICIT",
+  "codex_url_discovery": {
+    "accepted_canonical_content_sha256": [
+      "8d21ba0bee9145bf4fae5435343b495fbf12e0db2995e40edf7d2cb0e503d173"
+    ],
+    "accepted_raw_sha256": [
+      "499057e799b646ba66aa8dcc61f6a5aa479353f45119790b11a61b11e5c5097f"
+    ],
+    "browser_cdp": {
+      "chrome_ingestion_profile_used": false,
+      "edge_publication_profile_used": false,
+      "reason": "The governed no-auth HTTP loader retrieved publisher bytes for every bounded case. Later freshness rejection is not a client-rendering problem and a browser would not make stale evidence eligible.",
+      "status": "NOT_REQUIRED"
+    },
+    "candidate_urls_are_evidence": false,
+    "deterministically_accepted_document_count": 1,
+    "deterministically_retrieved_document_count": 4,
+    "economics": {
+      "codex_search_output_token_or_cost_receipt_available": false,
+      "codex_web_search_calls": 5,
+      "codex_web_search_query_count": 20,
+      "grounded_research_model_calls": 0,
+      "public_writes": 0,
+      "search_call_ids": [
+        "codex-web-search-20260823-batch-1",
+        "codex-web-search-20260823-batch-2",
+        "codex-web-search-20260823-batch-3",
+        "codex-web-search-20260823-batch-4",
+        "codex-web-search-20260823-batch-5"
+      ],
+      "unknown_write": 0
+    },
+    "recovered_case_count": 1
+  },
+  "economics_before_vs_after": {
+    "failed_day": {
+      "cost_receipt_present": false,
+      "grounded_research_calls": 14,
+      "grounded_research_tokens": 61759,
+      "network_reads_avoided": 82,
+      "network_requests": 117,
+      "public_retrieval_requests": 108
+    },
+    "fresh_final_four_opportunity_accounting": {
+      "cost_receipt_present": false,
+      "grounded_research_calls": 17,
+      "grounded_research_completion_tokens": 22184,
+      "grounded_research_prompt_tokens": 51553,
+      "grounded_research_total_tokens": 73737,
+      "network_reads_avoided": 100,
+      "network_requests": 110,
+      "official_requests": 9,
+      "public_retrieval_requests": 101,
+      "story_scoped_network_reads_avoided": 100,
+      "story_scoped_network_requests": 110,
+      "xhigh_worker_tokens": "NOT_EXPOSED"
+    },
+    "network_request_delta": -7,
+    "network_request_delta_fraction": -0.05982905982905983,
+    "total_execution_including_preserved_debug_attempts": {
+      "grounded_research_calls": 25,
+      "grounded_research_completion_tokens": 35611,
+      "grounded_research_prompt_tokens": 78961,
+      "grounded_research_total_tokens": 114572,
+      "story_scoped_network_reads_avoided": 118,
+      "story_scoped_network_requests": 146,
+      "viability_artifact_count": 6
+    }
+  },
+  "exact_residual_blockers": [
+    {
+      "code": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+      "detail": "Frontiers 2-4 ended before any evidence-viable editorial dispatch.",
+      "frontier_count": 3
+    },
+    {
+      "code": "DESKTOP_EDITORIAL_WORKER_ARTICLE_RETURN_CONTRACT_INVALID_AFTER_ONE_BOUNDED_REVISION",
+      "detail": "The sole evidence-viable story's XHIGH worker supplied prose under editorial_output rather than the required article object; the canonical builder therefore remained fail-closed after the one permitted same-worker revision.",
+      "frontier_count": 1
+    },
+    {
+      "code": "NO_EXACT_CURRENT_CC_PUBLICATION_PACKET_COVERAGE",
+      "detail": "Current CC packet coverage was 0/40 failed stories and 0/453 held identities, but this was not the only residual blocker.",
+      "frontier_count": 4
+    }
+  ],
+  "failed_40_root_cause": {
+    "exact_terminal_blockers": {
+      "HTTP Error 401: HTTP Forbidden": 4,
+      "HTTP Error 403: Forbidden": 5,
+      "HTTP Error 404: Not Found": 8,
+      "evidence_documents_missing": 39,
+      "minimum_trustworthy_evidence_missing": 39,
+      "public_source_candidate_request_budget_exhausted": 4,
+      "public_source_nonpublic_address_forbidden": 1,
+      "public_source_published_after_evaluation_cutoff": 1,
+      "public_source_redirect_authority_invalid": 15,
+      "public_source_request_budget_exhausted": 17,
+      "public_source_unavailable": 9,
+      "publisher_document_title_relevance_insufficient": 1,
+      "required_evidence_capability_missing:basic_attributed_facts": 39,
+      "required_evidence_capability_missing:credible_event_confirmation": 39,
+      "supported_claims_missing": 39
+    },
+    "failed_story_count": 40,
+    "held_identity_universe_count": 453,
+    "mode_lineage_distribution": {
+      "BREAKING_BRIEF": 23,
+      "DATA_OR_DOCUMENT_LENS>STANDARD_NEWS_ANALYSIS>BREAKING_BRIEF": 7,
+      "STANDARD_NEWS_ANALYSIS": 1,
+      "STANDARD_NEWS_ANALYSIS>BREAKING_BRIEF": 8,
+      "WHAT_THE_MARKET_IS_MISSING>STANDARD_NEWS_ANALYSIS>BREAKING_BRIEF": 1
+    },
+    "nonexclusive_distribution": {
+      "capability_mismatch_or_missing": 39,
+      "evidence_content_insufficiency": 39,
+      "freshness_failure": 1,
+      "not_attempted": 0,
+      "request_budget_exhaustion": 21,
+      "retrieval_or_access_failure": 24,
+      "semantic_gate_input_contract_failure": 1
+    },
+    "primary_distribution": {
+      "request_budget_exhaustion": 15,
+      "retrieval_or_access_failure": 24,
+      "semantic_gate_input_contract_failure": 1
+    }
+  },
+  "fresh_current_four_opportunity_rehearsal": {
+    "all_abstentions": {
+      "candidate_blocker_ledger_sha256": "17e6cf95f677da19b6d302df407395b0c06be2bca4da924178752dfbdb1be4ad",
+      "candidate_count": 40,
+      "evidence_blocker_distribution": {
+        "HTTP Error 401: HTTP Forbidden": 7,
+        "HTTP Error 403: Forbidden": 4,
+        "HTTP Error 404: Not Found": 9,
+        "evidence_documents_missing": 38,
+        "follow_up_material_delta_evidence_missing": 1,
+        "follow_up_previous_article_identity_missing": 1,
+        "minimum_trustworthy_evidence_missing": 38,
+        "official_evidence_document_0_stale_or_future": 1,
+        "public_source_candidate_request_budget_exhausted": 5,
+        "public_source_redirect_authority_invalid": 13,
+        "public_source_request_budget_exhausted": 13,
+        "public_source_unavailable": 14,
+        "required_evidence_capability_missing:basic_attributed_facts": 38,
+        "required_evidence_capability_missing:credible_event_confirmation": 38,
+        "supported_claims_missing": 38
+      },
+      "terminal_reason_distribution": {
+        "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|official_evidence_document_0_stale_or_future|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 2,
+        "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 403: Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 1,
+        "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 2,
+        "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 12,
+        "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing": 13,
+        "EVIDENCE_BLOCKED:follow_up_material_delta_evidence_missing|follow_up_previous_article_identity_missing": 1,
+        "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED": 1
+      },
+      "writer_blocker_distribution": {
+        "article_source_identity_reference_missing": 1
+      }
+    },
+    "attempted_distinct_story_count": 40,
+    "derivative_intent_hashes": [],
+    "frontier_count": 4,
+    "frontiers": [
+      {
+        "attempted_distinct_candidate_count": 7,
+        "bounded_revision_count": 1,
+        "classification": "NO_PUBLICATION",
+        "exact_next_blocker": "ALL_BOUNDED_CANDIDATES_EXHAUSTED",
+        "frontier": 1,
+        "official_requests": 2,
+        "public_requests": 29,
+        "worker_return_sha256": "2302830c43d5f1d978214f6899366a86c951bfd5bdd6c47b32551d94d6c4ca28"
+      },
+      {
+        "attempted_distinct_candidate_count": 10,
+        "bounded_revision_count": 0,
+        "classification": "NO_PUBLICATION",
+        "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+        "frontier": 2,
+        "official_requests": 2,
+        "public_requests": 24,
+        "worker_return_sha256": null
+      },
+      {
+        "attempted_distinct_candidate_count": 11,
+        "bounded_revision_count": 0,
+        "classification": "NO_PUBLICATION",
+        "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+        "frontier": 3,
+        "official_requests": 1,
+        "public_requests": 24,
+        "worker_return_sha256": null
+      },
+      {
+        "attempted_distinct_candidate_count": 12,
+        "bounded_revision_count": 0,
+        "classification": "NO_PUBLICATION",
+        "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+        "frontier": 4,
+        "official_requests": 4,
+        "public_requests": 24,
+        "worker_return_sha256": null
+      }
+    ],
+    "input_mode": "GENUINE_CURRENT_INPUT",
+    "qualified_article_hashes": [],
+    "qualified_article_records": [],
+    "qualified_count": 0,
+    "qualified_derivative_intent_count": 0,
+    "remaining_build_deficit": 4,
+    "remaining_held_identity_count": 363,
+    "rolling_input_sha256": "66976de7b03afbb7f9dc15684b5fa14d7e5a087e1497a60ddbf3b12012e8decf",
+    "xhigh_attempt_count": 1,
+    "xhigh_revision_count": 1,
+    "xhigh_worker_return_count": 1
+  },
+  "frozen_counterfactual_replay": {
+    "canonical_replay_result": {
+      "accepted_evidence_sha256": "2f9b2f5653d49d59835af5115969e532bee30eefc45f5d172f19e5326d1f9f70",
+      "article_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+      "classification": "PASS_PUBLICATION_PLAN_READY",
+      "package_payload_sha256": {
+        "discord": "9887cf89a0f2fd44f357715827098f81563653e962d19bc2151a233e0e0403b7",
+        "facebook_page": "f78be86a1690bc80333c72bf254a5865335b592208356a4416d0048d85e7d4e4",
+        "instagram_business": "965c960d2262c9aaea2f101cb8416fdb2160bb7ecbfae0cbb71ebe62de4a2861",
+        "linkedin": "3912787508a9ca931893f802e15da25350382d99cef243a3101e8aeb3f1c0257",
+        "telegram": "4de34b7091837645d804a1227d953fc84e4703ffa45a5a81bdd5e2c42565c64a",
+        "threads": "05555d0f4f671e4d9e3263dcc9ab16b0777676b6f9a067017f5f9944e7877cf0",
+        "x": "bcecac4cf503866d714d20e3dc21d2a1d15229a96ce1891516744d246d4c5141",
+        "youtube": "6b85993c6462c954c668994ee2c39f4592172e14024e43610c635cd9059d09f0"
+      },
+      "qualified_article_record": {
+        "accepted_evidence_ids": [
+          "public-secondary-391077ed98f0344511a3"
+        ],
+        "accepted_evidence_sha256": "2f9b2f5653d49d59835af5115969e532bee30eefc45f5d172f19e5326d1f9f70",
+        "article_body_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+        "article_identity": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+        "article_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\article_manifest_v1.json",
+        "attempt_run_id": "v1-frozen-throughput-counterfactual-replay",
+        "derivative_package_intent_count": 8,
+        "derivative_package_intents": [
+          {
+            "destination": "telegram",
+            "dispatch_state": "UNDISPATCHED",
+            "payload_sha256": "4de34b7091837645d804a1227d953fc84e4703ffa45a5a81bdd5e2c42565c64a"
+          },
+          {
+            "destination": "x",
+            "dispatch_state": "UNDISPATCHED",
+            "payload_sha256": "bcecac4cf503866d714d20e3dc21d2a1d15229a96ce1891516744d246d4c5141"
+          },
+          {
+            "destination": "discord",
+            "dispatch_state": "UNDISPATCHED",
+            "payload_sha256": "9887cf89a0f2fd44f357715827098f81563653e962d19bc2151a233e0e0403b7"
+          },
+          {
+            "destination": "linkedin",
+            "dispatch_state": "UNDISPATCHED",
+            "payload_sha256": "3912787508a9ca931893f802e15da25350382d99cef243a3101e8aeb3f1c0257"
+          },
+          {
+            "destination": "facebook_page",
+            "dispatch_state": "UNDISPATCHED",
+            "payload_sha256": "f78be86a1690bc80333c72bf254a5865335b592208356a4416d0048d85e7d4e4"
+          },
+          {
+            "destination": "instagram_business",
+            "dispatch_state": "UNDISPATCHED",
+            "payload_sha256": "965c960d2262c9aaea2f101cb8416fdb2160bb7ecbfae0cbb71ebe62de4a2861"
+          },
+          {
+            "destination": "threads",
+            "dispatch_state": "UNDISPATCHED",
+            "payload_sha256": "05555d0f4f671e4d9e3263dcc9ab16b0777676b6f9a067017f5f9944e7877cf0"
+          },
+          {
+            "destination": "youtube",
+            "dispatch_state": "UNDISPATCHED",
+            "payload_sha256": "6b85993c6462c954c668994ee2c39f4592172e14024e43610c635cd9059d09f0"
+          }
+        ],
+        "editorial_worker": {
+          "bounded_revision_count": 1,
+          "fresh": true,
+          "governed_input_hash": "306107790a72fd9a1941fe3f2482b618fc6104d97e8d2200b9757a68276ee27c",
+          "isolated": true,
+          "model": "gpt-5.6-sol",
+          "public_write_attempted": false,
+          "reasoning_effort": "XHIGH",
+          "resume_existing": false
+        },
+        "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+        "parent_window_id": "frozen-counterfactual-frontier-4",
+        "public_write_performed": false,
+        "qualification_blockers": [],
+        "qualified": true,
+        "record_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\qualified_article_record_v1.json",
+        "record_sha256": "ff818aa01d96f401a5a7871b334f0da409d188638765a31db38ae45ccce5fb80",
+        "resolved_article_mode": "",
+        "schema_version": "contentops.newsroom_qualified_article.v1",
+        "story_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+        "title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+        "unknown_write_count": 0,
+        "update_chain_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73"
+      },
+      "qualified_count": 1,
+      "qualified_derivative_intent_count": 8,
+      "remaining_build_deficit": 3
+    },
+    "economics": {
+      "canonical_counterfactual_resume_network_requests": 0,
+      "canonical_counterfactual_resume_new_model_calls": 0,
+      "failed_day_observed_grounded_research_calls": 14,
+      "failed_day_observed_grounded_research_tokens": 61759,
+      "failed_day_observed_network_requests": 117,
+      "failed_day_observed_public_retrieval_requests": 108,
+      "full_day_counterfactual_request_total": "NOT_CLAIMED_WITHOUT_RERUNNING_ALL_40",
+      "prior_codex_web_search_calls": 5,
+      "prior_codex_web_search_queries": 20,
+      "prior_discovery_proof_public_http_requests": 4
+    },
+    "frozen_universe": {
+      "attempted_distinct_story_count": 40,
+      "counterfactual_new_evidence_viable_story_count": 1,
+      "counterfactual_total_evidence_viable_story_count": 2,
+      "failed_story_count": 40,
+      "frontier_count": 4,
+      "held_identity_count": 453,
+      "original_evidence_viable_story_count": 1,
+      "rolling_input_sha256": "5ee6c7bc9428cc0efaa2fcb67abf05986657351cd07ce9a0cc9bd34ebac6c3da"
+    },
+    "receipt_sha256": "285499638c91013ae4911704a73cf58e1fa7b6779d82eb76c619b0ec4d90b36b",
+    "replay_kind": "DETERMINISTIC_COUNTERFACTUAL_NOT_NEW_PRODUCTION_DAY",
+    "safety": {
+      "fifth_automation_created": 0,
+      "public_writes": 0,
+      "publication_authority_granted_by_replay": false,
+      "publication_provider_writes": 0,
+      "unknown_write": 0
+    }
+  },
+  "receipt_sha256": "54693bf26df53f8bba360a5602735e3ed2d7ce7bf6fa8b434d69d6bce0fdc0d6",
+  "safety": {
+    "automation_enabled": false,
+    "branding_touched": false,
+    "capital_chronicle_mutated": false,
+    "fifth_routine_window_created": 0,
+    "master_merged": false,
+    "public_writes": 0,
+    "publication_provider_writes": 0,
+    "unknown_write": 0
+  },
+  "schema_version": "contentops.v1_throughput_sourceability_closeout_receipt.v1",
+  "semantic_gate": {
+    "after": {
+      "accepted_source_identity_count_received": 1,
+      "artificial_aljazeera_duplicate_absent": true,
+      "combined_classification": "PASS",
+      "deterministic_classification": "PASS",
+      "evidence_document_id_count_received": 1,
+      "issues": [],
+      "material_failed_checks": [],
+      "omitted_claim_count_received": 3,
+      "prompt_sha256": "aef3c7d8516ea3c24f310425eef1f2ee1d57d25a9e8642ff2435e7597efd1cb6",
+      "reader_visible_prose_sha256": "3b9937f86d40f7bb10e544b66a3cdbcab185901c79a988a0c25f366a0c9ab2b2",
+      "review_sha256": "4b84c5ba8b611fb25a89fef319f115a50f0ceece404bcbb113ccffcd6bc2930b",
+      "semantic_decision": "PASS",
+      "semantic_review_contract_sha256": "c826b94bb9545beab12161c3dc61fc629c73f03efe674a90fe3e53661926b79f",
+      "semantic_status": "SUCCESS",
+      "supported_claim_count_received": 6
+    },
+    "before": {
+      "deterministic_classification": "PASS",
+      "empty_supported_claim_contract_proven": true,
+      "issue_codes": [
+        "unsupported_claims",
+        "reader_facing_prose"
+      ],
+      "prompt_sha256": "e81533baaa31c1893be53bb04e984dd150a0083eac26230dadcaf2f435bc3a47",
+      "rendered_citation_artifact_proven": true,
+      "review_sha256": "282b4f1109886662d82397d74d16015737fde56ef821ea28c6f44deea69af2ab",
+      "semantic_decision": "NEEDS_REVISION",
+      "semantic_status": "SUCCESS",
+      "supported_claim_count_received": 0
+    },
+    "ownership_reconciliation": {
+      "authority_widened": false,
+      "desktop_high_primary_editorial_coordinator": true,
+      "deterministic_gate_remains_hard": true,
+      "nine_router_semantic_review_retained_as_hard": true,
+      "reason": "The reviewer independently checks factual support, contradictions, fabricated numbers or quotes, misleading framing, and severe coherence after native worker source rendering. It cannot override a deterministic blocker and grants no publication authority. The failure was its incomplete input projection, not duplicate publication authority.",
+      "semantic_review_cannot_override_deterministic_blockers": true
+    },
+    "receipt_sha256": "5758d13facb6110a2e5fd3be6bcba14cd0e8b7bad32cc69add4bb36273d521a2"
+  },
+  "source_artifact_sha256": {
+    "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/cc_publication_interop_audit_v1.json": "a68a03deb5ffe8305815faae12b893eb4d7467aef890e4ded346329d2f50855d",
+    "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/codex_url_discovery_recovery_v1.json": "13ee6af48e4d1b890d08dd23199f2f5313f501e55748c4f2acbff79269c00074",
+    "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/failed_40_sourceability_root_cause_matrix_v1.json": "3b88e89b34b68d12adc4ecc463340befcd8fdb27ffdc47cfb22f6c7b6d3699e7",
+    "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/fresh_current_4_32_zero_write_rehearsal/candidate_blocker_ledger_v1.json": "6a5bcd906833553960c2c2350d9647c403ab189915004c94d80bd07f388df796",
+    "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/fresh_current_4_32_zero_write_rehearsal/multi_frontier_floor_rehearsal_summary_v1.json": "2ba576814db4e9e71055ddfdfe4f05180ff984700e5607f5aa4d2a63fd17b9b2",
+    "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/frozen_counterfactual_replay_receipt_v1.json": "e0f39f5ad0e6deea23e52c60a6f0cd13b8c5e6ae97178f32f30cd6c79af3fb04",
+    "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/semantic_contract_exact_replay_v1.json": "432bee8351a818e60d9cfa8a9220113f4bbf1a5dd521257925a95047a30a9fb5"
+  },
+  "sourceability_ranking": {
+    "after_top_10": [
+      {
+        "cluster_id": "rolling-x-semantic-reserve-e92f63efbd5b026dd5d2",
+        "frontier": 1,
+        "rank": 5,
+        "score": 0.575
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-a00902cadff806c74749",
+        "frontier": 1,
+        "rank": 3,
+        "score": 0.55
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-031669f95edc2fbf88b0",
+        "frontier": 1,
+        "rank": 6,
+        "score": 0.245
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-1e2561393da01a752e13",
+        "frontier": 1,
+        "rank": 7,
+        "score": 0.245
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-96a23766aadf217a364a",
+        "frontier": 1,
+        "rank": 8,
+        "score": 0.245
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-b7e3f03f3b82629f4972",
+        "frontier": 1,
+        "rank": 9,
+        "score": 0.245
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-baf5702276efe942c10f",
+        "frontier": 1,
+        "rank": 10,
+        "score": 0.245
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-a15d3d6dd6d27424b6c1",
+        "frontier": 2,
+        "rank": 7,
+        "score": 0.245
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-10272fc02907c8ff716a",
+        "frontier": 3,
+        "rank": 3,
+        "score": 0.245
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-7a7be0c36344154fd126",
+        "frontier": 3,
+        "rank": 5,
+        "score": 0.245
+      }
+    ],
+    "before_top_10": [
+      {
+        "cluster_id": "rolling-x-global-cluster-2389ae677c80345c0134",
+        "frontier": 1,
+        "rank": 1,
+        "score": 0.5
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-fb86fa477b6e0d64591f",
+        "frontier": 1,
+        "rank": 2,
+        "score": 0.5
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-a00902cadff806c74749",
+        "frontier": 1,
+        "rank": 3,
+        "score": 0.5
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-78ae6d825aa367b19367",
+        "frontier": 1,
+        "rank": 4,
+        "score": 0.5
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-e92f63efbd5b026dd5d2",
+        "frontier": 1,
+        "rank": 5,
+        "score": 0.5
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+        "frontier": 2,
+        "rank": 1,
+        "score": 0.5
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-031669f95edc2fbf88b0",
+        "frontier": 1,
+        "rank": 6,
+        "score": 0.1
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-1e2561393da01a752e13",
+        "frontier": 1,
+        "rank": 7,
+        "score": 0.1
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-96a23766aadf217a364a",
+        "frontier": 1,
+        "rank": 8,
+        "score": 0.1
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-b7e3f03f3b82629f4972",
+        "frontier": 1,
+        "rank": 9,
+        "score": 0.1
+      }
+    ],
+    "ranking_grants_factual_numeric_cc_or_publication_authority": false
+  },
+  "target_classification": "PASS_V1_THROUGHPUT_SOURCEABILITY_AND_4_32_CLOSEOUT",
+  "target_classification_earned": false,
+  "task": "TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1"
+}

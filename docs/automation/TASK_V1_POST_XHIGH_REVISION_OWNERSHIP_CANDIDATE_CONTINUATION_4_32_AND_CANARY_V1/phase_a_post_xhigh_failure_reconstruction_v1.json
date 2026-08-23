@@ -1,0 +1,92 @@
+{
+  "schema_version": "contentops.v1_post_xhigh_failure_reconstruction.v1",
+  "task_label": "TASK_V1_POST_XHIGH_REVISION_OWNERSHIP_CANDIDATE_CONTINUATION_4_32_AND_CANARY_V1",
+  "source_evidence": {
+    "prior_phase_4_receipt": "docs/automation/TASK_V1_CURRENT_RESIDUAL_EVIDENCE_CLOSURE_4_32_AND_LIVE_CANARY_CONTINUATION_V1/phase_4_current_4_32_receipt_v1.json",
+    "raw_frontier_root": "artifacts/v1_current_residual_evidence_closure_4_32_resume_bound_20260822/frontier_1",
+    "raw_cycle": "artifacts/v1_current_residual_evidence_closure_4_32_resume_bound_20260822/frontier_1/canonical_zero_write_rehearsal_attempt_2/rolling_x_newsroom_cycle_evidence_v1.json",
+    "raw_worker_return": "artifacts/v1_current_residual_evidence_closure_4_32_resume_bound_20260822/frontier_1/editorial_worker_return_v1.json"
+  },
+  "selected_candidate": {
+    "rank": 2,
+    "cluster_id": "rolling-x-global-cluster-9cb92287baf88639151f",
+    "article_mode": "DATA_OR_DOCUMENT_LENS",
+    "evidence_document_id": "official-primary-febec2069fb860825efb",
+    "evidence_content_sha256": "febec2069fb860825efb3e7c98b3b7f2d3db508c22cca02771819d4386efa085",
+    "provided_evidence_capabilities": [
+      "basic_attributed_facts",
+      "credible_event_confirmation"
+    ]
+  },
+  "native_xhigh_binding": {
+    "governed_input_sha256": "6a8d55167aff5b90000ae652ef379da042d850baf6564d28ece76f41c0dc67ae",
+    "worker_return_logical_sha256": "bf6bd9a3fd711d4d9a9295aa6d374c07c41c8049160545cf75568bea0bfe8622",
+    "worker_model": "gpt-5.6-sol",
+    "worker_reasoning_effort": "XHIGH",
+    "worker_return_validation": "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
+    "institutional_edge_validation": "PASS",
+    "bounded_revision_count": 1,
+    "public_write_attempted": false
+  },
+  "post_return_review": {
+    "deterministic_hard_editorial_blockers": ["mode_declared"],
+    "deterministic_editorial_blockers": [
+      "lede_what_changed",
+      "lede_why_now",
+      "concise_nut_graf",
+      "mode_declared",
+      "mechanism_present",
+      "context_present",
+      "confirmation_condition",
+      "falsification_condition",
+      "named_next_catalysts",
+      "high_information_density"
+    ],
+    "semantic_decision": "NEEDS_REVISION",
+    "semantic_material_failed_checks": [
+      "material_claims_supported",
+      "material_evidence_matches",
+      "reader_facing_prose"
+    ],
+    "semantic_issue_codes": ["unsupported_claims", "pipeline_leakage"]
+  },
+  "unauthorized_final_writer_fallback": {
+    "legacy_role": "rolling_x_editorial_revision",
+    "failure_status": "FAILED_ROUTER",
+    "sanitized_router_failure": {
+      "terminal_disposition": "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED",
+      "budget_exhausted_reason": null,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)",
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "raw_provider_error_persisted": false,
+      "raw_provider_output_persisted": false
+    },
+    "finding": "A valid native-XHIGH article was routed to a 9Router final-writing revision despite the worker already having consumed its sole bounded revision. This contradicts the same-worker ownership contract."
+  },
+  "safety_proof": {
+    "classification": "NO_PUBLICATION",
+    "public_write_performed": false,
+    "publishing_adapter_called": false,
+    "unknown_write_detected": false
+  },
+  "correction_classification": {
+    "CURRENTLY_PROVEN_AND_REUSE": [
+      "native XHIGH governed-input and institutional-edge binding",
+      "deterministic and semantic validation",
+      "same-opportunity distinct-candidate continuation",
+      "Gemini Pro/Flash research and semantic-review routing"
+    ],
+    "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY": [
+      "the prior frontier's exact H.4.1 evidence and worker return; it is reproduction evidence only"
+    ],
+    "NEW_IMPLEMENTATION_GAP": [
+      "post-XHIGH revision ownership incorrectly reaches the 9Router article-revision role instead of issuing a same-worker revision contract or terminalizing the candidate after its one-revision ceiling"
+    ],
+    "SUPERSEDED_DO_NOT_REUSE": [
+      "9Router final-article rewriting after a valid native-XHIGH return",
+      "fresh replacement XHIGH workers for a pending same-worker revision"
+    ]
+  }
+}

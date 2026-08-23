@@ -1,43 +1,51 @@
-# Codex Desktop V1 Newsroom Operator
+# Desktop-Primary Hybrid Codex V1 Newsroom Operator
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_V1_CODEX_EXECUTION_CONTRACT`
 
-## 1. Critical truth boundary
+## 1. Proven hybrid invocation boundary
 
-This document defines the intended native Codex execution contract. It does **not** prove that Codex Automations currently exist on the host.
+Desktop standalone fresh-run Automations are the primary routine V1 heavy-editorial brain behind
+the canonical article-builder seam. The accepted same-Italy proof established:
 
-Repository configuration != host Automation truth.
+- one fresh standalone `gpt-5.6-sol / HIGH` Desktop coordinator;
+- exactly one fresh isolated `gpt-5.6-sol / XHIGH` final writer;
+- one bounded same-worker revision;
+- exact governed-input and native-worker receipt binding;
+- deterministic source, factual/numeric, institutional, SEO, usefulness, packaging, and readiness
+  validation after return;
+- zero publication authority, zero public/provider writes, and `UNKNOWN_WRITE=0`.
 
-Until actual supported Codex inventory proves otherwise, use:
+The official ChatGPT-authenticated Codex App Server/SDK path remains proven for bounded fallback
+after an exact missed/failed Desktop primary, immediate direct invocation, and benchmarking. It is
+not a racing second routine scheduler.
 
-`UNPROVEN_HOST_AUTOMATION_STATE`
-
-Do not claim `READY`, `PAUSED`, `ENABLED`, or unattended execution merely because this file lists intended tasks.
-
-`live_contentops/codex_desktop_newsroom_operator_v1.py` is continuity/routing support. It is not a scheduler, Desktop bridge, model bridge, or automatic host-task creator.
-
-FDA-G currently has no proven direct native Codex invocation path.
+`live_contentops/codex_desktop_newsroom_operator_v1.py` owns canonical hybrid run identity and the
+small deterministic arbitration. It is not a scheduler, public-write bridge, or authority grant.
 
 ## 2. Owner output contract
 
-BUILD/PROOF:
+IMMEDIATE CANARY:
 
-`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES minimum per newsroom production day`
+`one useful current zero-write article + eight derivative intents + JIT nine-surface readiness`
+
+POST-CANARY THROUGHPUT:
+
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
 
 FINAL V1:
 
 `5–8 PUBLISHED ARTICLES per newsroom production day`
 
-Candidate-level abstention remains valid. A whole production day below the active floor is degraded unless an exact hard external blocker is proven.
-
-No filler. No truth/evidence/numeric/rights/permission weakening.
+Candidate-level abstention remains valid. A whole production day below the active floor is degraded
+unless an exact hard external blocker is proven. No filler. No truth, evidence, numeric, rights, or
+permission weakening.
 
 ## 3. Production-day windows
 
-Intended routine schedule:
+Routine schedule policy:
 
-| Group | Intended Automation | Bangkok recurrence |
+| Group | Window identity | Bangkok recurrence |
 |---|---|---|
 | London | `V1 Newsroom — London 1700` | Monday–Friday 17:00 |
 | New York | `V1 Newsroom — New York 2100` | Monday–Friday 21:00 |
@@ -46,40 +54,44 @@ Intended routine schedule:
 
 Timezone: `Asia/Bangkok`.
 
-The 01:00 opportunity belongs to the prior newsroom production day. Production accounting must use deterministic `newsroom_production_day_id` semantics, not a naive local calendar date.
-
-Do not create a fifth routine task merely to satisfy the floor.
+The 01:00 opportunity belongs to the prior newsroom production day. Production accounting must use
+deterministic `newsroom_production_day_id` semantics, not a naive local calendar date. Do not create
+a fifth routine window.
 
 ## 4. Model roles
 
-Routine coordinator:
+Existing V1 runtime coordinator:
 
 `gpt-5.6-sol / HIGH`
+
+Primary routine coordinator:
+
+one fresh standalone Desktop `gpt-5.6-sol / HIGH` run per actual opportunity.
 
 Final editorial worker:
 
 one fresh isolated `gpt-5.6-sol / XHIGH` worker for each warranted final canonical article.
 
-Grounded research/evidence model policy remains current repo authority and grants zero factual/numeric/permission/public-write authority to model output.
+The grounded research/evidence model policy remains current repository authority and grants zero
+factual, numeric, permission, or public-write authority to model output.
 
-HIGH owns runtime/state recovery, candidate preparation/ranking, evidence/research, readiness, deterministic validation, publication coordination, readback/reconciliation, observation scheduling, and terminal reporting.
-
-HIGH must not silently author the final canonical article.
+HIGH owns runtime/state recovery, candidate preparation/ranking, evidence/research, readiness,
+deterministic validation, publication coordination, readback/reconciliation, observation
+scheduling, and terminal reporting. HIGH must not silently author the final canonical article.
 
 ## 5. Daily deficit recovery contract
 
-Old `one opportunity = at most one article` behavior is superseded where it prevents the active daily floor.
+At each scheduled Desktop opportunity after explicit owner enablement:
 
-At each actual Codex Automation wake:
-
-1. resolve current newsroom production day;
+1. resolve the current newsroom production day;
 2. read qualified/published counts and remaining deficit;
 3. recover/reconcile existing state and require `UNKNOWN_WRITE=0`;
-4. load current candidate universe using durable cutoff/evaluated/update-chain memory;
+4. load the current candidate universe using durable cutoff/evaluated/update-chain memory;
 5. walk strong candidates and applicable editorial modes;
-6. for each candidate that reaches the article boundary, create one fresh isolated XHIGH worker;
+6. for each candidate that reaches the article boundary, invoke one fresh isolated XHIGH worker;
 7. persist each qualified article/package result;
-8. continue only until current cumulative expected progress is restored, bounded candidate/evidence universe is exhausted, bounded cost/retry limits are reached, or a hard external blocker occurs;
+8. continue only until cumulative expected progress is restored, the bounded universe is exhausted,
+   bounded cost/retry limits are reached, or a hard external blocker occurs;
 9. persist deficit before/after and terminal reasons.
 
 Do not loop forever or repeatedly research unchanged terminal candidates.
@@ -99,60 +111,69 @@ Canonical modes:
 
 Quiet-day lower-rung modes are required before treating the usable universe as exhausted.
 
-## 7. Evidence/authority rules
+## 7. Evidence and authority rules
 
 Evidence burden follows claim ambition.
 
-One exact current authentic official primary source may support a narrow attributed breaking fact. Broader causal, market, valuation, forecast, scenario, probability, regime, or proprietary numeric claims require stronger authority/evidence.
+One exact current authentic official primary source may support a narrow attributed breaking fact.
+Broader causal, market, valuation, forecast, scenario, probability, regime, or proprietary numeric
+claims require stronger authority/evidence.
 
 Context/discovery and governed internal Core Analyzer material are not publication permission.
 
-Each XHIGH worker receives only bounded accepted evidence/authority/context and an exact governed-input hash. It receives zero factual, numeric, CC, permission, gate, or public-write authority.
+Each XHIGH request receives only bounded accepted evidence/authority/context, an exact governed-input
+hash, the full strict canonical article transport schema, and provider developer instructions. It
+receives zero factual, numeric, Capital Chronicle, permission, gate, or public-write authority.
 
 No legacy final-writer fallback.
 
-## 8. Intended reusable Automation prompt
+## 8. Desktop-primary request contract
 
 Use current repository authority; do not embed stale branch SHAs.
 
 ```text
-Read AGENTS.md, the current authority/supersession map, root V3 North Star/Master Plan, the current V1 pointer, and docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as the native V1 coordinator on gpt-5.6-sol / HIGH. Resolve the current newsroom production day and active build/final output contract. Recover/reconcile current state, require UNKNOWN_WRITE=0, load fresh current intake/cutoff/update-chain memory, evaluate the candidate universe and full useful editorial spectrum, acquire claim-appropriate evidence, and pursue bounded deficit recovery rather than treating one candidate abstention as whole-day success. For every candidate that genuinely reaches the final-article boundary, create exactly one fresh isolated gpt-5.6-sol / XHIGH editorial worker with only the bounded governed packet and exact input hash; grant it zero factual/numeric/CC/permission/public-write authority. HIGH resumes deterministic validation and zero-write or authorized publication lifecycle after each return. Do not manufacture filler, weaken evidence, create a fifth routine task, invent host Automation state, or perform public writes without exact owner authority.
+Resolve the current newsroom production day and active output contract. Recover/reconcile state and require UNKNOWN_WRITE=0. Run as a fresh standalone Desktop gpt-5.6-sol / HIGH coordinator. At a genuinely qualified article boundary, start exactly one fresh isolated gpt-5.6-sol / XHIGH worker with only the bounded governed packet, exact input hash, full strict article output schema, and developer instructions. Persist a secret-free worker receipt before product validation. If deterministic validation returns concrete repair deltas, allow at most one bounded revision on the same worker; never blind-retry or create a replacement worker. The coordinator and worker have zero factual/numeric/CC/permission/gate/public-write authority. Deterministic validation and the existing V1 publication coordinator resume after return. Do not manufacture filler, weaken evidence, create a fifth window, start an SDK fallback after accepting Desktop primary, or perform public writes without exact owner authority.
 ```
 
-## 9. Actual Automation setup/inventory rule
+## 9. Desktop Automation and SDK arbitration rule
 
-Before claiming routine execution is available, prove on the installed Codex product/host:
+Current supported host truth proves exactly four native Automation objects, all `PAUSED`, with the
+four schedules above and `gpt-5.6-sol / HIGH`. Their prompt hash differs from the current configured
+intent, and the supported surface exposed no run-now action. The accepted proof is therefore one
+fresh manual standalone Desktop run, not calendar-time execution.
 
-- Automations supported yes/no;
-- exact ContentOps Automations found;
-- names/schedules/timezone;
-- project/repo/worktree target;
-- model/reasoning effort;
-- prompt/thread identity;
-- active/paused/absent state;
-- unattended behavior where supported;
-- ability of HIGH coordinator to create fresh isolated XHIGH workers.
+Before any enablement, Jim/ChatGPT must accept the exact zero-write canary and the host prompts must
+be normalized without creating a fifth object. No task is enabled by this contract.
 
-If supported programmatic Automation management is unavailable, stop with exact owner UI setup instructions. Do not fake success in repo docs.
+Hybrid arbitration uses one canonical identity over runtime run, production day, opportunity,
+story, and governed input. Accepted Desktop primary wins inside its valid window. SDK fallback may
+start only after an exact missed/failed/expired primary condition. Once SDK fallback starts, late
+Desktop completion is suppressed and may create neither a duplicate article nor a public object.
+Terminal content-gate failure does not authorize provider shopping.
 
 ## 10. Material-event wake
 
-FDA-G material-event detection/priority does not prove immediate Codex wake.
-
-Until actual supported execution is demonstrated, classify:
-
-`MATERIAL_EVENT_CODEX_WAKE_NOT_IMPLEMENTED`
+FDA-G material-event detection may prioritize existing-runtime work. It grants neither extra model
+turns nor public-write authority and bypasses no deterministic gate.
 
 Do not add a credential/access-token/API Codex bridge without a separate explicit owner grant.
 
-## 11. Build/publication safety
+## 11. Build and publication safety
 
-Current build bridge proof remains `SHADOW_ONLY / ZERO PUBLIC WRITE` unless a separate exact canary grant is active.
+The current provider and canary proof is `ZERO PUBLIC WRITE`. It does not publish, create externally
+visible drafts, dispatch derivatives, mutate public account identity, reset production state, or
+authorize blind retry of ambiguous writes.
 
-Do not publish, create externally visible drafts, dispatch derivatives, inspect raw secrets/session data, mutate public account identity, reset production store, or blind-retry ambiguous writes.
+`UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`
 
-## 12. Final acceptance of routine Codex execution
+## 12. Current proof and remaining acceptance
 
-Routine Codex execution is accepted only when actual host evidence proves the Automation objects and at least one real zero-write Automation invocation reaches current FDA-G state and returns a truthful terminal result.
+The same-Italy Desktop-primary hybrid proof is accepted as
+`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`. The official SDK proof remains
+preserved as fallback/direct/benchmark capability evidence. The Desktop proof establishes one exact
+useful zero-write vertical; it does not prove calendar-time Automation execution,
+production-grade throughput, or publication authority.
 
-Automation invocation PASS and article qualification PASS are separate claims.
+Next: Jim/ChatGPT audits the exact article and nine-surface plan. No task enablement, second article,
+public write, or 4/32 start is authorized. The 4/32 gate remains required before production-grade
+daily-yield or unattended routine-operation claims. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.

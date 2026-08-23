@@ -1,0 +1,51 @@
+{
+  "compatibility_injection_used": true,
+  "router_summary": null,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+      "reason": "Focused compatibility injection.",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+      "reason": "Focused compatibility injection.",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-ec66ffa3bc94e727fc18",
+      "reason": "Focused compatibility injection.",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2",
+      "reason": "Focused compatibility injection.",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-eb073f48d2dfab020a66",
+      "reason": "Focused compatibility injection.",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-f539eca0ae6329386c01",
+      "reason": "Focused compatibility injection.",
+      "story_type": "geopolitical_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-a0e413cb1a408049d487",
+      "reason": "Focused compatibility injection.",
+      "story_type": "regulatory_fiscal_event"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-global-cluster-0a280ef9fbfaf4661847": "market_move",
+    "rolling-x-global-cluster-590f7fc35e0d8e478936": "market_move",
+    "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2": "market_move",
+    "rolling-x-global-cluster-ec66ffa3bc94e727fc18": "general_public_event",
+    "rolling-x-semantic-reserve-a0e413cb1a408049d487": "regulatory_fiscal_event",
+    "rolling-x-semantic-reserve-eb073f48d2dfab020a66": "regulatory_fiscal_event",
+    "rolling-x-semantic-reserve-f539eca0ae6329386c01": "geopolitical_event"
+  }
+}

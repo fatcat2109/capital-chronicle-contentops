@@ -1,0 +1,458 @@
+{
+  "canonical_input_hash": "99a6d701f833d7b738e8481dd4802a7ce4a8fef8082c57bb3cb079a278eae856",
+  "complete_input_coverage": false,
+  "counts": {
+    "accepted": 12,
+    "accepted_in_full_rolling_intake": 499,
+    "duplicates": 0,
+    "eligible_after_continuity": 499,
+    "rejected": 13444,
+    "source_files": 67,
+    "source_rows": 13943
+  },
+  "cutoff_time_utc": "2026-08-22T22:14:27.784365Z",
+  "headlines": [
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942220358783086",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Bessent says US to apply measures never seen on Iran: https://t.co/scWjJhANPq ( TS: Aug 21 2026, 1:08 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200c\u200d\u200b\u200b\u200b\u200b\u200c\u200b\u200d\u200d\u200d\u200c\u200b\u200b\u200c\u200d\u200b\u200c\u200b\u200c https://t.co/UmFUQXA2OI",
+        "official_source_urls": [
+          "https://www.reuters.com/world/middle-east/bessent-says-us-apply-measures-never-seen-iran-2026-08-13"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942220358783086"
+      },
+      "headline_id": "cc-x-headline-a2b5d022e91e0111c7b66ac8",
+      "source_locator": {
+        "line": 232,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:20:47Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090943073958367499",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Key House caucus leaders target Supreme Court, Senate filibuster: https://t.co/K7kqZl0ql7 ( TS: Aug 21 2026, 1:18 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200d\u200d\u200d\u200c\u200b\u200c\u200d\u200b\u200c\u200c\u200d\u200c\u200c\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d https://t.co/ZQlWgU3jf6",
+        "official_source_urls": [
+          "https://www.politico.com/live-updates/2026/06/24/congress/dem-caucuses-target-scotus-00973895"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090943073958367499"
+      },
+      "headline_id": "cc-x-headline-db7ee41d7329c28b17e465cd",
+      "source_locator": {
+        "line": 222,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:24:11Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090943300257935526",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Judge allows Trump administration to end deportation protections for thousands of Ethiopians: https://t.co/GhgXZaAMmj ( TS: Aug 21 2026, 1:18 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200c\u200b\u200b\u200b\u200b\u200b\u200c\u200d\u200b\u200c\u200b\u200c\u200c\u200c\u200b\u200c\u200c\u200b\u200b\u200c\u200c\u200d\u200c\u200d https://t.co/Czrwm2VCY2",
+        "official_source_urls": [
+          "https://www.cnn.com/2026/08/18/politics/judge-allows-trump-administration-to-end-tps-ethiopians"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090943300257935526"
+      },
+      "headline_id": "cc-x-headline-66be3ffe9da243c2ada4ec04",
+      "source_locator": {
+        "line": 220,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:25:05Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090943610485428324",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "FBI: 2025 had biggest violent-crime drop in 90 years: https://t.co/yLTauT9qp5 ( TS: Aug 21 2026, 1:19 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200c\u200b\u200b\u200c\u200b\u200b\u200d\u200c\u200d\u200b\u200b\u200d\u200b\u200d\u200c\u200c\u200b\u200d\u200b\u200c\u200d https://t.co/Wprl0jG5mw",
+        "official_source_urls": [
+          "https://www.axios.com/2026/08/18/fbi-violent-crime-drop-2025"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090943610485428324"
+      },
+      "headline_id": "cc-x-headline-eb2db0fa6b0ed6dc6f83461d",
+      "source_locator": {
+        "line": 216,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:26:19Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090947274998419464",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "https://t.co/METXTdheT5 ( TS: Aug 21 2026, 5:12 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200c\u200c\u200c\u200d\u200b\u200d\u200b\u200d\u200c\u200b\u200b\u200d\u200b\u200b\u200b\u200b\u200c\u200c\u200b\u200c\u200d\u200d\u200b\u200c\u200c\u200c https://t.co/THR6QPgSxG",
+        "official_source_urls": [
+          "https://www.bloomberg.com/news/articles/2026-08-21/us-business-activity-expands-at-the-fastest-pace-since-2022"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090947274998419464"
+      },
+      "headline_id": "cc-x-headline-c76a03381f9099f0c0926354",
+      "source_locator": {
+        "line": 186,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:40:52Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091067162547134474",
+      "external_content": {
+        "author_handle": "ChinaBeigeBook",
+        "follow_up_data_need_candidates": [
+          "official_energy_inventory_or_opec_release",
+          "official_inflation_release"
+        ],
+        "headline_text": "China Keeps Oil Buying in Check as Crude Prices Stay Above $90 https://t.co/g4ZXcN5ogx",
+        "official_source_urls": [
+          "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "energy",
+          "geopolitics",
+          "inflation"
+        ],
+        "url_or_source_ref": "https://x.com/ChinaBeigeBook/status/2091067162547134474"
+      },
+      "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "source_locator": {
+        "line": 368,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T07:37:16Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090928214910611793",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Supreme Court Chief Justice Pauses Block On White House Ballroom Construction https://t.co/poqHBXYrze",
+        "official_source_urls": [
+          "https://www.zerohedge.com/political/supreme-court-chief-justice-pauses-block-white-house-ballroom-construction"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2090928214910611793"
+      },
+      "headline_id": "cc-x-headline-d9fb6c3096258690fc74b7c3",
+      "source_locator": {
+        "line": 159,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T22:25:08Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090934504378519942",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Mobility Data Flashes Warning Sign Along Pakistan's Iran-Linked Copper-Corridor https://t.co/68OLhzR58I",
+        "official_source_urls": [
+          "https://www.zerohedge.com/commodities/mobility-data-flashes-warning-sign-along-pakistans-iran-linked-copper-corridor"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2090934504378519942"
+      },
+      "headline_id": "cc-x-headline-1beed0ca82359a640bee63be",
+      "source_locator": {
+        "line": 162,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T22:50:08Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090940794211361032",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Buying May Not Beat Renting Until Retirement In Some Expensive Markets: Zillow https://t.co/dCMufdRyhx",
+        "official_source_urls": [
+          "https://www.zerohedge.com/personal-finance/buying-may-not-beat-renting-until-retirement-some-expensive-markets-zillow"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2090940794211361032"
+      },
+      "headline_id": "cc-x-headline-f1e3bd408950484fe494c8dd",
+      "source_locator": {
+        "line": 169,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:15:07Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090941142976311472",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "https://t.co/DYZUFPNsWN ( TS: Aug 21 2026, 12:29 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200b\u200c\u200d\u200d\u200c\u200d\u200b\u200b\u200d\u200b\u200c\u200c\u200d\u200b\u200d\u200d\u200c\u200b\u200c\u200d\u200c\u200d\u200c\u200c\u200c https://t.co/ThUnQQidXU",
+        "official_source_urls": [
+          "https://www.washingtonexaminer.com/opinion/columnists/4652360/trump-dave-mccormick-jamie-dimon-manufacturing-push-pennsylvania/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090941142976311472"
+      },
+      "headline_id": "cc-x-headline-829c643b81081ac6d09ca1b5",
+      "source_locator": {
+        "line": 164,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:16:30Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942029811585194",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "It Was a Great Scam While It Lasted: https://t.co/9X1QeWHV6D ( TS: Aug 21 2026, 1:07 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200c\u200c\u200d\u200c\u200b\u200d\u200d\u200c\u200b\u200b\u200b\u200d\u200d\u200d\u200d\u200d\u200b\u200d\u200c\u200d\u200d\u200d\u200c https://t.co/kfJZkHpTUh",
+        "official_source_urls": [
+          "https://www.nytimes.com/2026/08/13/opinion/us-tariffs-economy-trade-transshipment-scam.html"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942029811585194"
+      },
+      "headline_id": "cc-x-headline-0f1796c2f3b1f8b7086f641e",
+      "source_locator": {
+        "line": 234,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:20:02Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090942163563745348",
+      "external_content": {
+        "author_handle": "TrumpTruthOnX",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "WAYNE ROOT: The Biggest Development of My 17th Interview with President Donald J. Trump is Obvious- Liberal Heads are Exploding and the Liberal Media is Freaking Out: https://t.co/5PB8CsJZiP ( TS: Aug 21 2026, 1:07 PM ET )\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200d\u200c\u200b\u200b\u200b\u200c\u200d\u200d\u200b\u200d\u200b\u200c\u200b\u200c\u200c\u200d\u200d\u200c\u200b\u200c\u200b\u200b\u200b\u200b\u200b\u200c\u200b\u200b\u200b\u200b\u200d\u200c\u200c\u200b\u200b\u200c https://t.co/DTKbXFVwNn",
+        "official_source_urls": [
+          "https://www.thegatewaypundit.com/2026/08/wayne-root-biggest-development-my-17th-interview-president/"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/TrumpTruthOnX/status/2090942163563745348"
+      },
+      "headline_id": "cc-x-headline-79719080cdc51c8d232314e6",
+      "source_locator": {
+        "line": 233,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-21T23:20:34Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    }
+  ],
+  "prepared_candidate_subset": true,
+  "rejection_counts": {
+    "source_timestamp_before_window": 13444
+  },
+  "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_files": [
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2020_02_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_21.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_10_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2024_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_01_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_02_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_04_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_03_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_01.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_03.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_21.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_23.jsonl"
+  ],
+  "unique_headline_ids": [
+    "cc-x-headline-a2b5d022e91e0111c7b66ac8",
+    "cc-x-headline-db7ee41d7329c28b17e465cd",
+    "cc-x-headline-66be3ffe9da243c2ada4ec04",
+    "cc-x-headline-eb2db0fa6b0ed6dc6f83461d",
+    "cc-x-headline-c76a03381f9099f0c0926354",
+    "cc-x-headline-b25c625dac499ab753cfa0a4",
+    "cc-x-headline-d9fb6c3096258690fc74b7c3",
+    "cc-x-headline-1beed0ca82359a640bee63be",
+    "cc-x-headline-f1e3bd408950484fe494c8dd",
+    "cc-x-headline-829c643b81081ac6d09ca1b5",
+    "cc-x-headline-0f1796c2f3b1f8b7086f641e",
+    "cc-x-headline-79719080cdc51c8d232314e6"
+  ],
+  "window_hours": 24.0,
+  "window_start_utc": "2026-08-21T22:14:27.784365Z"
+}

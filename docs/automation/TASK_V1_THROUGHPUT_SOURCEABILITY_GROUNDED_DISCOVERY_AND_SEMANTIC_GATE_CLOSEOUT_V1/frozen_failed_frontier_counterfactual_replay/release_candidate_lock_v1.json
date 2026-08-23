@@ -1,0 +1,103 @@
+{
+  "article_body_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+  "artifacts": {
+    "article_manifest_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\article_manifest_v1.json",
+      "sha256": "70fb65e380ffb84701cef9e6317e4c397047376ee3074e30140a036c53f1be69"
+    },
+    "canonical_article.html": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\canonical_article.html",
+      "sha256": "9a274caaded745b8960cf6858b3d6ca0dfa0ff3b2a67cd3f55a80ce4947e96cc"
+    },
+    "canonical_article.md": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\canonical_article.md",
+      "sha256": "0e23998e6a98609fae4c777f515e54765643baf865690e81850752bc9d2eff4c"
+    },
+    "delivery_only_media_delivery_only_editorial_card": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\delivery_only_editorial_card.png",
+      "sha256": "85b74773a0fc861ecd71ba7f5605374612b4f525bc93415ef66eeab78a646aee"
+    },
+    "editorial_quality_gate_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\editorial_quality_gate_v1.json",
+      "sha256": "764ac45887b1b5739902e0287da89d444b5e3985da5903ef93f0f199b1f10d71"
+    },
+    "editorial_seo_package_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\editorial_seo_package_v1.json",
+      "sha256": "b32bdb91da8583d1e641adda7e0f65e5b6cd250206169f2fec8709c8e2cf988f"
+    },
+    "grounded_support_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\grounded_support_v1.json",
+      "sha256": "42d3ba85fcb9e9b35c93a3e6ef576cadfd4b006152552b186abc9c7660689ad4"
+    },
+    "headline_intake_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\headline_intake_v1.json",
+      "sha256": "107e526463aee6510bcf0549e4dff864e7c73ede05ded8e318986db01544340d"
+    },
+    "idea_selection_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\idea_selection_v1.json",
+      "sha256": "3bc96205eac4e96bbe6b1557ea607ce869201df97f08364ab487bccc088ab485"
+    },
+    "llm_idea_ranking_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\llm_idea_ranking_v1.json",
+      "sha256": "4688efb71d1bf50fc56cb1d6bf9ba948fb0a22383a64f75334fc84f289c6a81f"
+    },
+    "media_manifest_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\media_manifest_v1.json",
+      "sha256": "5c6d828d4f4e05005f10db8ea19149e22084664cb376bcfd7ccb8ab17281fb7f"
+    },
+    "native_payloads_rehearsal_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\native_payloads_rehearsal_v1.json",
+      "sha256": "99afccfb4728b6e5c74ea73ca40ef778e61aae9a954d50da456fd521b07e0623"
+    },
+    "run_context_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\run_context_v1.json",
+      "sha256": "1a1422e992c2e0446747ddbf72918c9e9f8dce75b65a5eec8dc298b9a2e0a272"
+    },
+    "substack_browser_request_v1.json": {
+      "exists": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\substack_browser_request_v1.json",
+      "sha256": "41e76cec688d3a9a505ee5d50adba9fd336642c3056994727f2085e25f195ce6"
+    }
+  },
+  "delivery_only_media_sha256": {
+    "delivery_only_editorial_card": "85b74773a0fc861ecd71ba7f5605374612b4f525bc93415ef66eeab78a646aee"
+  },
+  "duplicate_hotspot_decision": {
+    "decision": "PASS_FIRST_VIABLE_RANKED_CLUSTER",
+    "publish_allowed": true
+  },
+  "editorial_seo_package_sha256": "339a37e28ce0b8098c6e6e5289e396cba46307157ecec426bb8b2fd25ba214e7",
+  "lock_sha256": "8daab5fe099c3570c4d17aa373f86c31f4270e1dc647cb402f23822f033dbada",
+  "media_sha256": {},
+  "payload_sha256": {
+    "discord": "9887cf89a0f2fd44f357715827098f81563653e962d19bc2151a233e0e0403b7",
+    "facebook_page": "f78be86a1690bc80333c72bf254a5865335b592208356a4416d0048d85e7d4e4",
+    "instagram_business": "965c960d2262c9aaea2f101cb8416fdb2160bb7ecbfae0cbb71ebe62de4a2861",
+    "linkedin": "3912787508a9ca931893f802e15da25350382d99cef243a3101e8aeb3f1c0257",
+    "telegram": "4de34b7091837645d804a1227d953fc84e4703ffa45a5a81bdd5e2c42565c64a",
+    "threads": "05555d0f4f671e4d9e3263dcc9ab16b0777676b6f9a067017f5f9944e7877cf0",
+    "x": "bcecac4cf503866d714d20e3dc21d2a1d15229a96ce1891516744d246d4c5141",
+    "youtube": "6b85993c6462c954c668994ee2c39f4592172e14024e43610c635cd9059d09f0"
+  },
+  "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
+  "public_write_performed": false,
+  "rolling_x_live_path_used": true,
+  "run_id": "v1-frozen-throughput-counterfactual-replay",
+  "schema_version": "contentops.text_image_release_candidate_lock.v1",
+  "source_packet_sha256": "2f9b2f5653d49d59835af5115969e532bee30eefc45f5d172f19e5326d1f9f70",
+  "task_label": "TASK_CONTENTOPS_ROLLING_24H_X_HEADLINES_TO_AUTONOMOUS_NEWSROOM_LIVE_V1",
+  "x_content_is_discovery_and_ranking_only": true
+}

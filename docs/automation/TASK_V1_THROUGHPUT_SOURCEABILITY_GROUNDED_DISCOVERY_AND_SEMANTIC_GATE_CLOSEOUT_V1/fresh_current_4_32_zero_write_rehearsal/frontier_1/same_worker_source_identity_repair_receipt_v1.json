@@ -1,0 +1,21 @@
+{
+  "bounded_revision_count": 1,
+  "failed_attempt_preserved": true,
+  "failed_blocker": "article_source_identity_reference_missing",
+  "failed_candidate_cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+  "failed_candidate_rank": 2,
+  "failed_cycle_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\fresh_current_4_32_zero_write_rehearsal\\frontier_1\\canonical_zero_write_rehearsal\\rolling_x_newsroom_cycle_evidence_v1.json",
+  "failed_cycle_sha256": "ef7b55cc671c70d841f7721fa4c1fbdbf9c552a6f91254bde5fff38866502c02",
+  "failed_terminal_reason": "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED",
+  "governed_input_hash": "b8c0efec398a9ab8d8fcd525f5604c129646b21e28095f08023a881fcb06d639",
+  "original_worker_return_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\fresh_current_4_32_zero_write_rehearsal\\frontier_1\\editorial_worker_return_v1.json",
+  "original_worker_return_sha256": "8b15430d79edc5a76ca008bd9b3a6912c5f6d37ab01182b1d147bec00f4814c1",
+  "public_write_count": 0,
+  "receipt_sha256": "04d0bd6171efee98937034dd117fb8a9a2e0d1c1c6f7fcdde13d8682119a4a2c",
+  "repair_scope": "ONE_FAILED_FRONTIER_ONE_SAME_WORKER_REVISION",
+  "revision_worker_return_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\fresh_current_4_32_zero_write_rehearsal\\frontier_1\\editorial_worker_revision_return_v1.json",
+  "revision_worker_return_sha256": "2302830c43d5f1d978214f6899366a86c951bfd5bdd6c47b32551d94d6c4ca28",
+  "same_worker_contract_verified": true,
+  "schema_version": "contentops.v1_rehearsal_same_worker_source_identity_repair.v1",
+  "unknown_write_count": 0
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "contentops.frozen_worker_transport_proof.v1",
+  "source_artifact": "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/fresh_current_4_32_zero_write_rehearsal/frontier_1/editorial_worker_revision_return_v1.json",
+  "source_worker_invoked_in_this_task": false,
+  "before": {
+    "top_level_envelope": "editorial_output",
+    "canonical_article_object_at_top_level": false,
+    "editorial_output_title_field": "canonical_editorial_headline",
+    "editorial_output_body_field": "article_body"
+  },
+  "after": {
+    "resolver": "resolve_article_transport_envelope",
+    "canonical_title_alias": "title",
+    "canonical_body_alias": "substack_body_markdown",
+    "title_lossless": true,
+    "body_lossless": true,
+    "facts_claims_urls_dates_or_causality_invented": false,
+    "editorial_revision_budget_consumed": false
+  },
+  "unchanged_validator_result": {
+    "status": "BLOCKED",
+    "exception_class": "GroundedArticleBuilderError",
+    "meaning": "representation mismatch is repaired mechanically, while the frozen semantic article still fails closed under the unchanged canonical validators"
+  },
+  "article_generated_in_this_task": false,
+  "publication_authority_granted": false,
+  "public_write_attempted": false
+}

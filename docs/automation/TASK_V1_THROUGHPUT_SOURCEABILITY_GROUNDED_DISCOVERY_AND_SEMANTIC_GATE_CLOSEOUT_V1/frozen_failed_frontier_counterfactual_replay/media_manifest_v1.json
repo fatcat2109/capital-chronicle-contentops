@@ -1,0 +1,43 @@
+{
+  "ai_generated_image": false,
+  "article_media_count": 0,
+  "article_media_optional": true,
+  "assets": [],
+  "contentops_built_or_source_backed_media": true,
+  "delivery_media_count": 1,
+  "delivery_only_assets": [
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\delivery_only_editorial_card.png",
+      "alt_text": "Capital Chronicle newsroom brief: Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+      "article_inclusion": false,
+      "asset_id": "delivery_only_editorial_card",
+      "canonical_article_media": false,
+      "caption": "Capital Chronicle delivery card for the governed article.",
+      "delivery_only": true,
+      "display_fallback_applied": false,
+      "display_font_identity": "C:/Windows/Fonts/arial.ttf",
+      "display_replacement_glyph_present": false,
+      "display_title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+      "generated_documentary_imagery": false,
+      "height": 1080,
+      "local_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\delivery_only_editorial_card.png",
+      "media_role": "delivery_only",
+      "mime_type": "image/png",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\delivery_only_editorial_card.png",
+      "provenance_status": "VERIFIED_SOURCE_METADATA_CONTENTOPS_RENDER",
+      "reader_facing_cta": "Read the full brief on Capital Chronicle",
+      "reader_facing_source_date": "August 21, 2026",
+      "rights_basis": "CONTENTOPS_OWNED_LAYOUT_SOURCE_METADATA_ONLY",
+      "sha256": "85b74773a0fc861ecd71ba7f5605374612b4f525bc93415ef66eeab78a646aee",
+      "source_label": "Aljazeera",
+      "source_page_url": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+      "source_published_at": "2026-08-21T13:47:26Z",
+      "source_title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+      "unicode_font_loaded": true,
+      "width": 1350
+    }
+  ],
+  "media_asset_count": 0,
+  "schema_version": "contentops.rolling_x_media_manifest.v1",
+  "status": "PASS"
+}

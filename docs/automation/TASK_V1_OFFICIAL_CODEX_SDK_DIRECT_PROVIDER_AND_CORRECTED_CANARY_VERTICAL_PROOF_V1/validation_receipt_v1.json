@@ -1,0 +1,28 @@
+{
+  "baseline_reproduction": {
+    "base_commit": "01883d666b93912147b0ba62b8e496a196d9114a",
+    "failures_reproduced_unchanged": [
+      "tests/test_evidence_gate_calibration_v1.py::test_e_deep_dive_downgrades_to_standard_when_cc_authority_is_unavailable",
+      "tests/test_rolling_x_grounded_article_media_builder_v1.py::test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review",
+      "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once"
+    ],
+    "security_scan_collection_error_reproduced_unchanged": "tests/test_security_scans.py:45 IndentationError"
+  },
+  "codegraph_check": "CODEGRAPH_CURRENT",
+  "focused_regression": {
+    "failed": 3,
+    "passed": 235,
+    "task_regressions_failed": 0
+  },
+  "new_file_ruff_check": "PASS",
+  "official_provider_unit_tests": {
+    "failed": 0,
+    "passed": 10
+  },
+  "repository_wide_pytest": {
+    "collection_status": "BLOCKED_BY_PREEXISTING_TEST_SECURITY_SCANS_INDENTATION_ERROR",
+    "task_code_collection_error": false
+  },
+  "schema_version": "contentops.official_codex_direct_provider_validation_receipt.v1",
+  "task": "TASK_V1_OFFICIAL_CODEX_SDK_DIRECT_PROVIDER_AND_CORRECTED_CANARY_VERTICAL_PROOF_V1"
+}

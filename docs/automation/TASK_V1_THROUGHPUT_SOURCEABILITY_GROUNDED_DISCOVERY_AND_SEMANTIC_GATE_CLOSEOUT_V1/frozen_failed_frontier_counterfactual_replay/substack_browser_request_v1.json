@@ -1,0 +1,29 @@
+{
+  "article_markdown_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\canonical_article.md",
+  "article_markdown_sha256": "0e23998e6a98609fae4c777f515e54765643baf865690e81850752bc9d2eff4c",
+  "body_markdown": "Al Jazeera reports that global crude oil prices rose following the announcement, with Brent crude and US crude both increasing on Thursday. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets) Al Jazeera also reports that US stock markets recorded their worst losses in three weeks on the Thursday after the announcement, with the Dow Jones and S&P 500 both closing lower. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets)\n\nWhat matters now is the sequence in the latest account: crude moved higher, US equities closed lower, and the Treasury announced a debt-buyback response intended to calm the market. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets) This is a useful cross-asset snapshot, but timing alone does not establish that the announcement explained every move.\n\n## The Treasury response\n\nThe Treasury action supplies the clearest reported mechanism. Al Jazeera reports that the US Treasury announced an emergency move to double buybacks of long-dated debt in an attempt to calm the market. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets) That distinction matters: the account establishes the stated purpose of the move while leaving its effectiveness unresolved.\n\n## The political response\n\nAl Jazeera reports that Iranian Foreign Minister Abbas Araghchi dismissed Trump's economic D-Day threats and called them a diversion from America's own crisis. [Aljazeera](https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets) His response belongs to the political record; it does not independently establish the merits of either side's broader position.\n\n## Sequence is not causation\n\nThe account places higher crude prices, lower US equities and the Treasury response around the announcement. Those observations establish direction, timing and the stated purpose of the buyback move. They do not isolate the announcement as the sole driver of oil, equity or debt-market conditions.\n\n## What would confirm or challenge the picture\n\nFresh market reporting showing the same directions would confirm that the cross-market pattern persisted beyond Thursday. A reversal in those directions would challenge that reading. Official Treasury detail on the buyback operation would confirm whether the announced move advanced, while a formal withdrawal or superseding notice would challenge it. These are observable checkpoints, not forecasts.",
+  "body_markdown_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+  "image_assets": [],
+  "publication_mode": "publish",
+  "publication_url": "https://capitalchronicle.substack.com/publish/post",
+  "required_readback": {
+    "in_body_visual_asset_ids": [],
+    "matching_body_markdown_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+    "matching_title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+    "minimum_editor_body_image_count": 0,
+    "publication_state": "publish",
+    "url_kind": "public_url"
+  },
+  "run_id": "v1-frozen-throughput-counterfactual-replay",
+  "safety": {
+    "browser_profile_values_recorded": false,
+    "cookies_recorded": false,
+    "raw_credentials_recorded": false,
+    "session_storage_recorded": false
+  },
+  "schema_version": "contentops.substack_supervised_browser_request.v1",
+  "status": "READY_FOR_SUPERVISED_BROWSER_ASSIST",
+  "subtitle": "Al Jazeera reported higher crude prices, the worst US equity losses in three weeks and an emergency Treasury move to double long-dated debt buybacks.",
+  "title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+  "visual_marker_order": []
+}

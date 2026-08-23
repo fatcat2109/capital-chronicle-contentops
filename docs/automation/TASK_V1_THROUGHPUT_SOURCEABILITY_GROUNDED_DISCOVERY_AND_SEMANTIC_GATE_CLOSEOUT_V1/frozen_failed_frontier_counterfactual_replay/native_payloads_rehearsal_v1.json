@@ -1,0 +1,127 @@
+{
+  "discord": {
+    "format": "newsroom_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 2000,
+    "text": "**Newsroom brief: Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks**\n\nAl Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.\n\n**Context:** The Treasury announced an emergency move to double long-dated debt buybacks in an attempt to calm the market.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+  },
+  "facebook_page": {
+    "format": "page_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 63206,
+    "text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nAl Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.\n\nWhy it matters: The report places higher crude prices, lower US stocks and the Treasury buyback announcement in the same market sequence.\n\nRead the full brief: https://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+  },
+  "instagram_business": {
+    "format": "brief_caption",
+    "hard_truncation_used": false,
+    "platform_limit": 2200,
+    "text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nAl Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.\n\nIn focus: The Treasury announced an emergency move to double long-dated debt buybacks in an attempt to calm the market.\n\nFull brief: https://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks\n\n#CapitalChronicle"
+  },
+  "linkedin": {
+    "format": "professional_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 3000,
+    "text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nWhy it matters: The report places higher crude prices, lower US stocks and the Treasury buyback announcement in the same market sequence.\n\nContext: The Treasury announced an emergency move to double long-dated debt buybacks in an attempt to calm the market.\n\nRead the full brief: https://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+  },
+  "telegram": {
+    "format": "channel_brief",
+    "hard_truncation_used": false,
+    "media_asset_ids": [],
+    "platform_limit": 1024,
+    "text": "NEWSROOM BRIEF\n\nOil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nAl Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.\n\nWhat to watch: The report describes crude prices rising while the Dow Jones and S&P 500 closed lower.\n\nFull brief: https://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+  },
+  "threads": {
+    "format": "text_brief",
+    "full_text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nThe Treasury announced an emergency move to double long-dated debt buybacks in an attempt to calm the market.\n\nhttps://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks\n\nWhat to watch: The report describes crude prices rising while the Dow Jones and S&P 500 closed lower.",
+    "hard_truncation_used": false,
+    "overflow_strategy": "ordered_reply_chain",
+    "platform_limit": 500,
+    "posts": [
+      {
+        "media_asset_ids": [],
+        "order": 0,
+        "role": "root",
+        "text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nThe Treasury announced an emergency move to double long-dated debt buybacks in an attempt to calm the market.\n\nhttps://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+      },
+      {
+        "media_asset_ids": [],
+        "order": 1,
+        "role": "reply",
+        "text": "What to watch: The report describes crude prices rising while the Dow Jones and S&P 500 closed lower."
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.544,
+        0.202
+      ],
+      "post_character_counts": [
+        272,
+        101
+      ],
+      "reply_count": 1,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.371,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [
+      "What to watch: The report describes crude prices rising while the Dow Jones and S&P 500 closed lower."
+    ],
+    "root_text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nThe Treasury announced an emergency move to double long-dated debt buybacks in an attempt to calm the market.\n\nhttps://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks",
+    "text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nThe Treasury announced an emergency move to double long-dated debt buybacks in an attempt to calm the market.\n\nhttps://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+  },
+  "x": {
+    "format": "text_brief",
+    "full_text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nhttps://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks\n\nAl Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.\n\nWatch: The report describes crude prices rising while the Dow Jones and S&P 500 closed lower.",
+    "hard_truncation_used": false,
+    "overflow_strategy": "ordered_reply_chain",
+    "platform_limit": 280,
+    "posts": [
+      {
+        "media_asset_ids": [],
+        "order": 0,
+        "role": "root",
+        "text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nhttps://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+      },
+      {
+        "media_asset_ids": [],
+        "order": 1,
+        "role": "reply",
+        "text": "Al Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.\n\nWatch: The report describes crude prices rising while the Dow Jones and S&P 500 closed lower."
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.575,
+        0.807
+      ],
+      "post_character_counts": [
+        161,
+        226
+      ],
+      "reply_count": 1,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.712,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [
+      "Al Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.\n\nWatch: The report describes crude prices rising while the Dow Jones and S&P 500 closed lower."
+    ],
+    "root_text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nhttps://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks",
+    "text": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nhttps://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+  },
+  "youtube": {
+    "format": "community_brief",
+    "hard_truncation_used": false,
+    "platform_limit": 1000,
+    "text": "Update: Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks\n\nAl Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.\n\nWhat to watch: The report describes crude prices rising while the Dow Jones and S&P 500 closed lower.\n\nRead the full brief: https://capitalchronicle.substack.com/p/oil-prices-us-stocks-treasury-debt-buybacks"
+  }
+}

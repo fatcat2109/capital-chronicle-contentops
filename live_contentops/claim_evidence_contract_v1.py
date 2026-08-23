@@ -197,8 +197,38 @@ def _without_numeric_scope(claim: str) -> str:
         narrowed,
         flags=re.IGNORECASE,
     )
+    # Approximation and comparison words qualify the removed number. Retaining them creates
+    # malformed residual prose ("nearly in potential sales") and can make a broader claim look
+    # supported merely because its numeric fragment disappeared.
+    narrowed = re.sub(
+        r"\b(?:approximately|approx\.?|nearly|roughly|about|around|up to|at least|"
+        r"at most|more than|less than|over|under)\b",
+        "",
+        narrowed,
+        flags=re.IGNORECASE,
+    )
     narrowed = re.sub(r"\s+([,.;:])", r"\1", narrowed)
     return " ".join(narrowed.split()).strip(" ,;:-")
+
+
+def _numeric_scope_narrowing_supported(
+    claim: str, document: Mapping[str, Any]
+) -> bool:
+    """Require the non-numeric proposition to be locally supported as a whole.
+
+    Numeric omission may remove only the number and its qualifier. It must not silently narrow
+    countries, actors, timing, coordination, causality, or another material proposition. The old
+    0.34 topic-overlap threshold admitted an Italy-only source for a simultaneous, coordinated
+    Norway/Italy/South-Korea claim. A single reader-level evidence segment must now retain strong
+    coverage of the complete residual proposition.
+    """
+    claim_tokens = _tokens(claim)
+    if not claim_tokens:
+        return False
+    return any(
+        len(claim_tokens.intersection(_tokens(segment))) / len(claim_tokens) >= 0.80
+        for segment in _document_support_segments(document)
+    )
 
 
 def _claim_requires_corroboration(request: Mapping[str, Any], claim: str) -> bool:
@@ -552,7 +582,7 @@ def build_claim_evidence_contract(
                     document
                     for document in docs
                     if len(narrowed) >= 24
-                    and _support_score(narrowed, document) >= 0.34
+                    and _numeric_scope_narrowing_supported(narrowed, document)
                     and _quotes_supported(narrowed, document)
                 ]
                 narrowed_primary = [

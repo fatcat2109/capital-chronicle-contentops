@@ -228,6 +228,48 @@ def test_deterministic_protections_reject_explicit_integrity_failures(mutation, 
     assert expected in result["blockers"]
 
 
+def test_official_codex_historical_six_blocker_shape_remains_local_validation_failure():
+    evidence = _evidence()
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="DATA_OR_DOCUMENT_LENS",
+        accepted_evidence_packet=evidence,
+    )
+    article = deepcopy(_article(packet))
+    article["epistemic_claims"] = [
+        {
+            "text": "A declaration that is absent from every public surface.",
+            "layer": "SOURCE_FACT",
+            "public_treatment": "DIRECT_SOURCE_FACT",
+            "source_ids": ["ev-1"],
+        }
+    ]
+    article["structured_data_packet"].update(
+        {
+            "description": "Different prose that does not match visible metadata.",
+            "datePublished": "",
+            "dateModified": "",
+            "author": "A model-invented byline",
+            "publisher": "A model-invented publisher",
+        }
+    )
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "BLOCKED"
+    assert result["blockers"] == [
+        "epistemic_claim_not_present_in_public_copy",
+        "epistemic_claim_layer_invalid",
+        "structured_data_description_mismatch",
+        "structured_data_dates_missing_or_unbound",
+        "structured_data_author_identity_mismatch",
+        "structured_data_publisher_identity_mismatch",
+    ]
+
+
 def test_editorial_seo_package_is_deterministic_and_zero_authority():
     evidence = _evidence()
     packet = build_institutional_edge_editorial_packet(

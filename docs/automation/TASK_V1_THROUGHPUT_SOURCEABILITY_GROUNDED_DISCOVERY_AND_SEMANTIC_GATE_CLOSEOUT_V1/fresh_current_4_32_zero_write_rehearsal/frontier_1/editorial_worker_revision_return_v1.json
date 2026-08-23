@@ -1,0 +1,109 @@
+{
+  "governed_input_hash": "b8c0efec398a9ab8d8fcd525f5604c129646b21e28095f08023a881fcb06d639",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "XHIGH",
+  "fresh": true,
+  "isolated": true,
+  "resume_existing": false,
+  "bounded_revision_count": 1,
+  "same_worker_revision_of_return_hash": "8b15430d79edc5a76ca008bd9b3a6912c5f6d37ab01182b1d147bec00f4814c1",
+  "public_write_attempted": false,
+  "grants_factual_authority": false,
+  "grants_numeric_authority": false,
+  "grants_capital_chronicle_authority": false,
+  "grants_permission_authority": false,
+  "grants_publication_authority": false,
+  "grants_public_write_authority": false,
+  "editorial_output": {
+    "article_mode": "BREAKING_BRIEF",
+    "canonical_editorial_headline": "Turkey asks for Interpol notices for Netanyahu over flotilla case — [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)",
+    "dek": "Justice Minister Akin Gurlek says the request follows July 14 Turkish arrest warrants; the supplied evidence does not establish that Interpol has acted. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)",
+    "article_body": "Turkey's justice ministry asked the interior ministry to issue Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and one other, unnamed suspect, Justice Minister Akin Gurlek said. The Turkish arrest warrants were issued on July 14. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)\n\nAccording to the supplied report, the warrants allege genocide, crimes against humanity and torture in a case arising from Israel's May interception of the Global Sumud Flotilla. Those allegations are the stated basis of the Turkish case; the supplied evidence does not independently establish them as findings. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)\n\nFrance, Italy and Australia have also launched judicial proceedings related to the flotilla interception, the report says. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)\n\nThe central procedural question remains unresolved. The supplied record does not say whether Interpol has reviewed, accepted or rejected Turkey's request, and it does not identify the second suspect. The record confirms the Turkish request; it does not confirm that Interpol has issued a red notice. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)",
+    "search_title": "Turkey seeks Interpol Red Notices for Netanyahu — [Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)",
+    "social_hook": "Turkey says it asked for Interpol red notices for Benjamin Netanyahu and another suspect. The supplied record does not establish that Interpol has acted on the request. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)",
+    "meta_description": "Turkey says it requested Interpol red notices for Netanyahu and another suspect; the supplied record does not show that Interpol has acted. [Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)",
+    "canonical_slug_candidate": "turkey-interpol-red-notice-netanyahu-flotilla",
+    "primary_reader_question": "Has Interpol issued a red notice for Benjamin Netanyahu?",
+    "secondary_reader_questions": [
+      "What did Turkish Justice Minister Akin Gurlek announce?",
+      "What allegations underlie the July 14 Turkish warrants?",
+      "What remains unknown about the Interpol request?"
+    ],
+    "entities": [
+      "Turkey",
+      "Akin Gurlek",
+      "Benjamin Netanyahu",
+      "Interpol",
+      "Israel",
+      "Global Sumud Flotilla",
+      "France",
+      "Italy",
+      "Australia"
+    ],
+    "topics": [
+      "Interpol red notices",
+      "Turkish arrest warrants",
+      "international law",
+      "Israel-Palestine conflict",
+      "Global Sumud Flotilla"
+    ],
+    "search_freshness_class": "BREAKING_BRIEF",
+    "internal_link_candidates": [],
+    "structured_data_packet": {
+      "type": "NewsArticle",
+      "headline": "Turkey asks for Interpol notices for Netanyahu over flotilla case — [Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)",
+      "description": "Turkey says it requested Interpol red notices for Netanyahu and another suspect; the supplied record does not establish that Interpol has acted. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    }
+  },
+  "destination_packages": {
+    "substack": {
+      "uses_canonical_editorial_output": true,
+      "reader_visible_source_identity_retained": true
+    },
+    "telegram": {
+      "copy": "Turkey says it asked for Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and another, unnamed suspect after Turkish warrants issued July 14. The supplied record does not establish that Interpol has reviewed or issued a notice. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    },
+    "x": {
+      "copy": "Turkey says it asked for Interpol red notices for Benjamin Netanyahu and another suspect. The supplied record does not establish that Interpol has acted on the request. [Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    },
+    "discord": {
+      "copy": "Turkey's justice ministry has asked the interior ministry to issue Interpol red notices for Benjamin Netanyahu and another suspect. The July 14 warrants relate to the May interception of the Global Sumud Flotilla. Interpol's response is not established in the supplied record. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    },
+    "linkedin": {
+      "copy": "Turkey's justice ministry says it requested Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and one other, unnamed suspect, following Turkish arrest warrants issued July 14. The supplied record does not establish whether Interpol has reviewed, accepted or rejected the request. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    },
+    "facebook_page": {
+      "copy": "Turkey says it has requested Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and another, unnamed suspect in a case tied to the May interception of the Global Sumud Flotilla. The supplied record confirms the request, not the issuance of a red notice. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    },
+    "instagram_business": {
+      "copy": "Turkey says it asked for Interpol red notices for Benjamin Netanyahu and another suspect after Turkish warrants issued July 14. The supplied record does not show that Interpol has acted on the request. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    },
+    "threads": {
+      "copy": "Turkey says it asked for Interpol red notices for Benjamin Netanyahu and another suspect. What remains unresolved: whether Interpol has reviewed, accepted or rejected the request. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    },
+    "youtube": {
+      "copy": "Turkey has requested Interpol red notices for Israeli Prime Minister Benjamin Netanyahu and another, unnamed suspect, according to its justice minister. The supplied record does not establish that Interpol has issued a notice. [Source: Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)"
+    }
+  },
+  "reader_visible_source_identity_references": [
+    {
+      "markdown_link": "[Al Jazeera](https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant)",
+      "source_identity": "https://www.aljazeera.com/news/2026/8/21/turkiye-accuses-israels-netanyahu-of-genocide-seeks-interpol-warrant"
+    }
+  ],
+  "quote_source_records": [],
+  "claim_use": {
+    "used_supported_claim_ids": [
+      "claim-7d54cea858975fb1",
+      "claim-ee8be777c37dd17c",
+      "claim-f5ad33fd7daeba95",
+      "claim-b7586d1aa9717267"
+    ],
+    "omitted_unsupported_claim_ids": [
+      "claim-b173c4aeb27e7f5a",
+      "claim-d1ab73637ca01249"
+    ],
+    "unsupported_claims_added": false,
+    "numeric_values_regenerated_or_repaired": false
+  }
+}

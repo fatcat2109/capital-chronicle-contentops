@@ -1,0 +1,366 @@
+{
+  "acceptance_profile": "MVP_CANARY_LAUNCH_GATE_V1",
+  "article": {
+    "canonical_html_sha256": "6e659699271140421b6b5b0c2120be7f926b4601ca67ca44353bde03d2696769",
+    "canonical_markdown_sha256": "fa5c13b66dc1064ae4ed8b781b6da856f7e5f791fbc5ea576748eef8dc445a90",
+    "editorial_seo_package_sha256": "fcdf8b128369c85f45aedffacbea49eded98fc3f5d22be01cbb146b9b18ff201",
+    "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "title": "State Department Approves Possible APKWS II Sale to Italy",
+    "word_count": 314
+  },
+  "classification": "CANARY_READY_FOR_OWNER_PUBLIC_WRITE_GATE",
+  "editorial_worker": {
+    "bounded_revision_count": 1,
+    "fresh_and_isolated": true,
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "XHIGH",
+    "same_worker_revision": true,
+    "worker_return_hash": "9ca27de355560ec73bf41640f5190aebf36525f497d2971f609da0e14de25d88"
+  },
+  "evidence_document_ids": [
+    "official-primary-ffb8e742e0932254c29d"
+  ],
+  "governed_input_hash": "b23c126886dc456eb5edef3e401fa54bd2bae9f62c85f44d4b2610877f11364a",
+  "jit_preflight": {
+    "active_exact_destination_probes": 9,
+    "all_required_destinations_ready": true,
+    "destinations": {
+      "discord": {
+        "destination": null,
+        "destination_identity": "discord_channel:1519311669216673802",
+        "identity_match": true,
+        "probe_kind": "DISCORD_WEBHOOK_IDENTITY",
+        "readiness_state": "READY_NON_BROWSER_BINDING",
+        "sanitized_detail": {
+          "channel_identity_verified": true,
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "owner_pin_match": {
+            "stable_id_match": true
+          },
+          "webhook_identity_verified": true
+        },
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "write_eligible": true
+      },
+      "facebook_page": {
+        "destination": null,
+        "destination_identity": "Capital Chronicle",
+        "identity_match": true,
+        "probe_kind": "OFFICIAL_API_IDENTITY",
+        "readiness_state": "READY_NON_BROWSER_BINDING",
+        "sanitized_detail": {
+          "identity_field_present": true,
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "object_id_matches_owner_pin": true,
+          "owner_pin_match": {
+            "stable_id_match": true
+          }
+        },
+        "surface": "FACEBOOK_PAGE_POST",
+        "write_eligible": true
+      },
+      "instagram_business": {
+        "destination": null,
+        "destination_identity": "official.capitalchronicle",
+        "identity_match": true,
+        "probe_kind": "OFFICIAL_API_IDENTITY",
+        "readiness_state": "READY_NON_BROWSER_BINDING",
+        "sanitized_detail": {
+          "identity_field_present": true,
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "object_id_matches_owner_pin": null,
+          "owner_pin_match": {
+            "public_handle_match": true
+          }
+        },
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "write_eligible": true
+      },
+      "linkedin": {
+        "destination": null,
+        "destination_identity": "Jim Pham",
+        "identity_match": true,
+        "probe_kind": "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA",
+        "readiness_state": "READY_NON_BROWSER_BINDING",
+        "sanitized_detail": {
+          "authenticated": true,
+          "cdp_navigation_performed": false,
+          "days_remaining": 51,
+          "expiry_at_utc": "2026-10-12T14:54:01.757677Z",
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "network_probe_performed": false,
+          "official_api_state": "READY_OFFICIAL_MEMBER_API",
+          "readback_capability": "READBACK_CAPABILITY_LIMITED",
+          "secure_store_binding": "WINDOWS_DPAPI_CURRENT_USER:contentops.linkedin.member.v1"
+        },
+        "surface": "LINKEDIN_POST",
+        "write_eligible": true
+      },
+      "substack": {
+        "destination": null,
+        "destination_identity": "capitalchronicle.substack.com",
+        "identity_match": true,
+        "probe_kind": "EDGE_CDP_IDENTITY",
+        "readiness_state": "READY_AUTHENTICATED",
+        "sanitized_detail": {
+          "authenticated": true,
+          "edge_recovery_status": "LAUNCHED_CANONICAL_EDGE",
+          "edge_runtime_status": "READY_TO_ATTACH",
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "login_control_detected": false,
+          "owner_pin_match": {
+            "domain_match": true
+          }
+        },
+        "surface": "SUBSTACK_ARTICLE",
+        "write_eligible": true
+      },
+      "telegram": {
+        "destination": null,
+        "destination_identity": "@CapitalChronicle",
+        "identity_match": true,
+        "probe_kind": "TELEGRAM_BOT_API_IDENTITY",
+        "readiness_state": "READY_NON_BROWSER_BINDING",
+        "sanitized_detail": {
+          "bot_identity_verified": true,
+          "chat_access_verified": true,
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "owner_pin_match": {
+            "public_handle_match": true
+          }
+        },
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "write_eligible": true
+      },
+      "threads": {
+        "destination": null,
+        "destination_identity": "official.capitalchronicle",
+        "identity_match": true,
+        "probe_kind": "OFFICIAL_API_IDENTITY",
+        "readiness_state": "READY_NON_BROWSER_BINDING",
+        "sanitized_detail": {
+          "identity_field_present": true,
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "object_id_matches_owner_pin": null,
+          "owner_pin_match": {
+            "public_handle_match": true
+          }
+        },
+        "surface": "THREADS_POST",
+        "write_eligible": true
+      },
+      "x": {
+        "destination": null,
+        "destination_identity": "@Capitalnicle",
+        "identity_match": true,
+        "probe_kind": "EDGE_CDP_IDENTITY",
+        "readiness_state": "READY_AUTHENTICATED",
+        "sanitized_detail": {
+          "authenticated": true,
+          "edge_recovery_status": null,
+          "edge_runtime_status": "READY_TO_ATTACH",
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "login_control_detected": false,
+          "owner_pin_match": {
+            "public_handle_match": true
+          }
+        },
+        "surface": "X_THREAD",
+        "write_eligible": true
+      },
+      "youtube": {
+        "destination": null,
+        "destination_identity": "@CapitalChronicleYouTube",
+        "identity_match": true,
+        "probe_kind": "EDGE_CDP_IDENTITY",
+        "readiness_state": "READY_AUTHENTICATED",
+        "sanitized_detail": {
+          "authenticated": true,
+          "edge_recovery_status": null,
+          "edge_runtime_status": "READY_TO_ATTACH",
+          "jit_attempt_identity": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+          "login_control_detected": false,
+          "owner_pin_match": {
+            "authenticated_channel_matches_pinned_handle_route": true,
+            "public_handle_match": true
+          }
+        },
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "write_eligible": true
+      }
+    },
+    "existing_exact_attempt_receipt_reused": true,
+    "status": "READY"
+  },
+  "launch_gate": {
+    "acceptance_profile": "MVP_CANARY_LAUNCH_GATE_V1",
+    "authorizes_automation_enablement": false,
+    "authorizes_second_article": false,
+    "checks": {
+      "exactly_eight_derivative_package_intents": true,
+      "exactly_nine_publication_plan_destinations": true,
+      "jit_nine_surface_identity_and_readiness": true,
+      "mvp_canary_editorial_hard_gate": true,
+      "native_xhigh_return_binding": true,
+      "rights_safe_or_zero_media": true,
+      "unknown_write_zero": true,
+      "zero_public_writes": true
+    },
+    "classification": "CANARY_READY_FOR_OWNER_PUBLIC_WRITE_GATE",
+    "hard_gate_blockers": [],
+    "owner_public_write_grant_present": false,
+    "owner_public_write_grant_required": true,
+    "post_launch_throughput_gate": {
+      "derivative_intent_requirement": 32,
+      "qualified_article_requirement": 4,
+      "still_required_before_unattended_production_grade_operation": true
+    },
+    "public_write_authority": false,
+    "public_write_count": 0,
+    "quality_warnings": [
+      "canonical_url_metadata",
+      "chart_metadata",
+      "heading_hierarchy",
+      "high_information_density",
+      "material_market_consequence",
+      "mode_consistent",
+      "reader_facing_prose",
+      "semantic_keyword_coverage",
+      "social_og_lead_media",
+      "source_reference_links",
+      "visual_markers_complete"
+    ],
+    "quality_warnings_grant_factual_authority": false,
+    "satisfies_post_launch_4_32_throughput_gate": false,
+    "schema_version": "contentops.mvp_canary_launch_gate_record.v1",
+    "standard_editorial_score": 100,
+    "standard_seo_score": 50,
+    "unknown_write_count": 0
+  },
+  "owner_public_write_grant_present": false,
+  "provider_write_count": 0,
+  "public_write_authority": false,
+  "public_write_count": 0,
+  "raw_artifacts_committed": false,
+  "release_candidate": {
+    "article_media_count": 0,
+    "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+    "delivery_only_media_count": 1,
+    "derivative_destinations": [
+      "discord",
+      "facebook_page",
+      "instagram_business",
+      "linkedin",
+      "telegram",
+      "threads",
+      "x",
+      "youtube"
+    ],
+    "derivative_package_intent_count": 8,
+    "derivative_payload_sha256": {
+      "discord": "655615fbf55b69c1f67047dd178432ac7be2ffb008d32f26cd193280b644db4f",
+      "facebook_page": "e897567f2122d693ca32d2a09fd170c90b49044f1de04ce4051638dd9b522075",
+      "instagram_business": "0cad568c4572170299c7630672efa6cfa0aea9e852f88fb89c319d24975022e2",
+      "linkedin": "aa7e9ac94a3d6b1b9a4974cf342db6163ba62a825651ee89ef7a1fe360b5000b",
+      "telegram": "d2b5d3b597de3f4c8cc8a2fbafb71244d0bebde9d5f0a0839899fc51edbf69c9",
+      "threads": "530d7e7a432ebde199f9bc743365b24bec6d74f6c902ff5c0c2f71ec420296eb",
+      "x": "7fe4909b4ebc6ffd3bf0e2166f4bea1ce1254514d370d312f7410d069623d4a7",
+      "youtube": "53e8c982a45ba639f7ccee26851d6fb84d2b0e7c2389a4fce2f4fe13d3a0ad42"
+    },
+    "lock_sha256": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+    "lock_verification": {
+      "artifacts": {
+        "article_manifest_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\article_manifest_v1.json",
+          "sha256": "f1a4b49809562ecf1eb6e7133f8f4a39ab752d9ac1fcc3f16fed3e181b19359f"
+        },
+        "canonical_article.html": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\canonical_article.html",
+          "sha256": "6e659699271140421b6b5b0c2120be7f926b4601ca67ca44353bde03d2696769"
+        },
+        "canonical_article.md": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\canonical_article.md",
+          "sha256": "fa5c13b66dc1064ae4ed8b781b6da856f7e5f791fbc5ea576748eef8dc445a90"
+        },
+        "delivery_only_media_delivery_only_editorial_card": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\delivery_only_editorial_card.png",
+          "sha256": "0287162e116b124e9b6ea7f7c6b8fc523c3ed8b7aa85a3beb00363bf47a9a314"
+        },
+        "editorial_quality_gate_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\editorial_quality_gate_v1.json",
+          "sha256": "aca5da18566ca57b81e2518f4c6e1e6d66ae0960e39a804fb9ba854595dc0849"
+        },
+        "editorial_seo_package_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\editorial_seo_package_v1.json",
+          "sha256": "2a02d1da55d26b72f41b23416513bb7255fe22489d56ab9bfa22371300803666"
+        },
+        "grounded_support_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\grounded_support_v1.json",
+          "sha256": "e23108648292c08fd7cf20eb2f2d1c9cc73ec11500f4b6c3cad337e04947d86b"
+        },
+        "headline_intake_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\headline_intake_v1.json",
+          "sha256": "a84137393c2abc06b7e0650d78f28ae207f739efea8eb8057773422efd024ec3"
+        },
+        "idea_selection_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\idea_selection_v1.json",
+          "sha256": "1060bcccb98bc01dc2b30047e69f8ce3f54570e5e1873002739dd6ee9a0743b8"
+        },
+        "llm_idea_ranking_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\llm_idea_ranking_v1.json",
+          "sha256": "f04a6128c4390729ad68c07cbec03d646931070f6d4be67754711b828c621414"
+        },
+        "media_manifest_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\media_manifest_v1.json",
+          "sha256": "d13cbdcef898152eadf2cdd2164ef8743e8d55c7778ca893537dea8694b0c047"
+        },
+        "native_payloads_rehearsal_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\native_payloads_rehearsal_v1.json",
+          "sha256": "46821599b6e005dd8b89a0aa4f0d8353d16d293ed986e2c143dd7019f6efae68"
+        },
+        "run_context_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\run_context_v1.json",
+          "sha256": "d8cf36456349c7fd0ca091a8115ab3965afd37fc0d8e4246baf892c0944af8b1"
+        },
+        "substack_browser_request_v1.json": {
+          "exists": true,
+          "path": "A:\\Capital Chronicle\\ContentOps-worktrees\\v1-final-model-authority-convergence-4-32-proof-canary-v1\\artifacts\\v1_locator_aware_canary_recovery_accepted_20260822\\frontier_1\\canonical_zero_write_finalization\\substack_browser_request_v1.json",
+          "sha256": "ac9df9b175505ecc9c5eea4009f017644c5bbb6238afc59517dd1af1e9a6f9fa"
+        }
+      },
+      "blockers": [],
+      "lock_sha256": "0be2b5b554f79f9f62d4736b2917ae39bfc2766ddb3efe38c66dd208bf2c88a9",
+      "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
+      "status": "PASS_RELEASE_CANDIDATE_LOCK"
+    },
+    "publication_plan_destination_count": 9,
+    "publication_plan_destinations": [
+      "discord",
+      "facebook_page",
+      "instagram_business",
+      "linkedin",
+      "substack",
+      "telegram",
+      "threads",
+      "x",
+      "youtube"
+    ]
+  },
+  "schema_version": "contentops.locator_aware_canary_recovery_receipt.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+  "task": "TASK_V1_LOCATOR_AWARE_EVIDENCE_YIELD_CANARY_RECOVERY_AND_CANARY_READY_V1",
+  "unknown_write_count": 0
+}

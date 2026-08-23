@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_ROOT_AUTHORITY`
 Repository: `fatcat2109/capital-chronicle-contentops`
 
@@ -50,16 +50,27 @@ The following claims are INVALID for current V1 unless they are supported by the
 - `the four Codex tasks are PAUSED/READY/ENABLED` when that state comes only from repo configuration;
 - `FDA-G directly launches Codex` unless an actual supported execution bridge is proven;
 - `material-event wake immediately invokes Codex` unless a supported bridge is proven.
+- `4 qualified / 32 derivative intents` must pass before one supervised MVP canary may be
+  prepared for its owner gate.
 
 If any current-looking subordinate document says one of the above, treat that wording as superseded and do not route from it.
 
 Configured intent is not observed runtime/host truth.
 
-## 4. Current V1 owner output contract
+## 4. Current V1 owner launch and output contract
 
-During BUILD/PROOF:
+The immediate `MVP_CANARY_LAUNCH_GATE` requires exactly one genuinely useful current article,
+native XHIGH authorship, hard-safe evidence/claim binding, deterministic safety validation,
+exactly eight derivative package intents, JIT nine-surface identity/readiness, zero public writes,
+and `UNKNOWN_WRITE=0`. It stops before publication for Jim/ChatGPT audit and an explicit owner
+public-write grant.
 
-`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES per newsroom production day`
+The `POST_LAUNCH_THROUGHPUT_GATE` remains:
+
+`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+
+That gate is required before claiming production-grade daily yield or unattended routine
+operation. It is no longer a prerequisite for the one supervised MVP canary owner gate.
 
 Final V1 operating target:
 
@@ -69,7 +80,7 @@ These are not filler quotas.
 
 Candidate-level abstention is allowed. Whole-day deficit is not healthy success.
 
-If the active production day ends below the build floor without an exact hard external blocker, classify:
+If a post-launch throughput proof ends below the 4/32 floor without an exact hard external blocker, classify:
 
 `DEGRADED_DAILY_OUTPUT_DEFICIT`
 
@@ -85,17 +96,26 @@ Later routine opportunities must be able to recover earlier deficit through boun
 
 FDA-G is the continuous low-cost intake/state/runtime authority.
 
-Native Codex execution is a separate heavy-editorial layer. Current repo code does not prove that FDA-G directly launches Codex Desktop.
+The current hybrid heavy-editorial path is:
 
-`live_contentops/codex_desktop_newsroom_operator_v1.py` is continuity/routing support, not a scheduler or Desktop/model bridge.
+`FDA-G / existing V1 runtime -> fresh standalone Desktop gpt-5.6-sol / HIGH coordinator -> one fresh isolated gpt-5.6-sol / XHIGH final writer when warranted -> deterministic local validation -> zero-write build output or separately authorized publication`
 
-Preferred routine architecture:
+Desktop standalone Automations are the primary routine editorial brain. The official
+ChatGPT-authenticated Codex App Server/SDK provider remains the proven bounded fallback for an exact
+missed/failed Desktop primary, the direct path where immediate supported invocation is required,
+and the benchmark/controlled-experiment path. Neither model path has factual, numeric, permission,
+gate, or public-write authority.
 
-`FDA-G -> actual native Codex Automation -> HIGH coordinator -> fresh isolated XHIGH worker at qualified article boundary -> deterministic validation -> zero-write build output or authorized publication`
+Current host observation proves exactly four existing native V1 Automations, all `PAUSED`, at the
+17:00/21:00/23:00/following-01:00 Bangkok windows with `gpt-5.6-sol / HIGH`. Their host prompts need
+owner-audited normalization before enablement, and the supported surface exposed no run-now action.
+The accepted Desktop parity proof therefore used one fresh standalone manual Desktop task and does
+not claim calendar-time execution. Do not enable the four tasks, create a fifth window, or start the
+4/32 campaign before the exact owner gate.
 
-Do not claim native Codex Automations exist until host evidence proves them.
-
-Do not add an API/access-token Codex bridge without explicit owner authorization.
+`live_contentops/codex_desktop_newsroom_operator_v1.py` supplies the canonical run identity and
+Desktop-primary/SDK-fallback arbitration; it is not a second scheduler or public-write grant. Do not
+add an API/access-token bridge without explicit owner authorization.
 
 ## 7. ContentOps/Core Analyzer boundary
 
@@ -159,11 +179,19 @@ P0-G3 and the following V1 daily-yield lineage are accepted on the current task 
 4. distinct-story frontier correction;
 5. story/update-chain-scoped evidence reuse across mode downgrade.
 
-The four-frontier proof still ends `DEGRADED_DAILY_OUTPUT_DEFICIT` at 0/4 articles and 0/32
-derivative intents. The next exact product gate is bounded first-party locator/source-family and
-query/publisher-resolution closure for the demonstrated residual story matrix, followed by the same
-four-frontier zero-public-write proof. Do not resume P0-G4 canary, enable the four paused Automations,
-or create a fifth Automation while the build floor remains unproven.
+The official-provider article-contract closeout remains accepted fallback/direct/benchmark
+evidence. The exact same Italy story then passed the fresh standalone Desktop HIGH -> fresh isolated
+XHIGH parity/hybrid canary in `DATA_OR_DOCUMENT_LENS` mode from
+`official-primary-ffb8e742e0932254c29d`. It passed the deterministic article/source/institutional
+contract, mode-aware usefulness, eight deduplicated derivatives, and exact nine-surface JIT
+readiness with `UNKNOWN_WRITE=0` and zero public/provider writes. The exact classification is
+`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`.
+
+The current next gate is Jim/ChatGPT audit of that exact Desktop zero-write canary and its
+nine-surface plan. This proof authorizes neither task enablement, a second article, 4/32 start, nor
+any public write. The unchanged 4/32 proof remains required before production-grade daily-yield
+claims or unattended routine operation.
+`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
 
 ## 12. Change discipline
 

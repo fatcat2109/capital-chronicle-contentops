@@ -1,0 +1,476 @@
+{
+  "canonical_input_hash": "31c9e74609b75e2076125922f9ab59b0ce583f505b7658956333b7975c267574",
+  "complete_input_coverage": false,
+  "counts": {
+    "accepted": 12,
+    "accepted_in_full_rolling_intake": 409,
+    "duplicates": 0,
+    "eligible_after_continuity": 409,
+    "rejected": 13565,
+    "source_files": 67,
+    "source_rows": 13974
+  },
+  "cutoff_time_utc": "2026-08-23T01:18:44.810438Z",
+  "headlines": [
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091067162547134474",
+      "external_content": {
+        "author_handle": "ChinaBeigeBook",
+        "follow_up_data_need_candidates": [
+          "official_energy_inventory_or_opec_release",
+          "official_inflation_release"
+        ],
+        "headline_text": "China Keeps Oil Buying in Check as Crude Prices Stay Above $90 https://t.co/g4ZXcN5ogx",
+        "official_source_urls": [
+          "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "energy",
+          "geopolitics",
+          "inflation"
+        ],
+        "url_or_source_ref": "https://x.com/ChinaBeigeBook/status/2091067162547134474"
+      },
+      "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "source_locator": {
+        "line": 368,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T07:37:16Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090972248152695097",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Assistant U.S. Attorney Found Dead Inside Federal Building https://t.co/Vmw5apHT3b",
+        "official_source_urls": [
+          "https://www.zerohedge.com/political/assistant-us-attorney-found-dead-inside-federal-building"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2090972248152695097"
+      },
+      "headline_id": "cc-x-headline-a0040922ce0538f129be99d7",
+      "source_locator": {
+        "line": 293,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T01:20:07Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090978540669768109",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "The Six Nooses: How Interventionism Is Strangling The Family's Will To Reproduce https://t.co/mg4dT6yXYk",
+        "official_source_urls": [
+          "https://www.zerohedge.com/political/six-nooses-how-interventionism-strangling-familys-will-reproduce"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2090978540669768109"
+      },
+      "headline_id": "cc-x-headline-2f8890156f139dc2cc267509",
+      "source_locator": {
+        "line": 315,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T01:45:07Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2090980994731942133",
+      "external_content": {
+        "author_handle": "joshgerstein",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "BREAKING: In unusual 9PM Friday filing w/Federal Register, Postal Service finalizes regulation to deny delivery of mail-in ballots that don't match addresses in database BUT says won't implement until court orders are lifted. #SCOTUS action awaited. Doc: https://t.co/4MPDhuiWuC https://t.co/Ms4jf31PNh",
+        "official_source_urls": [
+          "https://public-inspection.federalregister.gov/2026-17238.pdf"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/joshgerstein/status/2090980994731942133"
+      },
+      "headline_id": "cc-x-headline-f057b9c338d9f38976c1c58a",
+      "source_locator": {
+        "line": 306,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T01:54:52Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091052143784382662",
+      "external_content": {
+        "author_handle": "dlacalle_IA",
+        "follow_up_data_need_candidates": [
+          "official_treasury_or_budget_release"
+        ],
+        "headline_text": "Gold rebounds as bond jitters, debt fears and weaker dollar revive bullion demand https://t.co/ou3eADmpxk",
+        "official_source_urls": [
+          "https://cnb.cx/4gHcgD4"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "fiscal"
+        ],
+        "url_or_source_ref": "https://x.com/dlacalle_IA/status/2091052143784382662"
+      },
+      "headline_id": "cc-x-headline-b37370dc85dbc1522e84062a",
+      "source_locator": {
+        "line": 390,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T06:37:35Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091102918518726883",
+      "external_content": {
+        "author_handle": "themarketear",
+        "follow_up_data_need_candidates": [
+          "official_numeric_source_required_before_truth_use",
+          "official_volatility_or_options_source_check"
+        ],
+        "headline_text": "This is what AI volatility looks like in practice: momentum has suffered more 5%+ one-day selloffs this year than in the previous five years combined. Holding on is hard in such a regime. https://t.co/hpNa9j2o4C https://t.co/EOqY86bWKP",
+        "official_source_urls": [
+          "https://www.zerohedge.com/the-market-ear/why-so-serious-12"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "volatility"
+        ],
+        "url_or_source_ref": "https://x.com/themarketear/status/2091102918518726883"
+      },
+      "headline_id": "cc-x-headline-09f479aafdfc90f19d6430d3",
+      "source_locator": {
+        "line": 475,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T09:59:21Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091118209038426283",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Spanish Beach Stormed As Ceuta Chaos Spreads https://t.co/Fkyda23aie",
+        "official_source_urls": [
+          "https://www.zerohedge.com/geopolitical/spanish-beach-stormed-ceuta-chaos-spreads"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2091118209038426283"
+      },
+      "headline_id": "cc-x-headline-4138053c4738f8c83a00ccf7",
+      "source_locator": {
+        "line": 433,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T11:00:06Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091126992825417745",
+      "external_content": {
+        "author_handle": "robin_j_brooks",
+        "follow_up_data_need_candidates": [
+          "official_numeric_source_required_before_truth_use",
+          "official_treasury_or_budget_release"
+        ],
+        "headline_text": "This week is a warning to anyone who thinks artificial yield caps are a good idea. The US Treasury announced small buybacks of longer-dated bonds, but the Dollar cratered. The message is clear. If you do this, we'll drive your currency down. Like Japan... https://t.co/QmZovLpFSO https://t.co/Br3oJZNX0K",
+        "official_source_urls": [
+          "https://robinjbrooks.substack.com/p/a-warning-from-markets-to-the-us"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "fiscal"
+        ],
+        "url_or_source_ref": "https://x.com/robin_j_brooks/status/2091126992825417745"
+      },
+      "headline_id": "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+      "source_locator": {
+        "line": 439,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T11:35:01Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091127018045771826",
+      "external_content": {
+        "author_handle": "zerohedge",
+        "follow_up_data_need_candidates": [],
+        "headline_text": "Turkey Issues Arrest Warrant For Netanyahu, Seeks Interpol Red Notice https://t.co/6itgXxqfmq",
+        "official_source_urls": [
+          "https://www.zerohedge.com/geopolitical/turkey-issues-arrest-warrant-netanyahu-seeks-interpol-red-notice"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [],
+        "url_or_source_ref": "https://x.com/zerohedge/status/2091127018045771826"
+      },
+      "headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+      "source_locator": {
+        "line": 438,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T11:35:07Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091128966924869732",
+      "external_content": {
+        "author_handle": "robin_j_brooks",
+        "follow_up_data_need_candidates": [
+          "official_treasury_or_budget_release"
+        ],
+        "headline_text": "Gold is up over 6% this week. Its rise came after the Treasury buyback announcement. Markets are on the lookout for high-debt governments playing games with yields. Even the smallest move sees markets head for the exit. We're in the age of debasement... https://t.co/npClX0dnJ9 https://t.co/AQiiOG9ivy",
+        "official_source_urls": [
+          "https://robinjbrooks.substack.com/p/the-debasement-trade-takes-off"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "fiscal"
+        ],
+        "url_or_source_ref": "https://x.com/robin_j_brooks/status/2091128966924869732"
+      },
+      "headline_id": "cc-x-headline-2068c5bff9683fc98f5447f4",
+      "source_locator": {
+        "line": 434,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T11:42:51Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091130729933492695",
+      "external_content": {
+        "author_handle": "robin_j_brooks",
+        "follow_up_data_need_candidates": [
+          "official_numeric_source_required_before_truth_use"
+        ],
+        "headline_text": "The Dollar has fallen below its pre-war low versus emerging markets (EM). That's significant because it's this Dollar index versus EM that's been the best leading indicator for future Dollar direction. We're in a major Dollar debasement cycle... https://t.co/Fw7NxI1YfN https://t.co/qrrU9Gb2BI",
+        "official_source_urls": [
+          "https://robinjbrooks.substack.com/p/dollar-debasement-has-begun"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "geopolitics"
+        ],
+        "url_or_source_ref": "https://x.com/robin_j_brooks/status/2091130729933492695"
+      },
+      "headline_id": "cc-x-headline-2229a9596e2b09cb715967e9",
+      "source_locator": {
+        "line": 459,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T11:49:52Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    },
+    {
+      "authority_constraints": {
+        "analysis_or_forecast_authority": false,
+        "discovery_and_ranking_only": true,
+        "numeric_truth_authority": false,
+        "publication_authority": false
+      },
+      "dedupe_identity": "dedup_key:tweet_id:2091132043891536248",
+      "external_content": {
+        "author_handle": "robin_j_brooks",
+        "follow_up_data_need_candidates": [
+          "official_treasury_or_budget_release"
+        ],
+        "headline_text": "I'll be talking about Treasury buybacks and the debasement trade on this morning's live stream at 9 am (ET). There's a chance this link won't work, so I'll post a corrected one if that's necessary just before I get going. Please join with your questions... https://t.co/HIbmf4IMEI https://t.co/Ezu6yO3Rnu",
+        "official_source_urls": [
+          "https://open.substack.com/live-stream/330951"
+        ],
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "tags": [
+          "fiscal"
+        ],
+        "url_or_source_ref": "https://x.com/robin_j_brooks/status/2091132043891536248"
+      },
+      "headline_id": "cc-x-headline-0de6446837f0f5b5e0845a88",
+      "source_locator": {
+        "line": 463,
+        "path": "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl"
+      },
+      "source_timestamp_field": "headline_timestamp",
+      "source_timestamp_utc": "2026-08-22T11:55:05Z",
+      "trust_classification": "UNTRUSTED_EXTERNAL_CONTENT"
+    }
+  ],
+  "prepared_candidate_subset": true,
+  "rejection_counts": {
+    "source_timestamp_before_window": 13565
+  },
+  "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+  "sidecar_glob": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\*.jsonl",
+  "source_files": [
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2020_02_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_21.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_05_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2023_10_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2024_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_01_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_02_27.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_04_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_06_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_29.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2025_10_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_02_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_03_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_04_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_23.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_05_24.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_06_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_25.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_26.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_28.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_30.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_31.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_01.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_02.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_03.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_04.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_05.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_06.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_07.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_08.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_09.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_10.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_11.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_12.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_13.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_14.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_15.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_16.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_17.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_18.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_19.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_20.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_21.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_22.jsonl",
+    "A:/Capital Chronicle/Runtime/ContentOps/headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_08_23.jsonl"
+  ],
+  "unique_headline_ids": [
+    "cc-x-headline-b25c625dac499ab753cfa0a4",
+    "cc-x-headline-a0040922ce0538f129be99d7",
+    "cc-x-headline-2f8890156f139dc2cc267509",
+    "cc-x-headline-f057b9c338d9f38976c1c58a",
+    "cc-x-headline-b37370dc85dbc1522e84062a",
+    "cc-x-headline-09f479aafdfc90f19d6430d3",
+    "cc-x-headline-4138053c4738f8c83a00ccf7",
+    "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+    "cc-x-headline-0751d8d085a41b31e7448f99",
+    "cc-x-headline-2068c5bff9683fc98f5447f4",
+    "cc-x-headline-2229a9596e2b09cb715967e9",
+    "cc-x-headline-0de6446837f0f5b5e0845a88"
+  ],
+  "window_hours": 24.0,
+  "window_start_utc": "2026-08-22T01:18:44.810438Z"
+}

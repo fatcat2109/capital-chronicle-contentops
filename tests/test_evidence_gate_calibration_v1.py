@@ -192,6 +192,39 @@ def test_document_wide_scattered_topic_tokens_do_not_support_composite_claim():
     )
 
 
+def test_numeric_omission_does_not_preserve_unsupported_multi_country_coordination_claim():
+    claim = (
+        "The US State Department has simultaneously approved nearly $2.8 billion in "
+        "potential foreign military sales to Norway, Italy, and South Korea, highlighting "
+        "a coordinated push to arm key allies."
+    )
+    request = _request(story_type="regulatory_fiscal_event", summaries=[claim])
+    italy = _document(
+        text="State Department Approves Possible APKWS II Sale to Italy",
+        publisher="Defense Security Cooperation Agency",
+    )
+    italy["document_id"] = "official-primary-ffb8e742e0932254c29d"
+    italy["canonical_content_text"] = (
+        "The State Department has made a determination approving a possible Foreign "
+        "Military Sale to the Government of Italy of APKWS II All-Up-Rounds."
+    )
+
+    contract = build_claim_evidence_contract(request, [italy])
+
+    assert not any(
+        row.get("support_status") == "SUPPORTED_WITH_NUMERIC_SCOPE_OMITTED"
+        and any(
+            marker in str(row.get("claim_text") or "")
+            for marker in ("Norway", "South Korea", "simultaneously", "coordinated")
+        )
+        for row in contract["supported_claims"]
+    )
+    assert any(
+        row.get("claim_text") == claim
+        for row in contract["omitted_unsupported_claims"]
+    )
+
+
 def test_sensitive_company_allegation_requires_primary_or_two_independent_secondaries():
     claim = "Example Company allegedly concealed a product safety defect from customers."
     request = _request(story_type="company_sector_event", summaries=[claim])

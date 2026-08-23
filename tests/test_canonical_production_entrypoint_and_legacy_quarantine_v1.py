@@ -130,6 +130,7 @@ def test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once(mon
         "prepare_text_image_release_candidate": lambda: public_module.prepare_text_image_release_candidate(run_id="r", output_dir=tmp_path),
         "prepare_generic_text_image_release_candidate": lambda: public_module.prepare_generic_text_image_release_candidate(run_id="r", output_dir=tmp_path),
         "build_operator_manual_audit_packet": lambda: public_module.build_operator_manual_audit_packet(output_dir=tmp_path),
+        "ensure_canonical_edge_publishing_runtime": lambda: public_module.ensure_canonical_edge_publishing_runtime(urls=("https://substack.com/",), wait_seconds=0.0),
         "run_eight_platform_substack_first_pipeline": lambda: public_module.run_eight_platform_substack_first_pipeline(run_id="r", output_dir=tmp_path, operator_approved_full_live_run=False),
         "run_rolling_x_newsroom_cycle": lambda: public_module.run_rolling_x_newsroom_cycle(run_id="r", output_dir=tmp_path, cutoff_utc="2026-08-08T00:00:00Z", publication_enabled=False),
         "reconcile_public_substack_for_derivative_resume": lambda: public_module.reconcile_public_substack_for_derivative_resume(output_dir=tmp_path),
@@ -162,6 +163,8 @@ def test_public_rolling_x_facade_forwards_preselection_intelligence(monkeypatch,
     corpus = [{"article_identity": "article-1"}]
     catalog = {"catalog_fingerprint": "catalog-1"}
     readiness = {"SUBSTACK_ARTICLE": {"readiness_state": "READY_AUTHENTICATED"}}
+    desktop_builder = object()
+    desktop_reviewer = lambda article: article
 
     result = public_module.run_rolling_x_newsroom_cycle(
         run_id="operator-cycle-1",
@@ -172,6 +175,8 @@ def test_public_rolling_x_facade_forwards_preselection_intelligence(monkeypatch,
         published_corpus=corpus,
         cc_catalog=catalog,
         destination_readiness_override=readiness,
+        article_builder=desktop_builder,
+        editorial_reviewer=desktop_reviewer,
     )
 
     assert len(calls) == 1
@@ -180,6 +185,100 @@ def test_public_rolling_x_facade_forwards_preselection_intelligence(monkeypatch,
     assert result["published_corpus"] is corpus
     assert result["cc_catalog"] is catalog
     assert result["destination_readiness_override"] is readiness
+    assert result["article_builder"] is desktop_builder
+    assert result["editorial_reviewer"] is desktop_reviewer
+    assert result["editorial_execution_route"] == "DESKTOP_PRIMARY"
+    assert result["desktop_primary_routine_authority"] is True
+
+
+def test_public_rolling_x_facade_fails_closed_without_desktop_primary_builder_or_fallback_receipt(
+    tmp_path,
+):
+    public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
+    with pytest.raises(ValueError, match="desktop_primary_editorial_builder_required"):
+        public_module.run_rolling_x_newsroom_cycle(
+            run_id="routine-primary",
+            output_dir=tmp_path,
+            cutoff_utc="2026-08-22T00:00:00Z",
+            publication_enabled=True,
+        )
+    with pytest.raises(ValueError, match="desktop_primary_editorial_reviewer_required"):
+        public_module.run_rolling_x_newsroom_cycle(
+            run_id="routine-primary-without-review",
+            output_dir=tmp_path,
+            cutoff_utc="2026-08-22T00:00:00Z",
+            publication_enabled=True,
+            article_builder=object(),
+        )
+    with pytest.raises(ValueError, match="sdk_fallback_arbitration_receipt_required"):
+        public_module.run_rolling_x_newsroom_cycle(
+            run_id="routine-fallback",
+            output_dir=tmp_path,
+            cutoff_utc="2026-08-22T00:00:00Z",
+            publication_enabled=True,
+            editorial_execution_route="SDK_FALLBACK",
+        )
+
+
+def test_public_rolling_x_facade_starts_sdk_only_with_bound_fallback_arbitration(
+    monkeypatch, tmp_path
+):
+    public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
+    provider_module = importlib.import_module("live_contentops.official_codex_provider_v1")
+    from live_contentops.codex_desktop_newsroom_operator_v1 import (
+        arbitrate_hybrid_editorial_execution,
+        build_hybrid_editorial_run_identity,
+    )
+
+    calls: list[tuple[str, dict[str, object]]] = []
+
+    class FakeOrchestrator:
+        def execute(self, operation: str, **kwargs: object) -> dict[str, object]:
+            calls.append((operation, kwargs))
+            return {"operation": operation, **kwargs}
+
+    class FakeSdkBuilder:
+        def __init__(self, *, output_dir: Path):
+            self.output_dir = output_dir
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+    monkeypatch.setattr(public_module, "ContentOpsProductionOrchestrator", FakeOrchestrator)
+    monkeypatch.setattr(provider_module, "OfficialCodexEditorialArticleBuilder", FakeSdkBuilder)
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="routine-fallback",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="e" * 64,
+    )
+    arbitration = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T01:01:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "MISSED_VALID_WINDOW",
+        },
+    )
+
+    result = public_module.run_rolling_x_newsroom_cycle(
+        run_id="routine-fallback",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-22T00:00:00Z",
+        publication_enabled=True,
+        editorial_execution_route="SDK_FALLBACK",
+        hybrid_arbitration_receipt=arbitration,
+    )
+
+    assert len(calls) == 1
+    assert isinstance(result["article_builder"], FakeSdkBuilder)
+    assert result["editorial_execution_route"] == "SDK_FALLBACK"
+    assert result["hybrid_editorial_arbitration"]["decision"] == "START_SDK_FALLBACK"
 
 
 @pytest.mark.parametrize(

@@ -7,6 +7,7 @@ from live_contentops.grounded_news_research_v1 import (
     _forward_state_records,
     _source_ref,
 )
+from live_contentops.official_primary_evidence_loader_v1 import _html_canonical_visible_text
 
 
 CUTOFF = "2026-08-17T17:03:28.055185Z"
@@ -350,3 +351,24 @@ def test_explicit_future_event_schedule_remains_an_event_state_marker():
     records = _forward_state_records([future])
     assert len(records) == 1
     assert records[0]["forward_marker"].casefold() == "scheduled for"
+
+
+def test_nonvisible_official_html_boilerplate_cannot_trigger_latest_state_gate():
+    canonical = _html_canonical_visible_text(
+        """
+        <!-- GTM Container placement set to off -->
+        <script>console.warn('container code placement set to OFF');</script>
+        <style>.future { display: none }</style>
+        <main><h1>Norway – UH-60M Black Hawk Helicopters</h1>
+        <p>The State Department approved the possible sale.</p></main>
+        """
+    )
+    document = _document(
+        "state-fms-visible",
+        canonical,
+        "2026-08-17T15:00:00Z",
+        "State Department",
+    )
+    assert "set to" not in canonical.casefold()
+    assert "State Department approved" in canonical
+    assert _forward_state_records([document]) == []

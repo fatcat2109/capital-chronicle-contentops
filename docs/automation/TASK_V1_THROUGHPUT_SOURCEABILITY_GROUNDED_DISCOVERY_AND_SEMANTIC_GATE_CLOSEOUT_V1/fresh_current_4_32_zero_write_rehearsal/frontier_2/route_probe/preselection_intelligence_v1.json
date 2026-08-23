@@ -1,0 +1,3415 @@
+{
+  "cc_catalog_complete": false,
+  "cc_catalog_store_count": 0,
+  "eligible_shortlist_count": 10,
+  "evaluated_at_utc": "2026-08-23T01:18:44.810438Z",
+  "held_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "China",
+          "Oil",
+          "Energy",
+          "Geopolitics",
+          "Commodities",
+          "Recent Chinese"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.05,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "China",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9c7f5d3858f8b5efbd6b354eac828c76aa36abb372c21c098596a69fdc8d260f"
+          },
+          {
+            "query_term": "Oil",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3dbbac4fbabc49fe7550eb7dcc8a16c18af90f91ef915cc0bfa995250e8a4035"
+          },
+          {
+            "query_term": "Energy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "971c0299c4c921e032b6b853d88e7e29916657df0011485d7cd010991c99186b"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          },
+          {
+            "query_term": "Commodities",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9b283ec7748a27bc557aab4550d4d6f2d4e1153b2ee3bf028fdc9e4c5d0a12a6"
+          },
+          {
+            "query_term": "Recent Chinese",
+            "source_field": "needed_evidence",
+            "source_value_sha256": "c94501e846fcef9418999564a14a6b5132b1edd2ff8538efe5d2c3f7ba26feaf"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "China",
+          "Oil",
+          "Energy",
+          "Geopolitics",
+          "Commodities",
+          "Recent Chinese"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "needed_evidence"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-f433be6ff1a73454e7a0",
+      "editorial_classification": "HOLD",
+      "entities_topics": [
+        "China",
+        "Oil",
+        "Energy",
+        "Geopolitics",
+        "Commodities"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 1,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": true,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": true,
+        "score": 0.495,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "STANDARD_NEWS_ANALYSIS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-7d037b0bb29cde2e7178"
+      ],
+      "leaf_summaries": [
+        "China maintains a checked approach to oil buying as crude prices remain above $90."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-f433be6ff1a73454e7a0",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "new_official_source_candidates": [
+          "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        ],
+        "previous_article_identity": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_body_sha256": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/us-energy-information-administration",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The [U.S. Energy Information Administration](https://www.eia.gov/outlooks/steo/) has published the Short-Term Energy Outlook.\n\n[[VISUAL:official_source_document_card]]\n\n[[VISUAL:decision_fact_card]]\n\n[[VISUAL:document_excerpt_card]]",
+        "previous_published_at_utc": "2026-08-12T15:30:22.127903+00:00",
+        "previous_story_identity": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "previous_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Recent Chinese customs data on crude imports",
+        "Statements or purchasing tender data from major Chinese state refiners like Sinopec and PetroChina",
+        "Global benchmark crude pricing data"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T07:37:16Z",
+          "feed_publisher_handle": "ChinaBeigeBook",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+          "url": "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "best_prior_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "cc_context_richness": 0.0,
+        "decision": "HOLD",
+        "entity_overlap": 0.2727,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 249.806,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "HOLD",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 1,
+      "preselection_score": -886.14,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T07:37:16Z",
+          "feed_publisher_handle": "ChinaBeigeBook",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+          "url": "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.bloomberg.com/news/articles/2026-08-21/china-keeps-oil-buying-in-check-as-crude-prices-stay-above-90"
+      ],
+      "publishability_original_order": 3,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 4,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 2,
+        "tier": "REPUTABLE_PUBLIC_SECONDARY"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 1,
+      "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_case": "China is the marginal buyer of global crude. Their reluctance to chase prices above $90 sets a potential soft ceiling on the market, which is critical context for energy investors navigating the current rally.",
+      "seo_intent": "China oil buying crude prices above 90 global demand",
+      "seo_learning_preferences": [],
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-f433be6ff1a73454e7a0",
+      "visual_strategy": "Overlay chart of Brent crude prices versus Chinese monthly crude import volumes to illustrate the price sensitivity.",
+      "why_now": "With crude oil prices sustaining above $90 per barrel, China's strategic purchasing behavior is shifting, directly impacting global demand forecasts.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "held_shortlist_count": 1,
+  "input_shortlist_count": 11,
+  "learning_policy_consumed": false,
+  "learning_policy_grants_factual_or_numeric_authority": false,
+  "learning_policy_priority_bonus_cap": 6.0,
+  "learning_policy_version": null,
+  "llm_or_provider_calls": 0,
+  "material_event_priority_bonus_cap": 80.0,
+  "material_event_priority_changes_eligibility_gates": false,
+  "material_event_priority_consumed": false,
+  "material_event_priority_ids": [],
+  "occurs_before_article_generation": true,
+  "occurs_before_targeted_evidence": true,
+  "original_order": [
+    "rolling-x-global-cluster-f433be6ff1a73454e7a0",
+    "rolling-x-global-cluster-6f5dea917f4aecc18b82",
+    "rolling-x-global-cluster-5afd847f373e8a02658f",
+    "rolling-x-global-cluster-524d03dd15926d2ae1c3",
+    "rolling-x-global-cluster-ce86d33d06bb287980c6",
+    "rolling-x-global-cluster-fd6484b80dd7ec13d542",
+    "rolling-x-semantic-reserve-c5f9bb235b49afa854f2",
+    "rolling-x-semantic-reserve-f94ac5d04119e90bcd80",
+    "rolling-x-semantic-reserve-bf61e64682bb3a1a9933",
+    "rolling-x-semantic-reserve-532399d887fb651696c5",
+    "rolling-x-semantic-reserve-28a0db8ddf0a0a5c9dc8"
+  ],
+  "portfolio_state": {
+    "article_mode_counts": {
+      "DATA_OR_DOCUMENT_LENS": 1
+    },
+    "as_of_utc": "2026-08-23T01:18:44.810438Z",
+    "build_qualified_floor": 4,
+    "daily_target_band": [
+      5,
+      8
+    ],
+    "entity_concentration_top": [
+      {
+        "count": 1,
+        "entity": "defense industry"
+      },
+      {
+        "count": 1,
+        "entity": "foreign policy"
+      },
+      {
+        "count": 1,
+        "entity": "italy"
+      },
+      {
+        "count": 1,
+        "entity": "military sales"
+      },
+      {
+        "count": 1,
+        "entity": "national security"
+      },
+      {
+        "count": 1,
+        "entity": "norway"
+      },
+      {
+        "count": 1,
+        "entity": "south korea"
+      },
+      {
+        "count": 1,
+        "entity": "u s"
+      }
+    ],
+    "final_published_target_max": 8,
+    "final_published_target_min": 5,
+    "long_term_goal_creates_filler_pressure": false,
+    "long_term_useful_article_portfolio_goal": [
+      5,
+      8
+    ],
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+    "publication_minimum": 5,
+    "published_today_count": 1,
+    "recent_publication_timestamps_utc": [
+      "2026-08-22T21:29:16.076304+00:00"
+    ],
+    "remaining_target_min": 4,
+    "routine_opportunity_count": 4,
+    "schema_version": "contentops.editorial_portfolio_state.v1"
+  },
+  "preselection_logical_hash": "76c7605e7d50397664932f6428e66588b8867fdf2f1a293375951d3689b55d4c",
+  "publication_authority_granted": false,
+  "published_corpus_article_count": 3,
+  "ranked_clusters": [
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "US",
+          "Canada",
+          "Trade War",
+          "Tariffs",
+          "Geopolitics",
+          "North American"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.06,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "US",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+          },
+          {
+            "query_term": "Canada",
+            "source_field": "entities_topics",
+            "source_value_sha256": "52cc91afd91b06d3058da1419ccd12ad354772c89d0cdac8200b190b7b6053df"
+          },
+          {
+            "query_term": "Trade War",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9b67ef81c0c6684efee1f293d1fb500ae72a24292bd6119e1bd49feb5fc9b858"
+          },
+          {
+            "query_term": "Tariffs",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f6ab92dfb97ae061909e229837c717dffbce12b29f9ae9bee43b8ccac9da5ef"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          },
+          {
+            "query_term": "North American",
+            "source_field": "why_now",
+            "source_value_sha256": "f44bf0792cc5becf08a226a49d2271400fe13b3e34ef4fcce4590100532394d0"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "US",
+          "Canada",
+          "Trade War",
+          "Tariffs",
+          "Geopolitics",
+          "North American"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "why_now"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-6f5dea917f4aecc18b82",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "US",
+        "Canada",
+        "Trade War",
+        "Tariffs",
+        "Geopolitics"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+        "cc-x-headline-567cf76077899037f72d4e6f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-71f5a1492bbdef037651"
+      ],
+      "leaf_summaries": [
+        "Reports of an erupting trade war between Canada and the US, with new 50% tariffs set on Canadian goods."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official government announcements, executive orders, or trade filings confirming the 50% tariff",
+        "Itemized list of specific Canadian goods targeted by the measure",
+        "Initial official response or retaliation threats from Canadian trade officials"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T15:05:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+          "url": "https://www.zerohedge.com/political/canada-us-trade-war-erupts-setting-new-50-tariffs-canadian-goods"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/political/canada-us-trade-war-erupts-setting-new-50-tariffs-canadian-goods"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 2,
+      "preselection_score": 116.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T15:05:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+          "url": "https://www.zerohedge.com/political/canada-us-trade-war-erupts-setting-new-50-tariffs-canadian-goods"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/political/canada-us-trade-war-erupts-setting-new-50-tariffs-canadian-goods"
+      ],
+      "publishability_original_order": 1,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 1,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "A sudden 50% tariff on a major trading partner is a massive macroeconomic shock. We need to immediately verify the scope, targeted goods, and official announcements to provide clarity to markets.",
+      "seo_intent": "US Canada trade war tariffs 50 percent goods",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+        "ordered_headline_ids": [
+          "cc-x-headline-60b2102d06ca1c9cb74fb4a1",
+          "cc-x-headline-567cf76077899037f72d4e6f"
+        ],
+        "relationship": "duplicate"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-6f5dea917f4aecc18b82",
+      "visual_strategy": "Bar chart showing US-Canada trade volume by sector to highlight the industries most at risk from the newly reported tariffs.",
+      "why_now": "Reports of new 50% tariffs on Canadian goods signal a major, sudden escalation in North American trade tensions with immediate cross-border economic and FX impacts.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Russia",
+          "Jefferies",
+          "Refining",
+          "Diesel",
+          "Energy",
+          "Geopolitics"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.022,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Russia",
+            "source_field": "entities_topics",
+            "source_value_sha256": "afc94498da100d79da7d12bb999e06c52754b224dbf71989b89395e5bfd93647"
+          },
+          {
+            "query_term": "Jefferies",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1985a374bf0b1d1c0a29e3dab6a358081f172524d2bd31f2bed2856f0ff59c83"
+          },
+          {
+            "query_term": "Refining",
+            "source_field": "entities_topics",
+            "source_value_sha256": "58c5f0dbd2f9bd328f034e12a3c44e3d9123c38155425322d98a4f143d3c4a4f"
+          },
+          {
+            "query_term": "Diesel",
+            "source_field": "entities_topics",
+            "source_value_sha256": "90ddf532d581e6722b5fb9ebd2a04376fe32aa9cfb3ffd7b4e89055a264a882b"
+          },
+          {
+            "query_term": "Energy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "971c0299c4c921e032b6b853d88e7e29916657df0011485d7cd010991c99186b"
+          },
+          {
+            "query_term": "Geopolitics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "0282e91cd07b20ffadc2f429c72a88b35d74f9913954f412e9c730cd88597d73"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Russia",
+          "Jefferies",
+          "Refining",
+          "Diesel",
+          "Energy",
+          "Geopolitics"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-5afd847f373e8a02658f",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Russia",
+        "Jefferies",
+        "Refining",
+        "Diesel",
+        "Energy",
+        "Geopolitics"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "DATA_OR_DOCUMENT_LENS",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-0f404def2cc89dee5221b443"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-dbfa5cca753199908b09"
+      ],
+      "leaf_summaries": [
+        "Analysis of the deepening diesel crack spread madness as Jefferies finds no easy exit from Russia's refining crisis."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-5afd847f373e8a02658f",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-0f404def2cc89dee5221b443"
+        ],
+        "new_official_source_candidates": [
+          "https://www.zerohedge.com/commodities/diesel-crack-spread-madness-deepens-jefferies-finds-no-easy-exit-russias-refining"
+        ],
+        "previous_article_identity": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_body_sha256": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/us-energy-information-administration",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The [U.S. Energy Information Administration](https://www.eia.gov/outlooks/steo/) has published the Short-Term Energy Outlook.\n\n[[VISUAL:official_source_document_card]]\n\n[[VISUAL:decision_fact_card]]\n\n[[VISUAL:document_excerpt_card]]",
+        "previous_published_at_utc": "2026-08-12T15:30:22.127903+00:00",
+        "previous_story_identity": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "previous_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Direct copy of the Jefferies research note on Russian refining",
+        "Current global diesel crack spread pricing data",
+        "Vessel tracking or export data for Russian refined products to verify the bottleneck"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T13:55:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0f404def2cc89dee5221b443",
+          "url": "https://www.zerohedge.com/commodities/diesel-crack-spread-madness-deepens-jefferies-finds-no-easy-exit-russias-refining"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/commodities/diesel-crack-spread-madness-deepens-jefferies-finds-no-easy-exit-russias-refining"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+        "best_prior_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0714,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 249.806,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 3,
+      "preselection_score": 114.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T13:55:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-0f404def2cc89dee5221b443",
+          "url": "https://www.zerohedge.com/commodities/diesel-crack-spread-madness-deepens-jefferies-finds-no-easy-exit-russias-refining"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/commodities/diesel-crack-spread-madness-deepens-jefferies-finds-no-easy-exit-russias-refining"
+      ],
+      "publishability_original_order": 2,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 2,
+      "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "selection_case": "Energy markets are highly sensitive to refining bottlenecks right now. Unpacking the Jefferies note provides actionable intelligence for commodities traders and energy equity investors.",
+      "seo_intent": "Diesel crack spread Jefferies Russia refining crisis energy markets",
+      "seo_learning_preferences": [],
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0f404def2cc89dee5221b443",
+        "ordered_headline_ids": [
+          "cc-x-headline-0f404def2cc89dee5221b443"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-5afd847f373e8a02658f",
+      "visual_strategy": "Line chart tracking the global diesel crack spread over the past 12 months alongside estimated Russian refined product export volumes.",
+      "why_now": "Diesel crack spreads are widening significantly, and new analysis from Jefferies highlights structural issues in Russian refining that could prolong the global supply squeeze.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "US Treasury",
+          "Fiscal Policy",
+          "Yen",
+          "Yields",
+          "Hedge Funds",
+          "Treasury"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.019,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "US Treasury",
+            "source_field": "entities_topics",
+            "source_value_sha256": "d5ed7f14a68ebb368f9de73ecb16fc37561d7a6717a7e882df576b8e6cf1bc2c"
+          },
+          {
+            "query_term": "Fiscal Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b63c423a4451562685798ecc9cb4b5ec3063f5a26129c87db6575f9e591d63cd"
+          },
+          {
+            "query_term": "Yen",
+            "source_field": "entities_topics",
+            "source_value_sha256": "fcfababd89f30fe2503bda0fbc14cdd013b759dc02f42cff1c0dda326fba76c9"
+          },
+          {
+            "query_term": "Yields",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b9c6ffd9c45d8bda52a92bdf59cfe83601094039434d934195419db952023650"
+          },
+          {
+            "query_term": "Hedge Funds",
+            "source_field": "entities_topics",
+            "source_value_sha256": "e233247d91710162e7b2d5487324595ed512512f721e560a430b2c1970d68458"
+          },
+          {
+            "query_term": "Treasury",
+            "source_field": "leaf_summaries",
+            "source_value_sha256": "948dc5c63ab5b5e8a40526070bc905349aa1e3f8f2c93b1174a8672678b2e7de"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "US Treasury",
+          "Fiscal Policy",
+          "Yen",
+          "Yields",
+          "Hedge Funds",
+          "Treasury"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "leaf_summaries"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-524d03dd15926d2ae1c3",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "US Treasury",
+        "Fiscal Policy",
+        "Yen",
+        "Yields",
+        "Hedge Funds"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "WHAT_THE_MARKET_IS_MISSING",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-1c937b50656d65ca360855bd"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-428bdffabc0bf1b0f5f2"
+      ],
+      "leaf_summaries": [
+        "Discussion on the US Treasury's correlated trades involving a stronger Yen and lower 30-year yields."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": true,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-524d03dd15926d2ae1c3",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-1c937b50656d65ca360855bd"
+        ],
+        "new_official_source_candidates": [
+          "https://robinjbrooks.substack.com/p/treasury-buybacks-and-debasement"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Tick-level data showing the correlation between JPY strength and 30-year Treasury buying",
+        "Analysis of Japanese institutional investor flows into US debt and current FX hedging costs",
+        "Recent US Treasury long-bond auction results and indirect bidder metrics"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T15:41:34Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-1c937b50656d65ca360855bd",
+          "url": "https://robinjbrooks.substack.com/p/treasury-buybacks-and-debasement"
+        }
+      ],
+      "official_source_urls": [
+        "https://robinjbrooks.substack.com/p/treasury-buybacks-and-debasement"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.05,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 3.825,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 4,
+      "preselection_score": 110.8608,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T15:41:34Z",
+          "feed_publisher_handle": "robin_j_brooks",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-1c937b50656d65ca360855bd",
+          "url": "https://robinjbrooks.substack.com/p/treasury-buybacks-and-debasement"
+        }
+      ],
+      "public_source_urls": [
+        "https://robinjbrooks.substack.com/p/treasury-buybacks-and-debasement"
+      ],
+      "publishability_original_order": 4,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 3,
+      "resolved_article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "selection_case": "Mainstream coverage often treats FX and US Treasuries in isolation. Connecting the dots on how Japanese monetary dynamics and hedging costs impact the long end of the US curve provides high-value alpha for macro readers.",
+      "seo_intent": "US Treasury yields Yen correlation macro trades 30-year",
+      "seo_learning_preferences": [],
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-1c937b50656d65ca360855bd",
+        "ordered_headline_ids": [
+          "cc-x-headline-1c937b50656d65ca360855bd"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-524d03dd15926d2ae1c3",
+      "visual_strategy": "Dual-axis chart comparing the USD/JPY exchange rate with the US 30-year Treasury yield over the recent quarter.",
+      "why_now": "Recent market action shows a strong correlation between a strengthening Japanese Yen and falling US 30-year yields, suggesting complex cross-border capital flows are driving the long end of the curve.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "CAPITAL_CHRONICLE_VIEW",
+      "capability_article_mode": "analysis",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Interest Rates",
+          "Debt",
+          "Fiscal Policy",
+          "US",
+          "GDP",
+          "CBO"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.02,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Interest Rates",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1aa08293cc8ee05c7e74275be026ab64b426c1743fd27ff50a2d86ae851fc4ea"
+          },
+          {
+            "query_term": "Debt",
+            "source_field": "entities_topics",
+            "source_value_sha256": "cbd92c957856d7b80c30567d0eaf20fed69b7c8373966cd3fb7f5035b5a25860"
+          },
+          {
+            "query_term": "Fiscal Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b63c423a4451562685798ecc9cb4b5ec3063f5a26129c87db6575f9e591d63cd"
+          },
+          {
+            "query_term": "US",
+            "source_field": "selection_case",
+            "source_value_sha256": "b5e86cefc9cfb8c972b2ede02131e8a270e7fbc4216e7be80bf800aea5de029b"
+          },
+          {
+            "query_term": "GDP",
+            "source_field": "needed_evidence",
+            "source_value_sha256": "14d59d34f852ad492b70c79bdcc4d59fca9f029ce48bca03c61e4e6a7367f311"
+          },
+          {
+            "query_term": "CBO",
+            "source_field": "needed_evidence",
+            "source_value_sha256": "fa8278469c1bc1e37a63c686990cd538607f11ea1843204d765ac13c585f1427"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Interest Rates",
+          "Debt",
+          "Fiscal Policy",
+          "US",
+          "GDP",
+          "CBO"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics",
+          "needed_evidence",
+          "selection_case"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-ce86d33d06bb287980c6",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Interest Rates",
+        "Debt",
+        "Fiscal Policy"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "CAPITAL_CHRONICLE_VIEW",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-54fba2bdbf2cd14fa5972cd8"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-4e8922278e5c329a5a0d"
+      ],
+      "leaf_summaries": [
+        "An analysis of normal interest rates and what the current debt panic gets wrong."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-global-cluster-ce86d33d06bb287980c6",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-54fba2bdbf2cd14fa5972cd8"
+        ],
+        "new_official_source_candidates": [
+          "https://www.zerohedge.com/markets/normal-interest-rates-what-debt-panic-gets-wrong"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Historical federal funds rate and 10-year yield data over 50 years",
+        "CBO projections on debt servicing costs as a percentage of GDP",
+        "Academic or institutional research on r-star (the neutral rate of interest)"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T14:30:08Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-54fba2bdbf2cd14fa5972cd8",
+          "url": "https://www.zerohedge.com/markets/normal-interest-rates-what-debt-panic-gets-wrong"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/markets/normal-interest-rates-what-debt-panic-gets-wrong"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0556,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 3.825,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 5,
+      "preselection_score": 108.8608,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T14:30:08Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-54fba2bdbf2cd14fa5972cd8",
+          "url": "https://www.zerohedge.com/markets/normal-interest-rates-what-debt-panic-gets-wrong"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/markets/normal-interest-rates-what-debt-panic-gets-wrong"
+      ],
+      "publishability_original_order": 5,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 4,
+      "resolved_article_mode": "CAPITAL_CHRONICLE_VIEW",
+      "selection_case": "Provides a strong editorial counter-narrative to prevailing doom-mongering about US debt, using historical rate contexts and r-star estimates to calm and educate the audience.",
+      "seo_intent": "Normal interest rates US debt crisis analysis historical yields",
+      "seo_learning_preferences": [],
+      "story_mode": "scenario_outlook",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-54fba2bdbf2cd14fa5972cd8",
+        "ordered_headline_ids": [
+          "cc-x-headline-54fba2bdbf2cd14fa5972cd8"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-ce86d33d06bb287980c6",
+      "visual_strategy": "Long-term historical chart of US interest rates adjusted for inflation, plotted against federal debt-to-GDP ratios over the last 50 years.",
+      "why_now": "As debt panic narratives dominate financial media, a structural look at what constitutes 'normal' interest rates is necessary to ground the discourse.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "FOLLOW_UP_UPDATE",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Alex Jones",
+          "Sandy Hook",
+          "Law",
+          "Court Ruling",
+          "Defamation"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.025,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Alex Jones",
+            "source_field": "entities_topics",
+            "source_value_sha256": "7218cc0e6fbc75197fdc884f6033376f72e9d9d6b241250f423b02b8398ac358"
+          },
+          {
+            "query_term": "Sandy Hook",
+            "source_field": "entities_topics",
+            "source_value_sha256": "09a4a7ed7b9fbd070345c48462d995071df1779722f53c3ccb4fa8c264fed03d"
+          },
+          {
+            "query_term": "Law",
+            "source_field": "entities_topics",
+            "source_value_sha256": "53b9e65c78549eb9ab360200aef720f2a4b26aba693db39eac5564be17f2db7d"
+          },
+          {
+            "query_term": "Court Ruling",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a87e35ec159078add2c794b2cda4a0a2e713191ba8642034d5aeae34b1333275"
+          },
+          {
+            "query_term": "Defamation",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c82bf31a6fc941babfd98fb39b1fca1bf7e229be349245a07f5940f6a673a955"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence",
+          "needed_evidence",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Alex Jones",
+          "Sandy Hook",
+          "Law",
+          "Court Ruling",
+          "Defamation"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-global-cluster-fd6484b80dd7ec13d542",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Alex Jones",
+        "Sandy Hook",
+        "Law",
+        "Court Ruling",
+        "Defamation"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "FOLLOW_UP_UPDATE",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "EXACT_CANONICAL_MODE_FROM_ASSIGNMENT"
+      },
+      "headline_ids": [
+        "cc-x-headline-d2f9c1a77c290c88fa5fac1c"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-3a33f0e9b6076b005c97"
+      ],
+      "leaf_summaries": [
+        "Court reduces the $50 million judgment against Alex Jones over false Sandy Hook hoax claims."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Official court order or docket filing reducing the judgment",
+        "Statutory text regarding damage caps in the relevant jurisdiction (e.g., Texas law on punitive damages)",
+        "Statements from plaintiffs' or defense counsel regarding the reduction and potential appeals"
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T15:40:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-d2f9c1a77c290c88fa5fac1c",
+          "url": "https://www.zerohedge.com/political/court-reduces-50-million-judgment-against-alex-jones-over-false-sandy-hook-hoax-claim"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/political/court-reduces-50-million-judgment-against-alex-jones-over-false-sandy-hook-hoax-claim"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 6,
+      "preselection_score": 108.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T15:40:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-d2f9c1a77c290c88fa5fac1c",
+          "url": "https://www.zerohedge.com/political/court-reduces-50-million-judgment-against-alex-jones-over-false-sandy-hook-hoax-claim"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/political/court-reduces-50-million-judgment-against-alex-jones-over-false-sandy-hook-hoax-claim"
+      ],
+      "publishability_original_order": 6,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "EDITORIAL_SHORTLIST",
+      "rank": 5,
+      "resolved_article_mode": "FOLLOW_UP_UPDATE",
+      "selection_case": "This is a significant legal update to a widely followed story. It requires a straightforward, factual update explaining the legal mechanics behind the reduction, such as statutory caps on punitive damages.",
+      "seo_intent": "Alex Jones Sandy Hook judgment reduced court ruling damages",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-d2f9c1a77c290c88fa5fac1c",
+        "ordered_headline_ids": [
+          "cc-x-headline-d2f9c1a77c290c88fa5fac1c"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-global-cluster-fd6484b80dd7ec13d542",
+      "visual_strategy": "Graphic breaking down the original jury award into compensatory versus punitive damages, highlighting the portion reduced by statutory caps.",
+      "why_now": "A court has officially reduced the $50 million defamation judgment against Alex Jones, materially changing the financial outcome of the high-profile Sandy Hook case.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Federal Reserve",
+          "Kalshi",
+          "Monetary Policy",
+          "Interest Rates",
+          "Central Bank"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.027,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Federal Reserve",
+            "source_field": "entities_topics",
+            "source_value_sha256": "124a7daed73968c567e34c704dcd0aa22e42df0a5e21a3ed65381295806f4414"
+          },
+          {
+            "query_term": "Kalshi",
+            "source_field": "entities_topics",
+            "source_value_sha256": "35e0ccfd32db182aa9b5440b170b4b1505dd66ce2c8922f6229eb1a7a2fe1ffc"
+          },
+          {
+            "query_term": "Monetary Policy",
+            "source_field": "entities_topics",
+            "source_value_sha256": "258ea27f23d798225cd496f5e078ad6ace0208e7a0590b9a904c94dcfd15f299"
+          },
+          {
+            "query_term": "Interest Rates",
+            "source_field": "entities_topics",
+            "source_value_sha256": "1aa08293cc8ee05c7e74275be026ab64b426c1743fd27ff50a2d86ae851fc4ea"
+          },
+          {
+            "query_term": "Central Bank",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b940de50176a5741b0f5e6adba9fa5988cc01cbce6c68122d4062175c6378f48"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Federal Reserve",
+          "Kalshi",
+          "Monetary Policy",
+          "Interest Rates",
+          "Central Bank"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-c5f9bb235b49afa854f2",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Federal Reserve",
+        "Kalshi",
+        "Monetary Policy",
+        "Interest Rates",
+        "Central Bank"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-62004ce2de90bde32e9b050f"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-2dba5f6d5af14940fa27"
+      ],
+      "leaf_summaries": [
+        "Market odds show a 59% chance that the Federal Reserve will hike interest rates this year."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": {
+        "current_update_chain_identity": "rolling-x-semantic-reserve-c5f9bb235b49afa854f2",
+        "grants_factual_or_numeric_authority": false,
+        "material_delta_reason_codes": [
+          "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+        ],
+        "material_delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+        "new_headline_ids": [
+          "cc-x-headline-62004ce2de90bde32e9b050f"
+        ],
+        "new_official_source_candidates": [
+          "https://kalshi.com/markets/kxfedhike/next-fed-rate-hike/fedhike"
+        ],
+        "previous_article_identity": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_body_sha256": "408b6ba312413f906b5bf9da79edb241c4459a9ee75298b5d01665f249d0c0dd",
+        "previous_canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "previous_content_status": "CONTENT_AVAILABLE",
+        "previous_full_text": "The useful fact is not simply that an approval exists; it is what the State Department\u2019s record defines\u2014and what it does not. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What the document establishes\n\nThe Bureau of Political-Military Affairs issued a congressional notification on August 21, 2026, identified as Transmittal #26-92. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The record says the State Department approved a possible Foreign Military Sale to the Government of Italy for Guidance Section Single Variant Air-to-Air Advanced Precision Kill Weapon System-II and related equipment. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It identifies Italy\u2019s request as 5,031 Guidance Sections Single Variant Air-to-Air Advanced Precision Kill Weapon System-II WGU 59B/B. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The document assigns the possible sale an estimated total cost of $364 million. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## Why this record is useful\n\nThe notification links four elements in one official record: the approving department, the requesting government, the requested quantity and the estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). It also supplies a dated transmittal number that readers can use to distinguish this notification from any later official record concerning the same possible sale. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). That specificity makes the document a useful baseline for tracking whether the proposal changes or advances. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## The procedural boundary\n\nThe document consistently describes the matter as a possible or proposed sale and presents itself as a congressional notification. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Its approval language therefore does not, by itself, establish a concluded agreement, a contract award, a completed transaction, delivery or operational use. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). The $364 million figure should likewise be read as the estimated total cost attached to the possible sale, not as proof that this amount has been spent, received or booked. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).\n\n## What would establish the next phase\n\nA later official record would need to confirm that the process advanced beyond the notification stage before readers could describe the transaction as completed or implemented. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Such evidence could take the form of an official confirmation of a concluded agreement, a contract award, a delivery or another clearly identified implementation step. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/). Until that evidence appears, the narrow conclusion remains that the State Department approved and notified Congress of a possible sale with a stated request and estimated value. [United States Department of State](https://www.state.gov/releases/bureau-of-political-military-affairs/2026/08/italy-guidance-section-single-variant-air-to-air-advanced-precision-kill-weapon-system-ii/).",
+        "previous_published_at_utc": "2026-08-22T21:29:16.076304+00:00",
+        "previous_story_identity": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "previous_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "schema_version": "contentops.material_follow_up_context.v1"
+      },
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T13:31:00Z",
+          "feed_publisher_handle": "MikeZaccardi",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-62004ce2de90bde32e9b050f",
+          "url": "https://kalshi.com/markets/kxfedhike/next-fed-rate-hike/fedhike"
+        }
+      ],
+      "official_source_urls": [
+        "https://kalshi.com/markets/kxfedhike/next-fed-rate-hike/fedhike"
+      ],
+      "portfolio_concentration_penalty": 0.0833,
+      "portfolio_concentration_penalty_effective": 0.0833,
+      "preselection_novelty": {
+        "best_prior_article": "rolling-x-global-cluster-f5dc3fb6b0fdf83cbbc1",
+        "best_prior_title": "State Department Approves Possible APKWS II Sale to Italy",
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0455,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": 3.825,
+        "material_delta_evaluation": {
+          "delta_summary": "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 1,
+          "reason_codes": [
+            "NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT"
+          ],
+          "signal_count": 1,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 1,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 7,
+      "preselection_score": 104.8608,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T13:31:00Z",
+          "feed_publisher_handle": "MikeZaccardi",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-62004ce2de90bde32e9b050f",
+          "url": "https://kalshi.com/markets/kxfedhike/next-fed-rate-hike/fedhike"
+        }
+      ],
+      "public_source_urls": [
+        "https://kalshi.com/markets/kxfedhike/next-fed-rate-hike/fedhike"
+      ],
+      "publishability_original_order": 7,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 6,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-62004ce2de90bde32e9b050f"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-c5f9bb235b49afa854f2",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Market odds show a 59% chance that the Federal Reserve will hike interest rates this year.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Islamic Leaders",
+          "Politics",
+          "Religion",
+          "Elections"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.018,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Islamic Leaders",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c641f336c0212dad1ca83c342da13e853d08809adeedd5c4ee3624746681f4b0"
+          },
+          {
+            "query_term": "Politics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "934ce114b831d9afccc89355d9d06c91bdd8ed7e68aa13d3f11ae16f4e01c314"
+          },
+          {
+            "query_term": "Religion",
+            "source_field": "entities_topics",
+            "source_value_sha256": "84c4f87e3fad6e18943f1644a06cca8f84953a62508cccfd41d25496893201cd"
+          },
+          {
+            "query_term": "Elections",
+            "source_field": "entities_topics",
+            "source_value_sha256": "3f8252088044af0116d31baa759c26dffaa46ef75a21d307d0ef55324a980ae3"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Islamic Leaders",
+          "Politics",
+          "Religion",
+          "Elections"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-f94ac5d04119e90bcd80",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Islamic Leaders",
+        "Politics",
+        "Religion",
+        "Elections"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-3a174d9e5af721f7b3e6ed53"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-6285832afeef12e5e3d6"
+      ],
+      "leaf_summaries": [
+        "Islamic leaders reportedly view the ballot box as a path to power."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T12:10:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-3a174d9e5af721f7b3e6ed53",
+          "url": "https://www.zerohedge.com/political/call-power-islamic-leaders-see-ballot-box-path-paradise"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/political/call-power-islamic-leaders-see-ballot-box-path-paradise"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 8,
+      "preselection_score": 104.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T12:10:07Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-3a174d9e5af721f7b3e6ed53",
+          "url": "https://www.zerohedge.com/political/call-power-islamic-leaders-see-ballot-box-path-paradise"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/political/call-power-islamic-leaders-see-ballot-box-path-paradise"
+      ],
+      "publishability_original_order": 11,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 7,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-3a174d9e5af721f7b3e6ed53"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-f94ac5d04119e90bcd80",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Islamic leaders reportedly view the ballot box as a path to power.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Bitcoin",
+          "Seeking Alpha",
+          "Cryptocurrency",
+          "Finance",
+          "Debasement"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.018,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Bitcoin",
+            "source_field": "entities_topics",
+            "source_value_sha256": "999ab80261dbf10979049b0a927770ca8f70ecc086cb7e137cb6c217dd697d9b"
+          },
+          {
+            "query_term": "Seeking Alpha",
+            "source_field": "entities_topics",
+            "source_value_sha256": "218ee938844b37ef7fe8f55561f8a13dc55382bc8d141aba9481179651abfdae"
+          },
+          {
+            "query_term": "Cryptocurrency",
+            "source_field": "entities_topics",
+            "source_value_sha256": "adc78055d226f13f2e841e5583732c3e663d8e326f61edbff4475a5771c97c70"
+          },
+          {
+            "query_term": "Finance",
+            "source_field": "entities_topics",
+            "source_value_sha256": "a5a718fe610ba97267620b39803f6ad2827c00457943240dc942a5b2223a5f66"
+          },
+          {
+            "query_term": "Debasement",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b78a23f4cbf9616e44863d426dd1eaafef7d1ec19284a1f4e4ac0ee18b4c1116"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Bitcoin",
+          "Seeking Alpha",
+          "Cryptocurrency",
+          "Finance",
+          "Debasement"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-bf61e64682bb3a1a9933",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Bitcoin",
+        "Seeking Alpha",
+        "Cryptocurrency",
+        "Finance",
+        "Debasement"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-84425c7d62ff8a10ddb61f5e"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-8239b4a5e60b86d892e0"
+      ],
+      "leaf_summaries": [
+        "Analysis of Bitcoin's historical drawdowns and its return as a debasement trade."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T14:01:00Z",
+          "feed_publisher_handle": "MikeZaccardi",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-84425c7d62ff8a10ddb61f5e",
+          "url": "https://seekingalpha.com/article/4939120-bitcoin-explodes-higher-revisiting-ibit-and-btc-as-the-debasement-trade-returns#comment-103354297"
+        }
+      ],
+      "official_source_urls": [
+        "https://seekingalpha.com/article/4939120-bitcoin-explodes-higher-revisiting-ibit-and-btc-as-the-debasement-trade-returns#comment-103354297"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 9,
+      "preselection_score": 102.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T14:01:00Z",
+          "feed_publisher_handle": "MikeZaccardi",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-84425c7d62ff8a10ddb61f5e",
+          "url": "https://seekingalpha.com/article/4939120-bitcoin-explodes-higher-revisiting-ibit-and-btc-as-the-debasement-trade-returns#comment-103354297"
+        }
+      ],
+      "public_source_urls": [
+        "https://seekingalpha.com/article/4939120-bitcoin-explodes-higher-revisiting-ibit-and-btc-as-the-debasement-trade-returns#comment-103354297"
+      ],
+      "publishability_original_order": 14,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 8,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-84425c7d62ff8a10ddb61f5e"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-bf61e64682bb3a1a9933",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Analysis of Bitcoin's historical drawdowns and its return as a debasement trade.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "AOC",
+          "Politics",
+          "Presidency",
+          "Commentary"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.017,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "AOC",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c0ac13e69e6e1ba528e1ac85be8015d04178b54e59acd3e51f399c0c2e7a87bf"
+          },
+          {
+            "query_term": "Politics",
+            "source_field": "entities_topics",
+            "source_value_sha256": "934ce114b831d9afccc89355d9d06c91bdd8ed7e68aa13d3f11ae16f4e01c314"
+          },
+          {
+            "query_term": "Presidency",
+            "source_field": "entities_topics",
+            "source_value_sha256": "5f2ea48d8fcf9e6a426dcb85ed4b8ae35352bdbabb5c49a704d8c5703d5c70ad"
+          },
+          {
+            "query_term": "Commentary",
+            "source_field": "entities_topics",
+            "source_value_sha256": "c36e84bd5a7e40c2df787a8c2fc791031ba28339f4354d6e056b426a7f2c8748"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "AOC",
+          "Politics",
+          "Presidency",
+          "Commentary"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-532399d887fb651696c5",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "AOC",
+        "Politics",
+        "Presidency",
+        "Commentary"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-fa50b074bcf8b5e29f0ece61"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-da9b77012bfa6152276c"
+      ],
+      "leaf_summaries": [
+        "Speculative commentary or analysis regarding a hypothetical first term for a President AOC."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T13:20:06Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-fa50b074bcf8b5e29f0ece61",
+          "url": "https://www.zerohedge.com/political/president-aocs-first-term"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/political/president-aocs-first-term"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 10,
+      "preselection_score": 102.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T13:20:06Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-fa50b074bcf8b5e29f0ece61",
+          "url": "https://www.zerohedge.com/political/president-aocs-first-term"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/political/president-aocs-first-term"
+      ],
+      "publishability_original_order": 15,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 9,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-fa50b074bcf8b5e29f0ece61"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-532399d887fb651696c5",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Speculative commentary or analysis regarding a hypothetical first term for a President AOC.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    },
+    {
+      "article_mode": "breaking",
+      "capability_article_mode": "straight_news",
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [
+          "Spain",
+          "UK",
+          "Sports",
+          "Football",
+          "Fandom"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.019,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2",
+        "semantic_activation": {},
+        "state": "NO_RELEVANT_CC_CONTEXT",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "capital_chronicle_publication_authority": {
+        "authorized": false,
+        "exact_story_consumer_use_binding_verified": false,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_publication_authority_discovery": {
+        "authority_class": "CONTEXT_OR_DISCOVERY_ONLY",
+        "catalog_fingerprint": null,
+        "llm_numeric_authority": false,
+        "ordinary_latest_web_article_may_continue": true,
+        "packet_id": null,
+        "packet_sha256": null,
+        "publication_authority_granted_at_preselection": false,
+        "reason_codes": [
+          "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+        ],
+        "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+      },
+      "capital_chronicle_semantic_activation": {
+        "derivation_provenance": [
+          {
+            "query_term": "Spain",
+            "source_field": "entities_topics",
+            "source_value_sha256": "b8c3e5de9ae1f3bb7a8be5ff9e9e4b45c26b68e58fbeffb7d0d2129f0710fa78"
+          },
+          {
+            "query_term": "UK",
+            "source_field": "entities_topics",
+            "source_value_sha256": "134648f2c4dd1c743f8983c760629dd9c62ccc2756e82f09b7ea936e1a330e90"
+          },
+          {
+            "query_term": "Sports",
+            "source_field": "entities_topics",
+            "source_value_sha256": "6ff6ec3a5e2395a3e5495bb074c263df6116e86bff028ebea113614edc28bdda"
+          },
+          {
+            "query_term": "Football",
+            "source_field": "entities_topics",
+            "source_value_sha256": "8f49f83c85547831b07661d3c4b3e8f8c926f1561c66be3e2fb428f300bcb8f3"
+          },
+          {
+            "query_term": "Fandom",
+            "source_field": "entities_topics",
+            "source_value_sha256": "9c0d81541d5863e0074222b86662976a216c21fafca3fe15399b699bbfbbee85"
+          }
+        ],
+        "grants_factual_or_numeric_authority": false,
+        "narrative_fields_considered": [
+          "leaf_summaries",
+          "why_now",
+          "selection_case",
+          "needed_evidence"
+        ],
+        "query_terms": [
+          "Spain",
+          "UK",
+          "Sports",
+          "Football",
+          "Fandom"
+        ],
+        "schema_version": "contentops.cc_story_semantic_activation.v1",
+        "semantic_dimensions": [
+          "entities_topics"
+        ],
+        "state": "CONTEXT_ONLY_AVAILABLE",
+        "zero_context_reason": null
+      },
+      "cluster_id": "rolling-x-semantic-reserve-28a0db8ddf0a0a5c9dc8",
+      "editorial_classification": "BREAKING_NEW_STORY",
+      "entities_topics": [
+        "Spain",
+        "UK",
+        "Sports",
+        "Football",
+        "Fandom"
+      ],
+      "evidence_reachability": {
+        "adapter_family_coverage": 1.0,
+        "available_adapter_families": [
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "exact_matching_cc_publication_authorized_packet": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 3,
+        "factual_authority_granted": false,
+        "known_official_path": false,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [],
+        "reputable_public_secondary_path": false,
+        "score": 0.245,
+        "unregistered_official_suffix_candidate": false
+      },
+      "growth_editorial_mode_resolution": {
+        "canonical_mode_ladder": [
+          "BREAKING_BRIEF",
+          "FOLLOW_UP_UPDATE",
+          "STANDARD_NEWS_ANALYSIS",
+          "CAPITAL_CHRONICLE_VIEW",
+          "WHAT_THE_MARKET_IS_MISSING",
+          "EVERGREEN_EXPLAINER",
+          "DATA_OR_DOCUMENT_LENS",
+          "WEEK_AHEAD_OR_WATCH"
+        ],
+        "changes_evidence_or_permission_standards": false,
+        "grants_factual_or_numeric_authority": false,
+        "mode": "BREAKING_BRIEF",
+        "quiet_day_utility_candidate": false,
+        "reason_code": "ROUTED_MODE_NORMALIZED"
+      },
+      "headline_ids": [
+        "cc-x-headline-9f551b45f2c5dd7e3817e0c1"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-e035914b0bbd91ce0b6a"
+      ],
+      "leaf_summaries": [
+        "Data showing Spain and the UK leading in football fandom."
+      ],
+      "learning_policy_confidence": 0.0,
+      "learning_policy_sample_count": 0,
+      "learning_policy_version": null,
+      "learning_preference_matches": [],
+      "learning_preferences_change_evidence_or_publication_gates": false,
+      "learning_preferences_grant_factual_or_numeric_authority": false,
+      "learning_priority_bonus": 0.0,
+      "market_sensitive": false,
+      "material_event_priority_bonus": 0.0,
+      "material_event_priority_changes_eligibility_gates": false,
+      "material_event_priority_grants_factual_or_numeric_authority": false,
+      "material_event_priority_ids": [],
+      "material_event_priority_match": false,
+      "material_follow_up_context": null,
+      "needed_evidence": [
+        "Corroborate the limited factual claim from public evidence."
+      ],
+      "official_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T12:45:08Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-9f551b45f2c5dd7e3817e0c1",
+          "url": "https://www.zerohedge.com/geopolitical/spain-uk-lead-football-fandom"
+        }
+      ],
+      "official_source_urls": [
+        "https://www.zerohedge.com/geopolitical/spain-uk-lead-football-fandom"
+      ],
+      "portfolio_concentration_penalty": 0.0,
+      "portfolio_concentration_penalty_effective": 0.0,
+      "preselection_novelty": {
+        "best_prior_article": null,
+        "best_prior_title": null,
+        "cc_context_richness": 0.0,
+        "decision": "BREAKING_NEW_STORY",
+        "entity_overlap": 0.0,
+        "grants_factual_or_numeric_authority": false,
+        "matched_article_age_hours": null,
+        "material_delta_evaluation": {
+          "delta_summary": "No prior article matched.",
+          "marker_hits": [],
+          "new_official_source_candidate_count": 0,
+          "reason_codes": [],
+          "signal_count": 0,
+          "x_content_grants_factual_authority": false
+        },
+        "material_delta_signals": 0,
+        "recommended_article_mode": "BREAKING_BRIEF",
+        "schema_version": "contentops.editorial_story_novelty.v1",
+        "update_chain_match": false
+      },
+      "preselection_occurs_before_article_generation": true,
+      "preselection_occurs_before_targeted_evidence": true,
+      "preselection_original_rank": 11,
+      "preselection_score": 102.86,
+      "public_source_url_bindings": [
+        {
+          "feed_published_at_utc": "2026-08-22T12:45:08Z",
+          "feed_publisher_handle": "zerohedge",
+          "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+          "headline_id": "cc-x-headline-9f551b45f2c5dd7e3817e0c1",
+          "url": "https://www.zerohedge.com/geopolitical/spain-uk-lead-football-fandom"
+        }
+      ],
+      "public_source_urls": [
+        "https://www.zerohedge.com/geopolitical/spain-uk-lead-football-fandom"
+      ],
+      "publishability_original_order": 17,
+      "publishability_path_profile": {
+        "bound_public_url_count": 1,
+        "bounded_request_upper_bound_per_candidate": 1,
+        "context_routed_locator_applicable": false,
+        "context_routed_locator_families": [],
+        "context_routed_locator_surface_ids": [],
+        "grants_factual_or_evidence_or_publication_authority": false,
+        "priority": 1,
+        "tier": "UNCLASSIFIED_PUBLIC_LOCATOR"
+      },
+      "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+      "rank": 10,
+      "resolved_article_mode": "BREAKING_BRIEF",
+      "selection_case": "Unused semantic leaf retained for publishability closure.",
+      "seo_intent": "",
+      "seo_learning_preferences": [],
+      "story_mode": "reporting",
+      "update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-9f551b45f2c5dd7e3817e0c1"
+        ],
+        "relationship": "distinct"
+      },
+      "update_chain_identity": "rolling-x-semantic-reserve-28a0db8ddf0a0a5c9dc8",
+      "visual_strategy": "Deterministic source-backed title card.",
+      "why_now": "Data showing Spain and the UK leading in football fandom.",
+      "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false
+    }
+  ],
+  "ranking_order_changed": true,
+  "reranked_order": [
+    "rolling-x-global-cluster-6f5dea917f4aecc18b82",
+    "rolling-x-global-cluster-5afd847f373e8a02658f",
+    "rolling-x-global-cluster-524d03dd15926d2ae1c3",
+    "rolling-x-global-cluster-ce86d33d06bb287980c6",
+    "rolling-x-global-cluster-fd6484b80dd7ec13d542",
+    "rolling-x-semantic-reserve-c5f9bb235b49afa854f2",
+    "rolling-x-semantic-reserve-f94ac5d04119e90bcd80",
+    "rolling-x-semantic-reserve-bf61e64682bb3a1a9933",
+    "rolling-x-semantic-reserve-532399d887fb651696c5",
+    "rolling-x-semantic-reserve-28a0db8ddf0a0a5c9dc8"
+  ],
+  "schema_version": "contentops.preselection_intelligence.v1",
+  "sourceability_observations_consumed": false,
+  "sourceability_signals_grant_authority": false
+}

@@ -122,6 +122,57 @@ def test_continuity_frontier_advances_reserved_identities_at_real_owner_windows(
     assert second["llm_or_provider_calls"] == 0
 
 
+def test_prepared_frontier_prioritizes_existing_exact_official_path_before_expiry():
+    """A current first-party binding cannot be held behind source-less social discoveries."""
+    cutoff = "2026-08-21T17:26:36Z"
+    rolling_input = _current_input(
+        13,
+        cutoff=cutoff,
+        source_timestamp="2026-08-20T18:00:00Z",
+    )
+    source_less_rows = []
+    for row in rolling_input["headlines"][:12]:
+        source_less_rows.append({
+            **row,
+            "external_content": {
+                **row["external_content"],
+                "official_source_urls": [],
+            },
+        })
+    exact_official = {
+        **rolling_input["headlines"][12],
+        "headline_id": "exact-fed-h41",
+        "source_timestamp_utc": "2026-08-20T20:30:56Z",
+        "external_content": {
+            **rolling_input["headlines"][12]["external_content"],
+            "headline_text": "Federal Reserve weekly balance-sheet update",
+            "official_source_urls": [
+                "https://www.federalreserve.gov/releases/h41/current/h41.htm"
+            ],
+        },
+    }
+    rows = [*source_less_rows, exact_official]
+    state = build_prepared_rolling_x_candidate_state(
+        rolling_input={
+            **rolling_input,
+            "headlines": rows,
+            "unique_headline_ids": [row["headline_id"] for row in rows],
+        },
+        prepared_at_utc=cutoff,
+    )
+
+    frontier = state["prepared_frontier"]
+    assert frontier["selected_headline_ids"][0] == "exact-fed-h41"
+    assert frontier["selection_order"][:3] == [
+        "material_update_or_priority_reentry",
+        "known_evidence_path_priority",
+        "rolling_expiry_ascending_against_exact_owner_calendar",
+    ]
+    assert state["llm_or_provider_calls"] == 0
+    assert frontier["frontier_dispositions_grant_evidence_walk_evaluation"] is False
+    assert frontier["frontier_dispositions_grant_factual_or_numeric_authority"] is False
+
+
 def test_overnight_gap_over_six_hours_cannot_silently_age_out():
     rolling_input = _current_input(
         13, cutoff="2026-08-17T18:01:00Z", source_timestamp="2026-08-17T02:00:00Z"

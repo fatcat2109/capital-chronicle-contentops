@@ -397,6 +397,7 @@ class NewsroomProductionDaySnapshot:
     hard_external_block_reason: Optional[str]
     routine_opportunities_used: int
     routine_opportunities_remaining: int
+    bounded_useful_universe_exhausted: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -410,6 +411,7 @@ def build_production_day_snapshot(
     routine_opportunities_used_override: Optional[int] = None,
     terminal_work_item_ids: Optional[Iterable[str]] = None,
     hard_external_block_reason: Optional[str] = None,
+    bounded_useful_universe_exhausted: bool = False,
 ) -> NewsroomProductionDaySnapshot:
     day_id = newsroom_production_day_id(reference)
     qualified = len(
@@ -434,7 +436,7 @@ def build_production_day_snapshot(
         reason = None
     elif reason:
         state = STATE_HARD_EXTERNAL_BLOCK
-    elif remaining == 0:
+    elif bounded_useful_universe_exhausted or remaining == 0:
         state = STATE_DEGRADED_DAILY_OUTPUT_DEFICIT
     elif qualified >= used:
         state = STATE_ON_TRACK
@@ -452,6 +454,7 @@ def build_production_day_snapshot(
         hard_external_block_reason=reason,
         routine_opportunities_used=used,
         routine_opportunities_remaining=remaining,
+        bounded_useful_universe_exhausted=bool(bounded_useful_universe_exhausted),
     )
 
 

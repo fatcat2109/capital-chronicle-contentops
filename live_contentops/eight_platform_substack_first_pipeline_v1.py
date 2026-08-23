@@ -14,6 +14,18 @@ from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrche
 TASK_LABEL = "TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1"
 SCHEMA_VERSION = "contentops.eight_platform_substack_first_pipeline.v1"
 OUTPUT_ROOT = Path("docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1")
+DESKTOP_PRIMARY_EDITORIAL_ROUTE = "DESKTOP_PRIMARY"
+SDK_FALLBACK_EDITORIAL_ROUTE = "SDK_FALLBACK"
+SDK_DIRECT_EDITORIAL_ROUTE = "SDK_DIRECT"
+SDK_BENCHMARK_EDITORIAL_ROUTE = "SDK_BENCHMARK"
+_EDITORIAL_EXECUTION_ROUTES = frozenset(
+    {
+        DESKTOP_PRIMARY_EDITORIAL_ROUTE,
+        SDK_FALLBACK_EDITORIAL_ROUTE,
+        SDK_DIRECT_EDITORIAL_ROUTE,
+        SDK_BENCHMARK_EDITORIAL_ROUTE,
+    }
+)
 
 
 def _execute(operation: str, **kwargs: Any) -> Any:
@@ -56,6 +68,18 @@ def prepare_generic_text_image_release_candidate(
 
 def build_operator_manual_audit_packet(*, output_dir: Path, cdp_port: int = 9223) -> dict[str, Any]:
     return _execute("build_operator_manual_audit_packet", output_dir=output_dir, cdp_port=cdp_port)
+
+
+def ensure_canonical_edge_publishing_runtime(
+    *,
+    urls: Sequence[str] = ("https://substack.com/",),
+    wait_seconds: float = 12.0,
+) -> dict[str, Any]:
+    return _execute(
+        "ensure_canonical_edge_publishing_runtime",
+        urls=urls,
+        wait_seconds=wait_seconds,
+    )
 
 
 def run_eight_platform_substack_first_pipeline(
@@ -107,39 +131,111 @@ def run_rolling_x_newsroom_cycle(
     cc_catalog: Mapping[str, Any] | None = None,
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
+    sourceability_observations: Mapping[str, Any] | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
+    source_discoverer: Any = None,
+    autonomous_source_discovery_enabled: bool = False,
+    evidence_only_target_count: int | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
+    editorial_execution_route: str = DESKTOP_PRIMARY_EDITORIAL_ROUTE,
+    hybrid_arbitration_receipt: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return _execute(
-        "run_rolling_x_newsroom_cycle",
-        run_id=run_id,
-        output_dir=output_dir,
-        cutoff_utc=cutoff_utc,
-        sidecar_glob=sidecar_glob,
-        window_hours=window_hours,
-        cdp_port=cdp_port,
-        assignment_timeout_seconds=assignment_timeout_seconds,
-        assignment_provider_call=assignment_provider_call,
-        rolling_input=rolling_input,
-        prepared_candidate_state=prepared_candidate_state,
-        leaf_checkpoints=leaf_checkpoints,
-        global_checkpoint=global_checkpoint,
-        capital_chronicle_root=capital_chronicle_root,
-        evidence_acquirer=evidence_acquirer,
-        story_type_by_cluster=story_type_by_cluster,
-        story_type_classifier=story_type_classifier,
-        story_type_provider_call=story_type_provider_call,
-        story_type_timeout_seconds=story_type_timeout_seconds,
-        article_builder=article_builder,
-        editorial_reviewer=editorial_reviewer,
-        article_reviser=article_reviser,
-        publication_enabled=publication_enabled,
-        operating_mode=operating_mode,
-        published_corpus=published_corpus,
-        cc_catalog=cc_catalog,
-        learning_policy=learning_policy,
-        material_event_priority=material_event_priority,
-        destination_readiness_override=destination_readiness_override,
+    kwargs = {
+        "run_id": run_id,
+        "output_dir": output_dir,
+        "cutoff_utc": cutoff_utc,
+        "sidecar_glob": sidecar_glob,
+        "window_hours": window_hours,
+        "cdp_port": cdp_port,
+        "assignment_timeout_seconds": assignment_timeout_seconds,
+        "assignment_provider_call": assignment_provider_call,
+        "rolling_input": rolling_input,
+        "prepared_candidate_state": prepared_candidate_state,
+        "leaf_checkpoints": leaf_checkpoints,
+        "global_checkpoint": global_checkpoint,
+        "capital_chronicle_root": capital_chronicle_root,
+        "evidence_acquirer": evidence_acquirer,
+        "story_type_by_cluster": story_type_by_cluster,
+        "story_type_classifier": story_type_classifier,
+        "story_type_provider_call": story_type_provider_call,
+        "story_type_timeout_seconds": story_type_timeout_seconds,
+        "editorial_reviewer": editorial_reviewer,
+        "article_reviser": article_reviser,
+        "publication_enabled": publication_enabled,
+        "operating_mode": operating_mode,
+        "published_corpus": published_corpus,
+        "cc_catalog": cc_catalog,
+        "learning_policy": learning_policy,
+        "material_event_priority": material_event_priority,
+        "sourceability_observations": sourceability_observations,
+        "source_route_health": source_route_health,
+        "source_discoverer": source_discoverer,
+        "autonomous_source_discovery_enabled": autonomous_source_discovery_enabled,
+        "evidence_only_target_count": evidence_only_target_count,
+        "destination_readiness_override": destination_readiness_override,
+    }
+    route = str(editorial_execution_route or "").strip().upper()
+    if route not in _EDITORIAL_EXECUTION_ROUTES:
+        raise ValueError("editorial_execution_route_invalid")
+
+    def execute_with_receipt(builder: Any, arbitration: Mapping[str, Any] | None = None) -> Any:
+        result = _execute(
+            "run_rolling_x_newsroom_cycle", article_builder=builder, **kwargs
+        )
+        if not isinstance(result, Mapping):
+            return result
+        annotated = dict(result)
+        annotated["editorial_execution_route"] = route
+        annotated["desktop_primary_routine_authority"] = True
+        if arbitration is not None:
+            annotated["hybrid_editorial_arbitration"] = dict(arbitration)
+        return annotated
+
+    if article_builder is not None:
+        if route != DESKTOP_PRIMARY_EDITORIAL_ROUTE:
+            raise ValueError("injected_article_builder_is_desktop_primary_only")
+        if publication_enabled and not callable(editorial_reviewer):
+            raise ValueError("desktop_primary_editorial_reviewer_required")
+        return execute_with_receipt(article_builder)
+
+    if route == DESKTOP_PRIMARY_EDITORIAL_ROUTE:
+        if not publication_enabled:
+            return execute_with_receipt(None)
+        raise ValueError("desktop_primary_editorial_builder_required")
+
+    validated_arbitration: Mapping[str, Any] | None = None
+    if route == SDK_FALLBACK_EDITORIAL_ROUTE:
+        if not isinstance(hybrid_arbitration_receipt, Mapping):
+            raise ValueError("sdk_fallback_arbitration_receipt_required")
+        from live_contentops.codex_desktop_newsroom_operator_v1 import (
+            validate_hybrid_editorial_arbitration_receipt,
+        )
+
+        validated_arbitration = validate_hybrid_editorial_arbitration_receipt(
+            hybrid_arbitration_receipt,
+            expected_runtime_run_id=run_id,
+        )
+        if (
+            validated_arbitration.get("decision") != "START_SDK_FALLBACK"
+            or validated_arbitration.get("sdk_fallback_start_authorized") is not True
+            or validated_arbitration.get("sdk_fallback_state") != "NOT_STARTED"
+        ):
+            raise ValueError("sdk_fallback_not_authorized_by_arbitration")
+    elif hybrid_arbitration_receipt is not None:
+        raise ValueError("hybrid_arbitration_receipt_only_valid_for_sdk_fallback")
+
+    if route == SDK_BENCHMARK_EDITORIAL_ROUTE and publication_enabled:
+        raise ValueError("sdk_benchmark_requires_zero_public_write_mode")
+
+    # The official SDK provider is instantiated only for an explicit direct/benchmark route or a
+    # hash-validated missed/failed-Desktop fallback. It remains inside the canonical runtime and
+    # creates no second orchestrator, scheduler, store, queue, or publisher.
+    from live_contentops.official_codex_provider_v1 import (
+        OfficialCodexEditorialArticleBuilder,
     )
+
+    with OfficialCodexEditorialArticleBuilder(output_dir=output_dir) as direct_builder:
+        return execute_with_receipt(direct_builder, validated_arbitration)
 
 
 def reconcile_public_substack_for_derivative_resume(

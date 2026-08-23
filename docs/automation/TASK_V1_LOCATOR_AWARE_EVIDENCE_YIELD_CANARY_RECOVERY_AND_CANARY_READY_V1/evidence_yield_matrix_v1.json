@@ -1,0 +1,1652 @@
+{
+  "attempted_story_count": 40,
+  "authority": {
+    "factual_or_numeric_authority_granted": false,
+    "network_requests": 0,
+    "provider_calls": 0,
+    "publication_or_public_write_authority_granted": false
+  },
+  "cause_distribution": {
+    "other": 2,
+    "retrieval_or_provider_failure": 38,
+    "source_family_or_capability_mismatch": 2
+  },
+  "cause_flag_counts_nonexclusive": {
+    "content_insufficiency": 38,
+    "freshness_failure": 0,
+    "locator_reachability_representation_gap": 0,
+    "other": 2,
+    "request_budget_exhaustion": 19,
+    "retrieval_or_provider_failure": 38,
+    "source_family_or_capability_mismatch": 40
+  },
+  "direct_primary_binding_absent_count": 42,
+  "direct_primary_binding_present_count": 0,
+  "held_corrected_exact_locator_match_count": 3,
+  "held_corrected_exact_locator_matches": [
+    {
+      "corrected_exact_rule_matched": true,
+      "direct_primary_binding": false,
+      "families": [
+        "official_regulatory_fiscal"
+      ],
+      "headline_id": "cc-x-headline-23d9967fdbf0724bb06e7955",
+      "sanitized_story_label": "U.S. STATE DEPARTMENT APPROVES POSSIBLE SALE OF UH-60M BLACK HAWK HELICOPTERS TO NORWAY WORTH ABOUT $2.3 BILLION.",
+      "source_timestamp_utc": "2026-08-21T16:28:47Z",
+      "start_of_task_rule_matched": false,
+      "surface_ids": [
+        "state_current_fms_press_releases_v1"
+      ]
+    },
+    {
+      "corrected_exact_rule_matched": true,
+      "direct_primary_binding": false,
+      "families": [
+        "official_regulatory_fiscal"
+      ],
+      "headline_id": "cc-x-headline-a4228aa04eced60d1be2e1fa",
+      "sanitized_story_label": "U.S. STATE DEPARTMENT GREENLIGHTS POSSIBLE SALE OF GUIDED AIR-TO-AIR ADVANCED PRECISION KILL WEAPON SYSTEM-II AND ACCESSORIES TO ITALY, VALUED AT ABOUT $364 MILLION.",
+      "source_timestamp_utc": "2026-08-21T16:28:50Z",
+      "start_of_task_rule_matched": false,
+      "surface_ids": [
+        "state_current_fms_press_releases_v1"
+      ]
+    },
+    {
+      "corrected_exact_rule_matched": true,
+      "direct_primary_binding": false,
+      "families": [
+        "official_regulatory_fiscal"
+      ],
+      "headline_id": "cc-x-headline-1f1769dc3e50ba7c1b8aee3e",
+      "sanitized_story_label": "U.S. STATE DEPARTMENT OKAYS POSSIBLE SALE OF AIM-9X SIDEWINDER BLOCK II MISSILES AND EQUIPMENT TO SOUTH KOREA FOR AROUND $125 MILLION.",
+      "source_timestamp_utc": "2026-08-21T16:37:40Z",
+      "start_of_task_rule_matched": false,
+      "surface_ids": [
+        "state_current_fms_press_releases_v1"
+      ]
+    }
+  ],
+  "held_identity_universe_count": 679,
+  "held_inspection_method": "EXACT_ZERO_NETWORK_LOCATOR_PREDICATE_METADATA_PREFILTER_THEN_THREE_MATCH_DETAIL_REVIEW",
+  "held_relevant_identity_detail_inspection_count": 3,
+  "hypothesis_verdict": "FALSE_FOR_40_PLUS_2; EXACT_EXISTING_STATE_FMS_APPLICABILITY_RULE_GAP_PROVEN_IN_HELD_CONTINUITY",
+  "matrix_story_count": 42,
+  "schema_version": "contentops.v1_locator_aware_evidence_yield_matrix.v1",
+  "source_artifact_root": "artifacts/v1_mvp_canary_launch_gate_20260822",
+  "source_rolling_input_sha256": "14dd6ee6b61fa84dbf41aa84d3ee9b33d86218a040721f7b25dbbf6ff272c380",
+  "start_of_task_exact_locator_matches_in_matrix": 0,
+  "start_of_task_locator_representation_gaps_in_matrix": 0,
+  "stories": [
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "HTTP Error 403: Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-7bab677d066ec33f01a1",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-ab476f4b5d45a5be5343df1f"
+      ],
+      "network_reads_avoided": 6,
+      "network_requests": 6,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 1,
+      "sanitized_story_label": "Nvidia is in talks to invest several hundred million dollars in data center power developer Cloverleaf Infrastructure.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": false,
+      "blockers": [
+        "bounded_publishability_pool_capacity_reached"
+      ],
+      "cause_flags": {
+        "content_insufficiency": false,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": true,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": false,
+        "source_family_or_capability_mismatch": false
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-6f95abb2a0ab2abf6464",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-b99fd339446350160f303112"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "other",
+      "rank": 1,
+      "sanitized_story_label": "CFTC Positions in the Week Ended August 18th",
+      "start_of_task_context_locator_applicable": false,
+      "status": "UNATTEMPTED_BOUNDED_POOL_CAPACITY"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-be8091cb15b16339a213",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-8bdb3f54ac9f4e4b66edd1e1",
+        "cc-x-headline-14f0f358c2e817b5f3d7f073"
+      ],
+      "network_reads_avoided": 5,
+      "network_requests": 5,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 2,
+      "sanitized_story_label": "China pledges timely fiscal support to bolster economic growth, signaling active fiscal stimulus measures.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": false,
+      "blockers": [
+        "bounded_publishability_pool_capacity_reached"
+      ],
+      "cause_flags": {
+        "content_insufficiency": false,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": true,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": false,
+        "source_family_or_capability_mismatch": false
+      },
+      "cluster_id": "rolling-x-deterministic-cluster-040318e2271d52567575",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-08ad1a2f49f12099b5243840"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "other",
+      "rank": 2,
+      "sanitized_story_label": "Monday FX Options Expiries",
+      "start_of_task_context_locator_applicable": false,
+      "status": "UNATTEMPTED_BOUNDED_POOL_CAPACITY"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-aa619ba2a6709d17b563",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-a6765e03ba3775b5c3852bc8",
+        "cc-x-headline-2e00b292292b63ff107f546a"
+      ],
+      "network_reads_avoided": 5,
+      "network_requests": 5,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 3,
+      "sanitized_story_label": "Saudi Aramco sells at least 4 million barrels of crude loading outside the Strait of Hormuz to China.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "grounded_research_source_synthesis_research_fact_binding_invalid",
+        "minimum_trustworthy_evidence_missing",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-fdbe12ea6ceda6ca4eb9",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-b99fd339446350160f303112"
+      ],
+      "network_reads_avoided": 2,
+      "network_requests": 1,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 4,
+      "sanitized_story_label": "The Commodity Futures Trading Commission (CFTC) releases market position data for the week ended August 18th.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-c1644c3235a372d5bfeb",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-c9dffb5681e7de73b704c882"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 6,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 5,
+      "sanitized_story_label": "An opinion piece in the Wall Street Journal argues in favor of Donald Trump's view that judges should not act as construction foremen.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "article_mode_mismatch_with_capability",
+        "article_mode_unsupported_for_story_type"
+      ],
+      "cause_flags": {
+        "content_insufficiency": false,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": false,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-95613676d804568b7f6d",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-08ad1a2f49f12099b5243840"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "source_family_or_capability_mismatch",
+      "rank": 6,
+      "sanitized_story_label": "Financial markets prepare for the upcoming Monday foreign exchange (FX) options expiries.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-b3e8d834bdf66490552d",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-8bdafd6762b9b572c85ef85b"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 1,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 7,
+      "sanitized_story_label": "An analysis argues that the Democratic Party's 'big tent' strategy is facing critical challenges and may be doomed.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-1e3316db719e2af6f129",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-03b22fbb7f381366551a7a2a"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 8,
+      "sanitized_story_label": "Jill Biden addresses speculation regarding whether Joe Biden was drugged prior to his 2024 debate with Donald Trump.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-43e6b6c24f2feb099ba1",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-0e9353fa5acc177dc468c2a7"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 9,
+      "sanitized_story_label": "A new poll indicates that a majority of voters reject the idea of military integration between the United States and Israel.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-c64669ae6b424e9fc799",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 1,
+      "headline_ids": [
+        "cc-x-headline-7a58fcee055a7759863930fd"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 10,
+      "sanitized_story_label": "Darline Graham experiences a major debate flub that could impact her chances in the South Carolina primary election.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-3ae3319432344ccd1c2b",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-9002d1fc399d7921e847d2ea"
+      ],
+      "network_reads_avoided": 6,
+      "network_requests": 6,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 1,
+      "sanitized_story_label": "Samsung announces an $80 billion shareholder return program, following SK Hynix's buyback initiative, aiming to revive the memory trade.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "public_source_relevant_text_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-7e74e740740359b2e601",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-e64fd086a33fec459aa3186d"
+      ],
+      "network_reads_avoided": 12,
+      "network_requests": 6,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 2,
+      "sanitized_story_label": "US employer health-insurance expenses are projected to rise by 11.1% in 2027, marking the steepest increase in over two decades.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-96731561454c691b7599",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-cff4f99e09183ef307031641",
+        "cc-x-headline-068f01af9f12dd8da3ba42b9"
+      ],
+      "network_reads_avoided": 4,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 3,
+      "sanitized_story_label": "Precious metals rally as the 'debasement trade' gains momentum following the US Treasury's buyback announcement, with gold breaking above its 200-day moving average.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-8522fc35a6e5d5033f89",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-bb4f1d4c5cbaa89f313576aa"
+      ],
+      "network_reads_avoided": 2,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 4,
+      "sanitized_story_label": "Societe Generale analyst Albert Edwards warns that stock market optimism has reached levels not seen since the summer of 1987, outside of post-recession periods.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 403: Forbidden",
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-0264520f2a407b1a87b5",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-dcba21c0de9d6a4aec881f90"
+      ],
+      "network_reads_avoided": 6,
+      "network_requests": 6,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 5,
+      "sanitized_story_label": "A popular Ukrainian official challenges President Volodymyr Zelensky with a call for elections, claiming democracy is being held hostage.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-2b9899e3cc8721d41ffd",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-94eaf75fdaf1e6aedc75c205"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 6,
+      "sanitized_story_label": "Bitcoin approaches key range highs with its RSI reaching 84, prompting warnings against late chasing as short positions face heavy liquidations.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-c6282ed270d8a1a8c008",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-2b3e9151def9edfd358f112a"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 1,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 7,
+      "sanitized_story_label": "With pennies largely abandoned, questions arise regarding the future utility and cost-effectiveness of nickels in the US currency system.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-b0f91ca0cdb4f427d459",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-157375d8c802c515206f9d47"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 8,
+      "sanitized_story_label": "S&P Global releases the French Manufacturing PMI report for August 2026, highlighting the latest economic activity and growth trends in France's manufacturing sector.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-10d4aef0c53c490e3912",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-3b13b0db634fcc2104a70a78"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 9,
+      "sanitized_story_label": "The US plans to deploy a hospital ship to Peru next year to assist with the humanitarian and environmental impacts of the El Nino weather phenomenon.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-0150655fc4bcac09d43c",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-a988831751d41c128336590d"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 10,
+      "sanitized_story_label": "Reports highlight the return of historically rare, medieval-era infectious diseases in the Los Angeles area, raising public health concerns.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-7ec8280d9c8cca8b8a2a",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 2,
+      "headline_ids": [
+        "cc-x-headline-fd177bd64037bdf6d8f9891a"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 11,
+      "sanitized_story_label": "Reports emerge regarding deteriorating conditions and extreme survival behaviors among migrants in the Spanish enclave of Ceuta.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-4143d994f86e52736d7f",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-6d6fe66835768f0b0bc2d3eb",
+        "cc-x-headline-8ce64bc401df68a12dda5889",
+        "cc-x-headline-f500e811b48b6f2aa18edae1",
+        "cc-x-headline-c4afab67220015776980dff8",
+        "cc-x-headline-971e03a9295e24b4f6e8ede0"
+      ],
+      "network_reads_avoided": 4,
+      "network_requests": 4,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 1,
+      "sanitized_story_label": "The US Dollar tumbles and alternative assets like gold, silver, and Bitcoin surge as markets react to US Treasury yield caps, accelerating the global debasement trade.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "grounded_research_query_replan_schema_invalid",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-ee67bbb17e3396106640",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-830056c720b4e11adccdfdb8"
+      ],
+      "network_reads_avoided": 2,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 2,
+      "sanitized_story_label": "Europe's push for technological sovereignty faces a paradox as French AI startup Mistral relies on Chinese AI infrastructure, highlighting conflicting political and commercial goal",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-4b0f50663c58fed0b691",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-8ab2a068a6da427c592338e1"
+      ],
+      "network_reads_avoided": 4,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 3,
+      "sanitized_story_label": "Alibaba is positioned with a competitive edge in monetizing AI agents, leveraging its e-commerce and cloud infrastructure to lead in practical AI applications.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-330f10f774df9baa5175",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-e30d61c58e2c86ae91c87252",
+        "cc-x-headline-d669f311dc484f022af9bb91"
+      ],
+      "network_reads_avoided": 4,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 4,
+      "sanitized_story_label": "Market analysts debate the significance of massive inflows into long-term US Treasury bonds, with Morningstar noting strong July buying while others remain skeptical.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-636e23e091e7861637a5",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-97756535c656a5ab07fd018d"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 5,
+      "sanitized_story_label": "Capital Group analyzes shifting sector weights within emerging markets, highlighting how the asset class has evolved from traditional structures.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-32a4481074ac3377efe6",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-108d66475c79bcc843276f4d"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 6,
+      "sanitized_story_label": "Goldman Sachs reports that South Korean exports surged again during the first half of August, signaling continued strength in global trade demand.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-dc26c0dac76cf45956f1",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 3,
+      "headline_ids": [
+        "cc-x-headline-f1ec786475bb6bfb1e6a8991"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 7,
+      "sanitized_story_label": "HSBC warns that the global zinc market is showing signs of supply tightness, potentially impacting industrial manufacturing and metal prices.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-4b08e623051f96b98ca6",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-32de19fecc86059b14dab554"
+      ],
+      "network_reads_avoided": 4,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 1,
+      "sanitized_story_label": "Goldman Sachs' One-Delta desk warns of stagflationary risks in the market, contrasting Scott Bessent's policy toolkit with oil price dynamics.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_nonpublic_address_forbidden",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-f035372820581858cf59",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-387fbf3b74845f67df4fab66"
+      ],
+      "network_reads_avoided": 6,
+      "network_requests": 6,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 2,
+      "sanitized_story_label": "China rejects US demands to support economic sanctions and operations against Iran, highlighting geopolitical tensions.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_unavailable",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-592cb674424860fd3c76",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-7a2896d3c2b0b71e4f8177d5"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 2,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 3,
+      "sanitized_story_label": "Chinese AI firms optimize software to manage high inference demand amid a limited supply of high-end Nvidia chips.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "HTTP Error 403: Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_candidate_request_budget_exhausted",
+        "public_source_nonpublic_address_forbidden",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-6ae7e597689562f39a8e",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-ef4f1e9327da5bafe6e97938"
+      ],
+      "network_reads_avoided": 6,
+      "network_requests": 6,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 4,
+      "sanitized_story_label": "The US Dollar falls below its pre-Iran war low against emerging market currencies, signaling potential downward momentum.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 401: HTTP Forbidden",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_redirect_authority_invalid",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-0d2b2ad260c904813f46",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-a64cff63f71ac2d3e95b16a9"
+      ],
+      "network_reads_avoided": 8,
+      "network_requests": 4,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 5,
+      "sanitized_story_label": "Statistics Canada releases the retail sales report for June, providing key insights into Canadian consumer spending.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "HTTP Error 404: Not Found",
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_nonpublic_address_forbidden",
+        "public_source_redirect_authority_invalid",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-global-cluster-ab128cbf76ebc5e79d16",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-e8e913568664a678056e7697"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 5,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 6,
+      "sanitized_story_label": "A teenager drops social media addiction lawsuits against major tech companies Meta, Google, and Snap ahead of a scheduled October trial.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-7cd1730a14db123bd5b7",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-4a227f2303865a93580bb60d"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 7,
+      "sanitized_story_label": "Controversy arises in the UK over the sentencing of British protesters compared to a migrant convicted of sexual assault.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-31bb7423aa91f6f94d71",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-a2d82b261403112fa78f2fc8"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 1,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 8,
+      "sanitized_story_label": "Chinese private aerospace startup LandSpace successfully recovers the first stage of its Zhuque-3 reusable orbital rocket on land.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-81b38324fcca1616771c",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-7869e9890960df92fafbbd44"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 9,
+      "sanitized_story_label": "Gold prices experience parabolic flows as speculative buyers chase the market after missing the $4,000 threshold.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-3cf9a525783ca67c7daa",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-a201cfebbd573b3eeda08bab"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 10,
+      "sanitized_story_label": "US stock futures rise on options expiration (Opex) day as yields stabilize and Bitcoin approaches the $80,000 mark.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "article_mode_mismatch_with_capability",
+        "article_mode_unsupported_for_story_type"
+      ],
+      "cause_flags": {
+        "content_insufficiency": false,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": false,
+        "retrieval_or_provider_failure": false,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-420e67dd75585d4309d0",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-5197ab592d4af083fb0eab0f"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "source_family_or_capability_mismatch",
+      "rank": 11,
+      "sanitized_story_label": "FinancialJuice provides its daily morning preparation newsletter for the upcoming US market session on August 21.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    },
+    {
+      "attempted": true,
+      "blockers": [
+        "evidence_documents_missing",
+        "minimum_trustworthy_evidence_missing",
+        "public_source_request_budget_exhausted",
+        "required_evidence_capability_missing:basic_attributed_facts",
+        "required_evidence_capability_missing:credible_event_confirmation",
+        "supported_claims_missing"
+      ],
+      "cause_flags": {
+        "content_insufficiency": true,
+        "freshness_failure": false,
+        "locator_reachability_representation_gap": false,
+        "other": false,
+        "request_budget_exhaustion": true,
+        "retrieval_or_provider_failure": true,
+        "source_family_or_capability_mismatch": true
+      },
+      "cluster_id": "rolling-x-semantic-reserve-01d46fa40b85b37ecc73",
+      "context_locator_families": [],
+      "context_locator_surface_ids": [],
+      "direct_primary_binding": false,
+      "direct_primary_families": [],
+      "frontier": 4,
+      "headline_ids": [
+        "cc-x-headline-9b680a8226799faf980c594c"
+      ],
+      "network_reads_avoided": 0,
+      "network_requests": 0,
+      "pre_acquisition_locator_represented": false,
+      "primary_terminal_cause": "retrieval_or_provider_failure",
+      "rank": 12,
+      "sanitized_story_label": "Brad Setser discusses the economic implications of a 'second China shock' on Ezra Klein's New York Times podcast.",
+      "start_of_task_context_locator_applicable": false,
+      "status": "BLOCKED"
+    }
+  ],
+  "unattempted_story_count": 2
+}

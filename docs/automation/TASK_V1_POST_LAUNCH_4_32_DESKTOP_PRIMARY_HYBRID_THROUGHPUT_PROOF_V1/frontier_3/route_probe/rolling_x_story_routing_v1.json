@@ -1,0 +1,94 @@
+{
+  "factual_or_numeric_authority_granted": false,
+  "llm_or_provider_calls": 0,
+  "publication_authority_granted": false,
+  "router_summary": null,
+  "routing_method": "DETERMINISTIC_CONSERVATIVE_FALLBACK",
+  "semantic_router_failure_class": "ValueError",
+  "semantic_router_failure_recovered": true,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-global-cluster-f8e32736c629bd64175a",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-4c787a284c4fc5d661ba",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "geopolitical_event"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-10272fc02907c8ff716a",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-44a7adf9a4e97eb9e14e",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-7a7be0c36344154fd126",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-d6a0d6ed56f8c809365b",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-8ce4d4e53eaf3622f37c",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-9eb8b91245bf1a0a245a",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-80d8eb4032a903c9f267",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-f2120cb6005f1e065c44",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-global-cluster-10272fc02907c8ff716a": "general_public_event",
+    "rolling-x-global-cluster-44a7adf9a4e97eb9e14e": "market_move",
+    "rolling-x-global-cluster-4c787a284c4fc5d661ba": "geopolitical_event",
+    "rolling-x-global-cluster-7a7be0c36344154fd126": "general_public_event",
+    "rolling-x-global-cluster-f8e32736c629bd64175a": "market_move",
+    "rolling-x-semantic-reserve-80d8eb4032a903c9f267": "general_public_event",
+    "rolling-x-semantic-reserve-8ce4d4e53eaf3622f37c": "general_public_event",
+    "rolling-x-semantic-reserve-9eb8b91245bf1a0a245a": "regulatory_fiscal_event",
+    "rolling-x-semantic-reserve-d6a0d6ed56f8c809365b": "general_public_event",
+    "rolling-x-semantic-reserve-f2120cb6005f1e065c44": "general_public_event"
+  }
+}

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
-Authority date: 2026-08-21
+Authority date: 2026-08-23
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
 Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, task-existence, canary, or sequencing assumptions.
@@ -27,26 +27,42 @@ Any file containing these current-looking claims is stale for routing unless exp
 - candidate-level `NO_PUBLICATION` implies whole-day healthy success while the build floor is unmet;
 - exactly four Codex tasks already exist based only on repo setup/config;
 - the four Codex tasks are `PAUSED`, `READY`, or `ENABLED` without actual host inventory evidence;
-- FDA-G directly launches native Codex Desktop;
+- FDA-G directly launches native Codex Desktop without the supported Automation/runtime boundary;
 - material-event metadata directly wakes Codex;
 - P0-G3 remains the current next task;
 - the original daily-output/Codex Automation bridge remains the current next task;
 - passive wait-for-perfect-candidate is the current sole next action.
+- the 4-qualified/32-intent throughput proof is a prerequisite for one supervised MVP canary.
+- the Italy article audit is the current V1 next task;
+- immediate 4/32 article/derivative generation is the current V1 next task.
+- per-trigger fresh Sol/HIGH URL discovery is the routine production default.
 
 ## 3. Current replacement semantics
 
-- BUILD/PROOF floor: 4 qualified zero-public-write articles per newsroom production day.
-- FINAL V1 target: 5–8 published articles per newsroom production day.
-- Candidate abstention is valid; whole-day deficit is degraded unless exact hard external blocker.
+- The `330f` foundation is accepted and reusable: autonomous URL discovery, shared route health,
+  sourceability-first funnel, four distinct governed evidence-ready candidates, and frozen
+  article-envelope transport remain pre-writer capabilities.
+- The old per-trigger Sol/HIGH discovery default is
+  `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`; routine canonical execution leaves it disabled. An
+  explicit bounded tail/proof opt-in may use the existing provider, while no opt-in remains a
+  fail-closed `SOURCE_DISCOVERY_REQUIRED` abstention.
+- A quota-efficient batch/tail discovery architecture is a future implementation gap. It is required
+  before treating final 5–8/day as economically repeatable and is not authorized by this task.
+- Candidate abstention remains valid and must retain exact blockers; the task may not manufacture
+  PASS by increasing request ceilings or weakening evidence/freshness/claim gates.
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
 - Later windows may recover earlier deficit through bounded additional candidate/article work.
 - No fifth routine task merely to satisfy the floor.
-- Hash-bound accepted host observation proves that exactly four native V1 Automations were
-  `PAUSED` at that observation epoch; later zero-write tasks prove only that they issued no task
-  mutation. Current existence/configuration/state claims are `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`.
+- Current hash-bound supported host observation proves exactly four native V1 Automations, all
+  `PAUSED`, on `gpt-5.6-sol / HIGH` at the four Bangkok windows. No mutation, enablement, or fifth
+  task occurred. Prompt normalization is still required before owner-gated enablement.
 - FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
-- Current next capability is the exact first-party locator/source-family and query/publisher-resolution
-  closure demonstrated by the story-scoped reuse residual matrix, followed by the 4/32 floor proof.
+- Desktop standalone fresh-run Automations are the primary routine editorial brain; current
+  calendar-time execution proof remains required because the supported surface exposed no run-now.
+- The proven official ChatGPT-authenticated Codex App Server/SDK provider remains the bounded
+  missed/failed-primary fallback, immediate direct path, and benchmark path.
+- The prior Desktop Italy slice and 4/32 attempts remain preserved evidence, not current routing.
+  The current task stops for owner audit at the four-candidate pre-writer evidence gate.
 
 ## 4. Historical/non-routing families
 
@@ -79,8 +95,8 @@ The current `docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md` has been rew
 
 ## 6. PR #12
 
-PR #12 is frozen historical P0-G4 preflight evidence and explicitly marked
-`FROZEN_SUPERSEDED_FOR_CURRENT_ROUTING` until the current 4/32 zero-write build floor is accepted.
+PR #12 remains frozen historical P0-G4 preflight evidence. It is not the current MVP canary slice
+and does not supply current candidate, JIT identity/readiness, or owner-gate proof.
 
 Do not merge or continue it as the current next task.
 

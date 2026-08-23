@@ -1,0 +1,1519 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 11,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "f9d22f910a73fa2efe2d86640927ad99728f768bbfe982ff7215a2584d86dcc1",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-4c479df0d668eff76abc"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "598f9fcf2c2630734ca4db277d8272ddfdb1edb4bfeec1d84b28cf65c1f638a5",
+    "cutoff_time_utc": "2026-08-23T01:18:44.810438Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 11,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bond yields",
+            "fiscal",
+            "fiscal policy"
+          ],
+          "first_utc": "2026-08-22T15:49:15Z",
+          "latest_utc": "2026-08-22T15:49:15Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 9.4916,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "G10",
+          "Sovereign Debt",
+          "Bond Yields",
+          "Fiscal Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-161e42a5334ab40bc62b",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 68,
+          "evidence": 65,
+          "saturation_risk": 35,
+          "seo": 60
+        },
+        "summary": "Commentary on rising long-term government bond yields across G10 nations, attributing the trend to growing sovereign debt levels rather than market illiquidity."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "cultural debates",
+            "education policy",
+            "florida"
+          ],
+          "first_utc": "2026-08-22T18:00:08Z",
+          "latest_utc": "2026-08-22T18:00:08Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 7.3102,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Florida",
+          "Education Policy",
+          "State Politics",
+          "Cultural Debates"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-1630bda452d7f46940c3",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 80,
+          "evidence": 45,
+          "saturation_risk": 50,
+          "seo": 75
+        },
+        "summary": "Controversy surrounding new educational mandates for students in Florida, sparking political debate between conservative and liberal groups."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "china",
+            "commodities",
+            "crude oil"
+          ],
+          "first_utc": "2026-08-22T07:37:16Z",
+          "latest_utc": "2026-08-22T07:37:16Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 17.6913,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China",
+          "Crude Oil",
+          "Energy Markets",
+          "Commodities"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-2b8a4c666a953927a10c",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 78,
+          "engagement": 75,
+          "evidence": 80,
+          "saturation_risk": 25,
+          "seo": 72
+        },
+        "summary": "China restrains its crude oil purchasing activities as global oil prices persist above the ninety dollars per barrel threshold."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "banking sector",
+            "goldman sachs"
+          ],
+          "first_utc": "2026-08-22T18:35:08Z",
+          "latest_utc": "2026-08-22T18:35:08Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 6.7269,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Goldman Sachs",
+          "Artificial Intelligence",
+          "Stock Market",
+          "Investment Strategy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-3f8330cd3dea40667bd3",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 85,
+          "engagement": 84,
+          "evidence": 80,
+          "saturation_risk": 30,
+          "seo": 82
+        },
+        "summary": "Goldman Sachs warns of cracking momentum in artificial intelligence stocks, suggesting a rotation into banking and hard assets as the next major trade."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "education policy",
+            "higher education"
+          ],
+          "first_utc": "2026-08-22T16:50:07Z",
+          "latest_utc": "2026-08-22T16:50:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 8.4772,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Higher Education",
+          "Artificial Intelligence",
+          "Education Policy",
+          "Technology Adoption"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-55ff1cd4c8645d54412f",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 60,
+          "engagement": 65,
+          "evidence": 50,
+          "saturation_risk": 40,
+          "seo": 70
+        },
+        "summary": "Analysis of why embracing artificial intelligence is becoming essential for higher education institutions rather than implementing bans."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bitcoin",
+            "congressional ethics",
+            "cryptocurrency"
+          ],
+          "first_utc": "2026-08-22T15:51:56Z",
+          "latest_utc": "2026-08-22T15:51:56Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 9.4469,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Rashida Tlaib",
+          "US House of Representatives",
+          "Cryptocurrency",
+          "Financial Disclosures"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-66a76ac834f337c0538d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 88,
+          "evidence": 85,
+          "saturation_risk": 45,
+          "seo": 85
+        },
+        "summary": "Financial disclosures reveal that Representative Rashida Tlaib, a known critic of cryptocurrency, holds personal savings in Bitcoin and Ethereum."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "geopolitics",
+            "foreign policy",
+            "international relations"
+          ],
+          "first_utc": "2026-08-22T17:25:07Z",
+          "latest_utc": "2026-08-22T17:25:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 7.8938,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Tehran",
+          "United States",
+          "Sanctions",
+          "Geopolitics"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-9086cc749a20d2586a92",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 82,
+          "engagement": 85,
+          "evidence": 75,
+          "saturation_risk": 40,
+          "seo": 80
+        },
+        "summary": "Tehran condemns United States sanctions as a declaration of war against all nations and calls for a global revolt against the measures."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "agriculture policy",
+            "beef imports",
+            "donald trump"
+          ],
+          "first_utc": "2026-08-22T16:05:06Z",
+          "latest_utc": "2026-08-22T16:05:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 9.2274,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Donald Trump",
+          "Tariffs",
+          "Agriculture Policy",
+          "Trade Disputes"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-a0c7fa794459beeb35d6",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 72,
+          "engagement": 82,
+          "evidence": 70,
+          "saturation_risk": 35,
+          "seo": 78
+        },
+        "summary": "The largest cattle group in the United States criticizes Donald Trump's proposal for tariff-free beef imports, arguing it undercuts domestic ranchers."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "democratic party",
+            "florida",
+            "local elections"
+          ],
+          "first_utc": "2026-08-22T16:15:07Z",
+          "latest_utc": "2026-08-22T16:15:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 9.0605,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Democratic Party",
+          "Vindman",
+          "Florida",
+          "Local Elections"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-df7b05d31fb551f8ba67",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 55,
+          "engagement": 70,
+          "evidence": 50,
+          "saturation_risk": 30,
+          "seo": 60
+        },
+        "summary": "A heated confrontation and shouting match occurs between a Florida socialist candidate who defeated Vindman and the Democratic Party Chair."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "bessent",
+            "bond market",
+            "central_bank"
+          ],
+          "first_utc": "2026-08-22T16:51:43Z",
+          "latest_utc": "2026-08-22T16:51:43Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 8.4505,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Federal Reserve",
+          "US Treasury",
+          "Bessent",
+          "Monetary Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-eb1127944737f63c0446",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 70,
+          "evidence": 60,
+          "saturation_risk": 30,
+          "seo": 65
+        },
+        "summary": "Discussion on potential bond market volatility driven by speculation over a Treasury-Fed accord and debates surrounding Federal Reserve independence."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "gamestockhq",
+            "investing competition",
+            "retail trading"
+          ],
+          "first_utc": "2026-08-22T17:44:22Z",
+          "latest_utc": "2026-08-22T17:54:21Z",
+          "material_update": false,
+          "members": 2,
+          "recency_hours": 7.4066,
+          "update_velocity": 6.01
+        },
+        "entities_topics": [
+          "WOLF Financial",
+          "GameStockHQ",
+          "Stock Market",
+          "Investing Competition"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-f24b466c49758de866b5",
+        "partition": 0,
+        "relationship": "duplicate",
+        "signals": {
+          "audience": 50,
+          "engagement": 58,
+          "evidence": 60,
+          "saturation_risk": 20,
+          "seo": 55
+        },
+        "summary": "WOLF Financial and GameStockHQ partner to host a two-week stock-picking competition featuring a one thousand dollar prize pool."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "598f9fcf2c2630734ca4db277d8272ddfdb1edb4bfeec1d84b28cf65c1f638a5",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-0069b1c2c07e084e88645a63",
+      "cc-x-headline-948cee295fd4409350bc2340",
+      "cc-x-headline-9db6356a84daa1177e7c6631",
+      "cc-x-headline-a9240dc5ea2d23e77b117fa1",
+      "cc-x-headline-ad9aca29654e0963227c6e1b",
+      "cc-x-headline-b1e50f842741bdbe270487c2",
+      "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "cc-x-headline-c30f0f4b30032eaa22358f77",
+      "cc-x-headline-c3f17b59bc4c6137f5a28b5c",
+      "cc-x-headline-dbc939d020496c08fa84a96a",
+      "cc-x-headline-e175959e8c4e1b3084e3d265",
+      "cc-x-headline-fa657856f02fdc5460d80b38"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 65,
+        "qualified_engagement_potential": 68,
+        "saturation_risk": 35,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-9db6356a84daa1177e7c6631",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-9db6356a84daa1177e7c6631"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "G10"
+      ],
+      "event_topic_summary": "Commentary on rising long-term government bond yields across G10 nations, attributing the trend to growing sovereign debt levels rather than market illiquidity.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-161e42a5334ab40bc62b",
+      "member_headline_ids": [
+        "cc-x-headline-9db6356a84daa1177e7c6631"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Sovereign Debt",
+        "Bond Yields",
+        "Fiscal Policy",
+        "Global Finance"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 45,
+        "qualified_engagement_potential": 80,
+        "saturation_risk": 50,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a9240dc5ea2d23e77b117fa1",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a9240dc5ea2d23e77b117fa1"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Florida"
+      ],
+      "event_topic_summary": "Controversy surrounding new educational mandates for students in Florida, sparking political debate between conservative and liberal groups.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-1630bda452d7f46940c3",
+      "member_headline_ids": [
+        "cc-x-headline-a9240dc5ea2d23e77b117fa1"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Education Policy",
+        "State Politics",
+        "Cultural Debates"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 78,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 25,
+        "seo_potential": 72
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China"
+      ],
+      "event_topic_summary": "China restrains its crude oil purchasing activities as global oil prices persist above the ninety dollars per barrel threshold.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-2b8a4c666a953927a10c",
+      "member_headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Crude Oil",
+        "Energy Markets",
+        "Commodities",
+        "Global Trade"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 84,
+        "saturation_risk": 30,
+        "seo_potential": 82
+      },
+      "canonical_representative_headline_id": "cc-x-headline-fa657856f02fdc5460d80b38",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-fa657856f02fdc5460d80b38"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Goldman Sachs"
+      ],
+      "event_topic_summary": "Goldman Sachs warns of cracking momentum in artificial intelligence stocks, suggesting a rotation into banking and hard assets as the next major trade.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-3f8330cd3dea40667bd3",
+      "member_headline_ids": [
+        "cc-x-headline-fa657856f02fdc5460d80b38"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Artificial Intelligence",
+        "Stock Market",
+        "Investment Strategy",
+        "Banking Sector",
+        "Hard Assets"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 60,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 65,
+        "saturation_risk": 40,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-948cee295fd4409350bc2340",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-948cee295fd4409350bc2340"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Higher Education"
+      ],
+      "event_topic_summary": "Analysis of why embracing artificial intelligence is becoming essential for higher education institutions rather than implementing bans.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-55ff1cd4c8645d54412f",
+      "member_headline_ids": [
+        "cc-x-headline-948cee295fd4409350bc2340"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Artificial Intelligence",
+        "Education Policy",
+        "Technology Adoption"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 85,
+        "qualified_engagement_potential": 88,
+        "saturation_risk": 45,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-ad9aca29654e0963227c6e1b",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-ad9aca29654e0963227c6e1b"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Rashida Tlaib",
+        "US House of Representatives"
+      ],
+      "event_topic_summary": "Financial disclosures reveal that Representative Rashida Tlaib, a known critic of cryptocurrency, holds personal savings in Bitcoin and Ethereum.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-66a76ac834f337c0538d",
+      "member_headline_ids": [
+        "cc-x-headline-ad9aca29654e0963227c6e1b"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Cryptocurrency",
+        "Financial Disclosures",
+        "Congressional Ethics",
+        "Bitcoin",
+        "Ethereum"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 82,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 85,
+        "saturation_risk": 40,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-dbc939d020496c08fa84a96a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-dbc939d020496c08fa84a96a"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Tehran",
+        "United States"
+      ],
+      "event_topic_summary": "Tehran condemns United States sanctions as a declaration of war against all nations and calls for a global revolt against the measures.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-9086cc749a20d2586a92",
+      "member_headline_ids": [
+        "cc-x-headline-dbc939d020496c08fa84a96a"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Sanctions",
+        "Geopolitics",
+        "International Relations",
+        "Foreign Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 72,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 82,
+        "saturation_risk": 35,
+        "seo_potential": 78
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c30f0f4b30032eaa22358f77",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-c30f0f4b30032eaa22358f77"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Donald Trump"
+      ],
+      "event_topic_summary": "The largest cattle group in the United States criticizes Donald Trump's proposal for tariff-free beef imports, arguing it undercuts domestic ranchers.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-a0c7fa794459beeb35d6",
+      "member_headline_ids": [
+        "cc-x-headline-c30f0f4b30032eaa22358f77"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Tariffs",
+        "Agriculture Policy",
+        "Trade Disputes",
+        "US Ranchers",
+        "Beef Imports"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 55,
+        "evidence_prospects": 50,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 30,
+        "seo_potential": 60
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b1e50f842741bdbe270487c2",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b1e50f842741bdbe270487c2"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Democratic Party",
+        "Vindman",
+        "Florida"
+      ],
+      "event_topic_summary": "A heated confrontation and shouting match occurs between a Florida socialist candidate who defeated Vindman and the Democratic Party Chair.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-df7b05d31fb551f8ba67",
+      "member_headline_ids": [
+        "cc-x-headline-b1e50f842741bdbe270487c2"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Local Elections",
+        "Party Politics",
+        "Political Disputes"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 30,
+        "seo_potential": 65
+      },
+      "canonical_representative_headline_id": "cc-x-headline-0069b1c2c07e084e88645a63",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-0069b1c2c07e084e88645a63"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Federal Reserve",
+        "US Treasury",
+        "Bessent"
+      ],
+      "event_topic_summary": "Discussion on potential bond market volatility driven by speculation over a Treasury-Fed accord and debates surrounding Federal Reserve independence.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-eb1127944737f63c0446",
+      "member_headline_ids": [
+        "cc-x-headline-0069b1c2c07e084e88645a63"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Monetary Policy",
+        "Bond Market",
+        "Fiscal Policy"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 50,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 58,
+        "saturation_risk": 20,
+        "seo_potential": 55
+      },
+      "canonical_representative_headline_id": "cc-x-headline-c3f17b59bc4c6137f5a28b5c",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-e175959e8c4e1b3084e3d265",
+          "cc-x-headline-c3f17b59bc4c6137f5a28b5c"
+        ],
+        "relationship": "duplicate"
+      },
+      "entities": [
+        "WOLF Financial",
+        "GameStockHQ"
+      ],
+      "event_topic_summary": "WOLF Financial and GameStockHQ partner to host a two-week stock-picking competition featuring a one thousand dollar prize pool.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-f24b466c49758de866b5",
+      "member_headline_ids": [
+        "cc-x-headline-c3f17b59bc4c6137f5a28b5c",
+        "cc-x-headline-e175959e8c4e1b3084e3d265"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "topics": [
+        "Stock Market",
+        "Investing Competition",
+        "Retail Trading"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-0069b1c2c07e084e88645a63",
+        "cc-x-headline-948cee295fd4409350bc2340",
+        "cc-x-headline-9db6356a84daa1177e7c6631",
+        "cc-x-headline-a9240dc5ea2d23e77b117fa1",
+        "cc-x-headline-ad9aca29654e0963227c6e1b",
+        "cc-x-headline-b1e50f842741bdbe270487c2",
+        "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "cc-x-headline-c30f0f4b30032eaa22358f77",
+        "cc-x-headline-c3f17b59bc4c6137f5a28b5c",
+        "cc-x-headline-dbc939d020496c08fa84a96a",
+        "cc-x-headline-e175959e8c4e1b3084e3d265",
+        "cc-x-headline-fa657856f02fdc5460d80b38"
+      ],
+      "partition_id": "rolling-x-leaf-4c479df0d668eff76abc",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 10391,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 409,
+    "held_before_semantic_assignment_count": 397,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "9e38aad31cafa05971753857244a4ee8662525d6a58ca4d0ce63d886d27a0685",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-bc1c8dc56c36bcb8a8f8",
+      "headline_ids": [
+        "cc-x-headline-fa657856f02fdc5460d80b38"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-3f8330cd3dea40667bd3"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Direct quotes or excerpts from the Goldman Sachs client note",
+        "Recent performance data comparing AI equities to banking and hard asset indices"
+      ],
+      "rank": 1,
+      "selection_case": "Exceptional audience (85) and engagement (84) signals for a critical market strategy shift from a major investment bank, directly serving our core investor demographic.",
+      "seo_intent": "Goldman Sachs AI stocks rotation banking hard assets market strategy",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-fa657856f02fdc5460d80b38",
+        "ordered_headline_ids": [
+          "cc-x-headline-fa657856f02fdc5460d80b38"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Comparative performance chart showing recent momentum divergence between top AI tech stocks and the banking/hard asset sectors.",
+      "why_now": "Goldman Sachs has issued a timely warning on cracking AI stock momentum, signaling a potential major market rotation into banking and hard assets."
+    },
+    {
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "cluster_id": "rolling-x-global-cluster-bc25020eac9bf9e8c490",
+      "headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-2b8a4c666a953927a10c"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Customs or shipping data confirming reduced Chinese oil imports",
+        "Statements or guidance from Chinese energy ministries or major state refiners"
+      ],
+      "rank": 2,
+      "selection_case": "Strong evidence (80) and audience interest (78) in energy markets and Chinese economic behavior, offering a strong macro thesis opportunity.",
+      "seo_intent": "China crude oil purchases 90 dollars energy markets global demand",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Time-series graph of global Brent/WTI crude oil prices overlaid with Chinese monthly import volumes.",
+      "why_now": "With global crude oil prices persisting above $90 per barrel, China's strategic pullback in purchasing signals a potential shift in global demand dynamics that markets may be underpricing."
+    },
+    {
+      "article_mode": "CAPITAL_CHRONICLE_VIEW",
+      "cluster_id": "rolling-x-global-cluster-7224803e72213ca5bf9b",
+      "headline_ids": [
+        "cc-x-headline-0069b1c2c07e084e88645a63"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-eb1127944737f63c0446"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Primary quotes from Bessent or relevant Treasury/Fed officials",
+        "Recent bond market volatility indices (e.g., MOVE index) data"
+      ],
+      "rank": 3,
+      "selection_case": "A core macroeconomic policy debate that directly impacts institutional investors, bond yields, and monetary policy expectations.",
+      "seo_intent": "Federal Reserve independence Treasury-Fed accord bond market volatility Bessent",
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0069b1c2c07e084e88645a63",
+        "ordered_headline_ids": [
+          "cc-x-headline-0069b1c2c07e084e88645a63"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Historical chart of Treasury yields and the MOVE index during past periods of Fed independence debates.",
+      "why_now": "Rising speculation regarding a potential Treasury-Fed accord is threatening to inject new volatility into the bond market by questioning Federal Reserve independence."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-91b5f24a2b9733c15c2e",
+      "headline_ids": [
+        "cc-x-headline-9db6356a84daa1177e7c6631"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-161e42a5334ab40bc62b"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Recent G10 bond yield data across the curve",
+        "Analyst reports or central bank commentary attributing yield increases to debt issuance rather than liquidity premiums"
+      ],
+      "rank": 4,
+      "selection_case": "Provides essential context for fixed-income investors trying to understand the structural drivers of current yield curves across developed markets.",
+      "seo_intent": "G10 sovereign debt long-term government bond yields fiscal policy",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-9db6356a84daa1177e7c6631",
+        "ordered_headline_ids": [
+          "cc-x-headline-9db6356a84daa1177e7c6631"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Comparative chart of G10 debt-to-GDP ratios versus 10-year and 30-year sovereign bond yields.",
+      "why_now": "Long-term G10 bond yields are rising, and the analytical narrative is shifting from market mechanics (illiquidity) to fundamental fiscal concerns (sovereign debt levels)."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-a4a7695233658c01f7bd",
+      "headline_ids": [
+        "cc-x-headline-c30f0f4b30032eaa22358f77"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-a0c7fa794459beeb35d6"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Official statement or press release from the US cattle group",
+        "Specific details and context of Trump's tariff-free beef proposal"
+      ],
+      "rank": 5,
+      "selection_case": "Strong engagement signals (82) for a story that sits at the intersection of trade policy, agriculture economics, and election-year politics.",
+      "seo_intent": "US cattle group Trump tariff-free beef imports agriculture trade policy",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-c30f0f4b30032eaa22358f77",
+        "ordered_headline_ids": [
+          "cc-x-headline-c30f0f4b30032eaa22358f77"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Graphic showing US domestic beef production versus import volumes, alongside political imagery.",
+      "why_now": "A major US agricultural group is publicly breaking with Donald Trump over a specific trade proposal, highlighting tensions in populist trade policy."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-3b9127b4fdd6f348ab10",
+      "headline_ids": [
+        "cc-x-headline-ad9aca29654e0963227c6e1b"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-66a76ac834f337c0538d"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Official US House of Representatives financial disclosure forms for Rep. Tlaib",
+        "Documented past public statements by Tlaib criticizing cryptocurrency"
+      ],
+      "rank": 6,
+      "selection_case": "High audience (80) and engagement (88) scores for a clear, document-driven political economy story that touches on cryptocurrency regulation.",
+      "seo_intent": "Rashida Tlaib Bitcoin Ethereum financial disclosures cryptocurrency ethics",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-ad9aca29654e0963227c6e1b",
+        "ordered_headline_ids": [
+          "cc-x-headline-ad9aca29654e0963227c6e1b"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Highlighted screenshot or pull-quote from the official congressional financial disclosure form showing the crypto assets.",
+      "why_now": "Newly released financial disclosures show a prominent crypto critic holding digital assets, raising immediate questions about congressional ethics and policy alignment."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "44352751eb5352312b423f6208a4c2d7b2d953b14f37f5a7d402eda7baf29915",
+          "latency_seconds": 54.0352,
+          "logical_invocation_id": "inv_rolling_x_leaf_b37b5f3784413c8cfc71",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "8213d972d3b058041fe19bad3f24b7352baa1e782fcfdcf4b019e7db078ce92d",
+          "prompt_logical_hash": "2ccfd386ecf4773afdb0477608a63fcaf4784d9dafe77c65a7ce65c5366e276a",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-sE6KaruAB-qx2roP2I7IoAo",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_b37b5f3784413c8cfc71",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 11942,
+            "completion_tokens_details": {
+              "reasoning_tokens": 8388
+            },
+            "prompt_tokens": 6424,
+            "total_tokens": 18366
+          },
+          "work_item_id": "rolling-x-leaf-4c479df0d668eff76abc"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_b37b5f3784413c8cfc71",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_b37b5f3784413c8cfc71",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 54.0368,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 11942.0,
+        "prompt_tokens": 6424.0,
+        "total_tokens": 18366.0
+      },
+      "work_item_id": "rolling-x-leaf-4c479df0d668eff76abc"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "4ec56a8cd9382a47a984299f8a0291d24a6585871ac98013010c8c6eeb99a61c",
+          "latency_seconds": 39.1839,
+          "logical_invocation_id": "inv_rolling_x_global_a5614bb02fb8b1ca6d01",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "832d820b3d55855470e10fa2859916834d8f17a8a7fbb70b4474853e7936d484",
+          "prompt_logical_hash": "b59983511a452f2a536e05797c82fd0c0b917523e70c17129d341b1b120e69bd",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-5k6KaqzHAZzm2roP8auX6AM",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 3,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_a5614bb02fb8b1ca6d01",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 4,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 3,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 5406,
+            "completion_tokens_details": {
+              "reasoning_tokens": 3438
+            },
+            "prompt_tokens": 7001,
+            "total_tokens": 12407
+          },
+          "work_item_id": "rolling-x-global-598f9fcf2c2630734ca4"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_a5614bb02fb8b1ca6d01",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 3,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_a5614bb02fb8b1ca6d01",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 39.1853,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 5406.0,
+        "prompt_tokens": 7001.0,
+        "total_tokens": 12407.0
+      },
+      "work_item_id": "rolling-x-global-598f9fcf2c2630734ca4"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "4ec56a8cd9382a47a984299f8a0291d24a6585871ac98013010c8c6eeb99a61c",
+        "latency_seconds": 39.1839,
+        "logical_invocation_id": "inv_rolling_x_global_a5614bb02fb8b1ca6d01",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "832d820b3d55855470e10fa2859916834d8f17a8a7fbb70b4474853e7936d484",
+        "prompt_logical_hash": "b59983511a452f2a536e05797c82fd0c0b917523e70c17129d341b1b120e69bd",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-5k6KaqzHAZzm2roP8auX6AM",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 3,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_a5614bb02fb8b1ca6d01",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 1,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 4,
+          "per_model_max_attempts": [
+            2,
+            2
+          ],
+          "remaining_attempt_budget": 3,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 5406,
+          "completion_tokens_details": {
+            "reasoning_tokens": 3438
+          },
+          "prompt_tokens": 7001,
+          "total_tokens": 12407
+        },
+        "work_item_id": "rolling-x-global-598f9fcf2c2630734ca4"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_a5614bb02fb8b1ca6d01",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": [
+        2,
+        2
+      ],
+      "remaining_attempt_budget": 3,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_a5614bb02fb8b1ca6d01",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2,
+        "vx/gemini-3.5-flash(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 39.1853,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 5406.0,
+      "prompt_tokens": 7001.0,
+      "total_tokens": 12407.0
+    },
+    "work_item_id": "rolling-x-global-598f9fcf2c2630734ca4"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-bc1c8dc56c36bcb8a8f8",
+  "selected_headline_ids": [
+    "cc-x-headline-fa657856f02fdc5460d80b38"
+  ],
+  "selection_rationale": "The shortlist prioritizes high-signal macroeconomic, market strategy, and political economy stories that align with Capital Chronicle's core audience. Goldman Sachs' warning on AI stock rotation leads due to exceptional engagement and immediate market relevance. This is followed by deep-dive opportunities into China's oil purchasing dynamics, Treasury-Fed policy speculation, and structural shifts in G10 bond yields.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 93.2221,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 17348.0,
+      "prompt_tokens": 13425.0,
+      "total_tokens": 30773.0
+    }
+  }
+}

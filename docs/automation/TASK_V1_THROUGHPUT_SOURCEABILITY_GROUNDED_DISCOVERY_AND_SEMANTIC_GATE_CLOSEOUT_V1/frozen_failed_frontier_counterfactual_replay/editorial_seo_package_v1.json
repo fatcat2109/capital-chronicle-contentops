@@ -1,0 +1,51 @@
+{
+  "author_identity": "Capital Chronicle",
+  "canonical_editorial_headline": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+  "canonical_slug_candidate": "oil-prices-us-stocks-treasury-debt-buybacks",
+  "dek": "Al Jazeera reported higher crude prices, the worst US equity losses in three weeks and an emergency Treasury move to double long-dated debt buybacks.",
+  "editorial_seo_package_sha256": "339a37e28ce0b8098c6e6e5289e396cba46307157ecec426bb8b2fd25ba214e7",
+  "entities": [
+    "Al Jazeera",
+    "Brent crude",
+    "US crude",
+    "Dow Jones Industrial Average",
+    "S&P 500",
+    "US Treasury",
+    "Abbas Araghchi",
+    "Iran"
+  ],
+  "institutional_edge_editorial_packet_sha256": "b6de2fa29c5eaa50f39d35d205306cf3a88ad22432c280c4b17fac9f06228c8e",
+  "internal_link_candidates": [],
+  "meta_description": "Al Jazeera reported higher crude prices, lower US stocks and an emergency Treasury move to double long-dated debt buybacks after the announcement.",
+  "primary_reader_question": "What does the report establish about oil prices and US stocks after the announcement?",
+  "public_write_authority": false,
+  "publication_authority": false,
+  "publisher_identity": "Capital Chronicle",
+  "schema_version": "contentops.institutional_edge_seo_package.v1",
+  "search_freshness_class": "CURRENT",
+  "search_learning_status": "HOLD_WITHOUT_SEARCH_SPECIFIC_EVIDENCE",
+  "search_title": "Oil Prices and US Stocks After the Treasury Buyback Move",
+  "secondary_reader_questions": [
+    "What Treasury response did the report identify?",
+    "What remains uncertain about the reported market sequence?",
+    "How did Abbas Araghchi respond to Trump's threats?"
+  ],
+  "social_hook": "Al Jazeera reports higher crude prices and lower US stocks alongside an emergency Treasury move to double long-dated debt buybacks.",
+  "structured_data_packet": {
+    "@type": "NewsArticle",
+    "author": "Capital Chronicle",
+    "dateModified": "",
+    "datePublished": "",
+    "description": "Al Jazeera reported higher crude prices, lower US stocks and an emergency Treasury move to double long-dated debt buybacks after the announcement.",
+    "eligible_for_emission": false,
+    "headline": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+    "publication_time_binding": "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION",
+    "publisher": "Capital Chronicle"
+  },
+  "topics": [
+    "crude oil prices",
+    "US stock markets",
+    "Treasury debt buybacks",
+    "Iran"
+  ]
+}

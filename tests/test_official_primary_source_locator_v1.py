@@ -340,6 +340,54 @@ def test_current_state_fms_story_routes_to_state_not_legacy_dsca():
     _assert_discovery_only(result, "state_current_fms_press_releases_v1", candidate)
 
 
+def test_current_state_fms_wire_possible_sale_wording_routes_exactly():
+    request = _surface_request(
+        "official_regulatory_fiscal",
+        [],
+        (
+            "U.S. STATE DEPARTMENT APPROVES POSSIBLE SALE OF UH-60M BLACK HAWK "
+            "HELICOPTERS TO NORWAY WORTH ABOUT $2.3 BILLION."
+        ),
+    )
+    candidate = (
+        "https://www.state.gov/releases/bureau-of-political-military-affairs/"
+        "2026/08/norway-uh-60m-black-hawk-helicopters/"
+    )
+    body = json.dumps([{
+        "date_gmt": "2026-08-21T11:30:00",
+        "link": candidate,
+        "title": {"rendered": "Norway – UH-60M Black Hawk Helicopters"},
+    }]).encode()
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, body)
+    )(request)
+    _assert_discovery_only(result, "state_current_fms_press_releases_v1", candidate)
+
+
+def test_current_state_fms_semantic_plural_sales_wording_routes_exactly():
+    request = _surface_request(
+        "official_regulatory_fiscal",
+        ["U.S. State Department", "Military Sales"],
+        (
+            "The U.S. State Department has approved multiple foreign military sales "
+            "to Norway, Italy, and South Korea."
+        ),
+    )
+    candidate = (
+        "https://www.state.gov/releases/bureau-of-political-military-affairs/"
+        "2026/08/norway-uh-60m-black-hawk-helicopters/"
+    )
+    body = json.dumps([{
+        "date_gmt": "2026-08-21T11:30:00",
+        "link": candidate,
+        "title": {"rendered": "Norway – UH-60M Black Hawk Helicopters"},
+    }]).encode()
+    result = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, body)
+    )(request)
+    _assert_discovery_only(result, "state_current_fms_press_releases_v1", candidate)
+
+
 def test_uscc_story_routes_to_exact_first_party_research_publication():
     request = _surface_request(
         "official_regulatory_fiscal",

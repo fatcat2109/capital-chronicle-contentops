@@ -848,17 +848,91 @@ def _attention_metadata_for_leaf_cluster(
     }
 
 
+def _context_routed_official_locator_projection(
+    cluster: Mapping[str, Any],
+    records_by_id: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Project an existing exact locator predicate without discovery or authority.
+
+    The official locator remains the only registry and routing authority.  This helper merely
+    supplies its already-accepted context fields before acquisition so scheduling can represent
+    a route the downstream adapter would otherwise discover later.
+    """
+    from live_contentops.official_primary_source_locator_v1 import (
+        routed_official_locator_families,
+        routed_official_locator_surface_ids,
+    )
+
+    headline_ids = [
+        str(value)
+        for value in (
+            cluster.get("member_headline_ids") or cluster.get("headline_ids") or []
+        )
+        if str(value)
+    ]
+    headline_texts: list[str] = []
+    follow_up_needs: list[str] = []
+    record_tags: list[str] = []
+    for headline_id in headline_ids:
+        external = (records_by_id.get(headline_id) or {}).get("external_content") or {}
+        headline_text = " ".join(str(external.get("headline_text") or "").split())
+        if headline_text:
+            headline_texts.append(headline_text)
+        follow_up_needs.extend(
+            str(value) for value in external.get("follow_up_data_need_candidates") or []
+            if str(value)
+        )
+        record_tags.extend(
+            str(value) for value in external.get("tags") or [] if str(value)
+        )
+
+    leaf_summaries = [
+        str(value) for value in cluster.get("leaf_summaries") or [] if str(value)
+    ]
+    event_topic_summary = str(cluster.get("event_topic_summary") or "").strip()
+    if event_topic_summary and event_topic_summary not in leaf_summaries:
+        leaf_summaries.append(event_topic_summary)
+    entities_topics = list(dict.fromkeys([
+        *[str(value) for value in cluster.get("entities_topics") or [] if str(value)],
+        *[str(value) for value in cluster.get("entities") or [] if str(value)],
+        *[str(value) for value in cluster.get("topics") or [] if str(value)],
+        *record_tags,
+    ]))
+    request = {
+        "needed_evidence": list(cluster.get("needed_evidence") or []),
+        "story_context": {
+            "entities_topics": entities_topics,
+            "leaf_summaries": leaf_summaries,
+            "why_now": str(cluster.get("why_now") or ""),
+            "headline_text": " ".join(headline_texts),
+            "event_topic_summary": event_topic_summary,
+            "follow_up_data_need_candidates": list(dict.fromkeys(follow_up_needs)),
+            "needed_evidence": list(cluster.get("needed_evidence") or []),
+            "seo_intent": str(cluster.get("seo_intent") or ""),
+        },
+    }
+    surface_ids = routed_official_locator_surface_ids(request)
+    families = routed_official_locator_families(request)
+    return {
+        "applicable": bool(surface_ids and families),
+        "surface_ids": list(surface_ids),
+        "families": sorted(families),
+        "projection_only": True,
+        "grants_factual_or_evidence_or_publication_authority": False,
+    }
+
+
 def _leaf_evidence_reachability(
     cluster: Mapping[str, Any],
     records_by_id: Mapping[str, Mapping[str, Any]],
 ) -> dict[str, Any]:
     """Deterministic pre-global-editor evidence-reachability metadata (editorial only).
 
-    Derived solely from already-known product state: official source URLs bound to member
-    headlines and the first-party source families those hosts belong to. No provider call and
-    no network request is made. Grants NO factual, numeric, evidence, permission, or
-    publication authority. The global editor may still rank stories whose current V1 evidence
-    path is difficult or absent; reachability is a feasibility/priority signal only.
+    Derived solely from already-known product state: bound official URLs plus the existing exact
+    official-locator context predicates. No provider call, discovery, or network request is made.
+    Grants NO factual, numeric, evidence, permission, or publication authority. The global editor
+    may still rank stories whose current V1 path is difficult or absent; reachability is a
+    feasibility/priority signal only.
     """
     from urllib.parse import urlsplit
 
@@ -882,9 +956,14 @@ def _leaf_evidence_reachability(
             if host in hosts:
                 matched_families.add(family)
     direct_primary_binding = bool(matched_families)
-    bounded_locator_available = bool(matched_families & set(LOCATOR_FAMILIES))
+    locator_projection = _context_routed_official_locator_projection(cluster, records_by_id)
+    bounded_locator_available = bool(
+        matched_families & set(LOCATOR_FAMILIES)
+    ) or bool(locator_projection["applicable"])
     if direct_primary_binding:
         current_v1_path = "SUPPORTED_NOW"
+    elif locator_projection["applicable"]:
+        current_v1_path = "LOCATOR_SUPPORTED"
     elif official_urls:
         current_v1_path = "CONDITIONAL"
     else:
@@ -893,6 +972,9 @@ def _leaf_evidence_reachability(
         "direct_primary_binding": direct_primary_binding,
         "supported_source_families": sorted(matched_families),
         "bounded_locator_available": bounded_locator_available,
+        "context_routed_locator_applicable": locator_projection["applicable"],
+        "context_routed_locator_surface_ids": locator_projection["surface_ids"],
+        "context_routed_locator_families": locator_projection["families"],
         "current_v1_path": current_v1_path,
         "grants_factual_or_evidence_or_publication_authority": False,
     }
@@ -1813,10 +1895,57 @@ def _rolling_x_public_evidence_urls(row: Mapping[str, Any]) -> list[str]:
     return urls
 
 
+def _rolling_x_attributed_source_host_hints(row: Mapping[str, Any]) -> list[str]:
+    """Infer explicit publisher attributions for routing only, never evidence authority."""
+    external = row.get("external_content")
+    if not isinstance(external, Mapping):
+        return []
+    text = " ".join(str(external.get("headline_text") or "").split()).casefold()
+    patterns = {
+        "apnews.com": (r"(?:^|\s)(?:-|via)\s+ap(?:\s|$)", r"associated press"),
+        "bbc.com": (r"(?:^|\s)(?:-|via)\s+bbc(?:\s|$)",),
+        "cnbc.com": (r"(?:^|\s)(?:-|via)\s+cnbc(?:\s|$)",),
+        "ft.com": (r"(?:^|\s)(?:-|via)\s+ft(?:\s|$)", r"financial times"),
+        "theguardian.com": (r"(?:^|\s)(?:-|via)\s+(?:the\s+)?guardian(?:\s|$)",),
+        "aljazeera.com": (r"(?:^|\s)(?:-|via)\s+al\s+jazeera(?:\s|$)",),
+        "npr.org": (r"(?:^|\s)(?:-|via)\s+npr(?:\s|$)",),
+        "politico.com": (r"(?:^|\s)(?:-|via)\s+politico(?:\s|$)",),
+        "reuters.com": (r"(?:^|\s)(?:-|via)\s+reuters(?:\s|$)",),
+        "wsj.com": (r"(?:^|\s)(?:-|via)\s+wsj(?:\s|$)", r"wall street journal"),
+    }
+    return sorted(
+        host
+        for host, host_patterns in patterns.items()
+        if any(re.search(pattern, text) for pattern in host_patterns)
+    )
+
+
+def _rolling_x_event_state_routing_risk(row: Mapping[str, Any]) -> int:
+    """Estimate closure cost from untrusted text for work order only."""
+    text = " ".join(
+        str((row.get("external_content") or {}).get("headline_text") or "").split()
+    ).casefold()
+    forward = re.search(
+        r"\b(?:will|plans?\s+to|prepares?\s+to|set\s+to|scheduled\s+to|expected\s+to|working\s+on)\b",
+        text,
+    )
+    completed = re.search(
+        r"\b(?:announced|appointed|approved|collapsed|died|fired|hit|imposed|launched|reported|signed|struck|took\s+effect)\b",
+        text,
+    )
+    if forward and not completed:
+        return 1
+    if completed and not forward:
+        return -1
+    return 0
+
+
 def _rolling_x_publishability_path_profile(
     headline_ids: Sequence[str],
     *,
     records_by_id: Mapping[str, Mapping[str, Any]],
+    story_context: Mapping[str, Any] | None = None,
+    autonomous_discovery_available: bool = False,
 ) -> dict[str, Any]:
     """Rank bounded evidence paths before acquisition; never grant evidence authority."""
     from live_contentops.official_primary_evidence_loader_v1 import (
@@ -1827,10 +1956,11 @@ def _rolling_x_publishability_path_profile(
     )
 
     urls: list[str] = []
+    attributed_hosts: set[str] = set()
     for headline_id in headline_ids:
-        for url in _rolling_x_public_evidence_urls(
-            records_by_id.get(str(headline_id)) or {}
-        ):
+        record = records_by_id.get(str(headline_id)) or {}
+        attributed_hosts.update(_rolling_x_attributed_source_host_hints(record))
+        for url in _rolling_x_public_evidence_urls(record):
             if url not in urls:
                 urls.append(url)
     hosts = {str(urlsplit(url).hostname or "").casefold() for url in urls}
@@ -1839,15 +1969,29 @@ def _rolling_x_publishability_path_profile(
         for family_hosts in OFFICIAL_HOSTS_BY_FAMILY.values()
         for host in family_hosts
     }
+    locator_projection = _context_routed_official_locator_projection(
+        {**dict(story_context or {}), "headline_ids": list(headline_ids)},
+        records_by_id,
+    )
     if hosts.intersection(exact_official_hosts):
-        priority = 3
+        priority = 5
         tier = "EXACT_OFFICIAL_DIRECT"
         bounded_request_upper_bound = 1
+    elif locator_projection["applicable"]:
+        priority = 4
+        tier = "EXACT_CONTEXT_ROUTED_OFFICIAL_LOCATOR"
+        # One bounded locator read plus one exact candidate-document read.
+        bounded_request_upper_bound = 2
     elif hosts.intersection(REPUTABLE_SECONDARY_HOSTS):
-        priority = 2
+        priority = 3
         tier = "REPUTABLE_PUBLIC_SECONDARY"
         # The accepted secondary loader tries at most three bound URLs plus one RSS query.
         bounded_request_upper_bound = 4
+    elif not urls and autonomous_discovery_available:
+        priority = 2
+        tier = "AUTONOMOUS_DISCOVERY_AVAILABLE"
+        # One URL-only discovery call precedes the unchanged per-candidate retrieval bound.
+        bounded_request_upper_bound = 1
     elif urls:
         priority = 1
         tier = "UNCLASSIFIED_PUBLIC_LOCATOR"
@@ -1861,6 +2005,13 @@ def _rolling_x_publishability_path_profile(
         "tier": tier,
         "bound_public_url_count": len(urls),
         "bounded_request_upper_bound_per_candidate": bounded_request_upper_bound,
+        "context_routed_locator_applicable": locator_projection["applicable"],
+        "context_routed_locator_surface_ids": locator_projection["surface_ids"],
+        "context_routed_locator_families": locator_projection["families"],
+        "autonomous_discovery_available": bool(autonomous_discovery_available),
+        "attributed_source_host_hints": sorted(attributed_hosts),
+        "attributed_source_hints_grant_authority": False,
+        "autonomous_discovery_grants_authority": False,
         "grants_factual_or_evidence_or_publication_authority": False,
     }
 
@@ -1995,6 +2146,8 @@ def build_prepared_rolling_x_candidate_state(
     continuity_binding: Mapping[str, Any] | None = None,
     editorial_opportunities: Sequence[Mapping[str, Any]] | None = None,
     prior_prepared_state: Mapping[str, Any] | None = None,
+    autonomous_source_discovery_available: bool = False,
+    source_route_health: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build the small zero-model candidate checkpoint consumed by an editorial opportunity.
 
@@ -2027,6 +2180,27 @@ def build_prepared_rolling_x_candidate_state(
         if headline_id not in evaluated or headline_id in reentry
     ]
     window_hours = float(rolling_input.get("window_hours") or 24.0)
+    route_health_hosts = {
+        str(row.get("normalized_host") or ""): dict(row)
+        for row in (source_route_health or {}).get("hosts") or []
+        if isinstance(row, Mapping) and str(row.get("normalized_host") or "")
+    }
+
+    def attributed_route_risk(row: Mapping[str, Any]) -> int:
+        attributed_hosts = _rolling_x_attributed_source_host_hints(row)
+        for host in attributed_hosts:
+            observed = route_health_hosts.get(host) or {}
+            if int(observed.get("success_count") or 0) > int(
+                observed.get("failure_count") or 0
+            ):
+                return -1
+            if int(observed.get("failure_count") or 0) >= 2 and int(
+                observed.get("failure_count") or 0
+            ) > int(observed.get("success_count") or 0):
+                return 1
+        # An explicit reputable attribution is a cheap discovery routing hint. It cannot
+        # become a source or claim until URL discovery and deterministic retrieval pass.
+        return -1 if attributed_hosts else 0
 
     def normalized_opportunity(row: Mapping[str, Any]) -> dict[str, Any]:
         start = _normalize_cutoff_utc(str(row.get("start_utc") or row.get("start") or ""))
@@ -2111,12 +2285,24 @@ def build_prepared_rolling_x_candidate_state(
     def frontier_key(row: Mapping[str, Any]) -> tuple[Any, ...]:
         headline_id = str(row.get("headline_id") or "")
         source_time, expires_at = row_times(row)
+        # A direct, already-bound official path is a cheap feasibility signal, not evidence.
+        # It must be considered before rolling expiry so the bounded frontier cannot spend all
+        # of its current slots on evidence-hostile social discoveries while an eligible exact
+        # first-party document remains held. Re-entry still takes precedence and every selected
+        # identity continues through the same evidence, claim, and publication gates.
+        evidence_path_priority = int(
+            _rolling_x_publishability_path_profile(
+                [headline_id],
+                records_by_id={headline_id: row},
+                autonomous_discovery_available=autonomous_source_discovery_available,
+            )["priority"]
+        )
         return (
             0 if headline_id in reentry else 1,
+            -evidence_path_priority,
+            attributed_route_risk(row),
+            _rolling_x_event_state_routing_risk(row),
             expires_at.timestamp(),
-            -int(_rolling_x_publishability_path_profile(
-                [headline_id], records_by_id={headline_id: row}
-            )["priority"]),
             source_time.timestamp(),
             headline_id,
         )
@@ -2397,8 +2583,8 @@ def build_prepared_rolling_x_candidate_state(
         "schema_version": "contentops.rolling_x_prepared_frontier.v2",
         "selection_order": [
             "material_update_or_priority_reentry",
-            "rolling_expiry_ascending_against_exact_owner_calendar",
             "known_evidence_path_priority",
+            "rolling_expiry_ascending_against_exact_owner_calendar",
             "source_timestamp_ascending",
             "headline_id",
         ],
@@ -2468,6 +2654,16 @@ def build_prepared_rolling_x_candidate_state(
         "llm_or_provider_calls": 0,
         "factual_or_numeric_authority_granted": False,
         "publication_authority_granted": False,
+        "autonomous_source_discovery_available": bool(
+            autonomous_source_discovery_available
+        ),
+        "autonomous_source_discovery_grants_authority": False,
+        "source_route_health_input_sha256": (
+            _logical_hash(source_route_health)
+            if isinstance(source_route_health, Mapping)
+            else None
+        ),
+        "source_route_health_grants_authority": False,
     }
     state["prepared_candidate_logical_hash"] = _logical_hash(state)
     return state
@@ -2642,6 +2838,7 @@ def build_bounded_rolling_x_publishability_pool(
     assignment: Mapping[str, Any],
     rolling_input: Mapping[str, Any],
     max_ranked_clusters: int = ROLLING_X_PUBLISHABILITY_POOL_LIMIT,
+    prepared_frontier_only: bool = False,
 ) -> dict[str, Any]:
     """Derive a broader zero-model pool for the existing ranked evidence selector.
 
@@ -2667,6 +2864,8 @@ def build_bounded_rolling_x_publishability_pool(
         "source_ranked_candidate_count": len(source_clusters),
         "compact_headline_count": len(headlines) if isinstance(headlines, list) else 0,
         "same_cycle_ranked_evidence_walk": True,
+        "prepared_frontier_only": bool(prepared_frontier_only),
+        "full_universe_expansion_performed": False,
         "existing_ranked_evidence_selector_reused": True,
         "exact_official_host_registry_used": True,
         "llm_or_provider_calls": 0,
@@ -2832,7 +3031,7 @@ def build_bounded_rolling_x_publishability_pool(
         row["publishability_pool_origin"] = "EDITORIAL_SHORTLIST"
         row["publishability_original_order"] = expected_rank
         row["publishability_path_profile"] = _rolling_x_publishability_path_profile(
-            headline_ids, records_by_id=records_by_id
+            headline_ids, records_by_id=records_by_id, story_context=row
         )
         seen_cluster_ids.add(cluster_id)
         seen_headline_ids.update(headline_ids)
@@ -2892,7 +3091,7 @@ def build_bounded_rolling_x_publishability_pool(
                 "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
                 "publishability_original_order": len(existing) + leaf_order,
                 "publishability_path_profile": _rolling_x_publishability_path_profile(
-                    member_ids, records_by_id=records_by_id
+                    member_ids, records_by_id=records_by_id, story_context=leaf
                 ),
             })
 
@@ -2913,7 +3112,7 @@ def build_bounded_rolling_x_publishability_pool(
         row["publishability_pool_origin"] = "DETERMINISTIC_EVIDENCE_REACHABILITY_RESERVE"
         row["publishability_original_order"] = len(existing) + fallback_order
         row["publishability_path_profile"] = _rolling_x_publishability_path_profile(
-            headline_ids, records_by_id=records_by_id
+            headline_ids, records_by_id=records_by_id, story_context=row
         )
         reserve_rows.append(row)
         for leaf_id in [str(value) for value in (row.get("leaf_cluster_ids") or [])]:

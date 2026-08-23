@@ -1,0 +1,54 @@
+{
+  "schema_version": "contentops.v1_evidence_foundation_capability_archaeology.v1",
+  "base_commit": "55b02fdc3b3e7f7365ab1d692c221463c3bd9252",
+  "classifications": [
+    {
+      "capability": "semantic-review claim-contract repair",
+      "classification": "REUSE_UNCHANGED"
+    },
+    {
+      "capability": "story-scoped request reuse and sourceability/reachability seam",
+      "classification": "REUSE_AND_EXTEND_CANONICAL_SEAM"
+    },
+    {
+      "capability": "official-primary locators and Capital Chronicle publication-authority consumer",
+      "classification": "REUSE_UNCHANGED"
+    },
+    {
+      "capability": "Google News and same-publisher sitemap recovery",
+      "classification": "REUSE_UNCHANGED"
+    },
+    {
+      "capability": "URL-only discovery admission plus deterministic retrieval/hash/freshness/claim gates",
+      "classification": "REUSE_WITH_NET_NEW_RUNTIME_HANDSHAKE"
+    },
+    {
+      "capability": "production-day source/route health",
+      "classification": "NET_NEW_MINIMAL_ROUTING_STATE",
+      "archaeology_result": "NO_EXISTING_REUSABLE_CROSS_OPPORTUNITY_EQUIVALENT",
+      "authority": false,
+      "persistence": "existing supervisor output root; no second durable authority"
+    },
+    {
+      "capability": "invalid redirect resolution",
+      "classification": "EXACT_GAP_REPAIR_ONLY",
+      "repair": "registered cnb.cx to cnbc.com publisher short-host relationship"
+    },
+    {
+      "capability": "cheap publishability/sourceability funnel",
+      "classification": "RECOMPRESS_EXISTING_SIGNALS_AND_ADD_ROUTING_HINTS",
+      "truth_gate_changes": false
+    },
+    {
+      "capability": "ARTICLE_TRANSPORT_SCHEMA and deterministic representation normalization",
+      "classification": "REUSE_WITH_LOSSLESS_ENVELOPE_RESOLVER",
+      "second_article_schema_created": false
+    },
+    {
+      "capability": "canonical durable newsroom/store/publication coordinator",
+      "classification": "REUSE_UNCHANGED"
+    }
+  ],
+  "duplicate_authorities_created": false,
+  "truth_permission_freshness_or_publication_gates_weakened": false
+}

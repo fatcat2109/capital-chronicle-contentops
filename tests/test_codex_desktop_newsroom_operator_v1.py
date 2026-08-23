@@ -19,13 +19,18 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     EDITORIAL_WORKER_MODEL,
     EDITORIAL_WORKER_REASONING_EFFORT,
     MANUAL_GO_PROMPT,
+    arbitrate_hybrid_editorial_execution,
     build_editorial_worker_routing_packet,
+    build_hybrid_editorial_run_identity,
+    build_same_xhigh_worker_revision_contract,
     build_live_zero_write_rehearsal,
     classify_desktop_candidate_universe,
     four_task_setup_packet,
     load_terminal_editorial_continuity,
     persist_supported_automation_host_observation,
     validate_editorial_worker_return,
+    validate_hybrid_editorial_arbitration_receipt,
+    validate_same_xhigh_worker_revision_return,
 )
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     build_prepared_rolling_x_candidate_state,
@@ -807,7 +812,9 @@ def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
         ("V1 Newsroom — New York 0100", "Tuesday-Saturday", "01:00"),
     ]
     assert "native V1 coordinator on exact gpt-5.6-sol / HIGH" in DESKTOP_TASK_PROMPT
-    assert "four qualified zero-public-write articles" in DESKTOP_TASK_PROMPT
+    assert "immediate one-article MVP canary launch gate" in DESKTOP_TASK_PROMPT
+    assert "four qualified zero-public-write articles and 32 derivative intents" in DESKTOP_TASK_PROMPT
+    assert "does not satisfy the 4/32 gate" in DESKTOP_TASK_PROMPT
     assert "five to eight published articles" in DESKTOP_TASK_PROMPT
     assert "Only when one real candidate has enough governed evidence" in DESKTOP_TASK_PROMPT
     assert "Start one fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in MANUAL_GO_PROMPT
@@ -838,6 +845,14 @@ def test_supported_host_observation_persists_only_exact_safe_four_task_readback(
     assert persisted["task_count"] == 4
     assert persisted["all_exact_ids_present"] is True
     assert persisted["no_fifth_task_created"] is True
+    assert persisted["all_paused"] is True
+    assert persisted["all_model_match"] is True
+    assert persisted["all_reasoning_effort_match"] is True
+    assert persisted["all_prompt_match_configured_intent"] is True
+    assert persisted["supported_run_now_operation_observed"] is False
+    assert persisted["automation_configuration_mutated"] is False
+    assert persisted["public_write_performed"] is False
+    assert persisted["unknown_write_count"] == 0
     assert all(row["status"] == "PAUSED" for row in persisted["tasks"])
     assert all("prompt" not in row for row in persisted["tasks"])
     assert all("prompt_sha256" in row for row in persisted["tasks"])
@@ -1015,6 +1030,75 @@ def test_xhigh_return_rejects_wrong_hash_second_revision_and_public_write():
         )
 
 
+def test_same_xhigh_worker_revision_contract_preserves_exact_binding_and_budget():
+    route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context={
+            "accepted_evidence_packet": {
+                "status": "PASS",
+                "evidence_documents": [{"document_id": "official-1"}],
+            },
+            "exact_source_handles": ["https://example.test/official-1"],
+        },
+        readiness_checked_before_editorial=True,
+        readiness_state="READY",
+    )
+    original = {
+        "governed_input_hash": route["governed_input_hash"],
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "XHIGH",
+        "fresh": True,
+        "isolated": True,
+        "bounded_revision_count": 0,
+        "public_write_attempted": False,
+        "article": {"title": "Original governed article", "evidence_document_ids": ["official-1"]},
+    }
+    validation = validate_editorial_worker_return(
+        worker_return=original,
+        expected_governed_input_hash=route["governed_input_hash"],
+    )
+    contract = build_same_xhigh_worker_revision_contract(
+        worker_return=original,
+        worker_validation=validation,
+        worker_request=route["worker_request"],
+        deterministic_review={"hard_editorial_blockers": ["mode_declared"]},
+        semantic_review={
+            "decision": "NEEDS_REVISION",
+            "failed_checks": ["material_claims_supported"],
+            "issues": [{"code": "unsupported_claims"}],
+        },
+    )
+
+    assert contract["decision"] == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+    assert contract["same_worker_required"] is True
+    assert contract["fresh_replacement_worker_forbidden"] is True
+    assert contract["router_final_writer_forbidden"] is True
+    assert contract["required_bounded_revision_count"] == 1
+    assert contract["worker_request"]["fresh_worker_creation"] is False
+    assert contract["worker_request"]["bounded_governed_context"] == route["worker_request"]["bounded_governed_context"]
+    assert contract["immutable_evidence_identity"]["evidence_document_ids"] == ["official-1"]
+
+    revised = {
+        **original,
+        "bounded_revision_count": 1,
+        "same_worker_revision_of_return_hash": validation["worker_return_hash"],
+        "article": {"title": "Revised governed article", "evidence_document_ids": ["official-1"]},
+    }
+    revised_validation = validate_same_xhigh_worker_revision_return(
+        worker_return=revised,
+        revision_contract=contract,
+    )
+    assert revised_validation["same_xhigh_worker_revision"] is True
+    assert revised_validation["same_xhigh_worker_revision_contract_hash"] == contract["revision_contract_hash"]
+
+    altered_contract = {**contract, "immutable_evidence_identity": {"evidence_document_ids": ["other"]}}
+    with pytest.raises(ValueError, match="contract_hash_mismatch"):
+        validate_same_xhigh_worker_revision_return(
+            worker_return=revised,
+            revision_contract=altered_contract,
+        )
+
+
 def test_breaking_brief_is_article_qualified_and_requests_exactly_one_xhigh_worker():
     route = build_editorial_worker_routing_packet(
         opportunity_state="ARTICLE_QUALIFIED",
@@ -1070,6 +1154,117 @@ def test_routing_packet_preserves_canonical_product_mode_semantics(
     assert worker["grants_capital_chronicle_authority"] is False
     assert worker["grants_permission_authority"] is False
     assert worker["grants_public_write_authority"] is False
+
+
+def test_hybrid_arbitration_waits_for_and_accepts_desktop_inside_valid_window():
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="italy-canary-1",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="a" * 64,
+    )
+    pending = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T00:45:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "PENDING",
+        },
+    )
+    assert pending["decision"] == "WAIT_FOR_DESKTOP_PRIMARY"
+    assert pending["sdk_fallback_start_authorized"] is False
+
+    accepted = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T00:55:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "ACCEPTED",
+            "completed_at_utc": "2026-08-22T00:54:00Z",
+        },
+    )
+    assert accepted["decision"] == "ACCEPT_DESKTOP_PRIMARY"
+    assert accepted["canonical_article_owner"] == "DESKTOP_PRIMARY"
+    assert accepted["duplicate_article_or_public_object_authorized"] is False
+    assert validate_hybrid_editorial_arbitration_receipt(
+        accepted, expected_runtime_run_id="italy-canary-1"
+    )["arbitration_logical_hash"]
+
+
+@pytest.mark.parametrize("desktop_state", ["MISSED_VALID_WINDOW", "FAILED_PRIMARY"])
+def test_hybrid_arbitration_authorizes_sdk_only_after_exact_desktop_miss_or_failure(
+    desktop_state,
+):
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="italy-canary-fallback",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="b" * 64,
+    )
+    receipt = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T01:01:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": desktop_state,
+        },
+    )
+    assert receipt["decision"] == "START_SDK_FALLBACK"
+    assert receipt["sdk_fallback_start_authorized"] is True
+    assert receipt["canonical_article_owner"] == "SDK_FALLBACK"
+
+
+def test_hybrid_arbitration_suppresses_late_desktop_after_sdk_fallback_started():
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="italy-canary-late",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="c" * 64,
+    )
+    receipt = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T01:10:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "ACCEPTED",
+            "completed_at_utc": "2026-08-22T01:05:00Z",
+        },
+        sdk_fallback_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "STARTED",
+        },
+    )
+    assert receipt["decision"] == "SDK_FALLBACK_ALREADY_IN_FLIGHT"
+    assert receipt["late_desktop_completion_suppressed"] is True
+    assert receipt["duplicate_article_or_public_object_authorized"] is False
+
+
+def test_hybrid_arbitration_does_not_provider_shop_after_content_gate_terminal():
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id="italy-canary-terminal",
+        production_day_id="2026-08-22",
+        opportunity_id="new-york-0100",
+        story_identity="official-primary-ffb8e742e0932254c29d",
+        governed_input_hash="d" * 64,
+    )
+    receipt = arbitrate_hybrid_editorial_execution(
+        run_identity=identity,
+        observed_at_utc="2026-08-22T01:10:00Z",
+        valid_window_ends_at_utc="2026-08-22T01:00:00Z",
+        desktop_primary_receipt={
+            "canonical_run_identity": identity["canonical_run_identity"],
+            "state": "TERMINAL_NO_ARTICLE",
+        },
+    )
+    assert receipt["decision"] == "TERMINAL_NO_ARTICLE_NO_PROVIDER_FALLBACK"
+    assert receipt["sdk_fallback_start_authorized"] is False
 
 
 def test_active_policy_sections_reach_next_desktop_briefing(tmp_path):

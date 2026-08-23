@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
-Authority date: 2026-08-21
+Authority date: 2026-08-22
 Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR`
 
 ## 1. Product role
@@ -17,13 +17,27 @@ Truth, permissions, rights, exact identity, numeric authority, and recovery are 
 
 Jim's latest explicit owner direction is authoritative.
 
-### Build-phase floor
+### MVP canary launch gate
+
+Before throughput perfection, ship one supervised end-to-end MVP canary slice under zero public
+write. It must contain one current useful native-XHIGH article, hard-safe evidence and claim
+binding, deterministic validation, canonical Markdown/HTML/SEO artifacts, exactly eight derivative
+package intents, exact JIT identity/readiness for Substack plus all eight destinations, and
+`UNKNOWN_WRITE=0`. It stops for Jim/ChatGPT audit and an explicit one-canary public-write grant.
+
+Editorial/SEO perfection findings remain observable `CANARY_QUALITY_WARNINGS`; factual, numeric/CC,
+identity, permission, rights, native-worker, serialization, and write safety can never be warnings.
+
+### Post-launch throughput floor
 
 During the current V1 build/proof phase, one newsroom production day must produce at least:
 
-`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES`
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS`
 
-A qualified build article must clear the current factual, evidence, numeric, rights, reader-value, authority, and editorial-worker contracts and persist its native package intents. It is not required to be publicly dispatched during build/proof.
+A qualified throughput article must clear the normal production validation contract and persist its
+native package intents. The 4/32 proof remains required before production-grade daily-yield claims
+or unattended routine operation, but was not a prerequisite for the one supervised MVP canary
+owner gate.
 
 ### Final V1 target
 
@@ -67,24 +81,29 @@ Later windows must be able to recover an earlier deficit. Do not create filler m
 
 FDA-G is the always-on low-cost runtime/intake/state authority. It can ingest, maintain durable state, evaluate cheap opportunity metadata, reconcile, and expose current truth.
 
-Current repository code does **not** prove that FDA-G directly launches Codex Desktop. `live_contentops/codex_desktop_newsroom_operator_v1.py` is continuity/routing support and is explicitly not a scheduler or Desktop/model bridge.
+Desktop standalone fresh-run Automations are the primary routine heavy-editorial brain. Each
+routine opportunity uses a fresh `gpt-5.6-sol / HIGH` coordinator, which starts one fresh isolated
+`gpt-5.6-sol / XHIGH` final writer only at a warranted article boundary and permits at most one
+bounded same-worker repair from concrete deterministic validation deltas.
 
 Therefore:
 
-- repo configuration describing Codex tasks is not proof that host Codex Automations exist;
-- actual Codex Automation inventory/state must be proven from supported host/product evidence;
-- do not claim four native Codex tasks are present, paused, enabled, or unattended unless host evidence proves it;
-- intended automation configuration and observed automation objects are separate facts.
+- deterministic validators remain factual, numeric, permission, gate, and publication authority;
+- neither Desktop coordinator nor XHIGH worker has public-write authority;
+- the official ChatGPT-authenticated Codex App Server/SDK provider remains the proven resilient
+  missed/failed-primary fallback, immediate direct path, and benchmark path;
+- accepted Desktop and SDK receipts share one canonical run identity and may not produce duplicate
+  articles or public objects.
 
-The preferred routine heavy-editorial architecture is:
+The current heavy-editorial architecture is:
 
-`FDA-G background intake/state -> native Codex Automation wake -> HIGH coordinator -> fresh isolated XHIGH editorial worker when warranted -> deterministic validation -> zero-write or authorized publication lifecycle`
+`FDA-G / existing V1 runtime -> fresh standalone Desktop HIGH coordinator -> fresh isolated XHIGH writer when warranted -> deterministic validation -> zero-write or separately authorized publication lifecycle`
 
 No second newsroom/store/publisher/control plane.
 
-## 5. Routine automation intent
+## 5. Routine schedule policy
 
-The intended four routine Codex opportunities are:
+The four routine opportunities are:
 
 - London 17:00 Monday–Friday;
 - New York 21:00 Monday–Friday;
@@ -96,15 +115,14 @@ The intended four routine Codex opportunities are:
 
 Do not create a fifth routine opportunity merely to satisfy the daily floor. Catch-up belongs inside the existing production-day logic and bounded candidate walk.
 
-Until host inventory proves these Automations exist, their status is `UNPROVEN_HOST_AUTOMATION_STATE`.
+Current host truth proves exactly these four existing native Automations, all paused on
+`gpt-5.6-sol / HIGH`. It does not authorize enablement. Their prompt hashes must be normalized and
+Jim/ChatGPT must pass the exact canary audit first.
 
 ## 6. Material-event wake truth
 
-FDA-G may detect/prioritize material events. That does not itself prove an immediate native Codex editorial wake.
-
-Until an actual supported execution bridge is proven, classify immediate material-event-to-Codex execution as:
-
-`MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN`
+FDA-G may detect and prioritize material events for the existing runtime. This grants no extra model
+turn, bypasses no gate, and supplies no public-write authority.
 
 Do not invent a credential/token bridge as a side effect of this contract. Any separate access-token/API execution bridge is a new execution/security boundary and requires explicit owner approval.
 
@@ -156,19 +174,23 @@ A derivative-local outage does not erase canonical truth, but final nine-surface
 Current sequence:
 
 1. P0-G3 growth-first multi-mode zero-write proof is accepted and merged.
-2. Before continuing the live canary, correct current authority and prove the real Codex automation/execution bridge plus build daily-output-floor behavior.
-3. Produce a genuine current qualified canary candidate under zero public write.
-4. Obtain explicit one-canary owner public-write grant.
-5. Publish/read back canonical Substack plus exactly eight derivatives and finish `UNKNOWN_WRITE=0`.
-6. Prove unattended/cold-start operation using only actual proven routine Automations; material-event live execution remains separately owner-gated.
-7. Close truthful V5 UI and screenshot-based owner QA.
-8. Accept/freeze V1 only after these proofs.
+2. The official-provider Italy proof remains accepted fallback/direct/benchmark evidence.
+3. The same-Italy Desktop-primary hybrid zero-write canary is complete at
+   `PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`.
+4. Jim/ChatGPT audits that exact Desktop article and nine-surface plan.
+5. Only after an explicit one-canary owner grant, publish/read back canonical Substack plus exactly
+   eight derivatives and finish `UNKNOWN_WRITE=0`.
+6. Prove the 4/32 post-canary throughput gate without filler or weakened truth.
+7. Prove calendar-time/unattended/cold-start operation through the existing four Desktop
+   Automations, with SDK fallback arbitration and no fifth task.
+8. Close truthful V5 UI and screenshot-based owner QA, then accept/freeze V1.
 
 ## 12. Canonical UI
 
 `ui/contentops_v5/` must expose truthful runtime, evidence, authority, publication/recovery, cost, and daily production state. During build it must show qualified articles versus the `4` floor and remaining deficit. It must not present an unmet daily floor as a generic healthy idle state.
 
-Automation state displayed in the UI must come from an actual safe observable source. Configured intended schedules must never be rendered as observed `READY/PAUSED` host automation truth.
+Provider/runtime state displayed in the UI must come from an actual safe observable source.
+Configured schedule policy must never be rendered as current Desktop Automation state.
 
 ## 13. Hard stops
 

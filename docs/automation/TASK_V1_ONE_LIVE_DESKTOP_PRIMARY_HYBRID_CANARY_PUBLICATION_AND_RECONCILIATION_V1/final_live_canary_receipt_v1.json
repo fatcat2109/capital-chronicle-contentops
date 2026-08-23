@@ -1,0 +1,212 @@
+{
+  "schema_version": "contentops.one_live_desktop_primary_hybrid_canary.final_receipt.v1",
+  "task": "TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1",
+  "classification": "PASS_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_9_SURFACE_RECONCILED",
+  "captured_at_utc": "2026-08-22T21:45:23.0316012Z",
+  "git": {
+    "branch": "codex/v1-desktop-primary-hybrid-final-convergence-v1",
+    "starting_branch_sha": "bcdada4674402be42d1624cdd1ea5029617aef98",
+    "final_branch_sha": null,
+    "final_branch_sha_recording": "Recorded after the self-referential evidence commit in the Git push receipt and final operator handoff."
+  },
+  "owner_grant_scope": {
+    "title": "State Department Approves Possible APKWS II Sale to Italy",
+    "mode": "DATA_OR_DOCUMENT_LENS",
+    "evidence_id": "official-primary-ffb8e742e0932254c29d",
+    "canonical_markdown_sha256": "32bff9996e59bd924e9d41f10b4ed29fcbf9a431a38f187ee727929c12585d65",
+    "canonical_html_sha256": "2d037d6df2956779157b37a6d7ddc848a5f3b9111db339eb7bde3cbb1d1c5286",
+    "release_lock_sha256": "6c6f0c54117cf4d88478f1773de08c51c769d7e22e218af948ce5e24717c7241"
+  },
+  "prewrite": {
+    "locked_bytes_and_hashes": "PASS",
+    "fresh_jit_readiness": "READY_9_OF_9",
+    "exact_destination_probes": 9,
+    "canonical_article_media_count": 0,
+    "unknown_write_count": 0,
+    "wrong_identity_count": 0
+  },
+  "publication": {
+    "work_item_id": "owner-one-live-desktop-primary-hybrid-canary-6c6f0c54117c",
+    "canonical_attempted_count": 1,
+    "derivative_destination_package_attempted_count": 8,
+    "registered_outbox_count": 9,
+    "registered_dispatch_count": 9,
+    "proof_no_extra_dispatch": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+    "canonical_media_count": 0,
+    "destinations": [
+      {
+        "destination": "substack",
+        "identity": "capitalchronicle.substack.com",
+        "public_object_id": "212337344",
+        "public_object_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "dispatched_at_utc": "2026-08-22T21:29:16.076304Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "readback": "STRICT_CANONICAL_TRANSPORT_PLUS_PUBLIC_BROWSER_DOM",
+        "content_identity": "TITLE_OPENING_VALUE_BOUNDARY_AND_CLOSING_MATCH",
+        "canonical_media_count": 0
+      },
+      {
+        "destination": "telegram",
+        "identity": "@CapitalChronicle",
+        "public_object_id": "66",
+        "public_object_url": "https://t.me/CapitalChronicle/66",
+        "dispatched_at_utc": "2026-08-22T21:31:08.778512Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "readback": "STRICT_BOT_API_PLUS_PUBLIC_BROWSER_DOM"
+      },
+      {
+        "destination": "discord",
+        "identity": "discord_channel:1519311669216673802",
+        "public_object_id": "1540835756237660271",
+        "public_object_url": null,
+        "dispatched_at_utc": "2026-08-22T21:31:10.369592Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "readback": "STRICT_WEBHOOK_DESTINATION_LOCAL"
+      },
+      {
+        "destination": "x",
+        "identity": "@Capitalnicle",
+        "public_object_id": "2091277088196383065",
+        "public_object_url": "https://x.com/Capitalnicle/status/2091277088196383065",
+        "accepted_package_public_objects": [
+          "https://x.com/Capitalnicle/status/2091277088196383065",
+          "https://x.com/Capitalnicle/status/2091277163865772395",
+          "https://x.com/Capitalnicle/status/2091277221621326326"
+        ],
+        "dispatched_at_utc": "2026-08-22T21:31:16.873528Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "readback": "STRICT_EDGE_CDP_PLUS_PUBLIC_BROWSER_DOM",
+        "package_shape": "ONE_ACCEPTED_X_DERIVATIVE_PACKAGE_ROOT_PLUS_TWO_ORDERED_REPLIES"
+      },
+      {
+        "destination": "linkedin",
+        "identity": "Jim Pham",
+        "public_object_id": "urn:li:share:7497043017552277504",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7497043017552277504/",
+        "dispatched_at_utc": "2026-08-22T21:32:21.901061Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "native_adapter_readback": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "supplemental_readback": "PUBLIC_BROWSER_DOM_AND_LINK_NAVIGATION_CONFIRMED",
+        "visible_outbound_link": "https://lnkd.in/gswgjAjT",
+        "resolved_outbound_url": "https://capitalchronicle.substack.com/p/state-department-approves-possible",
+        "certainty": "CONFIRMED_NO_RETRY"
+      },
+      {
+        "destination": "facebook_page",
+        "identity": "Capital Chronicle",
+        "public_object_id": "106091951705748_1378354604482956",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1378354604482956",
+        "dispatched_at_utc": "2026-08-22T21:32:23.366778Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "readback": "STRICT_META_GRAPH_DESTINATION_LOCAL",
+        "public_browser_artifact": "LOGIN_WALL_NOT_USED_FOR_CERTAINTY"
+      },
+      {
+        "destination": "instagram_business",
+        "identity": "official.capitalchronicle",
+        "public_object_id": "17864143506663122",
+        "public_object_url": "https://www.instagram.com/p/DcW4tH6IF9R/",
+        "dispatched_at_utc": "2026-08-22T21:32:28.265223Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "readback": "STRICT_META_GRAPH_PLUS_PUBLIC_BROWSER_DOM"
+      },
+      {
+        "destination": "threads",
+        "identity": "official.capitalchronicle",
+        "public_object_id": "18138785134579167",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DcW4uleEzqm",
+        "accepted_package_public_objects": [
+          "https://www.threads.com/@official.capitalchronicle/post/DcW4uleEzqm",
+          "https://www.threads.com/@official.capitalchronicle/post/DcW4vw2k5_I"
+        ],
+        "dispatched_at_utc": "2026-08-22T21:32:41.886138Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "readback": "STRICT_THREADS_API_PLUS_PUBLIC_BROWSER_DOM",
+        "package_shape": "ONE_ACCEPTED_THREADS_DERIVATIVE_PACKAGE_ROOT_PLUS_ONE_ORDERED_REPLY"
+      },
+      {
+        "destination": "youtube",
+        "identity": "@CapitalChronicleYouTube",
+        "public_object_id": "UgkxNTGL3K7fiqXMISPX71CEegWGHMz6PVN3",
+        "public_object_url": "https://www.youtube.com/post/UgkxNTGL3K7fiqXMISPX71CEegWGHMz6PVN3",
+        "dispatched_at_utc": "2026-08-22T21:33:28.539042Z",
+        "reconciliation": "RECONCILED_CONFIRMED",
+        "readback": "STRICT_EDGE_CDP_PLUS_PUBLIC_BROWSER_DOM"
+      }
+    ]
+  },
+  "postwrite_validation": {
+    "reconciled_destination_count": 9,
+    "all_derivative_payloads_bind_exact_observed_canonical_url": true,
+    "pending_publication_marker_count": 0,
+    "unresolved_source_marker_count": 0,
+    "wrong_account_write_count": 0,
+    "duplicate_dispatch_count": 0,
+    "extra_derivative_package_count": 0,
+    "unknown_write_count": 0,
+    "recovery_public_write_count": 0,
+    "automation_enablement_performed": false,
+    "four_thirty_two_started": false,
+    "new_writer_invoked": false,
+    "new_evidence_acquired": false
+  },
+  "runtime_restore": {
+    "operating_mode": "SHADOW_ONLY",
+    "state_version": 30,
+    "control_source": "OWNER_ONE_LIVE_CANARY_RESTORE_V1",
+    "llm_operator_pause_marker_present": false,
+    "daily_app_supervisor_running": true,
+    "api_listener_5174_running": true
+  },
+  "validation": {
+    "publisher_script_py_compile": "PASS",
+    "focused_current_publication_identity_and_desktop_tests": {
+      "status": "PASS",
+      "passed": 161,
+      "failed": 0,
+      "test_files": [
+        "tests/test_publication_coordinator_v1.py",
+        "tests/test_destination_identity_pinning_v1.py",
+        "tests/test_codex_desktop_newsroom_operator_v1.py",
+        "tests/test_substack_browser_adapter_v6.py",
+        "tests/test_eight_platform_substack_first_pipeline_v1.py"
+      ]
+    },
+    "legacy_combined_lifecycle_run": {
+      "passed": 81,
+      "failed": 18,
+      "classification": "PREEXISTING_FIXTURE_DRIFT_OUTSIDE_TASK_CHANGESET",
+      "detail": "The unchanged legacy daily-app lifecycle fixtures return an old publication classification that no longer satisfies the current managed-production-day qualification gate; no live_contentops or test file was changed by this task."
+    },
+    "codegraph": "CODEGRAPH_CURRENT",
+    "git_diff_check": "PASS"
+  },
+  "host_automations": {
+    "required_v1_automation_count": 4,
+    "paused_count": 4,
+    "enabled_count": 0,
+    "automation_ids": [
+      "v1-newsroom-london-1700",
+      "v1-newsroom-new-york-2100",
+      "v1-newsroom-new-york-2300",
+      "v1-newsroom-new-york-0100"
+    ]
+  },
+  "screenshots": [
+    {"file": "screenshots/substack_canonical_public_article.png", "sha256": "b22383d100231605aa29acc95d207fe2dc169329a8aad365fb83a183bba83cea"},
+    {"file": "screenshots/telegram_capital_chronicle_post_66.png", "sha256": "633e254e4c910e5e380ecd0deeef0d0091e4ad4b2fffa4c26e9f7c512290eccb"},
+    {"file": "screenshots/x_capitalnicle_public_post.png", "sha256": "adcd3ba0e6cd9b81adb4284e951f038a50ba8e1b1ffc2cbb24165d17a5a6a911"},
+    {"file": "screenshots/linkedin_jim_pham_public_post.png", "sha256": "3946d8024be11c7b2d0aacc313d477dc2987fbc2adbc4893f07441667d4c765a"},
+    {"file": "screenshots/instagram_official_capitalchronicle_public_post.png", "sha256": "bf74ba29aff6dde84f1e72507b0386e86130c1885ff5fa5c186324fb5208f709"},
+    {"file": "screenshots/threads_official_capitalchronicle_public_post.png", "sha256": "2cfb6d2a6cbbe03afeb51aeb09fd55a5ab7820629f1545560ab7ed45d5c89ee8"},
+    {"file": "screenshots/youtube_community_public_post.png", "sha256": "41044ce90ab0af33a513417e2525373e73e8807f9baaa2ff9a9871b18db9cfaf"},
+    {"file": "screenshots/facebook_capital_chronicle_public_post.png", "sha256": "8f73d5b07ea7d9b39c0eb239e8edd93150f1a516339a114f38d8a1e703b33f05", "use": "LOGIN_WALL_OBSERVATION_ONLY"}
+  ],
+  "acceptance_boundary": {
+    "final_v1_acceptance_claimed": false,
+    "four_thirty_two_authorized_or_started": false,
+    "desktop_automations_enabled": false,
+    "master_merged": false
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "contentops.v1_post_xhigh_ownership_correction_proof.v1",
+  "task_label": "TASK_V1_POST_XHIGH_REVISION_OWNERSHIP_CANDIDATE_CONTINUATION_4_32_AND_CANARY_V1",
+  "implementation_scope": {
+    "canonical_cycle": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+    "native_worker_contract": "live_contentops/codex_desktop_newsroom_operator_v1.py",
+    "rehearsal_controller": "scripts/run_v1_current_multi_frontier_floor_rehearsal.py",
+    "source_sha256": {
+      "canonical_cycle": "72f573a768a463a6e1ae5aacd335f7565c79fd5e1165fc4c93e6cb5ee0d9be05",
+      "native_worker_contract": "90e99ecd899176654673061c116fb6f3e0846aec7234a3f3e432467ab56994bd",
+      "rehearsal_controller": "1653f03e82f7f37c88cde34338ce080f3948cc0935ebba0c8b66154c701c291b"
+    }
+  },
+  "ownership_rules": {
+    "native_xhigh_final_author": "gpt-5.6-sol / XHIGH",
+    "research_and_semantic_review_routes": [
+      "vx/gemini-3.1-pro-preview(high)",
+      "vx/gemini-3.5-flash(high)"
+    ],
+    "post_native_return_router_final_writer": "FORBIDDEN",
+    "same_worker_revision": {
+      "decision": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+      "same_worker_required": true,
+      "fresh_replacement_worker_forbidden": true,
+      "router_final_writer_forbidden": true,
+      "maximum_bounded_revision_count": 1,
+      "governed_input_and_evidence_identity_hash_bound": true
+    },
+    "revision_budget_exhaustion": {
+      "candidate_terminal_reason": "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED",
+      "next_action": "advance_to_next_distinct_candidate_or_truthfully_exhaust",
+      "global_provider_failure_before_candidate_local_terminal_may_remain_global": true
+    }
+  },
+  "canonical_path_proof": {
+    "native_receipt_and_validation_are_passed_to_bounded_editorial_cycle": true,
+    "same_worker_contract_is_persisted_for_a_resumed_isolated_worker": true,
+    "candidate_continuation_rebuilds_its_own_governed_worker_packet": true,
+    "current_publication_path_has_no_reachable_rolling_x_editorial_revision_fallback_after_a_valid_native_return": true,
+    "validation_and_publication_gates_changed": false,
+    "publication_authority_granted_by_contract": false
+  },
+  "regression_targets": [
+    "tests/test_codex_desktop_newsroom_operator_v1.py::test_same_xhigh_worker_revision_contract_preserves_exact_binding_and_budget",
+    "tests/test_rolling_x_newsroom_cycle_v1.py::test_native_xhigh_needs_revision_requires_same_worker_without_router_rewriter",
+    "tests/test_rolling_x_newsroom_cycle_v1.py::test_native_xhigh_exhausted_revision_budget_never_calls_router_rewriter",
+    "tests/test_rolling_x_newsroom_cycle_v1.py::test_exhausted_native_xhigh_candidate_advances_to_distinct_fresh_worker",
+    "tests/test_rolling_x_newsroom_cycle_v1.py::test_native_xhigh_revision_need_writes_same_worker_contract_without_router_fallback"
+  ],
+  "validation": {
+    "command": "python -m pytest -q tests/test_v1_current_multi_frontier_floor_rehearsal_v1.py tests/test_v1_throughput_architecture_v1.py tests/test_rolling_x_hierarchical_assignment_v1.py tests/test_rolling_x_v1_publishability_closure_v1.py tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py tests/test_v1_9router_research_model_ladder_v1.py tests/test_codex_desktop_newsroom_operator_v1.py tests/test_rolling_x_newsroom_cycle_v1.py",
+    "result": "196 passed",
+    "raw_provider_or_worker_content_persisted": false
+  },
+  "safety": {
+    "public_write_performed": false,
+    "unknown_write_detected": false,
+    "automation_mutation_performed": false,
+    "raw_provider_or_worker_content_persisted_here": false
+  }
+}

@@ -1,0 +1,990 @@
+{
+  "candidate_count": 40,
+  "frontier_count": 4,
+  "frontiers": [
+    {
+      "candidate_count": 11,
+      "candidates": [
+        {
+          "candidate_title": "Recent reports indicate a significant acceleration in US economic growth, defying earlier slowdown expectations and requiring immediate market digestion.",
+          "cluster_id": "rolling-x-global-cluster-2389ae677c80345c0134",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-c76a03381f9099f0c0926354"
+          ],
+          "rank": 1,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The FBI has just released its 2025 crime data showing a historic drop in violent crime, providing a factual baseline for ongoing political and social debates.",
+          "cluster_id": "rolling-x-global-cluster-fb86fa477b6e0d64591f",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 403: Forbidden",
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-eb2db0fa6b0ed6dc6f83461d"
+          ],
+          "rank": 2,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 403: Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Key House caucus leaders target the Supreme Court and the Senate filibuster for potential reforms.",
+          "cluster_id": "rolling-x-semantic-reserve-a00902cadff806c74749",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-db7ee41d7329c28b17e465cd"
+          ],
+          "rank": 3,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Scott Bessent's announcement signals an imminent shift in US foreign policy and sanctions strategy regarding Iran, which could disrupt global markets.",
+          "cluster_id": "rolling-x-global-cluster-78ae6d825aa367b19367",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-a2b5d022e91e0111c7b66ac8"
+          ],
+          "rank": 4,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "A federal judge rules that the Trump administration can terminate deportation protections for thousands of Ethiopian nationals.",
+          "cluster_id": "rolling-x-semantic-reserve-e92f63efbd5b026dd5d2",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-66be3ffe9da243c2ada4ec04"
+          ],
+          "rank": 5,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Zillow's new analysis challenges the traditional American dream of homeownership as a primary wealth builder in current high-cost market conditions.",
+          "cluster_id": "rolling-x-global-cluster-031669f95edc2fbf88b0",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-f1e3bd408950484fe494c8dd"
+          ],
+          "rank": 6,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The Supreme Court Chief Justice issues a pause on a block affecting construction of the White House ballroom.",
+          "cluster_id": "rolling-x-semantic-reserve-1e2561393da01a752e13",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-d9fb6c3096258690fc74b7c3"
+          ],
+          "rank": 7,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Mobility data indicates potential warning signs and activity shifts along Pakistan's copper corridor linked to Iran.",
+          "cluster_id": "rolling-x-semantic-reserve-96a23766aadf217a364a",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-1beed0ca82359a640bee63be"
+          ],
+          "rank": 8,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Analysis of a manufacturing push in Pennsylvania involving Donald Trump, Dave McCormick, and Jamie Dimon.",
+          "cluster_id": "rolling-x-semantic-reserve-b7e3f03f3b82629f4972",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-829c643b81081ac6d09ca1b5"
+          ],
+          "rank": 9,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Wayne Root discusses his interview with Donald Trump, claiming it has caused significant reaction in liberal media circles.",
+          "cluster_id": "rolling-x-semantic-reserve-baf5702276efe942c10f",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-79719080cdc51c8d232314e6"
+          ],
+          "rank": 10,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Opinion piece discusses the end of a transshipment scam used to evade US tariffs, highlighting trade policy impacts.",
+          "cluster_id": "rolling-x-semantic-reserve-ca94b092e6b566a473c6",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-0f1796c2f3b1f8b7086f641e"
+          ],
+          "rank": 11,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "cycle_evidence_path": "A:\\Capital Chronicle\\ContentOps-v1-desktop-primary-hybrid-final-convergence-v1\\docs\\automation\\TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1\\frontier_1\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+      "frontier": 1,
+      "result_classification": "NO_PUBLICATION"
+    },
+    {
+      "candidate_count": 9,
+      "candidates": [
+        {
+          "candidate_title": "Global oil prices sustaining above $90 per barrel are triggering observable demand destruction in the world's largest importer, signaling a potential shift in global energy market dynamics.",
+          "cluster_id": "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "HTTP Error 403: Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-b25c625dac499ab753cfa0a4"
+          ],
+          "rank": 1,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|HTTP Error 403: Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "A $43 billion year-over-year increase in US tax refunds provides an unexpected liquidity injection for American consumers at a critical time for the economy.",
+          "cluster_id": "rolling-x-global-cluster-a5f179fa07666aba183b",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-08300b4396233972ec1e86fb"
+          ],
+          "rank": 2,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The Department of Education is officially reversing a major civil rights directive regarding school discipline, impacting thousands of school districts nationwide.",
+          "cluster_id": "rolling-x-global-cluster-bee88bd8773198133feb",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-24ced7e8122ae9b0eef0ac22"
+          ],
+          "rank": 3,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "A major US presidential candidate is proposing an unprecedented territorial claim over the world's most critical oil chokepoint, raising severe geopolitical and energy market risks.",
+          "cluster_id": "rolling-x-global-cluster-61bcb2f133a16af9c360",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "publisher_document_title_relevance_insufficient",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-3b6011364f8b4df2b9e54a1f",
+            "cc-x-headline-a6ef121e915c979fd95894bb",
+            "cc-x-headline-b7bac9185093d38d48c760ad",
+            "cc-x-headline-da1900c30215d7def6d6b019"
+          ],
+          "rank": 4,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|publisher_document_title_relevance_insufficient|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Historians draw parallels between Donald Trump's political strategy and the founding-era playbooks of Hamilton and Jefferson.",
+          "cluster_id": "rolling-x-semantic-reserve-2db5db7a7209713bd973",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-f12057c926c3345a6cd1a7dd"
+          ],
+          "rank": 5,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Donald Trump campaigns for Bruce Blakeman on Long Island, praising law enforcement and predicting a new golden age.",
+          "cluster_id": "rolling-x-semantic-reserve-feff030a7d5face131e7",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-f8f9d90729cad1a7aa97350f"
+          ],
+          "rank": 6,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Donald Trump pauses a campaign speech to embrace the parents of a 12-year-old stray bullet victim in the Bronx.",
+          "cluster_id": "rolling-x-semantic-reserve-a15d3d6dd6d27424b6c1",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-7471b5ca532592cb58d66b3f"
+          ],
+          "rank": 7,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Donald Trump highlights what he describes as the largest one-year drop in violent crime in United States history.",
+          "cluster_id": "rolling-x-semantic-reserve-0ddf3e124ebbf483e190",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-b4a208a227bdd197071d6b6c"
+          ],
+          "rank": 8,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Scott Bessent praises Donald Trump's economic policies, claiming he fixed the Biden administration's economic issues.",
+          "cluster_id": "rolling-x-semantic-reserve-b3945854aecfaea0ec38",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-6cdafa75710aa0d0fde00e39"
+          ],
+          "rank": 9,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "cycle_evidence_path": "A:\\Capital Chronicle\\ContentOps-v1-desktop-primary-hybrid-final-convergence-v1\\docs\\automation\\TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1\\frontier_2\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+      "frontier": 2,
+      "result_classification": "NO_PUBLICATION"
+    },
+    {
+      "candidate_count": 10,
+      "candidates": [
+        {
+          "candidate_title": "The Treasury Department has officially barred ESG funds from specific accounts, marking a significant escalation in the regulatory pushback against political activism in finance.",
+          "cluster_id": "rolling-x-global-cluster-f8e32736c629bd64175a",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-74f6c33a66bd4b71dfe284d6"
+          ],
+          "rank": 1,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Law enforcement has arrested a Chinese national for allegedly casting a fraudulent ballot in the 2024 election.",
+          "cluster_id": "rolling-x-global-cluster-4c787a284c4fc5d661ba",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-abd16c65ecf1381eff8ad279"
+          ],
+          "rank": 2,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "A newly revealed memo exposes that the NSA altered its intelligence reporting protocols regarding election threats during the Trump administration to avoid political backlash.",
+          "cluster_id": "rolling-x-global-cluster-10272fc02907c8ff716a",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-06a9f7563233f70012692010"
+          ],
+          "rank": 3,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Recent economic data indicates a significant boom in the hard goods manufacturing sector, defying broader macroeconomic slowdown fears.",
+          "cluster_id": "rolling-x-global-cluster-44a7adf9a4e97eb9e14e",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-db7a0ec756c450e4e664e1ad"
+          ],
+          "rank": 4,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The DNC has passed a resolution seeking to abolish ICE, creating a stark contrast with the White House's current messaging on crime and border security.",
+          "cluster_id": "rolling-x-global-cluster-7a7be0c36344154fd126",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-a12407f1881f0b7c0ad8c34a",
+            "cc-x-headline-09026c841b5a7e9d3a2562fd"
+          ],
+          "rank": 5,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Melania Trump partners with IndyCar to provide scholarships for foster children, debuting a new style.",
+          "cluster_id": "rolling-x-semantic-reserve-d6a0d6ed56f8c809365b",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-185d6477a9185110d3a65da9"
+          ],
+          "rank": 6,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Donald Trump hosts a teen lifeguard and a boy saved from a dangerous ocean rescue in the Oval Office to celebrate the boy's birthday.",
+          "cluster_id": "rolling-x-semantic-reserve-8ce4d4e53eaf3622f37c",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-7126e3f69e3056021e9e3719",
+            "cc-x-headline-e59f6c545a6d39748a18cd93"
+          ],
+          "rank": 7,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Donald Trump expresses support for congressional term limits, noting their popularity with the general public.",
+          "cluster_id": "rolling-x-semantic-reserve-9eb8b91245bf1a0a245a",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-45b54fd55327db61362e64e8"
+          ],
+          "rank": 8,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "An opinion piece criticizing the impact of progressive cultural movements, describing them as destructive.",
+          "cluster_id": "rolling-x-semantic-reserve-80d8eb4032a903c9f267",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-82ad5256438173c5a085275e"
+          ],
+          "rank": 9,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Commentary on progressive political strategies, framing them as a transition to a new phase of 'woke' ideology.",
+          "cluster_id": "rolling-x-semantic-reserve-f2120cb6005f1e065c44",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-287ff51b45f773dbcce8cc2b"
+          ],
+          "rank": 10,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "cycle_evidence_path": "A:\\Capital Chronicle\\ContentOps-v1-desktop-primary-hybrid-final-convergence-v1\\docs\\automation\\TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1\\frontier_3\\route_probe\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+      "frontier": 3,
+      "result_classification": "NO_PUBLICATION"
+    },
+    {
+      "candidate_count": 10,
+      "candidates": [
+        {
+          "candidate_title": "The planned nomination of Dr. Heidi Overton as FDA commissioner is a critical regulatory development with immediate implications for the pharmaceutical and healthcare sectors.",
+          "cluster_id": "rolling-x-global-cluster-0cc68ed8b3309a5c0f77",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-cd7b7ab257425669e0d2519a"
+          ],
+          "rank": 1,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Data revealing the sharpest decline in US pharmaceutical prices since 1963 has just surfaced, presenting a major macroeconomic and sector-specific milestone.",
+          "cluster_id": "rolling-x-global-cluster-d6756601f4a8e16a5414",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-41e07ba3a68d9816573cd2de"
+          ],
+          "rank": 2,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The EPA is preparing an emergency fuel waiver to address domestic gasoline supplies, a move that will immediately affect energy commodities and consumer prices.",
+          "cluster_id": "rolling-x-global-cluster-c47ded7e4ba4d6192156",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-9135f4ee3068b742bf671460"
+          ],
+          "rank": 3,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+          "cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+          "evidence_blockers": [],
+          "evidence_result": "VIABLE",
+          "headline_ids": [
+            "cc-x-headline-b36ac3f656a602f0e1498c8d"
+          ],
+          "rank": 4,
+          "reader_value_blockers": [],
+          "terminal_reason": "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED",
+          "writer_blockers": [],
+          "writer_invocation_result": "SUCCESS"
+        },
+        {
+          "candidate_title": "Treasury Secretary nominee Scott Bessent is outlining early fiscal priorities, specifically targeting tax breaks for undocumented immigrants.",
+          "cluster_id": "rolling-x-global-cluster-876647dadf3107eabb48",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-23881fe252c888988f9acd15"
+          ],
+          "rank": 5,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The administration is claiming a significant 22% drop in fentanyl deaths, tying it to recent policy crackdowns.",
+          "cluster_id": "rolling-x-global-cluster-59a7349957a6dceed790",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 401: HTTP Forbidden",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_candidate_request_budget_exhausted",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-8cab97c84986250fa0837e20"
+          ],
+          "rank": 6,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 401: HTTP Forbidden|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_candidate_request_budget_exhausted|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "The first White House 'Drone Dominance' meeting indicates a coordinated federal push to secure and expand the domestic drone industry against foreign competition.",
+          "cluster_id": "rolling-x-global-cluster-9a3816137ee28cb42109",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "HTTP Error 403: Forbidden",
+            "HTTP Error 404: Not Found",
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_redirect_authority_invalid",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-0a54f4ba9322134cd185d1d6",
+            "cc-x-headline-0fa1c7356d0fb3c8f8baf6d6"
+          ],
+          "rank": 7,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:HTTP Error 403: Forbidden|HTTP Error 404: Not Found|evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_redirect_authority_invalid|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Financial analyst Robin Brooks schedules a live stream to discuss the market impact of a recent buyback announcement on gold and the US dollar.",
+          "cluster_id": "rolling-x-semantic-reserve-ee9234af47ac18749749",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_unavailable",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-15eeff851da105de55bcae6d"
+          ],
+          "rank": 8,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_unavailable|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "Supreme Court Chief Justice John Roberts rules that construction work on the Trump White House ballroom is permitted to continue.",
+          "cluster_id": "rolling-x-semantic-reserve-50346aed575b0b5de226",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_nonpublic_address_forbidden",
+            "public_source_published_after_evaluation_cutoff",
+            "public_source_redirect_authority_invalid",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-16b688069aeb72ed68a07f3f"
+          ],
+          "rank": 9,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_nonpublic_address_forbidden|public_source_published_after_evaluation_cutoff|public_source_redirect_authority_invalid|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        },
+        {
+          "candidate_title": "An undocumented immigrant released during the Biden administration is accused of stabbing a Virginia mother and dousing her in gasoline.",
+          "cluster_id": "rolling-x-semantic-reserve-4f5865655eaabacfae75",
+          "deterministic_validation_blockers": [],
+          "effective_article_mode": "BREAKING_BRIEF",
+          "evidence_blockers": [
+            "evidence_documents_missing",
+            "minimum_trustworthy_evidence_missing",
+            "public_source_request_budget_exhausted",
+            "required_evidence_capability_missing:basic_attributed_facts",
+            "required_evidence_capability_missing:credible_event_confirmation",
+            "supported_claims_missing"
+          ],
+          "evidence_result": "BLOCKED",
+          "headline_ids": [
+            "cc-x-headline-98deb729bf4335b1fa4bf13c"
+          ],
+          "rank": 10,
+          "reader_value_blockers": [],
+          "terminal_reason": "EVIDENCE_BLOCKED:evidence_documents_missing|minimum_trustworthy_evidence_missing|public_source_request_budget_exhausted|required_evidence_capability_missing:basic_attributed_facts|required_evidence_capability_missing:credible_event_confirmation|supported_claims_missing",
+          "writer_blockers": [],
+          "writer_invocation_result": "NOT_RUN_EVIDENCE_BLOCKED"
+        }
+      ],
+      "cycle_evidence_path": "A:\\Capital Chronicle\\ContentOps-v1-desktop-primary-hybrid-final-convergence-v1\\docs\\automation\\TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1\\frontier_4\\canonical_zero_write_rehearsal_attempt_2\\rolling_x_newsroom_cycle_evidence_v1.json",
+      "exact_next_blocker": "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE",
+      "frontier": 4,
+      "result_classification": "NO_PUBLICATION"
+    }
+  ],
+  "ledger_sha256": "4139e0b320e91f9816ac92f7a5abc1ec79de8c13109fb05fbce114609cdc4368",
+  "public_write_authority": false,
+  "schema_version": "contentops.v1_4_32_candidate_blocker_ledger.v1"
+}

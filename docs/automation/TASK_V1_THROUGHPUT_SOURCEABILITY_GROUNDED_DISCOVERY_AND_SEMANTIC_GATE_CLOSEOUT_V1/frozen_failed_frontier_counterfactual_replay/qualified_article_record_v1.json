@@ -1,0 +1,75 @@
+{
+  "accepted_evidence_ids": [
+    "public-secondary-391077ed98f0344511a3"
+  ],
+  "accepted_evidence_sha256": "2f9b2f5653d49d59835af5115969e532bee30eefc45f5d172f19e5326d1f9f70",
+  "article_body_sha256": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+  "article_identity": "b45596d896a9e5ae19df12fa4b793f8cd9fc731d79127dfc7545829dbce923d1",
+  "article_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\article_manifest_v1.json",
+  "attempt_run_id": "v1-frozen-throughput-counterfactual-replay",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "payload_sha256": "4de34b7091837645d804a1227d953fc84e4703ffa45a5a81bdd5e2c42565c64a"
+    },
+    {
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "payload_sha256": "bcecac4cf503866d714d20e3dc21d2a1d15229a96ce1891516744d246d4c5141"
+    },
+    {
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "payload_sha256": "9887cf89a0f2fd44f357715827098f81563653e962d19bc2151a233e0e0403b7"
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "payload_sha256": "3912787508a9ca931893f802e15da25350382d99cef243a3101e8aeb3f1c0257"
+    },
+    {
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "payload_sha256": "f78be86a1690bc80333c72bf254a5865335b592208356a4416d0048d85e7d4e4"
+    },
+    {
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "payload_sha256": "965c960d2262c9aaea2f101cb8416fdb2160bb7ecbfae0cbb71ebe62de4a2861"
+    },
+    {
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "payload_sha256": "05555d0f4f671e4d9e3263dcc9ab16b0777676b6f9a067017f5f9944e7877cf0"
+    },
+    {
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "payload_sha256": "6b85993c6462c954c668994ee2c39f4592172e14024e43610c635cd9059d09f0"
+    }
+  ],
+  "editorial_worker": {
+    "bounded_revision_count": 1,
+    "fresh": true,
+    "governed_input_hash": "306107790a72fd9a1941fe3f2482b618fc6104d97e8d2200b9757a68276ee27c",
+    "isolated": true,
+    "model": "gpt-5.6-sol",
+    "public_write_attempted": false,
+    "reasoning_effort": "XHIGH",
+    "resume_existing": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-08-23-bangkok",
+  "parent_window_id": "frozen-counterfactual-frontier-4",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "ff818aa01d96f401a5a7871b334f0da409d188638765a31db38ae45ccce5fb80",
+  "resolved_article_mode": "",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+  "title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+  "unknown_write_count": 0,
+  "update_chain_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73"
+}

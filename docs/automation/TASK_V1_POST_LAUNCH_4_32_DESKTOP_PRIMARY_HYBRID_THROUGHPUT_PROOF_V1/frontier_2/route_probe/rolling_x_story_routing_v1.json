@@ -1,0 +1,86 @@
+{
+  "factual_or_numeric_authority_granted": false,
+  "llm_or_provider_calls": 0,
+  "publication_authority_granted": false,
+  "router_summary": null,
+  "routing_method": "DETERMINISTIC_CONSERVATIVE_FALLBACK",
+  "semantic_router_failure_class": "ValueError",
+  "semantic_router_failure_recovered": true,
+  "semantic_routing_grants_authority": false,
+  "stories": [
+    {
+      "cluster_id": "rolling-x-global-cluster-686e5f2fb37f3322b0f4",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-a5f179fa07666aba183b",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "data_release"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-bee88bd8773198133feb",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-global-cluster-61bcb2f133a16af9c360",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "MARKET_SENSITIVE_OR_PRICE_ACTION",
+      "routing_confidence": "HIGH",
+      "story_type": "market_move"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-2db5db7a7209713bd973",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-feff030a7d5face131e7",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-a15d3d6dd6d27424b6c1",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-0ddf3e124ebbf483e190",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "TOKEN_BOUNDARY_PROFILE_MATCH",
+      "routing_confidence": "HIGH",
+      "story_type": "regulatory_fiscal_event"
+    },
+    {
+      "cluster_id": "rolling-x-semantic-reserve-b3945854aecfaea0ec38",
+      "evidence_profile_authoritative_for_exact_story_type": true,
+      "reason": "NEUTRAL_PUBLIC_EVIDENCE_FALLBACK",
+      "routing_confidence": "BOUNDED_FALLBACK",
+      "story_type": "general_public_event"
+    }
+  ],
+  "story_type_by_cluster": {
+    "rolling-x-global-cluster-61bcb2f133a16af9c360": "market_move",
+    "rolling-x-global-cluster-686e5f2fb37f3322b0f4": "market_move",
+    "rolling-x-global-cluster-a5f179fa07666aba183b": "data_release",
+    "rolling-x-global-cluster-bee88bd8773198133feb": "regulatory_fiscal_event",
+    "rolling-x-semantic-reserve-0ddf3e124ebbf483e190": "regulatory_fiscal_event",
+    "rolling-x-semantic-reserve-2db5db7a7209713bd973": "general_public_event",
+    "rolling-x-semantic-reserve-a15d3d6dd6d27424b6c1": "general_public_event",
+    "rolling-x-semantic-reserve-b3945854aecfaea0ec38": "general_public_event",
+    "rolling-x-semantic-reserve-feff030a7d5face131e7": "regulatory_fiscal_event"
+  }
+}

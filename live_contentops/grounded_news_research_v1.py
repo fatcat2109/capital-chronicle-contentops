@@ -939,9 +939,11 @@ class GroundedNewsResearchV1:
             raise ValueError("research_confirmed_facts_missing")
 
         numeric: list[dict[str, Any]] = []
+        omitted_unbound_numeric_fact_count = 0
         for raw in value.get("attributed_numeric_facts") or []:
             if not isinstance(raw, Mapping):
-                raise ValueError("research_numeric_fact_not_object")
+                omitted_unbound_numeric_fact_count += 1
+                continue
             statement = _clean_text(raw.get("statement"), 500)
             source_ref = str(raw.get("source_ref") or "")
             if (
@@ -951,7 +953,11 @@ class GroundedNewsResearchV1:
                 or not _NUMBER_RE.search(statement)
                 or not _statement_supported(statement, [by_ref[source_ref]])
             ):
-                raise ValueError("research_numeric_fact_binding_invalid")
+                # Numeric rows are optional. Deterministically omit a model row that cannot
+                # bind to the exact retrieved source instead of letting it contaminate either
+                # the accepted facts or the whole otherwise-valid source packet.
+                omitted_unbound_numeric_fact_count += 1
+                continue
             numeric.append(
                 {
                     "statement": statement,
@@ -981,6 +987,7 @@ class GroundedNewsResearchV1:
             "core_proposition_source_refs": proposition_refs,
             "confirmed_facts": confirmed[:16],
             "attributed_numeric_facts": numeric[:12],
+            "omitted_unbound_numeric_fact_count": omitted_unbound_numeric_fact_count,
             "context": [
                 _clean_text(item, 600) for item in value.get("context") or []
             ][:10],
@@ -1634,6 +1641,7 @@ class GroundedNewsResearchV1:
                 "Use only the supplied source records. The model is not a source.",
                 "Return one JSON object with: core_factual_proposition; confirmed_facts[{fact_id,factual_statement,source_refs,confidence_class,direct_or_inferred}]; attributed_numeric_facts[{statement,value,source_ref,attribution_required:true}]; context; uncertainties; contradictions; unsupported_or_unverified; suggested_article_mode. suggested_article_mode must be one of BREAKING_BRIEF, FOLLOW_UP_UPDATE, STANDARD_NEWS_ANALYSIS, CAPITAL_CHRONICLE_VIEW, WHAT_THE_MARKET_IS_MISSING, EVERGREEN_EXPLAINER, DATA_OR_DOCUMENT_LENS, WEEK_AHEAD_OR_WATCH.",
                 "Every factual statement must name at least one exact supplied source_ref. Distinguish DIRECT from INFERRED. Omit unsupported exact numbers. Do not emit chain-of-thought.",
+                "Set attributed_numeric_facts to an empty array unless the complete numeric statement and value are directly present in one supplied source record. Never infer, calculate, normalize, or restate a number.",
                 "RESEARCH_REQUEST:",
                 json.dumps(compact, sort_keys=True, ensure_ascii=True),
                 "QUERY_PLAN:",
@@ -1724,6 +1732,9 @@ class GroundedNewsResearchV1:
             "core_factual_proposition": synthesis["core_factual_proposition"],
             "confirmed_facts": synthesis["confirmed_facts"],
             "attributed_numeric_facts": synthesis["attributed_numeric_facts"],
+            "omitted_unbound_numeric_fact_count": int(
+                synthesis.get("omitted_unbound_numeric_fact_count") or 0
+            ),
             "context": synthesis["context"],
             "uncertainties": synthesis["uncertainties"],
             "contradictions": synthesis["contradictions"],

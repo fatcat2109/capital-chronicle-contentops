@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import json
 import os
 import re
@@ -277,6 +278,67 @@ def _first_complete_sentence(value: str) -> str:
     return match.group(1) if match else normalized
 
 
+_SEMANTIC_DEDUP_STOP_WORDS = frozenset(
+    {
+        "a", "an", "and", "as", "at", "by", "for", "from", "in", "is", "it",
+        "of", "on", "or", "that", "the", "this", "to", "was", "with",
+    }
+)
+
+
+def _semantic_dedup_terms(value: str) -> set[str]:
+    """Return a small deterministic fingerprint for reader-facing derivative deduplication."""
+    terms: set[str] = set()
+    for raw in re.findall(r"[a-z0-9]+", str(value or "").casefold()):
+        if raw in _SEMANTIC_DEDUP_STOP_WORDS:
+            continue
+        term = raw
+        if len(term) > 5 and term.endswith("ing"):
+            term = term[:-3]
+        elif len(term) > 4 and term.endswith("ed"):
+            term = term[:-2]
+        elif len(term) > 4 and term.endswith("es"):
+            term = term[:-2]
+        elif len(term) > 3 and term.endswith("s"):
+            term = term[:-1]
+        terms.add(term)
+    return terms
+
+
+def _materially_identical_derivative_sentence(left: str, right: str) -> bool:
+    """Detect exact or strongly overlapping restatements without an LLM formatter."""
+    left_key = re.sub(r"\W+", " ", str(left or "").casefold()).strip()
+    right_key = re.sub(r"\W+", " ", str(right or "").casefold()).strip()
+    if not left_key or not right_key:
+        return False
+    if left_key == right_key:
+        return True
+    left_terms = _semantic_dedup_terms(left_key)
+    right_terms = _semantic_dedup_terms(right_key)
+    if min(len(left_terms), len(right_terms)) < 4:
+        return False
+    overlap = len(left_terms.intersection(right_terms))
+    containment = overlap / min(len(left_terms), len(right_terms))
+    union = len(left_terms.union(right_terms))
+    return containment >= 0.75 and overlap / max(1, union) >= 0.55
+
+
+def _next_distinct_derivative_sentence(
+    values: Sequence[Any], *, rejected: Sequence[str]
+) -> str:
+    """Choose the next complete source-bound sentence, omitting redundant fields."""
+    for value in values:
+        for sentence in _sentence_units(str(value or "")):
+            candidate = _punctuate(_first_complete_sentence(sentence))
+            if candidate and not any(
+                _materially_identical_derivative_sentence(candidate, prior)
+                for prior in rejected
+                if prior
+            ):
+                return candidate
+    return ""
+
+
 def _sharp_social_lede(value: str, *, maximum: int) -> str:
     sentence = _first_complete_sentence(value)
     if len(sentence) <= maximum:
@@ -391,11 +453,12 @@ def _root_and_replies(
     root_parts = [title, canonical_url]
     root = "\n\n".join(root_parts)
     remaining = list(continuation_parts)
-    with_dek = "\n\n".join([title, dek, canonical_url])
-    if len(with_dek) <= limit:
-        root = with_dek
-    else:
-        remaining.insert(0, dek)
+    if dek:
+        with_dek = "\n\n".join([title, dek, canonical_url])
+        if len(with_dek) <= limit:
+            root = with_dek
+        else:
+            remaining.insert(0, dek)
     if len(root) > limit:
         raise ValueError("headline_and_canonical_url_exceed_platform_limit")
     replies = _split_complete_chunks(remaining, limit=limit)
@@ -433,14 +496,9 @@ def build_native_derivative_payloads(
         or article.get("editorial_mode")
         or ""
     ).upper()
-    if ordinary_brief or article_mode == "BREAKING_BRIEF":
-        def accepted_brief_sentence(*values: Any) -> str:
-            for value in values:
-                normalized = " ".join(str(value or "").split())
-                if normalized:
-                    return _punctuate(_first_complete_sentence(normalized))
-            return ""
-
+    media_ids = [str(value) for value in media_asset_ids if str(value)]
+    text_only_package = not media_ids
+    if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package:
         def native_brief_text(*parts: str, limit: int, platform: str) -> str:
             text = "\n\n".join(part for part in parts if part)
             if len(text) > limit:
@@ -451,32 +509,41 @@ def build_native_derivative_payloads(
             _punctuate(sentence)
             for sentence in _sentence_units(str(article.get("substack_body_markdown") or ""))
         )
-        brief_dek = accepted_brief_sentence(
-            article.get("social_hook"),
-            article.get("social_lede"),
-            article.get("subtitle"),
-            article_body_sentences[0] if article_body_sentences else "",
+        brief_dek = _next_distinct_derivative_sentence(
+            (
+                article.get("social_hook"),
+                article.get("social_lede"),
+                article.get("subtitle"),
+                *article_body_sentences,
+            ),
+            rejected=(title,),
         )
         if not brief_dek:
             raise ValueError("native_brief_requires_accepted_reader_detail")
-        mechanism = accepted_brief_sentence(
-            article.get("social_mechanism_summary"),
-            article.get("market_mechanism"),
-            article_body_sentences[1] if len(article_body_sentences) > 1 else "",
-            brief_dek,
+        mechanism = _next_distinct_derivative_sentence(
+            (
+                article.get("social_mechanism_summary"),
+                article.get("market_mechanism"),
+                *article_body_sentences,
+            ),
+            rejected=(title, brief_dek),
         )
-        context = accepted_brief_sentence(
-            article.get("social_policy_summary"),
-            article.get("policy_context"),
-            article_body_sentences[2] if len(article_body_sentences) > 2 else "",
-            mechanism,
+        context = _next_distinct_derivative_sentence(
+            (
+                article.get("social_policy_summary"),
+                article.get("policy_context"),
+                *article_body_sentences,
+            ),
+            rejected=(title, brief_dek, mechanism),
         )
-        watch_point = accepted_brief_sentence(
-            article.get("social_cross_asset_summary"),
-            article.get("cross_asset_implications"),
+        watch_point = _next_distinct_derivative_sentence(
+            (
+                article.get("social_cross_asset_summary"),
+                article.get("cross_asset_implications"),
+                *article_body_sentences,
+            ),
+            rejected=(title, brief_dek, mechanism, context),
         )
-        media_ids = [str(value) for value in media_asset_ids if str(value)]
-
         def brief_layout(*, detail: str, continuation: str, limit: int) -> dict[str, Any]:
             layout = _root_and_replies(
                 title=title,
@@ -513,7 +580,7 @@ def build_native_derivative_payloads(
             limit=280,
         )
         threads_brief = brief_layout(
-            detail=context,
+            detail=context or brief_dek,
             continuation=f"What to watch: {watch_point}" if watch_point else "",
             limit=500,
         )
@@ -538,8 +605,8 @@ def build_native_derivative_payloads(
                 "format": "professional_brief",
                 "text": native_brief_text(
                     title,
-                    f"Why it matters: {mechanism}",
-                    f"Context: {context}",
+                    f"Why it matters: {mechanism}" if mechanism else "",
+                    f"Context: {context}" if context else "",
                     f"Read the full brief: {canonical_url}",
                     limit=3_000,
                     platform="linkedin",
@@ -552,7 +619,7 @@ def build_native_derivative_payloads(
                 "text": native_brief_text(
                     f"**Newsroom brief: {title}**",
                     brief_dek,
-                    f"**Context:** {context}",
+                    f"**Context:** {context}" if context else "",
                     f"Source-bound brief: {canonical_url}",
                     limit=2_000,
                     platform="discord",
@@ -565,7 +632,7 @@ def build_native_derivative_payloads(
                 "text": native_brief_text(
                     title,
                     brief_dek,
-                    f"Why it matters: {mechanism}",
+                    f"Why it matters: {mechanism}" if mechanism else "",
                     f"Read the full brief: {canonical_url}",
                     limit=63_206,
                     platform="facebook_page",
@@ -578,7 +645,7 @@ def build_native_derivative_payloads(
                 "text": native_brief_text(
                     title,
                     brief_dek,
-                    f"In focus: {context}",
+                    f"In focus: {context}" if context else "",
                     f"Full brief: {canonical_url}",
                     "#CapitalChronicle",
                     limit=2_200,
@@ -1331,6 +1398,8 @@ def _persist_final_platform_matrix(output_dir: Path, evidence: Mapping[str, Any]
 
 
 _RELEASE_PREPARATION_ARTIFACTS = (
+    "canonical_article.md",
+    "canonical_article.html",
     "headline_intake_v1.json",
     "llm_idea_ranking_v1.json",
     "grounded_support_v1.json",
@@ -2604,7 +2673,11 @@ def _run_bounded_rolling_x_editorial_cycle(
     media_assets: Sequence[Mapping[str, Any]],
     editorial_reviewer: Callable[[Mapping[str, Any]], Mapping[str, Any]],
     article_reviser: Callable[[Mapping[str, Any], Mapping[str, Any], int], Mapping[str, Any]],
+    native_xhigh_worker_return: Mapping[str, Any] | None = None,
+    native_xhigh_worker_validation: Mapping[str, Any] | None = None,
+    native_xhigh_worker_request: Mapping[str, Any] | None = None,
     max_revision_rounds: int = 1,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     """Run one semantic review, at most one revision, and only a required re-review."""
     from live_contentops.tier1_editorial_quality_v1 import (
@@ -2612,6 +2685,10 @@ def _run_bounded_rolling_x_editorial_cycle(
         combine_editorial_gates,
     )
     from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+    from live_contentops.mvp_canary_acceptance_v1 import (
+        evaluate_mvp_canary_editorial_gate,
+        is_mvp_canary_profile,
+    )
 
     def sanitized_router_failure(exc: RoutedInvocationError) -> dict[str, Any]:
         summary = dict(getattr(exc, "summary", {}) or {})
@@ -2649,6 +2726,21 @@ def _run_bounded_rolling_x_editorial_cycle(
         deterministic = audit_tier1_article(candidate, media_assets=media_assets)
         hard_review = review_minimum_evidence_news_brief(candidate)
         combined = combine_editorial_gates(deterministic, hard_review)
+        canary_gate = (
+            evaluate_mvp_canary_editorial_gate(
+                article=candidate,
+                deterministic_review=deterministic,
+                hard_factual_review=hard_review,
+                media_assets=media_assets,
+            )
+            if is_mvp_canary_profile(acceptance_profile)
+            else None
+        )
+        effective_pass = bool(
+            canary_gate.get("classification") == "PASS"
+            if canary_gate is not None
+            else combined.get("classification") == "PASS"
+        )
         history = [{
             "review_index": 0,
             "revision_rounds_completed": 0,
@@ -2661,12 +2753,13 @@ def _run_bounded_rolling_x_editorial_cycle(
                 "publication_authority": False,
             },
             "combined_editorial_gate": combined,
+            "mvp_canary_editorial_gate": canary_gate,
         }]
         return {
-            "status": "PASS" if combined.get("classification") == "PASS" else "NO_PUBLICATION",
+            "status": "PASS" if effective_pass else "NO_PUBLICATION",
             "reason_code": (
                 None
-                if combined.get("classification") == "PASS"
+                if effective_pass
                 else (
                     "INSUFFICIENT_READER_VALUE"
                     if (deterministic.get("reader_value_gate") or {}).get("classification")
@@ -2679,6 +2772,10 @@ def _run_bounded_rolling_x_editorial_cycle(
             "semantic_review_required": False,
             "mandatory_semantic_review_calls": 0,
             "review_history": history,
+            "acceptance_profile": acceptance_profile,
+            "canary_quality_warnings": list(
+                (canary_gate or {}).get("quality_warnings") or []
+            ),
             "publication_authority_granted": False,
         }
 
@@ -2766,6 +2863,16 @@ def _run_bounded_rolling_x_editorial_cycle(
             semantic.setdefault("issues", ["semantic_review_decision_invalid"])
         semantic["publication_authority"] = False
         combined = combine_editorial_gates(deterministic, semantic)
+        canary_gate = (
+            evaluate_mvp_canary_editorial_gate(
+                article=candidate,
+                deterministic_review=deterministic,
+                hard_factual_review=semantic,
+                media_assets=media_assets,
+            )
+            if is_mvp_canary_profile(acceptance_profile)
+            else None
+        )
         review_row = {
             "review_index": review_index,
             "revision_rounds_completed": review_index,
@@ -2773,18 +2880,78 @@ def _run_bounded_rolling_x_editorial_cycle(
             "deterministic_review": deterministic,
             "llm_semantic_review": semantic,
             "combined_editorial_gate": combined,
+            "mvp_canary_editorial_gate": canary_gate,
         }
         history.append(review_row)
-        if combined.get("classification") == "PASS":
+        if (
+            canary_gate.get("classification") == "PASS"
+            if canary_gate is not None
+            else combined.get("classification") == "PASS"
+        ):
             return {
                 "status": "PASS",
                 "article": candidate,
                 "revision_rounds_completed": review_index,
                 "review_history": history,
+                "acceptance_profile": acceptance_profile,
+                "canary_quality_warnings": list(
+                    (canary_gate or {}).get("quality_warnings") or []
+                ),
                 "publication_authority_granted": False,
             }
         if review_index == max_revision_rounds:
             break
+        if native_xhigh_worker_return is not None:
+            revision_count = int(
+                native_xhigh_worker_return.get("bounded_revision_count") or 0
+            )
+            if revision_count >= max_revision_rounds:
+                review_row["revision"] = {
+                    "round": review_index + 1,
+                    "status": "NOT_ATTEMPTED_NATIVE_XHIGH_BUDGET_EXHAUSTED",
+                    "native_xhigh_article_reviser_forbidden": True,
+                    "prior_bounded_revision_count": revision_count,
+                    "maximum_bounded_revision_count": max_revision_rounds,
+                }
+                return {
+                    "status": "NO_PUBLICATION",
+                    "reason_code": "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED",
+                    "article": candidate,
+                    "revision_rounds_completed": revision_count,
+                    "review_history": history,
+                    "publication_authority_granted": False,
+                }
+            if (
+                native_xhigh_worker_validation is None
+                or native_xhigh_worker_request is None
+            ):
+                raise ValueError("native_xhigh_revision_binding_required")
+            from live_contentops.codex_desktop_newsroom_operator_v1 import (
+                build_same_xhigh_worker_revision_contract,
+            )
+
+            revision_contract = build_same_xhigh_worker_revision_contract(
+                worker_return=native_xhigh_worker_return,
+                worker_validation=native_xhigh_worker_validation,
+                worker_request=native_xhigh_worker_request,
+                deterministic_review=deterministic,
+                semantic_review=semantic,
+            )
+            review_row["revision"] = {
+                "round": review_index + 1,
+                "status": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                "native_xhigh_article_reviser_forbidden": True,
+                "same_xhigh_worker_revision_contract": revision_contract,
+            }
+            return {
+                "status": "NO_PUBLICATION",
+                "reason_code": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                "article": candidate,
+                "revision_rounds_completed": revision_count,
+                "review_history": history,
+                "same_xhigh_worker_revision_contract": revision_contract,
+                "publication_authority_granted": False,
+            }
         try:
             revised = article_reviser(dict(candidate), semantic, review_index + 1)
         except RoutedInvocationError as exc:
@@ -2893,6 +3060,7 @@ def _validate_rolling_x_release_inputs(
     article: Mapping[str, Any],
     media_assets: Sequence[Mapping[str, Any]],
     viability: Mapping[str, Any],
+    acceptance_profile: str | None = None,
 ) -> list[str]:
     from live_contentops.tier1_editorial_quality_v1 import evaluate_reader_value
 
@@ -2909,12 +3077,33 @@ def _validate_rolling_x_release_inputs(
         blockers.append("article_selected_cluster_binding_mismatch")
     if article.get("x_content_grants_factual_authority") is not False:
         blockers.append("article_must_deny_x_factual_authority")
-    reader_value = evaluate_reader_value(article, media_assets=media_assets)
-    if reader_value.get("classification") != "PASS":
-        blockers.append("INSUFFICIENT_READER_VALUE")
+    from live_contentops.mvp_canary_acceptance_v1 import (
+        evaluate_mvp_canary_minimum_useful_floor,
+        is_mvp_canary_profile,
+    )
+
+    if is_mvp_canary_profile(acceptance_profile):
+        useful_floor = evaluate_mvp_canary_minimum_useful_floor(
+            article, media_assets=media_assets
+        )
+        if useful_floor.get("classification") != "PASS":
+            blockers.append("INSUFFICIENT_MVP_CANARY_READER_VALUE")
+    else:
+        reader_value = evaluate_reader_value(article, media_assets=media_assets)
+        if reader_value.get("classification") != "PASS":
+            blockers.append("INSUFFICIENT_READER_VALUE")
     if str(article.get("institutional_edge_editorial_packet_sha256") or ""):
         validation = article.get("institutional_edge_editorial_validation")
-        if not isinstance(validation, Mapping) or validation.get("classification") != "PASS":
+        if not isinstance(validation, Mapping):
+            blockers.append("institutional_edge_editorial_validation_missing_or_blocked")
+        elif is_mvp_canary_profile(acceptance_profile):
+            from live_contentops.mvp_canary_acceptance_v1 import (
+                institutional_edge_hard_gate,
+            )
+
+            if institutional_edge_hard_gate(validation).get("classification") != "PASS":
+                blockers.append("institutional_edge_editorial_validation_missing_or_blocked")
+        elif validation.get("classification") != "PASS":
             blockers.append("institutional_edge_editorial_validation_missing_or_blocked")
     evidence_ids = {
         str(row.get("evidence_id") or row.get("document_id") or row.get("source_id") or "")
@@ -2957,11 +3146,26 @@ def _prepare_rolling_x_release_candidate(
     media: Mapping[str, Any],
     editorial_cycle: Mapping[str, Any],
     destination_readiness: Mapping[str, Any],
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     """Write and lock the canonical backend's exact artifacts without a public write."""
-    from live_contentops.article_rich_text_v1 import markdown_to_rich_text
+    from live_contentops.article_rich_text_v1 import (
+        markdown_to_rich_text,
+        rich_text_to_html,
+    )
 
     final_article = dict(article)
+    canonical_candidate = str(final_article.get("canonical_url") or "").strip()
+    if not canonical_candidate or "pending-publication" in canonical_candidate:
+        slug = str(
+            final_article.get("canonical_slug_candidate")
+            or final_article.get("slug")
+            or ""
+        ).strip(" /")
+        if not slug:
+            raise ValueError("rolling_x_canonical_slug_required")
+        canonical_candidate = f"https://capitalchronicle.substack.com/p/{slug}"
+    final_article["canonical_url"] = canonical_candidate
     from live_contentops.capital_chronicle_institutional_edge_v1 import (
         build_editorial_seo_package,
     )
@@ -2973,6 +3177,7 @@ def _prepare_rolling_x_release_candidate(
         article=final_article,
         media_assets=media_assets,
         viability=viability,
+        acceptance_profile=acceptance_profile,
     )
     selection = _rolling_x_selection_contract(
         assignment=assignment,
@@ -3020,16 +3225,30 @@ def _prepare_rolling_x_release_candidate(
         marker = f"[[VISUAL:{asset.get('asset_id')}]]"
         local_body = local_body.replace(marker, f"![{asset.get('alt_text')}]({asset.get('path')})")
     _write_text(article_path, local_body)
+    canonical_rich_text = markdown_to_rich_text(body)
+    canonical_html_path = output_dir / "canonical_article.html"
+    canonical_html = (
+        '<!doctype html><html><head><meta charset="utf-8">'
+        f"<title>{html.escape(str(final_article.get('title') or ''))}</title>"
+        "</head><body><article>"
+        f"<h1>{html.escape(str(final_article.get('title') or ''))}</h1>"
+        f"<p>{html.escape(str(final_article.get('subtitle') or final_article.get('dek') or ''))}</p>"
+        f"{rich_text_to_html(canonical_rich_text)}"
+        "</article></body></html>"
+    )
+    _write_text(canonical_html_path, canonical_html)
     final_article.update(
         {
             "canonical_url": str(final_article.get("canonical_url") or "https://capitalchronicle.substack.com/p/pending-publication"),
             "substack_body_markdown_sha256": _sha256(body),
             "article_export_path": str(article_path),
             "article_markdown_sha256": _sha256_file(article_path),
+            "article_html_export_path": str(canonical_html_path),
+            "article_html_sha256": _sha256_file(canonical_html_path),
             "word_count": len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", rendered)),
             "numeric_claims_from_x": False,
             "publication_authority": False,
-            "canonical_rich_text": markdown_to_rich_text(body),
+            "canonical_rich_text": canonical_rich_text,
         }
     )
     support = {
@@ -3061,6 +3280,10 @@ def _prepare_rolling_x_release_candidate(
         "classification": "PASS" if editorial_cycle.get("status") == "PASS" else "NEEDS_REVISION",
         "bounded_revision_cycle": dict(editorial_cycle),
         "revision_round_limit": 1,
+        "acceptance_profile": acceptance_profile,
+        "canary_quality_warnings": list(
+            editorial_cycle.get("canary_quality_warnings") or []
+        ),
         "publication_authority": False,
     }
     for name, value in (
@@ -3121,7 +3344,7 @@ def _prepare_rolling_x_release_candidate(
             payloads = build_native_derivative_payloads(
                 article=final_article,
                 selection=selection,
-                canonical_url="https://capitalchronicle.substack.com/p/pending-publication",
+                canonical_url=canonical_candidate,
                 media_asset_ids=media_ids,
             )
         except Exception as exc:
@@ -4140,6 +4363,7 @@ def _default_rolling_x_evidence_acquirer(
     *,
     capital_chronicle_root: str | Path | None,
     evaluation_as_of_utc: str | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
 ) -> Any:
     """Build the capability-driven governed adapter used by the production path."""
     from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
@@ -4149,6 +4373,7 @@ def _default_rolling_x_evidence_acquirer(
     return RollingXTargetedEvidenceAdapter(
         capital_chronicle_root=capital_chronicle_root,
         evaluation_as_of_utc=evaluation_as_of_utc,
+        source_route_health=source_route_health,
     )
 
 
@@ -4347,13 +4572,24 @@ def _run_rolling_x_newsroom_cycle(
     cc_catalog: Mapping[str, Any] | None = None,
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
+    sourceability_observations: Mapping[str, Any] | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
+    source_discoverer: Any = None,
+    autonomous_source_discovery_enabled: bool = False,
+    evidence_only_target_count: int | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     if sidecar_glob is None:
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 
         sidecar_glob = canonical_headline_sidecar_glob()
+    if evidence_only_target_count is not None:
+        if publication_enabled:
+            raise ValueError("evidence_only_mode_requires_publication_disabled")
+        if not isinstance(evidence_only_target_count, int) or not 1 <= evidence_only_target_count <= 4:
+            raise ValueError("evidence_only_target_count_invalid")
     """Run the rolling-X route through the one canonical production boundary."""
     from live_contentops.newsroom_assignment_scheduler_v1 import (
         assign_rolling_x_headlines_with_nine_router,
@@ -4569,20 +4805,18 @@ def _run_rolling_x_newsroom_cycle(
         and assignment.get("ranked_clusters")
     ):
         if prepared_state is not None:
-            ranked_assignment = assignment
-            publishability_candidate_pool = {
-                "schema_version": "contentops.rolling_x_publishability_candidate_pool.v1",
-                "status": "PREPARED_DISTINCT_STORY_SET_REUSED",
-                "bounded_pool_limit": len(assignment.get("ranked_clusters") or []),
-                "combined_candidate_count": len(assignment.get("ranked_clusters") or []),
-                "same_cycle_ranked_evidence_walk": True,
-                "full_universe_expansion_performed": False,
-                "llm_or_provider_calls": int(
-                    (assignment.get("telemetry") or {}).get("logical_router_calls") or 0
-                ),
-                "factual_or_numeric_authority_granted": False,
-                "publication_authority_granted": False,
-            }
+            # The prepared input is already the exact bounded frontier.  Reuse the
+            # normal bounded pool here so unused semantic leaves on that frontier
+            # receive the same evidence-walker opportunity as a global shortlist.
+            # This never widens back to the full rolling intake.
+            ranked_assignment = build_bounded_rolling_x_publishability_pool(
+                assignment=assignment,
+                rolling_input=assignment_input,
+                prepared_frontier_only=True,
+            )
+            publishability_candidate_pool = dict(
+                ranked_assignment.get("publishability_candidate_pool") or {}
+            )
         else:
             try:
                 ranked_assignment = build_bounded_rolling_x_publishability_pool(
@@ -4655,12 +4889,35 @@ def _run_rolling_x_newsroom_cycle(
             story_label=safe_story_label(enriched_clusters[0] if enriched_clusters else {}),
             grounding="Capital Chronicle additive context",
         )
+        effective_sourceability_observations = dict(sourceability_observations or {})
+        if not effective_sourceability_observations and isinstance(
+            source_route_health, Mapping
+        ):
+            effective_sourceability_observations = {
+                "schema_version": "contentops.sourceability_observations.from_route_health.v1",
+                "hosts": {
+                    str(row.get("normalized_host") or ""): {
+                        "successful_retrieval_count": int(
+                            row.get("success_count") or 0
+                        ),
+                        "access_failure_count": int(
+                            row.get("failure_count") or 0
+                        ),
+                    }
+                    for row in source_route_health.get("hosts") or []
+                    if isinstance(row, Mapping)
+                    and str(row.get("normalized_host") or "")
+                },
+                "routing_only": True,
+                "factual_or_numeric_or_publication_authority_granted": False,
+            }
         preselection = apply_preselection_intelligence(
             enriched_clusters,
             published_corpus=list(published_corpus or []),
             cc_catalog=effective_catalog,
             learning_policy=dict(learning_policy or {}),
             material_event_priority=dict(material_event_priority or {}),
+            sourceability_observations=effective_sourceability_observations,
             now=datetime.fromisoformat(str(cutoff_utc).replace("Z", "+00:00")),
         )
         _write_json(output_dir / "preselection_intelligence_v1.json", preselection)
@@ -4764,8 +5021,22 @@ def _run_rolling_x_newsroom_cycle(
         or _default_rolling_x_evidence_acquirer(
             capital_chronicle_root=capital_chronicle_root,
             evaluation_as_of_utc=cutoff_utc,
+            source_route_health=source_route_health,
         )
     )
+    effective_source_discoverer = source_discoverer
+    if (
+        effective_source_discoverer is None
+        and evidence_acquirer is None
+        and autonomous_source_discovery_enabled
+    ):
+        from live_contentops.official_codex_source_discovery_v1 import (
+            OfficialCodexUrlDiscoveryProvider,
+        )
+
+        effective_source_discoverer = OfficialCodexUrlDiscoveryProvider(
+            output_dir=output_dir / "source_discovery"
+        )
 
     def tracked_evidence_acquirer(request: Mapping[str, Any]) -> Any:
         cluster = cluster_by_id_for_activity.get(str(request.get("cluster_id") or ""), {})
@@ -4776,7 +5047,105 @@ def _run_rolling_x_newsroom_cycle(
             story_label=safe_story_label(cluster),
             grounding="latest-web source-bound research",
         )
-        return base_evidence_acquirer(dict(request))
+        initial = base_evidence_acquirer(dict(request))
+        if not isinstance(initial, Mapping):
+            return initial
+        initial_receipt = dict(initial)
+        initial_blockers = [str(value) for value in initial_receipt.get("blockers") or []]
+        if "SOURCE_DISCOVERY_REQUIRED" not in initial_blockers:
+            return initial_receipt
+        handshake = {
+            "schema_version": "contentops.autonomous_source_discovery_handshake.v1",
+            "story_identity": request.get("cluster_id"),
+            "headline_ids": list(request.get("headline_ids") or []),
+            "initial_receipt_sha256": _json_sha256(initial_receipt),
+            "prior_blockers": initial_blockers,
+            "same_candidate_resume_required": True,
+            "source_discovery_available": callable(effective_source_discoverer),
+            "search_snippet_or_model_summary_authority": False,
+            "publication_authority": False,
+        }
+        if not callable(effective_source_discoverer):
+            return {
+                **initial_receipt,
+                "autonomous_source_discovery": {
+                    **handshake,
+                    "status": "SUPPORTED_DISCOVERY_PROVIDER_UNAVAILABLE",
+                },
+            }
+        discovery_request = {
+            **dict(request),
+            "prior_blockers": initial_blockers,
+        }
+        health_snapshotter = getattr(
+            base_evidence_acquirer, "source_route_health_snapshot", None
+        )
+        if callable(health_snapshotter):
+            health_snapshot = health_snapshotter()
+            discovery_request["source_route_health_hosts"] = [
+                dict(row)
+                for row in (health_snapshot or {}).get("hosts") or []
+                if isinstance(row, Mapping)
+            ]
+        try:
+            discovery_result = effective_source_discoverer(discovery_request)
+        except Exception as exc:  # provider errors remain sanitized role-local blockers
+            provider_receipt = getattr(exc, "receipt", None)
+            return {
+                **initial_receipt,
+                "blockers": sorted(
+                    set(initial_blockers + ["SUPPORTED_SOURCE_DISCOVERY_FAILED:" + type(exc).__name__])
+                ),
+                "autonomous_source_discovery": {
+                    **handshake,
+                    "status": "SUPPORTED_SOURCE_DISCOVERY_FAILED",
+                    "failure_class": type(exc).__name__,
+                    "failure_code": str(
+                        getattr(exc, "code", type(exc).__name__)
+                    ),
+                    "provider_receipt": (
+                        dict(provider_receipt)
+                        if isinstance(provider_receipt, Mapping)
+                        else {}
+                    ),
+                },
+            }
+        discovery_result = (
+            dict(discovery_result) if isinstance(discovery_result, Mapping) else {}
+        )
+        contract = discovery_result.get("contract")
+        if not isinstance(contract, Mapping):
+            return {
+                **initial_receipt,
+                "blockers": sorted(
+                    set(initial_blockers + ["SUPPORTED_SOURCE_DISCOVERY_CONTRACT_MISSING"])
+                ),
+                "autonomous_source_discovery": {
+                    **handshake,
+                    "status": "SUPPORTED_SOURCE_DISCOVERY_CONTRACT_MISSING",
+                },
+            }
+        resumed_request = {**dict(request), "codex_source_discovery": dict(contract)}
+        resumed = base_evidence_acquirer(resumed_request)
+        if not isinstance(resumed, Mapping):
+            return resumed
+        return {
+            **dict(resumed),
+            "autonomous_source_discovery": {
+                **handshake,
+                "status": "SAME_CANDIDATE_RESUMED",
+                "resumed_story_identity": resumed_request.get("cluster_id"),
+                "same_candidate_resumed": (
+                    resumed_request.get("cluster_id") == request.get("cluster_id")
+                    and list(resumed_request.get("headline_ids") or [])
+                    == list(request.get("headline_ids") or [])
+                ),
+                "provider_receipt": dict(
+                    discovery_result.get("provider_receipt") or {}
+                ),
+                "resumed_receipt_sha256": _json_sha256(dict(resumed)),
+            },
+        }
 
     viability_path = output_dir / "rolling_x_ranked_viability_v1.json"
     viability_checkpoint: Mapping[str, Any] | None = None
@@ -4848,6 +5217,7 @@ def _run_rolling_x_newsroom_cycle(
         "run_id": run_id,
         "created_at": _utc_now(),
         "operating_mode": operating_mode,
+        "acceptance_profile": acceptance_profile,
         "intake": intake,
         "assignment": assignment,
         "preselection_intelligence": preselection,
@@ -4867,6 +5237,12 @@ def _run_rolling_x_newsroom_cycle(
                 )
             }
             if prepared_state is not None
+            else None
+        ),
+        "source_route_health_input_sha256": (
+            _json_sha256(dict(source_route_health))
+            if isinstance(source_route_health, Mapping)
+            and source_route_health
             else None
         ),
         "prepared_story_frontier": None,
@@ -4956,6 +5332,16 @@ def _run_rolling_x_newsroom_cycle(
         }
 
     def _persist_cycle_evidence() -> None:
+        health_snapshot = getattr(
+            base_evidence_acquirer, "source_route_health_snapshot", None
+        )
+        if callable(health_snapshot):
+            evidence["source_route_health"] = {
+                **dict(health_snapshot()),
+                "autonomous_source_discovery_available": callable(
+                    effective_source_discoverer
+                ),
+            }
         article_telemetry = dict(evidence.get("article_build_telemetry") or {})
         editorial_telemetry = dict(evidence.get("editorial_cycle") or {})
         assignment_calls = int(
@@ -5193,6 +5579,148 @@ def _run_rolling_x_newsroom_cycle(
         _persist_cycle_evidence()
         return evidence
 
+    if evidence_only_target_count is not None:
+        evidence_ready_candidates: list[dict[str, Any]] = []
+        while viability.get("status") == "SUCCESS":
+            selected_rank = int(viability.get("selected_rank") or 0)
+            selected_evidence = dict(viability.get("selected_evidence") or {})
+            selected_cluster = dict(viability.get("selected_cluster") or {})
+            minimum_packet = dict(
+                selected_evidence.get("minimum_trustworthy_evidence_packet") or {}
+            )
+            claim_contract = dict(
+                selected_evidence.get("claim_evidence_contract")
+                or minimum_packet.get("claim_evidence_contract")
+                or {}
+            )
+            supported_claim_count = int(
+                claim_contract.get("supported_claim_count")
+                or minimum_packet.get("supported_claim_count")
+                or 0
+            )
+            documents = [
+                dict(row)
+                for row in selected_evidence.get("evidence_documents") or []
+                if isinstance(row, Mapping)
+            ]
+            evidence_ready_candidates.append(
+                {
+                    "rank": selected_rank,
+                    "cluster_id": viability.get("selected_cluster_id"),
+                    "headline_ids": list(viability.get("selected_headline_ids") or []),
+                    "candidate_title": str(
+                        selected_cluster.get("why_now")
+                        or selected_cluster.get("selection_case")
+                        or safe_story_label(selected_cluster)
+                    ),
+                    "effective_article_mode": selected_evidence.get(
+                        "effective_article_mode"
+                    )
+                    or selected_cluster.get("resolved_article_mode"),
+                    "evidence_status": selected_evidence.get("status"),
+                    "evidence_review_tier": selected_evidence.get(
+                        "evidence_review_tier"
+                    ),
+                    "provided_evidence_capabilities": list(
+                        selected_evidence.get("provided_evidence_capabilities") or []
+                    ),
+                    "evidence_document_count": len(documents),
+                    "evidence_document_hashes": sorted(
+                        str(row.get("canonical_content_sha256") or row.get("raw_sha256") or "")
+                        for row in documents
+                        if str(
+                            row.get("canonical_content_sha256")
+                            or row.get("raw_sha256")
+                            or ""
+                        )
+                    ),
+                    "supported_claim_count": supported_claim_count,
+                    "claim_contract_status": claim_contract.get("status")
+                    or minimum_packet.get("status"),
+                    "freshness_pass": all(
+                        row.get("freshness_state")
+                        == "FRESH_CURRENT_OPERATOR_READINESS"
+                        for row in documents
+                    ),
+                    "supported_source_bound_claim_present": supported_claim_count >= 1,
+                    "capital_chronicle_authority_required": bool(
+                        selected_evidence.get(
+                            "capital_chronicle_numeric_or_analytical_authority_required"
+                        )
+                    ),
+                    "unresolved_blockers": list(selected_evidence.get("blockers") or []),
+                    "evidence_receipt_sha256": _json_sha256(selected_evidence),
+                    "writer_invoked": False,
+                    "article_generated": False,
+                    "publication_authority_granted": False,
+                }
+            )
+            walk_row = _candidate_walk_row(selected_rank)
+            walk_row["writer_invocation_result"] = "NOT_RUN_EVIDENCE_ONLY_BOUNDARY"
+            walk_row["terminal_reason"] = "GOVERNED_EVIDENCE_READY_PRE_WRITER"
+            if len(evidence_ready_candidates) >= evidence_only_target_count:
+                break
+            viability = _next_viable_after(selected_rank)
+            if viability.get("status") != "SUCCESS":
+                break
+
+        complete = len(evidence_ready_candidates) >= evidence_only_target_count
+        evidence["classification"] = (
+            "PASS_V1_EVIDENCE_FOUNDATION_4_ARTICLE_READY_ZERO_WRITER"
+            if complete and evidence_only_target_count == 4
+            else "PASS_GOVERNED_EVIDENCE_READY_POOL_ZERO_WRITER"
+            if complete
+            else "EVIDENCE_READY_POOL_INCOMPLETE"
+        )
+        evidence["exact_next_blocker"] = (
+            None
+            if complete
+            else str(
+                viability.get("reason_code")
+                or "EVIDENCE_READY_TARGET_NOT_REACHED_WITHIN_BOUNDED_POOL"
+            )
+        )
+        evidence["evidence_ready_pool"] = {
+            "schema_version": "contentops.governed_evidence_ready_pool.v1",
+            "target_candidate_count": evidence_only_target_count,
+            "ready_candidate_count": len(evidence_ready_candidates),
+            "target_met": complete,
+            "candidates": evidence_ready_candidates,
+            "large_universe_to_cheap_feasibility_to_likely_sourceable_pool": True,
+            "expensive_grounded_synthesis_only_after_deterministic_retrieval": True,
+            "writer_or_article_boundary_crossed": False,
+            "factual_or_numeric_authority_granted_by_routing": False,
+            "publication_authority_granted": False,
+        }
+        health_snapshot = getattr(
+            base_evidence_acquirer, "source_route_health_snapshot", None
+        )
+        evidence["source_route_health"] = (
+            {
+                **dict(health_snapshot()),
+                "autonomous_source_discovery_available": callable(
+                    effective_source_discoverer
+                ),
+            }
+            if callable(health_snapshot)
+            else {}
+        )
+        evidence["editorial_worker_count_requested"] = 0
+        evidence["editorial_worker_count_invoked"] = 0
+        evidence["xhigh_worker_invocations"] = 0
+        evidence["article_generation_attempts"] = 0
+        evidence["public_write_performed"] = False
+        evidence["unknown_write_detected"] = False
+        _persist_candidate_walk(
+            terminal_reason=(
+                "GOVERNED_EVIDENCE_READY_TARGET_MET_ZERO_WRITER"
+                if complete
+                else str(evidence["exact_next_blocker"])
+            )
+        )
+        _persist_cycle_evidence()
+        return evidence
+
     if publication_enabled:
         if destination_readiness_override is not None:
             readiness = dict(destination_readiness_override)
@@ -5252,71 +5780,83 @@ def _run_rolling_x_newsroom_cycle(
         build_editorial_worker_routing_packet,
     )
 
-    selected_evidence = viability.get("selected_evidence") or {}
-    evidence_documents = (
-        list(selected_evidence.get("evidence_documents") or [])
-        if isinstance(selected_evidence, Mapping)
-        else []
-    )
-    exact_source_handles = [
-        str(
-            row.get("source_url") or row.get("url")
-            or row.get("document_id") or row.get("evidence_id") or ""
+    def _editorial_route_for_viability(
+        current_viability: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        selected_evidence = current_viability.get("selected_evidence") or {}
+        evidence_documents = (
+            list(selected_evidence.get("evidence_documents") or [])
+            if isinstance(selected_evidence, Mapping)
+            else []
         )
-        for row in evidence_documents
-        if isinstance(row, Mapping)
-    ]
-    exact_source_handles = [value for value in exact_source_handles if value]
-    if not exact_source_handles:
         exact_source_handles = [
-            str(value) for value in viability.get("selected_headline_ids") or []
-            if str(value)
+            str(
+                row.get("source_url") or row.get("url")
+                or row.get("document_id") or row.get("evidence_id") or ""
+            )
+            for row in evidence_documents
+            if isinstance(row, Mapping)
         ]
-    selected_attempt = next(
-        (
-            row for row in viability.get("rank_attempts") or []
-            if isinstance(row, Mapping) and row.get("rank") == viability.get("selected_rank")
-        ),
-        {},
-    )
-    selected_request = (
-        dict(selected_attempt.get("request") or {})
-        if isinstance(selected_attempt, Mapping)
-        else {}
-    )
-    editorial_article_mode = str(
-        selected_request.get("effective_article_mode")
-        or selected_request.get("resolved_article_mode")
-        or selected_attempt.get("effective_article_mode")
-        or selected_attempt.get("resolved_article_mode")
-        or (viability.get("selected_cluster") or {}).get("effective_article_mode")
-        or (viability.get("selected_cluster") or {}).get("resolved_article_mode")
-        or selected_request.get("article_mode")
-        or selected_request.get("story_mode")
-        or selected_attempt.get("article_mode")
-        or selected_attempt.get("story_mode")
-        or (viability.get("selected_cluster") or {}).get("article_mode")
-        or (viability.get("selected_cluster") or {}).get("story_mode")
-        or "STANDARD_ANALYSIS"
-    )
-    editorial_route = build_editorial_worker_routing_packet(
-        opportunity_state="ARTICLE_QUALIFIED",
-        governed_context={
-            "accepted_evidence_packet": selected_evidence,
-            "exact_source_handles": exact_source_handles,
-            "destination_package_constraints": {
-                "required_destinations": list(EXPECTED_DESTINATIONS),
-                "article_media_optional": True,
+        exact_source_handles = [value for value in exact_source_handles if value]
+        if not exact_source_handles:
+            exact_source_handles = [
+                str(value) for value in current_viability.get("selected_headline_ids") or []
+                if str(value)
+            ]
+        selected_attempt = next(
+            (
+                row for row in current_viability.get("rank_attempts") or []
+                if isinstance(row, Mapping)
+                and row.get("rank") == current_viability.get("selected_rank")
+            ),
+            {},
+        )
+        selected_request = (
+            dict(selected_attempt.get("request") or {})
+            if isinstance(selected_attempt, Mapping)
+            else {}
+        )
+        editorial_article_mode = str(
+            selected_request.get("effective_article_mode")
+            or selected_request.get("resolved_article_mode")
+            or selected_attempt.get("effective_article_mode")
+            or selected_attempt.get("resolved_article_mode")
+            or (current_viability.get("selected_cluster") or {}).get(
+                "effective_article_mode"
+            )
+            or (current_viability.get("selected_cluster") or {}).get(
+                "resolved_article_mode"
+            )
+            or selected_request.get("article_mode")
+            or selected_request.get("story_mode")
+            or selected_attempt.get("article_mode")
+            or selected_attempt.get("story_mode")
+            or (current_viability.get("selected_cluster") or {}).get("article_mode")
+            or (current_viability.get("selected_cluster") or {}).get("story_mode")
+            or "STANDARD_ANALYSIS"
+        )
+        return build_editorial_worker_routing_packet(
+            opportunity_state="ARTICLE_QUALIFIED",
+            governed_context={
+                "accepted_evidence_packet": selected_evidence,
+                "exact_source_handles": exact_source_handles,
+                "destination_package_constraints": {
+                    "required_destinations": list(EXPECTED_DESTINATIONS),
+                    "article_media_optional": True,
+                },
             },
-        },
-        readiness_checked_before_editorial=publication_enabled,
-        readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
-        article_mode=editorial_article_mode,
-    )
-    evidence["editorial_worker_routing"] = editorial_route
+            readiness_checked_before_editorial=publication_enabled,
+            readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
+            article_mode=editorial_article_mode,
+        )
 
     if article_builder is None:
         if publication_enabled:
+            # A probe must expose the exact initial worker request without producing article
+            # copy.  Normal canonical execution instead rebuilds this route inside the
+            # candidate loop so a candidate-local continuation cannot inherit another rank.
+            editorial_route = _editorial_route_for_viability(viability)
+            evidence["editorial_worker_routing"] = editorial_route
             evidence["classification"] = "NO_PUBLICATION"
             evidence["exact_next_blocker"] = "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
             evidence["editorial_worker_count_requested"] = 1
@@ -5354,6 +5894,11 @@ def _run_rolling_x_newsroom_cycle(
 
     built_checkpoint_path = output_dir / "rolling_x_grounded_article_media_v1.json"
     while viability.get("status") == "SUCCESS":
+        # A candidate-local continuation must receive its own exact governed packet.  Never
+        # reuse the first candidate's evidence identity or worker request for a distinct rank.
+        selected_evidence = viability.get("selected_evidence") or {}
+        editorial_route = _editorial_route_for_viability(viability)
+        evidence["editorial_worker_routing"] = editorial_route
         selected_rank = int(viability.get("selected_rank") or 0)
         walk_row = _candidate_walk_row(selected_rank)
         activity.record(
@@ -5369,9 +5914,12 @@ def _run_rolling_x_newsroom_cycle(
         try:
             built: Mapping[str, Any] | None = None
             checkpoint_source: Path | None = None
-            if candidate_checkpoint_path.exists():
+            revision_continuation_requested = bool(
+                viability.get("same_xhigh_worker_revision_contract")
+            )
+            if candidate_checkpoint_path.exists() and not revision_continuation_requested:
                 checkpoint_source = candidate_checkpoint_path
-            elif built_checkpoint_path.exists():
+            elif built_checkpoint_path.exists() and not revision_continuation_requested:
                 legacy_built = _read_json(built_checkpoint_path)
                 legacy_article = dict(legacy_built.get("article") or {})
                 if (
@@ -5411,37 +5959,99 @@ def _run_rolling_x_newsroom_cycle(
                     },
                 }
             else:
-                built = article_builder({
+                worker_viability = {
                     **dict(viability),
                     "editorial_worker_request": dict(
                         editorial_route.get("worker_request") or {}
                     ),
-                })
+                }
+                same_worker_contract = dict(
+                    viability.get("same_xhigh_worker_revision_contract") or {}
+                )
+                same_worker_reviser = getattr(
+                    article_builder, "revise_same_worker", None
+                )
+                if same_worker_contract and callable(same_worker_reviser):
+                    built = same_worker_reviser(worker_viability)
+                else:
+                    built = article_builder(worker_viability)
             if publication_enabled:
                 from live_contentops.codex_desktop_newsroom_operator_v1 import (
                     validate_editorial_worker_return,
+                    validate_same_xhigh_worker_revision_return,
+                )
+                from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+                    resolve_editorial_worker_article_for_public_lock,
                 )
 
                 receipt = dict((built or {}).get("editorial_worker_receipt") or {})
+                built_article_for_resolution = dict((built or {}).get("article") or {})
+                worker_body_for_resolution = str(
+                    built_article_for_resolution.get("substack_body_markdown") or ""
+                )
+                official_direct_provider_return = isinstance(
+                    receipt.get("official_codex_turn_receipt"), Mapping
+                )
+                if receipt and worker_body_for_resolution and (
+                    "[[SOURCE:" in worker_body_for_resolution
+                    or official_direct_provider_return
+                ):
+                    raw_worker_return_sha256 = _json_sha256(receipt)
+                    raw_worker_article_sha256 = _json_sha256(
+                        dict(receipt.get("article") or {})
+                    )
+                    resolved_article = resolve_editorial_worker_article_for_public_lock(
+                        built_article_for_resolution,
+                        viability=viability,
+                    )
+                    receipt["raw_worker_return_sha256"] = str(
+                        receipt.get("raw_worker_return_sha256")
+                        or raw_worker_return_sha256
+                    )
+                    receipt["raw_worker_article_sha256"] = str(
+                        receipt.get("raw_worker_article_sha256")
+                        or raw_worker_article_sha256
+                    )
+                    receipt["resolved_public_body_sha256"] = str(
+                        resolved_article.get("resolved_public_body_sha256") or ""
+                    )
+                    receipt["article"] = resolved_article
+                    built = {
+                        **dict(built or {}),
+                        "article": resolved_article,
+                        "editorial_worker_receipt": receipt,
+                    }
                 expected_hash = str(editorial_route.get("governed_input_hash") or "")
                 if not expected_hash:
                     raise GroundedArticleBuilderError(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
                     )
                 try:
-                    worker_validation = validate_editorial_worker_return(
-                        worker_return=receipt,
-                        expected_governed_input_hash=expected_hash,
-                        expected_editorial_packet=dict(
-                            (
-                                editorial_route.get("worker_request") or {}
-                            ).get("bounded_governed_context", {}).get(
-                                "institutional_edge_editorial_packet"
-                            )
+                    validation_kwargs = {
+                        "expected_editorial_packet": dict(
+                            (editorial_route.get("worker_request") or {}).get(
+                                "bounded_governed_context", {}
+                            ).get("institutional_edge_editorial_packet")
                             or {}
                         ),
-                        accepted_evidence_packet=selected_evidence,
+                        "accepted_evidence_packet": selected_evidence,
+                        "acceptance_profile": acceptance_profile,
+                    }
+                    revision_contract = dict(
+                        viability.get("same_xhigh_worker_revision_contract") or {}
                     )
+                    if revision_contract:
+                        worker_validation = validate_same_xhigh_worker_revision_return(
+                            worker_return=receipt,
+                            revision_contract=revision_contract,
+                            **validation_kwargs,
+                        )
+                    else:
+                        worker_validation = validate_editorial_worker_return(
+                            worker_return=receipt,
+                            expected_governed_input_hash=expected_hash,
+                            **validation_kwargs,
+                        )
                 except TypeError:
                     raise GroundedArticleBuilderError(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
@@ -5478,6 +6088,24 @@ def _run_rolling_x_newsroom_cycle(
                 _write_json(built_checkpoint_path, built)
         except GroundedArticleBuilderError as exc:
             blocker_text = str(exc)
+            if blocker_text == "NEXT_NATIVE_XHIGH_WORKER_REQUIRED":
+                # The previous candidate reached a local editorial terminal.  The selected
+                # distinct candidate has its own governed packet and must receive one new fresh
+                # XHIGH worker; no model-router authoring fallback is permitted here.
+                walk_row.update(
+                    {
+                        "writer_invocation_result": "XHIGH_REQUIRED_FOR_CANDIDATE_CONTINUATION",
+                        "writer_blockers": [blocker_text],
+                        "terminal_reason": blocker_text,
+                    }
+                )
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = blocker_text
+                evidence["legacy_writer_fallback_used"] = False
+                evidence["public_write_performed"] = False
+                _persist_candidate_walk(terminal_reason=blocker_text)
+                _persist_cycle_evidence()
+                return evidence
             if blocker_text == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID" or blocker_text.startswith(
                 "EDITORIAL_WORKER_DETERMINISTIC_VALIDATION_FAILED:"
             ):
@@ -5601,11 +6229,28 @@ def _run_rolling_x_newsroom_cycle(
             _persist_cycle_evidence()
             return evidence
         activity.record("FACTUAL_CHECK", story_label=article.get("title"))
+        native_xhigh_worker_return: Mapping[str, Any] | None = None
+        native_xhigh_worker_validation: Mapping[str, Any] | None = None
+        native_xhigh_worker_request: Mapping[str, Any] | None = None
+        if publication_enabled:
+            native_xhigh_worker_return = dict(
+                (built or {}).get("editorial_worker_receipt") or {}
+            )
+            native_xhigh_worker_validation = dict(
+                (built or {}).get("editorial_worker_validation") or {}
+            )
+            native_xhigh_worker_request = dict(
+                editorial_route.get("worker_request") or {}
+            )
         editorial = _run_bounded_rolling_x_editorial_cycle(
             article=article,
             media_assets=media_assets,
             editorial_reviewer=reviewer,
             article_reviser=reviser,
+            native_xhigh_worker_return=native_xhigh_worker_return,
+            native_xhigh_worker_validation=native_xhigh_worker_validation,
+            native_xhigh_worker_request=native_xhigh_worker_request,
+            acceptance_profile=acceptance_profile,
         )
         if editorial.get("status") == "PASS":
             from live_contentops.capital_chronicle_institutional_edge_v1 import (
@@ -5629,7 +6274,31 @@ def _run_rolling_x_newsroom_cycle(
                 final_institutional_validation
             )
             editorial = {**dict(editorial), "article": final_editorial_article}
-            if final_institutional_validation.get("classification") != "PASS":
+            from live_contentops.mvp_canary_acceptance_v1 import (
+                institutional_edge_hard_gate,
+                is_mvp_canary_profile,
+            )
+
+            final_institutional_gate = (
+                institutional_edge_hard_gate(final_institutional_validation)
+                if is_mvp_canary_profile(acceptance_profile)
+                else None
+            )
+            if final_institutional_gate is not None:
+                editorial = {
+                    **editorial,
+                    "institutional_edge_canary_gate": final_institutional_gate,
+                    "canary_quality_warnings": sorted(
+                        set(editorial.get("canary_quality_warnings") or []).union(
+                            final_institutional_gate.get("quality_warnings") or []
+                        )
+                    ),
+                }
+            if (
+                final_institutional_gate.get("classification") != "PASS"
+                if final_institutional_gate is not None
+                else final_institutional_validation.get("classification") != "PASS"
+            ):
                 editorial = {
                     **editorial,
                     "status": "NO_PUBLICATION",
@@ -5655,10 +6324,32 @@ def _run_rolling_x_newsroom_cycle(
                     ).get("blockers")
                     or []
                 )
-            if reason in {
-                "EDITORIAL_REVIEW_ROUTER_FAILURE",
-                "EDITORIAL_REVISION_ROUTER_FAILURE",
-            }:
+            if reason == "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+                same_worker_reviser = getattr(
+                    article_builder, "revise_same_worker", None
+                )
+                if callable(same_worker_reviser) and not viability.get(
+                    "same_xhigh_worker_revision_contract"
+                ):
+                    viability = {
+                        **dict(viability),
+                        "same_xhigh_worker_revision_contract": dict(
+                            editorial.get("same_xhigh_worker_revision_contract") or {}
+                        ),
+                    }
+                    walk_row["terminal_reason"] = None
+                    continue
+                evidence["classification"] = "NO_PUBLICATION"
+                evidence["exact_next_blocker"] = reason
+                evidence["same_xhigh_worker_revision_contract"] = dict(
+                    editorial.get("same_xhigh_worker_revision_contract") or {}
+                )
+                evidence["legacy_writer_fallback_used"] = False
+                evidence["public_write_performed"] = False
+                _persist_candidate_walk(terminal_reason=reason)
+                _persist_cycle_evidence()
+                return evidence
+            if reason == "EDITORIAL_REVIEW_ROUTER_FAILURE":
                 evidence["classification"] = "NO_PUBLICATION"
                 evidence["exact_next_blocker"] = reason
                 _persist_candidate_walk(terminal_reason=reason)
@@ -5693,6 +6384,7 @@ def _run_rolling_x_newsroom_cycle(
             media=media,
             editorial_cycle=editorial,
             destination_readiness=readiness,
+            acceptance_profile=acceptance_profile,
         )
         evidence["release_candidate_preparation"] = preparation
         evidence["platform_package_generated"] = bool(preparation.get("payloads"))

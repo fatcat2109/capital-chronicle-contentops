@@ -16,6 +16,9 @@ from live_contentops.daily_app_supervisor_v1 import (
     build_bootstrap_editorial_window_policy,
 )
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.destination_transport_registry_v1 import (
+    V1_REQUIRED_PUBLICATION_DESTINATIONS,
+)
 from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
 from live_contentops.preselection_canary_v1 import _bounded_canary_candidates
 from live_contentops.preselection_intelligence_v1 import apply_preselection_intelligence
@@ -400,6 +403,126 @@ def test_material_event_priority_reranks_matching_eligible_update_without_new_au
     assert result["publication_authority_granted"] is False
 
 
+def test_sourceability_ranking_prefers_observed_accessible_registered_path_without_authority(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.query_story_scoped_cc_context",
+        lambda _catalog, _entities: {
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matches": [],
+            "grants_factual_or_numeric_authority": False,
+        },
+    )
+    clusters = [
+        {
+            "cluster_id": "repeated-waf",
+            "rank": 1,
+            "headline_ids": ["h-waf"],
+            "entities_topics": ["Markets"],
+            "leaf_summaries": ["new market report"],
+            "public_source_urls": ["https://www.bloomberg.com/news/example"],
+        },
+        {
+            "cluster_id": "observed-accessible",
+            "rank": 2,
+            "headline_ids": ["h-ok"],
+            "entities_topics": ["Markets"],
+            "leaf_summaries": ["different market report"],
+            "public_source_urls": ["https://www.apnews.com/article/example"],
+        },
+    ]
+
+    result = apply_preselection_intelligence(
+        clusters,
+        published_corpus=[],
+        cc_catalog={"stores": []},
+        sourceability_observations={
+            "hosts": {
+                "www.bloomberg.com": {"http_403_count": 2},
+                "www.apnews.com": {"successful_retrieval_count": 1},
+            }
+        },
+        now=NOW,
+    )
+
+    assert result["reranked_order"][0] == "observed-accessible"
+    sourceability = result["ranked_clusters"][0]["evidence_reachability"]
+    assert sourceability["observed_same_day_host_success_count"] == 1
+    assert sourceability["ranking_only"] is True
+    assert sourceability["factual_authority_granted"] is False
+    assert result["sourceability_signals_grant_authority"] is False
+
+
+def test_sourceability_ranking_models_exact_story_bound_cc_packet_without_widening(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.query_story_scoped_cc_context",
+        lambda _catalog, _entities: {
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matches": [],
+            "grants_factual_or_numeric_authority": False,
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1._preselection_cc_publication_authority",
+        lambda cluster, **_kwargs: {
+            "state": (
+                "PUBLICATION_PACKET_AVAILABLE"
+                if cluster["cluster_id"] == "exact-cc"
+                else "PUBLICATION_PACKET_NOT_AVAILABLE"
+            ),
+            "authorized": cluster["cluster_id"] == "exact-cc",
+            "packet_sha256": "a" * 64 if cluster["cluster_id"] == "exact-cc" else None,
+            "exact_story_consumer_use_binding_verified": cluster["cluster_id"] == "exact-cc",
+            "publication_authority_granted_at_preselection": False,
+            "llm_numeric_authority": False,
+        },
+    )
+    clusters = [
+        {
+            "cluster_id": "unbound-public",
+            "rank": 1,
+            "story_type": "market_move",
+            "headline_ids": ["h-public"],
+            "entities_topics": ["Markets"],
+            "leaf_summaries": ["new market report"],
+            "public_source_urls": ["https://www.apnews.com/article/example"],
+        },
+        {
+            "cluster_id": "exact-cc",
+            "rank": 2,
+            "story_type": "market_move",
+            "headline_ids": ["h-cc"],
+            "entities_topics": ["Treasury"],
+            "leaf_summaries": ["new official curve update"],
+        },
+    ]
+
+    result = apply_preselection_intelligence(
+        clusters,
+        published_corpus=[],
+        cc_catalog={"stores": []},
+        now=NOW,
+    )
+
+    assert result["reranked_order"][0] == "exact-cc"
+    exact = result["ranked_clusters"][0]
+    assert exact["evidence_reachability"][
+        "exact_matching_cc_publication_authorized_packet"
+    ] is True
+    assert exact["evidence_reachability"]["ranking_only"] is True
+    assert exact["capital_chronicle_publication_authority"][
+        "publication_authority_granted_at_preselection"
+    ] is False
+    assert result["publication_authority_granted"] is False
+
+
 def test_duplicate_corpus_rows_still_hold_repeat_and_allow_material_follow_up(
     monkeypatch,
 ):
@@ -501,11 +624,13 @@ def test_intake_delta_builds_stable_zero_llm_material_event(tmp_path):
         )
 
     first = run(NOW)
-    second = run(NOW + timedelta(minutes=1))
+    # The current browser budget permits the single hot follow-up after 15 minutes; the
+    # repeated bounded capture must retain the same content-derived event identity.
+    second = run(NOW + timedelta(minutes=16))
     assert first["material_event_due"] is True
     assert first["new_material_event_identity"] == second["new_material_event_identity"]
     assert first["llm_or_provider_calls"] == 0
-    assert MAX_INTERVAL_SECONDS <= 300
+    assert MAX_INTERVAL_SECONDS == 3600
 
 
 def test_intake_delta_does_not_wake_for_out_of_window_source_event(tmp_path):
@@ -627,21 +752,44 @@ def _shadow_article_and_media(tmp_path: Path):
             "provenance_status": "VERIFIED",
         })
     body = "\n\n".join([
-        "Controlled official evidence establishes a fixture event and its bounded context.",
+        (
+            "Controlled official evidence establishes a fixture event and its bounded context. "
+            "The fixture is deliberately narrow: it shows how the article preserves source "
+            "identity, distinguish an observed record from interpretation, and carry the result "
+            "through a complete editorial sequence without asserting a real-world claim."
+        ),
         "[[VISUAL:event_record]]",
-        "## What changed\nThe controlled record establishes the event facts.",
+        (
+            "## What changed\nThe controlled record establishes the event facts, the relevant "
+            "sequence, and the limits of what may be inferred. It supplies enough bounded detail "
+            "for the article to explain the update while keeping every proposition inside the "
+            "source record."
+        ),
         "[[VISUAL:timeline]]",
-        "## Why it matters\nThe controlled timeline explains the implementation path.",
+        (
+            "## Why it matters\nThe controlled timeline explains the implementation path and why "
+            "the ordering matters to a reader. The value is procedural rather than predictive: "
+            "each later step depends on a separately observed record, so the article does not "
+            "collapse a stated intention into a completed outcome."
+        ),
         "[[VISUAL:geography]]",
-        "## Limits\nThis is explicit fixture evidence, not a real-world claim.",
-        "## What comes next\nA controlled official update is the next fixture catalyst.",
+        (
+            "## Limits\nThis is explicit fixture evidence, not a real-world claim. It offers no "
+            "numeric, market, probability, scenario, or delivery conclusion, and it cannot be "
+            "used to infer activity outside the controlled record."
+        ),
+        (
+            "## What comes next\nA controlled official update is the next fixture catalyst. Until "
+            "that update exists, the useful conclusion is limited to the present record, its "
+            "sequence, and the clearly stated boundary between evidence and editorial framing."
+        ),
     ])
     article = {
         "title": "Controlled Official Fixture Update",
-        "subtitle": "Fixture evidence demonstrates the governed article path without a public write.",
+        "subtitle": "Fixture evidence demonstrates the complete article path without external delivery.",
         "seo_title": "Controlled Official Fixture Update",
         "slug": "controlled-official-fixture-update",
-        "meta_description": "Controlled official fixture evidence demonstrates the governed article and package path without any public write.",
+        "meta_description": "Controlled official fixture evidence demonstrates the complete article and package path without external delivery.",
         "substack_body_markdown": body,
         "market_mechanism": "The fixture timeline demonstrates the controlled mechanism.",
         "policy_context": "The fixture record defines the controlled implementation sequence.",
@@ -683,13 +831,72 @@ def test_full_canonical_shadow_reaches_article_review_and_platform_package(monke
         lambda article, media_assets=(): {"classification": "PASS"},
     )
     article, media = _shadow_article_and_media(tmp_path)
+
+    def native_xhigh_builder(value):
+        worker_request = value["editorial_worker_request"]
+        governed_input_hash = worker_request["governed_input_hash"]
+        packet = worker_request["bounded_governed_context"][
+            "institutional_edge_editorial_packet"
+        ]
+        native_article = {
+            **article,
+            "canonical_editorial_headline": article["title"],
+            "dek": article["subtitle"],
+            "search_title": article["seo_title"],
+            "social_hook": article["social_lede"],
+            "author_identity": "Capital Chronicle",
+            "publisher_identity": "Capital Chronicle",
+            "canonical_slug_candidate": article["slug"],
+            "primary_reader_question": "What does the controlled record establish?",
+            "secondary_reader_questions": [],
+            "entities": ["Controlled Official Agency"],
+            "topics": ["controlled fixture"],
+            "search_freshness_class": "CURRENT",
+            "internal_link_candidates": [],
+            "structured_data_packet": {
+                "@type": "NewsArticle",
+                "headline": article["title"],
+                "description": article["meta_description"],
+                "datePublished": "2026-08-11T03:00:00Z",
+                "dateModified": "2026-08-11T03:00:00Z",
+                "author": "Capital Chronicle",
+                "publisher": "Capital Chronicle",
+            },
+            "epistemic_claims": [],
+            "quote_source_records": [],
+            "humor_lines": [],
+            "institutional_edge_editorial_packet_sha256": packet[
+                "editorial_packet_sha256"
+            ],
+        }
+        return {
+            "article": native_article,
+            "media": media,
+            "critical_path_telemetry": {
+                "article_writer_semantic_calls": 1,
+                "article_writer_owner": "FRESH_NATIVE_CODEX_DESKTOP_XHIGH",
+            },
+            "editorial_worker_receipt": {
+                "model": "gpt-5.6-sol",
+                "reasoning_effort": "XHIGH",
+                "fresh": True,
+                "isolated": True,
+                "resume_existing": False,
+                "governed_input_hash": governed_input_hash,
+                "bounded_revision_count": 0,
+                "public_write_attempted": False,
+                "article": native_article,
+            },
+        }
     readiness = {
         "fixture_bound": True,
         "all_required_destinations_ready": True,
         "destinations": {
-            "substack": {"write_eligible": True, "status": "READY_AUTHENTICATED"},
-            "x": {"write_eligible": True, "status": "READY_AUTHENTICATED"},
-            "threads": {"write_eligible": True, "status": "READY_NON_BROWSER_BINDING"},
+            destination: {
+                "write_eligible": True,
+                "status": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+            }
+            for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS
         },
     }
 
@@ -721,13 +928,15 @@ def test_full_canonical_shadow_reaches_article_review_and_platform_package(monke
                 },
                 "publication_authority": False,
         },
-        article_builder=lambda _viability: {"article": article, "media": media},
+        article_builder=native_xhigh_builder,
         editorial_reviewer=lambda _article: {
             "status": "SUCCESS", "decision": "PASS", "mode": "straight_news",
             "issues": [], "publication_authority": False,
         },
         article_reviser=lambda value, _review, _round: value,
-        publication_enabled=False,
+        # The supervisor passes True at the article/package boundary in SHADOW_ONLY; this
+        # enables deterministic build work but still grants no public-write authority.
+        publication_enabled=True,
         operating_mode="SHADOW_ONLY",
         published_corpus=[],
         cc_catalog={
@@ -737,14 +946,14 @@ def test_full_canonical_shadow_reaches_article_review_and_platform_package(monke
         destination_readiness_override=readiness,
     )
 
-    assert result["classification"] == "NO_PUBLICATION"
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
     assert result["operating_mode"] == "SHADOW_ONLY"
     assert result["article"] is not None
     assert result["editorial_cycle"]["status"] == "PASS"
     assert result["platform_package_generated"] is True
-    assert result["shadow_package_ready"] is True
     assert (tmp_path / "native_payloads_rehearsal_v1.json").is_file()
     assert result["publishing_adapter_called"] is False
     assert result["public_write_performed"] is False
-    assert "publication_lifecycle_plan" not in result
+    assert result["publication_lifecycle_plan"]["adapter_callables_persisted"] is False
+    assert len(result["publication_lifecycle_plan"]["required_derivative_destinations"]) == 8
     assert result["preselection_intelligence"]["occurs_before_targeted_evidence"] is True

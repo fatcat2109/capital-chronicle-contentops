@@ -448,6 +448,75 @@ def test_post_xhigh_validation_failure_terminalizes_candidate_and_advances_disti
     assert result["candidate_walk"]["selected_publication_candidate_rank"] == 2
 
 
+def test_exhausted_native_xhigh_candidate_advances_to_distinct_fresh_worker(
+    monkeypatch, tmp_path: Path
+):
+    selector_calls = []
+    builder_calls = []
+
+    def selector(**kwargs):
+        start = int(kwargs.get("start_after_rank") or 0)
+        selector_calls.append(start)
+        return _walk_viability(1 if start == 0 else 2)
+
+    real_editorial_cycle = implementation._run_bounded_rolling_x_editorial_cycle
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        selector,
+        lambda **kwargs: (_ for _ in ()).throw(
+            AssertionError("real native XHIGH editorial path must be used")
+        ),
+    )
+    monkeypatch.setattr(
+        implementation, "_run_bounded_rolling_x_editorial_cycle", real_editorial_cycle
+    )
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {"classification": "PASS"},
+    )
+    router_reviser_calls = []
+
+    def builder(value):
+        rank = int(value["selected_rank"])
+        builder_calls.append(rank)
+        article = {
+            "title": f"Candidate {rank}",
+            "cluster_id": value["selected_cluster_id"],
+            "headline_ids": value["selected_headline_ids"],
+            "effective_article_mode": "BREAKING_BRIEF",
+        }
+        receipt = _xhigh_receipt(article, value["editorial_worker_request"])
+        receipt["bounded_revision_count"] = 1 if rank == 1 else 0
+        return {
+            "article": receipt["article"],
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+            "editorial_worker_receipt": receipt,
+        }
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="candidate-walk-native-xhigh-budget",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-20T12:00:13Z",
+        article_builder=builder,
+        editorial_reviewer=lambda article: _semantic(
+            "NEEDS_REVISION" if article["cluster_id"] == "candidate-1" else "PASS"
+        ),
+        article_reviser=lambda *args: router_reviser_calls.append(args),
+        destination_readiness_override=_all_ready(),
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert builder_calls == [1, 2]
+    assert selector_calls == [0, 1]
+    assert router_reviser_calls == []
+    attempts = result["candidate_walk"]["candidate_attempts"]
+    assert attempts[0]["terminal_reason"] == "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED"
+    assert attempts[1]["terminal_reason"] == "PUBLICATION_QUALIFIED"
+    assert result["candidate_walk"]["selected_publication_candidate_rank"] == 2
+
+
 def test_same_opportunity_evidence_failure_advances_before_writer(monkeypatch, tmp_path: Path):
     builder_calls = []
     viability = _walk_viability(2)
@@ -533,6 +602,35 @@ def test_publication_article_without_valid_native_xhigh_receipt_fails_closed(
         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
     )
     assert result["legacy_writer_fallback_used"] is False
+
+
+def test_publication_probe_exposes_initial_native_xhigh_request_without_building_copy(
+    monkeypatch, tmp_path: Path
+):
+    viability = _walk_viability(1)
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        lambda **kwargs: viability,
+        lambda **kwargs: (_ for _ in ()).throw(
+            AssertionError("probe must stop before editorial review")
+        ),
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="native-xhigh-probe-request",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-20T12:00:13Z",
+        destination_readiness_override=_all_ready(),
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "NO_PUBLICATION"
+    assert result["exact_next_blocker"] == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+    assert result["editorial_worker_routing"]["decision"] == (
+        "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
+    )
+    assert result["legacy_writer_fallback_used"] is False
+    assert result["public_write_performed"] is False
     assert result["public_write_performed"] is False
 
 
@@ -743,6 +841,81 @@ def test_bounded_editorial_cycle_fails_closed_when_revision_router_fails(monkeyp
         "llm_cycle_provider_attempt_budget_exhausted"
     )
     assert "provider_error" not in failure
+
+
+def _native_xhigh_binding_for_editorial_test(article, revision_count=0):
+    from live_contentops.codex_desktop_newsroom_operator_v1 import (
+        build_editorial_worker_routing_packet,
+        validate_editorial_worker_return,
+    )
+
+    route = build_editorial_worker_routing_packet(
+        opportunity_state="ARTICLE_QUALIFIED",
+        governed_context={
+            "accepted_evidence_packet": {
+                "status": "PASS",
+                "evidence_documents": [{"document_id": "official-1"}],
+            },
+            "exact_source_handles": ["official-1"],
+        },
+        readiness_checked_before_editorial=True,
+        readiness_state="READY",
+    )
+    receipt = _xhigh_receipt(dict(article), route["worker_request"])
+    receipt["bounded_revision_count"] = revision_count
+    return route, receipt, validate_editorial_worker_return(
+        worker_return=receipt,
+        expected_governed_input_hash=route["governed_input_hash"],
+    )
+
+
+def test_native_xhigh_needs_revision_requires_same_worker_without_router_rewriter(monkeypatch):
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {"classification": "PASS"},
+    )
+    route, receipt, validation = _native_xhigh_binding_for_editorial_test(_article())
+    reviser_calls = []
+
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=_article(),
+        media_assets=[],
+        editorial_reviewer=lambda article: _semantic("NEEDS_REVISION"),
+        article_reviser=lambda *args: reviser_calls.append(args),
+        native_xhigh_worker_return=receipt,
+        native_xhigh_worker_validation=validation,
+        native_xhigh_worker_request=route["worker_request"],
+    )
+
+    assert result["reason_code"] == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+    assert result["same_xhigh_worker_revision_contract"]["same_worker_required"] is True
+    assert result["same_xhigh_worker_revision_contract"]["router_final_writer_forbidden"] is True
+    assert reviser_calls == []
+
+
+def test_native_xhigh_exhausted_revision_budget_never_calls_router_rewriter(monkeypatch):
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {"classification": "PASS"},
+    )
+    route, receipt, validation = _native_xhigh_binding_for_editorial_test(
+        _article(), revision_count=1
+    )
+    reviser_calls = []
+
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=_article(),
+        media_assets=[],
+        editorial_reviewer=lambda article: _semantic("NEEDS_REVISION"),
+        article_reviser=lambda *args: reviser_calls.append(args),
+        native_xhigh_worker_return=receipt,
+        native_xhigh_worker_validation=validation,
+        native_xhigh_worker_request=route["worker_request"],
+    )
+
+    assert result["reason_code"] == "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED"
+    assert result["review_history"][0]["revision"]["native_xhigh_article_reviser_forbidden"] is True
+    assert reviser_calls == []
 
 
 def test_revision_binding_failure_uses_structured_repair_class(monkeypatch):
@@ -1072,10 +1245,21 @@ def test_rolling_x_release_candidate_builds_and_verifies_canonical_lock(tmp_path
     assert set(implementation._RELEASE_PREPARATION_ARTIFACTS).issubset(
         {path.name for path in tmp_path.iterdir()}
     )
+    canonical_html = (tmp_path / "canonical_article.html").read_text(encoding="utf-8")
+    assert canonical_html.startswith("<!doctype html>")
+    assert "<h1>Official Event Update</h1>" in canonical_html
     context = json.loads((tmp_path / "run_context_v1.json").read_text(encoding="utf-8"))
+    assert context["article"]["article_html_export_path"] == str(
+        tmp_path / "canonical_article.html"
+    )
+    assert len(context["article"]["article_html_sha256"]) == 64
     assert context["rolling_x_live_path_used"] is True
     assert context["generic_live_path_used"] is False
     payloads = json.loads((tmp_path / "native_payloads_rehearsal_v1.json").read_text(encoding="utf-8"))
+    exact_url = "https://capitalchronicle.substack.com/p/official-event-update"
+    assert len(payloads) == 8
+    assert all(exact_url in str(package.get("text") or "") for package in payloads.values())
+    assert "pending-publication" not in json.dumps(payloads)
     assert payloads["x"]["quality_metrics"]["complete_article_visual_count"] == 3
     assert payloads["threads"]["quality_metrics"]["reply_count"] == 2
 
@@ -1416,9 +1600,7 @@ def test_assignment_router_exception_writes_fail_closed_cycle_evidence(
     assert "publication_lifecycle_plan" not in result
 
 
-def test_revision_router_failure_writes_no_publication_evidence(monkeypatch, tmp_path: Path):
-    from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
-
+def test_native_xhigh_revision_need_writes_same_worker_contract_without_router_fallback(monkeypatch, tmp_path: Path):
     _assignment, viability, article, media, _editorial, readiness = _release_inputs(tmp_path)
     monkeypatch.setattr(
         "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
@@ -1434,16 +1616,10 @@ def test_revision_router_failure_writes_no_publication_evidence(monkeypatch, tmp
     )
     monkeypatch.setattr(implementation, "_rolling_x_destination_readiness", lambda **kwargs: readiness)
 
-    def fail_revision(_article, _review, _round_number):
-        raise RoutedInvocationError(
-            {
-                "terminal_disposition": "BUDGET_EXHAUSTED",
-                "budget_exhausted_reason": "llm_cycle_provider_attempt_budget_exhausted",
-            }
-        )
+    revision_router_calls = []
 
     result = implementation._run_rolling_x_newsroom_cycle(
-        run_id="revision-router-failure",
+        run_id="native-xhigh-same-worker-revision",
         output_dir=tmp_path,
         cutoff_utc="2026-08-08T00:00:00Z",
         article_builder=lambda value: {
@@ -1453,21 +1629,22 @@ def test_revision_router_failure_writes_no_publication_evidence(monkeypatch, tmp
             ),
         },
         editorial_reviewer=lambda value: _semantic("NEEDS_REVISION"),
-        article_reviser=fail_revision,
+        article_reviser=lambda *args: revision_router_calls.append(args),
         destination_readiness_override=_all_ready(),
         publication_enabled=True,
     )
 
     assert result["classification"] == "NO_PUBLICATION"
-    assert result["exact_next_blocker"] == "EDITORIAL_REVISION_ROUTER_FAILURE"
+    assert result["exact_next_blocker"] == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
     assert result["editorial_cycle"]["publication_authority_granted"] is False
+    assert revision_router_calls == []
     assert "publication_lifecycle_plan" not in result
     persisted = json.loads(
         (tmp_path / "rolling_x_newsroom_cycle_evidence_v1.json").read_text(encoding="utf-8")
     )
-    assert persisted["exact_next_blocker"] == "EDITORIAL_REVISION_ROUTER_FAILURE"
+    assert persisted["exact_next_blocker"] == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
     assert persisted["editorial_cycle"]["review_history"][0]["revision"]["status"] == (
-        "FAILED_ROUTER"
+        "SAME_XHIGH_WORKER_REVISION_REQUIRED"
     )
 
 
@@ -1827,22 +2004,24 @@ def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk
             output = {"clusters": clusters}
         else:
             payload = json.loads(prompt.split("global_editor_input:\n", 1)[1])
-            rows = []
-            for rank, summary in enumerate(payload["leaf_cluster_summaries"], start=1):
-                rows.append({
-                    "rank": rank,
-                    "leaf_cluster_ids": [summary["id"]],
-                    "cross_partition_relationship": summary["relationship"],
-                    "canonical_leaf_cluster_id": summary["id"],
-                    "story_mode": "reporting",
-                    "article_mode": "STANDARD_NEWS_ANALYSIS",
-                    "market_sensitive": False,
-                    "why_now": f"Prepared story {rank} is current and distinct.",
-                    "selection_case": "The bounded evidence path warrants evaluation.",
-                    "seo_intent": "Explain the current distinct story.",
-                    "visual_strategy": "Use a source-backed title card.",
-                    "needed_evidence": ["Verify the core proposition."],
-                })
+            # Deliberately shortlist just one of five prepared semantic leaves.  The
+            # prepared-path pool must supply the other four bounded leaves to the
+            # existing evidence walker without revisiting the full rolling universe.
+            summary = payload["leaf_cluster_summaries"][0]
+            rows = [{
+                "rank": 1,
+                "leaf_cluster_ids": [summary["id"]],
+                "cross_partition_relationship": summary["relationship"],
+                "canonical_leaf_cluster_id": summary["id"],
+                "story_mode": "reporting",
+                "article_mode": "STANDARD_NEWS_ANALYSIS",
+                "market_sensitive": False,
+                "why_now": "Prepared shortlist story is current and distinct.",
+                "selection_case": "The bounded evidence path warrants evaluation.",
+                "seo_intent": "Explain the current distinct story.",
+                "visual_strategy": "Use a source-backed title card.",
+                "needed_evidence": ["Verify the core proposition."],
+            }]
             output = {
                 "decision": "SELECT_STORY",
                 "selection_rationale": "The prepared frontier contains distinct candidates.",
@@ -1880,7 +2059,24 @@ def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk
     assert telemetry["story_type_semantic_calls"] == 0
     assert result["assignment"]["prepared_candidate_state_reused"] is True
     assert len(provider_calls) == 2
+    pool = result["publishability_candidate_pool"]
+    assert pool["prepared_frontier_only"] is True
+    assert pool["full_universe_expansion_performed"] is False
+    assert pool["source_ranked_candidate_count"] == 1
+    assert pool["reserve_candidate_count"] == 4
+    assert pool["combined_candidate_count"] == 5
+    assert pool["compact_universe_exhausted_by_pool"] is True
     assert result["candidate_walk"]["attempted_candidate_count"] == 5
+    assert result["ranked_viability"]["reason_code"] == (
+        "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+    )
+    attempts = result["ranked_viability"]["rank_attempts"]
+    assert len({row["cluster_id"] for row in attempts}) == 5
+    attempted_ids = {
+        headline_id
+        for row in attempts
+        for headline_id in row["headline_ids"]
+    }
     frontier = result["prepared_story_frontier"]
     assert frontier["prepared_headline_identity_count"] == 8
     assert frontier["distinct_story_opportunity_count"] == 5
@@ -1892,6 +2088,7 @@ def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk
     assert set(frontier["leaf_covered_headline_ids"]) == set(
         rolling_input["unique_headline_ids"]
     )
+    assert attempted_ids == set(frontier["prepared_headline_ids"])
     assert any(
         row["relationship"] == "material_update"
         and row["headline_identity_count"] == 2

@@ -120,6 +120,83 @@ def test_breaking_and_ordinary_briefs_are_native_self_contained_and_undispatched
             )
 
 
+def test_document_lens_without_article_media_uses_eight_text_only_native_packages():
+    canonical_url = "https://capitalchronicle.substack.com/p/pending-publication"
+    article = {
+        "title": "State Department Approves Possible APKWS II Sale to Italy",
+        "subtitle": (
+            "The August 21 notice covers Italy's request for 5,031 guidance "
+            "sections under Transmittal #26-92."
+        ),
+        "social_hook": (
+            "The State Department approved a possible foreign military sale "
+            "to Italy."
+        ),
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "substack_body_markdown": (
+            "The official notice establishes the possible-sale status. "
+            "Italy requested 5,031 guidance sections. "
+            "A later official record would establish a subsequent change."
+        ),
+    }
+
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection={},
+        canonical_url=canonical_url,
+        media_asset_ids=(),
+    )
+
+    assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
+    assert len(payloads) == 8
+    assert all(canonical_url in str(payload.get("full_text") or payload["text"]) for payload in payloads.values())
+    assert all(payload["hard_truncation_used"] is False for payload in payloads.values())
+    for platform in ("x", "threads"):
+        assert all(not row["media_asset_ids"] for row in payloads[platform]["posts"])
+        assert payloads[platform]["quality_metrics"]["complete_article_visual_count"] == 0
+
+
+def test_text_only_derivatives_skip_title_equivalent_hook_lede_and_context():
+    title = "State Department Approves Possible APKWS II Sale to Italy"
+    canonical_url = "https://capitalchronicle.substack.com/p/italy-apkws-document-lens"
+    article = {
+        "title": title,
+        "subtitle": "The State Department approved the possible APKWS II sale to Italy.",
+        "social_hook": title,
+        "social_lede": f"{title}.",
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "editorial_mode": "DOCUMENT_LENS",
+        "substack_body_markdown": " ".join(
+            (
+                "The State Department approved a possible Foreign Military Sale of APKWS II equipment to Italy.",
+                "Italy requested 5,031 Advanced Precision Kill Weapon System II guidance sections and related equipment.",
+                "The August 21 congressional notification is recorded as Transmittal #26-92.",
+                "The notice describes a proposed sale, while a later official record would be needed to establish a subsequent phase.",
+            )
+        ),
+    }
+
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection={},
+        canonical_url=canonical_url,
+        media_asset_ids=(),
+    )
+
+    assert len(payloads) == 8
+    assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
+    for destination, payload in payloads.items():
+        public_text = str(payload.get("full_text") or payload["text"])
+        assert public_text.count(title) == 1, destination
+        assert canonical_url in public_text
+        assert any(
+            detail in public_text
+            for detail in ("5,031", "Transmittal #26-92", "proposed sale")
+        ), destination
+        assert payload["hard_truncation_used"] is False
+    assert len({_normalized_reader_text(payload) for payload in payloads.values()}) >= 4
+
+
 def test_native_briefs_never_promote_pre_evidence_selection_hypotheses() -> None:
     canonical_url = "https://capitalchronicle.substack.com/p/final-article-only"
     article = {
@@ -258,7 +335,7 @@ def test_zero_article_media_plan_contains_all_nine_and_no_optional_skip(tmp_path
     )
     assert plan["skipped_derivative_destinations"] == []
     assert plan["pre_substack_blockers"] == []
-    assert plan["transaction_readiness"] == "READY"
+    assert plan["transaction_readiness"] == "CANONICAL_READY_DERIVATIVES_INDEPENDENT"
     assert next(
         row for row in plan["destinations"] if row["destination"] == "instagram_business"
     )["delivery_media_required"] is True
@@ -316,7 +393,7 @@ def test_cloudinary_precondition_runs_only_after_full_nine_and_unknown_write_zer
         work_item_id="work-1",
         plan={"output_dir": str(tmp_path)},
         preconditions={
-            "full_v1_distribution_status": "FULL_V1_DISTRIBUTION_READY",
+            "canonical_publication_status": "RECONCILED_CONFIRMED",
             "unknown_write_count": 0,
         },
     )

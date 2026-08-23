@@ -19,6 +19,8 @@ from live_contentops.official_primary_source_locator_v1 import (
 )
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     _leaf_evidence_reachability,
+    _rolling_x_publishability_path_profile,
+    build_prepared_rolling_x_candidate_state,
     build_bounded_rolling_x_publishability_pool,
     build_deterministic_rolling_x_assignment_fallback,
 )
@@ -229,6 +231,193 @@ def test_reachability_no_current_path_when_no_bound_official_url():
     assert reach["direct_primary_binding"] is False
     assert reach["supported_source_families"] == []
     assert reach["current_v1_path"] == "NO_CURRENT_PATH"
+
+
+def test_reachability_projects_existing_exact_state_fms_locator_from_context():
+    cluster = {"member_headline_ids": ["h1"]}
+    records = {
+        "h1": {
+            "headline_id": "h1",
+            "source_timestamp_utc": "2026-08-21T16:28:47Z",
+            "external_content": {
+                "headline_text": (
+                    "U.S. STATE DEPARTMENT APPROVES POSSIBLE SALE OF UH-60M BLACK HAWK "
+                    "HELICOPTERS TO NORWAY WORTH ABOUT $2.3 BILLION."
+                ),
+                "official_source_urls": [],
+            },
+        }
+    }
+    reach = _leaf_evidence_reachability(cluster, records)
+    assert reach["direct_primary_binding"] is False
+    assert reach["bounded_locator_available"] is True
+    assert reach["context_routed_locator_applicable"] is True
+    assert reach["context_routed_locator_surface_ids"] == [
+        "state_current_fms_press_releases_v1"
+    ]
+    assert reach["context_routed_locator_families"] == ["official_regulatory_fiscal"]
+    assert reach["current_v1_path"] == "LOCATOR_SUPPORTED"
+    assert reach["grants_factual_or_evidence_or_publication_authority"] is False
+
+
+def test_publishability_path_keeps_direct_first_then_exact_context_locator():
+    records = {
+        "direct": {
+            "external_content": {
+                "headline_text": "Federal Reserve decision",
+                "official_source_urls": [FR_STATEMENT_URL],
+            }
+        },
+        "located": {
+            "external_content": {
+                "headline_text": (
+                    "U.S. STATE DEPARTMENT OKAYS POSSIBLE SALE OF AIM-9X SIDEWINDER "
+                    "BLOCK II MISSILES TO SOUTH KOREA."
+                ),
+                "official_source_urls": [],
+            }
+        },
+        "secondary": {
+            "external_content": {
+                "headline_text": "Public report",
+                "official_source_urls": ["https://www.reuters.com/world/example"],
+            }
+        },
+    }
+    direct = _rolling_x_publishability_path_profile(
+        ["direct"], records_by_id=records
+    )
+    located = _rolling_x_publishability_path_profile(
+        ["located"], records_by_id=records
+    )
+    secondary = _rolling_x_publishability_path_profile(
+        ["secondary"], records_by_id=records
+    )
+    assert direct["tier"] == "EXACT_OFFICIAL_DIRECT"
+    assert located["tier"] == "EXACT_CONTEXT_ROUTED_OFFICIAL_LOCATOR"
+    assert located["context_routed_locator_surface_ids"] == [
+        "state_current_fms_press_releases_v1"
+    ]
+    assert secondary["tier"] == "REPUTABLE_PUBLIC_SECONDARY"
+    assert direct["priority"] > located["priority"] > secondary["priority"]
+    assert located["grants_factual_or_evidence_or_publication_authority"] is False
+
+
+def test_autonomous_discovery_candidate_outranks_known_unclassified_locator_only_when_available():
+    records = {
+        "discovery": {"external_content": {"headline_text": "Current event"}},
+        "unclassified": {
+            "external_content": {
+                "headline_text": "Opinion locator",
+                "official_source_urls": ["https://example.com/opinion"],
+            }
+        },
+    }
+
+    discovery = _rolling_x_publishability_path_profile(
+        ["discovery"],
+        records_by_id=records,
+        autonomous_discovery_available=True,
+    )
+    unclassified = _rolling_x_publishability_path_profile(
+        ["unclassified"],
+        records_by_id=records,
+        autonomous_discovery_available=True,
+    )
+
+    assert discovery["tier"] == "AUTONOMOUS_DISCOVERY_AVAILABLE"
+    assert discovery["priority"] > unclassified["priority"]
+    assert discovery["autonomous_discovery_grants_authority"] is False
+
+
+def test_explicit_reputable_attribution_is_routing_only_and_preferred_within_discovery_pool():
+    rows = []
+    for index, text in enumerate(("Unattributed current development", "Trade talks resume - CNBC")):
+        rows.append(
+            {
+                "headline_id": f"h{index}",
+                "source_timestamp_utc": "2026-08-23T01:00:00Z",
+                "external_content": {
+                    "headline_text": text,
+                    "official_source_urls": [],
+                },
+            }
+        )
+    rolling_input = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "window_hours": 24,
+        "headlines": rows,
+        "unique_headline_ids": ["h0", "h1"],
+    }
+
+    profile = _rolling_x_publishability_path_profile(
+        ["h1"],
+        records_by_id={row["headline_id"]: row for row in rows},
+        autonomous_discovery_available=True,
+    )
+    prepared = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-08-23T02:00:00Z",
+        max_candidates=1,
+        autonomous_source_discovery_available=True,
+        source_route_health={"hosts": []},
+    )
+
+    assert profile["attributed_source_host_hints"] == ["cnbc.com"]
+    assert profile["attributed_source_hints_grant_authority"] is False
+    assert prepared["prepared_frontier"]["selected_headline_ids"] == ["h1"]
+    assert prepared["source_route_health_grants_authority"] is False
+    reach = _preselection_evidence_reachability(
+        {"why_now": "CNBC reports trade talks resumed"},
+        {},
+        sourceability_observations={
+            "hosts": {
+                "cnbc.com": {
+                    "successful_retrieval_count": 1,
+                    "access_failure_count": 0,
+                }
+            }
+        },
+    )
+    assert reach["attributed_reputable_routing_hint"] is True
+    assert reach["observed_same_day_host_success_count"] == 1
+    assert reach["attributed_host_hints_grant_source_or_factual_authority"] is False
+    assert reach["factual_authority_granted"] is False
+
+
+def test_cheap_frontier_prefers_completed_event_over_future_plan_without_granting_truth():
+    rows = [
+        {
+            "headline_id": "future",
+            "source_timestamp_utc": "2026-08-23T00:00:00Z",
+            "external_content": {
+                "headline_text": "Company plans to launch a product next month",
+                "official_source_urls": [],
+            },
+        },
+        {
+            "headline_id": "completed",
+            "source_timestamp_utc": "2026-08-23T00:00:00Z",
+            "external_content": {
+                "headline_text": "Company launched the product today",
+                "official_source_urls": [],
+            },
+        },
+    ]
+    prepared = build_prepared_rolling_x_candidate_state(
+        rolling_input={
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "window_hours": 24,
+            "headlines": rows,
+            "unique_headline_ids": ["future", "completed"],
+        },
+        prepared_at_utc="2026-08-23T02:00:00Z",
+        max_candidates=1,
+        autonomous_source_discovery_available=True,
+    )
+
+    assert prepared["prepared_frontier"]["selected_headline_ids"] == ["completed"]
+    assert prepared["factual_or_numeric_authority_granted"] is False
 
 
 def test_reachability_conditional_when_urls_bound_but_outside_supported_family():
@@ -500,6 +689,52 @@ def test_preselection_caps_editorial_rank_decay_for_large_publishability_pool(
     }
 
     assert scores["first"] - scores["reserve"] == 16.0
+
+
+def test_preselection_falls_back_when_selected_product_mode_has_no_story_capability(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.query_story_scoped_cc_context",
+        lambda _catalog, _entities: {
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matches": [],
+            "grants_factual_or_numeric_authority": False,
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.select_growth_editorial_mode",
+        lambda _cluster, _novelty: {
+            "mode": "WEEK_AHEAD_OR_WATCH",
+            "quiet_day_utility_candidate": False,
+        },
+    )
+    result = apply_preselection_intelligence(
+        [
+            {
+                "cluster_id": "geopolitical-current-event",
+                "rank": 1,
+                "headline_ids": ["h1"],
+                "story_type": "geopolitical_event",
+            }
+        ],
+        published_corpus=[],
+        cc_catalog={"stores": []},
+    )
+    row = result["ranked_clusters"][0]
+
+    assert row["resolved_article_mode"] == "BREAKING_BRIEF"
+    assert row["growth_editorial_mode_resolution"]["preselection_capability_fallback_from"] == (
+        "WEEK_AHEAD_OR_WATCH"
+    )
+    assert (
+        row["growth_editorial_mode_resolution"][
+            "capability_fallback_changes_truth_or_evidence_gates"
+        ]
+        is False
+    )
 
 
 def test_publishability_pool_preserves_semantic_no_publication_decision():

@@ -1,0 +1,100 @@
+{
+  "after": {
+    "accepted_source_identity_count_received": 1,
+    "artificial_aljazeera_duplicate_absent": true,
+    "combined_classification": "PASS",
+    "deterministic_classification": "PASS",
+    "evidence_document_id_count_received": 1,
+    "issues": [],
+    "material_failed_checks": [],
+    "omitted_claim_count_received": 3,
+    "prompt_sha256": "aef3c7d8516ea3c24f310425eef1f2ee1d57d25a9e8642ff2435e7597efd1cb6",
+    "reader_visible_prose_sha256": "3b9937f86d40f7bb10e544b66a3cdbcab185901c79a988a0c25f366a0c9ab2b2",
+    "review_sha256": "4b84c5ba8b611fb25a89fef319f115a50f0ceece404bcbb113ccffcd6bc2930b",
+    "semantic_decision": "PASS",
+    "semantic_review_contract_sha256": "c826b94bb9545beab12161c3dc61fc629c73f03efe674a90fe3e53661926b79f",
+    "semantic_review_receipt": {
+      "advisory_failed_checks": [],
+      "advisory_only_revision_normalized_to_pass": false,
+      "checks": {
+        "clear_news_peg": true,
+        "concise_nut_graf": true,
+        "high_information_density": true,
+        "material_claims_supported": true,
+        "material_evidence_matches": true,
+        "material_market_consequence": true,
+        "mode_consistent": true,
+        "no_fabricated_numbers": true,
+        "no_fabricated_quotes": true,
+        "no_factual_contradiction": true,
+        "no_financial_advice": true,
+        "no_misleading_framing": true,
+        "no_unsupported_certainty": true,
+        "reader_facing_prose": true,
+        "relevant_context": true,
+        "severe_coherence_ok": true,
+        "source_backed_mechanism": true,
+        "specific_confirmation_condition": true,
+        "specific_falsification_condition": true,
+        "why_now": true
+      },
+      "decision": "PASS",
+      "failed_checks": [],
+      "issues": [],
+      "material_failed_checks": [],
+      "missing_or_invalid_checks": [],
+      "mode": "analysis",
+      "prompt_sha256": "aef3c7d8516ea3c24f310425eef1f2ee1d57d25a9e8642ff2435e7597efd1cb6",
+      "provider": "9router",
+      "provider_decision": "PASS",
+      "publication_authority": false,
+      "review_sha256": "4b84c5ba8b611fb25a89fef319f115a50f0ceece404bcbb113ccffcd6bc2930b",
+      "status": "SUCCESS",
+      "summary": "The article accurately reflects the supported claims from the source, provides clear analytical context without overstating causality, and includes specific, observable confirmation and falsification conditions. No unsupported claims or forbidden material were included."
+    },
+    "semantic_status": "SUCCESS",
+    "supported_claim_count_received": 6
+  },
+  "before": {
+    "deterministic_classification": "PASS",
+    "empty_supported_claim_contract_proven": true,
+    "issue_codes": [
+      "unsupported_claims",
+      "reader_facing_prose"
+    ],
+    "prompt_sha256": "e81533baaa31c1893be53bb04e984dd150a0083eac26230dadcaf2f435bc3a47",
+    "rendered_citation_artifact_proven": true,
+    "review_sha256": "282b4f1109886662d82397d74d16015737fde56ef821ea28c6f44deea69af2ab",
+    "semantic_decision": "NEEDS_REVISION",
+    "semantic_status": "SUCCESS",
+    "supported_claim_count_received": 0
+  },
+  "exact_failed_candidate": {
+    "article_title": "Oil Prices Rose and US Stocks Fell as Treasury Moved to Double Debt Buybacks",
+    "candidate_path": "A:/Capital Chronicle/Worktrees/ContentOps/v1-throughput-sourceability-grounded-discovery-closeout-v1/docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/frontier_4/canonical_zero_write_rehearsal_attempt_2/rolling_x_grounded_article_media_candidate_4_v1.json",
+    "candidate_sha256": "ed5586f64aab345a88b5bff9eb313c14315aae35b07d911521f1558da17ad416",
+    "cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+    "failed_cycle_path": "A:/Capital Chronicle/Worktrees/ContentOps/v1-throughput-sourceability-grounded-discovery-closeout-v1/docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/frontier_4/canonical_zero_write_rehearsal_attempt_2/rolling_x_newsroom_cycle_evidence_v1.json",
+    "failed_cycle_sha256": "5d2d6c3f5ea921e85e8bf9ec02b37f5db63210fa0788e315cf04083d93cb7011",
+    "viability_path": "A:/Capital Chronicle/Worktrees/ContentOps/v1-throughput-sourceability-grounded-discovery-closeout-v1/docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/frontier_4/route_probe/rolling_x_ranked_viability_v1.json",
+    "viability_sha256": "d156e4215884742a3b05dfb54aba581601a4d440ff90f46452e0066c7d0a6c29"
+  },
+  "execution": {
+    "live_9router_call_performed": true,
+    "model_or_route": "9router/editorial_review",
+    "public_writes": 0,
+    "publication_authority_granted": false,
+    "unknown_write": 0
+  },
+  "ownership_reconciliation": {
+    "authority_widened": false,
+    "desktop_high_primary_editorial_coordinator": true,
+    "deterministic_gate_remains_hard": true,
+    "nine_router_semantic_review_retained_as_hard": true,
+    "reason": "The reviewer independently checks factual support, contradictions, fabricated numbers or quotes, misleading framing, and severe coherence after native worker source rendering. It cannot override a deterministic blocker and grants no publication authority. The failure was its incomplete input projection, not duplicate publication authority.",
+    "semantic_review_cannot_override_deterministic_blockers": true
+  },
+  "receipt_sha256": "5758d13facb6110a2e5fd3be6bcba14cd0e8b7bad32cc69add4bb36273d521a2",
+  "schema_version": "contentops.v1_throughput_semantic_contract_replay.v1",
+  "task": "TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1"
+}

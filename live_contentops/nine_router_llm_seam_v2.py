@@ -44,7 +44,6 @@ SCHEMA_VERSION = "contentops.nine_router_llm_seam.v2"
 #: Role/task IDs for the call sites that genuinely invoke a model today. Recorded on every
 #: attempt so evidence can be grouped by newsroom stage.
 ROLE_ARTICLE_WRITING = "article_writing"
-ROLE_ARTICLE_WRITING_CX_RESCUE = "v1_article_writing_cx_utility_rescue"
 ROLE_PLATFORM_VARIANTS = "platform_native_variant_generation"
 ROLE_EDITORIAL_REVIEW = "tier1_editorial_review"
 ROLE_IDEA_RANKING = "substack_idea_ranking"
@@ -57,7 +56,6 @@ ROLE_PASSIVE_INTERACTION_QUALITY = "passive_interaction_quality_classification"
 
 INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_ARTICLE_WRITING,
-    ROLE_ARTICLE_WRITING_CX_RESCUE,
     ROLE_PLATFORM_VARIANTS,
     ROLE_EDITORIAL_REVIEW,
     ROLE_IDEA_RANKING,
@@ -67,6 +65,14 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
     ROLE_PASSIVE_INTERACTION_QUALITY,
+)
+
+# This is the current V1 routed-call graph contract.  Keep dynamic role IDs here rather
+# than letting a new caller inherit a model pool without an auditable role-matrix update.
+CURRENT_V1_ROUTED_ROLE_IDS: tuple[str, ...] = (
+    *INTEGRATED_ROLES,
+    "rolling_x_story_type_classifier",
+    "nine_router_preflight_probe",
 )
 
 #: Stages that are deliberately deterministic. Listed explicitly so a future change that
@@ -259,14 +265,16 @@ def integration_manifest() -> dict[str, Any]:
         "provider_adapter": "live_contentops.nine_router_provider_adapter_v2.call_nine_router",
         "ordered_model_pool": list(ORDERED_MODEL_POOL),
         "role_specific_model_pools": {
-            role: list(model_pool_for_role(role)) for role in INTEGRATED_ROLES
+            role: list(model_pool_for_role(role)) for role in CURRENT_V1_ROUTED_ROLE_IDS
         },
-        "global_quality_first_pool_unchanged": True,
+        "v1_gemini_only_model_authority": True,
+        "forbidden_non_gemini_v1_models_reachable": False,
         "integrated_roles": list(INTEGRATED_ROLES),
+        "current_v1_routed_role_ids": list(CURRENT_V1_ROUTED_ROLE_IDS),
         "integrated_call_sites": {
-            ROLE_ARTICLE_WRITING: "ai_research_canonical_article_engine_v6.run_article_engine",
-            ROLE_ARTICLE_WRITING_CX_RESCUE: (
-                "rolling_x_grounded_article_media_builder_v1._default_article_generator"
+            ROLE_ARTICLE_WRITING: (
+                "legacy zero-write article compatibility; publication-qualified articles "
+                "use a native Codex Desktop XHIGH worker"
             ),
             ROLE_PLATFORM_VARIANTS: (
                 "platform_native_variant_generator_live_v6.generate_live_platform_variants"

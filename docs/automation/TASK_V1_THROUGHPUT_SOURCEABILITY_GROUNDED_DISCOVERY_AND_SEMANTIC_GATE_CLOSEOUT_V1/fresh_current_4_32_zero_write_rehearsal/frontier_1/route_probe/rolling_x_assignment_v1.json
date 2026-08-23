@@ -1,0 +1,1301 @@
+{
+  "architecture": {
+    "arbitrary_first_n_truncation": false,
+    "cross_partition_merge_supported": true,
+    "global_editor_receives_raw_headlines": false,
+    "global_editor_role": "rolling_x_newsroom_assignment",
+    "hierarchical_assignment": true,
+    "leaf_cluster_count": 8,
+    "leaf_partition_count": 1,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "llm_call_per_headline": false,
+    "quality_first_global_editor": true
+  },
+  "assignment_logical_hash": "90c121230673345cea64e13369b1c89e6ad7151dafa323857be37c10888b4391",
+  "assignment_scope": "BOUNDED_PREPARED_FRONTIER_ONLY",
+  "checkpoint_resume": {
+    "called_partition_ids": [
+      "rolling-x-leaf-08ea94e8fd6fa9d7b42a"
+    ],
+    "global_checkpoint_reused": false,
+    "global_editor_called_after_complete_leaf_coverage": true,
+    "reused_partition_ids": []
+  },
+  "compact_global_editor_input": {
+    "all_leaf_clusters_included": true,
+    "attention_is_editorial_priority_not_factual_truth": true,
+    "canonical_input_hash": "31c9e74609b75e2076125922f9ab59b0ce583f505b7658956333b7975c267574",
+    "cutoff_time_utc": "2026-08-23T01:18:44.810438Z",
+    "input_headline_count": 12,
+    "leaf_cluster_count": 8,
+    "leaf_cluster_summaries": [
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "inflation",
+            "china",
+            "commodities"
+          ],
+          "first_utc": "2026-08-22T07:37:16Z",
+          "latest_utc": "2026-08-22T07:37:16Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 17.6913,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "China",
+          "Energy Markets",
+          "Crude Oil",
+          "Commodities"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-0aa8152596f3440c622a",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 80,
+          "engagement": 72,
+          "evidence": 75,
+          "saturation_risk": 30,
+          "seo": 78
+        },
+        "summary": "China limits its crude oil purchasing as global oil prices remain elevated above ninety dollars per barrel."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "artificial intelligence",
+            "momentum trading",
+            "quantitative finance"
+          ],
+          "first_utc": "2026-08-22T09:59:21Z",
+          "latest_utc": "2026-08-22T09:59:21Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 15.3233,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "The Market Ear",
+          "Artificial Intelligence",
+          "Stock Market Volatility",
+          "Momentum Trading"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-29854067c236589df7c0",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 75,
+          "engagement": 72,
+          "evidence": 60,
+          "saturation_risk": 30,
+          "seo": 70
+        },
+        "summary": "Market analysis shows AI-driven volatility has led to more frequent 5% single-day momentum selloffs this year than in the previous five years combined."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "elections",
+            "federal register",
+            "judiciary"
+          ],
+          "first_utc": "2026-08-22T01:54:52Z",
+          "latest_utc": "2026-08-22T01:54:52Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.398,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "USPS",
+          "Federal Register",
+          "Supreme Court",
+          "Elections"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-317a21b74b4f7cf9cc05",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 88,
+          "engagement": 87,
+          "evidence": 80,
+          "saturation_risk": 45,
+          "seo": 85
+        },
+        "summary": "The US Postal Service finalizes a regulation to deny delivery of mail-in ballots with mismatched addresses, delaying implementation pending court orders."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "demographics",
+            "family policy",
+            "interventionism"
+          ],
+          "first_utc": "2026-08-22T01:45:07Z",
+          "latest_utc": "2026-08-22T01:45:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.5605,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "ZeroHedge",
+          "Demographics",
+          "Interventionism",
+          "Family Policy"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-7d1645ae4ed6b171221a",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 50,
+          "engagement": 60,
+          "evidence": 40,
+          "saturation_risk": 20,
+          "seo": 55
+        },
+        "summary": "An opinion piece argues that government interventionism is negatively impacting family structures and reducing the willingness to reproduce."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "border security",
+            "ceuta",
+            "european union"
+          ],
+          "first_utc": "2026-08-22T11:00:06Z",
+          "latest_utc": "2026-08-22T11:00:06Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 14.3108,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Ceuta",
+          "Spain",
+          "Migration",
+          "Border Security"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-7dabf18a2e470458812d",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 70,
+          "engagement": 70,
+          "evidence": 65,
+          "saturation_risk": 35,
+          "seo": 75
+        },
+        "summary": "Reports indicate a Spanish beach was stormed as migration-related chaos spreads from the North African enclave of Ceuta."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "assistant u.s. attorney",
+            "death investigation",
+            "department of justice"
+          ],
+          "first_utc": "2026-08-22T01:20:07Z",
+          "latest_utc": "2026-08-22T01:20:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 23.9772,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Assistant U.S. Attorney",
+          "Department of Justice",
+          "Law Enforcement",
+          "Federal Government"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-8d01674cf0315a363c96",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 65,
+          "engagement": 68,
+          "evidence": 55,
+          "saturation_risk": 25,
+          "seo": 70
+        },
+        "summary": "An Assistant U.S. Attorney has been found dead inside a federal building, prompting investigations."
+      },
+      {
+        "attention": {
+          "authors": 2,
+          "concentration": [
+            "fiscal",
+            "bond yields",
+            "currency markets"
+          ],
+          "first_utc": "2026-08-22T06:37:35Z",
+          "latest_utc": "2026-08-22T11:55:05Z",
+          "material_update": false,
+          "members": 5,
+          "recency_hours": 13.3944,
+          "update_velocity": 0.7559
+        },
+        "entities_topics": [
+          "US Treasury",
+          "US Dollar",
+          "Gold",
+          "Emerging Markets"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-9dd18faf15d28638848a",
+        "partition": 0,
+        "relationship": "incremental_update",
+        "signals": {
+          "audience": 85,
+          "engagement": 75,
+          "evidence": 70,
+          "saturation_risk": 40,
+          "seo": 80
+        },
+        "summary": "Analysts highlight a major US Dollar debasement cycle and rising gold demand following the US Treasury's buyback announcement, warning of market reactions to artificial yield caps."
+      },
+      {
+        "attention": {
+          "authors": 1,
+          "concentration": [
+            "benjamin netanyahu",
+            "diplomacy",
+            "geopolitics"
+          ],
+          "first_utc": "2026-08-22T11:35:07Z",
+          "latest_utc": "2026-08-22T11:35:07Z",
+          "material_update": false,
+          "members": 1,
+          "recency_hours": 13.7272,
+          "update_velocity": null
+        },
+        "entities_topics": [
+          "Turkey",
+          "Benjamin Netanyahu",
+          "Interpol",
+          "Israel"
+        ],
+        "evidence_reachability": {
+          "bounded_locator_available": false,
+          "context_routed_locator_applicable": false,
+          "context_routed_locator_families": [],
+          "context_routed_locator_surface_ids": [],
+          "current_v1_path": "CONDITIONAL",
+          "direct_primary_binding": false,
+          "grants_factual_or_evidence_or_publication_authority": false,
+          "supported_source_families": []
+        },
+        "id": "rolling-x-leaf-cluster-eac11c04adba5f656159",
+        "partition": 0,
+        "relationship": "distinct",
+        "signals": {
+          "audience": 90,
+          "engagement": 88,
+          "evidence": 80,
+          "saturation_risk": 50,
+          "seo": 85
+        },
+        "summary": "Turkey issues an arrest warrant for Israeli Prime Prime Minister Benjamin Netanyahu and seeks an Interpol Red Notice, escalating geopolitical tensions."
+      }
+    ],
+    "leaf_partition_count": 1,
+    "raw_headline_universe_included": false
+  },
+  "coverage": {
+    "dropped_input_count": 0,
+    "duplicated_input_count": 0,
+    "expected_input_count": 12,
+    "leaf_assigned_input_count": 12,
+    "leaf_complete_exact_partition": true,
+    "unknown_input_count": 0
+  },
+  "decision": "SELECT_STORY",
+  "external_content_grants_authority": false,
+  "full_universe_semantic_assignment_performed": false,
+  "input_binding": {
+    "canonical_input_hash": "31c9e74609b75e2076125922f9ab59b0ce583f505b7658956333b7975c267574",
+    "complete_input_coverage_requested": true,
+    "input_count": 12,
+    "input_ids": [
+      "cc-x-headline-0751d8d085a41b31e7448f99",
+      "cc-x-headline-09f479aafdfc90f19d6430d3",
+      "cc-x-headline-0de6446837f0f5b5e0845a88",
+      "cc-x-headline-2068c5bff9683fc98f5447f4",
+      "cc-x-headline-2229a9596e2b09cb715967e9",
+      "cc-x-headline-2f8890156f139dc2cc267509",
+      "cc-x-headline-4138053c4738f8c83a00ccf7",
+      "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+      "cc-x-headline-a0040922ce0538f129be99d7",
+      "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "cc-x-headline-b37370dc85dbc1522e84062a",
+      "cc-x-headline-f057b9c338d9f38976c1c58a"
+    ]
+  },
+  "leaf_clusters": [
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 80,
+        "evidence_prospects": 75,
+        "qualified_engagement_potential": 72,
+        "saturation_risk": 30,
+        "seo_potential": 78
+      },
+      "canonical_representative_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "China"
+      ],
+      "event_topic_summary": "China limits its crude oil purchasing as global oil prices remain elevated above ninety dollars per barrel.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-0aa8152596f3440c622a",
+      "member_headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "topics": [
+        "Energy Markets",
+        "Crude Oil",
+        "Commodities",
+        "Global Trade",
+        "Inflation"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 75,
+        "evidence_prospects": 60,
+        "qualified_engagement_potential": 72,
+        "saturation_risk": 30,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-09f479aafdfc90f19d6430d3",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-09f479aafdfc90f19d6430d3"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "The Market Ear"
+      ],
+      "event_topic_summary": "Market analysis shows AI-driven volatility has led to more frequent 5% single-day momentum selloffs this year than in the previous five years combined.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-29854067c236589df7c0",
+      "member_headline_ids": [
+        "cc-x-headline-09f479aafdfc90f19d6430d3"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "topics": [
+        "Artificial Intelligence",
+        "Stock Market Volatility",
+        "Momentum Trading",
+        "Quantitative Finance"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 88,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 87,
+        "saturation_risk": 45,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-f057b9c338d9f38976c1c58a",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-f057b9c338d9f38976c1c58a"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "USPS",
+        "Federal Register",
+        "Supreme Court"
+      ],
+      "event_topic_summary": "The US Postal Service finalizes a regulation to deny delivery of mail-in ballots with mismatched addresses, delaying implementation pending court orders.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-317a21b74b4f7cf9cc05",
+      "member_headline_ids": [
+        "cc-x-headline-f057b9c338d9f38976c1c58a"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "topics": [
+        "Elections",
+        "Voting Regulations",
+        "Mail-in Ballots",
+        "US Politics",
+        "Judiciary"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 50,
+        "evidence_prospects": 40,
+        "qualified_engagement_potential": 60,
+        "saturation_risk": 20,
+        "seo_potential": 55
+      },
+      "canonical_representative_headline_id": "cc-x-headline-2f8890156f139dc2cc267509",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-2f8890156f139dc2cc267509"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "ZeroHedge"
+      ],
+      "event_topic_summary": "An opinion piece argues that government interventionism is negatively impacting family structures and reducing the willingness to reproduce.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-7d1645ae4ed6b171221a",
+      "member_headline_ids": [
+        "cc-x-headline-2f8890156f139dc2cc267509"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "topics": [
+        "Demographics",
+        "Interventionism",
+        "Family Policy",
+        "Socioeconomics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 70,
+        "evidence_prospects": 65,
+        "qualified_engagement_potential": 70,
+        "saturation_risk": 35,
+        "seo_potential": 75
+      },
+      "canonical_representative_headline_id": "cc-x-headline-4138053c4738f8c83a00ccf7",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-4138053c4738f8c83a00ccf7"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Ceuta",
+        "Spain"
+      ],
+      "event_topic_summary": "Reports indicate a Spanish beach was stormed as migration-related chaos spreads from the North African enclave of Ceuta.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-7dabf18a2e470458812d",
+      "member_headline_ids": [
+        "cc-x-headline-4138053c4738f8c83a00ccf7"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "topics": [
+        "Migration",
+        "Border Security",
+        "European Union",
+        "Geopolitics"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 65,
+        "evidence_prospects": 55,
+        "qualified_engagement_potential": 68,
+        "saturation_risk": 25,
+        "seo_potential": 70
+      },
+      "canonical_representative_headline_id": "cc-x-headline-a0040922ce0538f129be99d7",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-a0040922ce0538f129be99d7"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Assistant U.S. Attorney",
+        "Department of Justice"
+      ],
+      "event_topic_summary": "An Assistant U.S. Attorney has been found dead inside a federal building, prompting investigations.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-8d01674cf0315a363c96",
+      "member_headline_ids": [
+        "cc-x-headline-a0040922ce0538f129be99d7"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "topics": [
+        "Law Enforcement",
+        "Federal Government",
+        "Death Investigation"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 85,
+        "evidence_prospects": 70,
+        "qualified_engagement_potential": 75,
+        "saturation_risk": 40,
+        "seo_potential": 80
+      },
+      "canonical_representative_headline_id": "cc-x-headline-2068c5bff9683fc98f5447f4",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-b37370dc85dbc1522e84062a",
+          "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+          "cc-x-headline-2068c5bff9683fc98f5447f4",
+          "cc-x-headline-2229a9596e2b09cb715967e9",
+          "cc-x-headline-0de6446837f0f5b5e0845a88"
+        ],
+        "relationship": "incremental_update"
+      },
+      "entities": [
+        "US Treasury",
+        "US Dollar",
+        "Gold",
+        "Emerging Markets",
+        "Japan"
+      ],
+      "event_topic_summary": "Analysts highlight a major US Dollar debasement cycle and rising gold demand following the US Treasury's buyback announcement, warning of market reactions to artificial yield caps.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-9dd18faf15d28638848a",
+      "member_headline_ids": [
+        "cc-x-headline-b37370dc85dbc1522e84062a",
+        "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+        "cc-x-headline-2068c5bff9683fc98f5447f4",
+        "cc-x-headline-2229a9596e2b09cb715967e9",
+        "cc-x-headline-0de6446837f0f5b5e0845a88"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "topics": [
+        "Macroeconomics",
+        "Monetary Policy",
+        "Sovereign Debt",
+        "Currency Markets",
+        "Precious Metals",
+        "Bond Yields"
+      ]
+    },
+    {
+      "candidate_relevance_signals": {
+        "audience_relevance": 90,
+        "evidence_prospects": 80,
+        "qualified_engagement_potential": 88,
+        "saturation_risk": 50,
+        "seo_potential": 85
+      },
+      "canonical_representative_headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+      "duplicate_update_chain": {
+        "ordered_headline_ids": [
+          "cc-x-headline-0751d8d085a41b31e7448f99"
+        ],
+        "relationship": "distinct"
+      },
+      "entities": [
+        "Turkey",
+        "Benjamin Netanyahu",
+        "Interpol",
+        "Israel"
+      ],
+      "event_topic_summary": "Turkey issues an arrest warrant for Israeli Prime Prime Minister Benjamin Netanyahu and seeks an Interpol Red Notice, escalating geopolitical tensions.",
+      "leaf_cluster_id": "rolling-x-leaf-cluster-eac11c04adba5f656159",
+      "member_headline_ids": [
+        "cc-x-headline-0751d8d085a41b31e7448f99"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "topics": [
+        "Geopolitics",
+        "International Law",
+        "Diplomacy",
+        "Middle East Conflict"
+      ]
+    }
+  ],
+  "leaf_partitions": [
+    {
+      "headline_count": 12,
+      "headline_ids": [
+        "cc-x-headline-0751d8d085a41b31e7448f99",
+        "cc-x-headline-09f479aafdfc90f19d6430d3",
+        "cc-x-headline-0de6446837f0f5b5e0845a88",
+        "cc-x-headline-2068c5bff9683fc98f5447f4",
+        "cc-x-headline-2229a9596e2b09cb715967e9",
+        "cc-x-headline-2f8890156f139dc2cc267509",
+        "cc-x-headline-4138053c4738f8c83a00ccf7",
+        "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+        "cc-x-headline-a0040922ce0538f129be99d7",
+        "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "cc-x-headline-b37370dc85dbc1522e84062a",
+        "cc-x-headline-f057b9c338d9f38976c1c58a"
+      ],
+      "partition_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a",
+      "partition_index": 0,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "serialized_input_bytes": 10756,
+      "terminal_disposition": "ACCEPTED"
+    }
+  ],
+  "pre_assignment_compaction": {
+    "assignment_headline_count": 12,
+    "compaction_applied": true,
+    "factual_or_numeric_authority_granted": false,
+    "full_rolling_headline_count": 409,
+    "held_before_semantic_assignment_count": 397,
+    "llm_or_provider_calls": 0,
+    "publication_authority_granted": false,
+    "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+    "schema_version": "contentops.rolling_x_assignment_compaction.v1"
+  },
+  "prepared_candidate_logical_hash": "3cebb3545088d572cca0504f2f30c29c24a9383d474bc841b6474d0035c9d2d2",
+  "prepared_candidate_state_reused": true,
+  "ranked_clusters": [
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+      "headline_ids": [
+        "cc-x-headline-b37370dc85dbc1522e84062a",
+        "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+        "cc-x-headline-2068c5bff9683fc98f5447f4",
+        "cc-x-headline-2229a9596e2b09cb715967e9",
+        "cc-x-headline-0de6446837f0f5b5e0845a88"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-9dd18faf15d28638848a"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official US Treasury buyback announcement details and schedule",
+        "Current gold and DXY market data",
+        "Analyst notes on yield cap implications and debasement cycles"
+      ],
+      "rank": 1,
+      "selection_case": "This is a core Capital Chronicle macro story. The intersection of Treasury buybacks, dollar debasement fears, and gold demand provides a rich vein for market analysis and directly impacts our readers' portfolios.",
+      "seo_intent": "US Treasury buyback impact on dollar and gold demand",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-2068c5bff9683fc98f5447f4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b37370dc85dbc1522e84062a",
+          "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+          "cc-x-headline-2068c5bff9683fc98f5447f4",
+          "cc-x-headline-2229a9596e2b09cb715967e9",
+          "cc-x-headline-0de6446837f0f5b5e0845a88"
+        ],
+        "relationship": "incremental_update"
+      },
+      "visual_strategy": "Chart overlaying US Treasury yields, the DXY (Dollar Index), and Gold prices over the past 6 months to illustrate the divergence.",
+      "why_now": "The US Treasury's buyback announcement is triggering immediate reassessments of dollar strength and gold demand, with analysts warning of artificial yield caps."
+    },
+    {
+      "article_mode": "BREAKING_BRIEF",
+      "cluster_id": "rolling-x-global-cluster-590f7fc35e0d8e478936",
+      "headline_ids": [
+        "cc-x-headline-0751d8d085a41b31e7448f99"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-eac11c04adba5f656159"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Official statement from the Turkish judiciary or foreign ministry",
+        "Interpol confirmation or procedural status of the Red Notice request",
+        "Official Israeli government response"
+      ],
+      "rank": 2,
+      "selection_case": "High-impact geopolitical breaking news that will affect regional stability, diplomatic relations, and potentially defense and energy markets. Requires immediate, concise reporting.",
+      "seo_intent": "Turkey arrest warrant Benjamin Netanyahu Interpol Red Notice",
+      "story_mode": "reporting",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-0751d8d085a41b31e7448f99",
+        "ordered_headline_ids": [
+          "cc-x-headline-0751d8d085a41b31e7448f99"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Map showing Turkey and Israel with diplomatic status indicators, or a formal photo of the leaders with Interpol graphics.",
+      "why_now": "Turkey has just issued an arrest warrant for Israeli PM Netanyahu and is seeking an Interpol Red Notice, representing a severe and immediate escalation in Middle Eastern geopolitical tensions."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-ec66ffa3bc94e727fc18",
+      "headline_ids": [
+        "cc-x-headline-f057b9c338d9f38976c1c58a"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-317a21b74b4f7cf9cc05"
+      ],
+      "market_sensitive": false,
+      "needed_evidence": [
+        "Federal Register publication of the USPS rule",
+        "Court filings for the injunction or delay",
+        "Data on historical mismatched address ballot rejection rates"
+      ],
+      "rank": 3,
+      "selection_case": "Election integrity and infrastructure are massive audience drivers. Analyzing the legal and logistical mechanics of this USPS rule provides high-value context for voters and policy watchers.",
+      "seo_intent": "USPS mail-in ballot mismatched address regulation delayed",
+      "story_mode": "deep_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-f057b9c338d9f38976c1c58a",
+        "ordered_headline_ids": [
+          "cc-x-headline-f057b9c338d9f38976c1c58a"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Infographic explaining the ballot verification process and specifically where the USPS address matching rule applies in the chain of custody.",
+      "why_now": "The USPS has finalized a highly controversial regulation regarding mail-in ballots just ahead of election season, with immediate legal challenges delaying its implementation."
+    },
+    {
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "cluster_id": "rolling-x-global-cluster-6a64cf013292262f71e8",
+      "headline_ids": [
+        "cc-x-headline-b25c625dac499ab753cfa0a4"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-0aa8152596f3440c622a"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "Chinese customs data on recent crude imports",
+        "Statements or purchasing data from Chinese state refiners (Sinopec, PetroChina)",
+        "Current Brent and WTI pricing data"
+      ],
+      "rank": 4,
+      "selection_case": "China's demand destruction at the $90 threshold is a critical price-setting mechanism for global energy markets. This provides a clear ceiling narrative for the current oil rally.",
+      "seo_intent": "China limits crude oil purchases 90 barrel price ceiling",
+      "story_mode": "rapid_analysis",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-b25c625dac499ab753cfa0a4",
+        "ordered_headline_ids": [
+          "cc-x-headline-b25c625dac499ab753cfa0a4"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Line chart of Brent and WTI crude prices overlaid with Chinese crude import volumes to show the inverse relationship at the $90 mark.",
+      "why_now": "Global oil prices have sustained above $90 per barrel, prompting China to actively limit its crude purchasing to manage import costs."
+    },
+    {
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "cluster_id": "rolling-x-global-cluster-df1d8d8ae565f5cdc5d2",
+      "headline_ids": [
+        "cc-x-headline-09f479aafdfc90f19d6430d3"
+      ],
+      "leaf_cluster_ids": [
+        "rolling-x-leaf-cluster-29854067c236589df7c0"
+      ],
+      "market_sensitive": true,
+      "needed_evidence": [
+        "The specific market analysis report cited regarding the 5% selloffs",
+        "Historical daily momentum factor performance data",
+        "Trading volume data attributed to algorithmic and quant funds"
+      ],
+      "rank": 5,
+      "selection_case": "Provides a structural explanation for recent market volatility, appealing directly to our sophisticated financial audience looking for the 'why' behind sudden market drops.",
+      "seo_intent": "AI driven market volatility momentum selloffs quant trading",
+      "story_mode": "research_note",
+      "update_chain": {
+        "canonical_headline_id": "cc-x-headline-09f479aafdfc90f19d6430d3",
+        "ordered_headline_ids": [
+          "cc-x-headline-09f479aafdfc90f19d6430d3"
+        ],
+        "relationship": "distinct"
+      },
+      "visual_strategy": "Bar chart comparing the frequency of 5% single-day momentum selloffs this year versus the cumulative total of the past five years.",
+      "why_now": "New market analysis reveals a historic spike in 5% single-day momentum selloffs this year, driven by AI and quantitative trading strategies."
+    }
+  ],
+  "reason_code": null,
+  "router_calls": [
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "2debe16aea28a16b38e277819ef462287cf29b088a6c22b72e6190c55c07b43a",
+          "latency_seconds": 47.6234,
+          "logical_invocation_id": "inv_rolling_x_leaf_94a43fb320b0c8288950",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "cbd0fbf8eb6b6a25e21d2e5814a8bffb628ecf66f28855e49b422532116e72a7",
+          "prompt_logical_hash": "15340b0069abbea36337e1c488194b31dfcad1bba444b47f851029467104bfc2",
+          "prompt_template": "rolling_x_newsroom_leaf_scan",
+          "prompt_version": "v2",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-fkqKaubZB9TDs8IPnNK_gQU",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 5,
+          "requested_model": "vx/gemini-3.5-flash(high)",
+          "resolved_model": "gemini-3.5-flash",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.5-flash(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_leaf_94a43fb320b0c8288950",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 6,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 5,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_leaf_scan",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 10624,
+            "completion_tokens_details": {
+              "reasoning_tokens": 7745
+            },
+            "prompt_tokens": 6484,
+            "total_tokens": 17108
+          },
+          "work_item_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.5-flash(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_leaf_94a43fb320b0c8288950",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 5,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_leaf_94a43fb320b0c8288950",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.5-flash(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_leaf_scan",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 47.6246,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 10624.0,
+        "prompt_tokens": 6484.0,
+        "total_tokens": 17108.0
+      },
+      "work_item_id": "rolling-x-leaf-08ea94e8fd6fa9d7b42a"
+    },
+    {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": "a68b7aedc39ded086e099900715ebd8be8b1d74f43e5f3ce87748d5a685cbee6",
+          "latency_seconds": 32.5951,
+          "logical_invocation_id": "inv_rolling_x_global_96a79cac5cde3ce6d056",
+          "model_identity_provider_verified": true,
+          "model_ladder_position": 1,
+          "model_priority_index": 0,
+          "output_hash": "54ee3e7100b88dd03e274341ca22f0f05c8124dc53016cd3245805d486d970c7",
+          "prompt_logical_hash": "00eb4098725095638345c9e93a9ddee38a27ff888cd26ce1b850670f4253b7fb",
+          "prompt_template": "rolling_x_newsroom_compact_global_editor",
+          "prompt_version": "v7",
+          "provider": "9router",
+          "provider_invocation_id": "chatcmpl-rUqKav73JM2hpt8Pn7buuAM",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 3,
+          "requested_model": "vx/gemini-3.1-pro-preview(high)",
+          "resolved_model": "gemini-3.1-pro-preview",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "vx/gemini-3.1-pro-preview(high)": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "inv_rolling_x_global_96a79cac5cde3ce6d056",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 1,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 4,
+            "per_model_max_attempts": [
+              2,
+              2
+            ],
+            "remaining_attempt_budget": 3,
+            "wall_clock_budget_seconds": 1200.0
+          },
+          "retry_number_for_model": 0,
+          "role_task_id": "rolling_x_newsroom_assignment",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4368,
+            "completion_tokens_details": {
+              "reasoning_tokens": 2981
+            },
+            "prompt_tokens": 6048,
+            "total_tokens": 10416
+          },
+          "work_item_id": "rolling-x-global-31c9e74609b75e207612"
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "cycle_cached_unavailable_models_skipped": [],
+      "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "inv_rolling_x_global_96a79cac5cde3ce6d056",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": [
+          2,
+          2
+        ],
+        "remaining_attempt_budget": 3,
+        "wall_clock_budget_seconds": 1200.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "inv_rolling_x_global_96a79cac5cde3ce6d056",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "provider": "9router",
+      "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 1200.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 1,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 4,
+        "per_model_max_attempts": {
+          "vx/gemini-3.1-pro-preview(high)": 2,
+          "vx/gemini-3.5-flash(high)": 2
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "rolling_x_newsroom_assignment",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "vx/gemini-3.1-pro-preview(high)",
+      "terminal_disposition": "ACCEPTED",
+      "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 32.5969,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 4368.0,
+        "prompt_tokens": 6048.0,
+        "total_tokens": 10416.0
+      },
+      "work_item_id": "rolling-x-global-31c9e74609b75e207612"
+    }
+  ],
+  "router_output_grants_publication_authority": false,
+  "router_summary": {
+    "attempts": [
+      {
+        "attempt_number_for_model": 1,
+        "attempt_number_global": 1,
+        "cost": null,
+        "disposition": "accepted",
+        "failure_class": null,
+        "fallback_from": null,
+        "fallback_reason": null,
+        "gateway": "9router",
+        "governed_input_hash": "a68b7aedc39ded086e099900715ebd8be8b1d74f43e5f3ce87748d5a685cbee6",
+        "latency_seconds": 32.5951,
+        "logical_invocation_id": "inv_rolling_x_global_96a79cac5cde3ce6d056",
+        "model_identity_provider_verified": true,
+        "model_ladder_position": 1,
+        "model_priority_index": 0,
+        "output_hash": "54ee3e7100b88dd03e274341ca22f0f05c8124dc53016cd3245805d486d970c7",
+        "prompt_logical_hash": "00eb4098725095638345c9e93a9ddee38a27ff888cd26ce1b850670f4253b7fb",
+        "prompt_template": "rolling_x_newsroom_compact_global_editor",
+        "prompt_version": "v7",
+        "provider": "9router",
+        "provider_invocation_id": "chatcmpl-rUqKav73JM2hpt8Pn7buuAM",
+        "provider_status_class": "2xx_success",
+        "remaining_attempt_budget": 3,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "resolved_model": "gemini-3.1-pro-preview",
+        "retry_after_seconds": null,
+        "retry_budget_snapshot": {
+          "attempts_by_model": {
+            "vx/gemini-3.1-pro-preview(high)": 1
+          },
+          "consumed_attempts": 1,
+          "consumed_fallback_transitions": 0,
+          "consumed_repair_attempts": 0,
+          "consumed_sleep_seconds": 0.0,
+          "logical_invocation_id": "inv_rolling_x_global_96a79cac5cde3ce6d056",
+          "max_cumulative_retry_sleep_seconds": 45.0,
+          "max_fallback_transitions": 1,
+          "max_same_model_retries": 0,
+          "max_structured_output_repair_attempts": 1,
+          "max_total_provider_attempts": 4,
+          "per_model_max_attempts": [
+            2,
+            2
+          ],
+          "remaining_attempt_budget": 3,
+          "wall_clock_budget_seconds": 1200.0
+        },
+        "retry_number_for_model": 0,
+        "role_task_id": "rolling_x_newsroom_assignment",
+        "structured_validation_result": "PASS",
+        "usage": {
+          "completion_tokens": 4368,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2981
+          },
+          "prompt_tokens": 6048,
+          "total_tokens": 10416
+        },
+        "work_item_id": "rolling-x-global-31c9e74609b75e207612"
+      }
+    ],
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "budget_exhausted": false,
+    "budget_exhausted_reason": null,
+    "cycle_cached_unavailable_models_skipped": [],
+    "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+    "fallback_grants_publication_authority": false,
+    "fallback_output_uses_same_downstream_gates": true,
+    "final_retry_budget_snapshot": {
+      "attempts_by_model": {
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "consumed_attempts": 1,
+      "consumed_fallback_transitions": 0,
+      "consumed_repair_attempts": 0,
+      "consumed_sleep_seconds": 0.0,
+      "logical_invocation_id": "inv_rolling_x_global_96a79cac5cde3ce6d056",
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": [
+        2,
+        2
+      ],
+      "remaining_attempt_budget": 3,
+      "wall_clock_budget_seconds": 1200.0
+    },
+    "gateway": "9router",
+    "logical_invocation_id": "inv_rolling_x_global_96a79cac5cde3ce6d056",
+    "model_identity_note": null,
+    "model_identity_provider_verifiable": true,
+    "models_attempted_in_order": [
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "provider": "9router",
+    "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 1200.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 1,
+      "max_same_model_retries": 0,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 4,
+      "per_model_max_attempts": {
+        "vx/gemini-3.1-pro-preview(high)": 2,
+        "vx/gemini-3.5-flash(high)": 2
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "role_task_id": "rolling_x_newsroom_assignment",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "terminal_disposition": "ACCEPTED",
+    "terminal_selected_route": "vx/gemini-3.1-pro-preview(high)",
+    "total_attempts": 1,
+    "total_cost": null,
+    "total_elapsed_seconds": 32.5969,
+    "total_fallback_transitions": 0,
+    "total_retry_sleep_seconds": 0.0,
+    "total_structured_repair_attempts": 0,
+    "total_usage": {
+      "completion_tokens": 4368.0,
+      "prompt_tokens": 6048.0,
+      "total_tokens": 10416.0
+    },
+    "work_item_id": "rolling-x-global-31c9e74609b75e207612"
+  },
+  "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-0a280ef9fbfaf4661847",
+  "selected_headline_ids": [
+    "cc-x-headline-b37370dc85dbc1522e84062a",
+    "cc-x-headline-963aeafa9d924fd9e41b9fb0",
+    "cc-x-headline-2068c5bff9683fc98f5447f4",
+    "cc-x-headline-2229a9596e2b09cb715967e9",
+    "cc-x-headline-0de6446837f0f5b5e0845a88"
+  ],
+  "selection_rationale": "The rolling universe presents strong macro-financial and geopolitical narratives. The standout story is the US Treasury buyback announcement triggering dollar debasement fears and gold demand, which perfectly aligns with Capital Chronicle's core market audience. Secondary priorities include a major geopolitical escalation between Turkey and Israel, a critical US election infrastructure update regarding USPS mail-in ballots, Chinese crude oil demand destruction at the $90 threshold, and a structural market analysis on AI-driven volatility.",
+  "status": "SUCCESS",
+  "telemetry": {
+    "cost": null,
+    "elapsed_seconds_sum": 80.2215,
+    "end_to_end_300_seconds_is_quality_sla": false,
+    "fallback_transitions": 0,
+    "logical_router_calls": 2,
+    "provider_attempts": 2,
+    "token_usage": {
+      "completion_tokens": 14992.0,
+      "prompt_tokens": 12532.0,
+      "total_tokens": 27524.0
+    }
+  }
+}

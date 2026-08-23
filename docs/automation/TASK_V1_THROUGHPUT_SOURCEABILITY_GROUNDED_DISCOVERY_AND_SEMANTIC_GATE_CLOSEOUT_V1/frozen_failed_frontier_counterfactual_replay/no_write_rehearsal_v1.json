@@ -1,0 +1,64 @@
+{
+  "blockers": [],
+  "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+  "destination_readiness": {
+    "all_required_destinations_ready": true,
+    "destinations": {
+      "discord": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      },
+      "facebook_page": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      },
+      "instagram_business": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      },
+      "linkedin": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      },
+      "substack": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      },
+      "telegram": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      },
+      "threads": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      },
+      "x": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      },
+      "youtube": {
+        "identity_match": true,
+        "readiness_state": "READY_REHEARSAL_OVERRIDE_NO_WRITE_AUTHORITY",
+        "write_eligible": true
+      }
+    },
+    "fixture_bound": true,
+    "publication_authority": false
+  },
+  "distribution_warnings": [],
+  "public_write_performed": false,
+  "publishing_adapter_called": false,
+  "release_candidate_lock_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-throughput-sourceability-grounded-discovery-closeout-v1\\docs\\automation\\TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1\\frozen_failed_frontier_counterfactual_replay\\release_candidate_lock_v1.json",
+  "release_candidate_lock_sha256": "8daab5fe099c3570c4d17aa373f86c31f4270e1dc647cb402f23822f033dbada",
+  "run_id": "v1-frozen-throughput-counterfactual-replay",
+  "schema_version": "contentops.rolling_x_text_image_release_rehearsal.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73"
+}

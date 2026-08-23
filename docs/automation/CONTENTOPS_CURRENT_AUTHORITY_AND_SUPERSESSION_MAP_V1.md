@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Authority and Supersession Map V1
 
-Authority date: 2026-08-21
+Authority date: 2026-08-23
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, or branch assumptions.
@@ -31,34 +31,51 @@ This map prevents fresh sessions from reviving stale quota, scheduler, canary, o
 
 Jim's latest explicit instruction remains highest product authority.
 
-## Current V1 owner override
+## Current V1 evidence-foundation and quota-economics override
 
-The following rules are current and supersede all conflicting earlier wording:
+The `330f19787ee0bd8ecc60780417042e19d64f8a1a` evidence-foundation work is accepted as
+`CURRENTLY_PROVEN_AND_REUSE`: deterministic evidence, source health, exact redirect repair, frozen
+transport, and the `OfficialCodexUrlDiscoveryProvider` capability remain available. Its old
+per-trigger fresh Sol/HIGH discovery default is
+`PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED` and `SUPERSEDED_DO_NOT_REUSE_AS_DEFAULT`: 35 discovery
+calls and 10,237,897 discovery tokens for four ready candidates are not an unattended production
+default. Routine canonical V1 now leaves discovery disabled unless explicitly authorized as a
+bounded tail/proof invocation; a missing authorization remains the fail-closed
+`SOURCE_DISCOVERY_REQUIRED` abstention.
 
-1. BUILD/PROOF floor = `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES` per newsroom production day.
-2. FINAL V1 target = `5–8 PUBLISHED ARTICLES` per newsroom production day.
-3. Candidate abstention remains valid; a whole-day deficit is not healthy success.
-4. A production day ending below the build floor without an exact hard external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
-5. The intended 17:00, 21:00, 23:00, and following 01:00 Bangkok windows belong to one deterministic newsroom production day.
-6. Later routine opportunities must be able to recover earlier deficits through bounded additional candidate/article work.
-7. No fifth routine task may be created merely to satisfy the floor.
-8. Truth, evidence, numeric authority, rights, identity, and permission gates remain unchanged.
-9. Filler remains forbidden.
+The future quota-efficient batch/tail discovery architecture is a
+`NEW_IMPLEMENTATION_GAP`, not authority to build it in this task. Final 5–8/day claims require
+economically repeatable evidence acquisition. The prior Italy article audit, immediate-canary
+routing, and 4-article/32-derivative throughput build remain historical/non-routing here.
 
-## Codex Automation truth override
+Truth, evidence, numeric/CC authority, permission, freshness, rights, publication, and unknown-write
+gates remain hard. Sourceability and route health may reorder work only. Search output supplies URL
+locators only; deterministic retrieval, hashing, freshness, and claim validation remain mandatory.
+No fifth routine task, filler candidate, article generation, Automation enablement, or public write
+is authorized by the foundation closeout.
 
-Repository configuration is not host proof.
+## Hybrid Codex and current Automation truth override
 
-Historical evidence proves the exact four native Codex Automations existed on this host/profile
-and were repeatedly read back. Their current existence, configuration, and state require fresh
-host revalidation. The historical native HIGH -> fresh isolated XHIGH exercise and accepted
-nine-surface transport/readback exercise remain reusable capability evidence; neither supplies
-current Automation-state truth or restores publication-minimum-zero routing.
+Desktop standalone fresh-run Automations are the primary routine V1 heavy-editorial brain. A fresh
+`gpt-5.6-sol / HIGH` coordinator may create one fresh isolated `gpt-5.6-sol / XHIGH` final writer at
+a warranted article boundary, with at most one bounded same-worker revision. Deterministic
+ContentOps remains factual, numeric, CC, permission, validation, publication, and reconciliation
+authority after return.
+
+The official ChatGPT-authenticated Codex App Server/SDK provider remains the currently proven
+resilient fallback for an exact missed/failed Desktop primary, the direct path for an immediate
+supported invocation, and the benchmark/controlled-experiment path. It may not race an accepted
+Desktop result or create a duplicate article/public object.
+
+The current supported host observation proves exactly four native V1 Automation objects, all
+`PAUSED`, configured for `gpt-5.6-sol / HIGH` at the four Bangkok windows. No object was changed or
+enabled and no fifth object was created. Their prompt hashes do not yet match the current configured
+intent, and the supported host surface exposed create/update/view/delete but no run-now operation.
+The accepted same-Italy proof used one fresh standalone manual Desktop task; calendar-time native
+execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` and is not claimed by that proof.
 
 Current subordinate statements such as:
 
-- `exactly four native Codex tasks already exist`;
-- `all four tasks are PAUSED`;
 - `publication minimum = 0`;
 - `FDA-G can wake Codex directly`;
 
@@ -67,29 +84,22 @@ are superseded unless exact host/runtime evidence proves the relevant fact.
 Current known architecture rule:
 
 - FDA-G is the continuous intake/state/runtime authority;
-- `live_contentops/codex_desktop_newsroom_operator_v1.py` is not a scheduler or Desktop/model bridge;
-- actual Codex Automations must be inventoried from the installed supported product/host;
-- intended schedule configuration and observed automation objects are distinct facts;
-- immediate material-event-to-Codex execution is `NOT_PROVEN` until a supported execution bridge is demonstrated;
+- the existing four Desktop Automations are the paused primary routine invocation objects, subject
+  to owner audit, prompt normalization, and explicit enablement;
+- the official ChatGPT-authenticated Codex provider is fallback/direct/benchmark, not a racing
+  second routine scheduler;
+- `live_contentops/codex_desktop_newsroom_operator_v1.py` owns canonical run identity and the small
+  deterministic primary/fallback arbitration, not scheduling or publication;
+- the four 17:00/21:00/23:00/following-01:00 Bangkok windows remain fixed, with no fifth window;
 - any credential/access-token/API Codex bridge is separately owner-gated.
 
 ## Current V1 lane state
 
-P0-G3 growth-first multi-mode zero-write proof is accepted and merged on current master lineage.
-
-P0-G4 draft PR #12 is frozen while the owner 4/32 zero-write build floor remains unproven. Its
-historical `NO_PUBLICATION_WAIT...` evidence remains valid evidence for that attempt but its
-whole-day-success semantics do not route current work.
-
-Accepted continuation lineage:
-
-`DAILY OUTPUT/AUTOMATION REVALIDATION -> CANDIDATE CONTINUATION/QUOTE REPAIR -> EVIDENCE-YIELD
-REACHABILITY -> DISTINCT-STORY FRONTIER -> STORY-SCOPED EVIDENCE REUSE`
-
-The latest four-frontier zero-write proof attempted 17 distinct current stories, avoided 89 duplicate
-downgrade reads, and ended `DEGRADED_DAILY_OUTPUT_DEFICIT` at 0/4 articles and 0/32 derivative
-intents. Current next capability is exact first-party locator/source-family and bounded
-query/publisher-resolution closure for its residual matrix, followed by the unchanged floor proof.
+The accepted implementation lineage through story-scoped evidence reuse remains historical input.
+The active continuation canonicalizes quota safety: the accepted foundation remains reusable while
+routine execution does not automatically instantiate its expensive per-trigger discovery provider.
+The task stops for owner audit at that pre-writer gate. `V1_FINAL_PRODUCT_ACCEPTED` remains
+forbidden.
 
 ## Growth-first V1 rules that remain current
 
@@ -117,7 +127,10 @@ The following phrases or equivalent semantics must never route a fresh V1 task:
 - `the four Codex tasks are paused` without host inventory proof;
 - `material events only prioritize the next scheduled opportunity` as final execution architecture;
 - `FDA-G immediately wakes Codex` without a supported execution bridge;
+- SDK/App Server as the sole primary routine V1 heavy-editorial invocation path;
 - P0-G3 as the next task;
+- the Italy artifact audit as the current next task;
+- immediate 4/32 article generation as the current next task;
 - any branch/HEAD/pointer that predates the accepted P0-G3 merge and current owner override.
 
 ## Historical evidence only

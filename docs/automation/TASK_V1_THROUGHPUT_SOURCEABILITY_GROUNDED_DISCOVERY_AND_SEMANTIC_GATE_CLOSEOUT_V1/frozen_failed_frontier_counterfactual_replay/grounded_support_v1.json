@@ -1,0 +1,694 @@
+{
+  "evidence_acquired_after_ranking": true,
+  "publication_authority": false,
+  "schema_version": "contentops.rolling_x_grounded_support.v1",
+  "selected_cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+  "selected_headline_ids": [
+    "cc-x-headline-b36ac3f656a602f0e1498c8d"
+  ],
+  "status": "PASS",
+  "targeted_evidence": {
+    "blockers": [],
+    "capital_chronicle_authority_verified": false,
+    "capital_chronicle_publication_authority": {
+      "authority_class": "CONTEXT_DISCOVERY_ONLY",
+      "authorized": false,
+      "intended_consumer": "contentops_publication",
+      "intended_use": "public_reporting",
+      "llm_numeric_authority": false,
+      "ordinary_latest_web_article_may_continue": true,
+      "packet_id": null,
+      "packet_sha256": null,
+      "reason_codes": [
+        "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+      ],
+      "schema_version": "contentops.cc_publication_authority_resolution.v1",
+      "state": "PUBLICATION_PACKET_NOT_AVAILABLE"
+    },
+    "cc_authority_utilization": {
+      "authority_class": "CONTEXT_DISCOVERY_ONLY",
+      "authorized_chart_count_available": 0,
+      "authorized_chart_count_consumed": 0,
+      "authorized_claim_count_available": 0,
+      "authorized_claim_count_consumed": 0,
+      "authorized_series_count_available": 0,
+      "authorized_series_count_consumed": 0,
+      "llm_numeric_authority": false,
+      "packet_discovered": false,
+      "packet_selected": null,
+      "packet_sha256": null,
+      "projection_validation_blockers": [],
+      "values_regenerated_or_repaired": false,
+      "zero_use_reason": "NO_PUBLICATION_AUTHORIZED_CC_PACKET_FOR_STORY"
+    },
+    "cc_context_bundle": {
+      "candidate_table_count": 0,
+      "catalog_fingerprint": null,
+      "cc_context_refs": [],
+      "cc_context_richness": 0.0,
+      "connection_mode": "duckdb_read_only",
+      "factual_or_numeric_authority_granted": false,
+      "matched_store_count": 0,
+      "matched_table_count": 0,
+      "mutated_upstream": false,
+      "ordinary_reporting_blocked_when_unavailable": false,
+      "proprietary_claim_authority_granted": false,
+      "queried_entities": [
+        "Donald Trump",
+        "Iran",
+        "Sanctions",
+        "Foreign Policy",
+        "International Trade",
+        "National Security"
+      ],
+      "queried_table_count": 0,
+      "query_budget": {
+        "deep_query_table_limit": 8,
+        "entity_limit": 6,
+        "rows_per_entity": 5
+      },
+      "query_elapsed_ms": 0.018,
+      "schema_version": "contentops.additive_cc_story_context.v1",
+      "selected_tables": [],
+      "semantic_activation": {},
+      "state": "CC_CONTEXT_UNAVAILABLE",
+      "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+    },
+    "claim_evidence_contract": {
+      "blocked_claims": [],
+      "claim_contract_sha256": "8eceb2c93abfd058c6618ae1a1116196cadc7e341a41da85dd9ddfb3cfb6ae0e",
+      "fabricated_claim_count": 0,
+      "omitted_claim_count": 3,
+      "omitted_unsupported_claims": [
+        {
+          "claim_id": "claim-447cf25b0e22221e",
+          "claim_text": "President Trump threatened 'economic warfare' and secondary sanctions against any country or entity providing a lifeline to Iran in a Truth Social post.",
+          "reason": "secondary_corroboration_insufficient",
+          "support_status": "OMITTED"
+        },
+        {
+          "claim_id": "claim-996c7a3a0fdae9b1",
+          "claim_text": "Treasury Secretary Scott Bessent stated on CNBC that the new economic warfare could include additional secondary sanctions on nations and companies conducting business with Iran.",
+          "reason": "secondary_corroboration_insufficient",
+          "support_status": "OMITTED"
+        },
+        {
+          "claim_id": "claim-15d68a684b8a4603",
+          "claim_text": "The announcement of 'Economic D-Day' targeting Iran signals a severe escalation in sanctions and economic warfare, likely impacting global energy markets.",
+          "reason": "candidate_claim_not_found_in_evidence",
+          "support_status": "OMITTED"
+        }
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.claim_evidence_contract.v1",
+      "status": "PASS",
+      "supported_claim_count": 4,
+      "supported_claims": [
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-e0579bf6854172e6",
+          "claim_text": "Following the announcement, global crude oil prices rose, with Brent crude and US crude both experiencing price increases on Thursday.",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-6db855933f90603b",
+          "claim_text": "US stock markets experienced their worst losses in three weeks on the Thursday following the announcement, with both the Dow Jones and S&P 500 closing lower.",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "numeric_claim": true,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-1c881c1b2be1af29",
+          "claim_text": "The US Treasury announced an emergency move to double buybacks of long-dated debt in an attempt to calm the market.",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        },
+        {
+          "attribution_required": true,
+          "authority_classes": [
+            "reputable_secondary_source"
+          ],
+          "claim_id": "claim-a1e0452d07877e6d",
+          "claim_text": "Iranian Foreign Minister Abbas Araghchi dismissed Trump's 'economic D-Day' threats, calling them a diversion from America's own crisis.",
+          "evidence_document_ids": [
+            "public-secondary-391077ed98f0344511a3"
+          ],
+          "numeric_claim": false,
+          "quoted_claim": false,
+          "support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+        }
+      ],
+      "x_content_grants_factual_authority": false
+    },
+    "cluster_id": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+    "deterministic_official_schedule_facts": [],
+    "editorial_mode_contract": {
+      "canonical_product_mode": true,
+      "editorial_inference_authority_class": null,
+      "editorial_inference_is_core_analyzer_authority": false,
+      "editorial_inference_must_be_explicit": false,
+      "evidence_depth": 2,
+      "factual_premises_must_be_source_bound": true,
+      "grants_factual_numeric_permission_or_publication_authority": false,
+      "narrow_official_primary_fast_lane": false,
+      "narrow_official_schedule_fact_lane": false,
+      "product_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "proprietary_numeric_forecast_scenario_regime_valuation_decision_forbidden_without_exact_cc_authority": true,
+      "qualitative_editorial_inference_permitted": false,
+      "quiet_day_may_lower_truth_or_permission_standards": false
+    },
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "documents": [
+          {
+            "document_id": "public-secondary-391077ed98f0344511a3",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": false,
+            "usable_content_words": 1767
+          }
+        ],
+        "enough_for_useful_article": true,
+        "enrichment_recommended": false,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 1,
+        "target_usable_content_words": 180,
+        "usable_content_words": 1767,
+        "usable_document_count": 1
+      },
+      "grounded_research": {
+        "blockers": [],
+        "elapsed_seconds": 40.251,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+        "infrastructure_failure_class": null,
+        "latest_event_state_closure": {
+          "enhanced_breaking_zero_substantive_body": false,
+          "evaluation_as_of_utc": "2026-08-22T22:14:27.784365Z",
+          "forward_state_detected": false,
+          "model_assertion_grants_event_state_authority": false,
+          "post_cutoff_document_ids_rejected": [],
+          "pre_closure_evidence_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "STANDARD_NEWS_ANALYSIS",
+            "documents": [
+              {
+                "document_id": "public-secondary-391077ed98f0344511a3",
+                "source_authority_class": "reputable_secondary_source",
+                "title_only": false,
+                "usable_content_words": 1767
+              }
+            ],
+            "enough_for_useful_article": true,
+            "enrichment_recommended": false,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 1,
+            "target_usable_content_words": 180,
+            "usable_content_words": 1767,
+            "usable_document_count": 1
+          },
+          "publication_authority": false,
+          "query_budget": {
+            "closure_queries_used": 0,
+            "initial_queries_used": 2,
+            "maximum_queries": 3
+          },
+          "schema_version": "contentops.latest_event_state_closure.v1",
+          "status": "NOT_REQUIRED"
+        },
+        "public_retrieval_requests": 3,
+        "research_calls": 2,
+        "retrieval_result": {
+          "accepted_document_count": 1,
+          "blockers": [],
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_plan_da040e8e8e6d4b5a12d0",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "query_plan",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 1076.0,
+              "prompt_tokens": 2812.0,
+              "total_tokens": 3888.0
+            },
+            "wall_clock_elapsed_seconds": 12.0426
+          },
+          {
+            "attempts": [
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_synthesis_da040e8e8e6d4b5a12d0",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "source_synthesis",
+            "provider_attempt_count": 1,
+            "recoverable_failure_classes": [],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 3347.0,
+              "prompt_tokens": 5489.0,
+              "total_tokens": 8836.0
+            },
+            "wall_clock_elapsed_seconds": 26.2622
+          }
+        ]
+      }
+    },
+    "evidence_documents": [
+      {
+        "byte_length": 218012,
+        "canonical_content_sha256": "c53c7be4e3c05f28906706df75cedc8ff49d88eaaebf2dc5b8a13b8f0793d695",
+        "canonical_content_text": "Trump\u2019s \u2018economic D-Day\u2019 claims first victim: Not Iran, but US markets | US-Israel war on Iran News | Al Jazeera Skip links Skip to Content play Live Sign up Show navigation menu Navigation menu News Show more news sections Africa Asia US & Canada Latin America Europe Asia Pacific Middle East Explained Sport Opinion Video More Show more sections Features Economy Human Rights Climate Crisis Investigations Interactives In Pictures Science & Technology Podcasts Travel Sponsored Content play Live Click here to search search Sign up Navigation menu caret-left US-Israel war on Iran Strait of Hormuz What is Iran\u2019s Pickaxe Mountain? Why have strikes resumed? Bodies of Evidence caret-right EXPLAINER News | US-Israel war on Iran Trump\u2019s \u2018economic D-Day\u2019 claims first victim: Not Iran, but US markets The US and Israel\u2019s war on Iran has upended global financial and energy markets. Listen Listen (9 mins) Save Click here to share on social media share-nodes Share facebook x whatsapp-stroke copylink google Add Al Jazeera on Google info Traders work on the floor of the New York Stock Exchange in New York City [File: Timothy A Clary/AFP] By Priyanka Shankar Published On 21 Aug 2026 21 Aug 2026 United States President Donald Trump has threatened a crushing financial campaign against Iran, which he has referred to as \u201ceconomic D-Day\u201d, as the war on Tehran continues to drag on. But on Thursday, the first casualty appeared to be US markets. Recommended Stories list of 3 items list 1 of 3 US Treasury secretary says new economic measures will \u2018collapse\u2019 Iran list 2 of 3 Walmart sees sales drop as US consumer spending retreats list 3 of 3 Houthis and government trade attacks as Yemen slides back to full-scale war end of list As US crude oil nudged up from its Wednesday closing price of $86.20 per barrel to $86.70, the US stock market made its worst losses in three weeks. Meanwhile, the US announced its total debt has surpassed a record $40 trillion this week. Here\u2019s what Trump has threatened and what the result has been so far. What did Trump threaten? In a post on Truth Social on Wednesday, Trump said Iran had \u201cfailed to take\u201d the opportunity to make a deal, and would face \u201ceconomic warfare and isolation on an unprecedented scale\u201d. He also threatened new sanctions against any country that does business with Iran. \u201cANY country that allows its financial institutions, businesses, airports, or government entities to provide any type of lifeline to Iran will itself face TREMENDOUS Economic Consequences,\u201d he wrote. On Thursday, Treasury Secretary Scott Bessent told CNBC again that this new \u201ceconomic warfare\u201d could include more secondary sanctions on other nations and companies that conduct business with Iran. The latest Trump administration rhetoric comes as the critical Strait of Hormuz in the Gulf remains closed to shipping, upending global energy and financial markets. Before the war, some 20 percent of global oil and natural gas supplies were shipped through this waterway. Advertisement The war is increasingly becoming unpopular within the US as the costs of petrol and other living expenses rise. On Wednesday, Tehran dismissed Trump\u2019s threats, with Foreign Minister Abbas Araghchi calling the so-called \u201ceconomic D-Day\u201d a \u201cdiversion from America\u2019s own crisis\u201d. How have US markets reacted to Trump\u2019s \u2018economic warfare\u2019 announcement? The US and Israel\u2019s war on Iran has paralysed the Strait of Hormuz, the only route to the open ocean through which Gulf oil producers can ship their exports. Before the war, some 130 ships passed through the strait each day. Now barely a handful get through. This has hugely unsettled the global energy and financial markets. Following Trump\u2019s economic threats against Iran on Wednesday, global crude oil prices rose to nearly a one-month high on Thursday morning with Brent crude \u2013 the global benchmark \u2013 topping $93 a barrel. On Friday morning, the price of Brent remained at $93.28 a barrel. In the US, US crude oil climbed to $86.70 per barrel on Thursday. On Friday morning, it was trading at about $86.20. Meanwhile, US stock markets made their worst losses in three weeks. The Dow Jones Industrial Average shed 703.84 points, or 1.32 percent, closing at 52,759.21 on Thursday evening. The S&P 500 lost 0.87 percent, closing at 7,641.16. On Friday morning, US indices showed signs of stabilising. Frederic Schneider, a nonresident senior fellow at the Middle East Council on Global Affairs, noted that the 30-year US Treasury yield pushed above 5.25 percent, close to a two-decade high after Trump\u2019s announcement. This indicates that the price of US bonds is falling as investors avoid them, signalling a lack of confidence in the US. Bessent announced an emergency move to double the Treasury\u2019s buybacks of long-dated debt to at least $4bn, but this did not calm the market. \u201cThis is a strong signal, as the world\u2019s most powerful treasury had to reach for extraordinary measures and failed to calm the market,\u201d Schneider told Al Jazeera. \u201cLong-dated Treasuries have faced a \u2018buyers\u2019 strike\u2019 since June, driven by a widening federal deficit, a wave of AI-related corporate borrowing, and now an oil-price inflation premium layered on top,\u201d he added. Is the US also facing wider economic pressure? Yes. Analysts say both Iran and the US have been feeling the economic pressure of Washington\u2019s war on Tehran. Schneider told Al Jazeera: \u201cThe \u2018economic war\u2019 keeps the Strait of Hormuz shut, which keeps oil [prices] elevated. The US Energy Information Administration does not expect Gulf output to recover to near pre-conflict levels until early 2027, and the shortage is fanning American inflation, which feeds into the bond market, which is where the real damage is now showing.\u201d Advertisement He added that the war has shone a light on the US\u2019s vulnerabilities, despite having its own oil industry capable of providing for its needs. \u201cThe US is technically energy self-sufficient, but it is not insulated. Petrol prices and cost of living in general are a core topic in a midterm election year. But the Federal Reserve cannot cut rates to support a slowing economy without fuelling the very inflation the oil shock is generating,\u201d he said. Furthermore, this week a US Department of the Treasury update revealed that total US debt has surpassed $40 trillion for the first time in history \u2013 two years before expected, as a result of the costs of the war and Trump\u2019s lowering of corporate taxes. Schneider noted that the US also needs to consider its allies\u2019 economies. \u201cThe Gulf states and the East Asian economies are the hardest hit by this war, and they are also among the largest holders of US assets,\u201d he said. On Wednesday night, Trump also warned that any country whose \u201cfinancial institutions, businesses, airports, or government entities\u201d aid Tehran will face \u201cTREMENDOUS Economic Consequences\u201d. Hours earlier, the UAE, a longtime trade hub for Iran, announced an indefinite embargo after accusing Iran of firing missiles at its territory, a move analysts called significant given Iran\u2019s reliance on Emirati financial access. \u201cAs the Gulf draws down reserves and reconsiders where it deploys its sovereign wealth, and as Japan strains under its own currency pressures, the marginal buyers of American debt are pulling back at precisely the moment Washington most needs them,\u201d he added. What does all this mean for Trump? The war on Iran, which the Trump administration can\u2019t seem to bring to an end, is increasingly unpopular in the US. Now, there are just a few weeks to go before pivotal midterm elections in November determine whether his Republican Party can keep control of Congress. US Senator Mark Warner, vice chairman of the Senate Intelligence Committee, criticised ongoing US involvement in the conflict with Iran in a post on X on Thursday. \u201cWhen will Trump walk away from this disastrous and deadly war?\u201d he asked. On Friday, Trump told a rally of supporters that paying \u201ca tiny little bit more for your gasoline\u201d is worth the cost of ensuring \u201ca very evil country\u201d, meaning Iran, cannot have a nuclear weapon. However, peace talks between the US and Iran, which would cover Iran\u2019s nuclear capabilities, have yet to get seriously under way as the crisis in the Strait of Hormuz continues. Iran is currently negotiating a deal with Oman over the future management of the strait, which was open and free to all commercial shipping before the US launched strikes on Tehran on February 28. Iran says it will not talk directly to the US on this matter and will not engage in talks until the matter of Hormuz is completely settled, as well as other conditions it has set for talks. Experts say there is little hope of a successful end in sight. Furthermore, despite Trump\u2019s claim that US forces are in \u201ctotal control\u201d of the Strait of Hormuz, data analysed by Al Jazeera and Kpler, the maritime intelligence agency, suggests that ship operators may currently be more fearful of falling foul of the Iranian blockade of the strait than they are of the US naval blockade in the same area. Advertisement Trump\u2019s approval rating in the US has now fallen to its lowest level in his presidency, with an overwhelming majority of Americans concerned that the US-Israel war on Iran will last a very long time. Consumers have seen fuel prices rise dramatically since the war began in February, with the cost of gasoline [petrol] up nearly a third compared with a year ago, according to the American Automobile Association. Just 33 percent of respondents approved of Trump\u2019s job performance, according to the Reuters/Ipsos poll. The approval rating matches the lows seen in December 2017 during his first term. Trump, who campaigned on a promise to keep inflation in check and avoid long-lasting wars, initially pledged that the conflict with Iran would take just a few weeks. aj-logo aj-logo aj-logo Advertisement About About Show more About Us Code of Ethics Terms and Conditions EU/EEA Regulatory Notice Privacy Policy Cookie Policy Cookie Preferences Accessibility Statement Sitemap Work for us Connect Connect Show more Contact Us User Accounts Help Advertise with us Stay Connected Newsletters Channel Finder TV Schedule Podcasts Submit a Tip Paid Partner Content Our Channels Our Channels Show more Al Jazeera Arabic Al Jazeera English Al Jazeera Investigative Unit Al Jazeera Mubasher Al Jazeera Documentary Al Jazeera Balkans AJ+ Our Network Our Network Show more Al Jazeera Centre for Studies Al Jazeera Media Institute Learn Arabic Al Jazeera Centre for Public Liberties & Human Rights Al Jazeera Forum Al Jazeera Hotel Partners Follow Al Jazeera English: facebook twitter youtube instagram-colored-outline rss \u00a9 2026 Al Jazeera Media Network",
+        "canonical_resolution_status": "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP",
+        "content_truncated": false,
+        "content_type": "text/html",
+        "discovery_path_is_reader_authority": false,
+        "discovery_path_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOenpHVXJUV3A5cTY4b0ctYVZwVUZ3bGFSeFoxaGNMSEtBNUtGR2cxR0tsWi12N09DQzVVY1VPZ3lUNDNVU2t0MGd3Ql9rczBVNnpLZDhkWUpNVHlLekF4a1REMDc2QVZHX05NWmJ4OGtTRWlGcXRodmJsMWZEVWFhSWs1SXA2WWM1NHhNSXl3QTd1VnFHNnJqNnB5aVJXWFhudjA5Tlh0YjA4d9IBrwFBVV95cUxObEVoRGp3U0lCOG9JODRJdHVtTzBDQXlJTU96YVB3SDlmaGRmemU1WmZlYnlLakN0LW0zNTFZcWV3aTBWVHRzbV84ZTVWb3pIY2lmVUg1S09PWUltVUlfa002bGxHQkp4RUhLMXkzM2dvUHl6YXhpQ2tpNnhORHlLSzNtMGpzTlYzbjVJTEtXZUpWYTdJb0NQcU8wY2NKUjJ4ZWxKSmh0NTNQb3dTT0ZF?oc=5",
+        "document_id": "public-secondary-391077ed98f0344511a3",
+        "event_time_utc": "2026-08-21T13:47:26Z",
+        "grounded_source_ref": "SRC_7509293825B4A6A0",
+        "public_claim_allowed": true,
+        "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+        "published_at_utc": "2026-08-21T13:47:26Z",
+        "publisher": "Aljazeera",
+        "publisher_document_title_relevance": 1.0,
+        "publisher_locator_chain": [
+          {
+            "sha256": "07cefde639cf3f4ab8ca8f896dab1846d57bc5f917dde17f06e6375954fdf8f7",
+            "url": "https://www.aljazeera.com/news-sitemap.xml"
+          }
+        ],
+        "publisher_locator_sha256": "07cefde639cf3f4ab8ca8f896dab1846d57bc5f917dde17f06e6375954fdf8f7",
+        "publisher_locator_title_relevance": 1.0,
+        "publisher_locator_url": "https://www.aljazeera.com/news-sitemap.xml",
+        "raw_sha256": "391077ed98f0344511a3b3123cfe3a61633240b146a17a84949d667ba3152e3f",
+        "reader_source_url": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+        "requested_source_url": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+        "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+        "source_authority_class": "reputable_secondary_source",
+        "source_headline_id": "cc-x-headline-b36ac3f656a602f0e1498c8d",
+        "source_identity": "www.aljazeera.com",
+        "source_url": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+        "title": "Trump\u2019s \u2018economic D-Day\u2019 claims first victim: Not Iran, but US markets"
+      }
+    ],
+    "evidence_review_tier": "ENHANCED",
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "documents": [
+        {
+          "document_id": "public-secondary-391077ed98f0344511a3",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": false,
+          "usable_content_words": 1767
+        }
+      ],
+      "enough_for_useful_article": true,
+      "enrichment_recommended": false,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 1,
+      "target_usable_content_words": 180,
+      "usable_content_words": 1767,
+      "usable_document_count": 1
+    },
+    "grounded_research_packet": {
+      "attributed_numeric_facts": [
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_7509293825B4A6A0",
+          "statement": "US crude oil climbed from its Wednesday closing price of $86.20 per barrel to $86.70 on Thursday.",
+          "value": 86.7
+        },
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_7509293825B4A6A0",
+          "statement": "Brent crude topped $93 a barrel on Thursday morning and remained at $93.28 a barrel on Friday morning.",
+          "value": 93.28
+        },
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_7509293825B4A6A0",
+          "statement": "The Dow Jones Industrial Average shed 703.84 points, or 1.32 percent, closing at 52,759.21 on Thursday evening.",
+          "value": 52759.21
+        },
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_7509293825B4A6A0",
+          "statement": "The S&P 500 lost 0.87 percent, closing at 7,641.16 on Thursday.",
+          "value": 7641.16
+        },
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_7509293825B4A6A0",
+          "statement": "The 30-year US Treasury yield pushed above 5.25 percent following Trump's announcement.",
+          "value": 5.25
+        },
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_7509293825B4A6A0",
+          "statement": "The Treasury announced an emergency move to double buybacks of long-dated debt to at least $4 billion.",
+          "value": 4000000000
+        },
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_7509293825B4A6A0",
+          "statement": "Total US debt has surpassed a record $40 trillion.",
+          "value": 40000000000000
+        },
+        {
+          "attribution_required": true,
+          "source_ref": "SRC_7509293825B4A6A0",
+          "statement": "Before the war, some 20 percent of global oil and natural gas supplies were shipped through the Strait of Hormuz, with some 130 ships passing through each day.",
+          "value": 20
+        }
+      ],
+      "cc_context": {
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_refs": [],
+        "cc_context_richness": 0.0,
+        "connection_mode": "duckdb_read_only",
+        "factual_or_numeric_authority_granted": false,
+        "matched_store_count": 0,
+        "matched_table_count": 0,
+        "mutated_upstream": false,
+        "ordinary_reporting_blocked_when_unavailable": false,
+        "proprietary_claim_authority_granted": false,
+        "queried_entities": [
+          "Donald Trump",
+          "Iran",
+          "Sanctions",
+          "Foreign Policy",
+          "International Trade",
+          "National Security"
+        ],
+        "queried_table_count": 0,
+        "query_budget": {
+          "deep_query_table_limit": 8,
+          "entity_limit": 6,
+          "rows_per_entity": 5
+        },
+        "query_elapsed_ms": 0.018,
+        "schema_version": "contentops.additive_cc_story_context.v1",
+        "selected_tables": [],
+        "semantic_activation": {},
+        "state": "CC_CONTEXT_UNAVAILABLE",
+        "zero_context_reason": "BOUNDED_CC_CONTEXT_NO_MATCHES"
+      },
+      "cc_context_refs": [],
+      "confirmed_facts": [
+        {
+          "attribution_required": true,
+          "confidence_class": "high",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f1",
+          "factual_statement": "President Trump threatened 'economic warfare' and secondary sanctions against any country or entity providing a lifeline to Iran in a Truth Social post.",
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "high",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f2",
+          "factual_statement": "Treasury Secretary Scott Bessent stated on CNBC that the new economic warfare could include additional secondary sanctions on nations and companies conducting business with Iran.",
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "high",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f3",
+          "factual_statement": "Following the announcement, global crude oil prices rose, with Brent crude and US crude both experiencing price increases on Thursday.",
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "high",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f4",
+          "factual_statement": "US stock markets experienced their worst losses in three weeks on the Thursday following the announcement, with both the Dow Jones and S&P 500 closing lower.",
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "high",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f5",
+          "factual_statement": "The US Treasury announced an emergency move to double buybacks of long-dated debt in an attempt to calm the market.",
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "high",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f6",
+          "factual_statement": "Iranian Foreign Minister Abbas Araghchi dismissed Trump's 'economic D-Day' threats, calling them a diversion from America's own crisis.",
+          "source_refs": [
+            "SRC_7509293825B4A6A0"
+          ]
+        }
+      ],
+      "context": [
+        "T",
+        "h",
+        "e",
+        "",
+        "'",
+        "E",
+        "c",
+        "o",
+        "n",
+        "o"
+      ],
+      "contradictions": [
+        "N",
+        "o",
+        "n",
+        "e",
+        "",
+        "f",
+        "o",
+        "u"
+      ],
+      "core_factual_proposition": "President Trump threatened 'economic warfare' and secondary sanctions against any country or entity providing a lifeline to Iran in a Truth Social post.",
+      "enhanced_review_required": true,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "latest_event_state_closure": {
+        "enhanced_breaking_zero_substantive_body": false,
+        "evaluation_as_of_utc": "2026-08-22T22:14:27.784365Z",
+        "forward_state_detected": false,
+        "model_assertion_grants_event_state_authority": false,
+        "post_cutoff_document_ids_rejected": [],
+        "pre_closure_evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "STANDARD_NEWS_ANALYSIS",
+          "documents": [
+            {
+              "document_id": "public-secondary-391077ed98f0344511a3",
+              "source_authority_class": "reputable_secondary_source",
+              "title_only": false,
+              "usable_content_words": 1767
+            }
+          ],
+          "enough_for_useful_article": true,
+          "enrichment_recommended": false,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 1,
+          "target_usable_content_words": 180,
+          "usable_content_words": 1767,
+          "usable_document_count": 1
+        },
+        "publication_authority": false,
+        "query_budget": {
+          "closure_queries_used": 0,
+          "initial_queries_used": 2,
+          "maximum_queries": 3
+        },
+        "schema_version": "contentops.latest_event_state_closure.v1",
+        "status": "NOT_REQUIRED"
+      },
+      "model_assertion_grants_factual_authority": false,
+      "model_suggested_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "post_filter_accepted_evidence_document_ids": [
+        "public-secondary-391077ed98f0344511a3"
+      ],
+      "post_filter_removed_fact_count": 0,
+      "publication_authority": false,
+      "research_as_of_utc": "2026-08-22T22:14:27.784365Z",
+      "research_logical_hash": "cf87f08e34a2bd7ce233ea48cdd28dfb27fbf2e984398fe2212d4dac43e32acb",
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "risk_classification": "ENHANCED",
+      "schema_version": "contentops.grounded_news_research.v1",
+      "sources": [
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "c53c7be4e3c05f28906706df75cedc8ff49d88eaaebf2dc5b8a13b8f0793d695",
+          "evidence_document_id": "public-secondary-391077ed98f0344511a3",
+          "published_at": "2026-08-21T13:47:26Z",
+          "publisher": "Aljazeera",
+          "reader_source_url": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+          "retrieved_at": "2026-08-22T23:17:01.741364Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_7509293825B4A6A0",
+          "source_type": "text/html",
+          "source_url": "https://www.aljazeera.com/news/2026/8/21/trumps-economic-d-day-claims-first-victim-not-iran-but-us-markets",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": false,
+            "source_record_bound": true
+          },
+          "title": "Trump\u2019s \u2018economic D-Day\u2019 claims first victim: Not Iran, but US markets"
+        }
+      ],
+      "story_identity": "rolling-x-global-cluster-d0bf3f12e8578718ca73",
+      "suggested_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "uncertainties": [
+        "T",
+        "h",
+        "e",
+        "",
+        "p",
+        "r",
+        "o",
+        "v",
+        "i",
+        "d"
+      ],
+      "unsupported_or_unverified": [
+        "T",
+        "h",
+        "e",
+        "",
+        "s",
+        "p",
+        "e",
+        "c",
+        "i",
+        "f",
+        "i",
+        "c"
+      ]
+    },
+    "headline_ids": [
+      "cc-x-headline-b36ac3f656a602f0e1498c8d"
+    ],
+    "latest_event_state_closure": {
+      "enhanced_breaking_zero_substantive_body": false,
+      "evaluation_as_of_utc": "2026-08-22T22:14:27.784365Z",
+      "forward_state_detected": false,
+      "model_assertion_grants_event_state_authority": false,
+      "post_cutoff_document_ids_rejected": [],
+      "pre_closure_evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "documents": [
+          {
+            "document_id": "public-secondary-391077ed98f0344511a3",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": false,
+            "usable_content_words": 1767
+          }
+        ],
+        "enough_for_useful_article": true,
+        "enrichment_recommended": false,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 1,
+        "target_usable_content_words": 180,
+        "usable_content_words": 1767,
+        "usable_document_count": 1
+      },
+      "publication_authority": false,
+      "query_budget": {
+        "closure_queries_used": 0,
+        "initial_queries_used": 2,
+        "maximum_queries": 3
+      },
+      "schema_version": "contentops.latest_event_state_closure.v1",
+      "status": "NOT_REQUIRED"
+    },
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [
+      "basic_attributed_facts",
+      "credible_event_confirmation"
+    ],
+    "publication_authority": false,
+    "publication_authorized_cc_projection": {},
+    "status": "PASS",
+    "unsupported_claims_removed": 3
+  },
+  "targeted_evidence_sha256": "2f9b2f5653d49d59835af5115969e532bee30eefc45f5d172f19e5326d1f9f70",
+  "x_content_grants_factual_or_numeric_authority": false
+}

@@ -159,6 +159,11 @@ def _has_explicit_branded_house_inference(value: Any) -> bool:
     return bool(_BRANDED_HOUSE_INFERENCE_RE.search(str(value or "")))
 
 
+def _is_markdown_heading_only(value: Any) -> bool:
+    """Return true for a standalone Markdown heading, which is not a prose paragraph."""
+    return bool(re.fullmatch(r"#{1,6}\s+\S(?:.*\S)?", str(value or "").strip()))
+
+
 def _reserved_house_inference_texts(article: Mapping[str, Any], body: str) -> list[str]:
     """Return only copy explicitly presented as Capital Chronicle house analysis."""
     return list(dict.fromkeys(
@@ -919,6 +924,198 @@ ARTICLE_OUTPUT_CONTRACT = {
     "social_policy_summary": "optional derivative copy; empty string is permitted",
     "social_cross_asset_summary": "optional derivative copy; empty string is permitted",
 }
+
+# This JSON Schema is a transport projection of ARTICLE_OUTPUT_CONTRACT, not a second
+# product contract.  Key parity is asserted when it is built.  Semantic acceptance remains
+# exclusively with validate_generated_article() and validate_institutional_edge_article().
+_ARTICLE_TRANSPORT_NULLABLE_TEXT_FIELDS = frozenset(
+    {
+        "market_mechanism",
+        "policy_context",
+        "cross_asset_implications",
+        "social_mechanism_summary",
+        "social_policy_summary",
+        "social_cross_asset_summary",
+        "seo_primary_keyword",
+    }
+)
+_EPISTEMIC_LAYERS = (
+    "OBSERVED_FACT",
+    "ATTRIBUTED_INTERPRETATION",
+    "CAPITAL_CHRONICLE_ANALYSIS",
+    "SCENARIO_OR_UNCERTAINTY",
+)
+_EPISTEMIC_PUBLIC_TREATMENTS = (
+    "DIRECT_SOURCE_FACT",
+    "ADJACENT_ATTRIBUTION",
+    "EXPLICIT_ANALYSIS",
+    "SUPPORTED_SYNTHESIS",
+    "CONDITIONAL",
+)
+
+
+def _closed_object(properties: Mapping[str, Any]) -> dict[str, Any]:
+    """Return the official strict-output object shape for exactly these properties."""
+    return {
+        "type": "object",
+        "properties": dict(properties),
+        "required": list(properties),
+        "additionalProperties": False,
+    }
+
+
+def build_article_transport_schema() -> dict[str, Any]:
+    """Project the canonical writer contract into a recursively closed transport schema."""
+    text = {"type": "string"}
+    nullable_text = {"type": ["string", "null"]}
+    string_array = {"type": "array", "items": text}
+    internal_link = _closed_object(
+        {
+            "relation": {
+                "type": "string",
+                "enum": [
+                    "same_event_chain",
+                    "technical_explainer",
+                    "prior_data_release",
+                    "prior_capital_chronicle_analysis",
+                    "material_update_predecessor",
+                ],
+            },
+            "anchor_text": text,
+            "candidate_slug": text,
+        }
+    )
+    epistemic_claim = _closed_object(
+        {
+            "text": text,
+            "layer": {"type": "string", "enum": list(_EPISTEMIC_LAYERS)},
+            "public_treatment": {
+                "type": "string",
+                "enum": list(_EPISTEMIC_PUBLIC_TREATMENTS),
+            },
+            "source_ids": string_array,
+        }
+    )
+    quote_record = _closed_object({"quote_text": text, "source_ids": string_array})
+    structured_data = _closed_object(
+        {
+            "@type": {"type": "string", "enum": ["Article", "NewsArticle"]},
+            "headline": text,
+            "description": text,
+            "datePublished": text,
+            "dateModified": text,
+            "publication_time_binding": text,
+            "eligible_for_emission": {"type": "boolean"},
+            "author": {"type": "string", "enum": ["Capital Chronicle"]},
+            "publisher": {"type": "string", "enum": ["Capital Chronicle"]},
+        }
+    )
+    properties: dict[str, Any] = {}
+    for field in ARTICLE_OUTPUT_CONTRACT:
+        if field in _ARTICLE_TRANSPORT_NULLABLE_TEXT_FIELDS:
+            properties[field] = nullable_text
+        elif field in {"secondary_reader_questions", "entities", "topics", "humor_lines"}:
+            properties[field] = string_array
+        elif field == "internal_link_candidates":
+            properties[field] = {"type": "array", "items": internal_link}
+        elif field == "structured_data_packet":
+            properties[field] = structured_data
+        elif field == "epistemic_claims":
+            properties[field] = {"type": "array", "items": epistemic_claim}
+        elif field == "quote_source_records":
+            properties[field] = {"type": "array", "items": quote_record}
+        elif field == "search_freshness_class":
+            properties[field] = {
+                "type": "string",
+                "enum": ["BREAKING", "CURRENT", "UPDATE", "EVERGREEN"],
+            }
+        elif field in {"author_identity", "publisher_identity"}:
+            properties[field] = {"type": "string", "enum": ["Capital Chronicle"]}
+        else:
+            properties[field] = text
+    if set(properties) != set(ARTICLE_OUTPUT_CONTRACT):
+        raise RuntimeError("article_transport_schema_contract_key_drift")
+    return _closed_object(properties)
+
+
+ARTICLE_TRANSPORT_SCHEMA = build_article_transport_schema()
+
+
+def resolve_article_transport_envelope(worker_return: Mapping[str, Any]) -> dict[str, Any]:
+    """Losslessly unwrap the two known Desktop worker envelopes and copy exact aliases.
+
+    This is representation correction only. Missing semantic fields remain missing so the
+    unchanged strict schema and article validators still fail closed. A mechanical envelope
+    mismatch therefore never requires or consumes an editorial revision.
+    """
+    article = worker_return.get("article")
+    editorial_output = worker_return.get("editorial_output")
+    if isinstance(article, Mapping) and isinstance(editorial_output, Mapping):
+        if dict(article) != dict(editorial_output):
+            raise ValueError("article_transport_conflicting_envelopes")
+    source = article if isinstance(article, Mapping) else editorial_output
+    if not isinstance(source, Mapping):
+        raise ValueError("article_transport_envelope_missing")
+    normalized = dict(source)
+    aliases = {
+        "title": "canonical_editorial_headline",
+        "subtitle": "dek",
+        "seo_title": "search_title",
+        "substack_body_markdown": "article_body",
+        "social_lede": "social_hook",
+    }
+    for target, origin in aliases.items():
+        if target not in normalized and origin in normalized:
+            normalized[target] = normalized[origin]
+    if "quote_source_records" not in normalized and isinstance(
+        worker_return.get("quote_source_records"), list
+    ):
+        normalized["quote_source_records"] = list(worker_return["quote_source_records"])
+    return normalized
+
+
+def normalize_article_transport_nulls(article: Mapping[str, Any]) -> dict[str, Any]:
+    """Remove only nullable transport placeholders; never synthesize semantic content."""
+    return {
+        key: value
+        for key, value in dict(article).items()
+        if not (key in _ARTICLE_TRANSPORT_NULLABLE_TEXT_FIELDS and value is None)
+    }
+
+
+def normalize_article_transport_representation(
+    article: Mapping[str, Any], *, context: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Bind deterministic aliases/identity/pre-publication metadata before product validation."""
+    normalized = normalize_article_transport_nulls(article)
+    normalized["canonical_editorial_headline"] = str(normalized.get("title") or "")
+    normalized["dek"] = str(normalized.get("subtitle") or "")
+    normalized["search_title"] = str(normalized.get("seo_title") or "")
+    normalized["social_hook"] = str(normalized.get("social_lede") or "")
+    normalized["author_identity"] = "Capital Chronicle"
+    normalized["publisher_identity"] = "Capital Chronicle"
+    packet = context.get("institutional_edge_editorial_packet")
+    packet = packet if isinstance(packet, Mapping) else {}
+    normalized["institutional_edge_editorial_packet_sha256"] = str(
+        packet.get("editorial_packet_sha256") or ""
+    )
+    # No canonical publication has occurred at this zero-write boundary.  The existing validator
+    # explicitly recognizes this truthful coordinator-bound state; an evidence-document timestamp
+    # must never be misrepresented as the article's publication timestamp.
+    normalized["structured_data_packet"] = {
+        "@type": "NewsArticle",
+        "headline": normalized["canonical_editorial_headline"],
+        "description": str(normalized.get("meta_description") or ""),
+        "datePublished": "",
+        "dateModified": "",
+        "publication_time_binding": (
+            "COORDINATOR_MUST_BIND_EXACT_TIMESTAMP_BEFORE_EMISSION"
+        ),
+        "eligible_for_emission": False,
+        "author": "Capital Chronicle",
+        "publisher": "Capital Chronicle",
+    }
+    return normalized
 _INSTITUTIONAL_EDGE_LIST_FIELDS = frozenset(
     {
         "secondary_reader_questions",
@@ -1032,7 +1229,7 @@ def build_article_generation_prompt(
                 or document.get("evidence_id")
                 or document.get("source_id"),
                 "title": document.get("title"),
-                "publisher": document.get("publisher") or document.get("source_identity"),
+                "publisher": _reader_source_publisher(document),
                 "published_at_utc": document.get("published_at_utc"),
                 "event_time_utc": document.get("event_time_utc"),
                 "source_authority_class": document.get("source_authority_class"),
@@ -1111,11 +1308,7 @@ def build_article_generation_prompt(
     semantic_terms = ", ".join(audit_metadata["seo_semantic_terms"])
     mechanism_terms = ", ".join(audit_metadata["mechanism_terms"])
     catalyst_terms = ", ".join(audit_metadata["named_catalyst_terms"][:2])
-    publisher = str(
-        _primary_document(context).get("publisher")
-        or _primary_document(context).get("source_identity")
-        or "the official source"
-    )
+    publisher = _reader_source_publisher(_primary_document(context))
     effective_mode = str(context.get("effective_article_mode") or "BREAKING_BRIEF")
     brief = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
     house_view = effective_mode in {
@@ -1175,7 +1368,8 @@ def build_article_generation_prompt(
             "The editorial_mode_contract grants no factual, numeric, Core Analyzer, permission, or publication authority. For house-view modes it permits only explicitly labeled qualitative ContentOps editorial inference from the supported facts.",
             "Write natural reader-facing copy: use the publisher name rather than a raw URL as link text, use sentence case for common nouns, state the core news once, and remove internal/pipeline/template language.",
             "Keep canonical headline, search title, social hook, meta description, structured data, and every declared epistemic claim on the same supported proposition. SEO may narrow or clarify a claim but may never strengthen it.",
-            "Classify material public claims in epistemic_claims. Bind observed facts and attributed interpretation to exact evidence document IDs; mark Capital Chronicle synthesis as EXPLICIT_ANALYSIS or SUPPORTED_SYNTHESIS and scenarios as CONDITIONAL.",
+            "Public article copy means only the reader-visible headline, dek, search/social metadata, and substack_body_markdown. Classify material claims from that public copy in epistemic_claims; the exact text of every declaration must actually appear in the public copy. Bind observed facts and attributed interpretation to exact evidence document IDs; mark Capital Chronicle synthesis as EXPLICIT_ANALYSIS or SUPPORTED_SYNTHESIS and scenarios as CONDITIONAL.",
+            "structured_data_packet is representation of the same visible article, never separate prose. Its headline and description must repeat visible metadata, its author and publisher are Capital Chronicle, and its dates must remain in the supplied pre-publication binding state until the coordinator has an exact publication timestamp.",
             "Declare every presented quotation in quote_source_records and every intentional dry-humor line in humor_lines. Empty arrays are valid and zero humor is always valid.",
             "Do not add a generic financial-advice or informational-purpose disclaimer. Do not repeat the same claim in adjacent paragraphs merely to fill a template.",
             "Use only the exact supplied cluster_id and headline_ids. Do not invent or alter any ID.",
@@ -1230,6 +1424,18 @@ def _reader_source_url(document: Mapping[str, Any]) -> str | None:
     return candidate
 
 
+def _reader_source_publisher(document: Mapping[str, Any]) -> str:
+    """Prefer an exact human publisher identity when the stored label is only a hostname."""
+    publisher = " ".join(
+        str(document.get("publisher") or document.get("source_identity") or "").split()
+    )
+    if not re.fullmatch(r"(?:www\.)?[a-z0-9.-]+\.[a-z]{2,}", publisher, re.IGNORECASE):
+        return publisher or "Public source"
+    title = " ".join(sanitize_source_text(str(document.get("title") or "")).split())
+    title_suffix = title.rsplit(" - ", 1)[-1].strip() if " - " in title else ""
+    return title_suffix if len(title_suffix.split()) >= 2 else publisher
+
+
 def _source_bindings(context: Mapping[str, Any]) -> list[dict[str, Any]]:
     """Build stable source identities independently of any model-written URL string."""
     bindings: list[dict[str, Any]] = []
@@ -1250,9 +1456,7 @@ def _source_bindings(context: Mapping[str, Any]) -> list[dict[str, Any]]:
             )
         )
         source_id = "source-" + _sha256_text(identity_seed)[:16]
-        publisher = " ".join(
-            str(document.get("publisher") or document.get("source_identity") or "Public source").split()
-        )
+        publisher = _reader_source_publisher(document)
         title = " ".join(
             sanitize_source_text(str(document.get("title") or "Public report")).split()
         )[:300]
@@ -1358,6 +1562,97 @@ def _resolve_generated_source_references(
     return resolved, list(dict.fromkeys(referenced)), list(dict.fromkeys(blockers))
 
 
+def resolve_editorial_worker_article_for_public_lock(
+    article: Mapping[str, Any], *, viability: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Resolve source handles for every native-worker path before canonical locking.
+
+    The worker's raw article/body hashes remain available as provenance. Unknown handles and
+    unbound URLs fail closed through the same resolver used by the normal grounded builder.
+    """
+    raw_article = dict(article)
+    raw_body = str(raw_article.get("substack_body_markdown") or "")
+    context = extract_governed_story_context(viability)
+    source_bindings = _source_bindings(context)
+    supported_claims = _writer_supported_claims(context)
+    omitted_claims = [
+        dict(row)
+        for row in (
+            (context.get("claim_evidence_contract") or {}).get(
+                "omitted_unsupported_claims"
+            )
+            or []
+        )
+        if isinstance(row, Mapping)
+    ]
+    resolved_body, referenced_source_ids, blockers = _resolve_generated_source_references(
+        raw_body,
+        context=context,
+    )
+    if blockers:
+        raise GroundedArticleBuilderError(";".join(blockers))
+    resolved = dict(raw_article)
+    resolved["substack_body_markdown"] = resolved_body
+    # The native worker returns only the claim IDs it used.  Restore the exact governed claim
+    # objects and source identities from the accepted viability packet before any downstream
+    # semantic review.  Worker-authored claim/source objects can never override this projection.
+    resolved["supported_claims"] = supported_claims
+    resolved["omitted_unsupported_claims"] = omitted_claims
+    resolved["source_bindings"] = source_bindings
+    resolved["accepted_source_identities"] = [
+        {
+            **binding,
+            "source_identity": str(document.get("source_identity") or ""),
+            "source_authority_class": str(
+                document.get("source_authority_class") or ""
+            ),
+            "published_at_utc": str(document.get("published_at_utc") or ""),
+            "raw_sha256": str(document.get("raw_sha256") or ""),
+            "canonical_content_sha256": str(
+                document.get("canonical_content_sha256")
+                or document.get("content_sha256")
+                or ""
+            ),
+        }
+        for document, binding in zip(
+            (context.get("evidence_documents") or []), source_bindings
+        )
+        if isinstance(document, Mapping)
+    ]
+    resolved["source_binding_ids_referenced"] = referenced_source_ids
+    resolved["raw_worker_article_sha256"] = _sha256_text(
+        json.dumps(raw_article, sort_keys=True, separators=(",", ":"), default=str)
+    )
+    resolved["raw_worker_body_sha256"] = _sha256_text(raw_body)
+    resolved["resolved_public_body_sha256"] = _sha256_text(resolved_body)
+    resolved["source_reference_resolution"] = {
+        "status": "PASS",
+        "resolver": "GROUNDED_SOURCE_BINDING_RESOLVER_V1",
+        "referenced_source_ids": referenced_source_ids,
+        "unknown_source_handle_count": 0,
+        "unbound_source_url_count": 0,
+    }
+    resolved["semantic_review_contract_sha256"] = _sha256_text(
+        json.dumps(
+            {
+                "supported_claims": supported_claims,
+                "omitted_unsupported_claims": omitted_claims,
+                "evidence_document_ids": list(
+                    resolved.get("evidence_document_ids") or []
+                ),
+                "accepted_source_identities": resolved[
+                    "accepted_source_identities"
+                ],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+            default=str,
+        )
+    )
+    resolved["canonical_rich_text"] = markdown_to_rich_text(resolved_body)
+    return resolved
+
+
 def _allowed_source_urls(context: Mapping[str, Any]) -> set[str]:
     return {
         str(binding.get("reader_source_url") or "")
@@ -1449,6 +1744,8 @@ def grounded_article_source_coverage(
     }
     paragraph_rows: list[dict[str, Any]] = []
     for index, raw in enumerate(re.split(r"\n\s*\n", body)):
+        if _is_markdown_heading_only(raw):
+            continue
         paragraph = re.sub(r"\[[^\]]+\]\([^\)]+\)", " ", raw)
         paragraph = re.sub(r"\[\[(?:SOURCE|VISUAL):[^\]]+\]\]", " ", paragraph)
         paragraph = re.sub(r"^#{1,6}\s+", "", paragraph.strip())
@@ -1739,6 +2036,8 @@ def _writer_response_source_coverage_blockers(
         if token.casefold() not in _AUDIT_STOPWORDS
     }
     for index, raw in enumerate(re.split(r"\n\s*\n", body)):
+        if _is_markdown_heading_only(raw):
+            continue
         paragraph = re.sub(r"\[\[(?:SOURCE|VISUAL):[^\]]+\]\]", " ", raw)
         paragraph = re.sub(r"^#{1,6}\s+", "", paragraph.strip())
         tokens = {
@@ -1900,17 +2199,13 @@ def _compact_writer_router_telemetry(summary: Mapping[str, Any]) -> dict[str, An
 
 
 def _default_article_generator(prompt: str) -> dict[str, Any]:
-    """Route article generation through the canonical 9Router quality-first pool."""
+    """Legacy zero-write compatibility writer; public articles require native XHIGH."""
     from live_contentops.nine_router_llm_seam_v2 import (
         ROLE_ARTICLE_WRITING,
-        ROLE_ARTICLE_WRITING_CX_RESCUE,
         RoutedInvocationError,
         routed_llm_invocation,
     )
-    from live_contentops.nine_router_ordered_model_router_v2 import (
-        ACCEPTED,
-        CX_FINAL_FALLBACK_MODEL,
-    )
+    from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED
 
     governed_input: dict[str, Any] = {}
     try:
@@ -2045,81 +2340,24 @@ def _default_article_generator(prompt: str) -> dict[str, Any]:
             "normal_repair_attempted": bool(
                 normal_telemetry["total_structured_repair_attempts"]
             ),
-            "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
-            in normal_telemetry["models_attempted_in_order"],
-            "cx_utility_rescue_attempted": False,
+            "native_xhigh_required_after_failed_utility": False,
         }
         return generated
 
-    if summary.get("selected_model") == CX_FINAL_FALLBACK_MODEL:
-        raise GroundedArticleBuilderError(
-            CODEX_EDITORIAL_BRAIN_TRIGGER,
-            writer_router_telemetry={
-                "logical_invocations": 1,
-                "normal": normal_telemetry,
-                "normal_repair_attempted": bool(
-                    normal_telemetry["total_structured_repair_attempts"]
-                ),
-                "cx_provider_fallback_attempted": True,
-                "cx_utility_rescue_attempted": False,
-            },
-        )
-
-    failure_codes = [str(value) for value in utility.get("failure_codes") or []]
-    rescue_prompt = "\n".join(
-        [
-            prompt,
-            "CX_WRITER_UTILITY_RESCUE_REQUIRED:",
-            ",".join(failure_codes)[:500] or "WRITER_UTILITY_FAILED",
-            "Produce a fresh article from the exact same governed evidence. Add no research, "
-            "URLs, facts, numbers, or source identities. Correct only reader utility and prose.",
-        ]
+    raise GroundedArticleBuilderError(
+        CODEX_EDITORIAL_BRAIN_TRIGGER,
+        writer_router_telemetry={
+            "logical_invocations": 1,
+            "normal": normal_telemetry,
+            "normal_repair_attempted": bool(
+                normal_telemetry["total_structured_repair_attempts"]
+            ),
+            "native_xhigh_required_after_failed_utility": True,
+            "utility_failure_codes": [
+                str(value) for value in utility.get("failure_codes") or []
+            ],
+        },
     )
-
-    def rescue_validator(raw: str) -> tuple[bool, str | None, Any, str | None]:
-        return parse_and_validate(raw, accept_utility_failure_after_repair=False)
-
-    rescue_summary = routed_llm_invocation(
-        prompt=rescue_prompt,
-        role_task_id=ROLE_ARTICLE_WRITING_CX_RESCUE,
-        logical_invocation_id=f"rolling_x_article_cx_rescue_{_sha256_text(prompt)[:20]}",
-        work_item_id=cluster_id,
-        timeout_seconds=240.0,
-        validator=rescue_validator,
-        governed_input={"schema_version": SCHEMA_VERSION},
-        prompt_template="rolling_x_grounded_article_cx_utility_rescue",
-        prompt_version="v1",
-    )
-    if rescue_summary.get("terminal_disposition") != ACCEPTED or not isinstance(
-        rescue_summary.get("output"), Mapping
-    ):
-        raise GroundedArticleBuilderError(
-            CODEX_EDITORIAL_BRAIN_TRIGGER,
-            writer_router_telemetry={
-                "logical_invocations": 2,
-                "normal": normal_telemetry,
-                "cx_rescue": _compact_writer_router_telemetry(rescue_summary),
-                "normal_repair_attempted": bool(
-                    normal_telemetry["total_structured_repair_attempts"]
-                ),
-                "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
-                in normal_telemetry["models_attempted_in_order"],
-                "cx_utility_rescue_attempted": True,
-            },
-        )
-    rescued = dict(rescue_summary["output"])
-    rescued["_writer_router_telemetry"] = {
-        "logical_invocations": 2,
-        "normal": normal_telemetry,
-        "cx_rescue": _compact_writer_router_telemetry(rescue_summary),
-        "normal_repair_attempted": bool(
-            normal_telemetry["total_structured_repair_attempts"]
-        ),
-        "cx_provider_fallback_attempted": CX_FINAL_FALLBACK_MODEL
-        in normal_telemetry["models_attempted_in_order"],
-        "cx_utility_rescue_attempted": True,
-    }
-    return rescued
 
 
 def _deterministic_supported_claim_brief(
@@ -2361,8 +2599,7 @@ def build_rolling_x_grounded_article_and_media(
                     "normal_repair_attempted": bool(
                         exc.summary.get("total_structured_repair_attempts")
                     ),
-                    "cx_provider_fallback_attempted": False,
-                    "cx_utility_rescue_attempted": False,
+                    "native_xhigh_required_after_failed_utility": True,
                 },
             ) from exc
         if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
@@ -2374,9 +2611,10 @@ def build_rolling_x_grounded_article_and_media(
         }
         generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
 
+    raw_generated_body = str(generated.get("substack_body_markdown") or "")
     resolved_body, referenced_source_ids, source_reference_blockers = (
         _resolve_generated_source_references(
-            str(generated.get("substack_body_markdown") or ""),
+            raw_generated_body,
             context=context,
         )
     )
@@ -2467,6 +2705,17 @@ def build_rolling_x_grounded_article_and_media(
             generated.get("social_cross_asset_summary") or ""
         ).strip(),
         "substack_body_markdown": str(generated.get("substack_body_markdown") or ""),
+        "raw_worker_body_sha256": _sha256_text(raw_generated_body),
+        "resolved_public_body_sha256": _sha256_text(
+            str(generated.get("substack_body_markdown") or "")
+        ),
+        "source_reference_resolution": {
+            "status": "PASS",
+            "resolver": "GROUNDED_SOURCE_BINDING_RESOLVER_V1",
+            "referenced_source_ids": referenced_source_ids,
+            "unknown_source_handle_count": 0,
+            "unbound_source_url_count": 0,
+        },
         "primary_reader_question": str(
             generated.get("primary_reader_question") or ""
         ).strip(),

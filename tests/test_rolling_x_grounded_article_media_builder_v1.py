@@ -13,6 +13,7 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     build_rolling_x_grounded_article_and_media,
     build_source_backed_media_assets,
     extract_governed_story_context,
+    resolve_editorial_worker_article_for_public_lock,
     validate_generated_article,
     _untraceable_numeric_claims,
     _authority_blockers,
@@ -749,6 +750,129 @@ def test_source_resolution_prevents_adjacent_duplicate_publisher_attribution():
     assert "Reuters reported the timetable" in resolved
 
 
+def test_hostname_source_label_uses_exact_page_title_publisher_and_preserves_sentences():
+    from live_contentops.mvp_canary_acceptance_v1 import (
+        evaluate_mvp_canary_minimum_useful_floor,
+    )
+
+    document = _official_document()
+    document.update(
+        {
+            "publisher": "www.state.gov",
+            "source_identity": "www.state.gov",
+            "title": (
+                "Italy – Guidance Section Single Variant Air-to-Air Advanced Precision "
+                "Kill Weapon System-II - United States Department of State"
+            ),
+            "reader_source_url": "https://www.state.gov/example",
+        }
+    )
+    context = extract_governed_story_context(_viability(evidence=_evidence([document])))
+    body = (
+        "The State Department approved a possible sale to Italy and recorded the action in "
+        "its public notice [[SOURCE:SOURCE_1]].\n\n"
+        "Italy requested the specified guidance sections and related equipment described in "
+        "that notice [[SOURCE:SOURCE_1]].\n\n"
+        "The notice also identifies the congressional notification date and transmittal "
+        "number for readers to verify [[SOURCE:SOURCE_1]]."
+    )
+    resolved, _source_ids, blockers = builder._resolve_generated_source_references(
+        body,
+        context=context,
+    )
+    gate = evaluate_mvp_canary_minimum_useful_floor(
+        {
+            "title": "State Department Approves Possible APKWS II Sale to Italy",
+            "subtitle": "The official notice defines the proposed transaction and its status.",
+            "effective_article_mode": "BREAKING_BRIEF",
+            "substack_body_markdown": resolved,
+        }
+    )
+
+    assert blockers == []
+    assert "[United States Department of State](https://www.state.gov/example)" in resolved
+    assert "www.state.gov]" not in resolved
+    assert gate["checks"]["minimum_reader_substance"] is True
+
+
+@pytest.mark.parametrize("revision_count", [0, 1])
+def test_final_worker_source_markers_resolve_before_public_lock_for_fresh_and_revision(
+    revision_count,
+):
+    article = {
+        "title": "Treasury rule",
+        "substack_body_markdown": (
+            "The Treasury published its final rule [[SOURCE:SOURCE_1]]."
+        ),
+        "bounded_revision_count": revision_count,
+    }
+
+    resolved = resolve_editorial_worker_article_for_public_lock(
+        article, viability=_viability()
+    )
+
+    assert "[[SOURCE:" not in resolved["substack_body_markdown"]
+    assert FR_URL in resolved["substack_body_markdown"]
+    assert resolved["raw_worker_body_sha256"] != resolved["resolved_public_body_sha256"]
+    assert resolved["source_reference_resolution"]["status"] == "PASS"
+
+
+def test_exact_failed_oil_treasury_semantic_projection_restores_claims_and_clean_prose():
+    from live_contentops.tier1_editorial_quality_v1 import (
+        build_llm_editorial_review_prompt,
+    )
+
+    root = Path(__file__).resolve().parents[1]
+    evidence = root / (
+        "docs/automation/"
+        "TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/"
+        "frontier_4/canonical_zero_write_rehearsal_attempt_2"
+    )
+    candidate = json.loads(
+        (evidence / "rolling_x_grounded_article_media_candidate_4_v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    selected_viability = json.loads(
+        (
+            evidence.parent
+            / "route_probe/rolling_x_ranked_viability_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    resolved = resolve_editorial_worker_article_for_public_lock(
+        candidate["article"], viability=selected_viability
+    )
+    prompt = build_llm_editorial_review_prompt(resolved)
+    review_input = json.loads(prompt.split("ARTICLE:\n", 1)[1])
+
+    assert resolved["supported_claims"]
+    assert resolved["accepted_source_identities"]
+    assert resolved["semantic_review_contract_sha256"]
+    assert review_input["supported_claims"] == resolved["supported_claims"]
+    assert review_input["evidence_document_ids"] == resolved["evidence_document_ids"]
+    assert review_input["accepted_source_identities"] == resolved[
+        "accepted_source_identities"
+    ]
+    assert "Aljazeera Al Jazeera" not in review_input["reader_visible_prose"]
+    assert "provided supported_claims list is completely empty" not in prompt
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        "Unsupported handle [[SOURCE:SOURCE_99]].",
+        "Unsupported URL https://unbound.example.invalid/report.",
+    ],
+)
+def test_final_worker_source_resolution_fails_closed_for_unknown_identity(body):
+    with pytest.raises(GroundedArticleBuilderError):
+        resolve_editorial_worker_article_for_public_lock(
+            {"title": "Blocked", "substack_body_markdown": body},
+            viability=_viability(),
+        )
+
+
 def test_analytical_mode_blocks_without_capital_chronicle_authority(tmp_path):
     viability = _viability(
         story_type="data_release", article_mode="analysis", cc_required=True
@@ -983,7 +1107,9 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
         "telegram", "discord", "x", "linkedin", "facebook_page",
         "instagram_business", "threads", "youtube",
     }
-    assert payloads["x"]["reply_texts"] == []
+    assert payloads["x"]["reply_texts"] == [
+        "Watch: No market reaction is asserted here."
+    ]
 
     editorial = implementation._run_bounded_rolling_x_editorial_cycle(
         article=built["article"],
@@ -1409,6 +1535,27 @@ def test_writer_validator_rejects_uncovered_connective_paragraph():
     ) == ["grounded_paragraph_source_coverage_incomplete:1"]
 
 
+def test_writer_source_coverage_does_not_treat_markdown_heading_as_prose():
+    governed_input = {
+        "evidence_documents": [
+            {
+                "document_id": "d1",
+                "source_handle": "SOURCE_1",
+                "canonical_content_text": "The official notice documents the next phase.",
+            }
+        ],
+        "supported_claims": [],
+    }
+    article = {
+        "substack_body_markdown": (
+            "## What would establish the next phase\n\n"
+            "The official notice documents the next phase. [[SOURCE:SOURCE_1]]"
+        )
+    }
+
+    assert builder._writer_response_source_coverage_blockers(article, governed_input) == []
+
+
 def _useful_writer_output(handle="SOURCE_1"):
     return {
         "title": "Treasury Publishes Final Stress Testing Rule",
@@ -1458,15 +1605,9 @@ def test_writer_utility_preflight_rejects_thin_copy_and_accepts_useful_copy():
     assert builder._writer_utility_preflight(_useful_writer_output(), governed) == []
 
 
-def test_default_writer_uses_one_repair_then_one_separate_cx_utility_rescue(
-    monkeypatch,
-):
+def test_default_writer_requires_native_xhigh_after_its_one_bounded_repair(monkeypatch):
     from live_contentops import nine_router_llm_seam_v2 as seam
-    from live_contentops.nine_router_ordered_model_router_v2 import (
-        ACCEPTED,
-        CX_FINAL_FALLBACK_MODEL,
-        ORDERED_MODEL_POOL,
-    )
+    from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ORDERED_MODEL_POOL
 
     context = extract_governed_story_context(_viability())
     prompt = builder.build_article_generation_prompt(context, [])
@@ -1500,32 +1641,20 @@ def test_default_writer_uses_one_repair_then_one_separate_cx_utility_rescue(
                 "attempts": [],
                 "output": second[2],
             }
-        accepted = kwargs["validator"](json.dumps(_useful_writer_output()))
-        assert accepted[0] is True
-        return {
-            "terminal_disposition": ACCEPTED,
-            "logical_invocation_id": kwargs["logical_invocation_id"],
-            "selected_model": CX_FINAL_FALLBACK_MODEL,
-            "models_attempted_in_order": [CX_FINAL_FALLBACK_MODEL],
-            "total_attempts": 1,
-            "total_fallback_transitions": 0,
-            "total_structured_repair_attempts": 0,
-            "attempts": [],
-            "output": accepted[2],
-        }
+        raise AssertionError("no second 9Router writer invocation is permitted")
 
     monkeypatch.setattr(seam, "routed_llm_invocation", fake_routed)
-    generated = builder._default_article_generator(prompt)
+    with pytest.raises(
+        GroundedArticleBuilderError,
+        match="TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
+    ) as raised:
+        builder._default_article_generator(prompt)
 
-    assert calls == [
-        seam.ROLE_ARTICLE_WRITING,
-        seam.ROLE_ARTICLE_WRITING_CX_RESCUE,
-    ]
-    telemetry = generated["_writer_router_telemetry"]
+    assert calls == [seam.ROLE_ARTICLE_WRITING]
+    telemetry = raised.value.writer_router_telemetry
     assert telemetry["normal_repair_attempted"] is True
-    assert telemetry["cx_utility_rescue_attempted"] is True
-    assert telemetry["logical_invocations"] == 2
-    assert generated["_writer_utility_preflight"]["classification"] == "PASS"
+    assert telemetry["native_xhigh_required_after_failed_utility"] is True
+    assert telemetry["logical_invocations"] == 1
 
 
 def test_source_coverage_repair_requires_exact_supplied_source_markers(monkeypatch):
@@ -1564,7 +1693,7 @@ def test_source_coverage_repair_requires_exact_supplied_source_markers(monkeypat
     assert generated["title"] == _useful_writer_output()["title"]
 
 
-def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):
+def test_default_writer_does_not_use_a_second_router_for_failed_utility(monkeypatch):
     from live_contentops import nine_router_llm_seam_v2 as seam
     from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ORDERED_MODEL_POOL
 
@@ -1591,21 +1720,7 @@ def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):
                 "attempts": [],
                 "output": second[2],
             }
-        unsupported = _useful_writer_output()
-        unsupported["substack_body_markdown"] += (
-            "\n\nA newly discovered lunar bank guaranteed profits across every global market."
-        )
-        rejected = kwargs["validator"](json.dumps(unsupported))
-        assert rejected[0] is False
-        assert rejected[1] == "factual_validation_failure"
-        return {
-            "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
-            "models_attempted_in_order": ["cx/gpt-5.6-sol(xhigh)"],
-            "total_attempts": 1,
-            "total_structured_repair_attempts": 0,
-            "attempts": [],
-            "output": None,
-        }
+        raise AssertionError("no second 9Router utility rescue is permitted")
 
     monkeypatch.setattr(seam, "routed_llm_invocation", fake_routed)
     with pytest.raises(
@@ -1613,11 +1728,9 @@ def test_cx_utility_rescue_cannot_add_unsupported_claims(monkeypatch):
         match="TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE",
     ) as raised:
         builder._default_article_generator(prompt)
-    assert raised.value.writer_router_telemetry["logical_invocations"] == 2
-    assert raised.value.writer_router_telemetry["cx_utility_rescue_attempted"] is True
-    assert raised.value.writer_router_telemetry["cx_rescue"]["terminal_disposition"] == (
-        "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
-    )
+    telemetry = raised.value.writer_router_telemetry
+    assert telemetry["logical_invocations"] == 1
+    assert telemetry["native_xhigh_required_after_failed_utility"] is True
 
 
 # --- Phase 2: media factual provenance (framing/X cannot become evidence facts) ---

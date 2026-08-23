@@ -74,6 +74,12 @@ FAKE_OR_UNBOUND_QUOTE_REPAIR_INSTRUCTION = (
 AUTOMATION_HOST_OBSERVATION_SCHEMA_VERSION = (
     "contentops.codex_automation_host_observation.v1"
 )
+HYBRID_EDITORIAL_RUN_IDENTITY_SCHEMA_VERSION = (
+    "contentops.hybrid_editorial_run_identity.v1"
+)
+HYBRID_EDITORIAL_ARBITRATION_SCHEMA_VERSION = (
+    "contentops.hybrid_editorial_arbitration.v1"
+)
 EXACT_V1_AUTOMATION_IDS = (
     "v1-newsroom-london-1700",
     "v1-newsroom-new-york-2100",
@@ -109,14 +115,15 @@ DESKTOP_TASK_PROMPT = (
     "Read AGENTS.md, the current authority/supersession map, root V3 North Star/Master Plan, the "
     "current V1 pointer, and docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md. Operate as "
     "the native V1 coordinator on exact gpt-5.6-sol / HIGH. Resolve the deterministic newsroom "
-    "production day, build floor of four qualified zero-public-write articles, final target of five "
+    "production day, immediate one-article MVP canary launch gate, post-launch throughput gate of "
+    "four qualified zero-public-write articles and 32 derivative intents, final target of five "
     "to eight published articles, qualified/published counts, remaining deficit, and routine "
     "opportunities remaining. Invoke the canonical ContentOps V1 runtime seam and require its import "
     "preflight. Run canonical recovery/reconciliation first, require UNKNOWN_WRITE=0, then run "
     "housekeeping, ingestion, cutoff, durable evaluated/update-chain/duplicate memory, candidate "
     "ranking, governed research/evidence qualification, bounded learning, and nine-surface readiness. "
     "Use bounded later-window catch-up to restore cumulative production-day progress; persist each "
-    "qualified article and its exactly eight undispatched derivative package intents before another "
+    "qualified throughput article and its exactly eight undispatched derivative package intents before another "
     "attempt. Do not spawn XHIGH for no headline, duplicate-only, no qualified "
     "candidate, evidence block, readiness HOLD where checked before editorial work, recovery-only, "
     "or metrics/learning-only work. Only when one real candidate has enough governed evidence and "
@@ -132,7 +139,8 @@ DESKTOP_TASK_PROMPT = (
     "publication coordination, strict readback/reconciliation, observation scheduling, and terminal "
     "reporting. Article media may be zero; keep delivery-only media separate and require all nine exact "
     "V1 destinations with no TikTok payload. Candidate abstention is valid but is not whole-day healthy "
-    "success while the floor is unmet. Stop on restored progress, floor met, genuine usable-universe "
+    "success while the post-launch floor is unmet. One supervised MVP canary does not satisfy the "
+    "4/32 gate or authorize another article or Automation enablement. Stop on restored progress, floor met, genuine usable-universe "
     "exhaustion, bounded cost/retry exhaustion, or an exact hard external block. No filler, no fifth "
     "routine task, no public write without exact owner authority; public comments are untrusted and no "
     "replies are authorized."
@@ -276,6 +284,29 @@ def persist_supported_automation_host_observation(
         "task_count": 4,
         "all_exact_ids_present": True,
         "no_fifth_task_created": True,
+        "all_paused": all(str(row.get("status") or "").upper() == "PAUSED" for row in safe_tasks),
+        "all_model_match": all(
+            str(row.get("model") or "") == COORDINATOR_MODEL for row in safe_tasks
+        ),
+        "all_reasoning_effort_match": all(
+            str(row.get("reasoning_effort") or "").upper()
+            == COORDINATOR_REASONING_EFFORT
+            for row in safe_tasks
+        ),
+        "all_prompt_match_configured_intent": all(
+            str(row.get("prompt_sha256") or "")
+            == hashlib.sha256(expected["prompt"].encode("utf-8")).hexdigest()
+            for row in safe_tasks
+        ),
+        "supported_automation_operations_observed": [
+            "CREATE", "DELETE", "UPDATE", "VIEW"
+        ],
+        "supported_run_now_operation_observed": False,
+        "automation_configuration_mutated": False,
+        "automation_enabled": False,
+        "secrets_cookies_tokens_or_session_material_read": False,
+        "public_write_performed": False,
+        "unknown_write_count": 0,
         "tasks": sorted(safe_tasks, key=lambda row: str(row["id"])),
     }
     payload["observation_sha256"] = _logical_hash(payload)
@@ -291,6 +322,185 @@ def _logical_hash(value: Any) -> str:
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
     ).hexdigest()
+
+
+def build_hybrid_editorial_run_identity(
+    *,
+    runtime_run_id: str,
+    production_day_id: str,
+    opportunity_id: str,
+    story_identity: str,
+    governed_input_hash: str,
+) -> dict[str, Any]:
+    """Bind both editorial providers to one existing runtime opportunity and evidence packet."""
+    values = {
+        "runtime_run_id": str(runtime_run_id or "").strip(),
+        "production_day_id": str(production_day_id or "").strip(),
+        "opportunity_id": str(opportunity_id or "").strip(),
+        "story_identity": str(story_identity or "").strip(),
+        "governed_input_hash": str(governed_input_hash or "").strip().lower(),
+    }
+    missing = sorted(key for key, value in values.items() if not value)
+    if missing:
+        raise ValueError("hybrid_editorial_run_identity_missing:" + ",".join(missing))
+    evidence_hash = values["governed_input_hash"]
+    if len(evidence_hash) != 64 or any(
+        character not in "0123456789abcdef" for character in evidence_hash
+    ):
+        raise ValueError("hybrid_editorial_governed_input_hash_invalid")
+    identity = {
+        "schema_version": HYBRID_EDITORIAL_RUN_IDENTITY_SCHEMA_VERSION,
+        **values,
+    }
+    identity["canonical_run_identity"] = _logical_hash(identity)
+    return identity
+
+
+def _validate_hybrid_run_identity(identity: Mapping[str, Any]) -> dict[str, Any]:
+    supplied = dict(identity)
+    canonical = str(supplied.pop("canonical_run_identity", "") or "")
+    if supplied.get("schema_version") != HYBRID_EDITORIAL_RUN_IDENTITY_SCHEMA_VERSION:
+        raise ValueError("hybrid_editorial_run_identity_schema_invalid")
+    if not canonical or _logical_hash(supplied) != canonical:
+        raise ValueError("hybrid_editorial_run_identity_hash_mismatch")
+    return {**supplied, "canonical_run_identity": canonical}
+
+
+def arbitrate_hybrid_editorial_execution(
+    *,
+    run_identity: Mapping[str, Any],
+    observed_at_utc: datetime | str,
+    valid_window_ends_at_utc: datetime | str,
+    desktop_primary_receipt: Mapping[str, Any] | None = None,
+    sdk_fallback_receipt: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Choose one editorial owner without adding a scheduler, store, queue, or publisher.
+
+    Desktop is the routine primary.  The SDK can begin only after an observable primary failure or
+    missed valid window.  Once fallback starts, a late Desktop completion is retained as evidence
+    but cannot become a second canonical article or public object.
+    """
+    identity = _validate_hybrid_run_identity(run_identity)
+    observed = _parse_utc(observed_at_utc)
+    window_end = _parse_utc(valid_window_ends_at_utc)
+    if observed is None or window_end is None:
+        raise ValueError("hybrid_editorial_arbitration_time_invalid")
+    canonical_id = identity["canonical_run_identity"]
+
+    desktop = dict(desktop_primary_receipt or {})
+    fallback = dict(sdk_fallback_receipt or {})
+    for label, receipt in (("desktop", desktop), ("sdk", fallback)):
+        receipt_identity = str(receipt.get("canonical_run_identity") or "")
+        if receipt_identity and receipt_identity != canonical_id:
+            raise ValueError(f"hybrid_editorial_{label}_run_identity_mismatch")
+
+    desktop_state = str(desktop.get("state") or "NOT_OBSERVED").strip().upper()
+    fallback_state = str(fallback.get("state") or "NOT_STARTED").strip().upper()
+    valid_desktop_states = {
+        "NOT_OBSERVED", "PENDING", "ACCEPTED", "MISSED_VALID_WINDOW",
+        "FAILED_PRIMARY", "TERMINAL_NO_ARTICLE",
+    }
+    valid_fallback_states = {"NOT_STARTED", "STARTED", "ACCEPTED", "FAILED"}
+    if desktop_state not in valid_desktop_states:
+        raise ValueError("hybrid_editorial_desktop_state_invalid")
+    if fallback_state not in valid_fallback_states:
+        raise ValueError("hybrid_editorial_sdk_state_invalid")
+
+    late_desktop = False
+    if desktop_state == "ACCEPTED":
+        desktop_completed = _parse_utc(desktop.get("completed_at_utc"))
+        if desktop_completed is None:
+            raise ValueError("hybrid_editorial_desktop_completion_time_required")
+        late_desktop = desktop_completed > window_end
+
+    fallback_has_started = fallback_state != "NOT_STARTED"
+    if fallback_has_started:
+        if fallback_state == "ACCEPTED":
+            decision = "ACCEPT_SDK_FALLBACK"
+            owner = "SDK_FALLBACK"
+            reason = "SDK_FALLBACK_ALREADY_ACCEPTED"
+        elif fallback_state == "FAILED":
+            decision = "SDK_FALLBACK_FAILED_NO_DESKTOP_REENTRY"
+            owner = "NONE"
+            reason = "SDK_FALLBACK_TERMINAL"
+        else:
+            decision = "SDK_FALLBACK_ALREADY_IN_FLIGHT"
+            owner = "SDK_FALLBACK"
+            reason = "SDK_FALLBACK_ALREADY_STARTED"
+        late_desktop = late_desktop or desktop_state == "ACCEPTED"
+    elif desktop_state == "ACCEPTED" and not late_desktop:
+        decision = "ACCEPT_DESKTOP_PRIMARY"
+        owner = "DESKTOP_PRIMARY"
+        reason = "DESKTOP_PRIMARY_ACCEPTED_WITHIN_VALID_WINDOW"
+    elif desktop_state == "TERMINAL_NO_ARTICLE":
+        decision = "TERMINAL_NO_ARTICLE_NO_PROVIDER_FALLBACK"
+        owner = "NONE"
+        reason = "CANONICAL_CONTENT_OR_SAFETY_GATE_TERMINAL"
+    elif desktop_state in {"MISSED_VALID_WINDOW", "FAILED_PRIMARY"}:
+        decision = "START_SDK_FALLBACK"
+        owner = "SDK_FALLBACK"
+        reason = f"DESKTOP_PRIMARY_{desktop_state}"
+    elif late_desktop:
+        decision = "START_SDK_FALLBACK"
+        owner = "SDK_FALLBACK"
+        reason = "DESKTOP_PRIMARY_COMPLETED_AFTER_VALID_WINDOW"
+    elif observed > window_end:
+        decision = "START_SDK_FALLBACK"
+        owner = "SDK_FALLBACK"
+        reason = "DESKTOP_PRIMARY_VALID_WINDOW_EXPIRED"
+    else:
+        decision = "WAIT_FOR_DESKTOP_PRIMARY"
+        owner = "NONE"
+        reason = "DESKTOP_PRIMARY_VALID_WINDOW_OPEN"
+
+    receipt = {
+        "schema_version": HYBRID_EDITORIAL_ARBITRATION_SCHEMA_VERSION,
+        "run_identity": identity,
+        "canonical_run_identity": canonical_id,
+        "runtime_run_id": identity["runtime_run_id"],
+        "observed_at_utc": _iso_utc(observed),
+        "valid_window_ends_at_utc": _iso_utc(window_end),
+        "desktop_primary_state": desktop_state,
+        "sdk_fallback_state": fallback_state,
+        "decision": decision,
+        "reason": reason,
+        "canonical_article_owner": owner,
+        "desktop_is_primary_for_routine_opportunities": True,
+        "sdk_roles": ["BOUNDED_FALLBACK", "DIRECT_EVENT_PATH", "BENCHMARK"],
+        "sdk_fallback_start_authorized": decision == "START_SDK_FALLBACK",
+        "late_desktop_completion_suppressed": bool(late_desktop),
+        "duplicate_article_or_public_object_authorized": False,
+        "scheduler_created": False,
+        "store_created": False,
+        "publisher_created": False,
+        "publication_authority": False,
+        "public_write_performed": False,
+    }
+    receipt["arbitration_logical_hash"] = _logical_hash(receipt)
+    return receipt
+
+
+def validate_hybrid_editorial_arbitration_receipt(
+    receipt: Mapping[str, Any], *, expected_runtime_run_id: str | None = None
+) -> dict[str, Any]:
+    """Validate an arbitration receipt before the facade constructs an SDK fallback."""
+    supplied = dict(receipt)
+    supplied_hash = str(supplied.pop("arbitration_logical_hash", "") or "")
+    if supplied.get("schema_version") != HYBRID_EDITORIAL_ARBITRATION_SCHEMA_VERSION:
+        raise ValueError("hybrid_editorial_arbitration_schema_invalid")
+    if not supplied_hash or _logical_hash(supplied) != supplied_hash:
+        raise ValueError("hybrid_editorial_arbitration_hash_mismatch")
+    identity = supplied.get("run_identity")
+    if not isinstance(identity, Mapping):
+        raise ValueError("hybrid_editorial_arbitration_run_identity_missing")
+    validated_identity = _validate_hybrid_run_identity(identity)
+    if supplied.get("canonical_run_identity") != validated_identity["canonical_run_identity"]:
+        raise ValueError("hybrid_editorial_arbitration_identity_binding_mismatch")
+    if expected_runtime_run_id is not None and supplied.get("runtime_run_id") != str(
+        expected_runtime_run_id
+    ):
+        raise ValueError("hybrid_editorial_arbitration_runtime_run_id_mismatch")
+    return {**supplied, "arbitration_logical_hash": supplied_hash}
 
 
 def prepared_candidate_continuity_binding(
@@ -444,12 +654,185 @@ def build_editorial_worker_routing_packet(
     return result
 
 
+def _sanitized_review_codes(value: Any) -> list[str]:
+    """Keep only stable review-code identifiers in a worker continuation contract."""
+    codes: set[str] = set()
+    for row in value or []:
+        if isinstance(row, Mapping):
+            candidate = str(row.get("code") or "")
+        else:
+            candidate = str(row or "")
+        if candidate:
+            codes.add(candidate)
+    return sorted(codes)
+
+
+def build_same_xhigh_worker_revision_contract(
+    *,
+    worker_return: Mapping[str, Any],
+    worker_validation: Mapping[str, Any],
+    worker_request: Mapping[str, Any],
+    deterministic_review: Mapping[str, Any],
+    semantic_review: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Issue one exact same-worker revision request without creating an author fallback.
+
+    The original worker was fresh and isolated.  A revision therefore resumes that same bounded
+    worker; it is neither a new XHIGH worker nor a 9Router article-writing request.  The full
+    governed context is retained only in the runtime request, while review feedback is reduced to
+    stable deterministic/sanitized codes.
+    """
+    governed_input_hash = str(worker_validation.get("governed_input_hash") or "")
+    bounded_context = worker_request.get("bounded_governed_context")
+    if not governed_input_hash or not isinstance(bounded_context, Mapping):
+        raise ValueError("same_xhigh_revision_governed_context_required")
+    if str(worker_request.get("governed_input_hash") or "") != governed_input_hash:
+        raise ValueError("same_xhigh_revision_worker_request_hash_mismatch")
+    if _logical_hash(dict(bounded_context)) != governed_input_hash:
+        raise ValueError("same_xhigh_revision_governed_context_hash_mismatch")
+    revision_count = int(worker_return.get("bounded_revision_count") or 0)
+    if revision_count < 0 or revision_count >= MAX_EDITORIAL_REVISIONS:
+        raise ValueError("same_xhigh_revision_budget_exhausted")
+    return_hash = str(worker_validation.get("worker_return_hash") or "")
+    if not return_hash:
+        raise ValueError("same_xhigh_revision_prior_return_hash_required")
+    if _logical_hash(worker_return) != return_hash:
+        raise ValueError("same_xhigh_revision_prior_return_binding_mismatch")
+    accepted_evidence = dict(bounded_context.get("accepted_evidence_packet") or {})
+    evidence_identity = sorted(
+        {
+            str(row.get("document_id") or row.get("evidence_id") or "")
+            for row in accepted_evidence.get("evidence_documents") or []
+            if isinstance(row, Mapping)
+            and str(row.get("document_id") or row.get("evidence_id") or "")
+        }
+    )
+    contract = {
+        "schema_version": "contentops.same_xhigh_worker_revision_contract.v1",
+        "decision": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+        "governed_input_hash": governed_input_hash,
+        "prior_worker_return_hash": return_hash,
+        "prior_bounded_revision_count": revision_count,
+        "required_bounded_revision_count": revision_count + 1,
+        "maximum_bounded_revision_count": MAX_EDITORIAL_REVISIONS,
+        "same_worker_required": True,
+        "fresh_replacement_worker_forbidden": True,
+        "router_final_writer_forbidden": True,
+        "worker_request": {
+            "model": EDITORIAL_WORKER_MODEL,
+            "reasoning_effort": EDITORIAL_WORKER_REASONING_EFFORT,
+            "resume_same_isolated_worker": True,
+            "fresh_worker_creation": False,
+            "governed_input_hash": governed_input_hash,
+            "bounded_governed_context": dict(bounded_context),
+            "exact_source_marker_contract": dict(
+                worker_request.get("exact_source_marker_contract") or {}
+            ),
+            "max_bounded_editorial_revisions": MAX_EDITORIAL_REVISIONS,
+        },
+        "immutable_evidence_identity": {
+            "evidence_document_ids": evidence_identity,
+            "exact_source_handles": [
+                str(value)
+                for value in bounded_context.get("exact_source_handles") or []
+                if str(value)
+            ],
+        },
+        "deterministic_blockers": {
+            "hard_editorial_blockers": _sanitized_review_codes(
+                deterministic_review.get("hard_editorial_blockers")
+            ),
+            "editorial_blockers": _sanitized_review_codes(
+                deterministic_review.get("editorial_blockers")
+            ),
+            "reader_value_blockers": _sanitized_review_codes(
+                (deterministic_review.get("reader_value_gate") or {}).get("blockers")
+                if isinstance(deterministic_review.get("reader_value_gate"), Mapping)
+                else []
+            ),
+        },
+        "semantic_review": {
+            "decision": str(semantic_review.get("decision") or "NEEDS_REVISION"),
+            "failed_checks": _sanitized_review_codes(
+                semantic_review.get("failed_checks")
+            ),
+            "material_failed_checks": _sanitized_review_codes(
+                semantic_review.get("material_failed_checks")
+            ),
+            "issue_codes": _sanitized_review_codes(semantic_review.get("issues")),
+        },
+        "public_write_authority": False,
+        "publication_authority": False,
+    }
+    contract["revision_contract_hash"] = _logical_hash(contract)
+    return contract
+
+
+def validate_same_xhigh_worker_revision_return(
+    *,
+    worker_return: Mapping[str, Any],
+    revision_contract: Mapping[str, Any],
+    expected_editorial_packet: Mapping[str, Any] | None = None,
+    accepted_evidence_packet: Mapping[str, Any] | None = None,
+    acceptance_profile: str | None = None,
+) -> dict[str, Any]:
+    """Validate the one permitted same-worker revision against its original receipt."""
+    if revision_contract.get("decision") != "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+        raise ValueError("same_xhigh_revision_contract_invalid")
+    supplied_contract = dict(revision_contract)
+    supplied_contract_hash = str(supplied_contract.pop("revision_contract_hash", "") or "")
+    if not supplied_contract_hash or _logical_hash(supplied_contract) != supplied_contract_hash:
+        raise ValueError("same_xhigh_revision_contract_hash_mismatch")
+    if worker_return.get("same_worker_revision_of_return_hash") != revision_contract.get(
+        "prior_worker_return_hash"
+    ):
+        raise ValueError("same_xhigh_revision_prior_return_hash_mismatch")
+    if int(worker_return.get("bounded_revision_count") or 0) != int(
+        revision_contract.get("required_bounded_revision_count") or -1
+    ):
+        raise ValueError("same_xhigh_revision_count_mismatch")
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        resolve_article_transport_envelope,
+    )
+
+    resolved_article = resolve_article_transport_envelope(worker_return)
+    article_evidence_ids = {
+        str(value)
+        for value in resolved_article.get("evidence_document_ids") or []
+        if str(value)
+    }
+    immutable_evidence_ids = {
+        str(value)
+        for value in (
+            revision_contract.get("immutable_evidence_identity") or {}
+        ).get("evidence_document_ids") or []
+        if str(value)
+    }
+    if article_evidence_ids and article_evidence_ids != immutable_evidence_ids:
+        raise ValueError("same_xhigh_revision_evidence_identity_mismatch")
+    validated = validate_editorial_worker_return(
+        worker_return=worker_return,
+        expected_governed_input_hash=str(revision_contract.get("governed_input_hash") or ""),
+        expected_editorial_packet=expected_editorial_packet,
+        accepted_evidence_packet=accepted_evidence_packet,
+        acceptance_profile=acceptance_profile,
+    )
+    return {
+        **validated,
+        "same_xhigh_worker_revision": True,
+        "same_xhigh_worker_revision_contract_hash": str(
+            revision_contract.get("revision_contract_hash") or ""
+        ),
+    }
+
+
 def validate_editorial_worker_return(
     *,
     worker_return: Mapping[str, Any],
     expected_governed_input_hash: str,
     expected_editorial_packet: Mapping[str, Any] | None = None,
     accepted_evidence_packet: Mapping[str, Any] | None = None,
+    acceptance_profile: str | None = None,
 ) -> dict[str, Any]:
     """Bind one XHIGH result to its exact input and return control to the HIGH coordinator."""
     if str(worker_return.get("governed_input_hash") or "") != expected_governed_input_hash:
@@ -465,7 +848,11 @@ def validate_editorial_worker_return(
         raise ValueError("desktop_editorial_worker_revision_limit_exceeded")
     if bool(worker_return.get("public_write_attempted")):
         raise ValueError("desktop_editorial_worker_public_write_forbidden")
-    article = worker_return.get("article")
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        resolve_article_transport_envelope,
+    )
+
+    article = resolve_article_transport_envelope(worker_return)
     if not isinstance(article, Mapping) or not str(article.get("title") or "").strip():
         raise ValueError("desktop_editorial_worker_article_invalid")
     editorial_validation: dict[str, Any] | None = None
@@ -479,11 +866,35 @@ def validate_editorial_worker_return(
             editorial_packet=expected_editorial_packet,
             accepted_evidence_packet=accepted_evidence_packet,
         )
-        if editorial_validation.get("classification") != "PASS":
+        institutional_quality_warnings: list[str] = []
+        if acceptance_profile:
+            from live_contentops.mvp_canary_acceptance_v1 import (
+                institutional_edge_hard_gate,
+                is_mvp_canary_profile,
+            )
+
+            if is_mvp_canary_profile(acceptance_profile):
+                canary_institutional = institutional_edge_hard_gate(editorial_validation)
+                institutional_quality_warnings = list(
+                    canary_institutional.get("quality_warnings") or []
+                )
+                if canary_institutional.get("classification") != "PASS":
+                    raise ValueError(
+                        "desktop_editorial_worker_institutional_edge_invalid:"
+                        + ",".join(canary_institutional.get("hard_gate_blockers") or [])
+                    )
+            elif editorial_validation.get("classification") != "PASS":
+                raise ValueError(
+                    "desktop_editorial_worker_institutional_edge_invalid:"
+                    + ",".join(editorial_validation.get("blockers") or [])
+                )
+        elif editorial_validation.get("classification") != "PASS":
             raise ValueError(
                 "desktop_editorial_worker_institutional_edge_invalid:"
                 + ",".join(editorial_validation.get("blockers") or [])
             )
+    else:
+        institutional_quality_warnings = []
     return_hash = _logical_hash(worker_return)
     return {
         "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
@@ -500,6 +911,8 @@ def validate_editorial_worker_return(
         "coordinator_reasoning_effort": COORDINATOR_REASONING_EFFORT,
         "deterministic_validation_required": True,
         "institutional_edge_editorial_validation": editorial_validation,
+        "acceptance_profile": acceptance_profile,
+        "institutional_edge_quality_warnings": institutional_quality_warnings,
         "publication_coordinator_remains_sole_public_writer": True,
         "public_write_performed": False,
     }
@@ -1286,6 +1699,7 @@ def build_live_zero_write_rehearsal(
             reentry_headline_ids=reentry_ids,
             editorial_opportunities=opportunities,
             prior_prepared_state=prior_prepared_state,
+            autonomous_source_discovery_available=True,
             continuity_binding=prepared_candidate_continuity_binding(
                 continuity=continuity,
                 evaluated_headline_ids=evaluated_ids,
