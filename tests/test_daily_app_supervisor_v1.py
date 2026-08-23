@@ -314,14 +314,28 @@ def test_later_window_runs_bounded_catchup_only_after_each_qualified_article(
     # One minute past 23:00 Bangkok excludes the prior 21:00 window's grace boundary.
     clock_dt = datetime(2026, 8, 10, 16, 1, tzinfo=timezone.utc)
     calls = []
+    day_id = production.newsroom_production_day_id(clock_dt)
 
     def controlled_cycle(**kwargs):
-        calls.append(kwargs["run_id"])
+        calls.append(dict(kwargs))
+        prior_requests = int(
+            (kwargs.get("quota_discovery_prior_accounting") or {}).get(
+                "deterministic_network_requests"
+            )
+            or 0
+        )
         return {
             "run_id": kwargs["run_id"],
             "classification": "PASS_PUBLICATION_PLAN_READY",
             "public_write_performed": False,
             "unknown_write_detected": False,
+            "quota_efficient_source_discovery": {
+                "schema_version": (
+                    "contentops.quota_efficient_source_discovery.v1"
+                ),
+                "newsroom_production_day_id": day_id,
+                "deterministic_network_requests": prior_requests + 10,
+            },
         }
 
     supervisor, _ = _supervisor(
@@ -364,13 +378,29 @@ def test_later_window_runs_bounded_catchup_only_after_each_qualified_article(
     monkeypatch.setattr(production, "persist_qualified_article_record", lambda *_args: None)
     monkeypatch.setattr(production, "qualified_records_as_published_memory", lambda *_args, **_kwargs: [])
     monkeypatch.setattr(production, "persist_production_day_snapshot", lambda *_args: None)
+    monkeypatch.setattr(
+        production,
+        "load_production_day_discovery_accounting",
+        lambda *_args, **_kwargs: {
+            "schema_version": "contentops.quota_efficient_source_discovery.v1",
+            "newsroom_production_day_id": day_id,
+            "deterministic_network_requests": 10,
+        },
+    )
 
     report = supervisor.tick(now=clock_dt)
 
     assert report["windows_dispatched"] == 1
     assert report["newsroom_cycle_invocations"] == 1
     assert len(calls) == 2
-    assert calls[1].endswith("-catchup-02")
+    assert calls[1]["run_id"].endswith("-catchup-02")
+    assert calls[0]["newsroom_production_day_id"] == day_id
+    assert calls[0]["quota_discovery_prior_accounting"][
+        "deterministic_network_requests"
+    ] == 10
+    assert calls[1]["quota_discovery_prior_accounting"][
+        "deterministic_network_requests"
+    ] == 20
 
 
 def test_duplicate_tick_does_not_invoke_cycle_twice(tmp_path):

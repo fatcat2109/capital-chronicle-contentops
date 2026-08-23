@@ -28,6 +28,7 @@ from live_contentops.newsroom_assignment_scheduler_v1 import (
     build_prepared_rolling_x_candidate_state,
     load_rolling_x_headline_sidecars,
 )
+from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
 from live_contentops.source_route_health_v1 import SCHEMA_VERSION as SOURCE_ROUTE_HEALTH_SCHEMA
 
 
@@ -86,6 +87,83 @@ def _attempts(cycle: Mapping[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
+def _ready_contract(evidence: Mapping[str, Any]) -> dict[str, Any]:
+    tier = str(evidence.get("evidence_review_tier") or "")
+    documents = {
+        str(row.get("document_id") or row.get("evidence_id") or ""): dict(row)
+        for row in evidence.get("evidence_documents") or []
+        if isinstance(row, Mapping)
+        and str(row.get("document_id") or row.get("evidence_id") or "")
+    }
+    blockers = [str(value) for value in evidence.get("blockers") or []]
+
+    def accepted_document(document_id: str) -> bool:
+        row = documents.get(document_id) or {}
+        return bool(
+            document_id
+            and row.get("source_url")
+            and (row.get("source_identity") or row.get("publisher"))
+            and str(row.get("source_url") or "").startswith("https://")
+            and (row.get("canonical_content_sha256") or row.get("raw_sha256"))
+            and row.get("freshness_state") == "FRESH_CURRENT_OPERATOR_READINESS"
+            and row.get("public_claim_allowed") is True
+        )
+
+    if tier == "ORDINARY_MINIMUM":
+        packet = dict(evidence.get("minimum_trustworthy_evidence_packet") or {})
+        document_id = str(packet.get("evidence_document_id") or "")
+        passed = bool(
+            packet.get("status") == "PASS"
+            and packet.get("risk_tier") == "ORDINARY"
+            and len(str(packet.get("core_factual_proposition") or "").strip()) >= 8
+            and str(packet.get("source_url") or "").startswith("https://")
+            and packet.get("evidence_packet_sha256")
+            and accepted_document(document_id)
+            and not blockers
+        )
+        return {
+            "kind": "ORDINARY_MINIMUM_TRUSTWORTHY_EVIDENCE_PACKET",
+            "status": "PASS" if passed else "BLOCKED",
+            "contract_sha256": packet.get("evidence_packet_sha256"),
+            "accepted_document_ids": [document_id] if document_id else [],
+            "supported_claim_count": 0,
+            "fabricated_claim_count": 0,
+        }
+
+    contract = dict(evidence.get("claim_evidence_contract") or {})
+    supported = [
+        dict(row)
+        for row in contract.get("supported_claims") or []
+        if isinstance(row, Mapping)
+    ]
+    document_ids = sorted(
+        {
+            str(document_id)
+            for row in supported
+            for document_id in row.get("evidence_document_ids") or []
+            if str(document_id)
+        }
+    )
+    passed = bool(
+        tier == "ENHANCED"
+        and contract.get("status") == "PASS"
+        and int(contract.get("supported_claim_count") or 0) >= 1
+        and int(contract.get("fabricated_claim_count") or 0) == 0
+        and contract.get("claim_contract_sha256")
+        and document_ids
+        and all(accepted_document(document_id) for document_id in document_ids)
+        and not blockers
+    )
+    return {
+        "kind": "ENHANCED_CLAIM_EVIDENCE_CONTRACT",
+        "status": "PASS" if passed else "BLOCKED",
+        "contract_sha256": contract.get("claim_contract_sha256"),
+        "accepted_document_ids": document_ids,
+        "supported_claim_count": int(contract.get("supported_claim_count") or 0),
+        "fabricated_claim_count": int(contract.get("fabricated_claim_count") or 0),
+    }
+
+
 def build_acceptance_receipt(
     cycle: Mapping[str, Any],
     *,
@@ -107,12 +185,9 @@ def build_acceptance_receipt(
         cluster_id = str(candidate.get("cluster_id") or "")
         attempt = attempt_by_cluster.get(cluster_id) or {}
         evidence = dict(attempt.get("evidence_receipt") or {})
-        claim_contract = dict(
-            evidence.get("claim_evidence_contract")
-            or (
-                evidence.get("minimum_trustworthy_evidence_packet") or {}
-            ).get("claim_evidence_contract")
-            or {}
+        contract_acceptance = _ready_contract(evidence)
+        accepted_document_ids = set(
+            contract_acceptance.get("accepted_document_ids") or []
         )
         sources = [
             {
@@ -127,14 +202,30 @@ def build_acceptance_receipt(
             }
             for row in evidence.get("evidence_documents") or []
             if isinstance(row, Mapping)
+            and str(row.get("document_id") or row.get("evidence_id") or "")
+            in accepted_document_ids
         ]
         candidates.append(
             {
                 **candidate,
-                "claim_contract_status": claim_contract.get("status")
-                or candidate.get("claim_contract_status"),
+                "claim_contract_status": (
+                    (evidence.get("claim_evidence_contract") or {}).get("status")
+                ),
+                "minimum_packet_status": (
+                    (evidence.get("minimum_trustworthy_evidence_packet") or {}).get(
+                        "status"
+                    )
+                ),
+                "ready_contract_kind": contract_acceptance.get("kind"),
+                "ready_contract_status": contract_acceptance.get("status"),
+                "ready_contract_sha256": contract_acceptance.get(
+                    "contract_sha256"
+                ),
+                "supported_claim_count": int(
+                    contract_acceptance.get("supported_claim_count") or 0
+                ),
                 "fabricated_claim_count": int(
-                    claim_contract.get("fabricated_claim_count") or 0
+                    contract_acceptance.get("fabricated_claim_count") or 0
                 ),
                 "sources": sources,
                 "source_url_count": len(sources),
@@ -181,9 +272,9 @@ def build_acceptance_receipt(
         and len(distinct_candidate_ids) >= 4
         and all(
             row.get("evidence_status") == "PASS"
-            and row.get("claim_contract_status") == "PASS"
+            and row.get("ready_contract_status") == "PASS"
+            and row.get("ready_contract_sha256")
             and row.get("freshness_pass") is True
-            and int(row.get("supported_claim_count") or 0) >= 1
             and int(row.get("source_url_count") or 0) >= 1
             and all(
                 source.get("canonical_content_sha256")
@@ -382,36 +473,289 @@ def run(
     source_route_health = _load_current_source_route_health(
         source_route_health_path or CANONICAL_SOURCE_ROUTE_HEALTH_PATH
     )
-    prepared_state = build_prepared_rolling_x_candidate_state(
-        rolling_input=rolling_input,
-        prepared_at_utc=cutoff,
-        autonomous_source_discovery_available=True,
-        source_route_health=source_route_health,
+    production_day_id = newsroom_production_day_id(cutoff)
+    runtime_output_dir.mkdir(parents=True, exist_ok=True)
+    _write(runtime_output_dir / "frozen_current_rolling_input_v1.json", rolling_input)
+    evaluated_headline_ids: set[str] = set()
+    attempted_story_ids: set[str] = set()
+    repeated_headline_ids: set[str] = set()
+    repeated_story_ids: set[str] = set()
+    ready_by_cluster: dict[str, dict[str, Any]] = {}
+    prior_accounting: dict[str, Any] | None = None
+    frontiers: list[dict[str, Any]] = []
+    final_source_route_health = dict(source_route_health)
+    termination_reason: str | None = None
+
+    for frontier_number in range(1, 5):
+        prepared_state = build_prepared_rolling_x_candidate_state(
+            rolling_input=rolling_input,
+            prepared_at_utc=cutoff,
+            evaluated_headline_ids=sorted(evaluated_headline_ids),
+            autonomous_source_discovery_available=True,
+            source_route_health=final_source_route_health,
+        )
+        prepared_headline_ids = [
+            str(value)
+            for value in (
+                (prepared_state.get("prepared_frontier") or {}).get(
+                    "selected_headline_ids"
+                )
+                or (prepared_state.get("prepared_input") or {}).get(
+                    "unique_headline_ids"
+                )
+                or []
+            )
+            if str(value)
+        ]
+        if not prepared_headline_ids:
+            termination_reason = "NO_UNSEEN_PREPARED_CANDIDATES_REMAIN"
+            break
+        frontier_dir = runtime_output_dir / f"frontier_{frontier_number}"
+        remaining_target = max(1, 4 - len(ready_by_cluster))
+        cycle_kwargs: dict[str, Any] = {
+            "run_id": (
+                "v1-quota-efficient-batch-tail-current-universe-proof-"
+                f"frontier-{frontier_number}"
+            ),
+            "output_dir": frontier_dir,
+            "cutoff_utc": cutoff,
+            "rolling_input": rolling_input,
+            "prepared_candidate_state": prepared_state,
+            "publication_enabled": False,
+            "operating_mode": "KILL_SWITCH",
+            "autonomous_source_discovery_enabled": True,
+            "evidence_only_target_count": remaining_target,
+            "published_corpus": [],
+            "cc_catalog": {"stores": [], "root_exists": False},
+            "newsroom_production_day_id": production_day_id,
+        }
+        if final_source_route_health:
+            cycle_kwargs["source_route_health"] = final_source_route_health
+        if prior_accounting is not None:
+            cycle_kwargs["quota_discovery_prior_accounting"] = prior_accounting
+        cycle = run_rolling_x_newsroom_cycle(**cycle_kwargs)
+        single_receipt = build_acceptance_receipt(
+            cycle,
+            cutoff_utc=cutoff,
+            prepared_state=prepared_state,
+            runtime_output_dir=frontier_dir,
+        )
+        _write(frontier_dir / "frontier_acceptance_receipt_v1.json", single_receipt)
+        attempts = _attempts(cycle)
+        frontier_story_ids = {
+            str(row.get("cluster_id") or "") for row in attempts
+        } - {""}
+        frontier_headline_ids = {
+            str(value)
+            for row in attempts
+            for value in row.get("headline_ids") or []
+            if str(value)
+        }
+        repeated_story_ids.update(frontier_story_ids.intersection(attempted_story_ids))
+        repeated_headline_ids.update(
+            frontier_headline_ids.intersection(evaluated_headline_ids)
+        )
+        attempted_story_ids.update(frontier_story_ids)
+        evaluated_headline_ids.update(frontier_headline_ids)
+        new_ready_ids: list[str] = []
+        for candidate in single_receipt.get("ready_candidates") or []:
+            cluster_id = str(candidate.get("cluster_id") or "")
+            if cluster_id and cluster_id not in ready_by_cluster:
+                ready_by_cluster[cluster_id] = dict(candidate)
+                new_ready_ids.append(cluster_id)
+        current_accounting = cycle.get("quota_efficient_source_discovery")
+        if isinstance(current_accounting, Mapping):
+            prior_accounting = dict(current_accounting)
+        current_health = cycle.get("source_route_health")
+        if isinstance(current_health, Mapping):
+            final_source_route_health = dict(current_health)
+        frontiers.append(
+            {
+                "frontier": frontier_number,
+                "prepared_candidate_count": int(
+                    prepared_state.get("prepared_candidate_count") or 0
+                ),
+                "prepared_headline_ids": prepared_headline_ids,
+                "attempted_story_ids": sorted(frontier_story_ids),
+                "attempted_headline_ids": sorted(frontier_headline_ids),
+                "new_ready_candidate_ids": sorted(new_ready_ids),
+                "ready_candidate_count_after_frontier": len(ready_by_cluster),
+                "abstentions": list(single_receipt.get("abstentions") or []),
+                "exact_next_blocker": single_receipt.get("exact_remaining_blocker"),
+                "cycle_evidence_path": str(
+                    frontier_dir / "rolling_x_newsroom_cycle_evidence_v1.json"
+                ),
+                "cycle_evidence_sha256": single_receipt.get(
+                    "runtime_cycle_evidence_sha256"
+                ),
+                "budget_before": dict(
+                    (
+                        (cycle_kwargs.get("quota_discovery_prior_accounting") or {}).get(
+                            "remaining_budget"
+                        )
+                        or {
+                            "batch_turns": 2,
+                            "tail_turns": 2,
+                            "total_turns": 4,
+                            "accounted_discovery_tokens": 2_000_000,
+                            "deterministic_network_requests": 96,
+                        }
+                    )
+                ),
+                "budget_after": dict(
+                    (prior_accounting or {}).get("remaining_budget") or {}
+                ),
+                "safety": dict(single_receipt.get("safety") or {}),
+                "sourceability_parity": dict(
+                    single_receipt.get("sourceability_parity") or {}
+                ),
+            }
+        )
+        if len(ready_by_cluster) >= 4:
+            break
+        if not frontier_headline_ids:
+            termination_reason = "FRONTIER_PRODUCED_NO_EVALUATED_IDENTITIES"
+            break
+
+    accounting = dict(prior_accounting or {})
+    ready_candidates = list(ready_by_cluster.values())
+    batch_turns = int(accounting.get("batch_discovery_turns") or 0)
+    tail_turns = int(accounting.get("tail_discovery_turns") or 0)
+    total_turns = int(accounting.get("total_discovery_turns") or 0)
+    discovery_tokens = int(accounting.get("accounted_discovery_tokens") or 0)
+    deterministic_requests = int(
+        accounting.get("deterministic_network_requests") or 0
     )
-    cycle_kwargs: dict[str, Any] = {
-        "run_id": "v1-quota-efficient-batch-tail-current-universe-proof",
-        "output_dir": runtime_output_dir,
-        "cutoff_utc": cutoff,
-        "rolling_input": rolling_input,
-        "prepared_candidate_state": prepared_state,
-        "publication_enabled": False,
-        "operating_mode": "KILL_SWITCH",
-        "autonomous_source_discovery_enabled": True,
-        "evidence_only_target_count": 4,
-        "published_corpus": [],
-        "cc_catalog": {"stores": [], "root_exists": False},
+    safety_keys = (
+        "writer_calls",
+        "article_generation",
+        "derivative_generation",
+        "public_writes",
+        "provider_write_calls",
+        "unknown_write",
+    )
+    safety = {
+        key: sum(int((row.get("safety") or {}).get(key) or 0) for row in frontiers)
+        for key in safety_keys
     }
-    if source_route_health:
-        cycle_kwargs["source_route_health"] = source_route_health
-    cycle = run_rolling_x_newsroom_cycle(
-        **cycle_kwargs,
+    safety.update(
+        {
+            "browser_or_cdp_publication_actions": 0,
+            "automation_mutations": 0,
+            "capital_chronicle_mutations": 0,
+            "v2_mutations": 0,
+            "secret_or_session_reads": 0,
+        }
     )
-    receipt = build_acceptance_receipt(
-        cycle,
-        cutoff_utc=cutoff,
-        prepared_state=prepared_state,
-        runtime_output_dir=runtime_output_dir,
+    safety_pass = all(int(safety.get(key) or 0) == 0 for key in safety_keys)
+    candidate_contracts_pass = bool(
+        len(ready_candidates) >= 4
+        and all(
+            row.get("ready_contract_status") == "PASS"
+            and row.get("ready_contract_sha256")
+            and int(row.get("source_url_count") or 0) >= 1
+            and int(row.get("fabricated_claim_count") or 0) == 0
+            and not row.get("unresolved_blockers")
+            for row in ready_candidates[:4]
+        )
     )
+    economics_pass = bool(
+        accounting.get("accounting_complete") is True
+        and batch_turns <= 2
+        and tail_turns <= 2
+        and total_turns <= 4
+        and discovery_tokens <= 2_000_000
+        and deterministic_requests <= 96
+    )
+    identity_isolation_pass = not repeated_story_ids and not repeated_headline_ids
+    classification = (
+        PASS_CLASSIFICATION
+        if candidate_contracts_pass
+        and economics_pass
+        and identity_isolation_pass
+        and safety_pass
+        else ECONOMICS_FAILURE
+        if not economics_pass
+        else "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED"
+    )
+    frozen_ids = {
+        str(value) for value in rolling_input.get("unique_headline_ids") or [] if str(value)
+    }
+    remaining_held_ids = sorted(frozen_ids.difference(evaluated_headline_ids))
+    exact_blocker = None
+    if classification != PASS_CLASSIFICATION:
+        exact_blocker = (
+            accounting.get("terminal_budget_blocker")
+            or accounting.get("terminal_provider_blocker")
+            or (
+                "FRONTIER_IDENTITY_REPEATED"
+                if not identity_isolation_pass
+                else termination_reason
+                or "FOUR_READY_TARGET_NOT_REACHED_AFTER_BOUNDED_PRODUCTION_DAY"
+            )
+        )
+    receipt = {
+        "schema_version": (
+            "contentops.v1_quota_efficient_batch_tail_production_day_acceptance.v1"
+        ),
+        "classification": classification,
+        "cutoff_utc": cutoff,
+        "newsroom_production_day_id": production_day_id,
+        "frozen_current_universe_sha256": _hash(rolling_input),
+        "current_candidate_universe_count": len(frozen_ids),
+        "frontier_count": len(frontiers),
+        "termination_reason": termination_reason,
+        "frontiers": frontiers,
+        "evaluated_headline_ids": sorted(evaluated_headline_ids),
+        "evaluated_headline_count": len(evaluated_headline_ids),
+        "attempted_story_ids": sorted(attempted_story_ids),
+        "repeated_headline_ids": sorted(repeated_headline_ids),
+        "repeated_story_ids": sorted(repeated_story_ids),
+        "remaining_held_headline_ids": remaining_held_ids,
+        "remaining_held_identity_count": len(remaining_held_ids),
+        "ready_distinct_candidate_count": len(ready_candidates),
+        "ready_candidates": ready_candidates,
+        "discovery": accounting,
+        "production_day_budget": {
+            "consumed": {
+                "batch_turns": batch_turns,
+                "tail_turns": tail_turns,
+                "total_turns": total_turns,
+                "accounted_discovery_tokens": discovery_tokens,
+                "deterministic_network_requests": deterministic_requests,
+            },
+            "unused": dict(accounting.get("remaining_budget") or {}),
+            "hard_ceiling": {
+                "batch_turns": 2,
+                "tail_turns": 2,
+                "total_turns": 4,
+                "accounted_discovery_tokens": 2_000_000,
+                "deterministic_network_requests": 96,
+            },
+        },
+        "accepted_baseline_comparison": {
+            "baseline_discovery_turns": BASELINE_TURNS,
+            "baseline_accounted_discovery_tokens": BASELINE_TOKENS,
+            "discovery_turn_delta": total_turns - BASELINE_TURNS,
+            "accounted_discovery_token_delta": discovery_tokens - BASELINE_TOKENS,
+            "monetary_savings_claimed": False,
+        },
+        "source_route_health": final_source_route_health,
+        "safety": safety,
+        "checks": {
+            "four_distinct_governed_candidates": len(ready_candidates) >= 4,
+            "mode_risk_proportional_contracts_pass": candidate_contracts_pass,
+            "production_day_shared_economics_pass": economics_pass,
+            "frontier_identity_isolation_pass": identity_isolation_pass,
+            "zero_writer_article_derivative_public_write": safety_pass,
+            "model_output_is_never_evidence": accounting.get(
+                "candidate_urls_are_evidence"
+            )
+            is False,
+        },
+        "exact_remaining_blocker": exact_blocker,
+    }
+    receipt["receipt_sha256"] = _hash(receipt)
     _write(evidence_output, receipt)
     return receipt
 

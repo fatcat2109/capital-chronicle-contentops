@@ -17,11 +17,56 @@ from live_contentops.newsroom_production_day_v1 import (
     STATE_ON_TRACK,
     bounded_deficit_work_needed,
     build_production_day_snapshot,
+    load_production_day_discovery_accounting,
     load_qualified_article_records,
     newsroom_production_day_id,
     persist_qualified_article_record,
     qualify_zero_write_article,
 )
+
+
+def test_production_day_discovery_accounting_loads_latest_cumulative_receipt(
+    tmp_path: Path,
+):
+    day_id = "newsroom-production-day-2026-08-23-bangkok"
+    for index, requests in enumerate((10, 30), start=1):
+        _write_json(
+            tmp_path
+            / f"frontier-{index}"
+            / "rolling_x_newsroom_cycle_evidence_v1.json",
+            {
+                "quota_efficient_source_discovery": {
+                    "schema_version": (
+                        "contentops.quota_efficient_source_discovery.v1"
+                    ),
+                    "newsroom_production_day_id": day_id,
+                    "total_discovery_turns": index,
+                    "accounted_discovery_tokens": index * 100,
+                    "deterministic_network_requests": requests,
+                }
+            },
+        )
+    _write_json(
+        tmp_path / "other-day" / "rolling_x_newsroom_cycle_evidence_v1.json",
+        {
+            "quota_efficient_source_discovery": {
+                "schema_version": "contentops.quota_efficient_source_discovery.v1",
+                "newsroom_production_day_id": (
+                    "newsroom-production-day-2026-08-22-bangkok"
+                ),
+                "total_discovery_turns": 4,
+                "accounted_discovery_tokens": 2_000_000,
+                "deterministic_network_requests": 96,
+            }
+        },
+    )
+
+    accounting = load_production_day_discovery_accounting(
+        tmp_path, production_day_id=day_id
+    )
+
+    assert accounting["total_discovery_turns"] == 2
+    assert accounting["deterministic_network_requests"] == 30
 
 
 def _write_json(path: Path, value: object) -> None:

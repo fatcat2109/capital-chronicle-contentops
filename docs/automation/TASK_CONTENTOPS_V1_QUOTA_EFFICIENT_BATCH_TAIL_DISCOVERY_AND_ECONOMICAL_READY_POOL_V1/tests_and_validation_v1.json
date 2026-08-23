@@ -1,48 +1,26 @@
 {
   "schema_version": "contentops.v1_quota_efficient_batch_tail_tests_validation.v1",
-  "classification": "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED",
+  "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
   "repository": "fatcat2109/capital-chronicle-contentops",
   "verified_fresh_origin_master": "c4239a96513c24fc9f7f331025386756d0248569",
-  "remote_branch_before_correction_b": "e494ea8fbc9d21bc0a6604b1a76c3696b5266907",
-  "request_budget_repair_commit": "d1bbc0721341fa17a1c7fdc17a47da88562b04f4",
+  "starting_branch_head": "90ffe31b64f61e3b4f6e3cf5bd8ef02881675d3b",
   "branch": "codex/v1-quota-efficient-batch-tail-discovery-v1",
   "unexpected_ref_drift": false,
-  "sourceability_parity_correction": {
-    "runner_reuses_canonical_source_route_health_path": true,
-    "runner_feeds_route_health_to_prepared_frontier": true,
-    "runner_feeds_nonempty_route_health_to_canonical_cycle": true,
-    "runner_marks_autonomous_discovery_available_during_frontier_construction": true,
-    "current_host_snapshot_present": false,
-    "new_ranking_system_created": false,
-    "authority_expanded": false
-  },
-  "final_real_zero_write_proof": {
-    "status": "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED",
-    "cutoff_utc": "2026-08-23T14:32:51.390611Z",
-    "current_candidate_universe_count": 282,
-    "bounded_candidate_frontier_count": 12,
-    "ready_distinct_candidate_count": 1,
-    "batch_discovery_turns": 1,
-    "tail_discovery_turns": 1,
-    "total_discovery_turns": 2,
-    "accounted_discovery_tokens": 1237551,
-    "deterministic_network_requests": 16,
-    "exact_remaining_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
-  },
   "focused_pytest": {
     "status": "PASS",
-    "passed": 206,
+    "passed": 220,
     "failed": 0,
-    "duration_seconds": 28.65,
+    "duration_seconds": 28.81,
     "files": [
       "tests/test_v1_evidence_foundation_closeout_v1.py",
-      "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
       "tests/test_official_primary_evidence_loader_v1.py",
       "tests/test_public_secondary_evidence_loader_v1.py",
+      "tests/test_newsroom_production_day_v1.py",
       "tests/test_daily_app_supervisor_v1.py",
-      "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
+      "tests/test_rolling_x_newsroom_cycle_v1.py",
       "tests/test_rolling_x_hierarchical_assignment_v1.py",
-      "tests/test_rolling_x_newsroom_cycle_v1.py"
+      "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
+      "tests/test_rolling_x_targeted_evidence_adapter_v1.py"
     ]
   },
   "compileall": {
@@ -53,10 +31,12 @@
     "generator": "python scripts/generate_codex_context_index.py",
     "check": "python scripts/generate_codex_context_index.py --check",
     "status": "CODEGRAPH_CURRENT",
-    "nodes": 7299,
-    "edges": 13792
+    "nodes": 7301,
+    "edges": 13796
   },
   "git_diff_check": "PASS",
+  "real_proof_retried_after_post_proof_defect": false,
+  "exact_remaining_blocker": "CORRECTED_MULTI_FRONTIER_CONTINUATION_CURRENT_HOST_REVALIDATION_REQUIRED",
   "safety": {
     "writer_calls": 0,
     "article_generation": 0,

@@ -335,6 +335,7 @@ def _pass_receipt(request: dict) -> dict:
             "status": "PASS",
             "supported_claim_count": 1,
             "fabricated_claim_count": 0,
+            "claim_contract_sha256": f"claim-contract-{rank}",
             "supported_claims": [
                 {
                     "claim_id": f"claim-{rank}",
@@ -1002,6 +1003,223 @@ def test_discovery_turn_ceiling_fails_closed_without_per_candidate_fallback():
     assert session.snapshot()["status"] == "BLOCKED"
 
 
+def test_production_day_quota_carries_turns_tokens_requests_and_exact_residual():
+    production_day_id = "newsroom-production-day-2026-08-23-bangkok"
+    prior = {
+        "schema_version": "contentops.quota_efficient_source_discovery.v1",
+        "newsroom_production_day_id": production_day_id,
+        "accounting_complete": True,
+        "turns": [
+            {
+                "turn_number": 1,
+                "pass_kind": "BATCH",
+                "candidate_story_count": 1,
+                "accounted_discovery_tokens": 100,
+            }
+        ],
+        "deterministic_acquisition_calls": 1,
+        "deterministic_network_requests": 70,
+        "cache_and_reuse": {},
+        "batch_covered_story_membership": [
+            {"story_identity": "prior-story", "headline_ids": ["prior-headline"]}
+        ],
+        "tail_covered_story_membership": [],
+        "deterministic_frontier": [],
+        "failures": [],
+    }
+    discoverer = _BatchDiscoveryFixture(tokens_by_pass={"BATCH": 50})
+
+    def acquire(request):
+        receipt = _source_discovery_required_receipt(request)
+        receipt["evidence_acquisition_provenance"] = {
+            "grounded_research": {"public_retrieval_requests": 20}
+        }
+        return receipt
+
+    session = QuotaEfficientSourceDiscoverySession(
+        evidence_acquirer=acquire,
+        source_discoverer=discoverer,
+        newsroom_production_day_id=production_day_id,
+        prior_accounting=prior,
+    )
+    request = {
+        "cluster_id": "new-story",
+        "headline_ids": ["new-headline"],
+        "rank": 1,
+        "request_logical_hash": "new-request",
+    }
+    initial = session.acquire(request)
+    viability = {
+        "rank_attempts": [
+            {
+                "rank": 1,
+                "request": request,
+                "evidence_receipt": initial,
+                "blockers": list(initial["blockers"]),
+            }
+        ]
+    }
+    assert session.discover_unresolved(viability, pass_kind="BATCH")[
+        "new_contract_count"
+    ] == 1
+    snapshot = session.snapshot()
+
+    assert snapshot["batch_discovery_turns"] == 2
+    assert snapshot["total_discovery_turns"] == 2
+    assert snapshot["accounted_discovery_tokens"] == 150
+    assert snapshot["deterministic_network_requests"] == 90
+    assert snapshot["remaining_budget"] == {
+        "batch_turns": 0,
+        "tail_turns": 2,
+        "total_turns": 2,
+        "accounted_discovery_tokens": 1_999_850,
+        "deterministic_network_requests": 6,
+    }
+    assert snapshot["prior_accounting_sha256"]
+
+
+def test_production_day_quota_rejects_cross_day_reset():
+    prior = {
+        "schema_version": "contentops.quota_efficient_source_discovery.v1",
+        "newsroom_production_day_id": "newsroom-production-day-2026-08-22-bangkok",
+    }
+    with pytest.raises(ValueError, match="production_day_identity_mismatch"):
+        QuotaEfficientSourceDiscoverySession(
+            evidence_acquirer=_pass_receipt,
+            source_discoverer=_BatchDiscoveryFixture(),
+            newsroom_production_day_id=(
+                "newsroom-production-day-2026-08-23-bangkok"
+            ),
+            prior_accounting=prior,
+        )
+
+
+def test_production_day_quota_fails_closed_at_shared_turn_token_and_request_ceiling():
+    production_day_id = "newsroom-production-day-2026-08-23-bangkok"
+    evidence_calls: list[dict] = []
+    provider = _BatchDiscoveryFixture()
+
+    def acquire(request):
+        evidence_calls.append(dict(request))
+        return _source_discovery_required_receipt(request)
+
+    request_ceiling_prior = {
+        "schema_version": "contentops.quota_efficient_source_discovery.v1",
+        "newsroom_production_day_id": production_day_id,
+        "accounting_complete": True,
+        "turns": [],
+        "deterministic_network_requests": 96,
+        "cache_and_reuse": {},
+        "batch_covered_story_membership": [],
+        "tail_covered_story_membership": [],
+        "deterministic_frontier": [],
+        "failures": [],
+    }
+    request_session = QuotaEfficientSourceDiscoverySession(
+        evidence_acquirer=acquire,
+        source_discoverer=provider,
+        newsroom_production_day_id=production_day_id,
+        prior_accounting=request_ceiling_prior,
+    )
+    blocked = request_session.acquire(
+        {"cluster_id": "story-request", "headline_ids": ["headline-request"]}
+    )
+    assert evidence_calls == []
+    assert blocked["blockers"] == [
+        "URL_DISCOVERY_DETERMINISTIC_REQUEST_CEILING_EXCEEDED"
+    ]
+
+    token_ceiling_prior = {
+        **request_ceiling_prior,
+        "deterministic_network_requests": 0,
+        "turns": [
+            {
+                "turn_number": 1,
+                "pass_kind": "BATCH",
+                "candidate_story_count": 1,
+                "accounted_discovery_tokens": 2_000_000,
+            }
+        ],
+    }
+    token_session = QuotaEfficientSourceDiscoverySession(
+        evidence_acquirer=acquire,
+        source_discoverer=provider,
+        newsroom_production_day_id=production_day_id,
+        prior_accounting=token_ceiling_prior,
+    )
+    request = {
+        "cluster_id": "story-token",
+        "headline_ids": ["headline-token"],
+        "rank": 1,
+    }
+    initial = token_session.acquire(request)
+    result = token_session.discover_unresolved(
+        {
+            "rank_attempts": [
+                {
+                    "rank": 1,
+                    "request": request,
+                    "evidence_receipt": initial,
+                    "blockers": list(initial["blockers"]),
+                }
+            ]
+        },
+        pass_kind="BATCH",
+    )
+    assert result == {
+        "called": False,
+        "new_contract_count": 0,
+        "blocker": "URL_DISCOVERY_TOKEN_CEILING_EXCEEDED",
+    }
+    assert provider.calls == []
+
+
+def test_later_cycle_receives_only_residual_coordinated_request_allowance(
+    monkeypatch, tmp_path: Path
+):
+    observed: dict[str, int] = {}
+    production_day_id = "newsroom-production-day-2026-08-23-bangkok"
+    prior = {
+        "schema_version": "contentops.quota_efficient_source_discovery.v1",
+        "newsroom_production_day_id": production_day_id,
+        "accounting_complete": True,
+        "turns": [],
+        "deterministic_network_requests": 70,
+        "cache_and_reuse": {},
+        "batch_covered_story_membership": [],
+        "tail_covered_story_membership": [],
+        "deterministic_frontier": [],
+        "failures": [],
+    }
+
+    def default_acquirer_factory(**kwargs):
+        observed["coordinated_request_ceiling"] = int(
+            kwargs["coordinated_request_ceiling"]
+        )
+        return _pass_receipt
+
+    monkeypatch.setattr(
+        implementation,
+        "_default_rolling_x_evidence_acquirer",
+        default_acquirer_factory,
+    )
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=1,
+        autonomous_source_discovery_enabled=True,
+        source_discoverer=_BatchDiscoveryFixture(),
+        evidence_only_target_count=1,
+        newsroom_production_day_id=production_day_id,
+        quota_discovery_prior_accounting=prior,
+    )
+
+    assert observed == {"coordinated_request_ceiling": 26}
+    accounting = result["quota_efficient_source_discovery"]
+    assert accounting["deterministic_network_requests"] == 70
+    assert accounting["remaining_budget"]["deterministic_network_requests"] == 26
+
+
 def test_same_candidate_request_reuses_governed_resumed_receipt_without_rediscovery():
     discoverer = _BatchDiscoveryFixture()
     acquisition_calls: list[dict] = []
@@ -1096,6 +1314,311 @@ def test_acceptance_receipt_reports_current_host_runtime_proof_required_for_usag
     assert receipt["exact_remaining_blocker"] == "CHATGPT_USAGE_LIMIT_REACHED"
 
 
+def test_ordinary_minimum_packet_pass_does_not_invent_supported_claim_requirement(
+    tmp_path: Path,
+):
+    candidates = []
+    attempts = []
+    for index in range(1, 5):
+        cluster_id = f"ordinary-{index}"
+        headline_id = f"ordinary-headline-{index}"
+        document_id = f"ordinary-document-{index}"
+        candidates.append(
+            {
+                "cluster_id": cluster_id,
+                "headline_ids": [headline_id],
+                "evidence_status": "PASS",
+                "freshness_pass": True,
+                "supported_claim_count": 0,
+                "unresolved_blockers": [],
+                "writer_invoked": False,
+                "article_generated": False,
+            }
+        )
+        attempts.append(
+            {
+                "rank": index,
+                "cluster_id": cluster_id,
+                "headline_ids": [headline_id],
+                "status": "VIABLE",
+                "evidence_receipt": {
+                    "status": "PASS",
+                    "evidence_review_tier": "ORDINARY_MINIMUM",
+                    "minimum_trustworthy_evidence_packet": {
+                        "status": "PASS",
+                        "risk_tier": "ORDINARY",
+                        "core_factual_proposition": (
+                            f"Directly bound ordinary proposition {index}"
+                        ),
+                        "source_url": f"https://apnews.com/article/ordinary-{index}",
+                        "evidence_document_id": document_id,
+                        "evidence_packet_sha256": f"ordinary-packet-{index}",
+                    },
+                    "evidence_documents": [
+                        {
+                            "document_id": document_id,
+                            "publisher": "Associated Press",
+                            "source_url": (
+                                f"https://apnews.com/article/ordinary-{index}"
+                            ),
+                            "canonical_content_sha256": str(index) * 64,
+                            "freshness_state": "FRESH_CURRENT_OPERATOR_READINESS",
+                            "public_claim_allowed": True,
+                        }
+                    ],
+                    "blockers": [],
+                },
+            }
+        )
+    cycle = {
+        "quota_efficient_source_discovery": {
+            "schema_version": "contentops.quota_efficient_source_discovery.v1",
+            "status": "PASS",
+            "accounting_complete": True,
+            "batch_discovery_turns": 1,
+            "tail_discovery_turns": 0,
+            "total_discovery_turns": 1,
+            "accounted_discovery_tokens": 100,
+            "deterministic_network_requests": 4,
+            "failures": [],
+            "candidate_urls_are_evidence": False,
+            "tail_is_subset_only": True,
+        },
+        "evidence_ready_pool": {"candidates": candidates},
+        "ranked_viability": {"rank_attempts": attempts},
+        "critical_path_telemetry": {"article_writer_semantic_calls": 0},
+        "article_generation_attempts": 0,
+        "public_write_performed": False,
+        "publishing_adapter_called": False,
+        "unknown_write_detected": False,
+    }
+
+    receipt = build_acceptance_receipt(
+        cycle,
+        cutoff_utc="2026-08-23T15:00:00Z",
+        prepared_state={
+            "full_rolling_headline_count": 12,
+            "prepared_candidate_count": 4,
+        },
+        runtime_output_dir=tmp_path,
+    )
+
+    assert receipt["classification"] == (
+        "PASS_V1_QUOTA_EFFICIENT_BATCH_TAIL_DISCOVERY_ECONOMICAL_READY_POOL"
+    )
+    assert all(
+        row["ready_contract_kind"]
+        == "ORDINARY_MINIMUM_TRUSTWORTHY_EVIDENCE_PACKET"
+        and row["ready_contract_status"] == "PASS"
+        and row["supported_claim_count"] == 0
+        for row in receipt["ready_candidates"]
+    )
+
+
+def test_enhanced_ready_contract_still_requires_supported_claim():
+    document = {
+        "document_id": "enhanced-document",
+        "publisher": "Associated Press",
+        "source_url": "https://apnews.com/article/enhanced",
+        "canonical_content_sha256": "a" * 64,
+        "freshness_state": "FRESH_CURRENT_OPERATOR_READINESS",
+        "public_claim_allowed": True,
+    }
+    base = {
+        "evidence_review_tier": "ENHANCED",
+        "evidence_documents": [document],
+        "blockers": [],
+    }
+    blocked = quota_proof._ready_contract(
+        {
+            **base,
+            "claim_evidence_contract": {
+                "status": "PASS",
+                "supported_claims": [],
+                "supported_claim_count": 0,
+                "fabricated_claim_count": 0,
+                "claim_contract_sha256": "enhanced-empty",
+            },
+        }
+    )
+    passed = quota_proof._ready_contract(
+        {
+            **base,
+            "claim_evidence_contract": {
+                "status": "PASS",
+                "supported_claims": [
+                    {
+                        "claim_id": "claim-1",
+                        "evidence_document_ids": ["enhanced-document"],
+                    }
+                ],
+                "supported_claim_count": 1,
+                "fabricated_claim_count": 0,
+                "claim_contract_sha256": "enhanced-supported",
+            },
+        }
+    )
+
+    assert blocked["status"] == "BLOCKED"
+    assert passed["status"] == "PASS"
+    assert passed["contract_sha256"] == "enhanced-supported"
+
+
+def test_multi_frontier_runner_freezes_universe_carries_budget_health_and_identities(
+    monkeypatch, tmp_path: Path
+):
+    headline_ids = [f"headline-{index}" for index in range(1, 5)]
+    rolling_input = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "unique_headline_ids": headline_ids,
+        "headlines": [{"headline_id": value} for value in headline_ids],
+        "counts": {"accepted": 4},
+    }
+    prepare_calls: list[dict] = []
+    cycle_calls: list[dict] = []
+    monkeypatch.setattr(
+        quota_proof,
+        "load_rolling_x_headline_sidecars",
+        lambda **_kwargs: rolling_input,
+    )
+
+    def prepare(**kwargs):
+        prepare_calls.append(dict(kwargs))
+        evaluated = set(kwargs.get("evaluated_headline_ids") or [])
+        selected = next((value for value in headline_ids if value not in evaluated), None)
+        rows = [selected] if selected else []
+        return {
+            "full_rolling_headline_count": 4,
+            "prepared_candidate_count": len(rows),
+            "prepared_frontier": {"selected_headline_ids": rows},
+            "autonomous_source_discovery_available": True,
+            "source_route_health_input_sha256": f"health-{len(prepare_calls)}",
+        }
+
+    monkeypatch.setattr(quota_proof, "build_prepared_rolling_x_candidate_state", prepare)
+
+    def cycle(**kwargs):
+        cycle_calls.append(dict(kwargs))
+        index = len(cycle_calls)
+        headline_id = f"headline-{index}"
+        turns = [
+            {
+                "turn_number": 1,
+                "pass_kind": "BATCH",
+                "candidate_story_count": 1,
+                "accounted_discovery_tokens": 10,
+            }
+        ]
+        if index >= 2:
+            turns.append(
+                {
+                    "turn_number": 2,
+                    "pass_kind": "BATCH",
+                    "candidate_story_count": 1,
+                    "accounted_discovery_tokens": 10,
+                }
+            )
+        accounting = {
+            "schema_version": "contentops.quota_efficient_source_discovery.v1",
+            "newsroom_production_day_id": kwargs["newsroom_production_day_id"],
+            "status": "PASS",
+            "accounting_complete": True,
+            "turns": turns,
+            "batch_discovery_turns": len(turns),
+            "tail_discovery_turns": 0,
+            "total_discovery_turns": len(turns),
+            "accounted_discovery_tokens": 10 * len(turns),
+            "deterministic_network_requests": index,
+            "remaining_budget": {
+                "batch_turns": 2 - len(turns),
+                "tail_turns": 2,
+                "total_turns": 4 - len(turns),
+                "accounted_discovery_tokens": 2_000_000 - 10 * len(turns),
+                "deterministic_network_requests": 96 - index,
+            },
+            "failures": [],
+            "candidate_urls_are_evidence": False,
+            "tail_is_subset_only": True,
+        }
+        health = {
+            "schema_version": "contentops.source_route_health.v1",
+            "routing_only": True,
+            "hosts": [
+                {
+                    "normalized_host": "apnews.com",
+                    "success_count": index,
+                    "failure_count": 0,
+                }
+            ],
+            "routes": [],
+            "sourceability_or_health_grants_factual_authority": False,
+            "sourceability_or_health_grants_publication_authority": False,
+        }
+        return {
+            "quota_efficient_source_discovery": accounting,
+            "evidence_ready_pool": {"candidates": []},
+            "ranked_viability": {
+                "rank_attempts": [
+                    {
+                        "rank": 1,
+                        "cluster_id": f"story-{index}",
+                        "headline_ids": [headline_id],
+                        "status": "BLOCKED",
+                        "blockers": ["evidence_documents_missing"],
+                        "evidence_receipt": {
+                            "blockers": ["evidence_documents_missing"]
+                        },
+                    }
+                ]
+            },
+            "critical_path_telemetry": {"article_writer_semantic_calls": 0},
+            "article_generation_attempts": 0,
+            "public_write_performed": False,
+            "publishing_adapter_called": False,
+            "unknown_write_detected": False,
+            "exact_next_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+            "source_route_health": health,
+            "preselection_intelligence": {
+                "sourceability_observations_consumed": index > 1,
+            },
+        }
+
+    monkeypatch.setattr(quota_proof, "run_rolling_x_newsroom_cycle", cycle)
+
+    receipt = quota_proof.run(
+        runtime_output_dir=tmp_path / "runtime",
+        evidence_output=tmp_path / "receipt.json",
+        cutoff_utc="2026-08-23T15:00:00Z",
+        source_route_health_path=tmp_path / "missing-health.json",
+    )
+
+    assert receipt["frontier_count"] == 4
+    assert receipt["evaluated_headline_ids"] == headline_ids
+    assert receipt["repeated_headline_ids"] == []
+    assert receipt["repeated_story_ids"] == []
+    assert receipt["production_day_budget"]["consumed"] == {
+        "batch_turns": 2,
+        "tail_turns": 0,
+        "total_turns": 2,
+        "accounted_discovery_tokens": 20,
+        "deterministic_network_requests": 4,
+    }
+    assert "quota_discovery_prior_accounting" not in cycle_calls[0]
+    assert cycle_calls[1]["quota_discovery_prior_accounting"][
+        "deterministic_network_requests"
+    ] == 1
+    assert cycle_calls[2]["quota_discovery_prior_accounting"][
+        "deterministic_network_requests"
+    ] == 2
+    assert prepare_calls[1]["source_route_health"]["hosts"][0][
+        "success_count"
+    ] == 1
+    assert "prior_prepared_state" not in prepare_calls[1]
+    assert receipt["source_route_health"][
+        "sourceability_or_health_grants_factual_authority"
+    ] is False
+
+
 def test_quota_proof_reuses_daily_app_sourceability_and_route_health_inputs(
     monkeypatch, tmp_path: Path
 ):
@@ -1124,9 +1647,9 @@ def test_quota_proof_reuses_daily_app_sourceability_and_route_health_inputs(
     source_health_path.write_text(json.dumps(source_health), encoding="utf-8")
     rolling_input = {
         "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
-        "headlines": [],
-        "unique_headline_ids": [],
-        "counts": {"accepted": 0},
+        "headlines": [{"headline_id": "headline-1"}],
+        "unique_headline_ids": ["headline-1"],
+        "counts": {"accepted": 1},
     }
     observed: dict[str, dict] = {}
 
@@ -1138,9 +1661,11 @@ def test_quota_proof_reuses_daily_app_sourceability_and_route_health_inputs(
 
     def prepare(**kwargs):
         observed["prepared"] = dict(kwargs)
+        selected = [] if kwargs.get("evaluated_headline_ids") else ["headline-1"]
         return {
-            "full_rolling_headline_count": 0,
-            "prepared_candidate_count": 0,
+            "full_rolling_headline_count": 1,
+            "prepared_candidate_count": len(selected),
+            "prepared_frontier": {"selected_headline_ids": selected},
             "autonomous_source_discovery_available": True,
             "source_route_health_input_sha256": "route-health-input-hash",
         }
@@ -1158,12 +1683,34 @@ def test_quota_proof_reuses_daily_app_sourceability_and_route_health_inputs(
                 "total_discovery_turns": 0,
                 "accounted_discovery_tokens": 0,
                 "deterministic_network_requests": 0,
+                "newsroom_production_day_id": kwargs["newsroom_production_day_id"],
+                "schema_version": "contentops.quota_efficient_source_discovery.v1",
+                "remaining_budget": {
+                    "batch_turns": 2,
+                    "tail_turns": 2,
+                    "total_turns": 4,
+                    "accounted_discovery_tokens": 2000000,
+                    "deterministic_network_requests": 96,
+                },
                 "failures": [],
                 "candidate_urls_are_evidence": False,
                 "tail_is_subset_only": True,
             },
             "evidence_ready_pool": {"candidates": []},
-            "ranked_viability": {"rank_attempts": []},
+            "ranked_viability": {
+                "rank_attempts": [
+                    {
+                        "rank": 1,
+                        "cluster_id": "story-1",
+                        "headline_ids": ["headline-1"],
+                        "status": "BLOCKED",
+                        "blockers": ["evidence_documents_missing"],
+                        "evidence_receipt": {
+                            "blockers": ["evidence_documents_missing"]
+                        },
+                    }
+                ]
+            },
             "critical_path_telemetry": {"article_writer_semantic_calls": 0},
             "article_generation_attempts": 0,
             "public_write_performed": False,
@@ -1189,7 +1736,7 @@ def test_quota_proof_reuses_daily_app_sourceability_and_route_health_inputs(
     assert observed["prepared"]["autonomous_source_discovery_available"] is True
     assert observed["prepared"]["source_route_health"] == source_health
     assert observed["cycle"]["source_route_health"] == source_health
-    assert receipt["sourceability_parity"] == {
+    assert receipt["frontiers"][0]["sourceability_parity"] == {
         "prepared_frontier_autonomous_source_discovery_available": True,
         "prepared_frontier_source_route_health_input_sha256": (
             "route-health-input-hash"

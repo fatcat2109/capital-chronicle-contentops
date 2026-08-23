@@ -1,72 +1,97 @@
-# V1 batch/tail discovery ready-pool closure correction B
+# V1 production-day shared discovery budget and multi-frontier closure — Correction C
 
-Authority date: 2026-08-23
-Final task classification: `FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED`
+Authority date: 2026-08-24
+Final task classification: `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-## Repository state
+## Preserved accepted lineage
 
-Fresh fetch verification found `origin/master` at
-`c4239a96513c24fc9f7f331025386756d0248569` and the remote task branch at
-`e494ea8fbc9d21bc0a6604b1a76c3696b5266907` before Correction B, with master as the exact merge
-base and no unexpected drift.
+- `real_zero_write_acceptance_receipt_v1.json` remains the prior valid single-frontier Correction B
+  receipt and was not overwritten.
+- `sourceability_route_health_parity_audit_v1.json` remains valid.
+- Commit `d1bbc0721341fa17a1c7fdc17a47da88562b04f4` remains the accepted explicit-mode loader
+  ceiling repair.
+- Commit `dea6d21465b4ac3bffb1f3c983a36d07dcba5e64` remains the accepted sourceability parity repair.
 
-Commit `d1bbc0721341fa17a1c7fdc17a47da88562b04f4` preserved and pushed the independently useful
-request-budget repair. Explicit autonomous batch/tail mode now propagates the existing 96-request
-coordinator ceiling to the default official/public loaders; the per-candidate limit remains 6 and
-all evidence, hash, freshness, capability, claim, permission, and publication gates are unchanged.
+## Correction C implementation
 
-## Sourceability parity finding
+The quota-efficient discovery receipt is now cumulative and bound to the exact
+`newsroom_production_day_id`. A later cycle restores prior turns, accounted tokens, deterministic
+requests, failures, and covered story identities, then receives only the residual allowance from
+the unchanged hard production-day envelope:
 
-Before Correction B, the acceptance runner did not exercise the same sourceability inputs as the
-Daily App path:
+- deterministic network requests: 96 total;
+- batch turns: 2 total;
+- tail turns: 2 total;
+- discovery turns: 4 total;
+- accounted discovery tokens: 2,000,000 total.
 
-- Daily App loads the persisted routing-only `source_route_health_v1.json` snapshot and supplies it
-  to prepared frontier construction.
-- Daily App passes the same non-empty snapshot into the canonical cycle, where it becomes
-  preselection `sourceability_observations` and can rerank materially comparable candidates.
-- The runner built its frontier without `autonomous_source_discovery_available=True`, supplied no
-  persisted route-health snapshot to the builder, and supplied no snapshot to the canonical cycle.
+Default official and public loaders share one aggregate residual request counter. The Daily App
+loads the latest cumulative receipt from existing cycle artifacts for the same production day and
+carries it through bounded catch-up attempts. No new store or scheduler was added.
 
-The focused correction reuses those existing seams. The runner now loads the same routing-only
-snapshot path when present, feeds it to both frontier construction and the canonical cycle, and
-marks autonomous discovery available during frontier construction. It adds no ranking system and
-grants no factual, numeric, permission, or publication authority.
+The proof runner freezes one current rolling universe and cutoff, carries cumulative evaluated
+headline identities and routing-only source health, walks at most four frontiers, rejects repeated
+headline/story work, and stops immediately at four governed ready candidates. It does not carry a
+prior single-opportunity prepared state; that would incorrectly promote historical
+`NOT_PROMOTED_BEFORE_EXPIRY` dispositions into multi-frontier terminal authority.
 
-At the final proof epoch the canonical persisted route-health file was absent. The receipt therefore
-truthfully records an empty current snapshot, `prepared_frontier_autonomous_source_discovery_available=true`,
-and `preselection_sourceability_observations_consumed=false`. No observations were fabricated.
+## Mode/risk proportional acceptance
 
-See `sourceability_route_health_parity_audit_v1.json` for the capability classifications.
+Ready acceptance now consumes the canonical contract kind rather than imposing one claim-count
+rule on every candidate:
 
-## Final proof
+- `ORDINARY_MINIMUM_TRUSTWORTHY_EVIDENCE_PACKET` requires its exact packet PASS/hash, a directly
+  bound non-empty core proposition, accepted source/document identity, HTTPS URL, canonical content
+  hash, current freshness, `public_claim_allowed=true`, and zero blockers.
+- `ENHANCED_CLAIM_EVIDENCE_CONTRACT` still requires its exact contract PASS/hash, at least one
+  supported claim with bound accepted document identities, zero fabricated claims, and zero
+  blockers.
 
-One fresh post-correction zero-write proof ran at cutoff `2026-08-23T14:32:51.390611Z`, loaded 282
-current headline identities, and prepared a 12-candidate frontier using the production discovery-
-aware ordering.
+Every candidate receipt exposes `ready_contract_kind`, `ready_contract_status`, and
+`ready_contract_sha256`. No mode alone grants acceptance or authority.
 
-One distinct candidate passed the governed evidence-ready pool:
+## One fresh production-day proof
 
-- cluster `rolling-x-global-cluster-82db0cbb80577ed8baae`;
-- headline `cc-x-headline-5b1a65456b1dc62be206f3d1`.
+The single authorized current-universe run used production day
+`newsroom-production-day-2026-08-24-bangkok`, a frozen universe of 157 headline identities, and
+completed one 12-identity frontier before exposing a harness integration defect. It produced zero
+ready candidates and retained 145 held identities.
 
-The required four-candidate pool was not reached. Remaining candidates terminated on unresolved
-URL discovery, 401/access failures, unavailable public sources, or missing governed evidence. The
-exact residual blocker is `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`. No further proof was run.
+Observed cumulative budget:
 
-Economics remained within every hard ceiling: 1 batch turn, 1 tail turn, 2 total turns, 1,237,551
-accounted discovery tokens, and 16 deterministic requests. Compared with 35 turns / 10,237,897
-tokens, the exact deltas are -33 turns / -9,000,346 tokens. The natural 1M target was not achieved,
-but the hard 2M token ceiling passed. No monetary savings are claimed.
+- batch/tail/total turns: 1 / 1 / 2;
+- accounted discovery tokens: 362,493;
+- deterministic requests: 14;
+- unused batch/tail/total turns: 1 / 1 / 2;
+- unused tokens: 1,637,507;
+- unused deterministic requests: 82.
 
-Writer calls `0`; article generation `0`; derivative generation `0`; public/provider writes `0`;
-`UNKNOWN_WRITE=0`; browser/CDP actions `0`; Automation mutations `0`; Capital Chronicle mutations
-`0`; V2 mutations `0`; secret/session reads `0`.
+The raw run receipt is preserved as
+`production_day_shared_discovery_acceptance_receipt_v1.json`. Its exact runtime classification is
+`FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED`; all attempted frontier candidates were evidence-blocked.
 
-## Validation
+The run then stopped because the first implementation passed `prior_prepared_state` into frontier
+2. The canonical builder correctly interpreted the frozen single-opportunity held dispositions as
+terminal and returned no candidates despite 145 held identities. Correction C now follows the
+accepted multi-frontier harness: carry evaluated identities, quota accounting, and route health,
+but rebuild each later frontier from the same frozen universe without importing prior
+single-opportunity terminal dispositions.
 
-206 focused tests passed across batch/tail, evidence adapters/loaders, Daily App route-health
-persistence, preselection sourceability reranking, prepared frontier construction, and the canonical
-newsroom cycle. Compileall, CodeGraph generation/check, receipt hash validation, staged-diff review,
-and `git diff --check` passed.
+The task explicitly forbids a second real proof. Therefore the corrected multi-frontier continuation
+is deterministically validated but requires a later exact current-host revalidation. Exact residual
+blocker:
+
+`CORRECTED_MULTI_FRONTIER_CONTINUATION_CURRENT_HOST_REVALIDATION_REQUIRED`
+
+## Safety and validation
+
+The real run recorded writer/article/derivative/public/provider writes and `UNKNOWN_WRITE` all at
+zero. No browser/CDP action, Automation mutation, Capital Chronicle mutation, V2 work, or secret/
+session read occurred.
+
+220 focused tests passed across quota carry-forward, aggregate loader budgeting, production-day
+artifact reuse, Daily App catch-up carry, multi-frontier identity isolation, source-health routing,
+ordinary/enhanced evidence contracts, canonical cycle, and existing batch/tail URL-only authority.
+Compileall, CodeGraph generation/check, receipt hash validation, and `git diff --check` passed.
 
 Do not start the 4/32 proof from this result.

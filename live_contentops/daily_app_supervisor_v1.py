@@ -3031,6 +3031,7 @@ class ContentOpsDailyAppSupervisor:
             from live_contentops.newsroom_production_day_v1 import (
                 bounded_deficit_work_needed,
                 build_production_day_snapshot,
+                load_production_day_discovery_accounting,
                 persist_production_day_snapshot,
                 persist_qualified_article_record,
                 qualify_zero_write_article,
@@ -3047,6 +3048,17 @@ class ContentOpsDailyAppSupervisor:
                 output_root=self._output_root,
                 published_corpus=canonical_published_memory,
             )
+            quota_discovery_accounting = load_production_day_discovery_accounting(
+                self._output_root,
+                production_day_id=production_before.newsroom_production_day_id,
+            )
+            cycle_kwargs["newsroom_production_day_id"] = (
+                production_before.newsroom_production_day_id
+            )
+            if quota_discovery_accounting:
+                cycle_kwargs["quota_discovery_prior_accounting"] = (
+                    quota_discovery_accounting
+                )
             work_budget = (
                 bounded_deficit_work_needed(
                     session=str(window.get("session") or ""),
@@ -3086,6 +3098,23 @@ class ContentOpsDailyAppSupervisor:
                         "published_corpus": published_memory,
                     }
                     attempt_result = dict(self._newsroom_cycle(**attempt_kwargs))
+                    current_quota_accounting = attempt_result.get(
+                        "quota_efficient_source_discovery"
+                    )
+                    if (
+                        isinstance(current_quota_accounting, Mapping)
+                        and str(
+                            current_quota_accounting.get(
+                                "newsroom_production_day_id"
+                            )
+                            or ""
+                        )
+                        == production_before.newsroom_production_day_id
+                    ):
+                        quota_discovery_accounting = dict(current_quota_accounting)
+                        cycle_kwargs["quota_discovery_prior_accounting"] = (
+                            quota_discovery_accounting
+                        )
                     updated_source_route_health = self._persist_source_route_health_state(
                         attempt_result
                     )

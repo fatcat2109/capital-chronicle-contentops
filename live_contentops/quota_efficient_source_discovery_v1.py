@@ -96,6 +96,8 @@ class QuotaEfficientSourceDiscoverySession:
         *,
         evidence_acquirer: Callable[[Mapping[str, Any]], Any],
         source_discoverer: Any,
+        newsroom_production_day_id: str | None = None,
+        prior_accounting: Mapping[str, Any] | None = None,
         max_batch_turns: int = DEFAULT_MAX_BATCH_TURNS,
         max_tail_turns: int = DEFAULT_MAX_TAIL_TURNS,
         max_total_turns: int = DEFAULT_MAX_TOTAL_TURNS,
@@ -133,6 +135,9 @@ class QuotaEfficientSourceDiscoverySession:
             max_deterministic_network_requests
         )
         self._max_batch_stories = int(max_batch_stories)
+        self._newsroom_production_day_id = str(
+            newsroom_production_day_id or ""
+        ) or None
         self._deterministic_cache: dict[str, dict[str, Any]] = {}
         self._resumed_cache: dict[str, dict[str, Any]] = {}
         self._contracts: dict[tuple[str, tuple[str, ...]], dict[str, Any]] = {}
@@ -154,6 +159,111 @@ class QuotaEfficientSourceDiscoverySession:
         self._accounting_complete = True
         self._terminal_budget_blocker: str | None = None
         self._terminal_provider_blocker: str | None = None
+        self._prior_accounting_sha256: str | None = None
+        if prior_accounting is not None:
+            self._restore_prior_accounting(prior_accounting)
+
+    def _restore_prior_accounting(self, prior: Mapping[str, Any]) -> None:
+        if prior.get("schema_version") != SCHEMA_VERSION:
+            raise ValueError("quota_discovery_prior_accounting_schema_invalid")
+        prior_day_id = str(prior.get("newsroom_production_day_id") or "") or None
+        if (
+            self._newsroom_production_day_id is None
+            or prior_day_id != self._newsroom_production_day_id
+        ):
+            raise ValueError("quota_discovery_production_day_identity_mismatch")
+        self._prior_accounting_sha256 = _hash(prior)
+        self._turns = [
+            copy.deepcopy(dict(row))
+            for row in prior.get("turns") or []
+            if isinstance(row, Mapping)
+        ]
+        self._deterministic_acquisition_calls = int(
+            prior.get("deterministic_acquisition_calls") or 0
+        )
+        self._deterministic_network_requests = int(
+            prior.get("deterministic_network_requests") or 0
+        )
+        cache = prior.get("cache_and_reuse") or {}
+        self._deterministic_cache_hits = int(
+            cache.get("deterministic_receipt_cache_hits") or 0
+        )
+        self._resumed_cache_hits = int(cache.get("resumed_receipt_cache_hits") or 0)
+        self._discovery_contract_reuse_hits = int(
+            cache.get("discovery_contract_reuse_hits") or 0
+        )
+        self._accounting_complete = prior.get("accounting_complete") is True
+        self._terminal_budget_blocker = (
+            str(prior.get("terminal_budget_blocker") or "") or None
+        )
+        self._terminal_provider_blocker = (
+            str(prior.get("terminal_provider_blocker") or "") or None
+        )
+        self._failures = [
+            copy.deepcopy(dict(row))
+            for row in prior.get("failures") or []
+            if isinstance(row, Mapping)
+        ]
+        for row in prior.get("batch_covered_story_membership") or []:
+            if isinstance(row, Mapping):
+                self._batch_covered.add(
+                    (
+                        str(row.get("story_identity") or ""),
+                        tuple(sorted(str(value) for value in row.get("headline_ids") or [])),
+                    )
+                )
+        for row in prior.get("tail_covered_story_membership") or []:
+            if isinstance(row, Mapping):
+                self._tail_covered.add(
+                    (
+                        str(row.get("story_identity") or ""),
+                        tuple(sorted(str(value) for value in row.get("headline_ids") or [])),
+                    )
+                )
+        for row in prior.get("deterministic_frontier") or []:
+            if not isinstance(row, Mapping):
+                continue
+            identity = (
+                str(row.get("story_identity") or ""),
+                tuple(sorted(str(value) for value in row.get("headline_ids") or [])),
+            )
+            if identity[0] and identity[1]:
+                self._deterministic_frontier[identity] = copy.deepcopy(dict(row))
+        if (
+            len(self._turns) > self._max_total_turns
+            or sum(row.get("pass_kind") == "BATCH" for row in self._turns)
+            > self._max_batch_turns
+            or sum(row.get("pass_kind") == "TAIL" for row in self._turns)
+            > self._max_tail_turns
+            or sum(
+                int(row.get("accounted_discovery_tokens") or 0)
+                for row in self._turns
+            )
+            > self._max_accounted_tokens
+            or self._deterministic_network_requests
+            > self._max_deterministic_network_requests
+        ):
+            self._terminal_budget_blocker = (
+                "URL_DISCOVERY_PRODUCTION_DAY_BUDGET_ALREADY_EXCEEDED"
+            )
+
+    def _budget_blocked_receipt(
+        self, request: Mapping[str, Any], blocker: str
+    ) -> dict[str, Any]:
+        return {
+            "status": "BLOCKED",
+            "cluster_id": request.get("cluster_id"),
+            "headline_ids": list(request.get("headline_ids") or []),
+            "provided_evidence_capabilities": [],
+            "evidence_documents": [],
+            "claim_evidence_contract": {
+                "status": "BLOCKED",
+                "supported_claim_count": 0,
+                "fabricated_claim_count": 0,
+            },
+            "blockers": [blocker],
+            "publication_authority": False,
+        }
 
     def _handshake(
         self,
@@ -177,6 +287,13 @@ class QuotaEfficientSourceDiscoverySession:
 
     def acquire(self, request: Mapping[str, Any]) -> Any:
         request_row = dict(request)
+        if self._deterministic_network_requests >= self._max_deterministic_network_requests:
+            self._terminal_budget_blocker = (
+                "URL_DISCOVERY_DETERMINISTIC_REQUEST_CEILING_EXCEEDED"
+            )
+            return self._budget_blocked_receipt(
+                request_row, self._terminal_budget_blocker
+            )
         identity = _identity(request_row)
         request_hash = str(request_row.get("request_logical_hash") or _hash(request_row))
         cache_key = f"{identity[0]}:{_hash(identity[1])}:{request_hash}"
@@ -390,6 +507,17 @@ class QuotaEfficientSourceDiscoverySession:
                 "blocker": self._terminal_budget_blocker
                 or self._terminal_provider_blocker,
             }
+        accounted_tokens = sum(
+            int(row.get("accounted_discovery_tokens") or 0)
+            for row in self._turns
+        )
+        if accounted_tokens >= self._max_accounted_tokens:
+            self._terminal_budget_blocker = "URL_DISCOVERY_TOKEN_CEILING_EXCEEDED"
+            return {
+                "called": False,
+                "new_contract_count": 0,
+                "blocker": self._terminal_budget_blocker,
+            }
         requests = self._unresolved_requests(
             viability, pass_kind=normalized_pass_kind
         )
@@ -598,6 +726,15 @@ class QuotaEfficientSourceDiscoverySession:
         total_tokens = sum(
             int(row.get("accounted_discovery_tokens") or 0) for row in self._turns
         )
+        remaining_batch_turns = max(0, self._max_batch_turns - batch_turn_count)
+        remaining_tail_turns = max(0, self._max_tail_turns - tail_turn_count)
+        remaining_total_turns = max(0, self._max_total_turns - len(self._turns))
+        remaining_tokens = max(0, self._max_accounted_tokens - total_tokens)
+        remaining_requests = max(
+            0,
+            self._max_deterministic_network_requests
+            - self._deterministic_network_requests,
+        )
         economics_accepted = bool(
             self._accounting_complete
             and batch_turn_count <= self._max_batch_turns
@@ -611,6 +748,8 @@ class QuotaEfficientSourceDiscoverySession:
         )
         return {
             "schema_version": SCHEMA_VERSION,
+            "newsroom_production_day_id": self._newsroom_production_day_id,
+            "prior_accounting_sha256": self._prior_accounting_sha256,
             "status": "PASS" if economics_accepted else "BLOCKED",
             "batch_discovery_turns": batch_turn_count,
             "tail_discovery_turns": tail_turn_count,
@@ -651,6 +790,13 @@ class QuotaEfficientSourceDiscoverySession:
                     self._max_deterministic_network_requests
                 ),
                 "max_stories_per_turn": self._max_batch_stories,
+            },
+            "remaining_budget": {
+                "batch_turns": remaining_batch_turns,
+                "tail_turns": remaining_tail_turns,
+                "total_turns": remaining_total_turns,
+                "accounted_discovery_tokens": remaining_tokens,
+                "deterministic_network_requests": remaining_requests,
             },
             "accepted_baseline_comparison": {
                 "baseline_discovery_turns": 35,

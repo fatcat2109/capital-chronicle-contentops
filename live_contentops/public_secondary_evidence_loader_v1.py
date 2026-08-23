@@ -239,6 +239,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
         clock: Callable[[], datetime] | None = None,
         source_route_health: SourceRouteHealthState | Mapping[str, Any] | None = None,
+        shared_request_budget: dict[str, int] | None = None,
     ) -> None:
         cutoff = datetime.fromisoformat(evaluation_as_of_utc.replace("Z", "+00:00"))
         if cutoff.utcoffset() is None:
@@ -257,6 +258,7 @@ class BoundedPublicSecondaryEvidenceLoader:
             else SourceRouteHealthState(source_route_health, clock=self._clock)
         )
         self._request_count = 0
+        self._shared_request_budget = shared_request_budget
         self._candidate_request_start = 0
         self._request_count_by_story_scope: dict[str, int] = {}
         self._active_story_scope_id: str | None = None
@@ -264,6 +266,17 @@ class BoundedPublicSecondaryEvidenceLoader:
             str, dict[str, dict[str, Any]]
         ] = {}
         self._reused_request_signatures_by_story_scope: dict[str, list[str]] = {}
+
+    def _consume_request(self) -> None:
+        if self._request_count >= self._max_requests:
+            raise RuntimeError("public_source_request_budget_exhausted")
+        if self._shared_request_budget is not None:
+            used = int(self._shared_request_budget.get("used") or 0)
+            limit = int(self._shared_request_budget.get("limit") or 0)
+            if used >= limit:
+                raise RuntimeError("public_source_request_budget_exhausted")
+            self._shared_request_budget["used"] = used + 1
+        self._request_count += 1
 
     def _get(self, url: str) -> dict[str, Any]:
         if self._active_story_scope_id:
@@ -282,8 +295,6 @@ class BoundedPublicSecondaryEvidenceLoader:
                     self._active_story_scope_id, []
                 ).append(str(suppressed["route_identity_sha256"]))
             raise RuntimeError("public_source_route_suppressed_by_recent_health")
-        if self._request_count >= self._max_requests:
-            raise RuntimeError("public_source_request_budget_exhausted")
         candidate_request_count = (
             self._request_count_by_story_scope.get(self._active_story_scope_id, 0)
             if self._active_story_scope_id
@@ -292,7 +303,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         if candidate_request_count >= self._max_requests_per_candidate:
             raise RuntimeError("public_source_candidate_request_budget_exhausted")
         _public_host(url, resolve_dns=self._validate_dns)
-        self._request_count += 1
+        self._consume_request()
         if self._active_story_scope_id:
             self._request_count_by_story_scope[self._active_story_scope_id] = (
                 candidate_request_count + 1

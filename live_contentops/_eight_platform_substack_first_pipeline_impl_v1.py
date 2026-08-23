@@ -4579,6 +4579,8 @@ def _run_rolling_x_newsroom_cycle(
     source_discoverer: Any = None,
     autonomous_source_discovery_enabled: bool = False,
     evidence_only_target_count: int | None = None,
+    newsroom_production_day_id: str | None = None,
+    quota_discovery_prior_accounting: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
     acceptance_profile: str | None = None,
@@ -5024,7 +5026,16 @@ def _run_rolling_x_newsroom_cycle(
             DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS,
         )
 
-        coordinated_request_ceiling = DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS
+        prior_requests = int(
+            (quota_discovery_prior_accounting or {}).get(
+                "deterministic_network_requests"
+            )
+            or 0
+        )
+        coordinated_request_ceiling = max(
+            1,
+            DEFAULT_MAX_DETERMINISTIC_NETWORK_REQUESTS - prior_requests,
+        )
     base_evidence_acquirer = (
         evidence_acquirer
         or _default_rolling_x_evidence_acquirer(
@@ -5059,6 +5070,8 @@ def _run_rolling_x_newsroom_cycle(
         quota_discovery_session = QuotaEfficientSourceDiscoverySession(
             evidence_acquirer=base_evidence_acquirer,
             source_discoverer=effective_source_discoverer,
+            newsroom_production_day_id=newsroom_production_day_id,
+            prior_accounting=quota_discovery_prior_accounting,
         )
 
     def tracked_evidence_acquirer(request: Mapping[str, Any]) -> Any:

@@ -915,6 +915,10 @@ class RollingXTargetedEvidenceAdapter:
         self._root = Path(capital_chronicle_root) if capital_chronicle_root else None
         self._evaluation_as_of_utc = evaluation_as_of_utc or _utc_now()
         self._packet_loader = packet_loader
+        shared_request_budget = {
+            "limit": int(coordinated_request_ceiling),
+            "used": 0,
+        }
         injected_acquisition_boundary = any(
             value is not None
             for value in (packet_loader, official_evidence_loader, public_secondary_loader)
@@ -927,6 +931,7 @@ class RollingXTargetedEvidenceAdapter:
             official_evidence_loader = BoundedOfficialPrimaryEvidenceLoader(
                 evaluation_as_of_utc=self._evaluation_as_of_utc,
                 max_requests=int(coordinated_request_ceiling),
+                shared_request_budget=shared_request_budget,
             )
         self._official_evidence_loader = official_evidence_loader
         if public_secondary_loader is None:
@@ -938,6 +943,7 @@ class RollingXTargetedEvidenceAdapter:
                 evaluation_as_of_utc=self._evaluation_as_of_utc,
                 max_requests=int(coordinated_request_ceiling),
                 source_route_health=source_route_health,
+                shared_request_budget=shared_request_budget,
             )
         self._public_secondary_loader = public_secondary_loader
         if grounded_researcher is None and not injected_acquisition_boundary:
