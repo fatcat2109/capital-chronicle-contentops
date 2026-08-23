@@ -133,17 +133,19 @@ jobs:
           exit 1
 
   branch-codegraph-refresh:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/agent/web-')
+    if: (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/agent/web-')) || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       contents: write
+    env:
+      TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
     steps:
       - name: Checkout exact branch head
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Generate exact CodeGraph bytes when stale
         id: refresh
@@ -170,4 +172,4 @@ jobs:
             exit 0
           fi
           git commit -m 'chore: refresh CodeGraph for integration source epoch'
-          git push origin HEAD:${GITHUB_REF_NAME}
+          git push origin HEAD:"${TARGET_BRANCH}"
