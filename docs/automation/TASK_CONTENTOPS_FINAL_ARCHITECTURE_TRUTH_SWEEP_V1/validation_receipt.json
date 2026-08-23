@@ -1,0 +1,563 @@
+{
+  "acceptance": {
+    "all_five_required_counters_zero": true,
+    "classification": "PASS_FINAL_ARCHITECTURE_TRUTH_SWEEP_COMPLETE",
+    "master_plan_lock_input_status": "MASTER_PLAN_LOCK_INPUT_REMAINS_VALID_UNCHANGED",
+    "no_substantive_uncertainty_changes_master_plan_sequence": true,
+    "protected_v1_tag_matches_expected": true
+  },
+  "capability_reconciliation": {
+    "capability_classification_change_count": 0,
+    "capability_classification_changes": [],
+    "capability_rows_after": 59,
+    "capability_rows_before": 59,
+    "master_plan_lock_input_changed": false,
+    "new_implementation_gap_change_count": 0,
+    "new_implementation_gap_changes": [],
+    "new_implementation_gap_ids": [
+      "V1_31_QUOTA_EFFICIENT_BATCH_TAIL_DISCOVERY",
+      "V2_16_GROWTH_LEARNING_LOOP",
+      "V2_19_SINGLE_STACK_RECONCILIATION"
+    ],
+    "new_implementation_gap_recheck": [
+      {
+        "id": "V1_31_QUOTA_EFFICIENT_BATCH_TAIL_DISCOVERY",
+        "reason": "No ignored/tag/local-only implementation supplies quota-efficient batch/tail discovery; discovered runtime evidence only reconfirms the existing provider/economics boundary.",
+        "result": "UNCHANGED_NEW_IMPLEMENTATION_GAP",
+        "searched_new_evidence": [
+          "two exhaustively discovered common-dirs",
+          "all 114 registered worktrees",
+          "128 material ignored entries",
+          "v1.0 and all other tags",
+          "two local-only commits"
+        ]
+      },
+      {
+        "id": "V2_16_GROWTH_LEARNING_LOOP",
+        "reason": "Historical runtime artifacts do not close a current-master qualification-to-production-to-observation learning loop or create new authority.",
+        "result": "UNCHANGED_NEW_IMPLEMENTATION_GAP",
+        "searched_new_evidence": [
+          "ignored V2 runtime/evidence roots",
+          "ignored product asset roots",
+          "tags",
+          "local-only commits"
+        ]
+      },
+      {
+        "id": "V2_19_SINGLE_STACK_RECONCILIATION",
+        "reason": "Ignored assets and historical runtime outputs do not place the branch-only unattended/locale/daily-operator modules on current master; selective reconciliation remains required.",
+        "result": "UNCHANGED_NEW_IMPLEMENTATION_GAP",
+        "searched_new_evidence": [
+          "ignored V2 source assets",
+          "local CodeGraph databases",
+          "tags",
+          "all matching common-dirs/worktrees"
+        ]
+      }
+    ],
+    "v1_roadmap_ordering_changed": false,
+    "v2_donor_reconciliation_conclusion_changed": false
+  },
+  "command_records": [
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\ContentOps",
+        "fetch",
+        "--all",
+        "--prune"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "fresh_fetch:A:/Capital Chronicle/ContentOps",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 0,
+      "stdout_excerpt": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timestamp_utc": "2026-08-23T10:06:22.544143+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\ContentOps",
+        "worktree",
+        "list",
+        "--porcelain"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "worktree_inventory:A:/Capital Chronicle/ContentOps",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 23018,
+      "stdout_excerpt": "worktree A:/Capital Chronicle/ContentOps\nHEAD 959c3c23226e6ee6e553162fa7cd7462649a9c9a\nbranch refs/heads/master\n\nworktree A:/Capital Chronicle/ContentOps-H1-LaneB\nHEAD 03087d19c7e18bea6f3812c63a871f33659b6312\nbranch refs/heads/codex/task-contentops-v2-lane-b-h1-v1\n\nworktree A:/Capital Chronicle/ContentOps-p0-1-core-analyzer\nHEAD 164cfe82e17756757008bfb2f96089f26dd6067b\nbranch refs/heads/codex/p0-1-core-analyzer-authority-context-source-reachability-v1\n\nworktree A:/Capital Chronicle/ContentOps-p0-2-v1-final-real-nine-surface-canary-v1\nHEAD c1e1969b49b49bba643abee82adfe27d3a156fd0\nbranch refs/heads/codex/p0-2-v1-final-real-nine-surface-canary-v1\n\nworktree A:/Capital Chronicle/ContentOps-p0-2a-real-candidate-source-reachability-retry-v1\nHEAD 3319809e9c2526e3b518d5d58f1e2c23fbd2afac\nbranch ref",
+      "stdout_sha256": "e4abe21c16bd2f5a20455d1dc5f0aea7b9153d55188ee08e2abf4757b2580352",
+      "timestamp_utc": "2026-08-23T10:06:23.538860+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\ContentOps",
+        "rev-list",
+        "--branches",
+        "--not",
+        "--remotes"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "local_only_commits:A:/Capital Chronicle/ContentOps",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 0,
+      "stdout_excerpt": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timestamp_utc": "2026-08-23T10:06:23.622901+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\ContentOps",
+        "for-each-ref",
+        "--format=%(refname)%00%(objecttype)%00%(objectname)%00%(*objecttype)%00%(*objectname)%00%(creatordate:iso-strict)%00%(subject)",
+        "refs/tags"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "tag_inventory:A:/Capital Chronicle/ContentOps",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 224,
+      "stdout_excerpt": "refs/tags/v1.0\u0000tag\u0000a021df7fd0264d9f160bdd605509da925f0bf131\u0000commit\u00006983bfb3ef300414b744f3f8f97ca81ff699348b\u00002026-07-14T22:55:28+07:00\u0000Capital Chronicle ContentOps v1.0 — database-authorized supervised nine-surface release",
+      "stdout_sha256": "1895efbf3d2b2e49212a538d48a9b243273eec98133f3dd6bdc188b16c045e23",
+      "timestamp_utc": "2026-08-23T10:06:23.704830+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+        "fetch",
+        "--all",
+        "--prune"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "fresh_fetch:A:/Capital Chronicle/tools/cc-live-contentops",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 0,
+      "stdout_excerpt": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timestamp_utc": "2026-08-23T10:06:23.912424+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+        "worktree",
+        "list",
+        "--porcelain"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "worktree_inventory:A:/Capital Chronicle/tools/cc-live-contentops",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 771,
+      "stdout_excerpt": "worktree A:/Capital Chronicle/tools/cc-live-contentops\nHEAD bcf5574d16a433b7b1b3bcb6deea2d7ead402502\ndetached\n\nworktree A:/Capital Chronicle/tools/cc-live-contentops-linkedin-substack-repair\nHEAD 6a810aadadef4b3c9078173b32bed4b243f8552a\ndetached\n\nworktree A:/Capital Chronicle/tools/cc-live-contentops-live-run\nHEAD bb3a0ffe50c201011903f211d1caf62c6fdb556c\ndetached\n\nworktree A:/Capital Chronicle/tools/cc-live-contentops-restore-run\nHEAD eb48f275990a286f40d3f73a40e1b00f4f7503cd\ndetached\n\nworktree A:/Capital Chronicle/tools/cc-wt-closeout-v1\nHEAD d7f5bdbdced814f3423bf4d4590870610775e16f\nbranch refs/heads/agent/contentops-approved-plan-wave02-closeout-v1\n\nworktree A:/Capital Chronicle/tools/cc-wt-tmp/lf-merge2\nHEAD 6b6f8718532a4c3f077b09e14f3ca9a4083d4734\ndetached",
+      "stdout_sha256": "325c91b1c46e14d94a0843cdb5c23702f6a7c27cb0204728b8cbe0c76d7c3bbd",
+      "timestamp_utc": "2026-08-23T10:06:24.790193+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+        "rev-list",
+        "--branches",
+        "--not",
+        "--remotes"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "local_only_commits:A:/Capital Chronicle/tools/cc-live-contentops",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 82,
+      "stdout_excerpt": "d7f5bdbdced814f3423bf4d4590870610775e16f\nfd4c6d26e771792968b28e88cc7c815a1cbb8f3b",
+      "stdout_sha256": "dc9179343be8bb2feb96be3d88baf0fbbe465f0116f19cc7b2a8a056c4b1ddfc",
+      "timestamp_utc": "2026-08-23T10:06:24.821122+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+        "for-each-ref",
+        "--format=%(refname)%00%(objecttype)%00%(objectname)%00%(*objecttype)%00%(*objectname)%00%(creatordate:iso-strict)%00%(subject)",
+        "refs/tags"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "tag_inventory:A:/Capital Chronicle/tools/cc-live-contentops",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 224,
+      "stdout_excerpt": "refs/tags/v1.0\u0000tag\u0000a021df7fd0264d9f160bdd605509da925f0bf131\u0000commit\u00006983bfb3ef300414b744f3f8f97ca81ff699348b\u00002026-07-14T22:55:28+07:00\u0000Capital Chronicle ContentOps v1.0 — database-authorized supervised nine-surface release",
+      "stdout_sha256": "1895efbf3d2b2e49212a538d48a9b243273eec98133f3dd6bdc188b16c045e23",
+      "timestamp_utc": "2026-08-23T10:06:28.601454+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+        "for-each-ref",
+        "--format=%(refname)%00%(objectname)",
+        "refs/remotes/origin"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "current_remote_ref_inventory",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 17609,
+      "stdout_excerpt": "refs/remotes/origin/HEAD\u0000f7c5543e08381f7f529e1b391a80a59f2032d76f\nrefs/remotes/origin/agent/contentops-9router-ordered-model-router-retry-budget-v1\u0000ae60da22b9a155d25dc783f10285eecd875b9d0f\nrefs/remotes/origin/agent/contentops-9router-v2-current-master-integration-v1\u00008cee5f1b1cba19dc7e48a0fd8076315f5f06a8e7\nrefs/remotes/origin/agent/contentops-core-v0-diversity-seo-image-chart-closure-v1\u0000f83bd5c97479ef0001bac141e78d85eacdaa1cc9\nrefs/remotes/origin/agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1\u00003770ff1c2fe77129c634af3263cbc4e31085b900\nrefs/remotes/origin/agent/contentops-dual-lane-core-v0-shadow-newsroom-v1\u0000c8d6837368dee37e73c807e897cc751e37210801\nrefs/remotes/origin/agent/contentops-final-product-scope-closeout-v1\u00007bacc52b0bdc76d571c5270d912bc5d2bfbe2c7e\nrefs/remotes/origin/a",
+      "stdout_sha256": "bd8ea49590b613a9f7a36c86320ee37ee6f9f3660d533d68ac406f0404ee0371",
+      "timestamp_utc": "2026-08-23T10:06:28.930132+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+        "rev-parse",
+        "origin/master"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "origin_master_verification",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 41,
+      "stdout_excerpt": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+      "stdout_sha256": "9383f7f8ddea3d5e298abae8fb016d3c1ddcbcb577d23d328d5f5f9ad2e42df5",
+      "timestamp_utc": "2026-08-23T10:06:45.122120+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "evidence_branch_head_verification",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 41,
+      "stdout_excerpt": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stdout_sha256": "4c01ce6af963b26298043dffaba7e875800f0e31fd656c54b1cbf0f7bddfc89c",
+      "timestamp_utc": "2026-08-23T10:06:45.149691+00:00"
+    },
+    {
+      "command": [
+        "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "scripts/generate_codex_context_index.py",
+        "--check"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "codegraph_check",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 19,
+      "stdout_excerpt": "CODEGRAPH_CURRENT",
+      "stdout_sha256": "309844a5710f511e6d5cd92c0ea490f4c56d576fd54a079fe59bd849bda45d80",
+      "timestamp_utc": "2026-08-23T10:06:45.180459+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+        "diff",
+        "--check"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "unstaged_tracked_diff_check",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 168,
+      "stderr_excerpt": "warning: in the working copy of 'docs/automation/TASK_CONTENTOPS_FINAL_ARCHITECTURE_TRUTH_SWEEP_V1/README.md', LF will be replaced by CRLF the next time Git touches it",
+      "stderr_sha256": "9b2d86c93378f027fb4f69a09811351b4447dbab676ec57a6b65ff2068916327",
+      "stdout_byte_count": 0,
+      "stdout_excerpt": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timestamp_utc": "2026-08-23T10:07:11.052623+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "staged_diff_check_before_commit",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 0,
+      "stdout_excerpt": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timestamp_utc": "2026-08-23T10:07:22.590125+00:00"
+    },
+    {
+      "command": [
+        "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-c",
+        "import json; from pathlib import Path; p=Path('A:\\\\Capital Chronicle\\\\Worktrees\\\\ContentOps\\\\final-architecture-truth-sweep-v1\\\\docs\\\\automation\\\\TASK_CONTENTOPS_FINAL_ARCHITECTURE_TRUTH_SWEEP_V1'); files=sorted(p.glob('*.json')); [json.loads(f.read_text(encoding='utf-8')) for f in files]; print('PACKET_JSON_PARSE_PASS', len(files))"
+      ],
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\final-architecture-truth-sweep-v1",
+      "exit_code": 0,
+      "label": "final_packet_json_parse",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "stderr_byte_count": 0,
+      "stderr_excerpt": "",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_byte_count": 27,
+      "stdout_excerpt": "PACKET_JSON_PARSE_PASS 13",
+      "stdout_sha256": "a20950aa1a1b193fcde8a6654cd4ae4de4ea9a78d6d6f08d76d1149e2f339ddc",
+      "timestamp_utc": "2026-08-23T10:07:22.628378+00:00"
+    }
+  ],
+  "completeness_counters": {
+    "unaccounted_matching_git_common_dir_count": 0,
+    "unaccounted_registered_worktree_count": 0,
+    "unclassified_material_capability_count": 0,
+    "unreviewed_local_only_commit_count": 0,
+    "unreviewed_material_ignored_path_count": 0
+  },
+  "generated_at_utc": "2026-08-23T10:07:23.122451+00:00",
+  "origin_master": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+  "safety": {
+    "automation_mutations": 0,
+    "browser_or_session_inspections": 0,
+    "capital_chronicle_mutations": 0,
+    "current_authority_changes": 0,
+    "history_rewrites_or_amends": 0,
+    "product_code_changes": 0,
+    "production_store_mutations": 0,
+    "public_or_provider_writes": 0,
+    "sensitive_content_reads": 0,
+    "v2_public_write_expansion": 0
+  },
+  "schema_version": "contentops.final_architecture_truth_sweep.validation_receipt.v1",
+  "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+  "supporting_totals": {
+    "capability_classification_totals": {
+      "CURRENTLY_PROVEN_AND_REUSE": 34,
+      "CURRENT_HOST_RUNTIME_PROOF_REQUIRED": 7,
+      "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY": 9,
+      "NEW_IMPLEMENTATION_GAP": 3,
+      "SUPERSEDED_DO_NOT_REUSE": 6
+    },
+    "capability_count": 59,
+    "discovered_candidate_git_root_count": 266,
+    "ignored_path_enumerated_count": 1249,
+    "ignored_path_pruned_as_normal_bulk_count": 1121,
+    "local_only_commit_count": 2,
+    "matching_git_common_dir_count": 2,
+    "matching_registered_worktree_count": 114,
+    "material_ignored_path_count": 128,
+    "reviewed_local_only_commit_count": 2,
+    "reviewed_material_ignored_path_count": 128
+  },
+  "task": "TASK_CONTENTOPS_FINAL_ARCHITECTURE_TRUTH_SWEEP_V1_COMPLETENESS_CORRECTION_A",
+  "validations": [
+    {
+      "command_record_labels": [
+        "fresh_fetch:A:/Capital Chronicle/ContentOps",
+        "fresh_fetch:A:/Capital Chronicle/tools/cc-live-contentops"
+      ],
+      "id": "fresh_fetch_ref_verification",
+      "kind": "COMMAND_SET",
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "command_record_label": "origin_master_verification",
+      "expected_sha": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+      "id": "origin_master_verification",
+      "kind": "COMMAND",
+      "observed_sha": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "command_record_label": "evidence_branch_head_verification",
+      "expected_sha": "b943614916e10bbae37fd092d0046c457638d93f",
+      "id": "evidence_branch_head_verification",
+      "kind": "COMMAND",
+      "observed_sha": "b943614916e10bbae37fd092d0046c457638d93f",
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "command_record_label": "current_remote_ref_inventory",
+      "current_count": 150,
+      "evidence_branch_only_delta": true,
+      "id": "remote_branch_ref_inventory",
+      "kind": "COMMAND",
+      "original_count": 149,
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "id": "tag_inventory",
+      "kind": "COMMAND_SET",
+      "other_materially_unique_tag_lineage_count": 0,
+      "protected_v1_tag_matches_expected": true,
+      "protected_v1_tag_name": "refs/tags/v1.0",
+      "protected_v1_tag_resolved_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "artifact": "workspace_repository_discovery.json",
+      "artifact_logical_sha256": "56a44647e0213188df1ad559f814adb629f780773195f55f06998d7d0966b2da",
+      "id": "workspace_repository_discovery",
+      "kind": "STRUCTURED_OPERATION",
+      "operation": "Top-down filesystem scan with .git/bare detection; candidate identity resolved only through supported Git commands; repository contents pruned immediately after identity.",
+      "result": "COMPLETE",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "timestamp_utc": "2026-08-23T10:05:55.925933+00:00"
+    },
+    {
+      "id": "matching_common_dir_worktree_accounting",
+      "kind": "STRUCTURED_OPERATION",
+      "matching_common_dirs": 2,
+      "registered_worktrees": 114,
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "unaccounted_common_dirs": 0,
+      "unaccounted_worktrees": 0
+    },
+    {
+      "artifact": "ignored_material_inventory.json",
+      "artifact_logical_sha256": "7c0d5cf4ed6e77c71e0f64b89e7be387bc3fb2c7093b530fbb064e6503a67008",
+      "enumerated": 1249,
+      "id": "ignored_material_enumeration_and_materiality",
+      "kind": "STRUCTURED_OPERATION_WITH_PER_WORKTREE_COMMAND_RECEIPTS",
+      "material": 128,
+      "result": "COMPLETE",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "unreviewed": 0
+    },
+    {
+      "count": 2,
+      "id": "local_only_commit_accounting",
+      "kind": "COMMAND_SET_PLUS_STRUCTURED_REVIEW",
+      "result": "PASS",
+      "reviewed": 2,
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "unreviewed": 0
+    },
+    {
+      "errors": [],
+      "id": "packet_json_parse",
+      "kind": "STRUCTURED_OPERATION",
+      "parsed_files": [
+        "authority_conflict_matrix.json",
+        "capability_matrix.json",
+        "codegraph_coverage_gap.json",
+        "duplicate_orphan_matrix.json",
+        "historical_proof_index.json",
+        "ignored_material_inventory.json",
+        "local_remote_delta_matrix.json",
+        "local_repo_topology.json",
+        "remote_master_truth.json",
+        "runtime_host_truth.json",
+        "workspace_repository_discovery.json"
+      ],
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "command_record_label": "codegraph_check",
+      "id": "codegraph_check",
+      "kind": "COMMAND",
+      "normalized_stdout": "CODEGRAPH_CURRENT",
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "command_record_label": "unstaged_tracked_diff_check",
+      "id": "git_diff_check",
+      "kind": "COMMAND",
+      "result": "PASS",
+      "scope": "tracked unstaged changes before explicit staging; final packet covered by staged check",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "command_record_label": "staged_diff_check_before_commit",
+      "executed_at_source_head": "b943614916e10bbae37fd092d0046c457638d93f",
+      "id": "staged_diff_check_before_commit",
+      "kind": "COMMAND",
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "id": "prior_focused_tests",
+      "kind": "HISTORICAL_SWEEP_EVIDENCE",
+      "previous_result": "185 passed / 1 failed",
+      "reason_not_reexecuted": "No product code changed; broad test rerun would be ceremony. The ignored-asset dependency is directly reconciled in ignored_material_inventory.json.",
+      "result": "BUILDER_REPORTED_PREVIOUS_RUN_NOT_REEXECUTED_IN_CORRECTION",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    },
+    {
+      "command_record_label": "final_packet_json_parse",
+      "id": "final_packet_json_parse",
+      "kind": "COMMAND",
+      "result": "PASS",
+      "source_evidence_head": "b943614916e10bbae37fd092d0046c457638d93f"
+    }
+  ]
+}

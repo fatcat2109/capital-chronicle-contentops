@@ -1,0 +1,112 @@
+{
+  "schema_version": "contentops.final_master_plan_authority_lock.authority_reconciliation_matrix.v1",
+  "accepted_sweep_classification": "PASS_FINAL_ARCHITECTURE_TRUTH_SWEEP_COMPLETE",
+  "accepted_sweep_source_head": "145cfa6dfc1f856289cfb57fa01977b497530e00",
+  "rows": [
+    {
+      "id": "LOCK_01_REAL_CANARY_COMPLETE",
+      "old_stale_current_claim": "The Italy zero-write artifact still needed owner audit, one-canary grant, publication, and nine-surface reconciliation.",
+      "accepted_sweep_truth": "The owner-scoped Italy canary already published one canonical Substack article plus exactly eight derivative packages; all nine reconciled with UNKNOWN_WRITE=0.",
+      "changed_current_file_section": ["AGENTS.md sections 3, 4, 11", "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md sections 2, 10, 11", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 2, 7, 8", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md locked current state", "docs/CURRENT_CONTEXT.md locked V1 truth", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md accepted evidence state", "docs/codegraph/V1_CONTEXT.md current product state"],
+      "final_locked_wording_status": "COMPLETE_TECHNICAL_EVIDENCE / NEVER_REPEAT_MERELY_TO_PROVE_PUBLICATION"
+    },
+    {
+      "id": "LOCK_02_4_32_ALREADY_FAILED",
+      "old_stale_current_claim": "The 4-qualified/32-intent proof had not started and was simply a future post-canary task.",
+      "accepted_sweep_truth": "All four opportunities already ran against 40 distinct stories and truthfully failed at 0 qualified articles / 0 derivative intents.",
+      "changed_current_file_section": ["AGENTS.md sections 4 and 11", "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md sections 2 and 11", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 4, 7, 8", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md locked current state and dependency order", "docs/CURRENT_CONTEXT.md", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md", "docs/codegraph/V1_CONTEXT.md"],
+      "final_locked_wording_status": "FAILED_ACCEPTANCE_EVIDENCE / RERUN_ONLY_AFTER_ECONOMICS_REPAIR"
+    },
+    {
+      "id": "LOCK_03_ACCOUNTING_ACCEPTED",
+      "old_stale_current_claim": "Production-day accounting and bounded deficit recovery still needed implementation.",
+      "accepted_sweep_truth": "Cross-midnight production-day ID, four-floor counters, four-window harness, persisted deficit, and bounded catch-up exist and were exercised by the failed 4/32 proof.",
+      "changed_current_file_section": ["AGENTS.md section 5", "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md section 3", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 2 and 7", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md locked current state", "docs/CURRENT_CONTEXT.md", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md"],
+      "final_locked_wording_status": "CURRENTLY_PROVEN_AND_REUSE / NOT_AN_IMPLEMENTATION_GAP"
+    },
+    {
+      "id": "LOCK_04_EVIDENCE_ECONOMICS",
+      "old_stale_current_claim": "Per-trigger fresh Sol/HIGH URL discovery could be treated as the routine production default.",
+      "accepted_sweep_truth": "The provider and deterministic admission seam are reusable, but 35 discovery calls / 10,237,897 discovery tokens for four ready candidates are production-economics rejected.",
+      "changed_current_file_section": ["AGENTS.md section 11", "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md evidence-foundation override", "CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md", "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md section 11", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 2, 5, 7", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md", "docs/CURRENT_CONTEXT.md", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md", "docs/codegraph/V1_CONTEXT.md"],
+      "final_locked_wording_status": "REUSE_BOUNDED_CAPABILITY / SUPERSEDED_DO_NOT_REUSE_AS_ROUTINE_DEFAULT"
+    },
+    {
+      "id": "LOCK_05_NEXT_V1_GAP",
+      "old_stale_current_claim": "First-party locator/source-family or publisher-resolution closure was the next V1 capability.",
+      "accepted_sweep_truth": "Locator/redirect/publisher-resolution and the later four-ready-candidate foundation are accepted; quota-efficient batch/tail discovery on the existing evidence seam is the sole demonstrated new V1 product gap.",
+      "changed_current_file_section": ["CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md section 5", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md current next implementation capability", "docs/CURRENT_CONTEXT.md", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md", "docs/codegraph/V1_CONTEXT.md current product state and validation sequence"],
+      "final_locked_wording_status": "NEW_IMPLEMENTATION_GAP / NEXT_DEPENDENCY / NOT_AUTHORIZED_BY_THIS_LOCK"
+    },
+    {
+      "id": "LOCK_06_AUTOMATION_HOST_TRUTH",
+      "old_stale_current_claim": "The existence and paused state of the four native V1 Automations were host-unproven.",
+      "accepted_sweep_truth": "Exactly four objects exist, all paused, with correct gpt-5.6-sol/HIGH model/effort/schedules; prompts mismatch current intent and calendar-time execution remains unproven.",
+      "changed_current_file_section": ["AGENTS.md sections 6 and 11", "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md current V1 lane", "CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md replacement semantics", "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md section 5", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 4, 8, 9", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md current execution truth", "docs/CURRENT_CONTEXT.md", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md"],
+      "final_locked_wording_status": "FOUR_EXIST_AND_PAUSED / PROMPT_NORMALIZATION_AND_CALENDAR_TIME_PROOF_REMAIN"
+    },
+    {
+      "id": "LOCK_07_GATE_SEPARATION",
+      "old_stale_current_claim": "Canary audit, prompt normalization, Automation enablement, and public-write scope were coupled into one gate.",
+      "accepted_sweep_truth": "The canary is complete; prompt normalization/readback, Automation enablement, and routine public-write authority are separate owner decisions. Zero-write unattended proof is valid when exactly granted.",
+      "changed_current_file_section": ["AGENTS.md sections 6 and 11", "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md sections 5 and 11", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 8 and 9", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md locked dependency order", "docs/CURRENT_CONTEXT.md", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md"],
+      "final_locked_wording_status": "THREE_SEPARATE_OWNER_GATES / NO_IMPLIED_WRITE_AUTHORITY"
+    },
+    {
+      "id": "LOCK_08_AT_REST_NOT_COLD_START",
+      "old_stale_current_claim": "A read-only healthy production database snapshot could be treated as runtime/cold-start proof.",
+      "accepted_sweep_truth": "The database was read-only healthy with UNKNOWN_WRITE=0, but no matching Daily App process/listener ran at the sweep epoch.",
+      "changed_current_file_section": ["CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md current V1 lane", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md section 4", "docs/CURRENT_CONTEXT.md locked V1 truth"],
+      "final_locked_wording_status": "SAFE_AT_REST_SNAPSHOT / CURRENT_HOST_RUNTIME_PROOF_REQUIRED"
+    },
+    {
+      "id": "LOCK_09_V5_REVALIDATION",
+      "old_stale_current_claim": "V5 daily-output mechanics still needed implementation or older screenshots could establish final acceptance.",
+      "accepted_sweep_truth": "V5/read-model production-day mechanics are accepted; fresh current-source/runtime-epoch desktop/mobile rendered visual and truth QA remains required.",
+      "changed_current_file_section": ["CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md section 12", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 4 and 10", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md V5 final closure", "docs/CURRENT_CONTEXT.md current dependency order"],
+      "final_locked_wording_status": "CURRENTLY_PROVEN_MECHANICS / FRESH_VISUAL_TRUTH_REVALIDATION_REQUIRED"
+    },
+    {
+      "id": "LOCK_10_V2_PLAN_LINK",
+      "old_stale_current_claim": "The current V2 pointer routed through a nonexistent master-plan filename.",
+      "accepted_sweep_truth": "Exact current-master V2 files exist under the RETENTION_NATIVE_VIDEO_FACTORY V2 names.",
+      "changed_current_file_section": ["CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md exact V2 lane detail"],
+      "final_locked_wording_status": "ALL_CURRENT_POINTER_LINKS_RESOLVE / NO_INVENTED_FILENAME"
+    },
+    {
+      "id": "LOCK_11_V2_DONOR_LINEAGE",
+      "old_stale_current_claim": "V2 unattended/recovery/locale/read-only-trigger/native-relay capabilities were absent and would need rebuilding from zero.",
+      "accepted_sweep_truth": "task/v2-native-staggered-automation-relay-shadow-correction-v1@10d18873 proves those capabilities historically, while current master owns free-form/package/publication substrates.",
+      "changed_current_file_section": ["CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md locked V2-after-V1 sequence", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 3 and 11", "CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md exact historical donor lineage", "docs/CURRENT_CONTEXT.md V2 boundary", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md V2-after-V1 direction"],
+      "final_locked_wording_status": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY / SELECTIVE_RECONCILIATION / NO_WHOLESALE_MERGE"
+    },
+    {
+      "id": "LOCK_12_V2_ZERO_PUBLIC_WRITE",
+      "old_stale_current_claim": "Historical adapters/drafts/branch work could imply V2 public-write authority.",
+      "accepted_sweep_truth": "Current V2 public-write authority is exactly zero; V1 authority remains isolated and any future expansion needs a later exact owner grant.",
+      "changed_current_file_section": ["AGENTS.md section 11", "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md locked V2-after-V1 sequence", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md section 11", "CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md isolation and publication boundary", "docs/CURRENT_CONTEXT.md V2 boundary", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md V2-after-V1 direction"],
+      "final_locked_wording_status": "ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY"
+    },
+    {
+      "id": "LOCK_13_CANDIDATE_ABSTENTION_SCOPE",
+      "old_stale_current_claim": "No-publication could be read as healthy whole-day V1 success below the active floor.",
+      "accepted_sweep_truth": "Candidate-level abstention is valid; whole-day deficit remains degraded absent an exact hard external blocker.",
+      "changed_current_file_section": ["CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md section 7", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md section 0", "docs/CURRENT_CONTEXT.md output contract"],
+      "final_locked_wording_status": "CANDIDATE_LEVEL_ONLY / WHOLE_DAY_FLOOR_PRESERVED"
+    },
+    {
+      "id": "LOCK_14_FINAL_ACCEPTANCE_NOT_INFERRED",
+      "old_stale_current_claim": "Completion of the sweep or existing foundations could imply V1_FINAL_PRODUCT_ACCEPTED.",
+      "accepted_sweep_truth": "Final acceptance requires economics repair, fresh 4/32 PASS, prompt/readback and owner gates, unattended proof, fresh V5 QA, and an explicit owner freeze decision.",
+      "changed_current_file_section": ["AGENTS.md section 11", "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md current V1 lane", "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md section 11", "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md sections 8 and 12", "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md locked dependency order", "docs/CURRENT_CONTEXT.md", "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md acceptance boundary", "docs/codegraph/V1_CONTEXT.md"],
+      "final_locked_wording_status": "FORBIDDEN_UNTIL_EXPLICIT_OWNER_DECISION"
+    },
+    {
+      "id": "LOCK_15_GENERATED_READ_PATH",
+      "old_stale_current_claim": "Generated INDEX/V2 context omitted the current stale-doc manifest from the mandatory authority path.",
+      "accepted_sweep_truth": "Fresh sessions must read the stale-doc manifest immediately after the authority/supersession map.",
+      "changed_current_file_section": ["scripts/generate_codex_context_index.py authority anchors and generated read-path templates", "tests/test_codex_context_index.py generated routing assertions", "generated docs/codegraph/INDEX.md", "generated docs/codegraph/V2_CONTEXT.md", "generated docs/codegraph/graph.json"],
+      "final_locked_wording_status": "GENERATED_ROUTER_ALIGNED / CODEGRAPH_GENERATOR_2_5_1"
+    }
+  ]
+}

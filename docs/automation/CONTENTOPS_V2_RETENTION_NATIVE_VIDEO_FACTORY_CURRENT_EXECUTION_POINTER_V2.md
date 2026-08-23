@@ -1,70 +1,94 @@
-# Capital Chronicle ContentOps — V2 Current Execution Pointer
+# Capital Chronicle ContentOps — V2 Current Execution Pointer V2
 
-Authority date: 2026-08-20
-Status: `CURRENT_V2_LANE_POINTER`
+Authority date: 2026-08-23
+Status: `CURRENT_V2_LANE_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
-Root authority:
+## Root authority
 
 - `AGENTS.md`
+- `docs/codegraph/INDEX.md`
 - `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+- `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`
 - `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+- `docs/codegraph/V2_CONTEXT.md`
 
-V2 lane detail:
+Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.
 
-- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md`
-- `docs/automation/CONTENTOPS_V2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md`
-- `docs/automation/CONTENTOPS_V2_FINAL_PRODUCT_TASK_GRAPH_V1.md`
+## Exact V2 lane detail
+
+These current-master files exist and may supply compatible V2 detail beneath the locked root spine:
+
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
 - `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
+- `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 - `video/AGENTS.md`
 
-## Current lane state
+## Current-master foundation — reuse
 
-V2 is the isolated retention-native video/media factory within the unified Capital Chronicle/Core Analyzer -> ContentOps product architecture.
+Current master already owns:
 
-Accepted foundation includes governed story/evidence intake, rights/provenance controls, concrete-first asset discovery, native charts/maps/documents, short/longform Remotion production, audio/package foundations, actual-media QA patterns, recovery/caching, and publication-adapter engineering history.
+- governed story/numeric-authority and rights/provenance/hash boundaries;
+- free-form chapterized viewer-authored Remotion source, dirty-range rendering, cache identity,
+  picture assembly, separated audio rebuild, and mux;
+- audio/caption/package/localization foundations;
+- corrected six-surface shadow publication request-plan/readback control plane for YouTube
+  video/Short, TikTok upload draft, explicit Instagram login variants, and Facebook Page Reels,
+  with live writes disabled.
 
-The current local V2 factory evidence also demonstrates the correct proprietary-data boundary: it requires a `PASS_PUBLICATION_AUTHORIZED` source packet plus explicit numeric permission before consuming CC numeric claims/time series. Preserve that pattern as the lane-wide rule.
+Do not rebuild these systems or restore the failed fixed high-level compositor.
 
-These foundations do not equal final V2 acceptance.
+## Exact historical donor lineage
 
-## Current authority
+Primary donor branch:
 
-- Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.
-- Use `WEB_STATIC` for repository-static work and `WEB_CI` when safe deterministic GitHub Actions can prove the required mechanics.
-- Use `CODEX_EXECUTION` when V2 correctness materially requires a real execution environment, render/browser/runtime inspection, or iterative debug feedback.
-- `OWNER_GATED_EXTERNAL` remains required for secrets/session boundaries, live/public writes, provider publication expansion, rights/legal release boundaries, destructive canonical changes, or equivalent irreversible external actions.
-- Fresh owner-authorized `GPT-5.6 Sol / XHIGH` sessions/workers may own consequential viewer-facing creative/editorial judgment at the bounded seams described by current V2 authority.
-- Approved 9Router models may perform already-authorized bounded low-cost filtering/research/classification roles.
-- Models receive zero factual, numeric, Capital Chronicle/Core Analyzer, permission, credential, destination-identity, or public-write authority.
+`task/v2-native-staggered-automation-relay-shadow-correction-v1`
 
-## Capital Chronicle/Core Analyzer media boundary
+Accepted historical proof tip:
 
-V2 may consume a qualified V1/story package and public evidence. Proprietary CC/Core Analyzer numeric, analytical, forecast/scenario, or chart material may enter viewer-facing media only through an exact upstream publication-safe artifact whose consumer/story/use and permissions allow that display.
+`10d18873e2d716dcd53b681a4370ef7726a27f9b`
 
-A validated internal Analyzer handoff, private decision/forecast/scenario/paper record, arbitrary database match, candidate snapshot, or degraded/proxy packet is not viewer-facing numeric authority.
+That branch proves useful capability absent current master, including the isolated unattended
+durable factory/supervisor, Windows cache/path/duration recovery, professional-audio/locale timing,
+read-only V1 qualification, and native HIGH -> fresh XHIGH -> HIGH exact-once relay. Principal
+branch-only modules include:
 
-V2 may losslessly project publication-authorized values into charts/maps/timelines. It may not infer missing values, repair upstream numeric truth, widen permission, or create a second analytical authority layer.
+- `video/unattended_core_factory_v1/`;
+- `video/daily_operator_v1.py`;
+- `video/locale_activation_hardening_v1/`.
+
+This is `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY`, not current routing authority. Selectively
+reconcile current-compatible capability onto one current stack after the V1 gate. Never wholesale-
+merge stale branch authority and never maintain separate renderer/control stacks.
 
 ## Isolation and publication boundary
 
-V2 may read qualified V1/CC story authority but may not mutate/reset V1 runtime, durable store, browser, scheduler, or publication authority.
+V2 may read qualified V1/CC story authority but may not mutate, reset, or share authority with the
+V1 runtime, durable store, browser roles, scheduler, publication coordinator, or public objects.
 
-Current V2 video public-write authority is exactly zero. Existing provider adapters, credentials, drafts, rehearsals, or branch work do not grant publication authority. Future platform publication requires a new exact owner grant plus destination/account identity, public-object readback, reconciliation, and recovery evidence.
+Current V2 public-write authority is exactly zero. Existing adapters, credentials, drafts,
+historical canaries, rehearsals, or branch work grant no upload, draft, unlisted, private, or public
+write permission. Any later publication expansion requires a new exact owner grant plus exact
+destination/account identity, rights, readback, reconciliation, and recovery proof.
 
-## Current execution sequence
+## Locked V2-after-V1 sequence
 
-There is no independently authorized V2 implementation task while root P0 work is active.
+There is no independently authorized V2 implementation task before explicit V1 acceptance. After
+that gate:
 
-After root P0-1 and V1 final acceptance unblock the next product stage, V2 priority is:
+1. selectively reconcile donor capability onto the current free-form/package/publication substrate;
+2. revalidate unattended store/supervisor, Windows recovery, transcript/audio timing, locale
+   packages, read-only qualification, and native relay under current dependencies;
+3. produce fresh non-oil/non-Hormuz qualified cross-domain stories through concrete-first asset
+   discovery and story-specific native media;
+4. obtain actual-media XHIGH and Jim/ChatGPT picture/sound/taste/pacing/publishability review;
+5. prove repeated-job soak, cache/recovery, TCO, transcript/package truth, and the integrated
+   qualification/observation/bounded-learning loop;
+6. consider platform publication only under a later exact owner grant. Until then, zero public
+   write remains absolute.
 
-1. repeated qualified fresh-story creative production;
-2. actual short and justified longform owner acceptance;
-3. concrete/rights-safe asset diversity and publication-authorized chart legibility;
-4. professional audio and final-audio-bound transcript/package truth;
-5. localized repair, cache/recovery, and unattended soak;
-6. bounded TCO/runtime proof;
-7. real V1->V2 qualification shadow loop.
-
-Do not force video production when no qualified story exists. Zero proprietary CC/Core Analyzer media use is valid when no exact publication-safe upstream material exists for the story.
+Do not rebuild donor-proven unattended/recovery/locale/native-relay capabilities from zero. Do not
+infer final V2 acceptance from historical media or deterministic tests.

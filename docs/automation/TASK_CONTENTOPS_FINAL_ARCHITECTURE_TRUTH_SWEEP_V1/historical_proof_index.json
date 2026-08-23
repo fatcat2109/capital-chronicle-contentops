@@ -1,0 +1,289 @@
+{
+  "schema_version": "contentops.final_architecture_truth_sweep.historical_proof_index.v1",
+  "note": "Historical proof preserves what was demonstrated at its exact epoch; it is not current routing authority unless capability_matrix.json promotes the capability.",
+  "proofs": [
+    {
+      "family": "V1 durable operational store",
+      "branch_or_ref": "duplicate clone local branch agent/contentops-approved-plan-wave02-closeout-v1",
+      "tip": "d7f5bdbdced814f3423bf4d4590870610775e16f",
+      "result": "LOCAL_ONLY_COMMIT_SUBSUMED_BY_CURRENT_MASTER",
+      "capability": "Durable state machine, migrations, leases/fencing, replay, evidence export",
+      "evidence": ["docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/", "tests/test_durable_operational_store_v1.py"],
+      "reconciliation": "The exact evidence files and most supporting modules are already present on current master; evolved store/tests supersede the old code bytes. Do not cherry-pick."
+    },
+    {
+      "family": "V1 continuous intelligence/preselection",
+      "branch_or_ref": "origin/master",
+      "tip": "804fb57a80a68106f26b0f8e218078b44d0f82c2",
+      "result": "MERGED_FOUNDATION",
+      "capability": "Rolling sidecars, published memory, update chains, preselection, sourceability"
+    },
+    {
+      "family": "V1 growth-first eight-mode proof",
+      "branch_or_ref": "origin/task/v1-p0-g3-zero-write-multimode-replay-v1",
+      "tip": "9e5958e8159a599caa4e9021ac5ca8afd78265e3",
+      "merge_commit": "369c0cc289e790b8218ba30b2696a926db04356a",
+      "result": "ACCEPTED_MERGED",
+      "capability": "Breaking/normal/quiet/house-view modes under zero write",
+      "evidence": ["docs/automation/P0_G3_ZERO_WRITE_MULTIMODE_REPLAY_V1/"]
+    },
+    {
+      "family": "V1 production-day/Automation revalidation",
+      "branch_or_ref": "origin/task/v1-autonomous-newsroom-daily-output-native-automation-revalidation-v1",
+      "tip": "bbd2ef9b104a01d7cbb14743b976ff30932a3e08",
+      "result": "MERGED_IN_DAILY_YIELD_LINEAGE",
+      "capability": "Production-day counters, V5 Automation truth, native XHIGH zero-write proof",
+      "evidence": ["docs/automation/TASK_V1_AUTONOMOUS_NEWSROOM_DAILY_OUTPUT_AND_NATIVE_AUTOMATION_REVALIDATION_V1/"]
+    },
+    {
+      "family": "V1 story-scoped evidence reuse",
+      "branch_or_ref": "origin/task/v1-story-scoped-evidence-reuse-budget-daily-floor-closure-v1",
+      "tip": "5a10dd8bdfbe900bed945f24332942ba69858d2e",
+      "merge_commit": "25f560abb952f3646b3e4f18671dd22a96f8fa16",
+      "result": "ACCEPTED_MERGED",
+      "capability": "Same-story downgrade reuse, bounded delta reads, current frontier continuity",
+      "evidence": ["docs/automation/TASK_V1_STORY_SCOPED_EVIDENCE_REUSE_BUDGET_AND_DAILY_FLOOR_CLOSURE_V1/"]
+    },
+    {
+      "family": "V1 first-party locator routing",
+      "branch_or_ref": "origin/task/v1-multi-surface-first-party-locator-routing-4-32-floor-closure-v1",
+      "tip": "54b600e94d3ce4e75714b468ecc9c6edf7ed67ff",
+      "merge_commit": "2d39880fda3504201add67b15a0801847cc496b1",
+      "result": "ACCEPTED_MERGED",
+      "capability": "Official locator/source-family and publisher-resolution closure"
+    },
+    {
+      "family": "V1 Desktop-primary hybrid zero-write canary",
+      "branch_or_ref": "codex/v1-desktop-primary-hybrid-final-convergence-v1",
+      "tip": "bcdada4674402be42d1624cdd1ea5029617aef98",
+      "result": "PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY",
+      "capability": "Fresh HIGH -> isolated XHIGH -> deterministic article/package/JIT path",
+      "evidence": ["docs/automation/TASK_V1_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY_V1/"]
+    },
+    {
+      "family": "V1 real nine-surface canary",
+      "branch_or_ref": "codex/v1-desktop-primary-hybrid-final-convergence-v1",
+      "tip": "5327be938f4435c0644bcae41f84535bfd967029",
+      "result": "PASS_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_9_SURFACE_RECONCILED",
+      "capability": "Owner-scoped canonical Substack plus eight derivative packages and strict readback",
+      "evidence": ["docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/final_live_canary_receipt_v1.json", "docs/automation/TASK_V1_ONE_LIVE_DESKTOP_PRIMARY_HYBRID_CANARY_PUBLICATION_AND_RECONCILIATION_V1/screenshots/"],
+      "safety": "Exactly 1 canonical + 8 derivative destination-package attempts; UNKNOWN_WRITE=0; runtime restored SHADOW_ONLY; Automations stayed paused."
+    },
+    {
+      "family": "V1 post-launch 4/32 proof",
+      "branch_or_ref": "origin/codex/v1-desktop-primary-hybrid-final-convergence-v1",
+      "tip": "d763ae15973480384722aa6e8461ba00a8a494e5",
+      "result": "DEGRADED_DAILY_OUTPUT_DEFICIT / FAIL_4_32_FLOOR_NOT_MET",
+      "capability": "Four-opportunity harness, production-day accounting, no-repeat frontier, one native XHIGH + bounded revision",
+      "evidence": ["docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/final_throughput_proof_receipt_v1.json", "docs/automation/TASK_V1_POST_LAUNCH_4_32_DESKTOP_PRIMARY_HYBRID_THROUGHPUT_PROOF_V1/candidate_blocker_ledger_v1.json"],
+      "truth": "0 qualified articles / 0 derivative intents after 40 distinct stories and 117 source requests; 39 evidence-blocked, one writer path exhausted the one-revision semantic gate."
+    },
+    {
+      "family": "V1 autonomous evidence foundation",
+      "branch_or_ref": "origin/codex/v1-evidence-foundation-autonomous-discovery-ready-pool-v1",
+      "tip": "dca874e32052b4b0edab47e4cebb89be8eb6e4a1",
+      "product_commit": "330f19787ee0bd8ecc60780417042e19d64f8a1a",
+      "merge_commit": "f7c5543e08381f7f529e1b391a80a59f2032d76f",
+      "result": "PASS_V1_EVIDENCE_FOUNDATION_4_ARTICLE_READY_ZERO_WRITER",
+      "capability": "Four distinct evidence-ready candidates, URL-only discovery, source-route health, exact redirect repair, frozen worker transport",
+      "evidence": ["docs/automation/TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1/"],
+      "economics": "91 deterministic requests, 31 synthesis calls / 251,703 tokens, 35 discovery calls / 10,237,897 discovery tokens; no cost receipt; per-trigger production default rejected."
+    },
+    {
+      "family": "V1 canonical-checkout local runtime addendum",
+      "branch_or_ref": "A:/Capital Chronicle/ContentOps dirty master at 959c3c23226e6ee6e553162fa7cd7462649a9c9a",
+      "result": "MATERIAL_LOCAL_ONLY_HISTORICAL_RUNTIME_EVIDENCE",
+      "capability": "Fourth production-day opportunity and logical supervisor process-tree correction",
+      "evidence": ["A:/Capital Chronicle/ContentOps/docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md", "A:/Capital Chronicle/ContentOps/docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json"],
+      "fingerprints": ["README sha256=f05af6c2f46a1d87dfeafa214ce74cefc8ce77bf8c076b0e6650cabf5625ef0d", "JSON sha256=75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"],
+      "reconciliation": "Launcher working-tree blob is already byte-identical to current master. The fourth-opportunity evidence is not committed and carries obsolete zero-output-success wording; preserve fingerprint, do not route from it."
+    },
+    {
+      "family": "V1 frozen P0-G4 PR",
+      "branch_or_ref": "origin/task/v1-p0-g4-real-publication-canary-v1",
+      "tip": "9a2640d3fe71565e53ed6d3804289b075386c8e2",
+      "pull_request": 12,
+      "result": "FROZEN_HISTORICAL_NON_ROUTING",
+      "capability": "Older shadow preflight only",
+      "reconciliation": "Do not merge/continue; the real canary at 5327be9 is stronger and current master contains it."
+    },
+    {
+      "family": "V1 official Codex SDK provider",
+      "branch_or_ref": "origin/codex/v1-official-codex-sdk-direct-provider-canary-v1",
+      "tip": "aa8693d2faeda89bf1fc6105aca0c04b15ac14e0",
+      "result": "ACCEPTED_FALLBACK_DIRECT_BENCHMARK_EVIDENCE",
+      "capability": "ChatGPT-authenticated App Server/SDK article provider",
+      "evidence": ["docs/automation/TASK_CONTENTOPS_V1_OFFICIAL_CODEX_SDK_DIRECT_PROVIDER_ARTICLE_CONTRACT_CANARY_V1/"]
+    },
+    {
+      "family": "V2 Tier2-A programmable factory",
+      "branch_or_ref": "origin/master",
+      "tip": "940554529f4092965420416d2f929a666f5df224",
+      "result": "CURRENT_TECHNICAL_BASELINE_NOT_FINAL_CREATIVE_PATH",
+      "capability": "Governed input/numeric boundary, rights, claim binding, renderer-neutral program, local short/long media, hash manifest",
+      "evidence": ["docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/", "tests/test_tier2_video_factory_v1.py"]
+    },
+    {
+      "family": "V2 direct-image boundary",
+      "branch_or_ref": "origin/codex/tier2-direct-image-master-integration-v1",
+      "tip": "831dfb181b23cb7b27d195bbbc1bb7b847a86590",
+      "result": "MERGED_DIAGNOSTIC_BOUNDARY",
+      "capability": "Dedicated generated-illustration API boundary separated from generic 9Router",
+      "evidence": ["docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/", "tests/test_direct_image_api_v1.py"]
+    },
+    {
+      "family": "V2 fixed renderer bakeoff",
+      "branch_or_ref": "origin/codex/task-contentops-v2-lane-b-h1-v1",
+      "tip": "03087d19c7e18bea6f3812c63a871f33659b6312",
+      "result": "FAIL_VISUAL_MODE_BAKEOFF_VALIDITY_DUE_TO_FIXED_RENDERER_CEILING",
+      "capability": "Historical execution/editorial evidence only",
+      "reconciliation": "Do not restore the fixed professional compositor or infer a reasoning-effort winner."
+    },
+    {
+      "family": "V2 rejected retention-native fixed architecture",
+      "branch_or_ref": "origin/task/tier2-v2-retention-native-video-factory-vertical-slice-v1",
+      "tip": "b6f5002903fba65a668506e4ca38ae61b907ab18",
+      "result": "FAIL_CREATIVE_MOTION_ARCHITECTURE",
+      "reconciliation": "Reference only."
+    },
+    {
+      "family": "V2 rejected premium creative rebuild",
+      "branch_or_ref": "origin/task/tier2-v2-creative-system-rebuild-v1",
+      "tip": "d231b54e026570442d9fd9269b61e55c3de31d21",
+      "result": "REJECTED_CREATIVE_PRODUCT",
+      "reconciliation": "Reference only; do not continue its design."
+    },
+    {
+      "family": "V2 rejected GPT-5.6 asset-rich system",
+      "branch_or_ref": "origin/task/tier2-v2-gpt56-creative-code-asset-rich-video-v1",
+      "tip": "2289eb1382e65474207b50d27c0b87626d30728f",
+      "result": "FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE",
+      "reconciliation": "Reference only."
+    },
+    {
+      "family": "V2 creative-authority visual repair",
+      "branch_or_ref": "origin/task/v2-codex-creative-authority-visual-repair-loop-v1",
+      "tip": "e977f9637b5c461991b1ad76707e7b7d3c9ff917",
+      "product_commit": "c4fe1e5bc12ff13cf09c9d9152bfe6414d7bdd09",
+      "result": "PASS_CREATIVE_AUTHORITY_ARCHITECTURE / PASS_MAJOR_QUALITY_RECOVERY / BELOW_FINAL_PUBLIC_BAR",
+      "capability": "Codex-authored Remotion source plus actual-media review/repair",
+      "evidence": ["A:/Capital Chronicle/Runtime/ContentOps/v2_creative_authority_proof_20260814_r1/"]
+    },
+    {
+      "family": "V2 free-form chapterized substrate",
+      "branch_or_ref": "origin/task/v2-freeform-chapterized-xhigh-production-substrate-owner-polish-v1",
+      "tip": "eee0ba77b04d526393e8275ed2df1370be40d968",
+      "result": "MERGED_CURRENTLY_REUSABLE_SUBSTRATE",
+      "capability": "Viewer-authored Remotion chapters, dirty range, picture cache, audio-only rebuild, assembly",
+      "evidence": ["video/freeform_chapter_pipeline_v1/", "tests/test_v2_freeform_chapter_pipeline_v1.py"]
+    },
+    {
+      "family": "V2 multiformat/multilingual package factory",
+      "branch_or_ref": "origin/task/v2-native-multiformat-multilingual-package-factory-v1",
+      "tip": "74a3751b2cd28928c437b202dc7cbaac3669924d",
+      "result": "MERGED_PACKAGE_READINESS; HUMAN_VOICE_GATE_REMAINED",
+      "capability": "Short/long packages, captions, locale profiles, audio sidecars",
+      "evidence": ["docs/automation/TASK_CONTENTOPS_V2_NATIVE_MULTIFORMAT_MULTILINGUAL_PACKAGE_FACTORY_V1/FINAL_EVIDENCE.md"]
+    },
+    {
+      "family": "V2 official publication adapter reconciliation",
+      "branch_or_ref": "origin/task/v2-publication-adapter-reconciliation-provider-contract-correction-v1",
+      "tip": "97cd13c914f1a48029cdc8529ab9ffd31637ec1d",
+      "result": "PASS_V2_PUBLICATION_ADAPTERS_RECONCILED_AND_PROVIDER_CONTRACTS_READY_FOR_EXACT_LIVE_CANARY_GATE",
+      "capability": "YouTube video/Short, TikTok upload draft, explicit Instagram variants, Facebook Reels, unknown-write recovery",
+      "evidence": ["docs/automation/TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1/FINAL_EVIDENCE.md"],
+      "safety": "Merged current master; real provider calls/writes remained zero."
+    },
+    {
+      "family": "V2 TikTok sandbox draft",
+      "branch_or_ref": "origin/task/v2-tiktok-upload-draft-readiness-exact-owner-live-canary-gate-v1",
+      "tip": "9af400a42829db3b0ee2f679e09e6aab7f8266dd",
+      "result": "HISTORICAL_SANDBOX_DRAFT_CANARY",
+      "capability": "Draft-delivery canary mechanics",
+      "evidence": ["branch-only TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS.../FINAL_EVIDENCE.md"],
+      "safety": "Absent from current master; grants no current provider/public-write authority."
+    },
+    {
+      "family": "V2 unattended durable core factory",
+      "branch_or_ref": "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1",
+      "implementation_commit": "32648b355d3e526c91b412ccb09ca1cb32d6f7df",
+      "lineage_tip": "10d18873e2d716dcd53b681a4370ef7726a27f9b",
+      "result": "IMPLEMENTATION_PROVEN; FIRST PROOF QUARANTINED_ON CREATIVE ROUTE",
+      "capability": "Isolated durable V2 job store, atomic claim, immutable stages, resume/invalidation, local media/package path",
+      "evidence": ["branch-only TASK_CONTENTOPS_V2_UNATTENDED_CORE_FACTORY.../FINAL_EVIDENCE.md"]
+    },
+    {
+      "family": "V2 core actual-media owner gate",
+      "branch_or_ref": "origin/task/v2-core-proof-owner-acceptance-and-soak-gate-v1",
+      "tip": "77d7ac16432415afcbb113596554d551cd4f0fb9",
+      "result": "ACCEPTED_FOR_PRODUCTION_SOAK / PASS_WITH_CAVEAT",
+      "capability": "All thirteen durable stages, actual 1080x1920 media, final audio/package, owner review",
+      "evidence": ["branch-only CONTENTOPS_V2_CORE_PROOF_ACTUAL_MEDIA_OWNER_ACCEPTANCE_AND_SOAK_GATE_V1.md"]
+    },
+    {
+      "family": "V2 three-story unattended soak",
+      "branch_or_ref": "origin/task/v2-unattended-production-soak-transcript-voiceover-seo-hardening-v1",
+      "tip": "117d7526bbba17bca7a96804cdc2a968b2fb4f74",
+      "result": "FAIL_SHARED_RUNTIME_WINERROR_206",
+      "capability": "Three distinct qualified stories, transcripts, timing locks, voice QA, asset boards, motion submissions",
+      "evidence": ["branch-only CONTENTOPS_V2_UNATTENDED_PRODUCTION_SOAK_WITH_TRANSCRIPT_VOICEOVER_SEO_HARDENING_EVIDENCE_V1.md"]
+    },
+    {
+      "family": "V2 Windows launch and soak recovery",
+      "branch_or_ref": "origin/task/v2-windows-process-launch-geometry-repair-fresh-soak-retry-v1",
+      "tip": "fc338caa020aaeae0f87ca066064714405ced729",
+      "result": "SUCCESSFUL_OWNER_OVERRIDE_RECOVERY",
+      "capability": "Path-safe media tool launches and correct picture-duration validation",
+      "commits": ["575333fb2a37c494f122780f318cf11f94e8bf2d", "9d70c15c9d14c0d8b2d1462724ccb95d9bbd73bd"]
+    },
+    {
+      "family": "V2 locale activation and timing correction",
+      "branch_or_ref": "origin/task/v2-locale-audio-timeline-alignment-correction-v1",
+      "tip": "edbdb948d40fd589ea2df001c86af2faf1ef4c8f",
+      "result": "READY_FOR_OWNER_REVIEW; SUBJECTIVE_LISTENING_NOT_CLAIMED",
+      "capability": "ZH/HI/VI/KO packages and narrative-window audio placement",
+      "evidence": ["branch-only CONTENTOPS_V2_LOCALE_ACTIVATION_HARDENING_V1/README.md", "branch-only CONTENTOPS_V2_LOCALE_AUDIO_TIMELINE_ALIGNMENT_BOUNDED_CORRECTION_V1/README.md"]
+    },
+    {
+      "family": "V2 read-only trigger and native relay",
+      "branch_or_ref": "origin/task/v2-native-staggered-automation-relay-shadow-correction-v1",
+      "tip": "10d18873e2d716dcd53b681a4370ef7726a27f9b",
+      "implementation_commit": "8c8adf49fc49fb4c82a326c7361756490bb649ce",
+      "result": "PASS_V2_V1_READONLY_TRIGGER_AND_NATIVE_CODEX_AUTOMATION_RELAY_SHADOW",
+      "capability": "V1 read-only candidate decisions and HIGH->fresh XHIGH->HIGH exact-once native relay",
+      "evidence": ["branch-only TASK_CONTENTOPS_V2_NATIVE_STAGGERED_AUTOMATION_RELAY_SHADOW_CORRECTION_V1/"]
+    },
+    {
+      "family": "V2 local breaking-news WIP",
+      "branch_or_ref": "A:/Capital Chronicle/Worktrees/ContentOps/v2-breaking-news-crisp-master-elevenlabs-authority-clip-v1",
+      "base_tip": "baeb053368bb41dbf963a0286916713d0d7166ea",
+      "result": "UNCOMMITTED_INCOMPLETE_AND_SUPERSEDED",
+      "capability": "Breaking-news validators, ElevenLabs audition contract, crisp-master probe, story-specific Remotion source",
+      "evidence": ["local_repo_topology.json"],
+      "reconciliation": "Fingerprint only. Do not import its separate ledger, deterministic aesthetic thresholds, or retired MAX/ULTRA plan."
+    },
+    {
+      "family": "Legacy V6 duplicate clone/runtime",
+      "branch_or_ref": "A:/Capital Chronicle/tools/cc-live-contentops and five linked worktrees",
+      "result": "HISTORICAL_GENERATED_DRIFT_AND_QUARANTINED_PARALLEL_PATHS",
+      "capability": "Old V6 approvals/outbox/adapters/media evidence and public-run artifacts",
+      "evidence": ["local_repo_topology.json (6 worktrees, 8 stashes, 57 reflog-only commits, 243 unreachable commits)"],
+      "reconciliation": "Canonical V1 already incorporates the durable/publication concepts. Do not revive old scheduler/live-run surfaces or copy raw runtime payloads."
+    },
+    {
+      "family": "Main-clone stashes",
+      "branch_or_ref": "stash@{0}=e5f8ffb3ec442f3ad7f25e3050f00c0e7086230b; stash@{1}=5fd53e0e5a0c97cc5e7789009bf3146462866d4b",
+      "result": "CODEGRAPH_GENERATED_DRIFT; NO UNIQUE PRODUCT CAPABILITY",
+      "capability": "Older CodeGraph regeneration plus four telemetry lines",
+      "reconciliation": "Preserve until owner cleanup; do not apply to current master."
+    },
+    {
+      "family": "Reflog/unreachable archaeology",
+      "branch_or_ref": "both local Git object stores",
+      "result": "ACCOUNTED_NO_UNIQUE_ACCEPTED_PRODUCT_CAPABILITY",
+      "capability": "Intermediate V1/V2 WIPs, stash/index commits, and obsolete task iterations",
+      "evidence": ["local_repo_topology.json (primary: 33 reflog-only / 43 unreachable commits; duplicate: 57 / 243)"],
+      "reconciliation": "Named material lines have later branch/current-master equivalents. Preserve Git objects; no recovery/cherry-pick is recommended."
+    }
+  ]
+}

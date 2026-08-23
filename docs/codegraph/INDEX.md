@@ -1,8 +1,8 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `086fc1028b273018b9f183ada010202d14ff6ba9`
-Source tree digest: `6e1ffa31fe477b1e9b5c1e1caa631bde4d81d846d62727021181c8636ca34949`
-Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.0`
+Source HEAD: `51927278ea4f523d73b7a77d05459b2b472a46b0`
+Source tree digest: `b3a0a8d60476683458408e4a1e899d00633f4f5cac5a22a483c48de3a8ed719a`
+Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.1`
 
 This generated map is descriptive, not product authority.
 
@@ -13,13 +13,14 @@ Read only these before the exact task files:
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md` (this page)
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-7. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-8. the appropriate current V1/V2 lane pointer
-9. nearest scoped `AGENTS.md`
-10. exact implementation, focused tests, and task evidence
+4. `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`
+5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+9. the appropriate current V1/V2 lane pointer
+10. nearest scoped `AGENTS.md`
+11. exact implementation, focused tests, and task evidence
 
 This generated router is subordinate to root `AGENTS.md`. Never use it to bypass the current V3 authority spine or a newer owner decision.
 
@@ -128,6 +129,7 @@ Use the focused test beside each hot-path section. Backend tests are under `test
 ## Current authority routing
 
 Root authority and supersession: `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`.
+Stale/non-routing semantics: `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`.
 
 Product direction: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` and `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`.
 
@@ -155,4 +157,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7288` nodes and `13775` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7289` nodes and `13775` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

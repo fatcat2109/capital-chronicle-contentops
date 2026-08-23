@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-08-22
+Authority date: 2026-08-23
 Status: `CURRENT_ROOT_AUTHORITY`
 Repository: `fatcat2109/capital-chronicle-contentops`
 
@@ -11,13 +11,14 @@ For every current implementation, audit, task framing, or owner decision, read i
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-7. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-8. current lane pointer
-9. nearest scoped `AGENTS.md`
-10. exact current implementation/tests/evidence.
+4. `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`
+5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+9. current lane pointer
+10. nearest scoped `AGENTS.md`
+11. exact current implementation/tests/evidence.
 
 Do not route from historical task evidence, stale handoffs, generated status snapshots, task branches, or chat SHAs.
 
@@ -50,27 +51,33 @@ The following claims are INVALID for current V1 unless they are supported by the
 - `the four Codex tasks are PAUSED/READY/ENABLED` when that state comes only from repo configuration;
 - `FDA-G directly launches Codex` unless an actual supported execution bridge is proven;
 - `material-event wake immediately invokes Codex` unless a supported bridge is proven.
-- `4 qualified / 32 derivative intents` must pass before one supervised MVP canary may be
-  prepared for its owner gate.
+- the Italy nine-surface canary still needs audit or publication;
+- the 4/32 proof has never run;
+- production-day accounting or bounded deficit recovery still needs implementation;
+- the four native V1 Automations are host-unproven;
+- first-party locator or publisher-resolution closure is the next V1 task;
+- the 35-call per-trigger discovery path is an accepted routine production default;
+- branch-proven V2 unattended/recovery/locale/native-relay capability must be rebuilt from zero;
+- V2 has public-write authority; or
+- `V1_FINAL_PRODUCT_ACCEPTED` is already true.
 
 If any current-looking subordinate document says one of the above, treat that wording as superseded and do not route from it.
 
 Configured intent is not observed runtime/host truth.
 
-## 4. Current V1 owner launch and output contract
+## 4. Locked V1 output contract and proof state
 
-The immediate `MVP_CANARY_LAUNCH_GATE` requires exactly one genuinely useful current article,
-native XHIGH authorship, hard-safe evidence/claim binding, deterministic safety validation,
-exactly eight derivative package intents, JIT nine-surface identity/readiness, zero public writes,
-and `UNKNOWN_WRITE=0`. It stops before publication for Jim/ChatGPT audit and an explicit owner
-public-write grant.
+The owner-scoped Italy canary is complete: one canonical Substack article plus exactly eight
+derivative packages were published, read back, and reconciled across all nine surfaces with
+`UNKNOWN_WRITE=0`. Never route another Italy canary merely to prove publication.
 
-The `POST_LAUNCH_THROUGHPUT_GATE` remains:
+The `POST_LAUNCH_THROUGHPUT_GATE` remains the build/proof floor:
 
 `minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
 
-That gate is required before claiming production-grade daily yield or unattended routine
-operation. It is no longer a prerequisite for the one supervised MVP canary owner gate.
+The first real four-opportunity proof already ran and truthfully failed at `0 qualified articles /
+0 derivative intents` after 40 distinct stories. Rerun this existing acceptance proof only after
+quota-efficient batch/tail discovery repairs the demonstrated evidence-acquisition economics.
 
 Final V1 operating target:
 
@@ -92,6 +99,9 @@ The intended routine windows are 17:00, 21:00, 23:00, and the following 01:00 Ba
 
 Later routine opportunities must be able to recover earlier deficit through bounded additional candidate/article work. Do not create a fifth routine task merely to chase the floor.
 
+Cross-midnight production-day accounting, the 4-floor counters, and bounded deficit recovery are
+accepted current foundation. Reuse them; do not list them as implementation gaps.
+
 ## 6. Current V1 execution architecture
 
 FDA-G is the continuous low-cost intake/state/runtime authority.
@@ -106,12 +116,12 @@ missed/failed Desktop primary, the direct path where immediate supported invocat
 and the benchmark/controlled-experiment path. Neither model path has factual, numeric, permission,
 gate, or public-write authority.
 
-Current host observation proves exactly four existing native V1 Automations, all `PAUSED`, at the
+Accepted supported host observation proves exactly four existing native V1 Automations, all `PAUSED`, at the
 17:00/21:00/23:00/following-01:00 Bangkok windows with `gpt-5.6-sol / HIGH`. Their host prompts need
 owner-audited normalization before enablement, and the supported surface exposed no run-now action.
 The accepted Desktop parity proof therefore used one fresh standalone manual Desktop task and does
-not claim calendar-time execution. Do not enable the four tasks, create a fifth window, or start the
-4/32 campaign before the exact owner gate.
+not claim calendar-time execution. Do not enable the four tasks or create a fifth window. Prompt
+normalization, Automation enablement, and routine public-write authority are separate owner gates.
 
 `live_contentops/codex_desktop_newsroom_operator_v1.py` supplies the canonical run identity and
 Desktop-primary/SDK-fallback arbitration; it is not a second scheduler or public-write grant. Do not
@@ -169,35 +179,50 @@ Use `CAPABILITY_ROUTED_HYBRID`:
 
 Use the cheapest lane that can produce evidence strong enough for the claim.
 
-## 11. Current sequence
+## 11. Locked current sequence
 
-P0-G3 and the following V1 daily-yield lineage are accepted on the current task lineage:
+Accepted and do not rebuild: the canonical V1 runtime/store/supervisor/publisher/UI, production-day
+accounting and bounded deficit recovery, Desktop-primary/SDK-fallback arbitration, official-source
+locator/redirect/source-health/evidence seams, the real reconciled nine-surface Italy canary, and
+the four-opportunity 4/32 harness. The first 4/32 result was a truthful failure, not an unstarted
+task. The later foundation produced four governed evidence-ready candidates, but its 35 discovery
+calls and 10,237,897 discovery tokens are rejected as a routine production default.
 
-1. autonomous newsroom daily-output/native Automation revalidation;
-2. candidate continuation and quote repair;
-3. current evidence-yield/reachability correction;
-4. distinct-story frontier correction;
-5. story/update-chain-scoped evidence reuse across mode downgrade.
+Current dependency order:
 
-The official-provider article-contract closeout remains accepted fallback/direct/benchmark
-evidence. The exact same Italy story then passed the fresh standalone Desktop HIGH -> fresh isolated
-XHIGH parity/hybrid canary in `DATA_OR_DOCUMENT_LENS` mode from
-`official-primary-ffb8e742e0932254c29d`. It passed the deterministic article/source/institutional
-contract, mode-aware usefulness, eight deduplicated derivatives, and exact nine-surface JIT
-readiness with `UNKNOWN_WRITE=0` and zero public/provider writes. The exact classification is
-`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`.
+1. this master-plan/authority lock;
+2. implement quota-efficient batch/tail discovery on the existing evidence seam;
+3. prove a fresh economical four-ready-candidate zero-write pool;
+4. rerun the existing 4/32 proof through the current HIGH/XHIGH path and accepted accounting;
+5. normalize and read back only the four existing paused Automation prompts;
+6. obtain separate owner decisions for Automation enablement and routine public-write scope;
+7. prove calendar-time unattended/cold-start/SDK-fallback/late-result/duplicate-suppression behavior;
+8. run fresh current-epoch V5 desktop/mobile visual and truth QA;
+9. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority;
+10. only then selectively reconcile branch-proven V2 donor capability onto one current-compatible
+    stack, revalidate it with fresh cross-domain actual media/soak/growth-learning, and leave V2
+    public-write authority at zero unless a later exact owner grant changes it.
 
-The current next gate is Jim/ChatGPT audit of that exact Desktop zero-write canary and its
-nine-surface plan. This proof authorizes neither task enablement, a second article, 4/32 start, nor
-any public write. The unchanged 4/32 proof remains required before production-grade daily-yield
-claims or unattended routine operation.
-`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until step 9 is explicitly granted.
 
 ## 12. Change discipline
 
 Prefer one heavy bounded product slice over ceremony.
 
-Stage explicit paths only. Never `git add .` or `git add -A`. Never force-push. Never merge/push master without explicit owner authorization. Preserve unrelated work and protected history.
+Ordinary reversible repository operations inside the accepted product roadmap do not require a new
+per-operation owner authorization after the operator hard-gate audit has passed. The operator may
+autonomously create or update task branches and PRs, make ordinary commits and pushes, merge an
+independently audited PR through the repository's normal protected-branch path once required checks
+pass, and perform other reversible repository maintenance needed to progress that accepted roadmap.
+
+This repository autonomy does not expand task or product scope and does not authorize bypassing
+branch protection, force-push, mutation of protected `v1.0` or history, secrets/credentials/cookies/
+tokens/private-session access, public/provider writes, destructive production/canonical-store
+mutation, Capital Chronicle proprietary/numeric-authority expansion, V2 public-write authority, or
+external/legal/rights release decisions. Those boundaries remain `OWNER_GATED_EXTERNAL`.
+
+Stage explicit paths only. Never `git add .` or `git add -A`. Preserve unrelated work and protected
+history.
 
 ## 13. Hard stops
 

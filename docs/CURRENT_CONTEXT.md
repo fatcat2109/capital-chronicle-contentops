@@ -1,89 +1,81 @@
 # Capital Chronicle ContentOps — Current Context
 
-Authority date: 2026-08-21
-Status: `CURRENT_BOOTSTRAP_POINTER`
+Authority date: 2026-08-23
+Status: `CURRENT_BOOTSTRAP_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
-This file is a compact bootstrap only. Root `AGENTS.md`, current authority map, root North Star V3, root Master Plan V3, and the current lane pointer are stronger.
+This is a compact bootstrap only. Root `AGENTS.md`, the current authority/supersession map, North
+Star V3, Master Plan V3, and current lane pointer are stronger.
 
 ## Read first
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-7. lane CodeGraph context + current lane pointer
-8. nearest scoped `AGENTS.md`
-9. exact current code/tests/evidence/host truth.
+4. `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`
+5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+8. lane CodeGraph context + current lane pointer
+9. nearest scoped `AGENTS.md`
+10. exact current code/tests/evidence/host truth.
 
 Always fetch remote master and relevant branches before trusting recorded SHAs.
 
-## Current V1 state
+## Locked V1 truth
 
-P0-1 is accepted.
+- The real owner-scoped Italy canary is complete: one canonical Substack article plus exactly eight
+  derivative packages, all nine reconciled, `UNKNOWN_WRITE=0`. Do not repeat it to prove
+  publication.
+- The first four-opportunity 4/32 proof already ran and truthfully failed at `0 qualified articles /
+  0 derivative intents` after 40 distinct stories. It is failed acceptance evidence, not an
+  unstarted task.
+- Cross-midnight production-day accounting, the four-window harness, and bounded deficit recovery
+  are accepted current foundation.
+- The later evidence foundation produced four distinct governed evidence-ready candidates with
+  deterministic retrieval/hash/freshness, redirect repair, source-route health, same-candidate
+  resume, and frozen worker transport.
+- Its 35 URL-discovery calls and 10,237,897 discovery tokens are not an accepted routine production
+  default. Quota-efficient batch/tail discovery on the existing evidence seam is the sole
+  demonstrated new V1 product implementation gap.
+- Exactly four native V1 Automations exist and are `PAUSED` on the correct model/effort/schedules.
+  Their prompts require normalization. Calendar-time unattended execution remains unproven; never
+  create a fifth task.
+- At the sweep epoch the production store was read-only healthy with `UNKNOWN_WRITE=0`, but the
+  Daily App process/listener was not running. That at-rest observation is not a cold-start PASS.
 
-P0-G1/G2 growth-first editorial/evidence/distribution behavior is accepted on current lineage.
+## Output contract
 
-P0-G3 breaking/normal/quiet/house-view zero-write artifacts were owner-audited and merged into master at `369c0cc289e790b8218ba30b2696a926db04356a`.
+Build/proof floor:
 
-P0-G4 draft PR #12 remains frozen while a higher-priority owner contract correction is implemented.
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
 
-## Current owner output contract
-
-BUILD/PROOF:
-
-`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES per newsroom production day`
-
-FINAL V1:
+Final V1 target:
 
 `5–8 PUBLISHED ARTICLES per newsroom production day`
 
-Candidate abstention is valid. Whole-day deficit is not healthy success unless an exact hard external blocker is proven. Filler remains forbidden and truth/evidence/rights/permission/numeric-authority gates remain unchanged.
+Candidate abstention is valid. Whole-day deficit is not healthy success without an exact hard
+external blocker. No filler and no weaker truth/evidence/rights/permission/numeric-authority gates.
 
-## Current execution gap
+## Current dependency order
 
-FDA-G can continuously ingest and maintain durable state, but current repository code does not prove a direct FDA-G-to-Codex Desktop execution bridge.
+1. quota-efficient batch/tail discovery on the existing seam;
+2. fresh economical four-ready-candidate zero-write proof;
+3. rerun the existing 4/32 acceptance proof with accepted accounting and the HIGH/XHIGH path;
+4. normalize/read back only the four existing paused Automation prompts;
+5. separate owner decisions for Automation enablement and routine public-write scope;
+6. calendar-time unattended/cold-start/SDK fallback/late-result/duplicate-suppression proof;
+7. fresh current-epoch V5 desktop/mobile visual and truth QA;
+8. explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze decision;
+9. only then selective V2 donor reconciliation and current revalidation.
 
-Repo configuration that lists four intended native Codex tasks is not host proof. Actual Codex Automation inventory/state is currently `UNPROVEN` until supported host/product evidence confirms it.
+## V2 boundary
 
-Do not claim the four tasks exist, are paused, are enabled, or can run unattended based only on docs/config.
-
-Immediate material-event-to-Codex wake is also not proven.
-
-## Immediate product priority
-
-Current next capability:
-
-`V1 DAILY OUTPUT FLOOR + CODEX AUTOMATION EXECUTION BRIDGE`
-
-Required before resuming canary:
-
-- deterministic newsroom production-day ID across 17:00/21:00/23:00/following-01:00 Bangkok windows;
-- build floor 4 and final target 5–8 counters/states;
-- bounded later-window deficit catch-up without a fifth routine task;
-- actual Codex host Automation inventory/setup truth;
-- one zero-public-write native Automation execution proof where supported;
-- truthful V5 daily-output/automation-state visibility;
-- no invented scheduler/model bridge.
-
-## Current intended routine schedule
-
-Configuration intent only:
-
-- London 17:00 Mon–Fri;
-- New York 21:00 Mon–Fri;
-- New York 23:00 Mon–Fri;
-- New York 01:00 Tue–Sat;
-- Asia/Bangkok;
-- coordinator `gpt-5.6-sol / HIGH`;
-- fresh isolated `gpt-5.6-sol / XHIGH` per warranted final article.
-
-No fifth routine task.
-
-## After this correction
-
-Resume P0-G4 zero-write candidate/JIT readiness -> owner one-canary grant -> real Substack + eight derivatives -> readback/reconcile `UNKNOWN_WRITE=0` -> unattended/cold-start proof -> V5 final screenshot QA.
+Current master already owns the free-form/package/publication-control substrates. Historical donor
+branch `task/v2-native-staggered-automation-relay-shadow-correction-v1` proves useful unattended,
+recovery, locale, read-only-trigger, and native-relay capability absent master. Reconcile it
+selectively after the V1 gate; do not wholesale-merge stale authority or rebuild proven systems
+from zero. V1 runtime/store/browser/publication authority remains isolated. Current V2 public-write
+authority is exactly zero.
 
 ## Immutable safety anchors
 
@@ -91,7 +83,7 @@ Resume P0-G4 zero-write candidate/JIT readiness -> owner one-canary grant -> rea
 - internal/context Analyzer material is not public permission;
 - `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`;
 - Chrome `CapitalChronicleBot` 9222 is ingestion only;
-- Edge `contentops-social-main` 9223 is publication/media/readback and explicitly authorized observation only;
-- protected `v1.0` remains immutable;
-- no public write without exact owner authority;
-- no invented host Automation state.
+- Edge `contentops-social-main` 9223 is publication/media/readback and explicitly authorized
+  observation only;
+- protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`;
+- no public write, Automation mutation, or final acceptance without exact owner authority.

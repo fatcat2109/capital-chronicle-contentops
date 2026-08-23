@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
-Authority date: 2026-08-22
+Authority date: 2026-08-23
 Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR`
 
 ## 1. Product role
@@ -13,31 +13,29 @@ Canonical product flow:
 
 Truth, permissions, rights, exact identity, numeric authority, and recovery are hard boundaries. Growth and output volume may never weaken them.
 
-## 2. Owner output contract — current highest-priority V1 rule
+## 2. Owner output contract and locked evidence state
 
 Jim's latest explicit owner direction is authoritative.
 
-### MVP canary launch gate
+### Nine-surface canary — complete
 
-Before throughput perfection, ship one supervised end-to-end MVP canary slice under zero public
-write. It must contain one current useful native-XHIGH article, hard-safe evidence and claim
-binding, deterministic validation, canonical Markdown/HTML/SEO artifacts, exactly eight derivative
-package intents, exact JIT identity/readiness for Substack plus all eight destinations, and
-`UNKNOWN_WRITE=0`. It stops for Jim/ChatGPT audit and an explicit one-canary public-write grant.
+The owner-scoped Italy canary already published one canonical Substack article plus exactly eight
+derivative packages. All nine public objects were read back and reconciled with `UNKNOWN_WRITE=0`.
+This is completed technical evidence and must not be routed again merely to prove publication.
+Any still-desired owner aesthetic/business review is evidence review only and authorizes no second
+write.
 
-Editorial/SEO perfection findings remain observable `CANARY_QUALITY_WARNINGS`; factual, numeric/CC,
-identity, permission, rights, native-worker, serialization, and write safety can never be warnings.
-
-### Post-launch throughput floor
+### Build/proof throughput floor
 
 During the current V1 build/proof phase, one newsroom production day must produce at least:
 
 `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS`
 
 A qualified throughput article must clear the normal production validation contract and persist its
-native package intents. The 4/32 proof remains required before production-grade daily-yield claims
-or unattended routine operation, but was not a prerequisite for the one supervised MVP canary
-owner gate.
+native package intents. The first real four-opportunity proof already ran and truthfully failed at
+`0 qualified articles / 0 derivative intents` after 40 distinct stories. The existing acceptance
+proof must be rerun after quota-efficient batch/tail discovery and a fresh economical four-ready-
+candidate zero-write proof; it is not an unstarted implementation task.
 
 ### Final V1 target
 
@@ -76,6 +74,9 @@ The production-day contract must expose at minimum:
 - exact hard-block reason when applicable.
 
 Later windows must be able to recover an earlier deficit. Do not create filler merely to make the counter move.
+
+This cross-midnight accounting, the 4-floor counters, and bounded deficit recovery are accepted
+current foundation. Reuse them; do not rebuild them.
 
 ## 4. Execution architecture — FDA-G and Codex are distinct
 
@@ -117,7 +118,9 @@ Do not create a fifth routine opportunity merely to satisfy the daily floor. Cat
 
 Current host truth proves exactly these four existing native Automations, all paused on
 `gpt-5.6-sol / HIGH`. It does not authorize enablement. Their prompt hashes must be normalized and
-Jim/ChatGPT must pass the exact canary audit first.
+read back under a separate owner gate. Prompt normalization, Automation enablement, and routine
+public-write authority are distinct decisions. Calendar-time unattended execution remains
+unproven.
 
 ## 6. Material-event wake truth
 
@@ -167,27 +170,40 @@ Canonical lifecycle:
 
 `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`
 
-A derivative-local outage does not erase canonical truth, but final nine-surface canary acceptance still requires exact proof across all required surfaces under the canary contract.
+A derivative-local outage does not erase canonical truth. The completed Italy canary supplies the
+required nine-surface technical proof for its exact owner-scoped obligation; it grants no routine
+public-write expansion.
 
 ## 11. Current acceptance route
 
-Current sequence:
+Accepted sequence facts:
 
-1. P0-G3 growth-first multi-mode zero-write proof is accepted and merged.
-2. The official-provider Italy proof remains accepted fallback/direct/benchmark evidence.
-3. The same-Italy Desktop-primary hybrid zero-write canary is complete at
-   `PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`.
-4. Jim/ChatGPT audits that exact Desktop article and nine-surface plan.
-5. Only after an explicit one-canary owner grant, publish/read back canonical Substack plus exactly
-   eight derivatives and finish `UNKNOWN_WRITE=0`.
-6. Prove the 4/32 post-canary throughput gate without filler or weakened truth.
-7. Prove calendar-time/unattended/cold-start operation through the existing four Desktop
-   Automations, with SDK fallback arbitration and no fifth task.
-8. Close truthful V5 UI and screenshot-based owner QA, then accept/freeze V1.
+- the growth-first newsroom/evidence/publication foundation is current;
+- the real Italy nine-surface canary is complete and reconciled;
+- the first 4/32 proof ran and failed truthfully at `0/4 / 0/32`;
+- production-day accounting and bounded deficit recovery are accepted;
+- the later evidence foundation produced four governed evidence-ready candidates, but its 35 URL-
+  discovery calls and 10,237,897 discovery tokens are rejected as a production default.
+
+Current dependency order:
+
+1. implement quota-efficient batch/tail discovery on the existing evidence seam;
+2. prove a fresh economical four-ready-candidate zero-write pool;
+3. rerun the existing 4/32 acceptance proof using accepted accounting and the HIGH/XHIGH path;
+4. normalize and read back only the four existing paused Automation prompts;
+5. obtain separate owner decisions for Automation enablement and routine public-write scope;
+6. prove calendar-time unattended/cold-start/SDK-fallback/late-result/duplicate suppression;
+7. perform fresh current-epoch V5 desktop/mobile visual and truth QA;
+8. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority;
+9. only then begin selective V2 donor reconciliation, current revalidation, fresh cross-domain
+   actual-media/soak/growth-learning proof, with V2 public-write authority still zero.
 
 ## 12. Canonical UI
 
 `ui/contentops_v5/` must expose truthful runtime, evidence, authority, publication/recovery, cost, and daily production state. During build it must show qualified articles versus the `4` floor and remaining deficit. It must not present an unmet daily floor as a generic healthy idle state.
+
+The V5 read-model and production-day mechanics are accepted foundation. Final closure requires a
+fresh current-source/runtime-epoch desktop/mobile rendered audit, not a mechanical rebuild.
 
 Provider/runtime state displayed in the UI must come from an actual safe observable source.
 Configured schedule policy must never be rendered as current Desktop Automation state.

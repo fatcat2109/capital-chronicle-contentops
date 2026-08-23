@@ -31,6 +31,29 @@ This map prevents fresh sessions from reviving stale quota, scheduler, canary, o
 
 Jim's latest explicit instruction remains highest product authority.
 
+For repository execution, ordinary reversible repository operations inside the accepted product
+roadmap do not require a new per-operation owner authorization after the operator hard-gate audit
+has passed. The operator may create/update task branches and PRs, make ordinary commits/pushes, and
+merge an independently audited PR through the repository's normal protected-branch path once
+required checks pass. This autonomy does not expand task scope or cross branch-protection,
+force-push, protected-history, secret/session, public/provider-write, destructive-store,
+Capital Chronicle proprietary/numeric-authority, V2 public-write, or external/legal/rights gates.
+
+## Accepted architecture-sweep lock
+
+The owner-accepted architecture sweep is
+`PASS_FINAL_ARCHITECTURE_TRUTH_SWEEP_COMPLETE`. Its 59-capability classification is locked:
+
+- `CURRENTLY_PROVEN_AND_REUSE = 34`;
+- `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY = 9`;
+- `CURRENT_HOST_RUNTIME_PROOF_REQUIRED = 7`;
+- `NEW_IMPLEMENTATION_GAP = 3`;
+- `SUPERSEDED_DO_NOT_REUSE = 6`.
+
+Current planning must preserve these categories. A missing current runtime PASS does not turn a
+proven implementation into a new implementation gap, and historical branch proof does not become
+current routing authority without selective reconciliation and revalidation.
+
 ## Current V1 evidence-foundation and quota-economics override
 
 The `330f19787ee0bd8ecc60780417042e19d64f8a1a` evidence-foundation work is accepted as
@@ -43,10 +66,17 @@ default. Routine canonical V1 now leaves discovery disabled unless explicitly au
 bounded tail/proof invocation; a missing authorization remains the fail-closed
 `SOURCE_DISCOVERY_REQUIRED` abstention.
 
-The future quota-efficient batch/tail discovery architecture is a
-`NEW_IMPLEMENTATION_GAP`, not authority to build it in this task. Final 5–8/day claims require
-economically repeatable evidence acquisition. The prior Italy article audit, immediate-canary
-routing, and 4-article/32-derivative throughput build remain historical/non-routing here.
+Quota-efficient batch/tail discovery on the existing evidence seam is the sole demonstrated new V1
+product implementation gap. It is not authorized by this authority-lock task. Final 5–8/day claims
+require economically repeatable evidence acquisition.
+
+The real Italy canary already completed one canonical Substack publication plus exactly eight
+derivative packages; all nine public objects reconciled with `UNKNOWN_WRITE=0`. Never route another
+Italy canary merely to prove publication. The first four-opportunity 4/32 acceptance proof also
+already ran and truthfully failed at `0 qualified articles / 0 derivative intents` after 40
+distinct stories. Its harness, cross-midnight production-day accounting, and bounded deficit
+recovery are accepted foundation; the acceptance proof must be rerun only after the economics
+repair and a fresh economical four-ready-candidate proof.
 
 Truth, evidence, numeric/CC authority, permission, freshness, rights, publication, and unknown-write
 gates remain hard. Sourceability and route health may reorder work only. Search output supplies URL
@@ -93,13 +123,40 @@ Current known architecture rule:
 - the four 17:00/21:00/23:00/following-01:00 Bangkok windows remain fixed, with no fifth window;
 - any credential/access-token/API Codex bridge is separately owner-gated.
 
-## Current V1 lane state
+## Current V1 lane state and locked sequence
 
-The accepted implementation lineage through story-scoped evidence reuse remains historical input.
-The active continuation canonicalizes quota safety: the accepted foundation remains reusable while
-routine execution does not automatically instantiate its expensive per-trigger discovery provider.
-The task stops for owner audit at that pre-writer gate. `V1_FINAL_PRODUCT_ACCEPTED` remains
-forbidden.
+Exactly four native V1 Desktop Automations exist and are `PAUSED`; their model/effort/schedules are
+correct and their prompts require normalization. Their existence/paused state is accepted host
+truth. Calendar-time unattended execution, cold start, SDK fallback, late-result suppression,
+bounded cost, and duplicate suppression remain current host/runtime proof requirements. At the
+sweep epoch the production store was read-only healthy with `UNKNOWN_WRITE=0`, but the Daily App
+process/listener was not running; that at-rest fact is not a cold-start PASS.
+
+The current V1 dependency order is:
+
+1. quota-efficient batch/tail discovery on the existing evidence seam;
+2. fresh economical four-ready-candidate zero-write proof;
+3. rerun the existing 4/32 acceptance proof with accepted accounting and the HIGH/XHIGH path;
+4. normalize/read back only the four existing paused Automation prompts;
+5. separate owner decisions for Automation enablement and routine public-write scope;
+6. calendar-time unattended/cold-start/SDK-fallback/late-result/duplicate-suppression proof;
+7. fresh current-epoch V5 desktop/mobile visual and truth QA;
+8. explicit owner `V1_FINAL_PRODUCT_ACCEPTED` and freeze decision.
+
+No fifth Automation, prompt mutation, enablement, article generation, or public write is authorized
+by this plan lock. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until explicitly granted.
+
+## Locked V2-after-V1 sequence
+
+Current master already owns the free-form/package/publication-control substrates. The branch
+`task/v2-native-staggered-automation-relay-shadow-correction-v1` at `10d18873e2d716dcd53b681a4370ef7726a27f9b`
+is historical proof of unattended/recovery/locale/read-only-trigger/native-relay capability absent
+current master. After the V1 acceptance gate, selectively reconcile current-compatible donor
+capability onto one stack; never wholesale-merge its stale authority or rebuild proven systems from
+zero. Then perform current revalidation, fresh non-oil/non-Hormuz cross-domain actual-media review,
+soak, and the integrated qualification/observation/bounded-learning loop. V1 runtime/store/browser/
+publication authority remains isolated. V2 public-write authority remains exactly zero unless a
+later exact owner grant changes it.
 
 ## Growth-first V1 rules that remain current
 
@@ -131,6 +188,15 @@ The following phrases or equivalent semantics must never route a fresh V1 task:
 - P0-G3 as the next task;
 - the Italy artifact audit as the current next task;
 - immediate 4/32 article generation as the current next task;
+- production-day accounting or bounded deficit recovery as a new implementation gap;
+- the four native Automations as host-unproven;
+- first-party locator/publisher-resolution closure as the current next task;
+- per-trigger 35-call URL discovery as an accepted routine production default;
+- the real Italy canary as pending audit/publication;
+- the 4/32 proof as never attempted;
+- branch-proven V2 donor capabilities as systems to rebuild from zero;
+- any V2 public-write authority;
+- `V1_FINAL_PRODUCT_ACCEPTED` as already true;
 - any branch/HEAD/pointer that predates the accepted P0-G3 merge and current owner override.
 
 ## Historical evidence only

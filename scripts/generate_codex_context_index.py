@@ -27,7 +27,7 @@ INDEX_PATH = OUTPUT_DIR / "INDEX.md"
 V2_CONTEXT_PATH = OUTPUT_DIR / "V2_CONTEXT.md"
 V1_CONTEXT_PATH = OUTPUT_DIR / "V1_CONTEXT.md"
 SCHEMA_VERSION = "contentops.codex_context_graph.v2"
-GENERATOR_VERSION = "2.5.0"
+GENERATOR_VERSION = "2.5.1"
 
 CODE_SUFFIXES = {
     ".py",
@@ -47,6 +47,7 @@ AUTHORITY_DOCS = {
     "AGENTS.md",
     "docs/AGENTS.md",
     "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
+    "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
     "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
     "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
     "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -1064,13 +1065,14 @@ task summaries.
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
-5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
-6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-7. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
-8. the appropriate current lane pointer
-9. the nearest scoped `AGENTS.md`
-10. exact implementation, tests, and evidence
+4. `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`
+5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
+6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
+7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+8. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
+9. the appropriate current lane pointer
+10. the nearest scoped `AGENTS.md`
+11. exact implementation, tests, and evidence
 
 ## Current product boundary
 
@@ -1093,7 +1095,7 @@ task summaries.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
-| Current authority | `AGENTS.md`, `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` | V3 North Star, V3 master plan, current lane pointers |
+| Current authority | `AGENTS.md`, `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`, `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md` | V3 North Star, V3 master plan, current lane pointers |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |
 
@@ -1126,13 +1128,14 @@ def index_markdown(graph: dict[str, Any]) -> str:
         "1. `AGENTS.md`",
         "2. `docs/codegraph/INDEX.md` (this page)",
         "3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`",
-        "4. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`",
-        "5. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`",
-        "6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`",
-        "7. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`",
-        "8. the appropriate current V1/V2 lane pointer",
-        "9. nearest scoped `AGENTS.md`",
-        "10. exact implementation, focused tests, and task evidence",
+        "4. `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`",
+        "5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`",
+        "6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`",
+        "7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`",
+        "8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`",
+        "9. the appropriate current V1/V2 lane pointer",
+        "10. nearest scoped `AGENTS.md`",
+        "11. exact implementation, focused tests, and task evidence",
         "",
         "This generated router is subordinate to root `AGENTS.md`. Never use it to bypass the "
         "current V3 authority spine or a newer owner decision.",
@@ -1162,6 +1165,8 @@ def index_markdown(graph: dict[str, Any]) -> str:
             "",
             "Root authority and supersession: "
             "`docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`.",
+            "Stale/non-routing semantics: "
+            "`docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md`.",
             "",
             "Product direction: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` and "
             "`docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`.",
@@ -1291,6 +1296,7 @@ def validate_context_contract(graph: dict[str, Any]) -> list[str]:
         errors.append("authority_anchor_list_mismatch")
     required_v3_anchors = {
         "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
+        "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
         "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
         "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
         "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
