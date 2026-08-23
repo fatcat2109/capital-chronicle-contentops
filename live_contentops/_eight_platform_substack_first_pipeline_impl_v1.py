@@ -4575,7 +4575,7 @@ def _run_rolling_x_newsroom_cycle(
     sourceability_observations: Mapping[str, Any] | None = None,
     source_route_health: Mapping[str, Any] | None = None,
     source_discoverer: Any = None,
-    autonomous_source_discovery_enabled: bool = True,
+    autonomous_source_discovery_enabled: bool = False,
     evidence_only_target_count: int | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,

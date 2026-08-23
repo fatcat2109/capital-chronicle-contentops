@@ -46,11 +46,13 @@ CURRENT FOUNDATION GATE:
 
 `four DISTINCT current governed evidence-ready candidates / zero writer / zero article / zero public write`
 
-The exact task is
-`TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1`.
-It closes autonomous URL-only discovery, deterministic retrieval/hash/freshness resumption on the
-same candidate, shared routing-only source health, the cheap evidence funnel, and frozen article
-transport. It does not continue into article or derivative generation.
+The `330f19787ee0bd8ecc60780417042e19d64f8a1a` foundation is accepted: autonomous URL-only
+discovery, deterministic retrieval/hash/freshness resumption on the same candidate, shared
+routing-only source health, the cheap evidence funnel, and frozen article transport remain
+available. Its per-trigger fresh Sol/HIGH URL-discovery default is
+`PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. Routine canonical execution leaves discovery disabled;
+only an explicit bounded tail/proof opt-in may invoke the existing provider. Without that opt-in,
+`SOURCE_DISCOVERY_REQUIRED` remains a fail-closed abstention.
 
 ## Current execution truth
 
@@ -68,10 +70,12 @@ operation; the accepted manual standalone proof does not claim calendar-time exe
 
 ## Current next capability
 
-The current next capability is the governed evidence foundation described above. The prior Italy
-artifact and immediate 4/32 wording are historical/non-routing. After the foundation result, stop
-for Jim/ChatGPT audit. Do not call XHIGH, generate an article, enable an Automation, create a fifth
-task, or write publicly. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+The current next capability is quota-efficient batch/tail discovery architecture, a future
+`NEW_IMPLEMENTATION_GAP` required before economically repeatable final 5–8/day claims. It is not
+authorized in this task. The prior Italy artifact and immediate 4/32 wording are
+historical/non-routing. Stop for Jim/ChatGPT audit; do not call XHIGH, generate an article, enable
+an Automation, create a fifth task, or write publicly. `V1_FINAL_PRODUCT_ACCEPTED` remains
+forbidden.
 
 ## Routine schedule policy
 

@@ -35,14 +35,19 @@ Any file containing these current-looking claims is stale for routing unless exp
 - the 4-qualified/32-intent throughput proof is a prerequisite for one supervised MVP canary.
 - the Italy article audit is the current V1 next task;
 - immediate 4/32 article/derivative generation is the current V1 next task.
+- per-trigger fresh Sol/HIGH URL discovery is the routine production default.
 
 ## 3. Current replacement semantics
 
-- Current exact task: autonomous discovery + shared route health + sourceability-first funnel + four
-  distinct governed evidence-ready candidates + frozen article-envelope transport, all pre-writer.
-- Current acceptance is
-  `PASS_V1_EVIDENCE_FOUNDATION_4_ARTICLE_READY_ZERO_WRITER`; it authorizes no article, derivative,
-  XHIGH worker, Automation enablement, or public write.
+- The `330f` foundation is accepted and reusable: autonomous URL discovery, shared route health,
+  sourceability-first funnel, four distinct governed evidence-ready candidates, and frozen
+  article-envelope transport remain pre-writer capabilities.
+- The old per-trigger Sol/HIGH discovery default is
+  `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`; routine canonical execution leaves it disabled. An
+  explicit bounded tail/proof opt-in may use the existing provider, while no opt-in remains a
+  fail-closed `SOURCE_DISCOVERY_REQUIRED` abstention.
+- A quota-efficient batch/tail discovery architecture is a future implementation gap. It is required
+  before treating final 5–8/day as economically repeatable and is not authorized by this task.
 - Candidate abstention remains valid and must retain exact blockers; the task may not manufacture
   PASS by increasing request ceilings or weakening evidence/freshness/claim gates.
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.

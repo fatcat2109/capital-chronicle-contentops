@@ -31,14 +31,22 @@ This map prevents fresh sessions from reviving stale quota, scheduler, canary, o
 
 Jim's latest explicit instruction remains highest product authority.
 
-## Current V1 evidence-foundation override
+## Current V1 evidence-foundation and quota-economics override
 
-The current exact V1 task is
-`TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1`.
-It stops at the governed pre-writer boundary. It must prove four distinct current evidence-ready
-candidates within the existing four-opportunity production-day economics, with zero article/XHIGH
-generation and zero public write. The prior Italy article audit, immediate-canary routing, and
-4-article/32-derivative throughput build are historical/non-routing for this task.
+The `330f19787ee0bd8ecc60780417042e19d64f8a1a` evidence-foundation work is accepted as
+`CURRENTLY_PROVEN_AND_REUSE`: deterministic evidence, source health, exact redirect repair, frozen
+transport, and the `OfficialCodexUrlDiscoveryProvider` capability remain available. Its old
+per-trigger fresh Sol/HIGH discovery default is
+`PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED` and `SUPERSEDED_DO_NOT_REUSE_AS_DEFAULT`: 35 discovery
+calls and 10,237,897 discovery tokens for four ready candidates are not an unattended production
+default. Routine canonical V1 now leaves discovery disabled unless explicitly authorized as a
+bounded tail/proof invocation; a missing authorization remains the fail-closed
+`SOURCE_DISCOVERY_REQUIRED` abstention.
+
+The future quota-efficient batch/tail discovery architecture is a
+`NEW_IMPLEMENTATION_GAP`, not authority to build it in this task. Final 5–8/day claims require
+economically repeatable evidence acquisition. The prior Italy article audit, immediate-canary
+routing, and 4-article/32-derivative throughput build remain historical/non-routing here.
 
 Truth, evidence, numeric/CC authority, permission, freshness, rights, publication, and unknown-write
 gates remain hard. Sourceability and route health may reorder work only. Search output supplies URL
@@ -88,10 +96,10 @@ Current known architecture rule:
 ## Current V1 lane state
 
 The accepted implementation lineage through story-scoped evidence reuse remains historical input.
-The active continuation now closes the missing autonomous URL-discovery handshake, shared bounded
-route health, cheap sourceability/event-state work ordering, the four-candidate governed evidence
-pool, and the frozen Desktop `editorial_output` transport envelope. The task must stop for owner
-audit at that pre-writer gate. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+The active continuation canonicalizes quota safety: the accepted foundation remains reusable while
+routine execution does not automatically instantiate its expensive per-trigger discovery provider.
+The task stops for owner audit at that pre-writer gate. `V1_FINAL_PRODUCT_ACCEPTED` remains
+forbidden.
 
 ## Growth-first V1 rules that remain current
 

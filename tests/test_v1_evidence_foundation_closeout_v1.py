@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -7,6 +8,9 @@ from types import SimpleNamespace
 import pytest
 
 from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as implementation
+from live_contentops.eight_platform_substack_first_pipeline_v1 import (
+    run_rolling_x_newsroom_cycle,
+)
 from live_contentops.official_codex_provider_v1 import (
     OFFICIAL_SDK_VERSION,
     OfficialCodexProviderError,
@@ -426,8 +430,8 @@ def test_evidence_only_cycle_collects_four_distinct_ready_candidates_and_never_c
     ]
     assert all(row["supported_claim_count"] >= 1 for row in pool["candidates"])
     assert all(row["freshness_pass"] is True for row in pool["candidates"])
-    assert result["xhigh_worker_invocations"] == 0
-    assert result["article_generation_attempts"] == 0
+    assert int(result.get("xhigh_worker_invocations") or 0) == 0
+    assert int(result.get("article_generation_attempts") or 0) == 0
     assert result["public_write_performed"] is False
     assert result["source_route_health_input_sha256"]
 
@@ -504,6 +508,147 @@ def test_runtime_discovery_handshake_resumes_exact_same_candidate_without_hardco
     assert acquisition_calls[0]["headline_ids"] == acquisition_calls[1]["headline_ids"]
     assert acquisition_calls[1]["codex_source_discovery"]["candidate_urls"]
     assert candidate["cluster_id"] == "evidence-ready-1"
+    assert result["xhigh_worker_invocations"] == 0
+
+
+def test_default_canonical_cycle_never_instantiates_expensive_source_discovery(
+    monkeypatch, tmp_path: Path
+):
+    provider_constructions: list[Path] = []
+
+    def acquire(request):
+        return {
+            "status": "BLOCKED",
+            "cluster_id": request["cluster_id"],
+            "headline_ids": list(request["headline_ids"]),
+            "provided_evidence_capabilities": [],
+            "evidence_documents": [],
+            "claim_evidence_contract": {
+                "status": "BLOCKED",
+                "supported_claim_count": 0,
+                "fabricated_claim_count": 0,
+            },
+            "blockers": ["evidence_documents_missing", "SOURCE_DISCOVERY_REQUIRED"],
+            "publication_authority": False,
+        }
+
+    class ForbiddenDefaultProvider:
+        def __init__(self, *, output_dir: Path):
+            provider_constructions.append(output_dir)
+
+        def __call__(self, _request):
+            raise AssertionError("default canonical cycle must not call expensive discovery")
+
+    monkeypatch.setattr(
+        implementation,
+        "_default_rolling_x_evidence_acquirer",
+        lambda **_kwargs: acquire,
+    )
+    monkeypatch.setattr(
+        "live_contentops.official_codex_source_discovery_v1.OfficialCodexUrlDiscoveryProvider",
+        ForbiddenDefaultProvider,
+    )
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=1,
+        evidence_only_target_count=1,
+    )
+
+    attempt = result["ranked_viability"]["rank_attempts"][0]
+    assert (
+        inspect.signature(run_rolling_x_newsroom_cycle)
+        .parameters["autonomous_source_discovery_enabled"]
+        .default
+        is False
+    )
+    assert provider_constructions == []
+    assert attempt["evidence_receipt"]["autonomous_source_discovery"]["status"] == (
+        "SUPPORTED_DISCOVERY_PROVIDER_UNAVAILABLE"
+    )
+    assert attempt["evidence_receipt"]["claim_evidence_contract"]["status"] == "BLOCKED"
+    assert int(result.get("xhigh_worker_invocations") or 0) == 0
+    assert int(result.get("article_generation_attempts") or 0) == 0
+    assert result["public_write_performed"] is False
+
+
+def test_explicit_opt_in_constructs_provider_and_preserves_same_candidate_handshake(
+    monkeypatch, tmp_path: Path
+):
+    discovery_calls: list[dict] = []
+    provider_constructions: list[Path] = []
+
+    def acquire(request):
+        if "codex_source_discovery" not in request:
+            return {
+                "status": "BLOCKED",
+                "cluster_id": request["cluster_id"],
+                "headline_ids": list(request["headline_ids"]),
+                "provided_evidence_capabilities": [],
+                "evidence_documents": [],
+                "claim_evidence_contract": {
+                    "status": "BLOCKED",
+                    "supported_claim_count": 0,
+                    "fabricated_claim_count": 0,
+                },
+                "blockers": ["evidence_documents_missing", "SOURCE_DISCOVERY_REQUIRED"],
+                "publication_authority": False,
+            }
+        return _pass_receipt(request)
+
+    class OptInProvider:
+        def __init__(self, *, output_dir: Path):
+            provider_constructions.append(output_dir)
+
+        def __call__(self, request):
+            discovery_calls.append(dict(request))
+            return {
+                "contract": {
+                    "schema_version": "contentops.codex_source_discovery_urls.v1",
+                    "story_identity": request["cluster_id"],
+                    "headline_ids": list(request["headline_ids"]),
+                    "trigger_reason": "NO_VIABLE_DETERMINISTIC_PATH",
+                    "prior_blockers": list(request["prior_blockers"]),
+                    "candidate_urls": ["https://apnews.com/article/explicit-opt-in"],
+                    "search_call_id": "explicit-opt-in-fixture",
+                    "searched_at_utc": "2026-08-23T02:00:01Z",
+                    "search_snippets_included": False,
+                    "model_summaries_included": False,
+                    "candidate_urls_are_evidence": False,
+                    "factual_or_numeric_authority_granted": False,
+                    "publication_authority_granted": False,
+                },
+                "provider_receipt": {
+                    "role": "V1_URL_ONLY_SOURCE_DISCOVERY",
+                    "candidate_urls_are_evidence": False,
+                },
+            }
+
+    monkeypatch.setattr(
+        implementation,
+        "_default_rolling_x_evidence_acquirer",
+        lambda **_kwargs: acquire,
+    )
+    monkeypatch.setattr(
+        "live_contentops.official_codex_source_discovery_v1.OfficialCodexUrlDiscoveryProvider",
+        OptInProvider,
+    )
+
+    result = _run_cycle(
+        monkeypatch,
+        tmp_path,
+        count=1,
+        autonomous_source_discovery_enabled=True,
+        evidence_only_target_count=1,
+    )
+
+    candidate = result["evidence_ready_pool"]["candidates"][0]
+    assert len(provider_constructions) == 1
+    assert len(discovery_calls) == 1
+    assert candidate["claim_contract_status"] == "PASS"
+    assert candidate["freshness_pass"] is True
+    assert candidate["publication_authority_granted"] is False
     assert result["xhigh_worker_invocations"] == 0
 
 

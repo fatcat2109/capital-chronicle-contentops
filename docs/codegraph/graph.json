@@ -82804,7 +82804,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-23T02:01:07Z",
+  "generation_timestamp_utc": "2026-08-23T06:38:55Z",
   "generator_version": "2.5.0",
   "included_roots": [
     "live_contentops/",
@@ -83042,12 +83042,12 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 8265
+      "size_bytes": 8791
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 6021
+      "size_bytes": 6337
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -83313,7 +83313,7 @@
     {
       "id": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "kind": "python_module",
-      "size_bytes": 404673
+      "size_bytes": 404674
     },
     {
       "id": "live_contentops/accepted_review_editorial_workflow_v6.py",
@@ -84423,7 +84423,7 @@
     {
       "id": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
       "kind": "python_module",
-      "size_bytes": 11792
+      "size_bytes": 11793
     },
     {
       "id": "live_contentops/endpoint_allowlist_gate_from_official_provider_docs_scope_v6.py",
@@ -125431,7 +125431,7 @@
     {
       "id": "tests/test_v1_evidence_foundation_closeout_v1.py",
       "kind": "test",
-      "size_bytes": 21735
+      "size_bytes": 27134
     },
     {
       "id": "tests/test_v1_golden_product_regression_recovery_v1.py",
@@ -130114,6 +130114,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "55b02fdc3b3e7f7365ab1d692c221463c3bd9252",
-  "source_tree_digest": "4c0645dccf1f808d943b7209c0f52c01ead3b1d85a849d3c6d0b3fb48481cc52"
+  "source_head": "330f19787ee0bd8ecc60780417042e19d64f8a1a",
+  "source_tree_digest": "6e1ffa31fe477b1e9b5c1e1caa631bde4d81d846d62727021181c8636ca34949"
 }
